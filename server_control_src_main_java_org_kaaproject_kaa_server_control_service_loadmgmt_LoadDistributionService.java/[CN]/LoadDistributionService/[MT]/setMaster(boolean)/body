@@ -1,0 +1,9 @@
+{
+  if (this.isMaster != isMaster) {
+    this.isMaster=isMaster;
+    LOG.info("Load distribution service master state changed from {} to {}",this.isMaster,isMaster);
+synchronized (sync) {
+      sync.notify();
+    }
+  }
+}

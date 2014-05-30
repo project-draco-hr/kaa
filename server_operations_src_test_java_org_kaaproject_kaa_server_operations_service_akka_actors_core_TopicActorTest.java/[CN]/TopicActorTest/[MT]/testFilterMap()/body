@@ -1,0 +1,9 @@
+{
+  SortedMap<Integer,NotificationDto> pendingNotificationMap=new TreeMap<>();
+  pendingNotificationMap.put(1,systemNf);
+  pendingNotificationMap.put(2,userNf);
+  List<NotificationDto> actual=TopicActor.filterMap(pendingNotificationMap,42,42);
+  Assert.assertNotNull(actual);
+  Assert.assertEquals(1,actual.size());
+  Assert.assertEquals(systemNf,actual.get(0));
+}

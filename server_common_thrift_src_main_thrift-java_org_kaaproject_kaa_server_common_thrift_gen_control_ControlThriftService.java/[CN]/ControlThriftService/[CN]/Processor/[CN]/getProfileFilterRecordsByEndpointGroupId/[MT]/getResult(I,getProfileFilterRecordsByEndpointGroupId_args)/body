@@ -1,0 +1,10 @@
+{
+  getProfileFilterRecordsByEndpointGroupId_result result=new getProfileFilterRecordsByEndpointGroupId_result();
+  try {
+    result.success=iface.getProfileFilterRecordsByEndpointGroupId(args.endpointGroupId,args.includeDeprecated);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

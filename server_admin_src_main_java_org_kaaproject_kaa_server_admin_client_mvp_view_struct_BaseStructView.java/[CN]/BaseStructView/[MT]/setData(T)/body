@@ -1,0 +1,57 @@
+{
+  this.active=struct.getStatus() != UpdateStatus.INACTIVE;
+  this.schemaSelected=!isEmpty(struct.getSchemaId());
+  if (!isEmpty(struct.getCreatedUsername())) {
+    dateTimeCreatedLabel.setVisible(true);
+    createdDateTime.setVisible(true);
+    authorLabel.setVisible(true);
+    createdUsername.setVisible(true);
+    createdDateTime.setValue(millisecondsToDateTimeString(struct.getCreatedTime()));
+    createdUsername.setValue(struct.getCreatedUsername());
+  }
+  if (!isEmpty(struct.getModifiedUsername())) {
+    dateTimeModifiedLabel.setVisible(true);
+    modifiedDateTime.setVisible(true);
+    modifiedByLabel.setVisible(true);
+    modifiedUsername.setVisible(true);
+    modifiedDateTime.setValue(millisecondsToDateTimeString(struct.getLastModifyTime()));
+    modifiedUsername.setValue(struct.getModifiedUsername());
+  }
+  if (!isEmpty(struct.getActivatedUsername())) {
+    dateTimeActivatedLabel.setVisible(true);
+    activatedDateTime.setVisible(true);
+    activatedByLabel.setVisible(true);
+    activatedUsername.setVisible(true);
+    activatedDateTime.setValue(millisecondsToDateTimeString(struct.getActivatedTime()));
+    activatedUsername.setValue(struct.getActivatedUsername());
+  }
+  if (!isEmpty(struct.getDeactivatedUsername())) {
+    dateTimeDeactivatedLabel.setVisible(true);
+    deactivatedDateTime.setVisible(true);
+    deactivatedByLabel.setVisible(true);
+    deactivatedUsername.setVisible(true);
+    deactivatedDateTime.setValue(millisecondsToDateTimeString(struct.getDeactivatedTime()));
+    deactivatedUsername.setValue(struct.getDeactivatedUsername());
+  }
+  description.setValue(struct.getDescription());
+  body.setValue(struct.getBody());
+  if (this.active) {
+    if (struct.getStatus() == UpdateStatus.ACTIVE) {
+      deactivateButton.setVisible(true);
+    }
+  }
+ else {
+    description.getTextArea().setReadOnly(false);
+    body.getTextArea().setReadOnly(false);
+    bodyLabel.addStyleName("required");
+    registrations.add(description.addInputHandler(this));
+    registrations.add(body.addInputHandler(this));
+    saveButton.setVisible(true);
+    if (isEmpty(struct.getId())) {
+      saveButton.setText(Utils.constants.save());
+    }
+ else {
+      activateButton.setVisible(true);
+    }
+  }
+}

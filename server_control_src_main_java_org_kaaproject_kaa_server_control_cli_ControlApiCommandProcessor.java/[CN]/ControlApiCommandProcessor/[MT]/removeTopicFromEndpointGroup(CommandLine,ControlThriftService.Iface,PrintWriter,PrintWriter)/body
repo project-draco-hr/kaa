@@ -1,0 +1,25 @@
+{
+  try {
+    String endpointGroupId=null;
+    String topicId=null;
+    if (line.hasOption("i")) {
+      endpointGroupId=line.getOptionValue("i");
+      if (!ObjectId.isValid(endpointGroupId)) {
+        errorWriter.println("Incorrect endpoint group id.");
+        return;
+      }
+    }
+    if (line.hasOption("t")) {
+      topicId=line.getOptionValue("t");
+      if (!ObjectId.isValid(topicId)) {
+        errorWriter.println("Incorrect topic id.");
+        return;
+      }
+    }
+    @SuppressWarnings("unused") EndpointGroupDto endpointGroupDto=toDto(client.removeTopicsFromEndpointGroup(endpointGroupId,topicId));
+    writer.println("Topic was removed from Endpoint Group.");
+  }
+ catch (  TException e) {
+    handleException("Unable remove  topic from Endpoint Group ",e,errorWriter);
+  }
+}

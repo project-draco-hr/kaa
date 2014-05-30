@@ -1,0 +1,12 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    if (isEmpty(topic.getId())) {
+      topic.setCreatedUsername(getCurrentUser().getUsername());
+    }
+    return toDto(clientProvider.getClient().editTopic(toDataStruct(topic)));
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

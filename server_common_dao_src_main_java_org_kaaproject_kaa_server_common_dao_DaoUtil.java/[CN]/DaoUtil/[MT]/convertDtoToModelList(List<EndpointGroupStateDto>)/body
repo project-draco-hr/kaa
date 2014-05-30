@@ -1,0 +1,14 @@
+{
+  List<EndpointGroupState> states=null;
+  if (stateDtoList != null && !stateDtoList.isEmpty()) {
+    states=new ArrayList<>();
+    for (    EndpointGroupStateDto dto : stateDtoList) {
+      EndpointGroupState state=new EndpointGroupState();
+      state.setConfigurationId(idToObjectId(dto.getConfigurationId()));
+      state.setEndpointGroupId(idToObjectId(dto.getEndpointGroupId()));
+      state.setProfileFilterId(idToObjectId(dto.getProfileFilterId()));
+      states.add(state);
+    }
+  }
+  return states;
+}

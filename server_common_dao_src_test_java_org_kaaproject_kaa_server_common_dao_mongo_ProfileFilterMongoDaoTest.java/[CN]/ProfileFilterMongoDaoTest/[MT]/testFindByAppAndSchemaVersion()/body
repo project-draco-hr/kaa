@@ -1,0 +1,8 @@
+{
+  ProfileSchemaDto schema=generateProfSchema(null,1).get(0);
+  ProfileFilterDto filter=generateFilter(schema.getId(),null,1,true).get(0);
+  Assert.assertNotNull(filter);
+  List<ProfileFilter> found=profileFilterDao.findByAppIdAndSchemaVersion(filter.getApplicationId(),schema.getMajorVersion());
+  Assert.assertNotNull(found);
+  checkList(found,new ProfileFilter(filter));
+}

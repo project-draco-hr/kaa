@@ -1,0 +1,6 @@
+{
+  LOG.info("Operations Server Initializer Init() started: ");
+  for (  String commandClass : ((OperationsServerConfig)getConf()).getCommandList()) {
+    CommandFactory.addCommandClass(commandClass);
+  }
+}

@@ -1,0 +1,8 @@
+{
+  rpcService.deleteConfigurationRecord(schemaId,endpointGroupId,new DataCallback<Void>(callback){
+    @Override protected void onResult(    Void result){
+      eventBus.fireEvent(new DataEvent(ConfigurationDto.class));
+    }
+  }
+);
+}

@@ -1,0 +1,49 @@
+{
+  userName=new SizedTextBox(DEFAULT_TEXTBOX_SIZE,create);
+  userName.setWidth("100%");
+  userName.addInputHandler(this);
+  Label userLabel=new Label(Utils.constants.userName());
+  if (create) {
+    userLabel.addStyleName("required");
+  }
+  detailsTable.setWidget(0,0,userLabel);
+  detailsTable.setWidget(0,1,userName);
+  email=new SizedTextBox(DEFAULT_TEXTBOX_SIZE);
+  email.setWidth("100%");
+  email.addInputHandler(this);
+  Label emailLabel=new Label(Utils.constants.email());
+  emailLabel.addStyleName("required");
+  detailsTable.setWidget(1,0,emailLabel);
+  detailsTable.setWidget(1,1,email);
+  Renderer<KaaAuthorityDto> authorityRenderer=new Renderer<KaaAuthorityDto>(){
+    @Override public String render(    KaaAuthorityDto object){
+      if (object != null) {
+        return Utils.constants.getString(object.name().toLowerCase());
+      }
+ else {
+        return "";
+      }
+    }
+    @Override public void render(    KaaAuthorityDto object,    Appendable appendable) throws IOException {
+      appendable.append(render(object));
+    }
+  }
+;
+  authority=new ValueListBox<>(authorityRenderer);
+  authority.setWidth("100%");
+  authority.addValueChangeHandler(new ValueChangeHandler<KaaAuthorityDto>(){
+    @Override public void onValueChange(    ValueChangeEvent<KaaAuthorityDto> event){
+      fireChanged();
+    }
+  }
+);
+  List<KaaAuthorityDto> possibleAuthorities=new ArrayList<KaaAuthorityDto>();
+  possibleAuthorities.add(KaaAuthorityDto.TENANT_DEVELOPER);
+  possibleAuthorities.add(KaaAuthorityDto.TENANT_USER);
+  authority.setAcceptableValues(possibleAuthorities);
+  Label authorityLabel=new Label(Utils.constants.accountRole());
+  authorityLabel.addStyleName("required");
+  detailsTable.setWidget(2,0,authorityLabel);
+  detailsTable.setWidget(2,1,authority);
+  userName.setFocus(true);
+}

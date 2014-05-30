@@ -1,0 +1,8 @@
+{
+  NotificationDto dto=generateNotifications(null,null,1,null).get(0);
+  generateNotificationSchema(dto.getApplicationId(),NotificationTypeDto.SYSTEM);
+  List<NotificationSchemaDto> schemas=notificationService.findNotificationSchemasByAppIdAndType(dto.getApplicationId(),NotificationTypeDto.SYSTEM);
+  Assert.assertEquals(1,schemas.size());
+  schemas=notificationService.findNotificationSchemasByAppIdAndType(dto.getApplicationId(),NotificationTypeDto.USER);
+  Assert.assertEquals(2,schemas.size());
+}

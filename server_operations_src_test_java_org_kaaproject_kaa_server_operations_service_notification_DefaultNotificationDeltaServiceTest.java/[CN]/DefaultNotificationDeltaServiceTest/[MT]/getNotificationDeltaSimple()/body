@@ -1,0 +1,10 @@
+{
+  GetNotificationRequest request=new GetNotificationRequest(new EndpointProfileDto(),null,null,null);
+  GetNotificationResponse response=notificationDeltaService.getNotificationDelta(request,new HistoryDelta());
+  Assert.assertNotNull(response);
+  Assert.assertNotNull(response.getNotifications());
+  Assert.assertEquals(0,response.getNotifications().size());
+  Assert.assertNotNull(response.getSubscriptionStates());
+  Assert.assertEquals(0,response.getSubscriptionStates().size());
+  Assert.assertNull(response.getTopicList());
+}

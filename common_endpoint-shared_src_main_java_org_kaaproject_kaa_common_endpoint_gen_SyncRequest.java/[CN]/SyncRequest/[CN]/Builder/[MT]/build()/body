@@ -1,0 +1,18 @@
+{
+  try {
+    SyncRequest record=new SyncRequest();
+    record.applicationToken=fieldSetFlags()[0] ? this.applicationToken : (java.lang.String)defaultValue(fields()[0]);
+    record.endpointPublicKeyHash=fieldSetFlags()[1] ? this.endpointPublicKeyHash : (java.nio.ByteBuffer)defaultValue(fields()[1]);
+    record.profileHash=fieldSetFlags()[2] ? this.profileHash : (java.nio.ByteBuffer)defaultValue(fields()[2]);
+    record.configurationHash=fieldSetFlags()[3] ? this.configurationHash : (java.nio.ByteBuffer)defaultValue(fields()[3]);
+    record.topicListHash=fieldSetFlags()[4] ? this.topicListHash : (java.nio.ByteBuffer)defaultValue(fields()[4]);
+    record.appStateSeqNumber=fieldSetFlags()[5] ? this.appStateSeqNumber : (java.lang.Integer)defaultValue(fields()[5]);
+    record.acceptedUnicastNotifications=fieldSetFlags()[6] ? this.acceptedUnicastNotifications : (java.util.List<java.lang.String>)defaultValue(fields()[6]);
+    record.topicStates=fieldSetFlags()[7] ? this.topicStates : (java.util.List<org.kaaproject.kaa.common.endpoint.gen.TopicState>)defaultValue(fields()[7]);
+    record.subscriptionCommands=fieldSetFlags()[8] ? this.subscriptionCommands : (java.util.List<org.kaaproject.kaa.common.endpoint.gen.SubscriptionCommand>)defaultValue(fields()[8]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

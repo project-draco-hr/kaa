@@ -1,0 +1,14 @@
+{
+  TTupleProtocol iprot=(TTupleProtocol)prot;
+  BitSet incoming=iprot.readBitSet(2);
+  if (incoming.get(0)) {
+    struct.success=new org.kaaproject.kaa.server.common.thrift.gen.shared.DataStruct();
+    struct.success.read(iprot);
+    struct.setSuccessIsSet(true);
+  }
+  if (incoming.get(1)) {
+    struct.ControlException=new ControlThriftException();
+    struct.ControlException.read(iprot);
+    struct.setControlExceptionIsSet(true);
+  }
+}

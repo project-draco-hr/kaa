@@ -1,0 +1,16 @@
+{
+  profileHash=getRandomBytes(HASH_SIZE);
+  configurationHash=getRandomBytes(HASH_SIZE);
+  appStateSeqNumber=getId();
+  SyncRequest request=new SyncRequest();
+  request.setApplicationToken(APPLICATION_TOKEN);
+  request.setEndpointPublicKeyHash(ByteBuffer.wrap(getClientPublicKeyHash().getData()));
+  request.setConfigurationHash(ByteBuffer.wrap(configurationHash));
+  request.setProfileHash(ByteBuffer.wrap(profileHash));
+  generateSubscriptionCommandList();
+  request.setSubscriptionCommands(subscriptionCommands);
+  request.setTopicStates(topicStates);
+  request.setTopicListHash(ByteBuffer.wrap(profileHash));
+  request.setAppStateSeqNumber(appStateSeqNumber);
+  getRequest().setSyncRequest(request);
+}

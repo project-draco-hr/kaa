@@ -1,0 +1,12 @@
+{
+  String applicationToken=request.getApplicationToken();
+  int oldAppSeqNumber=request.getAppStateSeqNumber();
+  if (isFirstRequest(request)) {
+    LOG.debug("[{}] Profile has no endpoint groups yet. calculating full list",endpointId);
+    return historyDeltaService.getDelta(profile,applicationToken,curAppSeqNumber);
+  }
+ else {
+    LOG.debug("[{}] Profile has endpoint groups. Calculating changes",endpointId);
+    return historyDeltaService.getDelta(profile,applicationToken,oldAppSeqNumber,curAppSeqNumber);
+  }
+}

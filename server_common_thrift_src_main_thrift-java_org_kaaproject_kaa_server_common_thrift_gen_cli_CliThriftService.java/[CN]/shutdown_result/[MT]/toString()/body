@@ -1,0 +1,14 @@
+{
+  StringBuilder sb=new StringBuilder("shutdown_result(");
+  boolean first=true;
+  sb.append("cliException:");
+  if (this.cliException == null) {
+    sb.append("null");
+  }
+ else {
+    sb.append(this.cliException);
+  }
+  first=false;
+  sb.append(")");
+  return sb.toString();
+}

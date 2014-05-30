@@ -1,0 +1,17 @@
+{
+  RequestBuilder builder=new RequestBuilder(RequestBuilder.POST,GWT.getModuleBaseURL() + "j_spring_security_logout");
+  try {
+    builder.sendRequest(null,new RequestCallback(){
+      @Override public void onResponseReceived(      Request request,      Response response){
+        redirectToModule("..");
+      }
+      @Override public void onError(      Request request,      Throwable exception){
+        redirectToModule("..");
+      }
+    }
+);
+  }
+ catch (  RequestException e) {
+    e.printStackTrace();
+  }
+}

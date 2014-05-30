@@ -1,0 +1,40 @@
+{
+  super(false,true);
+  this.endpointGroupId=endpointGroupId;
+  setWidth("500px");
+  setTitle(Utils.constants.add_topic_to_ep());
+  VerticalPanel dialogContents=new VerticalPanel();
+  dialogContents.setSpacing(4);
+  setWidget(dialogContents);
+  errorPanel=new AlertPanel(AlertPanel.Type.ERROR);
+  errorPanel.setVisible(false);
+  dialogContents.add(errorPanel);
+  FlexTable table=new FlexTable();
+  table.setCellSpacing(6);
+  int row=0;
+  Widget label=new Label(Utils.constants.selectNotificationTopics());
+  label.addStyleName("required");
+  topic=new TopicListBox();
+  topic.setWidth("200px");
+  topic.setAcceptableValues(topics);
+  topic.addValueChangeHandler(this);
+  table.setWidget(row,0,label);
+  table.setWidget(row,1,topic);
+  table.getCellFormatter().setHorizontalAlignment(row,0,HasHorizontalAlignment.ALIGN_RIGHT);
+  dialogContents.add(table);
+  addButton=new Button(Utils.constants.add(),new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      performAdd();
+    }
+  }
+);
+  Button closeButton=new Button(Utils.constants.close(),new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      hide();
+    }
+  }
+);
+  addButton(addButton);
+  addButton(closeButton);
+  addButton.setEnabled(false);
+}

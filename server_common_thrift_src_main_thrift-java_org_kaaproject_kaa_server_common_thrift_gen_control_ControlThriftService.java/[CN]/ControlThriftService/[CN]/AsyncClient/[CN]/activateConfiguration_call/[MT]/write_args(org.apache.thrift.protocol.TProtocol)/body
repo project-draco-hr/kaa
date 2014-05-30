@@ -1,0 +1,8 @@
+{
+  prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("activateConfiguration",org.apache.thrift.protocol.TMessageType.CALL,0));
+  activateConfiguration_args args=new activateConfiguration_args();
+  args.setConfigurationId(configurationId);
+  args.setActivatedUsername(activatedUsername);
+  args.write(prot);
+  prot.writeMessageEnd();
+}

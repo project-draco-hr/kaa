@@ -1,0 +1,8 @@
+{
+  String id=configurations.get(7);
+  Configuration conf=configurationDao.findById(id);
+  Assert.assertNotNull(conf);
+  ConfigurationDto dto=conf.toDto();
+  Configuration converted=new Configuration(dto);
+  Assert.assertEquals(conf,converted);
+}

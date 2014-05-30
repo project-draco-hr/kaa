@@ -1,0 +1,14 @@
+{
+  ProfileUpdateRequest request=new ProfileUpdateRequest();
+  request.setApplicationToken(properties.getApplicationToken());
+  request.setVersionInfo(new EndpointVersionInfo(properties.getSupportedConfigVersion(),properties.getSupportedProfileVersion(),properties.getSupportedSystemNTVersion(),properties.getSupportedUserNTVersion()));
+  ByteBuffer publicKeyBuffer=ByteBuffer.wrap(EndpointObjectHash.fromSHA1(state.getPublicKey().getEncoded()).getData());
+  request.setEndpointPublicKeyHash(publicKeyBuffer);
+  request.setProfileBody(ByteBuffer.wrap(profile));
+  request.setTopicStates(getTopicStates());
+  if (!acceptedUnicastNotificationIds.isEmpty()) {
+    LOG.info("Accepted unicast Notifications: {}",acceptedUnicastNotificationIds.size());
+    request.setAcceptedUnicastNotifications(new ArrayList<>(acceptedUnicastNotificationIds));
+  }
+  return new ProfileUpdateCommand(request,manager,transport,handler);
+}

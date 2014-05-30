@@ -1,0 +1,6 @@
+{
+  String appId=apps.get(0);
+  List<ProfileSchemaDto> schemas=profileService.findProfileSchemasByAppId(appId);
+  Assert.assertNotNull(schemas);
+  Assert.assertFalse(schemas.isEmpty());
+}

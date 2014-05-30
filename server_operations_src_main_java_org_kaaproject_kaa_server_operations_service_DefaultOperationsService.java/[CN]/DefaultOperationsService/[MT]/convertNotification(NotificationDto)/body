@@ -1,0 +1,22 @@
+{
+  Notification notification=new Notification();
+  notification.setBody(ByteBuffer.wrap(notificationDto.getBody()));
+  notification.setTopicId(notificationDto.getTopicId());
+switch (notificationDto.getType()) {
+case SYSTEM:
+    notification.setType(NotificationType.SYSTEM);
+  break;
+case USER:
+notification.setType(NotificationType.CUSTOM);
+break;
+default :
+break;
+}
+if (notificationDto.getSecNum() >= 0) {
+notification.setSeqNumber(notificationDto.getSecNum());
+}
+ else {
+notification.setUid(notificationDto.getId());
+}
+return notification;
+}

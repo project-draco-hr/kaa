@@ -1,0 +1,6 @@
+{
+  UserDto user=createUser(KaaAuthorityDto.TENANT_ADMIN);
+  user.setExternalUid(UUID.randomUUID().toString());
+  UserDto updatedUser=toDto(client.editUser(toDataStruct(user)));
+  assertUsersEquals(updatedUser,user);
+}

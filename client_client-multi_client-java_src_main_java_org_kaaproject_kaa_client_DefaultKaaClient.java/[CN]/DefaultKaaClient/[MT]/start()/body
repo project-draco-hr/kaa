@@ -1,0 +1,10 @@
+{
+  if (!isInitialized) {
+    return;
+  }
+  if (schemaProcessor.getSchema() == null || configurationPersistenceManager.getConfigurationHash() == null) {
+    kaaClientState.setAppStateSeqNumber(0);
+    setDefaultConfiguration();
+  }
+  updateManager.start();
+}

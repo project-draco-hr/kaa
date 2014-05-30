@@ -1,0 +1,5 @@
+{
+  List<ConfigurationSchema> schemas=configurationSchemaDao.findByApplicationId(apps.get(0));
+  Assert.assertNotNull(schemas);
+  Assert.assertNotSame(schemas.size(),0);
+}

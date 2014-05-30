@@ -1,0 +1,46 @@
+{
+  ApplicationDto appDto=null;
+  if (isValidObject(applicationDto)) {
+    if (isNotBlank(applicationDto.getId())) {
+      LOG.debug("Update application with id [{}]",applicationDto.getId());
+      appDto=getDto(applicationDao.save(new Application(applicationDto)));
+      return appDto;
+    }
+    String appToken=RandomStringUtils.randomNumeric(DEFAULT_TOKEN_SIZE);
+    applicationDto.setApplicationToken(appToken);
+    Update update=new Update();
+    update.setSequenceNumber(applicationDto.getSequenceNumber());
+    update.setStatus(ProcessingStatus.IDLE);
+    Application application=new Application(applicationDto);
+    application.setUpdate(update);
+    appDto=getDto(applicationDao.save(application));
+    if (appDto != null) {
+      String appId=appDto.getId();
+      List<User> users=userDao.findByTenantIdAndAuthority(appDto.getTenantId(),KaaAuthorityDto.TENANT_ADMIN.name());
+      String createdUsername=null;
+      if (!users.isEmpty()) {
+        createdUsername=users.get(0).getUsername();
+      }
+      LOG.debug("Saved application with id [{}]",appId);
+      EndpointGroupDto groupDto=createDefaultGroup(appId,createdUsername);
+      if (groupDto != null) {
+        String groupId=groupDto.getId();
+        LOG.debug("Saved endpoint group with id [{}]",groupId);
+        ProfileFilterDto filter=createDefaultProfileWithSchema(appId,groupId,createdUsername);
+        ConfigurationDto configuration=createDefaultConfigurationWithSchema(appId,groupId,createdUsername);
+        if (filter == null || configuration == null) {
+          LOG.warn("Got error during creation application. Deleted application with id [{}]",appId);
+          removeCascadeApplication(appId);
+        }
+        LOG.debug("Creating default notification schema");
+        createDefaultNotificationSchema(appId,createdUsername);
+      }
+ else {
+        LOG.warn("Cant save default group for application with id [{}]",appId);
+        removeCascadeApplication(appId);
+      }
+    }
+    LOG.debug("Inserted new application with");
+  }
+  return appDto;
+}

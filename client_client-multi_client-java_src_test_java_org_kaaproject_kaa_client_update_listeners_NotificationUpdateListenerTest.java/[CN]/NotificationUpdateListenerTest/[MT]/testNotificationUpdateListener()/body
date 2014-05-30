@@ -1,0 +1,15 @@
+{
+  NotificationProcessor processor=mock(NotificationProcessor.class);
+  NotificationUpdateListener listener=new NotificationUpdateListener(processor);
+  SyncResponse response=new SyncResponse();
+  listener.onDeltaUpdate(response);
+  NotificationSyncResponse notificationResponse=new NotificationSyncResponse();
+  response.setNotificationSyncResponse(notificationResponse);
+  response.setResponseType(SyncResponseStatus.PROFILE_RESYNC);
+  listener.onDeltaUpdate(response);
+  notificationResponse.setAvailableTopics(new LinkedList<Topic>());
+  notificationResponse.setNotifications(new LinkedList<Notification>());
+  listener.onDeltaUpdate(response);
+  verify(processor,times(1)).notificationReceived(any(List.class));
+  verify(processor,times(1)).topicsListUpdated(any(List.class));
+}

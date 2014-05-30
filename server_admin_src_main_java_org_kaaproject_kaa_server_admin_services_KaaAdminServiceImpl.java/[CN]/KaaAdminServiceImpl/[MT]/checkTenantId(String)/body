@@ -1,0 +1,6 @@
+{
+  AuthUserDto authUser=getCurrentUser();
+  if (authUser.getTenantId() == null || !authUser.getTenantId().equals(tenantId)) {
+    throw new KaaAdminServiceException(ServiceErrorCode.PERMISSION_DENIED);
+  }
+}

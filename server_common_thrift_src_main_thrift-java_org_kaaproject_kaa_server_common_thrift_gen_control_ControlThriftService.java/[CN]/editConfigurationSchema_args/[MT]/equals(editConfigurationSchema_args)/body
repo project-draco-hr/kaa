@@ -1,0 +1,10 @@
+{
+  if (that == null)   return false;
+  boolean this_present_configurationSchema=true && this.isSetConfigurationSchema();
+  boolean that_present_configurationSchema=true && that.isSetConfigurationSchema();
+  if (this_present_configurationSchema || that_present_configurationSchema) {
+    if (!(this_present_configurationSchema && that_present_configurationSchema))     return false;
+    if (!this.configurationSchema.equals(that.configurationSchema))     return false;
+  }
+  return true;
+}

@@ -1,0 +1,11 @@
+{
+  editNotification_result result=new editNotification_result();
+  receiveBase(result,"editNotification");
+  if (result.isSetSuccess()) {
+    return result.success;
+  }
+  if (result.ControlException != null) {
+    throw result.ControlException;
+  }
+  throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT,"editNotification failed: unknown result");
+}

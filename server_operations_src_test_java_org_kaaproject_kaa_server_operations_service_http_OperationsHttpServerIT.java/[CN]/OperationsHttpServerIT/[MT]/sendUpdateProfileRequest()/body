@@ -1,0 +1,32 @@
+{
+  try {
+    final HttpTestUpdateEndpointClient cl1=new HttpTestUpdateEndpointClient(serverPublicKey,new HttpActivity<SyncResponse>(){
+      @Override public void httpRequestComplete(      Exception ioe,      int id,      SyncResponse response){
+        assertNull(ioe);
+synchronized (updTests) {
+          if (updTests.containsKey(Integer.valueOf(id))) {
+            SyncTest<ProfileUpdateRequest,SyncResponse> test=updTests.get(Integer.valueOf(id));
+            test.responseReceived=response;
+            testProcessed++;
+          }
+ else {
+            logger.trace("Test failed: not found in HashMap id: " + id);
+          }
+        }
+        if (testProcessed >= NUMBER_OF_TESTS) {
+synchronized (sync) {
+            sync.notify();
+          }
+        }
+      }
+    }
+);
+    testCacheService.addPublicKey(cl1.getClientPublicKeyHash(),cl1.getClientPublicKey());
+    updTests.putIfAbsent(Integer.valueOf(cl1.getId()),new SyncTest<ProfileUpdateRequest,SyncResponse>(cl1.getId(),cl1.getRequest()));
+    executor.execute(cl1);
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+    fail(e.toString());
+  }
+}

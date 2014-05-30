@@ -1,0 +1,19 @@
+{
+  if (response.getResponseType() == SyncResponseStatus.REDIRECT) {
+    RedirectSyncResponse redirectionResponse=response.getRedirectSyncResponse();
+    if (redirectionResponse != null) {
+      String name=redirectionResponse.getDnsName();
+      OperationsServerInfo server=bootstrapManager.getOperationsServerByDnsName(name);
+      if (server == null) {
+        try {
+          bootstrapManager.receiveOperationsServerList();
+        }
+ catch (        TransportException e) {
+        }
+        server=bootstrapManager.getOperationsServerByDnsName(name);
+      }
+      LOG.info("Redirectring to endpoint server {}",server.getHostName());
+      updateManager.setTransport(new HttpOperationsTransport(server.getHostName(),state.getPrivateKey(),state.getPublicKey(),server.getKey()));
+    }
+  }
+}

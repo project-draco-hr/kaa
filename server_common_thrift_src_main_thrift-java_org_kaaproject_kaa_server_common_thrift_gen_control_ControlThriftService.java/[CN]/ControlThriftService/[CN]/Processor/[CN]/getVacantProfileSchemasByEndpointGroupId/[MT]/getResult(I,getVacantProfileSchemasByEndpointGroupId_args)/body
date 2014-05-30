@@ -1,0 +1,10 @@
+{
+  getVacantProfileSchemasByEndpointGroupId_result result=new getVacantProfileSchemasByEndpointGroupId_result();
+  try {
+    result.success=iface.getVacantProfileSchemasByEndpointGroupId(args.endpointGroupId);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

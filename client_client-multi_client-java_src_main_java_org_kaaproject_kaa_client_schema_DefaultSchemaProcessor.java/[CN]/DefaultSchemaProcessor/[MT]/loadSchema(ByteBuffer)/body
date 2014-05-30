@@ -1,0 +1,9 @@
+{
+  if (buffer != null) {
+    String schemaString=new String(buffer.array(),"UTF-8");
+    schema=new Schema.Parser().parse(schemaString);
+    for (    SchemaUpdatesReceiver subscriber : subscribers) {
+      subscriber.onSchemaUpdated(schema);
+    }
+  }
+}

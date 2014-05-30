@@ -1,0 +1,12 @@
+{
+  int childCount=node.getChildCount();
+  for (int i=0; i < childCount; i++) {
+    if (!node.isChildLeaf(i) && node.isChildOpen(i)) {
+      node.setChildOpen(i,false);
+      TreeNode child=node.setChildOpen(i,true);
+      if (child != null) {
+        refreshTree(child);
+      }
+    }
+  }
+}

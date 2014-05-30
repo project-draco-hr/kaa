@@ -1,0 +1,12 @@
+{
+  TTupleProtocol iprot=(TTupleProtocol)prot;
+  BitSet incoming=iprot.readBitSet(2);
+  if (incoming.get(0)) {
+    struct.priority=iprot.readI32();
+    struct.setPriorityIsSet(true);
+  }
+  if (incoming.get(1)) {
+    struct.publicKey=iprot.readBinary();
+    struct.setPublicKeyIsSet(true);
+  }
+}

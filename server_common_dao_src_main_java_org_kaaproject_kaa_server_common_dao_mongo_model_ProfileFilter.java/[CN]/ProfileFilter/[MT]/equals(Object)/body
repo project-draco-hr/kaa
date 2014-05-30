@@ -1,0 +1,10 @@
+{
+  if (this == other) {
+    return true;
+  }
+  if (other instanceof ProfileFilter) {
+    ProfileFilter that=(ProfileFilter)other;
+    return super.equals(that);
+  }
+  return false;
+}

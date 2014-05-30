@@ -1,0 +1,5 @@
+{
+  String filterBody="recordField.otherMapSimpleField.size() == 2";
+  Filter filter=new DefaultFilter(filterBody,PROFILE_SCHEMA);
+  Assert.assertEquals(Boolean.TRUE,filter.matches(profileBody));
+}

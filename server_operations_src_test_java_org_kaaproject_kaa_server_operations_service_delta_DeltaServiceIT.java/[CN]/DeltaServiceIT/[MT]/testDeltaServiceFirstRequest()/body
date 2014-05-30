@@ -1,0 +1,14 @@
+{
+  GetDeltaRequest request=new GetDeltaRequest(app.getApplicationToken(),EndpointObjectHash.fromSHA1(ENDPOINT_KEY),EndpointObjectHash.fromSHA1(PROFILE_BYTES),null,OLD_ENDPOINT_SEQ_NUMBER);
+  request.setEndpointProfile(endpointProfile.toDto());
+  List<EndpointGroupStateDto> changes=new ArrayList<>();
+  changes.add(new EndpointGroupStateDto(egAllId,pfAllId,cfAllId));
+  HistoryDelta historyDelta=new HistoryDelta(changes,true,false);
+  GetDeltaResponse response=deltaService.getDelta(request,historyDelta,NEW_APPLICATION_SEQ_NUMBER);
+  assertNotNull(response);
+  assertEquals(GetDeltaResponse.GetDeltaResponseType.CONF_RESYNC,response.getResponseType());
+  assertEquals(NEW_APPLICATION_SEQ_NUMBER,response.getSequenceNumber());
+  assertNotNull(response.getDelta());
+  endpointConfigurationBytes=response.getDelta().getData();
+  assertNotNull(endpointConfigurationBytes);
+}

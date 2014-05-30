@@ -1,0 +1,16 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    String username=this.getCurrentUser().getUsername();
+    if (isEmpty(profileFilter.getId())) {
+      profileFilter.setCreatedUsername(username);
+    }
+ else {
+      profileFilter.setModifiedUsername(username);
+    }
+    return toDto(clientProvider.getClient().editProfileFilter(toDataStruct(profileFilter)));
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

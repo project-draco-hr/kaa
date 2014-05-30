@@ -1,0 +1,8 @@
+{
+  UUID uuid=UUID.randomUUID();
+  SessionHistory history=new SessionHistory(uuid);
+  assertNotNull(history);
+  assertTrue(history.isSessionOpen());
+  history.sessionClose();
+  assertTrue(!history.isSessionOpen());
+}

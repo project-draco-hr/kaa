@@ -1,0 +1,7 @@
+{
+  Path schemaPath=Paths.get(Thread.currentThread().getContextClassLoader().getResource("dao/configuration/complexSchema.json").toURI());
+  String configuraionSchema=new String(Files.readAllBytes(schemaPath));
+  ConfigurationProcessor configurationProcessor=new DefaultConfigurationProcessorStub(configuraionSchema);
+  GenericRecord generatedConfiguration=configurationProcessor.getConfigurationByName(null,"org.kaa.config");
+  Assert.assertNull(generatedConfiguration);
+}

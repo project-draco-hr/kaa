@@ -1,0 +1,16 @@
+{
+  super.start(containerWidget,eventBus);
+  if (!create) {
+    AbstractGrid<StructureRecordDto<ProfileFilterDto>,StructureRecordKey> profileFiltersGrid=detailsView.getProfileFiltersGrid();
+    profileFiltersDataProvider=new ProfileFiltersDataProvider(profileFiltersGrid.getSelectionModel(),new DataLoadCallback<StructureRecordDto<ProfileFilterDto>>(detailsView),entityId);
+    profileFiltersDataProvider.setIncludeDeprecated(place.isIncludeDeprecatedProfileFilters());
+    profileFiltersDataProvider.addDataDisplay(profileFiltersGrid.getDisplay());
+    AbstractGrid<StructureRecordDto<ConfigurationDto>,StructureRecordKey> configurationsGrid=detailsView.getConfigurationsGrid();
+    configurationsDataProvider=new ConfigurationsDataProvider(configurationsGrid.getSelectionModel(),new DataLoadCallback<StructureRecordDto<ConfigurationDto>>(detailsView),entityId);
+    configurationsDataProvider.setIncludeDeprecated(place.isIncludeDeprecatedConfigurations());
+    configurationsDataProvider.addDataDisplay(configurationsGrid.getDisplay());
+    AbstractGrid<TopicDto,String> topicsGrid=detailsView.getTopicsGrid();
+    topicsDataProvider=new TopicsDataProvider(topicsGrid.getSelectionModel(),new DataLoadCallback<TopicDto>(detailsView),null,entityId);
+    topicsDataProvider.addDataDisplay(topicsGrid.getDisplay());
+  }
+}

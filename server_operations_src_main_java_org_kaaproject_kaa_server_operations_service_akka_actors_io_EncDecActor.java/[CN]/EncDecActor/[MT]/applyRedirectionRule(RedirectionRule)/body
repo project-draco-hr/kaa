@@ -1,0 +1,4 @@
+{
+  context().system().scheduler().scheduleOnce(Duration.create(body.ruleTTL,TimeUnit.MILLISECONDS),self(),new RuleTimeoutMessage(body.getRuleId()),context().dispatcher(),self());
+  redirectionRules.put(body.getRuleId(),body);
+}

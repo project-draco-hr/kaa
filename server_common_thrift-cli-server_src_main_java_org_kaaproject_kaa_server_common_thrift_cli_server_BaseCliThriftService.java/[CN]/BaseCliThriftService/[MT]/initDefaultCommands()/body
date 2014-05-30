@@ -1,0 +1,31 @@
+{
+  Command helpCommand=new Command("help","display available commands"){
+    @Override public void runCommand(    CommandLine line,    PrintWriter writer){
+      listCommands(writer);
+    }
+  }
+;
+  Command memoryCommand=new Command("memory","display server memory info"){
+    @Override public void runCommand(    CommandLine line,    PrintWriter writer){
+      printMemory(writer,line.hasOption('g'));
+    }
+  }
+;
+  memoryCommand.addOption(new Option("g","gc",false,"Force Garbage Collector before memory status"));
+  Command threadsCommand=new Command("threads","dump JVM threads"){
+    @Override public void runCommand(    CommandLine line,    PrintWriter writer){
+      dumpThreads(writer);
+    }
+  }
+;
+  Command shutdownCommand=new Command("shutdown","shutdown server"){
+    @Override public void runCommand(    CommandLine line,    PrintWriter writer){
+      shutdown(writer);
+    }
+  }
+;
+  addCommand(helpCommand);
+  addCommand(memoryCommand);
+  addCommand(threadsCommand);
+  addCommand(shutdownCommand);
+}

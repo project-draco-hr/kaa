@@ -1,0 +1,15 @@
+{
+  controlClientConnect();
+  ControlApiCliThriftClient cli=new ControlApiCliThriftClient();
+  String applicationId=editApplicationCli(cli,null,null,false);
+  String endpointGroupId=editEndpointGroupCli(cli,null,applicationId,"10",true);
+  endpointGroupId=editEndpointGroupCli(cli,null,applicationId,"15",false);
+  Assert.assertFalse(strIsEmpty(endpointGroupId));
+  Assert.assertEquals(LENGTH_OF_ID_IN_MONGODB,endpointGroupId.length());
+  editEndpointGroupCli(cli,endpointGroupId,applicationId,"17",false);
+  editEndpointGroupCli(cli,FAKE_ID,applicationId,"19",false);
+  showEntityCli(cli,endpointGroupId,EntityType.ENDPOINT_GROUP);
+  listEndpointGroupsCli(cli,applicationId,false);
+  listEndpointGroupsCli(cli,applicationId,true);
+  deleteEntityCli(cli,endpointGroupId,EntityType.ENDPOINT_GROUP);
+}

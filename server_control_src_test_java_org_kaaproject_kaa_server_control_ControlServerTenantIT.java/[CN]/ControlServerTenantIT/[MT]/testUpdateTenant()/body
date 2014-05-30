@@ -1,0 +1,7 @@
+{
+  TenantDto tenant=createTenant();
+  tenant.setName(generateString(TENANT));
+  TenantDto updatedTenant=toDto(client.editTenant(toDataStruct(tenant)));
+  assertTenantsEquals(updatedTenant,tenant);
+  client.deleteTenant(tenant.getId());
+}

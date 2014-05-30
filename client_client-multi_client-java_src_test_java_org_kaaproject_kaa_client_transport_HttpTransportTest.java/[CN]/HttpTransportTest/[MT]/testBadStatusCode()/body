@@ -1,0 +1,18 @@
+{
+  SyncResponse syncResponse=new SyncResponse();
+  syncResponse.setResponseType(SyncResponseStatus.NO_DELTA);
+  TransportTest transportTest=new TransportTest(syncResponse,SyncResponse.class);
+  HttpOperationsTransport transport=createEndpointTransport();
+  transportTest.setStatusCode(500);
+  transportTest.setMocksToTransport(transport);
+  SyncRequest request=new SyncRequest();
+  request.setApplicationToken("1234567");
+  request.setEndpointPublicKeyHash(ByteBuffer.wrap(new byte[]{1,2,3}));
+  request.setProfileHash(ByteBuffer.wrap(new byte[]{1,2,3}));
+  request.setAppStateSeqNumber(0);
+  request.setConfigurationHash(ByteBuffer.wrap(new byte[]{1,2,3}));
+  request.setTopicListHash(ByteBuffer.wrap(new byte[]{1,2,3}));
+  SyncResponse result=transport.sendSyncRequest(request);
+  verify(transportTest.getHttpClient(),times(1)).execute(any(HttpPost.class));
+  assertEquals(syncResponse,result);
+}

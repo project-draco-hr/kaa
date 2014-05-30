@@ -1,0 +1,5 @@
+{
+  Notification notification=message.getNotification();
+  ActorRef topicActor=getOrCreateTopic(notification.getTopicId());
+  topicActor.tell(message,self());
+}

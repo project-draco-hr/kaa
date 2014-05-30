@@ -1,0 +1,9 @@
+{
+  compiler=getCompiler();
+  if (compiler == null) {
+    throw new JavaDynamicException("Compiler not found");
+  }
+  diagnostics=new DiagnosticCollector<JavaFileObject>();
+  StandardJavaFileManager standardFileManager=compiler.getStandardFileManager(diagnostics,null,null);
+  javaDynamicManager=new JavaDynamicManager(standardFileManager);
+}

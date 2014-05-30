@@ -1,0 +1,5 @@
+{
+  LOG.debug("Find latest deprecated profile filter by schema id and group id [{}] ",schemaId,groupId);
+  Sort sortObject=new Sort(Direction.DESC,SEQUENCE_NUMBER);
+  return findOne(query(where(ENDPOINT_GROUP_ID).is(new ObjectId(groupId)).and(SCHEMA_ID).is(new ObjectId(schemaId)).and(STATUS).is(DEPRECATED.name())).with(sortObject));
+}

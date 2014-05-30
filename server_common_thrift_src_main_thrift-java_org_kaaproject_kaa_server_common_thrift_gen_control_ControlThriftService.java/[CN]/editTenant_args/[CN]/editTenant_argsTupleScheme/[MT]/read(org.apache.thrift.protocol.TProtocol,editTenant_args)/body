@@ -1,0 +1,9 @@
+{
+  TTupleProtocol iprot=(TTupleProtocol)prot;
+  BitSet incoming=iprot.readBitSet(1);
+  if (incoming.get(0)) {
+    struct.tenant=new org.kaaproject.kaa.server.common.thrift.gen.shared.DataStruct();
+    struct.tenant.read(iprot);
+    struct.setTenantIsSet(true);
+  }
+}

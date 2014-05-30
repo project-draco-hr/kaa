@@ -1,0 +1,12 @@
+{
+  try {
+    BasicSystemNotification record=new BasicSystemNotification();
+    record.notificationBody=fieldSetFlags()[0] ? this.notificationBody : (java.lang.String)defaultValue(fields()[0]);
+    record.systemNotificationParam1=fieldSetFlags()[1] ? this.systemNotificationParam1 : (java.lang.Integer)defaultValue(fields()[1]);
+    record.systemNotificationParam2=fieldSetFlags()[2] ? this.systemNotificationParam2 : (java.lang.Integer)defaultValue(fields()[2]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

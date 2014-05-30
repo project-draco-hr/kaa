@@ -1,0 +1,12 @@
+{
+  deltaService=new DefaultDeltaService();
+  cacheService=mock(CacheService.class);
+  profileService=mock(ProfileService.class);
+  filterService=mock(FilterService.class);
+  deltaCalculatorFactory=mock(DeltaCalculatorFactory.class);
+  deltaCalculator=mock(DeltaCalculator.class);
+  ReflectionTestUtils.setField(deltaService,CACHE_SERVICE,cacheService);
+  ReflectionTestUtils.setField(deltaService,PROFILE_SERVICE,profileService);
+  ReflectionTestUtils.setField(deltaService,FILTER_SERVICE,filterService);
+  ReflectionTestUtils.setField(deltaService,DELTA_CALCULATOR_FACTORY,deltaCalculatorFactory);
+}

@@ -1,0 +1,33 @@
+{
+  DefaultBootstrapManager manager=new DefaultBootstrapManager("");
+  boolean exception=false;
+  try {
+    manager.getNextOperationsServer();
+  }
+ catch (  BootstrapRuntimeException e) {
+    exception=true;
+  }
+  assertTrue(exception);
+  BootstrapTransport transport=mock(BootstrapTransport.class);
+  KeyPairGenerator keyGen=KeyPairGenerator.getInstance("RSA");
+  keyGen.initialize(2048);
+  KeyPair keyPair=keyGen.genKeyPair();
+  OperationsServerList serverList=new OperationsServerList();
+  OperationsServer server=new OperationsServer();
+  server.setDNSName("localhost:9889");
+  server.setPublicKey(ByteBuffer.wrap(keyPair.getPublic().getEncoded()));
+  LinkedList<OperationsServer> list=new LinkedList<OperationsServer>();
+  list.add(server);
+  serverList.setOperationsServerArray(list);
+  when(transport.sendResolveRequest(any(Resolve.class))).thenReturn(serverList);
+  manager.setTransport(transport);
+  manager.receiveOperationsServerList();
+  OperationsServerInfo info=manager.getNextOperationsServer();
+  assertEquals("localhost:9889",info.getHostName());
+  assertArrayEquals(keyPair.getPublic().getEncoded(),info.getKey().getEncoded());
+  assertNull(manager.getOperationsServerByDnsName(null));
+  assertNull(manager.getOperationsServerByDnsName("some.name"));
+  OperationsServerInfo infoByName=manager.getOperationsServerByDnsName("localhost:9889");
+  assertEquals("localhost:9889",infoByName.getHostName());
+  assertArrayEquals(keyPair.getPublic().getEncoded(),infoByName.getKey().getEncoded());
+}

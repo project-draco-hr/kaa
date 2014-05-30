@@ -1,0 +1,5 @@
+{
+  List<Configuration> config=configurationDao.findActiveByEndpointGroupId(endGroups.get(0));
+  Assert.assertNotNull(config);
+  Assert.assertNotSame(config.size(),0);
+}

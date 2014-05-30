@@ -1,0 +1,43 @@
+{
+  validateFilter(profileFilterDto);
+  String id=profileFilterDto.getId();
+  if (isNotBlank(id)) {
+    ProfileFilterDto oldProfileFilter=findProfileFilterById(id);
+    if (oldProfileFilter != null && oldProfileFilter.getStatus() != INACTIVE) {
+      throw new UpdateStatusConflictException("Can't update profile filter, invalid old profile filter with id " + id);
+    }
+  }
+ else {
+    String schemaId=profileFilterDto.getSchemaId();
+    String groupId=profileFilterDto.getEndpointGroupId();
+    EndpointGroup group=endpointGroupDao.findById(groupId);
+    if (group.getWeight() == 0) {
+      long count=profileFilterDao.findActiveFilterCount(schemaId,groupId);
+      if (count > 0) {
+        throw new UpdateStatusConflictException("Can't create more than one profile filter, for default endpoint group");
+      }
+    }
+    ProfileSchemaDto profileSchemaDto=findProfileSchemaById(schemaId);
+    if (profileSchemaDto != null) {
+      ProfileFilter inactiveFilter=profileFilterDao.findInactiveFilter(schemaId,groupId);
+      ProfileFilter latestFilter=profileFilterDao.findLatestFilter(schemaId,groupId);
+      if (inactiveFilter != null) {
+        profileFilterDto.setId(inactiveFilter.getId());
+        profileFilterDto.setSequenceNumber(inactiveFilter.getSequenceNumber());
+      }
+ else       if (latestFilter != null) {
+        profileFilterDto.setSequenceNumber(latestFilter.getSequenceNumber());
+      }
+      profileFilterDto.setApplicationId(profileSchemaDto.getApplicationId());
+      profileFilterDto.setMajorVersion(profileSchemaDto.getMajorVersion());
+      profileFilterDto.setMinorVersion(profileSchemaDto.getMinorVersion());
+      profileFilterDto.setCreatedTime(System.currentTimeMillis());
+    }
+ else {
+      throw new IncorrectParameterException("Can't update profile filter, invalid profile schema id " + id);
+    }
+  }
+  profileFilterDto.setStatus(UpdateStatus.INACTIVE);
+  profileFilterDto.setLastModifyTime(System.currentTimeMillis());
+  return getDto(profileFilterDao.save(new ProfileFilter(profileFilterDto)));
+}

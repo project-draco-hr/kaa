@@ -1,0 +1,19 @@
+{
+  List<ProfileSchemaDto> profileSchemas=new ArrayList<>(11);
+  ApplicationDto application=createApplication();
+  List<ProfileSchemaDto> defaultProfileSchemas=toDtoList(client.getProfileSchemasByApplicationId(application.getId()));
+  profileSchemas.addAll(defaultProfileSchemas);
+  for (int i=0; i < 10; i++) {
+    ProfileSchemaDto profileSchema=createProfileSchema(application.getId());
+    profileSchemas.add(profileSchema);
+  }
+  Collections.sort(profileSchemas,new IdComparator());
+  List<ProfileSchemaDto> storedProfileSchemas=toDtoList(client.getProfileSchemasByApplicationId(application.getId()));
+  Collections.sort(storedProfileSchemas,new IdComparator());
+  Assert.assertEquals(profileSchemas.size(),storedProfileSchemas.size());
+  for (int i=0; i < profileSchemas.size(); i++) {
+    ProfileSchemaDto profileSchema=profileSchemas.get(i);
+    ProfileSchemaDto storedProfileSchema=storedProfileSchemas.get(i);
+    assertProfileSchemasEquals(profileSchema,storedProfileSchema);
+  }
+}

@@ -1,0 +1,10 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    String username=this.getCurrentUser().getUsername();
+    clientProvider.getClient().deleteProfileFilterRecord(schemaId,endpointGroupId,username);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

@@ -1,0 +1,5 @@
+{
+  this.schemaBody=schemaBody;
+  this.expression=new SpelExpressionParser().parseExpression(filterBody);
+  this.avroConverter=new GenericAvroConverter<GenericRecord>(new Schema.Parser().parse(this.schemaBody));
+}

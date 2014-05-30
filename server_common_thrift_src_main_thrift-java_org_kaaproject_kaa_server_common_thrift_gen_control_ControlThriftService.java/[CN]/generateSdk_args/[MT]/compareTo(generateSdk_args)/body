@@ -1,0 +1,57 @@
+{
+  if (!getClass().equals(other.getClass())) {
+    return getClass().getName().compareTo(other.getClass().getName());
+  }
+  int lastComparison=0;
+  lastComparison=Boolean.valueOf(isSetSdkPlatform()).compareTo(other.isSetSdkPlatform());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetSdkPlatform()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.sdkPlatform,other.sdkPlatform);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  lastComparison=Boolean.valueOf(isSetApplicationId()).compareTo(other.isSetApplicationId());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetApplicationId()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.applicationId,other.applicationId);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  lastComparison=Boolean.valueOf(isSetProfileSchemaVersion()).compareTo(other.isSetProfileSchemaVersion());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetProfileSchemaVersion()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.profileSchemaVersion,other.profileSchemaVersion);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  lastComparison=Boolean.valueOf(isSetConfigurationSchemaVersion()).compareTo(other.isSetConfigurationSchemaVersion());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetConfigurationSchemaVersion()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.configurationSchemaVersion,other.configurationSchemaVersion);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  lastComparison=Boolean.valueOf(isSetNotificationSchemaVersion()).compareTo(other.isSetNotificationSchemaVersion());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetNotificationSchemaVersion()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.notificationSchemaVersion,other.notificationSchemaVersion);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  return 0;
+}

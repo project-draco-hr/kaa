@@ -1,0 +1,9 @@
+{
+  NotificationDto dto=null;
+  LOG.debug("Find notification by id [{}] ",id);
+  if (StringUtils.isNotBlank(id)) {
+    dto=getDto(notificationDao.findById(id));
+  }
+  LOG.trace("Found notification object {} by id [{}] ",dto,id);
+  return dto;
+}

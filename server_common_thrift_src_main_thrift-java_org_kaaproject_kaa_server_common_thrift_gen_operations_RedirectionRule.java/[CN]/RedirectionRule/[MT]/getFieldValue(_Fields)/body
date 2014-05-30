@@ -1,0 +1,13 @@
+{
+switch (field) {
+case DNS_NAME:
+    return getDnsName();
+case RULE_ID:
+  return Long.valueOf(getRuleId());
+case REDIRECTION_PROBABILITY:
+return Double.valueOf(getRedirectionProbability());
+case RULE_TTL:
+return Long.valueOf(getRuleTTL());
+}
+throw new IllegalStateException();
+}

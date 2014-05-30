@@ -1,0 +1,11 @@
+{
+  this.editable=editable;
+  addButton=new ImageTextButton(Utils.resources.plus(),addButtonString());
+  errorPanel=new AlertPanel(Type.ERROR);
+  initWidget(uiBinder.createAndBindUi(this));
+  grid=createGrid();
+  dockPanel.add(grid);
+  titleLabel.setText(titleString());
+  addButton.setVisible(editable);
+  clearError();
+}

@@ -1,0 +1,28 @@
+{
+  ControlApiCommand command=new ControlApiCommand(edit ? "editProfileFilter" : "createProfileFilter",(edit ? "edit" : "create") + " Profile Filter"){
+    @Override public void runCommand(    CommandLine line,    ControlThriftService.Iface client,    PrintWriter writer,    PrintWriter errorWriter){
+      createProfileFilter(line,client,writer,errorWriter,edit);
+    }
+  }
+;
+  if (edit) {
+    Option opt=new Option("i","profileFilterId",true,"Profile Filter Id option");
+    opt.setRequired(true);
+    command.addOption(opt);
+  }
+ else {
+    Option opt=new Option("o","output",true,"Output file to store Object Id");
+    opt.setRequired(false);
+    command.addOption(opt);
+  }
+  Option opt=new Option("s","profileSchemaId",true,"Profile Schema Id option");
+  opt.setRequired(!edit);
+  command.addOption(opt);
+  opt=new Option("e","endpointGroupId",true,"Endpoint Group Id option");
+  opt.setRequired(!edit);
+  command.addOption(opt);
+  opt=new Option("f","file",true,"Profile Filter JSON file");
+  opt.setRequired(!edit);
+  command.addOption(opt);
+  return command;
+}

@@ -1,0 +1,11 @@
+{
+  executeCommand_result result=new executeCommand_result();
+  receiveBase(result,"executeCommand");
+  if (result.isSetSuccess()) {
+    return result.success;
+  }
+  if (result.cliException != null) {
+    throw result.cliException;
+  }
+  throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT,"executeCommand failed: unknown result");
+}

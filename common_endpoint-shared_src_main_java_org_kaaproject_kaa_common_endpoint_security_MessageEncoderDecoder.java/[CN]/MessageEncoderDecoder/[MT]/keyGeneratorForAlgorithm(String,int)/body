@@ -1,0 +1,11 @@
+{
+  try {
+    KeyGenerator keyGen=KeyGenerator.getInstance(algorithm);
+    keyGen.init(size);
+    return keyGen;
+  }
+ catch (  NoSuchAlgorithmException e) {
+    LOG.error("Key generator init error",e);
+    return null;
+  }
+}

@@ -1,0 +1,8 @@
+{
+  if (isValidId(tenantId)) {
+    return convertDtoList(userDao.findByTenantIdAndAuthorities(tenantId,KaaAuthorityDto.TENANT_DEVELOPER.name(),KaaAuthorityDto.TENANT_USER.name()));
+  }
+ else {
+    return null;
+  }
+}

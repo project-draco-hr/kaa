@@ -1,0 +1,36 @@
+{
+  try {
+    UserDto user=null;
+    if (edit) {
+      String userId=line.getOptionValue("i");
+      user=toDto(client.getUser(userId));
+      if (user == null) {
+        writer.println("User with id " + userId + " not found!");
+        return;
+      }
+    }
+ else {
+      user=new UserDto();
+    }
+    if (line.hasOption("uid")) {
+      user.setExternalUid(line.getOptionValue("uid"));
+    }
+    if (line.hasOption("t")) {
+      user.setTenantId(line.getOptionValue("t"));
+    }
+    UserDto savedUser=toDto(client.editUser(toDataStruct(user)));
+    if (edit) {
+      writer.println("User updated.");
+    }
+ else {
+      writer.println("Created new user with id: " + savedUser.getId());
+      if (line.hasOption("o")) {
+        String outFileName=line.getOptionValue("o");
+        storeInfo(outFileName,savedUser.getId(),errorWriter);
+      }
+    }
+  }
+ catch (  TException e) {
+    handleException("Unable to " + (edit ? "update" : "create") + " user",e,errorWriter);
+  }
+}

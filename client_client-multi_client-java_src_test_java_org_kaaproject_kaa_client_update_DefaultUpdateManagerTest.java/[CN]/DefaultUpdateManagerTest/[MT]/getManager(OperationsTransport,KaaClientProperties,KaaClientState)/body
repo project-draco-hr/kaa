@@ -1,0 +1,12 @@
+{
+  DefaultUpdateManager manager=new DefaultUpdateManager(props,new KaaClientPropertiesState(props));
+  when(transport.sendRegisterCommand(any(EndpointRegistrationRequest.class))).thenReturn(new SyncResponse());
+  when(transport.sendSyncRequest(any(SyncRequest.class))).thenReturn(new SyncResponse());
+  when(transport.sendLongSyncRequest(any(LongSyncRequest.class))).thenReturn(new SyncResponse());
+  when(transport.sendUpdateCommand(any(ProfileUpdateRequest.class))).thenReturn(new SyncResponse());
+  manager.setTransport(transport);
+  SerializedProfileContainer container=mock(SerializedProfileContainer.class);
+  when(container.getSerializedProfile()).thenReturn(new byte[]{1,2,3});
+  manager.setSerializedProfileContainer(container);
+  return manager;
+}

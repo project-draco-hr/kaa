@@ -1,0 +1,16 @@
+{
+  struct.validate();
+  oprot.writeStructBegin(STRUCT_DESC);
+  if (struct.schemaId != null) {
+    oprot.writeFieldBegin(SCHEMA_ID_FIELD_DESC);
+    oprot.writeString(struct.schemaId);
+    oprot.writeFieldEnd();
+  }
+  if (struct.endpointGroupId != null) {
+    oprot.writeFieldBegin(ENDPOINT_GROUP_ID_FIELD_DESC);
+    oprot.writeString(struct.endpointGroupId);
+    oprot.writeFieldEnd();
+  }
+  oprot.writeFieldStop();
+  oprot.writeStructEnd();
+}

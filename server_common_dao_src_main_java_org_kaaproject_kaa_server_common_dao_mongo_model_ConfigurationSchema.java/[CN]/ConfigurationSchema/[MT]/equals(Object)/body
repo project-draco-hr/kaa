@@ -1,0 +1,25 @@
+{
+  if (this == o) {
+    return true;
+  }
+  if (!(o instanceof ConfigurationSchema)) {
+    return false;
+  }
+  if (!super.equals(o)) {
+    return false;
+  }
+  ConfigurationSchema schema=(ConfigurationSchema)o;
+  if (baseSchema != null ? !baseSchema.equals(schema.baseSchema) : schema.baseSchema != null) {
+    return false;
+  }
+  if (overrideSchema != null ? !overrideSchema.equals(schema.overrideSchema) : schema.overrideSchema != null) {
+    return false;
+  }
+  if (protocolSchema != null ? !protocolSchema.equals(schema.protocolSchema) : schema.protocolSchema != null) {
+    return false;
+  }
+  if (status != schema.status) {
+    return false;
+  }
+  return true;
+}

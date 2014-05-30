@@ -1,0 +1,6 @@
+{
+  TopicDto topic=generateTopic(null,null);
+  List<TopicDto> found=topicService.findTopicsByAppId(topic.getApplicationId());
+  Assert.assertEquals(1,found.size());
+  Assert.assertEquals(topic,found.get(0));
+}

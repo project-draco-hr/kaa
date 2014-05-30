@@ -1,0 +1,12 @@
+{
+  ControlApiCommand command=new ControlApiCommand("activateConfiguration","activate Configuration"){
+    @Override public void runCommand(    CommandLine line,    ControlThriftService.Iface client,    PrintWriter writer,    PrintWriter errorWriter){
+      activateConfiguration(line,client,writer,errorWriter);
+    }
+  }
+;
+  Option opt=new Option("i","configurationId",true,"Configuration Id option");
+  opt.setRequired(true);
+  command.addOption(opt);
+  return command;
+}

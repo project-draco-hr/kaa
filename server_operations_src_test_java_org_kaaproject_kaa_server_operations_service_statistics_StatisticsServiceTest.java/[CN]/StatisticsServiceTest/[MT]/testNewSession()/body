@@ -1,0 +1,57 @@
+{
+  StatisticsService service=StatisticsService.getService();
+  assertNotNull(service);
+  StatisticsService.setConfig(configMock);
+  try {
+    Thread.sleep(500);
+  }
+ catch (  InterruptedException e) {
+    fail(e.toString());
+  }
+  Map<UUID,Map<Track,List<Integer>>> sessions=new HashMap<>();
+  for (int k=0; k < 6; k++) {
+    for (int i=0; i < 100; i++) {
+      UUID uuid=UUID.randomUUID();
+      Track track=service.newSession(uuid);
+      Map<Track,List<Integer>> requests=new HashMap<>();
+      requests.put(track,new LinkedList<Integer>());
+      sessions.put(uuid,requests);
+      for (int j=0; j < 100; j++) {
+        int id=track.newRequest(SyncCommand.getCommandName());
+        sessions.get(uuid).get(track).add(new Integer(id));
+      }
+    }
+    for (    UUID uuid : sessions.keySet()) {
+      for (      Track track : sessions.get(uuid).keySet()) {
+        for (        Integer id : sessions.get(uuid).get(track)) {
+          track.setProcessTime(id.intValue(),20);
+          track.closeRequest(id.intValue());
+        }
+      }
+    }
+    try {
+      Thread.sleep(1000);
+    }
+ catch (    InterruptedException e) {
+      fail(e.toString());
+    }
+    assertTrue(service.isAlive());
+    for (    UUID uuid : sessions.keySet()) {
+      service.closeSession(uuid);
+    }
+    sessions.clear();
+  }
+  try {
+    verify(zkNodeMock,atLeastOnce()).updateNodeStatsValues(0,0,0);
+    verify(zkNodeMock,times(1)).updateNodeStatsValues(10,5000,50);
+    verify(zkNodeMock,times(1)).updateNodeStatsValues(13,6666,66);
+    verify(zkNodeMock,times(1)).updateNodeStatsValues(15,7500,75);
+    verify(zkNodeMock,times(1)).updateNodeStatsValues(16,8000,80);
+    verify(zkNodeMock,atLeastOnce()).updateNodeStatsValues(20,10000,100);
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+    fail(e.toString());
+  }
+  service.shutdown();
+}

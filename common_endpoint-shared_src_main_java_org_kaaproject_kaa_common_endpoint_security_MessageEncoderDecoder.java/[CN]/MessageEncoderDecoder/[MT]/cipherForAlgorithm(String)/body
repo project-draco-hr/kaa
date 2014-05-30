@@ -1,0 +1,9 @@
+{
+  try {
+    return Cipher.getInstance(algorithm);
+  }
+ catch (  NoSuchAlgorithmException|NoSuchPaddingException e) {
+    LOG.error("Cipher init error",e);
+    return null;
+  }
+}

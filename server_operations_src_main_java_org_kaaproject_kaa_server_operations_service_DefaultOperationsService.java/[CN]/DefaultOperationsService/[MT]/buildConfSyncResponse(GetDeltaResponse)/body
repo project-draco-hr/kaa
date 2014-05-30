@@ -1,0 +1,22 @@
+{
+  ConfSyncResponse confSyncResponse=new ConfSyncResponse();
+  if (confResponse.getDelta() != null) {
+    try {
+      confSyncResponse.setConfDeltaBody(ByteBuffer.wrap(confResponse.getDelta().getData()));
+    }
+ catch (    IOException e) {
+      LOG.error("conf delta invalid: {}",e);
+      throw new GetDeltaException(e);
+    }
+  }
+  if (confResponse.getConfSchema() != null) {
+    try {
+      confSyncResponse.setConfSchemaBody(ByteBuffer.wrap(confResponse.getConfSchema().getBytes("UTF-8")));
+    }
+ catch (    UnsupportedEncodingException e) {
+      LOG.error("conf schema invalid: {}",e);
+      throw new GetDeltaException(e);
+    }
+  }
+  return confSyncResponse;
+}

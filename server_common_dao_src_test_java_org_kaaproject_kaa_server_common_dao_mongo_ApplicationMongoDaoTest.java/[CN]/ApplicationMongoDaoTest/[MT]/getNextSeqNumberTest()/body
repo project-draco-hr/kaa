@@ -1,0 +1,8 @@
+{
+  Application application=applicationDao.findById(apps.get(0));
+  Assert.assertNotNull(application);
+  Application updated=applicationDao.getNextSeqNumber(application.getId());
+  Assert.assertNotNull(updated);
+  Assert.assertNotEquals(updated.getSequenceNumber(),updated.getUpdate().getSequenceNumber());
+  Assert.assertEquals(ProcessingStatus.PENDING,updated.getUpdate().getStatus());
+}

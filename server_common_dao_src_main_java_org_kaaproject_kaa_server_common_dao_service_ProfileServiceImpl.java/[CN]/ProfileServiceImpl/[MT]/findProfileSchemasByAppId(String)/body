@@ -1,0 +1,4 @@
+{
+  validateId(applicationId,"Can't find profile schema. Invalid application id: " + applicationId);
+  return convertDtoList(profileSchemaDao.findByApplicationId(applicationId));
+}

@@ -1,0 +1,10 @@
+{
+  getConfiguration_result result=new getConfiguration_result();
+  try {
+    result.success=iface.getConfiguration(args.configurationId);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

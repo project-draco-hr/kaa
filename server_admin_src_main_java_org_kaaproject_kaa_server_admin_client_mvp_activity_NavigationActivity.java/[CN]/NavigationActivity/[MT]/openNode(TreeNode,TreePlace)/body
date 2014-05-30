@@ -1,0 +1,19 @@
+{
+  int childCount=node.getChildCount();
+  for (int i=0; i < childCount; i++) {
+    if (node.getChildValue(i).equals(place)) {
+      return true;
+    }
+ else     if (!node.isChildLeaf(i)) {
+      boolean wasOpen=node.isChildOpen(i);
+      TreeNode child=node.setChildOpen(i,true);
+      if (child != null && openNode(child,place)) {
+        return true;
+      }
+ else       if (!wasOpen) {
+        node.setChildOpen(i,false);
+      }
+    }
+  }
+  return false;
+}

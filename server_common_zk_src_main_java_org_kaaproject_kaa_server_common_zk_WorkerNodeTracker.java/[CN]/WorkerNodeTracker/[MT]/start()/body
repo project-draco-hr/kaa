@@ -1,0 +1,41 @@
+{
+  super.start();
+  endpointCache.getListenable().addListener(new PathChildrenCacheListener(){
+    @Override public void childEvent(    CuratorFramework client,    PathChildrenCacheEvent event) throws Exception {
+switch (event.getType()) {
+case CHILD_ADDED:
+        endpointAdded(event.getData());
+      break;
+case CHILD_UPDATED:
+    endpointUpdated(event.getData());
+  break;
+case CHILD_REMOVED:
+endpointRemoved(event.getData());
+break;
+default :
+break;
+}
+}
+}
+);
+endpointCache.start(StartMode.NORMAL);
+bootstrapCache.getListenable().addListener(new PathChildrenCacheListener(){
+@Override public void childEvent(CuratorFramework client,PathChildrenCacheEvent event) throws Exception {
+switch (event.getType()) {
+case CHILD_ADDED:
+bootstrapAdded(event.getData());
+break;
+case CHILD_UPDATED:
+bootstrapUpdated(event.getData());
+break;
+case CHILD_REMOVED:
+bootstrapRemoved(event.getData());
+break;
+default :
+break;
+}
+}
+}
+);
+bootstrapCache.start(StartMode.NORMAL);
+}

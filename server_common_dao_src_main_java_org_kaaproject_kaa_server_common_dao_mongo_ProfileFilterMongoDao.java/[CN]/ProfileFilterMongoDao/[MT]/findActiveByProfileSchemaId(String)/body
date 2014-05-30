@@ -1,0 +1,4 @@
+{
+  LOG.debug("Find profile filter by profile schema id [{}] ",profileSchemaId);
+  return find(query(where(SCHEMA_ID).is(new ObjectId(profileSchemaId)).and(STATUS).is(ACTIVE.name())));
+}

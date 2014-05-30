@@ -1,0 +1,8 @@
+{
+  ByteArrayOutputStream baos=new ByteArrayOutputStream();
+  jsonEncoder=EncoderFactory.get().jsonEncoder(this.schema,baos);
+  datumWriter.write(record,jsonEncoder);
+  jsonEncoder.flush();
+  baos.flush();
+  return baos.toByteArray();
+}

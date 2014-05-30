@@ -1,0 +1,5 @@
+{
+  LOG.debug("Received setRedirectionRule from control Dynamic Load Mgmt service {}",redirectionRule);
+  LOG.debug("Notify akka service..");
+  akkaService.onRedirectionRule(redirectionRule);
+}

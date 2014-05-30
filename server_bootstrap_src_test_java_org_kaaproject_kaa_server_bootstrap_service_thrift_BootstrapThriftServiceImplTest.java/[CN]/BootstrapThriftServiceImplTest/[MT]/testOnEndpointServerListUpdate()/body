@@ -1,0 +1,19 @@
+{
+  BootstrapThriftServiceImpl b=new BootstrapThriftServiceImpl();
+  assertNotNull(b);
+  b.setConfig(confMock);
+  Map<String,OperationsServer> endpointMap=new HashMap<String,OperationsServer>();
+  OperationsServer s1=new OperationsServer(10,ByteBuffer.wrap(new byte[]{1,2,3}));
+  endpointMap.put("host1:123",s1);
+  OperationsServer s2=new OperationsServer(10,ByteBuffer.wrap(new byte[]{1,2,3}));
+  endpointMap.put("host2:123",s2);
+  OperationsServer s3=new OperationsServer(10,ByteBuffer.wrap(new byte[]{1,2,3}));
+  endpointMap.put("host3:123",s3);
+  try {
+    b.onOperationsServerListUpdate(endpointMap);
+    verify(endpointListMock,times(1)).updateList(endpointMap);
+  }
+ catch (  TException e) {
+    fail(e.toString());
+  }
+}

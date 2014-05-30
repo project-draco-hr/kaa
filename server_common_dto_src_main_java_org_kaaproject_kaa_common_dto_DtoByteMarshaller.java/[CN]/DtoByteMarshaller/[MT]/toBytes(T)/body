@@ -1,0 +1,11 @@
+{
+  ByteArrayOutputStream byteStream=new ByteArrayOutputStream();
+  try {
+    ObjectOutputStream out=new ObjectOutputStream(byteStream);
+    out.writeObject(object);
+  }
+ catch (  IOException e) {
+    LOG.error("Can't convert object to bytes.",e);
+  }
+  return byteStream.toByteArray();
+}

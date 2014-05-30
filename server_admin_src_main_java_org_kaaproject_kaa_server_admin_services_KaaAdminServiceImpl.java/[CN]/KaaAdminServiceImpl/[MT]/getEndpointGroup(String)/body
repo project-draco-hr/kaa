@@ -1,0 +1,9 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    return toDto(clientProvider.getClient().getEndpointGroup(endpointGroupId));
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

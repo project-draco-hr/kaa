@@ -1,0 +1,23 @@
+{
+  if (enableActions) {
+    float result=0;
+    if (!embedded && (sendNotificationColumn == null || table.getColumnIndex(sendNotificationColumn) == -1)) {
+      Header<SafeHtml> sendNotificationHeader=new SafeHtmlHeader(SafeHtmlUtils.fromSafeConstant(Utils.constants.send_notification()));
+      sendNotificationColumn=constructSendNotificationColumn("");
+      table.addColumn(sendNotificationColumn,sendNotificationHeader);
+      table.setColumnWidth(sendNotificationColumn,40,Unit.PX);
+      result+=40;
+    }
+    if (deleteColumn == null || table.getColumnIndex(deleteColumn) == -1) {
+      Header<SafeHtml> deleteHeader=new SafeHtmlHeader(SafeHtmlUtils.fromSafeConstant(embedded ? Utils.constants.remove() : Utils.constants.delete()));
+      deleteColumn=constructDeleteColumn("");
+      table.addColumn(deleteColumn,deleteHeader);
+      table.setColumnWidth(deleteColumn,40,Unit.PX);
+      result+=40;
+    }
+    return result;
+  }
+ else {
+    return 0;
+  }
+}

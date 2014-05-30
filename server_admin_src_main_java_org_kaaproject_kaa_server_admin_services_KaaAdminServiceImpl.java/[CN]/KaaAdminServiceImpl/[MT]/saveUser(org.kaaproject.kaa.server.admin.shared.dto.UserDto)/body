@@ -1,0 +1,7 @@
+{
+  CreateUserResult result=userFacade.saveUserDto(user,passwordEncoder);
+  if (!isEmpty(result.getPassword())) {
+    messagingService.sendTempPassword(user.getUsername(),result.getPassword(),user.getMail());
+  }
+  return result.getUserId();
+}

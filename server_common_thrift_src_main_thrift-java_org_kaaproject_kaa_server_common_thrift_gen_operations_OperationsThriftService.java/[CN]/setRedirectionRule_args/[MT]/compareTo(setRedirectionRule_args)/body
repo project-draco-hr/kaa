@@ -1,0 +1,17 @@
+{
+  if (!getClass().equals(other.getClass())) {
+    return getClass().getName().compareTo(other.getClass().getName());
+  }
+  int lastComparison=0;
+  lastComparison=Boolean.valueOf(isSetRedirectionRule()).compareTo(other.isSetRedirectionRule());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetRedirectionRule()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.redirectionRule,other.redirectionRule);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  return 0;
+}

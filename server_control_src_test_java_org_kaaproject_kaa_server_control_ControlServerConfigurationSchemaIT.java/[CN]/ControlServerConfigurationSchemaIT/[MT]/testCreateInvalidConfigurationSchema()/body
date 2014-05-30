@@ -1,0 +1,9 @@
+{
+  ConfigurationSchemaDto configurationSchema=new ConfigurationSchemaDto();
+  configurationSchema.setStatus(UpdateStatus.ACTIVE);
+  String schema=getResourceAsString(TEST_INVALID_CONFIG_SCHEMA);
+  configurationSchema.setSchema(schema);
+  ApplicationDto application=createApplication();
+  configurationSchema.setApplicationId(application.getId());
+  client.editConfigurationSchema(toDataStruct(configurationSchema));
+}

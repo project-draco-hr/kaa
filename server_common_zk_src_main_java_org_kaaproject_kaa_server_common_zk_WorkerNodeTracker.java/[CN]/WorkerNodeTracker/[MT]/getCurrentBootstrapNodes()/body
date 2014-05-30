@@ -1,0 +1,8 @@
+{
+  List<ChildData> nodesData=bootstrapCache != null ? bootstrapCache.getCurrentData() : new ArrayList<ChildData>();
+  List<BootstrapNodeInfo> result=new ArrayList<>(nodesData.size());
+  for (  ChildData data : nodesData) {
+    result.add(extractBootstrapServerInfo(data));
+  }
+  return result;
+}

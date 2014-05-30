@@ -1,0 +1,14 @@
+{
+  KaaAdmin.getDataSource().getSchemaVersionsByApplicationId(applicationId,new AsyncCallback<SchemaVersions>(){
+    @Override public void onFailure(    Throwable caught){
+      callback.onFailure(caught);
+    }
+    @Override public void onSuccess(    SchemaVersions result){
+      GenerateSdkDialog dialog=new GenerateSdkDialog(applicationId,result);
+      dialog.center();
+      callback.onSuccess(dialog);
+      dialog.show();
+    }
+  }
+);
+}

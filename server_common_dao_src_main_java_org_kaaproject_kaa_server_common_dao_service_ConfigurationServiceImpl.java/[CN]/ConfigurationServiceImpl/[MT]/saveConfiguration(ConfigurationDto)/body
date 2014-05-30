@@ -1,0 +1,42 @@
+{
+  validateConfiguration(configurationDto);
+  String id=configurationDto.getId();
+  ConfigurationSchemaDto configurationSchemaDto;
+  if (StringUtils.isNotBlank(id)) {
+    ConfigurationDto oldConfiguration=findConfigurationById(configurationDto.getId());
+    if (oldConfiguration != null && oldConfiguration.getStatus() != INACTIVE) {
+      throw new UpdateStatusConflictException("Can't update configuration, invalid id " + id);
+    }
+    configurationSchemaDto=findConfSchemaById(configurationDto.getSchemaId());
+    LOG.debug("Update existing configuration with id: [{}]",configurationDto.getId());
+  }
+ else {
+    String schemaId=configurationDto.getSchemaId();
+    String groupId=configurationDto.getEndpointGroupId();
+    configurationSchemaDto=findConfSchemaById(schemaId);
+    if (configurationSchemaDto != null) {
+      Configuration oldInactiveConfiguration=configurationDao.findInactiveBySchemaIdAndGroupId(schemaId,groupId);
+      Configuration oldActiveConfiguration=configurationDao.findLatestActiveBySchemaIdAndGroupId(schemaId,groupId);
+      if (oldInactiveConfiguration != null) {
+        configurationDto.setId(oldInactiveConfiguration.getId());
+        configurationDto.setSequenceNumber(oldInactiveConfiguration.getSequenceNumber());
+      }
+ else       if (oldActiveConfiguration != null) {
+        configurationDto.setSequenceNumber(oldActiveConfiguration.getSequenceNumber());
+      }
+      configurationDto.setApplicationId(configurationSchemaDto.getApplicationId());
+      configurationDto.setMajorVersion(configurationSchemaDto.getMajorVersion());
+      configurationDto.setMinorVersion(configurationSchemaDto.getMinorVersion());
+      configurationDto.setProtocolSchema(configurationSchemaDto.getProtocolSchema());
+      configurationDto.setCreatedTime(System.currentTimeMillis());
+    }
+ else {
+      LOG.debug("Can't find related Configuration schema.");
+      throw new IncorrectParameterException("Configuration schema not found, id:" + schemaId);
+    }
+  }
+  generateUuids(configurationDto,configurationSchemaDto);
+  configurationDto.setStatus(UpdateStatus.INACTIVE);
+  configurationDto.setLastModifyTime(System.currentTimeMillis());
+  return getDto(configurationDao.save(new Configuration(configurationDto)));
+}

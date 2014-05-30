@@ -1,0 +1,31 @@
+{
+  String appId=apps.get(0);
+  NotificationSchemaDto schema=new NotificationSchemaDto();
+  schema.setApplicationId(appId);
+  String schemaBody="{\"type\":\"record\",\"name\":\"BasicSystemNotification\",\"namespace\":\"org.kaaproject.kaa.common.endpoint.gen\",\"fields\":[{\"name\":\"notificationBody\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"systemNotificationParam1\",\"type\":\"int\"},{\"name\":\"systemNotificationParam2\",\"type\":\"int\"}]}";
+  schema.setSchema(schemaBody);
+  schema.setType(NotificationTypeDto.USER);
+  NotificationSchemaDto savedSchema=notificationService.saveNotificationSchema(schema);
+  TopicDto topicDto=new TopicDto();
+  topicDto.setApplicationId(appId);
+  topicDto.setName("New Topic");
+  topicDto.setType(TopicTypeDto.MANDATORY);
+  topicDto=topicService.saveTopic(topicDto);
+  NotificationDto dto=new NotificationDto();
+  dto.setSchemaId(savedSchema.getId());
+  dto.setTopicId(topicDto.getId());
+  dto.setBody("{\"notificationBody\":\"dummy\", \"systemNotificationParam1\":42, \"systemNotificationParam2\":43}".getBytes());
+  dto.setExpiredAt(new Date(System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(10L)));
+  UpdateNotificationDto<NotificationDto> up=notificationService.saveNotification(dto);
+  String nid=((NotificationDto)up.getPayload()).getId();
+  Assert.assertNotNull(nid);
+  try {
+    TimeUnit.SECONDS.sleep(70L);
+  }
+ catch (  InterruptedException e) {
+    LOGGER.error("Catch interrupted exception during sleep.",e);
+  }
+  NotificationDto found=notificationService.findNotificationById(nid);
+  LOGGER.debug("Try to get expired notification {}",found);
+  Assert.assertNull(found);
+}

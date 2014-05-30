@@ -1,0 +1,10 @@
+{
+  String appId=apps.get(0);
+  List<EndpointGroupDto> groupDtoList=endpointService.findEndpointGroupsByAppId(appId);
+  Assert.assertNotNull(groupDtoList);
+  Assert.assertFalse(groupDtoList.isEmpty());
+  endpointService.removeEndpointGroupByAppId(appId);
+  groupDtoList=endpointService.findEndpointGroupsByAppId(appId);
+  Assert.assertNotNull(groupDtoList);
+  Assert.assertTrue(groupDtoList.isEmpty());
+}

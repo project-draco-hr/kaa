@@ -1,0 +1,7 @@
+{
+  cliConnect();
+  CommandResult commandResult=cliSession.getClient().executeCommand("threads");
+  Assert.assertNotNull(commandResult);
+  Assert.assertEquals(commandResult.getStatus(),CommandStatus.OK);
+  Assert.assertTrue(commandResult.getMessage().startsWith("THREADS DUMP:"));
+}

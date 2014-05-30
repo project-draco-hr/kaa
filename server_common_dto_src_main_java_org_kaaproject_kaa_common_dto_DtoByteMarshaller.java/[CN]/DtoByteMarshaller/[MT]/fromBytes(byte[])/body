@@ -1,0 +1,12 @@
+{
+  ByteArrayInputStream inputStream=new ByteArrayInputStream(bytes);
+  T object=null;
+  try {
+    ObjectInputStream objectInputStream=new ObjectInputStream(inputStream);
+    object=(T)objectInputStream.readObject();
+  }
+ catch (  Exception e) {
+    LOG.error("Can't convert bytes to object.",e);
+  }
+  return object;
+}

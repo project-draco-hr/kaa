@@ -1,0 +1,10 @@
+{
+  ProfileListener listener=mock(ProfileListener.class);
+  BasicProfileContainer container=new BasicProfileContainer();
+  container.setProfileListener(listener);
+  assertEquals("profileBody1",container.getProfile().getProfileBody());
+  container.setProfileBody("profileBody2");
+  assertEquals("profileBody2",container.getProfile().getProfileBody());
+  assertNotNull(container.getSerializedProfile());
+  verify(listener,times(1)).onProfileUpdated(container.getSerializedProfile());
+}

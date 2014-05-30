@@ -1,0 +1,12 @@
+{
+  try {
+    if (line.hasOption("i")) {
+      String configurationId=line.getOptionValue("i");
+      @SuppressWarnings("unused") ConfigurationDto configuration=toDto(client.activateConfiguration(configurationId,null));
+      writer.println("Configuration Activated.");
+    }
+  }
+ catch (  TException e) {
+    handleException("Unable to activate Configuration",e,errorWriter);
+  }
+}

@@ -1,0 +1,9 @@
+{
+  Class<AbstractHttpTransport> transportClass=AbstractHttpTransport.class;
+  Field field=transportClass.getDeclaredField("httpClient");
+  field.setAccessible(true);
+  field.set(transport,httpClient);
+  Field encoderDecoderField=transportClass.getDeclaredField("messageEncDec");
+  encoderDecoderField.setAccessible(true);
+  encoderDecoderField.set(transport,messageEncDec);
+}

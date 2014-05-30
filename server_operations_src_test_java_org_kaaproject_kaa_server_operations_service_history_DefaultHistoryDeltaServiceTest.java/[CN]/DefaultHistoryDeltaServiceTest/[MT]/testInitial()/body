@@ -1,0 +1,20 @@
+{
+  List<ProfileFilterDto> allFilters=new ArrayList<>();
+  ProfileFilterDto filter=new ProfileFilterDto();
+  filter.setApplicationId(APP1_ID);
+  filter.setEndpointGroupId(EG1_ID);
+  filter.setId(PF1_ID);
+  allFilters.add(filter);
+  Mockito.when(filterService.getAllMatchingFilters(Mockito.any(AppVersionKey.class),Mockito.any(String.class))).thenReturn(allFilters);
+  Mockito.when(cacheService.getConfIdByKey(Mockito.any(ConfigurationIdKey.class))).thenReturn(CF1_ID);
+  HistoryDelta historyDelta=historyDeltaService.getDelta(profile,APP1_TOKEN,0);
+  Assert.assertTrue(historyDelta.isConfigurationChanged());
+  Assert.assertTrue(historyDelta.isTopicListChanged());
+  Assert.assertNotNull(historyDelta.getEndpointGroupStates());
+  Assert.assertEquals(1,historyDelta.getEndpointGroupStates().size());
+  EndpointGroupStateDto egs=historyDelta.getEndpointGroupStates().get(0);
+  Assert.assertNotNull(egs);
+  Assert.assertEquals(CF1_ID,egs.getConfigurationId());
+  Assert.assertEquals(PF1_ID,egs.getProfileFilterId());
+  Assert.assertEquals(EG1_ID,egs.getEndpointGroupId());
+}

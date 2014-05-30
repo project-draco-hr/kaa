@@ -1,0 +1,16 @@
+{
+  if (field == null) {
+    throw new IllegalArgumentException();
+  }
+switch (field) {
+case DNS_NAME:
+    return isSetDnsName();
+case RULE_ID:
+  return isSetRuleId();
+case REDIRECTION_PROBABILITY:
+return isSetRedirectionProbability();
+case RULE_TTL:
+return isSetRuleTTL();
+}
+throw new IllegalStateException();
+}

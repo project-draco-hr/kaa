@@ -1,0 +1,39 @@
+{
+  this.maxChars=maxChars;
+  this.editable=editable;
+  if (editable) {
+    text=new ExtendedTextBox();
+    add(text);
+  }
+ else {
+    textLabel=new HTML("&nbsp;");
+    textLabel.setHeight("100%");
+    textLabel.setStyleName("secondary");
+    add(textLabel);
+  }
+  if (editable && maxChars > -1) {
+    charactersLabel=new Label();
+    charactersLabel.setStyleName("b-app-field-notes");
+    text.setMaxLength(maxChars);
+    add(charactersLabel);
+    updateCharactersLabel();
+  }
+ else   if (addNotes) {
+    add(new HTML("&nbsp;"));
+  }
+  addValueChangeHandler(new ValueChangeHandler<String>(){
+    @Override public void onValueChange(    ValueChangeEvent<String> event){
+      fireInputEvent();
+    }
+  }
+);
+  if (editable) {
+    text.addKeyUpHandler(new KeyUpHandler(){
+      @Override public void onKeyUp(      KeyUpEvent event){
+        updateCharactersLabel();
+        fireInputEvent();
+      }
+    }
+);
+  }
+}

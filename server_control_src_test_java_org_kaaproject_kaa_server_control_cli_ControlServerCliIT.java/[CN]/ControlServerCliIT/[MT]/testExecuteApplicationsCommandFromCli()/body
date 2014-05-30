@@ -1,0 +1,15 @@
+{
+  controlClientConnect();
+  ControlApiCliThriftClient cli=new ControlApiCliThriftClient();
+  String tenantId=editTenantCli(cli,null,false);
+  String applicationId=editApplicationCli(cli,null,tenantId,true);
+  applicationId=editApplicationCli(cli,null,tenantId,false);
+  Assert.assertFalse(strIsEmpty(applicationId));
+  Assert.assertEquals(applicationId.length(),24);
+  editApplicationCli(cli,applicationId,tenantId,false);
+  editApplicationCli(cli,FAKE_ID,tenantId,false);
+  showEntityCli(cli,applicationId,EntityType.APPLICATION);
+  listApplicationsCli(cli,tenantId,false);
+  listApplicationsCli(cli,tenantId,true);
+  deleteEntityCli(cli,applicationId,EntityType.APPLICATION);
+}

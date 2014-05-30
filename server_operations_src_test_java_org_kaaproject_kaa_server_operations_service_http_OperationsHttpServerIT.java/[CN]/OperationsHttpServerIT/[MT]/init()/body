@@ -1,0 +1,36 @@
+{
+  executor=Executors.newCachedThreadPool();
+  config=new OperationsServerConfig();
+  config.setPort(bindPort);
+  config.setClientMaxBodySize(MAX_HTTP_REQUEST_SIZE);
+  config.setExecutorThreadSize(3);
+  config.setServerInitializerClass("org.kaaproject.kaa.server.operations.service.http.TestEndPointServerInitializer");
+  config.setBindInterface("localhost");
+  List<String> commands=new Vector<>();
+  commands.add("org.kaaproject.kaa.server.operations.service.http.commands.RegisterEndpointCommand");
+  commands.add("org.kaaproject.kaa.server.operations.service.http.commands.UpdateEndpointCommand");
+  commands.add("org.kaaproject.kaa.server.operations.service.http.commands.SyncCommand");
+  commands.add("org.kaaproject.kaa.server.operations.service.http.commands.LongSyncCommand");
+  config.setCommandList(commands);
+  config.setAkkaService(testAkkaService);
+  KeyPairGenerator serverKeyGen;
+  try {
+    serverKeyGen=KeyPairGenerator.getInstance("RSA");
+    serverKeyGen.initialize(2048);
+    KeyPair servertKeyPair=serverKeyGen.genKeyPair();
+    serverPrivateKey=servertKeyPair.getPrivate();
+    serverPublicKey=servertKeyPair.getPublic();
+  }
+ catch (  NoSuchAlgorithmException e) {
+    fail(e.toString());
+  }
+  bootstrapServiceMock=mock(DefaultOperationsBootstrapService.class);
+  config.setOperationsBootstrapService(bootstrapServiceMock);
+  keystoreServiceMock=mock(FileKeyStoreService.class);
+  when(bootstrapServiceMock.getKeyStoreService()).thenReturn(keystoreServiceMock);
+  when(keystoreServiceMock.getPublicKey()).thenReturn(serverPublicKey);
+  when(keystoreServiceMock.getPrivateKey()).thenReturn(serverPrivateKey);
+  when(bootstrapServiceMock.getCacheService()).thenReturn(testCacheService);
+  when(bootstrapServiceMock.getOperationsService()).thenReturn(testEndpointService);
+  testAkkaService.start();
+}

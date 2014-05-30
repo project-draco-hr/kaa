@@ -1,0 +1,23 @@
+{
+  TTupleProtocol oprot=(TTupleProtocol)prot;
+  BitSet optionals=new BitSet();
+  if (struct.isSetMax()) {
+    optionals.set(0);
+  }
+  if (struct.isSetTotal()) {
+    optionals.set(1);
+  }
+  if (struct.isSetFree()) {
+    optionals.set(2);
+  }
+  oprot.writeBitSet(optionals,3);
+  if (struct.isSetMax()) {
+    oprot.writeI64(struct.max);
+  }
+  if (struct.isSetTotal()) {
+    oprot.writeI64(struct.total);
+  }
+  if (struct.isSetFree()) {
+    oprot.writeI64(struct.free);
+  }
+}

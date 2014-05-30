@@ -1,0 +1,34 @@
+{
+  validateNotificationSchemaObject(notificationSchemaDto);
+  String id=notificationSchemaDto.getId();
+  if (StringUtils.isBlank(id)) {
+    notificationSchemaDto.setId(null);
+    notificationSchemaDto.setCreatedTime(System.currentTimeMillis());
+    NotificationSchema foundSchema;
+    NotificationTypeDto type=notificationSchemaDto.getType();
+    if (type != null) {
+      foundSchema=notificationSchemaDao.findLatestNotificationSchemaByAppId(notificationSchemaDto.getApplicationId(),type);
+    }
+ else {
+      throw new IncorrectParameterException("Invalid Notification type in Notification Schema object.");
+    }
+    if (foundSchema != null) {
+      notificationSchemaDto.setMajorVersion(foundSchema.incrementVersion());
+    }
+ else {
+      notificationSchemaDto.incrementVersion();
+    }
+  }
+ else {
+    NotificationSchemaDto oldNotificationSchemaDto=getDto(notificationSchemaDao.findById(id));
+    if (oldNotificationSchemaDto != null) {
+      oldNotificationSchemaDto.editFields(notificationSchemaDto);
+      notificationSchemaDto=oldNotificationSchemaDto;
+    }
+ else {
+      LOG.error("Can't find notification schema with given id [{}].",id);
+      throw new IncorrectParameterException("Invalid notification schema id: " + id);
+    }
+  }
+  return getDto(notificationSchemaDao.save(new NotificationSchema(notificationSchemaDto)));
+}

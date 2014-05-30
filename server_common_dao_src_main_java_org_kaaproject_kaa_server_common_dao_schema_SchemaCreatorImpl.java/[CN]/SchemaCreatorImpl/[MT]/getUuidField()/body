@@ -1,0 +1,14 @@
+{
+  Map<String,Object> uuidField=new HashMap<String,Object>();
+  uuidField.put("name",UUID_FIELD_NAME);
+  if (strategy.isUuidOptional()) {
+    List<Object> union=new ArrayList<Object>(2);
+    union.add(getUuidType());
+    union.add("null");
+    uuidField.put("type",union);
+  }
+ else {
+    uuidField.put("type",getUuidType());
+  }
+  return uuidField;
+}

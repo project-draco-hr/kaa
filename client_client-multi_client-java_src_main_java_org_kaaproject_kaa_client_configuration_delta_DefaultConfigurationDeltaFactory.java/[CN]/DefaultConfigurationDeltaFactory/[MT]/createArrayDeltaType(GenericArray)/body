@@ -1,0 +1,39 @@
+{
+  if (!array.isEmpty()) {
+    Object rawItem=array.get(0);
+    if (AvroGenericUtils.isFixed(rawItem)) {
+      GenericArray<GenericFixed> arrayFixed=(GenericArray<GenericFixed>)array;
+      if (AvroGenericUtils.isUuid(rawItem)) {
+        RemovedItemsDeltaType removedItems=new RemovedItemsDeltaType();
+        for (        GenericFixed fixed : arrayFixed) {
+          UUID uuid=AvroGenericUtils.createUuidFromFixed(fixed);
+          removedItems.addHandlerId(new DeltaHandlerId(uuid));
+        }
+        return removedItems;
+      }
+ else {
+        AddedItemsDeltaType addedItems=new AddedItemsDeltaType();
+        for (        GenericFixed fixed : arrayFixed) {
+          addedItems.addItem(fixed.bytes());
+        }
+        return addedItems;
+      }
+    }
+ else     if (AvroGenericUtils.isRecord(rawItem)) {
+      GenericArray<GenericRecord> arrayRecord=(GenericArray<GenericRecord>)array;
+      AddedItemsDeltaType addedItems=new AddedItemsDeltaType();
+      for (      GenericRecord record : arrayRecord) {
+        addedItems.addItem(createDelta(record));
+      }
+      return addedItems;
+    }
+ else {
+      AddedItemsDeltaType addedItems=new AddedItemsDeltaType();
+      for (      Object item : array) {
+        addedItems.addItem(item);
+      }
+      return addedItems;
+    }
+  }
+  return new AddedItemsDeltaType();
+}

@@ -1,0 +1,20 @@
+{
+  ChannelHandlerContext channelContextMock=Mockito.mock(ChannelHandlerContext.class);
+  AbstractOperationsCommand commandMock=Mockito.mock(AbstractOperationsCommand.class);
+  SyncRequest innerRequest=new SyncRequest();
+  innerRequest.setApplicationToken(APP_TOKEN);
+  innerRequest.setEndpointPublicKeyHash(ByteBuffer.wrap(ENDPOINT_PUBLIC_KEY_HASH.getBytes()));
+  LongSyncRequest request=new LongSyncRequest(innerRequest,2l * TIMEOUT);
+  Mockito.when(commandMock.decode()).thenReturn(request);
+  Mockito.when(operationsService.sync(Mockito.any(SyncRequest.class))).thenReturn(noDeltaResponse);
+  NettyEncodedRequestMessage message=new NettyEncodedRequestMessage("testUUID",channelContextMock,commandMock);
+  Assert.assertNotNull(akkaService.getActorSystem());
+  akkaService.process(message);
+  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT / 2).atLeastOnce()).sync(request.getSyncRequest());
+  Mockito.when(applicationService.findAppById(APP_ID)).thenReturn(applicationDto);
+  Mockito.when(operationsService.sync(Mockito.any(SyncRequest.class))).thenReturn(deltaResponse);
+  Notification thriftNotification=new Notification();
+  thriftNotification.setAppId(APP_ID);
+  akkaService.onNotification(thriftNotification);
+  Mockito.verify(commandMock,Mockito.timeout(TIMEOUT / 2).atLeastOnce()).encode(Mockito.any(SyncResponse.class));
+}

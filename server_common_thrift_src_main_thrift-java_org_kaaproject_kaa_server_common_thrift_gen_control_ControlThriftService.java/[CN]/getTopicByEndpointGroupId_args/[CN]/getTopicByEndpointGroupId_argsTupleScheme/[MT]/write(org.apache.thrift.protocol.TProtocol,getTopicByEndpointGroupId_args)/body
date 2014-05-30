@@ -1,0 +1,11 @@
+{
+  TTupleProtocol oprot=(TTupleProtocol)prot;
+  BitSet optionals=new BitSet();
+  if (struct.isSetEndpointGroupId()) {
+    optionals.set(0);
+  }
+  oprot.writeBitSet(optionals,1);
+  if (struct.isSetEndpointGroupId()) {
+    oprot.writeString(struct.endpointGroupId);
+  }
+}

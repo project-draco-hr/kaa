@@ -1,0 +1,4 @@
+{
+  validateId(applicationId,"Application id is incorrect. Can't find configuration by application id " + applicationId + " and version "+ version);
+  return getDto(configurationDao.findConfigurationByAppIdAndVersion(applicationId,version));
+}

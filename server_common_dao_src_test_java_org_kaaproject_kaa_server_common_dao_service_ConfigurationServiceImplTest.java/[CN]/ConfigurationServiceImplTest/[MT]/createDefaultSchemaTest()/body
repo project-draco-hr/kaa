@@ -1,0 +1,6 @@
+{
+  String id=generateApplication().getId();
+  ConfigurationSchemaDto schema=generateConfSchema(id,1).get(0);
+  ConfigurationDto config=configurationService.findConfigurationByAppIdAndVersion(id,schema.getMajorVersion());
+  Assert.assertEquals(config.getStatus(),UpdateStatus.ACTIVE);
+}

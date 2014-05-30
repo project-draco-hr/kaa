@@ -1,0 +1,21 @@
+{
+  if (authentication != null) {
+    Object principal=authentication.getPrincipal();
+    if (principal != null) {
+      String userName;
+      if (principal instanceof AuthUserDto) {
+        userName=((AuthUserDto)principal).getUsername();
+      }
+ else {
+        return false;
+      }
+      return !userName.equals(ANONYMOUS_USER);
+    }
+ else {
+      return false;
+    }
+  }
+ else {
+    return false;
+  }
+}

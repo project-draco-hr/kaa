@@ -1,0 +1,8 @@
+{
+  DataStruct dataStruct=new DataStruct();
+  if (dto != null) {
+    dataStruct.setKey(dto.getId());
+    dataStruct.setData(DtoByteMarshaller.toBytes(dto));
+  }
+  return dataStruct;
+}

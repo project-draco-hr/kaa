@@ -1,0 +1,13 @@
+{
+  failover=true;
+  byte[] serializedProfile=profileContainer.getSerializedProfile();
+  if (!state.isRegistered()) {
+    pollStrategy.retryCommand(milliseconds,commandFactory.createRegisterCommand(transport,serializedProfile));
+  }
+ else   if (isProfileHashOutdated(serializedProfile)) {
+    pollStrategy.retryCommand(milliseconds,commandFactory.createProfileUpdateCommand(transport,serializedProfile,acceptedUnicastNotificationIds));
+  }
+ else {
+    pollStrategy.retryCommand(milliseconds,getNextTask());
+  }
+}

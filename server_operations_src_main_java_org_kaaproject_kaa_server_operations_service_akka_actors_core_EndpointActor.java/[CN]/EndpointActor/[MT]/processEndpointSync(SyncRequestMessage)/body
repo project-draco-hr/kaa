@@ -1,0 +1,8 @@
+{
+  doInTemplate(new SyncReponseCalculator<SyncRequest>(){
+    @Override public SyncResponseHolder getSyncReponse(    SyncRequest request) throws GetDeltaException {
+      return operationsService.sync(request);
+    }
+  }
+,message.getRequest(),message);
+}

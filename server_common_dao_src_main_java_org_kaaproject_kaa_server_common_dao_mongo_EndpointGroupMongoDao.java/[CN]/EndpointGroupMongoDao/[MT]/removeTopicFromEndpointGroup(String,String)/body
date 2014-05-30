@@ -1,0 +1,5 @@
+{
+  LOG.debug("Remove topic [{}] from endpoint group with id [{}] ",topicId,id);
+  Update update=new Update().inc(SEQUENCE_NUMBER,ONE).pull(TOPICS,topicId);
+  return findAndModify(query(where(ID).is(new ObjectId(id))),update,returnNew);
+}

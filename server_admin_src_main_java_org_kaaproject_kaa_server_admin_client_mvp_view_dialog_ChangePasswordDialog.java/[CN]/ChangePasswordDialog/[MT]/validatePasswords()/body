@@ -1,0 +1,14 @@
+{
+  String oldPasswordText=oldPassword.getValue();
+  String newPasswordText=newPassword.getValue();
+  String newPasswordAgainText=newPasswordAgain.getValue();
+  if (oldPasswordText.equals(newPasswordText)) {
+    setError(Utils.messages.newPasswordShouldDifferent());
+    return false;
+  }
+ else   if (!newPasswordText.equals(newPasswordAgainText)) {
+    setError(Utils.messages.newPasswordsNotMatch());
+    return false;
+  }
+  return true;
+}

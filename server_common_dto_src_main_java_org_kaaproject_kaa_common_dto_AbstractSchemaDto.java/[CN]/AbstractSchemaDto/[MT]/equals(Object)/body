@@ -1,0 +1,22 @@
+{
+  if (this == o) {
+    return true;
+  }
+  if (!(o instanceof AbstractSchemaDto)) {
+    return false;
+  }
+  AbstractSchemaDto that=(AbstractSchemaDto)o;
+  if (majorVersion != that.majorVersion) {
+    return false;
+  }
+  if (minorVersion != that.minorVersion) {
+    return false;
+  }
+  if (applicationId != null ? !applicationId.equals(that.applicationId) : that.applicationId != null) {
+    return false;
+  }
+  if (schema != null ? !schema.equals(that.schema) : that.schema != null) {
+    return false;
+  }
+  return true;
+}

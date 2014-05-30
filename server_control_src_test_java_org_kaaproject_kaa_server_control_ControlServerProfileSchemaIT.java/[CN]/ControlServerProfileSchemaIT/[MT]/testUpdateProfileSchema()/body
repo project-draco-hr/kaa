@@ -1,0 +1,11 @@
+{
+  ProfileSchemaDto profileSchema=createProfileSchema();
+  profileSchema.setName("Test Schema 2");
+  profileSchema.setDescription("Test Desc 2");
+  ProfileSchemaDto updatedProfileSchema=toDto(client.editProfileSchema(toDataStruct(profileSchema)));
+  Assert.assertEquals(profileSchema.getApplicationId(),updatedProfileSchema.getApplicationId());
+  Assert.assertEquals(profileSchema.getName(),updatedProfileSchema.getName());
+  Assert.assertEquals(profileSchema.getDescription(),updatedProfileSchema.getDescription());
+  Assert.assertEquals(profileSchema.getCreatedTime(),updatedProfileSchema.getCreatedTime());
+  Assert.assertEquals(profileSchema.getSchema(),updatedProfileSchema.getSchema());
+}

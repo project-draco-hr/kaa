@@ -1,0 +1,13 @@
+{
+  testId=rnd.nextInt();
+  String url="http://" + nettyHost + ":"+ nettyPort+ "/domain/"+ ResolveCommand.getCommandName();
+  connection=(HttpURLConnection)new URL(url).openConnection();
+  this.activity=activity;
+  crypt=new MessageEncoderDecoder(null,null,serverPublicKey);
+  responseConverter=new AvroByteArrayConverter<>(OperationsServerList.class);
+  objects=new MultipartObjects();
+  String appToken=Integer.toString(rnd.nextInt());
+  AvroByteArrayConverter<Resolve> requestConverter=new AvroByteArrayConverter<Resolve>(Resolve.class);
+  Resolve r=new Resolve(appToken);
+  objects.addObject(CommonBSConstants.APPLICATION_TOKEN_ATTR_NAME,requestConverter.toByteArray(r));
+}

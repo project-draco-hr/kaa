@@ -1,0 +1,12 @@
+{
+  nodeInfo.setDeltaCalculationCount(deltaCalculationCount);
+  nodeInfo.setProcessedRequestCount(processedRequestCount);
+  nodeInfo.setRegisteredUsersCount(registeredUsersCount);
+  try {
+    client.setData().forPath(nodePath,operationsNodeAvroConverter.get().toByteArray(nodeInfo));
+  }
+ catch (  Exception e) {
+    LOG.error("Unknown Error",e);
+    close();
+  }
+}

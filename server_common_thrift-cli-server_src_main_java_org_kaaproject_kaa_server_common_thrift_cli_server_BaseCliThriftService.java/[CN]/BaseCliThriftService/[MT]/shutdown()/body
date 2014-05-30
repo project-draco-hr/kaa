@@ -1,0 +1,16 @@
+{
+  LOG.info("Received shutdown command.");
+  Runnable shutdownCommand=new Runnable(){
+    @Override public void run(){
+      try {
+        ThriftExecutor.shutdown();
+        System.exit(0);
+      }
+ catch (      Exception e) {
+        LOG.error("Catch exception when execute shutdown command",e);
+      }
+    }
+  }
+;
+  new Thread(shutdownCommand).start();
+}

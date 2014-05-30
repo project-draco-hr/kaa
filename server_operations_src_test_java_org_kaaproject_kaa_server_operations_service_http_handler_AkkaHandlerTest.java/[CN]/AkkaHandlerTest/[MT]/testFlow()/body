@@ -1,0 +1,8 @@
+{
+  UUID uuid=UUID.randomUUID();
+  AkkaService akkaService=Mockito.mock(AkkaService.class);
+  EventExecutorGroup executor=Mockito.mock(EventExecutorGroup.class);
+  AkkaHandler handler=new AkkaHandler(uuid,akkaService,executor);
+  handler.channelRead0(null,null);
+  Mockito.verify(akkaService).process(Mockito.any(NettyCommandAwareMessage.class));
+}

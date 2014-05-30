@@ -1,0 +1,14 @@
+{
+  LOG.info("Received shutdown command.");
+  Runnable shutdownCommmand=new Runnable(){
+    @Override public void run(){
+      LOG.info("Stopping Control Server Application...");
+      controlService.stop();
+      ThriftExecutor.shutdown();
+    }
+  }
+;
+  Thread shutdownThread=new Thread(shutdownCommmand);
+  shutdownThread.setName("Control Server Shutdown Thread");
+  shutdownThread.start();
+}

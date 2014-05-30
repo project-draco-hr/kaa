@@ -1,0 +1,12 @@
+{
+  String dnsName=getDNSNameFromConnectionInfo(nodeInfo.getConnectionInfo());
+  LOG.info("Operations server {} update",dnsName);
+  if (opsServersMap.containsKey(dnsName)) {
+    opsServersMap.get(dnsName).opsServer.setPublicKey(nodeInfo.getConnectionInfo().getPublicKey());
+    opsServersMap.get(dnsName).history.addOpsServerLoad(nodeInfo.getRegisteredUsersCount(),nodeInfo.getProcessedRequestCount(),nodeInfo.getDeltaCalculationCount());
+  }
+ else {
+    OperationsServer opsServer=new OperationsServer(DEFAULT_PRIORITY,nodeInfo.getConnectionInfo().getPublicKey());
+    opsServersMap.put(dnsName,new OperationsServerMeta(opsServer,nodeInfo));
+  }
+}

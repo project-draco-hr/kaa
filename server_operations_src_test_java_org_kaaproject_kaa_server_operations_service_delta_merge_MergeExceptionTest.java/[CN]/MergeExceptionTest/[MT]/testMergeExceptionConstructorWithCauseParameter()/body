@@ -1,0 +1,6 @@
+{
+  Exception cause=new RuntimeException();
+  MergeException mergeException=new MergeException(cause);
+  Assert.assertEquals(cause.toString(),mergeException.getMessage());
+  Assert.assertTrue(cause == mergeException.getCause());
+}

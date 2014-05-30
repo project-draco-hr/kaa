@@ -1,0 +1,10 @@
+{
+  List<String> objects=null;
+  if (ids != null && !ids.isEmpty()) {
+    objects=new ArrayList<>();
+    for (    ObjectId id : ids) {
+      objects.add(idToString(id));
+    }
+  }
+  return objects;
+}

@@ -1,0 +1,9 @@
+{
+  super.setServer(server);
+  conf=(BootstrapConfig)server.getConf();
+  KeyStoreService keyStoreService=conf.getBootstrapInitializationService().getKeyStoreService();
+  serverPrivate=keyStoreService.getPrivateKey();
+  serverPublic=keyStoreService.getPublicKey();
+  crypt=new MessageEncoderDecoder(serverPrivate,serverPublic,null);
+  LOG.trace("CommandName: {}: keyStoreService set",COMMAND_NAME);
+}

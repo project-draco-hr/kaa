@@ -1,0 +1,11 @@
+{
+  try {
+    LOG.debug("ENCODE AND REPLY " + msg);
+    msg.getCommand().encode(msg.getResponse());
+    msg.getChannelContext().writeAndFlush(msg.getCommand());
+  }
+ catch (  GeneralSecurityException|IOException e) {
+    LOG.debug("Command decode failed " + msg);
+    msg.getChannelContext().fireExceptionCaught(e);
+  }
+}

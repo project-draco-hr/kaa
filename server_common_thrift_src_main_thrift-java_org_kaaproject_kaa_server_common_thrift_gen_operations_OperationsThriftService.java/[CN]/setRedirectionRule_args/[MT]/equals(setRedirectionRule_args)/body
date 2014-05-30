@@ -1,0 +1,10 @@
+{
+  if (that == null)   return false;
+  boolean this_present_redirectionRule=true && this.isSetRedirectionRule();
+  boolean that_present_redirectionRule=true && that.isSetRedirectionRule();
+  if (this_present_redirectionRule || that_present_redirectionRule) {
+    if (!(this_present_redirectionRule && that_present_redirectionRule))     return false;
+    if (!this.redirectionRule.equals(that.redirectionRule))     return false;
+  }
+  return true;
+}

@@ -1,0 +1,10 @@
+{
+  getUnicastNotification_result result=new getUnicastNotification_result();
+  try {
+    result.success=iface.getUnicastNotification(args.notificationId);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

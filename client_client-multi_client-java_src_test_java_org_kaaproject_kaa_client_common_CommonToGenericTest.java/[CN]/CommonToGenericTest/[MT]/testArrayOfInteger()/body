@@ -1,0 +1,6 @@
+{
+  Schema integerSchema=Schema.create(Type.INT);
+  GenericArray avroArray=CommonToGeneric.createArray(createCommonArray(integerSchema,new Integer(5)));
+  Integer avroInt=(Integer)avroArray.get(0);
+  assertEquals(5,avroInt.intValue());
+}

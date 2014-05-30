@@ -1,0 +1,8 @@
+{
+  TopicDto topic=generateTopic(null,null);
+  EndpointGroupDto groupDto=generateEndpointGroup(topic.getApplicationId());
+  endpointService.addTopicToEndpointGroup(groupDto.getId(),topic.getId());
+  topicService.removeTopicById(topic.getId());
+  TopicDto found=topicService.findTopicById(topic.getId());
+  Assert.assertNull(found);
+}

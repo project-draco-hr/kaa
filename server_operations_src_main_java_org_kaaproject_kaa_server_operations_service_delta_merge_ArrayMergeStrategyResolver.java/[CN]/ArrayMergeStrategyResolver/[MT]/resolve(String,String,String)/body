@@ -1,0 +1,15 @@
+{
+  Map<String,Object> schemaForParent=findSchema(name,namespace,schemaRoot);
+  if (schemaForParent == null) {
+    throw new MergeException(MessageFormat.format("Failed to find Schema with Name ''{0}'' and namespace ''{1}''",name,namespace));
+  }
+  String mergeStrategyName=findMergeStrategy(schemaForParent,childName);
+  ArrayMergeStrategy mergeStrategy=null;
+  if (mergeStrategyName != null) {
+    mergeStrategy=ArrayMergeStrategy.getByName(mergeStrategyName);
+  }
+  if (mergeStrategy == null) {
+    mergeStrategy=ArrayMergeStrategy.REPLACE;
+  }
+  return mergeStrategy;
+}

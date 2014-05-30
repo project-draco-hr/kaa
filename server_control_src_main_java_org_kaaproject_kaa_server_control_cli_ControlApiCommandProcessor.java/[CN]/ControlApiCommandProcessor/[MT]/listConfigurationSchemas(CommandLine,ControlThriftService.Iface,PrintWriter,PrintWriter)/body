@@ -1,0 +1,22 @@
+{
+  if (line.hasOption("a")) {
+    try {
+      String applicationId=line.getOptionValue("a");
+      List<? extends HasId> dtos=ThriftDtoConverter.<ConfigurationSchemaDto>toDtoList(client.getConfigurationSchemasByApplicationId(applicationId));
+      writer.println("List of Configuration Schemas:");
+      writer.println();
+      for (      HasId dto : dtos) {
+        writer.println(dto);
+      }
+      writer.println();
+      writer.println("Total: " + dtos.size());
+      if (line.hasOption("o")) {
+        String outFileName=line.getOptionValue("o");
+        storeObjectIds(outFileName,dtos,errorWriter);
+      }
+    }
+ catch (    TException e) {
+      handleException("Unable to get list of Configuration Schemas",e,errorWriter);
+    }
+  }
+}

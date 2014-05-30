@@ -1,0 +1,9 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    return toGenericDto(clientProvider.getClient().getConfigurationRecord(schemaId,endpointGroupId));
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

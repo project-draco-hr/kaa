@@ -1,0 +1,10 @@
+{
+  try {
+    Resolve record=new Resolve();
+    record.Application_Token=fieldSetFlags()[0] ? this.Application_Token : (java.lang.String)defaultValue(fields()[0]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

@@ -1,0 +1,7 @@
+{
+  ConfigurationDto configuration=createConfiguration();
+  StructureRecordDto<ConfigurationDto> configurationRecord=toGenericDto(client.getConfigurationRecord(configuration.getSchemaId(),configuration.getEndpointGroupId()));
+  Assert.assertNotNull(configurationRecord);
+  Assert.assertNotNull(configurationRecord.getInactiveStructureDto());
+  assertConfigurationsEquals(configuration,configurationRecord.getInactiveStructureDto());
+}

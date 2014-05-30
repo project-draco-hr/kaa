@@ -1,0 +1,10 @@
+{
+  editTopic_result result=new editTopic_result();
+  try {
+    result.success=iface.editTopic(args.topic);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

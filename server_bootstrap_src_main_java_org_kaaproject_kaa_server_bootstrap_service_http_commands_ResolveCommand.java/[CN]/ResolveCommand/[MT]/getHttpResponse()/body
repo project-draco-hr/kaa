@@ -1,0 +1,11 @@
+{
+  String signatureResponse=Base64.encodeBase64String(responseSignature);
+  FullHttpResponse httpResponse=new DefaultFullHttpResponse(HTTP_1_1,OK,Unpooled.copiedBuffer(responseBody));
+  httpResponse.headers().set(CONTENT_TYPE,CommonBSConstants.RESPONSE_CONTENT_TYPE);
+  httpResponse.headers().set(CommonBSConstants.SIGNATURE_HEADER_NAME,signatureResponse);
+  httpResponse.headers().set(CONTENT_LENGTH,httpResponse.content().readableBytes());
+  if (isNeedConnectionClose()) {
+    httpResponse.headers().set(CONNECTION,HttpHeaders.Values.CLOSE);
+  }
+  return httpResponse;
+}

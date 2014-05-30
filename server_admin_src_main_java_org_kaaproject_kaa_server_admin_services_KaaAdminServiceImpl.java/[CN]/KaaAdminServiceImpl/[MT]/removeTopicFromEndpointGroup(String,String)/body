@@ -1,0 +1,9 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    clientProvider.getClient().removeTopicsFromEndpointGroup(endpointGroupId,topicId);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

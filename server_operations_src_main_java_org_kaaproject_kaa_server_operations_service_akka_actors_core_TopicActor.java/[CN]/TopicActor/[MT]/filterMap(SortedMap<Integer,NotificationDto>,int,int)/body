@@ -1,0 +1,12 @@
+{
+  List<NotificationDto> pendingNotifications=new ArrayList<>(pendingNotificationMap.size());
+  for (  NotificationDto dto : pendingNotificationMap.values()) {
+    if (isSchemaVersionMatch(dto,systemNfSchemaVersion,userNfSchemaVersion)) {
+      Date date=dto.getExpiredAt();
+      if (date != null && date.after(new Date())) {
+        pendingNotifications.add(dto);
+      }
+    }
+  }
+  return pendingNotifications;
+}

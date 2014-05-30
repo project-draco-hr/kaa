@@ -1,0 +1,26 @@
+{
+  LOG.info("Starting node tracker");
+  client.start();
+  client.getUnhandledErrorListenable().addListener(errorsListener);
+  if (createZkNode()) {
+    controlCache=new NodeCache(client,CONTROL_SERVER_NODE_PATH);
+    controlCache.getListenable().addListener(new NodeCacheListener(){
+      @Override public void nodeChanged() throws Exception {
+        ChildData currentData=controlCache.getCurrentData();
+        if (currentData == null) {
+          LOG.warn("Control server node died!");
+          onNoMaster();
+        }
+ else {
+          LOG.warn("Control server node changed!");
+          onMasterChange(currentData);
+        }
+      }
+    }
+);
+    controlCache.start();
+  }
+ else {
+    LOG.warn("Failed to create ZK node!");
+  }
+}

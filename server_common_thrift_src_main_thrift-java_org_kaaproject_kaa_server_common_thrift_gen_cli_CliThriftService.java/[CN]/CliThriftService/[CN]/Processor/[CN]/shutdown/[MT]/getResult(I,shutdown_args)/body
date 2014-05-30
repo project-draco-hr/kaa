@@ -1,0 +1,10 @@
+{
+  shutdown_result result=new shutdown_result();
+  try {
+    iface.shutdown();
+  }
+ catch (  CliThriftException cliException) {
+    result.cliException=cliException;
+  }
+  return result;
+}

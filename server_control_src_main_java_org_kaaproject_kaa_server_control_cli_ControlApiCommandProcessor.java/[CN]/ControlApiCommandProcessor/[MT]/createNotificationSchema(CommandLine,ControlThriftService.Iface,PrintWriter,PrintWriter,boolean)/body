@@ -1,0 +1,77 @@
+{
+  try {
+    NotificationSchemaDto notificationSchemaDto;
+    if (edit) {
+      String notificationSchemaId=line.getOptionValue("i");
+      notificationSchemaDto=toDto(client.getNotificationSchema(notificationSchemaId));
+      if (notificationSchemaDto == null) {
+        writer.println("Notification Schema with id " + notificationSchemaId + " not found!");
+        return;
+      }
+    }
+ else {
+      notificationSchemaDto=new NotificationSchemaDto();
+    }
+    if (line.hasOption("a")) {
+      String applicationId=line.getOptionValue("a");
+      if (ObjectId.isValid(applicationId)) {
+        notificationSchemaDto.setApplicationId(applicationId);
+      }
+ else {
+        errorWriter.println("Invalid application id for notification.");
+        return;
+      }
+    }
+    if (line.hasOption("t")) {
+      String type=line.getOptionValue("t");
+      if (StringUtils.isNotBlank(type)) {
+        NotificationTypeDto typeDto;
+        try {
+          typeDto=NotificationTypeDto.valueOf(type);
+        }
+ catch (        IllegalArgumentException ex) {
+          errorWriter.println("Incorrect type of notification");
+          return;
+        }
+        notificationSchemaDto.setType(typeDto);
+      }
+ else {
+        errorWriter.println("Empty type of notification");
+        return;
+      }
+    }
+    if (line.hasOption("f")) {
+      String schemaFile=line.getOptionValue("f");
+      String schema=readFile(schemaFile,errorWriter);
+      if (StringUtils.isNotBlank(schema)) {
+        notificationSchemaDto.setSchema(schema);
+      }
+ else {
+        errorWriter.println("Can't read file. Please check file name.");
+        return;
+      }
+    }
+ else     if (line.hasOption("b")) {
+      String body=line.getOptionValue("b");
+      notificationSchemaDto.setSchema(body);
+    }
+ else {
+      errorWriter.println("Need to set body or file with body for notification schema");
+      return;
+    }
+    NotificationSchemaDto savedNotificationSchema=toDto(client.editNotificationSchema(toDataStruct(notificationSchemaDto)));
+    if (edit) {
+      writer.println("Notification Schema updated.");
+    }
+ else {
+      writer.println("Created new Notification Schema with id: " + savedNotificationSchema.getId());
+      if (line.hasOption("o")) {
+        String outFileName=line.getOptionValue("o");
+        storeInfo(outFileName,savedNotificationSchema.getId(),errorWriter);
+      }
+    }
+  }
+ catch (  TException e) {
+    handleException("Unable to " + (edit ? "update" : "create") + " Notification",e,errorWriter);
+  }
+}

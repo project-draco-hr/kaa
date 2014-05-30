@@ -1,0 +1,8 @@
+{
+  cliConnect();
+  BaseCliThriftClient cli=new BaseCliThriftClient();
+  int result=cli.processLine("fakeCommand");
+  Assert.assertEquals(result,0);
+  String output=systemOut.toString("UTF-8");
+  Assert.assertTrue(output.trim().startsWith("Error: unknown command 'fakeCommand'"));
+}

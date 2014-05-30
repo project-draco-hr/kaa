@@ -1,0 +1,8 @@
+{
+  SyncResponse response=new SyncResponse();
+  response.setAppStateSeqNumber(curAppSeqNumber);
+  response.setResponseType(getResponseStatus(confResponse,notificationResponse));
+  response.setConfSyncResponse(buildConfSyncResponse(confResponse));
+  response.setNotificationSyncResponse(buildNotificationSyncResponse(notificationResponse));
+  return new SyncResponseHolder(response,notificationResponse.getSubscriptionStates(),systemNfVersion,userNfVersion);
+}

@@ -1,0 +1,9 @@
+{
+  ActorRef topicActor=topicSessions.get(topicId);
+  if (topicActor == null) {
+    topicActor=context().actorOf(Props.create(new TopicActor.ActorCreator(notificationDeltaService)),buildTopicKey(topicId));
+    topicSessions.put(topicId,topicActor);
+    context().watch(topicActor);
+  }
+  return topicActor;
+}

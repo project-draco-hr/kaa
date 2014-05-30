@@ -1,0 +1,15 @@
+{
+  super(org.kaaproject.kaa.server.common.zk.gen.ControlNodeInfo.SCHEMA$);
+  if (isValidValue(fields()[0],other.connectionInfo)) {
+    this.connectionInfo=data().deepCopy(fields()[0].schema(),other.connectionInfo);
+    fieldSetFlags()[0]=true;
+  }
+  if (isValidValue(fields()[1],other.operationsServerCount)) {
+    this.operationsServerCount=data().deepCopy(fields()[1].schema(),other.operationsServerCount);
+    fieldSetFlags()[1]=true;
+  }
+  if (isValidValue(fields()[2],other.bootstrapServerCount)) {
+    this.bootstrapServerCount=data().deepCopy(fields()[2].schema(),other.bootstrapServerCount);
+    fieldSetFlags()[2]=true;
+  }
+}

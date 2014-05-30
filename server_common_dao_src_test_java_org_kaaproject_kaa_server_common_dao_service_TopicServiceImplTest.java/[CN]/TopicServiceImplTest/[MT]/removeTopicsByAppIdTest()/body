@@ -1,0 +1,7 @@
+{
+  TopicDto topic=generateTopic(null,null);
+  topicService.removeTopicsByAppId(topic.getApplicationId());
+  List<TopicDto> found=topicService.findTopicsByAppId(topic.getApplicationId());
+  Assert.assertNotNull(found);
+  Assert.assertTrue(found.isEmpty());
+}

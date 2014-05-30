@@ -1,0 +1,10 @@
+{
+  byte[] schema=properties.getDefaultConfigSchema();
+  if (schema != null && schema.length > 0) {
+    schemaProcessor.loadSchema(ByteBuffer.wrap(schema));
+    byte[] config=properties.getDefaultConfigData();
+    if (config != null && config.length > 0) {
+      configurationProcessor.processConfigurationData(ByteBuffer.wrap(config),true);
+    }
+  }
+}

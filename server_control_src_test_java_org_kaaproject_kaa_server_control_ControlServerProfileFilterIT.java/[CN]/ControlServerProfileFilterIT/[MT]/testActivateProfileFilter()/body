@@ -1,0 +1,10 @@
+{
+  ProfileFilterDto profileFilter=createProfileFilter();
+  ProfileFilterDto activatedProfileFilter=toDto(client.activateProfileFilter(profileFilter.getId(),null));
+  Assert.assertEquals(profileFilter.getId(),activatedProfileFilter.getId());
+  Assert.assertEquals(profileFilter.getSchemaId(),activatedProfileFilter.getSchemaId());
+  Assert.assertEquals(profileFilter.getEndpointGroupId(),activatedProfileFilter.getEndpointGroupId());
+  Assert.assertEquals(profileFilter.getBody(),activatedProfileFilter.getBody());
+  Assert.assertEquals(profileFilter.getApplicationId(),activatedProfileFilter.getApplicationId());
+  Assert.assertEquals(UpdateStatus.ACTIVE,activatedProfileFilter.getStatus());
+}

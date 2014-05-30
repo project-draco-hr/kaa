@@ -1,0 +1,10 @@
+{
+  String userName=view.getUsernameBox().getText();
+  String password=view.getPasswordBox().getText();
+  if (authResult == Result.KAA_ADMIN_NOT_EXISTS) {
+    createKaaAdmin(userName,password);
+  }
+ else {
+    login(userName,password);
+  }
+}

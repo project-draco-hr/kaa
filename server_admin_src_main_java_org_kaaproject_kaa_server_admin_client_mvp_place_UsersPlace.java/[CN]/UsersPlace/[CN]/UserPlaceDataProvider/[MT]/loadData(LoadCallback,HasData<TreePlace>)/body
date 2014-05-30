@@ -1,0 +1,11 @@
+{
+  KaaAdmin.getDataSource().loadUsers(new AsyncCallback<List<UserDto>>(){
+    @Override public void onFailure(    Throwable caught){
+      callback.onFailure(caught);
+    }
+    @Override public void onSuccess(    List<UserDto> result){
+      callback.onSuccess(toPlaces(result),display);
+    }
+  }
+);
+}

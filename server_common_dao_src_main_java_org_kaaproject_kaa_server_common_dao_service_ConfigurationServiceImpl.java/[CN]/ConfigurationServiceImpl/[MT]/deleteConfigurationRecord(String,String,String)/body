@@ -1,0 +1,18 @@
+{
+  ChangeConfigurationNotification configurationNotification=null;
+  validateId(schemaId,"Incorrect configuration schema id " + schemaId + ".");
+  validateId(groupId,"Incorrect group id " + groupId + ".");
+  ConfigurationDto configurationDto=getDto(configurationDao.deactivateOldConfiguration(schemaId.toString(),groupId.toString(),deactivatedUsername));
+  if (configurationDto != null) {
+    HistoryDto historyDto=addHistory(configurationDto,ChangeType.REMOVE_CONF);
+    ChangeNotificationDto changeNotificationDto=createNotification(configurationDto,historyDto);
+    configurationNotification=new ChangeConfigurationNotification();
+    configurationNotification.setConfigurationDto(configurationDto);
+    configurationNotification.setChangeNotificationDto(changeNotificationDto);
+  }
+  Configuration configuration=configurationDao.findInactiveBySchemaIdAndGroupId(schemaId,groupId);
+  if (configuration != null) {
+    configurationDao.removeById(configuration.getId());
+  }
+  return configurationNotification;
+}

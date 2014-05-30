@@ -1,0 +1,17 @@
+{
+  ActionsButtonCell<T> cell=new ActionsButtonCell<T>(Utils.resources.drop_down(),Utils.constants.actions());
+  cell.addMenuItem(Utils.resources.remove(),Utils.constants.delete(),new ActionMenuItemListener<T>(){
+    @Override public void onMenuItemSelected(    T value){
+      deleteItem(value);
+    }
+  }
+);
+  constructAdditionalActions(cell);
+  Column<T,T> column=new Column<T,T>(cell){
+    @Override public T getValue(    T item){
+      return item;
+    }
+  }
+;
+  return column;
+}

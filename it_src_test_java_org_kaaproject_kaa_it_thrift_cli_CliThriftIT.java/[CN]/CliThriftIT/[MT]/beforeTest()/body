@@ -1,0 +1,29 @@
+{
+  if (!thriftServerStarted) {
+    CliThriftService.Processor<CliThriftService.Iface> processor=new CliThriftService.Processor<CliThriftService.Iface>(new TestCliThriftService(THRIFT_SERVER_SHORT_NAME));
+    TServerTransport serverTransport=new TServerSocket(new InetSocketAddress(HOST,PORT));
+    server=new TThreadPoolServer(new Args(serverTransport).processor(processor));
+    thriftServerThread=new Thread(new Runnable(){
+      @Override public void run(){
+        logger.info("Thrift Server started.");
+        server.serve();
+        logger.info("Thrift Server stopped.");
+      }
+    }
+);
+    thriftServerThread.start();
+    Thread.sleep(100);
+    thriftServerStarted=true;
+  }
+  cliSession=new CliSessionState();
+  cliSession.in=System.in;
+  systemOut=new ByteArrayOutputStream();
+  PrintStream out=new PrintStream(systemOut,true,"UTF-8");
+  System.setOut(out);
+  systemErr=new ByteArrayOutputStream();
+  PrintStream err=new PrintStream(systemErr,true,"UTF-8");
+  System.setErr(err);
+  cliSession.out=System.out;
+  cliSession.err=System.err;
+  CliSessionState.start(cliSession);
+}

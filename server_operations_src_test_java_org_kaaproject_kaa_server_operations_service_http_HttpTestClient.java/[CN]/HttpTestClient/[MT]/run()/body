@@ -1,0 +1,35 @@
+{
+  logger.trace("Test: " + testId + " started...");
+  IOException error=null;
+  try {
+    connection.setRequestMethod("POST");
+    connection.setDoOutput(true);
+    connection.setRequestProperty("Content-Type",objects.getContentType());
+    DataOutputStream out=new DataOutputStream(connection.getOutputStream());
+    objects.dumbObjects(out);
+    out.flush();
+    out.close();
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+    error=e;
+  }
+  List<Byte> bodyArray=new Vector<>();
+  try {
+    DataInputStream r=new DataInputStream(connection.getInputStream());
+    while (true) {
+      bodyArray.add(new Byte(r.readByte()));
+    }
+  }
+ catch (  EOFException eof) {
+  }
+catch (  IOException e) {
+    e.printStackTrace();
+    error=e;
+  }
+  byte[] body=new byte[bodyArray.size()];
+  for (int i=0; i < body.length; i++) {
+    body[i]=bodyArray.get(i);
+  }
+  processComplete(error,connection.getHeaderFields(),body);
+}

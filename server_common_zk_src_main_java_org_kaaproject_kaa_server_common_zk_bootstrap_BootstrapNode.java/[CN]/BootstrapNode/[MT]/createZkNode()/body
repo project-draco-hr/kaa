@@ -1,0 +1,9 @@
+{
+  return doZKClientAction(new ZKClientAction(){
+    @Override public void doWithZkClient(    CuratorFramework client) throws Exception {
+      nodePath=client.create().creatingParentsIfNeeded().withMode(CreateMode.EPHEMERAL_SEQUENTIAL).forPath(BOOTSTRAP_SERVER_NODE_PATH + BOOTSTRAP_SERVER_NODE_PATH,bootstrapNodeAvroConverter.get().toByteArray(nodeInfo));
+      LOG.info("Created node with path: " + nodePath);
+    }
+  }
+);
+}

@@ -1,0 +1,14 @@
+{
+  controlClientConnect();
+  ControlApiCliThriftClient cli=new ControlApiCliThriftClient();
+  String applicationId=editApplicationCli(cli,null,null,false);
+  String profileSchemaId=editProfileSchemaCli(cli,null,applicationId,true);
+  profileSchemaId=editProfileSchemaCli(cli,null,applicationId,false);
+  Assert.assertFalse(strIsEmpty(profileSchemaId));
+  Assert.assertEquals(profileSchemaId.length(),24);
+  editProfileSchemaCli(cli,profileSchemaId,applicationId,false);
+  editProfileSchemaCli(cli,FAKE_ID,applicationId,false);
+  showEntityCli(cli,profileSchemaId,EntityType.PROFILE_SCHEMA);
+  listProfileSchemasCli(cli,applicationId,false);
+  listProfileSchemasCli(cli,applicationId,true);
+}

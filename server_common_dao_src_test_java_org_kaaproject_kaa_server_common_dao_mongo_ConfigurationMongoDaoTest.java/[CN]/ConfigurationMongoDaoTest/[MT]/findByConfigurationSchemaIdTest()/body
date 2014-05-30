@@ -1,0 +1,5 @@
+{
+  List<Configuration> configs=configurationDao.findActiveByConfigurationSchemaId(schemas.get(2));
+  Assert.assertNotNull(configs);
+  Assert.assertSame(configs.size(),3);
+}

@@ -1,0 +1,9 @@
+{
+  try {
+    return Signature.getInstance(algorithm);
+  }
+ catch (  NoSuchAlgorithmException e) {
+    LOG.error("Signature init error",e);
+    return null;
+  }
+}

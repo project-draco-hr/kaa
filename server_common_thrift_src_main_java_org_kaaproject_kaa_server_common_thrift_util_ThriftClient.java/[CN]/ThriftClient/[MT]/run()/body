@@ -1,0 +1,23 @@
+{
+  try {
+    LOG.debug("Call Thrift server [" + endpointHost + ":"+ endpointPort+ "]");
+    transport.open();
+    if (activity != null) {
+      invoke(activity);
+      LOG.debug("Successfuly invoke Thrift server [" + endpointHost + ":"+ endpointPort+ "]");
+      activity.isSuccess(true);
+    }
+ else {
+      LOG.error("Error - Activity not set while invoke thrift object " + endpointHost + ":"+ endpointPort);
+    }
+  }
+ catch (  TException|IllegalArgumentException|SecurityException e) {
+    LOG.error("Unexpected error occurred while invoke thrift object " + endpointHost + ":"+ endpointPort,e);
+    if (activity != null) {
+      activity.isSuccess(false);
+    }
+  }
+ finally {
+    transport.close();
+  }
+}

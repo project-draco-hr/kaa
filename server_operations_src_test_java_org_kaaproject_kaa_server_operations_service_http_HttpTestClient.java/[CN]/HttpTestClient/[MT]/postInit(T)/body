@@ -1,0 +1,16 @@
+{
+  try {
+    byte[] requestBodyRaw=requestConverter.toByteArray(request);
+    data=crypt.encodeData(requestBodyRaw);
+    signature=crypt.sign(data);
+    if (signature.length > 256) {
+      throw new Exception("Error signature length must not be more than 256, but " + signature.length);
+    }
+  }
+ catch (  IOException|GeneralSecurityException e) {
+    throw new Exception(e.toString());
+  }
+  objects.addObject(CommonEPConstans.REQUEST_SIGNATURE_ATTR_NAME,signature);
+  objects.addObject(CommonEPConstans.REQUEST_KEY_ATTR_NAME,key);
+  objects.addObject(CommonEPConstans.REQUEST_DATA_ATTR_NAME,data);
+}

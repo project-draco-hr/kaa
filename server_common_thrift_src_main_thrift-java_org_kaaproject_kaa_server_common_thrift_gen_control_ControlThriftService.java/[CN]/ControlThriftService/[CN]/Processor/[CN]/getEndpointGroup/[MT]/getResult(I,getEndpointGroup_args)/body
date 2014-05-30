@@ -1,0 +1,10 @@
+{
+  getEndpointGroup_result result=new getEndpointGroup_result();
+  try {
+    result.success=iface.getEndpointGroup(args.endpointGroupId);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

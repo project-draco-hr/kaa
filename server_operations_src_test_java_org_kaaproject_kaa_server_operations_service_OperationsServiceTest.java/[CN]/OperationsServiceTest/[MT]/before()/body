@@ -1,0 +1,33 @@
+{
+  operationsService=new DefaultOperationsService();
+  notificationDeltaService=mock(NotificationDeltaService.class);
+  ReflectionTestUtils.setField(operationsService,"notificationDeltaService",notificationDeltaService);
+  unicastNfDto=new NotificationDto();
+  unicastNfDto.setId(UNICAST_NF_ID);
+  unicastNfDto.setTopicId(USER_TOPIC_ID);
+  unicastNfDto.setType(NotificationTypeDto.USER);
+  unicastNfDto.setBody("test".getBytes(Charset.defaultCharset()));
+  Mockito.when(notificationDeltaService.findUnicastNotificationById(UNICAST_NF_ID)).thenReturn(unicastNfDto);
+  systemTopicNfDto=new NotificationDto();
+  systemTopicNfDto.setId(SYSTEM_TOPIC_NF_ID);
+  systemTopicNfDto.setTopicId(SYSTEM_TOPIC_ID);
+  systemTopicNfDto.setBody("test".getBytes(Charset.defaultCharset()));
+  systemTopicNfDto.setType(NotificationTypeDto.SYSTEM);
+  systemTopicNfDto.setSecNum(1);
+  userTopicNfDto=new NotificationDto();
+  userTopicNfDto.setId(USER_TOPIC_NF_ID);
+  userTopicNfDto.setTopicId(USER_TOPIC_ID);
+  userTopicNfDto.setBody("test".getBytes(Charset.defaultCharset()));
+  userTopicNfDto.setType(NotificationTypeDto.USER);
+  userTopicNfDto.setSecNum(1);
+  systemTopic=new TopicDto();
+  systemTopic.setId(SYSTEM_TOPIC_ID);
+  systemTopic.setType(TopicTypeDto.MANDATORY);
+  systemTopic.setName(SYSTEM_TOPIC_NAME);
+  userTopic=new TopicDto();
+  userTopic.setId(USER_TOPIC_ID);
+  userTopic.setType(TopicTypeDto.VOLUNTARY);
+  userTopic.setName(USER_TOPIC_NAME);
+  deltaSchemaBody=OperationsServiceIT.getResourceAsString(DefaultDeltaCalculatorTest.COMPLEX_PROTOCOL_SCHEMA);
+  binaryDelta=DefaultDeltaCalculatorTest.getComplexFieldDelta(new Schema.Parser().parse(deltaSchemaBody));
+}

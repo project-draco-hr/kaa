@@ -1,0 +1,8 @@
+{
+  cliConnect();
+  MemoryUsage memoryUsage=cliSession.getClient().getMemoryUsage(true);
+  Assert.assertNotNull(memoryUsage);
+  Assert.assertTrue(memoryUsage.getFree() > 0);
+  Assert.assertTrue(memoryUsage.getMax() > 0);
+  Assert.assertTrue(memoryUsage.getTotal() > 0);
+}

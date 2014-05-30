@@ -1,0 +1,9 @@
+{
+  final int prime=31;
+  int result=1;
+  result=prime * result + ((applicationToken == null) ? 0 : applicationToken.hashCode());
+  result=prime * result + applicationSeqNumber;
+  result=prime * result + configSchemaVersion;
+  result=prime * result + ((endpointGroupId == null) ? 0 : endpointGroupId.hashCode());
+  return result;
+}

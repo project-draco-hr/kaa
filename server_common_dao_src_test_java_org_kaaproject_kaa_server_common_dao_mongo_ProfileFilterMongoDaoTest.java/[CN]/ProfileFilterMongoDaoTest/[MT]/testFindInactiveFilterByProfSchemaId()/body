@@ -1,0 +1,7 @@
+{
+  ProfileSchemaDto schemaDto=generateProfSchema(null,1).get(0);
+  ProfileFilterDto filterDto=generateFilter(schemaDto.getId(),null,1,false).get(0);
+  ProfileFilter filter=profileFilterDao.findInactiveFilter(schemaDto.getId(),filterDto.getEndpointGroupId());
+  Assert.assertNotNull(filter);
+  Assert.assertEquals(filter.getStatus(),UpdateStatus.INACTIVE);
+}

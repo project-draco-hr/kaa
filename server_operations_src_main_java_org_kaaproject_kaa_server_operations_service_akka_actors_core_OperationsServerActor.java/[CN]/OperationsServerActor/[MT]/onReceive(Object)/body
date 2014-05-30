@@ -1,0 +1,9 @@
+{
+  LOG.debug("Received: {}",message);
+  if (message instanceof EndpointAwareMessage) {
+    processEndpointAwareMessage((EndpointAwareMessage)message);
+  }
+ else   if (message instanceof ThriftNotificationMessage) {
+    processNotificationMessage((ThriftNotificationMessage)message);
+  }
+}

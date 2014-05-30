@@ -1,0 +1,4 @@
+{
+  validateId(appId,"Can't find profile schema. Invalid application id: " + appId);
+  return getDto(profileSchemaDao.findByAppIdAndVersion(appId,schemaVersion));
+}

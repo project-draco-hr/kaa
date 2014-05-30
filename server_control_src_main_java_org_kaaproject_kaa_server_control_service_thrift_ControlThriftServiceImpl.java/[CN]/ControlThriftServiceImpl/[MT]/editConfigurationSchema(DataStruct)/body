@@ -1,0 +1,11 @@
+{
+  ConfigurationSchemaDto confSchema=null;
+  try {
+    confSchema=configurationService.saveConfSchema(ThriftDtoConverter.<ConfigurationSchemaDto>toDto(configurationSchema));
+  }
+ catch (  IncorrectParameterException e) {
+    LOG.error("Can't generate protocol schema. Can't save configuration schema.");
+    throw new TException(e);
+  }
+  return toDataStruct(confSchema);
+}

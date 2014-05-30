@@ -1,0 +1,17 @@
+{
+  TTupleProtocol oprot=(TTupleProtocol)prot;
+  BitSet optionals=new BitSet();
+  if (struct.isSetProfileFilterId()) {
+    optionals.set(0);
+  }
+  if (struct.isSetActivatedUsername()) {
+    optionals.set(1);
+  }
+  oprot.writeBitSet(optionals,2);
+  if (struct.isSetProfileFilterId()) {
+    oprot.writeString(struct.profileFilterId);
+  }
+  if (struct.isSetActivatedUsername()) {
+    oprot.writeString(struct.activatedUsername);
+  }
+}

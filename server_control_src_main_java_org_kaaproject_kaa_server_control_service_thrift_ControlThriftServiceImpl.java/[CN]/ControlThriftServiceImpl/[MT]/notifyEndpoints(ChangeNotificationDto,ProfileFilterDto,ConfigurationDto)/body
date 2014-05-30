@@ -1,0 +1,16 @@
+{
+  Notification thriftNotification=new Notification();
+  thriftNotification.setAppId(notification.getAppId());
+  thriftNotification.setAppSeqNumber(notification.getAppSeqNumber());
+  thriftNotification.setGroupId(notification.getGroupId());
+  thriftNotification.setGroupSeqNumber(notification.getGroupSeqNumber());
+  if (profileFilter != null) {
+    thriftNotification.setProfileFilterId(profileFilter.getId());
+    thriftNotification.setProfileFilterSeqNumber(profileFilter.getSequenceNumber());
+  }
+  if (configuration != null) {
+    thriftNotification.setConfigurationId(configuration.getId());
+    thriftNotification.setConfigurationSeqNumber(configuration.getSequenceNumber());
+  }
+  controlZKService.sendEndpointNotification(thriftNotification);
+}

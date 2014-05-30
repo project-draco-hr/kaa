@@ -1,0 +1,17 @@
+{
+  int tCount=group.activeCount();
+  int gCount=group.activeGroupCount();
+  Thread[] gThreads=new Thread[tCount];
+  ThreadGroup[] tGroups=new ThreadGroup[gCount];
+  group.enumerate(gThreads,false);
+  group.enumerate(tGroups,false);
+  for (  Thread t : gThreads) {
+    if (t != null) {
+      ThreadStruct ts=threadsMap.get(t.getId());
+      ts.t=t;
+    }
+  }
+  for (  ThreadGroup tg : tGroups) {
+    allThreadsFromGroup(tg,threadsMap);
+  }
+}

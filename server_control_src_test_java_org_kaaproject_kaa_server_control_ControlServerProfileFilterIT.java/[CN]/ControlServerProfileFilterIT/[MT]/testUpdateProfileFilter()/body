@@ -1,0 +1,7 @@
+{
+  ProfileFilterDto profileFilter=createProfileFilter();
+  String filterUpdated=getResourceAsString(TEST_PROFILE_FILTER_UPDATED);
+  profileFilter.setBody(filterUpdated);
+  ProfileFilterDto updatedProfileFilter=toDto(client.editProfileFilter(toDataStruct(profileFilter)));
+  assertProfileFiltersEquals(updatedProfileFilter,profileFilter);
+}

@@ -1,0 +1,12 @@
+{
+  String appId=generateApplication().getId();
+  EndpointGroupDto groupDto=generateEndpointGroup(appId);
+  ProfileSchemaDto schema=generateProfSchema(appId,1).get(0);
+  ProfileFilterDto filter=generateFilter(schema.getId(),groupDto.getId(),3,true).get(2);
+  Assert.assertEquals(UpdateStatus.ACTIVE,filter.getStatus());
+  profileService.deactivateProfileFilter(filter.getId(),null);
+  List<StructureRecordDto<ProfileFilterDto>> records=(List<StructureRecordDto<ProfileFilterDto>>)profileService.findAllProfileFilterRecordsByEndpointGroupId(groupDto.getId(),true);
+  Assert.assertNotNull(records);
+  Assert.assertEquals(1,records.size());
+  Assert.assertEquals(UpdateStatus.DEPRECATED,records.get(0).getActiveStructureDto().getStatus());
+}

@@ -1,0 +1,9 @@
+{
+  controlClientConnect();
+  ControlApiCliThriftClient cli=new ControlApiCliThriftClient();
+  String applicationId=editApplicationCli(cli,null,null,false);
+  String groupId=editEndpointGroupCli(cli,null,applicationId,"10",false);
+  String topicId=editTopicCli(cli,null,applicationId,SubscriptionType.MANDATORY,false);
+  String output=editTopicInEndpointGroupCli(cli,groupId,topicId,false,false);
+  Assert.assertTrue(output.trim().startsWith("Topic was added to Endpoint Group"));
+}

@@ -1,0 +1,8 @@
+{
+  cliOut.reset();
+  cliErr.reset();
+  int result=cli.processLine(cmdLine);
+  Assert.assertEquals(result,0);
+  String errorOut=cliErr.toString("UTF-8");
+  Assert.assertTrue(errorOut.trim().contains(expectedMessage));
+}

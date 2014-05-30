@@ -1,0 +1,28 @@
+{
+  LOG.trace("Starting Bootstrap service..." + propertiesToString());
+  try {
+    if (zkEnabled) {
+      startZK();
+    }
+    LOG.trace("Bootstrap Service ZK started");
+    if (operationsServerListService == null) {
+      operationsServerListService=new OperationsServerListService(getConfig());
+      if (operationsServerListService == null) {
+        throw new Exception("Error initializing OperationsServerListService()");
+      }
+      getConfig().setOperationsServerListService(operationsServerListService);
+      if (zkEnabled) {
+        getConfig().setBootstrapNode(bootstrapNode);
+      }
+      operationsServerListService.init();
+    }
+    LOG.trace("Config: " + getConfig().toString());
+    httpService=new ProtocolService(getConfig());
+    httpService.start();
+    bootstrapThriftService.setConfig(getConfig());
+    startThrift();
+  }
+ catch (  Exception e) {
+    LOG.error("Error starting Bootstrap Service",e);
+  }
+}

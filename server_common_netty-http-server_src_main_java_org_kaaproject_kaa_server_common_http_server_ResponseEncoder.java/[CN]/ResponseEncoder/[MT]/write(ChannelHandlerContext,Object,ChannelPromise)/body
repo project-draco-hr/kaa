@@ -1,0 +1,17 @@
+{
+  if (!(msg instanceof CommandProcessor)) {
+    super.write(ctx,msg,promise);
+    return;
+  }
+  CommandProcessor cp=(CommandProcessor)msg;
+  Attribute<Track> sessionTrackAttr=ctx.channel().attr(NettyHttpServer.TRACK_KEY);
+  HttpResponse httpResponse=cp.getHttpResponse();
+  if (sessionTrackAttr.get() != null) {
+    sessionTrackAttr.get().setProcessTime(cp.getCommandId(),cp.getSyncTime());
+    sessionTrackAttr.get().closeRequest(cp.getCommandId());
+  }
+  ChannelFuture future=ctx.writeAndFlush(httpResponse,promise);
+  if (!HttpHeaders.isKeepAlive(httpResponse)) {
+    future.addListener(ChannelFutureListener.CLOSE);
+  }
+}

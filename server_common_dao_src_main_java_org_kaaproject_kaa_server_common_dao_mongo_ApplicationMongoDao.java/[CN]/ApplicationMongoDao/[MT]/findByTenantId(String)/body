@@ -1,0 +1,4 @@
+{
+  LOG.debug("Find applications by tenant id [{}] ",tenantId);
+  return find(query(where(TENANT_ID).is(new ObjectId(tenantId))));
+}

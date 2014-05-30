@@ -1,0 +1,6 @@
+{
+  ApplicationDto application=createApplication();
+  application.setName(generateString(APPLICATION));
+  ApplicationDto updatedApplication=toDto(client.editApplication(toDataStruct(application)));
+  assertApplicationsEquals(updatedApplication,application);
+}

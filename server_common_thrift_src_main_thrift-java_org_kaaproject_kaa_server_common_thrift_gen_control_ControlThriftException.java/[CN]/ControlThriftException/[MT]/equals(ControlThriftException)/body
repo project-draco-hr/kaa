@@ -1,0 +1,22 @@
+{
+  if (that == null)   return false;
+  boolean this_present_message=true && this.isSetMessage();
+  boolean that_present_message=true && that.isSetMessage();
+  if (this_present_message || that_present_message) {
+    if (!(this_present_message && that_present_message))     return false;
+    if (!this.message.equals(that.message))     return false;
+  }
+  boolean this_present_causeExceptionClass=true && this.isSetCauseExceptionClass();
+  boolean that_present_causeExceptionClass=true && that.isSetCauseExceptionClass();
+  if (this_present_causeExceptionClass || that_present_causeExceptionClass) {
+    if (!(this_present_causeExceptionClass && that_present_causeExceptionClass))     return false;
+    if (!this.causeExceptionClass.equals(that.causeExceptionClass))     return false;
+  }
+  boolean this_present_causeStackStrace=true && this.isSetCauseStackStrace();
+  boolean that_present_causeStackStrace=true && that.isSetCauseStackStrace();
+  if (this_present_causeStackStrace || that_present_causeStackStrace) {
+    if (!(this_present_causeStackStrace && that_present_causeStackStrace))     return false;
+    if (!this.causeStackStrace.equals(that.causeStackStrace))     return false;
+  }
+  return true;
+}

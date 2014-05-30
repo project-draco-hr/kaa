@@ -1,0 +1,12 @@
+{
+  testProcessed=0;
+  testFailed=0;
+  requestTime=0;
+  sessionTime=0;
+  config.setSessionTrack(new Statistics());
+  netty=new NettyHttpServer(config);
+  netty.init();
+  netty.start();
+  assertNotNull(netty);
+  Thread.sleep(500);
+}

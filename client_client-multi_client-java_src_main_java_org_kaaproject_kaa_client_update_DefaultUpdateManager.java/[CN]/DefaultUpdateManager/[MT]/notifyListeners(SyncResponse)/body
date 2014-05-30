@@ -1,0 +1,10 @@
+{
+  for (  UpdateListener listener : listeners) {
+    try {
+      listener.onDeltaUpdate(response);
+    }
+ catch (    Exception e) {
+      LOG.error("Listener failed to process event",e);
+    }
+  }
+}

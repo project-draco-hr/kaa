@@ -1,0 +1,10 @@
+{
+  getTenantAdmin_result result=new getTenantAdmin_result();
+  try {
+    result.success=iface.getTenantAdmin(args.tenantId);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

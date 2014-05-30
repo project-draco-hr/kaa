@@ -1,0 +1,9 @@
+{
+  if (isResetDeclared) {
+    return NAMESPACE + "." + RESET_NAME+ "T";
+  }
+ else {
+    isResetDeclared=true;
+    return getEnum(RESET_NAME);
+  }
+}

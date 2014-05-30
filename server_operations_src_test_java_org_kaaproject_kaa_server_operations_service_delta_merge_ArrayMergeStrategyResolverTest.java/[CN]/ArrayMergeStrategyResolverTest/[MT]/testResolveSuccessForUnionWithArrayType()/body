@@ -1,0 +1,9 @@
+{
+  Path schemaUrl=Paths.get(Thread.currentThread().getContextClassLoader().getResource("service/delta/merge/schema_for_array_merge_strategy_resolver_with_array_in_union_type.json").toURI());
+  String configuraionSchema=new String(Files.readAllBytes(schemaUrl));
+  SchemaCreator baseSchemaCreator=new SchemaCreatorImpl(new BaseDataSchemaStrategy());
+  String baseSchemaString=baseSchemaCreator.createSchema(new StringReader(configuraionSchema));
+  ArrayMergeStrategyResolver arrayMergeStrategyResolver=new ArrayMergeStrategyResolver(baseSchemaString);
+  ArrayMergeStrategy actualArrayMergeStrategy=arrayMergeStrategyResolver.resolve("testT","org.kaa.config","field1");
+  Assert.assertTrue(ArrayMergeStrategy.APPEND == actualArrayMergeStrategy);
+}

@@ -1,0 +1,10 @@
+{
+  getProfileSchemaVersionsByApplicationId_result result=new getProfileSchemaVersionsByApplicationId_result();
+  try {
+    result.success=iface.getProfileSchemaVersionsByApplicationId(args.applicationId);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

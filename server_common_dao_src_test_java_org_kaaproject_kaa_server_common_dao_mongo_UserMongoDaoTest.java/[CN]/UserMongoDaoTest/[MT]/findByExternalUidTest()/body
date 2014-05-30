@@ -1,0 +1,6 @@
+{
+  User dto=userDao.findById(users.get(0));
+  Assert.assertNotNull(dto);
+  User found=userDao.findByExternalUid(dto.getExternalUid());
+  Assert.assertEquals(dto,found);
+}

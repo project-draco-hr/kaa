@@ -1,0 +1,14 @@
+{
+  controlClientConnect();
+  ControlApiCliThriftClient cli=new ControlApiCliThriftClient();
+  String tenantId=editTenantCli(cli,null,true);
+  tenantId=editTenantCli(cli,null,false);
+  Assert.assertFalse(strIsEmpty(tenantId));
+  Assert.assertEquals(tenantId.length(),24);
+  editTenantCli(cli,tenantId,false);
+  editTenantCli(cli,FAKE_ID,false);
+  showEntityCli(cli,tenantId,EntityType.TENANT);
+  listTenantsCli(cli,false);
+  listTenantsCli(cli,true);
+  deleteEntityCli(cli,tenantId,EntityType.TENANT);
+}

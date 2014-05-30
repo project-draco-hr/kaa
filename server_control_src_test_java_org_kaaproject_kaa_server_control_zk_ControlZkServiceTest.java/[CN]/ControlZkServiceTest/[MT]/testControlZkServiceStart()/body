@@ -1,0 +1,8 @@
+{
+  ControlZkService zkService=new ControlZkService();
+  ReflectionTestUtils.setField(zkService,"zkEnabled",false);
+  zkService.start();
+  enableZk(zkService);
+  ReflectionTestUtils.setField(zkService,"zkIgnoreErrors",true);
+  zkService.start();
+}

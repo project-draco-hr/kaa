@@ -1,0 +1,7 @@
+{
+  ByteArrayOutputStream baos=new ByteArrayOutputStream();
+  encoder=EncoderFactory.get().binaryEncoder(baos,encoder);
+  avroWriter.write(avroObject,encoder);
+  encoder.flush();
+  return baos.toByteArray();
+}

@@ -1,0 +1,13 @@
+{
+  ControlNodeInfo serverInfo=getControlServerInfo();
+  if (currentNodeInfo != null && serverInfo != null) {
+    String curHost=currentNodeInfo.getConnectionInfo().getThriftHost().toString();
+    int curPort=currentNodeInfo.getConnectionInfo().getThriftPort();
+    String masterHost=serverInfo.getConnectionInfo().getThriftHost().toString();
+    int masterPort=serverInfo.getConnectionInfo().getThriftPort();
+    return curHost.equals(masterHost) && curPort == masterPort;
+  }
+ else {
+    return false;
+  }
+}

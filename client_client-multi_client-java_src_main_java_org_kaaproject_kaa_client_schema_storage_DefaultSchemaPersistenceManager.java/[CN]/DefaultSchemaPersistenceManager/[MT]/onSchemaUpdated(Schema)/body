@@ -1,0 +1,17 @@
+{
+  if (!ignoreNextUpdate) {
+    try {
+      byte[] schemaBuffer=schema.toString().getBytes("UTF-8");
+      ByteBuffer buffer=ByteBuffer.wrap(schemaBuffer);
+      if (storage != null) {
+        storage.saveSchema(buffer);
+      }
+    }
+ catch (    UnsupportedEncodingException e) {
+      throw new SchemaRuntimeException("Failed to save schema");
+    }
+  }
+ else {
+    ignoreNextUpdate=false;
+  }
+}

@@ -1,0 +1,10 @@
+{
+  deleteConfigurationRecord_result result=new deleteConfigurationRecord_result();
+  try {
+    iface.deleteConfigurationRecord(args.schemaId,args.endpointGroupId,args.deactivatedUsername);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

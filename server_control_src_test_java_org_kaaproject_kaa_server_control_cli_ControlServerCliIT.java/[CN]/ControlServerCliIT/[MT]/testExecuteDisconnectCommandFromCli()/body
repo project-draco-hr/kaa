@@ -1,0 +1,7 @@
+{
+  controlClientConnect();
+  ControlApiCliThriftClient cli=new ControlApiCliThriftClient();
+  int result=cli.processLine("disconnect");
+  Assert.assertEquals(result,0);
+  Assert.assertFalse(controlClientSession.isRemoteMode());
+}

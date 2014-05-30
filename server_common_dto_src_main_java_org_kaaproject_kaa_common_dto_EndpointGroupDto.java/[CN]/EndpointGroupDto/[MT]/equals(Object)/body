@@ -1,0 +1,25 @@
+{
+  if (this == o) {
+    return true;
+  }
+  if (o == null || getClass() != o.getClass()) {
+    return false;
+  }
+  EndpointGroupDto that=(EndpointGroupDto)o;
+  if (sequenceNumber != that.sequenceNumber) {
+    return false;
+  }
+  if (weight != that.weight) {
+    return false;
+  }
+  if (applicationId != null ? !applicationId.equals(that.applicationId) : that.applicationId != null) {
+    return false;
+  }
+  if (name != null ? !name.equals(that.name) : that.name != null) {
+    return false;
+  }
+  if (topics != null ? !topics.equals(that.topics) : that.topics != null) {
+    return false;
+  }
+  return true;
+}

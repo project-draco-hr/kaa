@@ -1,0 +1,15 @@
+{
+  if (fieldSchema.schema().getType() == Schema.Type.UNION) {
+    for (    Schema unionedSchema : fieldSchema.schema().getTypes()) {
+      if (unionedSchema.getFullName().equalsIgnoreCase(UUIDT)) {
+        return null;
+      }
+    }
+  }
+ else {
+    if (uuidField.getSchema().getFullName().equalsIgnoreCase(UUIDT)) {
+      return null;
+    }
+  }
+  return uuidField;
+}

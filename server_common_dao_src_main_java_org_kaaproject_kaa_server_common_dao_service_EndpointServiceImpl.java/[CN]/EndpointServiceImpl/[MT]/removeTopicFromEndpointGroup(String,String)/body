@@ -1,0 +1,21 @@
+{
+  validateId(id,"Can't remove endpoint group topics " + topicId + ". Incorrect endpoint group id."+ id);
+  UpdateNotificationDto<EndpointGroupDto> dto=null;
+  EndpointGroup endpointGroup=endpointGroupDao.removeTopicFromEndpointGroup(id,topicId);
+  if (endpointGroup != null) {
+    dto=new UpdateNotificationDto<EndpointGroupDto>();
+    HistoryDto history=addHistory(endpointGroup.toDto(),ChangeType.REMOVE_TOPIC,topicId);
+    if (history != null) {
+      dto.setAppId(history.getApplicationId());
+      dto.setAppSeqNumber(history.getSequenceNumber());
+    }
+    dto.setChangeType(ChangeType.REMOVE_TOPIC);
+    dto.setTopicId(topicId);
+    dto.setGroupId(endpointGroup.getId());
+    dto.setPayload(endpointGroup.toDto());
+  }
+ else {
+    LOG.debug("Can't remove topic [{}] from endpoint group [{}]",topicId,id);
+  }
+  return dto;
+}

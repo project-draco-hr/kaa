@@ -1,0 +1,7 @@
+{
+  NotificationDto dto=generateNotifications(null,null,3,null).get(0);
+  String appId=dto.getApplicationId();
+  notificationService.removeNotificationSchemasByAppId(appId);
+  List<NotificationSchemaDto> schemas=notificationService.findNotificationSchemasByAppId(appId);
+  Assert.assertTrue(schemas.isEmpty());
+}

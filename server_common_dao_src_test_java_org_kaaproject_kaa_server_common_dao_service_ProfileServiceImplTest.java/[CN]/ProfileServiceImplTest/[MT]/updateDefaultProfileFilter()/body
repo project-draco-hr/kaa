@@ -1,0 +1,9 @@
+{
+  String appId=generateApplication().getId();
+  List<ProfileFilter> filters=profileFilterDao.findByAppIdAndSchemaVersion(appId,1);
+  Assert.assertNotNull(filters);
+  ProfileFilter filter=filters.get(0);
+  filter.setId(null);
+  filter.setBody("false");
+  profileService.saveProfileFilter(filter.toDto());
+}

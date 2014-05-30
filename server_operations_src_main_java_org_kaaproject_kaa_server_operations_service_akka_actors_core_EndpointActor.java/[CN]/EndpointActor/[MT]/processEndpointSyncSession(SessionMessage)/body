@@ -1,0 +1,11 @@
+{
+  boolean replied=false;
+  pendingRequest=(LongSyncRequestMessage)message;
+  if (message instanceof LongSyncRequestMessage) {
+    replied=processLongSync(pendingRequest);
+  }
+  if (!replied) {
+    subscribeToTopics(pendingResponse);
+    scheduleTimeoutMessage(message);
+  }
+}

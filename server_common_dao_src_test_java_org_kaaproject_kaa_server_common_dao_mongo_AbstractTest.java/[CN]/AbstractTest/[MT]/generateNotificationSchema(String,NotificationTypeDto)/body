@@ -1,0 +1,19 @@
+{
+  NotificationSchemaDto schema=new NotificationSchemaDto();
+  if (isBlank(appId)) {
+    appId=generateApplication().getId();
+  }
+  schema.setApplicationId(appId);
+  schema.setName(NOTIFICATION_SCHEMA_NAME);
+  String schemaBody=null;
+  try {
+    schemaBody=readSchemaFileAsString("dao/schema/testBaseSchema.json");
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+    Assert.fail(e.getMessage());
+  }
+  schema.setSchema(schemaBody);
+  schema.setType(type != null ? type : NotificationTypeDto.USER);
+  return notificationService.saveNotificationSchema(schema);
+}

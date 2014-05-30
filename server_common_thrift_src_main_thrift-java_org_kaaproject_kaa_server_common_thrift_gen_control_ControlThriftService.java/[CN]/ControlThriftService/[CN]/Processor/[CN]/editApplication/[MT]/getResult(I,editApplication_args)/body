@@ -1,0 +1,10 @@
+{
+  editApplication_result result=new editApplication_result();
+  try {
+    result.success=iface.editApplication(args.application);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

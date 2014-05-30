@@ -1,0 +1,17 @@
+{
+  LOG.trace("Stopping Bootstrap Service..." + propertiesToString());
+  if (httpService != null) {
+    httpService.stop();
+    httpService=null;
+  }
+  if (operationsServerListService != null) {
+    operationsServerListService.deinit();
+    operationsServerListService=null;
+  }
+  if (zkEnabled) {
+    stopZK();
+  }
+  if (server != null) {
+    server.stop();
+  }
+}

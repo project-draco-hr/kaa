@@ -1,0 +1,22 @@
+{
+  ResolveCommand cmd=new ResolveCommand();
+  cmd.setServer(serverMock);
+  try {
+    cmd.setHttpRequest(getRequest(false));
+    cmd.parse();
+  }
+ catch (  Exception e) {
+    fail(e.toString());
+  }
+  assertNotNull(cmd.requestData);
+  ResolveCommand cmd1=new ResolveCommand();
+  cmd1.setServer(serverMock);
+  try {
+    cmd1.setHttpRequest(getRequest(true));
+    cmd1.parse();
+    fail("Parse should fire Exception, No Application Token attribute");
+  }
+ catch (  Exception e) {
+    assertNotNull("Test on No application token attribute pass. " + e.toString(),e);
+  }
+}

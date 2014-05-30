@@ -1,0 +1,15 @@
+{
+  super(other);
+  if (isValidValue(fields()[0],other.id)) {
+    this.id=data().deepCopy(fields()[0].schema(),other.id);
+    fieldSetFlags()[0]=true;
+  }
+  if (isValidValue(fields()[1],other.name)) {
+    this.name=data().deepCopy(fields()[1].schema(),other.name);
+    fieldSetFlags()[1]=true;
+  }
+  if (isValidValue(fields()[2],other.subscriptionType)) {
+    this.subscriptionType=data().deepCopy(fields()[2].schema(),other.subscriptionType);
+    fieldSetFlags()[2]=true;
+  }
+}

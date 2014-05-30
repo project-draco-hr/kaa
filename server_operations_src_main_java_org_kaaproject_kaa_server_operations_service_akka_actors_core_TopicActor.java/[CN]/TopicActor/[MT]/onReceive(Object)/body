@@ -1,0 +1,14 @@
+{
+  LOG.debug("Received: {}",message);
+  if (message instanceof EndpointAwareMessage) {
+    if (message instanceof TopicRegistrationRequestMessage) {
+      processEndpointRegistration((TopicRegistrationRequestMessage)message);
+    }
+  }
+ else   if (message instanceof Terminated) {
+    processTermination((Terminated)message);
+  }
+ else   if (message instanceof ThriftNotificationMessage) {
+    broadcastToAllEndpoints((ThriftNotificationMessage)message);
+  }
+}

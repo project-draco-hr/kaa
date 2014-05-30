@@ -1,0 +1,22 @@
+{
+  float prefWidth=0;
+  prefWidth+=constructStringColumn(table,Utils.constants.userName(),new StringValueProvider<UserDto>(){
+    @Override public String getValue(    UserDto item){
+      return item.getUsername();
+    }
+  }
+,160);
+  prefWidth+=constructStringColumn(table,Utils.constants.email(),new StringValueProvider<UserDto>(){
+    @Override public String getValue(    UserDto item){
+      return item.getMail();
+    }
+  }
+,160);
+  prefWidth+=constructStringColumn(table,Utils.constants.role(),new StringValueProvider<UserDto>(){
+    @Override public String getValue(    UserDto item){
+      return Utils.constants.getString(item.getAuthority().name().toLowerCase());
+    }
+  }
+,160);
+  return prefWidth;
+}

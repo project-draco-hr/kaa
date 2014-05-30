@@ -1,0 +1,13 @@
+{
+  final List<HistoryDto> expectedList=getResultHistoryList();
+  for (int i=0; i < STRESS_TEST_INVOCATIONS; i++) {
+    launchCodeInParallelThreads(STRESS_TEST_N_THREADS,new Runnable(){
+      @Override public void run(){
+        assertEquals(expectedList,cacheService.getHistory(TEST_HISTORY_KEY));
+      }
+    }
+);
+    verify(historyService,atMost(2)).findHistoriesBySeqNumberRange(APP_ID,TEST_APP_SEQ_NUMBER,TEST_APP_SEQ_NUMBER_NEW);
+    reset(historyService);
+  }
+}

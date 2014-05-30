@@ -1,0 +1,31 @@
+{
+  String endpointId=Base64Util.encode(request.getEndpointPublicKeyHash().array());
+  LOG.debug("[{}] processing sync request: {}",endpointId,request);
+  int curAppSeqNumber=cacheService.getAppSeqNumber(request.getApplicationToken());
+  LOG.debug("[{}] fetched app seq number {} for {}",endpointId,curAppSeqNumber,request.hashCode());
+  LOG.debug("[{}] fetching profile for {}",endpointId,request.hashCode());
+  profile=fetchProfile(request,profile);
+  if (!Arrays.equals(profile.getProfileHash(),toByteArray(request.getProfileHash()))) {
+    LOG.debug("[{}] Profile hash mismatch. Profile resync needed");
+    return buildProfileResyncResponse(request);
+  }
+  LOG.debug("[{}] fetching history for {}",endpointId,request.hashCode());
+  HistoryDelta historyDelta=fetchHistory(endpointId,request,profile,curAppSeqNumber);
+  LOG.debug("[{}] calculating configuration delta for {}",endpointId,request.hashCode());
+  GetDeltaResponse confResponse=calculateConfigurationDelta(request,profile,historyDelta,curAppSeqNumber,fetchSchema);
+  LOG.debug("[{}] calculating notification delta for {}",endpointId,request.hashCode());
+  GetNotificationResponse notificationResponse=calculateNotificationDelta(request,profile,historyDelta);
+  LOG.debug("[{}] building response for {}",endpointId,request.hashCode());
+  SyncResponseHolder syncResponseHolder=buildResponse(curAppSeqNumber,confResponse,notificationResponse,profile.getSystemNfVersion(),profile.getUserNfVersion());
+  LOG.debug("[{}] response for {} is {}",endpointId,request.hashCode(),syncResponseHolder);
+  if (historyDelta.isSmthChanged() || notificationResponse.isSubscriptionListChanged()) {
+    if (historyDelta.isSmthChanged()) {
+      List<EndpointGroupStateDto> endpointGroups=historyDelta.getEndpointGroupStates();
+      LOG.debug("[{}] Updating profile {} with endpoint groups.size {}, groups: {}",endpointId,profile,endpointGroups.size(),endpointGroups);
+      profile.setEndpointGroups(endpointGroups);
+    }
+    profileService.updateProfile(profile);
+  }
+  LOG.debug("[{}] processed sync request: {}",endpointId,request);
+  return syncResponseHolder;
+}

@@ -1,0 +1,7 @@
+{
+  ProfileSchemaDto schemaDto=generateProfSchema(null,1).get(0);
+  ProfileFilterDto filter=generateFilter(schemaDto.getId(),null,1,true).get(0);
+  List<ProfileFilter> filters=profileFilterDao.findActiveByProfileSchemaId(schemaDto.getId());
+  Assert.assertNotNull(filters);
+  checkList(filters,new ProfileFilter(filter));
+}

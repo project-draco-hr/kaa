@@ -1,0 +1,27 @@
+{
+  super(false,true);
+  setTitle(title);
+  this.listener=listener;
+  VerticalPanel dialogContents=new VerticalPanel();
+  dialogContents.setSpacing(4);
+  setWidget(dialogContents);
+  AlertPanel questionLabel=new AlertPanel(AlertPanel.Type.WARNING);
+  questionLabel.setMessage(question);
+  dialogContents.add(questionLabel);
+  noButton=new Button(Utils.constants.no(),new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      hide();
+      ConfirmDialog.this.listener.onNo();
+    }
+  }
+);
+  yesButton=new Button(Utils.constants.yes(),new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      hide();
+      ConfirmDialog.this.listener.onYes();
+    }
+  }
+);
+  addButton(yesButton);
+  addButton(noButton);
+}

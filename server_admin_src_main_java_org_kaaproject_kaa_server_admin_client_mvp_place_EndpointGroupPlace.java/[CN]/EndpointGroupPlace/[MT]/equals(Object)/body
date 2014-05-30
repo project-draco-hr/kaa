@@ -1,0 +1,11 @@
+{
+  if (this == obj)   return true;
+  if (obj == null)   return false;
+  if (getClass() != obj.getClass())   return false;
+  EndpointGroupPlace other=(EndpointGroupPlace)obj;
+  if (endpointGroupId == null) {
+    if (other.endpointGroupId != null)     return false;
+  }
+ else   if (!endpointGroupId.equals(other.endpointGroupId))   return false;
+  return true;
+}

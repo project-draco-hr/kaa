@@ -1,0 +1,10 @@
+{
+  List<ProfileFilterDto> filters=generateFilter(null,null,1,false);
+  ProfileFilterDto filterDto=filters.get(0);
+  String inactiveId=filterDto.getId();
+  filterDto.setId(null);
+  ProfileFilterDto saved=profileService.saveProfileFilter(filterDto);
+  Assert.assertNotNull(saved);
+  Assert.assertEquals(saved.getStatus(),UpdateStatus.INACTIVE);
+  Assert.assertEquals(inactiveId,saved.getId());
+}

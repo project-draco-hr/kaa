@@ -1,0 +1,14 @@
+{
+  List<UserDto> users=new ArrayList<>(count);
+  UserDto userDto=null;
+  for (int i=0; i < count; i++) {
+    userDto=new UserDto();
+    userDto.setUsername(USER_NAME);
+    userDto.setTenantId(tenantId);
+    userDto.setExternalUid(UUID.randomUUID().toString());
+    userDto.setAuthority(authority);
+    userDto=userService.saveUser(userDto);
+    users.add(userDto);
+  }
+  return users;
+}

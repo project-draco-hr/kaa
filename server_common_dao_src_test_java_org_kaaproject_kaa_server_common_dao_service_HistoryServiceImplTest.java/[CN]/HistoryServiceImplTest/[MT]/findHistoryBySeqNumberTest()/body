@@ -1,0 +1,4 @@
+{
+  HistoryDto history=historyService.findHistoryBySeqNumber(application.getId(),3);
+  Assert.assertEquals(ChangeType.ADD_CONF,history.getChange().getType());
+}

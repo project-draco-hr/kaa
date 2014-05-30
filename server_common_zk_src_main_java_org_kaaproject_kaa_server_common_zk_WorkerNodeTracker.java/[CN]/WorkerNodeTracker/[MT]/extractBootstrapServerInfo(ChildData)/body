@@ -1,0 +1,10 @@
+{
+  BootstrapNodeInfo bootstrapServerInfo=null;
+  try {
+    bootstrapServerInfo=bootstrapNodeAvroConverter.get().fromByteArray(currentData.getData(),null);
+  }
+ catch (  IOException e) {
+    LOG.error("error reading control server info",e);
+  }
+  return bootstrapServerInfo;
+}

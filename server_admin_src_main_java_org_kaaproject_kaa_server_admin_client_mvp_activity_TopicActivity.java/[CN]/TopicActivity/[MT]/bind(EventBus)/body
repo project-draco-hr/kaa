@@ -1,0 +1,11 @@
+{
+  super.bind(eventBus);
+  if (!create) {
+    registrations.add(detailsView.getSendNotificationButton().addClickHandler(new ClickHandler(){
+      public void onClick(      ClickEvent event){
+        sendNotification();
+      }
+    }
+));
+  }
+}

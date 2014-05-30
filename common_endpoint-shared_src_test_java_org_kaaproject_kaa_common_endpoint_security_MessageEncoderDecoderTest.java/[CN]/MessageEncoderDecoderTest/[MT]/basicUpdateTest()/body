@@ -1,0 +1,13 @@
+{
+  MessageEncoderDecoder client=new MessageEncoderDecoder(clientPrivate,clientPublic,serverPublic);
+  Assert.assertNotNull(client.getPublicKey());
+  Assert.assertNotNull(client.getPrivateKey());
+  Assert.assertNotNull(client.getRemotePublicKey());
+  byte[] remoteKey=client.getRemotePublicKey().getEncoded();
+  client.setRemotePublicKey(serverPublic);
+  Assert.assertTrue(Arrays.equals(remoteKey,client.getRemotePublicKey().getEncoded()));
+  client.setRemotePublicKey(serverPublic.getEncoded());
+  Assert.assertTrue(Arrays.equals(remoteKey,client.getRemotePublicKey().getEncoded()));
+  client.setRemotePublicKey(theifPublic.getEncoded());
+  Assert.assertFalse(Arrays.equals(remoteKey,client.getRemotePublicKey().getEncoded()));
+}

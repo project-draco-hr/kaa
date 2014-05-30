@@ -1,0 +1,16 @@
+{
+  if (buffer != null) {
+    GenericAvroConverter<GenericArray<GenericRecord>> converter=new GenericAvroConverter<GenericArray<GenericRecord>>(schema);
+    GenericArray<GenericRecord> deltaArray=converter.decodeBinary(buffer.array());
+    for (    GenericRecord delta : deltaArray) {
+      GenericRecord record=(GenericRecord)delta.get("delta");
+      int index=delta.getSchema().getField("delta").schema().getTypes().indexOf(record.getSchema());
+      for (      GenericDeltaReceiver subscriber : onDeltaReceived) {
+        subscriber.onDeltaReceived(index,record,fullResync);
+      }
+    }
+    for (    ConfigurationProcessedObserver callback : onProcessed) {
+      callback.onConfigurationProcessed();
+    }
+  }
+}

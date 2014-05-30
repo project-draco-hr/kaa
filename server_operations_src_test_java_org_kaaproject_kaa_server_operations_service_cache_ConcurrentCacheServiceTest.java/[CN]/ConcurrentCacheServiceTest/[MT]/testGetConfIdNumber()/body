@@ -1,0 +1,8 @@
+{
+  assertEquals(CF1_ID,cacheService.getConfIdByKey(TEST_CONF_ID_KEY));
+  verify(configurationService,times(1)).findConfigurationsByEndpointGroupId(ENDPOINT_GROUP1_ID);
+  reset(configurationService);
+  assertEquals(CF1_ID,cacheService.getConfIdByKey(TEST_CONF_ID_KEY));
+  verify(configurationService,times(0)).findConfigurationsByEndpointGroupId(ENDPOINT_GROUP1_ID);
+  reset(configurationService);
+}

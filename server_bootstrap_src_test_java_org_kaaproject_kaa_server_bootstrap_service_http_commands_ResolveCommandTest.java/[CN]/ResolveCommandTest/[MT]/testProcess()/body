@@ -1,0 +1,16 @@
+{
+  ResolveCommand cmd=new ResolveCommand();
+  cmd.setServer(serverMock);
+  try {
+    cmd.setHttpRequest(getRequest(false));
+    cmd.parse();
+    cmd.process();
+  }
+ catch (  Exception e) {
+    fail(e.toString());
+  }
+  assertNotNull(cmd.applicationToken);
+  assertEquals(APPLICATION_TOKEN_TEST,cmd.applicationToken);
+  assertNotNull(cmd.responseBody);
+  assertNotNull(cmd.responseSignature);
+}

@@ -1,0 +1,46 @@
+{
+  registrations.add(detailsView.getSaveButton().addClickHandler(new ClickHandler(){
+    public void onClick(    ClickEvent event){
+      doSave(eventBus);
+    }
+  }
+));
+  final Place previousPlace=place.getPreviousPlace();
+  if (previousPlace != null) {
+    detailsView.setBackEnabled(true);
+    detailsView.setCancelEnabled(true);
+    registrations.add(detailsView.getCancelButton().addClickHandler(new ClickHandler(){
+      public void onClick(      ClickEvent event){
+        goTo(place.getPreviousPlace());
+      }
+    }
+));
+    registrations.add(detailsView.getBackButton().addClickHandler(new ClickHandler(){
+      public void onClick(      ClickEvent event){
+        goTo(place.getPreviousPlace());
+      }
+    }
+));
+  }
+ else {
+    detailsView.setBackEnabled(false);
+    detailsView.setCancelEnabled(false);
+  }
+  detailsView.reset();
+  if (create) {
+    entity=newEntity();
+    onEntityRetrieved();
+  }
+ else {
+    getEntity(entityId,new AsyncCallback<T>(){
+      @Override public void onFailure(      Throwable caught){
+        detailsView.setErrorMessage(Utils.getErrorMessage(caught));
+      }
+      @Override public void onSuccess(      T result){
+        entity=result;
+        onEntityRetrieved();
+      }
+    }
+);
+  }
+}

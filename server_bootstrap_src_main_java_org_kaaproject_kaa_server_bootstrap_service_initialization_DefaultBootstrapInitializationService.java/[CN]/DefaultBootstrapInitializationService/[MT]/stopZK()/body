@@ -1,0 +1,13 @@
+{
+  try {
+    if (bootstrapNode != null) {
+      bootstrapNode.close();
+    }
+  }
+ catch (  IOException e) {
+    LOG.warn("Exception when closing ZK node",e);
+  }
+ finally {
+    bootstrapNode=null;
+  }
+}

@@ -1,0 +1,15 @@
+{
+  controlClientConnect();
+  ControlApiCliThriftClient cli=new ControlApiCliThriftClient();
+  String applicationId=editApplicationCli(cli,null,null,false);
+  String topicId=editTopicCli(cli,null,applicationId,SubscriptionType.MANDATORY,true);
+  topicId=editTopicCli(cli,null,applicationId,SubscriptionType.MANDATORY,false);
+  Assert.assertFalse(strIsEmpty(topicId));
+  Assert.assertEquals(LENGTH_OF_ID_IN_MONGODB,topicId.length());
+  editTopicCli(cli,topicId,applicationId,SubscriptionType.MANDATORY,false);
+  editTopicCli(cli,FAKE_ID,applicationId,SubscriptionType.MANDATORY,false);
+  showEntityCli(cli,topicId,EntityType.TOPIC);
+  listTopicsCli(cli,applicationId,false);
+  listTopicsCli(cli,applicationId,true);
+  deleteEntityCli(cli,topicId,EntityType.TOPIC);
+}

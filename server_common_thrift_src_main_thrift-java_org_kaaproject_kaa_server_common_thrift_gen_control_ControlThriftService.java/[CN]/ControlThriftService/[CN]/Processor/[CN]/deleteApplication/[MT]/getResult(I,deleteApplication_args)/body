@@ -1,0 +1,10 @@
+{
+  deleteApplication_result result=new deleteApplication_result();
+  try {
+    iface.deleteApplication(args.applicationId);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

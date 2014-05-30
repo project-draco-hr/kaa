@@ -1,0 +1,4 @@
+{
+  LOG.debug("Find active configuration  by configuration schema id [{}] ",configurationSchemaId);
+  return find(query(where(SCHEMA_ID).is(new ObjectId(configurationSchemaId)).and(STATUS).is(ACTIVE.name())));
+}

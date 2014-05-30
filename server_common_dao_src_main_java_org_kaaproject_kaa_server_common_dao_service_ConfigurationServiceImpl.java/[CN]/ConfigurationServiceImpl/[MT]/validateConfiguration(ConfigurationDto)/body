@@ -1,0 +1,9 @@
+{
+  validateObject(dto,"Can't save configuration, object is invalid.");
+  if (!isValidId(dto.getSchemaId())) {
+    throw new IncorrectParameterException("Configuration object invalid. Configuration schema id invalid: " + dto.getSchemaId());
+  }
+ else   if (!isValidId(dto.getEndpointGroupId())) {
+    throw new IncorrectParameterException("Configuration object invalid. Endpoint group id invalid: " + dto.getEndpointGroupId());
+  }
+}

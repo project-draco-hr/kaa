@@ -1,0 +1,14 @@
+{
+  if (listener == null) {
+    LOG.warn("Can't add null listener");
+    return false;
+  }
+  if (!listeners.contains(listener)) {
+    LOG.info("Adding update listener {}",listener);
+    return listeners.add(listener);
+  }
+ else {
+    LOG.warn("listener {} already added.",listener);
+    return false;
+  }
+}

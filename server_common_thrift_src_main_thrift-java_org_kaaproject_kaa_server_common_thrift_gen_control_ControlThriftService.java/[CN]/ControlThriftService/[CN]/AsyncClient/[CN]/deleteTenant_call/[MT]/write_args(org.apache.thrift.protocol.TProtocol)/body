@@ -1,0 +1,7 @@
+{
+  prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("deleteTenant",org.apache.thrift.protocol.TMessageType.CALL,0));
+  deleteTenant_args args=new deleteTenant_args();
+  args.setTenantId(tenantId);
+  args.write(prot);
+  prot.writeMessageEnd();
+}

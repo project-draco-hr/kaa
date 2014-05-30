@@ -1,0 +1,13 @@
+{
+  super.onBrowserEvent(event);
+switch (DOM.eventGetType(event)) {
+case Event.ONPASTE:
+    Scheduler.get().scheduleDeferred(new ScheduledCommand(){
+      @Override public void execute(){
+        ValueChangeEvent.fire(ExtendedTextArea.this,getText());
+      }
+    }
+);
+  break;
+}
+}

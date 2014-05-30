@@ -1,0 +1,15 @@
+{
+  controlClientConnect();
+  ControlApiCliThriftClient cli=new ControlApiCliThriftClient();
+  String applicationId=editApplicationCli(cli,null,null,false);
+  String profileFilterId=editProfileFilterCli(cli,null,null,null,false);
+  String endpointGroupId=editEndpointGroupCli(cli,null,applicationId,"10",false);
+  String profileSchemaId=editProfileSchemaCli(cli,null,applicationId,false);
+  profileFilterId=editProfileFilterCli(cli,null,profileSchemaId,endpointGroupId,true);
+  Assert.assertFalse(strIsEmpty(profileFilterId));
+  Assert.assertEquals(profileFilterId.length(),24);
+  editProfileFilterCli(cli,profileFilterId,profileSchemaId,endpointGroupId,false);
+  editProfileFilterCli(cli,FAKE_ID,profileSchemaId,endpointGroupId,false);
+  showEntityCli(cli,profileFilterId,EntityType.PROFILE_FILTER);
+  activateProfileFilterCli(cli,profileFilterId);
+}

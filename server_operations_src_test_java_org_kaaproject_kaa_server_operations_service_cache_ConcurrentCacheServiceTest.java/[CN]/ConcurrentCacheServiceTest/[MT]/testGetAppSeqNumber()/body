@@ -1,0 +1,8 @@
+{
+  assertEquals(TEST_APP_SEQ_NUMBER,cacheService.getAppSeqNumber(TEST_APP_TOKEN));
+  verify(appService,times(1)).findAppByApplicationToken(TEST_APP_TOKEN);
+  reset(appService);
+  assertEquals(TEST_APP_SEQ_NUMBER,cacheService.getAppSeqNumber(TEST_APP_TOKEN));
+  verify(appService,times(0)).findAppByApplicationToken(TEST_APP_TOKEN);
+  reset(appService);
+}

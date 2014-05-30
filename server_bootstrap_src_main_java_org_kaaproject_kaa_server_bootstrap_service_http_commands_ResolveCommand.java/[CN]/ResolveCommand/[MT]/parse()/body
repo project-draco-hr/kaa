@@ -1,0 +1,15 @@
+{
+  LOG.trace("CommandName {}: parse",COMMAND_NAME);
+  HttpDataFactory factory=new DefaultHttpDataFactory(DefaultHttpDataFactory.MINSIZE);
+  HttpPostRequestDecoder decoder=new HttpPostRequestDecoder(factory,getHttpRequest());
+  InterfaceHttpData data=decoder.getBodyHttpData(APPLICATION_TOKEN_ATTR_NAME);
+  if (data != null) {
+    Attribute attribute=(Attribute)data;
+    requestData=attribute.get();
+    LOG.trace("Name {}, type {} found, data size {}",data.getName(),data.getHttpDataType().name(),requestData.length);
+  }
+ else {
+    LOG.error("HTTP Resolve request inccorect, {} attribute not found",APPLICATION_TOKEN_ATTR_NAME);
+    throw new BadRequestException("HTTP Resolve request inccorect, " + APPLICATION_TOKEN_ATTR_NAME + " attribute not found");
+  }
+}

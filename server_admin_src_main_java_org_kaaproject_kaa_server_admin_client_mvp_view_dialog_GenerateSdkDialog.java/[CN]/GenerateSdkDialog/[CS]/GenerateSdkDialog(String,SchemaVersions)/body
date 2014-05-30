@@ -1,0 +1,95 @@
+{
+  super(false,true);
+  this.applicationId=applicationId;
+  setWidth("500px");
+  setTitle(Utils.constants.generate_sdk());
+  VerticalPanel dialogContents=new VerticalPanel();
+  dialogContents.setSpacing(4);
+  setWidget(dialogContents);
+  errorPanel=new AlertPanel(AlertPanel.Type.ERROR);
+  errorPanel.setVisible(false);
+  dialogContents.add(errorPanel);
+  FlexTable table=new FlexTable();
+  table.setCellSpacing(6);
+  int row=0;
+  ValueChangeHandler<SchemaDto> schemaValueChangeHandler=new ValueChangeHandler<SchemaDto>(){
+    @Override public void onValueChange(    ValueChangeEvent<SchemaDto> event){
+      fireChanged();
+    }
+  }
+;
+  Widget label=new Label(Utils.constants.configurationSchemaVersion());
+  label.addStyleName("required");
+  configurationSchemaVersion=new SchemaListBox();
+  configurationSchemaVersion.setWidth("80px");
+  configurationSchemaVersion.setAcceptableValues(schemaVersions.getConfigurationSchemaVersions());
+  configurationSchemaVersion.addValueChangeHandler(schemaValueChangeHandler);
+  table.setWidget(row,0,label);
+  table.setWidget(row,1,configurationSchemaVersion);
+  table.getCellFormatter().setHorizontalAlignment(row,0,HasHorizontalAlignment.ALIGN_RIGHT);
+  row++;
+  label=new Label(Utils.constants.profileSchemaVersion());
+  label.addStyleName("required");
+  profileSchemaVersion=new SchemaListBox();
+  profileSchemaVersion.setWidth("80px");
+  profileSchemaVersion.setAcceptableValues(schemaVersions.getProfileSchemaVersions());
+  profileSchemaVersion.addValueChangeHandler(schemaValueChangeHandler);
+  table.setWidget(row,0,label);
+  table.setWidget(row,1,profileSchemaVersion);
+  table.getCellFormatter().setHorizontalAlignment(row,0,HasHorizontalAlignment.ALIGN_RIGHT);
+  row++;
+  label=new Label(Utils.constants.notificationSchemaVersion());
+  label.addStyleName("required");
+  notificationSchemaVersion=new SchemaListBox();
+  notificationSchemaVersion.setWidth("80px");
+  notificationSchemaVersion.setAcceptableValues(schemaVersions.getNotificationSchemaVersions());
+  notificationSchemaVersion.addValueChangeHandler(schemaValueChangeHandler);
+  table.setWidget(row,0,label);
+  table.setWidget(row,1,notificationSchemaVersion);
+  table.getCellFormatter().setHorizontalAlignment(row,0,HasHorizontalAlignment.ALIGN_RIGHT);
+  row++;
+  label=new Label(Utils.constants.targetPlatform());
+  label.addStyleName("required");
+  Renderer<SdkPlatform> targetPlatformRenderer=new Renderer<SdkPlatform>(){
+    @Override public String render(    SdkPlatform object){
+      if (object != null) {
+        return Utils.constants.getString(object.getResourceKey());
+      }
+ else {
+        return "";
+      }
+    }
+    @Override public void render(    SdkPlatform object,    Appendable appendable) throws IOException {
+      appendable.append(render(object));
+    }
+  }
+;
+  targetPlatform=new ValueListBox<>(targetPlatformRenderer);
+  targetPlatform.setWidth("80px");
+  targetPlatform.setAcceptableValues(Arrays.asList(SdkPlatform.values()));
+  targetPlatform.addValueChangeHandler(new ValueChangeHandler<SdkPlatform>(){
+    @Override public void onValueChange(    ValueChangeEvent<SdkPlatform> event){
+      fireChanged();
+    }
+  }
+);
+  table.setWidget(row,0,label);
+  table.setWidget(row,1,targetPlatform);
+  table.getCellFormatter().setHorizontalAlignment(row,0,HasHorizontalAlignment.ALIGN_RIGHT);
+  dialogContents.add(table);
+  generateSdkButton=new Button(Utils.constants.generate_sdk(),new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      performGenerateSdk();
+    }
+  }
+);
+  Button closeButton=new Button(Utils.constants.close(),new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      hide();
+    }
+  }
+);
+  addButton(generateSdkButton);
+  addButton(closeButton);
+  generateSdkButton.setEnabled(false);
+}

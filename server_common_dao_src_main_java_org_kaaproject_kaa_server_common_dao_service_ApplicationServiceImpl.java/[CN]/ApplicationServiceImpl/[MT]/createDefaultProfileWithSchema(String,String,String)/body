@@ -1,0 +1,20 @@
+{
+  ProfileSchemaDto profileSchemaDto=new ProfileSchemaDto();
+  profileSchemaDto.setApplicationId(appId);
+  String schema=getStringFromFile(DEFAULT_PROFILE_SCHEMA_FILE,ApplicationServiceImpl.class);
+  if (isNotBlank(schema)) {
+    profileSchemaDto.setSchema(schema);
+  }
+ else {
+    throw new RuntimeException("Can't read default profile schema.");
+  }
+  profileSchemaDto.setName(DEFAULT_SCHEMA_NAME);
+  profileSchemaDto.setCreatedUsername(createdUsername);
+  profileSchemaDto=profileService.saveProfileSchema(profileSchemaDto);
+  if (profileSchemaDto != null) {
+    return profileService.findLatestFilterBySchemaIdAndGroupId(profileSchemaDto.getId(),groupId);
+  }
+ else {
+    throw new RuntimeException("Can't save default profile schema " + profileSchemaDto);
+  }
+}

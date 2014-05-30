@@ -1,0 +1,23 @@
+{
+  super(org.kaaproject.kaa.common.endpoint.gen.Notification.SCHEMA$);
+  if (isValidValue(fields()[0],other.topicId)) {
+    this.topicId=data().deepCopy(fields()[0].schema(),other.topicId);
+    fieldSetFlags()[0]=true;
+  }
+  if (isValidValue(fields()[1],other.type)) {
+    this.type=data().deepCopy(fields()[1].schema(),other.type);
+    fieldSetFlags()[1]=true;
+  }
+  if (isValidValue(fields()[2],other.uid)) {
+    this.uid=data().deepCopy(fields()[2].schema(),other.uid);
+    fieldSetFlags()[2]=true;
+  }
+  if (isValidValue(fields()[3],other.seqNumber)) {
+    this.seqNumber=data().deepCopy(fields()[3].schema(),other.seqNumber);
+    fieldSetFlags()[3]=true;
+  }
+  if (isValidValue(fields()[4],other.body)) {
+    this.body=data().deepCopy(fields()[4].schema(),other.body);
+    fieldSetFlags()[4]=true;
+  }
+}

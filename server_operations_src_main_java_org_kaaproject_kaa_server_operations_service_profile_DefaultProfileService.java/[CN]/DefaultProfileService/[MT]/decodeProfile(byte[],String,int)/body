@@ -1,0 +1,9 @@
+{
+  LOG.trace("Lookup profileSchema by appId: {} and version: {}",appId,schemaVersion);
+  ProfileSchemaDto profileSchemaDto=profileService.findProfileSchemaByAppIdAndVersion(appId,schemaVersion);
+  String profileSchema=profileSchemaDto.getSchema();
+  LOG.trace("ProfileSchema by appId: {} and version: {} found: {}",appId,schemaVersion,profileSchema);
+  String profileJson=GenericAvroConverter.toJson(profileRaw,profileSchema);
+  LOG.trace("Profile json : {} ",profileJson);
+  return profileJson;
+}

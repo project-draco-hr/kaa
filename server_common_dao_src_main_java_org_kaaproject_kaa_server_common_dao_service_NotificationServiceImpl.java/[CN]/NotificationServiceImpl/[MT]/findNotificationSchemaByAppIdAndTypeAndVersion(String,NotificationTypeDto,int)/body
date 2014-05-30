@@ -1,0 +1,4 @@
+{
+  validateId(appId,"Can't find notification schema. Invalid application id: " + appId);
+  return getDto(notificationSchemaDao.findNotificationSchemasByAppIdAndTypeAndVersion(appId,type,majorVersion));
+}

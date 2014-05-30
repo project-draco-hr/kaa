@@ -1,0 +1,7 @@
+{
+  ConfigurationDto config=generateConfiguration(null,null,1,true,false).get(0);
+  configurationService.deactivateConfiguration(config.getId(),null);
+  config=configurationService.findConfigurationById(config.getId());
+  Assert.assertNotNull(config);
+  Assert.assertEquals(UpdateStatus.DEPRECATED,config.getStatus());
+}

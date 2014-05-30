@@ -1,0 +1,5 @@
+{
+  String tenantId=tenants.get(0);
+  List<Application> apps=applicationDao.findByTenantId(tenantId);
+  Assert.assertSame(apps.size(),3);
+}

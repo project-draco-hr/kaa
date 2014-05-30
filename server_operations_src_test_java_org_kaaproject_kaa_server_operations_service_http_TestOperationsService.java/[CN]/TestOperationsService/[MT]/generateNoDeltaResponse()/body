@@ -1,0 +1,8 @@
+{
+  SyncResponse response=new SyncResponse();
+  response.setResponseType(SyncResponseStatus.NO_DELTA);
+  if (rnd.nextBoolean()) {
+    response=generateNotificationSyncResponse(response);
+  }
+  return response;
+}

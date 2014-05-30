@@ -1,0 +1,24 @@
+{
+switch (field$) {
+case 0:
+    return applicationToken;
+case 1:
+  return endpointPublicKeyHash;
+case 2:
+return profileHash;
+case 3:
+return configurationHash;
+case 4:
+return topicListHash;
+case 5:
+return appStateSeqNumber;
+case 6:
+return acceptedUnicastNotifications;
+case 7:
+return topicStates;
+case 8:
+return subscriptionCommands;
+default :
+throw new org.apache.avro.AvroRuntimeException("Bad index");
+}
+}

@@ -1,0 +1,32 @@
+{
+  if (zkEnabled) {
+    List<OperationsNodeInfo> endpoints=controlZKNode.getCurrentOperationServerNodes();
+    for (    OperationsNodeInfo endpoint : endpoints) {
+      String host=endpoint.getConnectionInfo().getThriftHost().toString();
+      int port=endpoint.getConnectionInfo().getThriftPort();
+      try {
+        ThriftClient<OperationsThriftService.Client> client=new ThriftClient<>(host,port,OperationsThriftService.Client.class);
+        client.setThriftActivity(new ThriftActivity<OperationsThriftService.Client>(){
+          @Override public void isSuccess(          boolean activitySuccess){
+            if (!activitySuccess) {
+              LOG.error("Sending notification to endpoint server failed.");
+            }
+          }
+          @Override public void doInTemplate(          Client t){
+            try {
+              t.onNotification(thriftNotification);
+            }
+ catch (            TException e) {
+              LOG.error("Unexpected error occurred while send notification to endpoint server",e);
+            }
+          }
+        }
+);
+        ThriftExecutor.execute(client);
+      }
+ catch (      NoSuchMethodException|SecurityException|InstantiationException|IllegalAccessException|IllegalArgumentException|InvocationTargetException e) {
+        LOG.error("Unexpected error occurred while creating thrift connection to send notification to endpoint server",e);
+      }
+    }
+  }
+}

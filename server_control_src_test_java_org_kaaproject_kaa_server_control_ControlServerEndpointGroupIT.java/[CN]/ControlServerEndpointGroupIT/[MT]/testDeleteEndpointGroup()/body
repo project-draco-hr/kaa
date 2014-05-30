@@ -1,0 +1,6 @@
+{
+  EndpointGroupDto endpointGroup=createEndpointGroup();
+  client.deleteEndpointGroup(endpointGroup.getId());
+  EndpointGroupDto storedEndpointGroup=toDto(client.getEndpointGroup(endpointGroup.getId()));
+  Assert.assertNull(storedEndpointGroup);
+}

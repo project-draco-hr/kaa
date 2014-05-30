@@ -1,0 +1,4 @@
+{
+  validateId(appId,"Can't find topics. Invalid application id " + appId);
+  return convertDtoList(topicDao.findTopicsByAppIdAndType(appId,typeDto));
+}

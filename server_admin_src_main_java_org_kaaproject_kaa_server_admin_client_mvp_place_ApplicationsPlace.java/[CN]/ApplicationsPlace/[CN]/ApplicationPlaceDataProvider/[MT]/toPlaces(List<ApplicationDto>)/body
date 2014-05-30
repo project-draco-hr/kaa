@@ -1,0 +1,9 @@
+{
+  List<TreePlace> result=new ArrayList<TreePlace>();
+  for (  ApplicationDto application : applications) {
+    ApplicationPlace place=new ApplicationPlace(application.getId());
+    place.setApplicationName(application.getName());
+    result.add(place);
+  }
+  return result;
+}

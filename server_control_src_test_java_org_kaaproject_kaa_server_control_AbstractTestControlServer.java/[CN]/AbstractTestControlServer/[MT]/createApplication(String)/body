@@ -1,0 +1,13 @@
+{
+  ApplicationDto application=new ApplicationDto();
+  application.setName(generateString(APPLICATION));
+  if (strIsEmpty(tenantId)) {
+    TenantDto tenant=createTenant();
+    application.setTenantId(tenant.getId());
+  }
+ else {
+    application.setTenantId(tenantId);
+  }
+  ApplicationDto savedApplication=toDto(client.editApplication(toDataStruct(application)));
+  return savedApplication;
+}

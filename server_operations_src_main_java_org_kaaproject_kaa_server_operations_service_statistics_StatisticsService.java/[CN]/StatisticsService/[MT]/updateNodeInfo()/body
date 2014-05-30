@@ -1,0 +1,10 @@
+{
+  if (config != null && config.getZkNode() != null) {
+    try {
+      config.getZkNode().updateNodeStatsValues(averageDeltaSync,averageProcessedRequests,averageOnlineSessions);
+    }
+ catch (    IOException e) {
+      LOG.error("Error update statistics values on ZooKepper: " + e.toString());
+    }
+  }
+}

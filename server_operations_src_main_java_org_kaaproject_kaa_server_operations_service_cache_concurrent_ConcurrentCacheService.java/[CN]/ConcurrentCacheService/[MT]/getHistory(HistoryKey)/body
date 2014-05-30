@@ -1,0 +1,37 @@
+{
+  return historyMemorizer.compute(key,new Computable<HistoryKey,List<HistoryDto>>(){
+    @Override public List<HistoryDto> compute(    HistoryKey key){
+      LOG.debug("Fetching result for getHistory");
+      List<HistoryDto> relatedChanges=new ArrayList<HistoryDto>();
+      ApplicationDto appDto=applicationService.findAppByApplicationToken(key.getAppToken());
+      List<HistoryDto> fullHistoryList=historyService.findHistoriesBySeqNumberRange(appDto.getId(),key.getOldSeqNumber(),key.getNewSeqNumber());
+      Collections.sort(fullHistoryList,ConcurrentCacheService.HISTORY_SEQ_NUMBER_COMPARATOR);
+      for (      HistoryDto historyDto : fullHistoryList) {
+        ChangeDto changeDto=historyDto.getChange();
+        ChangeType changeType=changeDto.getType();
+        if (!isSupported(changeType)) {
+          continue;
+        }
+        if (changeType == ChangeType.REMOVE_GROUP) {
+          relatedChanges.add(historyDto);
+        }
+ else         if (changeType == ChangeType.ADD_TOPIC || changeType == ChangeType.REMOVE_TOPIC) {
+          relatedChanges.add(historyDto);
+        }
+ else         if (changeType == ChangeType.ADD_PROF || changeType == ChangeType.REMOVE_PROF) {
+          if (changeDto.getPfMajorVersion() == key.getProfileSchemaVersion()) {
+            relatedChanges.add(historyDto);
+          }
+        }
+ else         if (changeType == ChangeType.ADD_CONF || changeType == ChangeType.REMOVE_CONF) {
+          if (changeDto.getCfMajorVersion() == key.getConfSchemaVersion()) {
+            relatedChanges.add(historyDto);
+          }
+        }
+      }
+      putHistory(key,relatedChanges);
+      return relatedChanges;
+    }
+  }
+);
+}

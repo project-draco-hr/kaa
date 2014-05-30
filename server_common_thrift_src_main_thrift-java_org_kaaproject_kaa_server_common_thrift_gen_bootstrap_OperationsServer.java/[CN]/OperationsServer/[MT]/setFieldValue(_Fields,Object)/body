@@ -1,0 +1,20 @@
+{
+switch (field) {
+case PRIORITY:
+    if (value == null) {
+      unsetPriority();
+    }
+ else {
+      setPriority((Integer)value);
+    }
+  break;
+case PUBLIC_KEY:
+if (value == null) {
+  unsetPublicKey();
+}
+ else {
+  setPublicKey((ByteBuffer)value);
+}
+break;
+}
+}

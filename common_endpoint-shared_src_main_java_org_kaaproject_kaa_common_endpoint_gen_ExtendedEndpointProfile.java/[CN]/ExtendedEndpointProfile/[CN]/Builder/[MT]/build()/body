@@ -1,0 +1,16 @@
+{
+  try {
+    ExtendedEndpointProfile record=new ExtendedEndpointProfile();
+    record.simpleField=fieldSetFlags()[0] ? this.simpleField : (java.lang.String)defaultValue(fields()[0]);
+    record.recordField=fieldSetFlags()[1] ? this.recordField : (org.kaaproject.kaa.common.endpoint.gen.ExtendedEndpointProfileChild)defaultValue(fields()[1]);
+    record.arraySimpleField=fieldSetFlags()[2] ? this.arraySimpleField : (java.util.List<java.lang.String>)defaultValue(fields()[2]);
+    record.arrayRecordField=fieldSetFlags()[3] ? this.arrayRecordField : (java.util.List<org.kaaproject.kaa.common.endpoint.gen.ExtendedEndpointProfileChild>)defaultValue(fields()[3]);
+    record.mapSimpleField=fieldSetFlags()[4] ? this.mapSimpleField : (java.util.Map<java.lang.String,java.lang.Long>)defaultValue(fields()[4]);
+    record.mapRecordField=fieldSetFlags()[5] ? this.mapRecordField : (java.util.Map<java.lang.String,org.kaaproject.kaa.common.endpoint.gen.ExtendedEndpointProfileChild>)defaultValue(fields()[5]);
+    record.nullableRecordField=fieldSetFlags()[6] ? this.nullableRecordField : (org.kaaproject.kaa.common.endpoint.gen.ExtendedEndpointProfileChild)defaultValue(fields()[6]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

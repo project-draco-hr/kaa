@@ -1,0 +1,17 @@
+{
+  LOG.info("Initializing Thrift service for Bootstrap server at {}:{}...",thriftHost,thriftPort);
+  try {
+    BootstrapThriftService.Processor<BootstrapThriftService.Iface> processor=new BootstrapThriftService.Processor<BootstrapThriftService.Iface>(bootstrapThriftService);
+    TServerTransport serverTransport=new TServerSocket(new InetSocketAddress(thriftHost,thriftPort));
+    server=new TThreadPoolServer(new Args(serverTransport).processor(processor));
+    LOG.info("Bootstrap Server Started");
+    server.serve();
+    LOG.info("Bootstrap Server Stopped");
+  }
+ catch (  TTransportException e) {
+    LOG.error("TTransportException",e);
+  }
+ finally {
+    server=null;
+  }
+}

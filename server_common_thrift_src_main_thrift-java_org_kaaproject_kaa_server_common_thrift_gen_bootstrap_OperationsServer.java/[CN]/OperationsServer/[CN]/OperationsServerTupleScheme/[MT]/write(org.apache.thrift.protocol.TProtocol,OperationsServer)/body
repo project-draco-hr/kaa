@@ -1,0 +1,17 @@
+{
+  TTupleProtocol oprot=(TTupleProtocol)prot;
+  BitSet optionals=new BitSet();
+  if (struct.isSetPriority()) {
+    optionals.set(0);
+  }
+  if (struct.isSetPublicKey()) {
+    optionals.set(1);
+  }
+  oprot.writeBitSet(optionals,2);
+  if (struct.isSetPriority()) {
+    oprot.writeI32(struct.priority);
+  }
+  if (struct.isSetPublicKey()) {
+    oprot.writeBinary(struct.publicKey);
+  }
+}

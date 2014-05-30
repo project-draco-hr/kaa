@@ -1,0 +1,11 @@
+{
+  editProfileSchema_result result=new editProfileSchema_result();
+  receiveBase(result,"editProfileSchema");
+  if (result.isSetSuccess()) {
+    return result.success;
+  }
+  if (result.ControlException != null) {
+    throw result.ControlException;
+  }
+  throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT,"editProfileSchema failed: unknown result");
+}

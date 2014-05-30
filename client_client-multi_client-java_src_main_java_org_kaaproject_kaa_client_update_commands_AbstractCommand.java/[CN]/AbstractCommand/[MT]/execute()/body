@@ -1,0 +1,9 @@
+{
+  try {
+    doExecute();
+  }
+ catch (  TransportException e) {
+    LOG.error("Transport Exception!",e);
+    handler.onTransportException();
+  }
+}

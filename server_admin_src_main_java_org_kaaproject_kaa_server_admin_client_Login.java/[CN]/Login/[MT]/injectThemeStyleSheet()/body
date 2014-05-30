@@ -1,0 +1,10 @@
+{
+  String styleSheet="gwt/" + THEME + "/"+ THEME;
+  styleSheet+=LocaleInfo.getCurrentLocale().isRTL() ? "_rtl.css" : ".css";
+  String modulePath=GWT.getModuleBaseURL();
+  LinkElement linkElem=Document.get().createLinkElement();
+  linkElem.setRel("stylesheet");
+  linkElem.setType("text/css");
+  linkElem.setHref(modulePath + styleSheet);
+  getHeadElement().appendChild(linkElem);
+}

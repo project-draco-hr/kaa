@@ -1,0 +1,4 @@
+{
+  LOG.debug("Remove document of collection [{}] by id [{}]",getCollectionName(),id);
+  mongoTemplate.remove(query(where(ID).is(new ObjectId(id))),getDocumentClass());
+}

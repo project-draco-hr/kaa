@@ -1,0 +1,5 @@
+{
+  confMock=mock(BootstrapConfig.class);
+  endpointListMock=mock(OperationsServerListService.class);
+  when(confMock.getOperationsServerListService()).thenReturn(endpointListMock);
+}

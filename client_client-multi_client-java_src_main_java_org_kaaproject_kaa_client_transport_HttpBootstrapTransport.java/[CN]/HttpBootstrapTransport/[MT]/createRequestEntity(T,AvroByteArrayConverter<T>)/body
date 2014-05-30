@@ -1,0 +1,7 @@
+{
+  byte[] requestBodyRaw=converter.toByteArray(request);
+  MultipartEntityBuilder builder=MultipartEntityBuilder.create();
+  builder.addBinaryBody(CommonBSConstants.APPLICATION_TOKEN_ATTR_NAME,requestBodyRaw);
+  HttpEntity requestEntity=builder.build();
+  return requestEntity;
+}

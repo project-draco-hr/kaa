@@ -1,0 +1,10 @@
+{
+  generateSdk_result result=new generateSdk_result();
+  try {
+    result.success=iface.generateSdk(args.sdkPlatform,args.applicationId,args.profileSchemaVersion,args.configurationSchemaVersion,args.notificationSchemaVersion);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

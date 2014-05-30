@@ -1,0 +1,12 @@
+{
+  String schema=readSchemaFileAsString("dao/schema/dataSchema.json");
+  SchemaCreator protocolSchemaCreator=new SchemaCreatorImpl(new ProtocolSchemaStrategy());
+  SchemaCreator overrideSchemaCreator=new SchemaCreatorImpl(new OverrideDataSchemaStrategy());
+  SchemaCreator baseSchemaCreator=new SchemaCreatorImpl(new BaseDataSchemaStrategy());
+  String protocolSchema=protocolSchemaCreator.createSchema(new StringReader(schema));
+  String baseSchema=baseSchemaCreator.createSchema(new StringReader(schema));
+  String overrideSchema=overrideSchemaCreator.createSchema(new StringReader(schema));
+  LOGGER.debug("Created Override schema JSON {} ",overrideSchema);
+  LOGGER.debug("Created Base schema JSON {} ",baseSchema);
+  LOGGER.debug("Created Protocol schema JSON {} ",protocolSchema);
+}

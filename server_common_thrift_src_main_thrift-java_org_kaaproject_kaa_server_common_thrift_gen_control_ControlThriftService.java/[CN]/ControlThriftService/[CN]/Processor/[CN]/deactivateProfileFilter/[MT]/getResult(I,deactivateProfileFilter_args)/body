@@ -1,0 +1,10 @@
+{
+  deactivateProfileFilter_result result=new deactivateProfileFilter_result();
+  try {
+    result.success=iface.deactivateProfileFilter(args.profileFilterId,args.deactivatedUsername);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

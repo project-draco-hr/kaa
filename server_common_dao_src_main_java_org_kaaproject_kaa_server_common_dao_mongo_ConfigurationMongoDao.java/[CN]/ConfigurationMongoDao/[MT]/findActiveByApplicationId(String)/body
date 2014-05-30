@@ -1,0 +1,4 @@
+{
+  LOG.debug("Find active configurations by application id [{}] ",applicationId);
+  return find(query(where(APPLICATION_ID).is(new ObjectId(applicationId)).and(STATUS).is(ACTIVE.name())));
+}

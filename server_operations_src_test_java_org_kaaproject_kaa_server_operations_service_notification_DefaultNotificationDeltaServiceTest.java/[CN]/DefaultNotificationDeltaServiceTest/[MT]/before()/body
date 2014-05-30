@@ -1,0 +1,9 @@
+{
+  notificationDeltaService=new DefaultNotificationDeltaService();
+  notificationService=mock(NotificationService.class);
+  topicService=mock(TopicService.class);
+  endpointService=mock(EndpointService.class);
+  ReflectionTestUtils.setField(notificationDeltaService,"notificationService",notificationService);
+  ReflectionTestUtils.setField(notificationDeltaService,"topicService",topicService);
+  ReflectionTestUtils.setField(notificationDeltaService,"endpointService",endpointService);
+}

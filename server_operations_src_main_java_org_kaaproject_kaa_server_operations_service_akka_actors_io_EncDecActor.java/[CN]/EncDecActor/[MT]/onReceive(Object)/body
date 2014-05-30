@@ -1,0 +1,21 @@
+{
+  LOG.debug("Received: {}",message);
+  if (message instanceof NettyEncodedRequestMessage) {
+    RedirectionRule redirection=checkRedirection(redirectionRules,random.nextDouble());
+    if (redirection == null) {
+      decodeAndForward((NettyEncodedRequestMessage)message);
+    }
+ else {
+      encodeAndReply(redirection,(NettyEncodedRequestMessage)message);
+    }
+  }
+ else   if (message instanceof NettyDecodedResponseMessage) {
+    encodeAndReply((NettyDecodedResponseMessage)message);
+  }
+ else   if (message instanceof RedirectionRule) {
+    applyRedirectionRule((RedirectionRule)message);
+  }
+ else   if (message instanceof RuleTimeoutMessage) {
+    removeRedirectionRule((RuleTimeoutMessage)message);
+  }
+}

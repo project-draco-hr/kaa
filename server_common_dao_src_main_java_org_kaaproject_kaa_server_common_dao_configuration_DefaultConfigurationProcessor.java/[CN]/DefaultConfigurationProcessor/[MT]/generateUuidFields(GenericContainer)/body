@@ -1,0 +1,14 @@
+{
+  byte[] config=null;
+  GenericAvroConverter<GenericRecord> converter=new GenericAvroConverter<>(baseSchema);
+  if (container instanceof GenericRecord) {
+    GenericRecord mainRecord=(GenericRecord)container;
+    generateUuidField(mainRecord);
+    LOG.info("Got record: {}",mainRecord);
+    if (mainRecord != null) {
+      config=converter.encodeToJsonBytes(mainRecord);
+    }
+    LOG.trace("Generated uuid fields for records {}",mainRecord);
+  }
+  return config;
+}

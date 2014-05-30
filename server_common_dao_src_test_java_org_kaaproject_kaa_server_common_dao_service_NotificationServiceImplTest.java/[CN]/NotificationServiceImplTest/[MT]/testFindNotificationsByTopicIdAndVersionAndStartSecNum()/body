@@ -1,0 +1,7 @@
+{
+  NotificationDto dto=generateNotifications(null,null,3,null).get(0);
+  String topicId=dto.getTopicId();
+  List<NotificationDto> notifications=notificationService.findNotificationsByTopicIdAndVersionAndStartSecNum(topicId,0,1,2);
+  Assert.assertFalse(notifications.isEmpty());
+  Assert.assertEquals(3,notifications.size());
+}

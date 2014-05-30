@@ -1,0 +1,7 @@
+{
+  cliOut.reset();
+  int result=cli.processLine("delete" + type.getName() + " -i "+ entityId);
+  Assert.assertEquals(result,0);
+  String output=cliOut.toString("UTF-8");
+  Assert.assertTrue(output.trim().startsWith("Deleted " + type.getName() + " with id: "+ entityId));
+}

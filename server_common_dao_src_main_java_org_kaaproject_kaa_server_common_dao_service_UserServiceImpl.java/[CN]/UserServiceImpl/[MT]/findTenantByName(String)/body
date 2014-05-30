@@ -1,0 +1,7 @@
+{
+  TenantDto tenantDto=null;
+  if (StringUtils.isNotBlank(name)) {
+    tenantDto=getDto(tenantDao.findByName(name));
+  }
+  return tenantDto;
+}

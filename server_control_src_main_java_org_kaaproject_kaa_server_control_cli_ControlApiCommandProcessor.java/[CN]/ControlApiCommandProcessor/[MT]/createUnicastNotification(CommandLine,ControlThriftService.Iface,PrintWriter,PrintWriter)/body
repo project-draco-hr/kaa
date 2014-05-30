@@ -1,0 +1,76 @@
+{
+  try {
+    NotificationDto notification=new NotificationDto();
+    EndpointNotificationDto endpointNotification=new EndpointNotificationDto();
+    endpointNotification.setNotificationDto(notification);
+    if (line.hasOption("t")) {
+      String topicId=line.getOptionValue("t");
+      if (ObjectId.isValid(topicId)) {
+        notification.setTopicId(topicId);
+      }
+ else {
+        errorWriter.println("Invalid topic id for notification.");
+        return;
+      }
+    }
+    if (line.hasOption("s")) {
+      String schemaId=line.getOptionValue("s");
+      if (ObjectId.isValid(schemaId)) {
+        notification.setSchemaId(schemaId);
+      }
+ else {
+        errorWriter.println("Invalid schema id for notification.");
+        return;
+      }
+    }
+    if (line.hasOption("k")) {
+      String keyHash=line.getOptionValue("k");
+      if (StringUtils.isNotBlank(keyHash)) {
+        endpointNotification.setEndpointKeyHash(Base64.decodeBase64(keyHash));
+      }
+ else {
+        errorWriter.println("Empty key hash for unicast notification.");
+        return;
+      }
+    }
+    if (line.hasOption("l")) {
+      String ttl=line.getOptionValue("l");
+      try {
+        long time=System.currentTimeMillis() + (Integer.valueOf(ttl) * 1000L);
+        notification.setExpiredAt(new Date(time));
+      }
+ catch (      NumberFormatException ex) {
+        errorWriter.println("Incorrect format of ttl: " + ex.getMessage());
+        return;
+      }
+    }
+    if (line.hasOption("f")) {
+      String schemaFile=line.getOptionValue("f");
+      String schema=readFile(schemaFile,errorWriter);
+      if (schema != null) {
+        notification.setBody(schema.getBytes(UTF8));
+      }
+ else {
+        errorWriter.println("Can't read file. Please check file name.");
+        return;
+      }
+    }
+ else     if (line.hasOption("b")) {
+      String body=line.getOptionValue("b");
+      notification.setBody(body.getBytes(UTF8));
+    }
+ else {
+      errorWriter.println("Need to set body or file with body for notification");
+      return;
+    }
+    EndpointNotificationDto savedNotification=toDto(client.editUnicastNotification(toDataStruct(endpointNotification)));
+    writer.println("Created new Unicast Notification with id: " + savedNotification.getId());
+    if (line.hasOption("o")) {
+      String outFileName=line.getOptionValue("o");
+      storeInfo(outFileName,savedNotification.getId(),errorWriter);
+    }
+  }
+ catch (  TException e) {
+    handleException("Unable to " + "create" + " Unicast Notification",e,errorWriter);
+  }
+}

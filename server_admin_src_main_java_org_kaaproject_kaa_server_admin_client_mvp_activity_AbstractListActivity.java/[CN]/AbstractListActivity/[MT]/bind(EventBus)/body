@@ -1,0 +1,47 @@
+{
+  listView.clearError();
+  registrations.add(listView.getAddButton().addClickHandler(new ClickHandler(){
+    public void onClick(    ClickEvent event){
+      goTo(newEntityPlace());
+    }
+  }
+));
+  registrations.add(listView.getRowActionsSource().addRowActionHandler(new RowActionEventHandler<String>(){
+    @Override public void onRowAction(    RowActionEvent<String> event){
+      String id=event.getClickedId();
+      if (event.getAction() == RowAction.CLICK) {
+        goTo(existingEntityPlace(id));
+      }
+ else       if (event.getAction() == RowAction.DELETE) {
+        deleteEntity(id,new AsyncCallback<Void>(){
+          @Override public void onFailure(          Throwable caught){
+            listView.setErrorMessage(Utils.getErrorMessage(caught));
+          }
+          @Override public void onSuccess(          Void result){
+          }
+        }
+);
+      }
+      onCustomRowAction(event);
+    }
+  }
+));
+  registrations.add(eventBus.addHandler(DataEvent.getType(),new DataEventHandler(){
+    @Override public void onDataChanged(    DataEvent event){
+      if (event.checkClass(dataClass)) {
+        dataProvider.reload(listView.getDisplay());
+      }
+    }
+  }
+));
+  final Place previousPlace=place.getPreviousPlace();
+  if (previousPlace != null) {
+    listView.setBackEnabled(true);
+    registrations.add(listView.getBackButton().addClickHandler(new ClickHandler(){
+      public void onClick(      ClickEvent event){
+        goTo(previousPlace);
+      }
+    }
+));
+  }
+}

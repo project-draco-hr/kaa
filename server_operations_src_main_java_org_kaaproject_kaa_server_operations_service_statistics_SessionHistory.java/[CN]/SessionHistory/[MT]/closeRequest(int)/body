@@ -1,0 +1,10 @@
+{
+  ListIterator<RequestHistory> rl=requests.listIterator(requests.size());
+  while (rl.hasPrevious()) {
+    RequestHistory r=rl.previous();
+    if (r.getId() == requestId) {
+      r.closeRequest();
+      break;
+    }
+  }
+}

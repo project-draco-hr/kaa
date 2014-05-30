@@ -1,0 +1,12 @@
+{
+  LOG.info("Control Server Application starting...");
+  String applicationContextXml=DEFAULT_APPLICATION_CONTEXT_XML;
+  if (args.length > 0) {
+    applicationContextXml=args[0];
+  }
+  final ClassPathXmlApplicationContext ctx=new ClassPathXmlApplicationContext(applicationContextXml);
+  final ControlService controlService=ctx.getBean("controlService",ControlService.class);
+  controlService.start();
+  ctx.close();
+  LOG.info("Control Server Application stopped.");
+}

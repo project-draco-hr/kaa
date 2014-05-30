@@ -1,0 +1,17 @@
+{
+  TTupleProtocol oprot=(TTupleProtocol)prot;
+  BitSet optionals=new BitSet();
+  if (struct.isSetSuccess()) {
+    optionals.set(0);
+  }
+  if (struct.isSetCliException()) {
+    optionals.set(1);
+  }
+  oprot.writeBitSet(optionals,2);
+  if (struct.isSetSuccess()) {
+    oprot.writeString(struct.success);
+  }
+  if (struct.isSetCliException()) {
+    struct.cliException.write(oprot);
+  }
+}

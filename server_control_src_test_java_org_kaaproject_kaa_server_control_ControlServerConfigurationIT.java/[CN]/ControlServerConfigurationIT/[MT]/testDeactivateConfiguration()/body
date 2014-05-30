@@ -1,0 +1,12 @@
+{
+  ConfigurationDto configuration=createConfiguration();
+  client.activateConfiguration(configuration.getId(),null);
+  ConfigurationDto deactivatedConfiguration=toDto(client.deactivateConfiguration(configuration.getId(),null));
+  Assert.assertEquals(configuration.getId(),deactivatedConfiguration.getId());
+  Assert.assertEquals(configuration.getSchemaId(),deactivatedConfiguration.getSchemaId());
+  Assert.assertEquals(configuration.getEndpointGroupId(),deactivatedConfiguration.getEndpointGroupId());
+  Assert.assertArrayEquals(configuration.getBinaryBody(),deactivatedConfiguration.getBinaryBody());
+  Assert.assertEquals(configuration.getProtocolSchema(),deactivatedConfiguration.getProtocolSchema());
+  Assert.assertEquals(configuration.getApplicationId(),deactivatedConfiguration.getApplicationId());
+  Assert.assertEquals(UpdateStatus.DEPRECATED,deactivatedConfiguration.getStatus());
+}

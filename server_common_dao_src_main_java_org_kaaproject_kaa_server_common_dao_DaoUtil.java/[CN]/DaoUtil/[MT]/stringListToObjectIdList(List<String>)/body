@@ -1,0 +1,13 @@
+{
+  List<ObjectId> objects=null;
+  if (ids != null && !ids.isEmpty()) {
+    objects=new ArrayList<>();
+    for (    String id : ids) {
+      objects.add(idToObjectId(id));
+    }
+  }
+ else {
+    objects=Collections.emptyList();
+  }
+  return objects;
+}

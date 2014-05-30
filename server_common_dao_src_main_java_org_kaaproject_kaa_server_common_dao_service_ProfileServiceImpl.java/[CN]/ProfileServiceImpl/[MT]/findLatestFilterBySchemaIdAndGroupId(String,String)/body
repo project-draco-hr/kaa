@@ -1,0 +1,5 @@
+{
+  validateId(schemaId,"Can't find profile filter. Invalid profile schema id: " + schemaId);
+  validateId(groupId,"Can't find profile filter. Invalid group id: " + groupId);
+  return getDto(profileFilterDao.findLatestFilter(schemaId,groupId));
+}

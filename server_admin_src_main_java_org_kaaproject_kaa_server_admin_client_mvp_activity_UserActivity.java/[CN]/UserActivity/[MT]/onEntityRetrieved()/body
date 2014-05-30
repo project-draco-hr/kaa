@@ -1,0 +1,7 @@
+{
+  super.onEntityRetrieved();
+  if (!create) {
+    detailsView.setTitle(entity.getUsername());
+  }
+  detailsView.getAuthority().setValue(entity.getAuthority());
+}

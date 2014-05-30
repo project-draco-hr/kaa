@@ -1,0 +1,9 @@
+{
+  validateId(applicationId,"Can't remove endpoint groups by application id. Incorrect application id " + applicationId);
+  List<EndpointGroup> groups=endpointGroupDao.findByApplicationId(applicationId);
+  if (groups != null && !groups.isEmpty()) {
+    for (    EndpointGroup group : groups) {
+      removeEndpointGroup(group.getId(),true);
+    }
+  }
+}

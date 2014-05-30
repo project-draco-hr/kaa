@@ -1,0 +1,14 @@
+{
+  LOG.info("Received shutdown command.");
+  Runnable shutdownCommmand=new Runnable(){
+    @Override public void run(){
+      LOG.info("Stopping Operations Server Application...");
+      operationsBootstrapService.stop();
+      ThriftExecutor.shutdown();
+    }
+  }
+;
+  Thread shutdownThread=new Thread(shutdownCommmand);
+  shutdownThread.setName("Operations Server Shutdown Thread");
+  shutdownThread.start();
+}

@@ -1,0 +1,8 @@
+{
+  ControlOptionsProcessor optionsProcessor=new ControlOptionsProcessor();
+  optionsProcessor.parse(new String[]{"-H"});
+  boolean result=optionsProcessor.process(controlClientSession);
+  Assert.assertFalse(result);
+  String output=systemOut.toString("UTF-8");
+  Assert.assertTrue(output.startsWith("usage: thriftCli"));
+}

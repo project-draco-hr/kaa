@@ -1,0 +1,25 @@
+{
+  try {
+    String endpointGroupId=null;
+    String topicId=null;
+    if (line.hasOption("i")) {
+      endpointGroupId=line.getOptionValue("i");
+      if (!ObjectId.isValid(endpointGroupId)) {
+        errorWriter.println("Incorrect endpoint group id.");
+        return;
+      }
+    }
+    if (line.hasOption("t")) {
+      topicId=line.getOptionValue("t");
+      if (!ObjectId.isValid(topicId)) {
+        errorWriter.println("Incorrect topic id.");
+        return;
+      }
+    }
+    @SuppressWarnings("unused") EndpointGroupDto endpointGroupDto=toDto(client.addTopicsToEndpointGroup(endpointGroupId,topicId));
+    writer.println("Topic was added to Endpoint Group.");
+  }
+ catch (  TException e) {
+    handleException("Unable add  topic to Endpoint Group ",e,errorWriter);
+  }
+}

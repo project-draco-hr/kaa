@@ -1,0 +1,21 @@
+{
+  struct.validate();
+  oprot.writeStructBegin(STRUCT_DESC);
+  if (struct.message != null) {
+    oprot.writeFieldBegin(MESSAGE_FIELD_DESC);
+    oprot.writeString(struct.message);
+    oprot.writeFieldEnd();
+  }
+  if (struct.causeExceptionClass != null) {
+    oprot.writeFieldBegin(CAUSE_EXCEPTION_CLASS_FIELD_DESC);
+    oprot.writeString(struct.causeExceptionClass);
+    oprot.writeFieldEnd();
+  }
+  if (struct.causeStackStrace != null) {
+    oprot.writeFieldBegin(CAUSE_STACK_STRACE_FIELD_DESC);
+    oprot.writeString(struct.causeStackStrace);
+    oprot.writeFieldEnd();
+  }
+  oprot.writeFieldStop();
+  oprot.writeStructEnd();
+}

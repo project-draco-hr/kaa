@@ -1,0 +1,25 @@
+{
+  return endpointKeyMemorizer.compute(key,new Computable<EndpointObjectHash,PublicKey>(){
+    @Override public PublicKey compute(    EndpointObjectHash key){
+      LOG.debug("Fetching result for getEndpointKey");
+      PublicKey result=null;
+      EndpointProfileDto endpointProfile=endpointService.findEndpointProfileByKeyHash(key.getData());
+      if (endpointProfile != null) {
+        try {
+          X509EncodedKeySpec x509KeySpec=new X509EncodedKeySpec(endpointProfile.getEndpointKey());
+          KeyFactory keyFact=KeyFactory.getInstance(ALGORITHM);
+          result=keyFact.generatePublic(x509KeySpec);
+          setEndpointKey(key,result);
+        }
+ catch (        NoSuchAlgorithmException|InvalidKeySpecException e) {
+          LOG.error("failed to decode key",e);
+        }
+      }
+ else {
+        LOG.error("failed to find key by hash {}",key);
+      }
+      return result;
+    }
+  }
+);
+}

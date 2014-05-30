@@ -1,0 +1,17 @@
+{
+  if (tenants == null || refresh) {
+    tenants=new ArrayList<TenantUserDto>();
+    rpcService.getTenants(new DataCallback<List<TenantUserDto>>(callback){
+      @Override protected void onResult(      List<TenantUserDto> result){
+        tenants.addAll(result);
+        eventBus.fireEvent(new DataEvent(TenantUserDto.class,true));
+      }
+    }
+);
+  }
+ else {
+    if (callback != null) {
+      callback.onSuccess(tenants);
+    }
+  }
+}

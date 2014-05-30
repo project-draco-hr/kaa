@@ -1,0 +1,24 @@
+{
+  if (!controlServerStarted) {
+    zkCluster=new TestingCluster(new InstanceSpec(null,2185,-1,-1,true,-1,-1,-1));
+    zkCluster.start();
+    BootstrapNodeInfo bootstrapNodeInfo=buildBootstrapNodeInfo();
+    bootstrapNode=new BootstrapNode(bootstrapNodeInfo,zkCluster.getConnectString(),buildDefaultRetryPolicy());
+    bootstrapNode.start();
+    OperationsNodeInfo endpointNodeInfo=buildEndpointNodeInfo();
+    endpointNode=new OperationsNode(endpointNodeInfo,zkCluster.getConnectString(),buildDefaultRetryPolicy());
+    endpointNode.start();
+    controlServiceInstance=controlService;
+    controlServerThread=new Thread(new Runnable(){
+      @Override public void run(){
+        logger.info("Control Server Started.");
+        controlServiceInstance.start();
+        logger.info("Control Server Stoped.");
+      }
+    }
+);
+    controlServerThread.start();
+    Thread.sleep(3000);
+    controlServerStarted=true;
+  }
+}

@@ -1,0 +1,10 @@
+{
+  String appId=apps.get(0);
+  List<ConfigurationSchemaDto> dtoList=configurationService.findConfSchemasByAppId(appId);
+  Assert.assertNotNull(dtoList);
+  Assert.assertFalse(dtoList.isEmpty());
+  configurationService.removeConfSchemasByAppId(appId);
+  dtoList=configurationService.findConfSchemasByAppId(appId);
+  Assert.assertNotNull(dtoList);
+  Assert.assertTrue(dtoList.isEmpty());
+}

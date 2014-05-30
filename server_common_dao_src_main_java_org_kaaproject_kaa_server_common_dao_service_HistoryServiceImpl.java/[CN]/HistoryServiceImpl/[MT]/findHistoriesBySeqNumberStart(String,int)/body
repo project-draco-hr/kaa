@@ -1,0 +1,5 @@
+{
+  LOG.debug("Find history range by application id [{}] and start sequence number {}",appId,startSeqNum);
+  validateId(appId,"Can't find history by application id and start sequence number. Invalid application id " + appId);
+  return convertDtoList(historyDao.findBySeqNumberStart(appId,startSeqNum));
+}

@@ -1,0 +1,10 @@
+{
+  if (that == null)   return false;
+  boolean this_present_forceGC=true;
+  boolean that_present_forceGC=true;
+  if (this_present_forceGC || that_present_forceGC) {
+    if (!(this_present_forceGC && that_present_forceGC))     return false;
+    if (this.forceGC != that.forceGC)     return false;
+  }
+  return true;
+}

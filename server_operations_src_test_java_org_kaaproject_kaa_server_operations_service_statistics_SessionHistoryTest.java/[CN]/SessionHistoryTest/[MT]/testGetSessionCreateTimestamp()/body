@@ -1,0 +1,6 @@
+{
+  UUID uuid=UUID.randomUUID();
+  SessionHistory history=new SessionHistory(uuid);
+  assertNotNull(history);
+  assertTrue(history.getSessionCreateTimestamp() <= System.currentTimeMillis());
+}

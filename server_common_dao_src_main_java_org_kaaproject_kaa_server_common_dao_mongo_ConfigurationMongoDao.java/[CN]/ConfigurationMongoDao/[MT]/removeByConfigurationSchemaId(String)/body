@@ -1,0 +1,4 @@
+{
+  LOG.debug("Remove configurations  by configuration schema id [{}] ",configurationSchemaId);
+  remove(query(where(SCHEMA_ID).is(new ObjectId(configurationSchemaId))));
+}

@@ -1,0 +1,12 @@
+{
+  LOG.trace("CommandName {}: process...",COMMAND_NAME);
+  if (requestData != null && requestData.length > 0) {
+    Resolve r=requestConverter.fromByteArray(requestData);
+    LOG.trace("CommandName {}, application token {}",COMMAND_NAME,r.getApplicationToken());
+    applicationToken=r.getApplicationToken();
+    OperationsServerList serverList=conf.getOperationsServerListService().getOpsServerList();
+    responseBody=responseConverter.toByteArray(serverList);
+    responseSignature=crypt.sign(responseBody);
+    LOG.trace("CommandName {} response signed",COMMAND_NAME);
+  }
+}

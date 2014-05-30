@@ -1,0 +1,8 @@
+{
+  assertEquals(publicKey,cacheService.getEndpointKey(publicKeyHash));
+  verify(endpointService,times(1)).findEndpointProfileByKeyHash(publicKeyHash.getData());
+  reset(endpointService);
+  assertEquals(publicKey,cacheService.getEndpointKey(publicKeyHash));
+  verify(endpointService,times(0)).findEndpointProfileByKeyHash(publicKeyHash.getData());
+  reset(endpointService);
+}

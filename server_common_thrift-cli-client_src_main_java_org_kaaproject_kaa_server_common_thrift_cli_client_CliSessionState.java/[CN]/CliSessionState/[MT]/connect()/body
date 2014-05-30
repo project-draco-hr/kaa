@@ -1,0 +1,8 @@
+{
+  transport=new TSocket(host,port);
+  TProtocol protocol=new TBinaryProtocol(transport);
+  client=new CliClient(protocol);
+  transport.open();
+  remoteServerName=client.serverName();
+  remoteMode=true;
+}

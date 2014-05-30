@@ -1,0 +1,9 @@
+{
+  OptionsProcessor optionsProcessor=new OptionsProcessor();
+  boolean result=optionsProcessor.parse(new String[]{"--unknown"});
+  Assert.assertFalse(result);
+  String output=systemOut.toString("UTF-8");
+  String error=systemErr.toString("UTF-8");
+  Assert.assertTrue(output.startsWith("usage: thriftCli"));
+  Assert.assertTrue(error.trim().equals("Unrecognized option: --unknown"));
+}

@@ -1,0 +1,10 @@
+{
+  if (that == null)   return false;
+  boolean this_present_tenantAdmin=true && this.isSetTenantAdmin();
+  boolean that_present_tenantAdmin=true && that.isSetTenantAdmin();
+  if (this_present_tenantAdmin || that_present_tenantAdmin) {
+    if (!(this_present_tenantAdmin && that_present_tenantAdmin))     return false;
+    if (!this.tenantAdmin.equals(that.tenantAdmin))     return false;
+  }
+  return true;
+}

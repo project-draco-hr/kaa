@@ -1,0 +1,10 @@
+{
+  OperationsNodeInfo endpointServerInfo=null;
+  try {
+    endpointServerInfo=operationsNodeAvroConverter.get().fromByteArray(currentData.getData(),null);
+  }
+ catch (  IOException e) {
+    LOG.error("error reading control server info",e);
+  }
+  return endpointServerInfo;
+}

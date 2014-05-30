@@ -1,0 +1,11 @@
+{
+  Schema itemSchema=getSchemaByFullName(array.getSchema(),getFullName(container));
+  if (itemSchema.getType() == Type.RECORD) {
+    GenericRecord subDelta=new GenericData.Record(itemSchema);
+    fillDeltaWithoutMerge(subDelta,(GenericRecord)container);
+    array.add(subDelta);
+  }
+ else {
+    array.add(container);
+  }
+}

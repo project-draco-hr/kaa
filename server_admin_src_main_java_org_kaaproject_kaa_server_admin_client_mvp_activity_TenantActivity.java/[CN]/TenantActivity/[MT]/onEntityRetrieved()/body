@@ -1,0 +1,7 @@
+{
+  super.onEntityRetrieved();
+  if (!create) {
+    detailsView.setTitle(entity.getTenantName());
+  }
+  detailsView.getTenantName().setValue(entity.getTenantName());
+}

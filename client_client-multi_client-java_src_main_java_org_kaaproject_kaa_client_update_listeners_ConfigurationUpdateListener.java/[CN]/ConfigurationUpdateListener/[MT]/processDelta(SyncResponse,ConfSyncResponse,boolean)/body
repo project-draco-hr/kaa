@@ -1,0 +1,6 @@
+{
+  if (confResponse.getConfDeltaBody() != null) {
+    configurationProcessor.processConfigurationData(response.getConfSyncResponse().getConfDeltaBody(),fullResync);
+    clientState.setConfigurationHash(hashContainer.getConfigurationHash());
+  }
+}

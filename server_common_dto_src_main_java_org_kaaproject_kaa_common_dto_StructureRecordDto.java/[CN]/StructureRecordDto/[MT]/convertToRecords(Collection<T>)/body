@@ -1,0 +1,18 @@
+{
+  Map<String,StructureRecordDto<T>> recordsMap=new HashMap<>();
+  for (  T structure : structures) {
+    StructureRecordDto<T> record=recordsMap.get(structure.getSchemaId());
+    if (record == null) {
+      record=new StructureRecordDto<T>();
+      recordsMap.put(structure.getSchemaId(),record);
+    }
+    if (structure.getStatus() == UpdateStatus.ACTIVE) {
+      record.setActiveStructureDto(structure);
+    }
+ else     if (structure.getStatus() == UpdateStatus.INACTIVE) {
+      record.setInactiveStructureDto(structure);
+    }
+  }
+  List<StructureRecordDto<T>> result=new ArrayList<>(recordsMap.values());
+  return result;
+}

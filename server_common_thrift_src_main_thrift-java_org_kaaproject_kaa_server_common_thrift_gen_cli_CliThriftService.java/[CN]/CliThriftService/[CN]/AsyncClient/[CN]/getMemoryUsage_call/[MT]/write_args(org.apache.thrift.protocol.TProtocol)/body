@@ -1,0 +1,7 @@
+{
+  prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("getMemoryUsage",org.apache.thrift.protocol.TMessageType.CALL,0));
+  getMemoryUsage_args args=new getMemoryUsage_args();
+  args.setForceGC(forceGC);
+  args.write(prot);
+  prot.writeMessageEnd();
+}

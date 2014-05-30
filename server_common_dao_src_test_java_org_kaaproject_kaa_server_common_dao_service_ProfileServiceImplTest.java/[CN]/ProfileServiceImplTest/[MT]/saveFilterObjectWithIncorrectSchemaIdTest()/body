@@ -1,0 +1,9 @@
+{
+  ProfileFilterDto filterDto=generateFilter(null,null,1,false).get(0);
+  filterDto.setId(null);
+  filterDto.setSchemaId(new ObjectId().toString());
+  Assert.assertNotNull(filterDto);
+  filterDto.setId(null);
+  filterDto.setSchemaId(filterDto.getApplicationId());
+  profileService.saveProfileFilter(filterDto);
+}

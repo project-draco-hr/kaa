@@ -1,0 +1,31 @@
+{
+  try {
+    SpecificRecordBase record=msg.getCommand().decode();
+    NettyCommandAwareMessage message;
+    if (record instanceof EndpointRegistrationRequest) {
+      message=new NettyEndpointRegistrationMessage((EndpointRegistrationRequest)record,msg);
+    }
+ else     if (record instanceof ProfileUpdateRequest) {
+      message=new NettyEndpointUpdateMessage((ProfileUpdateRequest)record,msg);
+    }
+ else     if (record instanceof SyncRequest) {
+      message=new NettyEndpointSyncMessage((SyncRequest)record,msg);
+    }
+ else     if (record instanceof LongSyncRequest) {
+      message=new NettyEndpointLongSyncMessage((LongSyncRequest)record,msg);
+    }
+ else {
+      message=null;
+      LOG.warn("unknown request param: {}",record);
+      msg.getChannelContext().fireExceptionCaught(new RuntimeException("unknown request param: " + record));
+    }
+    if (message != null) {
+      ActorRef requestHandler=context().actorOf(Props.create(new EndpointRequestActor.ActorCreator(epsActor)),msg.getHandlerUuid());
+      requestHandler.tell(message,getSelf());
+    }
+  }
+ catch (  BadRequestException|GeneralSecurityException|IOException e) {
+    LOG.trace("Command decode failed " + msg);
+    msg.getChannelContext().fireExceptionCaught(e);
+  }
+}

@@ -1,0 +1,13 @@
+{
+  if (header.containsKey(CommonEPConstans.SIGNATURE_HEADER_NAME) && header.get(CommonEPConstans.SIGNATURE_HEADER_NAME) != null && header.get(CommonEPConstans.SIGNATURE_HEADER_NAME).size() > 0) {
+    String sigHeader=header.get(CommonEPConstans.SIGNATURE_HEADER_NAME).get(0);
+    byte[] respSignature=Base64.decodeBase64(sigHeader);
+    byte[] respData=body;
+    crypt.verify(respData,respSignature);
+    logger.trace("Test " + getId() + " response verified, body size "+ body.length);
+    return responseConverter.fromByteArray(respData);
+  }
+ else {
+    throw new Exception("HTTP response incorrect, no signature fields " + CommonBSConstants.SIGNATURE_HEADER_NAME);
+  }
+}

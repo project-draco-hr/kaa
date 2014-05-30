@@ -1,0 +1,18 @@
+{
+  LOG.info("Load distribution service shutdown...");
+  operate=false;
+  loadManager.deregisterListeners();
+synchronized (sync) {
+    sync.notify();
+  }
+  try {
+    this.join(10000);
+  }
+ catch (  InterruptedException e) {
+    LOG.trace("Load distribution service shutdown join() interrupted");
+  }
+ finally {
+    LOG.info("Load distribution service shutdown complete");
+    loadManager=null;
+  }
+}

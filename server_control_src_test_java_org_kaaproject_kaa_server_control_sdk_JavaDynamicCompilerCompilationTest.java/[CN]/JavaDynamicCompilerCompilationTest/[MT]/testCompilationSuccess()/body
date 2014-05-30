@@ -1,0 +1,10 @@
+{
+  JavaDynamicCompiler compiler=new JavaDynamicCompiler();
+  compiler.init();
+  JavaDynamicBean dummySource=new JavaDynamicBean("dummyClass","class dummyClass {}");
+  Collection<JavaDynamicBean> compiledClasses=compiler.compile(Arrays.asList(dummySource));
+  Assert.assertEquals(compiledClasses.size(),1);
+  JavaDynamicBean compiledClass=compiledClasses.iterator().next();
+  Assert.assertEquals(compiledClass.getName(),"dummyClass");
+  Assert.assertNotNull(compiledClass.getBytes());
+}

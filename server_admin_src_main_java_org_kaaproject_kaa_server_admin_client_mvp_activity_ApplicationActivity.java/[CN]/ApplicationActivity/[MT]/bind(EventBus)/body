@@ -1,0 +1,11 @@
+{
+  super.bind(eventBus);
+  if (KaaAdmin.isDevMode()) {
+    registrations.add(detailsView.getGenerateSdkButton().addClickHandler(new ClickHandler(){
+      @Override public void onClick(      ClickEvent event){
+        showGenerateSdkDialog();
+      }
+    }
+));
+  }
+}

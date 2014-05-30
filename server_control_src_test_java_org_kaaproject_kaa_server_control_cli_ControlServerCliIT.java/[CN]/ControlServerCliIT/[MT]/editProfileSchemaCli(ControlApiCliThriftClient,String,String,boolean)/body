@@ -1,0 +1,36 @@
+{
+  cliOut.reset();
+  boolean create=strIsEmpty(profileSchemaId);
+  int result=-1;
+  if (create) {
+    if (strIsEmpty(applicationId)) {
+      applicationId=editApplicationCli(cli,null,null,false);
+      cliOut.reset();
+    }
+    String cmdLine="createProfileSchema -f " + getTestFile("testProfileSchema.json") + " -a "+ applicationId;
+    if (createOut) {
+      cmdLine+=" -o dummy.out";
+    }
+ else {
+      cmdLine+=" -vo dummy.ver";
+    }
+    result=cli.processLine(cmdLine);
+  }
+ else {
+    result=cli.processLine("editProfileSchema -f " + getTestFile("testProfileSchemaUpdated.json") + " -i "+ profileSchemaId);
+  }
+  Assert.assertEquals(result,0);
+  String output=cliOut.toString("UTF-8");
+  if (create) {
+    String id=output.trim().substring("Created new Profile Schema with id: ".length()).trim();
+    return id;
+  }
+ else   if (profileSchemaId.equals(FAKE_ID)) {
+    Assert.assertTrue(output.trim().startsWith("Profile Schema with id " + FAKE_ID + " not found!"));
+    return profileSchemaId;
+  }
+ else {
+    Assert.assertTrue(output.trim().startsWith("Profile Schema updated."));
+    return profileSchemaId;
+  }
+}

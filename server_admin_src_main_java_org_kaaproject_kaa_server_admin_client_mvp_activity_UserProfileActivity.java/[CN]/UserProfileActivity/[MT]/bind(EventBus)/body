@@ -1,0 +1,9 @@
+{
+  super.bind(eventBus);
+  registrations.add(detailsView.getChangePasswordButton().addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      showChangePasswordDialog();
+    }
+  }
+));
+}

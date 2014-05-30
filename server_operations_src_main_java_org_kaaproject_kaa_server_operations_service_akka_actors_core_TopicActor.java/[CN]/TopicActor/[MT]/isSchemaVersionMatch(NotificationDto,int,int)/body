@@ -1,0 +1,11 @@
+{
+  if (notificationDto.getType() == NotificationTypeDto.SYSTEM) {
+    return notificationDto.getVersion() == systemNfVersion;
+  }
+ else   if (notificationDto.getType() == NotificationTypeDto.USER) {
+    return notificationDto.getVersion() == userNfVersion;
+  }
+ else {
+    return false;
+  }
+}

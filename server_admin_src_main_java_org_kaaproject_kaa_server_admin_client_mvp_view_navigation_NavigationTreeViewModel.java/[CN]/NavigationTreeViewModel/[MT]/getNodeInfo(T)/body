@@ -1,0 +1,11 @@
+{
+  if (value == null) {
+    ListDataProvider<TreePlace> dataProvider=new ListDataProvider<TreePlace>(nodes);
+    PlaceCell cell=new PlaceCell();
+    return new DefaultNodeInfo<TreePlace>(dataProvider,cell,selectionModel,null);
+  }
+ else   if (value instanceof TreePlace) {
+    return ((TreePlace)value).getNodeInfo(selectionModel,eventBus);
+  }
+  return null;
+}

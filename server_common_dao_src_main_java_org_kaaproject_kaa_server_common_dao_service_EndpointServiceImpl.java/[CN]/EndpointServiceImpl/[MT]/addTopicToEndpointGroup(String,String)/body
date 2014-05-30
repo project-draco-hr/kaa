@@ -1,0 +1,21 @@
+{
+  validateId(id,"Can't add topics " + topicId + " to endpoint group . Incorrect endpoint group id."+ id);
+  UpdateNotificationDto<EndpointGroupDto> dto=null;
+  EndpointGroup endpointGroup=endpointGroupDao.addTopicToEndpointGroup(id,topicId);
+  if (endpointGroup != null) {
+    dto=new UpdateNotificationDto<EndpointGroupDto>();
+    HistoryDto history=addHistory(endpointGroup.toDto(),ChangeType.ADD_TOPIC,topicId);
+    if (history != null) {
+      dto.setAppId(history.getApplicationId());
+      dto.setAppSeqNumber(history.getSequenceNumber());
+    }
+    dto.setChangeType(ChangeType.ADD_TOPIC);
+    dto.setTopicId(topicId);
+    dto.setGroupId(endpointGroup.getId());
+    dto.setPayload(endpointGroup.toDto());
+  }
+ else {
+    LOG.debug("Can't add topic [{}] to endpoint group [{}]",topicId,id);
+  }
+  return dto;
+}

@@ -1,0 +1,6 @@
+{
+  JavaDynamicCompiler compiler=new JavaDynamicCompiler();
+  JavaDynamicCompiler compilerStubbed=Mockito.spy(compiler);
+  Mockito.doReturn(null).when(compilerStubbed).getCompiler();
+  compilerStubbed.init();
+}

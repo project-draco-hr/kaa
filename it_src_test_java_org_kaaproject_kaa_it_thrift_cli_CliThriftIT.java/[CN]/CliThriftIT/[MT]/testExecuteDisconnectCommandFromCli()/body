@@ -1,0 +1,9 @@
+{
+  cliConnect();
+  BaseCliThriftClient cli=new BaseCliThriftClient();
+  int result=cli.processLine("disconnect");
+  Assert.assertEquals(result,0);
+  String output=systemOut.toString("UTF-8");
+  Assert.assertTrue(output.trim().isEmpty());
+  Assert.assertFalse(cliSession.isRemoteMode());
+}

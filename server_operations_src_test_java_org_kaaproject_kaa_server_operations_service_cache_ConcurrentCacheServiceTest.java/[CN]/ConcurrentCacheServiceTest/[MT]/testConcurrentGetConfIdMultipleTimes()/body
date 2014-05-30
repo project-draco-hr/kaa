@@ -1,0 +1,12 @@
+{
+  for (int i=0; i < STRESS_TEST_INVOCATIONS; i++) {
+    launchCodeInParallelThreads(STRESS_TEST_N_THREADS,new Runnable(){
+      @Override public void run(){
+        assertEquals(CF1_ID,cacheService.getConfIdByKey(TEST_CONF_ID_KEY));
+      }
+    }
+);
+    verify(configurationService,atMost(2)).findConfigurationsByEndpointGroupId(ENDPOINT_GROUP1_ID);
+    reset(configurationService);
+  }
+}

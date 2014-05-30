@@ -1,0 +1,9 @@
+{
+  String id=apps.get(0);
+  List<EndpointGroup> found=endpointGroupDao.findByApplicationId(id);
+  Assert.assertNotNull(found);
+  Assert.assertSame(found.size(),2);
+  endpointGroupDao.removeByApplicationId(id);
+  List<EndpointGroup> dto=endpointGroupDao.findByApplicationId(id);
+  Assert.assertEquals(dto.size(),0);
+}

@@ -1,0 +1,12 @@
+{
+  historyDeltaService=new DefaultHistoryDeltaService();
+  cacheService=mock(CacheService.class);
+  filterService=mock(FilterService.class);
+  ReflectionTestUtils.setField(historyDeltaService,CACHE_SERVICE,cacheService);
+  ReflectionTestUtils.setField(historyDeltaService,FILTER_SERVICE,filterService);
+  profile=new EndpointProfileDto();
+  profile.setApplicationId(APP1_ID);
+  profile.setConfigurationVersion(CONF_VERSION);
+  profile.setProfileVersion(PROFILE_VERSION);
+  profile.setProfile(PROFILE_BODY);
+}

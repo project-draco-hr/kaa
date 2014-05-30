@@ -1,0 +1,4 @@
+{
+  LOG.debug("Remove endpoint profile by endpoint key hash [{}] ",endpointKeyHash);
+  mongoTemplate.remove(query(where(ENDPOINT_KEY_HASH).is(endpointKeyHash)),getCollectionName());
+}

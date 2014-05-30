@@ -1,0 +1,4 @@
+{
+  LOG.debug("Find all configuration  by configuration schema id [{}] ",configurationSchemaId);
+  return find(query(where(SCHEMA_ID).is(new ObjectId(configurationSchemaId))));
+}

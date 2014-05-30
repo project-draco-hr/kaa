@@ -1,0 +1,8 @@
+{
+  final int prime=31;
+  int result=1;
+  result=prime * result + getOuterType().hashCode();
+  result=prime * result + ((newRecord == null) ? 0 : newRecord.hashCode());
+  result=prime * result + ((oldRecord == null) ? 0 : oldRecord.hashCode());
+  return result;
+}

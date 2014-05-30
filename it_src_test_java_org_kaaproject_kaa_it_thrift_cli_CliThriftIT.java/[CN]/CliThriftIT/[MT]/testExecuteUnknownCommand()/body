@@ -1,0 +1,7 @@
+{
+  cliConnect();
+  CommandResult commandResult=cliSession.getClient().executeCommand("fakeCommand");
+  Assert.assertNotNull(commandResult);
+  Assert.assertEquals(commandResult.getStatus(),CommandStatus.OK);
+  Assert.assertTrue(commandResult.getMessage().startsWith("Error: unknown command 'fakeCommand'"));
+}

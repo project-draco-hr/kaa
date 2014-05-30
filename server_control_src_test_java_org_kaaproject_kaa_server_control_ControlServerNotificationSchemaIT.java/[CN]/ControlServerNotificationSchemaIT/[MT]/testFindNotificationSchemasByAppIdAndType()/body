@@ -1,0 +1,12 @@
+{
+  NotificationTypeDto typeDto=NotificationTypeDto.USER;
+  NotificationSchemaDto schemaDto=createNotificationSchema(null,typeDto);
+  Assert.assertNotNull(schemaDto.getId());
+  LOGGER.debug("Create notification schema with id {}",schemaDto.getId());
+  DataStruct dataStruct=new DataStruct();
+  dataStruct.setData(DtoByteMarshaller.toBytes(typeDto));
+  List<NotificationSchemaDto> foundSchema=toDtoList(client.findNotificationSchemasByAppIdAndType(schemaDto.getApplicationId(),dataStruct));
+  Assert.assertFalse(foundSchema.isEmpty());
+  Assert.assertEquals(2,foundSchema.size());
+  Assert.assertEquals(schemaDto,foundSchema.get(1));
+}

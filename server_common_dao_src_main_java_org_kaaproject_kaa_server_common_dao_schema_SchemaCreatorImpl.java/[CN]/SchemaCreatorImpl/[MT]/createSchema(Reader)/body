@@ -1,0 +1,16 @@
+{
+  resetTriggers();
+  String schema;
+  try {
+    ObjectMapper mapper=new ObjectMapper();
+    Map<String,Object> rootSchema=mapper.readValue(configSchema,Map.class);
+    rootSchemaName=getFullName(rootSchema);
+    convert(rootSchema);
+    schema=mapper.writeValueAsString(strategy.onSchemaProcessed(rootSchema,addressableRecords));
+  }
+ catch (  IOException ex) {
+    LOG.error("Can't generate schema.",ex);
+    throw new SchemaCreationException("Can't generate schema based on config schema.",ex);
+  }
+  return schema;
+}

@@ -1,0 +1,13 @@
+{
+  OperationsServerInfo server=bootstrapManager.getNextOperationsServer();
+  if (server != null) {
+    LOG.info("Switching to new endpoint server {}",server.getHostName());
+    updateManager.setTransport(new HttpOperationsTransport(server.getHostName(),this.state.getPrivateKey(),this.state.getPublicKey(),server.getKey()));
+  }
+  try {
+    updateManager.failover(TIMEOUT);
+  }
+ catch (  IOException e) {
+    LOG.error("Failed to enter the failover mode",e);
+  }
+}

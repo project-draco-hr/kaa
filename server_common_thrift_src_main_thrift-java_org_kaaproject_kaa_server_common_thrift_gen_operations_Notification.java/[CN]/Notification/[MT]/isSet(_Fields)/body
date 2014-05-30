@@ -1,0 +1,34 @@
+{
+  if (field == null) {
+    throw new IllegalArgumentException();
+  }
+switch (field) {
+case APP_ID:
+    return isSetAppId();
+case APP_SEQ_NUMBER:
+  return isSetAppSeqNumber();
+case GROUP_ID:
+return isSetGroupId();
+case GROUP_SEQ_NUMBER:
+return isSetGroupSeqNumber();
+case PROFILE_FILTER_ID:
+return isSetProfileFilterId();
+case PROFILE_FILTER_SEQ_NUMBER:
+return isSetProfileFilterSeqNumber();
+case CONFIGURATION_ID:
+return isSetConfigurationId();
+case CONFIGURATION_SEQ_NUMBER:
+return isSetConfigurationSeqNumber();
+case NOTIFICATION_ID:
+return isSetNotificationId();
+case UNICAST_NOTIFICATION_ID:
+return isSetUnicastNotificationId();
+case TOPIC_ID:
+return isSetTopicId();
+case KEY_HASH:
+return isSetKeyHash();
+case OP:
+return isSetOp();
+}
+throw new IllegalStateException();
+}

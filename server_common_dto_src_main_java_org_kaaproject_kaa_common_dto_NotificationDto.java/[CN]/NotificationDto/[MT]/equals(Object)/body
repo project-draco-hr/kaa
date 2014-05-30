@@ -1,0 +1,37 @@
+{
+  if (this == o) {
+    return true;
+  }
+  if (!(o instanceof NotificationDto)) {
+    return false;
+  }
+  NotificationDto that=(NotificationDto)o;
+  if (secNum != that.secNum) {
+    return false;
+  }
+  if (version != that.version) {
+    return false;
+  }
+  if (applicationId != null ? !applicationId.equals(that.applicationId) : that.applicationId != null) {
+    return false;
+  }
+  if (!Arrays.equals(body,that.body)) {
+    return false;
+  }
+  if (expiredAt != null ? !expiredAt.equals(that.expiredAt) : that.expiredAt != null) {
+    return false;
+  }
+  if (lastTimeModify != null ? !lastTimeModify.equals(that.lastTimeModify) : that.lastTimeModify != null) {
+    return false;
+  }
+  if (schemaId != null ? !schemaId.equals(that.schemaId) : that.schemaId != null) {
+    return false;
+  }
+  if (topicId != null ? !topicId.equals(that.topicId) : that.topicId != null) {
+    return false;
+  }
+  if (type != that.type) {
+    return false;
+  }
+  return true;
+}

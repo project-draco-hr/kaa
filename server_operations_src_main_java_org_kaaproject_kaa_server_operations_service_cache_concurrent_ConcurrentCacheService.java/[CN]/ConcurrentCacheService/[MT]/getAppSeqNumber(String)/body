@@ -1,0 +1,11 @@
+{
+  return appSeqNumberMemorizer.compute(key,new Computable<String,Integer>(){
+    @Override public Integer compute(    String key){
+      LOG.debug("Fetching result for getAppSeqNumber");
+      Integer value=applicationService.findAppByApplicationToken(key).getSequenceNumber();
+      putAppSeqNumber(key,value);
+      return value;
+    }
+  }
+);
+}

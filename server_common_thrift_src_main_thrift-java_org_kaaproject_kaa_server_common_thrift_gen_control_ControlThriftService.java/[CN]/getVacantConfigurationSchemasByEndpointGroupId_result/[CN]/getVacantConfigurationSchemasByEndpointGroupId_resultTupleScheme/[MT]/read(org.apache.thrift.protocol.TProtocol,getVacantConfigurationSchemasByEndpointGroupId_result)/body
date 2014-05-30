@@ -1,0 +1,22 @@
+{
+  TTupleProtocol iprot=(TTupleProtocol)prot;
+  BitSet incoming=iprot.readBitSet(2);
+  if (incoming.get(0)) {
+{
+      org.apache.thrift.protocol.TList _list109=new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT,iprot.readI32());
+      struct.success=new ArrayList<org.kaaproject.kaa.server.common.thrift.gen.shared.DataStruct>(_list109.size);
+      for (int _i110=0; _i110 < _list109.size; ++_i110) {
+        org.kaaproject.kaa.server.common.thrift.gen.shared.DataStruct _elem111;
+        _elem111=new org.kaaproject.kaa.server.common.thrift.gen.shared.DataStruct();
+        _elem111.read(iprot);
+        struct.success.add(_elem111);
+      }
+    }
+    struct.setSuccessIsSet(true);
+  }
+  if (incoming.get(1)) {
+    struct.ControlException=new ControlThriftException();
+    struct.ControlException.read(iprot);
+    struct.setControlExceptionIsSet(true);
+  }
+}

@@ -1,0 +1,11 @@
+{
+  List<ApplicationDto> applicationDto;
+  if (isValidId(tenantId)) {
+    LOG.debug("Find applications by tenant id [{}]",tenantId);
+    applicationDto=convertDtoList(applicationDao.findByTenantId(tenantId));
+  }
+ else {
+    throw new IncorrectParameterException("Incorrect tenant id: " + tenantId);
+  }
+  return applicationDto;
+}

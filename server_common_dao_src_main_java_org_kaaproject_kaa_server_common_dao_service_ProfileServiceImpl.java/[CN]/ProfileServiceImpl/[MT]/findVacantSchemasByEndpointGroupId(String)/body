@@ -1,0 +1,15 @@
+{
+  validateId(endpointGroupId,"Can't find vacant schemas. Invalid endpoint group id: " + endpointGroupId);
+  EndpointGroup group=endpointGroupDao.findById(endpointGroupId);
+  List<ProfileFilter> profileFilters=profileFilterDao.findActualByEndpointGroupId(endpointGroupId);
+  List<String> usedSchemaIds=new ArrayList<>();
+  for (  ProfileFilter filter : profileFilters) {
+    usedSchemaIds.add(idToString(filter.getSchemaId()));
+  }
+  List<ProfileSchema> schemas=profileSchemaDao.findVacantSchemas(idToString(group.getApplicationId()),usedSchemaIds);
+  List<SchemaDto> schemaDtoList=new ArrayList<>();
+  for (  ProfileSchema schema : schemas) {
+    schemaDtoList.add(schema.toSchemaDto());
+  }
+  return schemaDtoList;
+}

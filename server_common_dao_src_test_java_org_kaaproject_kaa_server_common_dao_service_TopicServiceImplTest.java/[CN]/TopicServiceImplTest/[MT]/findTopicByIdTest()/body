@@ -1,0 +1,5 @@
+{
+  TopicDto topic=generateTopic(null,null);
+  TopicDto found=topicService.findTopicById(topic.getId());
+  Assert.assertEquals(topic,found);
+}

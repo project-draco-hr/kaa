@@ -1,0 +1,21 @@
+{
+  getConfig().setPort(nettyPort);
+  getConfig().setBindInterface(nettyHost);
+  getConfig().setStatisticsCalculationWindow(statisticsCalculationWindow);
+  getConfig().setStatisticsUpdateTimes(statisticsUpdateTimes);
+  httpService=new ProtocolService(getConfig());
+  if (httpService.getNetty() != null) {
+    statistics=StatisticsService.getService();
+    getConfig().setSessionTrack(statistics);
+    httpService.start();
+    realBindInterface=httpService.getNetty().getBindAddress();
+    LOG.info("Operations HTTP server started on" + realBindInterface + " interface, and port "+ nettyPort);
+    if (zkEnabled) {
+      startZK();
+    }
+    startThrift();
+  }
+ else {
+    LOG.error("Operations start failed, Netty didn't started...");
+  }
+}

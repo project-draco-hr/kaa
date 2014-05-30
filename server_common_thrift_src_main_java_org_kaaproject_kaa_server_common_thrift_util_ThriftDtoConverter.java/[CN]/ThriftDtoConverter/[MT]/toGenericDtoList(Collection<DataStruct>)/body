@@ -1,0 +1,7 @@
+{
+  List<T> dtoList=new ArrayList<T>(dataStructList.size());
+  for (  DataStruct dataStruct : dataStructList) {
+    dtoList.add(ThriftDtoConverter.<T>toGenericDto(dataStruct));
+  }
+  return dtoList;
+}

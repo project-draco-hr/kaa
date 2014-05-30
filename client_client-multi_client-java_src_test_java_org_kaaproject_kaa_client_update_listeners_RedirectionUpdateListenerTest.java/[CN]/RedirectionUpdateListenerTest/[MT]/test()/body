@@ -1,0 +1,20 @@
+{
+  BootstrapManager bootstrapManager=mock(BootstrapManager.class);
+  UpdateManager updateManager=mock(UpdateManager.class);
+  KaaClientState state=mock(KaaClientState.class);
+  KeyPairGenerator keyGen=KeyPairGenerator.getInstance("RSA");
+  keyGen.initialize(2048);
+  KeyPair keyPair=keyGen.genKeyPair();
+  OperationsServerInfo info=new OperationsServerInfo("some.name",keyPair.getPublic().getEncoded());
+  when(bootstrapManager.getOperationsServerByDnsName(any(String.class))).thenReturn(info);
+  RedirectionUpdateListener listener=new RedirectionUpdateListener(bootstrapManager,updateManager,state);
+  SyncResponse response=new SyncResponse();
+  listener.onDeltaUpdate(response);
+  response.setResponseType(SyncResponseStatus.REDIRECT);
+  RedirectSyncResponse redirectionResponse=new RedirectSyncResponse();
+  redirectionResponse.setDnsName("some.name");
+  response.setRedirectSyncResponse(redirectionResponse);
+  listener.onDeltaUpdate(response);
+  verify(updateManager,times(1)).setTransport(any(OperationsTransport.class));
+  verify(bootstrapManager,times(1)).getOperationsServerByDnsName(eq("some.name"));
+}

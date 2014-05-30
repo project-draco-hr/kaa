@@ -1,0 +1,17 @@
+{
+  if (!getClass().equals(other.getClass())) {
+    return getClass().getName().compareTo(other.getClass().getName());
+  }
+  int lastComparison=0;
+  lastComparison=Boolean.valueOf(isSetCliException()).compareTo(other.isSetCliException());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetCliException()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.cliException,other.cliException);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  return 0;
+}

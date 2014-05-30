@@ -1,0 +1,11 @@
+{
+  getNotificationSchemaVersionsByApplicationId_result result=new getNotificationSchemaVersionsByApplicationId_result();
+  receiveBase(result,"getNotificationSchemaVersionsByApplicationId");
+  if (result.isSetSuccess()) {
+    return result.success;
+  }
+  if (result.ControlException != null) {
+    throw result.ControlException;
+  }
+  throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT,"getNotificationSchemaVersionsByApplicationId failed: unknown result");
+}

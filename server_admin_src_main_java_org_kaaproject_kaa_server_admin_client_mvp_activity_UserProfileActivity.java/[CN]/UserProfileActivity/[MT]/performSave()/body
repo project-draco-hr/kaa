@@ -1,0 +1,13 @@
+{
+  editEntity(entity,new AsyncCallback<UserDto>(){
+    public void onSuccess(    UserDto result){
+      if (place.getPreviousPlace() != null) {
+        goTo(place.getPreviousPlace());
+      }
+    }
+    public void onFailure(    Throwable caught){
+      detailsView.setErrorMessage(Utils.getErrorMessage(caught));
+    }
+  }
+);
+}

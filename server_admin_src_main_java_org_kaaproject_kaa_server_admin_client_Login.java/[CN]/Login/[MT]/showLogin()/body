@@ -1,0 +1,8 @@
+{
+  injectThemeStyleSheet();
+  resources.css().ensureInjected();
+  view.getLoginButton().addClickHandler(new LoginHandler());
+  view.clearMessages();
+  RootLayoutPanel.get().clear();
+  RootLayoutPanel.get().add(view);
+}

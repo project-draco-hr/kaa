@@ -1,0 +1,49 @@
+{
+  OptionsProcessor oproc=new OptionsProcessor();
+  if (!oproc.parse(args)) {
+    System.exit(1);
+  }
+  CliSessionState ss=new CliSessionState();
+  ss.in=System.in;
+  try {
+    ss.out=new PrintStream(System.out,true,"UTF-8");
+    ss.err=new PrintStream(System.err,true,"UTF-8");
+  }
+ catch (  UnsupportedEncodingException e) {
+    System.exit(3);
+  }
+  if (!oproc.process(ss)) {
+    System.exit(2);
+  }
+  CliSessionState.start(ss);
+  if (ss.getHost() != null) {
+    ss.connect();
+    if (ss.isRemoteMode()) {
+      prompt="[" + ss.host + ':'+ ss.port+ "] "+ ss.remoteServerName;
+      char[] spaces=new char[prompt.length()];
+      Arrays.fill(spaces,' ');
+      prompt2=new String(spaces);
+    }
+  }
+  BaseCliThriftClient cli=new BaseCliThriftClient();
+  if (ss.execString != null) {
+    System.exit(cli.processLine(ss.execString));
+  }
+  ConsoleReader reader=new ConsoleReader();
+  reader.setBellEnabled(false);
+  String line;
+  int ret=0;
+  String prefix="";
+  String curPrompt=prompt;
+  while ((line=reader.readLine(curPrompt + "> ")) != null) {
+    if (!prefix.equals("")) {
+      prefix+='\n';
+    }
+    line=prefix + line;
+    ret=cli.processLine(line);
+    prefix="";
+    curPrompt=prompt;
+  }
+  ss.close();
+  System.exit(ret);
+}

@@ -1,0 +1,6 @@
+{
+  Schema bytesSchema=Schema.create(Type.BYTES);
+  GenericArray avroArray=CommonToGeneric.createArray(createCommonArray(bytesSchema,ByteBuffer.wrap(new byte[]{1,2})));
+  ByteBuffer avroBytes=(ByteBuffer)avroArray.get(0);
+  assertArrayEquals(new byte[]{1,2},avroBytes.array());
+}

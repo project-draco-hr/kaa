@@ -1,0 +1,21 @@
+{
+  BootstrapNode bootstrapNode=mock(BootstrapNode.class);
+  List<OperationsNodeInfo> endpointNodes=Arrays.asList(new OperationsNodeInfo(new ConnectionInfo("host1",123,"host1",123,null),1,1,1,System.currentTimeMillis()),new OperationsNodeInfo(new ConnectionInfo("host2",123,"host2",123,null),1,1,1,System.currentTimeMillis()),new OperationsNodeInfo(new ConnectionInfo("host3",123,"host3",123,null),1,1,1,System.currentTimeMillis()));
+  when(bootstrapNode.getCurrentOperationServerNodes()).thenReturn(endpointNodes);
+  BootstrapConfig config=new BootstrapConfig();
+  config.setBootstrapNode(bootstrapNode);
+  OperationsServerListService endpointListService=new OperationsServerListService(config);
+  endpointListService.init();
+  Map<String,OperationsServer> endpointMap=new HashMap<>();
+  OperationsServer s1=new OperationsServer(10,ByteBuffer.wrap(new byte[]{1,2,3}));
+  endpointMap.put("host1:123",s1);
+  OperationsServer s2=new OperationsServer(10,ByteBuffer.wrap(new byte[]{1,2,3}));
+  endpointMap.put("host2:123",s2);
+  OperationsServer s3=new OperationsServer(10,ByteBuffer.wrap(new byte[]{1,2,3}));
+  endpointMap.put("host3:123",s3);
+  endpointListService.updateList(endpointMap);
+  OperationsServerList list=endpointListService.getOpsServerList();
+  assertNotNull(list);
+  assertNotNull(list.getOperationsServerArray());
+  assertEquals(3,list.getOperationsServerArray().size());
+}

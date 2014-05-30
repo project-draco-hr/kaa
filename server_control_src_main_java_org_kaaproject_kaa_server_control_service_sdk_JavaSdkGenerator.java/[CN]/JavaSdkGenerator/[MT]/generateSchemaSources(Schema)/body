@@ -1,0 +1,19 @@
+{
+  SpecificCompiler compiler=new SpecificCompiler(schema);
+  compiler.setStringType(StringType.String);
+  compiler.setFieldVisibility(FieldVisibility.PRIVATE);
+  File tmpdir=new File(System.getProperty("java.io.tmpdir"));
+  long n=RANDOM.nextLong();
+  if (n == Long.MIN_VALUE) {
+    n=0;
+  }
+ else {
+    n=Math.abs(n);
+  }
+  File tmpOutputDir=new File(tmpdir,"tmp-gen-" + Long.toString(n));
+  tmpOutputDir.mkdirs();
+  compiler.compileToDestination(null,tmpOutputDir);
+  List<JavaDynamicBean> sources=getJavaSources(tmpOutputDir);
+  tmpOutputDir.delete();
+  return sources;
+}

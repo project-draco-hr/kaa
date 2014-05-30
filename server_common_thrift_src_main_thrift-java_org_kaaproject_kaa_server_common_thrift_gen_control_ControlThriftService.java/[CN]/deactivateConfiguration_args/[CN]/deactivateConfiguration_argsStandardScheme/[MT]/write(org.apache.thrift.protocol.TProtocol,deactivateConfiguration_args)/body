@@ -1,0 +1,16 @@
+{
+  struct.validate();
+  oprot.writeStructBegin(STRUCT_DESC);
+  if (struct.configurationId != null) {
+    oprot.writeFieldBegin(CONFIGURATION_ID_FIELD_DESC);
+    oprot.writeString(struct.configurationId);
+    oprot.writeFieldEnd();
+  }
+  if (struct.deactivatedUsername != null) {
+    oprot.writeFieldBegin(DEACTIVATED_USERNAME_FIELD_DESC);
+    oprot.writeString(struct.deactivatedUsername);
+    oprot.writeFieldEnd();
+  }
+  oprot.writeFieldStop();
+  oprot.writeStructEnd();
+}

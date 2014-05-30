@@ -1,0 +1,7 @@
+{
+  TenantDto tenant=null;
+  if (isValidObject(tenantDto)) {
+    tenant=getDto(tenantDao.save(new Tenant(tenantDto)));
+  }
+  return tenant;
+}

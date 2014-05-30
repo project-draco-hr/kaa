@@ -1,0 +1,34 @@
+{
+  if (that == null)   return false;
+  boolean this_present_sdkPlatform=true && this.isSetSdkPlatform();
+  boolean that_present_sdkPlatform=true && that.isSetSdkPlatform();
+  if (this_present_sdkPlatform || that_present_sdkPlatform) {
+    if (!(this_present_sdkPlatform && that_present_sdkPlatform))     return false;
+    if (!this.sdkPlatform.equals(that.sdkPlatform))     return false;
+  }
+  boolean this_present_applicationId=true && this.isSetApplicationId();
+  boolean that_present_applicationId=true && that.isSetApplicationId();
+  if (this_present_applicationId || that_present_applicationId) {
+    if (!(this_present_applicationId && that_present_applicationId))     return false;
+    if (!this.applicationId.equals(that.applicationId))     return false;
+  }
+  boolean this_present_profileSchemaVersion=true;
+  boolean that_present_profileSchemaVersion=true;
+  if (this_present_profileSchemaVersion || that_present_profileSchemaVersion) {
+    if (!(this_present_profileSchemaVersion && that_present_profileSchemaVersion))     return false;
+    if (this.profileSchemaVersion != that.profileSchemaVersion)     return false;
+  }
+  boolean this_present_configurationSchemaVersion=true;
+  boolean that_present_configurationSchemaVersion=true;
+  if (this_present_configurationSchemaVersion || that_present_configurationSchemaVersion) {
+    if (!(this_present_configurationSchemaVersion && that_present_configurationSchemaVersion))     return false;
+    if (this.configurationSchemaVersion != that.configurationSchemaVersion)     return false;
+  }
+  boolean this_present_notificationSchemaVersion=true;
+  boolean that_present_notificationSchemaVersion=true;
+  if (this_present_notificationSchemaVersion || that_present_notificationSchemaVersion) {
+    if (!(this_present_notificationSchemaVersion && that_present_notificationSchemaVersion))     return false;
+    if (this.notificationSchemaVersion != that.notificationSchemaVersion)     return false;
+  }
+  return true;
+}

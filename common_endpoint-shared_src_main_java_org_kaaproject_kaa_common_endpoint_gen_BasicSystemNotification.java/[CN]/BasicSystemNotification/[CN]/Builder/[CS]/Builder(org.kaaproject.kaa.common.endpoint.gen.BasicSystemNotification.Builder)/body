@@ -1,0 +1,15 @@
+{
+  super(other);
+  if (isValidValue(fields()[0],other.notificationBody)) {
+    this.notificationBody=data().deepCopy(fields()[0].schema(),other.notificationBody);
+    fieldSetFlags()[0]=true;
+  }
+  if (isValidValue(fields()[1],other.systemNotificationParam1)) {
+    this.systemNotificationParam1=data().deepCopy(fields()[1].schema(),other.systemNotificationParam1);
+    fieldSetFlags()[1]=true;
+  }
+  if (isValidValue(fields()[2],other.systemNotificationParam2)) {
+    this.systemNotificationParam2=data().deepCopy(fields()[2].schema(),other.systemNotificationParam2);
+    fieldSetFlags()[2]=true;
+  }
+}

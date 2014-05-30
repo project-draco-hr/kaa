@@ -1,0 +1,8 @@
+{
+  HistoryDelta historyDelta=historyDeltaService.getDelta(profile,APP1_TOKEN,101,101);
+  Assert.assertNotNull(historyDelta);
+  Assert.assertFalse(historyDelta.isConfigurationChanged());
+  Assert.assertFalse(historyDelta.isTopicListChanged());
+  Assert.assertNotNull(historyDelta.getEndpointGroupStates());
+  Assert.assertEquals(0,historyDelta.getEndpointGroupStates().size());
+}

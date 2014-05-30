@@ -1,0 +1,10 @@
+{
+  editProfileSchema_result result=new editProfileSchema_result();
+  try {
+    result.success=iface.editProfileSchema(args.profileSchema);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

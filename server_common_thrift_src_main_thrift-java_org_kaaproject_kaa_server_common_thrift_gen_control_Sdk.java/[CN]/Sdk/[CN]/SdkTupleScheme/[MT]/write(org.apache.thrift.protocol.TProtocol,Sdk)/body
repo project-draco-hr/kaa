@@ -1,0 +1,17 @@
+{
+  TTupleProtocol oprot=(TTupleProtocol)prot;
+  BitSet optionals=new BitSet();
+  if (struct.isSetFileName()) {
+    optionals.set(0);
+  }
+  if (struct.isSetData()) {
+    optionals.set(1);
+  }
+  oprot.writeBitSet(optionals,2);
+  if (struct.isSetFileName()) {
+    oprot.writeString(struct.fileName);
+  }
+  if (struct.isSetData()) {
+    oprot.writeBinary(struct.data);
+  }
+}

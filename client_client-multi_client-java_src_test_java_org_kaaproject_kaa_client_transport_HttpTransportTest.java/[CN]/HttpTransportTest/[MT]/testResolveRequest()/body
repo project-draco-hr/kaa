@@ -1,0 +1,17 @@
+{
+  String host="localhost:9999";
+  KeyPairGenerator clientKeyGen=KeyPairGenerator.getInstance("RSA");
+  clientKeyGen.initialize(2048);
+  KeyPair clientKeyPair=clientKeyGen.genKeyPair();
+  PublicKey remotePublicKey=clientKeyPair.getPublic();
+  List<OperationsServer> endpointsList=new LinkedList<OperationsServer>();
+  endpointsList.add(new OperationsServer("localhost:9889",1,ByteBuffer.wrap(new byte[]{1,2,3})));
+  OperationsServerList response=new OperationsServerList(endpointsList);
+  TransportTest transportTest=new TransportTest(response,OperationsServerList.class);
+  HttpBootstrapTransportTest transport=new HttpBootstrapTransportTest(response,host,remotePublicKey);
+  transportTest.setMocksToTransport(transport);
+  Resolve request=new Resolve("1234567");
+  OperationsServerList result=transport.sendResolveRequest(request);
+  verify(transportTest.getHttpClient(),times(1)).execute(any(HttpPost.class));
+  assertEquals(response,result);
+}

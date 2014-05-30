@@ -1,0 +1,14 @@
+{
+  String path=Window.Location.getPath();
+  if (!path.endsWith("/")) {
+    if (path.endsWith(".html") || path.endsWith(".htm")) {
+      int index=path.lastIndexOf('/');
+      path=path.substring(0,index + 1);
+    }
+ else {
+      path+="/";
+    }
+  }
+  String target=path + module + "/";
+  Window.Location.assign(Window.Location.createUrlBuilder().setPath(target).buildString());
+}

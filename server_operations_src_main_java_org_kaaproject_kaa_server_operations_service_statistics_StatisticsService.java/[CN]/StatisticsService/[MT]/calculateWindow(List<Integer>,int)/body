@@ -1,0 +1,14 @@
+{
+  int average=0;
+  list.add(Integer.valueOf(lastValue));
+  if (list.size() > statsUpdateTimes) {
+    list.remove(0);
+  }
+  for (  Integer pr : list) {
+    average+=pr.intValue();
+  }
+  if (!list.isEmpty()) {
+    average=average / list.size();
+  }
+  return average;
+}

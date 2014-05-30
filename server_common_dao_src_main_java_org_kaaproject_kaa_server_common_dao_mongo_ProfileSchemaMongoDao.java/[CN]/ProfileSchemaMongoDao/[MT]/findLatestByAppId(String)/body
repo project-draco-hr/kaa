@@ -1,0 +1,8 @@
+{
+  LOG.debug("Find latest profile schema  by application id [{}] ",applicationId);
+  List<Sort.Order> orders=new ArrayList<>();
+  orders.add(new Sort.Order(Direction.DESC,MAJOR_VERSION));
+  orders.add(new Sort.Order(Direction.DESC,MINOR_VERSION));
+  Sort sort=new Sort(orders);
+  return findOne(query(where(APPLICATION_ID).is(new ObjectId(applicationId))).with(sort));
+}

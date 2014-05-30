@@ -1,0 +1,10 @@
+{
+  TopicDto topic=createTopic(null,TopicTypeDto.MANDATORY);
+  LOGGER.debug("Created topic with id {}",topic.getId());
+  TopicDto foundTopic=toDto(client.getTopic(topic.getId()));
+  Assert.assertNotNull(foundTopic);
+  Assert.assertEquals(topic,foundTopic);
+  client.deleteTopicById(topic.getId());
+  foundTopic=toDto(client.getTopic(topic.getId()));
+  Assert.assertNull(foundTopic);
+}

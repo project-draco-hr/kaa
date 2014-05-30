@@ -1,0 +1,37 @@
+{
+  com.google.gwt.dom.client.Element resize=this.getCellElement(2,2).getParentElement();
+  int xr=this.getRelX(resize,clientX);
+  int yr=this.getRelY(resize,clientY);
+  int w=resize.getClientWidth();
+  int h=resize.getClientHeight();
+  if ((xr >= 0 && xr < w && yr >= -5 && yr < h) || (yr >= 0 && yr < h && xr >= -5 && xr < w))   return 8;
+  resize=this.getCellElement(2,0).getParentElement();
+  xr=this.getRelX(resize,clientX);
+  yr=this.getRelY(resize,clientY);
+  if ((xr >= 0 && xr < w && yr >= -5 && yr < h) || (yr >= 0 && yr < h && xr >= 0 && xr < w + 5))   return 6;
+  resize=this.getCellElement(0,2).getParentElement();
+  xr=this.getRelX(resize,clientX);
+  yr=this.getRelY(resize,clientY);
+  if ((xr >= 0 && xr < w && yr >= 0 && yr < h + 5) || (yr >= 0 && yr < h && xr >= -5 && xr < w))   return 2;
+  resize=this.getCellElement(0,0).getParentElement();
+  xr=this.getRelX(resize,clientX);
+  yr=this.getRelY(resize,clientY);
+  if ((xr >= 0 && xr < w && yr >= 0 && yr < h + 5) || (yr >= 0 && yr < h && xr >= 0 && xr < w + 5))   return 0;
+  resize=this.getCellElement(0,1).getParentElement();
+  xr=this.getRelX(resize,clientX);
+  yr=this.getRelY(resize,clientY);
+  if (yr >= 0 && yr < h)   return 1;
+  resize=this.getCellElement(1,0).getParentElement();
+  xr=this.getRelX(resize,clientX);
+  yr=this.getRelY(resize,clientY);
+  if (xr >= 0 && xr < w)   return 3;
+  resize=this.getCellElement(2,1).getParentElement();
+  xr=this.getRelX(resize,clientX);
+  yr=this.getRelY(resize,clientY);
+  if (yr >= 0 && yr < h)   return -1;
+  resize=this.getCellElement(1,2).getParentElement();
+  xr=this.getRelX(resize,clientX);
+  yr=this.getRelY(resize,clientY);
+  if (xr >= 0 && xr < w)   return 5;
+  return -1;
+}

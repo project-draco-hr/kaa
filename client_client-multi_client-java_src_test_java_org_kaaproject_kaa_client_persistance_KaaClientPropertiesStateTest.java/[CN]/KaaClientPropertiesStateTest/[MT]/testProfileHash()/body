@@ -1,0 +1,6 @@
+{
+  KaaClientState state=new KaaClientPropertiesState(getProperties());
+  EndpointObjectHash hash=EndpointObjectHash.fromSHA1(new byte[]{1,2,3});
+  state.setProfileHash(hash);
+  assertEquals(hash,state.getProfileHash());
+}

@@ -1,0 +1,33 @@
+{
+  Timing timing=new Timing();
+  TestingCluster cluster=new TestingCluster(3);
+  cluster.start();
+  try {
+    ControlNodeInfo controlNodeInfo=buildControlNodeInfo();
+    BootstrapNodeInfo bootstrapNodeInfo=buildBootstrapNodeInfo();
+    ControlNode controlNode=new ControlNode(controlNodeInfo,cluster.getConnectString(),buildDefaultRetryPolicy());
+    BootstrapNodeListener mockListener=mock(BootstrapNodeListener.class);
+    controlNode.addListener(mockListener);
+    controlNode.start();
+    BootstrapNode bootstrapNode=new BootstrapNode(bootstrapNodeInfo,cluster.getConnectString(),buildDefaultRetryPolicy());
+    bootstrapNode.start();
+    timing.sleepABit();
+    verify(mockListener).onNodeAdded(bootstrapNodeInfo);
+    int random=new Random().nextInt();
+    bootstrapNodeInfo.setProcessedRequestCount(random);
+    bootstrapNode.updateNodeData(bootstrapNodeInfo);
+    timing.sleepABit();
+    verify(mockListener).onNodeUpdated(bootstrapNodeInfo);
+    assertEquals(new Integer(random),controlNode.getCurrentBootstrapNodes().get(0).getProcessedRequestCount());
+    bootstrapNode.close();
+    timing.sleepABit();
+    verify(mockListener).onNodeRemoved(bootstrapNodeInfo);
+    bootstrapNode.close();
+    assertTrue(controlNode.removeListener(mockListener));
+    assertFalse(controlNode.removeListener(mockListener));
+    controlNode.close();
+  }
+  finally {
+    cluster.close();
+  }
+}

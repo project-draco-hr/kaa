@@ -1,0 +1,11 @@
+{
+  this.enableActions=enableActions;
+  if (enableActions) {
+    prefferredWidth+=constructActions(table,prefferredWidth);
+    table.setMinimumTableWidth(prefferredWidth,Unit.PX);
+  }
+ else {
+    prefferredWidth-=removeActions(table);
+    table.setMinimumTableWidth(prefferredWidth,Unit.PX);
+  }
+}

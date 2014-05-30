@@ -1,0 +1,12 @@
+{
+  List<ProfileFilterDto> filters=generateFilter(null,null,1,false);
+  ProfileFilterDto filterDto=filters.get(0);
+  Assert.assertNotNull(filterDto);
+  Assert.assertEquals(UpdateStatus.INACTIVE,filterDto.getStatus());
+  ChangeProfileFilterNotification activated=profileService.activateProfileFilter(filterDto.getId(),null);
+  Assert.assertNotNull(activated);
+  ProfileFilterDto profileFilterDto=activated.getProfileFilterDto();
+  Assert.assertNotNull(profileFilterDto);
+  Assert.assertEquals(UpdateStatus.ACTIVE,profileFilterDto.getStatus());
+  Assert.assertNotEquals(filterDto.getSequenceNumber(),profileFilterDto.getSequenceNumber());
+}

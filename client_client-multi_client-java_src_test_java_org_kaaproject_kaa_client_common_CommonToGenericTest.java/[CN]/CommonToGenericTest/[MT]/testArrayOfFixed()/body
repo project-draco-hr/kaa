@@ -1,0 +1,6 @@
+{
+  Schema fixedSchema=Schema.createFixed("someFixed","","",2);
+  GenericArray avroArray=CommonToGeneric.createArray(createCommonArray(fixedSchema,new DefaultCommonFixed(fixedSchema,new byte[]{1,2})));
+  GenericFixed avroFixed=(GenericFixed)avroArray.get(0);
+  assertArrayEquals(new byte[]{1,2},avroFixed.bytes());
+}

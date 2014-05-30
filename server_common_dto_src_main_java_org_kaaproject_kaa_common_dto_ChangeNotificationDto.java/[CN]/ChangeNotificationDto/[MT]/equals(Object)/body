@@ -1,0 +1,22 @@
+{
+  if (this == o) {
+    return true;
+  }
+  if (!(o instanceof ChangeNotificationDto)) {
+    return false;
+  }
+  ChangeNotificationDto that=(ChangeNotificationDto)o;
+  if (appSeqNumber != that.appSeqNumber) {
+    return false;
+  }
+  if (groupSeqNumber != that.groupSeqNumber) {
+    return false;
+  }
+  if (appId != null ? !appId.equals(that.appId) : that.appId != null) {
+    return false;
+  }
+  if (groupId != null ? !groupId.equals(that.groupId) : that.groupId != null) {
+    return false;
+  }
+  return true;
+}

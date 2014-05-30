@@ -1,0 +1,11 @@
+{
+  ChannelHandlerContext channelContextMock=Mockito.mock(ChannelHandlerContext.class);
+  AbstractOperationsCommand commandMock=Mockito.mock(AbstractOperationsCommand.class);
+  akkaService.onRedirectionRule(new RedirectionRule("testDNS",123,1.0,1000));
+  NettyEncodedRequestMessage message=new NettyEncodedRequestMessage("testUUID",channelContextMock,commandMock);
+  akkaService.process(message);
+  RedirectSyncResponse redirectSyncResponse=new RedirectSyncResponse("testDNS");
+  SyncResponse response=new SyncResponse(0,SyncResponseStatus.REDIRECT,null,null,redirectSyncResponse);
+  Mockito.verify(commandMock,Mockito.never()).decode();
+  Mockito.verify(commandMock,Mockito.timeout(TIMEOUT / 2).atLeastOnce()).encode(response);
+}

@@ -1,0 +1,16 @@
+{
+  if (this == o) {
+    return true;
+  }
+  if (!(o instanceof Update)) {
+    return false;
+  }
+  Update update=(Update)o;
+  if (sequenceNumber != update.sequenceNumber) {
+    return false;
+  }
+  if (status != update.status) {
+    return false;
+  }
+  return true;
+}

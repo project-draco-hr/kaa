@@ -1,0 +1,12 @@
+{
+  Operation operation=null;
+  if (type != null) {
+    try {
+      operation=Operation.valueOf(type.name());
+    }
+ catch (    IllegalArgumentException ex) {
+      LOG.info("Unsupported change type. Check Operation and ChangeType enums.");
+    }
+  }
+  return operation;
+}

@@ -1,0 +1,11 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_ADMIN);
+  try {
+    ApplicationDto application=toDto(clientProvider.getClient().getApplication(applicationId));
+    checkTenantId(application.getTenantId());
+    clientProvider.getClient().deleteApplication(applicationId);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

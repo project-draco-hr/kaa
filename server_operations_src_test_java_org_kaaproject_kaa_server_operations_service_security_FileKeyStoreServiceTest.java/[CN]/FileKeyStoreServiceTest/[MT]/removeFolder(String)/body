@@ -1,0 +1,14 @@
+{
+  LOG.info("Deleting random folder: {}",Paths.get(randomFolderName).toAbsolutePath().toString());
+  Files.walkFileTree(Paths.get(randomFolderName),new SimpleFileVisitor<Path>(){
+    @Override public FileVisitResult visitFile(    Path file,    BasicFileAttributes attrs) throws IOException {
+      Files.delete(file);
+      return FileVisitResult.CONTINUE;
+    }
+    @Override public FileVisitResult postVisitDirectory(    Path dir,    IOException exc) throws IOException {
+      Files.delete(dir);
+      return FileVisitResult.CONTINUE;
+    }
+  }
+);
+}

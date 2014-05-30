@@ -1,0 +1,11 @@
+{
+  try {
+    Path path=Paths.get(Thread.currentThread().getContextClassLoader().getResource(filePath).toURI());
+    byte[] bytes=Files.readAllBytes(path);
+    return new String(bytes);
+  }
+ catch (  URISyntaxException e) {
+    LOGGER.error("Can't generate configs {}",e);
+  }
+  return null;
+}

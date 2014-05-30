@@ -1,0 +1,11 @@
+{
+  struct.validate();
+  oprot.writeStructBegin(STRUCT_DESC);
+  if (struct.configurationSchemaId != null) {
+    oprot.writeFieldBegin(CONFIGURATION_SCHEMA_ID_FIELD_DESC);
+    oprot.writeString(struct.configurationSchemaId);
+    oprot.writeFieldEnd();
+  }
+  oprot.writeFieldStop();
+  oprot.writeStructEnd();
+}

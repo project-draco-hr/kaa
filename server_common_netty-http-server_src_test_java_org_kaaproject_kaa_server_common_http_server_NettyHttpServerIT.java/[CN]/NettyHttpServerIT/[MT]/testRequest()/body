@@ -1,0 +1,28 @@
+{
+  logger.info("Test request");
+  testProcessed=0;
+  for (int i=0; i < NUMBER_OF_TESTS; i++) {
+    sendTest();
+  }
+  try {
+synchronized (sync) {
+      if (testProcessed < NUMBER_OF_TESTS || sessionsCreated > sessionsClosed) {
+        sync.wait(MAX_TIMEOUT_TEST_WAIT);
+      }
+    }
+  }
+ catch (  InterruptedException e) {
+    fail(e.toString());
+  }
+  logger.info("Test request: tested " + testProcessed + " messages, processed with "+ sessionsCreated+ " sessions");
+  for (  String id : testMessages.keySet()) {
+    if (!checkHttpTest(testMessages.get(id))) {
+      fail("Error test request");
+    }
+  }
+  logger.info("Test request: tests checked " + testMessages.size() + ";");
+  if (testMessages.size() > 0) {
+    logger.info("Test request: average time " + averageTime / testMessages.size() + " ms");
+  }
+  assertEquals(0,requests.size());
+}

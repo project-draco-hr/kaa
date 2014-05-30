@@ -1,0 +1,20 @@
+{
+  String dataSchema=schema.getSchema();
+  if (isNotEmpty(dataSchema)) {
+    String protocol=protocolSchemaCreator.createSchema(new StringReader(dataSchema));
+    String base=baseSchemaCreator.createSchema(new StringReader(dataSchema));
+    String override=overrideSchemaCreator.createSchema(new StringReader(dataSchema));
+    if (isNotBlank(protocol) && isNotBlank(base) && isNotBlank(override)) {
+      schema.setBaseSchema(base);
+      schema.setProtocolSchema(protocol);
+      schema.setOverrideSchema(override);
+    }
+ else {
+      LOG.trace("One or more generated schemas are empty. base: {} protocol {}  override {}",base,protocol,override);
+      throw new IncorrectParameterException("Can't generate schemas. Check your data schema");
+    }
+  }
+ else {
+    LOG.warn("Can't generate schemas because data schema is empty.");
+  }
+}

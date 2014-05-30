@@ -1,0 +1,10 @@
+{
+  getEndpointGroupsByApplicationId_result result=new getEndpointGroupsByApplicationId_result();
+  try {
+    result.success=iface.getEndpointGroupsByApplicationId(args.applicationId);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

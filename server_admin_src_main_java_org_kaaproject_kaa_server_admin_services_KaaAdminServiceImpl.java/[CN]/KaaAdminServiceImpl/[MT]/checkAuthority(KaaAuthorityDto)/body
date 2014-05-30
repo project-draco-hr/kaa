@@ -1,0 +1,13 @@
+{
+  AuthUserDto authUser=getCurrentUser();
+  boolean matched=false;
+  for (  KaaAuthorityDto authority : authorities) {
+    if (authUser.getAuthority() == authority) {
+      matched=true;
+      break;
+    }
+  }
+  if (!matched) {
+    throw new KaaAdminServiceException(ServiceErrorCode.PERMISSION_DENIED);
+  }
+}

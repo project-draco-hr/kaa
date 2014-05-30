@@ -1,0 +1,16 @@
+{
+switch (field$) {
+case 0:
+    return appStateSeqNumber;
+case 1:
+  return responseType;
+case 2:
+return confSyncResponse;
+case 3:
+return notificationSyncResponse;
+case 4:
+return redirectSyncResponse;
+default :
+throw new org.apache.avro.AvroRuntimeException("Bad index");
+}
+}

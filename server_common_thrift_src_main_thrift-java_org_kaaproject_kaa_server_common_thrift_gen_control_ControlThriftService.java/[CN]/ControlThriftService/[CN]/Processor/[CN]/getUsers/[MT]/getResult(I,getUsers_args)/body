@@ -1,0 +1,10 @@
+{
+  getUsers_result result=new getUsers_result();
+  try {
+    result.success=iface.getUsers();
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

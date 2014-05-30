@@ -1,0 +1,4 @@
+{
+  validateId(applicationId,"Incorrect application id " + applicationId + ". Can't find configuration schemas.");
+  return convertDtoList(configurationSchemaDao.findByApplicationId(applicationId));
+}

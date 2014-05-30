@@ -1,0 +1,8 @@
+{
+  String id=users.get(0);
+  User dto=userDao.findById(id);
+  Assert.assertNotNull(dto);
+  userDao.removeById(id);
+  dto=userDao.findById(id);
+  Assert.assertNull(dto);
+}

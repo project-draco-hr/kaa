@@ -1,0 +1,10 @@
+{
+  super();
+  this.properties=new KaaClientProperties(properties);
+  this.listeners=new LinkedList<UpdateListener>();
+  this.acceptedUnicastNotificationIds=new HashSet<>();
+  this.state=state;
+  this.commandFactory=new DefaultCommandFactory(this,this.state,this.properties);
+  this.schedulePolling=schedulePolling;
+  this.pollStrategy=new LongPollUpdateStrategy(this);
+}

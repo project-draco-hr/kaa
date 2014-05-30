@@ -1,0 +1,25 @@
+{
+  authService.checkAuth(new AsyncCallback<AuthResultDto>(){
+    @Override public void onFailure(    Throwable caught){
+      authResult=Result.ERROR;
+      showLogin();
+      view.setErrorMessage(caught.toString() + ": " + caught.getMessage());
+    }
+    @Override public void onSuccess(    AuthResultDto result){
+      authResult=result.getAuthResult();
+      if (authResult == Result.OK) {
+        redirectToModule("kaaAdmin");
+      }
+ else {
+        showLogin();
+        if (authResult == Result.ERROR) {
+          view.setErrorMessage(Utils.messages.unexpectedError());
+        }
+ else         if (authResult == Result.KAA_ADMIN_NOT_EXISTS) {
+          view.setInfoMessage(Utils.messages.kaaAdminNotExists());
+        }
+      }
+    }
+  }
+);
+}

@@ -1,0 +1,18 @@
+{
+  ControlZkService zkService=new ControlZkService();
+  ReflectionTestUtils.setField(zkService,"zkEnabled",false);
+  zkService.sendEndpointNotification(null);
+  ReflectionTestUtils.setField(zkService,"zkEnabled",true);
+  ControlNode controlZKNode=Mockito.mock(ControlNode.class);
+  ReflectionTestUtils.setField(zkService,"controlZKNode",controlZKNode);
+  List<OperationsNodeInfo> endpointNodes=Arrays.asList(new OperationsNodeInfo(new ConnectionInfo("host1",123,"host1",123,null),1,1,1,System.currentTimeMillis()));
+  Mockito.when(controlZKNode.getCurrentOperationServerNodes()).thenReturn(endpointNodes);
+  Notification notification=new Notification();
+  zkService.sendEndpointNotification(notification);
+  Thread.sleep(6000);
+  ControlZkService zkServiceStubbed=Mockito.spy(zkService);
+  OperationsThriftService.Client client=Mockito.mock(OperationsThriftService.Client.class);
+  Mockito.doNothing().when(client).onNotification(notification);
+  zkServiceStubbed.sendEndpointNotification(notification);
+  Thread.sleep(2000);
+}

@@ -1,0 +1,17 @@
+{
+  LOG.info("Statistics Service shutdown....");
+  operate=false;
+synchronized (sync) {
+    sync.notify();
+  }
+  try {
+    this.join(10000);
+  }
+ catch (  InterruptedException e) {
+    LOG.trace("Statistics Service shutdown join() Interupted");
+  }
+ finally {
+    LOG.info("Statistics Service shutdown complete.");
+    service=null;
+  }
+}

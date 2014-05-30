@@ -1,0 +1,9 @@
+{
+  if (!serviceStarted) {
+    serviceStarted=true;
+    controlZkService.start();
+    loadMgmtService.setZkService(controlZkService);
+    loadMgmtService.start();
+    startThrift();
+  }
+}

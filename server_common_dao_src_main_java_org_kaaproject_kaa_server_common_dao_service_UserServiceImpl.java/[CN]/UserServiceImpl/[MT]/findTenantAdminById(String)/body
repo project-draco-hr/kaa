@@ -1,0 +1,18 @@
+{
+  TenantAdminDto tenantAdminDto=null;
+  if (isValidId(id)) {
+    TenantDto tenantDto=getDto(tenantDao.findById(id));
+    if (tenantDto != null) {
+      tenantAdminDto=new TenantAdminDto();
+      tenantAdminDto.setId(tenantDto.getId());
+      tenantAdminDto.setName(tenantDto.getName());
+      List<User> users=userDao.findByTenantIdAndAuthority(id,KaaAuthorityDto.TENANT_ADMIN.name());
+      if (!users.isEmpty()) {
+        tenantAdminDto.setUserId(users.get(0).getId());
+        tenantAdminDto.setUsername(users.get(0).getUsername());
+        tenantAdminDto.setExternalUid(users.get(0).getExternalUid());
+      }
+    }
+  }
+  return tenantAdminDto;
+}

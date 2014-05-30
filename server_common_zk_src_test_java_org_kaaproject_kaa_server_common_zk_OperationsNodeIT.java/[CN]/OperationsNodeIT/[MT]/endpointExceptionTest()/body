@@ -1,0 +1,20 @@
+{
+  Timing timing=new Timing();
+  TestingCluster cluster=new TestingCluster(3);
+  cluster.start();
+  try {
+    OperationsNodeInfo endpointNodeInfo=buildOperationsNodeInfo();
+    OperationsNode endpointNode=new OperationsNode(endpointNodeInfo,cluster.getConnectString(),buildDefaultRetryPolicy());
+    endpointNode.start();
+    endpointNode.doZKClientAction(new ControlNodeTracker.ZKClientAction(){
+      @Override public void doWithZkClient(      CuratorFramework client) throws Exception {
+        throw new Exception("for test");
+      }
+    }
+);
+    Assert.assertFalse(endpointNode.isConnected());
+  }
+  finally {
+    cluster.close();
+  }
+}

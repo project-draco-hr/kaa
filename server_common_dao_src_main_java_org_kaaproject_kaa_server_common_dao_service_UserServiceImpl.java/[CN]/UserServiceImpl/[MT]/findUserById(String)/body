@@ -1,0 +1,7 @@
+{
+  UserDto userDto=null;
+  if (isValidId(id)) {
+    userDto=getDto(userDao.findById(id));
+  }
+  return userDto;
+}

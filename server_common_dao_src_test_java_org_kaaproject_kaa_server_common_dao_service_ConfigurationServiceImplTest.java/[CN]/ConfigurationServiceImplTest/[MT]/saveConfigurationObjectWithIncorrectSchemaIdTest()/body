@@ -1,0 +1,6 @@
+{
+  ConfigurationDto configurationDto=configurationService.findConfigurationById(configurations.get(0));
+  configurationDto.setId(null);
+  configurationDto.setSchemaId(configurationDto.getApplicationId());
+  configurationService.saveConfiguration(configurationDto);
+}

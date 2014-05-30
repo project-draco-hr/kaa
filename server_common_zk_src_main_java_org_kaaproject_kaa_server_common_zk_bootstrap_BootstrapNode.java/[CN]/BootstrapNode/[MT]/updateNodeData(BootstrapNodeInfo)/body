@@ -1,0 +1,9 @@
+{
+  this.nodeInfo=currentNodeInfo;
+  doZKClientAction(new ZKClientAction(){
+    @Override public void doWithZkClient(    CuratorFramework client) throws Exception {
+      client.setData().forPath(nodePath,bootstrapNodeAvroConverter.get().toByteArray(nodeInfo));
+    }
+  }
+);
+}

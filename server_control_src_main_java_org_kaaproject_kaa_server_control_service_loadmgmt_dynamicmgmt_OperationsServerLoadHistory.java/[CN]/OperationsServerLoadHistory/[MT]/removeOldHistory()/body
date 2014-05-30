@@ -1,0 +1,15 @@
+{
+  long current=System.currentTimeMillis();
+  List<OperationsServerLoad> toDelete=new LinkedList<OperationsServerLoad>();
+  for (  OperationsServerLoad snap : history) {
+    if ((current - snap.getTime()) > maxHistoryTimeLive) {
+      toDelete.add(snap);
+    }
+  }
+  if (!toDelete.isEmpty()) {
+    for (    OperationsServerLoad snap : toDelete) {
+      history.remove(snap);
+    }
+    toDelete.clear();
+  }
+}

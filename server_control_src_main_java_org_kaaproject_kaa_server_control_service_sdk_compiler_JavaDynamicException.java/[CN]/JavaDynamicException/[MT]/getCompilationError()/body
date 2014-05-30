@@ -1,0 +1,12 @@
+{
+  if (collector != null) {
+    StringBuilder sb=new StringBuilder();
+    for (    Diagnostic<? extends JavaFileObject> diagnostic : collector.getDiagnostics()) {
+      sb.append(diagnostic.getMessage(null));
+    }
+    return sb.toString();
+  }
+ else {
+    return getMessage();
+  }
+}

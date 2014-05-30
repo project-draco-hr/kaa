@@ -1,0 +1,7 @@
+{
+  Application application=applicationDao.findById(apps.get(0));
+  Assert.assertNotNull(application);
+  application.setId(null);
+  Application saved=applicationDao.save(application);
+  Assert.assertNotNull(saved.getId());
+}

@@ -1,0 +1,16 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  TestRawBinaryDelta other=(TestRawBinaryDelta)obj;
+  if (!Arrays.equals(delta,other.delta)) {
+    return false;
+  }
+  return true;
+}

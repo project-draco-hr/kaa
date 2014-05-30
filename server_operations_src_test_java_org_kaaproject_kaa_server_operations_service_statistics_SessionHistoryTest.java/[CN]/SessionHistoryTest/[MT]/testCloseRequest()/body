@@ -1,0 +1,20 @@
+{
+  UUID uuid=UUID.randomUUID();
+  SessionHistory history=new SessionHistory(uuid);
+  assertNotNull(history);
+  int rhId=history.newRequest(SyncCommand.getCommandName());
+  assertNotNull(history.getRequests());
+  assertTrue(history.getRequests().size() == 1);
+  RequestHistory rh=history.getRequests().get(0);
+  assertNotNull(rh);
+  try {
+    Thread.sleep(10);
+  }
+ catch (  InterruptedException e) {
+    fail(e.toString());
+  }
+  history.closeRequest(rhId);
+  long l=rh.closeRequest();
+  assertTrue(l >= 10);
+  assertTrue(rh.getRequestCloseTimestamp() > 0);
+}

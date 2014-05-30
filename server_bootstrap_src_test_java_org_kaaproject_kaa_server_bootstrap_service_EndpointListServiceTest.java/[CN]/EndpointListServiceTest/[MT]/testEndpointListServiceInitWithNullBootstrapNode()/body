@@ -1,0 +1,7 @@
+{
+  BootstrapConfig bootstrapConfig=mock(BootstrapConfig.class);
+  OperationsServerListService endpointListService=new OperationsServerListService(bootstrapConfig);
+  endpointListService.init();
+  Assert.assertNotNull(endpointListService.getOpsServerList());
+  verify(bootstrapConfig,times(1)).getBootstrapNode();
+}

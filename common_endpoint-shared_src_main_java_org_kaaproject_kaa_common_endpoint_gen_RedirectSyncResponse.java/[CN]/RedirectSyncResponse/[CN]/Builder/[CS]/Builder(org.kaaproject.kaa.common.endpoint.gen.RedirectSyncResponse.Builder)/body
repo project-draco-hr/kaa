@@ -1,0 +1,7 @@
+{
+  super(other);
+  if (isValidValue(fields()[0],other.dnsName)) {
+    this.dnsName=data().deepCopy(fields()[0].schema(),other.dnsName);
+    fieldSetFlags()[0]=true;
+  }
+}

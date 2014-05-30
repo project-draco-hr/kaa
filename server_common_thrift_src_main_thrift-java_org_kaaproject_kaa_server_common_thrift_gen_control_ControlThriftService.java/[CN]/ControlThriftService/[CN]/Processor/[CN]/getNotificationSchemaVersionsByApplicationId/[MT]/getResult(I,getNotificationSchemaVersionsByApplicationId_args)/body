@@ -1,0 +1,10 @@
+{
+  getNotificationSchemaVersionsByApplicationId_result result=new getNotificationSchemaVersionsByApplicationId_result();
+  try {
+    result.success=iface.getNotificationSchemaVersionsByApplicationId(args.applicationId);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

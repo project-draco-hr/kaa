@@ -1,0 +1,6 @@
+{
+  NotificationSchemaDto schema=generateNotificationSchema(null,null);
+  Assert.assertNotNull(schema);
+  NotificationSchemaDto found=notificationService.findNotificationSchemaById(schema.getId());
+  Assert.assertEquals(schema,found);
+}

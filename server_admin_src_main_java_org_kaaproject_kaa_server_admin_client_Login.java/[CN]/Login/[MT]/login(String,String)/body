@@ -1,0 +1,37 @@
+{
+  String postData=preparePostData("j_username=" + userName,"j_password=" + password);
+  RequestBuilder builder=new RequestBuilder(RequestBuilder.POST,GWT.getModuleBaseURL() + "j_spring_security_check?" + postData);
+  try {
+    builder.sendRequest(null,new RequestCallback(){
+      public void onError(      Request request,      Throwable exception){
+        view.setErrorMessage(exception.getLocalizedMessage());
+      }
+      public void onResponseReceived(      Request request,      Response response){
+        String error=response.getHeader("Error");
+        String errorType=response.getHeader("ErrorType");
+        if (!isEmpty(errorType) && "TempCredentials".equals(errorType)) {
+          ChangePasswordDialog.Listener listener=new ChangePasswordDialog.Listener(){
+            @Override public void onChangePassword(){
+              view.clearMessages();
+            }
+            @Override public void onCancel(){
+            }
+          }
+;
+          ChangePasswordDialog.showChangePasswordDialog(listener,userName,Utils.messages.tempCredentials());
+        }
+ else         if (!isEmpty(error)) {
+          view.setErrorMessage(error);
+        }
+ else {
+          view.clearMessages();
+          redirectToModule("kaaAdmin");
+        }
+      }
+    }
+);
+  }
+ catch (  RequestException e) {
+    e.printStackTrace();
+  }
+}

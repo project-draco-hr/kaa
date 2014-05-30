@@ -1,0 +1,11 @@
+{
+  zkCluster=new TestingCluster(new InstanceSpec(null,BootstrapStartIT.ZK_PORT,-1,-1,true,-1,-1,-1));
+  zkCluster.start();
+  logger.info("ZK Cluster started");
+  OperationsNodeInfo endpointNodeInfo=buildEndpointNodeInfo();
+  endpointNode=new OperationsNode(endpointNodeInfo,zkCluster.getConnectString(),buildDefaultRetryPolicy());
+  endpointNode.start();
+  BootstrapNodeInfo bootstrapNodeInfo=buildBootstrapNodeInfo();
+  bootstrapNode=new BootstrapNode(bootstrapNodeInfo,zkCluster.getConnectString(),buildDefaultRetryPolicy());
+  bootstrapNode.start();
+}

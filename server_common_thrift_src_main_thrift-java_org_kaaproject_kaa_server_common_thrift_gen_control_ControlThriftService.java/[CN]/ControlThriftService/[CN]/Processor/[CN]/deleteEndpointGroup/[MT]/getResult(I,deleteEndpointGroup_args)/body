@@ -1,0 +1,10 @@
+{
+  deleteEndpointGroup_result result=new deleteEndpointGroup_result();
+  try {
+    iface.deleteEndpointGroup(args.endpointGroupId);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

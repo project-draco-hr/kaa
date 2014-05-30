@@ -1,0 +1,11 @@
+{
+  Set<String> subscriptionSet;
+  List<String> subscriptionList=profile.getSubscriptions();
+  if (subscriptionList != null) {
+    subscriptionSet=new HashSet<String>(profile.getSubscriptions());
+  }
+ else {
+    subscriptionSet=new HashSet<String>();
+  }
+  return subscriptionSet;
+}

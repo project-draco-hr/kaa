@@ -1,0 +1,10 @@
+{
+  if (invalid) {
+    saveButton.setText(Utils.constants.save());
+  }
+ else {
+    saveButton.setText(enabled ? Utils.constants.save() : Utils.constants.saved());
+  }
+  saveButton.setEnabled(enabled);
+  activateButton.setEnabled(!invalid && !enabled);
+}

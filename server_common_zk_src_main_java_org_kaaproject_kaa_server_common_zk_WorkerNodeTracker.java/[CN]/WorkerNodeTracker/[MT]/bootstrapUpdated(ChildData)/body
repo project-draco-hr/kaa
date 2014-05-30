@@ -1,0 +1,6 @@
+{
+  BootstrapNodeInfo nodeInfo=extractBootstrapServerInfo(data);
+  for (  BootstrapNodeListener listener : bootstrapListeners) {
+    listener.onNodeUpdated(nodeInfo);
+  }
+}

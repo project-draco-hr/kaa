@@ -1,0 +1,6 @@
+{
+  validateId(endpointGroupId,"Can't find topics. Invalid endpoint group id " + endpointGroupId);
+  EndpointGroup endpointGroup=endpointGroupDao.findById(endpointGroupId);
+  List<String> topicIds=endpointGroup.getTopics();
+  return convertDtoList(topicDao.findTopicsByIds(topicIds));
+}

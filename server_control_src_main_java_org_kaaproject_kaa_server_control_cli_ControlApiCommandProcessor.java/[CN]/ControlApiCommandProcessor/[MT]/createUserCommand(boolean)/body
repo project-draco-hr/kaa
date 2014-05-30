@@ -1,0 +1,25 @@
+{
+  ControlApiCommand command=new ControlApiCommand(edit ? "editUser" : "createUser",(edit ? "edit" : "create") + " User"){
+    @Override public void runCommand(    CommandLine line,    ControlThriftService.Iface client,    PrintWriter writer,    PrintWriter errorWriter){
+      createUser(line,client,writer,errorWriter,edit);
+    }
+  }
+;
+  if (edit) {
+    Option opt=new Option("i","userId",true,"User Id option");
+    opt.setRequired(true);
+    command.addOption(opt);
+  }
+ else {
+    Option opt=new Option("o","output",true,"Output file to store Object Id");
+    opt.setRequired(false);
+    command.addOption(opt);
+  }
+  Option opt=new Option("uid","externalUid",true,"External user id option");
+  opt.setRequired(!edit);
+  command.addOption(opt);
+  opt=new Option("t","tenantId",true,"Tenant Id option");
+  opt.setRequired(!edit);
+  command.addOption(opt);
+  return command;
+}

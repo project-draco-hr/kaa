@@ -1,0 +1,6 @@
+{
+  OptionsProcessor optionsProcessor=new OptionsProcessor();
+  optionsProcessor.parse(new String[]{"-h",HOST,"-p",PORT + ""});
+  optionsProcessor.process(cliSession);
+  cliSession.connect();
+}

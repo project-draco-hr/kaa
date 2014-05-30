@@ -1,0 +1,12 @@
+{
+  WebApplicationContext applicationContext=WebApplicationContextUtils.getWebApplicationContext(getServletContext());
+  if (applicationContext == null) {
+    throw new IllegalStateException("No Spring web application context found");
+  }
+  if (!applicationContext.containsBean(name)) {
+{
+      throw new IllegalArgumentException("Spring bean not found: " + name);
+    }
+  }
+  return applicationContext.getBean(name);
+}

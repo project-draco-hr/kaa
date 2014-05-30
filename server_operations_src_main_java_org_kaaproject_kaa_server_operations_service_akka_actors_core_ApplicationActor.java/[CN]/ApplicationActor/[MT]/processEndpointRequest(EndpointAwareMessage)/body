@@ -1,0 +1,12 @@
+{
+  String endpointKey=buildEndpointKey(message.getKey());
+  ActorMetaData endpointMetaData=endpointSessions.get(endpointKey);
+  if (endpointMetaData == null) {
+    LOG.debug("Creating actor with endpointKey: {}",endpointKey);
+    endpointMetaData=new ActorMetaData(context().actorOf(Props.create(new EndpointActor.ActorCreator(operationsService,endpointKey)),endpointKey));
+    endpointSessions.put(endpointKey,endpointMetaData);
+    context().watch(endpointMetaData.actorRef);
+  }
+  endpointMetaData.registerRequest(ActorMetaData.getHash(message));
+  endpointMetaData.actorRef.tell(message,self());
+}

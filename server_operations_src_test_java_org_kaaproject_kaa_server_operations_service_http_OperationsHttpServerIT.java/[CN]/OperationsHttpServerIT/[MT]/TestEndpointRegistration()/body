@@ -1,0 +1,21 @@
+{
+  logger.info("Test Endpoint registration request");
+  for (int i=0; i < NUMBER_OF_TESTS; i++) {
+    sendEndpointRegister();
+  }
+  try {
+synchronized (sync) {
+      sync.wait(MAX_TEST_TIMEOUT);
+    }
+  }
+ catch (  InterruptedException e) {
+    e.printStackTrace();
+  }
+  for (  Integer id : regTests.keySet()) {
+    if (!regTests.get(id).test()) {
+      testFailed++;
+      logger.trace("Endpoint Registration Test " + id + " failed.");
+    }
+  }
+  assertEquals(0,testFailed);
+}

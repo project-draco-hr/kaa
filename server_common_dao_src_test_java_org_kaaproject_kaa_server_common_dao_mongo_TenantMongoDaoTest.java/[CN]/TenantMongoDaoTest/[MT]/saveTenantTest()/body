@@ -1,0 +1,7 @@
+{
+  Tenant tenant=tenantDao.findById(tenants.get(0));
+  tenant.setId(null);
+  tenantDao.save(tenant);
+  LOGGER.debug("New tenant id " + tenant.getId());
+  Assert.assertNotNull(tenant.getId());
+}

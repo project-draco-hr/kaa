@@ -1,0 +1,7 @@
+{
+  NotificationDto notification=generateNotifications(null,null,1,null).get(0);
+  Assert.assertNotNull(notification);
+  Assert.assertTrue(isNotBlank(notification.getId()));
+  NotificationDto found=notificationService.findNotificationById(notification.getId());
+  Assert.assertEquals(notification,found);
+}

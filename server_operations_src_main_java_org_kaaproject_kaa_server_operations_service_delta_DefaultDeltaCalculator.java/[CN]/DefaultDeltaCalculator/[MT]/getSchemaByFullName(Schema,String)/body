@@ -1,0 +1,9 @@
+{
+  if (arraySchema.getElementType().getType() == Schema.Type.UNION) {
+    List<Schema> itemTypes=arraySchema.getElementType().getTypes();
+    return getSchemaByFullName(itemTypes,fullName);
+  }
+ else {
+    return arraySchema.getElementType().getFullName().equals(fullName) ? arraySchema.getElementType() : null;
+  }
+}

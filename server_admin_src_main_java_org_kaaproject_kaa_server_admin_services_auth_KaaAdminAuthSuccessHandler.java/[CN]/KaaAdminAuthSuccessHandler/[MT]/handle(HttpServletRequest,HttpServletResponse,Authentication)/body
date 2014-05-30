@@ -1,0 +1,9 @@
+{
+  String targetUrl=determineTargetUrl(request,response);
+  if (response.isCommitted()) {
+    logger.debug("Response has already been committed. Unable to redirect to " + targetUrl);
+    return;
+  }
+  response.setStatus(HttpServletResponse.SC_OK);
+  response.addHeader("Location",targetUrl);
+}

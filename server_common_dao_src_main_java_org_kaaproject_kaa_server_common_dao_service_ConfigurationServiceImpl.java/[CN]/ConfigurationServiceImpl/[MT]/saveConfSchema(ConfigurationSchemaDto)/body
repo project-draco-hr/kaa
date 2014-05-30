@@ -1,0 +1,23 @@
+{
+  ConfigurationSchemaDto savedConfigSchema=null;
+  if (configurationSchema != null) {
+    String appId=configurationSchema.getApplicationId();
+    if (isValidId(appId)) {
+      LOG.debug("Finding default endpoint group for application id [{}]",appId);
+      EndpointGroup endpointGroup=endpointGroupDao.findByAppIdAndWeight(appId,0);
+      if (endpointGroup != null) {
+        savedConfigSchema=saveConfSchema(configurationSchema,endpointGroup.getId());
+      }
+ else {
+        LOG.warn("Can't find default group for application [{}]",appId);
+      }
+    }
+ else {
+      LOG.warn("Can't find endpoint group. Invalid application id [{}]",appId);
+    }
+  }
+ else {
+    LOG.warn("Configuration schema object is null");
+  }
+  return savedConfigSchema;
+}

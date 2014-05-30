@@ -1,0 +1,18 @@
+{
+  List<ChildData> nodesData=endpointCache != null ? endpointCache.getCurrentData() : new ArrayList<ChildData>();
+  Map<ConnectionInfoKey,OperationsNodeInfo> uniqueMap=new HashMap<>();
+  for (  ChildData data : nodesData) {
+    OperationsNodeInfo newNodeInfo=extractOperationServerInfo(data);
+    ConnectionInfoKey key=new ConnectionInfoKey(newNodeInfo.getConnectionInfo());
+    OperationsNodeInfo oldNodeInfo=uniqueMap.get(key);
+    if (oldNodeInfo != null) {
+      if (newNodeInfo.getTimeStarted() >= oldNodeInfo.getTimeStarted()) {
+        uniqueMap.put(key,newNodeInfo);
+      }
+    }
+ else {
+      uniqueMap.put(key,newNodeInfo);
+    }
+  }
+  return new ArrayList<>(uniqueMap.values());
+}

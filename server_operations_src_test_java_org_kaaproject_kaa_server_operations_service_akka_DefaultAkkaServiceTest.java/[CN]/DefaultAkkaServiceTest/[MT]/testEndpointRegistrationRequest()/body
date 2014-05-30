@@ -1,0 +1,17 @@
+{
+  ChannelHandlerContext channelContextMock=Mockito.mock(ChannelHandlerContext.class);
+  AbstractOperationsCommand commandMock=Mockito.mock(AbstractOperationsCommand.class);
+  EndpointRegistrationRequest request=new EndpointRegistrationRequest();
+  request.setApplicationToken(APP_TOKEN);
+  request.setEndpointPublicKey(ByteBuffer.wrap(ENDPOINT_PUBLIC_KEY.getBytes()));
+  request.setProfileBody(ByteBuffer.wrap(PROFILE_BODY.getBytes()));
+  request.setVersionInfo(new EndpointVersionInfo(1,2,3,4));
+  SyncResponseHolder holder=new SyncResponseHolder(new SyncResponse(),new HashMap<String,Integer>());
+  Mockito.when(commandMock.decode()).thenReturn(request);
+  Mockito.when(operationsService.registerEndpoint(Mockito.any(EndpointRegistrationRequest.class))).thenReturn(holder);
+  NettyEncodedRequestMessage message=new NettyEncodedRequestMessage("testUUID",channelContextMock,commandMock);
+  Assert.assertNotNull(akkaService.getActorSystem());
+  akkaService.process(message);
+  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeastOnce()).registerEndpoint(request);
+  Mockito.verify(commandMock,Mockito.timeout(TIMEOUT).atLeastOnce()).encode(Mockito.any(SyncResponse.class));
+}

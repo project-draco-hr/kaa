@@ -1,0 +1,19 @@
+{
+  HttpDataFactory factory=new DefaultHttpDataFactory(DefaultHttpDataFactory.MINSIZE);
+  HttpRequest request=new DefaultHttpRequest(HttpVersion.HTTP_1_1,HttpMethod.POST,CommonBSConstants.BOOTSTRAP_RESOLVE_URI);
+  HttpHeaders headers=request.headers();
+  headers.set(HttpHeaders.Names.HOST,"gns.cybervisiontech.com");
+  HttpPostRequestEncoder bodyRequestEncoder=null;
+  AvroByteArrayConverter<Resolve> requestConverter=new AvroByteArrayConverter<Resolve>(Resolve.class);
+  Resolve r=new Resolve();
+  r.setApplicationToken(APPLICATION_TOKEN_TEST);
+  bodyRequestEncoder=new HttpPostRequestEncoder(factory,request,false);
+  if (woAppToken) {
+    bodyRequestEncoder.addBodyAttribute(CommonBSConstants.APPLICATION_TOKEN_ATTR_NAME + "111",new String(requestConverter.toByteArray(r)));
+  }
+ else {
+    bodyRequestEncoder.addBodyAttribute(CommonBSConstants.APPLICATION_TOKEN_ATTR_NAME,new String(requestConverter.toByteArray(r)));
+  }
+  request=bodyRequestEncoder.finalizeRequest();
+  return request;
+}

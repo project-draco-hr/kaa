@@ -1,0 +1,25 @@
+{
+  StructureRecordDto<ConfigurationDto> record=new StructureRecordDto<>();
+  Collection<ConfigurationDto> configurations=convertDtoList(configurationDao.findActualBySchemaIdAndGroupId(schemaId,endpointGroupId));
+  if (configurations != null) {
+    for (    ConfigurationDto configuration : configurations) {
+      if (configuration.getStatus() == UpdateStatus.ACTIVE) {
+        record.setActiveStructureDto(configuration);
+      }
+ else       if (configuration.getStatus() == UpdateStatus.INACTIVE) {
+        record.setInactiveStructureDto(configuration);
+      }
+    }
+  }
+  if (!record.hasActive()) {
+    ConfigurationDto deprecatedConfiguration=getDto(configurationDao.findLatestDeprecated(schemaId,endpointGroupId));
+    if (deprecatedConfiguration != null) {
+      record.setActiveStructureDto(deprecatedConfiguration);
+    }
+  }
+  if (record.isEmpty()) {
+    LOG.debug("Can't find related Configuration record.");
+    throw new IncorrectParameterException("Configuration record not found, schemaId: " + schemaId + ", endpointGroupId: "+ endpointGroupId);
+  }
+  return record;
+}

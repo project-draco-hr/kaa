@@ -1,0 +1,4 @@
+{
+  LOG.debug("Remove endpoint groups by application id [{}] ",applicationId);
+  remove(query(where(APPLICATION_ID).is(new ObjectId(applicationId))));
+}

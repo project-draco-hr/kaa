@@ -1,0 +1,10 @@
+{
+  if (that == null)   return false;
+  boolean this_present_tenant=true && this.isSetTenant();
+  boolean that_present_tenant=true && that.isSetTenant();
+  if (this_present_tenant || that_present_tenant) {
+    if (!(this_present_tenant && that_present_tenant))     return false;
+    if (!this.tenant.equals(that.tenant))     return false;
+  }
+  return true;
+}

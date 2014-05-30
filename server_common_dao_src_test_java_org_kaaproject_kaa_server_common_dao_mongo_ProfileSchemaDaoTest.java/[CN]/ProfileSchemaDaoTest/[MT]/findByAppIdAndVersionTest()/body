@@ -1,0 +1,6 @@
+{
+  ProfileSchemaDto profileSchema=generateProfSchema(null,1).get(0);
+  Assert.assertNotNull(profileSchema);
+  ProfileSchema found=profileSchemaDao.findByAppIdAndVersion(profileSchema.getApplicationId(),profileSchema.getMajorVersion());
+  Assert.assertEquals(new ProfileSchema(profileSchema),found);
+}

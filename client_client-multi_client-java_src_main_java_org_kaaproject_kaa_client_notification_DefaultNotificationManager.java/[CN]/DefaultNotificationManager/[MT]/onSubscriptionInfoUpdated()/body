@@ -1,0 +1,8 @@
+{
+synchronized (subscriptionInfo) {
+    if (!subscriptionInfo.isEmpty()) {
+      updateManager.updateSubscriptionCommands(subscriptionInfo);
+      subscriptionInfo.clear();
+    }
+  }
+}

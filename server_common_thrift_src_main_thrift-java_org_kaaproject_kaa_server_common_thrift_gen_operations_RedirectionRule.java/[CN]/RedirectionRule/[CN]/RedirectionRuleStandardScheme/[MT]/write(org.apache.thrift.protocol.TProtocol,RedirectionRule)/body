@@ -1,0 +1,20 @@
+{
+  struct.validate();
+  oprot.writeStructBegin(STRUCT_DESC);
+  if (struct.dnsName != null) {
+    oprot.writeFieldBegin(DNS_NAME_FIELD_DESC);
+    oprot.writeString(struct.dnsName);
+    oprot.writeFieldEnd();
+  }
+  oprot.writeFieldBegin(RULE_ID_FIELD_DESC);
+  oprot.writeI64(struct.ruleId);
+  oprot.writeFieldEnd();
+  oprot.writeFieldBegin(REDIRECTION_PROBABILITY_FIELD_DESC);
+  oprot.writeDouble(struct.redirectionProbability);
+  oprot.writeFieldEnd();
+  oprot.writeFieldBegin(RULE_TTL_FIELD_DESC);
+  oprot.writeI64(struct.ruleTTL);
+  oprot.writeFieldEnd();
+  oprot.writeFieldStop();
+  oprot.writeStructEnd();
+}

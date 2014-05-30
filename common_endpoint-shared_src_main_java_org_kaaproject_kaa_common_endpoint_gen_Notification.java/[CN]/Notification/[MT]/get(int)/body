@@ -1,0 +1,16 @@
+{
+switch (field$) {
+case 0:
+    return topicId;
+case 1:
+  return type;
+case 2:
+return uid;
+case 3:
+return seqNumber;
+case 4:
+return body;
+default :
+throw new org.apache.avro.AvroRuntimeException("Bad index");
+}
+}

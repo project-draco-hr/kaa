@@ -1,0 +1,33 @@
+{
+  try {
+    TenantDto tenant=null;
+    if (edit) {
+      String tenantId=line.getOptionValue("i");
+      tenant=toDto(client.getTenant(tenantId));
+      if (tenant == null) {
+        writer.println("Tenant with id " + tenantId + " not found!");
+        return;
+      }
+    }
+ else {
+      tenant=new TenantDto();
+    }
+    if (line.hasOption("n")) {
+      tenant.setName(line.getOptionValue("n"));
+    }
+    TenantDto savedTenant=toDto(client.editTenant(toDataStruct(tenant)));
+    if (edit) {
+      writer.println("Tenant updated.");
+    }
+ else {
+      writer.println("Created new tenant with id: " + savedTenant.getId());
+      if (line.hasOption("o")) {
+        String outFileName=line.getOptionValue("o");
+        storeInfo(outFileName,savedTenant.getId(),errorWriter);
+      }
+    }
+  }
+ catch (  TException e) {
+    handleException("Unable to " + (edit ? "update" : "create") + " tenant",e,errorWriter);
+  }
+}

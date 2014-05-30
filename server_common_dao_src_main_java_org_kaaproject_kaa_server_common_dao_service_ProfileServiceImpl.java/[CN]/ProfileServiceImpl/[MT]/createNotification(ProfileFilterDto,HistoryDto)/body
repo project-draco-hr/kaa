@@ -1,0 +1,27 @@
+{
+  LOG.debug("Create notification after profile filter update.");
+  ChangeNotificationDto changeNotificationDto=null;
+  if (historyDto != null) {
+    changeNotificationDto=new ChangeNotificationDto();
+    changeNotificationDto.setAppId(profileFilter.getApplicationId());
+    changeNotificationDto.setAppSeqNumber(historyDto.getSequenceNumber());
+    String endpointGroupId=profileFilter.getEndpointGroupId();
+    if (isValidId(endpointGroupId)) {
+      EndpointGroup group=endpointGroupDao.findById(endpointGroupId);
+      if (group != null) {
+        changeNotificationDto.setGroupId(group.getId());
+        changeNotificationDto.setGroupSeqNumber(group.getSequenceNumber());
+      }
+ else {
+        LOG.debug("Can't find endpoint group by id [{}].",endpointGroupId);
+      }
+    }
+ else {
+      LOG.debug("Incorrect endpoint group id [{}].",endpointGroupId);
+    }
+  }
+ else {
+    LOG.debug("Can't save history information.");
+  }
+  return changeNotificationDto;
+}

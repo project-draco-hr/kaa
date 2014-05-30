@@ -1,0 +1,17 @@
+{
+  cliOut.reset();
+  StringBuilder commandBuilder=new StringBuilder();
+  if (isRemove) {
+    commandBuilder.append("removeTopicFromEndpointGroup");
+  }
+ else {
+    commandBuilder.append("addTopicToEndpointGroup");
+  }
+  commandBuilder.append(" -i ").append(groupId).append(" -t ").append(topicId);
+  if (createOut) {
+    commandBuilder.append(" -o dummy.obj");
+  }
+  int result=cli.processLine(commandBuilder.toString());
+  Assert.assertEquals(result,0);
+  return cliOut.toString("UTF-8");
+}

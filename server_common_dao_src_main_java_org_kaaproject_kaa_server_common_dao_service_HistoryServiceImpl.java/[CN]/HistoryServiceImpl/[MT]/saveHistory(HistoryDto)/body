@@ -1,0 +1,17 @@
+{
+  HistoryDto savedDto=null;
+  if (isValidObject(historyDto)) {
+    LOG.debug("History dto object is valid. Saving history...");
+    String applicationId=historyDto.getApplicationId();
+    if (StringUtils.isNotEmpty(applicationId)) {
+      savedDto=saveHistory(historyDto,applicationId);
+    }
+ else {
+      LOG.debug("Incorrect application id, can't save history.");
+    }
+  }
+ else {
+    LOG.info("Invalid HistoryDto object. Can't save object.");
+  }
+  return savedDto;
+}

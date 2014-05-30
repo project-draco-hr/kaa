@@ -1,0 +1,13 @@
+{
+  if (sendPool != null) {
+    sendPool.shutdown();
+    try {
+      while (sendPool.isTerminated() == false) {
+        sendPool.awaitTermination(sendTimeout,TimeUnit.SECONDS);
+      }
+    }
+ catch (    InterruptedException ex) {
+      logger.warn("shutdown interrupted on {}",sendPool,ex);
+    }
+  }
+}

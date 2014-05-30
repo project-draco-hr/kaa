@@ -1,0 +1,32 @@
+{
+  AuthResultDto result=new AuthResultDto();
+  HttpServletRequest request=SpringGwtRemoteServiceServlet.getRequest();
+  HttpSession session=request.getSession();
+  Object authException=session.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
+  if (authException != null && authException instanceof AuthenticationException) {
+    throw new Exception(((AuthenticationException)authException).getMessage());
+  }
+  Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+  if (!isLoggedIn(authentication)) {
+    System.out.println("Not logged in");
+    if (userFacade.isAuthorityExists(KaaAuthorityDto.KAA_ADMIN.name())) {
+      result.setAuthResult(Result.NOT_LOGGED_IN);
+    }
+ else {
+      result.setAuthResult(Result.KAA_ADMIN_NOT_EXISTS);
+    }
+  }
+ else {
+    AuthUserDto authUser=(AuthUserDto)authentication.getPrincipal();
+    result.setAuthResult(Result.OK);
+    result.setAuthority(authUser.getAuthority());
+    result.setUsername(authUser.getUsername());
+    String displayName=authUser.getUsername();
+    if (!isEmpty(authUser.getFirstName()) || !isEmpty(authUser.getLastName())) {
+      String name=authUser.getFirstName() + " " + authUser.getLastName();
+      displayName+=" (" + name.trim() + ")";
+    }
+    result.setDisplayName(displayName);
+  }
+  return result;
+}

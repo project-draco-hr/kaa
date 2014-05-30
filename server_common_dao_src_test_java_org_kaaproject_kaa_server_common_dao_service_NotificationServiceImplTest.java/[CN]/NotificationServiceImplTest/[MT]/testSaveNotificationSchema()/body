@@ -1,0 +1,7 @@
+{
+  NotificationSchemaDto schema=generateNotificationSchema(null,null);
+  Assert.assertNotNull(schema);
+  Assert.assertTrue(isNotBlank(schema.getId()));
+  Assert.assertEquals(2,schema.getMajorVersion());
+  Assert.assertEquals(NotificationTypeDto.USER,schema.getType());
+}

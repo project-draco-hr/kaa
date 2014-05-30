@@ -1,0 +1,9 @@
+{
+  LOG.info("Initializing Akka system..");
+  akka=ActorSystem.create(EPS);
+  LOG.info("Initializing Akka EPS actor..");
+  opsActor=akka.actorOf(Props.create(new OperationsServerActor.ActorCreator(operationsService,notificationDeltaService)),EPS);
+  LOG.info("Initializing Akka io router..");
+  ioRouter=akka.actorOf(new RoundRobinPool(IO_WORKERS_COUNT).props(Props.create(new EncDecActor.ActorCreator(opsActor))),"ioRouter");
+  LOG.info("Initializing Akka system done");
+}

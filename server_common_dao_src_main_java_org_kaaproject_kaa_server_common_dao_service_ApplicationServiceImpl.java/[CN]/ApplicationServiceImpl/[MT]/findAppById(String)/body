@@ -1,0 +1,7 @@
+{
+  ApplicationDto applicationDto=null;
+  if (isValidId(id)) {
+    applicationDto=getDto(applicationDao.findById(id));
+  }
+  return applicationDto;
+}

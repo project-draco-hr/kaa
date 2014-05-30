@@ -1,0 +1,5 @@
+{
+  LOG.debug("Find history by application id [{}]",appId);
+  validateId(appId,"Can't find history by application id. Invalid application id " + appId);
+  return convertDtoList(historyDao.findByAppId(appId));
+}

@@ -1,0 +1,14 @@
+{
+  KaaAdmin.getDataSource().loadVacantTopicsByEndpointGroupId(endpointGroupId,new AsyncCallback<List<TopicDto>>(){
+    @Override public void onFailure(    Throwable caught){
+      callback.onFailure(caught);
+    }
+    @Override public void onSuccess(    List<TopicDto> result){
+      AddTopicDialog dialog=new AddTopicDialog(endpointGroupId,result);
+      dialog.center();
+      callback.onSuccess(dialog);
+      dialog.show();
+    }
+  }
+);
+}

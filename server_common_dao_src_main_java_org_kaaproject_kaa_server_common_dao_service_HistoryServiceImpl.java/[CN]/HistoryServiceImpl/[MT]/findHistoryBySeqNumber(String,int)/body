@@ -1,0 +1,5 @@
+{
+  LOG.debug("Find history by application id [{}] and sequence number {}",appId,seqNum);
+  validateId(appId,"Can't find history by application id and sequence number. Invalid application id " + appId);
+  return getDto(historyDao.findBySeqNumber(appId,seqNum));
+}

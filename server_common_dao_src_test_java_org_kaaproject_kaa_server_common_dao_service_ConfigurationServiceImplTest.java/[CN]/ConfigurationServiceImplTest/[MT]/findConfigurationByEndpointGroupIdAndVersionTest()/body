@@ -1,0 +1,8 @@
+{
+  ConfigurationSchemaDto schema=generateConfSchema(null,1).get(0);
+  String groupId=generateEndpointGroup(schema.getApplicationId()).getId();
+  ConfigurationDto config=generateConfiguration(schema.getId(),groupId,1,true,false).get(0);
+  ConfigurationDto configuration=configurationService.findConfigurationByEndpointGroupIdAndVersion(groupId,schema.getMajorVersion());
+  Assert.assertNotNull(configuration);
+  Assert.assertEquals(config,configuration);
+}

@@ -1,0 +1,32 @@
+{
+  Timing timing=new Timing();
+  TestingCluster cluster=new TestingCluster(3);
+  cluster.start();
+  try {
+    OperationsNodeInfo endpointNodeInfo=buildOperationsNodeInfo();
+    BootstrapNodeInfo bootstrapNodeInfo=buildBootstrapNodeInfo();
+    BootstrapNode bootstrapNode=new BootstrapNode(bootstrapNodeInfo,cluster.getConnectString(),buildDefaultRetryPolicy());
+    OperationsNodeListener mockListener=mock(OperationsNodeListener.class);
+    bootstrapNode.addListener(mockListener);
+    bootstrapNode.start();
+    OperationsNode endpointNode=new OperationsNode(endpointNodeInfo,cluster.getConnectString(),buildDefaultRetryPolicy());
+    endpointNode.start();
+    timing.sleepABit();
+    verify(mockListener).onNodeAdded(endpointNodeInfo);
+    int random=new Random().nextInt();
+    endpointNodeInfo.setProcessedRequestCount(random);
+    endpointNode.updateNodeData(endpointNodeInfo);
+    timing.sleepABit();
+    verify(mockListener).onNodeUpdated(endpointNodeInfo);
+    assertEquals(new Integer(random),bootstrapNode.getCurrentOperationServerNodes().get(0).getProcessedRequestCount());
+    endpointNode.close();
+    timing.sleepABit();
+    verify(mockListener).onNodeRemoved(endpointNodeInfo);
+    Assert.assertTrue(bootstrapNode.removeListener(mockListener));
+    Assert.assertFalse(bootstrapNode.removeListener(mockListener));
+    bootstrapNode.close();
+  }
+  finally {
+    cluster.close();
+  }
+}

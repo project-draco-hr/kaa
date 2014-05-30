@@ -1,0 +1,15 @@
+{
+switch (field) {
+case SDK_PLATFORM:
+    return getSdkPlatform();
+case APPLICATION_ID:
+  return getApplicationId();
+case PROFILE_SCHEMA_VERSION:
+return Integer.valueOf(getProfileSchemaVersion());
+case CONFIGURATION_SCHEMA_VERSION:
+return Integer.valueOf(getConfigurationSchemaVersion());
+case NOTIFICATION_SCHEMA_VERSION:
+return Integer.valueOf(getNotificationSchemaVersion());
+}
+throw new IllegalStateException();
+}

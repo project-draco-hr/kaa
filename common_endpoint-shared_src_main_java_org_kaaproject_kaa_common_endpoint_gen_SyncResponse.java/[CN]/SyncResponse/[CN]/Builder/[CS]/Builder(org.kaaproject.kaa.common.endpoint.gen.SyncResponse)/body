@@ -1,0 +1,23 @@
+{
+  super(org.kaaproject.kaa.common.endpoint.gen.SyncResponse.SCHEMA$);
+  if (isValidValue(fields()[0],other.appStateSeqNumber)) {
+    this.appStateSeqNumber=data().deepCopy(fields()[0].schema(),other.appStateSeqNumber);
+    fieldSetFlags()[0]=true;
+  }
+  if (isValidValue(fields()[1],other.responseType)) {
+    this.responseType=data().deepCopy(fields()[1].schema(),other.responseType);
+    fieldSetFlags()[1]=true;
+  }
+  if (isValidValue(fields()[2],other.confSyncResponse)) {
+    this.confSyncResponse=data().deepCopy(fields()[2].schema(),other.confSyncResponse);
+    fieldSetFlags()[2]=true;
+  }
+  if (isValidValue(fields()[3],other.notificationSyncResponse)) {
+    this.notificationSyncResponse=data().deepCopy(fields()[3].schema(),other.notificationSyncResponse);
+    fieldSetFlags()[3]=true;
+  }
+  if (isValidValue(fields()[4],other.redirectSyncResponse)) {
+    this.redirectSyncResponse=data().deepCopy(fields()[4].schema(),other.redirectSyncResponse);
+    fieldSetFlags()[4]=true;
+  }
+}

@@ -1,0 +1,9 @@
+{
+  Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+  if (authentication.getPrincipal() instanceof AuthUserDto) {
+    return (AuthUserDto)authentication.getPrincipal();
+  }
+ else {
+    throw new KaaAdminServiceException(ServiceErrorCode.NOT_AUTHORIZED);
+  }
+}

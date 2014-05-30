@@ -1,0 +1,5 @@
+{
+  TenantAdminDto tenantAdmin=createTenantAdmin();
+  Assert.assertFalse(strIsEmpty(tenantAdmin.getId()));
+  client.deleteTenantAdmin(tenantAdmin.getId());
+}

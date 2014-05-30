@@ -1,0 +1,14 @@
+{
+  addValueChangeHandler(new ValueChangeHandler<String>(){
+    @Override public void onValueChange(    ValueChangeEvent<String> event){
+      fireInputEvent();
+    }
+  }
+);
+  addKeyUpHandler(new KeyUpHandler(){
+    @Override public void onKeyUp(    KeyUpEvent event){
+      fireInputEvent();
+    }
+  }
+);
+}

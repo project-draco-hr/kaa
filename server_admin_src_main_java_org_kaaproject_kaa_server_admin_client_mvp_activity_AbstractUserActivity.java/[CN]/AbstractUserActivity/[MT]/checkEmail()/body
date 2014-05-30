@@ -1,0 +1,17 @@
+{
+  final Long userId=!create ? Long.valueOf(entity.getExternalUid()) : null;
+  KaaAdmin.getAuthService().checkEmailOccupied(entity.getMail(),userId,new AsyncCallback<ResultCode>(){
+    @Override public void onFailure(    Throwable caught){
+      detailsView.setErrorMessage(Utils.getErrorMessage(caught));
+    }
+    @Override public void onSuccess(    ResultCode result){
+      if (result != ResultCode.OK) {
+        detailsView.setErrorMessage(Utils.constants.getString(result.getResourceKey()));
+      }
+ else {
+        performSave();
+      }
+    }
+  }
+);
+}

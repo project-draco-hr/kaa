@@ -1,0 +1,44 @@
+{
+  injectThemeStyleSheet();
+  Utils.resources.css().ensureInjected();
+  KaaAdminServiceAsync rpcService=GWT.create(KaaAdminService.class);
+  ClientFactory clientFactory=GWT.create(ClientFactory.class);
+  EventBus eventBus=clientFactory.getEventBus();
+  dataSource=new DataSource(rpcService,eventBus);
+  PlaceController placeController=clientFactory.getPlaceController();
+  ActivityMapper headerActivityMapper=new HeaderActivityMapper(clientFactory);
+  ActivityManager headerActivityManager=new ActivityManager(headerActivityMapper,eventBus);
+  headerActivityManager.setDisplay(appWidget.getAppHeaderHolder());
+  ActivityMapper navigationActivityMapper=new NavigationActivityMapper(clientFactory,eventBus);
+  ActivityManager navigationActivityManager=new ActivityManager(navigationActivityMapper,eventBus);
+  navigationActivityManager.setDisplay(appWidget.getNavContentHolder());
+  ActivityMapper appActivityMapper=new AppActivityMapper(clientFactory);
+  ActivityManager appActivityManager=new ActivityManager(appActivityMapper,eventBus);
+  appActivityManager.setDisplay(appWidget.getAppContentHolder());
+  PlaceHistoryMapper historyMapper=null;
+switch (authInfo.getAuthority()) {
+case KAA_ADMIN:
+    historyMapper=GWT.create(KaaAdminPlaceHistoryMapper.class);
+  break;
+case TENANT_ADMIN:
+historyMapper=GWT.create(TenantAdminPlaceHistoryMapper.class);
+break;
+case TENANT_DEVELOPER:
+historyMapper=GWT.create(TenantDeveloperPlaceHistoryMapper.class);
+break;
+case TENANT_USER:
+historyMapper=GWT.create(TenantUserPlaceHistoryMapper.class);
+break;
+}
+PlaceHistoryHandler historyHandler=new PlaceHistoryHandler(historyMapper);
+Place place;
+if (authInfo.getAuthority() == KaaAuthorityDto.KAA_ADMIN) {
+place=new TenantsPlace();
+}
+ else {
+place=new ApplicationsPlace();
+}
+historyHandler.register(placeController,eventBus,place);
+RootLayoutPanel.get().add(appWidget);
+historyHandler.handleCurrentHistory();
+}

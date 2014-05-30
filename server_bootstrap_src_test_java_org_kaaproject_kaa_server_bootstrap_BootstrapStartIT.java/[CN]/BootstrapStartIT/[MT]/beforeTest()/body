@@ -1,0 +1,12 @@
+{
+  listener=new TestBootstrapNodeListener();
+  executor=Executors.newCachedThreadPool();
+  TestCluster.addBootstrapListener(listener);
+  bootstrap=new BootstrapStarted();
+  assertNotNull("Bootstrap failed to create",bootstrap);
+  bootstrap.start();
+  assertNotNull("Bootstrap failed to Initialize",bootstrap.getBootstrapInitializationService());
+  List<BootstrapNodeInfo> nodes=listener.getNodes();
+  logger.info("BootstrapNode found....");
+  assertEquals(1,nodes.size());
+}

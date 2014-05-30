@@ -1,0 +1,6 @@
+{
+  Signature verifier=SHA1WITH_RSA_SIGNATURE.get();
+  verifier.initVerify(remotePublicKey);
+  verifier.update(message);
+  return verifier.verify(signature);
+}

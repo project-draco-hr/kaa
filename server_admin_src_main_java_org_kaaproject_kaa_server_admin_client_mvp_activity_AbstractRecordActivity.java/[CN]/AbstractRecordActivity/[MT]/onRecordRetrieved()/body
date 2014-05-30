@@ -1,0 +1,38 @@
+{
+  if (create) {
+    getVacantSchemas(endpointGroupId,new AsyncCallback<List<SchemaDto>>(){
+      @Override public void onFailure(      Throwable caught){
+        recordView.setErrorMessage(Utils.getErrorMessage(caught));
+      }
+      @Override public void onSuccess(      List<SchemaDto> result){
+        recordView.getSchema().setAcceptableValues(result);
+        recordView.getRecordPanel().setData(record);
+        recordView.getRecordPanel().openDraft();
+      }
+    }
+);
+  }
+ else {
+    String version=record.getMajorVersion() + "." + record.getMinorVersion();
+    recordView.getSchemaVersion().setValue(version);
+    if (record.hasActive() && !record.hasDraft()) {
+      T inactiveStruct=createInactiveStruct();
+      inactiveStruct.setSchemaId(record.getSchemaId());
+      inactiveStruct.setMajorVersion(record.getMajorVersion());
+      inactiveStruct.setMinorVersion(record.getMinorVersion());
+      inactiveStruct.setDescription(record.getDescription());
+      inactiveStruct.setBody(record.getActiveStructureDto().getBody());
+      record.setInactiveStructureDto(inactiveStruct);
+    }
+    recordView.getRecordPanel().setData(record);
+    if (endpointGroup.getWeight() == 0) {
+      recordView.getRecordPanel().setReadOnly();
+    }
+    if (showActive && record.hasActive()) {
+      recordView.getRecordPanel().openActive();
+    }
+ else {
+      recordView.getRecordPanel().openDraft();
+    }
+  }
+}

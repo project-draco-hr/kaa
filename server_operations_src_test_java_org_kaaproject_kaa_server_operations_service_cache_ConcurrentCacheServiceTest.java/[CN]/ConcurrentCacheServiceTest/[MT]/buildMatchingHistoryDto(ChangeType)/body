@@ -1,0 +1,16 @@
+{
+  HistoryDto matchingHistory;
+  ChangeDto matchingConfChange;
+  matchingHistory=new HistoryDto();
+  matchingConfChange=new ChangeDto();
+  matchingHistory.setApplicationId(APP_ID);
+  matchingHistory.setSequenceNumber(TEST_APP_SEQ_NUMBER + 1);
+  matchingConfChange.setType(changeType);
+  matchingConfChange.setEndpointGroupId(ENDPOINT_GROUP1_ID);
+  matchingConfChange.setConfigurationId(CF2_ID);
+  matchingConfChange.setCfMajorVersion(CONF1_SCHEMA_VERSION);
+  matchingConfChange.setProfileFilterId(PF2_ID);
+  matchingConfChange.setPfMajorVersion(PROFILE1_SCHEMA_VERSION);
+  matchingHistory.setChange(matchingConfChange);
+  return matchingHistory;
+}

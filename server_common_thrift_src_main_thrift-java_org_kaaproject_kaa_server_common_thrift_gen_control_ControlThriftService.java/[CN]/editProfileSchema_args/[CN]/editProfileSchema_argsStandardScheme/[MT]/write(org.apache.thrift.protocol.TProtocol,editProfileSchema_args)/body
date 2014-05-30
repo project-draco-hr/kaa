@@ -1,0 +1,11 @@
+{
+  struct.validate();
+  oprot.writeStructBegin(STRUCT_DESC);
+  if (struct.profileSchema != null) {
+    oprot.writeFieldBegin(PROFILE_SCHEMA_FIELD_DESC);
+    struct.profileSchema.write(oprot);
+    oprot.writeFieldEnd();
+  }
+  oprot.writeFieldStop();
+  oprot.writeStructEnd();
+}

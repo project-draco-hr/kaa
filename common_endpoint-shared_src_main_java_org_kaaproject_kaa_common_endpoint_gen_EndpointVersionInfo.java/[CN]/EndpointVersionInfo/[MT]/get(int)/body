@@ -1,0 +1,14 @@
+{
+switch (field$) {
+case 0:
+    return configVersion;
+case 1:
+  return profileVersion;
+case 2:
+return systemNfVersion;
+case 3:
+return userNfVersion;
+default :
+throw new org.apache.avro.AvroRuntimeException("Bad index");
+}
+}

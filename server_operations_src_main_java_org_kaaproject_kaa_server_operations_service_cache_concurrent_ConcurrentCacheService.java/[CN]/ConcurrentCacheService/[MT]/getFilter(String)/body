@@ -1,0 +1,11 @@
+{
+  return filtersMemorizer.compute(key,new Computable<String,ProfileFilterDto>(){
+    @Override public ProfileFilterDto compute(    String key){
+      LOG.debug("Fetching result for getFilter");
+      ProfileFilterDto value=profileService.findProfileFilterById(key);
+      putFilter(key,value);
+      return value;
+    }
+  }
+);
+}

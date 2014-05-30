@@ -1,0 +1,5 @@
+{
+  LOG.debug("Find profile filter by endpoint group id [{}] ",endpointGroupId);
+  Sort sortObject=new Sort(Direction.DESC,SEQUENCE_NUMBER);
+  return findOne(query(where(ENDPOINT_GROUP_ID).is(new ObjectId(endpointGroupId)).and(STATUS).is(ACTIVE.name())).with(sortObject));
+}

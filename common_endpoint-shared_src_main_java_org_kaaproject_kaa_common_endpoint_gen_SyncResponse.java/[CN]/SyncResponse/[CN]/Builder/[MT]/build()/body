@@ -1,0 +1,14 @@
+{
+  try {
+    SyncResponse record=new SyncResponse();
+    record.appStateSeqNumber=fieldSetFlags()[0] ? this.appStateSeqNumber : (java.lang.Integer)defaultValue(fields()[0]);
+    record.responseType=fieldSetFlags()[1] ? this.responseType : (org.kaaproject.kaa.common.endpoint.gen.SyncResponseStatus)defaultValue(fields()[1]);
+    record.confSyncResponse=fieldSetFlags()[2] ? this.confSyncResponse : (org.kaaproject.kaa.common.endpoint.gen.ConfSyncResponse)defaultValue(fields()[2]);
+    record.notificationSyncResponse=fieldSetFlags()[3] ? this.notificationSyncResponse : (org.kaaproject.kaa.common.endpoint.gen.NotificationSyncResponse)defaultValue(fields()[3]);
+    record.redirectSyncResponse=fieldSetFlags()[4] ? this.redirectSyncResponse : (org.kaaproject.kaa.common.endpoint.gen.RedirectSyncResponse)defaultValue(fields()[4]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

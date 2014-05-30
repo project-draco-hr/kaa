@@ -1,0 +1,6 @@
+{
+  SyncRequest syncRequest=new SyncRequest();
+  assertTrue(DefaultOperationsService.isFirstRequest(syncRequest));
+  syncRequest.setConfigurationHash(ByteBuffer.wrap(new byte[0]));
+  assertTrue(DefaultOperationsService.isFirstRequest(syncRequest));
+}

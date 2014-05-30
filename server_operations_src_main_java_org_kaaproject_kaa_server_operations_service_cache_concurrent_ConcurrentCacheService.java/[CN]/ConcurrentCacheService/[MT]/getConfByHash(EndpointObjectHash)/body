@@ -1,0 +1,11 @@
+{
+  return cfMemorizer.compute(key,new Computable<EndpointObjectHash,EndpointConfigurationDto>(){
+    @Override public EndpointConfigurationDto compute(    EndpointObjectHash key){
+      LOG.debug("Fetching result for getConfByHash");
+      EndpointConfigurationDto value=endpointService.findEndpointConfigurationByHash(key.getData());
+      putConfiguration(key,value);
+      return value;
+    }
+  }
+);
+}

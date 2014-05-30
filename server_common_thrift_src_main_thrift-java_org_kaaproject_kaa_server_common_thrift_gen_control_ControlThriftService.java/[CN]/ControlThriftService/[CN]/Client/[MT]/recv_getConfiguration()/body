@@ -1,0 +1,11 @@
+{
+  getConfiguration_result result=new getConfiguration_result();
+  receiveBase(result,"getConfiguration");
+  if (result.isSetSuccess()) {
+    return result.success;
+  }
+  if (result.ControlException != null) {
+    throw result.ControlException;
+  }
+  throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT,"getConfiguration failed: unknown result");
+}

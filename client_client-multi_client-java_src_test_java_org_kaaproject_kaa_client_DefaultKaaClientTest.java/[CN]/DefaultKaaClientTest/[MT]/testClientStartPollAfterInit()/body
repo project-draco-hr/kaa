@@ -1,0 +1,34 @@
+{
+  Properties kaaProperties=getProperties("client-test.properties");
+  KeyPair opsServerKeyPair=KeyUtil.generateKeyPair("client-test-ep1.public","client-test-ep1.private");
+  DefaultKaaClient clientSpy=Mockito.spy(new DefaultKaaClient(kaaProperties));
+  HttpBootstrapTransport bootstrapTransportMock=Mockito.mock(HttpBootstrapTransport.class);
+  HttpOperationsTransport operationsTransportMock=Mockito.mock(HttpOperationsTransport.class);
+  ProfileContainer profileContainerMock=Mockito.mock(ProfileContainer.class);
+  Mockito.doReturn(bootstrapTransportMock).when(clientSpy).initBootstrapTransport(Mockito.any(BootstrapServerInfo.class));
+  Mockito.doReturn(operationsTransportMock).when(clientSpy).initOperationsTransport(Mockito.any(OperationsServerInfo.class));
+  OperationsServerList opsList=new OperationsServerList();
+  List<OperationsServer> opsListBody=new ArrayList<>();
+  OperationsServer ops=new OperationsServer("testDns",1,ByteBuffer.wrap(opsServerKeyPair.getPublic().getEncoded()));
+  opsListBody.add(ops);
+  opsList.setOperationsServerArray(opsListBody);
+  Mockito.when(bootstrapTransportMock.sendResolveRequest(Mockito.any(Resolve.class))).thenReturn(opsList);
+  clientSpy.init();
+  Mockito.verify(bootstrapTransportMock).sendResolveRequest(Mockito.any(Resolve.class));
+  clientSpy.getProfileManager().setProfileContainer(profileContainerMock);
+  Mockito.when(profileContainerMock.getSerializedProfile()).thenReturn(new byte[0]);
+  ConfSyncResponse confSyncResponse=new ConfSyncResponse(ByteBuffer.wrap(new byte[0]),ByteBuffer.wrap(new byte[0]));
+  SyncResponse syncResponse=new SyncResponse(1,SyncResponseStatus.CONF_RESYNC,confSyncResponse,null,null);
+  Mockito.when(operationsTransportMock.sendRegisterCommand(Mockito.any(EndpointRegistrationRequest.class))).thenReturn(syncResponse);
+  clientSpy.start();
+  Thread.sleep(5000L);
+  Mockito.verify(operationsTransportMock).sendRegisterCommand(Mockito.any(EndpointRegistrationRequest.class));
+  Mockito.verify(operationsTransportMock).sendLongSyncRequest(Mockito.any(LongSyncRequest.class));
+  clientSpy.stop();
+  Assert.assertNotNull(clientSpy.getConfiguationManager());
+  Assert.assertNotNull(clientSpy.getConfigurationPersistenceManager());
+  Assert.assertNotNull(clientSpy.getDeltaManager());
+  Assert.assertNotNull(clientSpy.getNotificationManager());
+  Assert.assertNotNull(clientSpy.getProfileManager());
+  Assert.assertNotNull(clientSpy.getSchemaPersistenceManager());
+}

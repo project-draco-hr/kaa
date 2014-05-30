@@ -1,0 +1,16 @@
+{
+  LinkedList<OperationsServer> newList=new LinkedList<OperationsServer>();
+  for (  String server : endpointMap.keySet()) {
+    if (endpointMap.get(server) != null) {
+      OperationsServer eps=new OperationsServer();
+      eps.setDNSName(server);
+      eps.setPriority(endpointMap.get(server).getPriority());
+      eps.setPublicKey(ByteBuffer.wrap(endpointMap.get(server).getPublicKey()));
+      newList.add(eps);
+    }
+  }
+  if (!newList.isEmpty()) {
+    serverList=newList;
+  }
+  updateEPSL();
+}

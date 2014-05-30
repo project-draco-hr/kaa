@@ -1,0 +1,17 @@
+{
+  TTupleProtocol oprot=(TTupleProtocol)prot;
+  BitSet optionals=new BitSet();
+  if (struct.isSetConfigurationId()) {
+    optionals.set(0);
+  }
+  if (struct.isSetDeactivatedUsername()) {
+    optionals.set(1);
+  }
+  oprot.writeBitSet(optionals,2);
+  if (struct.isSetConfigurationId()) {
+    oprot.writeString(struct.configurationId);
+  }
+  if (struct.isSetDeactivatedUsername()) {
+    oprot.writeString(struct.deactivatedUsername);
+  }
+}

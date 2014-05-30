@@ -1,0 +1,11 @@
+{
+  if (controlServerStarted) {
+    Thread.sleep(1000);
+    controlServiceInstance.stop();
+    controlServerThread.join();
+    endpointNode.close();
+    bootstrapNode.close();
+    zkCluster.close();
+    controlServerStarted=false;
+  }
+}

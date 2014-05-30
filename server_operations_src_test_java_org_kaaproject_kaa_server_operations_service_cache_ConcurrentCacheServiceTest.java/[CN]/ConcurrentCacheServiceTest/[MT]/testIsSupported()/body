@@ -1,0 +1,18 @@
+{
+  for (  ChangeType change : ChangeType.values()) {
+switch (change) {
+case ADD_CONF:
+case ADD_PROF:
+case ADD_TOPIC:
+case REMOVE_CONF:
+case REMOVE_PROF:
+case REMOVE_TOPIC:
+case REMOVE_GROUP:
+      Assert.assertTrue(ConcurrentCacheService.isSupported(change));
+    break;
+default :
+  Assert.assertFalse(ConcurrentCacheService.isSupported(change));
+break;
+}
+}
+}

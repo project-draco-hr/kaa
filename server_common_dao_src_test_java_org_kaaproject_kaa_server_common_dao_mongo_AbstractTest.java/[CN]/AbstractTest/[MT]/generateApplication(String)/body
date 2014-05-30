@@ -1,0 +1,14 @@
+{
+  Application app=new Application();
+  if (isBlank(tenantId)) {
+    app.setTenantId(new ObjectId());
+  }
+ else {
+    app.setTenantId(new ObjectId(tenantId));
+  }
+  app.setName("Test app");
+  Update update=new Update();
+  update.setStatus(ProcessingStatus.IDLE);
+  app.setUpdate(update);
+  return applicationService.saveApp(app.toDto());
+}

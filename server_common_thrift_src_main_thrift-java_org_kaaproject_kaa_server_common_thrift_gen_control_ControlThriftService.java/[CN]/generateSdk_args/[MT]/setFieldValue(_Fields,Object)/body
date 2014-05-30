@@ -1,0 +1,44 @@
+{
+switch (field) {
+case SDK_PLATFORM:
+    if (value == null) {
+      unsetSdkPlatform();
+    }
+ else {
+      setSdkPlatform((SdkPlatform)value);
+    }
+  break;
+case APPLICATION_ID:
+if (value == null) {
+  unsetApplicationId();
+}
+ else {
+  setApplicationId((String)value);
+}
+break;
+case PROFILE_SCHEMA_VERSION:
+if (value == null) {
+unsetProfileSchemaVersion();
+}
+ else {
+setProfileSchemaVersion((Integer)value);
+}
+break;
+case CONFIGURATION_SCHEMA_VERSION:
+if (value == null) {
+unsetConfigurationSchemaVersion();
+}
+ else {
+setConfigurationSchemaVersion((Integer)value);
+}
+break;
+case NOTIFICATION_SCHEMA_VERSION:
+if (value == null) {
+unsetNotificationSchemaVersion();
+}
+ else {
+setNotificationSchemaVersion((Integer)value);
+}
+break;
+}
+}

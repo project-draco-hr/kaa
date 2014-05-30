@@ -1,0 +1,10 @@
+{
+  deactivateConfiguration_result result=new deactivateConfiguration_result();
+  try {
+    result.success=iface.deactivateConfiguration(args.configurationId,args.deactivatedUsername);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

@@ -1,0 +1,6 @@
+{
+  ControlNodeInfo controlServerInfo=extractControlServerInfo(currentData);
+  for (  ControlNodeListener listener : listeners) {
+    listener.onControlNodeChange(controlServerInfo);
+  }
+}

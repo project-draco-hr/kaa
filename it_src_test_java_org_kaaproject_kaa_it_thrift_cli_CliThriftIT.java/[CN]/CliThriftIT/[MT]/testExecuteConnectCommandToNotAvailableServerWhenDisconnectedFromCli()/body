@@ -1,0 +1,10 @@
+{
+  BaseCliThriftClient cli=new BaseCliThriftClient();
+  int result=cli.processLine("connect " + HOST + ":"+ (PORT + 10));
+  Assert.assertEquals(result,0);
+  String output=systemOut.toString("UTF-8");
+  String error=systemErr.toString("UTF-8");
+  Assert.assertTrue(output.trim().isEmpty());
+  Assert.assertTrue(error.startsWith("[Thrift Error]: "));
+  Assert.assertFalse(cliSession.isRemoteMode());
+}

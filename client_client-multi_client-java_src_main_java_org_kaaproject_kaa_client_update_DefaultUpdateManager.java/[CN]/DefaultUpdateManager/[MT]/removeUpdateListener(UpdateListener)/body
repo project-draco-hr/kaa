@@ -1,0 +1,14 @@
+{
+  if (listener == null) {
+    LOG.warn("Can't remove null listener");
+    return false;
+  }
+  if (listeners.remove(listener)) {
+    LOG.info("Removed update listener {}",listener);
+    return true;
+  }
+ else {
+    LOG.warn("Listener was not registered {}",listener);
+    return false;
+  }
+}

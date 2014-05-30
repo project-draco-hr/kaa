@@ -1,0 +1,10 @@
+{
+  serverName_result result=new serverName_result();
+  try {
+    result.success=iface.serverName();
+  }
+ catch (  CliThriftException cliException) {
+    result.cliException=cliException;
+  }
+  return result;
+}

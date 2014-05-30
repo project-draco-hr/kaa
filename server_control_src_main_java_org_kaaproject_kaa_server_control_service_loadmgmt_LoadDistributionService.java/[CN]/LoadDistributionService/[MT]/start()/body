@@ -1,0 +1,15 @@
+{
+  LOG.info("Load distribution service starting...");
+  LOG.info(this.toString());
+  loadManager=new DynamicLoadManager(this);
+  if (zkService != null) {
+    loadManager.registerListeners();
+    isMaster=zkService.getControlZKNode().isMaster();
+    LOG.trace("Load Distribution Service isMaster " + isMaster);
+    operate=true;
+    super.start();
+  }
+ else {
+    LOG.error("Load distribution service start failed, ZK Service not set.");
+  }
+}

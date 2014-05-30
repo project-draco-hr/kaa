@@ -1,0 +1,8 @@
+{
+  SyncRequest syncRequest=new SyncRequest();
+  syncRequest.setAppStateSeqNumber(123);
+  SyncResponseHolder syncResponseHolder=DefaultOperationsService.buildProfileResyncResponse(syncRequest);
+  assertNotNull(syncResponseHolder);
+  assertNotNull(syncResponseHolder.getResponse());
+  assertEquals(SyncResponseStatus.PROFILE_RESYNC,syncResponseHolder.getResponse().getResponseType());
+}

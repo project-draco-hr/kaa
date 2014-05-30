@@ -1,0 +1,21 @@
+{
+  List<Object> deltaTypes=new ArrayList<Object>();
+  deltaTypes.add(rootSchema);
+  for (  String type : addressableRecords) {
+    deltaTypes.add(type);
+  }
+  Map<String,Object> deltaTypesField=new HashMap<String,Object>();
+  deltaTypesField.put("name","delta");
+  deltaTypesField.put("type",deltaTypes);
+  List<Object> deltaFields=new ArrayList<Object>();
+  deltaFields.add(deltaTypesField);
+  Map<String,Object> delta=new HashMap<String,Object>();
+  delta.put("name","deltaT");
+  delta.put("namespace","org.kaaproject.configuration");
+  delta.put("type","record");
+  delta.put("fields",deltaFields);
+  Map<String,Object> result=new HashMap<String,Object>();
+  result.put("type","array");
+  result.put("items",delta);
+  return result;
+}

@@ -1,0 +1,15 @@
+{
+  ConfirmListener listener=new ConfirmListener(){
+    @Override public void onNo(){
+    }
+    @Override public void onYes(){
+      onRowDelete(getObjectId(value));
+    }
+  }
+;
+  String question=deleteQuestion();
+  String title=deleteTitle();
+  ConfirmDialog dialog=new ConfirmDialog(listener,title,question);
+  dialog.center();
+  dialog.show();
+}

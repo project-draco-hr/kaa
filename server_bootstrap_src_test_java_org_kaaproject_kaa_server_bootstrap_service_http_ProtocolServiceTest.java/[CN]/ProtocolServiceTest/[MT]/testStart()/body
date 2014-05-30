@@ -1,0 +1,7 @@
+{
+  ProtocolService ps=new ProtocolService(config);
+  ps.setNetty(serverMock);
+  ps.start();
+  verify(serverMock,times(1)).init();
+  verify(serverMock,times(1)).start();
+}

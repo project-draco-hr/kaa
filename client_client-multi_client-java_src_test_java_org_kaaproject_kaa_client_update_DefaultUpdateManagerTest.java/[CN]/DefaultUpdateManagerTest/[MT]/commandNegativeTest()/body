@@ -1,0 +1,6 @@
+{
+  TransportExceptionHandler handler=mock(TransportExceptionHandler.class);
+  TestCommand cmd=new TestCommand(handler);
+  cmd.execute();
+  verify(handler,times(1)).onTransportException();
+}

@@ -1,0 +1,11 @@
+{
+  EndpointObjectHash keyHash=EndpointObjectHash.fromBytes(message.getNotification().getKeyHash());
+  String endpointKey=buildEndpointKey(keyHash);
+  ActorMetaData endpointActor=endpointSessions.get(endpointKey);
+  if (endpointActor != null) {
+    endpointActor.actorRef.tell(NotificationMessage.fromUnicastId(message.getNotification().getUnicastNotificationId()),self());
+  }
+ else {
+    LOG.debug("Can't find endpoint actor that corresponds to {} ",endpointKey);
+  }
+}

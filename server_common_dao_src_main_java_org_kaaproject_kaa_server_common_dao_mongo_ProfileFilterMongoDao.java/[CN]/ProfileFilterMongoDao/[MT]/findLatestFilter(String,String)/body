@@ -1,0 +1,6 @@
+{
+  LOG.debug("Find latest active profile filter by profile schema id [{}] and group id [{}]",schemaId,groupId);
+  Sort sortObject=new Sort(Direction.DESC,SEQUENCE_NUMBER);
+  ProfileFilter config=findOne(query(where(SCHEMA_ID).is(new ObjectId(schemaId)).and(ENDPOINT_GROUP_ID).is(new ObjectId(groupId)).and(STATUS).is(ACTIVE.name())).with(sortObject));
+  return config;
+}

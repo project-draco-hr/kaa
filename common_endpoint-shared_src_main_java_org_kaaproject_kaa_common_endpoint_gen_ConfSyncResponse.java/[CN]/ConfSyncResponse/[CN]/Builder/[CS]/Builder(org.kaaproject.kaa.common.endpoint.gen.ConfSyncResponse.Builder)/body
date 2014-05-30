@@ -1,0 +1,11 @@
+{
+  super(other);
+  if (isValidValue(fields()[0],other.confSchemaBody)) {
+    this.confSchemaBody=data().deepCopy(fields()[0].schema(),other.confSchemaBody);
+    fieldSetFlags()[0]=true;
+  }
+  if (isValidValue(fields()[1],other.confDeltaBody)) {
+    this.confDeltaBody=data().deepCopy(fields()[1].schema(),other.confDeltaBody);
+    fieldSetFlags()[1]=true;
+  }
+}

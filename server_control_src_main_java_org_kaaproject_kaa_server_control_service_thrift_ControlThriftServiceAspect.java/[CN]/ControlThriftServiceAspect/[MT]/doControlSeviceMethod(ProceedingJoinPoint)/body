@@ -1,0 +1,16 @@
+{
+  Object retVal=null;
+  try {
+    retVal=pjp.proceed();
+  }
+ catch (  Exception t) {
+    LOG.error("Unhandled exception: " + t.getMessage());
+    ByteArrayOutputStream outStream=new ByteArrayOutputStream();
+    PrintWriter writer=new PrintWriter(outStream);
+    t.printStackTrace(writer);
+    writer.flush();
+    ControlThriftException pte=new ControlThriftException(t.getMessage(),t.getClass().getName(),outStream.toString());
+    throw pte;
+  }
+  return retVal;
+}

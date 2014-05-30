@@ -1,0 +1,7 @@
+{
+  logger.info("Bootstrap node added " + nodeInfo.getConnectionInfo().toString());
+synchronized (sync) {
+    nodeInfos.add(nodeInfo);
+    sync.notify();
+  }
+}

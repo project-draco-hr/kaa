@@ -1,0 +1,11 @@
+{
+  setExternalUid(user.getId().toString());
+  setUsername(user.getUsername());
+  setFirstName(user.getFirstName());
+  setLastName(user.getLastName());
+  setMail(user.getMail());
+  this.password=user.getPassword();
+  this.setAuthority(KaaAuthorityDto.valueOf(user.getAuthorities().iterator().next().getAuthority()));
+  this.tempPassword=user.isTempPassword();
+  this.enabled=user.isEnabled();
+}

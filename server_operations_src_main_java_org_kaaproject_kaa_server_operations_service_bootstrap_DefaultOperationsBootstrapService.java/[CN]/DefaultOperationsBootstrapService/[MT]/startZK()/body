@@ -1,0 +1,20 @@
+{
+  OperationsNodeInfo nodeInfo=new OperationsNodeInfo();
+  ByteBuffer keyData=ByteBuffer.wrap(keyStoreService.getPublicKey().getEncoded());
+  ConnectionInfo connectionInfo=new ConnectionInfo(thriftHost,thriftPort,realBindInterface,nettyPort,keyData);
+  nodeInfo.setConnectionInfo(connectionInfo);
+  operationsNode=new OperationsNode(nodeInfo,zkHostPortList,new RetryUntilElapsed(zkMaxRetryTime,zkSleepTime));
+  try {
+    operationsNode.start();
+    getConfig().setZkNode(operationsNode);
+  }
+ catch (  Exception e) {
+    if (zkIgnoreErrors) {
+      LOG.info("Failed to register operations in ZooKeeper",e);
+    }
+ else {
+      LOG.error("Failed to register operations in ZooKeeper",e);
+      throw new RuntimeException(e);
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  String schemaId=generateProfSchema(null,1).get(0).getId();
+  ProfileSchemaDto schemaDto=profileService.findProfileSchemaById(schemaId);
+  Assert.assertNotNull(schemaDto);
+  profileService.removeProfileSchemaById(schemaId);
+  schemaDto=profileService.findProfileSchemaById(schemaId);
+  Assert.assertNull(schemaDto);
+}

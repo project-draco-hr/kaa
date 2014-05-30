@@ -1,0 +1,14 @@
+{
+  org.kaaproject.kaa.server.admin.services.entity.User userEntity=new org.kaaproject.kaa.server.admin.services.entity.User();
+  userEntity.setUsername(username);
+  userEntity.setPassword(passwordEncoder.encodePassword(password,null));
+  userEntity.setEnabled(true);
+  userEntity.setTempPassword(false);
+  Authority authority=new Authority();
+  authority.setAuthority(KaaAuthorityDto.KAA_ADMIN.name());
+  authority.setUser(userEntity);
+  Collection<Authority> authorities=new ArrayList<Authority>();
+  authorities.add(authority);
+  userEntity.setAuthorities(authorities);
+  userFacade.save(userEntity);
+}

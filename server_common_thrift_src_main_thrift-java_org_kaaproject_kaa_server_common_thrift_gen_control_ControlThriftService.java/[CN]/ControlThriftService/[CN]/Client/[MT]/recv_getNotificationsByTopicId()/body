@@ -1,0 +1,11 @@
+{
+  getNotificationsByTopicId_result result=new getNotificationsByTopicId_result();
+  receiveBase(result,"getNotificationsByTopicId");
+  if (result.isSetSuccess()) {
+    return result.success;
+  }
+  if (result.ControlException != null) {
+    throw result.ControlException;
+  }
+  throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT,"getNotificationsByTopicId failed: unknown result");
+}

@@ -1,0 +1,11 @@
+{
+  getMemoryUsage_result result=new getMemoryUsage_result();
+  receiveBase(result,"getMemoryUsage");
+  if (result.isSetSuccess()) {
+    return result.success;
+  }
+  if (result.cliException != null) {
+    throw result.cliException;
+  }
+  throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT,"getMemoryUsage failed: unknown result");
+}

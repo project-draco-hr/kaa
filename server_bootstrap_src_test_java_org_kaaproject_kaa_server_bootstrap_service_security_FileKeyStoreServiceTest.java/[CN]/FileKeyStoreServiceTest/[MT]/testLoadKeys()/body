@@ -1,0 +1,57 @@
+{
+  FileKeyStoreService ks=new FileKeyStoreService();
+  assertNotNull(ks);
+  ks.setPrivateKeyLocation(PRIVATE_KEY_LOCATION);
+  ks.setPublicKeyLocation(PUBLIC_KEY_LOCATION);
+  File pri=new File(PRIVATE_KEY_PATH);
+  if (pri.exists()) {
+    pri.delete();
+  }
+  File pub=new File(PUBLIC_KEY_PATH);
+  if (pub.exists()) {
+    pub.delete();
+  }
+  ks.loadKeys();
+  if (!pri.exists() || !pri.canRead()) {
+    fail("Private key file create failed.");
+  }
+  if (!pub.exists() || !pub.canRead()) {
+    fail("Public key file create failed.");
+  }
+  if (pub.exists()) {
+    pub.delete();
+    FileWriter pubfw;
+    try {
+      pubfw=new FileWriter(pub);
+      pubfw.write("ascasdcasdcasdc");
+      pubfw.close();
+    }
+ catch (    IOException e) {
+      fail(e.toString());
+    }
+  }
+  try {
+    ks.loadKeys();
+  }
+ catch (  Exception e) {
+    assertNotNull(e.toString(),e);
+  }
+  if (pri.exists()) {
+    pri.delete();
+    FileWriter prifw;
+    try {
+      prifw=new FileWriter(pri);
+      prifw.write("ascasdcasdcasdc");
+      prifw.close();
+    }
+ catch (    IOException e) {
+      fail(e.toString());
+    }
+  }
+  try {
+    ks.loadKeys();
+  }
+ catch (  Exception e) {
+    assertNotNull(e.toString(),e);
+  }
+}

@@ -1,0 +1,16 @@
+{
+  if (this == o) {
+    return true;
+  }
+  if (!(o instanceof ThreadStruct)) {
+    return false;
+  }
+  ThreadStruct that=(ThreadStruct)o;
+  if (t != null ? !t.equals(that.t) : that.t != null) {
+    return false;
+  }
+  if (ti != null ? !ti.equals(that.ti) : that.ti != null) {
+    return false;
+  }
+  return true;
+}

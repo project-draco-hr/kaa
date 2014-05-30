@@ -1,0 +1,9 @@
+{
+  UpdateManager updateManager=mock(UpdateManager.class);
+  KaaClientState state=mock(KaaClientState.class);
+  ProfileListener listener=new DefaultProfileListener(updateManager,state);
+  byte[] newProfile=new byte[]{1,2,3};
+  listener.onProfileUpdated(null);
+  listener.onProfileUpdated(newProfile);
+  verify(updateManager,times(1)).onProfileChange(newProfile);
+}

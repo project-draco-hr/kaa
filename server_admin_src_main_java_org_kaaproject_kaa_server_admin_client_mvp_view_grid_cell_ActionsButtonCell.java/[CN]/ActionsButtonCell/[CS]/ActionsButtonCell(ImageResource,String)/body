@@ -1,0 +1,19 @@
+{
+  super(CLICK,KEYDOWN);
+  if (template == null) {
+    template=GWT.create(Template.class);
+  }
+  SafeUri uri=imageResource.getSafeUri();
+  int width=imageResource.getWidth();
+  int height=imageResource.getHeight();
+  int paddingLeft=width + 16;
+  String background="url(\"" + uri.asString() + "\") no-repeat scroll right center";
+  SafeStylesBuilder builder=new SafeStylesBuilder();
+  builder.trustedNameAndValue("background",background).width(width,Unit.PX).height(height,Unit.PX).paddingLeft(paddingLeft,Unit.PX);
+  SafeStyles style=SafeStylesUtils.fromTrustedString(builder.toSafeStyles().asString());
+  this.actionsButtonHtml=template.actionsButtonUp(text,style);
+  this.actionsButtonHtmlDown=template.actionsButtonDown(text,style);
+  actionsPopup=new PopupPanel(true,false);
+  actionsPopup.addStyleName("actionPopup");
+  actionsPopup.setWidget(menu);
+}

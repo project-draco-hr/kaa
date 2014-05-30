@@ -1,0 +1,11 @@
+{
+  getNotificationSchemasByAppId_result result=new getNotificationSchemasByAppId_result();
+  receiveBase(result,"getNotificationSchemasByAppId");
+  if (result.isSetSuccess()) {
+    return result.success;
+  }
+  if (result.ControlException != null) {
+    throw result.ControlException;
+  }
+  throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT,"getNotificationSchemasByAppId failed: unknown result");
+}

@@ -1,0 +1,47 @@
+{
+  if (currentRecord != null) {
+    Schema currentSchema=currentRecord.getSchema();
+    LOG.debug("Current record with name {}",currentSchema.getFullName());
+    Schema.Field uuidField=currentSchema.getField(UUID_FIELD);
+    if (uuidField != null) {
+      Object uuidValue=currentRecord.get(uuidField.pos());
+      if (uuidValue == null) {
+        GenericData.Fixed uuid=generateUUIDObject();
+        LOG.info("Generate new uuid {}",uuid);
+        currentRecord.put(uuidField.pos(),uuid);
+      }
+ else {
+        LOG.info("Validate existing uuid {}",uuidValue);
+      }
+    }
+    List<Schema.Field> fields=currentSchema.getFields();
+    if (fields != null && !fields.isEmpty()) {
+      for (      Schema.Field field : fields) {
+        int position=field.pos();
+        Object value=currentRecord.get(position);
+        if (value instanceof GenericRecord) {
+          LOG.debug("Found record value {}",value);
+          GenericRecord record=(GenericRecord)value;
+          currentRecord.put(position,generateUuidField(record));
+        }
+ else         if (value instanceof GenericArray) {
+          LOG.debug("Found array value {}",value);
+          GenericArray array=(GenericArray)value;
+          if (array != null) {
+            LOG.debug("Found array type with name {}",array.getSchema().getFullName());
+            int size=array.size();
+            for (int i=0; i < size; i++) {
+              Object item=array.get(i);
+              if (item instanceof GenericRecord) {
+                GenericRecord itemRecord=(GenericRecord)item;
+                array.set(i,generateUuidField(itemRecord));
+              }
+            }
+            currentRecord.put(position,array);
+          }
+        }
+      }
+    }
+  }
+  return currentRecord;
+}

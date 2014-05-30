@@ -1,0 +1,15 @@
+{
+  if (e != null) {
+    e.printStackTrace();
+    activity.httpRequestComplete(e,this.testId,null);
+    return;
+  }
+  try {
+    OperationsServerList response=decodeHttpResponse(header,body);
+    activity.httpRequestComplete(null,this.testId,response);
+  }
+ catch (  Exception e1) {
+    e1.printStackTrace();
+    activity.httpRequestComplete(e1,this.testId,null);
+  }
+}

@@ -1,0 +1,8 @@
+{
+  if (serviceStarted) {
+    serviceStarted=false;
+    loadMgmtService.shutdown();
+    controlZkService.stop();
+    server.stop();
+  }
+}

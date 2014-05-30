@@ -1,0 +1,8 @@
+{
+  CommandTest cmdTest=new CommandTest();
+  Set<String> acceptedUnicastNotificationIds=new HashSet<String>();
+  List<SubscriptionCommand> notificationCommands=new LinkedList<SubscriptionCommand>();
+  Command cmd=cmdTest.getCommandFactory().createPollCommand(cmdTest.getTransport(),acceptedUnicastNotificationIds,notificationCommands);
+  cmdTest.verifyListener(cmd);
+  verify(cmdTest.getTransport(),times(2)).sendSyncRequest(any(SyncRequest.class));
+}

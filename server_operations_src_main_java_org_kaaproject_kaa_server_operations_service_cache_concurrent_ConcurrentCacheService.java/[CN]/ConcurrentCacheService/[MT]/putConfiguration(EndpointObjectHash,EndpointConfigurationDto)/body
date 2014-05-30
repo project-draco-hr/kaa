@@ -1,0 +1,7 @@
+{
+  if (value != null && value.getId() == null) {
+    LOG.debug("Fetching result for getConfByHash");
+    value=endpointService.saveEndpointConfiguration(value);
+  }
+  return value;
+}

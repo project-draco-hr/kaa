@@ -1,0 +1,11 @@
+{
+  if (message instanceof SessionMessage) {
+    processEndpointRequest((SessionMessage)message);
+  }
+ else   if (message instanceof TopicRegistrationRequestMessage) {
+    processEndpointRegistration((TopicRegistrationRequestMessage)message);
+  }
+ else {
+    processEndpointRequest(message);
+  }
+}

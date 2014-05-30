@@ -1,0 +1,18 @@
+{
+  if (response.getConfSyncResponse() != null) {
+    ConfSyncResponse confResponse=response.getConfSyncResponse();
+    if (confResponse.getConfSchemaBody() != null) {
+      schemaProcessor.loadSchema(response.getConfSyncResponse().getConfSchemaBody());
+    }
+switch (response.getResponseType()) {
+case CONF_RESYNC:
+      processDelta(response,confResponse,true);
+    break;
+case DELTA:
+  processDelta(response,confResponse,false);
+break;
+default :
+break;
+}
+}
+}

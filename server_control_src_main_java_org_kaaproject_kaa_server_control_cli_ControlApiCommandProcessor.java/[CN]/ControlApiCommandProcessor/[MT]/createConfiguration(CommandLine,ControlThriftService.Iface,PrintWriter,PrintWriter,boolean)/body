@@ -1,0 +1,47 @@
+{
+  try {
+    ConfigurationDto configuration=null;
+    if (edit) {
+      String configurationId=line.getOptionValue("i");
+      configuration=toDto(client.getConfiguration(configurationId));
+      if (configuration == null) {
+        writer.println("Configuration with id " + configurationId + " not found!");
+        return;
+      }
+    }
+ else {
+      configuration=new ConfigurationDto();
+      configuration.setStatus(UpdateStatus.INACTIVE);
+    }
+    if (line.hasOption("f")) {
+      String configFile=line.getOptionValue("f");
+      String config=readFile(configFile,errorWriter);
+      if (config != null) {
+        configuration.setBinaryBody(config.getBytes(UTF8));
+      }
+ else {
+        return;
+      }
+    }
+    if (line.hasOption("s")) {
+      configuration.setSchemaId(line.getOptionValue("s"));
+    }
+    if (line.hasOption("e")) {
+      configuration.setEndpointGroupId(line.getOptionValue("e"));
+    }
+    ConfigurationDto savedConfiguration=toDto(client.editConfiguration(toDataStruct(configuration)));
+    if (edit) {
+      writer.println("Configuration updated.");
+    }
+ else {
+      writer.println("Created new Configuration with id: " + savedConfiguration.getId());
+      if (line.hasOption("o")) {
+        String outFileName=line.getOptionValue("o");
+        storeInfo(outFileName,savedConfiguration.getId(),errorWriter);
+      }
+    }
+  }
+ catch (  TException e) {
+    handleException("Unable to " + (edit ? "update" : "create") + " Configuration",e,errorWriter);
+  }
+}

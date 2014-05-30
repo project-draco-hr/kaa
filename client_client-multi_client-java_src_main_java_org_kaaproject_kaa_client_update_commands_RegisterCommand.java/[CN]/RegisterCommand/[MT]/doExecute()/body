@@ -1,0 +1,6 @@
+{
+  LOG.info("EndpointRegistrationRequest started: {}",request);
+  SyncResponse response=transport.sendRegisterCommand(request);
+  LOG.info("EndpointRegistrationRequest response: {}",response);
+  manager.onSyncResponse(response);
+}

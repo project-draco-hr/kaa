@@ -1,0 +1,36 @@
+{
+  ConfigurationSchemaDto configurationSchemaDto;
+  validateObject(configurationSchema,"Can't save configuration schema. Configuration schema invalid.");
+  String id=configurationSchema.getId();
+  if (isBlank(id)) {
+    ConfigurationSchemaDto oldConfigurationSchemaDto=findLatestConfSchemaByAppId(configurationSchema.getApplicationId());
+    int majorVersion=0;
+    if (oldConfigurationSchemaDto != null) {
+      majorVersion=oldConfigurationSchemaDto.getMajorVersion();
+    }
+    configurationSchema.setMajorVersion(++majorVersion);
+    configurationSchema.setMinorVersion(0);
+    configurationSchema.setStatus(ACTIVE);
+    configurationSchema.setCreatedTime(System.currentTimeMillis());
+    try {
+      generateSchemas(configurationSchema);
+    }
+ catch (    SchemaCreationException e) {
+      LOG.warn("Can't generate protocol schema from configuration schema.",e);
+      throw new IncorrectParameterException("Incorrect configuration schema. Can't generate protocol schema.");
+    }
+  }
+ else {
+    ConfigurationSchemaDto oldConfigurationSchemaDto=getDto(configurationSchemaDao.findById(id));
+    if (oldConfigurationSchemaDto != null) {
+      oldConfigurationSchemaDto.editFields(configurationSchema);
+      configurationSchema=oldConfigurationSchemaDto;
+    }
+ else {
+      LOG.error("Can't find configuration schema with given id [{}].",id);
+      throw new IncorrectParameterException("Invalid configuration schema id: " + id);
+    }
+  }
+  configurationSchemaDto=getDto(configurationSchemaDao.save(new ConfigurationSchema(configurationSchema)));
+  return configurationSchemaDto;
+}

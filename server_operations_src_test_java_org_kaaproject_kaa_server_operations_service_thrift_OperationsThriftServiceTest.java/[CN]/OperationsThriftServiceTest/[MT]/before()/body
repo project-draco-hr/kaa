@@ -1,0 +1,9 @@
+{
+  operationsThriftService=new OperationsThriftServiceImpl();
+  cacheService=mock(CacheService.class);
+  akkaService=mock(AkkaService.class);
+  applicationService=mock(ApplicationService.class);
+  ReflectionTestUtils.setField(operationsThriftService,"cacheService",cacheService);
+  ReflectionTestUtils.setField(operationsThriftService,"akkaService",akkaService);
+  ReflectionTestUtils.setField(operationsThriftService,"applicationService",applicationService);
+}

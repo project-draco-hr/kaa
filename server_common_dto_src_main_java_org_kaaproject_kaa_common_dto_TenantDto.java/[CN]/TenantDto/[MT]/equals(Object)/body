@@ -1,0 +1,13 @@
+{
+  if (this == o) {
+    return true;
+  }
+  if (!(o instanceof TenantDto)) {
+    return false;
+  }
+  TenantDto that=(TenantDto)o;
+  if (name != null ? !name.equals(that.name) : that.name != null) {
+    return false;
+  }
+  return true;
+}

@@ -1,0 +1,8 @@
+{
+  shutdown_result result=new shutdown_result();
+  receiveBase(result,"shutdown");
+  if (result.cliException != null) {
+    throw result.cliException;
+  }
+  return;
+}

@@ -1,0 +1,6 @@
+{
+  writer.println(command.getCommand() + " - " + command.getDesc());
+  writer.println();
+  HelpFormatter helpFormatter=new HelpFormatter();
+  helpFormatter.printHelp(writer,80,command.getCommand(),"Options",command.getOptions(),3,5,"",true);
+}

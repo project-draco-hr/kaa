@@ -1,0 +1,30 @@
+{
+  ChangeProfileFilterNotification profileNotification;
+  validateId(id,"Incorrect profile filter id. Can't deactivate profile filter with id " + id);
+  ProfileFilter oldProfileFilter=profileFilterDao.findById(id);
+  if (oldProfileFilter != null) {
+    UpdateStatus status=oldProfileFilter.getStatus();
+    ObjectId oid=oldProfileFilter.getEndpointGroupId();
+    if (oid != null) {
+      EndpointGroup group=endpointGroupDao.findById(oid.toString());
+      if (group != null && group.getWeight() == 0) {
+        throw new IncorrectParameterException("Can't deactivate default profile filter");
+      }
+    }
+    if (status != null && status == ACTIVE) {
+      ProfileFilterDto profileFilterDto=getDto(profileFilterDao.deactivate(id,deactivatedUsername));
+      HistoryDto historyDto=addHistory(profileFilterDto,ChangeType.REMOVE_PROF);
+      ChangeNotificationDto changeNotificationDto=createNotification(profileFilterDto,historyDto);
+      profileNotification=new ChangeProfileFilterNotification();
+      profileNotification.setProfileFilterDto(profileFilterDto);
+      profileNotification.setChangeNotificationDto(changeNotificationDto);
+    }
+ else {
+      throw new UpdateStatusConflictException("Incorrect status for activating profile filter " + status);
+    }
+  }
+ else {
+    throw new IncorrectParameterException("Can't find profile filter with id " + id);
+  }
+  return profileNotification;
+}

@@ -1,0 +1,16 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    String username=this.getCurrentUser().getUsername();
+    if (isEmpty(configuration.getId())) {
+      configuration.setCreatedUsername(username);
+    }
+ else {
+      configuration.setModifiedUsername(username);
+    }
+    return toDto(clientProvider.getClient().editConfiguration(toDataStruct(configuration)));
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

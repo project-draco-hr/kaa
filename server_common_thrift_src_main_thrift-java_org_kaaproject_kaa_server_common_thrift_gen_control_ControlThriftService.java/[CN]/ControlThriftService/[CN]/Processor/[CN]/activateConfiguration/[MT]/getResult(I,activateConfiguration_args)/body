@@ -1,0 +1,10 @@
+{
+  activateConfiguration_result result=new activateConfiguration_result();
+  try {
+    result.success=iface.activateConfiguration(args.configurationId,args.activatedUsername);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

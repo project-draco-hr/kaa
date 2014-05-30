@@ -1,0 +1,61 @@
+{
+  if (this == o) {
+    return true;
+  }
+  if (!(o instanceof EndpointProfile)) {
+    return false;
+  }
+  EndpointProfile that=(EndpointProfile)o;
+  if (configurationVersion != that.configurationVersion) {
+    return false;
+  }
+  if (notificationVersion != that.notificationVersion) {
+    return false;
+  }
+  if (profileVersion != that.profileVersion) {
+    return false;
+  }
+  if (sequenceNumber != that.sequenceNumber) {
+    return false;
+  }
+  if (systemNfVersion != that.systemNfVersion) {
+    return false;
+  }
+  if (userNfVersion != that.userNfVersion) {
+    return false;
+  }
+  if (applicationId != null ? !applicationId.equals(that.applicationId) : that.applicationId != null) {
+    return false;
+  }
+  if (changedFlag != null ? !changedFlag.equals(that.changedFlag) : that.changedFlag != null) {
+    return false;
+  }
+  if (!Arrays.equals(configurationHash,that.configurationHash)) {
+    return false;
+  }
+  if (endpointGroup != null ? !endpointGroup.equals(that.endpointGroup) : that.endpointGroup != null) {
+    return false;
+  }
+  if (!Arrays.equals(endpointKey,that.endpointKey)) {
+    return false;
+  }
+  if (!Arrays.equals(endpointKeyHash,that.endpointKeyHash)) {
+    return false;
+  }
+  if (!Arrays.equals(ntHash,that.ntHash)) {
+    return false;
+  }
+  if (profile != null ? !profile.equals(that.profile) : that.profile != null) {
+    return false;
+  }
+  if (!Arrays.equals(profileHash,that.profileHash)) {
+    return false;
+  }
+  if (profileSchemaId != null ? !profileSchemaId.equals(that.profileSchemaId) : that.profileSchemaId != null) {
+    return false;
+  }
+  if (subscriptions != null ? !subscriptions.equals(that.subscriptions) : that.subscriptions != null) {
+    return false;
+  }
+  return true;
+}

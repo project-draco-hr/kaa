@@ -1,0 +1,7 @@
+{
+synchronized (notificationCommands) {
+    sentNotificationCommands.addAll(notificationCommands);
+    notificationCommands.clear();
+  }
+  return commandFactory.createLongPollCommand(transport,TIMEOUT,acceptedUnicastNotificationIds,sentNotificationCommands);
+}

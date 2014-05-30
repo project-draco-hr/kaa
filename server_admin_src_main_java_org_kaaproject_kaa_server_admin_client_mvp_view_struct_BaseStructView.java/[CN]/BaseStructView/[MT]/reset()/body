@@ -1,0 +1,31 @@
+{
+  dateTimeCreatedLabel.setVisible(false);
+  createdDateTime.setVisible(false);
+  authorLabel.setVisible(false);
+  createdUsername.setVisible(false);
+  dateTimeModifiedLabel.setVisible(false);
+  modifiedDateTime.setVisible(false);
+  modifiedByLabel.setVisible(false);
+  modifiedUsername.setVisible(false);
+  dateTimeActivatedLabel.setVisible(false);
+  activatedDateTime.setVisible(false);
+  activatedByLabel.setVisible(false);
+  activatedUsername.setVisible(false);
+  dateTimeDeactivatedLabel.setVisible(false);
+  deactivatedDateTime.setVisible(false);
+  deactivatedByLabel.setVisible(false);
+  deactivatedUsername.setVisible(false);
+  description.setValue("");
+  body.setValue("");
+  saveButton.setVisible(false);
+  activateButton.setVisible(false);
+  deactivateButton.setVisible(false);
+  bodyLabel.removeStyleName("required");
+  description.getTextArea().setReadOnly(true);
+  body.getTextArea().setReadOnly(true);
+  updateSaveButton(false,false);
+  for (  HandlerRegistration registration : registrations) {
+    registration.removeHandler();
+  }
+  registrations.clear();
+}

@@ -1,0 +1,11 @@
+{
+  getConfigurationSchemaVersionsByApplicationId_result result=new getConfigurationSchemaVersionsByApplicationId_result();
+  receiveBase(result,"getConfigurationSchemaVersionsByApplicationId");
+  if (result.isSetSuccess()) {
+    return result.success;
+  }
+  if (result.ControlException != null) {
+    throw result.ControlException;
+  }
+  throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT,"getConfigurationSchemaVersionsByApplicationId failed: unknown result");
+}

@@ -1,0 +1,10 @@
+{
+  if (that == null)   return false;
+  boolean this_present_commandLine=true && this.isSetCommandLine();
+  boolean that_present_commandLine=true && that.isSetCommandLine();
+  if (this_present_commandLine || that_present_commandLine) {
+    if (!(this_present_commandLine && that_present_commandLine))     return false;
+    if (!this.commandLine.equals(that.commandLine))     return false;
+  }
+  return true;
+}

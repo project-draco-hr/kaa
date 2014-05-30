@@ -1,0 +1,6 @@
+{
+  ProfileFilterDto profileFilter=createProfileFilter();
+  ProfileFilterDto storedProfileFilter=toDto(client.getProfileFilter(profileFilter.getId()));
+  Assert.assertNotNull(storedProfileFilter);
+  assertProfileFiltersEquals(profileFilter,storedProfileFilter);
+}

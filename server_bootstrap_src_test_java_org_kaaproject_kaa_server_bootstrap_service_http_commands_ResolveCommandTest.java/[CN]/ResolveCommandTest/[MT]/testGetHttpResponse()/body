@@ -1,0 +1,22 @@
+{
+  ResolveCommand cmd=new ResolveCommand();
+  cmd.setServer(serverMock);
+  try {
+    cmd.setHttpRequest(getRequest(false));
+    cmd.parse();
+    cmd.process();
+    HttpResponse response=cmd.getHttpResponse();
+    assertNotNull(response);
+    String xsig=response.headers().get(CommonBSConstants.SIGNATURE_HEADER_NAME);
+    assertNotNull(xsig);
+    byte[] sig=Base64.decodeBase64(xsig);
+    assertEquals(cmd.responseSignature.length,sig.length);
+    for (int i=0; i < sig.length; i++) {
+      assertEquals(cmd.responseSignature[i],sig[i]);
+    }
+    assertEquals(HttpHeaders.Values.CLOSE,response.headers().get(CONNECTION));
+  }
+ catch (  Exception e) {
+    fail(e.toString());
+  }
+}

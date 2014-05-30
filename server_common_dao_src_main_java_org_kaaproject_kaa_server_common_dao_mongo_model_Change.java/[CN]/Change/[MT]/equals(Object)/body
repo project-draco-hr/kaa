@@ -1,0 +1,31 @@
+{
+  if (this == o) {
+    return true;
+  }
+  if (!(o instanceof Change)) {
+    return false;
+  }
+  Change change=(Change)o;
+  if (cfMajorVersion != change.cfMajorVersion) {
+    return false;
+  }
+  if (pfMajorVersion != change.pfMajorVersion) {
+    return false;
+  }
+  if (configurationId != null ? !configurationId.equals(change.configurationId) : change.configurationId != null) {
+    return false;
+  }
+  if (endpointGroupId != null ? !endpointGroupId.equals(change.endpointGroupId) : change.endpointGroupId != null) {
+    return false;
+  }
+  if (profileFilterId != null ? !profileFilterId.equals(change.profileFilterId) : change.profileFilterId != null) {
+    return false;
+  }
+  if (topicId != null ? !topicId.equals(change.topicId) : change.topicId != null) {
+    return false;
+  }
+  if (type != change.type) {
+    return false;
+  }
+  return true;
+}

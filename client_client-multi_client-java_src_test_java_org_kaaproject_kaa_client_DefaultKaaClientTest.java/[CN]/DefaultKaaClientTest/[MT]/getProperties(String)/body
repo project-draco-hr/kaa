@@ -1,0 +1,9 @@
+{
+  Properties kaaProperties=new Properties();
+  InputStream inputStream=DefaultKaaClientTest.class.getClassLoader().getResourceAsStream(fileName);
+  kaaProperties.load(inputStream);
+  if (Files.exists(Paths.get("state.properties"))) {
+    Files.delete(Paths.get("state.properties"));
+  }
+  return kaaProperties;
+}

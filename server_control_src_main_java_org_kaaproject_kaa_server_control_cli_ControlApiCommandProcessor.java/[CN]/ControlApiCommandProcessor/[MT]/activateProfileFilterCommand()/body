@@ -1,0 +1,12 @@
+{
+  ControlApiCommand command=new ControlApiCommand("activateProfileFilter","activate Profile Filter"){
+    @Override public void runCommand(    CommandLine line,    ControlThriftService.Iface client,    PrintWriter writer,    PrintWriter errorWriter){
+      activateProfileFilter(line,client,writer,errorWriter);
+    }
+  }
+;
+  Option opt=new Option("i","profileFilterId",true,"Profile Filter Id option");
+  opt.setRequired(true);
+  command.addOption(opt);
+  return command;
+}

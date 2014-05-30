@@ -1,0 +1,7 @@
+{
+  if (request.getContentType() != null) {
+    response.setContentType(request.getContentType());
+  }
+  response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+  response.getOutputStream().print(authException.getMessage());
+}

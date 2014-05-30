@@ -1,0 +1,11 @@
+{
+  try {
+    KeyPair clientKeyPair=generateKeyPair();
+    saveKeyPair(clientKeyPair,privateKeyLocation,publicKeyLocation);
+    return clientKeyPair;
+  }
+ catch (  Exception e) {
+    LOG.error("Error generating client key pair",e);
+  }
+  return null;
+}

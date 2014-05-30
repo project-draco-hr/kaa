@@ -1,0 +1,56 @@
+{
+  String sdkTemplateLocation=System.getProperty("server_home_dir") + "/" + JAVA_SDK_DIR+ "/"+ JAVA_SDK_PREFIX+ buildVersion+ ".jar";
+  LOG.debug("Lookup Java SDK template: {}",sdkTemplateLocation);
+  File sdkTemplateFile=new File(sdkTemplateLocation);
+  ZipFile templateArhive=new ZipFile(sdkTemplateFile);
+  Map<String,ZipEntryData> replacementData=new HashMap<String,ZipEntryData>();
+  ZipEntry clientPropertiesEntry=templateArhive.getEntry(CLIENT_PROPERTIES);
+  byte[] clientPropertiesData=generateClientProperties(templateArhive.getInputStream(clientPropertiesEntry),bootstrapNodes,appToken,configurationSchemaVersion,profileSchemaVersion,notificationSchemaVersion,configurationProtocolSchemaBody,defaultConfigurationData);
+  replacementData.put(CLIENT_PROPERTIES,new ZipEntryData(new ZipEntry(CLIENT_PROPERTIES),clientPropertiesData));
+  Schema profileSchema=new Schema.Parser().parse(profileSchemaBody);
+  List<JavaDynamicBean> javaSources=generateSchemaSources(profileSchema);
+  String profileContainerTemplate=readResource(ABSTRACT_RPOFILE_CONTAINER_SOURCE_TEMPLATE);
+  String profileContainerSource=profileContainerTemplate.replaceAll(PROFILE_CLASS_PACKAGE_VAR,profileSchema.getNamespace()).replaceAll(PROFILE_CLASS_VAR,profileSchema.getName());
+  JavaDynamicBean profileContainerClassBean=new JavaDynamicBean(ABSTRACT_PROFILE_CONTAINER,profileContainerSource);
+  javaSources.add(profileContainerClassBean);
+  Schema notificationSchema=new Schema.Parser().parse(notificationSchemaBody);
+  javaSources.addAll(generateSchemaSources(notificationSchema));
+  String notificationListenerTemplate=readResource(ABSTRACT_NOTIFICATION_LISTENER_SOURCE_TEMPLATE);
+  String notificationContainerSource=notificationListenerTemplate.replaceAll(NOTIFICATION_CLASS_PACKAGE_VAR,notificationSchema.getNamespace()).replaceAll(NOTIFICATION_CLASS_VAR,notificationSchema.getName());
+  JavaDynamicBean notificationListenerClassBean=new JavaDynamicBean(ABSTRACT_NOTIFICATION_LISTENER,notificationContainerSource);
+  javaSources.add(notificationListenerClassBean);
+  packageSources(javaSources,replacementData);
+  ByteArrayOutputStream sdkOutput=new ByteArrayOutputStream();
+  ZipOutputStream sdkFile=new ZipOutputStream(sdkOutput);
+  Enumeration<? extends ZipEntry> entries=templateArhive.entries();
+  while (entries.hasMoreElements()) {
+    ZipEntry e=entries.nextElement();
+    if (replacementData.containsKey(e.getName())) {
+      ZipEntryData replacementEntry=replacementData.get(e.getName());
+      sdkFile.putNextEntry(replacementEntry.getEntry());
+      sdkFile.write(replacementEntry.getData());
+      replacementData.remove(e.getName());
+    }
+ else {
+      sdkFile.putNextEntry(e);
+      if (!e.isDirectory()) {
+        IOUtils.copy(templateArhive.getInputStream(e),sdkFile);
+      }
+    }
+    sdkFile.closeEntry();
+  }
+  templateArhive.close();
+  for (  String entryName : replacementData.keySet()) {
+    ZipEntryData replacementEntry=replacementData.get(entryName);
+    sdkFile.putNextEntry(replacementEntry.getEntry());
+    sdkFile.write(replacementEntry.getData());
+    sdkFile.closeEntry();
+  }
+  sdkFile.close();
+  String sdkFileName=MessageFormatter.arrayFormat(JAVA_SDK_NAME_PATTERN,new Object[]{profileSchemaVersion,configurationSchemaVersion,notificationSchemaVersion}).getMessage();
+  byte[] sdkData=sdkOutput.toByteArray();
+  Sdk sdk=new Sdk();
+  sdk.setFileName(sdkFileName);
+  sdk.setData(sdkData);
+  return sdk;
+}

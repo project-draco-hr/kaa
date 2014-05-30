@@ -1,0 +1,8 @@
+{
+  LOG.info("Closing");
+  listeners.clear();
+  if (controlCache != null) {
+    controlCache.close();
+  }
+  client.close();
+}

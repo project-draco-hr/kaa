@@ -1,0 +1,15 @@
+{
+  ControlApiCommand command=new ControlApiCommand("listNotifications","list notifications by topic Id"){
+    @Override public void runCommand(    CommandLine line,    ControlThriftService.Iface client,    PrintWriter writer,    PrintWriter errorWriter){
+      listNotifications(line,client,writer,errorWriter);
+    }
+  }
+;
+  Option opt=new Option("t","topicId",true,"Topic Id option");
+  opt.setRequired(true);
+  command.addOption(opt);
+  opt=new Option("o","output",true,"Output file to store Object Ids");
+  opt.setRequired(false);
+  command.addOption(opt);
+  return command;
+}

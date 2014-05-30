@@ -1,0 +1,35 @@
+{
+  URL schemaUrl=Thread.currentThread().getContextClassLoader().getResource("configuration/manager/complexFieldsDeltaSchema.json");
+  final Schema schema=new Schema.Parser().parse(new File(schemaUrl.getPath()));
+  DefaultSchemaPersistenceManager manager=new DefaultSchemaPersistenceManager();
+  manager.setSchemaProcessor(new SchemaProcessor(){
+    @Override public void loadSchema(    ByteBuffer buffer) throws IOException {
+      byte[] rawBuffer=null;
+      try {
+        rawBuffer=schema.toString().getBytes("UTF-8");
+      }
+ catch (      UnsupportedEncodingException e) {
+      }
+      assertArrayEquals(rawBuffer,buffer.array());
+    }
+    @Override public Schema getSchema(){
+      return null;
+    }
+  }
+);
+  manager.setSchemaStorage(new SchemaStorage(){
+    @Override public void saveSchema(    ByteBuffer buffer){
+    }
+    @Override public ByteBuffer loadSchema(){
+      byte[] rawBuffer=null;
+      try {
+        rawBuffer=schema.toString().getBytes("UTF-8");
+      }
+ catch (      UnsupportedEncodingException e) {
+      }
+      ByteBuffer buffer=ByteBuffer.wrap(rawBuffer);
+      return buffer;
+    }
+  }
+);
+}

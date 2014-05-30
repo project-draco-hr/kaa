@@ -1,0 +1,13 @@
+{
+  String id=generateApplication().getId();
+  ConfigurationSchemaDto schema=generateConfSchema(id,1).get(0);
+  EndpointGroupDto group=generateEndpointGroup(id);
+  generateConfiguration(schema.getId(),group.getId(),1,true,false);
+  List<StructureRecordDto<ConfigurationDto>> records=(List<StructureRecordDto<ConfigurationDto>>)configurationService.findAllConfigurationRecordsByEndpointGroupId(group.getId(),false);
+  Assert.assertNotNull(records);
+  Assert.assertEquals(1,records.size());
+  ConfigurationDto activeConfiguration=records.get(0).getActiveStructureDto();
+  Assert.assertEquals(UpdateStatus.ACTIVE,activeConfiguration.getStatus());
+  ConfigurationDto inactiveConfiguration=records.get(0).getInactiveStructureDto();
+  Assert.assertNull(inactiveConfiguration);
+}

@@ -1,0 +1,13 @@
+{
+  SyncRequest syncRequest=new SyncRequest();
+  syncRequest.setAppStateSeqNumber(endpointProfile.getSequenceNumber());
+  syncRequest.setEndpointPublicKeyHash(ByteBuffer.wrap(endpointProfile.getEndpointKeyHash()));
+  syncRequest.setProfileHash(ByteBuffer.wrap(endpointProfile.getProfileHash()));
+  if (endpointProfile.getConfigurationHash() != null) {
+    syncRequest.setConfigurationHash(ByteBuffer.wrap(endpointProfile.getConfigurationHash()));
+  }
+ else {
+    syncRequest.setConfigurationHash(ByteBuffer.wrap(new byte[0]));
+  }
+  return syncRequest;
+}

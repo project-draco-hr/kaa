@@ -1,0 +1,14 @@
+{
+  controlClientConnect();
+  ControlApiCliThriftClient cli=new ControlApiCliThriftClient();
+  String userId=editUserCli(cli,null,true);
+  userId=editUserCli(cli,null,false);
+  Assert.assertFalse(strIsEmpty(userId));
+  Assert.assertEquals(userId.length(),24);
+  editUserCli(cli,userId,false);
+  editUserCli(cli,FAKE_ID,false);
+  showEntityCli(cli,userId,EntityType.USER);
+  listUsersCli(cli,false);
+  listUsersCli(cli,true);
+  deleteEntityCli(cli,userId,EntityType.USER);
+}

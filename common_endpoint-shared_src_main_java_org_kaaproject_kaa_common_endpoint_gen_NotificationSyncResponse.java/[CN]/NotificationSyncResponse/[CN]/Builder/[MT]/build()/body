@@ -1,0 +1,11 @@
+{
+  try {
+    NotificationSyncResponse record=new NotificationSyncResponse();
+    record.notifications=fieldSetFlags()[0] ? this.notifications : (java.util.List<org.kaaproject.kaa.common.endpoint.gen.Notification>)defaultValue(fields()[0]);
+    record.availableTopics=fieldSetFlags()[1] ? this.availableTopics : (java.util.List<org.kaaproject.kaa.common.endpoint.gen.Topic>)defaultValue(fields()[1]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

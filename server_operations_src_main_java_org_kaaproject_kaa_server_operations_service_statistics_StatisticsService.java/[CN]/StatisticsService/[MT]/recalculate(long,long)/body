@@ -1,0 +1,45 @@
+{
+  int onlineSessions=0;
+  int processedRequests=0;
+  int deltaSum=0;
+  int deltaElementsNumber=0;
+  List<UUID> closedSessions=new LinkedList<>();
+  for (  SessionHistory session : sessions.values()) {
+    List<RequestHistory> requests=session.getRequests();
+    ListIterator<RequestHistory> lr=requests.listIterator(requests.size());
+    while (lr.hasPrevious()) {
+      RequestHistory rh=lr.previous();
+      long requestClosed=rh.getRequestCloseTimestamp();
+      if (requestClosed > startInterval) {
+        if (requestClosed <= stopInterval) {
+          processedRequests++;
+          deltaSum+=rh.getSyncTime();
+          deltaElementsNumber++;
+        }
+      }
+ else {
+        break;
+      }
+    }
+    if (session.isSessionOpen()) {
+      onlineSessions++;
+    }
+ else {
+      closedSessions.add(session.getUuid());
+    }
+  }
+  for (  UUID uuid : closedSessions) {
+    sessions.remove(uuid);
+  }
+  int deltaLastValue=0;
+  if (deltaElementsNumber > 0) {
+    deltaLastValue=deltaSum / deltaElementsNumber;
+  }
+  LOG.debug("processedRequests=" + processedRequests + "; onlineSessions="+ onlineSessions+ "; deltaLastValue="+ deltaLastValue+ ";");
+  averageProcessedRequests=calculateWindow(processedRequestsWindow,processedRequests);
+  averageOnlineSessions=calculateWindow(onlineSessionsWindow,onlineSessions);
+  averageDeltaSync=calculateWindow(deltaSyncWindow,deltaLastValue);
+  LOG.debug("processedRequestsWindow.size()=" + processedRequestsWindow.size() + "; onlineSessionsWindow.size()="+ onlineSessionsWindow.size()+ "; deltaSyncWindow.size()="+ deltaSyncWindow.size()+ ";");
+  LOG.debug("averageProcessedRequests=" + averageProcessedRequests + "; averageOnlineSessions="+ averageOnlineSessions+ "; averageDeltaSync="+ averageDeltaSync+ ";");
+  updateNodeInfo();
+}

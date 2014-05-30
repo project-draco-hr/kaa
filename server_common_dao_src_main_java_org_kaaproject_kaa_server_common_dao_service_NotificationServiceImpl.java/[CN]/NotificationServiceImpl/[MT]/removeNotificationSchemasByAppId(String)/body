@@ -1,0 +1,7 @@
+{
+  validateId(appId,"Can't remove notification schemas. Invalid application id: " + appId);
+  LOG.debug("Cascade remove corresponding notification to application id [{}]",appId);
+  notificationDao.removeNotificationsByAppId(appId);
+  unicastNotificationDao.removeNotificationsByAppId(appId);
+  notificationSchemaDao.removeNotificationSchemasByAppId(appId);
+}

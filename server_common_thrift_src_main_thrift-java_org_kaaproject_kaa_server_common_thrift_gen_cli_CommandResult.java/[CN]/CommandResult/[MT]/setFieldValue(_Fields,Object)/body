@@ -1,0 +1,20 @@
+{
+switch (field) {
+case STATUS:
+    if (value == null) {
+      unsetStatus();
+    }
+ else {
+      setStatus((CommandStatus)value);
+    }
+  break;
+case MESSAGE:
+if (value == null) {
+  unsetMessage();
+}
+ else {
+  setMessage((String)value);
+}
+break;
+}
+}

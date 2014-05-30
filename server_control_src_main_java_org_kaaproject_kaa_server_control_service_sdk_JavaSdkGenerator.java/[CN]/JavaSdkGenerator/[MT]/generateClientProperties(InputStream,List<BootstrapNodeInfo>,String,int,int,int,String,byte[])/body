@@ -1,0 +1,24 @@
+{
+  Properties clientProperties=new Properties();
+  clientProperties.load(clientPropertiesStream);
+  String bootstrapServers="";
+  LOG.debug("[sdk generateClientProperties] bootstrapNodes.size(): {}",bootstrapNodes.size());
+  for (int i=0; i < bootstrapNodes.size(); i++) {
+    if (i > 0) {
+      bootstrapServers+=";";
+    }
+    ConnectionInfo bootstrapConnection=bootstrapNodes.get(i).getConnectionInfo();
+    String publicKeyBase64=Base64.encodeBase64String(bootstrapConnection.getPublicKey().array());
+    bootstrapServers+=bootstrapConnection.getHttpHost() + ":" + bootstrapConnection.getHttpPort()+ ":"+ publicKeyBase64;
+  }
+  clientProperties.put(BOOTSTRAP_SERVERS_PROPERTY,bootstrapServers);
+  clientProperties.put(APP_TOKEN_PROPERTY,appToken);
+  clientProperties.put(CONFIG_VERSION_PROPERTY,"" + configurationSchemaVersion);
+  clientProperties.put(PROFILE_VERSION_PROPERTY,"" + profileSchemaVersion);
+  clientProperties.put(NOTIFICATION_VERSION_PROPERTY,"" + notificationSchemaVersion);
+  clientProperties.put(CONFIG_SCHEMA_DEFAULT_PROPERTY,configurationProtocolSchemaBody);
+  clientProperties.put(CONFIG_DATA_DEFAULT_PROPERTY,Base64.encodeBase64String(defaultConfigurationData));
+  ByteArrayOutputStream baos=new ByteArrayOutputStream();
+  clientProperties.store(baos,"");
+  return baos.toByteArray();
+}

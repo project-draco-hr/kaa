@@ -1,0 +1,7 @@
+{
+  OperationsHttpServerIT.UpdateProfileSetRequestReceived(request.getVersionInfo().getConfigVersion(),request);
+  SyncResponse response=generateSyncResponse();
+  OperationsHttpServerIT.UpdateProfileSetResponseSent(request.getVersionInfo().getConfigVersion(),response);
+  SyncResponseHolder holder=new SyncResponseHolder(response);
+  return holder;
+}

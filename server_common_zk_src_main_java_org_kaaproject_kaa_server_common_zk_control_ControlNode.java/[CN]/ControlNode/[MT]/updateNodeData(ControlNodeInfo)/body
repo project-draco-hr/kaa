@@ -1,0 +1,11 @@
+{
+  this.currentNodeInfo=currentNodeInfo;
+  if (isMaster()) {
+    doZKClientAction(new ZKClientAction(){
+      @Override public void doWithZkClient(      CuratorFramework client) throws Exception {
+        client.setData().forPath(ControlNodeTracker.CONTROL_SERVER_NODE_PATH,controlNodeAvroConverter.get().toByteArray(currentNodeInfo));
+      }
+    }
+,true);
+  }
+}

@@ -1,0 +1,13 @@
+{
+  GenericRecord profileGenericRecord=null;
+  try {
+    profileGenericRecord=avroConverter.decodeJson(profileBody);
+  }
+ catch (  IOException ioe) {
+    LOG.error("Error decoding avro object from Json string",ioe);
+    return false;
+  }
+  StandardEvaluationContext evaluationContext=new StandardEvaluationContext(profileGenericRecord);
+  evaluationContext.addPropertyAccessor(new GenericRecordPropertyAccessor());
+  return expression.getValue(evaluationContext,Boolean.class);
+}

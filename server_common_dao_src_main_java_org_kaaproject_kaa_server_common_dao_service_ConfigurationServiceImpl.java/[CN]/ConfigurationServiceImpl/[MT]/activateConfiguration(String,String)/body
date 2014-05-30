@@ -1,0 +1,31 @@
+{
+  ChangeConfigurationNotification configurationNotification;
+  validateId(id,"Incorrect configuration id. Can't activate configuration with id " + id);
+  Configuration oldConfiguration=configurationDao.findById(id);
+  if (oldConfiguration != null) {
+    UpdateStatus status=oldConfiguration.getStatus();
+    if (status != null && status == INACTIVE) {
+      ObjectId schemaId=oldConfiguration.getSchemaId();
+      ObjectId groupId=oldConfiguration.getEndpointGroupId();
+      if (schemaId != null && groupId != null) {
+        configurationDao.deactivateOldConfiguration(schemaId.toString(),groupId.toString(),activatedUsername);
+      }
+ else {
+        throw new DatabaseProcessingException("Incorrect old configuration. Configuration schema or endpoint group id is empty.");
+      }
+      ConfigurationDto configurationDto=getDto(configurationDao.activate(id,activatedUsername));
+      HistoryDto historyDto=addHistory(configurationDto,ChangeType.ADD_CONF);
+      ChangeNotificationDto changeNotificationDto=createNotification(configurationDto,historyDto);
+      configurationNotification=new ChangeConfigurationNotification();
+      configurationNotification.setConfigurationDto(configurationDto);
+      configurationNotification.setChangeNotificationDto(changeNotificationDto);
+    }
+ else {
+      throw new UpdateStatusConflictException("Incorrect status for activating configuration " + status);
+    }
+  }
+ else {
+    throw new IncorrectParameterException("Can't find configuration with id " + id);
+  }
+  return configurationNotification;
+}

@@ -1,0 +1,56 @@
+{
+  GetDeltaResponse response;
+  EndpointProfileDto profile=request.getEndpointProfile();
+  String endpointId=Base64Util.encode(profile);
+  if (request.getSequenceNumber() == curAppSeqNumber) {
+    LOG.debug("[{}] No changes to current application was maid -> no delta",endpointId);
+    return new GetDeltaResponse(GetDeltaResponseType.NO_DELTA,curAppSeqNumber);
+  }
+  AppVersionKey appConfigVersionKey=new AppVersionKey(request.getApplicationToken(),profile.getConfigurationVersion());
+  List<EndpointGroupStateDto> endpointGroups=historyDelta.getEndpointGroupStates();
+  if (historyDelta.isConfigurationChanged()) {
+    boolean resync=request.isFirstRequest();
+    if (!resync && !request.getConfigurationHash().binaryEquals(profile.getConfigurationHash())) {
+      resync=true;
+      String serverHash="";
+      String clientHash="";
+      if (profile.getConfigurationHash() != null) {
+        serverHash=MessageEncoderDecoder.bytesToHex(profile.getConfigurationHash());
+      }
+      if (request.getConfigurationHash() != null) {
+        clientHash=MessageEncoderDecoder.bytesToHex(request.getConfigurationHash().getData());
+      }
+      LOG.warn("[{}] Configuration hash mismatch! server {}, client {}",endpointId,serverHash,clientHash);
+    }
+    DeltaCacheKey deltaKey;
+    if (resync) {
+      deltaKey=new DeltaCacheKey(appConfigVersionKey,endpointGroups,null);
+      LOG.debug("[{}] Building resync delta key {}",endpointId,deltaKey);
+    }
+ else {
+      deltaKey=new DeltaCacheKey(appConfigVersionKey,endpointGroups,request.getConfigurationHash());
+      LOG.debug("[{}] Building regular delta key {}",endpointId,deltaKey);
+    }
+    DeltaCacheEntry deltaCacheEntry=getDelta(endpointId,deltaKey);
+    if (resync) {
+      response=new GetDeltaResponse(GetDeltaResponseType.CONF_RESYNC,curAppSeqNumber,deltaCacheEntry.getDelta());
+    }
+ else {
+      if (deltaCacheEntry.getDelta().hasChanges()) {
+        response=new GetDeltaResponse(GetDeltaResponseType.DELTA,curAppSeqNumber,deltaCacheEntry.getDelta());
+      }
+ else {
+        LOG.debug("[{}] Delta has no changes -> no delta",endpointId);
+        response=new GetDeltaResponse(GetDeltaResponseType.NO_DELTA,curAppSeqNumber);
+      }
+    }
+    profile.setConfigurationHash(deltaCacheEntry.getHash().getData());
+  }
+ else {
+    LOG.debug("[{}] No changes to current application group configurations was maid -> no delta",endpointId);
+    response=new GetDeltaResponse(GetDeltaResponseType.NO_DELTA,curAppSeqNumber);
+  }
+  profile.setSequenceNumber(curAppSeqNumber);
+  LOG.debug("[{}] Response: {}",endpointId,response);
+  return response;
+}

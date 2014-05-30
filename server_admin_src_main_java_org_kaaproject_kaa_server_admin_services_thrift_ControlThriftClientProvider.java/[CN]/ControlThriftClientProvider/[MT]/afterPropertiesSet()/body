@@ -1,0 +1,7 @@
+{
+  clientFactory=ThriftFactory.create(ControlThriftService.Iface.class);
+  InetSocketAddress address=new InetSocketAddress(controlThriftHost,controlThriftPort);
+  Set<InetSocketAddress> backends=new HashSet<InetSocketAddress>();
+  backends.add(address);
+  thrift=clientFactory.withMaxConnectionsPerEndpoint(20).withSocketTimeout(Amount.of(20L,Time.SECONDS)).build(backends);
+}

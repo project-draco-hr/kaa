@@ -1,0 +1,11 @@
+{
+  if (this == obj)   return true;
+  if (obj == null)   return false;
+  if (getClass() != obj.getClass())   return false;
+  ConfigurationSchemaPlace other=(ConfigurationSchemaPlace)obj;
+  if (schemaId == null) {
+    if (other.schemaId != null)     return false;
+  }
+ else   if (!schemaId.equals(other.schemaId))   return false;
+  return true;
+}

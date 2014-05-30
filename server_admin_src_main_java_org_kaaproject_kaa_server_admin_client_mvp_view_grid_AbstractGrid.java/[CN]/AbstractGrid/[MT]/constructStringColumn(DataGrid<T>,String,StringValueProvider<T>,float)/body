@@ -1,0 +1,18 @@
+{
+  Header<SafeHtml> header=new SafeHtmlHeader(SafeHtmlUtils.fromSafeConstant(title));
+  Column<T,String> column=new Column<T,String>(new LinkCell()){
+    @Override public String getValue(    T item){
+      return valueProvider.getValue(item);
+    }
+  }
+;
+  column.setFieldUpdater(new FieldUpdater<T,String>(){
+    @Override public void update(    int index,    T object,    String value){
+      onRowClicked(getObjectId(object));
+    }
+  }
+);
+  table.addColumn(column,header);
+  table.setColumnWidth(column,prefWidth,Unit.PX);
+  return prefWidth;
+}

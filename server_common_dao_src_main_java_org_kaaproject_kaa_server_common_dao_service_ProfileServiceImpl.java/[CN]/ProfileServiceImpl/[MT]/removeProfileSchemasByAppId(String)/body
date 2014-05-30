@@ -1,0 +1,10 @@
+{
+  validateId(applicationId,"Can't remove profile schema. Invalid application id: " + applicationId);
+  List<ProfileSchema> schemas=profileSchemaDao.findByApplicationId(applicationId);
+  if (schemas != null && !schemas.isEmpty()) {
+    LOG.debug("Remove profile shemas by application id {}",applicationId);
+    for (    ProfileSchema schema : schemas) {
+      removeProfileSchemaById(schema.getId());
+    }
+  }
+}

@@ -1,0 +1,4 @@
+{
+  validateId(endpointGroupId,"Endpoint group id is incorrect. Can't find configuration by endpoint group id " + endpointGroupId + " and version "+ version);
+  return getDto(configurationDao.findConfigurationByEndpointGroupIdAndVersion(endpointGroupId,version));
+}

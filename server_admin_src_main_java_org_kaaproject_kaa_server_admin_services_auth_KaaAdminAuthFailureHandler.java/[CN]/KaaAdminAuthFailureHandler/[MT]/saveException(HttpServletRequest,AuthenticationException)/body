@@ -1,0 +1,11 @@
+{
+  if (forwardToDestination) {
+    request.setAttribute(WebAttributes.AUTHENTICATION_EXCEPTION,exception);
+  }
+ else {
+    HttpSession session=request.getSession(false);
+    if (session != null || allowSessionCreation) {
+      request.getSession().setAttribute(WebAttributes.AUTHENTICATION_EXCEPTION,exception);
+    }
+  }
+}

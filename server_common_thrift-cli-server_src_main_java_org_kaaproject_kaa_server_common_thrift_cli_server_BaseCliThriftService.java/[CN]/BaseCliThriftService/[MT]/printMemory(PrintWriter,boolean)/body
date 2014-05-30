@@ -1,0 +1,14 @@
+{
+  writer.println("Memory Usage:");
+  writer.println();
+  try {
+    MemoryUsage memUsage=getMemoryUsage(forceGC);
+    NumberFormat format=new DecimalFormat("0.#");
+    writer.println("Max available  : " + format.format((float)memUsage.max / (float)MBYTE) + " MBytes");
+    writer.println("Current heap   : " + format.format((float)memUsage.total / (float)MBYTE) + " MBytes");
+    writer.println("Used           : " + format.format((float)(memUsage.total - memUsage.free) / (float)MBYTE) + " MBytes");
+  }
+ catch (  TException e) {
+    LOG.error("Catch exception when execute print memory command",e);
+  }
+}

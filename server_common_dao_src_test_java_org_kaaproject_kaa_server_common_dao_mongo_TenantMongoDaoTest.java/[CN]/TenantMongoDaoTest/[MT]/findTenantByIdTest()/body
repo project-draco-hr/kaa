@@ -1,0 +1,6 @@
+{
+  Tenant dto=tenantDao.findById(tenants.get(0));
+  tenantDao.save(dto);
+  Tenant findResult=tenantDao.findById(dto.getId());
+  Assert.assertEquals(dto,findResult);
+}

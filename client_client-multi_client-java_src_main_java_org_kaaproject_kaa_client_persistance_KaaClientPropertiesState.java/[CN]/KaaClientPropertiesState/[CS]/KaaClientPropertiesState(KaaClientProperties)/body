@@ -1,0 +1,28 @@
+{
+  super();
+  stateFileLocation=properties.containsKey(STATE_FILE_LOCATION) ? properties.getProperty(STATE_FILE_LOCATION) : STATE_FILE_DEFAULT;
+  privateKeyFileLocation=properties.containsKey(CLIENT_PRIVATE_KEY_FILE_LOCATION) ? properties.getProperty(CLIENT_PRIVATE_KEY_FILE_LOCATION) : CLIENT_PRIVATE_KEY_DEFAULT;
+  clientPublicKeyFileLocation=properties.containsKey(CLIENT_PUBLIC_KEY_FILE_LOCATION) ? properties.getProperty(CLIENT_PUBLIC_KEY_FILE_LOCATION) : CLIENT_PUBLIC_KEY_DEFAULT;
+  state=new KaaClientProperties();
+  File stateFile=new File(stateFileLocation);
+  if (stateFile.exists()) {
+    try {
+      state.load(new FileInputStream(stateFile));
+      BinaryDecoder decoder=DecoderFactory.get().binaryDecoder(state.getProperty(NF_SUBSCRIPTIONS).getBytes(),null);
+      SpecificDatumReader<TopicSubscriptionInfo> avroReader=new SpecificDatumReader<TopicSubscriptionInfo>(TopicSubscriptionInfo.class);
+      try {
+        TopicSubscriptionInfo decodedInfo=null;
+        while (true) {
+          decodedInfo=avroReader.read(null,decoder);
+          LOG.info("Loaded {}",decodedInfo);
+          nfSubscriptions.put(decodedInfo.getTopicInfo().getId(),decodedInfo);
+        }
+      }
+ catch (      Exception e) {
+      }
+    }
+ catch (    IOException e) {
+      LOG.error("Can't load state file",e);
+    }
+  }
+}

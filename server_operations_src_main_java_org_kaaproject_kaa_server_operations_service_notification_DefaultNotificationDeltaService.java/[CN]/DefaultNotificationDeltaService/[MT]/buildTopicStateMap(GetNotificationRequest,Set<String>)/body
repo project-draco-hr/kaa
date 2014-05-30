@@ -1,0 +1,14 @@
+{
+  Map<String,Integer> topicStates=new HashMap<String,Integer>();
+  if (request.getTopicStates() != null) {
+    for (    TopicState topicState : request.getTopicStates()) {
+      topicStates.put(topicState.getTopicId(),topicState.getSeqNumber());
+    }
+  }
+  Map<String,Integer> subscriptionStates=new HashMap<String,Integer>();
+  for (  String subscription : subscriptionSet) {
+    Integer seqNumber=topicStates.get(subscription);
+    subscriptionStates.put(subscription,seqNumber != null ? seqNumber : 0);
+  }
+  return subscriptionStates;
+}

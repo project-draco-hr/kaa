@@ -1,0 +1,8 @@
+{
+  if (isValidId(tenantId)) {
+    List<ApplicationDto> applications=findAppsByTenantId(tenantId);
+    for (    ApplicationDto application : applications) {
+      removeAppById(application.getId());
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  TTupleProtocol iprot=(TTupleProtocol)prot;
+  BitSet incoming=iprot.readBitSet(2);
+  if (incoming.get(0)) {
+    struct.configurationId=iprot.readString();
+    struct.setConfigurationIdIsSet(true);
+  }
+  if (incoming.get(1)) {
+    struct.activatedUsername=iprot.readString();
+    struct.setActivatedUsernameIsSet(true);
+  }
+}

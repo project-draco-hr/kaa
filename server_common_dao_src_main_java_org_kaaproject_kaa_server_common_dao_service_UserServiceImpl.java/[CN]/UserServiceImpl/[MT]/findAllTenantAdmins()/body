@@ -1,0 +1,18 @@
+{
+  LOG.debug("Try to find all admin tenants");
+  List<TenantDto> tenants=findAllTenants();
+  List<TenantAdminDto> tenantAdmins=new ArrayList<TenantAdminDto>(tenants.size());
+  for (  TenantDto tenant : tenants) {
+    TenantAdminDto tenantAdmin=new TenantAdminDto();
+    tenantAdmin.setId(tenant.getId());
+    tenantAdmin.setName(tenant.getName());
+    List<User> users=userDao.findByTenantIdAndAuthority(tenant.getId(),KaaAuthorityDto.TENANT_ADMIN.name());
+    if (!users.isEmpty()) {
+      tenantAdmin.setUserId(users.get(0).getId());
+      tenantAdmin.setUsername(users.get(0).getUsername());
+      tenantAdmin.setExternalUid(users.get(0).getExternalUid());
+    }
+    tenantAdmins.add(tenantAdmin);
+  }
+  return tenantAdmins;
+}

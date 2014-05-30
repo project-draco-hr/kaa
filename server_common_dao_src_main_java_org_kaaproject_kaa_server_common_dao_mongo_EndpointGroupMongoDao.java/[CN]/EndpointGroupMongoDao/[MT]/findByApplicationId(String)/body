@@ -1,0 +1,5 @@
+{
+  LOG.debug("Find endpoint groups by application id [{}] ",applicationId);
+  Sort sortObject=new Sort(Direction.ASC,WEIGHT);
+  return find(query(where(APPLICATION_ID).is(new ObjectId(applicationId))).with(sortObject));
+}

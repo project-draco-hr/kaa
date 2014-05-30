@@ -1,0 +1,70 @@
+{
+  super(false,true);
+  this.username=username;
+  setWidth("500px");
+  setTitle(Utils.constants.change_password());
+  VerticalPanel dialogContents=new VerticalPanel();
+  dialogContents.setSpacing(4);
+  setWidget(dialogContents);
+  if (message != null) {
+    AlertPanel warningPanel=new AlertPanel(AlertPanel.Type.WARNING);
+    warningPanel.setMessage(message);
+    dialogContents.add(warningPanel);
+  }
+  errorPanel=new AlertPanel(AlertPanel.Type.ERROR);
+  errorPanel.setVisible(false);
+  dialogContents.add(errorPanel);
+  FlexTable table=new FlexTable();
+  table.setCellSpacing(6);
+  int row=0;
+  Widget label=new Label(Utils.constants.oldPassword());
+  label.addStyleName("required");
+  oldPassword=new ExtendedPasswordTextBox();
+  table.setWidget(row,0,label);
+  table.setWidget(row,1,oldPassword);
+  oldPassword.addInputHandler(this);
+  table.getCellFormatter().setHorizontalAlignment(row,0,HasHorizontalAlignment.ALIGN_RIGHT);
+  row++;
+  label=new Label(Utils.constants.newPassword());
+  label.addStyleName("required");
+  newPassword=new ExtendedPasswordTextBox();
+  table.setWidget(row,0,label);
+  table.setWidget(row,1,newPassword);
+  newPassword.addInputHandler(this);
+  table.getCellFormatter().setHorizontalAlignment(row,0,HasHorizontalAlignment.ALIGN_RIGHT);
+  row++;
+  label=new Label(Utils.constants.newPasswordAgain());
+  label.addStyleName("required");
+  newPasswordAgain=new ExtendedPasswordTextBox();
+  table.setWidget(row,0,label);
+  table.setWidget(row,1,newPasswordAgain);
+  newPasswordAgain.addInputHandler(this);
+  table.getCellFormatter().setHorizontalAlignment(row,0,HasHorizontalAlignment.ALIGN_RIGHT);
+  dialogContents.add(table);
+  changePasswordButton=new Button(Utils.constants.change_password(),new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      performChangePassword(new AsyncCallback<ResultCode>(){
+        @Override public void onFailure(        Throwable caught){
+        }
+        @Override public void onSuccess(        ResultCode result){
+          if (result == ResultCode.OK) {
+            hide();
+            listener.onChangePassword();
+          }
+        }
+      }
+);
+    }
+  }
+);
+  Button cancelButton=new Button(Utils.constants.cancel(),new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      hide();
+      listener.onCancel();
+    }
+  }
+);
+  addButton(changePasswordButton);
+  addButton(cancelButton);
+  changePasswordButton.setEnabled(false);
+}

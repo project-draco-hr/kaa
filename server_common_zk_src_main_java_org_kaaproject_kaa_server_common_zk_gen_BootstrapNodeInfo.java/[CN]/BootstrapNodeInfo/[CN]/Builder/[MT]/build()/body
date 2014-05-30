@@ -1,0 +1,11 @@
+{
+  try {
+    BootstrapNodeInfo record=new BootstrapNodeInfo();
+    record.connectionInfo=fieldSetFlags()[0] ? this.connectionInfo : (org.kaaproject.kaa.server.common.zk.gen.ConnectionInfo)defaultValue(fields()[0]);
+    record.processedRequestCount=fieldSetFlags()[1] ? this.processedRequestCount : (java.lang.Integer)defaultValue(fields()[1]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

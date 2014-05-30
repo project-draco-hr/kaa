@@ -1,0 +1,39 @@
+{
+  validateObject(dto,"Can't save notification. Invalid notification object");
+  dto.setId(null);
+  UpdateNotificationDto<NotificationDto> updateNotificationDto=null;
+  String schemaId=dto.getSchemaId();
+  String topicId=dto.getTopicId();
+  if (isNotBlank(schemaId) && isNotBlank(topicId)) {
+    NotificationSchema schema=notificationSchemaDao.findById(schemaId);
+    if (schema != null) {
+      dto.setVersion(schema.getMajorVersion());
+      dto.setApplicationId(idToString(schema.getApplicationId()));
+      dto.setType(schema.getType());
+    }
+ else {
+      throw new DatabaseProcessingException("Can't find notification schema by id " + schemaId);
+    }
+    try {
+      dto.setBody(serializeNotificationBody(dto,schema));
+    }
+ catch (    IOException e) {
+      throw new DatabaseProcessingException("Can't serialize notification body using schema: " + schemaId);
+    }
+    long currentTime=System.currentTimeMillis();
+    Date expiredAt=dto.getExpiredAt();
+    dto.setExpiredAt(expiredAt != null ? expiredAt : new Date(currentTime + TTL));
+    dto.setLastTimeModify(new Date(currentTime));
+    NotificationDto notificationDto=saveNotification(dto,topicId);
+    if (notificationDto != null) {
+      updateNotificationDto=new UpdateNotificationDto<NotificationDto>();
+      updateNotificationDto.setAppId(notificationDto.getApplicationId());
+      updateNotificationDto.setTopicId(topicId);
+      updateNotificationDto.setPayload(notificationDto);
+    }
+    return updateNotificationDto;
+  }
+ else {
+    throw new IncorrectParameterException("Incorrect notification object notification schema id is empty");
+  }
+}

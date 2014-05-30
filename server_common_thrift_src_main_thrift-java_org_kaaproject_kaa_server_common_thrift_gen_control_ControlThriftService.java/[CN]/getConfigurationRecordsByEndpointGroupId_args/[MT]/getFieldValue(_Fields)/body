@@ -1,0 +1,9 @@
+{
+switch (field) {
+case ENDPOINT_GROUP_ID:
+    return getEndpointGroupId();
+case INCLUDE_DEPRECATED:
+  return Boolean.valueOf(isIncludeDeprecated());
+}
+throw new IllegalStateException();
+}

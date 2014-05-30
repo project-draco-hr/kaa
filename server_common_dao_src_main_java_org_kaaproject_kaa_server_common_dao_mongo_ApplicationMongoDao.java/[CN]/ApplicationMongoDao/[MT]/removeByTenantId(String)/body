@@ -1,0 +1,4 @@
+{
+  LOG.debug("Remove applications by tenant id [{}] ",tenantId);
+  remove(query(where(TENANT_ID).is(new ObjectId(tenantId))));
+}

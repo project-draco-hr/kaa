@@ -1,0 +1,8 @@
+{
+  ChangeProfileFilterNotification cpfNotification=profileService.activateProfileFilter(profileFilterId,activatedUsername);
+  ChangeNotificationDto notification=cpfNotification.getChangeNotificationDto();
+  if (notification != null) {
+    notifyEndpoints(notification,cpfNotification.getProfileFilterDto(),null);
+  }
+  return toDataStruct(cpfNotification.getProfileFilterDto());
+}

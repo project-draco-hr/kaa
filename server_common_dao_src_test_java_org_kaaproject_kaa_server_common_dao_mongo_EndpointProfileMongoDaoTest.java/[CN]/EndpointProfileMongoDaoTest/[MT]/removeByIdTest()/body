@@ -1,0 +1,7 @@
+{
+  EndpointProfile endpointProfile=endpointProfileDao.findById(endProfiles.get(0));
+  Assert.assertNotNull(endpointProfile);
+  endpointProfileDao.removeById(endpointProfile.getId());
+  endpointProfile=endpointProfileDao.findById(endpointProfile.getId());
+  Assert.assertNull(endpointProfile);
+}

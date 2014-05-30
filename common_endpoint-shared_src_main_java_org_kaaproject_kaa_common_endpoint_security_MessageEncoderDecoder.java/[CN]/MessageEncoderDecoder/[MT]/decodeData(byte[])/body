@@ -1,0 +1,5 @@
+{
+  Cipher sessionDataCipher=AES_CIPHER.get();
+  sessionDataCipher.init(Cipher.DECRYPT_MODE,sessionKey);
+  return sessionDataCipher.doFinal(message);
+}

@@ -1,0 +1,14 @@
+{
+  try {
+    Notification record=new Notification();
+    record.topicId=fieldSetFlags()[0] ? this.topicId : (java.lang.String)defaultValue(fields()[0]);
+    record.type=fieldSetFlags()[1] ? this.type : (org.kaaproject.kaa.common.endpoint.gen.NotificationType)defaultValue(fields()[1]);
+    record.uid=fieldSetFlags()[2] ? this.uid : (java.lang.String)defaultValue(fields()[2]);
+    record.seqNumber=fieldSetFlags()[3] ? this.seqNumber : (java.lang.Integer)defaultValue(fields()[3]);
+    record.body=fieldSetFlags()[4] ? this.body : (java.nio.ByteBuffer)defaultValue(fields()[4]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

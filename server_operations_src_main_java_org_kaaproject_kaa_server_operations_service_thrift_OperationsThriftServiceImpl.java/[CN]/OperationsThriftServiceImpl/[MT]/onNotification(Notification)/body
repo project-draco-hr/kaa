@@ -1,0 +1,7 @@
+{
+  LOG.debug("Received Notification from control server {}",notification);
+  LOG.debug("Notify cache service..");
+  processCacheNotification(notification);
+  LOG.debug("Notify akka service..");
+  akkaService.onNotification(notification);
+}

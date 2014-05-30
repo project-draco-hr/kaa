@@ -1,0 +1,24 @@
+{
+  for (int i=0; i < left.length(); i++) {
+    if (i >= right.length()) {
+      logger.error("diff: right string length shorter to " + (left.length() - right.length()));
+      return false;
+    }
+    if (left.charAt(i) != right.charAt(i)) {
+      int ri=5;
+      if ((i + ri) >= left.length()) {
+        ri=left.length() - i;
+      }
+      if ((i + ri) >= right.length()) {
+        ri=right.length() - i;
+      }
+      logger.error("diff: position " + i + " left: ["+ left.substring(i,i + ri)+ "] right: ["+ right.substring(i,i + ri)+ "]");
+      return false;
+    }
+  }
+  if (left.length() < right.length()) {
+    logger.error("diff: left string length shorter to " + (right.length() - left.length()));
+    return false;
+  }
+  return true;
+}

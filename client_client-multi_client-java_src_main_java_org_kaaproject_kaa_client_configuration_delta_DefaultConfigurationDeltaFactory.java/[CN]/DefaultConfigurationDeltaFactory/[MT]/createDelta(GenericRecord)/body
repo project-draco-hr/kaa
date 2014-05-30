@@ -1,0 +1,43 @@
+{
+  DefaultConfigurationDelta resultDelta;
+  GenericFixed uuidFixed=(GenericFixed)genericDelta.get(UUID_FIELD);
+  if (uuidFixed != null) {
+    DeltaHandlerId handlerId=new DeltaHandlerId(AvroGenericUtils.createUuidFromFixed(uuidFixed));
+    resultDelta=new DefaultConfigurationDelta(handlerId);
+  }
+ else {
+    resultDelta=new DefaultConfigurationDelta();
+  }
+  Schema deltaSchema=genericDelta.getSchema();
+  List<Schema.Field> fields=deltaSchema.getFields();
+  for (  Schema.Field field : fields) {
+    Object rawField=genericDelta.get(field.name());
+    if (!AvroGenericUtils.isUnchanged(rawField)) {
+      if (rawField == null) {
+        resultDelta.updateFieldDeltaType(field.name(),new DefaultDeltaType());
+      }
+ else       if (AvroGenericUtils.isReset(rawField)) {
+        resultDelta.updateFieldDeltaType(field.name(),new ResetDeltaType());
+      }
+ else       if (AvroGenericUtils.isArray(rawField)) {
+        resultDelta.updateFieldDeltaType(field.name(),createArrayDeltaType((GenericArray)rawField));
+      }
+ else       if (AvroGenericUtils.isFixed(rawField)) {
+        GenericFixed fixed=(GenericFixed)rawField;
+        resultDelta.updateFieldDeltaType(field.name(),new ValueDeltaType(fixed.bytes()));
+      }
+ else       if (AvroGenericUtils.isEnum(rawField)) {
+        GenericEnumSymbol symbol=(GenericEnumSymbol)rawField;
+        resultDelta.updateFieldDeltaType(field.name(),new ValueDeltaType(symbol.toString()));
+      }
+ else       if (AvroGenericUtils.isRecord(rawField)) {
+        GenericRecord record=(GenericRecord)rawField;
+        resultDelta.updateFieldDeltaType(field.name(),new ValueDeltaType(createDelta(record)));
+      }
+ else {
+        resultDelta.updateFieldDeltaType(field.name(),new ValueDeltaType(rawField));
+      }
+    }
+  }
+  return resultDelta;
+}

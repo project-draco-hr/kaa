@@ -1,0 +1,13 @@
+{
+  if (this == o) {
+    return true;
+  }
+  if (!(o instanceof TenantAdminDto)) {
+    return false;
+  }
+  TenantAdminDto that=(TenantAdminDto)o;
+  if (tenant.getId() != null ? !tenant.getId().equals(that.tenant.getId()) : that.tenant.getId() != null) {
+    return false;
+  }
+  return true;
+}

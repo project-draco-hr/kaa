@@ -1,0 +1,13 @@
+{
+  try {
+    CompilationTask task=compiler.getTask(null,javaDynamicManager,diagnostics,null,null,sources);
+    boolean result=task.call();
+    if (!result) {
+      throw new JavaDynamicException("The compilation failed",diagnostics);
+    }
+    return javaDynamicManager.getCompiledObjects();
+  }
+ catch (  Exception exception) {
+    throw new JavaDynamicException(exception,diagnostics);
+  }
+}

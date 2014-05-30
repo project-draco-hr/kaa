@@ -1,0 +1,42 @@
+{
+  PrintWriter writer=new PrintWriter(ss.out);
+  PrintWriter errorWriter=new PrintWriter(ss.err);
+  String[] args=null;
+  try {
+    args=parseCommand(commandLineString);
+  }
+ catch (  ParseException e) {
+    writer.println("Unable to parse command line: " + e.getMessage());
+    writer.println();
+  }
+  if (args != null && args.length > 0) {
+    String commandString=args[0];
+    ControlApiCommand command=commandsMap.get(commandString);
+    if (command != null) {
+      CommandLineParser cmdLinePosixParser=new PosixParser();
+      String[] commandArgs=new String[args.length - 1];
+      System.arraycopy(args,1,commandArgs,0,args.length - 1);
+      try {
+        CommandLine commandLine=cmdLinePosixParser.parse(command.getOptions(),commandArgs);
+        if (commandLine.hasOption('h')) {
+          printHelp(command,writer);
+        }
+ else {
+          command.runCommand(commandLine,ss.getClient(),writer,errorWriter);
+        }
+      }
+ catch (      ParseException e) {
+        writer.println("Unable to parse command arguments: " + e.getMessage());
+        writer.println();
+        printHelp(command,writer);
+      }
+    }
+ else {
+      writer.println("Error: unknown command '" + commandString + "'");
+      help(writer);
+    }
+  }
+  writer.println();
+  writer.flush();
+  errorWriter.flush();
+}

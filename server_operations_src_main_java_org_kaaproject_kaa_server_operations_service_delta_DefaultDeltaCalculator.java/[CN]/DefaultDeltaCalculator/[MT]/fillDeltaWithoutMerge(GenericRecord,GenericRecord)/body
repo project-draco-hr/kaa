@@ -1,0 +1,27 @@
+{
+  Schema rootSchema=root.getSchema();
+  for (  Field field : rootSchema.getFields()) {
+    Object value=root.get(field.name());
+    if (value instanceof List) {
+      List<Object> values=(List<Object>)value;
+      Schema arraySchema=getArraySchema(delta,field.name());
+      GenericArray deltaArray=new GenericData.Array(values.size(),arraySchema);
+      for (      Object item : values) {
+        if (item instanceof GenericContainer) {
+          GenericContainer record=(GenericContainer)item;
+          addComplexItemToArray(record,deltaArray);
+        }
+ else {
+          deltaArray.add(item);
+        }
+      }
+      delta.put(field.name(),deltaArray);
+    }
+ else     if (value instanceof GenericContainer) {
+      processComplexField(delta,field.name(),(GenericContainer)value,null,null);
+    }
+ else {
+      delta.put(field.name(),value);
+    }
+  }
+}

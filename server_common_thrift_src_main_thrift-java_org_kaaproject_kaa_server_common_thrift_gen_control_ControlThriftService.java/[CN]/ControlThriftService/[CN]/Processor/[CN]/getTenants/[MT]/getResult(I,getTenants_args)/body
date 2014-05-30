@@ -1,0 +1,10 @@
+{
+  getTenants_result result=new getTenants_result();
+  try {
+    result.success=iface.getTenants();
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

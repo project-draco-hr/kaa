@@ -1,0 +1,14 @@
+{
+  HashMap<String,org.kaaproject.kaa.server.common.thrift.gen.bootstrap.OperationsServer> update=new HashMap<>();
+  int updateSize=rnd.nextInt(10);
+  for (int i=0; i < updateSize; i++) {
+    org.kaaproject.kaa.server.common.thrift.gen.bootstrap.OperationsServer es=new org.kaaproject.kaa.server.common.thrift.gen.bootstrap.OperationsServer();
+    es.setPriority(rnd.nextInt(100));
+    byte[] key=new byte[256];
+    rnd.nextBytes(key);
+    es.setPublicKey(key);
+    String host=rnd.nextInt(255) + "." + rnd.nextInt(255)+ "."+ rnd.nextInt(255)+ "."+ rnd.nextInt(255);
+    update.put(host,es);
+  }
+  return update;
+}

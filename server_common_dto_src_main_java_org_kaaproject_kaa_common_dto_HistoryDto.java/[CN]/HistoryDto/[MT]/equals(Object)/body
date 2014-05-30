@@ -1,0 +1,22 @@
+{
+  if (this == o) {
+    return true;
+  }
+  if (o == null || getClass() != o.getClass()) {
+    return false;
+  }
+  HistoryDto that=(HistoryDto)o;
+  if (lastModifyTime != that.lastModifyTime) {
+    return false;
+  }
+  if (sequenceNumber != that.sequenceNumber) {
+    return false;
+  }
+  if (applicationId != null ? !applicationId.equals(that.applicationId) : that.applicationId != null) {
+    return false;
+  }
+  if (change != null ? !change.equals(that.change) : that.change != null) {
+    return false;
+  }
+  return true;
+}

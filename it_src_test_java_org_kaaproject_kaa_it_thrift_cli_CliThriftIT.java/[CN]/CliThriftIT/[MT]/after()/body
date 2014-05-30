@@ -1,0 +1,7 @@
+{
+  if (thriftServerStarted) {
+    server.stop();
+    thriftServerThread.join();
+    thriftServerStarted=false;
+  }
+}

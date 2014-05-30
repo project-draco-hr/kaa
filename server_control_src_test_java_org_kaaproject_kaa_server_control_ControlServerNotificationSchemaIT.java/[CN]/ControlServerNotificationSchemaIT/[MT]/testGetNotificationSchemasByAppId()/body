@@ -1,0 +1,9 @@
+{
+  NotificationSchemaDto schemaDto=createNotificationSchema(null,NotificationTypeDto.SYSTEM);
+  Assert.assertNotNull(schemaDto.getId());
+  LOGGER.debug("Create notification schema with id {}",schemaDto.getId());
+  List<NotificationSchemaDto> foundSchema=toDtoList(client.getNotificationSchemasByAppId(schemaDto.getApplicationId()));
+  Assert.assertFalse(foundSchema.isEmpty());
+  Assert.assertEquals(2,foundSchema.size());
+  Assert.assertEquals(schemaDto,foundSchema.get(1));
+}

@@ -1,0 +1,9 @@
+{
+  EndpointRegistrationRequest request=new EndpointRegistrationRequest();
+  request.setApplicationToken(properties.getApplicationToken());
+  request.setVersionInfo(new EndpointVersionInfo(properties.getSupportedConfigVersion(),properties.getSupportedProfileVersion(),properties.getSupportedSystemNTVersion(),properties.getSupportedUserNTVersion()));
+  ByteBuffer publicKeyBuffer=ByteBuffer.wrap(state.getPublicKey().getEncoded());
+  request.setEndpointPublicKey(publicKeyBuffer);
+  request.setProfileBody(ByteBuffer.wrap(profile));
+  return new RegisterCommand(request,manager,transport,handler);
+}

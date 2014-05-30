@@ -1,0 +1,4 @@
+{
+  LOG.debug("Find endpoint group by application id [{}] and weight [{}]",applicationId,weight);
+  return findOne(query(where(APPLICATION_ID).is(new ObjectId(applicationId)).and(WEIGHT).is(weight)));
+}

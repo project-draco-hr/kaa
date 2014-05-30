@@ -1,0 +1,7 @@
+{
+  TenantDto tenantDto=generateTenant();
+  List<TenantDto> saved=new ArrayList<>(1);
+  saved.add(tenantDto);
+  List<TenantDto> tenants=userService.findAllTenants();
+  Assert.assertEquals(saved,tenants);
+}

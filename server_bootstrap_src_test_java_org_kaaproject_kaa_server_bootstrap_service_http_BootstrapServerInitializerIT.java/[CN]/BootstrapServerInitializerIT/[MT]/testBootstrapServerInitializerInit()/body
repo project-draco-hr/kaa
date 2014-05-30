@@ -1,0 +1,8 @@
+{
+  EventExecutorGroup eventExecutorGroup=new DefaultEventExecutorGroup(bootstrapConfig.getExecutorThreadSize());
+  BootstrapServerInitializer bootstrapServerInitializer=new BootstrapServerInitializer(bootstrapConfig,eventExecutorGroup);
+  Assert.assertNotNull(bootstrapServerInitializer);
+  bootstrapServerInitializer.init();
+  CommandProcessor resolveCommandProcessor=CommandFactory.getCommandProcessor("/DOMAIN/" + CommonBSConstants.BOOTSTRAP_RESOLVE_COMMAND);
+  Assert.assertNotNull(resolveCommandProcessor);
+}

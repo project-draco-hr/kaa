@@ -1,0 +1,4 @@
+{
+  LOG.debug("Find actual configurations by schema id and group id [{}] ",schemaId,groupId);
+  return find(query(where(ENDPOINT_GROUP_ID).is(new ObjectId(groupId)).and(SCHEMA_ID).is(new ObjectId(schemaId)).and(STATUS).ne(DEPRECATED.name())));
+}

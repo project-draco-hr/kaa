@@ -1,0 +1,9 @@
+{
+  List<TreePlace> result=new ArrayList<TreePlace>();
+  for (  TenantUserDto tenant : tenants) {
+    TenantPlace place=new TenantPlace(tenant.getId());
+    place.setTenantName(tenant.getTenantName());
+    result.add(place);
+  }
+  return result;
+}

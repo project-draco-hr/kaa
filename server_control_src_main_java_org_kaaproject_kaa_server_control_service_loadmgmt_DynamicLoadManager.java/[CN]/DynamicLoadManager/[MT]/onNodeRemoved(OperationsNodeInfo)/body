@@ -1,0 +1,8 @@
+{
+  String dnsName=getDNSNameFromConnectionInfo(nodeInfo.getConnectionInfo());
+  opsServersMap.remove(dnsName);
+  LOG.info("Operations server {} removed. Updating {} Bootstrap servers",dnsName,bootstrapsMap.size());
+  for (  BootstrapNodeInfo bootstrapNodeInfo : bootstrapsMap.values()) {
+    updateBootstrap(bootstrapNodeInfo);
+  }
+}

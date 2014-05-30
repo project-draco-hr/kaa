@@ -1,0 +1,7 @@
+{
+  ProfileSchemaDto profileSchema=generateProfSchema(null,1).get(0);
+  Assert.assertNotNull(profileSchema);
+  profileSchemaDao.removeById(profileSchema.getId());
+  ProfileSchema schema=profileSchemaDao.findById(profileSchema.getId());
+  Assert.assertNull(schema);
+}

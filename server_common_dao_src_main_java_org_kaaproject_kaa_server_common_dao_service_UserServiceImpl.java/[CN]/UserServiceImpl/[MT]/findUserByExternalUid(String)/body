@@ -1,0 +1,7 @@
+{
+  UserDto userDto=null;
+  if (StringUtils.isNotBlank(externalUid)) {
+    userDto=getDto(userDao.findByExternalUid(externalUid));
+  }
+  return userDto;
+}

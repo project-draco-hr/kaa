@@ -1,0 +1,12 @@
+{
+  try {
+    ExtendedEndpointProfileChild record=new ExtendedEndpointProfileChild();
+    record.otherSimpleField=fieldSetFlags()[0] ? this.otherSimpleField : (java.lang.Integer)defaultValue(fields()[0]);
+    record.stringField=fieldSetFlags()[1] ? this.stringField : (java.lang.String)defaultValue(fields()[1]);
+    record.otherMapSimpleField=fieldSetFlags()[2] ? this.otherMapSimpleField : (java.util.Map<java.lang.String,java.lang.Long>)defaultValue(fields()[2]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

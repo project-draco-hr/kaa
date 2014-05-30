@@ -1,0 +1,37 @@
+{
+  try {
+    String sdkPlatformString=line.getOptionValue("sdk");
+    SdkPlatform sdkPlatform=SdkPlatform.valueOf(sdkPlatformString.trim().toUpperCase());
+    String applicationId=line.getOptionValue("a");
+    int profileSchemaVersion=Integer.parseInt(line.getOptionValue("psv"));
+    int configurationSchemaVersion=Integer.parseInt(line.getOptionValue("csv"));
+    int notificationSchemaVersion=Integer.parseInt(line.getOptionValue("nsv"));
+    Sdk sdk=client.generateSdk(sdkPlatform,applicationId,profileSchemaVersion,configurationSchemaVersion,notificationSchemaVersion);
+    writer.println("Generated SDK: " + sdk.getFileName());
+    String fileName=sdk.getFileName();
+    File outputFile;
+    if (line.hasOption("out")) {
+      String outDir=line.getOptionValue("out");
+      File outputDir=new File(outDir);
+      outputDir.mkdirs();
+      outputFile=new File(outputDir,fileName);
+    }
+ else {
+      outputFile=new File(fileName);
+    }
+    writer.println("Saving SDK to file: " + outputFile.getAbsolutePath());
+    try {
+      FileOutputStream fos=new FileOutputStream(outputFile);
+      fos.write(sdk.getData());
+      fos.flush();
+      fos.close();
+      writer.println("Saved SDK to file: " + outputFile.getAbsolutePath());
+    }
+ catch (    IOException e) {
+      writer.println("Unable to save SDK file: " + outputFile.getAbsolutePath());
+    }
+  }
+ catch (  TException e) {
+    handleException("Unable to generate SDK",e,errorWriter);
+  }
+}

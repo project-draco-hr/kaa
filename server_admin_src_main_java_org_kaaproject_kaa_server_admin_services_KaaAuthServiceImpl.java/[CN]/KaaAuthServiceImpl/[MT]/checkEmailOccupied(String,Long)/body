@@ -1,0 +1,9 @@
+{
+  User userEntity=userFacade.checkEmailOccupied(email,userId);
+  if (userEntity == null) {
+    return ResultCode.OK;
+  }
+ else {
+    return ResultCode.EMAIL_EXISTS;
+  }
+}

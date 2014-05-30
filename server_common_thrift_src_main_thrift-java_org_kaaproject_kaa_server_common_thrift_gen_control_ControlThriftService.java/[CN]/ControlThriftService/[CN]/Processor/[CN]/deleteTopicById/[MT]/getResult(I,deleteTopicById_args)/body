@@ -1,0 +1,10 @@
+{
+  deleteTopicById_result result=new deleteTopicById_result();
+  try {
+    iface.deleteTopicById(args.topicId);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

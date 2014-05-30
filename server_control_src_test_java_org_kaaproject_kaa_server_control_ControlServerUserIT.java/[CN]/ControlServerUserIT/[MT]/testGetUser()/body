@@ -1,0 +1,6 @@
+{
+  UserDto user=createUser(KaaAuthorityDto.TENANT_ADMIN);
+  UserDto storedUser=toDto(client.getUser(user.getId()));
+  Assert.assertNotNull(storedUser);
+  assertUsersEquals(user,storedUser);
+}

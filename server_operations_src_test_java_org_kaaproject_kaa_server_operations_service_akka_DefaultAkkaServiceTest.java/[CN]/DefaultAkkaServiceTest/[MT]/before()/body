@@ -1,0 +1,33 @@
+{
+  akkaService=new DefaultAkkaService();
+  operationsService=mock(OperationsService.class);
+  notificationDeltaService=mock(NotificationDeltaService.class);
+  applicationService=mock(ApplicationService.class);
+  ReflectionTestUtils.setField(akkaService,"operationsService",operationsService);
+  ReflectionTestUtils.setField(akkaService,"notificationDeltaService",notificationDeltaService);
+  ReflectionTestUtils.setField(akkaService,"applicationService",applicationService);
+  if (akkaService.getActorSystem() == null) {
+    ((DefaultAkkaService)akkaService).initActorSystem();
+  }
+  applicationDto=new ApplicationDto();
+  applicationDto.setId(APP_ID);
+  applicationDto.setApplicationToken(APP_TOKEN);
+  SyncResponse response=new SyncResponse();
+  response.setResponseType(SyncResponseStatus.NO_DELTA);
+  noDeltaResponse=new SyncResponseHolder(response);
+  Map<String,Integer> subscriptionStates=new HashMap<>();
+  subscriptionStates.put(TOPIC_ID,new Integer(0));
+  noDeltaResponseWithTopicState=new SyncResponseHolder(response,subscriptionStates,42,43);
+  response=new SyncResponse();
+  response.setResponseType(SyncResponseStatus.DELTA);
+  deltaResponse=new SyncResponseHolder(response,new HashMap<String,Integer>());
+  topicNotification=new NotificationDto();
+  topicNotification.setApplicationId(APP_ID);
+  topicNotification.setTopicId(TOPIC_ID);
+  topicNotification.setId(UNICAST_NOTIFICATION_ID);
+  topicNotification.setExpiredAt(new Date(System.currentTimeMillis() + TimeUnit.DAYS.toMillis(7)));
+  topicNotification.setSecNum(1);
+  topicNotification.setVersion(42);
+  topicNotification.setType(NotificationTypeDto.SYSTEM);
+  topicNotification.setBody("I am a dummy notification".getBytes());
+}

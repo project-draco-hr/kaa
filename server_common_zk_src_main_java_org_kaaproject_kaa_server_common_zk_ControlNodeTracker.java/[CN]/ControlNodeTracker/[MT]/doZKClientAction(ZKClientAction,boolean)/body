@@ -1,0 +1,16 @@
+{
+  try {
+    action.doWithZkClient(client);
+    return true;
+  }
+ catch (  Exception e) {
+    LOG.error("Unknown Error",e);
+    close();
+    if (throwIOException) {
+      throw new IOException(e);
+    }
+ else {
+      return false;
+    }
+  }
+}

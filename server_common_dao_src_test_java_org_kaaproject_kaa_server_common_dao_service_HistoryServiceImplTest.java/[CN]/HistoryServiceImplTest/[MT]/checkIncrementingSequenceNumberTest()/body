@@ -1,0 +1,22 @@
+{
+  mockDao();
+  String appId=new ObjectId().toString();
+  Update update=new Update();
+  update.setSequenceNumber(56);
+  update.setStatus(ProcessingStatus.PENDING);
+  Application application=new Application();
+  application.setId(appId);
+  application.setName("Test Application");
+  application.setSequenceNumber(55);
+  application.setUpdate(update);
+  ChangeDto change=new ChangeDto();
+  change.setCfMajorVersion(3);
+  change.setConfigurationId(new ObjectId().toString());
+  HistoryDto historyDto=new HistoryDto();
+  historyDto.setApplicationId(appId);
+  historyDto.setChange(change);
+  when(historyDaoMock.save(any(History.class))).thenThrow(MongoException.DuplicateKey.class).thenThrow(MongoException.DuplicateKey.class).thenReturn(null);
+  when(applicationDaoMock.forceNextSeqNumber(any(String.class))).thenReturn(application);
+  historyService.saveHistory(historyDto);
+  unmockDao();
+}

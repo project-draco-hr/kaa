@@ -1,0 +1,7 @@
+{
+  NotificationDto expected=new NotificationDto();
+  expected.setId(NF_ID_1);
+  Mockito.when(notificationService.findNotificationById(NF_ID_1)).thenReturn(expected);
+  NotificationDto actual=notificationDeltaService.findNotificationById(NF_ID_1);
+  Assert.assertEquals(expected,actual);
+}

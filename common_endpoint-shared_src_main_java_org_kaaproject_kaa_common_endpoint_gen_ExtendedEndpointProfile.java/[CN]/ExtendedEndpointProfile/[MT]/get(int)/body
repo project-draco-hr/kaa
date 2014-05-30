@@ -1,0 +1,20 @@
+{
+switch (field$) {
+case 0:
+    return simpleField;
+case 1:
+  return recordField;
+case 2:
+return arraySimpleField;
+case 3:
+return arrayRecordField;
+case 4:
+return mapSimpleField;
+case 5:
+return mapRecordField;
+case 6:
+return nullableRecordField;
+default :
+throw new org.apache.avro.AvroRuntimeException("Bad index");
+}
+}

@@ -1,0 +1,8 @@
+{
+  rpcService.editEndpointGroup(endpointGroup,new DataCallback<EndpointGroupDto>(callback){
+    @Override protected void onResult(    EndpointGroupDto result){
+      eventBus.fireEvent(new DataEvent(EndpointGroupDto.class));
+    }
+  }
+);
+}

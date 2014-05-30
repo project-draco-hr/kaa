@@ -1,0 +1,4 @@
+{
+  NotificationTypeDto notificationType=toGenericDto(type);
+  return toDataStructList(notificationService.findNotificationSchemasByAppIdAndType(applicationId,notificationType));
+}

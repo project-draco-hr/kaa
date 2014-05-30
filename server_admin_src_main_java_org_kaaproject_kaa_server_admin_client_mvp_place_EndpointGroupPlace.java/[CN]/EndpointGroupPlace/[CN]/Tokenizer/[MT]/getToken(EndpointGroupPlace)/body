@@ -1,0 +1,8 @@
+{
+  PlaceParams.clear();
+  PlaceParams.putParam(APPLICATION_ID,place.getApplicationId());
+  PlaceParams.putParam(ENDPOINT_GROUP_ID,place.getEndpointGroupId());
+  PlaceParams.putBooleanParam(INCL_DEPR_PF,place.isIncludeDeprecatedProfileFilters());
+  PlaceParams.putBooleanParam(INCL_DEPR_CS,place.isIncludeDeprecatedConfigurations());
+  return PlaceParams.generateToken();
+}

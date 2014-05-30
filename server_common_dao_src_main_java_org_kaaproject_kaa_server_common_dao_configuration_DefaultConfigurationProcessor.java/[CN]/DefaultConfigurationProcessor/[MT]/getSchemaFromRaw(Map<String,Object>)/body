@@ -1,0 +1,7 @@
+{
+  Schema avroSchema=schemaParser.getTypes().get(getFullNameFromRaw(schemaNode));
+  if (avroSchema == null) {
+    avroSchema=schemaParser.parse(jsonMapper.writeValueAsString(schemaNode));
+  }
+  return avroSchema;
+}

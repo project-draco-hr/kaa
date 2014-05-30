@@ -1,0 +1,7 @@
+{
+  String confId=configurations.get(0);
+  Configuration configuration=configurationDao.findById(confId);
+  Assert.assertNotNull(configuration.getSchemaId());
+  ConfigurationSchema configurationSchemaDto=configurationSchemaDao.findById(configuration.getSchemaId().toString());
+  Assert.assertNotNull(configurationSchemaDto);
+}

@@ -1,0 +1,6 @@
+{
+  Path schemaPath=Paths.get(Thread.currentThread().getContextClassLoader().getResource("dao/configuration/schemaWithMissedByDefault.json").toURI());
+  String configuraionSchema=new String(Files.readAllBytes(schemaPath));
+  ConfigurationProcessor configurationProcessor=new DefaultConfigurationProcessorStub(configuraionSchema);
+  configurationProcessor.getRootBinaryConfiguration();
+}

@@ -1,0 +1,22 @@
+{
+  Schema recordSchema=baseRecord.getSchema();
+  for (  Schema.Field fieldSchema : recordSchema.getFields()) {
+    if (baseRecord.get(fieldSchema.name()) != null) {
+      Object field=baseRecord.get(fieldSchema.name());
+      if (field instanceof GenericFixed) {
+        baseRecord.put(fieldSchema.name(),clearUuid((GenericFixed)field,fieldSchema));
+      }
+ else       if (field instanceof GenericRecord) {
+        removeUuid((GenericRecord)field);
+      }
+ else       if (field instanceof GenericArray) {
+        GenericArray arrayField=(GenericArray)field;
+        for (        Object obj : arrayField) {
+          if (obj instanceof GenericRecord) {
+            removeUuid((GenericRecord)obj);
+          }
+        }
+      }
+    }
+  }
+}

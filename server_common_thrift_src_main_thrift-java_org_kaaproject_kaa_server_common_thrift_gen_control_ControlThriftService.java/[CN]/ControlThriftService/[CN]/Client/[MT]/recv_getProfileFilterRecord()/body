@@ -1,0 +1,11 @@
+{
+  getProfileFilterRecord_result result=new getProfileFilterRecord_result();
+  receiveBase(result,"getProfileFilterRecord");
+  if (result.isSetSuccess()) {
+    return result.success;
+  }
+  if (result.ControlException != null) {
+    throw result.ControlException;
+  }
+  throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT,"getProfileFilterRecord failed: unknown result");
+}

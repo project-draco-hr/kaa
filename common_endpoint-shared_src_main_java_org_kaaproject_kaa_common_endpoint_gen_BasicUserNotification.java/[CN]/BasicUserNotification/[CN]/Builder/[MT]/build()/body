@@ -1,0 +1,11 @@
+{
+  try {
+    BasicUserNotification record=new BasicUserNotification();
+    record.notificationBody=fieldSetFlags()[0] ? this.notificationBody : (java.lang.String)defaultValue(fields()[0]);
+    record.userNotificationParam=fieldSetFlags()[1] ? this.userNotificationParam : (java.lang.Integer)defaultValue(fields()[1]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

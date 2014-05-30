@@ -1,0 +1,17 @@
+{
+  if (httpService != null) {
+    httpService.stop();
+    httpService=null;
+  }
+  if (statistics != null) {
+    statistics.shutdown();
+    statistics=null;
+  }
+  if (akkaService != null) {
+    akkaService.getActorSystem().shutdown();
+  }
+  if (zkEnabled) {
+    stopZK();
+  }
+  server.stop();
+}

@@ -1,0 +1,27 @@
+{
+  Schema recordSchema=baseRecord.getSchema();
+  for (  Schema.Field fieldSchema : recordSchema.getFields()) {
+    if (baseRecord.get(fieldSchema.name()) != null) {
+      Object field=baseRecord.get(fieldSchema.name());
+      if (field instanceof GenericArray) {
+        if (fieldSchema.schema().getType() == Schema.Type.UNION) {
+          for (          Schema unoinedSchema : fieldSchema.schema().getTypes()) {
+            if (unoinedSchema.getType() == Schema.Type.ARRAY) {
+              COMPARATOR.setSchema(unoinedSchema.getElementType());
+              break;
+            }
+          }
+        }
+ else {
+          COMPARATOR.setSchema(fieldSchema.schema().getElementType());
+        }
+        GenericArray arrayField=(GenericArray)baseRecord.get(fieldSchema.name());
+        canonizeArray(arrayField);
+        Collections.sort(arrayField,COMPARATOR);
+      }
+ else       if (field instanceof GenericRecord) {
+        canonizeRecord((GenericRecord)field);
+      }
+    }
+  }
+}

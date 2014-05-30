@@ -1,0 +1,12 @@
+{
+  for (int i=0; i < STRESS_TEST_INVOCATIONS; i++) {
+    launchCodeInParallelThreads(STRESS_TEST_N_THREADS,new Runnable(){
+      @Override public void run(){
+        assertEquals(TEST_APP_SEQ_NUMBER,cacheService.getAppSeqNumber(TEST_APP_TOKEN));
+      }
+    }
+);
+    verify(appService,atMost(2)).findAppByApplicationToken(TEST_APP_TOKEN);
+    reset(appService);
+  }
+}

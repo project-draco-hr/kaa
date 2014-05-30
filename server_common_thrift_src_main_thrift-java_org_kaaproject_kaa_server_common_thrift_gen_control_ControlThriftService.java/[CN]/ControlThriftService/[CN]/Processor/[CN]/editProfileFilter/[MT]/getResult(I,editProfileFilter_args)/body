@@ -1,0 +1,10 @@
+{
+  editProfileFilter_result result=new editProfileFilter_result();
+  try {
+    result.success=iface.editProfileFilter(args.profileFilter);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

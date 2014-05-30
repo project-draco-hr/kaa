@@ -1,0 +1,28 @@
+{
+switch (field) {
+case MESSAGE:
+    if (value == null) {
+      unsetMessage();
+    }
+ else {
+      setMessage((String)value);
+    }
+  break;
+case CAUSE_EXCEPTION_CLASS:
+if (value == null) {
+  unsetCauseExceptionClass();
+}
+ else {
+  setCauseExceptionClass((String)value);
+}
+break;
+case CAUSE_STACK_STRACE:
+if (value == null) {
+unsetCauseStackStrace();
+}
+ else {
+setCauseStackStrace((String)value);
+}
+break;
+}
+}

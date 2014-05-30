@@ -1,0 +1,7 @@
+{
+  validateId(endpointGroupId,"Can't find vacant topics. Invalid endpoint group id " + endpointGroupId);
+  EndpointGroup endpointGroup=endpointGroupDao.findById(endpointGroupId);
+  String applicationId=idToString(endpointGroup.getApplicationId());
+  List<String> topicIds=endpointGroup.getTopics();
+  return convertDtoList(topicDao.findVacantTopicsByAppId(applicationId,topicIds));
+}

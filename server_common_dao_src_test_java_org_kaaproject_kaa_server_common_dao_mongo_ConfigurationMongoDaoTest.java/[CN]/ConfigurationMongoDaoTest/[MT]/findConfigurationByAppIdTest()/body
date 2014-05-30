@@ -1,0 +1,11 @@
+{
+  List<Configuration> configs=configurationDao.findActiveByApplicationId(apps.get(0));
+  Assert.assertNotNull(configs);
+  Assert.assertNotEquals(0,configs.size());
+  configs=configurationDao.findActiveByApplicationId(apps.get(1));
+  Assert.assertNotNull(configs);
+  Assert.assertNotEquals(0,configs.size());
+  configs=configurationDao.findActiveByApplicationId(apps.get(2));
+  Assert.assertNotNull(configs);
+  Assert.assertNotEquals(0,configs.size());
+}

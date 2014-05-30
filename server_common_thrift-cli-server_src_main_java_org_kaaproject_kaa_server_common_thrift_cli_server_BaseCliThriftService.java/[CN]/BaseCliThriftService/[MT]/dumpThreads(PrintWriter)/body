@@ -1,0 +1,123 @@
+{
+  writer.println("THREADS DUMP:");
+  writer.println();
+  ThreadMXBean threadMxBean=ManagementFactory.getThreadMXBean();
+  ThreadInfo[] threads=threadMxBean.dumpAllThreads(false,false);
+  Map<Long,ThreadStruct> threadsMap=new HashMap<>();
+  for (  ThreadInfo ti : threads) {
+    ThreadStruct ts=new ThreadStruct();
+    ts.ti=ti;
+    threadsMap.put(ti.getThreadId(),ts);
+  }
+  ThreadGroup root=Thread.currentThread().getThreadGroup();
+  ThreadGroup parent;
+  parent=root.getParent();
+  while (parent != null) {
+    root=parent;
+    parent=parent.getParent();
+  }
+  allThreadsFromGroup(root,threadsMap);
+  Collection<ThreadStruct> threadValues=threadsMap.values();
+  List<ThreadStruct> threadList=new ArrayList<>(threadValues);
+  Collections.sort(threadList);
+  Map<State,Integer> threadStatistics=new LinkedHashMap<>();
+  threadStatistics.put(State.NEW,0);
+  threadStatistics.put(State.RUNNABLE,0);
+  threadStatistics.put(State.BLOCKED,0);
+  threadStatistics.put(State.WAITING,0);
+  threadStatistics.put(State.TIMED_WAITING,0);
+  threadStatistics.put(State.TERMINATED,0);
+  int maxGroup=0;
+  int maxName=0;
+  for (  ThreadStruct thread : threadList) {
+    maxName=Math.max(thread.ti.getThreadName().length(),maxName);
+    maxGroup=Math.max(thread.getGroupName().length(),maxGroup);
+    int count=threadStatistics.get(thread.ti.getThreadState());
+    count++;
+    threadStatistics.put(thread.ti.getThreadState(),count);
+  }
+  int idColumnLength=4;
+  int groupColumnLength=maxGroup + 1;
+  int nameColumnLength=maxName + 1;
+  int priorityColumnLength=10;
+  int stateColumnLength=14;
+  int daemonColumnLengh=7;
+  int aliveColumnLengh=6;
+  int cpuTimeColumnLengh=14;
+  StringBuffer header=new StringBuffer();
+  header.append("ID");
+  int length=idColumnLength;
+  header.append(createPadding(length - header.length()));
+  header.append("GROUP");
+  length+=groupColumnLength;
+  header.append(createPadding(length - header.length()));
+  header.append("NAME");
+  length+=nameColumnLength;
+  header.append(createPadding(length - header.length()));
+  header.append("PRIORITY");
+  length+=priorityColumnLength;
+  header.append(createPadding(length - header.length()));
+  header.append("STATE");
+  length+=stateColumnLength;
+  header.append(createPadding(length - header.length()));
+  header.append("DAEMON");
+  length+=daemonColumnLengh;
+  header.append(createPadding(length - header.length()));
+  header.append("ALIVE");
+  length+=aliveColumnLengh;
+  header.append(createPadding(length - header.length()));
+  header.append("CPU TIME (SEC)");
+  length+=cpuTimeColumnLengh;
+  header.append(createPadding(length - header.length()));
+  writer.println(header);
+  int maxRowLength=header.length();
+  writer.println(createPadding(maxRowLength,'-'));
+  NumberFormat format=new DecimalFormat("0.#");
+  for (  ThreadStruct thread : threadList) {
+    StringBuffer row=new StringBuffer();
+    row.append(thread.ti.getThreadId());
+    int rowLength=idColumnLength;
+    row.append(createPadding(rowLength - row.length()));
+    row.append(thread.getGroupName());
+    rowLength+=groupColumnLength;
+    row.append(createPadding(rowLength - row.length()));
+    row.append(thread.ti.getThreadName());
+    rowLength+=nameColumnLength;
+    row.append(createPadding(rowLength - row.length()));
+    row.append(thread.getPriority());
+    rowLength+=priorityColumnLength;
+    row.append(createPadding(rowLength - row.length()));
+    row.append(thread.ti.getThreadState());
+    rowLength+=stateColumnLength;
+    row.append(createPadding(rowLength - row.length()));
+    row.append(thread.isDaemon());
+    rowLength+=daemonColumnLengh;
+    row.append(createPadding(rowLength - row.length()));
+    row.append(thread.isAlive());
+    rowLength+=aliveColumnLengh;
+    row.append(createPadding(rowLength - row.length()));
+    double cpuTimeSec=(double)threadMxBean.getThreadCpuTime(thread.ti.getThreadId()) / (double)(1000 * 1000 * 1000);
+    row.append(format.format(cpuTimeSec));
+    writer.println(row);
+  }
+  writer.println(createPadding(maxRowLength,'-'));
+  writer.println("SUMMARY:");
+  writer.println(createPadding(maxRowLength,'-'));
+  for (  State state : threadStatistics.keySet()) {
+    int count=threadStatistics.get(state);
+    if (count > 0) {
+      StringBuffer row=new StringBuffer();
+      row.append(state.toString());
+      row.append(createPadding(stateColumnLength - row.length()));
+      row.append(count);
+      writer.println(row);
+    }
+  }
+  writer.println(createPadding(maxRowLength,'-'));
+  StringBuffer row=new StringBuffer();
+  row.append("TOTAL");
+  row.append(createPadding(stateColumnLength - row.length()));
+  row.append(threadList.size());
+  writer.println(row);
+  writer.println(createPadding(maxRowLength,'-'));
+}

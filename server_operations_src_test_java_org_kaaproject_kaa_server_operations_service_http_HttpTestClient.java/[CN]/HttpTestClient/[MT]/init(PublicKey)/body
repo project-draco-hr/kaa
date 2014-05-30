@@ -1,0 +1,22 @@
+{
+  KeyPairGenerator clientKeyGen;
+  try {
+    clientKeyGen=KeyPairGenerator.getInstance("RSA");
+    clientKeyGen.initialize(2048);
+    KeyPair clientKeyPair=clientKeyGen.genKeyPair();
+    clientPrivateKey=clientKeyPair.getPrivate();
+    clientPublicKey=clientKeyPair.getPublic();
+  }
+ catch (  NoSuchAlgorithmException e) {
+    throw new Exception(e.toString());
+  }
+  crypt=new MessageEncoderDecoder(clientPrivateKey,clientPublicKey,serverPublicKey);
+  try {
+    key=crypt.getEncodedSessionKey();
+  }
+ catch (  GeneralSecurityException e) {
+    throw new Exception(e.toString());
+  }
+  ByteBuffer publicKeyBuffer=ByteBuffer.wrap(EndpointObjectHash.fromSHA1(clientPublicKey.getEncoded()).getData());
+  clientPublicKeyHash=EndpointObjectHash.fromBytes(publicKeyBuffer.array());
+}

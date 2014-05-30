@@ -1,0 +1,22 @@
+{
+  if (commandName != null) {
+    if (commandName.equalsIgnoreCase(SyncCommand.getCommandName())) {
+      return RequestType.SYNC;
+    }
+ else     if (commandName.equalsIgnoreCase(LongSyncCommand.getCommandName())) {
+      return RequestType.LONGSYNC;
+    }
+ else     if (commandName.equalsIgnoreCase(RegisterEndpointCommand.getCommandName())) {
+      return RequestType.REGISTER;
+    }
+ else     if (commandName.equalsIgnoreCase(UpdateEndpointCommand.getCommandName())) {
+      return RequestType.UPENDPOINT;
+    }
+ else {
+      return RequestType.UNKNOWN;
+    }
+  }
+ else {
+    return RequestType.UNKNOWN;
+  }
+}

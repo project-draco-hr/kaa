@@ -1,0 +1,12 @@
+{
+  this.id=dto.getId();
+  this.applicationId=idToObjectId(dto.getApplicationId());
+  this.schemaId=idToObjectId(dto.getSchemaId());
+  this.topicId=idToObjectId(dto.getTopicId());
+  this.version=dto.getVersion();
+  this.lastModifyTime=dto.getLastTimeModify();
+  this.type=dto.getType();
+  this.body=getArrayCopy(dto.getBody());
+  this.expiredAt=dto.getExpiredAt();
+  this.secNum=dto.getSecNum();
+}

@@ -1,0 +1,30 @@
+{
+  privateKeyLocation=System.getProperty("server_home_dir") + "/" + privateKeyLocation;
+  publicKeyLocation=System.getProperty("server_home_dir") + "/" + publicKeyLocation;
+  LOG.debug("Loading private key from {}; public key from {}",privateKeyLocation,publicKeyLocation);
+  File f=new File(privateKeyLocation);
+  if (f.exists()) {
+    try {
+      privateKey=KeyUtil.getPrivate(f);
+    }
+ catch (    Exception e) {
+      LOG.debug("Error loading private key",e);
+      throw new RuntimeException(e);
+    }
+  }
+  f=new File(publicKeyLocation);
+  if (f.exists()) {
+    try {
+      publicKey=KeyUtil.getPublic(f);
+    }
+ catch (    Exception e) {
+      LOG.debug("Error loading public key",e);
+      throw new RuntimeException(e);
+    }
+  }
+  if (privateKey == null || publicKey == null) {
+    KeyPair keyPair=generateKeyPair(privateKeyLocation,publicKeyLocation);
+    privateKey=keyPair.getPrivate();
+    publicKey=keyPair.getPublic();
+  }
+}

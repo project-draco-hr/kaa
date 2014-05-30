@@ -1,0 +1,9 @@
+{
+  Tenant tenant=tenantDao.findById(tenants.get(0));
+  Assert.assertNotNull(tenant.getId());
+  List<Application> apps=applicationDao.findByTenantId(tenant.getId());
+  Assert.assertSame(apps.size(),3);
+  applicationDao.removeByTenantId(tenant.getId());
+  List<Application> emptyList=applicationDao.findByTenantId(tenant.getId());
+  Assert.assertEquals(emptyList.size(),Collections.emptyList().size());
+}

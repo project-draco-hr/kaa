@@ -1,0 +1,8 @@
+{
+  ByteArrayOutputStream baos=new ByteArrayOutputStream();
+  binaryEncoder=EncoderFactory.get().binaryEncoder(baos,binaryEncoder);
+  datumWriter.write(record,binaryEncoder);
+  binaryEncoder.flush();
+  baos.flush();
+  return baos.toByteArray();
+}

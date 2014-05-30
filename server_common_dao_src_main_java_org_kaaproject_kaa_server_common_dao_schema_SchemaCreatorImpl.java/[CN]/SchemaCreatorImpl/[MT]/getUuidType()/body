@@ -1,0 +1,14 @@
+{
+  if (isUuidDeclared) {
+    return NAMESPACE + "." + UUID_NAME+ "T";
+  }
+ else {
+    Map<String,Object> uuid=new HashMap<String,Object>();
+    uuid.put("name",UUID_NAME + "T");
+    uuid.put("namespace",NAMESPACE);
+    uuid.put("type","fixed");
+    uuid.put("size",16);
+    isUuidDeclared=true;
+    return uuid;
+  }
+}

@@ -1,0 +1,9 @@
+{
+  TenantDto tenantDto=generateTenant();
+  List<UserDto> users=generateUsers(tenantDto.getId(),KaaAuthorityDto.TENANT_DEVELOPER,1);
+  Assert.assertFalse(users.isEmpty());
+  UserDto user=users.get(0);
+  userService.removeUserById(user.getId());
+  UserDto foundUser=userService.findUserById(user.getId());
+  Assert.assertNull(foundUser);
+}

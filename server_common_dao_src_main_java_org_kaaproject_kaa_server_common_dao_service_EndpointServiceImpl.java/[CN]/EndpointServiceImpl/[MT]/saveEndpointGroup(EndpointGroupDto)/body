@@ -1,0 +1,42 @@
+{
+  validateObject(endpointGroupDto,"Can't save endpoint group object. Incorrect endpoint group object." + endpointGroupDto);
+  EndpointGroupDto savedGroup=null;
+  String appId=endpointGroupDto.getApplicationId();
+  if (isValidId(appId)) {
+    String id=endpointGroupDto.getId();
+    EndpointGroup group=endpointGroupDao.findByAppIdAndWeight(appId,endpointGroupDto.getWeight());
+    if (StringUtils.isBlank(id)) {
+      if (group == null) {
+        endpointGroupDto.setCreatedTime(System.currentTimeMillis());
+        savedGroup=getDto(endpointGroupDao.save(new EndpointGroup(endpointGroupDto)));
+      }
+ else {
+        throw new IncorrectParameterException("Can't save endpoint group with same weight and application id");
+      }
+    }
+ else {
+      EndpointGroup previousGroup=endpointGroupDao.findById(id);
+      if (previousGroup != null) {
+        if (group != null && !group.getId().equals(previousGroup.getId())) {
+          throw new IncorrectParameterException("Can't save endpoint group with same weight and application id");
+        }
+ else         if (previousGroup.getWeight() == DEFAULT_GROUP_WEIGHT) {
+          throw new IncorrectParameterException("Can't update weight for default endpoint group");
+        }
+ else {
+          savedGroup=getDto(endpointGroupDao.save(new EndpointGroup(endpointGroupDto)));
+        }
+        if (previousGroup.getWeight() != savedGroup.getWeight()) {
+          addHistory(savedGroup,ChangeType.UPDATE_WEIGHT);
+        }
+      }
+ else {
+        LOG.debug("Can't update endpoint group, id: [{}]",id);
+      }
+    }
+  }
+ else {
+    LOG.debug("Can't save endpoint group. Invalid application id [{}]",appId);
+  }
+  return savedGroup;
+}

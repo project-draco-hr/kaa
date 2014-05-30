@@ -1,0 +1,26 @@
+{
+  tenantName=new SizedTextBox(DEFAULT_TEXTBOX_SIZE);
+  tenantName.setWidth("100%");
+  tenantName.addInputHandler(this);
+  Label titleLabel=new Label(Utils.constants.title());
+  titleLabel.addStyleName("required");
+  detailsTable.setWidget(0,0,titleLabel);
+  detailsTable.setWidget(0,1,tenantName);
+  userName=new SizedTextBox(DEFAULT_TEXTBOX_SIZE,create);
+  userName.setWidth("100%");
+  userName.addInputHandler(this);
+  Label userLabel=new Label(Utils.constants.tenantAdminUsername());
+  if (create) {
+    userLabel.addStyleName("required");
+  }
+  detailsTable.setWidget(1,0,userLabel);
+  detailsTable.setWidget(1,1,userName);
+  email=new SizedTextBox(DEFAULT_TEXTBOX_SIZE);
+  email.setWidth("100%");
+  email.addInputHandler(this);
+  Label emailLabel=new Label(Utils.constants.tenantAdminEmail());
+  emailLabel.addStyleName("required");
+  detailsTable.setWidget(2,0,emailLabel);
+  detailsTable.setWidget(2,1,email);
+  tenantName.setFocus(true);
+}

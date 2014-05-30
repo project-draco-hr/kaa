@@ -1,0 +1,11 @@
+{
+  DataStruct dataStruct=null;
+  if (notification != null) {
+    notifyEndpoints(notification);
+    Object payload=notification.getPayload();
+    if (payload instanceof HasId && payload != null) {
+      dataStruct=toDataStruct((HasId)payload);
+    }
+  }
+  return dataStruct;
+}

@@ -1,0 +1,16 @@
+{
+  if (this == o) {
+    return true;
+  }
+  if (!(o instanceof EndpointNotificationDto)) {
+    return false;
+  }
+  EndpointNotificationDto that=(EndpointNotificationDto)o;
+  if (!Arrays.equals(endpointKeyHash,that.endpointKeyHash)) {
+    return false;
+  }
+  if (notificationDto != null ? !notificationDto.equals(that.notificationDto) : that.notificationDto != null) {
+    return false;
+  }
+  return true;
+}

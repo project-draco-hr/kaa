@@ -1,0 +1,17 @@
+{
+  if (enableActions) {
+    if (deleteColumn == null || table.getColumnIndex(deleteColumn) == -1) {
+      Header<SafeHtml> deleteHeader=new SafeHtmlHeader(SafeHtmlUtils.fromSafeConstant(Utils.constants.delete()));
+      deleteColumn=constructDeleteColumn("");
+      table.addColumn(deleteColumn,deleteHeader);
+      table.setColumnWidth(deleteColumn,40,Unit.PX);
+      return 40;
+    }
+ else {
+      return 0;
+    }
+  }
+ else {
+    return 0;
+  }
+}

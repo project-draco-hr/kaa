@@ -1,0 +1,12 @@
+{
+  for (int i=0; i < STRESS_TEST_INVOCATIONS; i++) {
+    launchCodeInParallelThreads(STRESS_TEST_N_THREADS,new Runnable(){
+      @Override public void run(){
+        assertEquals(CF1,cacheService.getConfByHash(CF1_HASH));
+      }
+    }
+);
+    verify(endpointService,atMost(2)).findEndpointConfigurationByHash(CF1_HASH.getData());
+    reset(endpointService);
+  }
+}

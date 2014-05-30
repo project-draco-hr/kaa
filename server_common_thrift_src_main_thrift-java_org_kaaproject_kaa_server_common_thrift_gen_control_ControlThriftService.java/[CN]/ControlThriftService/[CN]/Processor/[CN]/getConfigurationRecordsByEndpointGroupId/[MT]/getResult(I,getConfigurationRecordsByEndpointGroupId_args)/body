@@ -1,0 +1,10 @@
+{
+  getConfigurationRecordsByEndpointGroupId_result result=new getConfigurationRecordsByEndpointGroupId_result();
+  try {
+    result.success=iface.getConfigurationRecordsByEndpointGroupId(args.endpointGroupId,args.includeDeprecated);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

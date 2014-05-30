@@ -1,0 +1,11 @@
+{
+  super(other);
+  if (isValidValue(fields()[0],other.notificationBody)) {
+    this.notificationBody=data().deepCopy(fields()[0].schema(),other.notificationBody);
+    fieldSetFlags()[0]=true;
+  }
+  if (isValidValue(fields()[1],other.userNotificationParam)) {
+    this.userNotificationParam=data().deepCopy(fields()[1].schema(),other.userNotificationParam);
+    fieldSetFlags()[1]=true;
+  }
+}

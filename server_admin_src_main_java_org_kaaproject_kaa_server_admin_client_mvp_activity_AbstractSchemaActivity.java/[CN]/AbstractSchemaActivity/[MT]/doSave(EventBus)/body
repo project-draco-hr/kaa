@@ -1,0 +1,17 @@
+{
+  onSave();
+  if (create) {
+    detailsView.getSchemaFileUpload().submit();
+  }
+ else {
+    editEntity(entity,new AsyncCallback<T>(){
+      public void onSuccess(      T result){
+        goTo(place.getPreviousPlace());
+      }
+      public void onFailure(      Throwable caught){
+        detailsView.setErrorMessage(Utils.getErrorMessage(caught));
+      }
+    }
+);
+  }
+}

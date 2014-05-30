@@ -1,0 +1,6 @@
+{
+  List<ProfileFilterDto> filters=generateFilter(null,null,1,true);
+  ProfileFilterDto filterDto=filters.get(0);
+  Assert.assertNotNull(filterDto);
+  profileService.saveProfileFilter(filterDto);
+}

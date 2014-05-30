@@ -1,0 +1,10 @@
+{
+  getMemoryUsage_result result=new getMemoryUsage_result();
+  try {
+    result.success=iface.getMemoryUsage(args.forceGC);
+  }
+ catch (  CliThriftException cliException) {
+    result.cliException=cliException;
+  }
+  return result;
+}

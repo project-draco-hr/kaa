@@ -1,0 +1,16 @@
+{
+  ActorRef terminated=message.actor();
+  if (terminated instanceof LocalActorRef) {
+    LocalActorRef localActor=(LocalActorRef)terminated;
+    String name=localActor.path().name();
+    if (endpointSessions.remove(name) != null) {
+      LOG.debug("removed endpoint: {}",localActor);
+    }
+ else     if (topicSessions.remove(name) != null) {
+      LOG.debug("removed topic: {}",localActor);
+    }
+  }
+ else {
+    LOG.warn("remove commands for remote actors are not supported yet!");
+  }
+}

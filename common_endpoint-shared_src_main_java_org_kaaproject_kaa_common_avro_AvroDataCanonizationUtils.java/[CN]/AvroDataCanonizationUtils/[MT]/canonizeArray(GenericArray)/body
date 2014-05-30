@@ -1,0 +1,10 @@
+{
+  for (  Object obj : baseArray) {
+    if (obj instanceof GenericRecord) {
+      canonizeRecord((GenericRecord)obj);
+    }
+ else     if (obj instanceof GenericArray) {
+      canonizeArray((GenericArray)obj);
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  struct.validate();
+  oprot.writeStructBegin(STRUCT_DESC);
+  if (struct.appId != null) {
+    oprot.writeFieldBegin(APP_ID_FIELD_DESC);
+    oprot.writeString(struct.appId);
+    oprot.writeFieldEnd();
+  }
+  oprot.writeFieldBegin(APP_SEQ_NUMBER_FIELD_DESC);
+  oprot.writeI32(struct.appSeqNumber);
+  oprot.writeFieldEnd();
+  if (struct.groupId != null) {
+    oprot.writeFieldBegin(GROUP_ID_FIELD_DESC);
+    oprot.writeString(struct.groupId);
+    oprot.writeFieldEnd();
+  }
+  oprot.writeFieldBegin(GROUP_SEQ_NUMBER_FIELD_DESC);
+  oprot.writeI32(struct.groupSeqNumber);
+  oprot.writeFieldEnd();
+  if (struct.profileFilterId != null) {
+    oprot.writeFieldBegin(PROFILE_FILTER_ID_FIELD_DESC);
+    oprot.writeString(struct.profileFilterId);
+    oprot.writeFieldEnd();
+  }
+  oprot.writeFieldBegin(PROFILE_FILTER_SEQ_NUMBER_FIELD_DESC);
+  oprot.writeI32(struct.profileFilterSeqNumber);
+  oprot.writeFieldEnd();
+  if (struct.configurationId != null) {
+    oprot.writeFieldBegin(CONFIGURATION_ID_FIELD_DESC);
+    oprot.writeString(struct.configurationId);
+    oprot.writeFieldEnd();
+  }
+  oprot.writeFieldBegin(CONFIGURATION_SEQ_NUMBER_FIELD_DESC);
+  oprot.writeI32(struct.configurationSeqNumber);
+  oprot.writeFieldEnd();
+  if (struct.notificationId != null) {
+    oprot.writeFieldBegin(NOTIFICATION_ID_FIELD_DESC);
+    oprot.writeString(struct.notificationId);
+    oprot.writeFieldEnd();
+  }
+  if (struct.unicastNotificationId != null) {
+    oprot.writeFieldBegin(UNICAST_NOTIFICATION_ID_FIELD_DESC);
+    oprot.writeString(struct.unicastNotificationId);
+    oprot.writeFieldEnd();
+  }
+  if (struct.topicId != null) {
+    oprot.writeFieldBegin(TOPIC_ID_FIELD_DESC);
+    oprot.writeString(struct.topicId);
+    oprot.writeFieldEnd();
+  }
+  if (struct.keyHash != null) {
+    oprot.writeFieldBegin(KEY_HASH_FIELD_DESC);
+    oprot.writeBinary(struct.keyHash);
+    oprot.writeFieldEnd();
+  }
+  if (struct.op != null) {
+    oprot.writeFieldBegin(OP_FIELD_DESC);
+    oprot.writeI32(struct.op.getValue());
+    oprot.writeFieldEnd();
+  }
+  oprot.writeFieldStop();
+  oprot.writeStructEnd();
+}

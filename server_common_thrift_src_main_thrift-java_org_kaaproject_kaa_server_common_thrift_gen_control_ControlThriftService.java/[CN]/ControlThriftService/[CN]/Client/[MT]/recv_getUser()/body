@@ -1,0 +1,11 @@
+{
+  getUser_result result=new getUser_result();
+  receiveBase(result,"getUser");
+  if (result.isSetSuccess()) {
+    return result.success;
+  }
+  if (result.ControlException != null) {
+    throw result.ControlException;
+  }
+  throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT,"getUser failed: unknown result");
+}

@@ -1,0 +1,10 @@
+{
+  byte[] binaryData=null;
+  EndpointObjectHash hash1=EndpointObjectHash.fromSHA1(binaryData);
+  Assert.assertNull(hash1);
+  hash1=EndpointObjectHash.fromBytes(binaryData);
+  Assert.assertNull(hash1);
+  String strData=null;
+  hash1=EndpointObjectHash.fromSHA1(strData);
+  Assert.assertNull(hash1);
+}

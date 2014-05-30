@@ -1,0 +1,7 @@
+{
+  TenantAdminDto tenantAdmin=createTenantAdmin();
+  TenantAdminDto storedTenantAdmin=toDto(client.getTenantAdmin(tenantAdmin.getId()));
+  Assert.assertNotNull(storedTenantAdmin);
+  assertTenantAdminsEquals(tenantAdmin,storedTenantAdmin);
+  client.deleteTenantAdmin(tenantAdmin.getId());
+}

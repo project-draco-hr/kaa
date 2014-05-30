@@ -1,0 +1,25 @@
+{
+  currentValue=value;
+  actionsPopup.getElement().getStyle().setZIndex(2000);
+  actionsPopup.setPopupPositionAndShow(new PopupPanel.PositionCallback(){
+    public void setPosition(    int offsetWidth,    int offsetHeight){
+      int left=parent.getFirstChildElement().getAbsoluteLeft();
+      int top=parent.getFirstChildElement().getAbsoluteTop() + parent.getFirstChildElement().getOffsetHeight() + 2;
+      if (left + actionsPopup.getOffsetWidth() > Window.getClientWidth()) {
+        left=parent.getFirstChildElement().getAbsoluteRight() - actionsPopup.getOffsetWidth();
+      }
+      actionsPopup.setPopupPosition(left,top);
+    }
+  }
+);
+  if (popupCloseHandlerRegistration != null) {
+    popupCloseHandlerRegistration.removeHandler();
+  }
+  popupCloseHandlerRegistration=actionsPopup.addCloseHandler(new CloseHandler<PopupPanel>(){
+    @Override public void onClose(    CloseEvent<PopupPanel> event){
+      setViewData(context.getKey(),false);
+      setValue(context,parent,value);
+    }
+  }
+);
+}

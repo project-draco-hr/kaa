@@ -1,0 +1,30 @@
+{
+  final ChannelPipeline p=ch.pipeline();
+  final UUID uuid=UUID.randomUUID();
+  LOG.info("DefaultServerInitializer Initializing Channel {} connection from {}:{}",uuid,ch.remoteAddress().getAddress().toString(),ch.remoteAddress().getPort());
+  Attribute<UUID> uuidAttr=ch.attr(NettyHttpServer.UUID_KEY);
+  uuidAttr.set(uuid);
+  if (conf.getSessionTrack() != null) {
+    Track track=conf.getSessionTrack().newSession(uuid);
+    Attribute<Track> trackAttr=ch.attr(NettyHttpServer.TRACK_KEY);
+    trackAttr.set(track);
+  }
+  p.addLast("httpDecoder",new HttpRequestDecoder());
+  p.addLast("httpAggregator",new HttpObjectAggregator(conf.getClientMaxBodySize()));
+  avroCommandsInit(p);
+  p.addLast("httpDecoderAux",new RequestDecoder(server));
+  p.addLast("httpEncoder",new HttpResponseEncoder());
+  p.addLast("httpEncoderAux",new ResponseEncoder());
+  p.addLast("handler",getMainHandler(uuid));
+  avroHandlerInit(p);
+  p.addLast("httpExceptionHandler",new DefaultExceptionHandler());
+  ChannelFuture closeFuture=ch.closeFuture();
+  closeFuture.addListener(new GenericFutureListener<Future<? super Void>>(){
+    @Override public void operationComplete(    Future<? super Void> future) throws Exception {
+      if (conf.getSessionTrack() != null) {
+        conf.getSessionTrack().closeSession(uuid);
+      }
+    }
+  }
+);
+}

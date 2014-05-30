@@ -1,0 +1,10 @@
+{
+  executeCommand_result result=new executeCommand_result();
+  try {
+    result.success=iface.executeCommand(args.commandLine);
+  }
+ catch (  CliThriftException cliException) {
+    result.cliException=cliException;
+  }
+  return result;
+}

@@ -1,0 +1,22 @@
+{
+  if (that == null)   return false;
+  boolean this_present_max=true;
+  boolean that_present_max=true;
+  if (this_present_max || that_present_max) {
+    if (!(this_present_max && that_present_max))     return false;
+    if (this.max != that.max)     return false;
+  }
+  boolean this_present_total=true;
+  boolean that_present_total=true;
+  if (this_present_total || that_present_total) {
+    if (!(this_present_total && that_present_total))     return false;
+    if (this.total != that.total)     return false;
+  }
+  boolean this_present_free=true;
+  boolean that_present_free=true;
+  if (this_present_free || that_present_free) {
+    if (!(this_present_free && that_present_free))     return false;
+    if (this.free != that.free)     return false;
+  }
+  return true;
+}

@@ -1,0 +1,22 @@
+{
+  Notification thriftNotification=new Notification();
+  thriftNotification.setAppId(notification.getAppId());
+  thriftNotification.setAppSeqNumber(notification.getAppSeqNumber());
+  thriftNotification.setGroupId(notification.getGroupId());
+  thriftNotification.setGroupSeqNumber(notification.getGroupSeqNumber());
+  thriftNotification.setTopicId(notification.getTopicId());
+  thriftNotification.setOp(getOperation(notification.getChangeType()));
+  Object payload=notification.getPayload();
+  if (payload != null) {
+    if (payload instanceof NotificationDto) {
+      NotificationDto dto=(NotificationDto)payload;
+      thriftNotification.setNotificationId(dto.getId());
+    }
+ else     if (payload instanceof EndpointNotificationDto) {
+      EndpointNotificationDto unicastDto=(EndpointNotificationDto)payload;
+      thriftNotification.setKeyHash(unicastDto.getEndpointKeyHash());
+      thriftNotification.setUnicastNotificationId(unicastDto.getId());
+    }
+  }
+  controlZKService.sendEndpointNotification(thriftNotification);
+}

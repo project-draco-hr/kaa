@@ -1,0 +1,20 @@
+{
+  ActionButtonCell<TopicDto> cell=new ActionButtonCell<TopicDto>(Utils.resources.send(),text,embedded,new ActionListener<TopicDto>(){
+    @Override public void onItemAction(    TopicDto value){
+      sendNotification(value);
+    }
+  }
+,new ActionValidator<TopicDto>(){
+    @Override public boolean canPerformAction(    TopicDto value){
+      return !embedded;
+    }
+  }
+);
+  Column<TopicDto,TopicDto> column=new Column<TopicDto,TopicDto>(cell){
+    @Override public TopicDto getValue(    TopicDto item){
+      return item;
+    }
+  }
+;
+  return column;
+}

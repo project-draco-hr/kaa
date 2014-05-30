@@ -1,0 +1,47 @@
+{
+  if (!getClass().equals(other.getClass())) {
+    return getClass().getName().compareTo(other.getClass().getName());
+  }
+  int lastComparison=0;
+  lastComparison=Boolean.valueOf(isSetDnsName()).compareTo(other.isSetDnsName());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetDnsName()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.dnsName,other.dnsName);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  lastComparison=Boolean.valueOf(isSetRuleId()).compareTo(other.isSetRuleId());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetRuleId()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.ruleId,other.ruleId);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  lastComparison=Boolean.valueOf(isSetRedirectionProbability()).compareTo(other.isSetRedirectionProbability());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetRedirectionProbability()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.redirectionProbability,other.redirectionProbability);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  lastComparison=Boolean.valueOf(isSetRuleTTL()).compareTo(other.isSetRuleTTL());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetRuleTTL()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.ruleTTL,other.ruleTTL);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  return 0;
+}

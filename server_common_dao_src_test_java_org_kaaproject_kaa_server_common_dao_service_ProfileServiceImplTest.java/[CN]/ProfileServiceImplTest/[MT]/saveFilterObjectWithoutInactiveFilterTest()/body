@@ -1,0 +1,9 @@
+{
+  ProfileFilterDto filterDto=generateFilter(null,null,1,true).get(0);
+  filterDto.setId(null);
+  ProfileFilterDto saved=profileService.saveProfileFilter(filterDto);
+  Assert.assertNotNull(saved);
+  Assert.assertEquals(saved.getStatus(),UpdateStatus.INACTIVE);
+  Assert.assertEquals(saved.getSequenceNumber(),filterDto.getSequenceNumber());
+  Assert.assertNotEquals(saved.getId(),filterDto.getId());
+}

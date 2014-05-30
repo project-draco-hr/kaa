@@ -1,0 +1,11 @@
+{
+  try {
+    LongSyncRequest record=new LongSyncRequest();
+    record.syncRequest=fieldSetFlags()[0] ? this.syncRequest : (org.kaaproject.kaa.common.endpoint.gen.SyncRequest)defaultValue(fields()[0]);
+    record.timeout=fieldSetFlags()[1] ? this.timeout : (java.lang.Long)defaultValue(fields()[1]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

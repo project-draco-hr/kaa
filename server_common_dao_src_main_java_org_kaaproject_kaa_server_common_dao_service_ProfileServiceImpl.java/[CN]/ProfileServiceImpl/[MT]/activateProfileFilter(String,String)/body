@@ -1,0 +1,37 @@
+{
+  ChangeProfileFilterNotification profileNotification;
+  ProfileFilterDto profileFilter;
+  validateId(id,"Can't activate profile filter. Invalid profile filter id: " + id);
+  ProfileFilter oldProfileFilter=profileFilterDao.findById(id);
+  if (oldProfileFilter != null) {
+    UpdateStatus status=oldProfileFilter.getStatus();
+    if (status != null && status == INACTIVE) {
+      ObjectId schemaId=oldProfileFilter.getSchemaId();
+      ObjectId groupId=oldProfileFilter.getEndpointGroupId();
+      if (schemaId != null && groupId != null) {
+        profileFilterDao.deactivateOldFilter(schemaId.toString(),groupId.toString(),activatedUsername);
+      }
+ else {
+        throw new DatabaseProcessingException("Incorrect old profile filters. Profile schema id is empty.");
+      }
+      profileFilter=getDto(profileFilterDao.activate(id,activatedUsername));
+      if (profileFilter != null) {
+        HistoryDto history=addHistory(profileFilter,ChangeType.ADD_PROF);
+        ChangeNotificationDto changeNotificationDto=createNotification(profileFilter,history);
+        profileNotification=new ChangeProfileFilterNotification();
+        profileNotification.setProfileFilterDto(profileFilter);
+        profileNotification.setChangeNotificationDto(changeNotificationDto);
+      }
+ else {
+        throw new DatabaseProcessingException("Can't activate profile filter.");
+      }
+    }
+ else {
+      throw new UpdateStatusConflictException("Incorrect status for activating profile filter " + status);
+    }
+  }
+ else {
+    throw new IncorrectParameterException("Can't find profile filter with id " + id);
+  }
+  return profileNotification;
+}

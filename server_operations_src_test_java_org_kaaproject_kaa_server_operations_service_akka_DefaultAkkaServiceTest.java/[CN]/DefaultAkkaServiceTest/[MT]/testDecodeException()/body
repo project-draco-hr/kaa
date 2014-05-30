@@ -1,0 +1,8 @@
+{
+  ChannelHandlerContext channelContextMock=Mockito.mock(ChannelHandlerContext.class);
+  AbstractOperationsCommand commandMock=Mockito.mock(AbstractOperationsCommand.class);
+  Mockito.doThrow(new IOException("test")).when(commandMock).encode(Mockito.any(SpecificRecordBase.class));
+  Assert.assertNotNull(akkaService.getActorSystem());
+  akkaService.process(new NettyDecodedResponseMessage(null,channelContextMock,commandMock,null));
+  Mockito.verify(channelContextMock,Mockito.timeout(TIMEOUT).atLeastOnce()).fireExceptionCaught(Mockito.any(IOException.class));
+}

@@ -1,0 +1,20 @@
+{
+  T inactiveStruct=record.getInactiveStructureDto();
+  if (create) {
+    schemaId=recordView.getSchema().getValue().getId();
+    inactiveStruct.setSchemaId(schemaId);
+    inactiveStruct.setMajorVersion(recordView.getSchema().getValue().getMajorVersion());
+    inactiveStruct.setMinorVersion(recordView.getSchema().getValue().getMinorVersion());
+  }
+  inactiveStruct.setDescription(recordView.getRecordPanel().getDescription().getValue());
+  inactiveStruct.setBody(recordView.getRecordPanel().getBody().getValue());
+  editStruct(inactiveStruct,new AsyncCallback<T>(){
+    public void onSuccess(    T result){
+      goTo(getRecordPlace(applicationId,schemaId,endpointGroupId,false,false,Math.random()));
+    }
+    public void onFailure(    Throwable caught){
+      recordView.setErrorMessage(Utils.getErrorMessage(caught));
+    }
+  }
+);
+}

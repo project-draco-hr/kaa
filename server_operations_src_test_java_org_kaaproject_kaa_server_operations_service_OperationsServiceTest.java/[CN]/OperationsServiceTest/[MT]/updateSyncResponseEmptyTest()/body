@@ -1,0 +1,9 @@
+{
+  SyncResponse response=new SyncResponse();
+  response.setResponseType(SyncResponseStatus.NO_DELTA);
+  SyncResponse result=operationsService.updateSyncResponse(response,new ArrayList<NotificationDto>(),null);
+  assertNotNull(result);
+  assertEquals(SyncResponseStatus.DELTA,response.getResponseType());
+  assertNotNull(result.getNotificationSyncResponse());
+  assertNotNull(result.getNotificationSyncResponse().getNotifications());
+}

@@ -1,0 +1,64 @@
+{
+  ControlOptionsProcessor oproc=new ControlOptionsProcessor();
+  if (!oproc.parse(args)) {
+    return 1;
+  }
+  ControlClientSessionState ss=new ControlClientSessionState();
+  ss.in=System.in;
+  try {
+    ss.out=new PrintStream(System.out,true,"UTF-8");
+    ss.err=new PrintStream(System.err,true,"UTF-8");
+  }
+ catch (  UnsupportedEncodingException e) {
+    return 3;
+  }
+  if (!oproc.process(ss)) {
+    return 2;
+  }
+  ControlClientSessionState.start(ss);
+  if (ss.host != null) {
+    try {
+      ss.connect();
+    }
+ catch (    TException e) {
+      LOG.error("Failed connection to Thrift Server",e);
+      return 1;
+    }
+    if (ss.isRemoteMode()) {
+      prompt="[" + ss.host + ':'+ ss.port+ "]  kaa-control-api";
+      char[] spaces=new char[prompt.length()];
+      Arrays.fill(spaces,' ');
+      prompt2=new String(spaces);
+    }
+  }
+  if (ss.execString != null) {
+    return processLine(ss.execString);
+  }
+  try {
+    ConsoleReader reader=createReader();
+    reader.setBellEnabled(false);
+    String line;
+    String prefix="";
+    String curPrompt=prompt;
+    while ((line=reader.readLine(curPrompt + "> ")) != null) {
+      if (!prefix.equals("")) {
+        prefix+='\n';
+      }
+      line=prefix + line;
+      int ret=processLine(line);
+      if (ret != 0) {
+        return ret;
+      }
+      prefix="";
+      curPrompt=prompt;
+    }
+  }
+ catch (  Exception e) {
+    LOG.error("Exception while reading line",e);
+    return 1;
+  }
+ finally {
+    ss.close();
+  }
+  return 0;
+}

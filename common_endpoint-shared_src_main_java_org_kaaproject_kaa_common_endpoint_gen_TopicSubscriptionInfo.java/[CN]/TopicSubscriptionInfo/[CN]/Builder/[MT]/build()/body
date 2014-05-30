@@ -1,0 +1,11 @@
+{
+  try {
+    TopicSubscriptionInfo record=new TopicSubscriptionInfo();
+    record.topicInfo=fieldSetFlags()[0] ? this.topicInfo : (org.kaaproject.kaa.common.endpoint.gen.Topic)defaultValue(fields()[0]);
+    record.seqNumber=fieldSetFlags()[1] ? this.seqNumber : (java.lang.Integer)defaultValue(fields()[1]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

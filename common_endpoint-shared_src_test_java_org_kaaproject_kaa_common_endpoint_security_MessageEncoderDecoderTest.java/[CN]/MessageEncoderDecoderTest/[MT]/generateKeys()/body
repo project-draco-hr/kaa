@@ -1,0 +1,17 @@
+{
+  KeyPairGenerator clientKeyGen=KeyPairGenerator.getInstance("RSA");
+  clientKeyGen.initialize(2048);
+  KeyPair kp=clientKeyGen.genKeyPair();
+  clientPublic=kp.getPublic();
+  clientPrivate=kp.getPrivate();
+  KeyPairGenerator serverKeyGen=KeyPairGenerator.getInstance("RSA");
+  serverKeyGen.initialize(2048);
+  kp=serverKeyGen.genKeyPair();
+  serverPublic=kp.getPublic();
+  serverPrivate=kp.getPrivate();
+  KeyPairGenerator otherKeyGen=KeyPairGenerator.getInstance("RSA");
+  otherKeyGen.initialize(2048);
+  kp=otherKeyGen.genKeyPair();
+  theifPublic=kp.getPublic();
+  theifPrivate=kp.getPrivate();
+}

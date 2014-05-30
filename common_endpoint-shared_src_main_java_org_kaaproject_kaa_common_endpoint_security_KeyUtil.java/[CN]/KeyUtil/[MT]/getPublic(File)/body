@@ -1,0 +1,8 @@
+{
+  FileInputStream fis=new FileInputStream(f);
+  DataInputStream dis=new DataInputStream(fis);
+  byte[] keyBytes=new byte[(int)f.length()];
+  dis.readFully(keyBytes);
+  dis.close();
+  return getPublic(keyBytes);
+}

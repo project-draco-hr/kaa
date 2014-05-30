@@ -1,0 +1,4 @@
+{
+  validateId(topicId,"Can't find notifications. Invalid topic id: " + topicId);
+  return convertDtoList(notificationDao.findNotificationsByTopicId(topicId));
+}

@@ -1,0 +1,7 @@
+{
+  User dto=userDao.findById(users.get(0));
+  Assert.assertNotNull(dto);
+  userDao.removeByExternalUid(dto.getExternalUid());
+  dto=userDao.findById(users.get(0));
+  Assert.assertNull(dto);
+}

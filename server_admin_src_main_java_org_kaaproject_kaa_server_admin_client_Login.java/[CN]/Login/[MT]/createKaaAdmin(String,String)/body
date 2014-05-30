@@ -1,0 +1,16 @@
+{
+  if (!isEmpty(userName) && !isEmpty(password)) {
+    authService.createKaaAdmin(userName,password,new AsyncCallback<Void>(){
+      @Override public void onFailure(      Throwable caught){
+        view.setErrorMessage(caught.toString() + ": " + caught.getMessage());
+      }
+      @Override public void onSuccess(      Void result){
+        login(userName,password);
+      }
+    }
+);
+  }
+ else {
+    view.setErrorMessage(Utils.messages.emptyUsernameOrPassword());
+  }
+}

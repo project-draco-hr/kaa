@@ -1,0 +1,18 @@
+{
+  if (validatePasswords()) {
+    String oldPasswordText=oldPassword.getValue();
+    String newPasswordText=newPassword.getValue();
+    authService.changePassword(username,oldPasswordText,newPasswordText,new AsyncCallback<ResultCode>(){
+      @Override public void onFailure(      Throwable caught){
+        callback.onFailure(caught);
+      }
+      @Override public void onSuccess(      ResultCode result){
+        if (ResultCode.OK != result) {
+          setError(Utils.constants.getString(result.getResourceKey()));
+        }
+        callback.onSuccess(result);
+      }
+    }
+);
+  }
+}

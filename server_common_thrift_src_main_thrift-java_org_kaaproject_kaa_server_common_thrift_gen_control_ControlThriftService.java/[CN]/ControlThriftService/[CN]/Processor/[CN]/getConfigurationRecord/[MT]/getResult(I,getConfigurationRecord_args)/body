@@ -1,0 +1,10 @@
+{
+  getConfigurationRecord_result result=new getConfigurationRecord_result();
+  try {
+    result.success=iface.getConfigurationRecord(args.schemaId,args.endpointGroupId);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

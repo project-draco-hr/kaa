@@ -1,0 +1,8 @@
+{
+  Configuration configuration=configurationDao.findLatestActiveBySchemaIdAndGroupId(schemas.get(2),endGroups.get(0));
+  Assert.assertNotNull(configuration);
+  Assert.assertEquals(configuration.getStatus(),UpdateStatus.ACTIVE);
+  Assert.assertEquals(configuration.getId(),configurations.get(6));
+  Assert.assertSame(configuration.getMajorVersion(),3);
+  Assert.assertSame(configuration.getSequenceNumber(),2);
+}

@@ -1,0 +1,6 @@
+{
+  DeltaHandlerId handler=new DeltaHandlerId(12345);
+  assertEquals(0,handler.compareTo(new DeltaHandlerId(12345)));
+  assertEquals("12345",handler.toString());
+  EqualsVerifier.forClass(DeltaHandlerId.class).verify();
+}

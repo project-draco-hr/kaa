@@ -1,0 +1,7 @@
+{
+  UserDto user=null;
+  if (isValidObject(userDto)) {
+    user=getDto(userDao.save(new User(userDto)));
+  }
+  return user;
+}

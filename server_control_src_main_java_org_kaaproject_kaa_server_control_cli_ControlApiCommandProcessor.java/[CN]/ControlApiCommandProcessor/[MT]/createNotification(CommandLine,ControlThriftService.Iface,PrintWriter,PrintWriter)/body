@@ -1,0 +1,64 @@
+{
+  try {
+    NotificationDto notificationDto=new NotificationDto();
+    if (line.hasOption("s")) {
+      String schemaId=line.getOptionValue("s");
+      if (ObjectId.isValid(schemaId)) {
+        notificationDto.setSchemaId(schemaId);
+      }
+ else {
+        errorWriter.println("Invalid schema id for notification.");
+        return;
+      }
+    }
+    if (line.hasOption("t")) {
+      String topicId=line.getOptionValue("t");
+      if (ObjectId.isValid(topicId)) {
+        notificationDto.setTopicId(topicId);
+      }
+ else {
+        errorWriter.println("Invalid topic id for notification.");
+        return;
+      }
+    }
+    if (line.hasOption("l")) {
+      String ttl=line.getOptionValue("l");
+      try {
+        long time=System.currentTimeMillis() + (Integer.valueOf(ttl) * 1000L);
+        notificationDto.setExpiredAt(new Date(time));
+      }
+ catch (      NumberFormatException ex) {
+        errorWriter.println("Incorrect format of ttl: " + ex.getMessage());
+        return;
+      }
+    }
+    if (line.hasOption("f")) {
+      String schemaFile=line.getOptionValue("f");
+      String schema=readFile(schemaFile,errorWriter);
+      if (schema != null) {
+        notificationDto.setBody(schema.getBytes(UTF8));
+      }
+ else {
+        errorWriter.println("Can't read file. Please check file name.");
+        return;
+      }
+    }
+ else     if (line.hasOption("b")) {
+      String body=line.getOptionValue("b");
+      notificationDto.setBody(body.getBytes(UTF8));
+    }
+ else {
+      errorWriter.println("Need to set body or file with body for notification");
+      return;
+    }
+    NotificationDto savedNotification=toDto(client.editNotification(toDataStruct(notificationDto)));
+    writer.println("Created new Notification with id: " + savedNotification.getId());
+    if (line.hasOption("o")) {
+      String outFileName=line.getOptionValue("o");
+      storeInfo(outFileName,savedNotification.getId(),errorWriter);
+    }
+  }
+ catch (  TException e) {
+    handleException("Unable to " + "create" + " Notification",e,errorWriter);
+  }
+}

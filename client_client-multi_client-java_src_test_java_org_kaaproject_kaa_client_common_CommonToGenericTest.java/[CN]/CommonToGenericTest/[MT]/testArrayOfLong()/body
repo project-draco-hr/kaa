@@ -1,0 +1,6 @@
+{
+  Schema longSchema=Schema.create(Type.LONG);
+  GenericArray avroArray=CommonToGeneric.createArray(createCommonArray(longSchema,new Long(5)));
+  Long avroLong=(Long)avroArray.get(0);
+  assertEquals(5,avroLong.longValue());
+}

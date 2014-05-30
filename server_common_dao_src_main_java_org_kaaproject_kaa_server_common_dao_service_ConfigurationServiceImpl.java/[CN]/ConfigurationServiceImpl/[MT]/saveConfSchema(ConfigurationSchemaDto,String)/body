@@ -1,0 +1,36 @@
+{
+  ConfigurationSchemaDto savedSchema=saveConfigurationSchema(schemaDto);
+  if (savedSchema != null) {
+    LOG.debug("Configuration schema with id [{}] saved. Generating default configuration",savedSchema.getId());
+    try {
+      configurationProcessor=new DefaultConfigurationProcessor(savedSchema.getBaseSchema());
+      byte[] body=configurationProcessor.getRootJsonBytesConfiguration();
+      LOG.debug("Default configuration {} ",Arrays.toString(body));
+      if (body == null) {
+        LOG.warn("Can't generate configuration");
+        throw new IncorrectParameterException("Incorrect configuration body.");
+      }
+      ConfigurationDto configurationDto=new ConfigurationDto();
+      configurationDto.setBinaryBody(body);
+      configurationDto.setSchemaId(savedSchema.getId());
+      configurationDto.setDescription(DEFAULT_STRUCT_DESC);
+      configurationDto.setEndpointGroupId(groupId);
+      configurationDto.setCreatedUsername(savedSchema.getCreatedUsername());
+      ConfigurationDto savedConfiguration=saveConfiguration(configurationDto);
+      if (savedConfiguration != null) {
+        activateConfiguration(savedConfiguration.getId(),savedSchema.getCreatedUsername());
+      }
+ else {
+        LOG.warn("Can't save default configuration.");
+        removeCascadeConfigurationSchema(savedSchema.getId());
+        throw new IncorrectParameterException("Can't save default configuration.");
+      }
+    }
+ catch (    IOException|ConfigurationProcessingException e) {
+      LOG.error("Can't generate configuration based on protocol schema.",e);
+      removeCascadeConfigurationSchema(savedSchema.getId());
+      throw new IncorrectParameterException("Can't save default configuration.");
+    }
+  }
+  return savedSchema;
+}

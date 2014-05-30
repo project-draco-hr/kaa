@@ -1,0 +1,8 @@
+{
+  EndpointObjectHash confHash=EndpointObjectHash.fromBytes(request.getConfigurationHash().array());
+  GetDeltaRequest deltaRequest=new GetDeltaRequest(request.getApplicationToken(),null,null,confHash,request.getAppStateSeqNumber());
+  deltaRequest.setEndpointProfile(profile);
+  deltaRequest.setFetchSchema(fetchSchema);
+  GetDeltaResponse confResponse=deltaService.getDelta(deltaRequest,historyDelta,curAppSeqNumber);
+  return confResponse;
+}

@@ -1,0 +1,34 @@
+{
+  float prefWidth=0;
+  prefWidth+=constructStringColumn(table,Utils.constants.schemaVersion(),new StringValueProvider<StructureRecordDto<T>>(){
+    @Override public String getValue(    StructureRecordDto<T> item){
+      return item.getMajorVersion() + "." + item.getMinorVersion();
+    }
+  }
+,80);
+  prefWidth+=constructStringColumn(table,Utils.constants.description(),new StringValueProvider<StructureRecordDto<T>>(){
+    @Override public String getValue(    StructureRecordDto<T> item){
+      return item.getDescription();
+    }
+  }
+,160);
+  prefWidth+=constructStringColumn(table,Utils.constants.numberOfEps(),new StringValueProvider<StructureRecordDto<T>>(){
+    @Override public String getValue(    StructureRecordDto<T> item){
+      return item.getEndpointCount() + "";
+    }
+  }
+,80);
+  prefWidth+=constructBooleanColumn(table,Utils.constants.active(),new BooleanValueProvider<StructureRecordDto<T>>(){
+    @Override public Boolean getValue(    StructureRecordDto<T> item){
+      return item.hasActive() && !item.hasDeprecated();
+    }
+  }
+,40);
+  prefWidth+=constructBooleanColumn(table,Utils.constants.draft(),new BooleanValueProvider<StructureRecordDto<T>>(){
+    @Override public Boolean getValue(    StructureRecordDto<T> item){
+      return item.hasDraft();
+    }
+  }
+,40);
+  return prefWidth;
+}

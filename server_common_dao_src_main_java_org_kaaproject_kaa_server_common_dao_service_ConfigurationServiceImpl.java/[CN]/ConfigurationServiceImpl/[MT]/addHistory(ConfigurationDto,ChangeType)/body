@@ -1,0 +1,12 @@
+{
+  LOG.debug("Add history information about configuration update");
+  HistoryDto history=new HistoryDto();
+  history.setApplicationId(dto.getApplicationId());
+  ChangeDto change=new ChangeDto();
+  change.setConfigurationId(dto.getId());
+  change.setCfMajorVersion(dto.getMajorVersion());
+  change.setEndpointGroupId(dto.getEndpointGroupId());
+  change.setType(type);
+  history.setChange(change);
+  return historyService.saveHistory(history);
+}

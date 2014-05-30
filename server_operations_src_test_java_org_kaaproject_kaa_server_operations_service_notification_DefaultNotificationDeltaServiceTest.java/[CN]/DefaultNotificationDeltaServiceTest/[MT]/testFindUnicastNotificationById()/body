@@ -1,0 +1,10 @@
+{
+  NotificationDto expected=new NotificationDto();
+  expected.setId(PNF_ID_1);
+  EndpointNotificationDto pnf=new EndpointNotificationDto();
+  pnf.setId(PNF_ID_1);
+  pnf.setNotificationDto(new NotificationDto());
+  Mockito.when(notificationService.findUnicastNotificationById(PNF_ID_1)).thenReturn(pnf);
+  NotificationDto actual=notificationDeltaService.findUnicastNotificationById(PNF_ID_1);
+  Assert.assertEquals(expected,actual);
+}

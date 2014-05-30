@@ -1,0 +1,9 @@
+{
+  super();
+  this.privateKey=privateKey;
+  this.publicKey=publicKey;
+  this.remotePublicKey=remotePublicKey;
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("Creating MessageEncoderDecoder with\nPublicKey {};\nRemotePublicKey {}",this.publicKey != null ? bytesToHex(this.publicKey.getEncoded()) : "empty",this.remotePublicKey != null ? bytesToHex(this.remotePublicKey.getEncoded()) : "empty");
+  }
+}

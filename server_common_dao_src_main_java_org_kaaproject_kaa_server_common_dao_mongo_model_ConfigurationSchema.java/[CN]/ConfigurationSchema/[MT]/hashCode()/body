@@ -1,0 +1,8 @@
+{
+  int result=super.hashCode();
+  result=31 * result + (baseSchema != null ? baseSchema.hashCode() : 0);
+  result=31 * result + (protocolSchema != null ? protocolSchema.hashCode() : 0);
+  result=31 * result + (overrideSchema != null ? overrideSchema.hashCode() : 0);
+  result=31 * result + (status != null ? status.hashCode() : 0);
+  return result;
+}

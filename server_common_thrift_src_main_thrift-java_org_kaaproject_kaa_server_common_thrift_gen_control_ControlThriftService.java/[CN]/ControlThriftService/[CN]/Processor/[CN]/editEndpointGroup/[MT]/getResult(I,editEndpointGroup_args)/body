@@ -1,0 +1,10 @@
+{
+  editEndpointGroup_result result=new editEndpointGroup_result();
+  try {
+    result.success=iface.editEndpointGroup(args.endpointGroup);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

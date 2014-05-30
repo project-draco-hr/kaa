@@ -1,0 +1,6 @@
+{
+  ByteBuffer bb=ByteBuffer.wrap(fixed.bytes());
+  long first=bb.getLong();
+  long second=bb.getLong();
+  return new UUID(first,second);
+}

@@ -1,0 +1,17 @@
+{
+  if (!isEmpty(fileItemName)) {
+    try {
+      byte[] data=cacheService.uploadedFile(fileItemName,null);
+      if (data == null) {
+        throw new KaaAdminServiceException("Unable to get file content!",ServiceErrorCode.GENERAL_ERROR);
+      }
+      return data;
+    }
+  finally {
+      cacheService.removeUploadedFile(fileItemName);
+    }
+  }
+ else {
+    throw new KaaAdminServiceException("Unable to get file content, file item name is empty!",ServiceErrorCode.GENERAL_ERROR);
+  }
+}

@@ -1,0 +1,11 @@
+{
+  editTenantAdmin_result result=new editTenantAdmin_result();
+  receiveBase(result,"editTenantAdmin");
+  if (result.isSetSuccess()) {
+    return result.success;
+  }
+  if (result.ControlException != null) {
+    throw result.ControlException;
+  }
+  throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT,"editTenantAdmin failed: unknown result");
+}

@@ -1,0 +1,17 @@
+{
+  authService.checkAuth(new AsyncCallback<AuthResultDto>(){
+    @Override public void onFailure(    Throwable caught){
+      showLogin();
+    }
+    @Override public void onSuccess(    AuthResultDto result){
+      if (result.getAuthResult() == Result.OK) {
+        authInfo=result;
+        init();
+      }
+ else {
+        showLogin();
+      }
+    }
+  }
+);
+}

@@ -1,0 +1,16 @@
+{
+  StringBuffer sb=new StringBuffer();
+  sb.append("NettyServer config:\n");
+  sb.append("Netty HTTP Port = " + getPort() + "\n");
+  sb.append("Netty HTTP Interface = " + getBindInterface() + "\n");
+  sb.append("Client MAX Body Size = " + getClientMaxBodySize() + "\n");
+  sb.append("Task Executor pool Size = " + getExecutorThreadSize() + "\n");
+  sb.append("Default Netty Server Class Initializer = " + getServerInitializerClass());
+  if (commandList != null) {
+    sb.append("Command List:\n");
+    for (    String command : commandList) {
+      sb.append("\t" + command + "\n");
+    }
+  }
+  return sb.toString();
+}

@@ -1,0 +1,11 @@
+{
+  serverName_result result=new serverName_result();
+  receiveBase(result,"serverName");
+  if (result.isSetSuccess()) {
+    return result.success;
+  }
+  if (result.cliException != null) {
+    throw result.cliException;
+  }
+  throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT,"serverName failed: unknown result");
+}

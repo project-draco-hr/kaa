@@ -1,0 +1,10 @@
+{
+  if (forceGC) {
+    System.gc();
+  }
+  MemoryUsage memUsage=new MemoryUsage();
+  memUsage.setMax(Runtime.getRuntime().maxMemory());
+  memUsage.setFree(Runtime.getRuntime().freeMemory());
+  memUsage.setTotal(Runtime.getRuntime().totalMemory());
+  return memUsage;
+}

@@ -1,0 +1,6 @@
+{
+  LOG.trace("DynamicLoadManager deregister listeners...");
+  ControlNode pm=getLoadDistributionService().getZkService().getControlZKNode();
+  pm.removeListener((OperationsNodeListener)this);
+  pm.removeListener((BootstrapNodeListener)this);
+}

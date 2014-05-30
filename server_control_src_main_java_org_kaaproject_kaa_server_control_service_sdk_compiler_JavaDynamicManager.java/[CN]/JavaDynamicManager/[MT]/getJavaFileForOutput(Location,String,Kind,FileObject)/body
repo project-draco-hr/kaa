@@ -1,0 +1,8 @@
+{
+  JavaDynamicBean object=compiledObjects.get(qualifiedName);
+  if (object == null) {
+    object=new JavaDynamicBean(qualifiedName);
+    compiledObjects.put(qualifiedName,object);
+  }
+  return object;
+}

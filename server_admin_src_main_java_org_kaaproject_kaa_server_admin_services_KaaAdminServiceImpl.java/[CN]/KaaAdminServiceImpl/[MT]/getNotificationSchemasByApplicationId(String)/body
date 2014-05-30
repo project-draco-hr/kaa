@@ -1,0 +1,11 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    ApplicationDto storedApplication=toDto(clientProvider.getClient().getApplication(applicationId));
+    checkTenantId(storedApplication.getTenantId());
+    return toDtoList(clientProvider.getClient().findNotificationSchemasByAppIdAndType(applicationId,toGenericDataStruct(NotificationTypeDto.USER)));
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

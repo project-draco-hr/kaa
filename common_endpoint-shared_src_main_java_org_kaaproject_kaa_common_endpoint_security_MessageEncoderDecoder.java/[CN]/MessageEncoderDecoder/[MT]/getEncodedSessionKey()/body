@@ -1,0 +1,6 @@
+{
+  SecretKey key=getSessionKey();
+  Cipher keyCipher=RSA_CIPHER.get();
+  keyCipher.init(Cipher.ENCRYPT_MODE,remotePublicKey);
+  return keyCipher.doFinal(key.getEncoded());
+}

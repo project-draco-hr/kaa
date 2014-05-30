@@ -1,0 +1,6 @@
+{
+  ConfigurationSchema schema=configurationSchemaDao.findByAppIdAndVersion(apps.get(0),1);
+  Assert.assertNotNull(schema);
+  Assert.assertEquals(schema.getStatus(),UpdateStatus.ACTIVE);
+  Assert.assertSame(schema.getMajorVersion(),1);
+}

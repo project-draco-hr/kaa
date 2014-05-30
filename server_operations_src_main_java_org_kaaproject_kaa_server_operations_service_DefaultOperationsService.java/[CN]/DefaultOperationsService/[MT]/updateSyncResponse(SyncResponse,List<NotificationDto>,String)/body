@@ -1,0 +1,21 @@
+{
+  NotificationSyncResponse notificationResponse=response.getNotificationSyncResponse();
+  if (notificationResponse == null) {
+    notificationResponse=new NotificationSyncResponse();
+    response.setNotificationSyncResponse(notificationResponse);
+  }
+  List<Notification> notifications=notificationResponse.getNotifications();
+  if (notifications == null) {
+    notifications=new ArrayList<Notification>();
+  }
+  for (  NotificationDto notificationDto : notificationDtos) {
+    notifications.add(convertNotification(notificationDto));
+  }
+  if (unicastNotificationId != null) {
+    NotificationDto unicast=notificationDeltaService.findUnicastNotificationById(unicastNotificationId);
+    notifications.add(convertNotification(unicast));
+  }
+  notificationResponse.setNotifications(notifications);
+  response.setResponseType(SyncResponseStatus.DELTA);
+  return response;
+}

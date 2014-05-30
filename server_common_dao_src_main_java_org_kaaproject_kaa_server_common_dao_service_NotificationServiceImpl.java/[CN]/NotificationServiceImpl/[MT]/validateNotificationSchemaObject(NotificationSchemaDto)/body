@@ -1,0 +1,6 @@
+{
+  validateObject(dto,"Invalid notification schema object");
+  if (isBlank(dto.getApplicationId()) && !isValidId(dto.getApplicationId()) || dto.getType() == null) {
+    throw new IncorrectParameterException("Invalid notification schema object. Check type or applicationId.");
+  }
+}

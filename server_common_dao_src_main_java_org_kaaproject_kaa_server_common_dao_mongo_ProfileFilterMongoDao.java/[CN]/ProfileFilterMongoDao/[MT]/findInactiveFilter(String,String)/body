@@ -1,0 +1,4 @@
+{
+  LOG.debug("Find inactive profile filter by profile schema id [{}] and group id [{}]",schemaId,groupId);
+  return findOne(query(where(SCHEMA_ID).is(new ObjectId(schemaId)).and(ENDPOINT_GROUP_ID).is(new ObjectId(groupId)).and(STATUS).is(INACTIVE.name())));
+}

@@ -1,0 +1,50 @@
+{
+  Schema uuidSchema=Schema.createFixed("uuidT","","org.kaaproject.configuration",16);
+  Schema.Field uuidField=new Schema.Field("__uuid",uuidSchema,"",null);
+  Schema recordSchema=Schema.createRecord(Arrays.asList(uuidField));
+  GenericRecord recordWithUuid=new GenericData.Record(recordSchema);
+  byte[] uuid_value={0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
+  GenericFixed uuid=(GenericFixed)GenericData.get().createFixed(null,uuid_value,uuidSchema);
+  recordWithUuid.put("__uuid",uuid);
+  AvroDataCanonizationUtils.removeUuid(recordWithUuid);
+  Assert.assertNotNull("recordWithoutUuid is null",recordWithUuid);
+  Assert.assertNull("Uuid is still present after removal in recordWithoutUuid",recordWithUuid.get("__uuid"));
+  Schema otherFixedSchema=Schema.createFixed("__uuid","","not.a",1);
+  Schema.Field otherFixed=new Schema.Field("some_field",otherFixedSchema,"",null);
+  byte[] otherFixedValue={1};
+  Schema.Field innerRecordField=new Schema.Field("inner",recordSchema,"",null);
+  Schema intFieldSchema=Schema.create(Type.INT);
+  Schema.Field intField=new Schema.Field("int_value",intFieldSchema,"",null);
+  Schema.Field uuidInArrayField=new Schema.Field("__uuid",uuidSchema,"",null);
+  Schema inArrayRecordSchema=Schema.createRecord(Arrays.asList(uuidInArrayField,intField));
+  GenericRecord inArrayRecord1=new GenericData.Record(inArrayRecordSchema);
+  inArrayRecord1.put("__uuid",GenericData.get().createFixed(null,uuid_value,uuidSchema));
+  inArrayRecord1.put("int_value",new Integer(100));
+  GenericRecord inArrayRecord2=new GenericData.Record(inArrayRecordSchema);
+  inArrayRecord2.put("__uuid",GenericData.get().createFixed(null,uuid_value,uuidSchema));
+  inArrayRecord2.put("int_value",new Integer(200));
+  Schema arraySchema=Schema.createArray(inArrayRecordSchema);
+  Schema.Field arrayField=new Schema.Field("array1",arraySchema,"",null);
+  GenericArray<GenericRecord> array1=new GenericData.Array<GenericRecord>(2,arraySchema);
+  array1.add(inArrayRecord1);
+  array1.add(inArrayRecord2);
+  Schema.Field uuidOfComplexRecordField=new Schema.Field("__uuid",uuidSchema,"",null);
+  Schema complexRecordSchemaWithUuid=Schema.createRecord(Arrays.asList(innerRecordField,arrayField,uuidOfComplexRecordField,otherFixed));
+  GenericRecord complexRecordWithUuid=new GenericData.Record(complexRecordSchemaWithUuid);
+  complexRecordWithUuid.put("inner",recordWithUuid);
+  complexRecordWithUuid.put("some_field",GenericData.get().createFixed(null,otherFixedValue,otherFixedSchema));
+  complexRecordWithUuid.put("__uuid",uuid);
+  complexRecordWithUuid.put("array1",array1);
+  AvroDataCanonizationUtils.removeUuid(complexRecordWithUuid);
+  Assert.assertNotNull("complexRecordWithoutUuid is null",complexRecordWithUuid);
+  Assert.assertNull("Uuid is still present after removal in complexRecordWithoutUuid",complexRecordWithUuid.get("__uuid"));
+  Assert.assertNotNull("some_field in complexRecordWithoutUuid is null",complexRecordWithUuid.get("some_field"));
+  GenericRecord innerRecordWithoutUuid=(GenericRecord)complexRecordWithUuid.get("inner");
+  Assert.assertNotNull("innerRecordWithoutUuid is null",innerRecordWithoutUuid);
+  Assert.assertNull("Uuid is still present after removal in innerRecordWithoutUuid",innerRecordWithoutUuid.get("__uuid"));
+  GenericArray<GenericRecord> array1WithoutUuids=(GenericArray<GenericRecord>)complexRecordWithUuid.get("array1");
+  for (  GenericRecord rec : array1WithoutUuids) {
+    Assert.assertNull("Uuid is still present after removal in record in array",rec.get("__uuid"));
+    Assert.assertNotNull("Record in array is null",rec.get("int_value"));
+  }
+}

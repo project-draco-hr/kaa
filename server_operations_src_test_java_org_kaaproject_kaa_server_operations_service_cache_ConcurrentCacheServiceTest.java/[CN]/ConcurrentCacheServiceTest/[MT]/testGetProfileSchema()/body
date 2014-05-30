@@ -1,0 +1,8 @@
+{
+  assertEquals(PF1_SCHEMA,cacheService.getProfileSchemaByAppAndVersion(PF_SCHEMA_KEY));
+  verify(profileService,times(1)).findProfileSchemaByAppIdAndVersion(APP_ID,PF_SCHEMA_KEY.getVersion());
+  reset(profileService);
+  assertEquals(PF1_SCHEMA,cacheService.getProfileSchemaByAppAndVersion(PF_SCHEMA_KEY));
+  verify(profileService,times(0)).findProfileSchemaByAppIdAndVersion(APP_ID,PF_SCHEMA_KEY.getVersion());
+  reset(profileService);
+}

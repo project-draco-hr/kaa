@@ -1,0 +1,14 @@
+{
+  byte[] serializedProfile=profileContainer.getSerializedProfile();
+  if (state.isRegistered()) {
+    if (isProfileHashOutdated(serializedProfile)) {
+      startProfileUpdate(serializedProfile);
+    }
+ else {
+      startPoll();
+    }
+  }
+ else {
+    startRegister(serializedProfile);
+  }
+}

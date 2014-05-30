@@ -1,0 +1,14 @@
+{
+  ProfileSchemaDto profileSchemaDto=generateProfSchema(null,1).get(0);
+  Assert.assertNotNull(profileSchemaDto);
+  ProfileSchema profileSchema=new ProfileSchema(profileSchemaDto);
+  List<ProfileSchema> schemaList=profileSchemaDao.findByApplicationId(profileSchema.getApplicationId().toString());
+  Assert.assertNotNull(schemaList);
+  ProfileSchema found=null;
+  for (  ProfileSchema schema : schemaList) {
+    if (schema.getId().equals(profileSchema.getId())) {
+      found=schema;
+    }
+  }
+  Assert.assertEquals(profileSchema,found);
+}

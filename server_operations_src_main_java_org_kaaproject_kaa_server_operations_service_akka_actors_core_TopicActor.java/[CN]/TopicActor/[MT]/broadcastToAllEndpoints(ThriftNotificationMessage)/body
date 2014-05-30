@@ -1,0 +1,16 @@
+{
+  String notificationId=message.getNotification().getNotificationId();
+  NotificationDto notificationDto=notificationService.findNotificationById(notificationId);
+  if (notificationDto == null) {
+    LOG.warn("Can't find notification by id {}. Probably it has already expired!");
+  }
+ else {
+    notificationCache.put(notificationDto.getSecNum(),notificationDto);
+    NotificationMessage notificationMessage=NotificationMessage.fromNotifications(Collections.singletonList(notificationDto));
+    for (    ActorInfo endpoint : endpointSessions.values()) {
+      if (isSchemaVersionMatch(notificationDto,endpoint.getSystemNfVersion(),endpoint.getUserNfVersion())) {
+        endpoint.getActorRef().tell(notificationMessage,self());
+      }
+    }
+  }
+}

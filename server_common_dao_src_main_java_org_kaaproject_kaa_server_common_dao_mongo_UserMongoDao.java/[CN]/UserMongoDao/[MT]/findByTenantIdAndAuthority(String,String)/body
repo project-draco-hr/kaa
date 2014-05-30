@@ -1,0 +1,4 @@
+{
+  LOG.debug("Find user by tenant id [{}] and authority [{}]",tenantId,authority);
+  return find(query(where(TENANT_ID).is(new ObjectId(tenantId)).and(AUTHORITY).is(authority)));
+}

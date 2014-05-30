@@ -1,0 +1,35 @@
+{
+  StringBuilder sb=new StringBuilder("generateSdk_args(");
+  boolean first=true;
+  sb.append("sdkPlatform:");
+  if (this.sdkPlatform == null) {
+    sb.append("null");
+  }
+ else {
+    sb.append(this.sdkPlatform);
+  }
+  first=false;
+  if (!first)   sb.append(", ");
+  sb.append("applicationId:");
+  if (this.applicationId == null) {
+    sb.append("null");
+  }
+ else {
+    sb.append(this.applicationId);
+  }
+  first=false;
+  if (!first)   sb.append(", ");
+  sb.append("profileSchemaVersion:");
+  sb.append(this.profileSchemaVersion);
+  first=false;
+  if (!first)   sb.append(", ");
+  sb.append("configurationSchemaVersion:");
+  sb.append(this.configurationSchemaVersion);
+  first=false;
+  if (!first)   sb.append(", ");
+  sb.append("notificationSchemaVersion:");
+  sb.append(this.notificationSchemaVersion);
+  first=false;
+  sb.append(")");
+  return sb.toString();
+}

@@ -1,0 +1,6 @@
+{
+  TenantAdminDto tenantAdminDto=generateTenantAdmin(null,null);
+  List<TenantAdminDto> admins=userService.findAllTenantAdmins();
+  Assert.assertEquals(1,admins.size());
+  Assert.assertEquals(tenantAdminDto,admins.get(0));
+}

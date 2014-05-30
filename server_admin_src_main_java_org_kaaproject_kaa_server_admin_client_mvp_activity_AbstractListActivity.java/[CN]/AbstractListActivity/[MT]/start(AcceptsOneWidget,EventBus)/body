@@ -1,0 +1,8 @@
+{
+  listView=getView();
+  this.dataProvider=getDataProvider(listView.getSelectionModel(),new DataLoadCallback(listView));
+  listView.setPresenter(this);
+  bind(eventBus);
+  containerWidget.setWidget(listView.asWidget());
+  dataProvider.addDataDisplay(listView.getDisplay());
+}

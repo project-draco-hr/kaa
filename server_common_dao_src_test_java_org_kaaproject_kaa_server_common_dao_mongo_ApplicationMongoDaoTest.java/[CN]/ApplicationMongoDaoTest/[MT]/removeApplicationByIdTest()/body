@@ -1,0 +1,7 @@
+{
+  String id=apps.get(0);
+  Application dto=applicationDao.findById(id);
+  Assert.assertNotNull(dto);
+  applicationDao.removeById(id);
+  Assert.assertNull(applicationDao.findById(id));
+}

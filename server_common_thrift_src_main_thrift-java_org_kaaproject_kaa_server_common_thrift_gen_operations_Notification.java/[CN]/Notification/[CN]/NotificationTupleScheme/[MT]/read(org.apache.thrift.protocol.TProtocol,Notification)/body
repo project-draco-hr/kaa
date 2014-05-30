@@ -1,0 +1,56 @@
+{
+  TTupleProtocol iprot=(TTupleProtocol)prot;
+  BitSet incoming=iprot.readBitSet(13);
+  if (incoming.get(0)) {
+    struct.appId=iprot.readString();
+    struct.setAppIdIsSet(true);
+  }
+  if (incoming.get(1)) {
+    struct.appSeqNumber=iprot.readI32();
+    struct.setAppSeqNumberIsSet(true);
+  }
+  if (incoming.get(2)) {
+    struct.groupId=iprot.readString();
+    struct.setGroupIdIsSet(true);
+  }
+  if (incoming.get(3)) {
+    struct.groupSeqNumber=iprot.readI32();
+    struct.setGroupSeqNumberIsSet(true);
+  }
+  if (incoming.get(4)) {
+    struct.profileFilterId=iprot.readString();
+    struct.setProfileFilterIdIsSet(true);
+  }
+  if (incoming.get(5)) {
+    struct.profileFilterSeqNumber=iprot.readI32();
+    struct.setProfileFilterSeqNumberIsSet(true);
+  }
+  if (incoming.get(6)) {
+    struct.configurationId=iprot.readString();
+    struct.setConfigurationIdIsSet(true);
+  }
+  if (incoming.get(7)) {
+    struct.configurationSeqNumber=iprot.readI32();
+    struct.setConfigurationSeqNumberIsSet(true);
+  }
+  if (incoming.get(8)) {
+    struct.notificationId=iprot.readString();
+    struct.setNotificationIdIsSet(true);
+  }
+  if (incoming.get(9)) {
+    struct.unicastNotificationId=iprot.readString();
+    struct.setUnicastNotificationIdIsSet(true);
+  }
+  if (incoming.get(10)) {
+    struct.topicId=iprot.readString();
+    struct.setTopicIdIsSet(true);
+  }
+  if (incoming.get(11)) {
+    struct.keyHash=iprot.readBinary();
+    struct.setKeyHashIsSet(true);
+  }
+  if (incoming.get(12)) {
+    struct.op=Operation.findByValue(iprot.readI32());
+    struct.setOpIsSet(true);
+  }
+}

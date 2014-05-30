@@ -1,0 +1,27 @@
+{
+  headerView.getUsernameLabel().setText(KaaAdmin.getAuthInfo().getDisplayName());
+  registrations.add(headerView.getUsernameLabel().addClickHandler(new ClickHandler(){
+    public void onClick(    ClickEvent event){
+      goTo(new UserProfilePlace());
+    }
+  }
+));
+  registrations.add(headerView.getSignoutLabel().addClickHandler(new ClickHandler(){
+    public void onClick(    ClickEvent event){
+      KaaAdmin.signOut();
+    }
+  }
+));
+  headerView.getSettingsLabel().addMenuItem(Utils.constants.profile(),new ActionMenuItemListener(){
+    @Override public void onMenuItemSelected(){
+      goTo(new UserProfilePlace());
+    }
+  }
+);
+  headerView.getSettingsLabel().addMenuItem(Utils.constants.change_password(),new ActionMenuItemListener(){
+    @Override public void onMenuItemSelected(){
+      showChangePasswordDialog();
+    }
+  }
+);
+}

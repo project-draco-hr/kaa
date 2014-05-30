@@ -1,0 +1,25 @@
+{
+  if (this == o) {
+    return true;
+  }
+  if (!(o instanceof Application)) {
+    return false;
+  }
+  Application that=(Application)o;
+  if (sequenceNumber != that.sequenceNumber) {
+    return false;
+  }
+  if (applicationToken != null ? !applicationToken.equals(that.applicationToken) : that.applicationToken != null) {
+    return false;
+  }
+  if (tenantId != null ? !tenantId.equals(that.tenantId) : that.tenantId != null) {
+    return false;
+  }
+  if (name != null ? !name.equals(that.name) : that.name != null) {
+    return false;
+  }
+  if (update != null ? !update.equals(that.update) : that.update != null) {
+    return false;
+  }
+  return true;
+}

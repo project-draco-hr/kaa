@@ -1,0 +1,29 @@
+{
+  validateObject(endpointProfileDto,"Can't find endpoint profile object. Invalid endpoint profile object" + endpointProfileDto);
+  byte[] keyHash=endpointProfileDto.getEndpointKeyHash();
+  EndpointProfileDto dto;
+  validateHash(keyHash,"Incorrect key hash for endpoint profile.");
+  if (isBlank(endpointProfileDto.getId())) {
+    if (endpointProfileDao.getCountByKeyHash(keyHash) == 0) {
+      LOG.debug("Register new endpoint profile.");
+      dto=getDto(endpointProfileDao.save(new EndpointProfile(endpointProfileDto)));
+    }
+ else {
+      EndpointProfile storedProfile=endpointProfileDao.findByKeyHash(keyHash);
+      if (Arrays.equals(storedProfile.getEndpointKey(),endpointProfileDto.getEndpointKey())) {
+        LOG.debug("Got register profile for already existing profile {}. Will overwrite existing profile!",keyHash);
+        endpointProfileDto.setId(storedProfile.getId());
+        dto=getDto(endpointProfileDao.save(new EndpointProfile(endpointProfileDto)));
+      }
+ else {
+        LOG.warn("Endpoint profile with key hash {} already exists.",keyHash);
+        throw new DatabaseProcessingException("Can't save endpoint profile with existing key hash.");
+      }
+    }
+  }
+ else {
+    LOG.debug("Update endpoint profile with id [{}]",endpointProfileDto.getId());
+    dto=getDto(endpointProfileDao.save(new EndpointProfile(endpointProfileDto)));
+  }
+  return dto;
+}

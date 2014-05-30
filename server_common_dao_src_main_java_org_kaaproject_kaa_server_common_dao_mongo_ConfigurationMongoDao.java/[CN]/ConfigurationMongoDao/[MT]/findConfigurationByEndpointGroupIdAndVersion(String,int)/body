@@ -1,0 +1,4 @@
+{
+  LOG.debug("Find configuration by endpoint group id [{}] and version [{}]",endpointGroupId,version);
+  return findOne(query(where(ENDPOINT_GROUP_ID).is(new ObjectId(endpointGroupId)).and(MAJOR_VERSION).is(version).and(STATUS).is(ACTIVE.name())));
+}

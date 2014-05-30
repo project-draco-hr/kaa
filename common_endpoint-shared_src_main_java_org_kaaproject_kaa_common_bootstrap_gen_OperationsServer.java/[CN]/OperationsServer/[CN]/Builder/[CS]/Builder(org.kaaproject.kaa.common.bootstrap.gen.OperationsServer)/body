@@ -1,0 +1,15 @@
+{
+  super(org.kaaproject.kaa.common.bootstrap.gen.OperationsServer.SCHEMA$);
+  if (isValidValue(fields()[0],other.DNSName)) {
+    this.DNSName=data().deepCopy(fields()[0].schema(),other.DNSName);
+    fieldSetFlags()[0]=true;
+  }
+  if (isValidValue(fields()[1],other.Priority)) {
+    this.Priority=data().deepCopy(fields()[1].schema(),other.Priority);
+    fieldSetFlags()[1]=true;
+  }
+  if (isValidValue(fields()[2],other.PublicKey)) {
+    this.PublicKey=data().deepCopy(fields()[2].schema(),other.PublicKey);
+    fieldSetFlags()[2]=true;
+  }
+}

@@ -1,0 +1,13 @@
+{
+  if (value != null) {
+    for (    T item : value) {
+      Object key=keyProvider.getKey(item);
+      Integer index=valueKeyToIndex.get(key);
+      if (index == null) {
+        addValue(item);
+      }
+      index=valueKeyToIndex.get(key);
+      getListBox().setItemSelected(index,true);
+    }
+  }
+}

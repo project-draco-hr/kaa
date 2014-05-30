@@ -1,0 +1,8 @@
+{
+  assertEquals(TEST_PROFILE_FILTER,cacheService.getFilter(PF1_ID));
+  verify(profileService,times(1)).findProfileFilterById(PF1_ID);
+  reset(profileService);
+  assertEquals(TEST_PROFILE_FILTER,cacheService.getFilter(PF1_ID));
+  verify(profileService,times(0)).findProfileFilterById(PF1_ID);
+  reset(profileService);
+}

@@ -1,0 +1,17 @@
+{
+  TenantDto tenant=createTenant();
+  List<UserDto> users=new ArrayList<UserDto>(10);
+  for (int i=0; i < 10; i++) {
+    UserDto user=createUser(tenant.getId(),i % 2 == 0 ? KaaAuthorityDto.TENANT_DEVELOPER : KaaAuthorityDto.TENANT_USER);
+    users.add(user);
+  }
+  Collections.sort(users,new IdComparator());
+  List<UserDto> storedUsers=toDtoList(client.getTenantUsers(tenant.getId()));
+  Collections.sort(storedUsers,new IdComparator());
+  Assert.assertEquals(users.size(),storedUsers.size());
+  for (int i=0; i < users.size(); i++) {
+    UserDto user=users.get(i);
+    UserDto storedUser=storedUsers.get(i);
+    assertUsersEquals(user,storedUser);
+  }
+}

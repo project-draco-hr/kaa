@@ -1,0 +1,15 @@
+{
+  Computable<Integer,Integer> slowCancelable=new Computable<Integer,Integer>(){
+    @Override public Integer compute(    Integer key){
+      throw new CancellationException("I am to slow");
+    }
+  }
+;
+  CacheTemporaryMemorizer<Integer,Integer> cache=new CacheTemporaryMemorizer<>();
+  try {
+    cache.compute(42,slowCancelable);
+  }
+ catch (  RuntimeException e) {
+  }
+  Assert.assertEquals(0,cache.getCacheSize());
+}

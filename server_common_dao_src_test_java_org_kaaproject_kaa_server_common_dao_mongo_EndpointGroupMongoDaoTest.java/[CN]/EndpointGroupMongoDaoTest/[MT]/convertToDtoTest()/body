@@ -1,0 +1,8 @@
+{
+  String id=endGroups.get(0);
+  EndpointGroup found=endpointGroupDao.findById(id);
+  Assert.assertNotNull(found);
+  EndpointGroupDto dto=found.toDto();
+  EndpointGroup converted=new EndpointGroup(dto);
+  Assert.assertEquals(found,converted);
+}

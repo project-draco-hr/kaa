@@ -1,0 +1,36 @@
+{
+  cliOut.reset();
+  boolean create=strIsEmpty(profileFilterId);
+  int result=-1;
+  if (create) {
+    if (strIsEmpty(profileSchemaId) || strIsEmpty(endpointGroupId)) {
+      String applicationId=editApplicationCli(cli,null,null,false);
+      profileSchemaId=editProfileSchemaCli(cli,null,applicationId,false);
+      cliOut.reset();
+      endpointGroupId=editEndpointGroupCli(cli,null,applicationId,"10",false);
+      cliOut.reset();
+    }
+    String cmdLine="createProfileFilter -f " + getTestFile("testProfileFilter.json") + " -s "+ profileSchemaId+ " -e "+ endpointGroupId;
+    if (createOut) {
+      cmdLine+=" -o dummy.out";
+    }
+    result=cli.processLine(cmdLine);
+  }
+ else {
+    result=cli.processLine("editProfileFilter -f " + getTestFile("testProfileFilterUpdated.json") + " -i "+ profileFilterId);
+  }
+  Assert.assertEquals(result,0);
+  String output=cliOut.toString("UTF-8");
+  if (create) {
+    String id=output.trim().substring("Created new Profile Filter with id: ".length()).trim();
+    return id;
+  }
+ else   if (profileFilterId.equals(FAKE_ID)) {
+    Assert.assertTrue(output.trim().startsWith("Profile Filter with id " + FAKE_ID + " not found!"));
+    return profileFilterId;
+  }
+ else {
+    Assert.assertTrue(output.trim().startsWith("Profile Filter updated."));
+    return profileFilterId;
+  }
+}

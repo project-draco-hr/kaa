@@ -1,0 +1,7 @@
+{
+  String tenantId=new ObjectId().toString();
+  generateApplication(tenantId);
+  applicationService.removeAppsByTenantId(tenantId);
+  List<ApplicationDto> apps=applicationService.findAppsByTenantId(tenantId);
+  Assert.assertTrue(apps.isEmpty());
+}

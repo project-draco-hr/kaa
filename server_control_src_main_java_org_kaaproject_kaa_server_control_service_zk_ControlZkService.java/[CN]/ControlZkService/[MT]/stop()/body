@@ -1,0 +1,10 @@
+{
+  if (zkEnabled) {
+    try {
+      controlZKNode.close();
+    }
+ catch (    IOException e) {
+      LOG.warn("Error closing ZK node",e);
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  GenerateSdkDialog.showGenerateSdkDialog(entityId,new AsyncCallback<GenerateSdkDialog>(){
+    @Override public void onFailure(    Throwable caught){
+      detailsView.setErrorMessage(Utils.getErrorMessage(caught));
+    }
+    @Override public void onSuccess(    GenerateSdkDialog result){
+    }
+  }
+);
+}

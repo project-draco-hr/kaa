@@ -1,0 +1,11 @@
+{
+  NotificationDto notificationDto;
+  try {
+    notificationDto=saveNotificationAndIncSeqNum(dto,topicId);
+  }
+ catch (  MongoException.DuplicateKey ex) {
+    LOG.debug("Catch duplicate key exception with id: [{}]",dto.getId());
+    notificationDto=saveNotification(dto,topicId);
+  }
+  return notificationDto;
+}

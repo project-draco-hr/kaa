@@ -1,0 +1,39 @@
+{
+  super(other);
+  if (isValidValue(fields()[0],other.applicationToken)) {
+    this.applicationToken=data().deepCopy(fields()[0].schema(),other.applicationToken);
+    fieldSetFlags()[0]=true;
+  }
+  if (isValidValue(fields()[1],other.endpointPublicKeyHash)) {
+    this.endpointPublicKeyHash=data().deepCopy(fields()[1].schema(),other.endpointPublicKeyHash);
+    fieldSetFlags()[1]=true;
+  }
+  if (isValidValue(fields()[2],other.profileHash)) {
+    this.profileHash=data().deepCopy(fields()[2].schema(),other.profileHash);
+    fieldSetFlags()[2]=true;
+  }
+  if (isValidValue(fields()[3],other.configurationHash)) {
+    this.configurationHash=data().deepCopy(fields()[3].schema(),other.configurationHash);
+    fieldSetFlags()[3]=true;
+  }
+  if (isValidValue(fields()[4],other.topicListHash)) {
+    this.topicListHash=data().deepCopy(fields()[4].schema(),other.topicListHash);
+    fieldSetFlags()[4]=true;
+  }
+  if (isValidValue(fields()[5],other.appStateSeqNumber)) {
+    this.appStateSeqNumber=data().deepCopy(fields()[5].schema(),other.appStateSeqNumber);
+    fieldSetFlags()[5]=true;
+  }
+  if (isValidValue(fields()[6],other.acceptedUnicastNotifications)) {
+    this.acceptedUnicastNotifications=data().deepCopy(fields()[6].schema(),other.acceptedUnicastNotifications);
+    fieldSetFlags()[6]=true;
+  }
+  if (isValidValue(fields()[7],other.topicStates)) {
+    this.topicStates=data().deepCopy(fields()[7].schema(),other.topicStates);
+    fieldSetFlags()[7]=true;
+  }
+  if (isValidValue(fields()[8],other.subscriptionCommands)) {
+    this.subscriptionCommands=data().deepCopy(fields()[8].schema(),other.subscriptionCommands);
+    fieldSetFlags()[8]=true;
+  }
+}

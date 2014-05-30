@@ -1,0 +1,11 @@
+{
+  SafeUri url=res.getSafeUri();
+  int width=res.getWidth();
+  int height=res.getHeight();
+  int paddingRight=width + spacing;
+  String style="url(\"" + url.asString() + "\") no-repeat scroll left center";
+  imageSpan.getStyle().setProperty("background",style);
+  imageSpan.getStyle().setPropertyPx("width",width);
+  imageSpan.getStyle().setPropertyPx("height",height);
+  imageSpan.getStyle().setPropertyPx("paddingRight",paddingRight);
+}

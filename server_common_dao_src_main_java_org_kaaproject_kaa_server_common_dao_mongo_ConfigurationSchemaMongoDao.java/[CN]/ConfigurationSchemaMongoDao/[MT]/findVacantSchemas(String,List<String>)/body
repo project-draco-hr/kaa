@@ -1,0 +1,4 @@
+{
+  LOG.debug("Find vacant schemas, application id [{}] ",applicationId);
+  return find(query(where(APPLICATION_ID).is(new ObjectId(applicationId)).and(ID).nin(stringListToObjectIdList(usedSchemaIds))));
+}

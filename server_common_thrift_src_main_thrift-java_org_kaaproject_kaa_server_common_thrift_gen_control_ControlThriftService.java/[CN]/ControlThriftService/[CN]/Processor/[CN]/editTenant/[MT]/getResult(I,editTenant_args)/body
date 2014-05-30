@@ -1,0 +1,10 @@
+{
+  editTenant_result result=new editTenant_result();
+  try {
+    result.success=iface.editTenant(args.tenant);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

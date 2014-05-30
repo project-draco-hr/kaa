@@ -1,0 +1,7 @@
+{
+  cliOut.reset();
+  int result=cli.processLine("activateProfileFilter -i " + profileFilterId);
+  Assert.assertEquals(result,0);
+  String output=cliOut.toString("UTF-8");
+  Assert.assertTrue(output.trim().startsWith("Profile Filter Activated."));
+}

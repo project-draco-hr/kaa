@@ -1,0 +1,8 @@
+{
+  if (data.length >= 2 && data[data.length - 1] == 0x0D && data[data.length - 2] == 0x0D) {
+    return crcrlfFix(Arrays.copyOf(data,data.length - 1));
+  }
+ else {
+    return data;
+  }
+}

@@ -1,0 +1,10 @@
+{
+  controlClientConnect();
+  ControlApiCliThriftClient cli=new ControlApiCliThriftClient();
+  String applicationId=editApplicationCli(cli,null,null,false);
+  String schemaId=editNotificationSchemaCli(cli,null,applicationId,NotificationTypeDto.SYSTEM,false,false);
+  String notificationId=createUnicastNotificationCli(cli,schemaId,"530db773687f16fec3527354","ZThNRW56Wm9GeU1tRDdXU0hkTnJGSnlFazhNPQ==",false,false);
+  Assert.assertTrue(ObjectId.isValid(notificationId.trim()));
+  notificationId=createUnicastNotificationCli(cli,schemaId,"530db773687f16fec3527354","ZThNRW56Wm9GeU1tRDdXU0hkTnJGSnlFazhNPQ==",true,false);
+  Assert.assertTrue(ObjectId.isValid(notificationId.trim()));
+}

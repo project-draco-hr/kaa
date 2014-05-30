@@ -1,0 +1,6 @@
+{
+  SecretKey key=getSessionKey();
+  Cipher sessionDataCipher=AES_CIPHER.get();
+  sessionDataCipher.init(Cipher.ENCRYPT_MODE,key);
+  return sessionDataCipher.doFinal(message);
+}

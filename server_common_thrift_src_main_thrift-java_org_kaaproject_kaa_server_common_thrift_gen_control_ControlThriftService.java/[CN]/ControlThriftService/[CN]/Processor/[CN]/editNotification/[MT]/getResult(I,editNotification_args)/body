@@ -1,0 +1,10 @@
+{
+  editNotification_result result=new editNotification_result();
+  try {
+    result.success=iface.editNotification(args.notification);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

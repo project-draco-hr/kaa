@@ -1,0 +1,16 @@
+{
+  if (that == null)   return false;
+  boolean this_present_configurationId=true && this.isSetConfigurationId();
+  boolean that_present_configurationId=true && that.isSetConfigurationId();
+  if (this_present_configurationId || that_present_configurationId) {
+    if (!(this_present_configurationId && that_present_configurationId))     return false;
+    if (!this.configurationId.equals(that.configurationId))     return false;
+  }
+  boolean this_present_deactivatedUsername=true && this.isSetDeactivatedUsername();
+  boolean that_present_deactivatedUsername=true && that.isSetDeactivatedUsername();
+  if (this_present_deactivatedUsername || that_present_deactivatedUsername) {
+    if (!(this_present_deactivatedUsername && that_present_deactivatedUsername))     return false;
+    if (!this.deactivatedUsername.equals(that.deactivatedUsername))     return false;
+  }
+  return true;
+}

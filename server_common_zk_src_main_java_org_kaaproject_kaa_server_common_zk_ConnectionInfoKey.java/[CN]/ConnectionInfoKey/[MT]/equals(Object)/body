@@ -1,0 +1,24 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  ConnectionInfoKey other=(ConnectionInfoKey)obj;
+  if (host == null) {
+    if (other.host != null) {
+      return false;
+    }
+  }
+ else   if (!host.equals(other.host)) {
+    return false;
+  }
+  if (port != other.port) {
+    return false;
+  }
+  return true;
+}

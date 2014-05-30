@@ -1,0 +1,5 @@
+{
+  List<ProfileFilterDto> filters=profileService.findProfileFilterByAppIdAndVersion(apps.get(0),1);
+  Assert.assertNotNull(filters);
+  Assert.assertFalse(filters.isEmpty());
+}

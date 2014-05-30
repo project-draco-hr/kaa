@@ -1,0 +1,9 @@
+{
+  DynamicLoadManager dm=new DynamicLoadManager(ldServiceMock);
+  assertNotNull(dm);
+  assertNotNull(dm.getLoadDistributionService());
+  assertNotNull(dm.getDynamicRebalancer());
+  verify(ldServiceMock,times(2)).getOpsServerHistoryTTL();
+  verify(ldServiceMock,times(2)).getDynamicMgmtClass();
+  assertEquals(300000,dm.getOpsServerHistoryTTL());
+}

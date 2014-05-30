@@ -1,0 +1,10 @@
+{
+  super();
+  if (sessionTimeoutMs > -1 && connectionTimeoutMs > -1) {
+    this.client=CuratorFrameworkFactory.newClient(zkHostPortList,sessionTimeoutMs,connectionTimeoutMs,retryPolicy);
+  }
+ else {
+    this.client=CuratorFrameworkFactory.newClient(zkHostPortList,retryPolicy);
+  }
+  this.listeners=new ArrayList<ControlNodeListener>();
+}

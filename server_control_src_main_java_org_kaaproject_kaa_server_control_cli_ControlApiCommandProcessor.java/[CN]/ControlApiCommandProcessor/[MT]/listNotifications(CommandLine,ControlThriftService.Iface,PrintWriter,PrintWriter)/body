@@ -1,0 +1,22 @@
+{
+  if (line.hasOption("t")) {
+    try {
+      String topicId=line.getOptionValue("t");
+      List<? extends HasId> dtos=ThriftDtoConverter.<NotificationDto>toDtoList(client.getNotificationsByTopicId(topicId));
+      writer.println("List of Notifications:");
+      writer.println();
+      for (      HasId dto : dtos) {
+        writer.println(dto);
+      }
+      writer.println();
+      writer.println("Total: " + dtos.size());
+      if (line.hasOption("o")) {
+        String outFileName=line.getOptionValue("o");
+        storeObjectIds(outFileName,dtos,errorWriter);
+      }
+    }
+ catch (    TException e) {
+      handleException("Unable to get list of Notifications",e,errorWriter);
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  this.storage=storage;
+  if (configurationHash == null) {
+    ByteBuffer byteBuffer=storage.loadConfiguration();
+    if (byteBuffer != null) {
+      ignoreNextUpdate=true;
+      processor.processConfigurationData(byteBuffer,true);
+      configurationHash=EndpointObjectHash.fromSHA1(byteBuffer.array());
+    }
+  }
+}

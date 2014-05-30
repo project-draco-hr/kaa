@@ -1,0 +1,6 @@
+{
+  List<HistoryDto> historyRows=historyService.findHistoriesBySeqNumberStart(application.getId(),2);
+  Assert.assertEquals(2,historyRows.size());
+  Assert.assertEquals(ChangeType.ADD_PROF,historyRows.get(1).getChange().getType());
+  Assert.assertEquals(ChangeType.ADD_CONF,historyRows.get(0).getChange().getType());
+}

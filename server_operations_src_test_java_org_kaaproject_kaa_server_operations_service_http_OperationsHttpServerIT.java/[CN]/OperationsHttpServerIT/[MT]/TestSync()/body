@@ -1,0 +1,21 @@
+{
+  logger.info("Test Sync request");
+  for (int i=0; i < NUMBER_OF_TESTS; i++) {
+    sendSyncTest();
+  }
+  try {
+synchronized (sync) {
+      sync.wait(MAX_TEST_TIMEOUT);
+    }
+  }
+ catch (  InterruptedException e) {
+    e.printStackTrace();
+  }
+  for (  Integer id : syncTests.keySet()) {
+    if (!syncTests.get(id).test()) {
+      testFailed++;
+      logger.trace("SYnc Test " + id + " failed.");
+    }
+  }
+  assertEquals(0,testFailed);
+}

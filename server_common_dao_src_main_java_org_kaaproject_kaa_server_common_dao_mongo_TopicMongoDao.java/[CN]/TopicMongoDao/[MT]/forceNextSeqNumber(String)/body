@@ -1,0 +1,5 @@
+{
+  LOG.debug("Force increment update.seq_num for topic found by id [{}] ",id);
+  Update update=new Update().set(UPDATE_PROCESSING_STATUS,ProcessingStatus.PENDING.name());
+  return findAndModify(query(where(ID).is(new ObjectId(id))),update,returnNew);
+}

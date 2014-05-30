@@ -1,0 +1,22 @@
+{
+  EndpointProfileDto dto=new EndpointProfileDto();
+  dto.setId(id);
+  dto.setEndpointGroups(DaoUtil.<EndpointGroupStateDto>convertDtoList(endpointGroup));
+  dto.setChangedFlag(changedFlag);
+  dto.setSequenceNumber(sequenceNumber);
+  dto.setConfigurationHash(configurationHash);
+  dto.setConfigurationVersion(configurationVersion);
+  dto.setApplicationId(idToString(applicationId));
+  dto.setEndpointKey(endpointKey);
+  dto.setEndpointKeyHash(endpointKeyHash);
+  dto.setProfile(profile != null ? profile.toString() : null);
+  dto.setProfileHash(profileHash);
+  dto.setProfileVersion(profileVersion);
+  dto.setProfileSchemaId(idToString(profileSchemaId));
+  dto.setNotificationVersion(notificationVersion);
+  dto.setSubscriptions(subscriptions);
+  dto.setNtHash(ntHash);
+  dto.setSystemNfVersion(systemNfVersion);
+  dto.setUserNfVersion(userNfVersion);
+  return dto;
+}

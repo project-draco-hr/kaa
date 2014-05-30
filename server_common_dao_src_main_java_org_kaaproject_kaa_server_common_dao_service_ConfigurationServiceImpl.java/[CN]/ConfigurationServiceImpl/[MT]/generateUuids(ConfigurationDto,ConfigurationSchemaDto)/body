@@ -1,0 +1,32 @@
+{
+  try {
+    EndpointGroup endpointGroup=endpointGroupDao.findById(configuration.getEndpointGroupId());
+    GenericAvroConverter<GenericContainer> avroConverter;
+    byte[] body=null;
+    if (endpointGroup != null) {
+      if (endpointGroup.getWeight() == 0) {
+        LOG.debug("Create default configuration processor with base schema.");
+        configurationProcessor=new DefaultConfigurationProcessor(configurationSchema.getBaseSchema());
+        avroConverter=new GenericAvroConverter<GenericContainer>(configurationSchema.getBaseSchema());
+      }
+ else {
+        LOG.debug("Create default configuration processor with override schema.");
+        configurationProcessor=new DefaultConfigurationProcessor(configurationSchema.getOverrideSchema());
+        avroConverter=new GenericAvroConverter<GenericContainer>(configurationSchema.getOverrideSchema());
+      }
+      GenericContainer genericContainer=avroConverter.decodeJson(configuration.getBody());
+      body=configurationProcessor.generateUuidFields(genericContainer);
+    }
+    if (body != null) {
+      configuration.setBinaryBody(body);
+    }
+ else {
+      throw new RuntimeException("Can't generate json configuration body.");
+    }
+  }
+ catch (  Exception e) {
+    LOG.warn("Can't generate uuid fields for configuration {}",configuration);
+    LOG.error("Can't generate uuid fields for configuration!",e);
+    throw new IncorrectParameterException("Incorrect configuration. Can't generate uuid fields.");
+  }
+}

@@ -1,0 +1,20 @@
+{
+  super();
+  if (clickHandler != null)   addClickHandler(clickHandler);
+  String definedStyles=getElement().getAttribute("style");
+  getElement().setAttribute("style",definedStyles + "; vertical-align:middle;");
+  this.text=text;
+  Element span=DOM.createElement("span");
+  span.setInnerText(text);
+  DOM.insertChild(getElement(),span,0);
+  Element imageSpan=DOM.createElement("span");
+  int spacing;
+  if (this.text == null || this.text.trim().equals("")) {
+    spacing=0;
+  }
+ else {
+    spacing=16;
+  }
+  updateImageElementFromImageResource(imageSpan,imageResource,spacing);
+  DOM.insertBefore(getElement(),imageSpan,DOM.getFirstChild(getElement()));
+}

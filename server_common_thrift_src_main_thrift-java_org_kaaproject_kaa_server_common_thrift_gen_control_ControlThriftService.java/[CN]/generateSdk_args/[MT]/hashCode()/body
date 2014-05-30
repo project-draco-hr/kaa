@@ -1,0 +1,19 @@
+{
+  List<Object> list=new ArrayList<Object>();
+  boolean present_sdkPlatform=true && (isSetSdkPlatform());
+  list.add(present_sdkPlatform);
+  if (present_sdkPlatform)   list.add(sdkPlatform.getValue());
+  boolean present_applicationId=true && (isSetApplicationId());
+  list.add(present_applicationId);
+  if (present_applicationId)   list.add(applicationId);
+  boolean present_profileSchemaVersion=true;
+  list.add(present_profileSchemaVersion);
+  if (present_profileSchemaVersion)   list.add(profileSchemaVersion);
+  boolean present_configurationSchemaVersion=true;
+  list.add(present_configurationSchemaVersion);
+  if (present_configurationSchemaVersion)   list.add(configurationSchemaVersion);
+  boolean present_notificationSchemaVersion=true;
+  list.add(present_notificationSchemaVersion);
+  if (present_notificationSchemaVersion)   list.add(notificationSchemaVersion);
+  return list.hashCode();
+}

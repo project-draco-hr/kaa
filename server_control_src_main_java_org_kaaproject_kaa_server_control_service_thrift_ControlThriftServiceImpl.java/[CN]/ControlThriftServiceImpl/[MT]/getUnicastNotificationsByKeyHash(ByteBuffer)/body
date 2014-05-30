@@ -1,0 +1,7 @@
+{
+  List<DataStruct> structList=Collections.emptyList();
+  if (keyhash != null) {
+    structList=toDataStructList(notificationService.findUnicastNotificationsByKeyHash(keyhash.array()));
+  }
+  return structList;
+}

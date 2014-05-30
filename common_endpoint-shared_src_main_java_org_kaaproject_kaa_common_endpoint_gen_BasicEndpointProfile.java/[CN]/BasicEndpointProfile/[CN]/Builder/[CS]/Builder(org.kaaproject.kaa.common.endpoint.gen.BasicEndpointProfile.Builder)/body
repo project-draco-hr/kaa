@@ -1,0 +1,7 @@
+{
+  super(other);
+  if (isValidValue(fields()[0],other.profileBody)) {
+    this.profileBody=data().deepCopy(fields()[0].schema(),other.profileBody);
+    fieldSetFlags()[0]=true;
+  }
+}

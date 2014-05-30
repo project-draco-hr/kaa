@@ -1,0 +1,12 @@
+{
+  ControlZkService zkService=new ControlZkService();
+  ReflectionTestUtils.setField(zkService,"zkEnabled",false);
+  zkService.stop();
+  ControlNode controlZKNode=Mockito.mock(ControlNode.class);
+  Mockito.doNothing().when(controlZKNode).close();
+  ReflectionTestUtils.setField(zkService,"zkEnabled",true);
+  ReflectionTestUtils.setField(zkService,"controlZKNode",controlZKNode);
+  zkService.stop();
+  Mockito.doThrow(IOException.class).when(controlZKNode).close();
+  zkService.stop();
+}

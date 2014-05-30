@@ -1,0 +1,14 @@
+{
+  SyncResponse response=new SyncResponse();
+  response.setResponseType(SyncResponseStatus.NO_DELTA);
+  response.setNotificationSyncResponse(new NotificationSyncResponse());
+  SyncResponse result=operationsService.updateSyncResponse(response,new ArrayList<NotificationDto>(),UNICAST_NF_ID);
+  assertNotNull(result);
+  assertEquals(SyncResponseStatus.DELTA,response.getResponseType());
+  assertNotNull(result.getNotificationSyncResponse());
+  assertNotNull(result.getNotificationSyncResponse().getNotifications());
+  assertEquals(1,result.getNotificationSyncResponse().getNotifications().size());
+  assertEquals(UNICAST_NF_ID,result.getNotificationSyncResponse().getNotifications().get(0).getUid());
+  assertNotNull(result.getNotificationSyncResponse().getNotifications().get(0).getUid());
+  assertNull(result.getNotificationSyncResponse().getNotifications().get(0).getSeqNumber());
+}

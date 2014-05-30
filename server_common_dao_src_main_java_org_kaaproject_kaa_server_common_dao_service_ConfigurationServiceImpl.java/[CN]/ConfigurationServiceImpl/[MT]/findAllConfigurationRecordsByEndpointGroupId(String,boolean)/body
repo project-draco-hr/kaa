@@ -1,0 +1,17 @@
+{
+  Collection<ConfigurationDto> configurations=convertDtoList(configurationDao.findActualByEndpointGroupId(endpointGroupId));
+  List<StructureRecordDto<ConfigurationDto>> records=StructureRecordDto.convertToRecords(configurations);
+  if (includeDeprecated) {
+    List<SchemaDto> schemas=findVacantSchemasByEndpointGroupId(endpointGroupId);
+    for (    SchemaDto schema : schemas) {
+      ConfigurationDto deprecatedConfiguration=getDto(configurationDao.findLatestDeprecated(schema.getId(),endpointGroupId));
+      if (deprecatedConfiguration != null) {
+        StructureRecordDto<ConfigurationDto> record=new StructureRecordDto<>();
+        record.setActiveStructureDto(deprecatedConfiguration);
+        records.add(record);
+      }
+    }
+  }
+  Collections.sort(records);
+  return records;
+}

@@ -1,0 +1,10 @@
+{
+  if (listeners.remove(listener)) {
+    LOG.debug("Listener removed: " + listener);
+    return true;
+  }
+ else {
+    LOG.debug("Listener not found: " + listener);
+    return false;
+  }
+}

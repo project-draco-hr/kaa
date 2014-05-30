@@ -1,0 +1,11 @@
+{
+  super(org.kaaproject.kaa.common.endpoint.gen.NotificationSyncResponse.SCHEMA$);
+  if (isValidValue(fields()[0],other.notifications)) {
+    this.notifications=data().deepCopy(fields()[0].schema(),other.notifications);
+    fieldSetFlags()[0]=true;
+  }
+  if (isValidValue(fields()[1],other.availableTopics)) {
+    this.availableTopics=data().deepCopy(fields()[1].schema(),other.availableTopics);
+    fieldSetFlags()[1]=true;
+  }
+}

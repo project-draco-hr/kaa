@@ -1,0 +1,15 @@
+{
+  struct.validate();
+  oprot.writeStructBegin(STRUCT_DESC);
+  oprot.writeFieldBegin(MAX_FIELD_DESC);
+  oprot.writeI64(struct.max);
+  oprot.writeFieldEnd();
+  oprot.writeFieldBegin(TOTAL_FIELD_DESC);
+  oprot.writeI64(struct.total);
+  oprot.writeFieldEnd();
+  oprot.writeFieldBegin(FREE_FIELD_DESC);
+  oprot.writeI64(struct.free);
+  oprot.writeFieldEnd();
+  oprot.writeFieldStop();
+  oprot.writeStructEnd();
+}

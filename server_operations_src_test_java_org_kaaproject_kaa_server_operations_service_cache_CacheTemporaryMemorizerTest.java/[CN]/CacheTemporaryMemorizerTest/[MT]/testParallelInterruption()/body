@@ -1,0 +1,52 @@
+{
+  final Computable<Integer,Integer> slowCancelable=new Computable<Integer,Integer>(){
+    @Override public Integer compute(    Integer key){
+      try {
+        Thread.sleep(1000);
+      }
+ catch (      InterruptedException e) {
+        e.printStackTrace();
+      }
+      return key;
+    }
+  }
+;
+  final CacheTemporaryMemorizer<Integer,Integer> cache=new CacheTemporaryMemorizer<>();
+  Thread executionThread=new Thread(new Runnable(){
+    @Override public void run(){
+      try {
+        launchCodeInParallelThreads(10,new Runnable(){
+          @Override public void run(){
+            try {
+              cache.compute(42,slowCancelable);
+            }
+ catch (            CancellationException e) {
+            }
+          }
+        }
+);
+      }
+ catch (      Exception e) {
+        Assert.assertTrue(e.getMessage().equals("Cache Operation Exception"));
+      }
+    }
+  }
+);
+  executionThread.start();
+  try {
+    Thread.sleep(100);
+  }
+ catch (  InterruptedException e) {
+    e.printStackTrace();
+  }
+  executionThread.interrupt();
+  try {
+    executionThread.join();
+  }
+ catch (  RuntimeException e) {
+    e.printStackTrace();
+  }
+catch (  InterruptedException e) {
+    e.printStackTrace();
+  }
+}

@@ -1,0 +1,6 @@
+{
+  CommandTest cmdTest=new CommandTest();
+  Command cmd=cmdTest.getUpdateManager().getNextTask();
+  cmdTest.verifyListener(cmd);
+  verify(cmdTest.getTransport(),times(2)).sendLongSyncRequest(any(LongSyncRequest.class));
+}

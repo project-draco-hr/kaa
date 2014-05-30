@@ -1,0 +1,17 @@
+{
+  long maxLatency=waitSeconds * 1000;
+  Topic topic=null;
+  long startTime=System.currentTimeMillis();
+  long endTime=startTime;
+  while (topic == null) {
+    if ((endTime - startTime) < maxLatency) {
+      topic=topicDao.getNextSeqNumber(topicId);
+    }
+ else {
+      topic=topicDao.forceNextSeqNumber(topicId);
+      break;
+    }
+    endTime=System.currentTimeMillis();
+  }
+  return topic != null ? topic.getUpdate().getSequenceNumber() : 0;
+}

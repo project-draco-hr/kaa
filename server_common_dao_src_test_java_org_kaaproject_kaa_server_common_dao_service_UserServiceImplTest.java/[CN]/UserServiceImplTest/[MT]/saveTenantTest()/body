@@ -1,0 +1,5 @@
+{
+  TenantDto tenant=generateTenant();
+  TenantDto savedTenant=userService.findTenantById(tenant.getId());
+  Assert.assertEquals(tenant,savedTenant);
+}

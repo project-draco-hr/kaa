@@ -1,0 +1,7 @@
+{
+  int result=appId != null ? appId.hashCode() : 0;
+  result=31 * result + appSeqNumber;
+  result=31 * result + (groupId != null ? groupId.hashCode() : 0);
+  result=31 * result + groupSeqNumber;
+  return result;
+}

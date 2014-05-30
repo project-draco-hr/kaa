@@ -1,0 +1,11 @@
+{
+  try {
+    LOG.debug("[{}] Calculating partial delta. Old configuration: {}. New configuration: {}",endpointId,new String(endpointConfiguration.getConfiguration()),new String(latestConfiguration));
+    RawBinaryDelta delta=deltaCalculator.calculate(endpointConfiguration.getConfiguration(),latestConfiguration);
+    RawBinaryDelta fullResyncDelta=deltaCalculator.calculate(latestConfiguration);
+    return new DeltaCacheEntry(latestConfiguration,delta,EndpointObjectHash.fromSHA1(fullResyncDelta.getData()));
+  }
+ catch (  IOException|DeltaCalculatorException e) {
+    throw new GetDeltaException(e);
+  }
+}

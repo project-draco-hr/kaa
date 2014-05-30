@@ -1,0 +1,7 @@
+{
+  logger.info("Embedded MongoDB server started on " + port + " port and "+ MONGO_HOST+ " host.");
+  MongodStarter runtime=MongodStarter.getDefaultInstance();
+  mongoDBExec=runtime.prepare(createMongodConfig(port));
+  mongod=mongoDBExec.start();
+  mongo=new MongoClient(MONGO_HOST,port);
+}

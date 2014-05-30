@@ -1,0 +1,8 @@
+{
+  setRequest(new EndpointRegistrationRequest());
+  getRequest().setApplicationToken(APPLICATION_TOKEN);
+  getRequest().setEndpointPublicKey(ByteBuffer.wrap(getClientPublicKey().getEncoded()));
+  int profileBodySize=rnd.nextInt(MAX_PROFILE_BODY_SIZE);
+  getRequest().setProfileBody(ByteBuffer.wrap(getRandomBytes(profileBodySize)));
+  getRequest().setVersionInfo(new EndpointVersionInfo(getId(),Integer.valueOf(rnd.nextInt()),Integer.valueOf(rnd.nextInt()),Integer.valueOf(rnd.nextInt())));
+}

@@ -1,0 +1,10 @@
+{
+  if (that == null)   return false;
+  boolean this_present_uid=true && this.isSetUid();
+  boolean that_present_uid=true && that.isSetUid();
+  if (this_present_uid || that_present_uid) {
+    if (!(this_present_uid && that_present_uid))     return false;
+    if (!this.uid.equals(that.uid))     return false;
+  }
+  return true;
+}

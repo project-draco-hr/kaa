@@ -1,0 +1,14 @@
+{
+  Integer size=(Integer)schemaNode.get(SIZE_FIELD);
+  byte[] bytes=new byte[size];
+  for (int i=0; i < size; i++) {
+    bytes[i]=(byte)0;
+  }
+  Schema avroSchema=getSchemaFromRaw(schemaNode);
+  GenericFixed result=new GenericData.Fixed(avroSchema,bytes);
+  String fullName=getFullNameFromRaw(schemaNode);
+  if (!fullName.isEmpty()) {
+    processedTypes.put(fullName,result);
+  }
+  return result;
+}

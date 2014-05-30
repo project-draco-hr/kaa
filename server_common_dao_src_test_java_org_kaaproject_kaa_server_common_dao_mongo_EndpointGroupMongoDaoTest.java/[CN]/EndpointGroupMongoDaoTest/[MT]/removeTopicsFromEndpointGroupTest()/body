@@ -1,0 +1,11 @@
+{
+  String id=endGroups.get(0);
+  EndpointGroup found=endpointGroupDao.findById(id);
+  Assert.assertNotNull(found);
+  String topicId=new ObjectId().toString();
+  found.setTopics(Arrays.asList(topicId));
+  endpointGroupDao.addTopicToEndpointGroup(id,topicId);
+  endpointGroupDao.removeTopicFromEndpointGroup(id,found.getTopics().get(0));
+  EndpointGroup updated=endpointGroupDao.findById(id);
+  Assert.assertNotEquals(found.getTopics(),updated.getTopics());
+}

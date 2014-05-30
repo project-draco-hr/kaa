@@ -1,0 +1,4 @@
+{
+  LOG.debug("Find history by application id [{}]",appId);
+  return find(query(where(APPLICATION_ID).is(new ObjectId(appId))));
+}

@@ -1,0 +1,16 @@
+{
+  TTupleProtocol iprot=(TTupleProtocol)prot;
+  BitSet incoming=iprot.readBitSet(3);
+  if (incoming.get(0)) {
+    struct.schemaId=iprot.readString();
+    struct.setSchemaIdIsSet(true);
+  }
+  if (incoming.get(1)) {
+    struct.endpointGroupId=iprot.readString();
+    struct.setEndpointGroupIdIsSet(true);
+  }
+  if (incoming.get(2)) {
+    struct.deactivatedUsername=iprot.readString();
+    struct.setDeactivatedUsernameIsSet(true);
+  }
+}

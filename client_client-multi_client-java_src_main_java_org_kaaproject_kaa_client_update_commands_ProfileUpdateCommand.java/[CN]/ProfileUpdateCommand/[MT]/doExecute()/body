@@ -1,0 +1,5 @@
+{
+  LOG.info("ProfileUpdateRequest started: {}",request);
+  SyncResponse response=transport.sendUpdateCommand(request);
+  manager.onSyncResponse(response);
+}

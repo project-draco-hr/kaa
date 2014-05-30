@@ -1,0 +1,9 @@
+{
+  UpdateManager updateManager=mock(UpdateManager.class);
+  KaaClientState state=mock(KaaClientState.class);
+  ProfileContainer container=mock(ProfileContainer.class);
+  DefaultProfileManager profileManager=new DefaultProfileManager(updateManager,state);
+  profileManager.setProfileContainer(container);
+  assertNotNull(profileManager.getSerializedProfileContainer());
+  verify(container,times(1)).setProfileListener(any(ProfileListener.class));
+}

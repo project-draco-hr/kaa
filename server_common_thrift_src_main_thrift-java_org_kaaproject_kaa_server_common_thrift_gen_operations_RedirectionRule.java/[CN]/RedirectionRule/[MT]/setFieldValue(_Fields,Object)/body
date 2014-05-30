@@ -1,0 +1,36 @@
+{
+switch (field) {
+case DNS_NAME:
+    if (value == null) {
+      unsetDnsName();
+    }
+ else {
+      setDnsName((String)value);
+    }
+  break;
+case RULE_ID:
+if (value == null) {
+  unsetRuleId();
+}
+ else {
+  setRuleId((Long)value);
+}
+break;
+case REDIRECTION_PROBABILITY:
+if (value == null) {
+unsetRedirectionProbability();
+}
+ else {
+setRedirectionProbability((Double)value);
+}
+break;
+case RULE_TTL:
+if (value == null) {
+unsetRuleTTL();
+}
+ else {
+setRuleTTL((Long)value);
+}
+break;
+}
+}

@@ -1,0 +1,13 @@
+{
+  controlClientConnect();
+  ControlApiCliThriftClient cli=new ControlApiCliThriftClient();
+  String applicationId=editApplicationCli(cli,null,null,false);
+  String notificationSchemaId=editNotificationSchemaCli(cli,null,applicationId,NotificationTypeDto.SYSTEM,false,false);
+  String topicId=editTopicCli(cli,null,applicationId,SubscriptionType.MANDATORY,false);
+  notificationSchemaId=createNotificationCli(cli,notificationSchemaId,topicId,0,false,false);
+  Assert.assertFalse(strIsEmpty(notificationSchemaId));
+  Assert.assertEquals(LENGTH_OF_ID_IN_MONGODB + 2,notificationSchemaId.length());
+  showEntityCli(cli,notificationSchemaId,EntityType.NOTIFICATION);
+  listNotificationsCli(cli,topicId,false);
+  listNotificationsCli(cli,topicId,true);
+}

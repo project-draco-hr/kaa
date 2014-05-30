@@ -1,0 +1,20 @@
+{
+  LOG.debug("Registering Profile for {}",request.getEndpointKey());
+  LOG.trace("Lookup application by token: {}",request.getAppToken());
+  ApplicationDto applicationDto=applicationService.findAppByApplicationToken(request.getAppToken());
+  LOG.trace("Application by token: {} found: {}",request.getAppToken(),applicationDto);
+  String profileJson=decodeProfile(request.getProfile(),applicationDto.getId(),request.getVersionInfo().getProfileVersion());
+  EndpointProfileDto dto=new EndpointProfileDto();
+  dto.setApplicationId(applicationDto.getId());
+  dto.setEndpointKey(request.getEndpointKey());
+  dto.setEndpointKeyHash(EndpointObjectHash.fromSHA1(request.getEndpointKey()).getData());
+  dto.setProfile(profileJson);
+  dto.setProfileHash(EndpointObjectHash.fromSHA1(request.getProfile()).getData());
+  dto.setProfileVersion(request.getVersionInfo().getProfileVersion());
+  dto.setConfigurationVersion(request.getVersionInfo().getConfigVersion());
+  dto.setSystemNfVersion(request.getVersionInfo().getSystemNfVersion());
+  dto.setUserNfVersion(request.getVersionInfo().getUserNfVersion());
+  dto.setSequenceNumber(0);
+  dto.setChangedFlag(Boolean.FALSE);
+  return endpointService.saveEndpointProfile(dto);
+}

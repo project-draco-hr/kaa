@@ -1,0 +1,5 @@
+{
+  String filterBody="mapRecordField[SOME_KEY2].otherMapSimpleField[new java.lang.String('KEY13').toString()] == 13";
+  Filter filter=new DefaultFilter(filterBody,PROFILE_SCHEMA);
+  Assert.assertEquals(Boolean.TRUE,filter.matches(profileBody));
+}

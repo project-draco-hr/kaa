@@ -1,0 +1,18 @@
+{
+  if (field == null) {
+    throw new IllegalArgumentException();
+  }
+switch (field) {
+case SDK_PLATFORM:
+    return isSetSdkPlatform();
+case APPLICATION_ID:
+  return isSetApplicationId();
+case PROFILE_SCHEMA_VERSION:
+return isSetProfileSchemaVersion();
+case CONFIGURATION_SCHEMA_VERSION:
+return isSetConfigurationSchemaVersion();
+case NOTIFICATION_SCHEMA_VERSION:
+return isSetNotificationSchemaVersion();
+}
+throw new IllegalStateException();
+}

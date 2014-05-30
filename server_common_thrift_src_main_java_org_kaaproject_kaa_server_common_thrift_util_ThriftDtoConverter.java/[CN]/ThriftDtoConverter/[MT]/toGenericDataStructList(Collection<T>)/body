@@ -1,0 +1,7 @@
+{
+  List<DataStruct> dataStructList=new ArrayList<DataStruct>(dtoList.size());
+  for (  T dto : dtoList) {
+    dataStructList.add(toGenericDataStruct(dto));
+  }
+  return dataStructList;
+}

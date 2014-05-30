@@ -1,0 +1,7 @@
+{
+  int result=applicationToken != null ? applicationToken.hashCode() : 0;
+  result=31 * result + (name != null ? name.hashCode() : 0);
+  result=31 * result + sequenceNumber;
+  result=31 * result + (tenantId != null ? tenantId.hashCode() : 0);
+  return result;
+}

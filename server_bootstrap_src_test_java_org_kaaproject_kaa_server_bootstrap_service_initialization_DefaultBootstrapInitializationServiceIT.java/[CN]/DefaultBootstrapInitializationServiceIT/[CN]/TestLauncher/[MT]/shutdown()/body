@@ -1,0 +1,11 @@
+{
+  if (service != null) {
+    try {
+      service.stop();
+    }
+ catch (    Throwable twh) {
+      twh.printStackTrace();
+      fail(twh.toString());
+    }
+  }
+}

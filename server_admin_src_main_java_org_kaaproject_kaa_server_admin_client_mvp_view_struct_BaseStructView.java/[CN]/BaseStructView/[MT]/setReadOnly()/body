@@ -1,0 +1,11 @@
+{
+  saveButton.setVisible(false);
+  activateButton.setVisible(false);
+  deactivateButton.setVisible(false);
+  description.getTextArea().setReadOnly(true);
+  body.getTextArea().setReadOnly(true);
+  for (  HandlerRegistration registration : registrations) {
+    registration.removeHandler();
+  }
+  registrations.clear();
+}

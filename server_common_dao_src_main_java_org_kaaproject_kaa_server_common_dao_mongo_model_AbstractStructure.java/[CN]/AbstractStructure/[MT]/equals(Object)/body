@@ -1,0 +1,37 @@
+{
+  if (this == o) {
+    return true;
+  }
+  if (o == null || getClass() != o.getClass()) {
+    return false;
+  }
+  AbstractStructure<?> that=(AbstractStructure<?>)o;
+  if (lastModifyTime != that.lastModifyTime) {
+    return false;
+  }
+  if (majorVersion != that.majorVersion) {
+    return false;
+  }
+  if (minorVersion != that.minorVersion) {
+    return false;
+  }
+  if (sequenceNumber != that.sequenceNumber) {
+    return false;
+  }
+  if (applicationId != null ? !applicationId.equals(that.applicationId) : that.applicationId != null) {
+    return false;
+  }
+  if (body != null ? !body.equals(that.body) : that.body != null) {
+    return false;
+  }
+  if (endpointGroupId != null ? !endpointGroupId.equals(that.endpointGroupId) : that.endpointGroupId != null) {
+    return false;
+  }
+  if (schemaId != null ? !schemaId.equals(that.schemaId) : that.schemaId != null) {
+    return false;
+  }
+  if (status != that.status) {
+    return false;
+  }
+  return true;
+}

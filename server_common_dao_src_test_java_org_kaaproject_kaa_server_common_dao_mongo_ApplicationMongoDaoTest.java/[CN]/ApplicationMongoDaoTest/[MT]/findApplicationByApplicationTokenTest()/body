@@ -1,0 +1,12 @@
+{
+  Application application=applicationDao.findById(apps.get(0));
+  Assert.assertNotNull(application);
+  String token=application.getApplicationToken();
+  if (StringUtils.isNotBlank(token)) {
+    Application found=applicationDao.findByApplicationToken(token);
+    Assert.assertEquals(application,found);
+  }
+ else {
+    throw new RuntimeException("Application Token is empty.");
+  }
+}

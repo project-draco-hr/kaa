@@ -1,0 +1,6 @@
+{
+  state.setProfileHash(EndpointObjectHash.fromSHA1(profile));
+  pollStrategy.stopPoll();
+  pollStrategy.executeCommand(commandFactory.createRegisterCommand(transport,profile));
+  startPoll();
+}

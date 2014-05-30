@@ -1,0 +1,9 @@
+{
+  ChangeConfigurationNotification cfgNotification=configurationService.deleteConfigurationRecord(schemaId,endpointGroupId,deactivatedUsername);
+  if (cfgNotification != null) {
+    ChangeNotificationDto notification=cfgNotification.getChangeNotificationDto();
+    if (notification != null) {
+      notifyEndpoints(notification,null,cfgNotification.getConfigurationDto());
+    }
+  }
+}

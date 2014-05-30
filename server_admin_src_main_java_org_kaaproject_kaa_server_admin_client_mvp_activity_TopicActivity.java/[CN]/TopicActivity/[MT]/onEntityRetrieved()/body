@@ -1,0 +1,7 @@
+{
+  detailsView.getName().setValue(entity.getName());
+  detailsView.getMandatory().setValue(entity.getType() == TopicTypeDto.MANDATORY);
+  detailsView.getDescription().setValue(entity.getDescription());
+  detailsView.getCreatedUsername().setValue(entity.getCreatedUsername());
+  detailsView.getCreatedDateTime().setValue(Utils.millisecondsToDateTimeString(entity.getCreatedTime()));
+}

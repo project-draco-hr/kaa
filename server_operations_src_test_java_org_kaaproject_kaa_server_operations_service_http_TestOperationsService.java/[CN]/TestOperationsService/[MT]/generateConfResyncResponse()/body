@@ -1,0 +1,9 @@
+{
+  SyncResponse response=new SyncResponse();
+  response.setResponseType(SyncResponseStatus.CONF_RESYNC);
+  ConfSyncResponse confSyncResponse=new ConfSyncResponse();
+  confSyncResponse.setConfDeltaBody(ByteBuffer.wrap(HttpTestSyncClient.getRandomBytes(4096)));
+  confSyncResponse.setConfSchemaBody(ByteBuffer.wrap(HttpTestSyncClient.getRandomBytes(4096)));
+  response.setConfSyncResponse(confSyncResponse);
+  return response;
+}

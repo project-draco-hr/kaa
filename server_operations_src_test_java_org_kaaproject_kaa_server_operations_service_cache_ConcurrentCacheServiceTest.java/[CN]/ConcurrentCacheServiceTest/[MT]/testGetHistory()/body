@@ -1,0 +1,9 @@
+{
+  List<HistoryDto> expectedList=getResultHistoryList();
+  assertEquals(expectedList,cacheService.getHistory(TEST_HISTORY_KEY));
+  verify(historyService,times(1)).findHistoriesBySeqNumberRange(APP_ID,TEST_APP_SEQ_NUMBER,TEST_APP_SEQ_NUMBER_NEW);
+  reset(historyService);
+  assertEquals(expectedList,cacheService.getHistory(TEST_HISTORY_KEY));
+  verify(historyService,times(0)).findHistoriesBySeqNumberRange(APP_ID,TEST_APP_SEQ_NUMBER,TEST_APP_SEQ_NUMBER_NEW);
+  reset(historyService);
+}

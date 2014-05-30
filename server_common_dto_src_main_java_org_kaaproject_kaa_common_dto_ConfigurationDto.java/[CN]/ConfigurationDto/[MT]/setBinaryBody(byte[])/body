@@ -1,0 +1,13 @@
+{
+  if (binaryBody != null) {
+    try {
+      this.body=new String(binaryBody,UTF8);
+    }
+ catch (    UnsupportedEncodingException e) {
+      body=null;
+    }
+  }
+ else {
+    body=null;
+  }
+}

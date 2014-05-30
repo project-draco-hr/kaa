@@ -1,0 +1,12 @@
+{
+  try {
+    OperationsServer record=new OperationsServer();
+    record.DNSName=fieldSetFlags()[0] ? this.DNSName : (java.lang.String)defaultValue(fields()[0]);
+    record.Priority=fieldSetFlags()[1] ? this.Priority : (java.lang.Integer)defaultValue(fields()[1]);
+    record.PublicKey=fieldSetFlags()[2] ? this.PublicKey : (java.nio.ByteBuffer)defaultValue(fields()[2]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

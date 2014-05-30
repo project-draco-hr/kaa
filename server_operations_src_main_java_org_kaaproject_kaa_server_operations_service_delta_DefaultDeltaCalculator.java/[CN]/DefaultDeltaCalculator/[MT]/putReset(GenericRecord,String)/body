@@ -1,0 +1,10 @@
+{
+  Schema resetSchema=getSchemaByFullName(delta,field,SYSTEM_NAMESPACE + ".resetT");
+  if (resetSchema != null) {
+    GenericEnumSymbol reset=new GenericData.EnumSymbol(resetSchema,"reset");
+    delta.put(field,reset);
+  }
+ else {
+    throw new DeltaCalculatorException(new StringBuilder().append("Failed to find schema for \"reset\" type ").append(" in ").append(delta.getSchema().getFullName()).append(" field ").append(field).toString());
+  }
+}

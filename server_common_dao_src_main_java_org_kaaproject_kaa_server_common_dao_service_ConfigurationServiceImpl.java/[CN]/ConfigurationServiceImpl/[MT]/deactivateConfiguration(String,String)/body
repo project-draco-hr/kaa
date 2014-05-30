@@ -1,0 +1,23 @@
+{
+  ChangeConfigurationNotification configurationNotification;
+  validateId(id,"Incorrect configuration id. Can't deactivate configuration with id " + id);
+  Configuration oldConfiguration=configurationDao.findById(id);
+  if (oldConfiguration != null) {
+    UpdateStatus status=oldConfiguration.getStatus();
+    if (status != null && status == ACTIVE) {
+      ConfigurationDto configurationDto=getDto(configurationDao.deactivate(id,deactivatedUsername));
+      HistoryDto historyDto=addHistory(configurationDto,ChangeType.REMOVE_CONF);
+      ChangeNotificationDto changeNotificationDto=createNotification(configurationDto,historyDto);
+      configurationNotification=new ChangeConfigurationNotification();
+      configurationNotification.setConfigurationDto(configurationDto);
+      configurationNotification.setChangeNotificationDto(changeNotificationDto);
+    }
+ else {
+      throw new UpdateStatusConflictException("Incorrect status for activating configuration " + status);
+    }
+  }
+ else {
+    throw new IncorrectParameterException("Can't find configuration with id " + id);
+  }
+  return configurationNotification;
+}

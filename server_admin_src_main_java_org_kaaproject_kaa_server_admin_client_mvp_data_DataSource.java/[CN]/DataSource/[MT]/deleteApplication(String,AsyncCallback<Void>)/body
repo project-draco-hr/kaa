@@ -1,0 +1,8 @@
+{
+  rpcService.deleteApplication(applicationId,new DataCallback<Void>(callback){
+    @Override protected void onResult(    Void result){
+      refreshApplications();
+    }
+  }
+);
+}

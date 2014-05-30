@@ -1,0 +1,11 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_ADMIN);
+  try {
+    UserDto user=toDto(clientProvider.getClient().getUser(userId));
+    checkTenantId(user.getTenantId());
+    return toUser(user);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

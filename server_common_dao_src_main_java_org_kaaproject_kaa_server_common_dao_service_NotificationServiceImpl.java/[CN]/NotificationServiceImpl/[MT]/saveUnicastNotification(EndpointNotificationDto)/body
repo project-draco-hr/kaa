@@ -1,0 +1,60 @@
+{
+  validateObject(dto,"Can't save unicast notification. Invalid endpoint notification object.");
+  UpdateNotificationDto<EndpointNotificationDto> updateNotificationDto=null;
+  NotificationDto notificationDto=dto.getNotificationDto();
+  String schemaId=notificationDto.getSchemaId();
+  String topicId=notificationDto.getTopicId();
+  if (isBlank(schemaId)) {
+    throw new IncorrectParameterException("Invalid notification schema id: " + schemaId);
+  }
+ else   if (isBlank(topicId)) {
+    throw new IncorrectParameterException("Invalid notification topic id: " + schemaId);
+  }
+ else {
+    byte[] endpointKeyHash=dto.getEndpointKeyHash();
+    if (endpointKeyHash != null) {
+      EndpointProfile ep=endpointProfileDao.findByKeyHash(endpointKeyHash);
+      if (ep == null) {
+        throw new DatabaseProcessingException("Can't find endpoint profile by hash " + endpointKeyHash);
+      }
+      if (ep.getSubscriptions() == null || !ep.getSubscriptions().contains(topicId)) {
+        throw new DatabaseProcessingException("Endpoint profile is not subscribed to this topic");
+      }
+    }
+ else {
+      throw new IncorrectParameterException("Invalid endpointKeyHash: " + endpointKeyHash);
+    }
+    notificationDto.setId(null);
+    notificationDto.setTopicId(topicId);
+    notificationDto.setSecNum(-1);
+    NotificationSchema schema=notificationSchemaDao.findById(schemaId);
+    if (schema != null) {
+      notificationDto.setVersion(schema.getMajorVersion());
+      notificationDto.setApplicationId(idToString(schema.getApplicationId()));
+      notificationDto.setType(schema.getType());
+      try {
+        notificationDto.setBody(serializeNotificationBody(notificationDto,schema));
+      }
+ catch (      IOException e) {
+        throw new DatabaseProcessingException("Can't serialize notification body using schema: " + schemaId);
+      }
+    }
+ else {
+      throw new DatabaseProcessingException("Can't find notification schema by id " + schemaId);
+    }
+    long currentTime=System.currentTimeMillis();
+    Date expiredAt=notificationDto.getExpiredAt();
+    notificationDto.setExpiredAt(expiredAt != null ? expiredAt : new Date(currentTime + TTL));
+    notificationDto.setLastTimeModify(new Date(currentTime));
+    EndpointNotificationDto unicast=getDto(unicastNotificationDao.save(new EndpointNotification(dto)));
+    if (unicast != null && unicast.getNotificationDto() != null) {
+      LOG.trace("Saved unicast notifications {}",unicast);
+      updateNotificationDto=new UpdateNotificationDto<EndpointNotificationDto>();
+      NotificationDto savedDto=unicast.getNotificationDto();
+      updateNotificationDto.setAppId(savedDto.getApplicationId());
+      updateNotificationDto.setTopicId(savedDto.getTopicId());
+      updateNotificationDto.setPayload(unicast);
+    }
+    return updateNotificationDto;
+  }
+}

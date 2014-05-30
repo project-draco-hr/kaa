@@ -1,0 +1,10 @@
+{
+  try {
+    if (state.isRegistered() && isProfileHashOutdated(newProfile)) {
+      startProfileUpdate(newProfile);
+    }
+  }
+ catch (  Exception e) {
+    LOG.error("Exception caught while processing profile update: {}",e.toString());
+  }
+}

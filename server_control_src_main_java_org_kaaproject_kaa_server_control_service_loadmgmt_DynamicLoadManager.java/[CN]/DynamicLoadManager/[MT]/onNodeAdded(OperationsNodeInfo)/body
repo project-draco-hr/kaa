@@ -1,0 +1,9 @@
+{
+  String dnsName=getDNSNameFromConnectionInfo(nodeInfo.getConnectionInfo());
+  OperationsServer operations=new OperationsServer(DEFAULT_PRIORITY,nodeInfo.getConnectionInfo().getPublicKey());
+  opsServersMap.put(dnsName,new OperationsServerMeta(operations,nodeInfo));
+  LOG.info("Operations server {} added. Updating {} Bootstrap servers",dnsName,bootstrapsMap.size());
+  for (  BootstrapNodeInfo bootstrapNodeInfo : bootstrapsMap.values()) {
+    updateBootstrap(bootstrapNodeInfo);
+  }
+}

@@ -1,0 +1,14 @@
+{
+  JavaDynamicCompiler compiler=new JavaDynamicCompiler();
+  compiler.init();
+  JavaDynamicBean dummySource=new JavaDynamicBean("dummyClass","dummyClass {}");
+  JavaDynamicException expectedException=null;
+  try {
+    compiler.compile(Arrays.asList(dummySource));
+  }
+ catch (  JavaDynamicException e) {
+    expectedException=e;
+  }
+  Assert.assertNotNull(expectedException);
+  Assert.assertFalse(strIsEmpty(expectedException.toString()));
+}

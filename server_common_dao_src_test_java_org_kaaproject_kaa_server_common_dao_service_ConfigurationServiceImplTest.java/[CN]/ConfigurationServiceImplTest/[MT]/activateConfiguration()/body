@@ -1,0 +1,11 @@
+{
+  String id=configurations.get(7);
+  ConfigurationDto found=configurationService.findConfigurationById(id);
+  ChangeConfigurationNotification notification=configurationService.activateConfiguration(id,null);
+  Assert.assertNotNull(notification);
+  ConfigurationDto dto=notification.getConfigurationDto();
+  Assert.assertNotNull(dto);
+  Assert.assertEquals(dto.getStatus(),UpdateStatus.ACTIVE);
+  Assert.assertEquals(dto.getId(),id);
+  Assert.assertNotEquals(dto.getSequenceNumber(),found.getSequenceNumber());
+}

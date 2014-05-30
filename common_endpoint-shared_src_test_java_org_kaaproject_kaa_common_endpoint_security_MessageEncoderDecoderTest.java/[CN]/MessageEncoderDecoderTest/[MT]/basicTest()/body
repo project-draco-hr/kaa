@@ -1,0 +1,15 @@
+{
+  String message="secret" + new Random().nextInt();
+  MessageEncoderDecoder client=new MessageEncoderDecoder(clientPrivate,clientPublic,serverPublic);
+  MessageEncoderDecoder server=new MessageEncoderDecoder(serverPrivate,serverPublic,clientPublic);
+  MessageEncoderDecoder thief=new MessageEncoderDecoder(theifPrivate,theifPublic,clientPublic);
+  byte[] secretData=client.encodeData(message.getBytes());
+  byte[] signature=client.sign(secretData);
+  byte[] encodedSessionKey=client.getEncodedSessionKey();
+  Assert.assertTrue(server.verify(secretData,signature));
+  String decodedSecret=new String(server.decodeData(secretData,encodedSessionKey));
+  Assert.assertEquals(message,decodedSecret);
+  byte[] theifData=thief.encodeData(message.getBytes());
+  byte[] theifSignature=thief.sign(theifData);
+  Assert.assertFalse(server.verify(theifData,theifSignature));
+}

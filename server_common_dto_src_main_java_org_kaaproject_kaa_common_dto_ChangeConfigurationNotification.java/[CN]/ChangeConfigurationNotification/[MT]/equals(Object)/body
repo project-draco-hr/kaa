@@ -1,0 +1,16 @@
+{
+  if (this == o) {
+    return true;
+  }
+  if (!(o instanceof ChangeConfigurationNotification)) {
+    return false;
+  }
+  ChangeConfigurationNotification that=(ChangeConfigurationNotification)o;
+  if (configurationDto != null ? !configurationDto.equals(that.configurationDto) : that.configurationDto != null) {
+    return false;
+  }
+  if (changeNotificationDto != null ? !changeNotificationDto.equals(that.changeNotificationDto) : that.changeNotificationDto != null) {
+    return false;
+  }
+  return true;
+}

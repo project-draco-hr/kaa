@@ -1,0 +1,34 @@
+{
+  List<? extends HasId> dtos=null;
+  try {
+switch (type) {
+case TENANT:
+      dtos=ThriftDtoConverter.<TenantDto>toDtoList(client.getTenants());
+    break;
+case USER:
+  dtos=ThriftDtoConverter.<UserDto>toDtoList(client.getUsers());
+break;
+default :
+break;
+}
+if (dtos == null) {
+writer.println("Not implemented!");
+}
+ else {
+writer.println("List of " + type.getName() + "s:");
+writer.println();
+for (HasId dto : dtos) {
+writer.println(dto);
+}
+writer.println();
+writer.println("Total: " + dtos.size());
+if (line.hasOption("o")) {
+String outFileName=line.getOptionValue("o");
+storeObjectIds(outFileName,dtos,errorWriter);
+}
+}
+}
+ catch (TException e) {
+handleException("Unable to get list of " + type.getName(),e,errorWriter);
+}
+}

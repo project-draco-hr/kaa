@@ -1,0 +1,31 @@
+{
+  if (this == o) {
+    return true;
+  }
+  if (!(o instanceof ChangeDto)) {
+    return false;
+  }
+  ChangeDto changeDto=(ChangeDto)o;
+  if (cfMajorVersion != changeDto.cfMajorVersion) {
+    return false;
+  }
+  if (pfMajorVersion != changeDto.pfMajorVersion) {
+    return false;
+  }
+  if (configurationId != null ? !configurationId.equals(changeDto.configurationId) : changeDto.configurationId != null) {
+    return false;
+  }
+  if (endpointGroupId != null ? !endpointGroupId.equals(changeDto.endpointGroupId) : changeDto.endpointGroupId != null) {
+    return false;
+  }
+  if (profileFilterId != null ? !profileFilterId.equals(changeDto.profileFilterId) : changeDto.profileFilterId != null) {
+    return false;
+  }
+  if (topicId != null ? !topicId.equals(changeDto.topicId) : changeDto.topicId != null) {
+    return false;
+  }
+  if (type != changeDto.type) {
+    return false;
+  }
+  return true;
+}

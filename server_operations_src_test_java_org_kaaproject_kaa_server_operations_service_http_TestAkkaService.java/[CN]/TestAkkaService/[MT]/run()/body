@@ -1,0 +1,23 @@
+{
+  logger.info("Test Akka Service started: ");
+  setName("Test_Service:");
+  while (operate) {
+    NettyEncodedRequestMessage command=null;
+    try {
+synchronized (commands) {
+        if (commands.size() > 0) {
+          command=commands.remove(0);
+        }
+ else {
+          commands.wait();
+        }
+      }
+    }
+ catch (    InterruptedException ie) {
+    }
+    if (command != null) {
+      process(command);
+    }
+  }
+  logger.info("Test Akka Service stoped: ");
+}

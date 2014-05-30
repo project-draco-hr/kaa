@@ -1,0 +1,12 @@
+{
+  if (logException) {
+    logger.error("Unexpected exception catched!",exception);
+  }
+  if (exception instanceof KaaAdminServiceException) {
+    return (KaaAdminServiceException)exception;
+  }
+ else {
+    KaaAdminServiceException kaaAdminServiceException=new KaaAdminServiceException(exception.getMessage(),ServiceErrorCode.GENERAL_ERROR);
+    return kaaAdminServiceException;
+  }
+}

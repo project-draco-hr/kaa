@@ -1,0 +1,4 @@
+{
+  EndpointObjectHash endpointKey=EndpointObjectHash.fromBytes(request.getEndpointPublicKeyHash().array());
+  return new SyncRequestMessage(request.getApplicationToken(),endpointKey,request,originator);
+}

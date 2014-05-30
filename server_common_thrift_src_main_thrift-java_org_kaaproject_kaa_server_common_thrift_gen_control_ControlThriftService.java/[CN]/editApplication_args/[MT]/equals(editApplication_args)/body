@@ -1,0 +1,10 @@
+{
+  if (that == null)   return false;
+  boolean this_present_application=true && this.isSetApplication();
+  boolean that_present_application=true && that.isSetApplication();
+  if (this_present_application || that_present_application) {
+    if (!(this_present_application && that_present_application))     return false;
+    if (!this.application.equals(that.application))     return false;
+  }
+  return true;
+}

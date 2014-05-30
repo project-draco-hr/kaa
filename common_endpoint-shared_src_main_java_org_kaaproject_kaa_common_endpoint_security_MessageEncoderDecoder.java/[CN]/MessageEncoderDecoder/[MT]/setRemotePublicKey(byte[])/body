@@ -1,0 +1,6 @@
+{
+  this.remotePublicKey=KeyUtil.getPublic(remotePublicKey);
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("RemotePublicKey {}",this.remotePublicKey != null ? bytesToHex(this.remotePublicKey.getEncoded()) : "empty");
+  }
+}

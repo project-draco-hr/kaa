@@ -1,0 +1,49 @@
+{
+  String dataSchema=getResourceAsString(DATA_SCHEMA_LOCATION);
+  deltaSchema=getResourceAsString(BASE_SCHEMA_LOCATION);
+  currentConfiguration=getResourceAsString(DefaultDeltaCalculatorTest.NEW_COMPLEX_CONFIG);
+  customer=new Tenant();
+  customer.setName(CUSTOMER_ID);
+  customer=customerDao.save(customer);
+  Assert.assertNotNull(customer);
+  Assert.assertNotNull(customer.getId());
+  Application appObj=new Application();
+  appObj.setTenantId(idToObjectId(customer.getId()));
+  appObj.setName(APPLICATION_NAME);
+  this.app=applicationService.saveApp(appObj.toDto());
+  Assert.assertNotNull(app);
+  Assert.assertNotNull(app.getId());
+  EndpointGroup groupAll=endpointGroupDao.findByAppIdAndWeight(app.getId(),0);
+  ProfileSchema profileSchemaObj=new ProfileSchema();
+  profileSchemaObj.setMajorVersion(PROFILE_SCHEMA_VERSION);
+  profileSchemaObj.setMinorVersion(0);
+  profileSchemaObj.setSchema(BasicEndpointProfile.SCHEMA$.toString());
+  profileSchemaObj.setApplicationId(idToObjectId(app.getId()));
+  profileSchema=profileService.saveProfileSchema(profileSchemaObj.toDto());
+  EndpointGroup endpointGroup=new EndpointGroup();
+  endpointGroup.setApplicationId(new ObjectId(app.getId()));
+  endpointGroup.setName("Test group");
+  endpointGroup.setWeight(177);
+  endpointGroup.setDescription("Test Description");
+  endpointGroup=endpointGroupDao.save(endpointGroup);
+  ProfileFilter profileFilterObj=new ProfileFilter();
+  profileFilterObj.setApplicationId(idToObjectId(app.getId()));
+  profileFilterObj.setEndpointGroupId(idToObjectId(endpointGroup.getId()));
+  profileFilterObj.setBody("profileBody.contains(\"dummy\")");
+  profileFilterObj.setSchemaId(idToObjectId(profileSchema.getId()));
+  profileFilter=profileService.saveProfileFilter(profileFilterObj.toDto());
+  profileService.activateProfileFilter(profileFilter.getId(),null);
+  confSchema=new ConfigurationSchema();
+  confSchema.setApplicationId(idToObjectId(app.getId()));
+  confSchema.setMajorVersion(CONF_SCHEMA_VERSION);
+  confSchema.setMinorVersion(CONF_SCHEMA_VERSION);
+  confSchema.setSchema(dataSchema);
+  try {
+    confSchema=new ConfigurationSchema(configurationService.saveConfSchema(confSchema.toDto()));
+  }
+ catch (  IncorrectParameterException e) {
+    Assert.fail("Can't generate schemas");
+  }
+  Assert.assertNotNull(confSchema);
+  Assert.assertNotNull(confSchema.getId());
+}

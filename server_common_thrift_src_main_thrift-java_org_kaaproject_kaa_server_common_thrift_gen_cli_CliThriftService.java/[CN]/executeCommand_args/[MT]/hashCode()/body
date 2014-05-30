@@ -1,0 +1,7 @@
+{
+  List<Object> list=new ArrayList<Object>();
+  boolean present_commandLine=true && (isSetCommandLine());
+  list.add(present_commandLine);
+  if (present_commandLine)   list.add(commandLine);
+  return list.hashCode();
+}

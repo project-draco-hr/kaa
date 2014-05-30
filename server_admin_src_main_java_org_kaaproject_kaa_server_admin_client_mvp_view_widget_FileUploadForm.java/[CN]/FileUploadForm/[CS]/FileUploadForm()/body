@@ -1,0 +1,16 @@
+{
+  this.setEncoding(FormPanel.ENCODING_MULTIPART);
+  this.setMethod(FormPanel.METHOD_POST);
+  fu.setName(GUID.get());
+  fu.setHeight("30px");
+  this.add(fu);
+  addSubmitHandler(new FormPanel.SubmitHandler(){
+    public void onSubmit(    SubmitEvent event){
+      if ("".equalsIgnoreCase(fu.getFilename())) {
+        event.cancel();
+      }
+    }
+  }
+);
+  this.setAction(GWT.getModuleBaseURL() + KAA_FILE_UPLOAD_SERVLET_PATH);
+}

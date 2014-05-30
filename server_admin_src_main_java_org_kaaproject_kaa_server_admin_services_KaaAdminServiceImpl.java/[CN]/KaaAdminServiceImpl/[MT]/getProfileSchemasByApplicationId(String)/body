@@ -1,0 +1,11 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    ApplicationDto storedApplication=toDto(clientProvider.getClient().getApplication(applicationId));
+    checkTenantId(storedApplication.getTenantId());
+    return toDtoList(clientProvider.getClient().getProfileSchemasByApplicationId(applicationId));
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

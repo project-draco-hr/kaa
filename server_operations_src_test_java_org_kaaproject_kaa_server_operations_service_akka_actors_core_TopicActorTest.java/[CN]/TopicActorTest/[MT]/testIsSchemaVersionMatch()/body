@@ -1,0 +1,7 @@
+{
+  Assert.assertTrue(TopicActor.isSchemaVersionMatch(systemNf,42,73));
+  Assert.assertTrue(TopicActor.isSchemaVersionMatch(userNf,42,73));
+  Assert.assertFalse(TopicActor.isSchemaVersionMatch(systemNf,73,42));
+  Assert.assertFalse(TopicActor.isSchemaVersionMatch(userNf,73,42));
+  Assert.assertFalse(TopicActor.isSchemaVersionMatch(unicastNf,73,42));
+}

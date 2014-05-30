@@ -1,0 +1,10 @@
+{
+  List<ConfigurationDto> configs=generateConfiguration(null,null,1,false,false);
+  ConfigurationDto saved=configurationService.findConfigurationById(configs.get(0).getId());
+  String inactiveId=saved.getId();
+  saved.setId(null);
+  ConfigurationDto updated=configurationService.saveConfiguration(saved);
+  Assert.assertNotNull(saved);
+  Assert.assertEquals(saved.getStatus(),UpdateStatus.INACTIVE);
+  Assert.assertEquals(inactiveId,updated.getId());
+}

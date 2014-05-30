@@ -1,0 +1,17 @@
+{
+  if (!topicIds.isEmpty()) {
+    String topicId=topicIds.removeLast();
+    KaaAdmin.getDataSource().addTopicToEndpointGroup(endpointGroupId,topicId,new AsyncCallback<Void>(){
+      @Override public void onFailure(      Throwable caught){
+        setError(Utils.getErrorMessage(caught));
+      }
+      @Override public void onSuccess(      Void result){
+        addTopics(topicIds);
+      }
+    }
+);
+  }
+ else {
+    hide();
+  }
+}

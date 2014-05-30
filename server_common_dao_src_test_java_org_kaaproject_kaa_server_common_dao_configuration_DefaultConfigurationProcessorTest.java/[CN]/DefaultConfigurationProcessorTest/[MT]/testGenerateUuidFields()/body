@@ -1,0 +1,20 @@
+{
+  Path schemaPath=Paths.get(Thread.currentThread().getContextClassLoader().getResource("dao/configuration/simpleSchema.json").toURI());
+  String configuraionSchema=new String(Files.readAllBytes(schemaPath));
+  Path configurationPath=Paths.get(Thread.currentThread().getContextClassLoader().getResource("dao/configuration/simpleConfiguration.json").toURI());
+  String configuraion=new String(Files.readAllBytes(configurationPath));
+  GenericAvroConverter<GenericRecord> converter=new GenericAvroConverter<>(configuraionSchema);
+  byte[] configurationBody=converter.encode(converter.decodeJson(configuraion));
+  DefaultConfigurationProcessorStub configurationProcessor=new DefaultConfigurationProcessorStub(configuraionSchema);
+  byte[] processedConfigurationBody=configurationProcessor.generateUuidFields(configurationBody);
+  String processedConfigurationJson=converter.endcodeToJson(converter.decodeBinary(processedConfigurationBody));
+  ObjectMapper jsonMapper=new ObjectMapper();
+  Map<String,Object> processedConfigurationMap=jsonMapper.readValue(processedConfigurationJson,Map.class);
+  Object uuid=processedConfigurationMap.get("__uuid");
+  Assert.assertNotNull(uuid);
+  Assert.assertTrue(uuid instanceof Map);
+  Object uuidValue=((Map)uuid).get("org.kaaproject.configuration.uuidT");
+  Assert.assertNotNull(uuidValue);
+  byte[] uuidValueBytes=uuidValue.toString().getBytes(Charset.forName("UTF-8"));
+  Assert.assertTrue(Arrays.equals(uuidValueBytes,configurationProcessor.generateUUIDBytes()));
+}

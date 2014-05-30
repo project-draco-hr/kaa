@@ -1,0 +1,83 @@
+{
+  TTupleProtocol oprot=(TTupleProtocol)prot;
+  BitSet optionals=new BitSet();
+  if (struct.isSetAppId()) {
+    optionals.set(0);
+  }
+  if (struct.isSetAppSeqNumber()) {
+    optionals.set(1);
+  }
+  if (struct.isSetGroupId()) {
+    optionals.set(2);
+  }
+  if (struct.isSetGroupSeqNumber()) {
+    optionals.set(3);
+  }
+  if (struct.isSetProfileFilterId()) {
+    optionals.set(4);
+  }
+  if (struct.isSetProfileFilterSeqNumber()) {
+    optionals.set(5);
+  }
+  if (struct.isSetConfigurationId()) {
+    optionals.set(6);
+  }
+  if (struct.isSetConfigurationSeqNumber()) {
+    optionals.set(7);
+  }
+  if (struct.isSetNotificationId()) {
+    optionals.set(8);
+  }
+  if (struct.isSetUnicastNotificationId()) {
+    optionals.set(9);
+  }
+  if (struct.isSetTopicId()) {
+    optionals.set(10);
+  }
+  if (struct.isSetKeyHash()) {
+    optionals.set(11);
+  }
+  if (struct.isSetOp()) {
+    optionals.set(12);
+  }
+  oprot.writeBitSet(optionals,13);
+  if (struct.isSetAppId()) {
+    oprot.writeString(struct.appId);
+  }
+  if (struct.isSetAppSeqNumber()) {
+    oprot.writeI32(struct.appSeqNumber);
+  }
+  if (struct.isSetGroupId()) {
+    oprot.writeString(struct.groupId);
+  }
+  if (struct.isSetGroupSeqNumber()) {
+    oprot.writeI32(struct.groupSeqNumber);
+  }
+  if (struct.isSetProfileFilterId()) {
+    oprot.writeString(struct.profileFilterId);
+  }
+  if (struct.isSetProfileFilterSeqNumber()) {
+    oprot.writeI32(struct.profileFilterSeqNumber);
+  }
+  if (struct.isSetConfigurationId()) {
+    oprot.writeString(struct.configurationId);
+  }
+  if (struct.isSetConfigurationSeqNumber()) {
+    oprot.writeI32(struct.configurationSeqNumber);
+  }
+  if (struct.isSetNotificationId()) {
+    oprot.writeString(struct.notificationId);
+  }
+  if (struct.isSetUnicastNotificationId()) {
+    oprot.writeString(struct.unicastNotificationId);
+  }
+  if (struct.isSetTopicId()) {
+    oprot.writeString(struct.topicId);
+  }
+  if (struct.isSetKeyHash()) {
+    oprot.writeBinary(struct.keyHash);
+  }
+  if (struct.isSetOp()) {
+    oprot.writeI32(struct.op.getValue());
+  }
+}

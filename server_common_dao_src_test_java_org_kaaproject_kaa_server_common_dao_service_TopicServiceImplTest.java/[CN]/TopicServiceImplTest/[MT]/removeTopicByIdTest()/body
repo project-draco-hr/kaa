@@ -1,0 +1,6 @@
+{
+  TopicDto topic=generateTopic(null,null);
+  topicService.removeTopicById(topic.getId());
+  TopicDto found=topicService.findTopicById(topic.getId());
+  Assert.assertNull(found);
+}

@@ -1,0 +1,6 @@
+{
+  LOG.debug("Casscade remove by tenant id [{}]",tenantId);
+  applicationService.removeAppsByTenantId(tenantId);
+  userDao.removeByTenantId(tenantId);
+  tenantDao.removeById(tenantId);
+}

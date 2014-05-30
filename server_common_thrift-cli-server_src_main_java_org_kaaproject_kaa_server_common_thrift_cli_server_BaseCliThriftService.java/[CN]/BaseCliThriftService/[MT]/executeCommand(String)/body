@@ -1,0 +1,38 @@
+{
+  CommandStatus status=CommandStatus.OK;
+  String[] args=commandLineString.split(" ");
+  ByteArrayOutputStream outStream=new ByteArrayOutputStream();
+  PrintWriter writer=new PrintWriter(outStream);
+  String commandString=args[0];
+  Command command=commandsMap.get(commandString);
+  if (command != null) {
+    CommandLineParser cmdLinePosixParser=new PosixParser();
+    String[] commandArgs=new String[args.length - 1];
+    System.arraycopy(args,1,commandArgs,0,args.length - 1);
+    try {
+      CommandLine commandLine=cmdLinePosixParser.parse(command.getOptions(),commandArgs);
+      if (commandLine.hasOption('h')) {
+        printHelp(command,writer);
+      }
+ else {
+        command.runCommand(commandLine,writer);
+      }
+    }
+ catch (    ParseException e) {
+      writer.println("Unable to parse command arguments.");
+      writer.println();
+      printHelp(command,writer);
+      status=CommandStatus.ERROR;
+    }
+  }
+ else {
+    writer.println("Error: unknown command '" + commandString + "'");
+    listCommands(writer);
+  }
+  CommandResult result=new CommandResult();
+  writer.println();
+  writer.flush();
+  result.message=outStream.toString();
+  result.status=status;
+  return result;
+}

@@ -1,0 +1,14 @@
+{
+  EndpointGroupDto endpointGroup=new EndpointGroupDto();
+  endpointGroup.setName(generateString(ENDPOINT_GROUP));
+  endpointGroup.setWeight(random.nextInt());
+  if (strIsEmpty(applicationId)) {
+    ApplicationDto application=createApplication();
+    endpointGroup.setApplicationId(application.getId());
+  }
+ else {
+    endpointGroup.setApplicationId(applicationId);
+  }
+  EndpointGroupDto savedEndpointGroup=toDto(client.editEndpointGroup(toDataStruct(endpointGroup)));
+  return savedEndpointGroup;
+}

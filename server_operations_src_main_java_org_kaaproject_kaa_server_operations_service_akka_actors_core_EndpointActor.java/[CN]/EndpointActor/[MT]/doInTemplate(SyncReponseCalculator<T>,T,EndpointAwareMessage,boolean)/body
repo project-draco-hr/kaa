@@ -1,0 +1,32 @@
+{
+  try {
+    LOG.debug("[{}] Processing request from endpoint {}",endpointActorKey,Base64Util.encode(message.getKey().getData()));
+    long start=System.currentTimeMillis();
+    SyncResponseHolder responseHolder=calcualtor.getSyncReponse(request);
+    this.syncTime+=System.currentTimeMillis() - start;
+    LOG.debug("[{}] SyncResponseHolder {}",endpointActorKey,responseHolder);
+    if (canPostpone) {
+      if (!requireImmediateReply(responseHolder.getResponse())) {
+        LOG.debug("[{}] reply postponed till request timeout or state change",endpointActorKey);
+        pendingResponse=responseHolder;
+        return false;
+      }
+ else {
+        LOG.debug("[{}] Response require immediate reply. Sending reply now!",endpointActorKey);
+        sendReply(message,responseHolder.getResponse());
+        return true;
+      }
+    }
+ else {
+      LOG.debug("[{}] Request require immediate reply. Sending reply now!",endpointActorKey);
+      sendReply(message,responseHolder.getResponse());
+      return true;
+    }
+  }
+ catch (  GetDeltaException e) {
+    SyncResponseMessage responseMessage=new SyncResponseMessage(message.getAppToken(),message.getKey(),null,e);
+    LOG.error("[{}] processEndpointRequest",endpointActorKey,e);
+    sendReply(message.getOriginator(),message,responseMessage);
+    return true;
+  }
+}

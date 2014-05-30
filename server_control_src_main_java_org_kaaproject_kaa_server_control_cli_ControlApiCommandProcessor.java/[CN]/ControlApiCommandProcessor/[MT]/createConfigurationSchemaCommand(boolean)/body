@@ -1,0 +1,28 @@
+{
+  ControlApiCommand command=new ControlApiCommand(edit ? "editConfigurationSchema" : "createConfigurationSchema",(edit ? "edit" : "create") + " Configuration Schema"){
+    @Override public void runCommand(    CommandLine line,    ControlThriftService.Iface client,    PrintWriter writer,    PrintWriter errorWriter){
+      createConfigurationSchema(line,client,writer,errorWriter,edit);
+    }
+  }
+;
+  if (edit) {
+    Option opt=new Option("i","configurationSchemaId",true,"Configuration Schema Id option");
+    opt.setRequired(true);
+    command.addOption(opt);
+  }
+ else {
+    Option opt=new Option("o","output",true,"Output file to store Object Id");
+    opt.setRequired(false);
+    command.addOption(opt);
+    opt=new Option("vo","versionOutput",true,"Output file to store version");
+    opt.setRequired(false);
+    command.addOption(opt);
+  }
+  Option opt=new Option("f","file",true,"Configuration Schema JSON File");
+  opt.setRequired(!edit);
+  command.addOption(opt);
+  opt=new Option("a","applicationId",true,"Application Id option");
+  opt.setRequired(!edit);
+  command.addOption(opt);
+  return command;
+}

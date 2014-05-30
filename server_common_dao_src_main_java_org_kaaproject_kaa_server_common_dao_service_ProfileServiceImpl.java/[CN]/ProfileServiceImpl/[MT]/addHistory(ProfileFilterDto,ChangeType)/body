@@ -1,0 +1,12 @@
+{
+  LOG.debug("Add history information about profile filter update with change type {} ",type);
+  HistoryDto history=new HistoryDto();
+  history.setApplicationId(dto.getApplicationId());
+  ChangeDto change=new ChangeDto();
+  change.setProfileFilterId(dto.getId());
+  change.setPfMajorVersion(dto.getMajorVersion());
+  change.setEndpointGroupId(dto.getEndpointGroupId());
+  change.setType(type);
+  history.setChange(change);
+  return historyService.saveHistory(history);
+}

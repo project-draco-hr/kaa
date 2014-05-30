@@ -1,0 +1,15 @@
+{
+  LOG.debug("Updating Profile for {}",request.getEndpointKeyHash());
+  EndpointProfileDto dto=endpointService.findEndpointProfileByKeyHash(request.getEndpointKeyHash().getData());
+  String profileJson=decodeProfile(request.getProfile(),dto.getApplicationId(),request.getVersionInfo().getProfileVersion());
+  dto.setProfile(profileJson);
+  dto.setProfileHash(EndpointObjectHash.fromSHA1(request.getProfile()).getData());
+  dto.setProfileVersion(request.getVersionInfo().getProfileVersion());
+  dto.setConfigurationVersion(request.getVersionInfo().getConfigVersion());
+  dto.setSystemNfVersion(request.getVersionInfo().getSystemNfVersion());
+  dto.setUserNfVersion(request.getVersionInfo().getUserNfVersion());
+  List<EndpointGroupStateDto> egsList=new ArrayList<>();
+  dto.setEndpointGroups(egsList);
+  dto.setSequenceNumber(0);
+  return endpointService.saveEndpointProfile(dto);
+}

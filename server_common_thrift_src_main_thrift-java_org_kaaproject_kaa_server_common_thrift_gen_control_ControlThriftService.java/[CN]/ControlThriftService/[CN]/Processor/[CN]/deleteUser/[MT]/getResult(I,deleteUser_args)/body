@@ -1,0 +1,10 @@
+{
+  deleteUser_result result=new deleteUser_result();
+  try {
+    iface.deleteUser(args.userId);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

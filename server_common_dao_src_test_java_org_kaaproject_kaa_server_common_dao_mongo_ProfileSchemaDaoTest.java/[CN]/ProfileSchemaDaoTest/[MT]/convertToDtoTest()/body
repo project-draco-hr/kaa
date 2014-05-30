@@ -1,0 +1,6 @@
+{
+  ProfileSchemaDto profileSchema=generateProfSchema(null,1).get(0);
+  Assert.assertNotNull(profileSchema);
+  ProfileSchema converted=new ProfileSchema(profileSchema);
+  Assert.assertEquals(profileSchema,converted.toDto());
+}

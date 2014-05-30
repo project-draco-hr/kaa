@@ -1,0 +1,18 @@
+{
+  if (subscriptions != null && !subscriptions.isEmpty()) {
+synchronized (notificationCommands) {
+      notificationCommands.addAll(subscriptions);
+      if (!failover) {
+        LOG.info("Voluntary subscription updated. Restarting poll...");
+        try {
+          transport.abortRequest();
+        }
+ catch (        Exception e) {
+          LOG.error("Failed to abort previous request..",e);
+        }
+        pollStrategy.stopPoll();
+        startPoll();
+      }
+    }
+  }
+}

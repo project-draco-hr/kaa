@@ -1,0 +1,10 @@
+{
+  ControlNodeInfo controlServerInfo=null;
+  try {
+    controlServerInfo=controlNodeAvroConverter.get().fromByteArray(currentData.getData(),controlServerInfo);
+  }
+ catch (  IOException e) {
+    LOG.error("error reading control server info",e);
+  }
+  return controlServerInfo;
+}

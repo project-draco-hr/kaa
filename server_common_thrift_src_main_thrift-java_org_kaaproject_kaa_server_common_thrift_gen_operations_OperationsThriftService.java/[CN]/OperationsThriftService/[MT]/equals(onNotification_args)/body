@@ -1,0 +1,10 @@
+{
+  if (that == null)   return false;
+  boolean this_present_notification=true && this.isSetNotification();
+  boolean that_present_notification=true && that.isSetNotification();
+  if (this_present_notification || that_present_notification) {
+    if (!(this_present_notification && that_present_notification))     return false;
+    if (!this.notification.equals(that.notification))     return false;
+  }
+  return true;
+}

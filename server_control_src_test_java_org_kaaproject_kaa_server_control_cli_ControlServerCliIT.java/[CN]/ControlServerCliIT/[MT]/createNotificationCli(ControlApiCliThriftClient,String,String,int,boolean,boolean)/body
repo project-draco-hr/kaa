@@ -1,0 +1,16 @@
+{
+  cliOut.reset();
+  int result=-1;
+  String cmdLine="createNotification  -s " + notificationSchemaId + " -t "+ topicId+ (sendBody ? (" -b '" + getTestFileContent("testSystemNotification.json") + "'") : (" -f " + getTestFile("testSystemNotification.json")));
+  if (createOut) {
+    cmdLine+=" -o dummy.out";
+  }
+  if (ttl != 0) {
+    cmdLine+=" -l " + ttl;
+  }
+  result=cli.processLine(cmdLine);
+  Assert.assertEquals(result,0);
+  String output=cliOut.toString("UTF-8");
+  String id=output.trim().substring("Created new Notification with id: ".length()).trim();
+  return id;
+}

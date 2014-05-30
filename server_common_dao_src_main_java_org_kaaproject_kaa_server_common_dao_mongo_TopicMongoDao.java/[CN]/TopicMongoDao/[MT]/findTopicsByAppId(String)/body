@@ -1,0 +1,4 @@
+{
+  LOG.debug("Find topics by application id [{}]",appId);
+  return find(query(where(APPLICATION_ID).is(new ObjectId(appId))));
+}

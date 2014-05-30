@@ -1,0 +1,15 @@
+{
+  SchemaDto configurationSchema=configurationSchemaVersion.getValue();
+  SchemaDto profileSchema=profileSchemaVersion.getValue();
+  SchemaDto notificationSchema=notificationSchemaVersion.getValue();
+  SdkPlatform targetPlatformVal=targetPlatform.getValue();
+  KaaAdmin.getDataSource().getSdk(applicationId,configurationSchema.getMajorVersion(),profileSchema.getMajorVersion(),notificationSchema.getMajorVersion(),targetPlatformVal,new AsyncCallback<String>(){
+    @Override public void onFailure(    Throwable caught){
+      setError(Utils.getErrorMessage(caught));
+    }
+    @Override public void onSuccess(    String key){
+      ServletHelper.downloadSdk(key);
+    }
+  }
+);
+}

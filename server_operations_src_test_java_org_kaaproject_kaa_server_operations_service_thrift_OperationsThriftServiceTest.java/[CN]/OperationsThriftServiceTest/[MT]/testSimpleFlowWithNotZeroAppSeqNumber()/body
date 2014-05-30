@@ -1,0 +1,19 @@
+{
+  Notification notification=new Notification();
+  notification.setAppId(TEST_APP_ID);
+  notification.setProfileFilterId(TEST_PF_ID);
+  notification.setAppSeqNumber(TEST_APP_SEQ_NUMBER);
+  ApplicationDto appDto=new ApplicationDto();
+  appDto.setId(TEST_APP_ID);
+  appDto.setApplicationToken(TEST_APP_TOKEN);
+  ProfileFilterDto pfDto=new ProfileFilterDto();
+  pfDto.setMajorVersion(PF_VERSION);
+  Mockito.when(applicationService.findAppById(TEST_APP_ID)).thenReturn(appDto);
+  Mockito.when(cacheService.getFilter(TEST_PF_ID)).thenReturn(pfDto);
+  operationsThriftService.onNotification(notification);
+  Mockito.verify(applicationService).findAppById(TEST_APP_ID);
+  Mockito.verify(cacheService).getFilter(TEST_PF_ID);
+  Mockito.verify(cacheService).resetFilters(new AppVersionKey(TEST_APP_TOKEN,PF_VERSION));
+  Mockito.verify(cacheService,Mockito.times(1)).putAppSeqNumber(TEST_APP_TOKEN,TEST_APP_SEQ_NUMBER);
+  Mockito.verify(akkaService).onNotification(notification);
+}

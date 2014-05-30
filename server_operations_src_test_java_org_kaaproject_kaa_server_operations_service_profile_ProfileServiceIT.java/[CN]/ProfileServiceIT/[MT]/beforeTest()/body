@@ -1,0 +1,20 @@
+{
+  endpointProfileDao.removeAll();
+  profileSchemaDao.removeAll();
+  applicationDao.removeAll();
+  customerDao.removeAll();
+  customerDto=new Tenant();
+  customerDto.setName(CUSTOMER_NAME);
+  customerDto=customerDao.save(customerDto);
+  appDto=new Application();
+  appDto.setName(APP_NAME);
+  appDto.setApplicationToken(APP_TOKEN);
+  appDto.setTenantId(idToObjectId(customerDto.getId()));
+  appDto=applicationDao.save(appDto);
+  profileSchemaDto=new ProfileSchema();
+  profileSchemaDto.setMajorVersion(PROFILE_SCHEMA_VERSION);
+  profileSchemaDto.setMinorVersion(0);
+  profileSchemaDto.setSchema(BasicEndpointProfile.SCHEMA$.toString());
+  profileSchemaDto.setApplicationId(idToObjectId(appDto.getId()));
+  profileSchemaDto=profileSchemaDao.save(profileSchemaDto);
+}

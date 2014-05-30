@@ -1,0 +1,7 @@
+{
+  ApplicationDto applicationDto=null;
+  if (isNotBlank(applicationToken)) {
+    applicationDto=getDto(applicationDao.findByApplicationToken(applicationToken));
+  }
+  return applicationDto;
+}

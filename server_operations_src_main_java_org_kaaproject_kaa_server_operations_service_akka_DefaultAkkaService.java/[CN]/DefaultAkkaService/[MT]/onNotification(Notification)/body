@@ -1,0 +1,10 @@
+{
+  ApplicationDto applicationDto=applicationService.findAppById(notification.getAppId());
+  if (applicationDto != null) {
+    LOG.debug("Sending message {} to EPS actor",notification);
+    opsActor.tell(new ThriftNotificationMessage(applicationDto.getApplicationToken(),notification),ActorRef.noSender());
+  }
+ else {
+    LOG.warn("Can't find corresponding application for: {}",notification);
+  }
+}

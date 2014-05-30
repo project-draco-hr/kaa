@@ -1,0 +1,23 @@
+{
+  KaaClientState state=new KaaClientPropertiesState(getProperties());
+  Topic topic1=Topic.newBuilder().setId("1234").setName("testName").setSubscriptionType(SubscriptionType.VOLUNTARY).build();
+  Topic topic2=Topic.newBuilder().setId("4321").setName("testName").setSubscriptionType(SubscriptionType.MANDATORY).build();
+  state.addTopic(topic1);
+  state.addTopic(topic2);
+  state.updateTopicSubscriptionInfo(topic2.getId(),1);
+  state.updateTopicSubscriptionInfo(topic1.getId(),0);
+  state.updateTopicSubscriptionInfo(topic1.getId(),5);
+  state.updateTopicSubscriptionInfo(topic1.getId(),1);
+  Map<String,Integer> expected=new HashMap<String,Integer>();
+  expected.put(topic1.getId(),5);
+  expected.put(topic2.getId(),1);
+  assertEquals(expected,state.getNfSubscriptions());
+  state.persist();
+  state=new KaaClientPropertiesState(getProperties());
+  assertEquals(expected,state.getNfSubscriptions());
+  state.removeTopic(topic1.getId());
+  state.persist();
+  state=new KaaClientPropertiesState(getProperties());
+  expected.remove(topic1.getId());
+  assertEquals(expected,state.getNfSubscriptions());
+}

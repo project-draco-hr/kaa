@@ -1,0 +1,16 @@
+{
+  while (operate) {
+synchronized (sync) {
+      try {
+        LOG.info("Load distribution service recalculation started...");
+        loadManager.recalculate();
+        sync.wait(recalculationPeriod * 1000);
+      }
+ catch (      InterruptedException e) {
+        LOG.warn("Load distribution service interrupted, shutting down...");
+        operate=false;
+      }
+    }
+  }
+  LOG.info("Load distribution service stopped");
+}

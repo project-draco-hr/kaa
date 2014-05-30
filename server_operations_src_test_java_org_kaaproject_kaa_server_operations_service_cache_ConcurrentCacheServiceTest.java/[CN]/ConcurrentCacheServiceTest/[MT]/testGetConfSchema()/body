@@ -1,0 +1,8 @@
+{
+  assertEquals(CF1_SCHEMA,cacheService.getConfSchemaByAppAndVersion(CF_SCHEMA_KEY));
+  verify(configurationService,times(1)).findConfSchemaByAppIdAndVersion(APP_ID,CF_SCHEMA_KEY.getVersion());
+  reset(configurationService);
+  assertEquals(CF1_SCHEMA,cacheService.getConfSchemaByAppAndVersion(CF_SCHEMA_KEY));
+  verify(configurationService,times(0)).findConfSchemaByAppIdAndVersion(APP_ID,CF_SCHEMA_KEY.getVersion());
+  reset(configurationService);
+}

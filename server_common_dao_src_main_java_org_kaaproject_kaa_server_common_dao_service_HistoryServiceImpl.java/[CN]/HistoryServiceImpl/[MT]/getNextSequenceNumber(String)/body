@@ -1,0 +1,17 @@
+{
+  long maxLatency=waitSeconds * 1000;
+  Application application=null;
+  long startTime=System.currentTimeMillis();
+  long endTime=startTime;
+  while (application == null) {
+    if ((endTime - startTime) < maxLatency) {
+      application=applicationDao.getNextSeqNumber(appId);
+    }
+ else {
+      application=applicationDao.forceNextSeqNumber(appId);
+      break;
+    }
+    endTime=System.currentTimeMillis();
+  }
+  return application;
+}

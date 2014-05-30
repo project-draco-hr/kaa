@@ -1,0 +1,20 @@
+{
+switch (field) {
+case APPLICATION_ID:
+    if (value == null) {
+      unsetApplicationId();
+    }
+ else {
+      setApplicationId((String)value);
+    }
+  break;
+case TYPE:
+if (value == null) {
+  unsetType();
+}
+ else {
+  setType((org.kaaproject.kaa.server.common.thrift.gen.shared.DataStruct)value);
+}
+break;
+}
+}

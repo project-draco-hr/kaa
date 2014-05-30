@@ -1,0 +1,9 @@
+{
+  if (isUnchangedDeclared) {
+    return NAMESPACE + "." + UNCHANGED_NAME+ "T";
+  }
+ else {
+    isUnchangedDeclared=true;
+    return getEnum(UNCHANGED_NAME);
+  }
+}

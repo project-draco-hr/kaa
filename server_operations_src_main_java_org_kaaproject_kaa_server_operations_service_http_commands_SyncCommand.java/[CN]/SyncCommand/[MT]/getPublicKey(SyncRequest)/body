@@ -1,0 +1,5 @@
+{
+  EndpointObjectHash hash=EndpointObjectHash.fromBytes(request.getEndpointPublicKeyHash().array());
+  PublicKey endpointKey=cacheService.getEndpointKey(hash);
+  return endpointKey;
+}

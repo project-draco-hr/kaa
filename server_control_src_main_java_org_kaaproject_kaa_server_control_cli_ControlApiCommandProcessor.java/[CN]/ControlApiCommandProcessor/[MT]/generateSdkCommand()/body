@@ -1,0 +1,26 @@
+{
+  ControlApiCommand command=new ControlApiCommand("generateSdk","generate SDK"){
+    @Override public void runCommand(    CommandLine line,    ControlThriftService.Iface client,    PrintWriter writer,    PrintWriter errorWriter){
+      generateSdk(line,client,writer,errorWriter);
+    }
+  }
+;
+  Option opt=new Option("sdk","sdkPlatform",true,"SDK platform option (java)");
+  opt.setRequired(true);
+  command.addOption(opt);
+  opt=new Option("a","applicationId",true,"Application Id option");
+  opt.setRequired(true);
+  command.addOption(opt);
+  opt=new Option("psv","profileSchemaVersion",true,"Profile schema version option");
+  opt.setRequired(true);
+  command.addOption(opt);
+  opt=new Option("csv","configurationSchemaVersion",true,"Configuration schema version option");
+  opt.setRequired(true);
+  command.addOption(opt);
+  opt=new Option("nsv","notificationSchemaVersion",true,"Notification schema version option");
+  opt.setRequired(true);
+  command.addOption(opt);
+  opt=new Option("out","outputDir",true,"Output directory to store sdk file");
+  command.addOption(opt);
+  return command;
+}

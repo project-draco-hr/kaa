@@ -1,0 +1,9 @@
+{
+  this.properties=new KaaClientProperties(properties);
+  this.kaaClientState=new KaaClientPropertiesState(this.properties);
+  this.updateManager=new DefaultUpdateManager(this.properties,this.kaaClientState);
+  this.profileManager=new DefaultProfileManager(this.updateManager,this.kaaClientState);
+  this.updateManager.setSerializedProfileContainer(this.profileManager.getSerializedProfileContainer());
+  this.bootstrapManager=new DefaultBootstrapManager(this.properties.getApplicationToken());
+  this.notificationManager=new DefaultNotificationManager(this.updateManager,this.kaaClientState);
+}

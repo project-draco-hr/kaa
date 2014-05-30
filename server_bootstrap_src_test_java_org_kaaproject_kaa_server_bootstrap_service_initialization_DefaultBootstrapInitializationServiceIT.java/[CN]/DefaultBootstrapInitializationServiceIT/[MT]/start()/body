@@ -1,0 +1,19 @@
+{
+  assertNotNull(dbiService);
+  TestLauncher l=new TestLauncher();
+  assertNotNull(l);
+  l.service=dbiService;
+  l.start();
+  try {
+    Thread.sleep(1000);
+  }
+ catch (  InterruptedException e) {
+    fail(e.toString());
+  }
+  assertNotNull(dbiService.getKeyStoreService());
+  assertNotNull(dbiService.getBootstrapThriftService());
+  assertNotNull(dbiService.getBootstrapNode());
+  assertNotNull(l);
+  assertNotNull(l.service);
+  l.shutdown();
+}

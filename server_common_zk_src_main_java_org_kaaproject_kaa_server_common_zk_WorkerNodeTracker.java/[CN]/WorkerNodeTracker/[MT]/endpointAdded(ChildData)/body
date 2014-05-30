@@ -1,0 +1,6 @@
+{
+  OperationsNodeInfo nodeInfo=extractOperationServerInfo(data);
+  for (  OperationsNodeListener listener : endpointListeners) {
+    listener.onNodeAdded(nodeInfo);
+  }
+}

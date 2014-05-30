@@ -1,0 +1,29 @@
+{
+  TTupleProtocol oprot=(TTupleProtocol)prot;
+  BitSet optionals=new BitSet();
+  if (struct.isSetDnsName()) {
+    optionals.set(0);
+  }
+  if (struct.isSetRuleId()) {
+    optionals.set(1);
+  }
+  if (struct.isSetRedirectionProbability()) {
+    optionals.set(2);
+  }
+  if (struct.isSetRuleTTL()) {
+    optionals.set(3);
+  }
+  oprot.writeBitSet(optionals,4);
+  if (struct.isSetDnsName()) {
+    oprot.writeString(struct.dnsName);
+  }
+  if (struct.isSetRuleId()) {
+    oprot.writeI64(struct.ruleId);
+  }
+  if (struct.isSetRedirectionProbability()) {
+    oprot.writeDouble(struct.redirectionProbability);
+  }
+  if (struct.isSetRuleTTL()) {
+    oprot.writeI64(struct.ruleTTL);
+  }
+}

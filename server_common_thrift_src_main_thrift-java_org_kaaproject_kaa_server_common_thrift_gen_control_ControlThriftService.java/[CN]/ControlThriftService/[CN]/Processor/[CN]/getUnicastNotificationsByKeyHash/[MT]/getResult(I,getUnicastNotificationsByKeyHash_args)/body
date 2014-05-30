@@ -1,0 +1,10 @@
+{
+  getUnicastNotificationsByKeyHash_result result=new getUnicastNotificationsByKeyHash_result();
+  try {
+    result.success=iface.getUnicastNotificationsByKeyHash(args.keyhash);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

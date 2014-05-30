@@ -1,0 +1,17 @@
+{
+  if (users == null || refresh) {
+    users=new ArrayList<UserDto>();
+    rpcService.getUsers(new DataCallback<List<UserDto>>(callback){
+      @Override protected void onResult(      List<UserDto> result){
+        users.addAll(result);
+        eventBus.fireEvent(new DataEvent(UserDto.class,true));
+      }
+    }
+);
+  }
+ else {
+    if (callback != null) {
+      callback.onSuccess(users);
+    }
+  }
+}

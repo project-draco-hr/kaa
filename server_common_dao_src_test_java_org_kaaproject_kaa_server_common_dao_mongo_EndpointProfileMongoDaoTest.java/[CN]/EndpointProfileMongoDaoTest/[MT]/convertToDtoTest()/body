@@ -1,0 +1,7 @@
+{
+  EndpointProfile endpointProfile=endpointProfileDao.findById(endProfiles.get(0));
+  Assert.assertNotNull(endpointProfile);
+  EndpointProfileDto dto=endpointProfile.toDto();
+  EndpointProfile converted=new EndpointProfile(dto);
+  Assert.assertEquals(endpointProfile,converted);
+}

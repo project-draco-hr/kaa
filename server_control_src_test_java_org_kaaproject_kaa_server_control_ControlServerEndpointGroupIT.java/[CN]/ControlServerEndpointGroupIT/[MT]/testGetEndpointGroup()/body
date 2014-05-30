@@ -1,0 +1,6 @@
+{
+  EndpointGroupDto endpointGroup=createEndpointGroup();
+  EndpointGroupDto storedEndpointGroup=toDto(client.getEndpointGroup(endpointGroup.getId()));
+  Assert.assertNotNull(storedEndpointGroup);
+  assertEndpointGroupsEquals(endpointGroup,storedEndpointGroup);
+}

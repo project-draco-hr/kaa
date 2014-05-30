@@ -1,0 +1,17 @@
+{
+  TTupleProtocol oprot=(TTupleProtocol)prot;
+  BitSet optionals=new BitSet();
+  if (struct.isSetOperationsServerMap()) {
+    optionals.set(0);
+  }
+  oprot.writeBitSet(optionals,1);
+  if (struct.isSetOperationsServerMap()) {
+{
+      oprot.writeI32(struct.operationsServerMap.size());
+      for (      Map.Entry<String,OperationsServer> _iter5 : struct.operationsServerMap.entrySet()) {
+        oprot.writeString(_iter5.getKey());
+        _iter5.getValue().write(oprot);
+      }
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  ControlOptionsProcessor optionsProcessor=new ControlOptionsProcessor();
+  optionsProcessor.parse(new String[]{"-h",HOST,"-p",PORT + ""});
+  optionsProcessor.process(controlClientSession);
+  controlClientSession.connect();
+}

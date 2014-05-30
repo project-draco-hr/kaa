@@ -1,0 +1,27 @@
+{
+  SyncRequest request=new SyncRequest();
+  request.setApplicationToken(properties.getApplicationToken());
+  request.setAppStateSeqNumber(state.getAppStateSeqNumber());
+  ByteBuffer publicKeyBuffer=ByteBuffer.wrap(EndpointObjectHash.fromSHA1(state.getPublicKey().getEncoded()).getData());
+  request.setEndpointPublicKeyHash(publicKeyBuffer);
+  ByteBuffer configurationHashBuffer=ByteBuffer.wrap(state.getConfigurationHash().getData());
+  LOG.info("Configuration hash: {}",Arrays.toString(configurationHashBuffer.array()));
+  request.setConfigurationHash(configurationHashBuffer);
+  ByteBuffer profileHashBuffer=ByteBuffer.wrap(state.getProfileHash().getData());
+  LOG.info("Profile hash: {}",Arrays.toString(profileHashBuffer.array()));
+  request.setProfileHash(profileHashBuffer);
+  request.setTopicListHash(profileHashBuffer);
+  request.setTopicStates(getTopicStates());
+  if (!acceptedUnicastNotificationIds.isEmpty()) {
+    LOG.info("Accepted unicast Notifications: {}",acceptedUnicastNotificationIds.size());
+    request.setAcceptedUnicastNotifications(new ArrayList<>(acceptedUnicastNotificationIds));
+  }
+  List<SubscriptionCommand> commandsToSend=null;
+  if (!notificationCommands.isEmpty()) {
+    commandsToSend=new LinkedList<SubscriptionCommand>(notificationCommands);
+  }
+  if (commandsToSend != null) {
+    request.setSubscriptionCommands(commandsToSend);
+  }
+  return request;
+}

@@ -1,0 +1,9 @@
+{
+  writer.println("Server shutdown initiated.");
+  try {
+    shutdown();
+  }
+ catch (  TException e) {
+    LOG.error("Catch exception when execute shutdown command",e);
+  }
+}

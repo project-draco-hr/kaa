@@ -1,0 +1,10 @@
+{
+  deleteTenantAdmin_result result=new deleteTenantAdmin_result();
+  try {
+    iface.deleteTenantAdmin(args.tenantId);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

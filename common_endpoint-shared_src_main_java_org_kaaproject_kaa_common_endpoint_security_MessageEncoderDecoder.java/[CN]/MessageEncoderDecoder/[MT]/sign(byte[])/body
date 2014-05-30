@@ -1,0 +1,6 @@
+{
+  Signature signer=SHA1WITH_RSA_SIGNATURE.get();
+  signer.initSign(privateKey);
+  signer.update(message);
+  return signer.sign();
+}

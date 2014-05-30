@@ -1,0 +1,11 @@
+{
+  LOG.debug("Add history information about endpoint group update");
+  HistoryDto history=new HistoryDto();
+  history.setApplicationId(dto.getApplicationId());
+  ChangeDto change=new ChangeDto();
+  change.setEndpointGroupId(dto.getId());
+  change.setType(type);
+  change.setTopicId(topicId);
+  history.setChange(change);
+  return historyService.saveHistory(history);
+}

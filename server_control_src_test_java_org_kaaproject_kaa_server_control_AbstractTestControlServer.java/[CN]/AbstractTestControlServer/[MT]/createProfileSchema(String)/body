@@ -1,0 +1,16 @@
+{
+  ProfileSchemaDto profileSchema=new ProfileSchemaDto();
+  String schema=getResourceAsString(TEST_PROFILE_SCHEMA);
+  profileSchema.setSchema(schema);
+  profileSchema.setName(generateString("Test Schema"));
+  profileSchema.setDescription(generateString("Test Desc"));
+  if (strIsEmpty(applicationId)) {
+    ApplicationDto application=createApplication();
+    profileSchema.setApplicationId(application.getId());
+  }
+ else {
+    profileSchema.setApplicationId(applicationId);
+  }
+  ProfileSchemaDto savedProfileSchema=toDto(client.editProfileSchema(toDataStruct(profileSchema)));
+  return savedProfileSchema;
+}

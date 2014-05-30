@@ -1,0 +1,11 @@
+{
+  super(other);
+  if (isValidValue(fields()[0],other.topicId)) {
+    this.topicId=data().deepCopy(fields()[0].schema(),other.topicId);
+    fieldSetFlags()[0]=true;
+  }
+  if (isValidValue(fields()[1],other.seqNumber)) {
+    this.seqNumber=data().deepCopy(fields()[1].schema(),other.seqNumber);
+    fieldSetFlags()[1]=true;
+  }
+}

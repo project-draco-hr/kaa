@@ -1,0 +1,47 @@
+{
+  try {
+    ProfileSchemaDto profileSchema=null;
+    if (edit) {
+      String profileSchemaId=line.getOptionValue("i");
+      profileSchema=toDto(client.getProfileSchema(profileSchemaId));
+      if (profileSchema == null) {
+        writer.println("Profile Schema with id " + profileSchemaId + " not found!");
+        return;
+      }
+    }
+ else {
+      profileSchema=new ProfileSchemaDto();
+    }
+    if (line.hasOption("f")) {
+      String schemaFile=line.getOptionValue("f");
+      String schema=readFile(schemaFile,errorWriter);
+      if (schema != null) {
+        profileSchema.setSchema(schema);
+      }
+ else {
+        return;
+      }
+    }
+    if (line.hasOption("a")) {
+      profileSchema.setApplicationId(line.getOptionValue("a"));
+    }
+    ProfileSchemaDto savedProfileSchema=toDto(client.editProfileSchema(toDataStruct(profileSchema)));
+    if (edit) {
+      writer.println("Profile Schema updated.");
+    }
+ else {
+      writer.println("Created new Profile Schema with id: " + savedProfileSchema.getId());
+      if (line.hasOption("o")) {
+        String outFileName=line.getOptionValue("o");
+        storeInfo(outFileName,savedProfileSchema.getId(),errorWriter);
+      }
+      if (line.hasOption("vo")) {
+        String outFileName=line.getOptionValue("vo");
+        storeInfo(outFileName,"" + savedProfileSchema.getMajorVersion(),errorWriter);
+      }
+    }
+  }
+ catch (  TException e) {
+    handleException("Unable to " + (edit ? "update" : "create") + " Profile Schema",e,errorWriter);
+  }
+}

@@ -1,0 +1,24 @@
+{
+  KeyPairGenerator clientKeyGen=KeyPairGenerator.getInstance("RSA");
+  clientKeyGen.initialize(2048);
+  KeyPair clientKeyPair=clientKeyGen.genKeyPair();
+  privateKey=clientKeyPair.getPrivate();
+  publicKey=clientKeyPair.getPublic();
+  List<OperationsServer> endpointServerArray=new LinkedList<OperationsServer>();
+  ByteBuffer pk=ByteBuffer.wrap(new byte[]{10,12,13,14});
+  OperationsServer server=new OperationsServer("endpoint.com:8080",10,pk);
+  endpointServerArray.add(server);
+  serverList=new OperationsServerList(endpointServerArray);
+  config=new BootstrapConfig();
+  serverMock=mock(NettyHttpServer.class);
+  biserviceMock=mock(BootstrapInitializationService.class);
+  keystoreMock=mock(FileKeyStoreService.class);
+  endpointListMock=mock(OperationsServerListService.class);
+  when(keystoreMock.getPublicKey()).thenReturn(publicKey);
+  when(keystoreMock.getPrivateKey()).thenReturn(privateKey);
+  when(biserviceMock.getKeyStoreService()).thenReturn(keystoreMock);
+  config.setBootstrapInitializationService(biserviceMock);
+  when(serverMock.getConf()).thenReturn(config);
+  config.setOperationsServerListService(endpointListMock);
+  when(endpointListMock.getOpsServerList()).thenReturn(serverList);
+}

@@ -1,0 +1,17 @@
+{
+  onSave();
+  editEntity(entity,new AsyncCallback<EndpointGroupDto>(){
+    public void onSuccess(    EndpointGroupDto result){
+      if (create) {
+        goTo(new EndpointGroupPlace(applicationId,result.getId(),false,false));
+      }
+ else {
+        goTo(place.getPreviousPlace());
+      }
+    }
+    public void onFailure(    Throwable caught){
+      detailsView.setErrorMessage(Utils.getErrorMessage(caught));
+    }
+  }
+);
+}

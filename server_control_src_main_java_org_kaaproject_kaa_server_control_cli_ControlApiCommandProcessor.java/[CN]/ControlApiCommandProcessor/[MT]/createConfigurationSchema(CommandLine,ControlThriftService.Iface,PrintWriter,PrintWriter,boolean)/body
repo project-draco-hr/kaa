@@ -1,0 +1,47 @@
+{
+  try {
+    ConfigurationSchemaDto configurationSchema=null;
+    if (edit) {
+      String configurationSchemaId=line.getOptionValue("i");
+      configurationSchema=toDto(client.getConfigurationSchema(configurationSchemaId));
+      if (configurationSchema == null) {
+        writer.println("Configuration Schema with id " + configurationSchemaId + " not found!");
+        return;
+      }
+    }
+ else {
+      configurationSchema=new ConfigurationSchemaDto();
+    }
+    if (line.hasOption("f")) {
+      String schemaFile=line.getOptionValue("f");
+      String schema=readFile(schemaFile,errorWriter);
+      if (schema != null) {
+        configurationSchema.setSchema(schema);
+      }
+ else {
+        return;
+      }
+    }
+    if (line.hasOption("a")) {
+      configurationSchema.setApplicationId(line.getOptionValue("a"));
+    }
+    ConfigurationSchemaDto savedConfigurationSchema=toDto(client.editConfigurationSchema(toDataStruct(configurationSchema)));
+    if (edit) {
+      writer.println("Configuration Schema updated.");
+    }
+ else {
+      writer.println("Created new Configuration Schema with id: " + savedConfigurationSchema.getId());
+      if (line.hasOption("o")) {
+        String outFileName=line.getOptionValue("o");
+        storeInfo(outFileName,savedConfigurationSchema.getId(),errorWriter);
+      }
+      if (line.hasOption("vo")) {
+        String outFileName=line.getOptionValue("vo");
+        storeInfo(outFileName,"" + savedConfigurationSchema.getMajorVersion(),errorWriter);
+      }
+    }
+  }
+ catch (  TException e) {
+    handleException("Unable to " + (edit ? "update" : "create") + " Configuration Schema",e,errorWriter);
+  }
+}

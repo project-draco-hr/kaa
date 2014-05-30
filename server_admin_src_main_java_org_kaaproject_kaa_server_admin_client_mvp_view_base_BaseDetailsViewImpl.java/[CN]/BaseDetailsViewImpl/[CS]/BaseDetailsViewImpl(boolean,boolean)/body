@@ -1,0 +1,33 @@
+{
+  this.create=create;
+  this.editable=editable;
+  errorPanel=new AlertPanel(Type.ERROR);
+  initWidget(uiBinder.createAndBindUi(this));
+  titleLabel.setText(Utils.constants.title());
+  saveButton.setText(Utils.constants.save());
+  cancelButton.setText(Utils.constants.cancel());
+  requiredFieldsNoteLabel.getElement().setInnerSafeHtml(SafeHtmlUtils.fromSafeConstant(Utils.messages.requiredFieldsNote()));
+  if (create) {
+    titleLabel.setText(getCreateTitle());
+    cancelButton.setVisible(true);
+  }
+ else {
+    titleLabel.setText(getViewTitle());
+    backButtonPanel.setVisible(true);
+  }
+  subTitleLabel.setText(getSubTitle());
+  updateSaveButton(false,false);
+  detailsTable.getColumnFormatter().setWidth(0,"200px");
+  detailsTable.getColumnFormatter().setWidth(1,"300px");
+  initDetailsTable();
+  saveButton.addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      updateSaveButton(false,false);
+      hasChanged=false;
+    }
+  }
+);
+  saveButton.setVisible(editable);
+  requiredFieldsNoteLabel.setVisible(editable);
+  clearError();
+}

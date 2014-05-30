@@ -1,0 +1,13 @@
+{
+  try {
+    pendingCommandMessage.getCommand().setSyncTime(message.getSyncTime());
+    pendingCommandMessage.getCommand().encode(message.getResponse());
+  }
+ catch (  GeneralSecurityException|IOException e) {
+    LOG.error("processEndpointRegistrationResponse",e);
+  }
+  NettyDecodedResponseMessage response=new NettyDecodedResponseMessage(pendingCommandMessage.getHandlerUuid(),pendingCommandMessage.getChannelContext(),pendingCommandMessage.getCommand(),message.getResponse());
+  context().parent().tell(response,self());
+  LOG.debug("Stoping actor for {}",pendingCommandMessage.getHandlerUuid());
+  getContext().stop(getSelf());
+}

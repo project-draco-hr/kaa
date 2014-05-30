@@ -1,0 +1,11 @@
+{
+  editUser_result result=new editUser_result();
+  receiveBase(result,"editUser");
+  if (result.isSetSuccess()) {
+    return result.success;
+  }
+  if (result.ControlException != null) {
+    throw result.ControlException;
+  }
+  throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT,"editUser failed: unknown result");
+}

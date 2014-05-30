@@ -1,0 +1,14 @@
+{
+  if (field == null) {
+    throw new IllegalArgumentException();
+  }
+switch (field) {
+case MESSAGE:
+    return isSetMessage();
+case CAUSE_EXCEPTION_CLASS:
+  return isSetCauseExceptionClass();
+case CAUSE_STACK_STRACE:
+return isSetCauseStackStrace();
+}
+throw new IllegalStateException();
+}

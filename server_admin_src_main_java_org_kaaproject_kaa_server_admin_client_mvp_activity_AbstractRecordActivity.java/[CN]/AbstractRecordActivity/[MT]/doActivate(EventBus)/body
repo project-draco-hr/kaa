@@ -1,0 +1,12 @@
+{
+  T inactiveStruct=record.getInactiveStructureDto();
+  activateStruct(inactiveStruct.getId(),new AsyncCallback<T>(){
+    public void onSuccess(    T result){
+      goTo(getRecordPlace(applicationId,schemaId,endpointGroupId,false,true,Math.random()));
+    }
+    public void onFailure(    Throwable caught){
+      recordView.setErrorMessage(Utils.getErrorMessage(caught));
+    }
+  }
+);
+}

@@ -1,0 +1,7 @@
+{
+  TenantDto tenantDto=null;
+  if (isValidId(id)) {
+    tenantDto=getDto(tenantDao.findById(id));
+  }
+  return tenantDto;
+}

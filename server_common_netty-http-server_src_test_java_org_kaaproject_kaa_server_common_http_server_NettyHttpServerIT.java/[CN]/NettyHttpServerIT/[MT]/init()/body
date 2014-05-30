@@ -1,0 +1,14 @@
+{
+  executor=Executors.newFixedThreadPool(500);
+  config=new Config();
+  config.setPort(bindPort);
+  config.setClientMaxBodySize(MAX_HTTP_REQUEST_SIZE);
+  config.setExecutorThreadSize(3);
+  config.setServerInitializerClass(ConfigConst.DEFAULT_SERVER_INITIALIZER_CLASS);
+  config.setBindInterface("localhost");
+  List<String> commands=new Vector<>();
+  commands.add("org.kaaproject.kaa.server.common.http.server.CommandTestProcessor");
+  config.setCommandList(commands);
+  testMessages=new ConcurrentHashMap<String,NettyHttpServerIT.HttpTest>();
+  rnd=new Random();
+}

@@ -1,0 +1,42 @@
+{
+  byte[] mergedConfiguration=cacheService.getMergedConfiguration(egsList,new Computable<List<EndpointGroupStateDto>,byte[]>(){
+    @Override public byte[] compute(    List<EndpointGroupStateDto> key){
+      LOG.trace("[{}] getMergedConfiguration.compute begin",endpointId);
+      try {
+        List<EndpointGroupDto> endpointGroups=new ArrayList<>();
+        List<ConfigurationDto> configurations=new ArrayList<>();
+        ConfigurationSchemaDto configurationSchema=null;
+        for (        EndpointGroupStateDto egs : egsList) {
+          EndpointGroupDto endpointGroup=null;
+          if (!StringUtils.isBlank(egs.getEndpointGroupId())) {
+            endpointGroup=endpointService.findEndpointGroupById(egs.getEndpointGroupId());
+          }
+          if (endpointGroup != null) {
+            endpointGroups.add(endpointGroup);
+          }
+          ConfigurationDto configuration=null;
+          if (!StringUtils.isBlank(egs.getConfigurationId())) {
+            configuration=configurationService.findConfigurationById(egs.getConfigurationId());
+          }
+          if (configuration != null) {
+            configurations.add(configuration);
+          }
+          if (configurationSchema == null && configuration != null) {
+            configurationSchema=configurationService.findConfSchemaById(configuration.getSchemaId());
+          }
+        }
+        ConfigurationMerger configurationMerger=configurationMergerFactory.createConfigurationMerger();
+        return configurationMerger.merge(endpointGroups,configurations,configurationSchema);
+      }
+ catch (      MergeException me) {
+        LOG.error("[{}] Unexpected exception occurred while merging configuration: ",endpointId,me);
+        throw new RuntimeException(me);
+      }
+ finally {
+        LOG.trace("[{}] getMergedConfiguration.compute end",endpointId);
+      }
+    }
+  }
+);
+  return mergedConfiguration;
+}

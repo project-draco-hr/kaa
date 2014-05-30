@@ -1,0 +1,10 @@
+{
+  try {
+    BasicEndpointProfile record=new BasicEndpointProfile();
+    record.profileBody=fieldSetFlags()[0] ? this.profileBody : (java.lang.String)defaultValue(fields()[0]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

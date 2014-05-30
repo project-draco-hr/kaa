@@ -1,0 +1,27 @@
+{
+  Path schemaUrl=Paths.get(Thread.currentThread().getContextClassLoader().getResource("service/delta/merge/schema.json").toURI());
+  String configuraionSchema=new String(Files.readAllBytes(schemaUrl));
+  SchemaCreator baseSchemaCreator=new SchemaCreatorImpl(new BaseDataSchemaStrategy());
+  SchemaCreator overrideSchemaCreator=new SchemaCreatorImpl(new OverrideDataSchemaStrategy());
+  String baseSchemaString=baseSchemaCreator.createSchema(new StringReader(configuraionSchema));
+  String overrideSchemaString=overrideSchemaCreator.createSchema(new StringReader(configuraionSchema));
+  ConfigurationSchemaDto configurationSchema=new ConfigurationSchemaDto();
+  configurationSchema.setId("configuration_schema_0");
+  configurationSchema.setSchema(configuraionSchema);
+  configurationSchema.setBaseSchema(baseSchemaString);
+  configurationSchema.setOverrideSchema(overrideSchemaString);
+  EndpointGroupDto endpointGroupWeight0=new EndpointGroupDto();
+  endpointGroupWeight0.setId("group_id_0");
+  endpointGroupWeight0.setWeight(0);
+  Path configuraionWeight0Path=Paths.get(Thread.currentThread().getContextClassLoader().getResource("service/delta/merge/config_weight_0.json").toURI());
+  ConfigurationDto configurationWeight0=new ConfigurationDto();
+  configurationWeight0.setEndpointGroupId(endpointGroupWeight0.getId());
+  configurationWeight0.setSchemaId(configurationSchema.getId());
+  configurationWeight0.setBinaryBody(Files.readAllBytes(configuraionWeight0Path));
+  List<EndpointGroupDto> endpointGroups=new ArrayList<>();
+  List<ConfigurationDto> configurations=new ArrayList<>();
+  configurations.add(configurationWeight0);
+  ConfigurationMerger merger=new DefaultConfigurationMerger();
+  byte[] mergeResult=merger.merge(endpointGroups,configurations,configurationSchema);
+  Assert.assertNull(mergeResult);
+}

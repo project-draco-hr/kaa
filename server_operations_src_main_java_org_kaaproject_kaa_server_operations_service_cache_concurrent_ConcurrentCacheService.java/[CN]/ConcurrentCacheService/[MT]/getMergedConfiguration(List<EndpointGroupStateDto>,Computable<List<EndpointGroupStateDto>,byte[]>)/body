@@ -1,0 +1,11 @@
+{
+  return mergedConfigurationMemorizer.compute(key,new Computable<List<EndpointGroupStateDto>,byte[]>(){
+    @Override public byte[] compute(    List<EndpointGroupStateDto> key){
+      LOG.debug("Fetching result for getMergedConfiguration");
+      byte[] result=worker.compute(key);
+      setMergedConfiguration(key,result);
+      return result;
+    }
+  }
+);
+}

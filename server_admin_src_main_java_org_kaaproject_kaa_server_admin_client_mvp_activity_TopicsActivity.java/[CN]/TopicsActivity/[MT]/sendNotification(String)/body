@@ -1,0 +1,10 @@
+{
+  SendNotificationDialog.showSendNotificationDialog(applicationId,topicId,new AsyncCallback<SendNotificationDialog>(){
+    @Override public void onFailure(    Throwable caught){
+      listView.setErrorMessage(Utils.getErrorMessage(caught));
+    }
+    @Override public void onSuccess(    SendNotificationDialog result){
+    }
+  }
+);
+}

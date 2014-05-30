@@ -1,0 +1,16 @@
+{
+  if (that == null)   return false;
+  boolean this_present_schemaId=true && this.isSetSchemaId();
+  boolean that_present_schemaId=true && that.isSetSchemaId();
+  if (this_present_schemaId || that_present_schemaId) {
+    if (!(this_present_schemaId && that_present_schemaId))     return false;
+    if (!this.schemaId.equals(that.schemaId))     return false;
+  }
+  boolean this_present_endpointGroupId=true && this.isSetEndpointGroupId();
+  boolean that_present_endpointGroupId=true && that.isSetEndpointGroupId();
+  if (this_present_endpointGroupId || that_present_endpointGroupId) {
+    if (!(this_present_endpointGroupId && that_present_endpointGroupId))     return false;
+    if (!this.endpointGroupId.equals(that.endpointGroupId))     return false;
+  }
+  return true;
+}

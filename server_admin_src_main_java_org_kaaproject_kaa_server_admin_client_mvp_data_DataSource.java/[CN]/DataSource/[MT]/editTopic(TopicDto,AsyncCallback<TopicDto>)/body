@@ -1,0 +1,8 @@
+{
+  rpcService.editTopic(topic,new DataCallback<TopicDto>(callback){
+    @Override protected void onResult(    TopicDto result){
+      eventBus.fireEvent(new DataEvent(TopicDto.class));
+    }
+  }
+);
+}

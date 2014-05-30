@@ -1,0 +1,30 @@
+{
+  boolean connected=false;
+  logger.info("Connecting to ControlService on {}:{} ...",HOST,PORT);
+  transport=new TSocket(HOST,PORT);
+  TProtocol protocol=new TBinaryProtocol(transport);
+  client=new ControlThriftService.Client(protocol);
+  for (int i=0; i < retryAmount; i++) {
+    try {
+      transport.open();
+      connected=true;
+      logger.info("Connected to ControlService on {}:{} !",HOST,PORT);
+      break;
+    }
+ catch (    TTransportException e) {
+      logger.info("Failed to connect to ControlService on {}:{} !",PORT,PORT);
+      if (i < retryAmount - 1) {
+        logger.info("Sleeping for {} msec before next connect attempt...",retryDelay);
+        try {
+          Thread.sleep(retryDelay);
+        }
+ catch (        InterruptedException ie) {
+        }
+      }
+ else {
+        logger.info("Reached maximum connect retry amount {}. Aborting...",retryAmount);
+      }
+    }
+  }
+  return connected;
+}

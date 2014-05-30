@@ -1,0 +1,11 @@
+{
+  ConfigurationSchemaDto schemaDto=generateConfSchema(null,1).get(0);
+  EndpointGroupDto group=generateEndpointGroup(schemaDto.getApplicationId());
+  generateConfiguration(schemaDto.getId(),group.getId(),1,true,false);
+  ChangeConfigurationNotification notification=configurationService.deleteConfigurationRecord(schemaDto.getId(),group.getId(),null);
+  Assert.assertNotNull(notification);
+  ConfigurationDto configurationDto=notification.getConfigurationDto();
+  Assert.assertEquals(UpdateStatus.DEPRECATED,configurationDto.getStatus());
+  Configuration inactive=configurationDao.findInactiveBySchemaIdAndGroupId(schemaDto.getId(),group.getId());
+  Assert.assertNull(inactive);
+}

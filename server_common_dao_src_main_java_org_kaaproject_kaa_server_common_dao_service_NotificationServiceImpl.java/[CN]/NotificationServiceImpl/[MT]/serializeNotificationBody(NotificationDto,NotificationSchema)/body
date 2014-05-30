@@ -1,0 +1,6 @@
+{
+  GenericAvroConverter<GenericRecord> converter=new GenericAvroConverter<>(nfSchema.getSchema());
+  String notificationJson=new String(nf.getBody(),Charset.forName("UTF8"));
+  GenericRecord notificationAvro=converter.decodeJson(notificationJson);
+  return converter.encode(notificationAvro);
+}

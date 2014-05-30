@@ -1,0 +1,15 @@
+{
+  EndpointGroup endpointGroup=endpointGroupDao.findById(id);
+  if (endpointGroup != null) {
+    if (endpointGroup.getWeight() != 0 || forceRemove) {
+      LOG.debug("Cascade delete endpoint group with profile filter and configurations.");
+      profileFilterDao.removeByEndpointGroupId(id);
+      configurationDao.removeByEndpointGroupId(id);
+      endpointGroupDao.removeById(id);
+      addHistory(endpointGroup.toDto(),ChangeType.REMOVE_GROUP);
+    }
+ else {
+      LOG.warn("Can't remove default endpoint group by id [{}]",id);
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  ConfigurationIdKey other=(ConfigurationIdKey)obj;
+  if (applicationToken == null) {
+    if (other.applicationToken != null) {
+      return false;
+    }
+  }
+ else   if (!applicationToken.equals(other.applicationToken)) {
+    return false;
+  }
+  if (applicationSeqNumber != other.applicationSeqNumber) {
+    return false;
+  }
+  if (configSchemaVersion != other.configSchemaVersion) {
+    return false;
+  }
+  if (endpointGroupId == null) {
+    if (other.endpointGroupId != null) {
+      return false;
+    }
+  }
+ else   if (!endpointGroupId.equals(other.endpointGroupId)) {
+    return false;
+  }
+  return true;
+}

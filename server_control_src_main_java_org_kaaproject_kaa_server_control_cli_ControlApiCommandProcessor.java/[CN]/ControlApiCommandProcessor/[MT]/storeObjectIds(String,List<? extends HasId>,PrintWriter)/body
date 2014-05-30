@@ -1,0 +1,18 @@
+{
+  try {
+    File f=new File(file);
+    f.getParentFile().mkdirs();
+    BufferedWriter writer=new BufferedWriter(new FileWriter(f));
+    for (int i=0; i < objects.size(); i++) {
+      if (i > 0) {
+        writer.newLine();
+      }
+      writer.append(objects.get(i).getId());
+    }
+    writer.flush();
+    writer.close();
+  }
+ catch (  Exception e) {
+    errorWriter.println("Unable to write Object Ids to specified file '" + file + "'! Error: "+ e.getMessage());
+  }
+}
