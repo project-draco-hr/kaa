@@ -1,0 +1,7 @@
+{
+  prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("sendEventMessage",org.apache.thrift.protocol.TMessageType.CALL,0));
+  sendEventMessage_args args=new sendEventMessage_args();
+  args.setMessages(messages);
+  args.write(prot);
+  prot.writeMessageEnd();
+}

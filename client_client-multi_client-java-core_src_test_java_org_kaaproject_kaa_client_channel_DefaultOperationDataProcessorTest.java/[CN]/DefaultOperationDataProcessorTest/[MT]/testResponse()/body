@@ -1,0 +1,35 @@
+{
+  DefaultOperationDataProcessor operationsDataProcessor=new DefaultOperationDataProcessor();
+  ProfileTransport profileTransport=Mockito.mock(ProfileTransport.class);
+  EventTransport eventTransport=Mockito.mock(EventTransport.class);
+  NotificationTransport notificationTransport=Mockito.mock(NotificationTransport.class);
+  ConfigurationTransport configurationTransport=Mockito.mock(ConfigurationTransport.class);
+  UserTransport userTransport=Mockito.mock(UserTransport.class);
+  RedirectionTransport redirectionTransport=Mockito.mock(RedirectionTransport.class);
+  LogTransport logTransport=Mockito.mock(LogTransport.class);
+  operationsDataProcessor.setConfigurationTransport(configurationTransport);
+  operationsDataProcessor.setEventTransport(eventTransport);
+  operationsDataProcessor.setNotificationTransport(notificationTransport);
+  operationsDataProcessor.setProfileTransport(profileTransport);
+  operationsDataProcessor.setRedirectionTransport(redirectionTransport);
+  operationsDataProcessor.setUserTransport(userTransport);
+  operationsDataProcessor.setLogTransport(logTransport);
+  SyncResponse response=new SyncResponse();
+  response.setStatus(SyncResponseResultType.SUCCESS);
+  response.setConfigurationSyncResponse(new ConfigurationSyncResponse(1,SyncResponseStatus.DELTA,null,null));
+  response.setEventSyncResponse(new EventSyncResponse());
+  response.setNotificationSyncResponse(new NotificationSyncResponse(1,SyncResponseStatus.DELTA,null,null));
+  response.setProfileSyncResponse(new ProfileSyncResponse(SyncResponseStatus.DELTA));
+  response.setRedirectSyncResponse(new RedirectSyncResponse("abc"));
+  response.setUserSyncResponse(new UserSyncResponse());
+  response.setLogSyncResponse(new LogSyncResponse("id",SyncResponseResultType.SUCCESS));
+  AvroByteArrayConverter<SyncResponse> converter=new AvroByteArrayConverter<>(SyncResponse.class);
+  operationsDataProcessor.processResponse(converter.toByteArray(response));
+  Mockito.verify(profileTransport,Mockito.times(1)).onProfileResponse(Mockito.any(ProfileSyncResponse.class));
+  Mockito.verify(eventTransport,Mockito.times(1)).onEventResponse(Mockito.any(EventSyncResponse.class));
+  Mockito.verify(notificationTransport,Mockito.times(1)).onNotificationResponse(Mockito.any(NotificationSyncResponse.class));
+  Mockito.verify(configurationTransport,Mockito.times(1)).onConfigurationResponse(Mockito.any(ConfigurationSyncResponse.class));
+  Mockito.verify(userTransport,Mockito.times(1)).onUserResponse(Mockito.any(UserSyncResponse.class));
+  Mockito.verify(redirectionTransport,Mockito.times(1)).onRedirectionResponse(Mockito.any(RedirectSyncResponse.class));
+  Mockito.verify(logTransport,Mockito.times(1)).onLogResponse(Mockito.any(LogSyncResponse.class));
+}

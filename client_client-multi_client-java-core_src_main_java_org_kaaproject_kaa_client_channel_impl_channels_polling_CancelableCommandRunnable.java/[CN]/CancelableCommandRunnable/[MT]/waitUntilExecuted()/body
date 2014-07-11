@@ -1,0 +1,11 @@
+{
+  while (isRunning) {
+synchronized (this) {
+      try {
+        this.wait();
+      }
+ catch (      InterruptedException e) {
+      }
+    }
+  }
+}

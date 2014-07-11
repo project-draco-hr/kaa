@@ -1,0 +1,12 @@
+{
+  if (dto != null) {
+    this.id=getLongId(dto);
+    this.sequenceNumber=dto.getSequenceNumber();
+    this.change=new Change(dto.getChange());
+    this.lastModifyTime=dto.getLastModifyTime();
+    Long applicationId=getLongId(dto.getApplicationId());
+    if (applicationId != null) {
+      this.application=new Application(applicationId);
+    }
+  }
+}

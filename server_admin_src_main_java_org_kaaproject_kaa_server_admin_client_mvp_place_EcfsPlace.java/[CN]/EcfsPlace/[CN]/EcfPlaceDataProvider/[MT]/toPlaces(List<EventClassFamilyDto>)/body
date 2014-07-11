@@ -1,0 +1,9 @@
+{
+  List<TreePlace> result=new ArrayList<TreePlace>();
+  for (  EventClassFamilyDto ecf : ecfs) {
+    EcfPlace place=new EcfPlace(ecf.getId());
+    place.setName(ecf.getName());
+    result.add(place);
+  }
+  return result;
+}

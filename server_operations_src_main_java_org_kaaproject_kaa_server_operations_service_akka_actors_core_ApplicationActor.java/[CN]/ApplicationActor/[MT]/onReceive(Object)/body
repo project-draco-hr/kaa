@@ -1,7 +1,10 @@
 {
-  LOG.debug("Received: {}",message);
+  LOG.debug("[{}] Received: {}",applicationToken,message);
   if (message instanceof EndpointAwareMessage) {
     processEndpointAwareMessage((EndpointAwareMessage)message);
+  }
+ else   if (message instanceof EndpointEventDeliveryMessage) {
+    processEndpointEventDeliveryMessage((EndpointEventDeliveryMessage)message);
   }
  else   if (message instanceof Terminated) {
     processTermination((Terminated)message);
@@ -9,7 +12,10 @@
  else   if (message instanceof ThriftNotificationMessage) {
     processThriftNotification((ThriftNotificationMessage)message);
   }
- else   if (message instanceof RequestProcessedMessage) {
-    updateEndpointActor((RequestProcessedMessage)message);
+ else   if (message instanceof EndpointStopMessage) {
+    updateEndpointActor((EndpointStopMessage)message);
+  }
+ else   if (message instanceof LogEventPackMessage) {
+    processLogEventPackMessage((LogEventPackMessage)message);
   }
 }

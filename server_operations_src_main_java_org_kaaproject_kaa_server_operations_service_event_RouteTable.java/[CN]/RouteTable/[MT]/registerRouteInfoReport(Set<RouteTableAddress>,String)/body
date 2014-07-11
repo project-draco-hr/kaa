@@ -1,0 +1,10 @@
+{
+  for (  RouteTableAddress address : localAddresses) {
+    Set<String> serverIds=reportedAddressMap.get(address);
+    if (serverIds == null) {
+      serverIds=new HashSet<>();
+      reportedAddressMap.put(address,serverIds);
+    }
+    serverIds.add(serverId);
+  }
+}

@@ -1,0 +1,8 @@
+{
+  if (transport != null) {
+    Resolve request=transport.createResolveRequest();
+    LOG.info("Created Resolve request {}",request);
+    return requestConverter.toByteArray(request);
+  }
+  return null;
+}

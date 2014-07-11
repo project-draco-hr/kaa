@@ -1,0 +1,89 @@
+{
+  LOG.info("Starting initialization tests...");
+  final ESTest test=new ESTest();
+  EventService eventService1=thriftServers.get(0).getEventService();
+  EventService eventService2=thriftServers.get(1).getEventService();
+  assertNotNull(eventService1);
+  assertNotNull(eventService2);
+  eventService1.addListener(new EventServiceListener(){
+    @Override public void onUserRouteInfo(    UserRouteInfo routeInfo){
+    }
+    @Override public void onServerError(    String serverId){
+      LOG.info("Server {} error",serverId);
+      assertEquals(TestCluster.OPERATIONS_NODE_HOST + ":1000",serverId);
+      test.setOnServerError(true);
+    }
+    @Override public void onRouteInfo(    RouteInfo routeInfo){
+    }
+    @Override public void onEvent(    RemoteEndpointEvent event){
+    }
+  }
+);
+  long waitLimit=60000;
+  long start=System.currentTimeMillis();
+  while (eventService1.getNeighbors().size() < numberOfServers) {
+    try {
+      if ((System.currentTimeMillis() - start) >= waitLimit) {
+        fail("Event Service failed, servers init failed, timeout fired.");
+      }
+      Thread.sleep(1000);
+      LOG.info("Servers started {}",eventService1.getNeighbors().size());
+    }
+ catch (    InterruptedException e) {
+      LOG.error("InterruptedException",e);
+      fail(e.toString());
+    }
+  }
+  LOG.info("Servers started sucessfully...");
+  String serverId1=thriftServers.get(1).getThriftHost() + ":" + thriftServers.get(0).getThriftPort();
+  String serverId2=thriftServers.get(1).getThriftHost() + ":" + thriftServers.get(1).getThriftPort();
+  final UserRouteInfo sendUserRrouteInfo=new UserRouteInfo("tenant1","user1","localhost:9810",RouteOperation.DELETE);
+  EndpointObjectHash endpointKey=EndpointObjectHash.fromBytes(new byte[]{30,30,30,30,30});
+  RouteTableAddress address=new RouteTableAddress(endpointKey,"appToken1",serverId1);
+  List<EventClassFamilyVersion> ecfVersions=new ArrayList<>();
+  ecfVersions.add(new EventClassFamilyVersion("ecfid1",1));
+  final RouteInfo sendRouteInfo=new RouteInfo("tenant1","user1",address,ecfVersions);
+  Event avroEvent=new Event(0,"eventClassFQN1",ByteBuffer.wrap("adcascd".getBytes()),"localhost:9810","localhost:9811");
+  EndpointEvent endpointEvent=new EndpointEvent(endpointKey,avroEvent,UUID.randomUUID(),System.currentTimeMillis(),10);
+  RouteTableAddress recipient=new RouteTableAddress(endpointKey,"appToken",serverId2);
+  final RemoteEndpointEvent sendEvent=new RemoteEndpointEvent("tenant1","user1",endpointEvent,recipient);
+  eventService2.addListener(new EventServiceListener(){
+    @Override public void onUserRouteInfo(    UserRouteInfo routeInfo){
+      LOG.info("Got onUserRouteInfo serverId={}; tenantId={}; userId={}",routeInfo.getServerId(),routeInfo.getTenantId(),routeInfo.getUserId());
+      assertEquals(sendUserRrouteInfo,routeInfo);
+      test.setOnUserRouteInfo(true);
+    }
+    @Override public void onRouteInfo(    RouteInfo routeInfo){
+      LOG.info("Got onRouteInfo {}",routeInfo.toString());
+      try {
+        Thread.sleep(1000);
+      }
+ catch (      InterruptedException e) {
+        e.printStackTrace();
+      }
+      LOG.info("After timeout");
+      assertEquals(sendRouteInfo,routeInfo);
+      test.setOnRouteInfo(true);
+    }
+    @Override public void onEvent(    RemoteEndpointEvent event){
+      LOG.info("Got onEvent {}",event.toString());
+      assertEquals(sendEvent,event);
+      test.setOnEvent(true);
+    }
+    @Override public void onServerError(    String serverId){
+    }
+  }
+);
+  LOG.info("Sending UserRoute Info: {}",sendUserRrouteInfo.toString());
+  eventService1.sendUserRouteInfo(sendUserRrouteInfo);
+  LOG.info("Sending Route Info: {}",sendRouteInfo.toString());
+  eventService1.sendRouteInfo(sendRouteInfo,serverId2);
+  LOG.info(">>>>>>>>>>>>>>>After Sending Route Info");
+  LOG.info("Sending Event : {}",sendEvent.toString());
+  eventService1.sendEvent(sendEvent);
+  test.waitFinish();
+  if (!test.isESTestComplete()) {
+    fail("Event Service Test failed");
+  }
+  LOG.info("Event Service test complete");
+}

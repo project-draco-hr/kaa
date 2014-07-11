@@ -1,0 +1,19 @@
+{
+  EventTransport transport=Mockito.mock(EventTransport.class);
+  ConcreteEventFamily eventFamily=new ConcreteEventFamily("kaa.test.event.PlayEvent");
+  ConcreteEventFamily eventFamily2=new ConcreteEventFamily("kaa.test.event.StopEvent");
+  EventManager eventManager=new DefaultEventManager(transport);
+  eventManager.registerEventFamily(eventFamily);
+  eventManager.registerEventFamily(eventFamily2);
+  assertEquals("Events count doesn't match",new Integer(0),eventFamily.getEventsCount());
+  assertEquals("Events count doesn't match",new Integer(0),eventFamily2.getEventsCount());
+  eventManager.onGenericEvent("kaa.test.event.PlayEvent",new byte[0],null);
+  assertEquals("Events count doesn't match",new Integer(1),eventFamily.getEventsCount());
+  assertEquals("Events count doesn't match",new Integer(0),eventFamily2.getEventsCount());
+  eventManager.onGenericEvent("kaa.test.event.StopEvent",new byte[0],null);
+  assertEquals("Events count doesn't match",new Integer(1),eventFamily.getEventsCount());
+  assertEquals("Events count doesn't match",new Integer(1),eventFamily2.getEventsCount());
+  eventManager.onGenericEvent("kaa.test.event.NoSuchEvent",new byte[0],null);
+  assertEquals("Events count doesn't match",new Integer(1),eventFamily.getEventsCount());
+  assertEquals("Events count doesn't match",new Integer(1),eventFamily2.getEventsCount());
+}

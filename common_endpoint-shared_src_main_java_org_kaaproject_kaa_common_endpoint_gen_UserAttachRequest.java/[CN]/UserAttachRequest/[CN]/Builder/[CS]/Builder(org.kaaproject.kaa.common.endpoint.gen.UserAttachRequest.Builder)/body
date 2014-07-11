@@ -1,0 +1,11 @@
+{
+  super(other);
+  if (isValidValue(fields()[0],other.userExternalId)) {
+    this.userExternalId=data().deepCopy(fields()[0].schema(),other.userExternalId);
+    fieldSetFlags()[0]=true;
+  }
+  if (isValidValue(fields()[1],other.userAccessToken)) {
+    this.userAccessToken=data().deepCopy(fields()[1].schema(),other.userAccessToken);
+    fieldSetFlags()[1]=true;
+  }
+}

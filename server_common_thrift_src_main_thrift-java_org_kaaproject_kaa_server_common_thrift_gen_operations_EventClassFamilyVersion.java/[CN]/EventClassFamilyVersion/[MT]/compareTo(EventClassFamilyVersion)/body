@@ -1,0 +1,27 @@
+{
+  if (!getClass().equals(other.getClass())) {
+    return getClass().getName().compareTo(other.getClass().getName());
+  }
+  int lastComparison=0;
+  lastComparison=Boolean.valueOf(isSetEndpointClassFamilyId()).compareTo(other.isSetEndpointClassFamilyId());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetEndpointClassFamilyId()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.endpointClassFamilyId,other.endpointClassFamilyId);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  lastComparison=Boolean.valueOf(isSetEndpointClassFamilyVersion()).compareTo(other.isSetEndpointClassFamilyVersion());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetEndpointClassFamilyVersion()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.endpointClassFamilyVersion,other.endpointClassFamilyVersion);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  return 0;
+}

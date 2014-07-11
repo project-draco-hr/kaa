@@ -2,8 +2,16 @@
   SchemaDto configurationSchema=configurationSchemaVersion.getValue();
   SchemaDto profileSchema=profileSchemaVersion.getValue();
   SchemaDto notificationSchema=notificationSchemaVersion.getValue();
+  SchemaDto logSchema=logSchemaVersion.getValue();
   SdkPlatform targetPlatformVal=targetPlatform.getValue();
-  KaaAdmin.getDataSource().getSdk(applicationId,configurationSchema.getMajorVersion(),profileSchema.getMajorVersion(),notificationSchema.getMajorVersion(),targetPlatformVal,new AsyncCallback<String>(){
+  List<String> aefMapIds=new ArrayList<>();
+  List<AefMapInfoDto> aefMaps=selectedAefMaps.getValues();
+  if (aefMaps != null) {
+    for (    AefMapInfoDto aefMap : aefMaps) {
+      aefMapIds.add(aefMap.getAefMapId());
+    }
+  }
+  KaaAdmin.getDataSource().getSdk(applicationId,configurationSchema.getMajorVersion(),profileSchema.getMajorVersion(),notificationSchema.getMajorVersion(),targetPlatformVal,aefMapIds,logSchema.getMajorVersion(),new AsyncCallback<String>(){
     @Override public void onFailure(    Throwable caught){
       setError(Utils.getErrorMessage(caught));
     }

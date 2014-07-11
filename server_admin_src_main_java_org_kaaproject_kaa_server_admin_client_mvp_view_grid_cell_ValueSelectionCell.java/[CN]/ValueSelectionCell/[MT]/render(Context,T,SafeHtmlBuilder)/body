@@ -1,0 +1,14 @@
+{
+  int selectedIndex=getSelectedIndex(value);
+  sb.appendHtmlConstant("<select tabindex=\"-1\">");
+  int index=0;
+  for (  T option : options) {
+    if (index++ == selectedIndex) {
+      sb.append(template.selected(renderer.render(option)));
+    }
+ else {
+      sb.append(template.deselected(renderer.render(option)));
+    }
+  }
+  sb.appendHtmlConstant("</select>");
+}

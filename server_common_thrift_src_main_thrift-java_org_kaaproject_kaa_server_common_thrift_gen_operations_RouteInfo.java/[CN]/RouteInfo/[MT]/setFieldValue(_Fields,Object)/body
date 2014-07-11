@@ -1,0 +1,36 @@
+{
+switch (field) {
+case UPDATE_TYPE:
+    if (value == null) {
+      unsetUpdateType();
+    }
+ else {
+      setUpdateType((EventRouteUpdateType)value);
+    }
+  break;
+case EVENT_CLASS_FAMILY_VERSION:
+if (value == null) {
+  unsetEventClassFamilyVersion();
+}
+ else {
+  setEventClassFamilyVersion((List<EventClassFamilyVersion>)value);
+}
+break;
+case APPLICATION_TOKEN:
+if (value == null) {
+unsetApplicationToken();
+}
+ else {
+setApplicationToken((String)value);
+}
+break;
+case ENDPOINT_ID:
+if (value == null) {
+unsetEndpointId();
+}
+ else {
+setEndpointId((ByteBuffer)value);
+}
+break;
+}
+}

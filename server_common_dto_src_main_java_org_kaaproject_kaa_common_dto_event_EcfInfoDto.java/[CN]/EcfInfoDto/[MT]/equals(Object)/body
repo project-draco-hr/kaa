@@ -1,0 +1,32 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  EcfInfoDto other=(EcfInfoDto)obj;
+  if (ecfId == null) {
+    if (other.ecfId != null) {
+      return false;
+    }
+  }
+ else   if (!ecfId.equals(other.ecfId)) {
+    return false;
+  }
+  if (ecfName == null) {
+    if (other.ecfName != null) {
+      return false;
+    }
+  }
+ else   if (!ecfName.equals(other.ecfName)) {
+    return false;
+  }
+  if (version != other.version) {
+    return false;
+  }
+  return true;
+}

@@ -1,10 +1,10 @@
 {
-  validateId(appId,"Incorrect application id " + appId + ". Can't remove configuration schema.");
+  validateSqlId(appId,"Incorrect application id " + appId + ". Can't remove configuration schema.");
   LOG.debug("Removing configuration schemas and correspond configuration by application id");
   List<ConfigurationSchema> configurationSchemaList=configurationSchemaDao.findByApplicationId(appId);
   for (  ConfigurationSchema configurationSchema : configurationSchemaList) {
     if (configurationSchema != null) {
-      removeCascadeConfigurationSchema(configurationSchema.getId());
+      removeCascadeConfigurationSchema(idToString(configurationSchema));
     }
   }
 }

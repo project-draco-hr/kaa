@@ -1,0 +1,7 @@
+{
+  if (mayInterruptIfRunning) {
+    cancelableRunnable.cancel();
+  }
+  boolean isCanceled=this.futureTask.cancel(mayInterruptIfRunning);
+  return isCanceled;
+}

@@ -1,0 +1,11 @@
+{
+  try {
+    EventListenersRequest record=new EventListenersRequest();
+    record.requestId=fieldSetFlags()[0] ? this.requestId : (java.lang.String)defaultValue(fields()[0]);
+    record.eventClassFQNs=fieldSetFlags()[1] ? this.eventClassFQNs : (java.util.List<java.lang.String>)defaultValue(fields()[1]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

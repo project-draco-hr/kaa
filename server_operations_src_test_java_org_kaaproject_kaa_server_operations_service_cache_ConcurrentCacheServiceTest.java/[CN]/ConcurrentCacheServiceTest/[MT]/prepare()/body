@@ -3,6 +3,7 @@
   final ApplicationDto appDto=new ApplicationDto();
   appDto.setSequenceNumber(TEST_APP_SEQ_NUMBER);
   appDto.setId(APP_ID);
+  appDto.setApplicationToken(TEST_APP_TOKEN);
   when(appService.findAppByApplicationToken(TEST_APP_TOKEN)).then(new Answer<ApplicationDto>(){
     @Override public ApplicationDto answer(    InvocationOnMock invocation){
       sleepABit();
@@ -91,4 +92,54 @@
     }
   }
 );
+  final EventClassFamilyDto ecfDto=new EventClassFamilyDto();
+  ecfDto.setId(EVENT_CLASS_FAMILY_ID);
+  when(eventClassService.findEventClassFamilyByTenantIdAndName(TENANT_ID,ECF_NAME)).then(new Answer<EventClassFamilyDto>(){
+    @Override public EventClassFamilyDto answer(    InvocationOnMock invocation) throws Throwable {
+      sleepABit();
+      return ecfDto;
+    }
+  }
+);
+  final EventClassDto ecDto=new EventClassDto();
+  ecDto.setId(EVENT_CLASS_ID);
+  ecDto.setEcfId(EVENT_CLASS_FAMILY_ID);
+  final List<EventClassDto> eventClassDtos=new ArrayList<>();
+  eventClassDtos.add(ecDto);
+  when(eventClassService.findEventClassByTenantIdAndFQN(TENANT_ID,EC_FQN)).then(new Answer<List<EventClassDto>>(){
+    @Override public List<EventClassDto> answer(    InvocationOnMock invocation) throws Throwable {
+      sleepABit();
+      return eventClassDtos;
+    }
+  }
+);
+  final EventClassDto evcDto=new EventClassDto();
+  evcDto.setId(EVENT_CLASS_ID);
+  evcDto.setEcfId(EVENT_CLASS_FAMILY_ID);
+  evcDto.setVersion(EVENT_CLASS_FAMILY_VERSION);
+  when(eventClassService.findEventClassByTenantIdAndFQNAndVersion(TENANT_ID,EC_FQN,EVENT_CLASS_FAMILY_VERSION)).then(new Answer<EventClassDto>(){
+    @Override public EventClassDto answer(    InvocationOnMock invocation) throws Throwable {
+      sleepABit();
+      return evcDto;
+    }
+  }
+);
+  when(applicationEventMapService.findByEcfIdAndVersion(EVENT_CLASS_FAMILY_ID,EVENT_CLASS_FAMILY_VERSION)).then(new Answer<List<ApplicationEventFamilyMapDto>>(){
+    @Override public List<ApplicationEventFamilyMapDto> answer(    InvocationOnMock invocation) throws Throwable {
+      ApplicationEventMapDto matchButSource=new ApplicationEventMapDto();
+      matchButSource.setAction(ApplicationEventAction.SOURCE);
+      matchButSource.setEventClassId(EVENT_CLASS_ID);
+      ApplicationEventMapDto match=new ApplicationEventMapDto();
+      match.setAction(ApplicationEventAction.BOTH);
+      match.setEventClassId(EVENT_CLASS_ID);
+      ApplicationEventFamilyMapDto mapping=new ApplicationEventFamilyMapDto();
+      mapping.setApplicationId(APP_ID);
+      mapping.setEcfId(EVENT_CLASS_FAMILY_ID);
+      mapping.setVersion(EVENT_CLASS_FAMILY_VERSION);
+      mapping.setEventMaps(Arrays.asList(matchButSource,match));
+      return Arrays.asList(mapping);
+    }
+  }
+);
+  when(appService.findAppById(APP_ID)).thenReturn(appDto);
 }

@@ -1,6 +1,6 @@
 {
   ConfigurationSchemaDto configurationSchemaDto;
-  validateObject(configurationSchema,"Can't save configuration schema. Configuration schema invalid.");
+  validateSqlObject(configurationSchema,"Can't save configuration schema. Configuration schema invalid.");
   String id=configurationSchema.getId();
   if (isBlank(id)) {
     ConfigurationSchemaDto oldConfigurationSchemaDto=findLatestConfSchemaByAppId(configurationSchema.getApplicationId());
@@ -10,7 +10,6 @@
     }
     configurationSchema.setMajorVersion(++majorVersion);
     configurationSchema.setMinorVersion(0);
-    configurationSchema.setStatus(ACTIVE);
     configurationSchema.setCreatedTime(System.currentTimeMillis());
     try {
       generateSchemas(configurationSchema);

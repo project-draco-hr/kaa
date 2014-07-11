@@ -1,15 +1,25 @@
 {
   basicRegistrationTest();
+  byte[] oldProfile=avroConverter.encode(ENDPOINT_PROFILE);
   byte[] profile=avroConverter.encode(NEW_ENDPOINT_PROFILE);
-  ProfileUpdateRequest request=new ProfileUpdateRequest();
-  request.setApplicationToken(app.getApplicationToken());
-  request.setVersionInfo(new EndpointVersionInfo(CONF_SCHEMA_VERSION,PROFILE_SCHEMA_VERSION,1,1));
-  request.setEndpointPublicKeyHash(ByteBuffer.wrap(EndpointObjectHash.fromSHA1(ENDPOINT_KEY).getData()));
-  request.setProfileBody(ByteBuffer.wrap(profile));
-  SyncResponse response=operationsService.updateProfile(request).getResponse();
+  SyncRequest request=new SyncRequest();
+  SyncRequestMetaData md=new SyncRequestMetaData();
+  md.setApplicationToken(application.getApplicationToken());
+  md.setEndpointPublicKeyHash(ByteBuffer.wrap(EndpointObjectHash.fromSHA1(ENDPOINT_KEY).getData()));
+  md.setProfileHash(ByteBuffer.wrap(EndpointObjectHash.fromSHA1(oldProfile).getData()));
+  request.setSyncRequestMetaData(md);
+  ProfileSyncRequest profileSync=new ProfileSyncRequest(null,ByteBuffer.wrap(profile),new EndpointVersionInfo(CONF_SCHEMA_VERSION,PROFILE_SCHEMA_VERSION,1,1,null,1),null);
+  request.setProfileSyncRequest(profileSync);
+  ConfigurationSyncRequest confSyncRequest=new ConfigurationSyncRequest();
+  confSyncRequest.setAppStateSeqNumber(APPLICATION_SEQ_NUMBER);
+  confSyncRequest.setConfigurationHash(ByteBuffer.wrap(currentConfigurationHash));
+  request.setConfigurationSyncRequest(confSyncRequest);
+  SyncResponse response=operationsService.sync(request).getResponse();
   Assert.assertNotNull(response);
-  Assert.assertEquals(APPLICATION_SEQ_NUMBER,(int)response.getAppStateSeqNumber());
-  Assert.assertEquals(SyncResponseStatus.NO_DELTA,response.getResponseType());
-  Assert.assertNull(response.getConfSyncResponse().getConfDeltaBody());
-  Assert.assertNull(response.getConfSyncResponse().getConfSchemaBody());
+  Assert.assertEquals(SyncResponseResultType.SUCCESS,response.getStatus());
+  Assert.assertNotNull(response.getConfigurationSyncResponse());
+  Assert.assertEquals(SyncResponseStatus.NO_DELTA,response.getConfigurationSyncResponse().getResponseStatus());
+  Assert.assertEquals(APPLICATION_SEQ_NUMBER,(int)response.getConfigurationSyncResponse().getAppStateSeqNumber());
+  Assert.assertNull(response.getConfigurationSyncResponse().getConfDeltaBody());
+  Assert.assertNull(response.getConfigurationSyncResponse().getConfSchemaBody());
 }

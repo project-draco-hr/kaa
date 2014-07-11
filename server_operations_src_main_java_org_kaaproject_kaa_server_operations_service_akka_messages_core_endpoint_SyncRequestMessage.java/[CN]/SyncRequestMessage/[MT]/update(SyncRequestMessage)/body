@@ -1,0 +1,22 @@
+{
+  SyncRequest other=syncRequest.getRequest();
+  request.getSyncRequestMetaData().setProfileHash(other.getSyncRequestMetaData().getProfileHash());
+  if (other.getConfigurationSyncRequest() != null) {
+    request.setConfigurationSyncRequest(other.getConfigurationSyncRequest());
+  }
+  if (other.getNotificationSyncRequest() != null) {
+    request.setNotificationSyncRequest(other.getNotificationSyncRequest());
+  }
+  if (other.getProfileSyncRequest() != null) {
+    request.setProfileSyncRequest(other.getProfileSyncRequest());
+  }
+  if (other.getUserSyncRequest() != null) {
+    request.setUserSyncRequest(other.getUserSyncRequest());
+  }
+  if (other.getEventSyncRequest() != null) {
+    request.setEventSyncRequest(other.getEventSyncRequest());
+  }
+  if (other.getLogSyncRequest() != null) {
+    request.setLogSyncRequest(other.getLogSyncRequest());
+  }
+}

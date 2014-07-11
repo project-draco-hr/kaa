@@ -1,20 +1,20 @@
 {
   SyncResponse response=new SyncResponse();
-  response.setResponseType(SyncResponseStatus.NO_DELTA);
+  response.setStatus(SyncResponseResultType.SUCCESS);
   response.setNotificationSyncResponse(new NotificationSyncResponse());
   SyncResponse result=operationsService.updateSyncResponse(response,new ArrayList<NotificationDto>(),null);
   assertNotNull(result);
-  assertEquals(SyncResponseStatus.DELTA,response.getResponseType());
   assertNotNull(result.getNotificationSyncResponse());
   assertNotNull(result.getNotificationSyncResponse().getNotifications());
+  assertEquals(SyncResponseStatus.DELTA,result.getNotificationSyncResponse().getResponseStatus());
   response=new SyncResponse();
-  response.setResponseType(SyncResponseStatus.NO_DELTA);
+  response.setStatus(SyncResponseResultType.SUCCESS);
   NotificationSyncResponse nfResponse=new NotificationSyncResponse();
   nfResponse.setNotifications(new ArrayList<Notification>());
   response.setNotificationSyncResponse(new NotificationSyncResponse());
   result=operationsService.updateSyncResponse(response,new ArrayList<NotificationDto>(),null);
   assertNotNull(result);
-  assertEquals(SyncResponseStatus.DELTA,response.getResponseType());
   assertNotNull(result.getNotificationSyncResponse());
   assertNotNull(result.getNotificationSyncResponse().getNotifications());
+  assertEquals(SyncResponseStatus.DELTA,result.getNotificationSyncResponse().getResponseStatus());
 }

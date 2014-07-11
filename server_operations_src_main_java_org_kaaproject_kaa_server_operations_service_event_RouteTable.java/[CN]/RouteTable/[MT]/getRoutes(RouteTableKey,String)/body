@@ -1,0 +1,15 @@
+{
+  Map<String,RouteTableAddress> directionRoutes=routes.get(key);
+  if (directionRoutes != null) {
+    if (target == null) {
+      return directionRoutes.values();
+    }
+ else {
+      RouteTableAddress address=directionRoutes.get(target);
+      if (address != null) {
+        return Collections.singletonList(address);
+      }
+    }
+  }
+  return Collections.emptyList();
+}

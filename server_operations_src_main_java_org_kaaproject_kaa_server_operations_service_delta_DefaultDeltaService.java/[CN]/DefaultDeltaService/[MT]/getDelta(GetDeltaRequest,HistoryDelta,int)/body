@@ -3,7 +3,7 @@
   EndpointProfileDto profile=request.getEndpointProfile();
   String endpointId=Base64Util.encode(profile);
   if (request.getSequenceNumber() == curAppSeqNumber) {
-    LOG.debug("[{}] No changes to current application was maid -> no delta",endpointId);
+    LOG.debug("[{}] No changes to current application was made -> no delta",endpointId);
     return new GetDeltaResponse(GetDeltaResponseType.NO_DELTA,curAppSeqNumber);
   }
   AppVersionKey appConfigVersionKey=new AppVersionKey(request.getApplicationToken(),profile.getConfigurationVersion());

@@ -1,0 +1,8 @@
+{
+  LOG.debug("Find profile filter by profile schema id [{}] ",schemaId);
+  List<ProfileFilter> filters=Collections.emptyList();
+  if (isNotBlank(schemaId)) {
+    filters=findListByCriterionWithAlias(PROFILE_SCHEMA_PROPERTY,PROFILE_SCHEMA_ALIAS,Restrictions.eq(PROFILE_SCHEMA_REFERENCE,Long.valueOf(schemaId)));
+  }
+  return filters;
+}

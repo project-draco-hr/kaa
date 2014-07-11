@@ -1,9 +1,9 @@
 {
   byte[] profile=avroConverter.encode(ENDPOINT_PROFILE);
-  RegisterProfileRequest request=new RegisterProfileRequest(APP_TOKEN,ENDPOINT_KEY.getBytes(),new EndpointVersionInfo(CONFIGURATION_SCHEMA_VERSION,PROFILE_SCHEMA_VERSION,1,1),profile);
+  RegisterProfileRequest request=new RegisterProfileRequest(APP_TOKEN,ENDPOINT_KEY.getBytes(),new EndpointVersionInfo(CONFIGURATION_SCHEMA_VERSION,PROFILE_SCHEMA_VERSION,1,1,null,1),profile);
   EndpointProfileDto oldDto=profileService.registerProfile(request);
   byte[] newProfile=avroConverter.encode(NEW_ENDPOINT_PROFILE);
-  UpdateProfileRequest updateRequest=new UpdateProfileRequest(APP_TOKEN,EndpointObjectHash.fromSHA1(ENDPOINT_KEY.getBytes()),newProfile,new EndpointVersionInfo(CONFIGURATION_SCHEMA_VERSION,PROFILE_SCHEMA_VERSION,1,1));
+  UpdateProfileRequest updateRequest=new UpdateProfileRequest(APP_TOKEN,EndpointObjectHash.fromSHA1(ENDPOINT_KEY.getBytes()),null,newProfile,new EndpointVersionInfo(CONFIGURATION_SCHEMA_VERSION,PROFILE_SCHEMA_VERSION,1,1,null,1));
   EndpointProfileDto newDto=profileService.updateProfile(updateRequest);
   Assert.assertNotNull(newDto);
   Assert.assertNotNull(newDto.getId());

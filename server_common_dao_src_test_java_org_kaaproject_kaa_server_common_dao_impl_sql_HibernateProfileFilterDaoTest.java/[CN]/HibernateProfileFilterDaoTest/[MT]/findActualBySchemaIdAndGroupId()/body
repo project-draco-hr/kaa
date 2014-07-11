@@ -1,0 +1,15 @@
+{
+  List<ProfileFilter> filters=generateFilter(null,null,4,UpdateStatus.DEPRECATED);
+  ProfileFilter first=filters.get(0);
+  EndpointGroup group=first.getEndpointGroup();
+  ProfileSchema schema=first.getProfileSchema();
+  List<ProfileFilter> active=generateFilter(schema,group,1,UpdateStatus.ACTIVE);
+  generateConfiguration(null,group,1,UpdateStatus.ACTIVE);
+  List<ProfileFilter> inactive=generateFilter(schema,group,1,UpdateStatus.INACTIVE);
+  List<ProfileFilter> actual=new ArrayList<>();
+  actual.addAll(active);
+  actual.addAll(inactive);
+  List<ProfileFilter> found=profileFilterDao.findActualBySchemaIdAndGroupId(schema.getId().toString(),group.getId().toString());
+  Assert.assertEquals(actual.size(),found.size());
+  Assert.assertEquals(actual,found);
+}

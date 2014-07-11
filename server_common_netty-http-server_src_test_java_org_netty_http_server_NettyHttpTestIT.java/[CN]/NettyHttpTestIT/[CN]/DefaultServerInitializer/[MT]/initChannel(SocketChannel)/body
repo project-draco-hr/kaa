@@ -1,0 +1,9 @@
+{
+  final ChannelPipeline p=ch.pipeline();
+  LOG.info("New connection from {}",ch.remoteAddress().toString());
+  p.addLast("httpDecoder",new HttpRequestDecoder());
+  p.addLast("httpAggregator",new HttpObjectAggregator(DEFAULT_REQUEST_MAX_SIZE));
+  p.addLast("httpEncoder",new HttpResponseEncoder());
+  p.addLast("handler",new DefaultHandler(eventExecutor));
+  p.addLast("httpExceptionHandler",new DefaultExceptionHandler());
+}

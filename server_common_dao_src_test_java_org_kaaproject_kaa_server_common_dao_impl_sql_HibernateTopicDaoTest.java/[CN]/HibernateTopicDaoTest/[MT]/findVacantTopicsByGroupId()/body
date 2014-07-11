@@ -1,0 +1,23 @@
+{
+  Topic first=generateTopic(null,null);
+  Application app=first.getApplication();
+  Topic second=generateTopic(app,null);
+  Set<Topic> firstTopics=new HashSet<>();
+  firstTopics.add(first);
+  firstTopics.add(second);
+  Topic third=generateTopic(app,null);
+  Topic fourth=generateTopic(app,null);
+  Set<Topic> secondTopics=new HashSet<>();
+  secondTopics.add(third);
+  secondTopics.add(fourth);
+  EndpointGroup firstGroup=generateEndpointGroup(app,firstTopics);
+  EndpointGroup secondGroup=generateEndpointGroup(app,secondTopics);
+  List<Topic> foundOne=topicDao.findVacantTopicsByGroupId(firstGroup.getId().toString());
+  Set<Topic> firstGroupSet=new HashSet<>();
+  firstGroupSet.addAll(foundOne);
+  List<Topic> foundTwo=topicDao.findVacantTopicsByGroupId(secondGroup.getId().toString());
+  Set<Topic> secondGroupSet=new HashSet<>();
+  secondGroupSet.addAll(foundTwo);
+  Assert.assertEquals(secondTopics,firstGroupSet);
+  Assert.assertEquals(firstTopics,secondGroupSet);
+}

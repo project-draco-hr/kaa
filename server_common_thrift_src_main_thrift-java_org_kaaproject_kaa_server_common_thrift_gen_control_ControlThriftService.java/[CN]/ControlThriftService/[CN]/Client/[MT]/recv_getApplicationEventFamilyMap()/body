@@ -1,0 +1,11 @@
+{
+  getApplicationEventFamilyMap_result result=new getApplicationEventFamilyMap_result();
+  receiveBase(result,"getApplicationEventFamilyMap");
+  if (result.isSetSuccess()) {
+    return result.success;
+  }
+  if (result.ControlException != null) {
+    throw result.ControlException;
+  }
+  throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT,"getApplicationEventFamilyMap failed: unknown result");
+}

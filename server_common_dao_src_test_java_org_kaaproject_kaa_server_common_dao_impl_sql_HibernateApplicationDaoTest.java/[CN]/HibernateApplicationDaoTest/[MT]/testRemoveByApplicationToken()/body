@@ -1,0 +1,7 @@
+{
+  Tenant ten=generateTenant();
+  Application app=generateApplication(ten);
+  String token=app.getApplicationToken();
+  applicationDao.removeByApplicationToken(token);
+  Assert.assertNull(applicationDao.findByApplicationToken(token));
+}

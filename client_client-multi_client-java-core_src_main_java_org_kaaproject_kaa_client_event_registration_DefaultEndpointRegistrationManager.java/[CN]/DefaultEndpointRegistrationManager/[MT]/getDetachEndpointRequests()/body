@@ -1,0 +1,7 @@
+{
+  Map<String,EndpointKeyHash> result=new HashMap<>();
+synchronized (detachEndpointRequests) {
+    result.putAll(detachEndpointRequests);
+  }
+  return result;
+}

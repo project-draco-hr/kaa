@@ -1,0 +1,32 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  FieldAttribute other=(FieldAttribute)obj;
+  if (!getOuterType().equals(other.getOuterType())) {
+    return false;
+  }
+  if (fieldName == null) {
+    if (other.fieldName != null) {
+      return false;
+    }
+  }
+ else   if (!fieldName.equals(other.fieldName)) {
+    return false;
+  }
+  if (fieldSchema == null) {
+    if (other.fieldSchema != null) {
+      return false;
+    }
+  }
+ else   if (!fieldSchema.equals(other.fieldSchema)) {
+    return false;
+  }
+  return true;
+}

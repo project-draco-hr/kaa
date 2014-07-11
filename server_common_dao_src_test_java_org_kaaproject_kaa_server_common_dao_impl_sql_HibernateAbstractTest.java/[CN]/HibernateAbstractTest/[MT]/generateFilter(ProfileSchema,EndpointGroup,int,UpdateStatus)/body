@@ -1,0 +1,23 @@
+{
+  if (schema == null) {
+    schema=generateProfSchema(null,1).get(0);
+  }
+  if (group == null) {
+    group=generateEndpointGroup(schema.getApplication(),null);
+  }
+  List<ProfileFilter> filters=new ArrayList<>();
+  for (int i=0; i < count; i++) {
+    ProfileFilter dto=new ProfileFilter();
+    dto.setId(null);
+    dto.setStatus(status != null ? status : UpdateStatus.INACTIVE);
+    dto.setEndpointGroup(group);
+    dto.setProfileSchema(schema);
+    dto.setSequenceNumber(i);
+    dto.setMajorVersion(i + 1);
+    dto.setApplication(schema.getApplication());
+    ProfileFilter saved=profileFilterDao.save(dto);
+    Assert.assertNotNull(saved);
+    filters.add(saved);
+  }
+  return filters;
+}

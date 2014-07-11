@@ -1,0 +1,38 @@
+{
+  LOG.debug("Merging:base configuration = {}; override = {}",baseConfiguration,overrideConfigurations);
+  if (baseConfiguration == null) {
+    LOG.debug("empty endpoint groups or configurations - returning empty result");
+    return null;
+  }
+  if (overrideConfigurations == null || overrideConfigurations.isEmpty()) {
+    return baseConfiguration;
+  }
+  try {
+    confGenerator=new DefaultRecordGenerationAlgorithmImpl(baseConfiguration.getSchema(),new BaseDataFactory());
+  }
+ catch (  ConfigurationGenerationException e) {
+    throw new OverrideException(e);
+  }
+  baseSchemaParser=new Schema.Parser();
+  Schema baseAvroSchema=baseSchemaParser.parse(baseConfiguration.getSchema().getRawSchema());
+  Schema.Parser overrideSchemaParser=new Schema.Parser();
+  Schema overrideAvroSchema=overrideSchemaParser.parse(overrideConfigurations.get(0).getSchema().getRawSchema());
+  LOG.info("converter: {}",baseAvroSchema.toString());
+  GenericAvroConverter<GenericRecord> baseConverter=new GenericAvroConverter(baseAvroSchema);
+  GenericAvroConverter<GenericRecord> overrideConverter=new GenericAvroConverter(overrideAvroSchema);
+  GenericRecord mergedConfiguration=baseConverter.decodeJson(baseConfiguration.getRawData());
+  try {
+    ArrayOverrideStrategyResolver arrayMergeStrategyResolver=new ArrayOverrideStrategyResolver(baseConfiguration.getSchema());
+    for (    OverrideData entry : overrideConfigurations) {
+      String configurationToApply=entry.getRawData();
+      LOG.debug("Override schema {}",entry.getSchema());
+      GenericRecord nodeToApply=overrideConverter.decodeJson(configurationToApply);
+      LOG.info("configurationToApply: {}",nodeToApply);
+      applyNode(mergedConfiguration,nodeToApply,arrayMergeStrategyResolver);
+    }
+    return new BaseData(baseConfiguration.getSchema(),baseConverter.endcodeToJson(mergedConfiguration));
+  }
+ catch (  IOException|ConfigurationGenerationException e) {
+    throw new OverrideException(e);
+  }
+}

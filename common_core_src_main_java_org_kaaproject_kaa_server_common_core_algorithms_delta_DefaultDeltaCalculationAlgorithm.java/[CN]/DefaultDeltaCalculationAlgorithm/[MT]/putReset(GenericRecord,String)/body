@@ -1,0 +1,10 @@
+{
+  Schema resetSchema=getSchemaByFullName(delta,field,KAA_NAMESPACE + "." + RESET+ "T");
+  if (resetSchema != null) {
+    GenericEnumSymbol reset=new GenericData.EnumSymbol(resetSchema,RESET);
+    delta.put(field,reset);
+  }
+ else {
+    throw new DeltaCalculatorException(new StringBuilder().append("Failed to find schema for \"reset\" type ").append(" in ").append(delta.getSchema().getFullName()).append(" field ").append(field).toString());
+  }
+}

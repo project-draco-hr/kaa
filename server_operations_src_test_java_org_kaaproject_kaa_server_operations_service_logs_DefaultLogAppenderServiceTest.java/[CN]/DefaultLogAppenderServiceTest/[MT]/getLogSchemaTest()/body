@@ -1,0 +1,6 @@
+{
+  LogSchemaDto dto=new LogSchemaDto();
+  when(logSchemaService.findLogSchemaByAppIdAndVersion(APPLICATION_ID,LOG_SCHEMA_VERSION)).thenReturn(dto);
+  LogSchema logSchema=logAppenderService.getLogSchema(APPLICATION_ID,LOG_SCHEMA_VERSION);
+  Assert.assertEquals(dto,ReflectionTestUtils.getField(logSchema,"logSchemaDto"));
+}

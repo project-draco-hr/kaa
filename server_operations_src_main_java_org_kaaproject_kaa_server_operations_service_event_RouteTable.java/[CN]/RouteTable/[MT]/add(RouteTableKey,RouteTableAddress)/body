@@ -1,0 +1,19 @@
+{
+  Map<String,RouteTableAddress> directionRoutes=routes.get(key);
+  if (directionRoutes == null) {
+    directionRoutes=new HashMap<>();
+    routes.put(key,directionRoutes);
+  }
+  directionRoutes.put(Base64Util.encode(address.getEndpointKey().getData()),address);
+  if (address.isLocal()) {
+    Set<RouteTableKey> routeKeys=localAddressMap.get(address);
+    if (routeKeys == null) {
+      routeKeys=new HashSet<>();
+      localAddressMap.put(address,routeKeys);
+    }
+    routeKeys.add(key);
+  }
+ else {
+    remoteServersSet.add(address.getServerId());
+  }
+}

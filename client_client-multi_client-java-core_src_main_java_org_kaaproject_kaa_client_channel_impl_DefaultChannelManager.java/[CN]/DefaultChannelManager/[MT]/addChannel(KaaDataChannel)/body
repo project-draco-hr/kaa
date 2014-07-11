@@ -1,0 +1,20 @@
+{
+  if (!channels.contains(channel)) {
+    channels.add(channel);
+    ServerInfo server;
+    if (channel.getType().equals(ChannelType.BOOTSTRAP)) {
+      server=lastBootstrapServer;
+    }
+ else {
+      server=lastServers.get(channel.getType());
+    }
+    if (server != null) {
+      LOG.debug("Applying server {} for channel \"{}\" type {}",server,channel.getId(),channel.getType());
+      channel.setServer(server);
+    }
+ else {
+      LOG.warn("Failed to find server for channel \"{}\" type {}",channel.getId(),channel.getType());
+    }
+    useNewChannel(channel);
+  }
+}

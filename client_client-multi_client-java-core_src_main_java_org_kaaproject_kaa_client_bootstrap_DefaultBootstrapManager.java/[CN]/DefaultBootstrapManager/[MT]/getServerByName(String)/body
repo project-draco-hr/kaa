@@ -1,0 +1,13 @@
+{
+  if (operationsServerList != null && !operationsServerList.isEmpty()) {
+    for (    OperationsServer server : operationsServerList) {
+      if (server.getName().equals(name)) {
+        return server;
+      }
+    }
+  }
+ else {
+    throw new BootstrapRuntimeException("Operations Server list is empty");
+  }
+  return null;
+}

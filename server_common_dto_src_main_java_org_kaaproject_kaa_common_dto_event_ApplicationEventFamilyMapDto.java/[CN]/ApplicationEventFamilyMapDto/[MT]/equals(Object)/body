@@ -1,0 +1,64 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  ApplicationEventFamilyMapDto other=(ApplicationEventFamilyMapDto)obj;
+  if (applicationId == null) {
+    if (other.applicationId != null) {
+      return false;
+    }
+  }
+ else   if (!applicationId.equals(other.applicationId)) {
+    return false;
+  }
+  if (createdTime != other.createdTime) {
+    return false;
+  }
+  if (createdUsername == null) {
+    if (other.createdUsername != null) {
+      return false;
+    }
+  }
+ else   if (!createdUsername.equals(other.createdUsername)) {
+    return false;
+  }
+  if (ecfId == null) {
+    if (other.ecfId != null) {
+      return false;
+    }
+  }
+ else   if (!ecfId.equals(other.ecfId)) {
+    return false;
+  }
+  if (ecfName == null) {
+    if (other.ecfName != null) {
+      return false;
+    }
+  }
+ else   if (!ecfName.equals(other.ecfName)) {
+    return false;
+  }
+  if (eventMaps == null) {
+    if (other.eventMaps != null) {
+      return false;
+    }
+  }
+ else   if (!eventMaps.equals(other.eventMaps)) {
+    return false;
+  }
+  if (id == null) {
+    if (other.id != null) {
+      return false;
+    }
+  }
+ else   if (!id.equals(other.id)) {
+    return false;
+  }
+  return version == other.version;
+}

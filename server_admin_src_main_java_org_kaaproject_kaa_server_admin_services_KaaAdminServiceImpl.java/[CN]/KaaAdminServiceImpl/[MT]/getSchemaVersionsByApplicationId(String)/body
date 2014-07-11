@@ -10,6 +10,8 @@
     schemaVersions.setProfileSchemaVersions(profileSchemaVersions);
     List<SchemaDto> notificationSchemaVersions=toDtoList(clientProvider.getClient().getNotificationSchemaVersionsByApplicationId(applicationId));
     schemaVersions.setNotificationSchemaVersions(notificationSchemaVersions);
+    List<SchemaDto> logSchemaVersions=toDtoList(clientProvider.getClient().getLogSchemaVersionsByApplicationId(applicationId));
+    schemaVersions.setLogSchemaVersions(logSchemaVersions);
     return schemaVersions;
   }
  catch (  Exception e) {

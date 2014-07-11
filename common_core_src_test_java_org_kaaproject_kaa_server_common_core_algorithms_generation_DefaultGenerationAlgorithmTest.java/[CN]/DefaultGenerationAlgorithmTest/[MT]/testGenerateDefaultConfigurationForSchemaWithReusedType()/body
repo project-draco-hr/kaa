@@ -1,0 +1,14 @@
+{
+  Path schemaPath=Paths.get(Thread.currentThread().getContextClassLoader().getResource("generation/schemaWithReusedType.json").toURI());
+  BaseSchema configuraionSchema=new BaseSchema(new String(Files.readAllBytes(schemaPath)));
+  DefaultRecordGenerationAlgorithm configurationProcessor=new DefaultRecordGenerationAlgorithmImpl(configuraionSchema,new BaseDataFactory());
+  KaaData generatedConfiguration=configurationProcessor.getRootData();
+  Path expectedGeneratedConfigurationPath=Paths.get(Thread.currentThread().getContextClassLoader().getResource("generation/expectedDefaultConfigurationForSchemaWithReusedType.json").toURI());
+  String expectedGeneratedConfiguration=new String(Files.readAllBytes(expectedGeneratedConfigurationPath));
+  GenericAvroConverter<GenericRecord> converter=new GenericAvroConverter<>(configuraionSchema.getRawSchema());
+  GenericRecord generatedConfigurationGenericRecord=converter.decodeJson(generatedConfiguration.getRawData());
+  GenericRecord expectedGeneratedConfigurationGenericRecord=converter.decodeJson(expectedGeneratedConfiguration);
+  AvroDataCanonizationUtils.removeUuid(generatedConfigurationGenericRecord);
+  AvroDataCanonizationUtils.removeUuid(expectedGeneratedConfigurationGenericRecord);
+  Assert.assertTrue(generatedConfigurationGenericRecord.equals(expectedGeneratedConfigurationGenericRecord));
+}

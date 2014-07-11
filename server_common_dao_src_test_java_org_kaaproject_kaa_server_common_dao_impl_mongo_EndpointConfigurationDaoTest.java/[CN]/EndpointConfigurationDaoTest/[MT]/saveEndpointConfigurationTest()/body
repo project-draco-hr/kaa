@@ -1,0 +1,8 @@
+{
+  EndpointConfiguration found=endpointConfigurationDao.findById(endConf.get(0));
+  Assert.assertNotNull(found);
+  found.setId(null);
+  EndpointConfiguration savedDto=endpointConfigurationDao.save(found);
+  Assert.assertNotNull(savedDto);
+  Assert.assertEquals(savedDto,found);
+}

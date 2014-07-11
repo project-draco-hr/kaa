@@ -1,9 +1,3 @@
 {
-  if (pendingResponse.getResponse() != null) {
-    SyncResponse syncResponse=operationsService.updateSyncResponse(pendingResponse.getResponse(),message.getNotifications(),message.getUnicastNotificationId());
-    sendReply(pendingRequest,syncResponse);
-  }
- else {
-    LOG.warn("[{}] Pending response is null during processing of {}!",endpointActorKey,message);
-  }
+  messageProcessor.processNotification(context(),message);
 }

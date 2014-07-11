@@ -1,0 +1,16 @@
+{
+  List<Long> lids=Collections.emptyList();
+  if (ids != null && !ids.isEmpty()) {
+    lids=new ArrayList<>();
+    for (    String id : ids) {
+      try {
+        Long lid=Long.parseLong(id);
+        lids.add(lid);
+      }
+ catch (      NumberFormatException e) {
+        LOG.warn("Can't conver string id {} to Long id",id);
+      }
+    }
+  }
+  return lids;
+}

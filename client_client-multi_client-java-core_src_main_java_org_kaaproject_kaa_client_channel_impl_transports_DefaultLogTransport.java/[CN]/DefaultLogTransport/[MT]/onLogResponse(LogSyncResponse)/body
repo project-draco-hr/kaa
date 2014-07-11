@@ -1,0 +1,13 @@
+{
+  if (processor != null) {
+    try {
+      processor.onLogResponse(response);
+    }
+ catch (    IOException e) {
+      LOG.error("Failed to process Log response: {}",e);
+    }
+  }
+ else {
+    LOG.error("Can't process response. LogProcessor is null");
+  }
+}

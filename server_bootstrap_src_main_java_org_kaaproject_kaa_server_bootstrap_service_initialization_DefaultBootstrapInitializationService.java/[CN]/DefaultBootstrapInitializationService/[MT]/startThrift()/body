@@ -3,7 +3,10 @@
   try {
     BootstrapThriftService.Processor<BootstrapThriftService.Iface> processor=new BootstrapThriftService.Processor<BootstrapThriftService.Iface>(bootstrapThriftService);
     TServerTransport serverTransport=new TServerSocket(new InetSocketAddress(thriftHost,thriftPort));
-    server=new TThreadPoolServer(new Args(serverTransport).processor(processor));
+    TThreadPoolServer.Args args=new Args(serverTransport).processor(processor);
+    args.stopTimeoutVal=3;
+    args.stopTimeoutUnit=TimeUnit.SECONDS;
+    server=new TThreadPoolServer(args);
     LOG.info("Bootstrap Server Started");
     server.serve();
     LOG.info("Bootstrap Server Stopped");

@@ -1,0 +1,12 @@
+{
+  ChangeDto changeDto=createDto();
+  changeDto.setId(getStringId());
+  changeDto.setType(type);
+  changeDto.setConfigurationId(ModelUtils.getStringId(configurationId));
+  changeDto.setCfMajorVersion(configurationVersion);
+  changeDto.setEndpointGroupId(ModelUtils.getStringId(groupId));
+  changeDto.setProfileFilterId(ModelUtils.getStringId(profileFilterId));
+  changeDto.setPfMajorVersion(filterVersion);
+  changeDto.setTopicId(ModelUtils.getStringId(topicId));
+  return changeDto;
+}

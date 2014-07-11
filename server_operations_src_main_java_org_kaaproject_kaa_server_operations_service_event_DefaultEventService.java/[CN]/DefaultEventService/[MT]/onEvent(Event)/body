@@ -1,0 +1,17 @@
+{
+  LOG.debug("onEvent .... event in {} listeners",listeners.size());
+  LOG.debug("Event: {}",event.toString());
+  for (  EventServiceListener listener : listeners) {
+    org.kaaproject.kaa.common.endpoint.gen.Event localEvent;
+    try {
+      localEvent=eventConverter.get().fromByteArray(event.getEndpointEvent().getEventData());
+      EndpointEvent endpointEvent=new EndpointEvent(EndpointObjectHash.fromBytes(event.getEndpointEvent().getSender()),localEvent,UUID.fromString(event.getEndpointEvent().getUuid()),event.getEndpointEvent().getCreateTime(),event.getEndpointEvent().getVersion());
+      RouteTableAddress recipient=new RouteTableAddress(EndpointObjectHash.fromBytes(event.getRouteAddress().getEndpointKey()),event.getRouteAddress().getApplicationToken(),event.getRouteAddress().getOperationsServerId());
+      RemoteEndpointEvent remoteEvent=new RemoteEndpointEvent(event.getTenantId(),event.getUserId(),endpointEvent,recipient);
+      listener.onEvent(remoteEvent);
+    }
+ catch (    IOException e) {
+      LOG.error("Error on converting byte array to Event: skiping this event message",e);
+    }
+  }
+}

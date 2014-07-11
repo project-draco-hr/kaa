@@ -1,0 +1,10 @@
+{
+  try {
+    LogEntry record=new LogEntry();
+    record.data=fieldSetFlags()[0] ? this.data : (java.nio.ByteBuffer)defaultValue(fields()[0]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

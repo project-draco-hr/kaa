@@ -1,7 +1,7 @@
 {
-  StatisticsService service=StatisticsService.getService();
+  StatisticsService service=StatisticsFactory.getService(ChannelType.HTTP);
   assertNotNull(service);
-  StatisticsService.setConfig(configMock);
+  service.setConfig(configMock);
   try {
     Thread.sleep(500);
   }
@@ -42,12 +42,12 @@
     sessions.clear();
   }
   try {
-    verify(zkNodeMock,atLeastOnce()).updateNodeStatsValues(0,0,0);
-    verify(zkNodeMock,times(1)).updateNodeStatsValues(10,5000,50);
-    verify(zkNodeMock,times(1)).updateNodeStatsValues(13,6666,66);
-    verify(zkNodeMock,times(1)).updateNodeStatsValues(15,7500,75);
-    verify(zkNodeMock,times(1)).updateNodeStatsValues(16,8000,80);
-    verify(zkNodeMock,atLeastOnce()).updateNodeStatsValues(20,10000,100);
+    verify(zkNodeMock,atLeastOnce()).updateNodeStatsValues(ZkChannelType.HTTP,0,0,0);
+    verify(zkNodeMock,times(1)).updateNodeStatsValues(ZkChannelType.HTTP,10,5000,50);
+    verify(zkNodeMock,times(1)).updateNodeStatsValues(ZkChannelType.HTTP,13,6666,66);
+    verify(zkNodeMock,times(1)).updateNodeStatsValues(ZkChannelType.HTTP,15,7500,75);
+    verify(zkNodeMock,times(1)).updateNodeStatsValues(ZkChannelType.HTTP,16,8000,80);
+    verify(zkNodeMock,atLeastOnce()).updateNodeStatsValues(ZkChannelType.HTTP,20,10000,100);
   }
  catch (  IOException e) {
     e.printStackTrace();

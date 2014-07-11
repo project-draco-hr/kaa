@@ -1,0 +1,21 @@
+{
+  List<Object> deltaTypes=new ArrayList<Object>();
+  deltaTypes.add(rootSchema);
+  for (  String type : addressableRecords) {
+    deltaTypes.add(type);
+  }
+  Map<String,Object> deltaTypesField=new HashMap<String,Object>();
+  deltaTypesField.put(NAME_FIELD,DELTA);
+  deltaTypesField.put(TYPE_FIELD,deltaTypes);
+  List<Object> deltaFields=new ArrayList<Object>();
+  deltaFields.add(deltaTypesField);
+  Map<String,Object> delta=new HashMap<String,Object>();
+  delta.put(NAME_FIELD,DELTA + "T");
+  delta.put(NAMESPACE_FIELD,KAA_NAMESPACE);
+  delta.put(TYPE_FIELD,RECORD_FIELD_VALUE);
+  delta.put(FIELDS_FIELD,deltaFields);
+  Map<String,Object> result=new HashMap<String,Object>();
+  result.put(TYPE_FIELD,ARRAY_FIELD_VALUE);
+  result.put(ITEMS_FIELD,delta);
+  return result;
+}

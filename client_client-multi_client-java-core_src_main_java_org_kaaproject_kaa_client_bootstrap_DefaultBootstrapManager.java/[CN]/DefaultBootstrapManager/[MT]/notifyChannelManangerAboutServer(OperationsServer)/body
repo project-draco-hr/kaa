@@ -1,0 +1,12 @@
+{
+  List<SupportedChannel> supportedChannelList=server.getSupportedChannelsArray();
+  for (  SupportedChannel supportedChannel : supportedChannelList) {
+    try {
+      LOG.debug("Applying new server {}",server);
+      channelManager.onServerUpdated(getSeverInfoByChannel(server,supportedChannel));
+    }
+ catch (    ParsingException|NoSuchAlgorithmException|InvalidKeySpecException e) {
+      throw new BootstrapRuntimeException(e.getMessage());
+    }
+  }
+}

@@ -8,16 +8,8 @@
     this.thriftPort=data().deepCopy(fields()[1].schema(),other.thriftPort);
     fieldSetFlags()[1]=true;
   }
-  if (isValidValue(fields()[2],other.httpHost)) {
-    this.httpHost=data().deepCopy(fields()[2].schema(),other.httpHost);
+  if (isValidValue(fields()[2],other.publicKey)) {
+    this.publicKey=data().deepCopy(fields()[2].schema(),other.publicKey);
     fieldSetFlags()[2]=true;
-  }
-  if (isValidValue(fields()[3],other.httpPort)) {
-    this.httpPort=data().deepCopy(fields()[3].schema(),other.httpPort);
-    fieldSetFlags()[3]=true;
-  }
-  if (isValidValue(fields()[4],other.publicKey)) {
-    this.publicKey=data().deepCopy(fields()[4].schema(),other.publicKey);
-    fieldSetFlags()[4]=true;
   }
 }

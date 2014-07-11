@@ -1,0 +1,27 @@
+{
+  if (response != null) {
+    SyncResponse syncResponse=responseConverter.fromByteArray(response);
+    LOG.info("Received Sync response: {}",syncResponse);
+    if (syncResponse.getConfigurationSyncResponse() != null && configurationTransport != null) {
+      configurationTransport.onConfigurationResponse(syncResponse.getConfigurationSyncResponse());
+    }
+    if (syncResponse.getEventSyncResponse() != null && eventTransport != null) {
+      eventTransport.onEventResponse(syncResponse.getEventSyncResponse());
+    }
+    if (syncResponse.getNotificationSyncResponse() != null && notificationTransport != null) {
+      notificationTransport.onNotificationResponse(syncResponse.getNotificationSyncResponse());
+    }
+    if (syncResponse.getUserSyncResponse() != null && userTransport != null) {
+      userTransport.onUserResponse(syncResponse.getUserSyncResponse());
+    }
+    if (syncResponse.getRedirectSyncResponse() != null && redirectionTransport != null) {
+      redirectionTransport.onRedirectionResponse(syncResponse.getRedirectSyncResponse());
+    }
+    if (syncResponse.getProfileSyncResponse() != null && profileTransport != null) {
+      profileTransport.onProfileResponse(syncResponse.getProfileSyncResponse());
+    }
+    if (syncResponse.getLogSyncResponse() != null && logTransport != null) {
+      logTransport.onLogResponse(syncResponse.getLogSyncResponse());
+    }
+  }
+}

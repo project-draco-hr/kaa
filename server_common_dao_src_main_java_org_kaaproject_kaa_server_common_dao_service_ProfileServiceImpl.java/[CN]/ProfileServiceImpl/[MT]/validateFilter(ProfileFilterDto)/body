@@ -1,5 +1,7 @@
 {
-  validateObject(dto,"Can't save profile filter. Incorrect object.");
+  if (dto == null) {
+    throw new IncorrectParameterException("Can't save profile filter. Incorrect object.");
+  }
   if (StringUtils.isBlank(dto.getSchemaId())) {
     throw new IncorrectParameterException("Profile Filter object invalid. Profile Schema id invalid:" + dto.getSchemaId());
   }

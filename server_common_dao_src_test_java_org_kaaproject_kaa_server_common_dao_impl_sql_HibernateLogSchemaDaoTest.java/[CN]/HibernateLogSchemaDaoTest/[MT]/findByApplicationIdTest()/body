@@ -1,0 +1,13 @@
+{
+  LogSchema logSchema=generateLogSchema(null,null,1).get(0);
+  Assert.assertNotNull(logSchema);
+  List<LogSchema> schemaList=logSchemaDao.findByApplicationId(logSchema.getApplication().getStringId());
+  Assert.assertNotNull(schemaList);
+  LogSchema found=null;
+  for (  LogSchema schema : schemaList) {
+    if (schema.getId().equals(logSchema.getId())) {
+      found=schema;
+    }
+  }
+  Assert.assertEquals(logSchema,found);
+}

@@ -1,0 +1,41 @@
+{
+  StringBuilder sb=new StringBuilder("RouteInfo(");
+  boolean first=true;
+  sb.append("updateType:");
+  if (this.updateType == null) {
+    sb.append("null");
+  }
+ else {
+    sb.append(this.updateType);
+  }
+  first=false;
+  if (!first)   sb.append(", ");
+  sb.append("eventClassFamilyVersion:");
+  if (this.eventClassFamilyVersion == null) {
+    sb.append("null");
+  }
+ else {
+    sb.append(this.eventClassFamilyVersion);
+  }
+  first=false;
+  if (!first)   sb.append(", ");
+  sb.append("applicationToken:");
+  if (this.applicationToken == null) {
+    sb.append("null");
+  }
+ else {
+    sb.append(this.applicationToken);
+  }
+  first=false;
+  if (!first)   sb.append(", ");
+  sb.append("endpointId:");
+  if (this.endpointId == null) {
+    sb.append("null");
+  }
+ else {
+    sb.append(this.endpointId);
+  }
+  first=false;
+  sb.append(")");
+  return sb.toString();
+}

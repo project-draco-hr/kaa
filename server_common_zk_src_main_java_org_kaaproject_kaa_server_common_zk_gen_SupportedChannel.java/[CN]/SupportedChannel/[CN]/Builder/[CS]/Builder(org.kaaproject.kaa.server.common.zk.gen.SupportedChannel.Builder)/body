@@ -1,0 +1,7 @@
+{
+  super(other);
+  if (isValidValue(fields()[0],other.ZkChannel)) {
+    this.ZkChannel=data().deepCopy(fields()[0].schema(),other.ZkChannel);
+    fieldSetFlags()[0]=true;
+  }
+}

@@ -18,15 +18,15 @@
       errorWriter.println("Unable to locate specified file '" + file + "'!");
     }
 catch (    IOException e) {
-      errorWriter.println("Unable to read from specified file '" + file + "'! Error: "+ e.getMessage());
+      errorWriter.println("Unable to read from specified file '" + file + ERROR+ e.getMessage());
       e.printStackTrace(errorWriter);
     }
   }
  else   if (!f.exists()) {
-    errorWriter.println("Specified file '" + file + "' does not exists!");
+    errorWriter.println(SPECIFIED_FILE + file + "' does not exists!");
   }
  else   if (!f.isFile()) {
-    errorWriter.println("Specified file '" + file + "' is not a file!");
+    errorWriter.println(SPECIFIED_FILE + file + "' is not a file!");
   }
   return result;
 }

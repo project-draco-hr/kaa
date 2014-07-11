@@ -1,0 +1,9 @@
+{
+  SpringGwtRemoteServiceServlet.setRequest(request);
+  try {
+    return kaaAuthService.checkAuth();
+  }
+  finally {
+    SpringGwtRemoteServiceServlet.setRequest(null);
+  }
+}

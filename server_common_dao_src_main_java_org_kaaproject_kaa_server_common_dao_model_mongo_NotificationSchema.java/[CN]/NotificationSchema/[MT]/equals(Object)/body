@@ -1,0 +1,13 @@
+{
+  if (this == other) {
+    return true;
+  }
+  if (other instanceof NotificationSchema) {
+    NotificationSchema that=(NotificationSchema)other;
+    if (type != that.type) {
+      return false;
+    }
+    return super.equals(that);
+  }
+  return false;
+}

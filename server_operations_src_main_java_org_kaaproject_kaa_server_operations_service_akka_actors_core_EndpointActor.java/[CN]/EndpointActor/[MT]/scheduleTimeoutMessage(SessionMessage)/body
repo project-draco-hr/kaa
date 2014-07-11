@@ -1,5 +1,0 @@
-{
-  SessionAttributes attr=message.getSessionAttributes();
-  long delay=attr.getTimeout() - (System.currentTimeMillis() - attr.getStart());
-  scheduleTimeoutMessage(delay);
-}

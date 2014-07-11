@@ -1,0 +1,10 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    notification.setBody(body);
+    clientProvider.getClient().editNotification(toDataStruct(notification));
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

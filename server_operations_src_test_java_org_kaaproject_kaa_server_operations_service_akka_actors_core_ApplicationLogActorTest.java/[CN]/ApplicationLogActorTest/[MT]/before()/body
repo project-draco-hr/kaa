@@ -1,0 +1,11 @@
+{
+  logAppenderService=mock(LogAppenderService.class);
+  applicationLogActor=mock(ApplicationLogActor.class);
+  logSchema=new LogSchema(new LogSchemaDto());
+  logSchemas=new HashMap<>();
+  logAppenders=new ArrayList<>();
+  logAppender=mock(LogAppender.class);
+  ReflectionTestUtils.setField(applicationLogActor,"logSchemas",logSchemas);
+  ReflectionTestUtils.setField(applicationLogActor,"logAppenders",logAppenders);
+  ReflectionTestUtils.setField(applicationLogActor,"logAppenderService",logAppenderService);
+}

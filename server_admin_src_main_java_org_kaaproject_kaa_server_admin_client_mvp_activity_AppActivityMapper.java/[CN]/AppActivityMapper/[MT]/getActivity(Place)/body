@@ -22,6 +22,15 @@
  else     if (clazz == UserPlace.class) {
       return new UserActivity((UserPlace)place,clientFactory);
     }
+ else     if (clazz == EcfsPlace.class) {
+      return new EcfsActivity((EcfsPlace)place,clientFactory);
+    }
+ else     if (clazz == EcfPlace.class) {
+      return new EcfActivity((EcfPlace)place,clientFactory);
+    }
+ else     if (clazz == EcfSchemaPlace.class) {
+      return new EcfSchemaActivity((EcfSchemaPlace)place,clientFactory);
+    }
  else     if (clazz == ProfileSchemasPlace.class) {
       return new ProfileSchemasActivity((ProfileSchemasPlace)place,clientFactory);
     }
@@ -40,6 +49,12 @@
  else     if (clazz == NotificationSchemaPlace.class) {
       return new NotificationSchemaActivity((NotificationSchemaPlace)place,clientFactory);
     }
+ else     if (clazz == LogSchemasPlace.class) {
+      return new LogSchemasActivity((LogSchemasPlace)place,clientFactory);
+    }
+ else     if (clazz == LogSchemaPlace.class) {
+      return new LogSchemaActivity((LogSchemaPlace)place,clientFactory);
+    }
  else     if (clazz == EndpointGroupsPlace.class) {
       return new EndpointGroupsActivity((EndpointGroupsPlace)place,clientFactory);
     }
@@ -57,6 +72,12 @@
     }
  else     if (clazz == TopicPlace.class) {
       return new TopicActivity((TopicPlace)place,clientFactory);
+    }
+ else     if (clazz == AefMapsPlace.class) {
+      return new AefMapsActivity((AefMapsPlace)place,clientFactory);
+    }
+ else     if (clazz == AefMapPlace.class) {
+      return new AefMapActivity((AefMapPlace)place,clientFactory);
     }
   }
   return null;

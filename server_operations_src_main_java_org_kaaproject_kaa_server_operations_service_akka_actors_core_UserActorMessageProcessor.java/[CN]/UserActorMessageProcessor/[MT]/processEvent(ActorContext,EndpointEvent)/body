@@ -1,0 +1,31 @@
+{
+  String fqn=event.getEventClassFQN();
+  LOG.debug("[{}] Processing event {} from {}",userId,fqn,event.getSender());
+  Integer version;
+  if (event.getVersion() == 0) {
+    version=lookupVersion(event,fqn);
+  }
+ else {
+    version=event.getVersion();
+  }
+  if (version != null && version > 0) {
+    event.setVersion(version);
+    Set<RouteTableKey> recipientKeys=cacheService.getRouteKeys(new EventClassFqnVersion(tenantId,fqn,version));
+    if (!recipientKeys.isEmpty()) {
+      LOG.debug("[{}] Put event {} with {} recipient keys to storage",userId,event,recipientKeys.size());
+      eventStorage.put(event,recipientKeys);
+      Set<RouteTableAddress> recipients=routeTable.getRoutes(recipientKeys,event.getTarget());
+      recipients=filterOutRecipientsByKeyHash(event,recipients);
+      if (!recipients.isEmpty()) {
+        sendEventToRecepients(context,event,recipients);
+      }
+ else {
+        LOG.debug("[{}] there is no recipients for event with class fqn {} and version {} yet",userId,fqn,version);
+      }
+      scheduleTimeoutMessage(context,event);
+    }
+ else {
+      LOG.debug("[{}] event {} is ignored due to it does not have any potential recepients",userId,event);
+    }
+  }
+}

@@ -1,24 +1,24 @@
 {
-  ControlApiCommand command=new ControlApiCommand(edit ? "editConfiguration" : "createConfiguration",(edit ? "edit" : "create") + " Configuration"){
+  ControlApiCommand command=new ControlApiCommand(edit ? "editConfiguration" : "createConfiguration",(edit ? "edit" : CREATE) + CONFIGURATION){
     @Override public void runCommand(    CommandLine line,    ControlThriftService.Iface client,    PrintWriter writer,    PrintWriter errorWriter){
       createConfiguration(line,client,writer,errorWriter,edit);
     }
   }
 ;
   if (edit) {
-    Option opt=new Option("i","configurationId",true,"Configuration Id option");
+    Option opt=new Option("i",CONFIGURATION_ID,true,CONFIGURATION_ID_OPTION);
     opt.setRequired(true);
     command.addOption(opt);
   }
  else {
-    Option opt=new Option("o","output",true,"Output file to store Object Id");
+    Option opt=new Option("o",OUTPUT,true,OUTPUT_FILE_TO_STORE_OBJECT_ID);
     opt.setRequired(false);
     command.addOption(opt);
   }
-  Option opt=new Option("s","configurationSchemaId",true,"Configuration Schema Id option");
+  Option opt=new Option("s",CONFIGURATION_SCHEMA_ID,true,CONFIGURATION_SCHEMA_ID_OPTION);
   opt.setRequired(!edit);
   command.addOption(opt);
-  opt=new Option("e","endpointGroupId",true,"Endpoint Group Id option");
+  opt=new Option("e",ENDPOINT_GROUP_ID,true,ENDPOINT_GROUP_ID_OPTION);
   opt.setRequired(false);
   command.addOption(opt);
   opt=new Option("f","file",true,"Configuration JSON file");

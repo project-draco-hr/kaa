@@ -1,7 +1,0 @@
-{
-  historyDao=(HistoryDao<History>)ReflectionTestUtils.getField(historyService,"historyDao");
-  ReflectionTestUtils.setField(historyService,"historyDao",historyDaoMock);
-  ReflectionTestUtils.setField(historyService,"waitSeconds",1);
-  applicationDao=(ApplicationDao<Application>)ReflectionTestUtils.getField(historyService,"applicationDao");
-  ReflectionTestUtils.setField(historyService,"applicationDao",applicationDaoMock);
-}

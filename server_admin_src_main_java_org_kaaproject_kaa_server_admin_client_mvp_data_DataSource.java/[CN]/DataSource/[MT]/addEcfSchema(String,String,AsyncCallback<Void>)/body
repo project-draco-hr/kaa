@@ -1,0 +1,8 @@
+{
+  rpcService.addEventClassFamilySchema(ecfId,fileItemName,new DataCallback<Void>(callback){
+    @Override protected void onResult(    Void result){
+      eventBus.fireEvent(new DataEvent(EventSchemaVersionDto.class));
+    }
+  }
+);
+}

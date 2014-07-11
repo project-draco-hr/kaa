@@ -1,0 +1,12 @@
+{
+  if (this == obj)   return true;
+  if (obj == null)   return false;
+  if (getClass() != obj.getClass())   return false;
+  IPParameters other=(IPParameters)obj;
+  if (hostName == null) {
+    if (other.hostName != null)     return false;
+  }
+ else   if (!hostName.equals(other.hostName))   return false;
+  if (port != other.port)   return false;
+  return true;
+}

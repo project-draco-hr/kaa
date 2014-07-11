@@ -1,0 +1,65 @@
+{
+  if (types != null) {
+    SyncRequest request=new SyncRequest();
+    if (metaDataTransport != null) {
+      request.setSyncRequestMetaData(metaDataTransport.createMetaDataRequest());
+    }
+    for (    Map.Entry<TransportType,ChannelDirection> type : types.entrySet()) {
+      boolean isDownDirection=type.getValue().equals(ChannelDirection.DOWN);
+switch (type.getKey()) {
+case CONFIGURATION:
+        if (isDownDirection) {
+          request.setConfigurationSyncRequest(new ConfigurationSyncRequest());
+        }
+ else         if (configurationTransport != null) {
+          request.setConfigurationSyncRequest(configurationTransport.createConfigurationRequest());
+        }
+      break;
+case EVENT:
+    if (isDownDirection) {
+      request.setEventSyncRequest(new EventSyncRequest());
+    }
+ else     if (eventTransport != null) {
+      request.setEventSyncRequest(eventTransport.createEventRequest());
+    }
+  break;
+case NOTIFICATION:
+if (isDownDirection) {
+  request.setNotificationSyncRequest(new NotificationSyncRequest());
+}
+ else if (notificationTransport != null) {
+  request.setNotificationSyncRequest(notificationTransport.createNotificationRequest());
+}
+break;
+case PROFILE:
+if (!isDownDirection && profileTransport != null) {
+request.setProfileSyncRequest(profileTransport.createProfileRequest());
+;
+}
+break;
+case USER:
+if (isDownDirection) {
+request.setUserSyncRequest(new UserSyncRequest());
+}
+ else if (userTransport != null) {
+request.setUserSyncRequest(userTransport.createUserRequest());
+}
+break;
+case LOGGING:
+if (isDownDirection) {
+request.setLogSyncRequest(new LogSyncRequest());
+}
+ else if (logTransport != null) {
+request.setLogSyncRequest(logTransport.createLogRequest());
+}
+break;
+default :
+LOG.error("Invalid transport type {}",type.getKey());
+return null;
+}
+}
+LOG.info("Created Sync request: {}",request);
+return requestConverter.toByteArray(request);
+}
+return null;
+}

@@ -1,0 +1,14 @@
+{
+  Path schemaPath=Paths.get(Thread.currentThread().getContextClassLoader().getResource("generation/simpleSchema.json").toURI());
+  BaseSchema configuraionSchema=new BaseSchema(new String(Files.readAllBytes(schemaPath)));
+  Path configurationPath=Paths.get(Thread.currentThread().getContextClassLoader().getResource("generation/simpleConfiguration.json").toURI());
+  String configuraion=new String(Files.readAllBytes(configurationPath));
+  GenericAvroConverter<GenericRecord> converter=new GenericAvroConverter<>(configuraionSchema.getRawSchema());
+  DefaultUuidValidator uuidGenerator=new DefaultUuidValidator(configuraionSchema,new BaseDataFactory());
+  KaaData processedConfigurationBody=uuidGenerator.validateUuidFields(new BaseData(configuraionSchema,configuraion),null);
+  GenericRecord processedConfiguration=converter.decodeJson(processedConfigurationBody.getRawData());
+  Object uuid=processedConfiguration.get(CommonConstants.UUID_FIELD);
+  Assert.assertNotNull(uuid);
+  Assert.assertTrue(uuid instanceof GenericFixed);
+  Assert.assertEquals(CommonConstants.KAA_NAMESPACE + "." + CommonConstants.UUID_TYPE,((GenericFixed)uuid).getSchema().getFullName());
+}

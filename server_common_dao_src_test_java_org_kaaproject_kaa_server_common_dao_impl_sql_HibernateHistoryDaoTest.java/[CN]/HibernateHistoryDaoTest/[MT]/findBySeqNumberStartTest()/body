@@ -1,0 +1,8 @@
+{
+  List<History> histories=generateHistory(null,3);
+  Assert.assertNotNull(histories);
+  History third=histories.get(2);
+  List<History> found=historyDao.findBySeqNumberStart(third.getApplication().getId().toString(),2);
+  Assert.assertEquals(1,found.size());
+  Assert.assertEquals(third,found.get(0));
+}

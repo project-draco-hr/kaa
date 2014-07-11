@@ -1,13 +1,16 @@
 {
 switch (field$) {
 case 0:
-    DNSName=(java.lang.String)value$;
+    name=(java.lang.String)value$;
   break;
 case 1:
-Priority=(java.lang.Integer)value$;
+priority=(java.lang.Integer)value$;
 break;
 case 2:
-PublicKey=(java.nio.ByteBuffer)value$;
+publicKey=(java.nio.ByteBuffer)value$;
+break;
+case 3:
+supportedChannelsArray=(java.util.List<org.kaaproject.kaa.common.bootstrap.gen.SupportedChannel>)value$;
 break;
 default :
 throw new org.apache.avro.AvroRuntimeException("Bad index");

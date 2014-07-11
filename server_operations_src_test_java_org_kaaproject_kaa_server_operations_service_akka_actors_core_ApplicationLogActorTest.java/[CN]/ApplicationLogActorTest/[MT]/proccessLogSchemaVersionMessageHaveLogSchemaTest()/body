@@ -1,0 +1,8 @@
+{
+  LogEventPackMessage logEventPackMessage=mock(LogEventPackMessage.class);
+  logAppenders.add(logAppender);
+  when(logEventPackMessage.getLogSchema()).thenReturn(logSchema);
+  when(logEventPackMessage.getLogEventPack()).thenReturn(new LogEventPack());
+  ReflectionTestUtils.invokeMethod(applicationLogActor,"processLogEventPack",logEventPackMessage);
+  verify(logAppender).doAppend(logEventPackMessage.getLogEventPack());
+}

@@ -1,0 +1,7 @@
+{
+  String message="test_message";
+  Exception cause=new RuntimeException();
+  ConfigurationGenerationException configurationProcessingException=new ConfigurationGenerationException(message,cause);
+  Assert.assertEquals(message,configurationProcessingException.getMessage());
+  Assert.assertTrue(cause == configurationProcessingException.getCause());
+}

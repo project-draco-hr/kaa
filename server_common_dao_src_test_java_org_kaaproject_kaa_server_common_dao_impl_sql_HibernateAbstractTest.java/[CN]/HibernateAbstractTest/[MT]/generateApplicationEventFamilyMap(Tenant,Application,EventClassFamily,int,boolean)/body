@@ -1,0 +1,37 @@
+{
+  int applicationEventMapCount=2;
+  if (tenant == null) {
+    tenant=generateTenant();
+  }
+  if (application == null) {
+    application=generateApplication(tenant);
+  }
+  if (eventClassFamily == null) {
+    eventClassFamily=generateEventClassFamily(tenant,1).get(0);
+  }
+  ApplicationEventFamilyMap applicationEventFamilyMap;
+  List<ApplicationEventFamilyMap> applicationEventFamilyMaps=new ArrayList<>(count);
+  for (int i=0; i < count; i++) {
+    applicationEventFamilyMap=new ApplicationEventFamilyMap();
+    applicationEventFamilyMap.setApplication(application);
+    applicationEventFamilyMap.setCreatedTime(new Date().getTime());
+    applicationEventFamilyMap.setCreatedUsername("Test Username");
+    applicationEventFamilyMap.setEcf(eventClassFamily);
+    applicationEventFamilyMap.setVersion(1);
+    if (generateApplicationEventMaps) {
+      List<ApplicationEventMap> applicationEventMaps=new ArrayList<>(applicationEventMapCount);
+      for (int j=0; j < applicationEventMapCount; j++) {
+        ApplicationEventMap applicationEventMap=new ApplicationEventMap();
+        applicationEventMap.setAction(ApplicationEventAction.BOTH);
+        applicationEventMap.setFqn("Test FQN" + RANDOM.nextInt());
+        applicationEventMap.setEventClass(generateEventClass(tenant,eventClassFamily,1).get(0));
+        applicationEventMaps.add(applicationEventMap);
+      }
+      applicationEventFamilyMap.setEventMaps(applicationEventMaps);
+    }
+    applicationEventFamilyMap=applicationEventFamilyMapDao.save(applicationEventFamilyMap);
+    Assert.assertNotNull(applicationEventFamilyMap);
+    applicationEventFamilyMaps.add(applicationEventFamilyMap);
+  }
+  return applicationEventFamilyMaps;
+}

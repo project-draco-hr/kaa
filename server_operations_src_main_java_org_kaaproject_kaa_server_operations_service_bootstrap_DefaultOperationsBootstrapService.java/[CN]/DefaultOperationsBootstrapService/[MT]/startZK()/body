@@ -1,15 +1,26 @@
 {
   OperationsNodeInfo nodeInfo=new OperationsNodeInfo();
   ByteBuffer keyData=ByteBuffer.wrap(keyStoreService.getPublicKey().getEncoded());
-  ConnectionInfo connectionInfo=new ConnectionInfo(thriftHost,thriftPort,realBindInterface,nettyPort,keyData);
+  ConnectionInfo connectionInfo=new ConnectionInfo(getConfig().getThriftHost(),getConfig().getThriftPort(),keyData);
   nodeInfo.setConnectionInfo(connectionInfo);
-  operationsNode=new OperationsNode(nodeInfo,zkHostPortList,new RetryUntilElapsed(zkMaxRetryTime,zkSleepTime));
+  List<SupportedChannel> suppChannels=new ArrayList<>();
+  for (  ServiceChannel sc : serviceChannels) {
+    try {
+      suppChannels.add(sc.getZkSupportedChannel());
+    }
+ catch (    ZkChannelException e) {
+      LOG.error("Error advertize Channel ",e);
+    }
+  }
+  nodeInfo.setSupportedChannelsArray(suppChannels);
+  operationsNode=new OperationsNode(nodeInfo,getConfig().getZkHostPortList(),new RetryUntilElapsed(getConfig().getZkMaxRetryTime(),getConfig().getZkSleepTime()));
   try {
     operationsNode.start();
     getConfig().setZkNode(operationsNode);
+    eventService.setZkNode(operationsNode);
   }
  catch (  Exception e) {
-    if (zkIgnoreErrors) {
+    if (getConfig().isZkIgnoreErrors()) {
       LOG.info("Failed to register operations in ZooKeeper",e);
     }
  else {

@@ -3,7 +3,8 @@
   ProfileSchemaDto profileSchema=createProfileSchema(application.getId());
   ConfigurationSchemaDto configSchema=createConfigurationSchema(application.getId());
   NotificationSchemaDto notificationSchema=createUserNotificationSchema(application.getId());
-  Sdk sdk=client.generateSdk(SdkPlatform.JAVA,application.getId(),profileSchema.getMajorVersion(),configSchema.getMajorVersion(),notificationSchema.getMajorVersion());
+  LogSchemaDto logSchema=createLogSchema(application.getId());
+  Sdk sdk=client.generateSdk(SdkPlatform.JAVA,application.getId(),profileSchema.getMajorVersion(),configSchema.getMajorVersion(),notificationSchema.getMajorVersion(),null,logSchema.getMajorVersion());
   Assert.assertNotNull(sdk);
   Assert.assertFalse(strIsEmpty(sdk.getFileName()));
   Assert.assertNotNull(sdk.getData());

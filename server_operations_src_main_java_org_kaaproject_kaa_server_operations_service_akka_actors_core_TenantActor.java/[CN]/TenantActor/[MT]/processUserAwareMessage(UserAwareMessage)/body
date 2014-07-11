@@ -1,0 +1,16 @@
+{
+  ActorRef userActor;
+  if (message instanceof RouteInfoMessage || message instanceof UserRouteInfoMessage) {
+    LOG.debug("Find user actor by id: {} for message {}",message.getUserId(),message);
+    userActor=users.get(message.getUserId());
+  }
+ else {
+    userActor=getOrCreateUserActor(message.getUserId());
+  }
+  if (userActor != null) {
+    userActor.tell(message,self());
+  }
+ else {
+    LOG.debug("[{}] user aware message ignored due to no such user actor: [{}]",tenantId,message.getUserId());
+  }
+}

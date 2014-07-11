@@ -1,0 +1,6 @@
+{
+  for (int i=0; i < getMaxNumberConnection(); i++) {
+    EventWorker worker=new EventWorker();
+    workers.add(executor.submit(worker));
+  }
+}

@@ -1,0 +1,20 @@
+{
+  logger.info("Deleting data from MongoDB database");
+  DB db=MongoDBTestRunner.getDB();
+  if (db != null) {
+    db.dropDatabase();
+  }
+  try {
+    if (url.contains("h2")) {
+      logger.info("Deleting data from H2 database");
+      new H2DBTestRunner().truncateTables(dataSource);
+    }
+ else     if (url.contains("h2")) {
+      logger.info("Deleting data from PostgreSQL database");
+      new PostgreDBTestRunner().truncateTables(dataSource);
+    }
+  }
+ catch (  SQLException ex) {
+    logger.error("Can't delete data from databases.",ex);
+  }
+}

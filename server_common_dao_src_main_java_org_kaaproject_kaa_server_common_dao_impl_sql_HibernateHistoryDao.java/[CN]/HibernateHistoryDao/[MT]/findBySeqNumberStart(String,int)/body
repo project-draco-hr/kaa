@@ -1,0 +1,8 @@
+{
+  List<History> histories=Collections.emptyList();
+  LOG.debug("Find history by application id {} start sequence number {}",appId,startSeqNum);
+  if (isNotBlank(appId)) {
+    histories=findListByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.and(Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(appId)),Restrictions.gt(SEQUENCE_NUMBER_PROPERTY,startSeqNum)));
+  }
+  return histories;
+}

@@ -1,0 +1,35 @@
+{
+  DefaultBootstrapManager manager=new DefaultBootstrapManager(null);
+  boolean exception=false;
+  try {
+    manager.useNextOperationsServer(ChannelType.HTTP_LP);
+  }
+ catch (  BootstrapRuntimeException e) {
+    exception=true;
+  }
+  assertTrue(exception);
+  BootstrapTransport transport=mock(BootstrapTransport.class);
+  KeyPairGenerator keyGen=KeyPairGenerator.getInstance("RSA");
+  keyGen.initialize(2048);
+  KeyPair keyPair=keyGen.genKeyPair();
+  OperationsServerList serverList=new OperationsServerList();
+  OperationsServer server=new OperationsServer();
+  server.setName("localhost:9889");
+  server.setPublicKey(ByteBuffer.wrap(keyPair.getPublic().getEncoded()));
+  List<SupportedChannel> channels=new LinkedList<>();
+  server.setSupportedChannelsArray(channels);
+  channels.add(new SupportedChannel(ChannelType.HTTP_LP,new HTTPLPComunicationParameters("localhost",9889)));
+  LinkedList<OperationsServer> list=new LinkedList<OperationsServer>();
+  list.add(server);
+  serverList.setOperationsServerArray(list);
+  ChanelManagerMock channelManager=spy(new ChanelManagerMock(true));
+  manager.setChannelManager(channelManager);
+  manager.setTransport(transport);
+  manager.onServerListUpdated(serverList);
+  manager.useNextOperationsServer(ChannelType.HTTP_LP);
+  assertTrue(channelManager.isServerUpdated());
+  assertEquals("http://localhost:9889/EP/LongSync",channelManager.getReceivedUrl());
+  manager.useNextOperationsServerByDnsName(null);
+  manager.useNextOperationsServerByDnsName("some.name");
+  verify(channelManager,times(1)).onServerUpdated(any(ServerInfo.class));
+}

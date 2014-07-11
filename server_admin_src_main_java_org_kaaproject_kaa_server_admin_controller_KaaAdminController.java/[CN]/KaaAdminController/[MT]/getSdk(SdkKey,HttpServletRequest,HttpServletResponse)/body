@@ -1,0 +1,14 @@
+{
+  try {
+    Sdk sdk=cacheService.getSdk(key);
+    response.setContentType(key.getTargetPlatform().getContentType());
+    ServletUtils.prepareDisposition(request,response,sdk.getFileName());
+    response.setContentLength(sdk.getData().length);
+    response.setBufferSize(BUFFER);
+    response.getOutputStream().write(sdk.getData());
+    response.flushBuffer();
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

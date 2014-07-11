@@ -1,0 +1,13 @@
+{
+  NotificationDto notificationDto=null;
+  Topic topic=topicDao.getNextSeqNumber(dto.getTopicId());
+  if (topic != null) {
+    dto.setSecNum(topic.getSequenceNumber());
+    Notification savedDto=notificationDao.save(new Notification(dto));
+    notificationDto=savedDto != null ? savedDto.toDto() : null;
+  }
+ else {
+    LOG.warn("Can't find topic by id.");
+  }
+  return notificationDto;
+}

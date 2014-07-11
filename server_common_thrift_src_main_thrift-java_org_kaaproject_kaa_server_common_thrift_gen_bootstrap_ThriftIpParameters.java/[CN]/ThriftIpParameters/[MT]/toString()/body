@@ -1,0 +1,18 @@
+{
+  StringBuilder sb=new StringBuilder("ThriftIpParameters(");
+  boolean first=true;
+  sb.append("HostName:");
+  if (this.HostName == null) {
+    sb.append("null");
+  }
+ else {
+    sb.append(this.HostName);
+  }
+  first=false;
+  if (!first)   sb.append(", ");
+  sb.append("Port:");
+  sb.append(this.Port);
+  first=false;
+  sb.append(")");
+  return sb.toString();
+}

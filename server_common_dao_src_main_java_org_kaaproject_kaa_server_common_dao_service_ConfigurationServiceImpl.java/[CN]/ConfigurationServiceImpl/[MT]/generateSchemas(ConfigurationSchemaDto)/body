@@ -1,13 +1,14 @@
 {
-  String dataSchema=schema.getSchema();
-  if (isNotEmpty(dataSchema)) {
-    String protocol=protocolSchemaCreator.createSchema(new StringReader(dataSchema));
-    String base=baseSchemaCreator.createSchema(new StringReader(dataSchema));
-    String override=overrideSchemaCreator.createSchema(new StringReader(dataSchema));
-    if (isNotBlank(protocol) && isNotBlank(base) && isNotBlank(override)) {
-      schema.setBaseSchema(base);
-      schema.setProtocolSchema(protocol);
-      schema.setOverrideSchema(override);
+  DataSchema dataSchema=new DataSchema(schema.getSchema());
+  if (!dataSchema.isEmpty()) {
+    SchemaGenerationAlgorithm schemaGenerator=schemaGeneratorFactory.createSchemaGenerator(dataSchema);
+    ProtocolSchema protocol=schemaGenerator.getProtocolSchema();
+    BaseSchema base=schemaGenerator.getBaseSchema();
+    OverrideSchema override=schemaGenerator.getOverrideSchema();
+    if (!protocol.isEmpty() && !base.isEmpty() && !override.isEmpty()) {
+      schema.setBaseSchema(base.getRawSchema());
+      schema.setProtocolSchema(protocol.getRawSchema());
+      schema.setOverrideSchema(override.getRawSchema());
     }
  else {
       LOG.trace("One or more generated schemas are empty. base: {} protocol {}  override {}",base,protocol,override);

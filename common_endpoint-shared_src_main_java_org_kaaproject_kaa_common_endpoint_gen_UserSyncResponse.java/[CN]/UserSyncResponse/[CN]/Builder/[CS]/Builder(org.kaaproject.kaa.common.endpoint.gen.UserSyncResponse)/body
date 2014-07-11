@@ -1,0 +1,15 @@
+{
+  super(org.kaaproject.kaa.common.endpoint.gen.UserSyncResponse.SCHEMA$);
+  if (isValidValue(fields()[0],other.userAttachResponse)) {
+    this.userAttachResponse=data().deepCopy(fields()[0].schema(),other.userAttachResponse);
+    fieldSetFlags()[0]=true;
+  }
+  if (isValidValue(fields()[1],other.endpointAttachResponses)) {
+    this.endpointAttachResponses=data().deepCopy(fields()[1].schema(),other.endpointAttachResponses);
+    fieldSetFlags()[1]=true;
+  }
+  if (isValidValue(fields()[2],other.endpointDetachResponses)) {
+    this.endpointDetachResponses=data().deepCopy(fields()[2].schema(),other.endpointDetachResponses);
+    fieldSetFlags()[2]=true;
+  }
+}

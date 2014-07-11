@@ -1,0 +1,36 @@
+{
+  SyncResponse response=getResponse();
+  if (response.getProfileSyncResponse() != null && response.getProfileSyncResponse().getResponseStatus() != SyncResponseStatus.NO_DELTA) {
+    return true;
+  }
+  if (response.getConfigurationSyncResponse() != null && response.getConfigurationSyncResponse().getResponseStatus() != SyncResponseStatus.NO_DELTA) {
+    return true;
+  }
+  if (response.getNotificationSyncResponse() != null && response.getNotificationSyncResponse().getResponseStatus() != SyncResponseStatus.NO_DELTA) {
+    return true;
+  }
+  if (response.getEventSyncResponse() != null) {
+    if (response.getEventSyncResponse().getEvents() != null && response.getEventSyncResponse().getEvents().size() > 0) {
+      return true;
+    }
+    if (response.getEventSyncResponse().getEventListenersResponses() != null && response.getEventSyncResponse().getEventListenersResponses().size() > 0) {
+      return true;
+    }
+  }
+  if (response.getUserSyncResponse() != null) {
+    UserSyncResponse userResponse=response.getUserSyncResponse();
+    if (userResponse.getEndpointAttachResponses() != null && userResponse.getEndpointAttachResponses().size() > 0) {
+      return true;
+    }
+    if (userResponse.getEndpointDetachResponses() != null && userResponse.getEndpointDetachResponses().size() > 0) {
+      return true;
+    }
+    if (userResponse.getUserAttachResponse() != null) {
+      return true;
+    }
+  }
+  if (response.getLogSyncResponse() != null) {
+    return true;
+  }
+  return false;
+}

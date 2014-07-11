@@ -1,4 +1,4 @@
 {
-  ActorRef applicationActor=getOrCreateApplicationActor(message.getAppToken());
-  applicationActor.tell(message,self());
+  ActorRef tenantActor=getOrCreateTenantActorByAppToken(message.getAppToken());
+  tenantActor.tell(message,self());
 }

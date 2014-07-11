@@ -1,0 +1,14 @@
+{
+  LOG.info("Bootstrap test Server {}:{} shutdown()",thriftHost,thriftPort);
+  server.stop();
+synchronized (stopSync) {
+    if (!stopComplete) {
+      try {
+        stopSync.wait(60000);
+      }
+ catch (      InterruptedException e) {
+        LOG.error("Interupted ThiftRunner shutdown",e);
+      }
+    }
+  }
+}

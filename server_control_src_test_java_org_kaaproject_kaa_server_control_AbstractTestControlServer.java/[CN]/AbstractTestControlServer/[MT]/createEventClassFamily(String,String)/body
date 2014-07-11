@@ -1,0 +1,19 @@
+{
+  EventClassFamilyDto eventClassFamily=new EventClassFamilyDto();
+  eventClassFamily.setName(generateString(EVENT_CLASS_FAMILY));
+  eventClassFamily.setNamespace(EVENT_CLASS_FAMILY_NAMESPACE);
+  String className=EVENT_CLASS_FAMILY_CLASS_NAME;
+  if (StringUtils.isNotBlank(classNameSuffix)) {
+    className+=classNameSuffix;
+  }
+  eventClassFamily.setClassName(className);
+  if (strIsEmpty(tenantId)) {
+    TenantDto tenant=createTenant();
+    eventClassFamily.setTenantId(tenant.getId());
+  }
+ else {
+    eventClassFamily.setTenantId(tenantId);
+  }
+  EventClassFamilyDto savedEventClassFamily=toDto(client.editEventClassFamily(toDataStruct(eventClassFamily)));
+  return savedEventClassFamily;
+}

@@ -1,0 +1,24 @@
+{
+  if (clientState != null && manager != null && properties != null) {
+    byte[] serializedProfile=manager.getSerializedProfileContainer().getSerializedProfile();
+    EndpointObjectHash currentProfileHash=EndpointObjectHash.fromSHA1(serializedProfile);
+    if (isProfileOutDated(currentProfileHash) || !clientState.isRegistered()) {
+      clientState.setProfileHash(currentProfileHash);
+      ProfileSyncRequest request=new ProfileSyncRequest();
+      request.setEndpointAccessToken(clientState.getEndpointAccessToken());
+      if (!clientState.isRegistered()) {
+        request.setEndpointPublicKey(ByteBuffer.wrap(clientState.getPublicKey().getEncoded()));
+      }
+      request.setProfileBody(ByteBuffer.wrap(serializedProfile));
+      request.setVersionInfo(properties.getVersionInfo());
+      return request;
+    }
+ else {
+      LOG.info("Profile is up to date");
+    }
+  }
+ else {
+    LOG.error("Failed to create ProfileSyncRequest clientState {}, manager {}, properties {}",clientState,manager,properties);
+  }
+  return null;
+}

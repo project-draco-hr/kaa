@@ -2,10 +2,10 @@
   controlClientConnect();
   ControlApiCliThriftClient cli=new ControlApiCliThriftClient();
   testInvalidCommand(cli,"createEndpointGroup -n testEndpointGroup -a 1 -w a","Unable to parse weight option!");
-  testInvalidCommand(cli,"createTopic -a fake -n topic -t mandatory","Invalid application id for topic.");
+  testInvalidCommand(cli,"createTopic -a  -n topic -t mandatory","Invalid application id for topic.");
   testInvalidCommand(cli,"addTopicToEndpointGroup -i fake -t fake","Incorrect endpoint group id.");
   testInvalidCommand(cli,"removeTopicFromEndpointGroup -i fake -t fake","Incorrect endpoint group id.");
-  testInvalidCommand(cli,"addTopicToEndpointGroup -i " + FAKE_ID + " -t fake","Incorrect topic id.");
+  testInvalidCommand(cli,"addTopicToEndpointGroup -i " + FAKE_SQL_ID + " -t fake","Incorrect topic id.");
   testInvalidCommand(cli,"removeTopicFromEndpointGroup -i " + FAKE_ID + " -t fake","Incorrect topic id.");
   testInvalidCommand(cli,"createNotification -s fake -t fake","Invalid schema id for notification.");
   testInvalidCommand(cli,"createNotification -s " + FAKE_ID + " -t fake","Invalid topic id for notification.");

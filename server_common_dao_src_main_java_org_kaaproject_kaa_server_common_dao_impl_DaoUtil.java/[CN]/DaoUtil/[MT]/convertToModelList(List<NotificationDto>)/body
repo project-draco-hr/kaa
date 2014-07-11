@@ -1,0 +1,10 @@
+{
+  List<Notification> notifications=null;
+  if (notificationList != null && !notificationList.isEmpty()) {
+    notifications=new ArrayList<>();
+    for (    NotificationDto dto : notificationList) {
+      notifications.add(new Notification(dto));
+    }
+  }
+  return notifications;
+}

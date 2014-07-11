@@ -1,0 +1,12 @@
+{
+switch (type) {
+case HTTP:
+    return new HttpChannel();
+case HTTP_LP:
+  return new HttpLongPollChannel();
+case BOOTSTRAP:
+return new BootstrapChannel();
+default :
+return null;
+}
+}

@@ -1,0 +1,10 @@
+{
+  editEndpointUser_result result=new editEndpointUser_result();
+  try {
+    result.success=iface.editEndpointUser(args.endpointUser);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

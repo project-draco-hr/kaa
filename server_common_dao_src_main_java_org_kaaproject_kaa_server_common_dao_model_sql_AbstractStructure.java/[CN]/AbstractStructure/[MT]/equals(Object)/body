@@ -1,0 +1,109 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  AbstractStructure<T> other=(AbstractStructure<T>)obj;
+  if (id == null) {
+    if (other.id != null) {
+      return false;
+    }
+  }
+ else   if (!id.equals(other.id)) {
+    return false;
+  }
+  if (sequenceNumber != other.sequenceNumber) {
+    return false;
+  }
+  if (majorVersion != other.majorVersion) {
+    return false;
+  }
+  if (minorVersion != other.minorVersion) {
+    return false;
+  }
+  if (description == null) {
+    if (other.description != null) {
+      return false;
+    }
+  }
+ else   if (!description.equals(other.description)) {
+    return false;
+  }
+  if (createdTime != other.createdTime) {
+    return false;
+  }
+  if (lastModifyTime != other.lastModifyTime) {
+    return false;
+  }
+  if (activatedTime != other.activatedTime) {
+    return false;
+  }
+  if (deactivatedTime != other.deactivatedTime) {
+    return false;
+  }
+  if (createdUsername == null) {
+    if (other.createdUsername != null) {
+      return false;
+    }
+  }
+ else   if (!createdUsername.equals(other.createdUsername)) {
+    return false;
+  }
+  if (modifiedUsername == null) {
+    if (other.modifiedUsername != null) {
+      return false;
+    }
+  }
+ else   if (!modifiedUsername.equals(other.modifiedUsername)) {
+    return false;
+  }
+  if (activatedUsername == null) {
+    if (other.activatedUsername != null) {
+      return false;
+    }
+  }
+ else   if (!activatedUsername.equals(other.activatedUsername)) {
+    return false;
+  }
+  if (deactivatedUsername == null) {
+    if (other.deactivatedUsername != null) {
+      return false;
+    }
+  }
+ else   if (!deactivatedUsername.equals(other.deactivatedUsername)) {
+    return false;
+  }
+  if (endpointCount != other.endpointCount) {
+    return false;
+  }
+  if (status == null) {
+    if (other.status != null) {
+      return false;
+    }
+  }
+ else   if (!status.equals(other.status)) {
+    return false;
+  }
+  if (application == null) {
+    if (other.application != null) {
+      return false;
+    }
+  }
+ else   if (!application.equals(other.application)) {
+    return false;
+  }
+  if (endpointGroup == null) {
+    if (other.endpointGroup != null) {
+      return false;
+    }
+  }
+ else   if (!endpointGroup.equals(other.endpointGroup)) {
+    return false;
+  }
+  return true;
+}

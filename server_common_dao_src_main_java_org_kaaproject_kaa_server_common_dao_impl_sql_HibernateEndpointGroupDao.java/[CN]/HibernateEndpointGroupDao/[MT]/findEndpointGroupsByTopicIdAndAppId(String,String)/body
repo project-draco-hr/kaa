@@ -1,0 +1,12 @@
+{
+  List<EndpointGroup> groups=null;
+  LOG.debug("Find endpoint group by application id [{}] and topic id [{}]",appId,topicId);
+  if (isNotBlank(appId)) {
+    Criteria criteria=getCriteria();
+    criteria.createAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS);
+    criteria.createAlias(TOPICS_PROPERTY,TOPIC_ALIAS);
+    criteria.add(Restrictions.and(Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(appId)),Restrictions.eq(TOPIC_REFERENCE,Long.valueOf(topicId))));
+    groups=findListByCriteria(criteria);
+  }
+  return groups;
+}

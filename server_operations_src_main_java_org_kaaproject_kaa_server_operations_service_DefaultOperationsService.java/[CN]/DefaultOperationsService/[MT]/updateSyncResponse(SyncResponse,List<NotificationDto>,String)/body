@@ -16,6 +16,6 @@
     notifications.add(convertNotification(unicast));
   }
   notificationResponse.setNotifications(notifications);
-  response.setResponseType(SyncResponseStatus.DELTA);
+  notificationResponse.setResponseStatus(SyncResponseStatus.DELTA);
   return response;
 }

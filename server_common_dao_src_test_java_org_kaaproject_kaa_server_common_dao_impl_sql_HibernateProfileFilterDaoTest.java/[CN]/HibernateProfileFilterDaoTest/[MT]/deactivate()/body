@@ -1,0 +1,10 @@
+{
+  List<ProfileFilter> filters=generateFilter(null,null,1,UpdateStatus.ACTIVE);
+  Assert.assertEquals(1,filters.size());
+  ProfileFilter first=filters.get(0);
+  Assert.assertEquals(UpdateStatus.ACTIVE,first.getStatus());
+  ProfileFilter deactivated=profileFilterDao.deactivate(first.getId().toString(),"Test user");
+  ProfileFilter found=profileFilterDao.findById(first.getId().toString());
+  Assert.assertEquals(UpdateStatus.DEPRECATED,deactivated.getStatus());
+  Assert.assertEquals(deactivated,found);
+}

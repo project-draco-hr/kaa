@@ -1,0 +1,12 @@
+{
+  EndpointAttachRequest request=new EndpointAttachRequest(REQUEST_ID,ENDPOINT_ACCESS_TOKEN);
+  EndpointProfileDto profileMock=mock(EndpointProfileDto.class);
+  EndpointProfileDto attachedEndpointMock=mock(EndpointProfileDto.class);
+  when(profileMock.getEndpointUserId()).thenReturn(EXTERNAL_USER_ID);
+  when(endpointService.attachEndpointToUser(EXTERNAL_USER_ID,ENDPOINT_ACCESS_TOKEN)).thenReturn(attachedEndpointMock);
+  when(attachedEndpointMock.getEndpointKeyHash()).thenReturn(ENDPOINT_KEY_HASH);
+  EndpointAttachResponse response=endpointUserService.attachEndpoint(profileMock,request);
+  assertNotNull(response);
+  assertEquals(SyncResponseResultType.SUCCESS,response.getResult());
+  assertEquals(REQUEST_ID,response.getRequestId());
+}

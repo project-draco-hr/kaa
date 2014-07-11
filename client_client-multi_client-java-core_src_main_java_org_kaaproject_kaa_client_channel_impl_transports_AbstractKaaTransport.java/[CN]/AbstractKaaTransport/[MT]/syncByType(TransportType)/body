@@ -1,0 +1,8 @@
+{
+  LOG.debug("Lookup channel by type {}",type);
+  KaaDataChannel channel=getChannel(type);
+  LOG.debug("Going to invoke sync method on channel {}",channel);
+  if (channel != null) {
+    channel.sync(type);
+  }
+}

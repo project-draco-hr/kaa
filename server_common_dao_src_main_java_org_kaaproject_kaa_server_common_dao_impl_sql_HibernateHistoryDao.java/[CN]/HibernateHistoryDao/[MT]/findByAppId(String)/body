@@ -1,0 +1,8 @@
+{
+  List<History> histories=Collections.emptyList();
+  LOG.debug("Find history by application id {}",appId);
+  if (isNotBlank(appId)) {
+    histories=findListByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(appId)));
+  }
+  return histories;
+}

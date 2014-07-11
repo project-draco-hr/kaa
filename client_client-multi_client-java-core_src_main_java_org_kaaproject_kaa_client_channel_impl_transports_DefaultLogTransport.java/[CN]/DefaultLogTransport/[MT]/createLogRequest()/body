@@ -1,0 +1,11 @@
+{
+  if (processor != null) {
+    LogSyncRequest request=new LogSyncRequest();
+    processor.fillSyncRequest(request);
+    return request;
+  }
+ else {
+    LOG.error("Can't create request. LogProcessor is null");
+  }
+  return null;
+}

@@ -1,8 +1,0 @@
-{
-  doInTemplate(new SyncReponseCalculator<EndpointRegistrationRequest>(){
-    @Override public SyncResponseHolder getSyncReponse(    EndpointRegistrationRequest request) throws GetDeltaException {
-      return operationsService.registerEndpoint(request);
-    }
-  }
-,message.getRequest(),message);
-}

@@ -1,12 +1,11 @@
 {
-  String schema=readSchemaFileAsString("dao/schema/dataSchema.json");
-  SchemaCreator protocolSchemaCreator=new SchemaCreatorImpl(new ProtocolSchemaStrategy());
-  SchemaCreator overrideSchemaCreator=new SchemaCreatorImpl(new OverrideDataSchemaStrategy());
-  SchemaCreator baseSchemaCreator=new SchemaCreatorImpl(new BaseDataSchemaStrategy());
-  String protocolSchema=protocolSchemaCreator.createSchema(new StringReader(schema));
-  String baseSchema=baseSchemaCreator.createSchema(new StringReader(schema));
-  String overrideSchema=overrideSchemaCreator.createSchema(new StringReader(schema));
-  LOGGER.debug("Created Override schema JSON {} ",overrideSchema);
-  LOGGER.debug("Created Base schema JSON {} ",baseSchema);
-  LOGGER.debug("Created Protocol schema JSON {} ",protocolSchema);
+  DataSchema schema=new DataSchema(readSchemaFileAsString("dao/schema/dataSchema.json"));
+  SchemaGenerationAlgorithmFactory factory=new SchemaGenerationAlgorithmFactoryImpl();
+  SchemaGenerationAlgorithm generator=factory.createSchemaGenerator(schema);
+  KaaSchema protocolSchema=generator.getProtocolSchema();
+  KaaSchema baseSchema=generator.getBaseSchema();
+  KaaSchema overrideSchema=generator.getOverrideSchema();
+  LOGGER.debug("Created Override schema JSON {} ",overrideSchema.getRawSchema());
+  LOGGER.debug("Created Base schema JSON {} ",baseSchema.getRawSchema());
+  LOGGER.debug("Created Protocol schema JSON {} ",protocolSchema.getRawSchema());
 }

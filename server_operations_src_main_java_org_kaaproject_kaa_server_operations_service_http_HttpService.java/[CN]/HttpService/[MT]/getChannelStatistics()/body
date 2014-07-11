@@ -1,0 +1,10 @@
+{
+switch (getChannelType()) {
+case HTTP:
+    return getZkHttpStatistics();
+case HTTP_LP:
+  return getZkHttpLpStatistics();
+default :
+throw new ZkChannelException("Error returnig statistics parameteres, assigned unsupported channel type");
+}
+}

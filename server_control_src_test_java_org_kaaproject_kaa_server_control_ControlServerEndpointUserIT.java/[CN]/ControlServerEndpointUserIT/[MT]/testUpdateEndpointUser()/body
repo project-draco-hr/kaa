@@ -1,0 +1,9 @@
+{
+  TenantDto tenant=createTenant();
+  EndpointUserDto endpointUser=createEndpointUser("",tenant.getId());
+  endpointUser.setUsername(generateString(ENDPOINT_USER_NAME));
+  EndpointUserDto updatedEndpointUser=toDto(client.editEndpointUser(toDataStruct(endpointUser)));
+  Assert.assertEquals(updatedEndpointUser,endpointUser);
+  client.deleteEndpointUser(endpointUser.getId());
+  client.deleteTenant(tenant.getId());
+}

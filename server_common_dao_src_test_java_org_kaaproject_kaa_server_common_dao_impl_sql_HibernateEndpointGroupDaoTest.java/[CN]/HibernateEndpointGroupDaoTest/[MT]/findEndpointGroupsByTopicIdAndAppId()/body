@@ -1,0 +1,10 @@
+{
+  Topic topic=generateTopic(null,null);
+  Set<Topic> topics=new HashSet<>();
+  topics.add(topic);
+  EndpointGroup endpointGroup=generateEndpointGroup(topic.getApplication(),topics);
+  List<EndpointGroup> found=endpointGroupDao.findEndpointGroupsByTopicIdAndAppId(topic.getApplication().getId().toString(),topic.getId().toString());
+  Assert.assertNotNull(found);
+  Assert.assertEquals(1,found.size());
+  Assert.assertEquals(endpointGroup,found.get(0));
+}

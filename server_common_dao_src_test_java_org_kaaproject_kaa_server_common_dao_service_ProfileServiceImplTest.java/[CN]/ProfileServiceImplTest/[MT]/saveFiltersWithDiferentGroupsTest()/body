@@ -1,7 +1,7 @@
 {
-  ApplicationDto application=generateApplication();
+  ApplicationDto application=generateApplication(null);
   EndpointGroupDto groupDto=generateEndpointGroup(application.getId());
-  EndpointGroupDto groupDto2=generateEndpointGroup(application.getId());
+  EndpointGroupDto groupDto2=generateEndpointGroup(application.getId(),"OTHER_GROUP");
   ProfileSchemaDto schema=generateProfSchema(application.getId(),1).get(0);
   ProfileFilterDto filterDto=generateFilter(schema.getId(),groupDto.getId(),1,false).get(0);
   Assert.assertNotNull(filterDto);

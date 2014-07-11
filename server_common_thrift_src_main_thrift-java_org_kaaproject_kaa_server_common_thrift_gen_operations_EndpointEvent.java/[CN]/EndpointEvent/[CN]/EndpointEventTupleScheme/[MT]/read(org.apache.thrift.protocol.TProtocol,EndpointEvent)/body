@@ -1,0 +1,24 @@
+{
+  TTupleProtocol iprot=(TTupleProtocol)prot;
+  BitSet incoming=iprot.readBitSet(5);
+  if (incoming.get(0)) {
+    struct.uuid=iprot.readString();
+    struct.setUuidIsSet(true);
+  }
+  if (incoming.get(1)) {
+    struct.sender=iprot.readBinary();
+    struct.setSenderIsSet(true);
+  }
+  if (incoming.get(2)) {
+    struct.eventData=iprot.readBinary();
+    struct.setEventDataIsSet(true);
+  }
+  if (incoming.get(3)) {
+    struct.createTime=iprot.readI64();
+    struct.setCreateTimeIsSet(true);
+  }
+  if (incoming.get(4)) {
+    struct.version=iprot.readI32();
+    struct.setVersionIsSet(true);
+  }
+}

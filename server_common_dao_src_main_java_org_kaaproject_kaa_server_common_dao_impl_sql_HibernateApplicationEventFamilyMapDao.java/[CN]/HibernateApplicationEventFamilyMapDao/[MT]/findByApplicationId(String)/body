@@ -1,0 +1,12 @@
+{
+  LOG.debug("Find application event family maps by application id [{}] ",applicationId);
+  List<ApplicationEventFamilyMap> applicationEventFamilyMaps=Collections.emptyList();
+  if (isNotBlank(applicationId)) {
+    applicationEventFamilyMaps=findListByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(applicationId)));
+  }
+  LOG.info("Found application event family maps {} by tenant id {} ",applicationEventFamilyMaps.size(),applicationId);
+  if (LOG.isDebugEnabled()) {
+    LOG.debug("Found application event family maps {} by tenant id {} ",Arrays.toString(applicationEventFamilyMaps.toArray()),applicationId);
+  }
+  return applicationEventFamilyMaps;
+}

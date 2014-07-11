@@ -1,26 +1,45 @@
 {
   akkaService=new DefaultAkkaService();
+  cacheService=mock(CacheService.class);
   operationsService=mock(OperationsService.class);
   notificationDeltaService=mock(NotificationDeltaService.class);
   applicationService=mock(ApplicationService.class);
+  eventService=mock(EventService.class);
+  logAppenderService=mock(LogAppenderService.class);
+  ReflectionTestUtils.setField(akkaService,"cacheService",cacheService);
   ReflectionTestUtils.setField(akkaService,"operationsService",operationsService);
   ReflectionTestUtils.setField(akkaService,"notificationDeltaService",notificationDeltaService);
   ReflectionTestUtils.setField(akkaService,"applicationService",applicationService);
+  ReflectionTestUtils.setField(akkaService,"eventService",eventService);
+  ReflectionTestUtils.setField(akkaService,"logAppenderService",logAppenderService);
   if (akkaService.getActorSystem() == null) {
-    ((DefaultAkkaService)akkaService).initActorSystem();
+    akkaService.initActorSystem();
   }
+  Mockito.when(cacheService.getTenantIdByAppToken(APP_TOKEN)).thenReturn(TENANT_ID);
   applicationDto=new ApplicationDto();
   applicationDto.setId(APP_ID);
   applicationDto.setApplicationToken(APP_TOKEN);
   SyncResponse response=new SyncResponse();
-  response.setResponseType(SyncResponseStatus.NO_DELTA);
+  response.setStatus(SyncResponseResultType.SUCCESS);
+  ConfigurationSyncResponse confSyncResponse=new ConfigurationSyncResponse();
+  confSyncResponse.setResponseStatus(SyncResponseStatus.NO_DELTA);
+  response.setConfigurationSyncResponse(confSyncResponse);
   noDeltaResponse=new SyncResponseHolder(response);
   Map<String,Integer> subscriptionStates=new HashMap<>();
   subscriptionStates.put(TOPIC_ID,new Integer(0));
-  noDeltaResponseWithTopicState=new SyncResponseHolder(response,subscriptionStates,42,43);
+  noDeltaResponseWithTopicState=new SyncResponseHolder(response);
+  noDeltaResponseWithTopicState.setSubscriptionStates(subscriptionStates);
+  EndpointProfileDto epDto=new EndpointProfileDto();
+  epDto.setSystemNfVersion(42);
+  epDto.setUserNfVersion(43);
+  epDto.setLogSchemaVersion(44);
+  noDeltaResponseWithTopicState.setEndpointProfile(epDto);
   response=new SyncResponse();
-  response.setResponseType(SyncResponseStatus.DELTA);
-  deltaResponse=new SyncResponseHolder(response,new HashMap<String,Integer>());
+  response.setStatus(SyncResponseResultType.SUCCESS);
+  confSyncResponse=new ConfigurationSyncResponse();
+  confSyncResponse.setResponseStatus(SyncResponseStatus.DELTA);
+  response.setConfigurationSyncResponse(confSyncResponse);
+  deltaResponse=new SyncResponseHolder(response);
   topicNotification=new NotificationDto();
   topicNotification.setApplicationId(APP_ID);
   topicNotification.setTopicId(TOPIC_ID);
@@ -30,4 +49,6 @@
   topicNotification.setVersion(42);
   topicNotification.setType(NotificationTypeDto.SYSTEM);
   topicNotification.setBody("I am a dummy notification".getBytes());
+  when(applicationService.findAppByApplicationToken(APP_TOKEN)).thenReturn(applicationDto);
+  when(applicationService.findAppById(APP_ID)).thenReturn(applicationDto);
 }

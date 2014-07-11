@@ -1,0 +1,47 @@
+{
+  try {
+    LogSchemaDto logSchema=null;
+    if (edit) {
+      String logSchemaId=line.getOptionValue("i");
+      logSchema=toDto(client.getLogSchema(logSchemaId));
+      if (logSchema == null) {
+        writer.println("Log Schema with id " + logSchemaId + NOT_FOUND);
+        return;
+      }
+    }
+ else {
+      logSchema=new LogSchemaDto();
+    }
+    if (line.hasOption("f")) {
+      String schemaFile=line.getOptionValue("f");
+      String schema=readFile(schemaFile,errorWriter);
+      if (schema != null) {
+        logSchema.setSchema(new KaaSchemaFactoryImpl().createDataSchema(schema).getRawSchema());
+      }
+ else {
+        return;
+      }
+    }
+    if (line.hasOption("a")) {
+      logSchema.setApplicationId(line.getOptionValue("a"));
+    }
+    LogSchemaDto savedLogSchema=toDto(client.editLogSchema(toDataStruct(logSchema)));
+    if (edit) {
+      writer.println("Log Schema updated.");
+    }
+ else {
+      writer.println("Created new Log Schema with id: " + savedLogSchema.getId());
+      if (line.hasOption("o")) {
+        String outFileName=line.getOptionValue("o");
+        storeInfo(outFileName,savedLogSchema.getId(),errorWriter);
+      }
+      if (line.hasOption("vo")) {
+        String outFileName=line.getOptionValue("vo");
+        storeInfo(outFileName,"" + savedLogSchema.getMajorVersion(),errorWriter);
+      }
+    }
+  }
+ catch (  TException e) {
+    handleException(UNABLE_TO + (edit ? UPDATE : CREATE) + LOG_SCHEMA,e,errorWriter);
+  }
+}

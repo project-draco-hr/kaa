@@ -1,0 +1,17 @@
+{
+  for (  EventMessage message : messages) {
+switch (message.getType()) {
+case ROUTE_UPDATE:
+      onRouteUpdate(message.getRoute());
+    break;
+case USER_ROUTE_INFO:
+  onUserRouteInfo(message.getUserRoute());
+break;
+case EVENT:
+onEvent(message.getEvent());
+break;
+default :
+break;
+}
+}
+}

@@ -1,0 +1,7 @@
+{
+  List<History> histories=generateHistory(null,3);
+  Assert.assertNotNull(histories);
+  History first=histories.get(0);
+  List<History> found=historyDao.findByAppId(first.getApplication().getId().toString());
+  Assert.assertEquals(histories,found);
+}

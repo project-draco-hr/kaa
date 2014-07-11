@@ -5,7 +5,7 @@
       String configurationSchemaId=line.getOptionValue("i");
       configurationSchema=toDto(client.getConfigurationSchema(configurationSchemaId));
       if (configurationSchema == null) {
-        writer.println("Configuration Schema with id " + configurationSchemaId + " not found!");
+        writer.println("Configuration Schema with id " + configurationSchemaId + NOT_FOUND);
         return;
       }
     }
@@ -16,7 +16,7 @@
       String schemaFile=line.getOptionValue("f");
       String schema=readFile(schemaFile,errorWriter);
       if (schema != null) {
-        configurationSchema.setSchema(schema);
+        configurationSchema.setSchema(new KaaSchemaFactoryImpl().createDataSchema(schema).getRawSchema());
       }
  else {
         return;
@@ -42,6 +42,6 @@
     }
   }
  catch (  TException e) {
-    handleException("Unable to " + (edit ? "update" : "create") + " Configuration Schema",e,errorWriter);
+    handleException(UNABLE_TO + (edit ? UPDATE : CREATE) + CONFIGURATION_SCHEMA,e,errorWriter);
   }
 }

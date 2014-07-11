@@ -1,0 +1,7 @@
+{
+  Channel channel=new BootstrapChannel();
+  List<TransportType> transports=channel.getSupportedTransports();
+  assertNotNull(transports);
+  assertEquals(1,transports.size());
+  assertEquals(TransportType.BOOTSTRAP,transports.get(0));
+}

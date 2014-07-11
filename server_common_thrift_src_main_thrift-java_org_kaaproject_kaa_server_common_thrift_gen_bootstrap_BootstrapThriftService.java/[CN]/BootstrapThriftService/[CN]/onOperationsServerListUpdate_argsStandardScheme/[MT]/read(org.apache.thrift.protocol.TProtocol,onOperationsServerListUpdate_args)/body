@@ -8,21 +8,19 @@
     }
 switch (schemeField.id) {
 case 1:
-      if (schemeField.type == org.apache.thrift.protocol.TType.MAP) {
+      if (schemeField.type == org.apache.thrift.protocol.TType.LIST) {
 {
-          org.apache.thrift.protocol.TMap _map0=iprot.readMapBegin();
-          struct.operationsServerMap=new HashMap<String,OperationsServer>(2 * _map0.size);
-          for (int _i1=0; _i1 < _map0.size; ++_i1) {
-            String _key2;
-            OperationsServer _val3;
-            _key2=iprot.readString();
-            _val3=new OperationsServer();
-            _val3.read(iprot);
-            struct.operationsServerMap.put(_key2,_val3);
+          org.apache.thrift.protocol.TList _list8=iprot.readListBegin();
+          struct.operationsServersList=new ArrayList<ThriftOperationsServer>(_list8.size);
+          for (int _i9=0; _i9 < _list8.size; ++_i9) {
+            ThriftOperationsServer _elem10;
+            _elem10=new ThriftOperationsServer();
+            _elem10.read(iprot);
+            struct.operationsServersList.add(_elem10);
           }
-          iprot.readMapEnd();
+          iprot.readListEnd();
         }
-        struct.setOperationsServerMapIsSet(true);
+        struct.setOperationsServersListIsSet(true);
       }
  else {
         org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);

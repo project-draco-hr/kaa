@@ -1,0 +1,23 @@
+{
+  TTupleProtocol oprot=(TTupleProtocol)prot;
+  BitSet optionals=new BitSet();
+  if (struct.isSetEndpointKey()) {
+    optionals.set(0);
+  }
+  if (struct.isSetApplicationToken()) {
+    optionals.set(1);
+  }
+  if (struct.isSetOperationsServerId()) {
+    optionals.set(2);
+  }
+  oprot.writeBitSet(optionals,3);
+  if (struct.isSetEndpointKey()) {
+    oprot.writeBinary(struct.endpointKey);
+  }
+  if (struct.isSetApplicationToken()) {
+    oprot.writeString(struct.applicationToken);
+  }
+  if (struct.isSetOperationsServerId()) {
+    oprot.writeString(struct.operationsServerId);
+  }
+}

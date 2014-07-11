@@ -1,0 +1,10 @@
+{
+switch (setField) {
+case HTTP_PARAMS:
+    return HTTP_PARAMS_FIELD_DESC;
+case HTTP_LP_PARAMS:
+  return HTTP_LP_PARAMS_FIELD_DESC;
+default :
+throw new IllegalArgumentException("Unknown field id " + setField);
+}
+}

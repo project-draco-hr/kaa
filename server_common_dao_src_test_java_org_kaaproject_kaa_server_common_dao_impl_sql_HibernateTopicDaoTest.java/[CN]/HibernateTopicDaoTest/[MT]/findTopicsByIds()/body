@@ -1,0 +1,10 @@
+{
+  Topic first=generateTopic(null,null);
+  Application app=first.getApplication();
+  Topic second=generateTopic(app,null);
+  List<Topic> expected=new ArrayList<>();
+  expected.add(first);
+  expected.add(second);
+  List<Topic> found=topicDao.findTopicsByIds(Arrays.asList(first.getId().toString(),second.getId().toString()));
+  Assert.assertEquals(expected.size(),found.size());
+}

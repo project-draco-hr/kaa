@@ -1,0 +1,7 @@
+{
+  DynamicLoadManager dm=new DynamicLoadManager(ldServiceMock);
+  assertNotNull(dm);
+  long opsServerHistoryTTL=123456;
+  dm.setOpsServerHistoryTTL(opsServerHistoryTTL);
+  assertEquals(opsServerHistoryTTL,dm.getOpsServerHistoryTTL());
+}

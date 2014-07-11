@@ -2,7 +2,7 @@
   byte[] wrongConf=Arrays.copyOf(endpointConfiguration.getConfiguration(),endpointConfiguration.getConfiguration().length);
   wrongConf[0]=(byte)(wrongConf[0] + 1);
   EndpointObjectHash newConfHash=EndpointObjectHash.fromSHA1(wrongConf);
-  GetDeltaRequest request=new GetDeltaRequest(app.getApplicationToken(),EndpointObjectHash.fromSHA1(ENDPOINT_KEY),EndpointObjectHash.fromSHA1(PROFILE_BYTES),newConfHash,OLD_ENDPOINT_SEQ_NUMBER);
+  GetDeltaRequest request=new GetDeltaRequest(application.getApplicationToken(),newConfHash,OLD_ENDPOINT_SEQ_NUMBER);
   request.setEndpointProfile(endpointProfile.toDto());
   List<EndpointGroupStateDto> changes=new ArrayList<>();
   changes.add(new EndpointGroupStateDto(egAllId,pfAllId,cfAllId));

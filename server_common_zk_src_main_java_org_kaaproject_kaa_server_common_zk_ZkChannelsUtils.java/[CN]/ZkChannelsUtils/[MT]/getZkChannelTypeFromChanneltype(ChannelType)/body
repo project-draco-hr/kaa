@@ -1,0 +1,10 @@
+{
+switch (channeltype) {
+case HTTP:
+    return ZkChannelType.HTTP;
+case HTTP_LP:
+  return ZkChannelType.HTTP_LP;
+default :
+}
+throw new ZkChannelException("Error transforming Bootstrap channelType " + channeltype.toString() + " to ZkChannelType");
+}

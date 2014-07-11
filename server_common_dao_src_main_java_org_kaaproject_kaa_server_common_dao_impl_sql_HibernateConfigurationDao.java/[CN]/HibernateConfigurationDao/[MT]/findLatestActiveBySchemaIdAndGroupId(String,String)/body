@@ -1,0 +1,13 @@
+{
+  Configuration configuration=null;
+  LOG.debug("Find latest active configuration by configuration schema id {} and group id {} ",schemaId,groupId);
+  if (isNotBlank(schemaId) && isNotBlank(groupId)) {
+    Criteria criteria=getCriteria();
+    criteria.createAlias(CONFIGURATION_SCHEMA_PROPERTY,CONFIGURATION_SCHEMA_ALIAS);
+    criteria.createAlias(ENDPOINT_GROUP_PROPERTY,ENDPOINT_GROUP_ALIAS);
+    criteria.add(Restrictions.and(Restrictions.eq(ENDPOINT_GROUP_REFERENCE,Long.valueOf(groupId)),Restrictions.eq(CONFIGURATION_SCHEMA_REFERENCE,Long.valueOf(schemaId)),Restrictions.eq(STATUS_PROPERTY,UpdateStatus.ACTIVE)));
+    configuration=(Configuration)findOneByCriteria(criteria);
+  }
+  LOG.debug("Find latest active configuration {} by configuration schema id {} and group id {} ",configuration,schemaId,groupId);
+  return configuration;
+}

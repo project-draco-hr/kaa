@@ -1,0 +1,11 @@
+{
+  Integer version;
+  LOG.debug("[{}] Lookup event class family id using event class fqn {}",userId,fqn);
+  String ecfId=cacheService.getEventClassFamilyIdByEventClassFqn(new EventClassFqnKey(tenantId,fqn));
+  LOG.debug("[{}] Lookup event {} version from user's version map using ecfId {} ",userId,fqn,ecfId);
+  version=versionMap.get(event.getSender(),ecfId);
+  if (version == null) {
+    LOG.warn("[{}] Lookup event {} version from user's version map using ecfId {} FAILED!",userId,fqn,ecfId);
+  }
+  return version;
+}

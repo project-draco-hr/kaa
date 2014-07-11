@@ -1,0 +1,9 @@
+{
+  UserDto dto=createDto();
+  dto.setId(getStringId());
+  dto.setUsername(username);
+  dto.setExternalUid(externalUid);
+  dto.setTenantId(ModelUtils.getStringId(tenant));
+  dto.setAuthority(authority);
+  return dto;
+}

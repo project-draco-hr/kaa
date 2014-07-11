@@ -1,0 +1,33 @@
+{
+  Label versionLabel=new Label(Utils.constants.version());
+  version=new SizedTextBox(-1,false);
+  version.setWidth("100%");
+  detailsTable.setWidget(0,0,versionLabel);
+  detailsTable.setWidget(0,1,version);
+  Label authorLabel=new Label(Utils.constants.author());
+  createdUsername=new SizedTextBox(-1,false);
+  createdUsername.setWidth("100%");
+  detailsTable.setWidget(1,0,authorLabel);
+  detailsTable.setWidget(1,1,createdUsername);
+  Label dateTimeCreatedLabel=new Label(Utils.constants.dateTimeCreated());
+  createdDateTime=new SizedTextBox(-1,false);
+  createdDateTime.setWidth("100%");
+  detailsTable.setWidget(2,0,dateTimeCreatedLabel);
+  detailsTable.setWidget(2,1,createdDateTime);
+  Label schemaLabel=new Label(Utils.constants.schema());
+  detailsTable.setWidget(3,0,schemaLabel);
+  schema=new SizedTextArea(524288);
+  schema.setWidth("500px");
+  schema.getTextArea().getElement().getStyle().setPropertyPx("minHeight",150);
+  schema.getTextArea().setReadOnly(true);
+  detailsTable.setWidget(3,1,schema);
+  detailsTable.getCellFormatter().setVerticalAlignment(1,0,HasVerticalAlignment.ALIGN_TOP);
+  eventClassesGrid=new EventClassesGrid(Unit.PX);
+  eventClassesGrid.setSize("700px","300px");
+  Label eventClassesLabel=new Label(Utils.constants.eventClasses());
+  eventClassesLabel.addStyleName("b-app-content-title-label");
+  detailsTable.setWidget(4,0,eventClassesLabel);
+  eventClassesLabel.getElement().getParentElement().getStyle().setPropertyPx("paddingBottom",10);
+  detailsTable.setWidget(5,0,eventClassesGrid);
+  detailsTable.getFlexCellFormatter().setColSpan(5,0,3);
+}

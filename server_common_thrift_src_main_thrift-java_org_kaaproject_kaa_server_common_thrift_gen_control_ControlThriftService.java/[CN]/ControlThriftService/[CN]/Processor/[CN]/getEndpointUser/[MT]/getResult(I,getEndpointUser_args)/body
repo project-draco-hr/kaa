@@ -1,0 +1,10 @@
+{
+  getEndpointUser_result result=new getEndpointUser_result();
+  try {
+    result.success=iface.getEndpointUser(args.endpointUserId);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

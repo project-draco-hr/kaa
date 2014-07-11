@@ -1,0 +1,22 @@
+{
+  if (request != null) {
+    List<Event> events=request.getEvents();
+    if (userId != null && events != null && !events.isEmpty()) {
+      LOG.debug("[{}][{}] Processing events {}",endpointKey,actorKey,events);
+      List<Event> eventsToSend=new ArrayList<>(events.size());
+      int maxSentEventSeqNum=processedEventSeqNum;
+      for (      Event event : events) {
+        if (event.getSeqNum() > processedEventSeqNum) {
+          event.setSource(endpointKey);
+          eventsToSend.add(event);
+          maxSentEventSeqNum=Math.max(event.getSeqNum(),maxSentEventSeqNum);
+        }
+      }
+      processedEventSeqNum=maxSentEventSeqNum;
+      if (eventsToSend.size() > 0) {
+        EndpointEventSendMessage message=new EndpointEventSendMessage(userId,eventsToSend,key,appToken,context.self());
+        context.parent().tell(message,context.self());
+      }
+    }
+  }
+}

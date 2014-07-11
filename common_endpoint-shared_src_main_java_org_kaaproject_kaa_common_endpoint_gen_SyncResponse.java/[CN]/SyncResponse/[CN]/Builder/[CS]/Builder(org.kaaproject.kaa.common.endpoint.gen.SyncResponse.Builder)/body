@@ -1,23 +1,35 @@
 {
   super(other);
-  if (isValidValue(fields()[0],other.appStateSeqNumber)) {
-    this.appStateSeqNumber=data().deepCopy(fields()[0].schema(),other.appStateSeqNumber);
+  if (isValidValue(fields()[0],other.status)) {
+    this.status=data().deepCopy(fields()[0].schema(),other.status);
     fieldSetFlags()[0]=true;
   }
-  if (isValidValue(fields()[1],other.responseType)) {
-    this.responseType=data().deepCopy(fields()[1].schema(),other.responseType);
+  if (isValidValue(fields()[1],other.profileSyncResponse)) {
+    this.profileSyncResponse=data().deepCopy(fields()[1].schema(),other.profileSyncResponse);
     fieldSetFlags()[1]=true;
   }
-  if (isValidValue(fields()[2],other.confSyncResponse)) {
-    this.confSyncResponse=data().deepCopy(fields()[2].schema(),other.confSyncResponse);
+  if (isValidValue(fields()[2],other.configurationSyncResponse)) {
+    this.configurationSyncResponse=data().deepCopy(fields()[2].schema(),other.configurationSyncResponse);
     fieldSetFlags()[2]=true;
   }
   if (isValidValue(fields()[3],other.notificationSyncResponse)) {
     this.notificationSyncResponse=data().deepCopy(fields()[3].schema(),other.notificationSyncResponse);
     fieldSetFlags()[3]=true;
   }
-  if (isValidValue(fields()[4],other.redirectSyncResponse)) {
-    this.redirectSyncResponse=data().deepCopy(fields()[4].schema(),other.redirectSyncResponse);
+  if (isValidValue(fields()[4],other.userSyncResponse)) {
+    this.userSyncResponse=data().deepCopy(fields()[4].schema(),other.userSyncResponse);
     fieldSetFlags()[4]=true;
+  }
+  if (isValidValue(fields()[5],other.eventSyncResponse)) {
+    this.eventSyncResponse=data().deepCopy(fields()[5].schema(),other.eventSyncResponse);
+    fieldSetFlags()[5]=true;
+  }
+  if (isValidValue(fields()[6],other.redirectSyncResponse)) {
+    this.redirectSyncResponse=data().deepCopy(fields()[6].schema(),other.redirectSyncResponse);
+    fieldSetFlags()[6]=true;
+  }
+  if (isValidValue(fields()[7],other.logSyncResponse)) {
+    this.logSyncResponse=data().deepCopy(fields()[7].schema(),other.logSyncResponse);
+    fieldSetFlags()[7]=true;
   }
 }

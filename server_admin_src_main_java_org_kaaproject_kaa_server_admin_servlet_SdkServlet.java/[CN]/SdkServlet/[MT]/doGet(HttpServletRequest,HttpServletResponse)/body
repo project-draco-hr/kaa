@@ -4,10 +4,11 @@
     SdkKey key=(SdkKey)Base64.decodeToObject(sdkKeyBase64,Base64.URL_SAFE,null);
     Sdk sdk=cacheService.getSdk(key);
     response.setContentType(key.getTargetPlatform().getContentType());
-    prepareDisposition(request,response,sdk.getFileName());
+    ServletUtils.prepareDisposition(request,response,sdk.getFileName());
     response.setContentLength(sdk.getData().length);
     response.setBufferSize(BUFFER);
     response.getOutputStream().write(sdk.getData());
+    response.flushBuffer();
   }
  catch (  Exception e) {
     logger.error("Unexpected error in SdkServlet.doGet: ",e);

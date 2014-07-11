@@ -1,0 +1,38 @@
+{
+  try {
+    EndpointGroup endpointGroup=endpointGroupDao.findById(currentConfiguration.getEndpointGroupId());
+    GenericAvroConverter<GenericRecord> avroConverter;
+    KaaData body=null;
+    if (endpointGroup != null) {
+      if (endpointGroup.getWeight() == 0) {
+        LOG.debug("Create default UUID validator with base schema: {}",configurationSchema.getBaseSchema());
+        BaseSchema baseSchema=new BaseSchema(configurationSchema.getBaseSchema());
+        uuidValidator=new DefaultUuidValidator(baseSchema,new BaseDataFactory());
+        avroConverter=new GenericAvroConverter<GenericRecord>(baseSchema.getRawSchema());
+      }
+ else {
+        LOG.debug("Create default UUID validator with override schema: {}",configurationSchema.getOverrideSchema());
+        OverrideSchema overrideSchema=new OverrideSchema(configurationSchema.getOverrideSchema());
+        uuidValidator=new DefaultUuidValidator(overrideSchema,new OverrideDataFactory());
+        avroConverter=new GenericAvroConverter<GenericRecord>(overrideSchema.getRawSchema());
+      }
+      GenericRecord previousRecord=null;
+      if (previousConfiguration != null) {
+        previousRecord=avroConverter.decodeJson(previousConfiguration.getBody());
+      }
+      GenericRecord currentRecord=avroConverter.decodeJson(currentConfiguration.getBody());
+      body=uuidValidator.validateUuidFields(currentRecord,previousRecord);
+    }
+    if (body != null) {
+      currentConfiguration.setBody(body.getRawData());
+    }
+ else {
+      throw new RuntimeException("Can't generate json configuration body.");
+    }
+  }
+ catch (  Exception e) {
+    LOG.warn("Can't generate uuid fields for configuration {}",currentConfiguration);
+    LOG.error("Can't generate uuid fields for configuration!",e);
+    throw new IncorrectParameterException("Incorrect configuration. Can't generate uuid fields.");
+  }
+}

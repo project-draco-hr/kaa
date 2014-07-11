@@ -1,0 +1,16 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  Channel other=(Channel)obj;
+  if (getChannelType() != other.getChannelType()) {
+    return false;
+  }
+  return true;
+}

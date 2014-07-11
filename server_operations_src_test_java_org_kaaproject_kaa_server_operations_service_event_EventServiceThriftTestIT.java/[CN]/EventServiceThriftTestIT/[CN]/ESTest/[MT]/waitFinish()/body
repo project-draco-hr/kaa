@@ -1,0 +1,12 @@
+{
+  while (callCounter > 0) {
+synchronized (sync) {
+      try {
+        sync.wait(50000);
+      }
+ catch (      InterruptedException e) {
+        fail(e.toString());
+      }
+    }
+  }
+}

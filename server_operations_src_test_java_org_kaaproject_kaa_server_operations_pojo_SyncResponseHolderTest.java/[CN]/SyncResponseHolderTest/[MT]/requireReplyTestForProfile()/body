@@ -1,0 +1,8 @@
+{
+  SyncResponse response=new SyncResponse();
+  response.setProfileSyncResponse(new ProfileSyncResponse());
+  response.getProfileSyncResponse().setResponseStatus(SyncResponseStatus.NO_DELTA);
+  assertFalse(new SyncResponseHolder(response).requireImmediateReply());
+  response.getProfileSyncResponse().setResponseStatus(SyncResponseStatus.DELTA);
+  assertTrue(new SyncResponseHolder(response).requireImmediateReply());
+}

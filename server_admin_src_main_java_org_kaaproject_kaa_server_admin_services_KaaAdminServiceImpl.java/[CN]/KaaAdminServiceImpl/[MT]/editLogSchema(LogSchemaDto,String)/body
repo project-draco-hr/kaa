@@ -1,0 +1,13 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    setSchema(logSchema,fileItemName);
+    if (isEmpty(logSchema.getId())) {
+      logSchema.setCreatedUsername(getCurrentUser().getUsername());
+    }
+    return toDto(clientProvider.getClient().editLogSchema(toDataStruct(logSchema)));
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

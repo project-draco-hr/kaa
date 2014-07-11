@@ -1,0 +1,12 @@
+{
+  String name=(String)schemaNode.get(NAME_FIELD);
+  String namespace=(String)schemaNode.get(NAMESPACE_FIELD);
+  String fullName="";
+  if (!namespace.isEmpty()) {
+    fullName=namespace;
+  }
+  if (!name.isEmpty()) {
+    fullName=fullName.isEmpty() ? name : fullName + "." + name;
+  }
+  return fullName;
+}

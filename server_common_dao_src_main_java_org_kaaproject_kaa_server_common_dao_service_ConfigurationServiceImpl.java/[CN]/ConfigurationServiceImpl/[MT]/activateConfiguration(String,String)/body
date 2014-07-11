@@ -1,14 +1,14 @@
 {
   ChangeConfigurationNotification configurationNotification;
-  validateId(id,"Incorrect configuration id. Can't activate configuration with id " + id);
+  validateSqlId(id,"Incorrect configuration id. Can't activate configuration with id " + id);
   Configuration oldConfiguration=configurationDao.findById(id);
   if (oldConfiguration != null) {
     UpdateStatus status=oldConfiguration.getStatus();
     if (status != null && status == INACTIVE) {
-      ObjectId schemaId=oldConfiguration.getSchemaId();
-      ObjectId groupId=oldConfiguration.getEndpointGroupId();
+      String schemaId=oldConfiguration.getSchemaId();
+      String groupId=oldConfiguration.getEndpointGroupId();
       if (schemaId != null && groupId != null) {
-        configurationDao.deactivateOldConfiguration(schemaId.toString(),groupId.toString(),activatedUsername);
+        configurationDao.deactivateOldConfiguration(schemaId,groupId,activatedUsername);
       }
  else {
         throw new DatabaseProcessingException("Incorrect old configuration. Configuration schema or endpoint group id is empty.");

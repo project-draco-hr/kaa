@@ -1,0 +1,11 @@
+{
+  ThriftOperationsServer server=null;
+  for (  ThriftOperationsServer s : list) {
+    logger.info("getThriftOperationsServerByName name: {}; s.getName {}",name,s.getName());
+    if (s.getName() != null && s.getName().equals(name)) {
+      server=s;
+      break;
+    }
+  }
+  return server;
+}

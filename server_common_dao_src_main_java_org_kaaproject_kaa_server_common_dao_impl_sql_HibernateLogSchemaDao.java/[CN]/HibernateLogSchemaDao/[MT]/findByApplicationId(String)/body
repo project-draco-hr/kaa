@@ -1,0 +1,8 @@
+{
+  LOG.debug("Find versions by applicationId [{}] ",applicationId);
+  List<LogSchema> schemas=null;
+  if (isNotBlank(applicationId)) {
+    schemas=findListByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(applicationId)));
+  }
+  return schemas;
+}

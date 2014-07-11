@@ -1,0 +1,9 @@
+{
+  when(ldServiceMock.getDynamicMgmtClass()).thenReturn("org.kaaproject.kaa.server.control.service.loadmgmt.dynamicmgmt.OperationsServerLoadHistory");
+  DynamicLoadManager dm=new DynamicLoadManager(ldServiceMock);
+  assertNotNull(dm);
+  assertNotNull(dm.getLoadDistributionService());
+  assertNull(dm.getDynamicRebalancer());
+  verify(ldServiceMock,atLeast(1)).getDynamicMgmtClass();
+  when(ldServiceMock.getDynamicMgmtClass()).thenReturn("org.kaaproject.kaa.server.control.service.loadmgmt.dynamicmgmt.DefaultRebalancer");
+}

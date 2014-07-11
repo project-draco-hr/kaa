@@ -5,21 +5,21 @@
     endpointNotification.setNotificationDto(notification);
     if (line.hasOption("t")) {
       String topicId=line.getOptionValue("t");
-      if (ObjectId.isValid(topicId)) {
+      if (StringUtils.isNotBlank(topicId)) {
         notification.setTopicId(topicId);
       }
  else {
-        errorWriter.println("Invalid topic id for notification.");
+        errorWriter.println(INVALID_TOPIC_ID_FOR_NOTIFICATION);
         return;
       }
     }
     if (line.hasOption("s")) {
       String schemaId=line.getOptionValue("s");
-      if (ObjectId.isValid(schemaId)) {
+      if (StringUtils.isNotBlank(schemaId)) {
         notification.setSchemaId(schemaId);
       }
  else {
-        errorWriter.println("Invalid schema id for notification.");
+        errorWriter.println(INVALID_SCHEMA_ID_FOR_NOTIFICATION);
         return;
       }
     }
@@ -40,7 +40,7 @@
         notification.setExpiredAt(new Date(time));
       }
  catch (      NumberFormatException ex) {
-        errorWriter.println("Incorrect format of ttl: " + ex.getMessage());
+        errorWriter.println(INCORRECT_FORMAT_OF_TTL + ex.getMessage());
         return;
       }
     }
@@ -51,7 +51,7 @@
         notification.setBody(schema.getBytes(UTF8));
       }
  else {
-        errorWriter.println("Can't read file. Please check file name.");
+        errorWriter.println(CANT_READ_FILE);
         return;
       }
     }
@@ -60,7 +60,7 @@
       notification.setBody(body.getBytes(UTF8));
     }
  else {
-      errorWriter.println("Need to set body or file with body for notification");
+      errorWriter.println(NEED_TO_SET_BODY);
       return;
     }
     EndpointNotificationDto savedNotification=toDto(client.editUnicastNotification(toDataStruct(endpointNotification)));
@@ -71,6 +71,6 @@
     }
   }
  catch (  TException e) {
-    handleException("Unable to " + "create" + " Unicast Notification",e,errorWriter);
+    handleException(UNABLE_TO + CREATE + " Unicast Notification",e,errorWriter);
   }
 }

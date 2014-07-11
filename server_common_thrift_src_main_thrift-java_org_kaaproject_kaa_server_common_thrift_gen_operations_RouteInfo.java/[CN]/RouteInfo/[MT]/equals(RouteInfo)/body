@@ -1,0 +1,28 @@
+{
+  if (that == null)   return false;
+  boolean this_present_updateType=true && this.isSetUpdateType();
+  boolean that_present_updateType=true && that.isSetUpdateType();
+  if (this_present_updateType || that_present_updateType) {
+    if (!(this_present_updateType && that_present_updateType))     return false;
+    if (!this.updateType.equals(that.updateType))     return false;
+  }
+  boolean this_present_eventClassFamilyVersion=true && this.isSetEventClassFamilyVersion();
+  boolean that_present_eventClassFamilyVersion=true && that.isSetEventClassFamilyVersion();
+  if (this_present_eventClassFamilyVersion || that_present_eventClassFamilyVersion) {
+    if (!(this_present_eventClassFamilyVersion && that_present_eventClassFamilyVersion))     return false;
+    if (!this.eventClassFamilyVersion.equals(that.eventClassFamilyVersion))     return false;
+  }
+  boolean this_present_applicationToken=true && this.isSetApplicationToken();
+  boolean that_present_applicationToken=true && that.isSetApplicationToken();
+  if (this_present_applicationToken || that_present_applicationToken) {
+    if (!(this_present_applicationToken && that_present_applicationToken))     return false;
+    if (!this.applicationToken.equals(that.applicationToken))     return false;
+  }
+  boolean this_present_endpointId=true && this.isSetEndpointId();
+  boolean that_present_endpointId=true && that.isSetEndpointId();
+  if (this_present_endpointId || that_present_endpointId) {
+    if (!(this_present_endpointId && that_present_endpointId))     return false;
+    if (!this.endpointId.equals(that.endpointId))     return false;
+  }
+  return true;
+}

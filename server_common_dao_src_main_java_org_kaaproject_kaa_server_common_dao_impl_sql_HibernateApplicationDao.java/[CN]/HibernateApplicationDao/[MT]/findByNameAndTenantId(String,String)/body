@@ -1,0 +1,6 @@
+{
+  LOG.debug("Find application by name [{}] and tenant id [{}] ",name,tenantId);
+  Application application=findOneByCriterionWithAlias(TENANT_PROPERTY,TENANT_ALIAS,Restrictions.and(Restrictions.eq(TENANT_REFERENCE,Long.valueOf(tenantId)),Restrictions.eq(APPLICATION_NAME_PROPERTY,name)));
+  LOG.debug("Found application {} by tenant id [{}] and name [{}]",application,tenantId,name);
+  return application;
+}

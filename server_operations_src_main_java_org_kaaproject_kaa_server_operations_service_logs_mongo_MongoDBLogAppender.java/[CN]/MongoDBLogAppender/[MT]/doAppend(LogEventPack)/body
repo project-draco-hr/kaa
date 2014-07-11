@@ -1,0 +1,23 @@
+{
+  if (!closed) {
+    LOG.debug("[{}] appending {} logs to mongodb collection",collectionName,logEventPack.getEvents().size());
+    List<LogEventDto> dtos=new ArrayList<>(logEventPack.getEvents().size());
+    GenericAvroConverter<GenericRecord> converter=getConverter(logEventPack.getLogSchema().getSchema());
+    try {
+      for (      LogEvent logEvent : logEventPack.getEvents()) {
+        GenericRecord decodedLog=converter.decodeBinary(logEvent.getLogData());
+        String encodedJsonLog=converter.endcodeToJson(decodedLog);
+        dtos.add(new LogEventDto(logEventPack.getEndpointKey(),logEventPack.getDateCreated(),encodedJsonLog));
+      }
+    }
+ catch (    IOException e) {
+      LOG.error("Unexpected IOException while decoding LogEvents",e);
+    }
+    LOG.debug("[{}] saving {} objects",collectionName,dtos.size());
+    logEventService.save(dtos,collectionName);
+    LOG.debug("[{}] appended {} logs to mongodb collection",collectionName,logEventPack.getEvents().size());
+  }
+ else {
+    LOG.info("Can't append logs caused by Appender closed state is [{}] ",closed);
+  }
+}

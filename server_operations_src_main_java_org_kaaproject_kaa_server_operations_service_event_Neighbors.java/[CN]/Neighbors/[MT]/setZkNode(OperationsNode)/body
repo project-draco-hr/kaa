@@ -1,0 +1,6 @@
+{
+synchronized (zkNodeSetSync) {
+    this.zkNode=zkNode;
+    zkNodeSetSync.notify();
+  }
+}

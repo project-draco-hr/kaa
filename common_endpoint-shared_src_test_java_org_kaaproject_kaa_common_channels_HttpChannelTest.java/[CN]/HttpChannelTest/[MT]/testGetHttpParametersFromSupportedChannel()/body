@@ -1,0 +1,12 @@
+{
+  HTTPComunicationParameters communicationParameters=new HTTPComunicationParameters("host1",100);
+  SupportedChannel supportedChannel=new SupportedChannel(ChannelType.HTTP,communicationParameters);
+  try {
+    HttpParameters convertedParams=HttpChannel.getHttpParametersFromSupportedChannel(supportedChannel);
+    SupportedChannel convertedSuppChannel=HttpChannel.getSupportedChannelFromHttpParameters(convertedParams);
+    assertEquals(supportedChannel,convertedSuppChannel);
+  }
+ catch (  ParsingException e) {
+    fail(e.toString());
+  }
+}

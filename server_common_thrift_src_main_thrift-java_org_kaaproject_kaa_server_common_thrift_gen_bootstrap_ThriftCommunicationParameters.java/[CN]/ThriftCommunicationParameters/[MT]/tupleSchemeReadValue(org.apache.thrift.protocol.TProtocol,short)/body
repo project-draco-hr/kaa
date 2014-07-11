@@ -1,0 +1,22 @@
+{
+  _Fields setField=_Fields.findByThriftId(fieldID);
+  if (setField != null) {
+switch (setField) {
+case HTTP_PARAMS:
+      ThriftIpParameters httpParams;
+    httpParams=new ThriftIpParameters();
+  httpParams.read(iprot);
+return httpParams;
+case HTTP_LP_PARAMS:
+ThriftIpParameters httpLpParams;
+httpLpParams=new ThriftIpParameters();
+httpLpParams.read(iprot);
+return httpLpParams;
+default :
+throw new IllegalStateException("setField wasn't null, but didn't match any of the case statements!");
+}
+}
+ else {
+throw new TProtocolException("Couldn't find a field with field id " + fieldID);
+}
+}

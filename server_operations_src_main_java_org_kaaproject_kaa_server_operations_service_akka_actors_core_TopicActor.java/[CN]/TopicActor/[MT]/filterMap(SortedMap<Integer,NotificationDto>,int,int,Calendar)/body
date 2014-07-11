@@ -1,0 +1,26 @@
+{
+  List<NotificationDto> pendingNotifications=new ArrayList<>(pendingNotificationMap.size());
+  long now=calendar.getTimeInMillis();
+  List<NotificationDto> expiredNotifications=null;
+  for (  NotificationDto dto : pendingNotificationMap.values()) {
+    LOG.trace("Filtering notification {} using system schema version {} and user schema version {}",dto,systemNfSchemaVersion,userNfSchemaVersion);
+    Date date=dto.getExpiredAt();
+    if (date != null && date.getTime() > now) {
+      if (isSchemaVersionMatch(dto,systemNfSchemaVersion,userNfSchemaVersion)) {
+        pendingNotifications.add(dto);
+      }
+    }
+ else {
+      if (expiredNotifications == null) {
+        expiredNotifications=new ArrayList<>();
+      }
+      expiredNotifications.add(dto);
+      LOG.trace("Detected expired notification: {}, nfTime: {}, curTime: {}",dto,date == null ? date : date.getTime(),now);
+    }
+  }
+  if (expiredNotifications != null) {
+    LOG.trace("Removing {} notifications from pendingNotificationMap",expiredNotifications.size());
+    pendingNotificationMap.values().removeAll(expiredNotifications);
+  }
+  return pendingNotifications;
+}

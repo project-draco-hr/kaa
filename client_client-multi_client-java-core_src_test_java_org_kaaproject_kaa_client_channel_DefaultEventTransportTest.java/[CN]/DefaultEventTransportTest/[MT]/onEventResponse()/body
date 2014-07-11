@@ -1,0 +1,20 @@
+{
+  EventManager manager=Mockito.mock(EventManager.class);
+  EventTransport transport=new DefaultEventTransport();
+  EventSyncResponse response=new EventSyncResponse();
+  transport.onEventResponse(response);
+  transport.setEventManager(manager);
+  transport.onEventResponse(response);
+  List<Event> events=new ArrayList<>(1);
+  response.setEvents(events);
+  transport.onEventResponse(response);
+  events.add(new Event(5,"eventClassFQN",ByteBuffer.wrap(new byte[]{1,2,3}),"source","target"));
+  transport.onEventResponse(response);
+  List<EventListenersResponse> listeners=new ArrayList<>(1);
+  response.setEventListenersResponses(listeners);
+  transport.onEventResponse(response);
+  listeners.add(new EventListenersResponse());
+  transport.onEventResponse(response);
+  Mockito.verify(manager,Mockito.times(3)).onGenericEvent(Mockito.eq("eventClassFQN"),Mockito.eq(new byte[]{1,2,3}),Mockito.eq("source"));
+  Mockito.verify(manager,Mockito.times(1)).eventListenersResponseReceived(listeners);
+}

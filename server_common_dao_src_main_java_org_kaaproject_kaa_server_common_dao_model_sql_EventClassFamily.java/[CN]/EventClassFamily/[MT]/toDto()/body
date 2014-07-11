@@ -1,0 +1,21 @@
+{
+  EventClassFamilyDto dto=createDto();
+  dto.setId(getStringId());
+  if (tenant != null) {
+    dto.setTenantId(tenant.getStringId());
+  }
+  dto.setName(name);
+  dto.setNamespace(namespace);
+  dto.setClassName(className);
+  dto.setDescription(description);
+  dto.setCreatedUsername(createdUsername);
+  dto.setCreatedTime(createdTime);
+  if (schemas != null) {
+    List<EventSchemaVersionDto> schemasDto=new ArrayList<>(schemas.size());
+    for (    EventSchemaVersion schema : schemas) {
+      schemasDto.add(schema.toDto());
+    }
+    dto.setSchemas(schemasDto);
+  }
+  return dto;
+}

@@ -1,0 +1,8 @@
+{
+  assertEquals(Collections.singleton(new RouteTableKey(TEST_APP_TOKEN,new EventClassFamilyVersion(EVENT_CLASS_FAMILY_ID,EVENT_CLASS_FAMILY_VERSION))),cacheService.getRouteKeys(new EventClassFqnVersion(TENANT_ID,EC_FQN,EVENT_CLASS_FAMILY_VERSION)));
+  verify(eventClassService,times(1)).findEventClassByTenantIdAndFQNAndVersion(TENANT_ID,EC_FQN,EVENT_CLASS_FAMILY_VERSION);
+  reset(eventClassService);
+  assertEquals(Collections.singleton(new RouteTableKey(TEST_APP_TOKEN,new EventClassFamilyVersion(EVENT_CLASS_FAMILY_ID,EVENT_CLASS_FAMILY_VERSION))),cacheService.getRouteKeys(new EventClassFqnVersion(TENANT_ID,EC_FQN,EVENT_CLASS_FAMILY_VERSION)));
+  verify(eventClassService,times(0)).findEventClassByTenantIdAndFQNAndVersion(TENANT_ID,EC_FQN,EVENT_CLASS_FAMILY_VERSION);
+  reset(eventClassService);
+}

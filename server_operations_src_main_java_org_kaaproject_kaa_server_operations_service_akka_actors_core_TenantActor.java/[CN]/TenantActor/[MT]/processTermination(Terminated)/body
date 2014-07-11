@@ -1,0 +1,16 @@
+{
+  ActorRef terminated=message.actor();
+  if (terminated instanceof LocalActorRef) {
+    LocalActorRef localActor=(LocalActorRef)terminated;
+    String name=localActor.path().name();
+    if (applications.remove(name) != null) {
+      LOG.debug("[{}] removed application: {}",tenantId,localActor);
+    }
+ else     if (users.remove(name) != null) {
+      LOG.debug("[{}] removed user: {}",tenantId,localActor);
+    }
+  }
+ else {
+    LOG.warn("remove commands for remote actors are not supported yet!");
+  }
+}

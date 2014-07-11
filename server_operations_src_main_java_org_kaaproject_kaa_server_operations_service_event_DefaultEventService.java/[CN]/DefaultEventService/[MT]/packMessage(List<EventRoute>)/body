@@ -1,0 +1,9 @@
+{
+  EventMessageType type=EventMessageType.ROUTE_UPDATE;
+  List<EventMessage> messages=new LinkedList<>();
+  for (  EventRoute route : routes) {
+    EventMessage message=new EventMessage(type,getEventId(),null,route,null);
+    messages.add(message);
+  }
+  return messages;
+}

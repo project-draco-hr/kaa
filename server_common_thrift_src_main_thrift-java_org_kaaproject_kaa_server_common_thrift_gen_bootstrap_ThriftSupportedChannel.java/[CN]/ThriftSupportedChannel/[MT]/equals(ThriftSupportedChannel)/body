@@ -1,0 +1,16 @@
+{
+  if (that == null)   return false;
+  boolean this_present_type=true && this.isSetType();
+  boolean that_present_type=true && that.isSetType();
+  if (this_present_type || that_present_type) {
+    if (!(this_present_type && that_present_type))     return false;
+    if (!this.type.equals(that.type))     return false;
+  }
+  boolean this_present_communicationParams=true && this.isSetCommunicationParams();
+  boolean that_present_communicationParams=true && that.isSetCommunicationParams();
+  if (this_present_communicationParams || that_present_communicationParams) {
+    if (!(this_present_communicationParams && that_present_communicationParams))     return false;
+    if (!this.communicationParams.equals(that.communicationParams))     return false;
+  }
+  return true;
+}

@@ -1,7 +1,7 @@
 {
-  List<Object> list=new ArrayList<Object>();
+  HashCodeBuilder builder=new HashCodeBuilder();
   boolean present_configurationId=true && (isSetConfigurationId());
-  list.add(present_configurationId);
-  if (present_configurationId)   list.add(configurationId);
-  return list.hashCode();
+  builder.append(present_configurationId);
+  if (present_configurationId)   builder.append(configurationId);
+  return builder.toHashCode();
 }

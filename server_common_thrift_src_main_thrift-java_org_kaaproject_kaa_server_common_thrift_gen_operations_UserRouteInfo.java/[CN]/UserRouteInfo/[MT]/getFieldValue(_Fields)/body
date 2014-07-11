@@ -1,0 +1,13 @@
+{
+switch (field) {
+case USER_ID:
+    return getUserId();
+case TENANT_ID:
+  return getTenantId();
+case OPERATIONS_SERVER_ID:
+return getOperationsServerId();
+case UPDATE_TYPE:
+return getUpdateType();
+}
+throw new IllegalStateException();
+}

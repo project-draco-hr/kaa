@@ -1,0 +1,37 @@
+{
+  List<Schema.Field> fields=delta.getSchema().getFields();
+  if (fieldQueue.isEmpty()) {
+    for (    Schema.Field field : fields) {
+      if (resetFields.contains(field.name())) {
+        putReset(delta,field.name());
+      }
+ else       if (uuidFields.containsKey(field.name())) {
+        Schema arraySchema=getArraySchema(delta,field.name());
+        Schema uuidSchema=getSchemaByFullName(arraySchema,KAA_NAMESPACE + "." + UUID_TYPE);
+        List<byte[]> uuids=uuidFields.get(field.name());
+        GenericArray arrayField=new GenericData.Array(uuids.size(),arraySchema);
+        for (        byte[] uuid : uuids) {
+          GenericFixed uuidFixed=new GenericData.Fixed(uuidSchema,uuid);
+          arrayField.add(uuidFixed);
+        }
+        delta.put(field.name(),arrayField);
+      }
+ else       if (!field.name().equals(UUID_FIELD)) {
+        putUnchanged(delta,field.name());
+      }
+    }
+  }
+ else {
+    FieldAttribute nextField=fieldQueue.poll();
+    for (    Schema.Field field : fields) {
+      if (field.name().equals(nextField.getFieldName())) {
+        GenericRecord subDelta=new GenericData.Record(nextField.getFieldSchema());
+        fillDeltaArrayFields(subDelta,resetFields,uuidFields,fieldQueue);
+        delta.put(field.name(),subDelta);
+      }
+ else       if (!field.name().equals(UUID_FIELD)) {
+        putUnchanged(delta,field.name());
+      }
+    }
+  }
+}

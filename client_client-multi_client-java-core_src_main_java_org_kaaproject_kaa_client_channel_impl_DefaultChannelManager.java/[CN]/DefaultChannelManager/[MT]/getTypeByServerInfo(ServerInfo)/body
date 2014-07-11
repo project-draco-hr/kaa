@@ -1,0 +1,12 @@
+{
+  if (info instanceof HttpLongPollServerInfo) {
+    return ChannelType.HTTP_LP;
+  }
+  if (info instanceof HttpServerInfo) {
+    return ChannelType.HTTP;
+  }
+  if (info instanceof BootstrapServerInfo) {
+    return ChannelType.BOOTSTRAP;
+  }
+  return null;
+}

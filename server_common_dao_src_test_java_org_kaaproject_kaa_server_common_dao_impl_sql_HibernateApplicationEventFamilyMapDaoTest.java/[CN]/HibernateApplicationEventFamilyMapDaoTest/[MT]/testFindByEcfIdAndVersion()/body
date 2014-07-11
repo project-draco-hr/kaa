@@ -1,0 +1,6 @@
+{
+  List<ApplicationEventFamilyMap> applicationEventFamilyMaps=generateApplicationEventFamilyMap(null,null,null,2,true);
+  ApplicationEventFamilyMap aefm=applicationEventFamilyMaps.get(0);
+  List<ApplicationEventFamilyMap> found=applicationEventFamilyMapDao.findByEcfIdAndVersion(aefm.getEcf().getId().toString(),aefm.getVersion());
+  Assert.assertEquals(applicationEventFamilyMaps,found);
+}

@@ -1,0 +1,13 @@
+{
+switch (field) {
+case UPDATE_TYPE:
+    return getUpdateType();
+case EVENT_CLASS_FAMILY_VERSION:
+  return getEventClassFamilyVersion();
+case APPLICATION_TOKEN:
+return getApplicationToken();
+case ENDPOINT_ID:
+return getEndpointId();
+}
+throw new IllegalStateException();
+}

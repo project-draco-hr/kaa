@@ -4,9 +4,13 @@
   historyService=mock(HistoryService.class);
   profileService=mock(ProfileService.class);
   endpointService=mock(EndpointService.class);
+  eventClassService=mock(EventClassService.class);
+  applicationEventMapService=mock(ApplicationEventMapService.class);
   ReflectionTestUtils.invokeMethod(cacheService,"setApplicationService",appService);
   ReflectionTestUtils.invokeMethod(cacheService,"setConfigurationService",configurationService);
   ReflectionTestUtils.invokeMethod(cacheService,"setHistoryService",historyService);
   ReflectionTestUtils.invokeMethod(cacheService,"setProfileService",profileService);
   ReflectionTestUtils.invokeMethod(cacheService,"setEndpointService",endpointService);
+  ReflectionTestUtils.invokeMethod(cacheService,"setEventClassService",eventClassService);
+  ReflectionTestUtils.invokeMethod(cacheService,"setApplicationEventMapService",applicationEventMapService);
 }

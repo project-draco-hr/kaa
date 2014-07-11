@@ -1,0 +1,9 @@
+{
+  List<ConfigurationSchema> schemas=generateConfSchema(null,4);
+  Assert.assertEquals(4,schemas.size());
+  ConfigurationSchema schema=schemas.get(0);
+  Application app=schema.getApplication();
+  ConfigurationSchema found=configurationSchemaDao.findLatestByApplicationId(app.getId().toString());
+  Assert.assertNotNull(found);
+  Assert.assertEquals(4,found.getMajorVersion());
+}

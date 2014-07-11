@@ -1,0 +1,7 @@
+{
+  KaaClientState clientState=Mockito.mock(KaaClientState.class);
+  BootstrapTransport transport=new DefaultBootstrapTransport("Some token");
+  transport.createResolveRequest();
+  transport.setClientState(clientState);
+  transport.createResolveRequest();
+}

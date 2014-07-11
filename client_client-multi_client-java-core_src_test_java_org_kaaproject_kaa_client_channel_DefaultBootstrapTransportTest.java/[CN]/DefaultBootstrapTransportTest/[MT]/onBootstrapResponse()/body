@@ -1,0 +1,9 @@
+{
+  BootstrapTransport transport=new DefaultBootstrapTransport("Some token");
+  BootstrapManager manager=Mockito.mock(BootstrapManager.class);
+  OperationsServerList response=new OperationsServerList();
+  transport.onResolveResponse(response);
+  transport.setBootstrapManager(manager);
+  transport.onResolveResponse(response);
+  Mockito.verify(manager,Mockito.times(1)).onServerListUpdated(response);
+}

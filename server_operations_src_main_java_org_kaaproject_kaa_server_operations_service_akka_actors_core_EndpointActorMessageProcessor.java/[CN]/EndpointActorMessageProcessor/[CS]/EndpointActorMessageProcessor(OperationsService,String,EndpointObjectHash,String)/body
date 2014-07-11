@@ -1,0 +1,9 @@
+{
+  super();
+  this.operationsService=operationsService;
+  this.appToken=appToken;
+  this.key=key;
+  this.actorKey=actorKey;
+  this.endpointKey=Base64Util.encode(key.getData());
+  this.channelMap=new ChannelMap(this.endpointKey,this.actorKey);
+}

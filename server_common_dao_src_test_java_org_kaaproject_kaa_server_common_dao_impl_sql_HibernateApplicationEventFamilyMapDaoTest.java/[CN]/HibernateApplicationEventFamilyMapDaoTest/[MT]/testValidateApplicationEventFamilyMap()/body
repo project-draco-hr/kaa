@@ -1,0 +1,8 @@
+{
+  List<ApplicationEventFamilyMap> applicationEventFamilyMaps=generateApplicationEventFamilyMap(null,null,null,2,true);
+  ApplicationEventFamilyMap aefm=applicationEventFamilyMaps.get(0);
+  boolean result=applicationEventFamilyMapDao.validateApplicationEventFamilyMap(aefm.getApplication().getId().toString(),aefm.getEcf().getId().toString(),aefm.getVersion());
+  Assert.assertFalse(result);
+  result=applicationEventFamilyMapDao.validateApplicationEventFamilyMap("7","7",7);
+  Assert.assertTrue(result);
+}

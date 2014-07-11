@@ -1,0 +1,15 @@
+{
+  if (dto != null) {
+    this.id=getLongId(dto);
+    this.name=dto.getName();
+    this.sequenceNumber=dto.getSequenceNumber();
+    this.weight=dto.getWeight();
+    this.description=dto.getDescription();
+    this.createdUsername=dto.getCreatedUsername();
+    this.createdTime=dto.getCreatedTime();
+    this.endpointCount=dto.getEndpointCount();
+    Long appId=getLongId(dto.getApplicationId());
+    this.application=appId != null ? new Application(appId) : null;
+    this.topics=getTopic(dto.getTopics());
+  }
+}

@@ -1,0 +1,27 @@
+{
+  Collections.sort(endpointGroups,ENDPOINT_GROUP_COMPARATOR);
+  List<OverrideData> overrideConfigs=new LinkedList<>();
+  BaseData baseConfig=null;
+  OverrideSchema overrideSchema=new OverrideSchema(configurationSchema.getOverrideSchema());
+  BaseSchema baseSchema=new BaseSchema(configurationSchema.getBaseSchema());
+  for (  EndpointGroupDto endpointGroup : endpointGroups) {
+    boolean endpointGroupFound=false;
+    for (    ConfigurationDto configuration : configurations) {
+      if (configuration.getEndpointGroupId().equals(endpointGroup.getId())) {
+        if (endpointGroup.getWeight() != 0) {
+          overrideConfigs.add(new OverrideData(overrideSchema,configuration.getBody()));
+        }
+ else {
+          baseConfig=new BaseData(baseSchema,configuration.getBody());
+        }
+        endpointGroupFound=true;
+        break;
+      }
+    }
+    if (!endpointGroupFound) {
+      LOG.debug("No Configuration found for Endpoint Group; Endpoint Group Id: {}",endpointGroup.getId());
+    }
+  }
+  OverrideAlgorithm configurationMerger=configurationOverrideFactory.createConfigurationOverrideAlgorithm();
+  return configurationMerger.override(baseConfig,overrideConfigs);
+}

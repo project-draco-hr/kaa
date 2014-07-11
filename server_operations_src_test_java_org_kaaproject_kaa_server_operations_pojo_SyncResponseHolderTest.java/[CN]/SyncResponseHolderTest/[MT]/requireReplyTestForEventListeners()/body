@@ -1,0 +1,9 @@
+{
+  SyncResponse response=new SyncResponse();
+  response.setEventSyncResponse(new EventSyncResponse());
+  assertFalse(new SyncResponseHolder(response).requireImmediateReply());
+  response.getEventSyncResponse().setEventListenersResponses(new ArrayList<EventListenersResponse>());
+  assertFalse(new SyncResponseHolder(response).requireImmediateReply());
+  response.getEventSyncResponse().getEventListenersResponses().add(new EventListenersResponse());
+  assertTrue(new SyncResponseHolder(response).requireImmediateReply());
+}

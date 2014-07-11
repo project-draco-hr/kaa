@@ -1,12 +1,12 @@
 {
   SyncResponse response=new SyncResponse();
-  response.setResponseType(SyncResponseStatus.NO_DELTA);
+  response.setStatus(SyncResponseResultType.SUCCESS);
   response.setNotificationSyncResponse(new NotificationSyncResponse());
   SyncResponse result=operationsService.updateSyncResponse(response,Collections.singletonList(systemTopicNfDto),null);
   assertNotNull(result);
-  assertEquals(SyncResponseStatus.DELTA,response.getResponseType());
   assertNotNull(result.getNotificationSyncResponse());
   assertNotNull(result.getNotificationSyncResponse().getNotifications());
+  assertEquals(SyncResponseStatus.DELTA,result.getNotificationSyncResponse().getResponseStatus());
   assertEquals(1,result.getNotificationSyncResponse().getNotifications().size());
   assertEquals(SYSTEM_TOPIC_ID,result.getNotificationSyncResponse().getNotifications().get(0).getTopicId());
   assertEquals(NotificationType.SYSTEM,result.getNotificationSyncResponse().getNotifications().get(0).getType());

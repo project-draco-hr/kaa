@@ -1,0 +1,11 @@
+{
+  try {
+    EventClassFamilyVersionInfo record=new EventClassFamilyVersionInfo();
+    record.name=fieldSetFlags()[0] ? this.name : (java.lang.String)defaultValue(fields()[0]);
+    record.version=fieldSetFlags()[1] ? this.version : (java.lang.Integer)defaultValue(fields()[1]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

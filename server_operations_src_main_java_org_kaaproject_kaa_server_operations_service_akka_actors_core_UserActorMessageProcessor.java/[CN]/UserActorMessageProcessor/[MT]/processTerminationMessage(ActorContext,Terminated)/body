@@ -1,0 +1,27 @@
+{
+  ActorRef terminated=message.actor();
+  if (terminated instanceof LocalActorRef) {
+    LocalActorRef localActor=(LocalActorRef)terminated;
+    String name=getActorPathName(localActor);
+    EndpointObjectHash endpoint=endpoints.remove(name);
+    if (endpoint != null) {
+      boolean stilPresent=false;
+      for (      EndpointObjectHash existingEndpoint : endpoints.values()) {
+        if (existingEndpoint.equals(endpoint)) {
+          stilPresent=true;
+          break;
+        }
+      }
+      if (stilPresent) {
+        LOG.debug("[{}] received termination message for endpoint actor [{}], " + "but other actor is still registered for this endpoint.",userId,localActor);
+      }
+ else {
+        removeEndpoint(endpoint);
+        LOG.debug("[{}] removed endpoint [{}]",userId,localActor);
+      }
+    }
+  }
+ else {
+    LOG.warn("remove commands for remote actors are not supported yet!");
+  }
+}

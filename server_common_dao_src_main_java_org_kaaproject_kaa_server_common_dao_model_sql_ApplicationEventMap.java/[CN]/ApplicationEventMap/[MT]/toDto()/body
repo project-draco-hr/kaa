@@ -1,0 +1,10 @@
+{
+  ApplicationEventMapDto dto=createDto();
+  dto.setId(getStringId());
+  if (eventClass != null) {
+    dto.setEventClassId(eventClass.getStringId());
+  }
+  dto.setFqn(fqn);
+  dto.setAction(action);
+  return dto;
+}

@@ -1,0 +1,18 @@
+{
+  if (!currentEvents.isEmpty()) {
+    LOG.debug("Going to send {} event{}",currentEvents.size(),(currentEvents.size() == 1 ? "" : "s"));
+    List<Event> events=new LinkedList<Event>(currentEvents);
+    request.setEvents(events);
+  }
+  if (!eventListenersRequests.isEmpty()) {
+    LOG.debug("There are {} unresolved eventListenersResolution request{}",eventListenersRequests.size(),(eventListenersRequests.size() == 1 ? "" : "s"));
+    List<EventListenersRequest> requests=new ArrayList<EventListenersRequest>();
+    for (    Map.Entry<String,EventListenersRequestBinding> entry : eventListenersRequests.entrySet()) {
+      if (!entry.getValue().isSent()) {
+        requests.add(entry.getValue().getRequest());
+        entry.getValue().setSent(Boolean.TRUE);
+      }
+    }
+    request.setEventListenersRequests(requests);
+  }
+}

@@ -1,0 +1,13 @@
+{
+switch (field) {
+case USER_ID:
+    return getUserId();
+case TENANT_ID:
+  return getTenantId();
+case ENDPOINT_EVENT:
+return getEndpointEvent();
+case ROUTE_ADDRESS:
+return getRouteAddress();
+}
+throw new IllegalStateException();
+}

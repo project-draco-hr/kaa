@@ -1,6 +1,6 @@
 {
   List<ApplicationDto> applicationDto;
-  if (isValidId(tenantId)) {
+  if (isValidSqlId(tenantId)) {
     LOG.debug("Find applications by tenant id [{}]",tenantId);
     applicationDto=convertDtoList(applicationDao.findByTenantId(tenantId));
   }

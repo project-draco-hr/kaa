@@ -1,0 +1,11 @@
+{
+  try {
+    UserAttachRequest record=new UserAttachRequest();
+    record.userExternalId=fieldSetFlags()[0] ? this.userExternalId : (java.lang.String)defaultValue(fields()[0]);
+    record.userAccessToken=fieldSetFlags()[1] ? this.userAccessToken : (java.lang.String)defaultValue(fields()[1]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

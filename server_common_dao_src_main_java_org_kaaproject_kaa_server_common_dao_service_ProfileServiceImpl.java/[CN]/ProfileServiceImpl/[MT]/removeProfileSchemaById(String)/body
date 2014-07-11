@@ -1,6 +1,5 @@
 {
-  validateId(id,"Can't remove profile schema. Invalid profile schema id: " + id);
-  removeProfileFiltersByProfileSchemaId(id);
+  validateSqlId(id,"Can't remove profile schema. Invalid profile schema id: " + id);
   profileSchemaDao.removeById(id);
   LOG.debug("Removed profile schema [{}] with filters.",id);
 }

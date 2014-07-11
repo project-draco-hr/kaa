@@ -1,0 +1,11 @@
+{
+  ApplicationDto application=new ApplicationDto();
+  if (isBlank(tenantId)) {
+    application.setTenantId(generateTenant().getId());
+  }
+ else {
+    application.setTenantId(tenantId);
+  }
+  application.setName(APPLICATION_NAME);
+  return applicationService.saveApp(application);
+}

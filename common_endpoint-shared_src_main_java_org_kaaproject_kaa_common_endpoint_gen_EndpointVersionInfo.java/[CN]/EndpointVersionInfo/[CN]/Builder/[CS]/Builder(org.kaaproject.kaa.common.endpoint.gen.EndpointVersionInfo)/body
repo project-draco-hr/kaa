@@ -16,4 +16,12 @@
     this.userNfVersion=data().deepCopy(fields()[3].schema(),other.userNfVersion);
     fieldSetFlags()[3]=true;
   }
+  if (isValidValue(fields()[4],other.eventFamilyVersions)) {
+    this.eventFamilyVersions=data().deepCopy(fields()[4].schema(),other.eventFamilyVersions);
+    fieldSetFlags()[4]=true;
+  }
+  if (isValidValue(fields()[5],other.logSchemaVersion)) {
+    this.logSchemaVersion=data().deepCopy(fields()[5].schema(),other.logSchemaVersion);
+    fieldSetFlags()[5]=true;
+  }
 }

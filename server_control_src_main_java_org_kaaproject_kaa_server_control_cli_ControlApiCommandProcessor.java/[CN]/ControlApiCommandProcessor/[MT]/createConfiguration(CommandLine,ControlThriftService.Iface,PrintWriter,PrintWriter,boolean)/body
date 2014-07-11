@@ -5,7 +5,7 @@
       String configurationId=line.getOptionValue("i");
       configuration=toDto(client.getConfiguration(configurationId));
       if (configuration == null) {
-        writer.println("Configuration with id " + configurationId + " not found!");
+        writer.println("Configuration with id " + configurationId + NOT_FOUND);
         return;
       }
     }
@@ -17,7 +17,7 @@
       String configFile=line.getOptionValue("f");
       String config=readFile(configFile,errorWriter);
       if (config != null) {
-        configuration.setBinaryBody(config.getBytes(UTF8));
+        configuration.setBody(config);
       }
  else {
         return;
@@ -42,6 +42,6 @@
     }
   }
  catch (  TException e) {
-    handleException("Unable to " + (edit ? "update" : "create") + " Configuration",e,errorWriter);
+    handleException(UNABLE_TO + (edit ? UPDATE : CREATE) + CONFIGURATION,e,errorWriter);
   }
 }

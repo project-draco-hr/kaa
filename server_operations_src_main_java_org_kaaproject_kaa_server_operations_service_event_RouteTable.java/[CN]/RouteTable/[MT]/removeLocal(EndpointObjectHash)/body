@@ -1,0 +1,15 @@
+{
+  clearRoutes(endpoint);
+  RouteTableAddress addressToRemove=null;
+  for (  RouteTableAddress address : localAddressMap.keySet()) {
+    if (address.isLocal() && endpoint.equals(address.getEndpointKey())) {
+      addressToRemove=address;
+      break;
+    }
+  }
+  if (addressToRemove != null) {
+    reportedAddressMap.remove(addressToRemove);
+    localAddressMap.remove(addressToRemove);
+  }
+  return addressToRemove;
+}

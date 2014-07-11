@@ -1,0 +1,21 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  CancelableScheduledFuture other=(CancelableScheduledFuture)obj;
+  if (futureTask == null) {
+    if (other.futureTask != null) {
+      return false;
+    }
+  }
+ else   if (!futureTask.equals(other.futureTask)) {
+    return false;
+  }
+  return true;
+}

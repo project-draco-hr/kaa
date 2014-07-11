@@ -1,0 +1,7 @@
+{
+  LOG.debug("Remove topics by application id {}",appId);
+  if (isNotBlank(appId)) {
+    List<Topic> topics=findListByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(appId)));
+    removeList(topics);
+  }
+}

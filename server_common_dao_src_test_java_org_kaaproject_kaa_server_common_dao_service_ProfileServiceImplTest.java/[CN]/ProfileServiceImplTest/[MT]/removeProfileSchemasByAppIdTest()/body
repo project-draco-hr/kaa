@@ -1,10 +1,12 @@
 {
-  String appId=apps.get(0);
-  List<ProfileSchemaDto> schemas=profileService.findProfileSchemasByAppId(appId);
+  int profSchemaCount=2;
+  ApplicationDto application=generateApplication(null);
+  generateProfSchema(application.getId(),profSchemaCount);
+  List<ProfileSchemaDto> schemas=profileService.findProfileSchemasByAppId(application.getId());
   Assert.assertNotNull(schemas);
   Assert.assertFalse(schemas.isEmpty());
-  profileService.removeProfileSchemasByAppId(appId);
-  schemas=profileService.findProfileSchemasByAppId(appId);
+  profileService.removeProfileSchemasByAppId(application.getId());
+  schemas=profileService.findProfileSchemasByAppId(application.getId());
   Assert.assertNotNull(schemas);
   Assert.assertTrue(schemas.isEmpty());
 }

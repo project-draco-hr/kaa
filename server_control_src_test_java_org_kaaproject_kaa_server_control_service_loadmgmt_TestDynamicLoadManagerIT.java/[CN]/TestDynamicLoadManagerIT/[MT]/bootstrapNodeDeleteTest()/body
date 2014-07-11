@@ -1,0 +1,19 @@
+{
+  LOG.info("BootstrapNodeUpdateTest started");
+  DynamicLoadManager dm=getDynamicLoadManager();
+  ConnectionInfo bsErrConnectionInfo=new ConnectionInfo(thriftHost,thriftPort + 1,ByteBuffer.wrap("Just array".getBytes()));
+  BootstrapNodeInfo bsErrNode=new BootstrapNodeInfo(bsErrConnectionInfo,"localhost",9897,0);
+  dm.onNodeAdded(bsErrNode);
+  ConnectionInfo bsConnectionInfo=new ConnectionInfo(thriftHost,thriftPort,ByteBuffer.wrap("Just array".getBytes()));
+  BootstrapNodeInfo bsNode=new BootstrapNodeInfo(bsConnectionInfo,"localhost",9898,0);
+  dm.onNodeAdded(bsNode);
+  try {
+    Thread.sleep(2000);
+  }
+ catch (  InterruptedException e) {
+    fail(e.toString());
+  }
+  dm.onNodeRemoved(bsErrNode);
+  dm.recalculate();
+  checkBSNode();
+}

@@ -1,0 +1,10 @@
+{
+  HashCodeBuilder builder=new HashCodeBuilder();
+  boolean present_externalUid=true && (isSetExternalUid());
+  builder.append(present_externalUid);
+  if (present_externalUid)   builder.append(externalUid);
+  boolean present_tenantId=true && (isSetTenantId());
+  builder.append(present_tenantId);
+  if (present_tenantId)   builder.append(tenantId);
+  return builder.toHashCode();
+}

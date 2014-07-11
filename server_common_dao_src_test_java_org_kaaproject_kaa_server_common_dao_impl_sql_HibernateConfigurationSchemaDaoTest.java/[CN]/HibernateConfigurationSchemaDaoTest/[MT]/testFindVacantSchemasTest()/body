@@ -1,0 +1,10 @@
+{
+  Application app1=generateApplication(null);
+  List<ConfigurationSchema> schemas1=generateConfSchema(app1,3);
+  List<String> ids1=new ArrayList<>(2);
+  ids1.add(schemas1.get(0).getId().toString());
+  List<ConfigurationSchema> found2=configurationSchemaDao.findVacantSchemas(app1.getId().toString(),ids1);
+  Assert.assertEquals(2,found2.size());
+  List<ConfigurationSchema> found3=configurationSchemaDao.findVacantSchemas(app1.getId().toString(),null);
+  Assert.assertEquals(3,found3.size());
+}

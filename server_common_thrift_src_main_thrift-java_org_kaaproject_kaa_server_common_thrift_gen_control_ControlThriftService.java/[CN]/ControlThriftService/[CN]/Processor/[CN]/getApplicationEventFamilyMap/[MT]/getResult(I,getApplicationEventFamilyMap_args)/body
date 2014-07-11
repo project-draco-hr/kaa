@@ -1,0 +1,10 @@
+{
+  getApplicationEventFamilyMap_result result=new getApplicationEventFamilyMap_result();
+  try {
+    result.success=iface.getApplicationEventFamilyMap(args.applicationEventFamilyMapId);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

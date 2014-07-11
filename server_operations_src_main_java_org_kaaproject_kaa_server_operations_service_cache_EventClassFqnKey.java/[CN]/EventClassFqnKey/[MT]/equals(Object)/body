@@ -1,0 +1,29 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  EventClassFqnKey other=(EventClassFqnKey)obj;
+  if (fqn == null) {
+    if (other.fqn != null) {
+      return false;
+    }
+  }
+ else   if (!fqn.equals(other.fqn)) {
+    return false;
+  }
+  if (tenantId == null) {
+    if (other.tenantId != null) {
+      return false;
+    }
+  }
+ else   if (!tenantId.equals(other.tenantId)) {
+    return false;
+  }
+  return true;
+}

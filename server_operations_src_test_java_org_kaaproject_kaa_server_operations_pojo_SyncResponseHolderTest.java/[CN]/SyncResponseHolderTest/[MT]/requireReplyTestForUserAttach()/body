@@ -1,0 +1,7 @@
+{
+  SyncResponse response=new SyncResponse();
+  response.setUserSyncResponse(new UserSyncResponse());
+  assertFalse(new SyncResponseHolder(response).requireImmediateReply());
+  response.getUserSyncResponse().setUserAttachResponse(new UserAttachResponse());
+  assertTrue(new SyncResponseHolder(response).requireImmediateReply());
+}

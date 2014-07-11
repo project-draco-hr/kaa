@@ -1,0 +1,15 @@
+{
+switch (field) {
+case UUID:
+    return getUuid();
+case SENDER:
+  return getSender();
+case EVENT_DATA:
+return getEventData();
+case CREATE_TIME:
+return Long.valueOf(getCreateTime());
+case VERSION:
+return Integer.valueOf(getVersion());
+}
+throw new IllegalStateException();
+}

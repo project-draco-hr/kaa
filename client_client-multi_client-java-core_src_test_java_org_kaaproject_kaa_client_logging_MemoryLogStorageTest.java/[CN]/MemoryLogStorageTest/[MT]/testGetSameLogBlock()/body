@@ -1,0 +1,22 @@
+{
+  long bucketSize=3;
+  MemoryLogStorage storage=new MemoryLogStorage(bucketSize);
+  LogRecord record=new LogRecord();
+  int insertionCount=3;
+  int iter=insertionCount;
+  while (iter-- > 0) {
+    storage.addLogRecord(record);
+  }
+  LogBlock group1=storage.getRecordBlock(7);
+  storage.notifyUploadFailed(group1.getBlockId());
+  LogBlock group2=storage.getRecordBlock(7);
+  Assert.assertTrue("Expected: " + group1.getRecords().size() + ", actual: "+ group2.getRecords().size(),group1.getRecords().size() == group2.getRecords().size());
+  Iterator<LogRecord> expectedIt=group1.getRecords().iterator();
+  Iterator<LogRecord> actualIt=group2.getRecords().iterator();
+  while (expectedIt.hasNext()) {
+    LogRecord expected=expectedIt.next();
+    LogRecord actual=actualIt.next();
+    Assert.assertTrue(expected.getSize() == actual.getSize());
+    Assert.assertArrayEquals(expected.getData(),actual.getData());
+  }
+}

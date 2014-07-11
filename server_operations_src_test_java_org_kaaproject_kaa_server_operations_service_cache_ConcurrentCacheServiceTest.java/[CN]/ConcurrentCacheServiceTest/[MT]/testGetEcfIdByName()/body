@@ -1,0 +1,8 @@
+{
+  assertEquals(EVENT_CLASS_FAMILY_ID,cacheService.getEventClassFamilyIdByName(new EventClassFamilyIdKey(TENANT_ID,ECF_NAME)));
+  verify(eventClassService,times(1)).findEventClassFamilyByTenantIdAndName(TENANT_ID,ECF_NAME);
+  reset(eventClassService);
+  assertEquals(EVENT_CLASS_FAMILY_ID,cacheService.getEventClassFamilyIdByName(new EventClassFamilyIdKey(TENANT_ID,ECF_NAME)));
+  verify(eventClassService,times(0)).findEventClassFamilyByTenantIdAndName(TENANT_ID,ECF_NAME);
+  reset(eventClassService);
+}

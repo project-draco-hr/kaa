@@ -1,0 +1,12 @@
+{
+  detailsView.getName().setValue(entity.getName());
+  detailsView.getNamespace().setValue(entity.getNamespace());
+  detailsView.getClassName().setValue(entity.getClassName());
+  detailsView.getDescription().setValue(entity.getDescription());
+  detailsView.getCreatedUsername().setValue(entity.getCreatedUsername());
+  detailsView.getCreatedDateTime().setValue(Utils.millisecondsToDateTimeString(entity.getCreatedTime()));
+  if (!create) {
+    ecfSchemasDataProvider.setSchemas(entity.getSchemas());
+    ecfSchemasDataProvider.reload(detailsView.getEcfSchemasGrid().getDisplay());
+  }
+}

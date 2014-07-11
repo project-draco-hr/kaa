@@ -1,0 +1,17 @@
+{
+  GenericFixed uuidFixed=(GenericFixed)data.get(UUID);
+  UUID uuid=AvroGenericUtils.createUuidFromFixed(uuidFixed);
+  if (LOG.isDebugEnabled()) {
+    LOG.debug("Processing delta with uuid {}",uuidFixed.toString());
+  }
+  CommonRecord currentRecord=null;
+  if (!fullResync && records.containsKey(uuid)) {
+    currentRecord=records.get(uuid);
+  }
+ else {
+    records.clear();
+    currentRecord=createCommonRecord(data);
+    rootRecord=currentRecord;
+  }
+  updateRecord(currentRecord,data);
+}

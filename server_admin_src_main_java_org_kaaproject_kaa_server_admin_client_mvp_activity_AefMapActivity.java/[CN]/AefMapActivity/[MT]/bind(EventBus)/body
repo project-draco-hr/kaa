@@ -1,0 +1,13 @@
+{
+  super.bind(eventBus);
+  if (create) {
+    registrations.add(detailsView.getEcf().addValueChangeHandler(new ValueChangeHandler<EcfInfoDto>(){
+      @Override public void onValueChange(      ValueChangeEvent<EcfInfoDto> event){
+        EcfInfoDto ecf=detailsView.getEcf().getValue();
+        eventMapDataProvider.setEcf(ecf);
+        eventMapDataProvider.reload(detailsView.getEventMapGrid().getDisplay());
+      }
+    }
+));
+  }
+}

@@ -1,0 +1,9 @@
+{
+  List<Topic> topics=Collections.emptyList();
+  LOG.debug("Find topics by application id {} and type",appId);
+  if (isNotBlank(appId)) {
+    List<Long> lids=toLongIds(excludeIds);
+    topics=findListByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.and(Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(appId)),Restrictions.not(Restrictions.in(ID_PROPERTY,lids))));
+  }
+  return topics;
+}

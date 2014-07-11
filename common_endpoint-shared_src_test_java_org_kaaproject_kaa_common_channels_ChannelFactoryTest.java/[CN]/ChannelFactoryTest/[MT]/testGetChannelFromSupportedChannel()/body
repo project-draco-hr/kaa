@@ -1,0 +1,24 @@
+{
+  String hostName="localhost";
+  int port=100;
+  HttpParameters httpCommunicationParameters=new HttpParameters();
+  httpCommunicationParameters.setHostName(hostName);
+  httpCommunicationParameters.setPort(port);
+  SupportedChannel httpSupportedChannel=new SupportedChannel(ChannelType.HTTP,httpCommunicationParameters);
+  SupportedChannel httpLpSupportedChannel=new SupportedChannel(ChannelType.HTTP_LP,httpCommunicationParameters);
+  SupportedChannel bsSupportedChannel=new SupportedChannel(ChannelType.BOOTSTRAP,null);
+  try {
+    Channel httpChannel=ChannelFactory.getChannelFromSupportedChannel(httpSupportedChannel);
+    Channel httpLpChannel=ChannelFactory.getChannelFromSupportedChannel(httpLpSupportedChannel);
+    Channel bsChannel=ChannelFactory.getChannelFromSupportedChannel(bsSupportedChannel);
+    assertNotNull(httpChannel);
+    assertNotNull(httpLpChannel);
+    assertNotNull(bsChannel);
+    assertEquals(ChannelType.HTTP,httpChannel.getChannelType());
+    assertEquals(ChannelType.HTTP_LP,httpLpChannel.getChannelType());
+    assertEquals(ChannelType.BOOTSTRAP,bsChannel.getChannelType());
+  }
+ catch (  ParsingException e) {
+    fail(e.toString());
+  }
+}

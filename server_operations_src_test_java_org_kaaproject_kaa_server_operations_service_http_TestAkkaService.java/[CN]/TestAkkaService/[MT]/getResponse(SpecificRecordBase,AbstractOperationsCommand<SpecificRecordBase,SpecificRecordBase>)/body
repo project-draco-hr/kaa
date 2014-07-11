@@ -3,21 +3,10 @@
     throw new BadRequestException("Error processing");
   }
   SpecificRecordBase response=null;
-  if (request instanceof LongSyncRequest) {
-    OperationsHttpServerIT.LongSyncTestSetRequestReceived(((LongSyncRequest)request).getSyncRequest().getAppStateSeqNumber(),(LongSyncRequest)request);
-    response=endpointService.sync(((LongSyncRequest)request).getSyncRequest()).getResponse();
-    OperationsHttpServerIT.LongSyncTestSetResponseSent(((LongSyncRequest)request).getSyncRequest().getAppStateSeqNumber().intValue(),(SyncResponse)response);
-  }
- else   if (request instanceof SyncRequest) {
-    OperationsHttpServerIT.SyncTestSetRequestReceived(((SyncRequest)request).getAppStateSeqNumber().intValue(),(SyncRequest)request);
+  if (request instanceof SyncRequest) {
+    OperationsHttpServerIT.SyncTestSetRequestReceived(((SyncRequest)request).getConfigurationSyncRequest().getAppStateSeqNumber().intValue(),(SyncRequest)request);
     response=endpointService.sync((SyncRequest)request).getResponse();
-    OperationsHttpServerIT.SyncTestSetResponseSent(((SyncRequest)request).getAppStateSeqNumber().intValue(),(SyncResponse)response);
-  }
- else   if (request instanceof EndpointRegistrationRequest) {
-    response=endpointService.registerEndpoint((EndpointRegistrationRequest)request).getResponse();
-  }
- else   if (request instanceof ProfileUpdateRequest) {
-    response=endpointService.updateProfile((ProfileUpdateRequest)request).getResponse();
+    OperationsHttpServerIT.SyncTestSetResponseSent(((SyncRequest)request).getConfigurationSyncRequest().getAppStateSeqNumber().intValue(),(SyncResponse)response);
   }
  else {
     throw new BadRequestException("invalid instance of request");

@@ -1,0 +1,21 @@
+{
+  URL protocolSchemaUrl=Thread.currentThread().getContextClassLoader().getResource(COMPLEX_PROTOCOL_SCHEMA);
+  URL schemaUrl=Thread.currentThread().getContextClassLoader().getResource(COMPLEX_SCHEMA);
+  Schema protocolSchema=new Schema.Parser().parse(new File(protocolSchemaUrl.getPath()));
+  Schema schema=new Schema.Parser().parse(new File(schemaUrl.getPath()));
+  DeltaCalculationAlgorithm calculator=new DefaultDeltaCalculationAlgorithm(protocolSchema,schema);
+  ByteArrayOutputStream baosOld=new ByteArrayOutputStream();
+  URL oldConfigUrl=Thread.currentThread().getContextClassLoader().getResource(OLD_COMPLEX_CONFIG);
+  IOUtils.copy(new FileInputStream(oldConfigUrl.getPath()),baosOld,1024);
+  String oldStr=new String(baosOld.toByteArray(),"UTF-8");
+  ByteArrayOutputStream baosNew=new ByteArrayOutputStream();
+  URL newConfigUrl=Thread.currentThread().getContextClassLoader().getResource(OLD_COMPLEX_CONFIG);
+  IOUtils.copy(new FileInputStream(newConfigUrl.getPath()),baosNew,1024);
+  String newStr=new String(baosNew.toByteArray(),"UTF-8");
+  BaseData oldData=new BaseData(new BaseSchema(schema.toString()),oldStr);
+  BaseData newData=new BaseData(new BaseSchema(schema.toString()),newStr);
+  RawBinaryDelta deltaResult=calculator.calculate(oldData,newData);
+  assertFalse(deltaResult.hasChanges());
+  assertNull(deltaResult.getData());
+  assertFalse(deltaResult.hasChanges());
+}

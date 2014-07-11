@@ -1,0 +1,7 @@
+{
+  Topic topic=generateTopic(null,TopicTypeDto.VOLUNTARY);
+  Application app=topic.getApplication();
+  List<Topic> found=topicDao.findTopicsByAppIdAndType(app.getId().toString(),TopicTypeDto.VOLUNTARY);
+  Assert.assertEquals(1,found.size());
+  Assert.assertEquals(topic,found.get(0));
+}

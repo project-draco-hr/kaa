@@ -30,7 +30,7 @@
     NotificationSchema schema=notificationSchemaDao.findById(schemaId);
     if (schema != null) {
       notificationDto.setVersion(schema.getMajorVersion());
-      notificationDto.setApplicationId(idToString(schema.getApplicationId()));
+      notificationDto.setApplicationId(schema.getApplicationId());
       notificationDto.setType(schema.getType());
       try {
         notificationDto.setBody(serializeNotificationBody(notificationDto,schema));

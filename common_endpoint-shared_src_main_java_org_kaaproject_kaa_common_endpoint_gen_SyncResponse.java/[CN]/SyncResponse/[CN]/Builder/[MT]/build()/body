@@ -1,11 +1,14 @@
 {
   try {
     SyncResponse record=new SyncResponse();
-    record.appStateSeqNumber=fieldSetFlags()[0] ? this.appStateSeqNumber : (java.lang.Integer)defaultValue(fields()[0]);
-    record.responseType=fieldSetFlags()[1] ? this.responseType : (org.kaaproject.kaa.common.endpoint.gen.SyncResponseStatus)defaultValue(fields()[1]);
-    record.confSyncResponse=fieldSetFlags()[2] ? this.confSyncResponse : (org.kaaproject.kaa.common.endpoint.gen.ConfSyncResponse)defaultValue(fields()[2]);
+    record.status=fieldSetFlags()[0] ? this.status : (org.kaaproject.kaa.common.endpoint.gen.SyncResponseResultType)defaultValue(fields()[0]);
+    record.profileSyncResponse=fieldSetFlags()[1] ? this.profileSyncResponse : (org.kaaproject.kaa.common.endpoint.gen.ProfileSyncResponse)defaultValue(fields()[1]);
+    record.configurationSyncResponse=fieldSetFlags()[2] ? this.configurationSyncResponse : (org.kaaproject.kaa.common.endpoint.gen.ConfigurationSyncResponse)defaultValue(fields()[2]);
     record.notificationSyncResponse=fieldSetFlags()[3] ? this.notificationSyncResponse : (org.kaaproject.kaa.common.endpoint.gen.NotificationSyncResponse)defaultValue(fields()[3]);
-    record.redirectSyncResponse=fieldSetFlags()[4] ? this.redirectSyncResponse : (org.kaaproject.kaa.common.endpoint.gen.RedirectSyncResponse)defaultValue(fields()[4]);
+    record.userSyncResponse=fieldSetFlags()[4] ? this.userSyncResponse : (org.kaaproject.kaa.common.endpoint.gen.UserSyncResponse)defaultValue(fields()[4]);
+    record.eventSyncResponse=fieldSetFlags()[5] ? this.eventSyncResponse : (org.kaaproject.kaa.common.endpoint.gen.EventSyncResponse)defaultValue(fields()[5]);
+    record.redirectSyncResponse=fieldSetFlags()[6] ? this.redirectSyncResponse : (org.kaaproject.kaa.common.endpoint.gen.RedirectSyncResponse)defaultValue(fields()[6]);
+    record.logSyncResponse=fieldSetFlags()[7] ? this.logSyncResponse : (org.kaaproject.kaa.common.endpoint.gen.LogSyncResponse)defaultValue(fields()[7]);
     return record;
   }
  catch (  Exception e) {

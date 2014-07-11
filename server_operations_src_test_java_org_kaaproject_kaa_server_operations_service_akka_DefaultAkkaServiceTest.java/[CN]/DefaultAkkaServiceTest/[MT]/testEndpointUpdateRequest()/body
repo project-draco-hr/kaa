@@ -1,17 +1,21 @@
 {
   ChannelHandlerContext channelContextMock=Mockito.mock(ChannelHandlerContext.class);
   AbstractOperationsCommand commandMock=Mockito.mock(AbstractOperationsCommand.class);
-  ProfileUpdateRequest request=new ProfileUpdateRequest();
-  request.setApplicationToken(APP_TOKEN);
-  request.setEndpointPublicKeyHash(ByteBuffer.wrap(ENDPOINT_PUBLIC_KEY_HASH.getBytes()));
-  request.setProfileBody(ByteBuffer.wrap(PROFILE_BODY.getBytes()));
-  request.setVersionInfo(new EndpointVersionInfo(1,2,3,4));
-  SyncResponseHolder holder=new SyncResponseHolder(new SyncResponse(),new HashMap<String,Integer>());
+  SyncRequest request=new SyncRequest();
+  SyncRequestMetaData md=new SyncRequestMetaData();
+  md.setApplicationToken(APP_TOKEN);
+  md.setEndpointPublicKeyHash(ByteBuffer.wrap(ENDPOINT_PUBLIC_KEY_HASH.getBytes()));
+  request.setSyncRequestMetaData(md);
+  ProfileSyncRequest profileSync=new ProfileSyncRequest();
+  profileSync.setProfileBody(ByteBuffer.wrap(PROFILE_BODY.getBytes()));
+  profileSync.setVersionInfo(new EndpointVersionInfo(1,2,3,4,null,5));
+  request.setProfileSyncRequest(profileSync);
+  SyncResponseHolder holder=new SyncResponseHolder(new SyncResponse());
   Mockito.when(commandMock.decode()).thenReturn(request);
-  Mockito.when(operationsService.updateProfile(Mockito.any(ProfileUpdateRequest.class))).thenReturn(holder);
-  NettyEncodedRequestMessage message=new NettyEncodedRequestMessage("testUUID",channelContextMock,commandMock);
+  Mockito.when(operationsService.sync(request)).thenReturn(holder);
+  NettyEncodedRequestMessage message=new NettyEncodedRequestMessage("testUUID",channelContextMock,commandMock,ChannelType.HTTP);
   Assert.assertNotNull(akkaService.getActorSystem());
   akkaService.process(message);
-  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeastOnce()).updateProfile(request);
+  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeastOnce()).sync(request);
   Mockito.verify(commandMock,Mockito.timeout(TIMEOUT).atLeastOnce()).encode(Mockito.any(SyncResponse.class));
 }

@@ -1,0 +1,34 @@
+{
+  TTupleProtocol oprot=(TTupleProtocol)prot;
+  BitSet optionals=new BitSet();
+  if (struct.isSetUserId()) {
+    optionals.set(0);
+  }
+  if (struct.isSetTenantId()) {
+    optionals.set(1);
+  }
+  if (struct.isSetRouteInfo()) {
+    optionals.set(2);
+  }
+  if (struct.isSetOperationsServerId()) {
+    optionals.set(3);
+  }
+  oprot.writeBitSet(optionals,4);
+  if (struct.isSetUserId()) {
+    oprot.writeString(struct.userId);
+  }
+  if (struct.isSetTenantId()) {
+    oprot.writeString(struct.tenantId);
+  }
+  if (struct.isSetRouteInfo()) {
+{
+      oprot.writeI32(struct.routeInfo.size());
+      for (      RouteInfo _iter12 : struct.routeInfo) {
+        _iter12.write(oprot);
+      }
+    }
+  }
+  if (struct.isSetOperationsServerId()) {
+    oprot.writeString(struct.operationsServerId);
+  }
+}

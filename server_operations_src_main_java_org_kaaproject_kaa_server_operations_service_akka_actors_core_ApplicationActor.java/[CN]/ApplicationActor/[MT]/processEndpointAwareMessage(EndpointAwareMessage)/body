@@ -1,9 +1,15 @@
 {
-  if (message instanceof SessionMessage) {
-    processEndpointRequest((SessionMessage)message);
+  if (message instanceof TopicRegistrationRequestMessage) {
+    processEndpointTopicRegistration((TopicRegistrationRequestMessage)message);
   }
- else   if (message instanceof TopicRegistrationRequestMessage) {
-    processEndpointRegistration((TopicRegistrationRequestMessage)message);
+ else   if (message instanceof EndpointUserConnectMessage) {
+    processEndpointUserRegistration((EndpointUserConnectMessage)message);
+  }
+ else   if (message instanceof EndpointEventSendMessage) {
+    processEndpointEventSendMessage((EndpointEventSendMessage)message);
+  }
+ else   if (message instanceof EndpointEventReceiveMessage) {
+    processEndpointEventReceiveMessage((EndpointEventReceiveMessage)message);
   }
  else {
     processEndpointRequest(message);

@@ -1,0 +1,27 @@
+{
+  StringBuilder sb=new StringBuilder("getEventClassesByFamilyIdVersionAndType_args(");
+  boolean first=true;
+  sb.append("ecfId:");
+  if (this.ecfId == null) {
+    sb.append("null");
+  }
+ else {
+    sb.append(this.ecfId);
+  }
+  first=false;
+  if (!first)   sb.append(", ");
+  sb.append("version:");
+  sb.append(this.version);
+  first=false;
+  if (!first)   sb.append(", ");
+  sb.append("type:");
+  if (this.type == null) {
+    sb.append("null");
+  }
+ else {
+    sb.append(this.type);
+  }
+  first=false;
+  sb.append(")");
+  return sb.toString();
+}

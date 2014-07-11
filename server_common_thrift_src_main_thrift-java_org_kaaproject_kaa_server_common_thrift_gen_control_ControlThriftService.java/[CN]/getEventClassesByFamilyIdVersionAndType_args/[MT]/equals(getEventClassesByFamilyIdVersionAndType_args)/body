@@ -1,0 +1,22 @@
+{
+  if (that == null)   return false;
+  boolean this_present_ecfId=true && this.isSetEcfId();
+  boolean that_present_ecfId=true && that.isSetEcfId();
+  if (this_present_ecfId || that_present_ecfId) {
+    if (!(this_present_ecfId && that_present_ecfId))     return false;
+    if (!this.ecfId.equals(that.ecfId))     return false;
+  }
+  boolean this_present_version=true;
+  boolean that_present_version=true;
+  if (this_present_version || that_present_version) {
+    if (!(this_present_version && that_present_version))     return false;
+    if (this.version != that.version)     return false;
+  }
+  boolean this_present_type=true && this.isSetType();
+  boolean that_present_type=true && that.isSetType();
+  if (this_present_type || that_present_type) {
+    if (!(this_present_type && that_present_type))     return false;
+    if (!this.type.equals(that.type))     return false;
+  }
+  return true;
+}

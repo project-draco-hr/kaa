@@ -1,5 +1,7 @@
 {
-  String id=schemas.get(0);
-  ConfigurationSchemaDto dto=configurationService.findConfSchemaById(id);
-  Assert.assertNotNull(dto);
+  List<ConfigurationSchemaDto> schemas=generateConfSchema(null,1);
+  ConfigurationSchemaDto schema=schemas.get(0);
+  ConfigurationSchemaDto foundSchema=configurationService.findConfSchemaById(schema.getId());
+  Assert.assertNotNull(foundSchema);
+  Assert.assertEquals(schema,foundSchema);
 }

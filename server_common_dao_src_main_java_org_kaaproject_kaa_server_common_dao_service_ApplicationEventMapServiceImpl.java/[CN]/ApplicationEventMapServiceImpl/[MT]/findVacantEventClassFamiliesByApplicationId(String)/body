@@ -1,0 +1,38 @@
+{
+  List<EcfInfoDto> vacantEcfs=new ArrayList<>();
+  if (isValidSqlId(applicationId)) {
+    ApplicationDto application=getDto(applicationDao.findById(applicationId));
+    if (application != null) {
+      String tenantId=application.getTenantId();
+      List<EventClassFamilyDto> eventClassFamilies=convertDtoList(eventClassFamilyDao.findByTenantId(tenantId));
+      List<AefMapInfoDto> aefMaps=findEventClassFamiliesByApplicationId(applicationId);
+      List<EcfInfoDto> occupiedEcfs=new ArrayList<>();
+      for (      AefMapInfoDto aefMap : aefMaps) {
+        EcfInfoDto ecf=new EcfInfoDto();
+        ecf.setEcfId(aefMap.getEcfId());
+        ecf.setEcfName(aefMap.getEcfName());
+        ecf.setVersion(aefMap.getVersion());
+        occupiedEcfs.add(ecf);
+      }
+      if (eventClassFamilies != null) {
+        for (        EventClassFamilyDto eventClassFamily : eventClassFamilies) {
+          if (eventClassFamily.getSchemas() != null) {
+            for (            EventSchemaVersionDto eventSchemaVersion : eventClassFamily.getSchemas()) {
+              EcfInfoDto ecf=new EcfInfoDto();
+              ecf.setEcfId(eventClassFamily.getId());
+              ecf.setEcfName(eventClassFamily.getName());
+              ecf.setVersion(eventSchemaVersion.getVersion());
+              if (occupiedEcfs != null && !occupiedEcfs.contains(ecf)) {
+                vacantEcfs.add(ecf);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+ else {
+    throw new IncorrectParameterException("Incorrect applicationId id: " + applicationId);
+  }
+  return vacantEcfs;
+}

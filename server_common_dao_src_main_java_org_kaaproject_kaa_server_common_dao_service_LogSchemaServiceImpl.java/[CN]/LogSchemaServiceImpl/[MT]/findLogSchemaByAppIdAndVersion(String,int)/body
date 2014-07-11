@@ -1,0 +1,4 @@
+{
+  validateId(appId,"Can't find log schema. Invalid application id: " + appId);
+  return getDto(logSchemaDao.findByApplicationIdAndVersion(appId,schemaVersion));
+}

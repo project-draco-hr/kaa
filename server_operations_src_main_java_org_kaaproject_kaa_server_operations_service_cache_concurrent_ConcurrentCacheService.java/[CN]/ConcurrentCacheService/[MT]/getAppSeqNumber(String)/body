@@ -1,10 +1,11 @@
 {
-  return appSeqNumberMemorizer.compute(key,new Computable<String,Integer>(){
-    @Override public Integer compute(    String key){
+  return appSeqNumberMemorizer.compute(key,new Computable<String,AppSeqNumber>(){
+    @Override public AppSeqNumber compute(    String key){
       LOG.debug("Fetching result for getAppSeqNumber");
-      Integer value=applicationService.findAppByApplicationToken(key).getSequenceNumber();
-      putAppSeqNumber(key,value);
-      return value;
+      ApplicationDto appDto=applicationService.findAppByApplicationToken(key);
+      AppSeqNumber appSeqNumber=new AppSeqNumber(appDto.getId(),appDto.getApplicationToken(),appDto.getSequenceNumber());
+      putAppSeqNumber(key,appSeqNumber);
+      return appSeqNumber;
     }
   }
 );

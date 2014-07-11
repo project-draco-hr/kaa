@@ -1,0 +1,15 @@
+{
+  LOG.debug("[{}] Received: {}",tenantId,message);
+  if (message instanceof EndpointAwareMessage) {
+    processEndpointAwareMessage((EndpointAwareMessage)message);
+  }
+ else   if (message instanceof UserAwareMessage) {
+    processUserAwareMessage((UserAwareMessage)message);
+  }
+ else   if (message instanceof Terminated) {
+    processTermination((Terminated)message);
+  }
+ else   if (message instanceof ThriftNotificationMessage) {
+    processNotificationMessage((ThriftNotificationMessage)message);
+  }
+}

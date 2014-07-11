@@ -1,0 +1,17 @@
+{
+  LOG.debug("Generate user...");
+  if (tenant == null) {
+    tenant=generateTenant();
+  }
+  User user=new User();
+  user.setExternalUid(UUID.randomUUID().toString());
+  user.setTenant(tenant);
+  if (authority == null) {
+    authority=KaaAuthorityDto.KAA_ADMIN;
+  }
+  user.setAuthority(authority);
+  user.setUsername("TestUserName");
+  user=userDao.save(user);
+  LOG.debug("Generated user {}",user);
+  return user;
+}

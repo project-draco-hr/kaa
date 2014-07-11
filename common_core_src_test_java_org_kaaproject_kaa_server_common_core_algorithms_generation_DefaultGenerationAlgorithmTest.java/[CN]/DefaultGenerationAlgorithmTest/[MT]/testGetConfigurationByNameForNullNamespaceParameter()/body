@@ -1,0 +1,7 @@
+{
+  Path schemaPath=Paths.get(Thread.currentThread().getContextClassLoader().getResource("generation/complexSchema.json").toURI());
+  BaseSchema configuraionSchema=new BaseSchema(new String(Files.readAllBytes(schemaPath)));
+  DefaultRecordGenerationAlgorithm configurationProcessor=new DefaultRecordGenerationAlgorithmImpl(configuraionSchema,new BaseDataFactory());
+  GenericRecord generatedConfiguration=configurationProcessor.getConfigurationByName("testT",null);
+  Assert.assertNull(generatedConfiguration);
+}

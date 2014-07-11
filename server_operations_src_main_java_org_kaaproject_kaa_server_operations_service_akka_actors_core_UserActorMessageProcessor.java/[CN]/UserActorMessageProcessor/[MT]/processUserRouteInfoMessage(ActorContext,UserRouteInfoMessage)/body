@@ -1,0 +1,8 @@
+{
+  UserRouteInfo userRouteInfo=message.getRouteInfo();
+  LOG.debug("[{}] Cleanup all route table data related to serverId: {}",userId,userRouteInfo.getServerId());
+  routeTable.clearRemoteServerData(userRouteInfo.getServerId());
+  if (!RouteOperation.DELETE.equals(userRouteInfo.getRouteOperation())) {
+    reportAllLocalRoutes(userRouteInfo.getServerId());
+  }
+}

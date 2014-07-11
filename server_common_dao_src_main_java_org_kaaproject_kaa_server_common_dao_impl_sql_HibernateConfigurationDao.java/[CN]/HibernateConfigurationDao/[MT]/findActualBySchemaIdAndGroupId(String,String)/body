@@ -1,0 +1,12 @@
+{
+  List<Configuration> configurations=Collections.emptyList();
+  if (isNotBlank(schemaId) && isNotBlank(groupId)) {
+    Criteria cr=getCriteria();
+    cr.createAlias(CONFIGURATION_SCHEMA_PROPERTY,CONFIGURATION_SCHEMA_ALIAS);
+    cr.createAlias(ENDPOINT_GROUP_PROPERTY,ENDPOINT_GROUP_ALIAS);
+    Criterion crit=Restrictions.and(Restrictions.eq(ENDPOINT_GROUP_REFERENCE,Long.valueOf(groupId)),Restrictions.eq(CONFIGURATION_SCHEMA_REFERENCE,Long.valueOf(schemaId)),Restrictions.ne(STATUS_PROPERTY,UpdateStatus.DEPRECATED));
+    configurations=cr.add(crit).list();
+  }
+  LOG.debug("Find {} actual configurations {} by configuration schema id {} and group id {} ",configurations.size(),schemaId,groupId);
+  return configurations;
+}

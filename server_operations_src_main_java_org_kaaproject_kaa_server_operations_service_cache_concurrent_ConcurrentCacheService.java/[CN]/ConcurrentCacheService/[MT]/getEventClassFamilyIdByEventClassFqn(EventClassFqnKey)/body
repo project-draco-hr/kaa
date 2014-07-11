@@ -1,0 +1,16 @@
+{
+  return ecfIdFqnMemorizer.compute(key,new Computable<EventClassFqnKey,String>(){
+    @Override public String compute(    EventClassFqnKey key){
+      LOG.debug("Fetching result for getEventClassFamilyIdByEventClassFqn using key {}",key);
+      List<EventClassDto> eventClasses=eventClassService.findEventClassByTenantIdAndFQN(key.getTenantId(),key.getFqn());
+      if (eventClasses != null && !eventClasses.isEmpty()) {
+        return eventClasses.get(0).getEcfId();
+      }
+ else {
+        LOG.warn("Fetching result for getEcfId using key {} Failed!",key);
+        return null;
+      }
+    }
+  }
+);
+}

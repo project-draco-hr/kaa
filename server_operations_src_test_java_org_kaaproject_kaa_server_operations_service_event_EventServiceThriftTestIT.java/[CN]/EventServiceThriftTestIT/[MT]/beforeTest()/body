@@ -1,0 +1,10 @@
+{
+  eventService.setConfig(new OperationsServerConfig());
+  eventService.getConfig().setZkNode(TestCluster.getOperationsNode());
+  for (int i=0; i < numberOfServers; i++) {
+    ThriftRunner runner=new ThriftRunner(thriftHostBase,thriftPortBase + i);
+    executor.execute(runner);
+    thriftServers.add(runner);
+    waitNeigborsRegister(runner.getEventService(),i + 1);
+  }
+}

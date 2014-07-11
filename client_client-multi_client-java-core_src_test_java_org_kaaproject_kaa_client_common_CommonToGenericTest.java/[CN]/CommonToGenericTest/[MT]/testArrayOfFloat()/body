@@ -1,0 +1,6 @@
+{
+  Schema floatSchema=Schema.create(Type.FLOAT);
+  GenericArray avroArray=CommonToGeneric.createArray(createCommonArray(floatSchema,new Float(5.5)));
+  Float avroFloat=(Float)avroArray.get(0);
+  assertEquals(5.5,avroFloat.floatValue(),0.1);
+}

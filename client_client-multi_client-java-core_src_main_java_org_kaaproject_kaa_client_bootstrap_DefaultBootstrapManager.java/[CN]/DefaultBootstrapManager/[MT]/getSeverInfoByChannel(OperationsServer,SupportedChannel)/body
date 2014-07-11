@@ -1,0 +1,17 @@
+{
+  Channel channel=ChannelFactory.getChannelFromSupportedChannel(supportedChannel);
+  ServerInfo info;
+switch (channel.getChannelType()) {
+case HTTP:
+    HttpParameters httpParams=HttpChannel.getHttpParametersFromSupportedChannel(supportedChannel);
+  info=new HttpServerInfo(httpParams.getHostName(),httpParams.getPort(),server.getPublicKey().array());
+break;
+case HTTP_LP:
+HttpLongPollParameters longPollParams=HttpLongPollChannel.getHttpLongPollParametersFromSupportedChannel(supportedChannel);
+info=new HttpLongPollServerInfo(longPollParams.getHostName(),longPollParams.getPort(),server.getPublicKey().array());
+break;
+default :
+throw new BootstrapRuntimeException("Invalid type");
+}
+return info;
+}

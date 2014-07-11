@@ -1,0 +1,14 @@
+{
+  controlClientConnect();
+  ControlApiCliThriftClient cli=new ControlApiCliThriftClient();
+  String tenantId=editTenantCli(cli,null,"testTenant",false);
+  editEndpointUserCli(cli,null,tenantId,null,"a@a.com",true);
+  String endpointUserId=editEndpointUserCli(cli,null,tenantId,null,"b@a.com",false);
+  Assert.assertFalse(strIsEmpty(endpointUserId));
+  editEndpointUserCli(cli,endpointUserId,tenantId,null,"b@a.com",false);
+  editEndpointUserCli(cli,FAKE_ID,tenantId,null,"b@a.com",false);
+  showEntityCli(cli,endpointUserId,EntityType.ENDPOINT_USER);
+  listEndpointUsersCli(cli,false);
+  listEndpointUsersCli(cli,true);
+  deleteEntityCli(cli,endpointUserId,EntityType.ENDPOINT_USER);
+}

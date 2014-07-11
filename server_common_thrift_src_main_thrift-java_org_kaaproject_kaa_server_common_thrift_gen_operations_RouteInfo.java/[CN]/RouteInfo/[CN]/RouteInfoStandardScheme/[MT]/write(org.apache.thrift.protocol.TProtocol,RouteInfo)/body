@@ -1,0 +1,32 @@
+{
+  struct.validate();
+  oprot.writeStructBegin(STRUCT_DESC);
+  if (struct.updateType != null) {
+    oprot.writeFieldBegin(UPDATE_TYPE_FIELD_DESC);
+    oprot.writeI32(struct.updateType.getValue());
+    oprot.writeFieldEnd();
+  }
+  if (struct.eventClassFamilyVersion != null) {
+    oprot.writeFieldBegin(EVENT_CLASS_FAMILY_VERSION_FIELD_DESC);
+{
+      oprot.writeListBegin(new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT,struct.eventClassFamilyVersion.size()));
+      for (      EventClassFamilyVersion _iter3 : struct.eventClassFamilyVersion) {
+        _iter3.write(oprot);
+      }
+      oprot.writeListEnd();
+    }
+    oprot.writeFieldEnd();
+  }
+  if (struct.applicationToken != null) {
+    oprot.writeFieldBegin(APPLICATION_TOKEN_FIELD_DESC);
+    oprot.writeString(struct.applicationToken);
+    oprot.writeFieldEnd();
+  }
+  if (struct.endpointId != null) {
+    oprot.writeFieldBegin(ENDPOINT_ID_FIELD_DESC);
+    oprot.writeBinary(struct.endpointId);
+    oprot.writeFieldEnd();
+  }
+  oprot.writeFieldStop();
+  oprot.writeStructEnd();
+}

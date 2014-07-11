@@ -1,0 +1,9 @@
+{
+  EndpointRegistrationProcessor processor=Mockito.mock(EndpointRegistrationProcessor.class);
+  UserTransport transport=new DefaultUserTransport();
+  UserSyncResponse response=new UserSyncResponse();
+  transport.onUserResponse(response);
+  transport.setEndpointRegistrationProcessor(processor);
+  transport.onUserResponse(response);
+  Mockito.verify(processor,Mockito.times(1)).onUpdate(Mockito.anyListOf(EndpointAttachResponse.class),Mockito.anyListOf(EndpointDetachResponse.class),Mockito.any(UserAttachResponse.class));
+}

@@ -1,0 +1,13 @@
+{
+  TopicDto topic=new TopicDto();
+  topic.setName(TOPIC_NAME);
+  if (isBlank(appId)) {
+    appId=generateApplication().getId();
+  }
+  topic.setApplicationId(appId);
+  if (type == null) {
+    type=TopicTypeDto.MANDATORY;
+  }
+  topic.setType(type);
+  return topicService.saveTopic(topic);
+}

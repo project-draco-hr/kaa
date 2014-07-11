@@ -40,6 +40,7 @@
     }
   }
   Map<String,Integer> subscriptionStates=buildTopicStateMap(request,subscriptionSet);
+  long now=new GregorianCalendar(TimeZone.getTimeZone("UTC")).getTimeInMillis();
   List<NotificationDto> notifications=new ArrayList<>();
   for (  String topicId : subscriptionSet) {
     int seqNumber=subscriptionStates.get(topicId);
@@ -50,7 +51,7 @@
       for (      NotificationDto notification : topicNotifications) {
         seqNumber=Math.max(seqNumber,notification.getSecNum());
         Date date=notification.getExpiredAt();
-        if (date != null && date.after(new Date())) {
+        if (date != null && date.getTime() > now) {
           notifications.add(notification);
           count++;
         }
@@ -72,7 +73,8 @@
     NotificationDto notificationDto=unicastNotification.getNotificationDto();
     if (notificationDto != null) {
       Date date=notificationDto.getExpiredAt();
-      if (date != null && date.after(new Date())) {
+      if (date != null && date.getTime() > now) {
+        LOG.trace("[{}] notification expiration time is {}({}) which is later then {}",date.getTime(),date,now);
         notificationDto.setId(unicastNotification.getId());
         notifications.add(notificationDto);
       }

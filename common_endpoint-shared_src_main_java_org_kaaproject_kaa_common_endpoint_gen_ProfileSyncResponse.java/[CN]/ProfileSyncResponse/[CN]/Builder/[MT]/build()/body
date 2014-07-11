@@ -1,0 +1,10 @@
+{
+  try {
+    ProfileSyncResponse record=new ProfileSyncResponse();
+    record.responseStatus=fieldSetFlags()[0] ? this.responseStatus : (org.kaaproject.kaa.common.endpoint.gen.SyncResponseStatus)defaultValue(fields()[0]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

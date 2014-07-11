@@ -1,0 +1,21 @@
+{
+  ApplicationEventFamilyMapDto savedApplicationEventFamilyMap=null;
+  if (isValidSqlObject(applicationEventFamilyMapDto)) {
+    if (isValidSqlId(applicationEventFamilyMapDto.getId())) {
+      ApplicationEventFamilyMapDto previousApplicationEventFamilyMapDto=findApplicationEventFamilyMapById(applicationEventFamilyMapDto.getId());
+      if (previousApplicationEventFamilyMapDto != null) {
+        LOG.debug("Can't save application event family map. Update is forbidden.");
+        throw new IncorrectParameterException("Can't save application event family map. Update is forbidden.");
+      }
+    }
+    if (applicationEventFamilyMapDao.validateApplicationEventFamilyMap(applicationEventFamilyMapDto.getApplicationId(),applicationEventFamilyMapDto.getEcfId(),applicationEventFamilyMapDto.getVersion())) {
+      applicationEventFamilyMapDto.setCreatedTime(System.currentTimeMillis());
+      savedApplicationEventFamilyMap=getDto(applicationEventFamilyMapDao.save(new ApplicationEventFamilyMap(applicationEventFamilyMapDto)));
+    }
+ else {
+      LOG.debug("Can't save application event family map. Uniqueness violation.");
+      throw new IncorrectParameterException("Incorrect application event family map. Uniqueness violation within the application.");
+    }
+  }
+  return savedApplicationEventFamilyMap;
+}

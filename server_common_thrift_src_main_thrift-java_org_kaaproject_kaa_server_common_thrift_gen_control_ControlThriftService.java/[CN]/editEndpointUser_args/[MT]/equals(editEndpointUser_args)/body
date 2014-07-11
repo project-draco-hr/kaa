@@ -1,0 +1,10 @@
+{
+  if (that == null)   return false;
+  boolean this_present_endpointUser=true && this.isSetEndpointUser();
+  boolean that_present_endpointUser=true && that.isSetEndpointUser();
+  if (this_present_endpointUser || that_present_endpointUser) {
+    if (!(this_present_endpointUser && that_present_endpointUser))     return false;
+    if (!this.endpointUser.equals(that.endpointUser))     return false;
+  }
+  return true;
+}

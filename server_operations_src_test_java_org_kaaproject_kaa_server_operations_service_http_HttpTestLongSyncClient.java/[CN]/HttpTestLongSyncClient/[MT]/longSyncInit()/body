@@ -1,5 +1,7 @@
 {
-  setRequest(new LongSyncRequest());
-  getRequest().setTimeout(Long.valueOf(rnd.nextInt(10000000)));
+  SyncRequest request=new SyncRequest();
+  request.setSyncRequestMetaData(new SyncRequestMetaData());
+  setRequest(request);
+  getRequest().getSyncRequestMetaData().setTimeout(Long.valueOf(rnd.nextInt(10000000)));
   syncInit();
 }

@@ -1,5 +1,5 @@
 {
-  String dnsName=getDNSNameFromConnectionInfo(nodeInfo.getConnectionInfo());
+  String dnsName=getBootstrapNameFromNodeInfo(nodeInfo);
   LOG.info("Bootstrap server {} removed",dnsName);
   bootstrapsMap.remove(dnsName);
 }

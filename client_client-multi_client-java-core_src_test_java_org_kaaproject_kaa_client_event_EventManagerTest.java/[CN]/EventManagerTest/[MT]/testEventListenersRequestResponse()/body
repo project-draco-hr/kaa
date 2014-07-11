@@ -1,0 +1,16 @@
+{
+  EventTransport transport=Mockito.mock(EventTransport.class);
+  EventManager eventManager=new DefaultEventManager(transport);
+  List<String> eventFQNs=new ArrayList<String>();
+  eventFQNs.add("eventFQN1");
+  FetchEventListeners fetchListener=mock(FetchEventListeners.class);
+  String requestIdOk=eventManager.findEventListeners(eventFQNs,fetchListener);
+  String requestIdBad=eventManager.findEventListeners(eventFQNs,fetchListener);
+  verify(transport,atLeast(1)).sync();
+  List<EventListenersResponse> response=new ArrayList<EventListenersResponse>();
+  response.add(new EventListenersResponse(requestIdOk,new ArrayList<String>(),SyncResponseResultType.SUCCESS));
+  response.add(new EventListenersResponse(requestIdBad,new ArrayList<String>(),SyncResponseResultType.FAILURE));
+  eventManager.eventListenersResponseReceived(response);
+  verify(fetchListener,times(1)).onEventListenersReceived(anyListOf(String.class));
+  verify(fetchListener,times(1)).onRequestFailed();
+}

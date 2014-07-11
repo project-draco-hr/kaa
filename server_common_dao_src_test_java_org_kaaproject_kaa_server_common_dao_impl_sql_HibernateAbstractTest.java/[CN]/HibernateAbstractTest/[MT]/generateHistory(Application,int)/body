@@ -1,0 +1,18 @@
+{
+  LOG.debug("Generate history...");
+  List<History> histories=new ArrayList<>();
+  if (app == null) {
+    app=generateApplication(null);
+  }
+  for (int i=0; i < count; i++) {
+    History history=new History();
+    history.setApplication(app);
+    history.setLastModifyTime(System.currentTimeMillis());
+    history.setSequenceNumber(i + 1);
+    history.setChange(generateChange());
+    history=historyDao.save(history);
+    histories.add(history);
+    LOG.debug("Generated history {}",history);
+  }
+  return histories;
+}

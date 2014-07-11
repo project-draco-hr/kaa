@@ -1,0 +1,12 @@
+{
+synchronized (sync) {
+    if (opServerMap == null) {
+      try {
+        sync.wait(60000);
+      }
+ catch (      InterruptedException e) {
+      }
+    }
+  }
+  return opServerMap;
+}

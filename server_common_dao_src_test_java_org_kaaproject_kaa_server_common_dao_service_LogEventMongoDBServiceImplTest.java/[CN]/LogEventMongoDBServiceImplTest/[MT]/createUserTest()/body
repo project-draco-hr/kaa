@@ -1,0 +1,5 @@
+{
+  Assert.assertEquals(0,MongoDBTestRunner.getDB().getCollection("system.users").count());
+  logEventService.createUser(TEST_USER,TEST_PASSWORD,TEST_ROLE);
+  Assert.assertEquals(1,MongoDBTestRunner.getDB().getCollection("system.users").count());
+}

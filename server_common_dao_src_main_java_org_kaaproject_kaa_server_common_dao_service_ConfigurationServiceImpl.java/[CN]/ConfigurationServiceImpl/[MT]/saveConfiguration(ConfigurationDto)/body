@@ -2,6 +2,7 @@
   validateConfiguration(configurationDto);
   String id=configurationDto.getId();
   ConfigurationSchemaDto configurationSchemaDto;
+  Configuration oldActiveConfiguration=null;
   if (StringUtils.isNotBlank(id)) {
     ConfigurationDto oldConfiguration=findConfigurationById(configurationDto.getId());
     if (oldConfiguration != null && oldConfiguration.getStatus() != INACTIVE) {
@@ -16,9 +17,9 @@
     configurationSchemaDto=findConfSchemaById(schemaId);
     if (configurationSchemaDto != null) {
       Configuration oldInactiveConfiguration=configurationDao.findInactiveBySchemaIdAndGroupId(schemaId,groupId);
-      Configuration oldActiveConfiguration=configurationDao.findLatestActiveBySchemaIdAndGroupId(schemaId,groupId);
+      oldActiveConfiguration=configurationDao.findLatestActiveBySchemaIdAndGroupId(schemaId,groupId);
       if (oldInactiveConfiguration != null) {
-        configurationDto.setId(oldInactiveConfiguration.getId());
+        configurationDto.setId(idToString(oldInactiveConfiguration.getId()));
         configurationDto.setSequenceNumber(oldInactiveConfiguration.getSequenceNumber());
       }
  else       if (oldActiveConfiguration != null) {
@@ -35,7 +36,8 @@
       throw new IncorrectParameterException("Configuration schema not found, id:" + schemaId);
     }
   }
-  generateUuids(configurationDto,configurationSchemaDto);
+  ConfigurationDto oldActiveConfigurationDto=oldActiveConfiguration != null ? oldActiveConfiguration.toDto() : null;
+  validateUuids(configurationDto,oldActiveConfigurationDto,configurationSchemaDto);
   configurationDto.setStatus(UpdateStatus.INACTIVE);
   configurationDto.setLastModifyTime(System.currentTimeMillis());
   return getDto(configurationDao.save(new Configuration(configurationDto)));

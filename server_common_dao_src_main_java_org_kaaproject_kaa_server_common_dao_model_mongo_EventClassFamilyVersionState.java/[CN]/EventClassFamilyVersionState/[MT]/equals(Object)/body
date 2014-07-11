@@ -1,0 +1,12 @@
+{
+  if (this == obj)   return true;
+  if (obj == null)   return false;
+  if (getClass() != obj.getClass())   return false;
+  EventClassFamilyVersionState other=(EventClassFamilyVersionState)obj;
+  if (ecfId == null) {
+    if (other.ecfId != null)     return false;
+  }
+ else   if (!ecfId.equals(other.ecfId))   return false;
+  if (version != other.version)   return false;
+  return true;
+}

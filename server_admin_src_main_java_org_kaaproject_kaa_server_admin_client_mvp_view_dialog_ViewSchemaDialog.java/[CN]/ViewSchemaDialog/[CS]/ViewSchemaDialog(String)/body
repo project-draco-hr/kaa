@@ -1,0 +1,24 @@
+{
+  super(false,true);
+  setWidth("500px");
+  setTitle(Utils.constants.eventClassSchema());
+  VerticalPanel dialogContents=new VerticalPanel();
+  dialogContents.setSpacing(4);
+  setWidget(dialogContents);
+  FlexTable table=new FlexTable();
+  table.setCellSpacing(6);
+  schemaDetails=new TextArea();
+  schemaDetails.setReadOnly(true);
+  schemaDetails.setWidth("400px");
+  schemaDetails.getElement().getStyle().setPropertyPx("minHeight",200);
+  schemaDetails.setValue(schema);
+  table.setWidget(0,0,schemaDetails);
+  dialogContents.add(table);
+  Button closeButton=new Button(Utils.constants.close(),new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      hide();
+    }
+  }
+);
+  addButton(closeButton);
+}

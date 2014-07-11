@@ -1,0 +1,29 @@
+{
+  if (processor != null && clientState != null) {
+    acceptedUnicastNotificationIds.clear();
+    List<Topic> topics=response.getAvailableTopics();
+    if (topics != null) {
+      for (      Topic topic : topics) {
+        clientState.addTopic(topic);
+      }
+      processor.topicsListUpdated(topics);
+    }
+    List<Notification> notifications=response.getNotifications();
+    if (notifications != null) {
+      for (      Notification notification : notifications) {
+        LOG.info("Received {}",notification);
+        if (notification.getUid() != null) {
+          LOG.info("Adding {} to unicast accepted notifications",notification.getUid());
+          acceptedUnicastNotificationIds.add(notification.getUid());
+        }
+ else {
+          clientState.updateTopicSubscriptionInfo(notification.getTopicId(),notification.getSeqNumber());
+        }
+      }
+      processor.notificationReceived(notifications);
+    }
+    sentNotificationCommands.clear();
+    clientState.setAppStateSeqNumber(response.getAppStateSeqNumber());
+    LOG.info("Processed notification response");
+  }
+}

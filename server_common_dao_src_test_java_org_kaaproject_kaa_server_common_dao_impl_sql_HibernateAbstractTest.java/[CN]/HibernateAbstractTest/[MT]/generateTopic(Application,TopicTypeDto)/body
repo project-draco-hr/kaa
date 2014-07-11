@@ -1,0 +1,13 @@
+{
+  Topic topic=new Topic();
+  topic.setName("GENERATED test Topic");
+  if (app == null) {
+    app=generateApplication(null);
+  }
+  topic.setApplication(app);
+  if (type == null) {
+    type=TopicTypeDto.MANDATORY;
+  }
+  topic.setType(type);
+  return topicDao.save(topic);
+}

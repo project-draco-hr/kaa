@@ -1,0 +1,15 @@
+{
+  Topic first=generateTopic(null,null);
+  Topic second=generateTopic(null,null);
+  Topic third=generateTopic(null,null);
+  Set<Topic> topics=new HashSet<>();
+  topics.add(first);
+  topics.add(second);
+  topics.add(third);
+  EndpointGroup endpointGroup=generateEndpointGroup(first.getApplication(),topics);
+  endpointGroupDao.removeTopicFromEndpointGroup(endpointGroup.getId().toString(),first.getId().toString());
+  EndpointGroup group=endpointGroupDao.removeTopicFromEndpointGroup(endpointGroup.getId().toString(),second.getId().toString());
+  Set<Topic> expected=new HashSet<>();
+  expected.add(third);
+  Assert.assertEquals(expected,group.getTopics());
+}

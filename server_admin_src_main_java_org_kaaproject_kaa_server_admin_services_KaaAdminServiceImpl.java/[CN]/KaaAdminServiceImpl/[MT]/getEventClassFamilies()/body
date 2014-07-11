@@ -1,0 +1,9 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_ADMIN);
+  try {
+    return toDtoList(clientProvider.getClient().getEventClassFamiliesByTenantId(getTenantId()));
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

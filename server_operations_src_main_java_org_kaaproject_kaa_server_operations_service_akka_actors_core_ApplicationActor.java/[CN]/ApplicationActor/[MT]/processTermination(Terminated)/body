@@ -3,11 +3,16 @@
   if (terminated instanceof LocalActorRef) {
     LocalActorRef localActor=(LocalActorRef)terminated;
     String name=localActor.path().name();
-    if (endpointSessions.remove(name) != null) {
-      LOG.debug("removed endpoint: {}",localActor);
+    EndpointObjectHash endpointHash=endpointActorMap.remove(name);
+    if (endpointHash != null) {
+      ActorMetaData actorMetaData=endpointSessions.get(endpointHash);
+      if (actorMetaData != null && actorMetaData.actorRef.equals(localActor)) {
+        endpointSessions.remove(endpointHash);
+        LOG.debug("[{}] removed endpoint: {}",applicationToken,localActor);
+      }
     }
  else     if (topicSessions.remove(name) != null) {
-      LOG.debug("removed topic: {}",localActor);
+      LOG.debug("[{}] removed topic: {}",applicationToken,localActor);
     }
   }
  else {

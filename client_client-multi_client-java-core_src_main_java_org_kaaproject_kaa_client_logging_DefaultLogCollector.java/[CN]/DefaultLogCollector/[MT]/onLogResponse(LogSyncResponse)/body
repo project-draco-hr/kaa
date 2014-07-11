@@ -1,0 +1,20 @@
+{
+  if (response.getResult() == SyncResponseResultType.SUCCESS) {
+    storage.removeRecordBlock(response.getRequestId());
+    if (storageStatus.getConsumedVolume() >= configuration.getBatchVolume()) {
+      if (transport != null) {
+        transport.sync();
+      }
+ else {
+        LOG.warn("Log transport is null");
+      }
+    }
+ else {
+      isUploading=false;
+    }
+  }
+ else {
+    isUploading=false;
+    storage.notifyUploadFailed(response.getRequestId());
+  }
+}

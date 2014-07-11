@@ -1,0 +1,8 @@
+{
+  LOG.debug("Remove tenant by name [{}]",tenantName);
+  Query query=getQuery(DELETE_BY_NAME_HQL);
+  int number=query.setString(NAME_PROPERTY,tenantName).executeUpdate();
+  if (number != 0) {
+    LOG.debug("Removed tenant by name [{}]",tenantName);
+  }
+}

@@ -1,0 +1,6 @@
+{
+  KaaClientState state=new KaaClientPropertiesState(new FilePersistentStorage(),getProperties());
+  EndpointObjectHash hash=EndpointObjectHash.fromSHA1(new byte[]{1,2,3});
+  state.setConfigurationHash(hash);
+  assertEquals(hash,state.getConfigurationHash());
+}

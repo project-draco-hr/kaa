@@ -6,7 +6,13 @@
   publicKey=clientKeyPair.getPublic();
   List<OperationsServer> endpointServerArray=new LinkedList<OperationsServer>();
   ByteBuffer pk=ByteBuffer.wrap(new byte[]{10,12,13,14});
-  OperationsServer server=new OperationsServer("endpoint.com:8080",10,pk);
+  List<SupportedChannel> supportedChannels=new ArrayList<>();
+  HTTPComunicationParameters httpParams=new HTTPComunicationParameters();
+  httpParams.setHostName("endpoint.com");
+  httpParams.setPort(8080);
+  SupportedChannel sc1=new SupportedChannel(ChannelType.HTTP,httpParams);
+  supportedChannels.add(sc1);
+  OperationsServer server=new OperationsServer("host1",10,pk,supportedChannels);
   endpointServerArray.add(server);
   serverList=new OperationsServerList(endpointServerArray);
   config=new BootstrapConfig();

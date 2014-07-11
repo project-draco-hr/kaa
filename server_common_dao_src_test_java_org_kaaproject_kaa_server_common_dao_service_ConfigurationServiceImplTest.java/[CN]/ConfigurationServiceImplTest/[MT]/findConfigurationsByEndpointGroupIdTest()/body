@@ -1,5 +1,7 @@
 {
-  List<ConfigurationDto> dtoList=configurationService.findConfigurationsByEndpointGroupId(endGroups.get(0));
+  EndpointGroupDto group=generateEndpointGroup(null);
+  List<ConfigurationDto> configurations=generateConfiguration(null,group.getId(),1,true,false);
+  List<ConfigurationDto> dtoList=configurationService.findConfigurationsByEndpointGroupId(group.getId());
   Assert.assertNotNull(dtoList);
-  Assert.assertFalse(dtoList.isEmpty());
+  Assert.assertEquals(configurations,dtoList);
 }

@@ -1,0 +1,42 @@
+{
+  LOG.info("NettyHttpServer stopping...");
+  if (bossGroup != null) {
+    try {
+      Future<? extends Object> f=bossGroup.shutdownGracefully();
+      f.await();
+    }
+ catch (    InterruptedException e) {
+      LOG.trace("NettyHttpServer stopping: bossGroup error",e);
+    }
+ finally {
+      bossGroup=null;
+      LOG.trace("NettyHttpServer stopping: bossGroup stoped");
+    }
+  }
+  if (workerGroup != null) {
+    try {
+      Future<? extends Object> f=workerGroup.shutdownGracefully();
+      f.await();
+    }
+ catch (    InterruptedException e) {
+      LOG.trace("NettyHttpServer stopping: workerGroup error",e);
+    }
+ finally {
+      workerGroup=null;
+      LOG.trace("NettyHttpServer stopping: workerGroup stopped");
+    }
+  }
+  if (eventExecutor != null) {
+    try {
+      Future<? extends Object> f=eventExecutor.shutdownGracefully();
+      f.await();
+    }
+ catch (    InterruptedException e) {
+      LOG.trace("NettyHttpServer stopping: task executor error",e);
+    }
+ finally {
+      eventExecutor=null;
+      LOG.trace("NettyHttpServer stopping: task executor stopped.");
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  List<EndpointEvent> events=eventStorage.getEvents(key,address);
+  for (  EndpointEvent event : events) {
+    sendEventToRecepient(context,event,address);
+  }
+}

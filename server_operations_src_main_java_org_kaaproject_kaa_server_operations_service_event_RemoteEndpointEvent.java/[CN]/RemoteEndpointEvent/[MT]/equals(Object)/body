@@ -1,0 +1,45 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  RemoteEndpointEvent other=(RemoteEndpointEvent)obj;
+  if (event == null) {
+    if (other.event != null) {
+      return false;
+    }
+  }
+ else   if (!event.equals(other.event)) {
+    return false;
+  }
+  if (recipient == null) {
+    if (other.recipient != null) {
+      return false;
+    }
+  }
+ else   if (!recipient.equals(other.recipient)) {
+    return false;
+  }
+  if (tenantId == null) {
+    if (other.tenantId != null) {
+      return false;
+    }
+  }
+ else   if (!tenantId.equals(other.tenantId)) {
+    return false;
+  }
+  if (userId == null) {
+    if (other.userId != null) {
+      return false;
+    }
+  }
+ else   if (!userId.equals(other.userId)) {
+    return false;
+  }
+  return true;
+}

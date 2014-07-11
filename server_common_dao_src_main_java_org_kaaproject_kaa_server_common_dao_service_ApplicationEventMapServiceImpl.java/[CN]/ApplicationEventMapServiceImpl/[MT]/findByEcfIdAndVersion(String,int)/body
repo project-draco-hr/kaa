@@ -1,0 +1,4 @@
+{
+  LOG.debug("Find application event family maps by ecf id [{}] and version",eventClassFamilyId,version);
+  return convertDtoList(applicationEventFamilyMapDao.findByEcfIdAndVersion(eventClassFamilyId,version));
+}

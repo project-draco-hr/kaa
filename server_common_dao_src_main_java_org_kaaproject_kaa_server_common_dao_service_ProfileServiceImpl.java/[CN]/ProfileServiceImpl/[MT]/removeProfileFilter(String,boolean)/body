@@ -1,7 +1,7 @@
 {
   ProfileFilter pf=profileFilterDao.findById(id);
-  if (pf != null && pf.getEndpointGroupId() != null) {
-    EndpointGroup group=endpointGroupDao.findById(pf.getEndpointGroupId().toString());
+  if (pf != null && pf.getGroupId() != null) {
+    EndpointGroup group=endpointGroupDao.findById(pf.getGroupId());
     if (group != null) {
       if (group.getWeight() != 0 || forceRemove) {
         profileFilterDao.removeById(id);

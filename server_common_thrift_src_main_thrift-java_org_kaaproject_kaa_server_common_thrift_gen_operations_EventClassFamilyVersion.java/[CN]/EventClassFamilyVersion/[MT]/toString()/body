@@ -1,0 +1,18 @@
+{
+  StringBuilder sb=new StringBuilder("EventClassFamilyVersion(");
+  boolean first=true;
+  sb.append("endpointClassFamilyId:");
+  if (this.endpointClassFamilyId == null) {
+    sb.append("null");
+  }
+ else {
+    sb.append(this.endpointClassFamilyId);
+  }
+  first=false;
+  if (!first)   sb.append(", ");
+  sb.append("endpointClassFamilyVersion:");
+  sb.append(this.endpointClassFamilyVersion);
+  first=false;
+  sb.append(")");
+  return sb.toString();
+}

@@ -1,0 +1,27 @@
+{
+  validateLogSchemaObject(logSchemaDto);
+  String id=logSchemaDto.getId();
+  if (StringUtils.isBlank(id)) {
+    LogSchema logSchema=logSchemaDao.findLatestLogSchemaByAppId(logSchemaDto.getApplicationId());
+    int majorVersion=0;
+    if (logSchema != null) {
+      majorVersion=logSchema.getMajorVersion();
+    }
+    logSchemaDto.setMinorVersion(0);
+    logSchemaDto.setId(null);
+    logSchemaDto.setMajorVersion(++majorVersion);
+    logSchemaDto.setCreatedTime(System.currentTimeMillis());
+  }
+ else {
+    LogSchemaDto oldLogSchemaDto=getDto(logSchemaDao.findById(id));
+    if (oldLogSchemaDto != null) {
+      oldLogSchemaDto.editFields(logSchemaDto);
+      logSchemaDto=oldLogSchemaDto;
+    }
+ else {
+      LOG.error("Can't find log schema with given id [{}].",id);
+      throw new IncorrectParameterException("Invalid log schema id: " + id);
+    }
+  }
+  return getDto(logSchemaDao.save(new LogSchema(logSchemaDto)));
+}

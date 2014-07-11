@@ -1,0 +1,10 @@
+{
+  try {
+    netty=new NettyStarter();
+  }
+ catch (  InterruptedException e) {
+    LOG.error("Netty start Error",e);
+    fail(e.toString());
+  }
+  executor.execute(netty);
+}

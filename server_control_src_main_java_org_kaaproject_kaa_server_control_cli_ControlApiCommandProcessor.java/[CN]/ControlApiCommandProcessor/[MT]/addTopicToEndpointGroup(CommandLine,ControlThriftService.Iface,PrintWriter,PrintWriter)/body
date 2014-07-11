@@ -4,15 +4,15 @@
     String topicId=null;
     if (line.hasOption("i")) {
       endpointGroupId=line.getOptionValue("i");
-      if (!ObjectId.isValid(endpointGroupId)) {
-        errorWriter.println("Incorrect endpoint group id.");
+      if (!StringUtils.isNotBlank(endpointGroupId)) {
+        errorWriter.println(INCORRECT_ENDPOINT_GROUP_ID);
         return;
       }
     }
     if (line.hasOption("t")) {
       topicId=line.getOptionValue("t");
-      if (!ObjectId.isValid(topicId)) {
-        errorWriter.println("Incorrect topic id.");
+      if (!StringUtils.isNotBlank(topicId)) {
+        errorWriter.println(INCORRECT_TOPIC_ID);
         return;
       }
     }

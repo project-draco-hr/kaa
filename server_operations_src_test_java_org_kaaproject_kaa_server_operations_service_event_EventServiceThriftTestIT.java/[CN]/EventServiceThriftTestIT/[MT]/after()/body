@@ -1,0 +1,8 @@
+{
+  executor.shutdown();
+  executor.awaitTermination(1,TimeUnit.MINUTES);
+  thriftServers.clear();
+  thriftServers=null;
+  TestCluster.removeOperationsListener(listener);
+  TestCluster.stop();
+}

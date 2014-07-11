@@ -1,0 +1,7 @@
+{
+  Tenant ten=generateTenant();
+  Application app=generateApplication(ten);
+  int sequenceNumber=app.getSequenceNumber();
+  app=applicationDao.getNextSeqNumber(app.getId().toString());
+  Assert.assertNotEquals(sequenceNumber,app.getSequenceNumber());
+}

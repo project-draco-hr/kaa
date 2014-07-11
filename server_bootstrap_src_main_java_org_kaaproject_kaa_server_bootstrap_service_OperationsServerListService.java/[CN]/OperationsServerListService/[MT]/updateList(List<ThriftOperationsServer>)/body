@@ -1,0 +1,33 @@
+{
+  LinkedList<OperationsServer> newList=new LinkedList<OperationsServer>();
+  for (  ThriftOperationsServer server : operationsServersList) {
+    OperationsServer eps=new OperationsServer();
+    List<SupportedChannel> supportedChannels=new ArrayList<>();
+    for (    ThriftSupportedChannel thriftSupChannel : server.getSupportedChannels()) {
+      ThriftCommunicationParameters thriftParams=thriftSupChannel.getCommunicationParams();
+switch (thriftSupChannel.getType()) {
+case HTTP:
+        HttpParameters httpParams=new HttpParameters();
+      httpParams.setHostName(thriftParams.getHttpParams().getHostName());
+    httpParams.setPort(thriftParams.getHttpParams().getPort());
+  supportedChannels.add(HttpChannel.getSupportedChannelFromHttpParameters(httpParams));
+break;
+case HTTP_LP:
+HttpLongPollParameters httpLpParams=new HttpLongPollParameters();
+httpLpParams.setHostName(thriftParams.getHttpLpParams().getHostName());
+httpLpParams.setPort(thriftParams.getHttpLpParams().getPort());
+supportedChannels.add(HttpLongPollChannel.getSupportedChannelFromHttpLongPollParameters(httpLpParams));
+break;
+}
+eps.setName(server.getName());
+eps.setSupportedChannelsArray(supportedChannels);
+eps.setPriority(server.getPriority());
+eps.setPublicKey(ByteBuffer.wrap(server.getPublicKey()));
+newList.add(eps);
+}
+}
+if (!newList.isEmpty()) {
+serverList=newList;
+}
+updateEPSL();
+}

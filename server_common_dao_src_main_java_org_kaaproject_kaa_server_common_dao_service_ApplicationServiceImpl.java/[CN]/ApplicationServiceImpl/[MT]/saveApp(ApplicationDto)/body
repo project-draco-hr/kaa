@@ -1,18 +1,31 @@
 {
   ApplicationDto appDto=null;
-  if (isValidObject(applicationDto)) {
+  if (isValidSqlObject(applicationDto)) {
     if (isNotBlank(applicationDto.getId())) {
       LOG.debug("Update application with id [{}]",applicationDto.getId());
-      appDto=getDto(applicationDao.save(new Application(applicationDto)));
+      Application checkApplication=applicationDao.findByNameAndTenantId(applicationDto.getName(),applicationDto.getTenantId());
+      if (checkApplication == null || checkApplication.getId().equals(applicationDto.getId())) {
+        appDto=getDto(applicationDao.save(new Application(applicationDto)));
+      }
+ else {
+        throw new IncorrectParameterException("Can't save application with same name within one tenant");
+      }
       return appDto;
     }
     String appToken=RandomStringUtils.randomNumeric(DEFAULT_TOKEN_SIZE);
     applicationDto.setApplicationToken(appToken);
-    Update update=new Update();
-    update.setSequenceNumber(applicationDto.getSequenceNumber());
-    update.setStatus(ProcessingStatus.IDLE);
+    if (applicationDto.getUserVerifierName() == null || applicationDto.getUserVerifierName().isEmpty()) {
+      applicationDto.setUserVerifierName(DUMMY_ENDPOINT_USER_VERIFIER);
+    }
+    if (applicationDto.getLogAppendersNames() == null || applicationDto.getLogAppendersNames().isEmpty()) {
+      applicationDto.setLogAppendersNames(MONGODB_ENDPOINT_LOG_APPENDER);
+    }
+    EndpointUserVerifier userVerifier=verifierResolver.resolve(applicationDto.getUserVerifierName());
+    if (userVerifier == null) {
+      LOG.warn("Cant find endpoint user verifier {}",applicationDto.getUserVerifierName());
+      throw new RuntimeException("Cant find endpoint user verifier " + applicationDto.getUserVerifierName());
+    }
     Application application=new Application(applicationDto);
-    application.setUpdate(update);
     appDto=getDto(applicationDao.save(application));
     if (appDto != null) {
       String appId=appDto.getId();
@@ -34,6 +47,8 @@
         }
         LOG.debug("Creating default notification schema");
         createDefaultNotificationSchema(appId,createdUsername);
+        LOG.debug("Creating default log schema");
+        createDefaultLogSchema(appId,createdUsername);
       }
  else {
         LOG.warn("Cant save default group for application with id [{}]",appId);

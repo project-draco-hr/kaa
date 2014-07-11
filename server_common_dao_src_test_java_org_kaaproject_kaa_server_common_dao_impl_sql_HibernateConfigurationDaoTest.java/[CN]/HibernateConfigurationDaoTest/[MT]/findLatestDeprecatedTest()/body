@@ -1,0 +1,10 @@
+{
+  List<Configuration> configs=generateConfiguration(null,null,10,UpdateStatus.DEPRECATED);
+  Assert.assertEquals(10,configs.size());
+  Configuration first=configs.get(0);
+  EndpointGroup group=first.getEndpointGroup();
+  ConfigurationSchema schema=first.getConfigurationSchema();
+  Configuration deprecated=configurationDao.findLatestDeprecated(schema.getId().toString(),group.getId().toString());
+  Assert.assertEquals(UpdateStatus.DEPRECATED,deprecated.getStatus());
+  Assert.assertEquals(9,deprecated.getSequenceNumber());
+}

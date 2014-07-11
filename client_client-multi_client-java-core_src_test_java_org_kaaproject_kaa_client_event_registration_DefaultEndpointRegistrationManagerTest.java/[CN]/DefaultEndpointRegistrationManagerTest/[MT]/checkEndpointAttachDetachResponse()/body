@@ -1,0 +1,25 @@
+{
+  try {
+    KaaClientState state=mock(KaaClientState.class);
+    when(state.getEndpointAccessToken()).thenReturn("");
+    UserTransport transport=new DefaultUserTransport();
+    DefaultEndpointRegistrationManager manager=spy(new DefaultEndpointRegistrationManager(state,transport,null));
+    transport.setEndpointRegistrationProcessor(manager);
+    UserSyncResponse sr=new UserSyncResponse();
+    sr.setEndpointAttachResponses(null);
+    sr.setEndpointDetachResponses(null);
+    List<EndpointAttachResponse> attach=new LinkedList<EndpointAttachResponse>();
+    attach.add(new EndpointAttachResponse("requestId","keyHash",SyncResponseResultType.SUCCESS));
+    sr.setEndpointAttachResponses(attach);
+    transport.onUserResponse(sr);
+    List<EndpointDetachResponse> detach=new LinkedList<EndpointDetachResponse>();
+    detach.add(new EndpointDetachResponse("requestId",SyncResponseResultType.SUCCESS));
+    sr.setEndpointAttachResponses(null);
+    sr.setEndpointDetachResponses(detach);
+    transport.onUserResponse(sr);
+    verify(manager,times(2)).onUpdate(anyListOf(EndpointAttachResponse.class),anyListOf(EndpointDetachResponse.class),any(UserAttachResponse.class));
+  }
+ catch (  IOException e) {
+    assertTrue("Unexpected exception " + e.getMessage(),false);
+  }
+}

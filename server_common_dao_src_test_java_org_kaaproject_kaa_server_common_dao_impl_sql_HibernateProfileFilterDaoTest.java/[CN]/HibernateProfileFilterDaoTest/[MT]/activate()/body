@@ -1,0 +1,9 @@
+{
+  List<ProfileFilter> filters=generateFilter(null,null,1,null);
+  Assert.assertEquals(1,filters.size());
+  ProfileFilter first=filters.get(0);
+  ProfileFilter activated=profileFilterDao.activate(first.getId().toString(),"Test user");
+  ProfileFilter found=profileFilterDao.findById(first.getId().toString());
+  Assert.assertEquals(UpdateStatus.ACTIVE,activated.getStatus());
+  Assert.assertEquals(activated,found);
+}

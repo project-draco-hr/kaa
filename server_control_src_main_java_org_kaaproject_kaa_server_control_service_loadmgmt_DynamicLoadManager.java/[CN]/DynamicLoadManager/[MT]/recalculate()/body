@@ -8,7 +8,7 @@
     }
   }
   if (dynamicMgmt != null) {
-    Map<String,OperationsServerLoadHistory> opsServerHistory=new Hashtable<String,OperationsServerLoadHistory>();
+    Map<String,Map<ZkChannelType,OperationsServerLoadHistory>> opsServerHistory=new Hashtable<String,Map<ZkChannelType,OperationsServerLoadHistory>>();
     for (    String dnsName : opsServersMap.keySet()) {
       opsServerHistory.put(dnsName,opsServersMap.get(dnsName).history);
     }

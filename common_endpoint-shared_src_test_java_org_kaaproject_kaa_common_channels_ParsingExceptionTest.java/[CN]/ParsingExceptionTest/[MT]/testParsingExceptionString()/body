@@ -1,0 +1,9 @@
+{
+  String testMessage=new String("test");
+  try {
+    throw new ParsingException(testMessage);
+  }
+ catch (  ParsingException e) {
+    assertEquals(testMessage,e.getMessage());
+  }
+}

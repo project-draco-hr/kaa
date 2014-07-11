@@ -1,0 +1,15 @@
+{
+  if (requestData.length <= 0) {
+    LOG.error("HttpRequest not received byte[]");
+    throw new BadRequestException("HttpRequest not received byte[]");
+  }
+  LOG.info(bytesToString(sendingArray,":"));
+  LOG.info(bytesToString(requestData,":"));
+  assertEquals(ByteBuffer.wrap(sendingArray),ByteBuffer.wrap(requestData));
+  LOG.info("Received array equalse sent array");
+  response=new DefaultFullHttpResponse(HTTP_1_1,OK,Unpooled.copiedBuffer(requestData));
+  response.headers().set(CONTENT_TYPE,HTTP_RESPONSE_CONTENT_TYPE);
+  response.headers().set(CONTENT_LENGTH,response.content().readableBytes());
+  response.headers().set(CONNECTION,HttpHeaders.Values.CLOSE);
+  return this;
+}

@@ -1,0 +1,9 @@
+{
+  LOG.debug("[{}] processing event timeout message for [{}]",userId,message.getEvent().getId());
+  if (eventStorage.clear(message.getEvent())) {
+    LOG.debug("[{}] removed event [{}] from storage",userId,message.getEvent().getId());
+  }
+  if (eventDeliveryTable.clear(message.getEvent())) {
+    LOG.debug("[{}] removed event [{}] from delivery table",userId,message.getEvent().getId());
+  }
+}

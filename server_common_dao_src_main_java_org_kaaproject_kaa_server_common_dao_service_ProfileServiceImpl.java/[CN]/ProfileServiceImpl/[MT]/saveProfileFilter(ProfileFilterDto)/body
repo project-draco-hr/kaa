@@ -22,7 +22,7 @@
       ProfileFilter inactiveFilter=profileFilterDao.findInactiveFilter(schemaId,groupId);
       ProfileFilter latestFilter=profileFilterDao.findLatestFilter(schemaId,groupId);
       if (inactiveFilter != null) {
-        profileFilterDto.setId(inactiveFilter.getId());
+        profileFilterDto.setId(inactiveFilter.getId().toString());
         profileFilterDto.setSequenceNumber(inactiveFilter.getSequenceNumber());
       }
  else       if (latestFilter != null) {

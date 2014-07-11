@@ -1,0 +1,11 @@
+{
+  KaaAdmin.getDataSource().loadEcfs(new AsyncCallback<List<EventClassFamilyDto>>(){
+    @Override public void onFailure(    Throwable caught){
+      callback.onFailure(caught);
+    }
+    @Override public void onSuccess(    List<EventClassFamilyDto> result){
+      callback.onSuccess(toPlaces(result),display);
+    }
+  }
+);
+}

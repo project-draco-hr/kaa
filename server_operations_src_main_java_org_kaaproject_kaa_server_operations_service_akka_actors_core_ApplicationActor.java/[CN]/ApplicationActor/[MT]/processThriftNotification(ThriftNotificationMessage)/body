@@ -1,15 +1,15 @@
 {
   Notification notification=message.getNotification();
   if (notification.isSetNotificationId()) {
-    LOG.debug("Forwarding message to specific topic");
+    LOG.debug("[{}] Forwarding message to specific topic",applicationToken);
     sendToSpecificTopic(message);
   }
  else   if (notification.isSetUnicastNotificationId()) {
-    LOG.debug("Forwarding message to specific endpoint");
+    LOG.debug("[{}] Forwarding message to specific endpoint",applicationToken);
     sendToSpecificEndpoint(message);
   }
  else {
-    LOG.debug("Broadcasting message to all endpoints");
+    LOG.debug("[{}] Broadcasting message to all endpoints",applicationToken);
     broadcastToAllEndpoints(message);
   }
 }

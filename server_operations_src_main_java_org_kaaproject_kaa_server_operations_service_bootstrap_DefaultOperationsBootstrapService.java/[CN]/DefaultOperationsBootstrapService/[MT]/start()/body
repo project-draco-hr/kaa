@@ -1,21 +1,31 @@
 {
-  getConfig().setPort(nettyPort);
-  getConfig().setBindInterface(nettyHost);
-  getConfig().setStatisticsCalculationWindow(statisticsCalculationWindow);
-  getConfig().setStatisticsUpdateTimes(statisticsUpdateTimes);
-  httpService=new ProtocolService(getConfig());
-  if (httpService.getNetty() != null) {
-    statistics=StatisticsService.getService();
-    getConfig().setSessionTrack(statistics);
-    httpService.start();
-    realBindInterface=httpService.getNetty().getBindAddress();
-    LOG.info("Operations HTTP server started on" + realBindInterface + " interface, and port "+ nettyPort);
-    if (zkEnabled) {
-      startZK();
-    }
-    startThrift();
-  }
+  operationsService.setPublicKey(keyStoreService.getPublicKey());
+  eventService.setConfig(getConfig());
+  operationsThriftService.setEventService(eventService);
+  for (  ServiceChannelConfig channelConf : getConfig().getChannelList()) {
+    LOG.info("Channel {} initializing....",channelConf.getChannelType().toString());
+switch (channelConf.getChannelType()) {
+case HTTP:
+case HTTP_LP:
+      StatisticsService statistics=StatisticsFactory.getService(channelConf.getChannelType());
+    ((NettyHttpServiceChannelConfig)channelConf).setSessionTrack(statistics);
+  ((NettyHttpServiceChannelConfig)channelConf).setOperationServerConfig(getConfig());
+ServiceChannel channel=new HttpService((NettyHttpServiceChannelConfig)channelConf);
+channel.start();
+serviceChannels.add(channel);
+break;
+default :
+LOG.error("Channel {} unrecognized....",channelConf.getChannelType().toString());
+break;
+}
+}
+if (serviceChannels.size() > 0) {
+if (getConfig().isZkEnabled()) {
+startZK();
+}
+startThrift();
+}
  else {
-    LOG.error("Operations start failed, Netty didn't started...");
-  }
+LOG.error("Operations start failed, No one Service Channels started...");
+}
 }

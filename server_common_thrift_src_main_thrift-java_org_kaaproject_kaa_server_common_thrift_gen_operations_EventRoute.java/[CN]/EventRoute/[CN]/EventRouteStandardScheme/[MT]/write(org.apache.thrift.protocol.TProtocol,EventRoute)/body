@@ -1,0 +1,32 @@
+{
+  struct.validate();
+  oprot.writeStructBegin(STRUCT_DESC);
+  if (struct.userId != null) {
+    oprot.writeFieldBegin(USER_ID_FIELD_DESC);
+    oprot.writeString(struct.userId);
+    oprot.writeFieldEnd();
+  }
+  if (struct.tenantId != null) {
+    oprot.writeFieldBegin(TENANT_ID_FIELD_DESC);
+    oprot.writeString(struct.tenantId);
+    oprot.writeFieldEnd();
+  }
+  if (struct.routeInfo != null) {
+    oprot.writeFieldBegin(ROUTE_INFO_FIELD_DESC);
+{
+      oprot.writeListBegin(new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT,struct.routeInfo.size()));
+      for (      RouteInfo _iter11 : struct.routeInfo) {
+        _iter11.write(oprot);
+      }
+      oprot.writeListEnd();
+    }
+    oprot.writeFieldEnd();
+  }
+  if (struct.operationsServerId != null) {
+    oprot.writeFieldBegin(OPERATIONS_SERVER_ID_FIELD_DESC);
+    oprot.writeString(struct.operationsServerId);
+    oprot.writeFieldEnd();
+  }
+  oprot.writeFieldStop();
+  oprot.writeStructEnd();
+}

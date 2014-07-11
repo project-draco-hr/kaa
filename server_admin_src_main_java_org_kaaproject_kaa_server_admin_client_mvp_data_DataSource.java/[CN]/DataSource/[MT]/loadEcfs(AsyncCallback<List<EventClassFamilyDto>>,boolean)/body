@@ -1,0 +1,17 @@
+{
+  if (ecfs == null || refresh) {
+    ecfs=new ArrayList<EventClassFamilyDto>();
+    rpcService.getEventClassFamilies(new DataCallback<List<EventClassFamilyDto>>(callback){
+      @Override protected void onResult(      List<EventClassFamilyDto> result){
+        ecfs.addAll(result);
+        eventBus.fireEvent(new DataEvent(EventClassFamilyDto.class,true));
+      }
+    }
+);
+  }
+ else {
+    if (callback != null) {
+      callback.onSuccess(ecfs);
+    }
+  }
+}

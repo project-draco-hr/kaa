@@ -1,0 +1,13 @@
+{
+  try {
+    LinkedHashMap<String,byte[]> request=processor.createRequest(transportTypes);
+    if (request != null) {
+      byte[] responseDataRaw=httpClient.executeHttpRequest("",request);
+      processor.onResponse(responseDataRaw);
+    }
+  }
+ catch (  Exception e) {
+    LOG.error("Server failed {}",e);
+    processor.onServerError(serverInfo);
+  }
+}

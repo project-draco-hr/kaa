@@ -1,0 +1,36 @@
+{
+switch (field) {
+case NAME:
+    if (value == null) {
+      unsetName();
+    }
+ else {
+      setName((String)value);
+    }
+  break;
+case PRIORITY:
+if (value == null) {
+  unsetPriority();
+}
+ else {
+  setPriority((Integer)value);
+}
+break;
+case PUBLIC_KEY:
+if (value == null) {
+unsetPublicKey();
+}
+ else {
+setPublicKey((ByteBuffer)value);
+}
+break;
+case SUPPORTED_CHANNELS:
+if (value == null) {
+unsetSupportedChannels();
+}
+ else {
+setSupportedChannels((List<ThriftSupportedChannel>)value);
+}
+break;
+}
+}

@@ -1,0 +1,10 @@
+{
+  getVacantEventClassFamiliesByApplicationId_result result=new getVacantEventClassFamiliesByApplicationId_result();
+  try {
+    result.success=iface.getVacantEventClassFamiliesByApplicationId(args.applicationId);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

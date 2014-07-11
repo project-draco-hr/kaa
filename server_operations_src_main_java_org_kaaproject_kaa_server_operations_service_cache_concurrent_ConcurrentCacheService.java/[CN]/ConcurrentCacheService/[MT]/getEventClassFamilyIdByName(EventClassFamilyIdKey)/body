@@ -1,0 +1,16 @@
+{
+  return ecfIdKeyMemorizer.compute(key,new Computable<EventClassFamilyIdKey,String>(){
+    @Override public String compute(    EventClassFamilyIdKey key){
+      LOG.debug("Fetching result for getEcfId using key {}",key);
+      EventClassFamilyDto ecf=eventClassService.findEventClassFamilyByTenantIdAndName(key.getTenantId(),key.getName());
+      if (ecf != null) {
+        return ecf.getId();
+      }
+ else {
+        LOG.error("failed to find ecf by tenantId [{}] and name {}",key.getTenantId(),key.getName());
+        return null;
+      }
+    }
+  }
+);
+}

@@ -1,0 +1,12 @@
+{
+  if (isShutdown) {
+    LOG.info("Can't set server. Channel {} is down",getId());
+    return;
+  }
+  if (server != null) {
+    stopPoll();
+    this.currentServer=(HttpLongPollServerInfo)server;
+    this.httpClient=client.createHttpClient(currentServer.getURL(),state.getPrivateKey(),state.getPublicKey(),currentServer.getPublicKey());
+    startPoll();
+  }
+}

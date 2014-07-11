@@ -3,7 +3,7 @@
   assertNotNull(dm);
   assertNotNull(dm.getLoadDistributionService());
   assertNotNull(dm.getDynamicRebalancer());
-  verify(ldServiceMock,times(2)).getOpsServerHistoryTTL();
-  verify(ldServiceMock,times(2)).getDynamicMgmtClass();
+  verify(ldServiceMock,atLeast(1)).getOpsServerHistoryTTL();
+  verify(ldServiceMock,atLeast(1)).getDynamicMgmtClass();
   assertEquals(300000,dm.getOpsServerHistoryTTL());
 }

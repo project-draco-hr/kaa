@@ -8,7 +8,7 @@
     NotificationSchema schema=notificationSchemaDao.findById(schemaId);
     if (schema != null) {
       dto.setVersion(schema.getMajorVersion());
-      dto.setApplicationId(idToString(schema.getApplicationId()));
+      dto.setApplicationId(schema.getApplicationId());
       dto.setType(schema.getType());
     }
  else {
@@ -24,7 +24,7 @@
     Date expiredAt=dto.getExpiredAt();
     dto.setExpiredAt(expiredAt != null ? expiredAt : new Date(currentTime + TTL));
     dto.setLastTimeModify(new Date(currentTime));
-    NotificationDto notificationDto=saveNotification(dto,topicId);
+    NotificationDto notificationDto=saveNotificationAndIncTopicSecNum(dto);
     if (notificationDto != null) {
       updateNotificationDto=new UpdateNotificationDto<NotificationDto>();
       updateNotificationDto.setAppId(notificationDto.getApplicationId());

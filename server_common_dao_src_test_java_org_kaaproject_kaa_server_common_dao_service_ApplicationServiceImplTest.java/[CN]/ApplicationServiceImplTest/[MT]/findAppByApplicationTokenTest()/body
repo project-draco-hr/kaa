@@ -1,0 +1,6 @@
+{
+  ApplicationDto application=generateApplication();
+  ApplicationDto foundApp=applicationService.findAppByApplicationToken(application.getApplicationToken());
+  Assert.assertNotNull(foundApp);
+  Assert.assertEquals(application.getId(),foundApp.getId());
+}

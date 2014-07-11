@@ -1,0 +1,13 @@
+{
+  OperationsNodeInfo nodeInfo=new OperationsNodeInfo();
+  nodeInfo.setTimeStarted(System.currentTimeMillis());
+  List<SupportedChannel> supportedChannels=new ArrayList<>();
+  ZkHttpComunicationParameters httpCommunicationParameters=new ZkHttpComunicationParameters(new IpComunicationParameters("localhost",httpPort));
+  BaseStatistics statistics=new BaseStatistics(0,0,0,System.currentTimeMillis());
+  ZkHttpStatistics httpChannelStatistics=new ZkHttpStatistics(statistics);
+  SupportedChannel channelHttp=new SupportedChannel(new ZkSupportedChannel(ZkChannelType.HTTP,true,httpCommunicationParameters,httpChannelStatistics));
+  supportedChannels.add(channelHttp);
+  nodeInfo.setSupportedChannelsArray(supportedChannels);
+  nodeInfo.setConnectionInfo(new ConnectionInfo(thriftHost,thriftPort,publicKey));
+  return nodeInfo;
+}

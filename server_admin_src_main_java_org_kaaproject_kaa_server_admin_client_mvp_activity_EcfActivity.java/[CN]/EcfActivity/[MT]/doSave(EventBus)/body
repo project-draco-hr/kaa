@@ -1,0 +1,17 @@
+{
+  onSave();
+  editEntity(entity,new AsyncCallback<EventClassFamilyDto>(){
+    public void onSuccess(    EventClassFamilyDto result){
+      if (create) {
+        goTo(new EcfPlace(result.getId()));
+      }
+ else {
+        goTo(place.getPreviousPlace());
+      }
+    }
+    public void onFailure(    Throwable caught){
+      detailsView.setErrorMessage(Utils.getErrorMessage(caught));
+    }
+  }
+);
+}

@@ -1,0 +1,9 @@
+{
+  LOG.debug("Generate change...");
+  Change change=new Change();
+  change.setConfigurationId(RANDOM.nextLong());
+  change.setConfigurationVersion(RANDOM.nextInt(3000));
+  change=historyDao.save(change,Change.class);
+  LOG.debug("Generated change {}",change);
+  return change;
+}

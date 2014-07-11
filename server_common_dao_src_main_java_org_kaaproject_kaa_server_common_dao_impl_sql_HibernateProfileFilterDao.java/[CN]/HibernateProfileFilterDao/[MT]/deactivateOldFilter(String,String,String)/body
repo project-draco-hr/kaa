@@ -1,0 +1,17 @@
+{
+  ProfileFilter filter=null;
+  if (isNotBlank(schemaId) && isNotBlank(groupId)) {
+    Criteria criteria=getCriteria();
+    criteria.createAlias(PROFILE_SCHEMA_PROPERTY,PROFILE_SCHEMA_ALIAS);
+    criteria.createAlias(ENDPOINT_GROUP_PROPERTY,ENDPOINT_GROUP_ALIAS);
+    criteria.add(Restrictions.and(Restrictions.eq(ENDPOINT_GROUP_REFERENCE,Long.valueOf(groupId)),Restrictions.eq(PROFILE_SCHEMA_REFERENCE,Long.valueOf(schemaId)),Restrictions.eq(STATUS_PROPERTY,UpdateStatus.ACTIVE)));
+    filter=findOneByCriteria(criteria);
+  }
+  if (filter != null) {
+    filter.setStatus(UpdateStatus.DEPRECATED);
+    filter.setDeactivatedTime(System.currentTimeMillis());
+    filter.setDeactivatedUsername(deactivatedUsername);
+    save(filter);
+  }
+  return filter;
+}

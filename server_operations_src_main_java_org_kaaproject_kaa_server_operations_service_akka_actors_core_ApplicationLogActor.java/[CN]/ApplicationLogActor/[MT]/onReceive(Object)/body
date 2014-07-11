@@ -1,0 +1,6 @@
+{
+  LOG.debug("[{}] Received: {}",applicationToken,message);
+  if (message instanceof LogEventPackMessage) {
+    processLogEventPack((LogEventPackMessage)message);
+  }
+}

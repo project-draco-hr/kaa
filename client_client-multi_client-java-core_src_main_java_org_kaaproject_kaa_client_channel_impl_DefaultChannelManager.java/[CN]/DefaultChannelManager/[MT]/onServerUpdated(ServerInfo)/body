@@ -1,0 +1,10 @@
+{
+  ChannelType typeToVerify=getTypeByServerInfo(newServer);
+  lastServers.put(typeToVerify,newServer);
+  for (  KaaDataChannel channel : channels) {
+    if (channel.getType().equals(typeToVerify)) {
+      LOG.debug("Applying server {} for channel \"{}\" type {}",newServer,channel.getId(),channel.getType());
+      channel.setServer(newServer);
+    }
+  }
+}

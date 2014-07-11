@@ -1,0 +1,11 @@
+{
+  LOG.debug("Deactivate profile filter and increment seq_num, found by id [{}] ",id);
+  ProfileFilter filter=findById(id);
+  if (filter != null) {
+    filter.setStatus(UpdateStatus.DEPRECATED);
+    filter.setDeactivatedTime(System.currentTimeMillis());
+    filter.setDeactivatedUsername(deactivatedUsername);
+    save(filter);
+  }
+  return filter;
+}

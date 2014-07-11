@@ -1,0 +1,13 @@
+{
+  if (server instanceof BootstrapServerInfo) {
+    if (!bootststrapServersIterator.hasNext()) {
+      bootststrapServersIterator=bootststrapServers.iterator();
+    }
+    lastBootstrapServer=bootststrapServersIterator.next();
+    onServerUpdated(lastBootstrapServer);
+  }
+ else {
+    ChannelType typeToVerify=getTypeByServerInfo(server);
+    bootstrapManager.useNextOperationsServer(typeToVerify);
+  }
+}

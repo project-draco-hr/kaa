@@ -1,39 +1,31 @@
 {
   super(org.kaaproject.kaa.common.endpoint.gen.SyncRequest.SCHEMA$);
-  if (isValidValue(fields()[0],other.applicationToken)) {
-    this.applicationToken=data().deepCopy(fields()[0].schema(),other.applicationToken);
+  if (isValidValue(fields()[0],other.syncRequestMetaData)) {
+    this.syncRequestMetaData=data().deepCopy(fields()[0].schema(),other.syncRequestMetaData);
     fieldSetFlags()[0]=true;
   }
-  if (isValidValue(fields()[1],other.endpointPublicKeyHash)) {
-    this.endpointPublicKeyHash=data().deepCopy(fields()[1].schema(),other.endpointPublicKeyHash);
+  if (isValidValue(fields()[1],other.profileSyncRequest)) {
+    this.profileSyncRequest=data().deepCopy(fields()[1].schema(),other.profileSyncRequest);
     fieldSetFlags()[1]=true;
   }
-  if (isValidValue(fields()[2],other.profileHash)) {
-    this.profileHash=data().deepCopy(fields()[2].schema(),other.profileHash);
+  if (isValidValue(fields()[2],other.configurationSyncRequest)) {
+    this.configurationSyncRequest=data().deepCopy(fields()[2].schema(),other.configurationSyncRequest);
     fieldSetFlags()[2]=true;
   }
-  if (isValidValue(fields()[3],other.configurationHash)) {
-    this.configurationHash=data().deepCopy(fields()[3].schema(),other.configurationHash);
+  if (isValidValue(fields()[3],other.notificationSyncRequest)) {
+    this.notificationSyncRequest=data().deepCopy(fields()[3].schema(),other.notificationSyncRequest);
     fieldSetFlags()[3]=true;
   }
-  if (isValidValue(fields()[4],other.topicListHash)) {
-    this.topicListHash=data().deepCopy(fields()[4].schema(),other.topicListHash);
+  if (isValidValue(fields()[4],other.userSyncRequest)) {
+    this.userSyncRequest=data().deepCopy(fields()[4].schema(),other.userSyncRequest);
     fieldSetFlags()[4]=true;
   }
-  if (isValidValue(fields()[5],other.appStateSeqNumber)) {
-    this.appStateSeqNumber=data().deepCopy(fields()[5].schema(),other.appStateSeqNumber);
+  if (isValidValue(fields()[5],other.eventSyncRequest)) {
+    this.eventSyncRequest=data().deepCopy(fields()[5].schema(),other.eventSyncRequest);
     fieldSetFlags()[5]=true;
   }
-  if (isValidValue(fields()[6],other.acceptedUnicastNotifications)) {
-    this.acceptedUnicastNotifications=data().deepCopy(fields()[6].schema(),other.acceptedUnicastNotifications);
+  if (isValidValue(fields()[6],other.logSyncRequest)) {
+    this.logSyncRequest=data().deepCopy(fields()[6].schema(),other.logSyncRequest);
     fieldSetFlags()[6]=true;
-  }
-  if (isValidValue(fields()[7],other.topicStates)) {
-    this.topicStates=data().deepCopy(fields()[7].schema(),other.topicStates);
-    fieldSetFlags()[7]=true;
-  }
-  if (isValidValue(fields()[8],other.subscriptionCommands)) {
-    this.subscriptionCommands=data().deepCopy(fields()[8].schema(),other.subscriptionCommands);
-    fieldSetFlags()[8]=true;
   }
 }

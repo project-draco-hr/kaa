@@ -1,0 +1,13 @@
+{
+  ChannelMetaData channel=channelMap.getByRequestId(message.getRequestId());
+  if (channel != null) {
+    SyncResponseHolder response=channel.getResponse();
+    sendReply(context,channel.getRequest(),response.getResponse());
+    if (!channel.getType().isAsync()) {
+      channelMap.removeChannel(channel);
+    }
+  }
+ else {
+    LOG.debug("[{}][{}] Failed to find request by id [{}].",endpointKey,actorKey,message.getRequestId());
+  }
+}

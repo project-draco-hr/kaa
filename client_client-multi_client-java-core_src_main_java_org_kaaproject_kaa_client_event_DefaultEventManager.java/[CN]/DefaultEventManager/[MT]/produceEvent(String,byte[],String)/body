@@ -1,0 +1,5 @@
+{
+  LOG.info("Producing event [eventClassFQN: {}, target: {}]",eventFqn,(target != null ? target : "broadcast"));
+  currentEvents.add(new Event(eventSequence.getAndIncrement(),eventFqn,ByteBuffer.wrap(data),null,target));
+  transport.sync();
+}

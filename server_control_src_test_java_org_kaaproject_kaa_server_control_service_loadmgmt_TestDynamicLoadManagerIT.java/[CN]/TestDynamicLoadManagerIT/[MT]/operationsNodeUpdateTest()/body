@@ -1,0 +1,25 @@
+{
+  LOG.info("BootstrapNodeUpdateTest started");
+  DynamicLoadManager dm=getDynamicLoadManager();
+  OperationsNodeInfo nodeInfo=generateOperationsNodeInfo("localhost",1200,9898,ByteBuffer.wrap("Just array modified".getBytes()));
+  dm.onNodeUpdated(nodeInfo);
+  LOG.info("BootstrapNodeTest Operations Node {} updated.",nodeInfo.toString());
+  OperationsNodeInfo nodeInfo2=generateOperationsNodeInfo("localhost",1201,9899,ByteBuffer.wrap("Just array modified".getBytes()));
+  dm.onNodeUpdated(nodeInfo2);
+  LOG.info("BootstrapNodeTest Operations Node {} updated.",nodeInfo.toString());
+  ConnectionInfo bsConnectionInfo=new ConnectionInfo(thriftHost,thriftPort,ByteBuffer.wrap("Just array".getBytes()));
+  BootstrapNodeInfo bsNode=new BootstrapNodeInfo(bsConnectionInfo,"localhost",9898,0);
+  dm.onNodeAdded(bsNode);
+  assertNotNull(bootstrapThrift.getBootstrapThriftServiceImpl());
+  assertNotNull(bootstrapThrift.getBootstrapThriftServiceImpl().getOperatonsServerMap());
+  assertEquals(2,bootstrapThrift.getBootstrapThriftServiceImpl().getOperatonsServerMap().size());
+  assertNotNull(bootstrapThrift.getBootstrapThriftServiceImpl().getOperatonsServerMap().get("localhost:1200"));
+  assertNotNull(bootstrapThrift.getBootstrapThriftServiceImpl().getOperatonsServerMap().get("localhost:1201"));
+  assertEquals((long)10,(long)bootstrapThrift.getBootstrapThriftServiceImpl().getOperatonsServerMap().get("localhost:1200").getPriority());
+  assertEquals((long)10,(long)bootstrapThrift.getBootstrapThriftServiceImpl().getOperatonsServerMap().get("localhost:1201").getPriority());
+  byte[] pk=bootstrapThrift.getBootstrapThriftServiceImpl().getOperatonsServerMap().get("localhost:1200").getPublicKey().array();
+  assertEquals("Just array modified".getBytes().length,pk.length);
+  for (int i=0; i < pk.length; i++) {
+    assertEquals("Just array modified".getBytes()[i],pk[i]);
+  }
+}

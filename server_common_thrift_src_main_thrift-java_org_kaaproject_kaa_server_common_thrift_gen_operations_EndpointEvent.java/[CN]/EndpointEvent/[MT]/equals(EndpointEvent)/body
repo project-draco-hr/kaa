@@ -1,0 +1,34 @@
+{
+  if (that == null)   return false;
+  boolean this_present_uuid=true && this.isSetUuid();
+  boolean that_present_uuid=true && that.isSetUuid();
+  if (this_present_uuid || that_present_uuid) {
+    if (!(this_present_uuid && that_present_uuid))     return false;
+    if (!this.uuid.equals(that.uuid))     return false;
+  }
+  boolean this_present_sender=true && this.isSetSender();
+  boolean that_present_sender=true && that.isSetSender();
+  if (this_present_sender || that_present_sender) {
+    if (!(this_present_sender && that_present_sender))     return false;
+    if (!this.sender.equals(that.sender))     return false;
+  }
+  boolean this_present_eventData=true && this.isSetEventData();
+  boolean that_present_eventData=true && that.isSetEventData();
+  if (this_present_eventData || that_present_eventData) {
+    if (!(this_present_eventData && that_present_eventData))     return false;
+    if (!this.eventData.equals(that.eventData))     return false;
+  }
+  boolean this_present_createTime=true;
+  boolean that_present_createTime=true;
+  if (this_present_createTime || that_present_createTime) {
+    if (!(this_present_createTime && that_present_createTime))     return false;
+    if (this.createTime != that.createTime)     return false;
+  }
+  boolean this_present_version=true;
+  boolean that_present_version=true;
+  if (this_present_version || that_present_version) {
+    if (!(this_present_version && that_present_version))     return false;
+    if (this.version != that.version)     return false;
+  }
+  return true;
+}

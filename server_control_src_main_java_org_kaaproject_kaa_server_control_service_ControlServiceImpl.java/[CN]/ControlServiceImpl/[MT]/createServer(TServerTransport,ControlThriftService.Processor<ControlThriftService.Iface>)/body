@@ -1,3 +1,9 @@
 {
-  return new TThreadPoolServer(new Args(serverTransport).processor(processor));
+  TThreadPoolServer.Args args=new Args(serverTransport).processor(processor);
+  args.stopTimeoutVal=3;
+  args.stopTimeoutUnit=TimeUnit.SECONDS;
+  SynchronousQueue<Runnable> executorQueue=new SynchronousQueue<Runnable>();
+  executorService=new ThreadPoolExecutor(args.minWorkerThreads,args.maxWorkerThreads,60,TimeUnit.SECONDS,executorQueue);
+  args.executorService=executorService;
+  return new TThreadPoolServer(args);
 }

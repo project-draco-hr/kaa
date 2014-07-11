@@ -1,0 +1,23 @@
+{
+  List<EventRoute> routes=transformEventRouteFromRouteInfoCollection(routeInfos);
+  String[] listServers=serverIdList;
+  if (listServers == null || listServers.length <= 0) {
+    List<NeighborConnection> servers=neighbors.getNeighbors();
+    listServers=servers.toArray(new String[servers.size()]);
+  }
+  for (  String serverId : listServers) {
+    NeighborConnection server=neighbors.getNeghborConnection(serverId);
+    if (server == null) {
+      LOG.info("sendRouteInfo() specified server {} not found in neighbors list",serverId);
+      notifyListenersOnServerProblem(serverId);
+      continue;
+    }
+    try {
+      server.sendEventMessage(packMessage(routes));
+    }
+ catch (    InterruptedException e) {
+      LOG.error("Error sending events to server: ",e);
+      notifyListenersOnServerProblem(serverId);
+    }
+  }
+}

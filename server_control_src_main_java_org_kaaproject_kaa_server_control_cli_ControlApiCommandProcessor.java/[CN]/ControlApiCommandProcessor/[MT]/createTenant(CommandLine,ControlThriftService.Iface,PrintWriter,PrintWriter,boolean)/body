@@ -5,7 +5,7 @@
       String tenantId=line.getOptionValue("i");
       tenant=toDto(client.getTenant(tenantId));
       if (tenant == null) {
-        writer.println("Tenant with id " + tenantId + " not found!");
+        writer.println("Tenant with id " + tenantId + NOT_FOUND);
         return;
       }
     }
@@ -28,6 +28,6 @@
     }
   }
  catch (  TException e) {
-    handleException("Unable to " + (edit ? "update" : "create") + " tenant",e,errorWriter);
+    handleException(UNABLE_TO + (edit ? UPDATE : CREATE) + " tenant",e,errorWriter);
   }
 }

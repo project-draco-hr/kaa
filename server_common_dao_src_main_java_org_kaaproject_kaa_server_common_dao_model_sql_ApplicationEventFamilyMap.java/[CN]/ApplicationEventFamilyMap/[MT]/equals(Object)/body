@@ -1,0 +1,48 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  ApplicationEventFamilyMap other=(ApplicationEventFamilyMap)obj;
+  if (application == null) {
+    if (other.application != null) {
+      return false;
+    }
+  }
+ else   if (!application.equals(other.application)) {
+    return false;
+  }
+  if (createdTime != other.createdTime) {
+    return false;
+  }
+  if (createdUsername == null) {
+    if (other.createdUsername != null) {
+      return false;
+    }
+  }
+ else   if (!createdUsername.equals(other.createdUsername)) {
+    return false;
+  }
+  if (ecf == null) {
+    if (other.ecf != null) {
+      return false;
+    }
+  }
+ else   if (!ecf.equals(other.ecf)) {
+    return false;
+  }
+  if (id == null) {
+    if (other.id != null) {
+      return false;
+    }
+  }
+ else   if (!id.equals(other.id)) {
+    return false;
+  }
+  return version == other.version;
+}

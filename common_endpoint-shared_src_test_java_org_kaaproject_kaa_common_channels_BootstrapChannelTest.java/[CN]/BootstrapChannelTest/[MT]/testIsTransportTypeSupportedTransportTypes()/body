@@ -1,0 +1,10 @@
+{
+  Channel channel=new BootstrapChannel();
+  assertEquals(true,channel.isTransportTypeSupported(TransportType.BOOTSTRAP));
+  assertEquals(false,channel.isTransportTypeSupported(TransportType.CONFIGURATION));
+  assertEquals(false,channel.isTransportTypeSupported(TransportType.EVENT));
+  assertEquals(false,channel.isTransportTypeSupported(TransportType.LOGGING));
+  assertEquals(false,channel.isTransportTypeSupported(TransportType.NOTIFICATION));
+  assertEquals(false,channel.isTransportTypeSupported(TransportType.PROFILE));
+  assertEquals(false,channel.isTransportTypeSupported(TransportType.USER));
+}

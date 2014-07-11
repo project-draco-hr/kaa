@@ -1,0 +1,9 @@
+{
+  assertEquals(false,HttpLongPollChannel.isTransportSupported(TransportType.BOOTSTRAP));
+  assertEquals(true,HttpLongPollChannel.isTransportSupported(TransportType.CONFIGURATION));
+  assertEquals(true,HttpLongPollChannel.isTransportSupported(TransportType.EVENT));
+  assertEquals(false,HttpLongPollChannel.isTransportSupported(TransportType.LOGGING));
+  assertEquals(true,HttpLongPollChannel.isTransportSupported(TransportType.NOTIFICATION));
+  assertEquals(true,HttpLongPollChannel.isTransportSupported(TransportType.PROFILE));
+  assertEquals(true,HttpLongPollChannel.isTransportSupported(TransportType.USER));
+}

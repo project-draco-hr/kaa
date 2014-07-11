@@ -1,0 +1,22 @@
+{
+  ApplicationEventFamilyMapDto dto=createDto();
+  dto.setId(getStringId());
+  if (application != null) {
+    dto.setApplicationId(application.getStringId());
+  }
+  if (ecf != null) {
+    dto.setEcfId(ecf.getStringId());
+    dto.setEcfName(ecf.getName());
+  }
+  dto.setVersion(version);
+  dto.setCreatedUsername(createdUsername);
+  dto.setCreatedTime(createdTime);
+  if (eventMaps != null) {
+    List<ApplicationEventMapDto> eventMapsDto=new ArrayList<>(eventMaps.size());
+    for (    ApplicationEventMap eventMap : eventMaps) {
+      eventMapsDto.add(eventMap.toDto());
+    }
+    dto.setEventMaps(eventMapsDto);
+  }
+  return dto;
+}

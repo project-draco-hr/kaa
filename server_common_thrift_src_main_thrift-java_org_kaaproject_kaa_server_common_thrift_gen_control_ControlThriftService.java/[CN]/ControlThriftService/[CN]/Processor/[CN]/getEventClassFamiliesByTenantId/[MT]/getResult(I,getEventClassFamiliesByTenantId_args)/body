@@ -1,0 +1,10 @@
+{
+  getEventClassFamiliesByTenantId_result result=new getEventClassFamiliesByTenantId_result();
+  try {
+    result.success=iface.getEventClassFamiliesByTenantId(args.tenantId);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

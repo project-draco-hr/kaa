@@ -1,0 +1,35 @@
+{
+  if (rootRecord != null && uuid != null) {
+    if (isRecordHaveUuid(rootRecord)) {
+      Object uuidValue=rootRecord.get(UUID_FIELD);
+      if (uuid.equals(uuidValue)) {
+        return rootRecord;
+      }
+    }
+    List<Schema.Field> fields=rootRecord.getSchema().getFields();
+    if (fields != null && !fields.isEmpty()) {
+      for (      Schema.Field field : fields) {
+        int position=field.pos();
+        Object value=rootRecord.get(position);
+        if (value instanceof GenericRecord) {
+          GenericRecord record=(GenericRecord)value;
+          return findRecordByUuid(record,uuid);
+        }
+ else         if (value instanceof GenericArray) {
+          GenericArray array=(GenericArray)value;
+          if (array != null) {
+            for (            Object item : array) {
+              if (item instanceof GenericRecord) {
+                GenericRecord result=findRecordByUuid((GenericRecord)item,uuid);
+                if (result != null) {
+                  return result;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  return null;
+}

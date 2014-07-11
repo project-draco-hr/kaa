@@ -1,0 +1,12 @@
+{
+  LOG.debug("Activate profile filter and increment seq_num, found by id [{}] ",id);
+  ProfileFilter filter=findById(id);
+  if (filter != null) {
+    filter.setStatus(UpdateStatus.ACTIVE);
+    filter.setActivatedTime(System.currentTimeMillis());
+    filter.setActivatedUsername(activatedUsername);
+    filter.incrementSequenceNumber();
+    save(filter);
+  }
+  return filter;
+}

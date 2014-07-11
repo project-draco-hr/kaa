@@ -1,5 +1,5 @@
 {
-  GetDeltaRequest request=new GetDeltaRequest(app.getApplicationToken(),EndpointObjectHash.fromSHA1(ENDPOINT_KEY),EndpointObjectHash.fromSHA1(PROFILE_BYTES),EndpointObjectHash.fromSHA1(endpointConfiguration.getConfiguration()),OLD_ENDPOINT_SEQ_NUMBER);
+  GetDeltaRequest request=new GetDeltaRequest(application.getApplicationToken(),EndpointObjectHash.fromSHA1(endpointConfiguration.getConfiguration()),OLD_ENDPOINT_SEQ_NUMBER);
   GetDeltaResponse response=deltaService.getDelta(request,new HistoryDelta(),OLD_ENDPOINT_SEQ_NUMBER);
   assertNotNull(response);
   assertEquals(GetDeltaResponse.GetDeltaResponseType.NO_DELTA,response.getResponseType());

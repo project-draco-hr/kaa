@@ -1,0 +1,10 @@
+{
+  try {
+    SupportedChannelItem record=new SupportedChannelItem();
+    record.SupportedChannel=fieldSetFlags()[0] ? this.SupportedChannel : (org.kaaproject.kaa.server.common.zk.gen.ZkSupportedChannel)defaultValue(fields()[0]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

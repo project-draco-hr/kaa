@@ -1,0 +1,9 @@
+{
+  List<ChannelMetaData> result=new ArrayList<>();
+  for (  ChannelMetaData data : map.values()) {
+    if (data.getRequest().isValid(type)) {
+      result.add(data);
+    }
+  }
+  return result;
+}

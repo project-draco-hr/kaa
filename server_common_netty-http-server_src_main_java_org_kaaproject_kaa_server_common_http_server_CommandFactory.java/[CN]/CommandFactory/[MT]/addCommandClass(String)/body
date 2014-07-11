@@ -1,7 +1,7 @@
 {
   if (!commands.containsKey(className)) {
     Class<?> c=null;
-    Class<?> noparams[]={};
+    Class<?>[] noparams={};
     Object[] args={};
     c=Class.forName(className);
     Method m=c.getMethod(CommandProcessor.COMMAND_METHOD_NAME,noparams);

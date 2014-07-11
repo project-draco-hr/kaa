@@ -1,0 +1,10 @@
+{
+  generateEndpointUserAccessToken_result result=new generateEndpointUserAccessToken_result();
+  try {
+    result.success=iface.generateEndpointUserAccessToken(args.externalUid,args.tenantId);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

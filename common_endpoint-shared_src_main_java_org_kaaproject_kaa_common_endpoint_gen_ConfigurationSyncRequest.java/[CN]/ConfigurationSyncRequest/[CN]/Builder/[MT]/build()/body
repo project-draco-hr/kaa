@@ -1,0 +1,11 @@
+{
+  try {
+    ConfigurationSyncRequest record=new ConfigurationSyncRequest();
+    record.appStateSeqNumber=fieldSetFlags()[0] ? this.appStateSeqNumber : (java.lang.Integer)defaultValue(fields()[0]);
+    record.configurationHash=fieldSetFlags()[1] ? this.configurationHash : (java.nio.ByteBuffer)defaultValue(fields()[1]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

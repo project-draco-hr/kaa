@@ -1,0 +1,32 @@
+{
+  DefaultOperationDataProcessor operationsDataProcessor=new DefaultOperationDataProcessor();
+  ProfileTransport profileTransport=Mockito.mock(ProfileTransport.class);
+  EventTransport eventTransport=Mockito.mock(EventTransport.class);
+  NotificationTransport notificationTransport=Mockito.mock(NotificationTransport.class);
+  ConfigurationTransport configurationTransport=Mockito.mock(ConfigurationTransport.class);
+  UserTransport userTransport=Mockito.mock(UserTransport.class);
+  MetaDataTransport metaDataTransport=Mockito.mock(MetaDataTransport.class);
+  LogTransport logTransport=Mockito.mock(LogTransport.class);
+  operationsDataProcessor.setConfigurationTransport(configurationTransport);
+  operationsDataProcessor.setEventTransport(eventTransport);
+  operationsDataProcessor.setMetaDataTransport(metaDataTransport);
+  operationsDataProcessor.setNotificationTransport(notificationTransport);
+  operationsDataProcessor.setProfileTransport(profileTransport);
+  operationsDataProcessor.setUserTransport(userTransport);
+  operationsDataProcessor.setLogTransport(logTransport);
+  Map<TransportType,ChannelDirection> transportTypes=new HashMap<TransportType,ChannelDirection>();
+  transportTypes.put(TransportType.PROFILE,ChannelDirection.DOWN);
+  transportTypes.put(TransportType.CONFIGURATION,ChannelDirection.DOWN);
+  transportTypes.put(TransportType.NOTIFICATION,ChannelDirection.DOWN);
+  transportTypes.put(TransportType.USER,ChannelDirection.DOWN);
+  transportTypes.put(TransportType.EVENT,ChannelDirection.DOWN);
+  transportTypes.put(TransportType.LOGGING,ChannelDirection.DOWN);
+  assertNotNull(operationsDataProcessor.compileRequest(transportTypes));
+  Mockito.verify(profileTransport,Mockito.times(0)).createProfileRequest();
+  Mockito.verify(eventTransport,Mockito.times(0)).createEventRequest();
+  Mockito.verify(notificationTransport,Mockito.times(0)).createNotificationRequest();
+  Mockito.verify(configurationTransport,Mockito.times(0)).createConfigurationRequest();
+  Mockito.verify(userTransport,Mockito.times(0)).createUserRequest();
+  Mockito.verify(logTransport,Mockito.times(0)).createLogRequest();
+  Mockito.verify(metaDataTransport,Mockito.times(1)).createMetaDataRequest();
+}

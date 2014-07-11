@@ -1,22 +1,7 @@
 {
-  PrivateKey privateKey=keyPair.getPrivate();
-  PublicKey publicKey=keyPair.getPublic();
   File privateFile=makeDirs(privateKeyFile);
   File publicFile=makeDirs(publicKeyFile);
-  X509EncodedKeySpec x509EncodedKeySpec=new X509EncodedKeySpec(publicKey.getEncoded());
-  FileOutputStream fos=new FileOutputStream(publicFile);
-  try {
-    fos.write(x509EncodedKeySpec.getEncoded());
-  }
-  finally {
-    fos.close();
-  }
-  PKCS8EncodedKeySpec pkcs8EncodedKeySpec=new PKCS8EncodedKeySpec(privateKey.getEncoded());
-  fos=new FileOutputStream(privateFile);
-  try {
-    fos.write(pkcs8EncodedKeySpec.getEncoded());
-  }
-  finally {
-    fos.close();
-  }
+  OutputStream privateKeyOutput=new FileOutputStream(privateFile);
+  OutputStream publicKeyOutput=new FileOutputStream(publicFile);
+  saveKeyPair(keyPair,privateKeyOutput,publicKeyOutput);
 }

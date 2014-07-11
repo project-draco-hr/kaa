@@ -1,0 +1,9 @@
+{
+  validateId(applicationId,"Can't find log schemas. Invalid application id: " + applicationId);
+  List<LogSchema> logSchemas=logSchemaDao.findByApplicationId(applicationId);
+  List<SchemaDto> schemas=new ArrayList<>();
+  for (  LogSchema logSchema : logSchemas) {
+    schemas.add(logSchema.toSchemaDto());
+  }
+  return schemas;
+}

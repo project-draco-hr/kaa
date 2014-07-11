@@ -1,0 +1,20 @@
+{
+  cliOut.reset();
+  boolean create=strIsEmpty(logSchemaObjId);
+  String cmdLine=(create ? "create" : "edit") + "LogSchema";
+  cmdLine+=" -a " + applicationId;
+  cmdLine+=" -v " + logSchemaVersion;
+  if (!create) {
+    cmdLine+=" -i " + logSchemaObjId;
+  }
+  if (!strIsEmpty(schemaPath)) {
+    cmdLine+=" -f " + schemaPath;
+  }
+  if (createOut) {
+    cmdLine+=" -o dummy.obj";
+  }
+  int result=cli.processLine(cmdLine);
+  Assert.assertEquals(0,result);
+  String output=cliOut.toString("UTF-8");
+  Assert.assertTrue(output.trim().startsWith("LogSchema:"));
+}

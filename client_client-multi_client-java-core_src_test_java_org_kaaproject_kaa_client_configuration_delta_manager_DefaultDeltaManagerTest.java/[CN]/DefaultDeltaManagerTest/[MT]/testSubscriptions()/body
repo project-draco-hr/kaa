@@ -1,0 +1,19 @@
+{
+  DefaultDeltaManager manager=new DefaultDeltaManager();
+  DeltaReceiver rootReceiver=new TestRootReceiver();
+  manager.registerRootReceiver(rootReceiver);
+  URL schemaUrl=Thread.currentThread().getContextClassLoader().getResource("configuration/manager/arrayFieldsDeltaSchema.json");
+  Schema schema=new Schema.Parser().parse(new File(schemaUrl.getPath()));
+  GenericRecord delta=new GenericData.Record(DefaultConfigurationManagerTest.getDeltaSchemaByFullName(schema,"org.kaa.config.testT"));
+  DefaultConfigurationManagerTest.fillArrayFullResyncDelta(delta);
+  manager.onDeltaReceived(0,delta,true);
+  assertNotNull(itemId);
+  DeltaReceiver receiver=mock(DeltaReceiver.class);
+  manager.subscribeForDeltaUpdates(itemId,receiver);
+  GenericRecord itemRecord2=new GenericData.Record(DefaultConfigurationManagerTest.getDeltaSchemaByFullName(schema,"org.kaa.config.testRecordItemT"));
+  DefaultConfigurationManagerTest.fillArrayItemUpdateDelta(itemRecord2);
+  manager.onDeltaReceived(1,itemRecord2,false);
+  manager.unsubscribeFromDeltaUpdates(itemId);
+  manager.onDeltaReceived(1,itemRecord2,false);
+  verify(receiver,times(1)).loadDelta(any(ConfigurationDelta.class));
+}

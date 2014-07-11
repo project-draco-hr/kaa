@@ -1,0 +1,35 @@
+{
+  cliOut.reset();
+  boolean create=strIsEmpty(endpointGroupId);
+  int result=-1;
+  if (create) {
+    if (strIsEmpty(applicationId)) {
+      applicationId=editApplicationCli(cli,null,applicationId,null,tenantName,false);
+      cliOut.reset();
+    }
+    String cmdLine="createEndpointGroup -n testEndpointGroup" + RandomStringUtils.randomNumeric(4) + " -a "+ applicationId+ " -w "+ weight;
+    if (createOut) {
+      cmdLine+=" -o dummy.out";
+    }
+    result=cli.processLine(cmdLine);
+  }
+ else {
+    result=cli.processLine("editEndpointGroup -n testEndpointGroup" + RandomStringUtils.randomNumeric(4) + " -i "+ endpointGroupId+ " -w "+ weight);
+  }
+  Assert.assertEquals(result,0);
+  String output=cliOut.toString("UTF-8");
+  if (create) {
+    logger.debug(" ---> TEST LOGS: " + output.trim());
+    String id=output.trim().substring("Created new Endpoint Group with id: ".length()).trim();
+    return id;
+  }
+ else   if (endpointGroupId.equals(FAKE_SQL_ID)) {
+    logger.debug(" ---> TEST LOGS: " + output.trim());
+    Assert.assertTrue(output.trim().startsWith("Endpoint Group with id " + FAKE_SQL_ID + " not found!"));
+    return endpointGroupId;
+  }
+ else {
+    Assert.assertTrue(output.trim().startsWith("Endpoint Group updated."));
+    return endpointGroupId;
+  }
+}

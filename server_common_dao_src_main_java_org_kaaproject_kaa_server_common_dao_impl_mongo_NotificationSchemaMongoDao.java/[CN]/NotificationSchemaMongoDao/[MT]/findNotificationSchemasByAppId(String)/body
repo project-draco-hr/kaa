@@ -1,0 +1,8 @@
+{
+  LOG.debug("Find notification schemas by application id [{}]",appId);
+  List<Sort.Order> orders=new ArrayList<>();
+  orders.add(new Sort.Order(Direction.ASC,MAJOR_VERSION));
+  orders.add(new Sort.Order(Direction.ASC,MINOR_VERSION));
+  Sort sort=new Sort(orders);
+  return find(query(where(APPLICATION_ID).is(appId)).with(sort));
+}

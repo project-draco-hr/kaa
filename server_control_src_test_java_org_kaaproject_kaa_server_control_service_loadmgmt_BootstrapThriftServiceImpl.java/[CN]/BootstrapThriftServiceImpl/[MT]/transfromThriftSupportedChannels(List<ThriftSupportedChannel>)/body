@@ -1,0 +1,24 @@
+{
+  List<SupportedChannel> suppChannels=new ArrayList<>();
+  for (  ThriftSupportedChannel thriftSuppChannel : supportedChannels) {
+    ChannelType channelType=ChannelType.HTTP;
+    Object communicationParameters=null;
+switch (thriftSuppChannel.getType()) {
+case HTTP:
+      channelType=ChannelType.HTTP;
+    communicationParameters=new HTTPComunicationParameters(thriftSuppChannel.getCommunicationParams().getHttpParams().getHostName(),thriftSuppChannel.getCommunicationParams().getHttpParams().getPort());
+  break;
+case HTTP_LP:
+channelType=ChannelType.HTTP_LP;
+communicationParameters=new HTTPLPComunicationParameters(thriftSuppChannel.getCommunicationParams().getHttpLpParams().getHostName(),thriftSuppChannel.getCommunicationParams().getHttpLpParams().getPort());
+break;
+default :
+break;
+}
+if (communicationParameters != null) {
+SupportedChannel channel=new SupportedChannel(channelType,communicationParameters);
+suppChannels.add(channel);
+}
+}
+return suppChannels;
+}

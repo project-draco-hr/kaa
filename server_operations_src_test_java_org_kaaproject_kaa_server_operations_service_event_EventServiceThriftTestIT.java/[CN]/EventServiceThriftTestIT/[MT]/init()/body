@@ -1,0 +1,7 @@
+{
+  TestCluster.checkStarted();
+  listener=new OperationsNodesListener();
+  TestCluster.addOperationsListener(listener);
+  executor=Executors.newCachedThreadPool();
+  thriftServers=new LinkedList<>();
+}

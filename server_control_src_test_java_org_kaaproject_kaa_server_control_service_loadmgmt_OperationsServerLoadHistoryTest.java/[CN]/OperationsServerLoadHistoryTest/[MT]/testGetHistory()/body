@@ -1,0 +1,9 @@
+{
+  OperationsServerLoadHistory hist=new OperationsServerLoadHistory(MAX_HISTORY_TIME_LIVE);
+  hist.addOpsServerLoad(1,2,3);
+  assertNotNull(hist.getHistory());
+  assertEquals(1,hist.getHistory().size());
+  assertEquals(3,hist.getHistory().get(0).getDeltaCalculationCount());
+  assertEquals(2,hist.getHistory().get(0).getProcessedRequestCount());
+  assertEquals(1,hist.getHistory().get(0).getRegisteredUsersCount());
+}

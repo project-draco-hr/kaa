@@ -1,0 +1,8 @@
+{
+  ProfileSchema schema=null;
+  LOG.debug("Find profile schema by application id {} and major version {}",appId,version);
+  if (isNotBlank(appId)) {
+    schema=findOneByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.and(Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(appId)),Restrictions.eq(MAJOR_VERSION_PROPERTY,version)));
+  }
+  return schema;
+}

@@ -1,0 +1,14 @@
+{
+  isRunning=true;
+  try {
+    if (!Thread.currentThread().isInterrupted()) {
+      executeCommand();
+    }
+  }
+  finally {
+    isRunning=false;
+synchronized (this) {
+      this.notifyAll();
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  PrivateKey privateKey=keyPair.getPrivate();
+  PublicKey publicKey=keyPair.getPublic();
+  X509EncodedKeySpec x509EncodedKeySpec=new X509EncodedKeySpec(publicKey.getEncoded());
+  try {
+    publicKeyOutput.write(x509EncodedKeySpec.getEncoded());
+  }
+  finally {
+    publicKeyOutput.close();
+  }
+  PKCS8EncodedKeySpec pkcs8EncodedKeySpec=new PKCS8EncodedKeySpec(privateKey.getEncoded());
+  try {
+    privateKeyOutput.write(pkcs8EncodedKeySpec.getEncoded());
+  }
+  finally {
+    privateKeyOutput.close();
+  }
+}

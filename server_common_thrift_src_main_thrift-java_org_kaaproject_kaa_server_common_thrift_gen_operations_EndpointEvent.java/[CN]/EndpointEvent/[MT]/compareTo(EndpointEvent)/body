@@ -1,0 +1,57 @@
+{
+  if (!getClass().equals(other.getClass())) {
+    return getClass().getName().compareTo(other.getClass().getName());
+  }
+  int lastComparison=0;
+  lastComparison=Boolean.valueOf(isSetUuid()).compareTo(other.isSetUuid());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetUuid()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.uuid,other.uuid);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  lastComparison=Boolean.valueOf(isSetSender()).compareTo(other.isSetSender());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetSender()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.sender,other.sender);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  lastComparison=Boolean.valueOf(isSetEventData()).compareTo(other.isSetEventData());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetEventData()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.eventData,other.eventData);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  lastComparison=Boolean.valueOf(isSetCreateTime()).compareTo(other.isSetCreateTime());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetCreateTime()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.createTime,other.createTime);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  lastComparison=Boolean.valueOf(isSetVersion()).compareTo(other.isSetVersion());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetVersion()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.version,other.version);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  return 0;
+}

@@ -1,0 +1,47 @@
+{
+  if (!getClass().equals(other.getClass())) {
+    return getClass().getName().compareTo(other.getClass().getName());
+  }
+  int lastComparison=0;
+  lastComparison=Boolean.valueOf(isSetUserId()).compareTo(other.isSetUserId());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetUserId()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.userId,other.userId);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  lastComparison=Boolean.valueOf(isSetTenantId()).compareTo(other.isSetTenantId());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetTenantId()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.tenantId,other.tenantId);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  lastComparison=Boolean.valueOf(isSetRouteInfo()).compareTo(other.isSetRouteInfo());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetRouteInfo()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.routeInfo,other.routeInfo);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  lastComparison=Boolean.valueOf(isSetOperationsServerId()).compareTo(other.isSetOperationsServerId());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetOperationsServerId()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.operationsServerId,other.operationsServerId);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  return 0;
+}

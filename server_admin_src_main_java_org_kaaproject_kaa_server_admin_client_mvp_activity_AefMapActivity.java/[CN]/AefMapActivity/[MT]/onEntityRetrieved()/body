@@ -1,0 +1,21 @@
+{
+  if (create) {
+    KaaAdmin.getDataSource().getVacantEventClassFamilies(place.getApplicationId(),new AsyncCallback<List<EcfInfoDto>>(){
+      @Override public void onFailure(      Throwable caught){
+        detailsView.setErrorMessage(Utils.getErrorMessage(caught));
+      }
+      @Override public void onSuccess(      List<EcfInfoDto> result){
+        detailsView.updateEcfs(result);
+      }
+    }
+);
+  }
+ else {
+    detailsView.getCreatedUsername().setValue(entity.getCreatedUsername());
+    detailsView.getCreatedDateTime().setValue(Utils.millisecondsToDateTimeString(entity.getCreatedTime()));
+    detailsView.getEcfName().setValue(entity.getEcfName());
+    detailsView.getEcfVersion().setValue(entity.getVersion() + "");
+    eventMapDataProvider.setEventMaps(entity.getEventMaps());
+    eventMapDataProvider.reload(detailsView.getEventMapGrid().getDisplay());
+  }
+}

@@ -1,0 +1,11 @@
+{
+  super(org.kaaproject.kaa.common.endpoint.gen.ConfigurationSyncRequest.SCHEMA$);
+  if (isValidValue(fields()[0],other.appStateSeqNumber)) {
+    this.appStateSeqNumber=data().deepCopy(fields()[0].schema(),other.appStateSeqNumber);
+    fieldSetFlags()[0]=true;
+  }
+  if (isValidValue(fields()[1],other.configurationHash)) {
+    this.configurationHash=data().deepCopy(fields()[1].schema(),other.configurationHash);
+    fieldSetFlags()[1]=true;
+  }
+}

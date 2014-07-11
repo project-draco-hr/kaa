@@ -1,0 +1,7 @@
+{
+  DBObject dbObject=new BasicDBObject();
+  mongoTemplate.getConverter().write(dto,dbObject);
+  LOG.debug("Save auth user [{}]",dbObject);
+  mongoTemplate.getDb().getCollection(SecureUser.COLLECTION_NAME).save(dbObject);
+  return dto;
+}

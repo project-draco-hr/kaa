@@ -6,7 +6,8 @@
     int profileSchemaVersion=Integer.parseInt(line.getOptionValue("psv"));
     int configurationSchemaVersion=Integer.parseInt(line.getOptionValue("csv"));
     int notificationSchemaVersion=Integer.parseInt(line.getOptionValue("nsv"));
-    Sdk sdk=client.generateSdk(sdkPlatform,applicationId,profileSchemaVersion,configurationSchemaVersion,notificationSchemaVersion);
+    int logSchemaVersion=Integer.parseInt(line.getOptionValue("lsv"));
+    Sdk sdk=client.generateSdk(sdkPlatform,applicationId,profileSchemaVersion,configurationSchemaVersion,notificationSchemaVersion,null,logSchemaVersion);
     writer.println("Generated SDK: " + sdk.getFileName());
     String fileName=sdk.getFileName();
     File outputFile;

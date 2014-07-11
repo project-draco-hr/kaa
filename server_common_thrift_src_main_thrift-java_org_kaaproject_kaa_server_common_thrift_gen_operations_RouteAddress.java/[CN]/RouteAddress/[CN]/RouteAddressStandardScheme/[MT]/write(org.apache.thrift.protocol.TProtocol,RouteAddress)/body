@@ -1,0 +1,21 @@
+{
+  struct.validate();
+  oprot.writeStructBegin(STRUCT_DESC);
+  if (struct.endpointKey != null) {
+    oprot.writeFieldBegin(ENDPOINT_KEY_FIELD_DESC);
+    oprot.writeBinary(struct.endpointKey);
+    oprot.writeFieldEnd();
+  }
+  if (struct.applicationToken != null) {
+    oprot.writeFieldBegin(APPLICATION_TOKEN_FIELD_DESC);
+    oprot.writeString(struct.applicationToken);
+    oprot.writeFieldEnd();
+  }
+  if (struct.operationsServerId != null) {
+    oprot.writeFieldBegin(OPERATIONS_SERVER_ID_FIELD_DESC);
+    oprot.writeString(struct.operationsServerId);
+    oprot.writeFieldEnd();
+  }
+  oprot.writeFieldStop();
+  oprot.writeStructEnd();
+}

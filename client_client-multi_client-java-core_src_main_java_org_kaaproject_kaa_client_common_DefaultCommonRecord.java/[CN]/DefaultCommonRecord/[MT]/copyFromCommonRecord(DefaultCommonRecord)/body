@@ -1,0 +1,25 @@
+{
+  for (  Map.Entry<String,CommonValue> entry : other.record.entrySet()) {
+    String key=entry.getKey();
+    CommonValue value=entry.getValue();
+    if (value.isRecord()) {
+      this.record.put(key,new DefaultCommonValue(new DefaultCommonRecord(value.getRecord())));
+    }
+ else     if (value.isArray()) {
+      List<CommonValue> newArray=new LinkedList<CommonValue>();
+      List<CommonValue> array=value.getArray().getList();
+      for (      CommonValue item : array) {
+        if (item.isRecord()) {
+          newArray.add(new DefaultCommonValue(new DefaultCommonRecord(item.getRecord())));
+        }
+ else {
+          newArray.add(item);
+        }
+      }
+      this.record.put(key,new DefaultCommonValue(new DefaultCommonArray(value.getArray().getSchema(),newArray)));
+    }
+ else {
+      this.record.put(key,value);
+    }
+  }
+}

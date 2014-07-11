@@ -1,0 +1,14 @@
+{
+  List<SupportedChannel> supportedChannelList=server.getSupportedChannelsArray();
+  for (  SupportedChannel supportedChannel : supportedChannelList) {
+    if (supportedChannel.getChannelType().equals(type)) {
+      try {
+        return getSeverInfoByChannel(server,supportedChannel);
+      }
+ catch (      ParsingException|NoSuchAlgorithmException|InvalidKeySpecException e) {
+        throw new BootstrapRuntimeException(e.getMessage());
+      }
+    }
+  }
+  return null;
+}

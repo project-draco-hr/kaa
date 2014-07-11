@@ -1,0 +1,8 @@
+{
+  EndpointProfileDto endpointProfile=generateEndpointprofile(null,null);
+  Assert.assertNotNull(endpointProfile);
+  endpointProfile.setId(null);
+  EndpointProfile saved=endpointProfileDao.save(new EndpointProfile(endpointProfile));
+  Assert.assertNotNull(saved);
+  Assert.assertEquals(endpointProfile,saved.toDto());
+}

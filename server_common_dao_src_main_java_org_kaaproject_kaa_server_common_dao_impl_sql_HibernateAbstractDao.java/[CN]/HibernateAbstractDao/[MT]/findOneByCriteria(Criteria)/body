@@ -1,0 +1,7 @@
+{
+  String className=getSimpleClassName();
+  LOG.debug("Find {} entity by criteria [{}] ",className,criteria);
+  T result=(T)criteria.uniqueResult();
+  LOG.debug("Found {} entity: [{}] ",className,result);
+  return result;
+}

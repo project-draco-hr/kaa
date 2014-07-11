@@ -1,8 +1,8 @@
 {
   ConfigurationSchemaDto configurationSchema=new ConfigurationSchemaDto();
   configurationSchema.setStatus(UpdateStatus.ACTIVE);
-  String schema=getResourceAsString(TEST_CONFIG_SCHEMA);
-  configurationSchema.setSchema(schema);
+  DataSchema schema=new KaaSchemaFactoryImpl().createDataSchema(getResourceAsString(TEST_CONFIG_SCHEMA));
+  configurationSchema.setSchema(schema.getRawSchema());
   configurationSchema.setName(generateString("Test Schema"));
   configurationSchema.setDescription(generateString("Test Desc"));
   if (strIsEmpty(applicationId)) {

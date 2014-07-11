@@ -1,6 +1,0 @@
-{
-  for (  Entry<String,Integer> entry : response.getSubscriptionStates().entrySet()) {
-    TopicRegistrationRequestMessage topicSubscriptionMessage=new TopicRegistrationRequestMessage(entry.getKey(),entry.getValue(),response.getSystemNfVersion(),response.getUserNfVersion(),appToken,key,self());
-    context().parent().tell(topicSubscriptionMessage,self());
-  }
-}

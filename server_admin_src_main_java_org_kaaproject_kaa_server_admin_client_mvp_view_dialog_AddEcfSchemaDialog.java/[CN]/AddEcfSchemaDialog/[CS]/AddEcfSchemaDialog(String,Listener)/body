@@ -1,0 +1,48 @@
+{
+  super(false,true);
+  this.ecfId=ecfId;
+  this.listener=listener;
+  setWidth("500px");
+  setTitle(Utils.constants.addEcfSchema());
+  VerticalPanel dialogContents=new VerticalPanel();
+  dialogContents.setSpacing(4);
+  setWidget(dialogContents);
+  errorPanel=new AlertPanel(AlertPanel.Type.ERROR);
+  errorPanel.setVisible(false);
+  dialogContents.add(errorPanel);
+  FlexTable table=new FlexTable();
+  table.setCellSpacing(6);
+  int row=0;
+  Widget label=new Label(Utils.constants.selectSchemaFile());
+  label.addStyleName("required");
+  schemaFileUpload=new FileUploadForm();
+  schemaFileUpload.setWidth("200px");
+  table.setWidget(row,0,label);
+  table.setWidget(row,1,schemaFileUpload);
+  table.getCellFormatter().setHorizontalAlignment(row,0,HasHorizontalAlignment.ALIGN_RIGHT);
+  dialogContents.add(table);
+  schemaFileUpload.addChangeHandler(this);
+  fileItemName=schemaFileUpload.getFileItemName();
+  schemaFileUpload.addSubmitCompleteHandler(new SubmitCompleteHandler(){
+    @Override public void onSubmitComplete(    SubmitCompleteEvent event){
+      performAdd();
+    }
+  }
+);
+  addButton=new Button(Utils.constants.add(),new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      schemaFileUpload.submit();
+    }
+  }
+);
+  Button closeButton=new Button(Utils.constants.close(),new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      hide();
+      AddEcfSchemaDialog.this.listener.onClose();
+    }
+  }
+);
+  addButton(addButton);
+  addButton(closeButton);
+  addButton.setEnabled(false);
+}

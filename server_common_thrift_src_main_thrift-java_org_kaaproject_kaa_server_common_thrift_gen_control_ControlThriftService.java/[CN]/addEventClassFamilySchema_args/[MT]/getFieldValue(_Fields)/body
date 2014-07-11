@@ -1,0 +1,11 @@
+{
+switch (field) {
+case EVENT_CLASS_FAMILY_ID:
+    return getEventClassFamilyId();
+case EVENT_CLASS_FAMILY_SCHEMA:
+  return getEventClassFamilySchema();
+case CREATED_USERNAME:
+return getCreatedUsername();
+}
+throw new IllegalStateException();
+}

@@ -1,0 +1,12 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    ApplicationDto storedApplication=toDto(clientProvider.getClient().getApplication(applicationId));
+    checkTenantId(storedApplication.getTenantId());
+    SdkKey sdkKey=new SdkKey(applicationId,configurationSchemaVersion,profileSchemaVersion,notificationSchemaVersion,logSchemaVersion,targetPlatform,aefMapIds);
+    return Base64.encodeObject(sdkKey,Base64.URL_SAFE);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

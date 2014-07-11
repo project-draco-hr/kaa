@@ -1,0 +1,18 @@
+{
+  Assert.assertNotNull(expectedUsers);
+  Assert.assertNotNull(actualUsers);
+  Assert.assertEquals(expectedUsers.size(),actualUsers.size());
+  List<UserDto> notMatchedUsers=new ArrayList<>(actualUsers);
+  for (  UserDto expectedUser : expectedUsers) {
+    boolean found=false;
+    for (    UserDto actualUser : actualUsers) {
+      if (expectedUser.getId().equals(actualUser.getId())) {
+        Assert.assertEquals(expectedUser,actualUser);
+        found=true;
+        notMatchedUsers.remove(actualUser);
+      }
+    }
+    Assert.assertTrue("User not found",found);
+  }
+  Assert.assertTrue(notMatchedUsers.isEmpty());
+}

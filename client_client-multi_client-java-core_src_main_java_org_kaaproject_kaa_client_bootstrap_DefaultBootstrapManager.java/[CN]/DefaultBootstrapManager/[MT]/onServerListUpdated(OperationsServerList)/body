@@ -1,0 +1,49 @@
+{
+  operationsServerList=list.getOperationsServerArray();
+  mappedOperationServerList.clear();
+  mappedIterators.clear();
+  if (operationsServerList != null && !operationsServerList.isEmpty()) {
+    for (    OperationsServer server : operationsServerList) {
+      for (      SupportedChannel supportedChannel : server.getSupportedChannelsArray()) {
+        try {
+          Channel channel=ChannelFactory.getChannelFromSupportedChannel(supportedChannel);
+          List<OperationsServer> servers=mappedOperationServerList.get(channel.getChannelType());
+          if (servers == null) {
+            servers=new LinkedList<>();
+            mappedOperationServerList.put(channel.getChannelType(),servers);
+          }
+          servers.add(server);
+        }
+ catch (        ParsingException e) {
+          throw new BootstrapRuntimeException(e.getMessage());
+        }
+      }
+    }
+    for (    Map.Entry<ChannelType,List<OperationsServer>> entry : mappedOperationServerList.entrySet()) {
+      Collections.shuffle(entry.getValue());
+      Collections.sort(entry.getValue(),new Comparator<OperationsServer>(){
+        @Override public int compare(        OperationsServer o1,        OperationsServer o2){
+          return o1.getPriority().compareTo(o2.getPriority());
+        }
+      }
+);
+      mappedIterators.put(entry.getKey(),entry.getValue().iterator());
+    }
+    if (serverToApply != null) {
+      OperationsServer server=getServerByName(serverToApply);
+      if (server != null) {
+        notifyChannelManangerAboutServer(server);
+        serverToApply=null;
+      }
+    }
+ else {
+      for (      Map.Entry<ChannelType,Iterator<OperationsServer>> entry : mappedIterators.entrySet()) {
+        ServerInfo info=getServerInfoByType(entry.getValue().next(),entry.getKey());
+        channelManager.onServerUpdated(info);
+      }
+    }
+  }
+ else {
+    throw new BootstrapRuntimeException("Operations Server list is empty");
+  }
+}

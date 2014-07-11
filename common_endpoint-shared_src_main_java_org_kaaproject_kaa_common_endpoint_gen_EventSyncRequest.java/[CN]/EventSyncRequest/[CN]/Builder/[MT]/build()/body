@@ -1,0 +1,11 @@
+{
+  try {
+    EventSyncRequest record=new EventSyncRequest();
+    record.eventListenersRequests=fieldSetFlags()[0] ? this.eventListenersRequests : (java.util.List<org.kaaproject.kaa.common.endpoint.gen.EventListenersRequest>)defaultValue(fields()[0]);
+    record.events=fieldSetFlags()[1] ? this.events : (java.util.List<org.kaaproject.kaa.common.endpoint.gen.Event>)defaultValue(fields()[1]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

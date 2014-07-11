@@ -1,0 +1,16 @@
+{
+  if (field == null) {
+    throw new IllegalArgumentException();
+  }
+switch (field) {
+case USER_ID:
+    return isSetUserId();
+case TENANT_ID:
+  return isSetTenantId();
+case ENDPOINT_EVENT:
+return isSetEndpointEvent();
+case ROUTE_ADDRESS:
+return isSetRouteAddress();
+}
+throw new IllegalStateException();
+}

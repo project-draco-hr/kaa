@@ -1,0 +1,16 @@
+{
+  struct.validate();
+  oprot.writeStructBegin(STRUCT_DESC);
+  if (struct.type != null) {
+    oprot.writeFieldBegin(TYPE_FIELD_DESC);
+    oprot.writeI32(struct.type.getValue());
+    oprot.writeFieldEnd();
+  }
+  if (struct.communicationParams != null) {
+    oprot.writeFieldBegin(COMMUNICATION_PARAMS_FIELD_DESC);
+    struct.communicationParams.write(oprot);
+    oprot.writeFieldEnd();
+  }
+  oprot.writeFieldStop();
+  oprot.writeStructEnd();
+}

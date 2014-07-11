@@ -1,0 +1,16 @@
+{
+  if (isShutdown) {
+    LOG.info("Can't sync. Channel {} is down",getId());
+    return;
+  }
+  LOG.info("Processing sync all for channel {}",getId());
+  if (multiplexer != null && demultiplexer != null) {
+    if (currentServer != null) {
+      stopPoll();
+      startPoll();
+    }
+ else {
+      LOG.warn("Can't sync. Server is null");
+    }
+  }
+}

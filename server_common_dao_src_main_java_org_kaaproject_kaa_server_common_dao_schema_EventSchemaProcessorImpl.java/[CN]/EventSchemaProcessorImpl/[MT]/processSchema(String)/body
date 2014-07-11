@@ -1,0 +1,36 @@
+{
+  Schema parsedSchema=null;
+  List<EventSchemaMetadata> eventClassSchemas=null;
+  try {
+    parsedSchema=new Schema.Parser().parse(schema);
+  }
+ catch (  SchemaParseException spe) {
+    LOG.error("Can't parse schema.",spe);
+    throw new EventSchemaException("Can't parse provided event class family schema.",spe);
+  }
+  try {
+    List<Schema> parsedEventClassSchemas=parsedSchema.getTypes();
+    eventClassSchemas=new ArrayList<>(parsedEventClassSchemas.size());
+    for (    Schema parsedEventClassSchema : parsedEventClassSchemas) {
+      EventSchemaMetadata eventClassSchema=new EventSchemaMetadata();
+      eventClassSchema.setFqn(parsedEventClassSchema.getFullName());
+      String strClassType=parsedEventClassSchema.getProp(CLASS_TYPE);
+      EventClassType classType=null;
+      try {
+        classType=EventClassType.valueOf(strClassType.toUpperCase());
+      }
+ catch (      Exception e) {
+        LOG.error("Can't process provided event class family schema. Invalid classType [{}]",strClassType);
+        throw new EventSchemaException("Can't process provided event class family schema. Invalid classType: " + strClassType);
+      }
+      eventClassSchema.setType(classType);
+      eventClassSchema.setSchema(parsedEventClassSchema.toString());
+      eventClassSchemas.add(eventClassSchema);
+    }
+  }
+ catch (  Exception e) {
+    LOG.error("Invalid event class family schema.",e);
+    throw new EventSchemaException("Can't process provided event class family schema.",e);
+  }
+  return eventClassSchemas;
+}

@@ -1,13 +1,8 @@
 {
-  validateObject(topicDto,"Can't save topic. Invalid topic object");
+  validateSqlObject(topicDto,"Can't save topic. Invalid topic object");
   if (StringUtils.isBlank(topicDto.getId())) {
     LOG.debug("Save new topic.");
     topicDto.setCreatedTime(System.currentTimeMillis());
   }
-  Topic topic=new Topic(topicDto);
-  Update update=new Update();
-  update.setSequenceNumber(topic.getSecNum());
-  update.setStatus(ProcessingStatus.IDLE);
-  topic.setUpdate(update);
-  return getDto(topicDao.save(topic));
+  return getDto(topicDao.save(new Topic(topicDto)));
 }

@@ -1,0 +1,20 @@
+{
+  BootstrapTransport transport=mock(BootstrapTransport.class);
+  DefaultBootstrapManager manager=new DefaultBootstrapManager(transport);
+  OperationsServerList serverList=new OperationsServerList();
+  boolean exception=false;
+  try {
+    manager.receiveOperationsServerList();
+    manager.useNextOperationsServer(ChannelType.HTTP_LP);
+  }
+ catch (  BootstrapRuntimeException e) {
+    exception=true;
+  }
+  assertTrue(exception);
+  LinkedList<OperationsServer> list=new LinkedList<OperationsServer>();
+  list.add(new OperationsServer());
+  list.add(new OperationsServer());
+  serverList.setOperationsServerArray(list);
+  manager.receiveOperationsServerList();
+  verify(transport,times(2)).sync();
+}

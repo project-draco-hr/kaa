@@ -1,0 +1,19 @@
+{
+  AbstractHttpClient client=Mockito.mock(AbstractHttpClient.class);
+  RawDataProcessor processor=Mockito.mock(RawDataProcessor.class);
+  Map<TransportType,ChannelDirection> transportTypes=new HashMap<>();
+  HttpLongPollServerInfo serverInfo=Mockito.mock(HttpLongPollServerInfo.class);
+  Mockito.when(processor.createRequest(transportTypes)).thenReturn(null);
+  PollCommand command=new PollCommand(client,processor,transportTypes,serverInfo);
+  command.execute();
+  Mockito.when(processor.createRequest(transportTypes)).thenReturn(new LinkedHashMap<String,byte[]>());
+  command.execute();
+  Mockito.verify(client,Mockito.times(1)).executeHttpRequest(Mockito.eq(""),Mockito.any(LinkedHashMap.class));
+  Mockito.verify(processor,Mockito.times(1)).onResponse(Mockito.any(byte[].class));
+  Mockito.verify(processor,Mockito.times(2)).createRequest(transportTypes);
+  Mockito.when(client.canAbort()).thenReturn(false);
+  command.cancel();
+  Mockito.when(client.canAbort()).thenReturn(true);
+  command.cancel();
+  Mockito.verify(client,Mockito.times(1)).abort();
+}

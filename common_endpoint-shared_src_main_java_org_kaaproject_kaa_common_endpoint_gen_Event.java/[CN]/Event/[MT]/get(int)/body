@@ -1,0 +1,16 @@
+{
+switch (field$) {
+case 0:
+    return seqNum;
+case 1:
+  return eventClassFQN;
+case 2:
+return eventData;
+case 3:
+return source;
+case 4:
+return target;
+default :
+throw new org.apache.avro.AvroRuntimeException("Bad index");
+}
+}

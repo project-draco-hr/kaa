@@ -1,0 +1,10 @@
+{
+  AbstractHttpClient client=Mockito.mock(AbstractHttpClient.class);
+  RawDataProcessor processor=Mockito.mock(RawDataProcessor.class);
+  Map<TransportType,ChannelDirection> transportTypes=new HashMap<>();
+  HttpLongPollServerInfo serverInfo=Mockito.mock(HttpLongPollServerInfo.class);
+  Mockito.when(client.executeHttpRequest(Mockito.anyString(),Mockito.any(LinkedHashMap.class))).thenThrow(new Exception());
+  PollCommand command=new PollCommand(client,processor,transportTypes,serverInfo);
+  command.execute();
+  Mockito.verify(processor,Mockito.times(1)).onServerError(serverInfo);
+}

@@ -1,0 +1,8 @@
+{
+  Topic topic=generateTopic(null,null);
+  int seqNum=topic.getSequenceNumber();
+  Topic updated=topicDao.getNextSeqNumber(topic.getId().toString());
+  Assert.assertNotNull(updated);
+  Assert.assertNotEquals(seqNum,updated.getSequenceNumber());
+  Assert.assertEquals(seqNum + 1,updated.getSequenceNumber());
+}

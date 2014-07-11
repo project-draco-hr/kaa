@@ -1,0 +1,34 @@
+{
+  TTupleProtocol oprot=(TTupleProtocol)prot;
+  BitSet optionals=new BitSet();
+  if (struct.isSetUpdateType()) {
+    optionals.set(0);
+  }
+  if (struct.isSetEventClassFamilyVersion()) {
+    optionals.set(1);
+  }
+  if (struct.isSetApplicationToken()) {
+    optionals.set(2);
+  }
+  if (struct.isSetEndpointId()) {
+    optionals.set(3);
+  }
+  oprot.writeBitSet(optionals,4);
+  if (struct.isSetUpdateType()) {
+    oprot.writeI32(struct.updateType.getValue());
+  }
+  if (struct.isSetEventClassFamilyVersion()) {
+{
+      oprot.writeI32(struct.eventClassFamilyVersion.size());
+      for (      EventClassFamilyVersion _iter4 : struct.eventClassFamilyVersion) {
+        _iter4.write(oprot);
+      }
+    }
+  }
+  if (struct.isSetApplicationToken()) {
+    oprot.writeString(struct.applicationToken);
+  }
+  if (struct.isSetEndpointId()) {
+    oprot.writeBinary(struct.endpointId);
+  }
+}

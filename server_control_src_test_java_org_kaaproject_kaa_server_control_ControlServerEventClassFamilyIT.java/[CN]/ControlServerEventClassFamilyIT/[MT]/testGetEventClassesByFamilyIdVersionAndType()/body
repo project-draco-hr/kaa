@@ -1,0 +1,12 @@
+{
+  EventClassFamilyDto eventClassFamily=createEventClassFamily();
+  String schema=getResourceAsString(TEST_EVENT_CLASS_FAMILY_SCHEMA);
+  client.addEventClassFamilySchema(eventClassFamily.getId(),schema,null);
+  List<EventClassDto> eventClasses=toDtoList(client.getEventClassesByFamilyIdVersionAndType(eventClassFamily.getId(),1,toGenericDataStruct(EventClassType.EVENT)));
+  Assert.assertNotNull(eventClasses);
+  Assert.assertEquals(4,eventClasses.size());
+  for (  EventClassDto eventClass : eventClasses) {
+    Assert.assertEquals(eventClassFamily.getId(),eventClass.getEcfId());
+    Assert.assertEquals(1,eventClass.getVersion());
+  }
+}

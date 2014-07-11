@@ -1,6 +1,6 @@
 {
   UserDto user=null;
-  if (isValidObject(userDto)) {
+  if (isValidSqlObject(userDto)) {
     user=getDto(userDao.save(new User(userDto)));
   }
   return user;

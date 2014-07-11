@@ -1,0 +1,34 @@
+{
+  cliOut.reset();
+  boolean create=strIsEmpty(notificationSchemaId);
+  int result=-1;
+  if (create) {
+    if (strIsEmpty(applicationId)) {
+      applicationId=editApplicationCli(cli,null,applicationId,null,tenantName,false);
+      cliOut.reset();
+    }
+    String schemaFile=notificationType == NotificationTypeDto.SYSTEM ? "testSystemNotificationSchema.json" : "testUserNotificationSchema.json";
+    String cmdLine="createNotificationSchema -a " + applicationId + " -t "+ notificationType.name()+ (useBody ? (" -b " + getTestFileContent(schemaFile)) : (" -f " + getTestFile(schemaFile)));
+    if (createOut) {
+      cmdLine+=" -o dummy.out";
+    }
+    result=cli.processLine(cmdLine);
+  }
+ else {
+    result=cli.processLine("editNotificationSchema -f " + getTestFile(notificationType == NotificationTypeDto.SYSTEM ? "testSystemNotificationSchema.json" : "testUserNotificationSchema.json") + " -i "+ notificationSchemaId);
+  }
+  Assert.assertEquals(result,0);
+  String output=cliOut.toString("UTF-8");
+  if (create) {
+    String id=output.trim().substring("Created new Notification Schema with id: ".length()).trim();
+    return id;
+  }
+ else   if (notificationSchemaId.equals(FAKE_ID)) {
+    Assert.assertTrue(output.trim().startsWith("Notification Schema with id " + FAKE_ID + " not found!"));
+    return notificationSchemaId;
+  }
+ else {
+    Assert.assertTrue(output.trim().startsWith("Notification Schema updated."));
+    return notificationSchemaId;
+  }
+}

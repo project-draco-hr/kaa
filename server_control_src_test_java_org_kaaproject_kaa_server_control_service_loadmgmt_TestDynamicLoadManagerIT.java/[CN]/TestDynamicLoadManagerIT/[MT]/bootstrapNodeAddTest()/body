@@ -1,0 +1,8 @@
+{
+  LOG.info("bootstrapNodeAddTest started");
+  DynamicLoadManager dm=getDynamicLoadManager();
+  ConnectionInfo bsConnectionInfo=new ConnectionInfo(thriftHost,thriftPort,ByteBuffer.wrap("Just array".getBytes()));
+  BootstrapNodeInfo bsNode=new BootstrapNodeInfo(bsConnectionInfo,"localhost",9897,0);
+  dm.onNodeAdded(bsNode);
+  checkBSNode();
+}

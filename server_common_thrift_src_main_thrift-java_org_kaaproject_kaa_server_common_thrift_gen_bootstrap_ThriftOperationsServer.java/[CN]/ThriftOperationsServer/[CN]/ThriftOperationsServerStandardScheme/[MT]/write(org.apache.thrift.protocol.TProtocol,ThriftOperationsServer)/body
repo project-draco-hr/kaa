@@ -1,0 +1,30 @@
+{
+  struct.validate();
+  oprot.writeStructBegin(STRUCT_DESC);
+  if (struct.Name != null) {
+    oprot.writeFieldBegin(NAME_FIELD_DESC);
+    oprot.writeString(struct.Name);
+    oprot.writeFieldEnd();
+  }
+  oprot.writeFieldBegin(PRIORITY_FIELD_DESC);
+  oprot.writeI32(struct.priority);
+  oprot.writeFieldEnd();
+  if (struct.publicKey != null) {
+    oprot.writeFieldBegin(PUBLIC_KEY_FIELD_DESC);
+    oprot.writeBinary(struct.publicKey);
+    oprot.writeFieldEnd();
+  }
+  if (struct.supportedChannels != null) {
+    oprot.writeFieldBegin(SUPPORTED_CHANNELS_FIELD_DESC);
+{
+      oprot.writeListBegin(new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT,struct.supportedChannels.size()));
+      for (      ThriftSupportedChannel _iter3 : struct.supportedChannels) {
+        _iter3.write(oprot);
+      }
+      oprot.writeListEnd();
+    }
+    oprot.writeFieldEnd();
+  }
+  oprot.writeFieldStop();
+  oprot.writeStructEnd();
+}

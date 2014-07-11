@@ -1,0 +1,10 @@
+{
+  if (!stopped) {
+    stopPollScheduler(true);
+  }
+  stopped=false;
+  LOG.info("Starting poll scheduler..");
+  taskPosted=true;
+  pollFuture=scheduler.submit(task);
+  LOG.info("Poll scheduler started");
+}

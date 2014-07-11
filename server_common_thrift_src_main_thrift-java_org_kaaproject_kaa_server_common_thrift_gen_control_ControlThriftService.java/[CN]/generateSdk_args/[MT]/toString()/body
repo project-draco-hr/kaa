@@ -30,6 +30,19 @@
   sb.append("notificationSchemaVersion:");
   sb.append(this.notificationSchemaVersion);
   first=false;
+  if (!first)   sb.append(", ");
+  sb.append("aefMapIds:");
+  if (this.aefMapIds == null) {
+    sb.append("null");
+  }
+ else {
+    sb.append(this.aefMapIds);
+  }
+  first=false;
+  if (!first)   sb.append(", ");
+  sb.append("logSchemaVersion:");
+  sb.append(this.logSchemaVersion);
+  first=false;
   sb.append(")");
   return sb.toString();
 }

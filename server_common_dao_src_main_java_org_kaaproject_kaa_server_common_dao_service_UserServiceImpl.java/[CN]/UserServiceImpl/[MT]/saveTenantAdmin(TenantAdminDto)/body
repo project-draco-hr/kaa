@@ -1,24 +1,25 @@
 {
   TenantAdminDto tenantAdmin=new TenantAdminDto();
-  if (isValidObject(tenantAdminDto)) {
+  if (isValidSqlObject(tenantAdminDto)) {
     TenantDto tenant=new TenantDto();
     tenant.setId(tenantAdminDto.getId());
     tenant.setName(tenantAdminDto.getName());
-    tenant=getDto(tenantDao.save(new Tenant(tenant)));
+    tenant=saveTenant(tenant);
     tenantAdmin.setId(tenant.getId());
     tenantAdmin.setName(tenant.getName());
   }
-  if (StringUtils.isEmpty(tenantAdminDto.getUserId()) || isValidId(tenantAdminDto.getUserId())) {
+  if (StringUtils.isEmpty(tenantAdminDto.getUserId()) || isValidSqlId(tenantAdminDto.getUserId())) {
     UserDto user=new UserDto();
     user.setId(tenantAdminDto.getUserId());
     user.setUsername(tenantAdminDto.getUsername());
     user.setExternalUid(tenantAdminDto.getExternalUid());
     user.setTenantId(tenantAdmin.getId());
     user.setAuthority(KaaAuthorityDto.TENANT_ADMIN);
-    user=getDto(userDao.save(new User(user)));
+    user=saveUser(user);
     tenantAdmin.setUserId(user.getId());
     tenantAdmin.setUsername(user.getUsername());
     tenantAdmin.setExternalUid(user.getExternalUid());
+    tenantAdmin.setId(user.getTenantId());
   }
   return tenantAdmin;
 }

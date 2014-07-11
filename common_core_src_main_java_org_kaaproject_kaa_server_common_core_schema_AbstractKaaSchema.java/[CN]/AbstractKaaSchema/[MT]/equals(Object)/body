@@ -1,0 +1,21 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  AbstractKaaSchema other=(AbstractKaaSchema)obj;
+  if (rawSchema == null) {
+    if (other.rawSchema != null) {
+      return false;
+    }
+  }
+ else   if (!rawSchema.equals(other.rawSchema)) {
+    return false;
+  }
+  return true;
+}

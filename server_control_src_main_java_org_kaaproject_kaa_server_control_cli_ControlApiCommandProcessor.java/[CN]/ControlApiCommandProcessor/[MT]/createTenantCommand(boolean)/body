@@ -1,17 +1,17 @@
 {
-  ControlApiCommand command=new ControlApiCommand(edit ? "editTenant" : "createTenant",(edit ? "edit" : "create") + " Tenant"){
+  ControlApiCommand command=new ControlApiCommand(edit ? "editTenant" : "createTenant",(edit ? "edit" : CREATE) + " Tenant"){
     @Override public void runCommand(    CommandLine line,    ControlThriftService.Iface client,    PrintWriter writer,    PrintWriter errorWriter){
       createTenant(line,client,writer,errorWriter,edit);
     }
   }
 ;
   if (edit) {
-    Option opt=new Option("i","tenantId",true,"Tenant Id option");
+    Option opt=new Option("i",TENANT_ID,true,TENANT_ID_OPTION);
     opt.setRequired(true);
     command.addOption(opt);
   }
  else {
-    Option opt=new Option("o","output",true,"Output file to store Object Id");
+    Option opt=new Option("o",OUTPUT,true,OUTPUT_FILE_TO_STORE_OBJECT_ID);
     opt.setRequired(false);
     command.addOption(opt);
   }

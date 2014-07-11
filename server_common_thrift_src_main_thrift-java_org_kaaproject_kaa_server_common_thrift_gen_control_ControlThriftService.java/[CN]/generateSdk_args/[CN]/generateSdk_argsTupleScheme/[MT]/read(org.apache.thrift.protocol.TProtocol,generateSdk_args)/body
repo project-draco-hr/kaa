@@ -1,6 +1,6 @@
 {
   TTupleProtocol iprot=(TTupleProtocol)prot;
-  BitSet incoming=iprot.readBitSet(5);
+  BitSet incoming=iprot.readBitSet(7);
   if (incoming.get(0)) {
     struct.sdkPlatform=SdkPlatform.findByValue(iprot.readI32());
     struct.setSdkPlatformIsSet(true);
@@ -20,5 +20,21 @@
   if (incoming.get(4)) {
     struct.notificationSchemaVersion=iprot.readI32();
     struct.setNotificationSchemaVersionIsSet(true);
+  }
+  if (incoming.get(5)) {
+{
+      org.apache.thrift.protocol.TList _list205=new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRING,iprot.readI32());
+      struct.aefMapIds=new ArrayList<String>(_list205.size);
+      for (int _i206=0; _i206 < _list205.size; ++_i206) {
+        String _elem207;
+        _elem207=iprot.readString();
+        struct.aefMapIds.add(_elem207);
+      }
+    }
+    struct.setAefMapIdsIsSet(true);
+  }
+  if (incoming.get(6)) {
+    struct.logSchemaVersion=iprot.readI32();
+    struct.setLogSchemaVersionIsSet(true);
   }
 }

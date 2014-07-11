@@ -1,0 +1,12 @@
+{
+  try {
+    UserSyncResponse record=new UserSyncResponse();
+    record.userAttachResponse=fieldSetFlags()[0] ? this.userAttachResponse : (org.kaaproject.kaa.common.endpoint.gen.UserAttachResponse)defaultValue(fields()[0]);
+    record.endpointAttachResponses=fieldSetFlags()[1] ? this.endpointAttachResponses : (java.util.List<org.kaaproject.kaa.common.endpoint.gen.EndpointAttachResponse>)defaultValue(fields()[1]);
+    record.endpointDetachResponses=fieldSetFlags()[2] ? this.endpointDetachResponses : (java.util.List<org.kaaproject.kaa.common.endpoint.gen.EndpointDetachResponse>)defaultValue(fields()[2]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

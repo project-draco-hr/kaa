@@ -1,0 +1,5 @@
+{
+  Schema protocolSchema=new Schema.Parser().parse(protocolSchemaBody.getRawSchema());
+  Schema baseSchema=new Schema.Parser().parse(baseDataSchema.getRawSchema());
+  return new DefaultDeltaCalculationAlgorithm(protocolSchema,baseSchema);
+}

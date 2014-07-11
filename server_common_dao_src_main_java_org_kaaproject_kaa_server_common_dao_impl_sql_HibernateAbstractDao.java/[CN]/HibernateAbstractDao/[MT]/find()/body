@@ -1,0 +1,9 @@
+{
+  List<T> resultList=getCriteria().list();
+  if (LOG.isDebugEnabled()) {
+    if (resultList != null) {
+      LOG.debug("Found {} entities: [{}] ",getSimpleClassName(),Arrays.toString(resultList.toArray()));
+    }
+  }
+  return resultList;
+}

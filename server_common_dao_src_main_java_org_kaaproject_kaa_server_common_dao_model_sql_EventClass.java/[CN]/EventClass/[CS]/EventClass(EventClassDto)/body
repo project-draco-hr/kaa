@@ -1,0 +1,15 @@
+{
+  this.id=getLongId(dto.getId());
+  Long tenantId=getLongId(dto.getTenantId());
+  if (tenantId != null) {
+    this.tenant=new Tenant(tenantId);
+  }
+  Long ecfId=getLongId(dto.getEcfId());
+  if (ecfId != null) {
+    this.ecf=new EventClassFamily(ecfId);
+  }
+  this.fqn=dto.getFqn();
+  this.type=dto.getType();
+  this.schema=dto.getSchema();
+  this.version=dto.getVersion();
+}

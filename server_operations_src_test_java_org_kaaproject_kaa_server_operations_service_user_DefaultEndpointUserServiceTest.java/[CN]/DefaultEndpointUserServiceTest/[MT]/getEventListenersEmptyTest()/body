@@ -1,0 +1,19 @@
+{
+  EventListenersRequest request=new EventListenersRequest();
+  request.setEventClassFQNs(Arrays.asList("fqn2","fqn3"));
+  request.setRequestId(REQUEST_ID);
+  EndpointProfileDto profileMock=mock(EndpointProfileDto.class);
+  EventClassFamilyVersionStateDto ecfVdto=new EventClassFamilyVersionStateDto();
+  ecfVdto.setEcfId(ECF1_ID);
+  ecfVdto.setVersion(ECF1_VERSION);
+  when(profileMock.getId()).thenReturn("A");
+  when(profileMock.getEndpointUserId()).thenReturn(USER_ID);
+  when(profileMock.getEndpointKeyHash()).thenReturn(ENDPOINT_KEY_HASH);
+  when(profileMock.getEcfVersionStates()).thenReturn(Arrays.asList(ecfVdto));
+  when(endpointService.findEndpointProfilesByUserId(USER_ID)).thenReturn(Arrays.asList(profileMock));
+  EventListenersResponse response=endpointUserService.findListeners(profileMock,new AppSeqNumber(TEST_APP_ID,TEST_APP_TOKEN,TEST_APP_SEQ_NUM),request);
+  assertNotNull(response);
+  assertEquals(SyncResponseResultType.SUCCESS,response.getResult());
+  assertEquals(REQUEST_ID,response.getRequestId());
+  assertEquals(0,response.getListeners().size());
+}

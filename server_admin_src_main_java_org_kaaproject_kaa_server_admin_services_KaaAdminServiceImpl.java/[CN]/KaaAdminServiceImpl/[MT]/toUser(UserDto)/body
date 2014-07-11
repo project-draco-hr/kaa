@@ -1,6 +1,6 @@
 {
   User user=userFacade.findById(Long.valueOf(tenantUser.getExternalUid()));
-  org.kaaproject.kaa.server.admin.shared.dto.UserDto result=new org.kaaproject.kaa.server.admin.shared.dto.UserDto(user.getId().toString(),user.getUsername(),user.getFirstName(),user.getLastName(),user.getMail(),KaaAuthorityDto.valueOf(user.getAuthorities().iterator().next().getAuthority()));
+  org.kaaproject.kaa.common.dto.admin.UserDto result=new org.kaaproject.kaa.common.dto.admin.UserDto(user.getId().toString(),user.getUsername(),user.getFirstName(),user.getLastName(),user.getMail(),KaaAuthorityDto.valueOf(user.getAuthorities().iterator().next().getAuthority()));
   result.setId(tenantUser.getId());
   result.setTenantId(tenantUser.getTenantId());
   return result;

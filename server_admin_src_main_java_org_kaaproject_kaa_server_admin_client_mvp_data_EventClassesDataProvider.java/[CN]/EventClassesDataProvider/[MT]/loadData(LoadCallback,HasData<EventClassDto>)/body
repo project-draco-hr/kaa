@@ -1,0 +1,11 @@
+{
+  KaaAdmin.getDataSource().getEventClassesByFamilyIdVersionAndType(ecfId,version,null,new AsyncCallback<List<EventClassDto>>(){
+    @Override public void onFailure(    Throwable caught){
+      callback.onFailure(caught);
+    }
+    @Override public void onSuccess(    List<EventClassDto> result){
+      callback.onSuccess(result,display);
+    }
+  }
+);
+}

@@ -1,0 +1,27 @@
+{
+  byte[] responseDataRaw=null;
+  method=new HttpPost(url + uri);
+  MultipartEntityBuilder builder=MultipartEntityBuilder.create();
+  for (  String key : entity.keySet()) {
+    builder.addBinaryBody(key,entity.get(key));
+  }
+  HttpEntity requestEntity=builder.build();
+  method.setEntity(requestEntity);
+  LOG.debug("Executing request {}",method.getRequestLine());
+  CloseableHttpResponse response=httpClient.execute(method);
+  try {
+    LOG.debug("Received {}",response.getStatusLine());
+    int status=response.getStatusLine().getStatusCode();
+    if (status >= 200 && status < 300) {
+      responseDataRaw=getResponseBody(response);
+    }
+ else {
+      throw new TransportException("Invalid response code from server: " + status);
+    }
+  }
+  finally {
+    response.close();
+    method=null;
+  }
+  return responseDataRaw;
+}

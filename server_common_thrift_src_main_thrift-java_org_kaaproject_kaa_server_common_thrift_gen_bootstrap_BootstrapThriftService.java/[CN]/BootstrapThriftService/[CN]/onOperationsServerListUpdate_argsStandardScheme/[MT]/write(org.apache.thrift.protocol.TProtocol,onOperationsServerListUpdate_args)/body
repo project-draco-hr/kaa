@@ -1,15 +1,14 @@
 {
   struct.validate();
   oprot.writeStructBegin(STRUCT_DESC);
-  if (struct.operationsServerMap != null) {
-    oprot.writeFieldBegin(OPERATIONS_SERVER_MAP_FIELD_DESC);
+  if (struct.operationsServersList != null) {
+    oprot.writeFieldBegin(OPERATIONS_SERVERS_LIST_FIELD_DESC);
 {
-      oprot.writeMapBegin(new org.apache.thrift.protocol.TMap(org.apache.thrift.protocol.TType.STRING,org.apache.thrift.protocol.TType.STRUCT,struct.operationsServerMap.size()));
-      for (      Map.Entry<String,OperationsServer> _iter4 : struct.operationsServerMap.entrySet()) {
-        oprot.writeString(_iter4.getKey());
-        _iter4.getValue().write(oprot);
+      oprot.writeListBegin(new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT,struct.operationsServersList.size()));
+      for (      ThriftOperationsServer _iter11 : struct.operationsServersList) {
+        _iter11.write(oprot);
       }
-      oprot.writeMapEnd();
+      oprot.writeListEnd();
     }
     oprot.writeFieldEnd();
   }

@@ -5,7 +5,7 @@
       String applicationId=line.getOptionValue("i");
       application=toDto(client.getApplication(applicationId));
       if (application == null) {
-        writer.println("Application with id " + applicationId + " not found!");
+        writer.println("Application with id " + applicationId + NOT_FOUND);
         return;
       }
     }
@@ -31,6 +31,6 @@
     }
   }
  catch (  TException e) {
-    handleException("Unable to " + (edit ? "update" : "create") + " application",e,errorWriter);
+    handleException(UNABLE_TO + (edit ? UPDATE : CREATE) + " application",e,errorWriter);
   }
 }

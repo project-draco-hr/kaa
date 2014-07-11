@@ -1,7 +1,7 @@
 {
   ProfileSchemaDto profileSchema=new ProfileSchemaDto();
-  String schema=getResourceAsString(TEST_PROFILE_SCHEMA);
-  profileSchema.setSchema(schema);
+  DataSchema schema=new KaaSchemaFactoryImpl().createDataSchema(getResourceAsString(TEST_PROFILE_SCHEMA));
+  profileSchema.setSchema(schema.getRawSchema());
   profileSchema.setName(generateString("Test Schema"));
   profileSchema.setDescription(generateString("Test Desc"));
   if (strIsEmpty(applicationId)) {

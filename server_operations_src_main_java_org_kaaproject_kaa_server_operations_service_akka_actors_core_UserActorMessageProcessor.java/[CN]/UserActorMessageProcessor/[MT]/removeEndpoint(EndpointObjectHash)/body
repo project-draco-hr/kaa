@@ -1,0 +1,9 @@
+{
+  LOG.debug("[{}] removing endpoint [{}] from local route table",userId,endpoint);
+  RouteTableAddress address=routeTable.removeLocal(endpoint);
+  versionMap.remove(endpoint);
+  for (  String serverId : routeTable.getRemoteServers()) {
+    LOG.debug("[{}] removing endpoint [{}] from remote route table on server {}",userId,endpoint,serverId);
+    eventService.sendRouteInfo(RouteInfo.deleteRouteFromAddress(tenantId,userId,address),serverId);
+  }
+}

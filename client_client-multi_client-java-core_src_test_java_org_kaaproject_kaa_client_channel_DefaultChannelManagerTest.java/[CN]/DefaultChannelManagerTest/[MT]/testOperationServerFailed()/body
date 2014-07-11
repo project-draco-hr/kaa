@@ -1,0 +1,15 @@
+{
+  List<BootstrapServerInfo> bootststrapServers=new LinkedList<>();
+  bootststrapServers.add(new BootstrapServerInfo("localhost",9889,KeyUtil.generateKeyPair().getPublic()));
+  BootstrapManager bootstrapManager=Mockito.mock(BootstrapManager.class);
+  KaaDataChannel channel=Mockito.mock(KaaDataChannel.class);
+  Mockito.when(channel.getSupportedTransportTypes()).thenReturn(SUPPORTED_TYPES);
+  Mockito.when(channel.getType()).thenReturn(ChannelType.HTTP_LP);
+  Mockito.when(channel.getId()).thenReturn("mock_channel");
+  KaaChannelManager channelManager=new DefaultChannelManager(bootstrapManager,bootststrapServers);
+  channelManager.addChannel(channel);
+  ServerInfo opServer=new HttpLongPollServerInfo("localhost",9999,KeyUtil.generateKeyPair().getPublic());
+  channelManager.onServerUpdated(opServer);
+  channelManager.onServerFailed(opServer);
+  Mockito.verify(bootstrapManager,Mockito.times(1)).useNextOperationsServer(ChannelType.HTTP_LP);
+}

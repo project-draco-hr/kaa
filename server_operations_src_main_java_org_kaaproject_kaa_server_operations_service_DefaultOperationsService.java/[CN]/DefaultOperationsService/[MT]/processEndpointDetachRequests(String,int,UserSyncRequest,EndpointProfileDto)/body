@@ -1,0 +1,17 @@
+{
+  List<EndpointDetachRequest> requests=syncRequest.getEndpointDetachRequests();
+  if (requests != null && !requests.isEmpty()) {
+    LOG.debug("[{}] processing {} endpoint detach requests",endpointId,requests.size());
+    List<EndpointDetachResponse> responses=new ArrayList<>(requests.size());
+    for (    EndpointDetachRequest request : requests) {
+      LOG.debug("[{}] processing endpoint detach request {}",endpointId,request);
+      EndpointDetachResponse response=endpointUserService.detachEndpoint(profile,request);
+      LOG.debug("[{}] endpoint detach response {}",endpointId,response);
+      responses.add(response);
+    }
+    return responses;
+  }
+ else {
+    return Collections.emptyList();
+  }
+}

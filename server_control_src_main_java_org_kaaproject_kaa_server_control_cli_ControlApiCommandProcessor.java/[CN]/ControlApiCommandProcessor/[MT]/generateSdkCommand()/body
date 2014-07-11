@@ -8,7 +8,7 @@
   Option opt=new Option("sdk","sdkPlatform",true,"SDK platform option (java)");
   opt.setRequired(true);
   command.addOption(opt);
-  opt=new Option("a","applicationId",true,"Application Id option");
+  opt=new Option("a",APPLICATION_ID,true,APPLICATION_ID_OPTION);
   opt.setRequired(true);
   command.addOption(opt);
   opt=new Option("psv","profileSchemaVersion",true,"Profile schema version option");
@@ -18,6 +18,9 @@
   opt.setRequired(true);
   command.addOption(opt);
   opt=new Option("nsv","notificationSchemaVersion",true,"Notification schema version option");
+  opt.setRequired(true);
+  command.addOption(opt);
+  opt=new Option("lsv","logSchemaVersion",true,"Log schema version option");
   opt.setRequired(true);
   command.addOption(opt);
   opt=new Option("out","outputDir",true,"Output directory to store sdk file");

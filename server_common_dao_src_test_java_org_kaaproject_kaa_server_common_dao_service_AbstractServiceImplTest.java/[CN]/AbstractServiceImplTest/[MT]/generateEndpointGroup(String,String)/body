@@ -1,0 +1,10 @@
+{
+  EndpointGroupDto group=new EndpointGroupDto();
+  if (isBlank(applicationId)) {
+    applicationId=generateApplication(null).getId();
+  }
+  group.setApplicationId(applicationId);
+  group.setName(endpointGroupName);
+  group.setWeight(random.nextInt());
+  return endpointService.saveEndpointGroup(group);
+}

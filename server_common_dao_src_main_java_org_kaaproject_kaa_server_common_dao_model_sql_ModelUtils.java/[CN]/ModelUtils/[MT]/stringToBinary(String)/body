@@ -1,0 +1,12 @@
+{
+  byte[] data=null;
+  if (body != null) {
+    try {
+      data=body.getBytes(UTF8);
+    }
+ catch (    UnsupportedEncodingException e) {
+      LOG.warn("Can't convert string data to binary.");
+    }
+  }
+  return data;
+}

@@ -1,0 +1,7 @@
+{
+  TenantDto tenant=createTenant();
+  EndpointUserDto endpointUser=createEndpointUser("",tenant.getId());
+  Assert.assertFalse(strIsEmpty(endpointUser.getId()));
+  client.deleteEndpointUser(endpointUser.getId());
+  client.deleteTenant(tenant.getId());
+}

@@ -1,0 +1,16 @@
+{
+  SyncRequestMetaData md=request.getSyncRequestMetaData();
+  if (md.getProfileHash() == null) {
+    ProfileSyncRequest profileRequest=request.getProfileSyncRequest();
+    if (profileRequest != null && profileRequest.getEndpointPublicKey() != null) {
+      return true;
+    }
+ else {
+      LOG.warn("[{}] Request is not valid. It does not contain profile information!",endpointId);
+      return false;
+    }
+  }
+ else {
+    return true;
+  }
+}

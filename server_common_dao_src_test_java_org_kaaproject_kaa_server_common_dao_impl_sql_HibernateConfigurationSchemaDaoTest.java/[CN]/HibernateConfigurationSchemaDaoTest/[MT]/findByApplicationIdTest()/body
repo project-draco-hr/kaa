@@ -1,0 +1,9 @@
+{
+  List<ConfigurationSchema> schemas=generateConfSchema(null,3);
+  Assert.assertEquals(3,schemas.size());
+  ConfigurationSchema schema=schemas.get(0);
+  Application app=schema.getApplication();
+  List<ConfigurationSchema> found=configurationSchemaDao.findByApplicationId(app.getId().toString());
+  Assert.assertEquals(3,found.size());
+  Assert.assertEquals(schemas,found);
+}

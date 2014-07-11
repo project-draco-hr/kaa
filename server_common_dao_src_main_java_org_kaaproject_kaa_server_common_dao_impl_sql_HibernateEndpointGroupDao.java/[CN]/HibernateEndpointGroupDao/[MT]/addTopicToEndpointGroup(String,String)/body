@@ -1,0 +1,7 @@
+{
+  EndpointGroup endpointGroup=findById(id);
+  Topic topic=topicDao.findById(topicId);
+  Set<Topic> topics=endpointGroup.getTopics();
+  topics.add(topic);
+  return save(endpointGroup);
+}

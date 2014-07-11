@@ -1,0 +1,19 @@
+{
+  String target=null;
+  if (targetAddress != null) {
+    target=Base64Util.encode(targetAddress.getEndpointKey().getData());
+  }
+  List<EndpointEvent> result=new ArrayList<>();
+  for (  Entry<EndpointEvent,Set<RouteTableKey>> entry : dataMap.entrySet()) {
+    EndpointEvent event=entry.getKey();
+    if (targetAddress != null && targetAddress.getEndpointKey().equals(event.getSender())) {
+      continue;
+    }
+    if (entry.getValue().contains(key)) {
+      if (event.getTarget() == null || target == null || event.getTarget().equals(target)) {
+        result.add(entry.getKey());
+      }
+    }
+  }
+  return result;
+}

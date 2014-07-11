@@ -1,0 +1,11 @@
+{
+  LOG.debug("Deactivate configuration with id [{}] and increment sequence number.",id);
+  Configuration configuration=findById(id);
+  if (configuration != null) {
+    configuration.setStatus(UpdateStatus.DEPRECATED);
+    configuration.setDeactivatedUsername(deactivatedUsername);
+    configuration.setDeactivatedTime(System.currentTimeMillis());
+    save(configuration);
+  }
+  return configuration;
+}

@@ -5,6 +5,7 @@
   httpResponse.headers().set(CONTENT_TYPE,CommonEPConstans.RESPONSE_CONTENT_TYPE);
   httpResponse.headers().set(CommonEPConstans.SIGNATURE_HEADER_NAME,signatureResponse);
   httpResponse.headers().set(CONTENT_LENGTH,httpResponse.content().readableBytes());
+  httpResponse.headers().set(CommonEPConstans.RESPONSE_TYPE,CommonEPConstans.RESPONSE_TYPE_OPERATION);
   if (isNeedConnectionClose()) {
     httpResponse.headers().set(CONNECTION,HttpHeaders.Values.CLOSE);
   }

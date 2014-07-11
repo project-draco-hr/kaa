@@ -1,0 +1,10 @@
+{
+  Schema unchangedSchema=getSchemaByFullName(delta,field,KAA_NAMESPACE + "." + UNCHANGED+ "T");
+  if (unchangedSchema != null) {
+    GenericEnumSymbol unchanged=new GenericData.EnumSymbol(unchangedSchema,UNCHANGED);
+    delta.put(field,unchanged);
+  }
+ else {
+    throw new DeltaCalculatorException(new StringBuilder().append("Failed to find schema for \"unchanged\" type ").append(" in ").append(delta.getSchema().getFullName()).append(" field ").append(field).toString());
+  }
+}

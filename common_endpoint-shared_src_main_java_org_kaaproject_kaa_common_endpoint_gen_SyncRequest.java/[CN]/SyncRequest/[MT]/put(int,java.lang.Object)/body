@@ -1,31 +1,25 @@
 {
 switch (field$) {
 case 0:
-    applicationToken=(java.lang.String)value$;
+    syncRequestMetaData=(org.kaaproject.kaa.common.endpoint.gen.SyncRequestMetaData)value$;
   break;
 case 1:
-endpointPublicKeyHash=(java.nio.ByteBuffer)value$;
+profileSyncRequest=(org.kaaproject.kaa.common.endpoint.gen.ProfileSyncRequest)value$;
 break;
 case 2:
-profileHash=(java.nio.ByteBuffer)value$;
+configurationSyncRequest=(org.kaaproject.kaa.common.endpoint.gen.ConfigurationSyncRequest)value$;
 break;
 case 3:
-configurationHash=(java.nio.ByteBuffer)value$;
+notificationSyncRequest=(org.kaaproject.kaa.common.endpoint.gen.NotificationSyncRequest)value$;
 break;
 case 4:
-topicListHash=(java.nio.ByteBuffer)value$;
+userSyncRequest=(org.kaaproject.kaa.common.endpoint.gen.UserSyncRequest)value$;
 break;
 case 5:
-appStateSeqNumber=(java.lang.Integer)value$;
+eventSyncRequest=(org.kaaproject.kaa.common.endpoint.gen.EventSyncRequest)value$;
 break;
 case 6:
-acceptedUnicastNotifications=(java.util.List<java.lang.String>)value$;
-break;
-case 7:
-topicStates=(java.util.List<org.kaaproject.kaa.common.endpoint.gen.TopicState>)value$;
-break;
-case 8:
-subscriptionCommands=(java.util.List<org.kaaproject.kaa.common.endpoint.gen.SubscriptionCommand>)value$;
+logSyncRequest=(org.kaaproject.kaa.common.endpoint.gen.LogSyncRequest)value$;
 break;
 default :
 throw new org.apache.avro.AvroRuntimeException("Bad index");

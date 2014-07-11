@@ -2,5 +2,5 @@
   DynamicLoadManager dm=new DynamicLoadManager(ldServiceMock);
   assertNotNull(dm);
   dm.registerListeners();
-  verify(pNodeMock,times(1)).addListener((OperationsNodeListener)dm);
+  verify(pNodeMock,atLeast(1)).addListener((OperationsNodeListener)dm);
 }

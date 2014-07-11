@@ -1,0 +1,10 @@
+{
+  Path schemaUrl=Paths.get(Thread.currentThread().getContextClassLoader().getResource("override/schema.json").toURI());
+  DataSchema configuraionSchema=new DataSchema(new String(Files.readAllBytes(schemaUrl)));
+  SchemaGenerationAlgorithmFactory factory=new SchemaGenerationAlgorithmFactoryImpl();
+  SchemaGenerationAlgorithm generator=factory.createSchemaGenerator(configuraionSchema);
+  List<OverrideData> configurations=new ArrayList<>();
+  OverrideAlgorithm merger=new DefaultOverrideAlgorithm();
+  BaseData mergeResult=merger.override(null,configurations);
+  Assert.assertNull(mergeResult);
+}

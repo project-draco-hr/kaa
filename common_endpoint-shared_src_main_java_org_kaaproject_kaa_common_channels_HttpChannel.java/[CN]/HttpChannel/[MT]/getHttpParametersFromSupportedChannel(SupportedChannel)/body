@@ -1,0 +1,12 @@
+{
+  Object obj=supportedChannel.getCommunicationParameters();
+  if (obj instanceof HTTPComunicationParameters) {
+    HttpParameters params=new HttpParameters();
+    params.setHostName(((HTTPComunicationParameters)obj).getHostName());
+    params.setPort(((HTTPComunicationParameters)obj).getPort().intValue());
+    return params;
+  }
+ else {
+    throw new ParsingException("Error: Communication parameters with incorrect Class.");
+  }
+}

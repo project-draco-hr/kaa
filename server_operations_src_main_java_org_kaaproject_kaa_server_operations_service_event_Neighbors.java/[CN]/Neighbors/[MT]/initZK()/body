@@ -1,0 +1,7 @@
+{
+  selfId=getOperationsServerID(zkNode.getSelfNodeInfo().getConnectionInfo());
+  zkNode.addListener(this);
+  updateOperationsServersList();
+  LOG.debug("OperationsServer {} Nighbors({}) ZooKeeper initialization comlete. Now {} neighbors.",selfId,uniqId,neigbors.size());
+  return;
+}

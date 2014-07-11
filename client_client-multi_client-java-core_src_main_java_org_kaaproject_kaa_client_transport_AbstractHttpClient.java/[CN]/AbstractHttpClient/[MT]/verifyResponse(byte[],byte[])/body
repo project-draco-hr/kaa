@@ -1,0 +1,8 @@
+{
+  if (!verificationEnabled || messageEncDec.verify(body,signature)) {
+    return body;
+  }
+ else {
+    throw new SecurityException("message can't be verified");
+  }
+}

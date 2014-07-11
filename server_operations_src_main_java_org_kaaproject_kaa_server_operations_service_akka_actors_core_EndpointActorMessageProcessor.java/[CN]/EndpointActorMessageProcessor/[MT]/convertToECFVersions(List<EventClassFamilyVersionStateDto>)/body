@@ -1,0 +1,7 @@
+{
+  List<EventClassFamilyVersion> result=new ArrayList<>(ecfVersionStates.size());
+  for (  EventClassFamilyVersionStateDto dto : ecfVersionStates) {
+    result.add(new EventClassFamilyVersion(dto.getEcfId(),dto.getVersion()));
+  }
+  return result;
+}

@@ -1,0 +1,13 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    if (isEmpty(applicationEventFamilyMap.getId())) {
+      String username=this.getCurrentUser().getUsername();
+      applicationEventFamilyMap.setCreatedUsername(username);
+    }
+    return toDto(clientProvider.getClient().editApplicationEventFamilyMap(toDataStruct(applicationEventFamilyMap)));
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

@@ -1,0 +1,11 @@
+{
+  List<EventClassDto> eventClasses;
+  if (isValidSqlId(ecfId)) {
+    LOG.debug("Find event classes by family id [{}] version [{}] and type [{}]",ecfId,version,type);
+    eventClasses=convertDtoList(eventClassDao.findByEcfIdVersionAndType(ecfId,version,type));
+  }
+ else {
+    throw new IncorrectParameterException("Incorrect event class family id: " + ecfId);
+  }
+  return eventClasses;
+}

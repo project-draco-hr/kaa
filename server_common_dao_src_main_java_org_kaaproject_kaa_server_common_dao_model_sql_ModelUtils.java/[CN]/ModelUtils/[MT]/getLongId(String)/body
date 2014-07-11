@@ -1,0 +1,12 @@
+{
+  Long longId=null;
+  if (isNotBlank(id)) {
+    try {
+      longId=Long.valueOf(id);
+    }
+ catch (    NumberFormatException e) {
+      LOG.error("Can't convert to Long id. Incorrect String id {} ",id);
+    }
+  }
+  return longId;
+}

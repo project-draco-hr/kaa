@@ -1,0 +1,13 @@
+{
+  LOG.debug("Response for channel {} received",getId());
+  byte[] decodedResponse;
+  try {
+    processingResponse=true;
+    decodedResponse=httpClient.getEncoderDecoder().decodeData(response);
+    demultiplexer.processResponse(decodedResponse);
+    processingResponse=false;
+  }
+ catch (  Exception e) {
+    LOG.error("Failed to process response {}. Exception {}",Arrays.toString(response),e);
+  }
+}

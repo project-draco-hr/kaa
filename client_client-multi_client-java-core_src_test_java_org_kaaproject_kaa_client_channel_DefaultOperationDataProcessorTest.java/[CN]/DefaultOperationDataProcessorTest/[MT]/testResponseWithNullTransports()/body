@@ -1,0 +1,14 @@
+{
+  DefaultOperationDataProcessor operationsDataProcessor=new DefaultOperationDataProcessor();
+  SyncResponse response=new SyncResponse();
+  response.setStatus(SyncResponseResultType.SUCCESS);
+  response.setConfigurationSyncResponse(new ConfigurationSyncResponse(1,SyncResponseStatus.DELTA,null,null));
+  response.setEventSyncResponse(new EventSyncResponse());
+  response.setNotificationSyncResponse(new NotificationSyncResponse(1,SyncResponseStatus.DELTA,null,null));
+  response.setProfileSyncResponse(new ProfileSyncResponse(SyncResponseStatus.DELTA));
+  response.setRedirectSyncResponse(new RedirectSyncResponse("abc"));
+  response.setUserSyncResponse(new UserSyncResponse());
+  response.setLogSyncResponse(new LogSyncResponse("id",SyncResponseResultType.SUCCESS));
+  AvroByteArrayConverter<SyncResponse> converter=new AvroByteArrayConverter<>(SyncResponse.class);
+  operationsDataProcessor.processResponse(converter.toByteArray(response));
+}

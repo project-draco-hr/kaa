@@ -2,7 +2,7 @@
   ChangeProfileFilterNotification profileNotification=null;
   validateId(schemaId,"Incorrect profile schema id " + schemaId + ".");
   validateId(groupId,"Incorrect group id " + groupId + ".");
-  ProfileFilterDto profileFilterDto=getDto(profileFilterDao.deactivateOldFilter(schemaId.toString(),groupId.toString(),deactivatedUsername));
+  ProfileFilterDto profileFilterDto=getDto(profileFilterDao.deactivateOldFilter(schemaId,groupId,deactivatedUsername));
   if (profileFilterDto != null) {
     HistoryDto historyDto=addHistory(profileFilterDto,ChangeType.REMOVE_PROF);
     ChangeNotificationDto changeNotificationDto=createNotification(profileFilterDto,historyDto);
@@ -12,7 +12,7 @@
   }
   ProfileFilter profileFilter=profileFilterDao.findInactiveFilter(schemaId,groupId);
   if (profileFilter != null) {
-    profileFilterDao.removeById(profileFilter.getId());
+    profileFilterDao.removeById(profileFilter.getId().toString());
   }
   return profileNotification;
 }

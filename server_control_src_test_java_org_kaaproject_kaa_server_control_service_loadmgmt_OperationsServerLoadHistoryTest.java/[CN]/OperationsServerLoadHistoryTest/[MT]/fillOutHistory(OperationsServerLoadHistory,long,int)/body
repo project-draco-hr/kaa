@@ -1,0 +1,11 @@
+{
+  for (int i=0; i < number; i++) {
+    try {
+      Thread.sleep(period);
+      hist.addOpsServerLoad(rnd.nextInt(1000),rnd.nextInt(1000),rnd.nextInt(1000));
+    }
+ catch (    InterruptedException e) {
+      fail(e.toString());
+    }
+  }
+}

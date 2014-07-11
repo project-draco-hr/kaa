@@ -2,7 +2,8 @@
   ActorRef endpointActor=message.getOriginator();
   Integer seqNum=message.getSeqNumber();
   SortedMap<Integer,NotificationDto> pendingNotificationMap=notificationCache.tailMap(seqNum,false);
-  List<NotificationDto> pendingNotifications=filterMap(pendingNotificationMap,message.getSystemNfSchemaVersion(),message.getUserNfSchemaVersion());
+  Calendar calendar=new GregorianCalendar(TimeZone.getTimeZone("UTC"));
+  List<NotificationDto> pendingNotifications=filterMap(pendingNotificationMap,message.getSystemNfSchemaVersion(),message.getUserNfSchemaVersion(),calendar);
   if (!pendingNotifications.isEmpty()) {
     LOG.debug("Detected new messages during endpoint registration!");
     NotificationMessage notificationMessage=NotificationMessage.fromNotifications(pendingNotifications);
@@ -10,7 +11,7 @@
   }
  else {
     LOG.debug("No new messages detected. Subscribing endpoint actor to topic actor");
-    String endpointKey=ApplicationActor.buildEndpointKey(message.getKey());
+    String endpointKey=message.getOriginator().path().name();
     ActorInfo actorInfo=new ActorInfo(endpointActor,message.getSystemNfSchemaVersion(),message.getUserNfSchemaVersion());
     if (endpointSessions.put(endpointKey,actorInfo) != null) {
       LOG.warn("Detected duplication of registration message: {}",message);

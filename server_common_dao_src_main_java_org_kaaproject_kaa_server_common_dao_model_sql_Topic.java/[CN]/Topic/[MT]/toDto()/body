@@ -1,0 +1,14 @@
+{
+  TopicDto dto=createDto();
+  dto.setId(getStringId());
+  if (application != null) {
+    dto.setApplicationId(application.getStringId());
+  }
+  dto.setName(name);
+  dto.setType(type);
+  dto.setDescription(description);
+  dto.setCreatedUsername(createdUsername);
+  dto.setCreatedTime(createdTime);
+  dto.setSecNum(sequenceNumber);
+  return dto;
+}

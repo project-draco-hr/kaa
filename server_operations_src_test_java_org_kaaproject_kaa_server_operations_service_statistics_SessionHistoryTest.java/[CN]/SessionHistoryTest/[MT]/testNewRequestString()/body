@@ -14,16 +14,10 @@
   RequestHistory rhLongSync=history.getRequests().get(1);
   assertNotNull(rhLongSync);
   assertEquals(SessionHistory.RequestType.LONGSYNC,rhLongSync.getType());
-  history.newRequest(RegisterEndpointCommand.getCommandName());
-  assertNotNull(history.getRequests());
-  assertTrue(history.getRequests().size() == 3);
-  RequestHistory rhReg=history.getRequests().get(2);
-  assertNotNull(rhReg);
-  assertEquals(SessionHistory.RequestType.REGISTER,rhReg.getType());
   history.newRequest("test");
   assertNotNull(history.getRequests());
-  assertTrue(history.getRequests().size() == 4);
-  RequestHistory rhTest=history.getRequests().get(3);
+  assertTrue(history.getRequests().size() == 3);
+  RequestHistory rhTest=history.getRequests().get(2);
   assertNotNull(rhTest);
   assertEquals(SessionHistory.RequestType.UNKNOWN,rhTest.getType());
 }

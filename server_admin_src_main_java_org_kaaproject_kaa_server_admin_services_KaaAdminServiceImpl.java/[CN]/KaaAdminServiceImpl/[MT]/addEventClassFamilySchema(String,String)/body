@@ -1,0 +1,13 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_ADMIN);
+  try {
+    byte[] data=getFileContent(fileItemName);
+    String schema=new String(data);
+    validateSchema(schema);
+    String username=this.getCurrentUser().getUsername();
+    clientProvider.getClient().addEventClassFamilySchema(eventClassFamilyId,schema,username);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

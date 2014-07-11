@@ -1,0 +1,6 @@
+{
+  EventClassFamilyDto eventClassFamily=createEventClassFamily();
+  eventClassFamily.setName(generateString(EVENT_CLASS_FAMILY));
+  EventClassFamilyDto updatedEventClassFamily=toDto(client.editEventClassFamily(toDataStruct(eventClassFamily)));
+  assertEventClassFamiliesEquals(updatedEventClassFamily,eventClassFamily);
+}

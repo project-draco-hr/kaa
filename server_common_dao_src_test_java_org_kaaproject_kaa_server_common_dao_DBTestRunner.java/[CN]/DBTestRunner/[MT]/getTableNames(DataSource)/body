@@ -1,0 +1,9 @@
+{
+  Set<String> tableNames=new HashSet<>();
+  try (Connection connection=dataSource.getConnection();PreparedStatement preparedStatement=prepareStatement(connection);ResultSet resultSet=preparedStatement.executeQuery()){
+    while (resultSet.next()) {
+      tableNames.add(resultSet.getString(1));
+    }
+  }
+   return tableNames;
+}

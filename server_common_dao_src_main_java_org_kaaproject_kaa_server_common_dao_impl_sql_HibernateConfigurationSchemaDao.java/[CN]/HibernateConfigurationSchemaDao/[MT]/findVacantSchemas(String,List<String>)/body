@@ -1,0 +1,14 @@
+{
+  LOG.debug("Find vacant schemas, application id [{}] ",appId);
+  List<ConfigurationSchema> schemas=Collections.emptyList();
+  if (isNotBlank(appId)) {
+    List<Long> lids=toLongIds(usedSchemaIds);
+    if (lids.isEmpty()) {
+      schemas=findListByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(appId)));
+    }
+ else {
+      schemas=findListByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.and(Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(appId)),Restrictions.not(Restrictions.in(ID_PROPERTY,lids))));
+    }
+  }
+  return schemas;
+}

@@ -1,29 +1,29 @@
 {
-  ControlApiCommand command=new ControlApiCommand("createUnicastNotification","create" + " Notification"){
+  ControlApiCommand command=new ControlApiCommand("createUnicastNotification",CREATE + NOTIFICATION){
     @Override public void runCommand(    CommandLine line,    ControlThriftService.Iface client,    PrintWriter writer,    PrintWriter errorWriter){
       createUnicastNotification(line,client,writer,errorWriter);
     }
   }
 ;
-  Option opt=new Option("o","output",true,"Output file to store Object Id");
+  Option opt=new Option("o",OUTPUT,true,OUTPUT_FILE_TO_STORE_OBJECT_ID);
   opt.setRequired(false);
   command.addOption(opt);
   opt=new Option("k","key-hash",true,"Unicast Notification key hash option");
   opt.setRequired(true);
   command.addOption(opt);
-  opt=new Option("s","schema-id",true,"Notification schema id option");
+  opt=new Option("s",SCHEMA_ID,true,NOTIFICATION_SCHEMA_ID_OPTION);
   opt.setRequired(true);
   command.addOption(opt);
-  opt=new Option("t","topic-id",true,"Notification topic id option.");
+  opt=new Option("t",TOPIC__ID,true,NOTIFICATION_TOPIC_ID_OPTION);
   opt.setRequired(true);
   command.addOption(opt);
   opt=new Option("l","ttl",true,"Time to live in seconds for Unicast Notification object option.");
   opt.setRequired(false);
   command.addOption(opt);
-  opt=new Option("f","body-file",true,"Notification body file option.");
+  opt=new Option("f",BODY_FILE,true,NOTIFICATION_BODY_FILE_OPTION);
   opt.setRequired(false);
   command.addOption(opt);
-  opt=new Option("b","body",true,"Notification body option.");
+  opt=new Option("b","body",true,NOTIFICATION_BODY_OPTION);
   opt.setRequired(false);
   command.addOption(opt);
   return command;

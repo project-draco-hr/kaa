@@ -1,0 +1,52 @@
+{
+  Label authorLabel=new Label(Utils.constants.author());
+  createdUsername=new SizedTextBox(-1,false);
+  createdUsername.setWidth("100%");
+  detailsTable.setWidget(0,0,authorLabel);
+  detailsTable.setWidget(0,1,createdUsername);
+  authorLabel.setVisible(!create);
+  createdUsername.setVisible(!create);
+  Label dateTimeCreatedLabel=new Label(Utils.constants.dateTimeCreated());
+  createdDateTime=new SizedTextBox(-1,false);
+  createdDateTime.setWidth("100%");
+  detailsTable.setWidget(1,0,dateTimeCreatedLabel);
+  detailsTable.setWidget(1,1,createdDateTime);
+  dateTimeCreatedLabel.setVisible(!create);
+  createdDateTime.setVisible(!create);
+  Label ecfLabel=new Label(Utils.constants.ecf());
+  ecfLabel.addStyleName("required");
+  ecf=new EcfListBox();
+  ecf.setWidth("100%");
+  detailsTable.setWidget(2,0,ecfLabel);
+  detailsTable.setWidget(2,1,ecf);
+  ecfLabel.setVisible(create);
+  ecf.setVisible(create);
+  ecf.addValueChangeHandler(new ValueChangeHandler<EcfInfoDto>(){
+    @Override public void onValueChange(    ValueChangeEvent<EcfInfoDto> event){
+      fireChanged();
+    }
+  }
+);
+  Label ecfNameLabel=new Label(Utils.constants.ecfName());
+  ecfName=new SizedTextBox(-1,false);
+  ecfName.setWidth("100%");
+  detailsTable.setWidget(3,0,ecfNameLabel);
+  detailsTable.setWidget(3,1,ecfName);
+  ecfNameLabel.setVisible(!create);
+  ecfName.setVisible(!create);
+  Label ecfVersionLabel=new Label(Utils.constants.ecfVersion());
+  ecfVersion=new SizedTextBox(-1,false);
+  ecfVersion.setWidth("100%");
+  detailsTable.setWidget(4,0,ecfVersionLabel);
+  detailsTable.setWidget(4,1,ecfVersion);
+  ecfVersionLabel.setVisible(!create);
+  ecfVersion.setVisible(!create);
+  eventMapGrid=new EventMapGrid(create);
+  eventMapGrid.setSize("700px","400px");
+  Label eventMapLabel=new Label(Utils.constants.eventMap());
+  eventMapLabel.addStyleName("b-app-content-title-label");
+  detailsTable.setWidget(5,0,eventMapLabel);
+  eventMapLabel.getElement().getParentElement().getStyle().setPropertyPx("paddingBottom",10);
+  detailsTable.setWidget(6,0,eventMapGrid);
+  detailsTable.getFlexCellFormatter().setColSpan(6,0,3);
+}

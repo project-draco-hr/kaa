@@ -1,7 +1,11 @@
 {
   BootstrapNodeInfo nodeInfo=new BootstrapNodeInfo();
-  ByteBuffer testKeyData=ByteBuffer.wrap(new byte[]{10,11,12,45,34,23,67,89,66,12});
-  nodeInfo.setConnectionInfo(new ConnectionInfo(BOOTSTRAP_NODE_HOST,1000,BOOTSTRAP_NODE_HOST,1001,testKeyData));
+  KeyPair keys=KeyUtil.generateKeyPair();
+  X509EncodedKeySpec x509EncodedKeySpec=new X509EncodedKeySpec(keys.getPublic().getEncoded());
+  ByteBuffer testKeyData=ByteBuffer.wrap(x509EncodedKeySpec.getEncoded());
+  nodeInfo.setConnectionInfo(new ConnectionInfo(BOOTSTRAP_NODE_HOST,1000,testKeyData));
+  nodeInfo.setBootstrapHostName(BOOTSTRAP_NODE_HOST);
+  nodeInfo.setBootstrapPort(1001);
   nodeInfo.setProcessedRequestCount(1);
   return nodeInfo;
 }

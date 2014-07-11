@@ -1,0 +1,10 @@
+{
+  List<ProfileFilter> filters=generateFilter(null,null,10,UpdateStatus.DEPRECATED);
+  Assert.assertEquals(10,filters.size());
+  ProfileFilter first=filters.get(0);
+  EndpointGroup group=first.getEndpointGroup();
+  ProfileSchema schema=first.getProfileSchema();
+  ProfileFilter deprecated=profileFilterDao.findLatestDeprecated(schema.getId().toString(),group.getId().toString());
+  Assert.assertEquals(UpdateStatus.DEPRECATED,deprecated.getStatus());
+  Assert.assertEquals(9,deprecated.getSequenceNumber());
+}

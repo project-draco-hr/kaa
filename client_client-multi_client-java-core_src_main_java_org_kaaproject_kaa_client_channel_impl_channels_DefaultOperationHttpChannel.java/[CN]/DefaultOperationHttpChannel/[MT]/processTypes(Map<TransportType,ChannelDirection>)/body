@@ -1,0 +1,7 @@
+{
+  byte[] requestBodyRaw=multiplexer.compileRequest(types);
+  LinkedHashMap<String,byte[]> requestEntity=HttpRequestCreator.createOperationHttpRequest(requestBodyRaw,httpClient.getEncoderDecoder());
+  byte[] responseDataRaw=httpClient.executeHttpRequest("",requestEntity);
+  byte[] decodedResponse=httpClient.getEncoderDecoder().decodeData(responseDataRaw);
+  demultiplexer.processResponse(decodedResponse);
+}

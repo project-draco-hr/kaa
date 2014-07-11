@@ -1,0 +1,34 @@
+{
+  LOG.info("BootstrapNodeUpdateTest started");
+  DynamicLoadManager dm=getDynamicLoadManager();
+  long timeStarted=System.currentTimeMillis();
+  OperationsNodeInfo nodeInfo1=getUpdatedOperationsNode(9898,10,timeStarted);
+  OperationsNodeInfo nodeInfo2=getUpdatedOperationsNode(9899,0,timeStarted);
+  LOG.info("BootstrapNodeTest Operations Node {} updated. 1",nodeInfo1.toString());
+  dm.onNodeUpdated(nodeInfo1);
+  dm.onNodeUpdated(nodeInfo2);
+  nodeInfo1=getUpdatedOperationsNode(9898,30,timeStarted + 300000);
+  nodeInfo2=getUpdatedOperationsNode(9899,0,timeStarted + 300000);
+  LOG.info("BootstrapNodeTest Operations Node {} updated. 2",nodeInfo1.toString());
+  dm.onNodeUpdated(nodeInfo1);
+  dm.onNodeUpdated(nodeInfo2);
+  nodeInfo1=getUpdatedOperationsNode(9898,55,timeStarted + 600000);
+  nodeInfo2=getUpdatedOperationsNode(9899,0,timeStarted + 600000);
+  LOG.info("BootstrapNodeTest Operations Node {} updated. 3",nodeInfo1.toString());
+  dm.onNodeUpdated(nodeInfo1);
+  dm.onNodeUpdated(nodeInfo2);
+  ConnectionInfo bsConnectionInfo=new ConnectionInfo(thriftHost,thriftPort,ByteBuffer.wrap("Just array".getBytes()));
+  BootstrapNodeInfo bsNode=new BootstrapNodeInfo(bsConnectionInfo,"localhost",9898,0);
+  dm.onNodeAdded(bsNode);
+  assertNotNull(bootstrapThrift.getBootstrapThriftServiceImpl());
+  assertNotNull(bootstrapThrift.getBootstrapThriftServiceImpl().getOperatonsServerMap());
+  assertEquals(2,bootstrapThrift.getBootstrapThriftServiceImpl().getOperatonsServerMap().size());
+  bootstrapThrift.getBootstrapThriftServiceImpl().reset();
+  dm.recalculate();
+  try {
+    Thread.sleep(2000);
+  }
+ catch (  InterruptedException e) {
+    fail(e.toString());
+  }
+}

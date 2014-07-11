@@ -1,0 +1,29 @@
+{
+  struct.validate();
+  oprot.writeStructBegin(STRUCT_DESC);
+  if (struct.type != null) {
+    oprot.writeFieldBegin(TYPE_FIELD_DESC);
+    oprot.writeI32(struct.type.getValue());
+    oprot.writeFieldEnd();
+  }
+  oprot.writeFieldBegin(EVENT_ID_FIELD_DESC);
+  oprot.writeI64(struct.eventId);
+  oprot.writeFieldEnd();
+  if (struct.event != null) {
+    oprot.writeFieldBegin(EVENT_FIELD_DESC);
+    struct.event.write(oprot);
+    oprot.writeFieldEnd();
+  }
+  if (struct.route != null) {
+    oprot.writeFieldBegin(ROUTE_FIELD_DESC);
+    struct.route.write(oprot);
+    oprot.writeFieldEnd();
+  }
+  if (struct.userRoute != null) {
+    oprot.writeFieldBegin(USER_ROUTE_FIELD_DESC);
+    struct.userRoute.write(oprot);
+    oprot.writeFieldEnd();
+  }
+  oprot.writeFieldStop();
+  oprot.writeStructEnd();
+}

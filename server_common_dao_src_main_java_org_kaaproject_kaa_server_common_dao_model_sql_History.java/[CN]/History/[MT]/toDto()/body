@@ -1,0 +1,11 @@
+{
+  HistoryDto dto=createDto();
+  dto.setId(getStringId());
+  if (application != null) {
+    dto.setApplicationId(application.getStringId());
+  }
+  dto.setChange(change != null ? change.toDto() : null);
+  dto.setSequenceNumber(sequenceNumber);
+  dto.setLastModifyTime(lastModifyTime);
+  return dto;
+}

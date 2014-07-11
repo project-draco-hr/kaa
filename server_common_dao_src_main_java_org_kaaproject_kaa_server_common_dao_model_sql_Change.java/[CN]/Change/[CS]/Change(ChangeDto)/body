@@ -1,0 +1,12 @@
+{
+  if (dto != null) {
+    this.id=getLongId(dto.getId());
+    this.type=dto.getType();
+    this.filterVersion=dto.getPfMajorVersion();
+    this.configurationVersion=dto.getCfMajorVersion();
+    this.groupId=getLongId(dto.getEndpointGroupId());
+    this.profileFilterId=getLongId(dto.getProfileFilterId());
+    this.configurationId=getLongId(dto.getConfigurationId());
+    this.topicId=getLongId(dto.getTopicId());
+  }
+}

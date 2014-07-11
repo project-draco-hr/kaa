@@ -1,0 +1,14 @@
+{
+  SyncRequestMessage pendingRequest=channel.getRequest();
+  SyncResponseHolder pendingResponse=channel.getResponse();
+  EventSyncResponse eventResponse=pendingResponse.getResponse().getEventSyncResponse();
+  if (eventResponse == null) {
+    eventResponse=new EventSyncResponse();
+    pendingResponse.getResponse().setEventSyncResponse(eventResponse);
+  }
+  eventResponse.setEvents(message.getEvents());
+  sendReply(context,pendingRequest,pendingResponse.getResponse());
+  if (!channel.getType().isAsync()) {
+    channelMap.removeChannel(channel);
+  }
+}

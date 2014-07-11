@@ -1,0 +1,92 @@
+{
+  Schema sourceRootSchema=sourceRoot.getSchema();
+  for (  Schema.Field field : sourceRootSchema.getFields()) {
+    String sourceChildname=field.name();
+    Object sourceChild=sourceRoot.get(field.pos());
+    if (sourceChild instanceof GenericEnumSymbol) {
+      GenericEnumSymbol sourceEnum=(GenericEnumSymbol)sourceChild;
+      if (sourceEnum.toString().equals(UNCHANGED)) {
+        if (destinationRoot.get(field.pos()) == null) {
+          GenericRecord defRec=confGenerator.getConfigurationByName(sourceRootSchema.getName(),sourceRootSchema.getNamespace());
+          destinationRoot.put(field.pos(),defRec.get(field.pos()));
+        }
+        continue;
+      }
+    }
+    Object destinationChild=destinationRoot.get(field.pos());
+    if (sourceChild instanceof GenericRecord) {
+      GenericRecord sourceRecord=(GenericRecord)sourceChild;
+      GenericRecord destinationRecord=null;
+      if (destinationChild instanceof GenericRecord) {
+        GenericRecord tempRecord=(GenericRecord)destinationChild;
+        if (tempRecord.getSchema().getFullName().equals(sourceRecord.getSchema().getFullName())) {
+          destinationRecord=tempRecord;
+        }
+      }
+      if (destinationRecord == null) {
+        destinationRecord=new GenericData.Record(getSchemaByName(sourceRecord.getSchema().getFullName()));
+        destinationRoot.put(field.pos(),destinationRecord);
+      }
+      applyNode(destinationRecord,sourceRecord,arrayMergeStrategyResolver);
+    }
+ else     if (sourceChild instanceof GenericArray) {
+      GenericArray sourceArray=(GenericArray)sourceChild;
+      ArrayOverrideStrategy mergeStrategy=ArrayOverrideStrategy.REPLACE;
+      if (!sourceArray.isEmpty() && destinationChild instanceof GenericArray) {
+        GenericArray destArray=(GenericArray)destinationChild;
+        if (!destArray.isEmpty() && destArray.get(0).getClass() == sourceArray.get(0).getClass()) {
+          boolean resolveStrategy=false;
+          if (destArray.get(0) instanceof GenericContainer) {
+            GenericContainer destFirst=(GenericContainer)destArray.get(0);
+            GenericContainer sourceFirst=(GenericContainer)sourceArray.get(0);
+            if (destFirst.getSchema().getFullName().equals(sourceFirst.getSchema().getFullName())) {
+              resolveStrategy=true;
+            }
+          }
+ else {
+            resolveStrategy=true;
+          }
+          if (resolveStrategy) {
+            mergeStrategy=arrayMergeStrategyResolver.resolve(sourceRootSchema.getName(),sourceRootSchema.getNamespace(),sourceChildname);
+          }
+        }
+      }
+switch (mergeStrategy) {
+case REPLACE:
+        if (sourceArray.get(0) instanceof GenericRecord) {
+          GenericArray destArray=new GenericData.Array<>(sourceArray.size(),sourceArray.getSchema());
+          for (          Object item : sourceArray) {
+            GenericRecord recordItem=(GenericRecord)item;
+            GenericRecord destRecord=new GenericData.Record(getSchemaByName(recordItem.getSchema().getFullName()));
+            applyNode(destRecord,recordItem,arrayMergeStrategyResolver);
+            destArray.add(destRecord);
+          }
+          destinationRoot.put(sourceChildname,destArray);
+        }
+ else {
+          destinationRoot.put(sourceChildname,sourceChild);
+        }
+      break;
+case APPEND:
+    GenericArray destArray=(GenericArray)destinationChild;
+  if (sourceArray.get(0) instanceof GenericRecord) {
+    for (    Object item : sourceArray) {
+      GenericRecord recordItem=(GenericRecord)item;
+      GenericRecord destRecord=new GenericData.Record(getSchemaByName(recordItem.getSchema().getFullName()));
+      applyNode(destRecord,recordItem,arrayMergeStrategyResolver);
+      destArray.add(destRecord);
+    }
+  }
+ else {
+    destArray.addAll(sourceArray);
+  }
+break;
+default :
+break;
+}
+}
+ else if (!UUID_FIELD.equals(field.name()) || destinationRoot.get(field.pos()) == null) {
+destinationRoot.put(sourceChildname,sourceChild);
+}
+}
+}

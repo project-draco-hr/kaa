@@ -1,0 +1,10 @@
+{
+  validateId(applicationId,"Can't remove log schema. Invalid application id: " + applicationId);
+  List<LogSchema> schemas=logSchemaDao.findByApplicationId(applicationId);
+  if (schemas != null && !schemas.isEmpty()) {
+    LOG.debug("Remove log shemas by application id {}",applicationId);
+    for (    LogSchema schema : schemas) {
+      removeLogSchemaById(schema.getStringId());
+    }
+  }
+}

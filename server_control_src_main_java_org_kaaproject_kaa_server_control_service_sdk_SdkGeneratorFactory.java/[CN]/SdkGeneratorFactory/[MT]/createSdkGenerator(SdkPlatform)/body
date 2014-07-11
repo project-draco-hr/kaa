@@ -1,8 +1,10 @@
 {
 switch (sdkPlatform) {
 case JAVA:
-    return new JavaSdkGenerator();
+    return new JavaSdkGenerator(sdkPlatform);
+case ANDROID:
+  return new JavaSdkGenerator(sdkPlatform);
 default :
-  return null;
+return null;
 }
 }

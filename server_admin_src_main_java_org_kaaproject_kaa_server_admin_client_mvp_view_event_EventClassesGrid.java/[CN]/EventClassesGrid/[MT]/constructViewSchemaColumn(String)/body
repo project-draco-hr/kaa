@@ -1,0 +1,20 @@
+{
+  ActionButtonCell<EventClassDto> cell=new ActionButtonCell<EventClassDto>(Utils.resources.details(),text,embedded,new ActionListener<EventClassDto>(){
+    @Override public void onItemAction(    EventClassDto value){
+      showSchema(value);
+    }
+  }
+,new ActionValidator<EventClassDto>(){
+    @Override public boolean canPerformAction(    EventClassDto value){
+      return true;
+    }
+  }
+);
+  Column<EventClassDto,EventClassDto> column=new Column<EventClassDto,EventClassDto>(cell){
+    @Override public EventClassDto getValue(    EventClassDto item){
+      return item;
+    }
+  }
+;
+  return column;
+}

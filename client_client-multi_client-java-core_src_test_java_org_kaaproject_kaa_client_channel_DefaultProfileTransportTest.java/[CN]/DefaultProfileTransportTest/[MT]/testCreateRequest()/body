@@ -1,0 +1,20 @@
+{
+  KaaClientState clientState=Mockito.mock(KaaClientState.class);
+  Mockito.when(clientState.isRegistered()).thenReturn(true);
+  KaaClientProperties properties=Mockito.mock(KaaClientProperties.class);
+  ProfileManager profileManager=Mockito.mock(ProfileManager.class);
+  SerializedProfileContainer profileContainer=Mockito.mock(SerializedProfileContainer.class);
+  Mockito.when(profileContainer.getSerializedProfile()).thenReturn(new byte[]{1,2,3});
+  Mockito.when(profileManager.getSerializedProfileContainer()).thenReturn(profileContainer);
+  ProfileTransport transport=new DefaultProfileTransport();
+  transport.createProfileRequest();
+  transport.setClientProperties(properties);
+  transport.createProfileRequest();
+  transport.setClientState(clientState);
+  transport.createProfileRequest();
+  transport.setProfileManager(profileManager);
+  transport.createProfileRequest();
+  Mockito.verify(clientState,Mockito.times(1)).getEndpointAccessToken();
+  Mockito.verify(properties,Mockito.times(1)).getVersionInfo();
+  Mockito.verify(profileContainer,Mockito.times(1)).getSerializedProfile();
+}

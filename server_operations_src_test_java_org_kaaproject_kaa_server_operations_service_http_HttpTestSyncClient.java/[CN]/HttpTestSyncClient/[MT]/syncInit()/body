@@ -3,13 +3,17 @@
   configurationHash=getRandomBytes(HASH_SIZE);
   appStateSeqNumber=getId();
   setRequest(new SyncRequest());
-  getRequest().setApplicationToken(APPLICATION_TOKEN);
-  getRequest().setEndpointPublicKeyHash(ByteBuffer.wrap(getClientPublicKeyHash().getData()));
-  getRequest().setConfigurationHash(ByteBuffer.wrap(configurationHash));
-  getRequest().setProfileHash(ByteBuffer.wrap(profileHash));
+  getRequest().setSyncRequestMetaData(new SyncRequestMetaData());
+  getRequest().getSyncRequestMetaData().setApplicationToken(APPLICATION_TOKEN);
+  getRequest().getSyncRequestMetaData().setEndpointPublicKeyHash(ByteBuffer.wrap(getClientPublicKeyHash().getData()));
+  getRequest().getSyncRequestMetaData().setProfileHash(ByteBuffer.wrap(profileHash));
+  getRequest().setConfigurationSyncRequest(new ConfigurationSyncRequest());
+  getRequest().getConfigurationSyncRequest().setConfigurationHash(ByteBuffer.wrap(configurationHash));
+  getRequest().getConfigurationSyncRequest().setAppStateSeqNumber(appStateSeqNumber);
   generateSubscriptionCommandList();
-  getRequest().setSubscriptionCommands(subscriptionCommands);
-  getRequest().setTopicStates(topicStates);
-  getRequest().setTopicListHash(ByteBuffer.wrap(profileHash));
-  getRequest().setAppStateSeqNumber(appStateSeqNumber);
+  getRequest().setNotificationSyncRequest(new NotificationSyncRequest());
+  getRequest().getNotificationSyncRequest().setSubscriptionCommands(subscriptionCommands);
+  getRequest().getNotificationSyncRequest().setTopicStates(topicStates);
+  getRequest().getNotificationSyncRequest().setTopicListHash(ByteBuffer.wrap(profileHash));
+  getRequest().getNotificationSyncRequest().setAppStateSeqNumber(appStateSeqNumber);
 }

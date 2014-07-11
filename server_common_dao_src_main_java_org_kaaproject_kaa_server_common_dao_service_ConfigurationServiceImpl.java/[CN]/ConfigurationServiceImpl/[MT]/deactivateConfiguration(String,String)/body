@@ -1,6 +1,6 @@
 {
   ChangeConfigurationNotification configurationNotification;
-  validateId(id,"Incorrect configuration id. Can't deactivate configuration with id " + id);
+  validateSqlId(id,"Incorrect configuration id. Can't deactivate configuration with id " + id);
   Configuration oldConfiguration=configurationDao.findById(id);
   if (oldConfiguration != null) {
     UpdateStatus status=oldConfiguration.getStatus();

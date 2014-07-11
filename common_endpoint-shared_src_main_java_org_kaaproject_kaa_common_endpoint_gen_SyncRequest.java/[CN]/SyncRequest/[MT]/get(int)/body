@@ -1,23 +1,19 @@
 {
 switch (field$) {
 case 0:
-    return applicationToken;
+    return syncRequestMetaData;
 case 1:
-  return endpointPublicKeyHash;
+  return profileSyncRequest;
 case 2:
-return profileHash;
+return configurationSyncRequest;
 case 3:
-return configurationHash;
+return notificationSyncRequest;
 case 4:
-return topicListHash;
+return userSyncRequest;
 case 5:
-return appStateSeqNumber;
+return eventSyncRequest;
 case 6:
-return acceptedUnicastNotifications;
-case 7:
-return topicStates;
-case 8:
-return subscriptionCommands;
+return logSyncRequest;
 default :
 throw new org.apache.avro.AvroRuntimeException("Bad index");
 }

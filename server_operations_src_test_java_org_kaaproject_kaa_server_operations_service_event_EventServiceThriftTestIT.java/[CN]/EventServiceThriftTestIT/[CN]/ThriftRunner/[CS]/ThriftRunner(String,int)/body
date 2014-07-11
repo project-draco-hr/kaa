@@ -1,0 +1,10 @@
+{
+  this.thriftHost=thriftHost;
+  this.thriftPort=thriftPort;
+  DefaultEventService eventServiceInst=new DefaultEventService();
+  OperationsServerConfig config=new OperationsServerConfig();
+  ReflectionTestUtils.setField(eventServiceInst,"operationsServerConfig",config);
+  eventService=eventServiceInst;
+  operationsThriftService=new OperationsThriftServiceImpl();
+  operationsThriftService.setEventService(eventService);
+}

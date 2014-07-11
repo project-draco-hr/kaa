@@ -1,0 +1,28 @@
+{
+  if (that == null)   return false;
+  boolean this_present_userId=true && this.isSetUserId();
+  boolean that_present_userId=true && that.isSetUserId();
+  if (this_present_userId || that_present_userId) {
+    if (!(this_present_userId && that_present_userId))     return false;
+    if (!this.userId.equals(that.userId))     return false;
+  }
+  boolean this_present_tenantId=true && this.isSetTenantId();
+  boolean that_present_tenantId=true && that.isSetTenantId();
+  if (this_present_tenantId || that_present_tenantId) {
+    if (!(this_present_tenantId && that_present_tenantId))     return false;
+    if (!this.tenantId.equals(that.tenantId))     return false;
+  }
+  boolean this_present_endpointEvent=true && this.isSetEndpointEvent();
+  boolean that_present_endpointEvent=true && that.isSetEndpointEvent();
+  if (this_present_endpointEvent || that_present_endpointEvent) {
+    if (!(this_present_endpointEvent && that_present_endpointEvent))     return false;
+    if (!this.endpointEvent.equals(that.endpointEvent))     return false;
+  }
+  boolean this_present_routeAddress=true && this.isSetRouteAddress();
+  boolean that_present_routeAddress=true && that.isSetRouteAddress();
+  if (this_present_routeAddress || that_present_routeAddress) {
+    if (!(this_present_routeAddress && that_present_routeAddress))     return false;
+    if (!this.routeAddress.equals(that.routeAddress))     return false;
+  }
+  return true;
+}

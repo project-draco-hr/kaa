@@ -1,0 +1,13 @@
+{
+  GetDeltaRequest deltaRequest;
+  int curEndpointSeqNumber=Math.min(request.getAppStateSeqNumber(),profile.getSequenceNumber());
+  if (request.getConfigurationHash() != null) {
+    deltaRequest=new GetDeltaRequest(metaData.getApplicationToken(),EndpointObjectHash.fromBytes(request.getConfigurationHash().array()),curEndpointSeqNumber);
+  }
+ else {
+    deltaRequest=new GetDeltaRequest(metaData.getApplicationToken(),curEndpointSeqNumber);
+  }
+  deltaRequest.setEndpointProfile(profile);
+  GetDeltaResponse confResponse=deltaService.getDelta(deltaRequest,historyDelta,curAppSeqNumber);
+  return confResponse;
+}

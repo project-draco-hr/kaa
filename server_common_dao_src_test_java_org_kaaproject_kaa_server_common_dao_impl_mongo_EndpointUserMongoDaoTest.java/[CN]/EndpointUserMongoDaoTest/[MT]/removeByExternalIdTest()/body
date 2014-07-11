@@ -1,0 +1,10 @@
+{
+  TenantDto tenant=generateTenant();
+  EndpointUserDto dto=generateEndpointUser(tenant.getId());
+  Assert.assertNotNull(dto);
+  EndpointUser found=endpointUserDao.findById(dto.getId());
+  Assert.assertNotNull(found);
+  endpointUserDao.removeByExternalIdAndTenantId(found.getExternalId(),found.getTenantId());
+  found=endpointUserDao.findById(dto.getId());
+  Assert.assertNull(found);
+}

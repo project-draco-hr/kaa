@@ -1,0 +1,19 @@
+{
+  super(other);
+  if (isValidValue(fields()[0],other.endpointPublicKey)) {
+    this.endpointPublicKey=data().deepCopy(fields()[0].schema(),other.endpointPublicKey);
+    fieldSetFlags()[0]=true;
+  }
+  if (isValidValue(fields()[1],other.profileBody)) {
+    this.profileBody=data().deepCopy(fields()[1].schema(),other.profileBody);
+    fieldSetFlags()[1]=true;
+  }
+  if (isValidValue(fields()[2],other.versionInfo)) {
+    this.versionInfo=data().deepCopy(fields()[2].schema(),other.versionInfo);
+    fieldSetFlags()[2]=true;
+  }
+  if (isValidValue(fields()[3],other.endpointAccessToken)) {
+    this.endpointAccessToken=data().deepCopy(fields()[3].schema(),other.endpointAccessToken);
+    fieldSetFlags()[3]=true;
+  }
+}

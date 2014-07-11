@@ -1,0 +1,21 @@
+{
+  struct.validate();
+  oprot.writeStructBegin(STRUCT_DESC);
+  if (struct.eventClassFamilyId != null) {
+    oprot.writeFieldBegin(EVENT_CLASS_FAMILY_ID_FIELD_DESC);
+    oprot.writeString(struct.eventClassFamilyId);
+    oprot.writeFieldEnd();
+  }
+  if (struct.eventClassFamilySchema != null) {
+    oprot.writeFieldBegin(EVENT_CLASS_FAMILY_SCHEMA_FIELD_DESC);
+    oprot.writeString(struct.eventClassFamilySchema);
+    oprot.writeFieldEnd();
+  }
+  if (struct.createdUsername != null) {
+    oprot.writeFieldBegin(CREATED_USERNAME_FIELD_DESC);
+    oprot.writeString(struct.createdUsername);
+    oprot.writeFieldEnd();
+  }
+  oprot.writeFieldStop();
+  oprot.writeStructEnd();
+}

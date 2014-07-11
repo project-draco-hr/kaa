@@ -1,0 +1,9 @@
+{
+  ConfigurationSchema schema=null;
+  LOG.debug("Find configuration schema by application id {} and major version {}",appId,version);
+  if (isNotBlank(appId)) {
+    schema=findOneByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.and(Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(appId)),Restrictions.eq(MAJOR_VERSION_PROPERTY,version)));
+  }
+  LOG.debug("Found configuration {} by application id {} and major version {}",schema,appId,version);
+  return schema;
+}

@@ -1,0 +1,7 @@
+{
+  Tenant ten=generateTenant();
+  Application app=generateApplication(ten);
+  String token=app.getApplicationToken();
+  Application found=applicationDao.findByApplicationToken(token);
+  Assert.assertEquals(app,found);
+}

@@ -1,0 +1,12 @@
+{
+  if (message instanceof EndpointUserConnectMessage) {
+    processUserAwareMessage((EndpointUserConnectMessage)message);
+  }
+ else   if (message instanceof EndpointEventSendMessage) {
+    processUserAwareMessage((EndpointEventSendMessage)message);
+  }
+ else {
+    ActorRef applicationActor=getOrCreateApplicationActor(message.getAppToken());
+    applicationActor.tell(message,self());
+  }
+}

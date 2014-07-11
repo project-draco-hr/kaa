@@ -1,0 +1,4 @@
+{
+  validateId(applicationId,"Can't find log schemas. Invalid application id: " + applicationId);
+  return convertDtoList(logSchemaDao.findByApplicationId(applicationId));
+}

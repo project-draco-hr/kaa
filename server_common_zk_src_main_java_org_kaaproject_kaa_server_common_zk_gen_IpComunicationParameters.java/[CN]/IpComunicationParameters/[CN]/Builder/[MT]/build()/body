@@ -1,0 +1,11 @@
+{
+  try {
+    IpComunicationParameters record=new IpComunicationParameters();
+    record.HostName=fieldSetFlags()[0] ? this.HostName : (java.lang.CharSequence)defaultValue(fields()[0]);
+    record.Port=fieldSetFlags()[1] ? this.Port : (java.lang.Integer)defaultValue(fields()[1]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

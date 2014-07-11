@@ -1,0 +1,19 @@
+{
+  HashCodeBuilder builder=new HashCodeBuilder();
+  boolean present_uuid=true && (isSetUuid());
+  builder.append(present_uuid);
+  if (present_uuid)   builder.append(uuid);
+  boolean present_sender=true && (isSetSender());
+  builder.append(present_sender);
+  if (present_sender)   builder.append(sender);
+  boolean present_eventData=true && (isSetEventData());
+  builder.append(present_eventData);
+  if (present_eventData)   builder.append(eventData);
+  boolean present_createTime=true;
+  builder.append(present_createTime);
+  if (present_createTime)   builder.append(createTime);
+  boolean present_version=true;
+  builder.append(present_version);
+  if (present_version)   builder.append(version);
+  return builder.toHashCode();
+}

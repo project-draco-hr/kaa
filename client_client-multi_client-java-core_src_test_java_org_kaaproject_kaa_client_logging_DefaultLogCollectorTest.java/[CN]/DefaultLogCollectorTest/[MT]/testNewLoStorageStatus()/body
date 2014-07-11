@@ -1,0 +1,18 @@
+{
+  LogTransport transport=mock(LogTransport.class);
+  DefaultLogCollector logCollector=new DefaultLogCollector(transport);
+  CustomStorageStatus status=new CustomStorageStatus();
+  CustomStrategy strategy=new CustomStrategy();
+  logCollector.setStorageStatus(status);
+  logCollector.setUploadStrategy(strategy);
+  try {
+    SuperRecord record=new SuperRecord();
+    record.setLogdata("test");
+    logCollector.addLogRecord(record);
+    logCollector.addLogRecord(record);
+    verify(transport,times(1)).sync();
+  }
+ catch (  Exception e) {
+    Assert.assertTrue("Exception: " + e.toString(),false);
+  }
+}

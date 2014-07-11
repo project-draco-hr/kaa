@@ -1,0 +1,5 @@
+{
+  LOG.debug("Find latest notification schema  by application id [{}] and type [{}] ",applicationId,type);
+  Sort sort=new Sort(Direction.DESC,MAJOR_VERSION);
+  return findOne(query(where(APPLICATION_ID).is(applicationId).and(NOTIFICATION_TYPE).is(type.name())).with(sort));
+}

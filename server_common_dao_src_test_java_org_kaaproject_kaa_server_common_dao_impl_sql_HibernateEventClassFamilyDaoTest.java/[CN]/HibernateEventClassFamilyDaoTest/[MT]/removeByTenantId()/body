@@ -1,0 +1,10 @@
+{
+  List<EventClassFamily> eventClassFamilies=generateEventClassFamily(null,2);
+  EventClassFamily eventClassFamily=eventClassFamilies.get(0);
+  EventClassFamily dto=eventClassFamilyDao.findById(eventClassFamily.getStringId());
+  Assert.assertNotNull(dto);
+  Assert.assertNotNull(dto.getTenant());
+  eventClassFamilyDao.removeByTenantId(dto.getTenant().getStringId());
+  dto=eventClassFamilyDao.findById(eventClassFamily.getStringId());
+  Assert.assertNull(dto);
+}

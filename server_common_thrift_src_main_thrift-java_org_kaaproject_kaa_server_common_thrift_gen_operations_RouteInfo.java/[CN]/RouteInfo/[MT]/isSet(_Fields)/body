@@ -1,0 +1,16 @@
+{
+  if (field == null) {
+    throw new IllegalArgumentException();
+  }
+switch (field) {
+case UPDATE_TYPE:
+    return isSetUpdateType();
+case EVENT_CLASS_FAMILY_VERSION:
+  return isSetEventClassFamilyVersion();
+case APPLICATION_TOKEN:
+return isSetApplicationToken();
+case ENDPOINT_ID:
+return isSetEndpointId();
+}
+throw new IllegalStateException();
+}

@@ -1,0 +1,23 @@
+{
+  LOG.debug("[{}] Reporting all local routes to serverId: {}",userId,serverId);
+  Set<RouteTableAddress> localAddresses=routeTable.getAllLocalRoutes();
+  List<RouteInfo> localRoutes=new ArrayList<>();
+  for (  RouteTableAddress localAddress : localAddresses) {
+    if (routeTable.isDeliveryRequired(serverId,localAddress)) {
+      Set<RouteTableKey> routeKeys=routeTable.getLocalRouteTableKeys(localAddress);
+      Set<EventClassFamilyVersion> ecfVersions=new HashSet<>();
+      for (      RouteTableKey routeKey : routeKeys) {
+        ecfVersions.add(routeKey.getEcfVersion());
+      }
+      localRoutes.add(new RouteInfo(tenantId,userId,localAddress,new ArrayList<>(ecfVersions)));
+    }
+ else {
+      LOG.debug("[{}] Address {} is already delivered to serverId {} and will not be sent again",userId,localAddress,serverId);
+    }
+  }
+  LOG.debug("[{}] Reporting {}/{} local addresses/routes count",userId,localAddresses.size(),localRoutes.size());
+  if (!localRoutes.isEmpty()) {
+    eventService.sendRouteInfo(localRoutes,serverId);
+    routeTable.registerRouteInfoReport(localAddresses,serverId);
+  }
+}

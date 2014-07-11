@@ -1,0 +1,9 @@
+{
+  Schema avroSchema=getSchemaFromRaw(schemaNode);
+  GenericEnumSymbol result=new GenericData.EnumSymbol(avroSchema,avroSchema.getEnumSymbols().get(0));
+  String fullName=getFullNameFromRaw(schemaNode);
+  if (!fullName.isEmpty()) {
+    processedTypes.put(fullName,result);
+  }
+  return result;
+}

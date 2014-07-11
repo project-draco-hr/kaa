@@ -1,0 +1,11 @@
+{
+  List<ApplicationEventFamilyMap> applicationEventFamilyMaps=generateApplicationEventFamilyMap(null,null,null,2,true);
+  String id=applicationEventFamilyMaps.get(0).getStringId();
+  ApplicationEventFamilyMap dto=applicationEventFamilyMapDao.findById(id);
+  Assert.assertNotNull(dto);
+  String appId=dto.getApplication().getStringId();
+  Assert.assertNotNull(appId);
+  applicationEventFamilyMapDao.removeByApplicationId(appId);
+  dto=applicationEventFamilyMapDao.findById(id);
+  Assert.assertNull(dto);
+}

@@ -1,0 +1,14 @@
+{
+  if (isShutdown) {
+    LOG.info("Can't set server. Channel {} is down",getId());
+    return;
+  }
+  if (server != null) {
+    this.currentServer=(BootstrapServerInfo)server;
+    this.httpClient=client.createHttpClient(currentServer.getURL(),null,null,currentServer.getPublicKey());
+    if (lastConnectionFailed) {
+      lastConnectionFailed=false;
+      syncAll();
+    }
+  }
+}

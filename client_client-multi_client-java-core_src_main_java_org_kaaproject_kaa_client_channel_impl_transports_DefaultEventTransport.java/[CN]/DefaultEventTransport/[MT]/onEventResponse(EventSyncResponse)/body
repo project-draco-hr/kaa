@@ -1,0 +1,14 @@
+{
+  if (manager != null) {
+    manager.clearState();
+    if (response.getEvents() != null && !response.getEvents().isEmpty()) {
+      for (      Event event : response.getEvents()) {
+        manager.onGenericEvent(event.getEventClassFQN(),event.getEventData().array(),event.getSource());
+      }
+    }
+    if (response.getEventListenersResponses() != null && !response.getEventListenersResponses().isEmpty()) {
+      manager.eventListenersResponseReceived(response.getEventListenersResponses());
+    }
+  }
+  LOG.info("Processed event response");
+}

@@ -1,12 +1,11 @@
 {
   controlClientConnect();
   ControlApiCliThriftClient cli=new ControlApiCliThriftClient();
-  String userId=editUserCli(cli,null,true);
-  userId=editUserCli(cli,null,false);
+  String userId=editUserCli(cli,null,"testTenant1",true);
+  userId=editUserCli(cli,null,"testTenant2",false);
   Assert.assertFalse(strIsEmpty(userId));
-  Assert.assertEquals(userId.length(),24);
-  editUserCli(cli,userId,false);
-  editUserCli(cli,FAKE_ID,false);
+  editUserCli(cli,userId,"testTenant2",false);
+  editUserCli(cli,FAKE_SQL_ID,"testTenant2",false);
   showEntityCli(cli,userId,EntityType.USER);
   listUsersCli(cli,false);
   listUsersCli(cli,true);

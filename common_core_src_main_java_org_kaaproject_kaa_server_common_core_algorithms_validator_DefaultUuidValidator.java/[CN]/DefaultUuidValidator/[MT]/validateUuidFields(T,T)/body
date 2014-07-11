@@ -1,0 +1,16 @@
+{
+  processedUuids.clear();
+  String config=null;
+  GenericAvroConverter<GenericRecord> converter=new GenericAvroConverter<>(schema.getRawSchema());
+  GenericRecord currentRecord=converter.decodeJson(configurationToValidate.getRawData());
+  GenericRecord previousRecord=null;
+  if (previousConfiguration != null) {
+    previousRecord=converter.decodeJson(previousConfiguration.getRawData());
+  }
+  validateRecord(currentRecord,previousRecord,previousRecord);
+  if (currentRecord != null) {
+    config=converter.endcodeToJson(currentRecord);
+  }
+  LOG.info("Generated uuid fields for records {}",currentRecord);
+  return dataFactory.createData(schema,config);
+}

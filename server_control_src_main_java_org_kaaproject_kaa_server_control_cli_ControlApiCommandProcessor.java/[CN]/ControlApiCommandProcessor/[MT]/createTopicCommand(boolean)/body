@@ -1,24 +1,24 @@
 {
-  ControlApiCommand command=new ControlApiCommand(edit ? "editTopic" : "createTopic",(edit ? "edit" : "create") + " Topic"){
+  ControlApiCommand command=new ControlApiCommand(edit ? "editTopic" : "createTopic",(edit ? "edit" : CREATE) + TOPIC){
     @Override public void runCommand(    CommandLine line,    ControlThriftService.Iface client,    PrintWriter writer,    PrintWriter errorWriter){
       createTopic(line,client,writer,errorWriter,edit);
     }
   }
 ;
   if (edit) {
-    Option opt=new Option("i","topicId",true,"Topic Id option");
+    Option opt=new Option("i",TOPIC_ID,true,TOPIC_ID_OPTION);
     opt.setRequired(true);
     command.addOption(opt);
   }
  else {
-    Option opt=new Option("o","output",true,"Output file to store Object Id");
+    Option opt=new Option("o",OUTPUT,true,OUTPUT_FILE_TO_STORE_OBJECT_ID);
     opt.setRequired(false);
     command.addOption(opt);
   }
   Option opt=new Option("n","name",true,"Topic Name option");
   opt.setRequired(!edit);
   command.addOption(opt);
-  opt=new Option("a","applicationId",true,"Application Id option");
+  opt=new Option("a",APPLICATION_ID,true,APPLICATION_ID_OPTION);
   opt.setRequired(!edit);
   command.addOption(opt);
   opt=new Option("t","type",true,"Topic type option. Values: MANDATORY, VOLUNTARY");

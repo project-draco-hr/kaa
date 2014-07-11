@@ -1,0 +1,14 @@
+{
+  struct.validate();
+  oprot.writeStructBegin(STRUCT_DESC);
+  if (struct.endpointClassFamilyId != null) {
+    oprot.writeFieldBegin(ENDPOINT_CLASS_FAMILY_ID_FIELD_DESC);
+    oprot.writeString(struct.endpointClassFamilyId);
+    oprot.writeFieldEnd();
+  }
+  oprot.writeFieldBegin(ENDPOINT_CLASS_FAMILY_VERSION_FIELD_DESC);
+  oprot.writeI32(struct.endpointClassFamilyVersion);
+  oprot.writeFieldEnd();
+  oprot.writeFieldStop();
+  oprot.writeStructEnd();
+}

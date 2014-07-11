@@ -1,0 +1,14 @@
+{
+  if (clientState != null && configProcessor != null && schemaProcessor != null) {
+    clientState.setConfigSeqNumber(response.getAppStateSeqNumber());
+    ByteBuffer schemaBody=response.getConfSchemaBody();
+    if (schemaBody != null) {
+      schemaProcessor.loadSchema(schemaBody);
+    }
+    ByteBuffer confBody=response.getConfDeltaBody();
+    if (confBody != null) {
+      configProcessor.processConfigurationData(confBody,response.getResponseStatus().equals(SyncResponseStatus.RESYNC));
+    }
+    LOG.info("Processed configuration response");
+  }
+}

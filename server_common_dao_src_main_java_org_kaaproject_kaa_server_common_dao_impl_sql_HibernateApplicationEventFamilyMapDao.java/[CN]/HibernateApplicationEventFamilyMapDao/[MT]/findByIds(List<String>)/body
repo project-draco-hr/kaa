@@ -1,0 +1,8 @@
+{
+  LOG.debug("Find applicationEventFamilyMaps by ids [{}] ",ids);
+  List<ApplicationEventFamilyMap> applicationEventFamilyMaps=Collections.emptyList();
+  if (ids != null && !ids.isEmpty()) {
+    applicationEventFamilyMaps=findListByCriterion(Restrictions.in(ID_PROPERTY,toLongIds(ids)));
+  }
+  return applicationEventFamilyMaps;
+}

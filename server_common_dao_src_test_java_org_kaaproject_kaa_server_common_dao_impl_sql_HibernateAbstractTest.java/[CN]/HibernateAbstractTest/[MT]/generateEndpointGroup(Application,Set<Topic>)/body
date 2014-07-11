@@ -1,0 +1,11 @@
+{
+  EndpointGroup group=new EndpointGroup();
+  if (app == null) {
+    app=generateApplication(null);
+  }
+  group.setApplication(app);
+  group.setName("GROUP_ALL_" + RANDOM.nextInt());
+  group.setWeight(RANDOM.nextInt());
+  group.setTopics(topics);
+  return endpointGroupDao.save(group);
+}

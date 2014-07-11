@@ -1,0 +1,10 @@
+{
+  if (profileTransport != null) {
+    profileTransport.sync();
+  }
+  Map<EndpointAccessToken,EndpointKeyHash> container=getAttachedEndpointList();
+  EndpointKeyHash hash=container.get(old);
+  if (hash != null) {
+    detachEndpoint(hash,null);
+  }
+}

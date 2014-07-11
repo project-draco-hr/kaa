@@ -1,0 +1,19 @@
+{
+  Set<Entry<RouteTableKey,Map<String,RouteTableAddress>>> entrySet=routes.entrySet();
+  Iterator<Entry<RouteTableKey,Map<String,RouteTableAddress>>> iterator=entrySet.iterator();
+  while (iterator.hasNext()) {
+    Entry<RouteTableKey,Map<String,RouteTableAddress>> entry=iterator.next();
+    Map<String,RouteTableAddress> addressMap=entry.getValue();
+    Set<Entry<String,RouteTableAddress>> innerEntrySet=addressMap.entrySet();
+    Iterator<Entry<String,RouteTableAddress>> innerIterator=innerEntrySet.iterator();
+    while (innerIterator.hasNext()) {
+      Entry<String,RouteTableAddress> innerEntry=innerIterator.next();
+      if (address.equals(innerEntry.getValue())) {
+        innerIterator.remove();
+      }
+    }
+    if (addressMap.isEmpty()) {
+      iterator.remove();
+    }
+  }
+}

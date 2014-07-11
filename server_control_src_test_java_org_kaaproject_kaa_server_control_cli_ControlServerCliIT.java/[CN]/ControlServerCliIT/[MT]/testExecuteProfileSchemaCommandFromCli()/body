@@ -1,13 +1,12 @@
 {
   controlClientConnect();
   ControlApiCliThriftClient cli=new ControlApiCliThriftClient();
-  String applicationId=editApplicationCli(cli,null,null,false);
-  String profileSchemaId=editProfileSchemaCli(cli,null,applicationId,true);
-  profileSchemaId=editProfileSchemaCli(cli,null,applicationId,false);
+  String applicationId=editApplicationCli(cli,null,"testApplication",null,"testTenant",false);
+  String profileSchemaId=editProfileSchemaCli(cli,null,applicationId,null,null,true);
+  profileSchemaId=editProfileSchemaCli(cli,null,applicationId,null,null,false);
   Assert.assertFalse(strIsEmpty(profileSchemaId));
-  Assert.assertEquals(profileSchemaId.length(),24);
-  editProfileSchemaCli(cli,profileSchemaId,applicationId,false);
-  editProfileSchemaCli(cli,FAKE_ID,applicationId,false);
+  editProfileSchemaCli(cli,profileSchemaId,applicationId,null,null,false);
+  editProfileSchemaCli(cli,FAKE_SQL_ID,applicationId,null,null,false);
   showEntityCli(cli,profileSchemaId,EntityType.PROFILE_SCHEMA);
   listProfileSchemasCli(cli,applicationId,false);
   listProfileSchemasCli(cli,applicationId,true);

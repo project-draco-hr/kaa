@@ -3,8 +3,10 @@
   testFailed=0;
   requestTime=0;
   sessionTime=0;
-  config.setSessionTrack(new Statistics());
-  netty=new NettyHttpServer(config);
+  HttpChannelConfig httpChannelConfig=(HttpChannelConfig)config.getChannelList().get(0);
+  httpChannelConfig.setSessionTrack(new Statistics());
+  httpChannelConfig.setOperationServerConfig(config);
+  netty=new NettyHttpServer(httpChannelConfig);
   netty.init();
   netty.start();
   assertNotNull(netty);

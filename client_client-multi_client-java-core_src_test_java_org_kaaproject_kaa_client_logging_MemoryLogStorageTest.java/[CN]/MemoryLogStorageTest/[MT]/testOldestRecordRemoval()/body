@@ -1,0 +1,14 @@
+{
+  long bucketSize=3;
+  MemoryLogStorage storage=new MemoryLogStorage(bucketSize);
+  LogRecord record=new LogRecord();
+  int insertionCount=8;
+  int iter=insertionCount;
+  while (iter-- > 0) {
+    storage.addLogRecord(record);
+  }
+  long maxAllowedSize=insertionCount * record.getSize() - 4;
+  storage.removeOldestRecord(maxAllowedSize);
+  LogBlock block=storage.getRecordBlock(50);
+  Assert.assertTrue("Ac: " + block.getRecords().size() + ", ex: "+ (maxAllowedSize / record.getSize()),block.getRecords().size() == (maxAllowedSize / record.getSize()));
+}

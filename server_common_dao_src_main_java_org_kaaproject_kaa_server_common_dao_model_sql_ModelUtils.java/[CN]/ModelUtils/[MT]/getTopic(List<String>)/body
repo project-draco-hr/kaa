@@ -1,0 +1,13 @@
+{
+  Set<Topic> topics=Collections.emptySet();
+  if (topicIds != null && !topicIds.isEmpty()) {
+    topics=new HashSet<>();
+    for (    String id : topicIds) {
+      Long lid=getLongId(id);
+      if (lid != null) {
+        topics.add(new Topic(lid));
+      }
+    }
+  }
+  return topics;
+}

@@ -1,0 +1,18 @@
+{
+  LogStorage storage=mock(LogStorage.class);
+  LogTransport transport=mock(LogTransport.class);
+  DefaultLogCollector logCollector=new DefaultLogCollector(transport);
+  CustomStorageStatus status=new CustomStorageStatus();
+  logCollector.setStorage(storage);
+  logCollector.setStorageStatus(status);
+  try {
+    SuperRecord record=new SuperRecord();
+    record.setLogdata("test");
+    logCollector.addLogRecord(record);
+    logCollector.addLogRecord(record);
+    verify(storage,times(2)).removeOldestRecord(1024 * 1024);
+  }
+ catch (  Exception e) {
+    Assert.assertTrue("Exception: " + e.toString(),false);
+  }
+}

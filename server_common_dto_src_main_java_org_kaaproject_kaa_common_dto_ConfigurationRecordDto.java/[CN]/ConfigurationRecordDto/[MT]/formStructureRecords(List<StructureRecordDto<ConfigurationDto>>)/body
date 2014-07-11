@@ -1,0 +1,8 @@
+{
+  List<ConfigurationRecordDto> result=new ArrayList<>();
+  for (  StructureRecordDto<ConfigurationDto> record : records) {
+    ConfigurationRecordDto configurationRecord=new ConfigurationRecordDto(record.getActiveStructureDto(),record.getInactiveStructureDto());
+    result.add(configurationRecord);
+  }
+  return result;
+}

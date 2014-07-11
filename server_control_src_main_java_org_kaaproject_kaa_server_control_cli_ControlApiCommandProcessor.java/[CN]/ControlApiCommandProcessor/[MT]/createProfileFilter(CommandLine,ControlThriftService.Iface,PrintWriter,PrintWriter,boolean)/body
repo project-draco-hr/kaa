@@ -5,7 +5,7 @@
       String profileFilterId=line.getOptionValue("i");
       profileFilter=toDto(client.getProfileFilter(profileFilterId));
       if (profileFilter == null) {
-        writer.println("Profile Filter with id " + profileFilterId + " not found!");
+        writer.println("Profile Filter with id " + profileFilterId + NOT_FOUND);
         return;
       }
     }
@@ -41,6 +41,6 @@
     }
   }
  catch (  TException e) {
-    handleException("Unable to " + (edit ? "update" : "create") + " Profile Filter",e,errorWriter);
+    handleException(UNABLE_TO + (edit ? UPDATE : CREATE) + PROFILE_FILTER,e,errorWriter);
   }
 }

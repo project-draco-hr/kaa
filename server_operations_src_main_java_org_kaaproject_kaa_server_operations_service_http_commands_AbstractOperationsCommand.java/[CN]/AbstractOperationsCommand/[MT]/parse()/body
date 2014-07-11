@@ -12,21 +12,21 @@
         if (data.getHttpDataType() == HttpDataType.Attribute) {
           Attribute attribute=(Attribute)data;
           if (data.getName().equals(CommonEPConstans.REQUEST_SIGNATURE_ATTR_NAME)) {
-            signature=crcrlfFix(attribute.get());
+            signature=attribute.get();
             if (LOG.isTraceEnabled()) {
               LOG.trace("Multipart name " + data.getName() + " type "+ data.getHttpDataType().name()+ " Signature set. size: "+ signature.length);
               LOG.trace(MessageEncoderDecoder.bytesToHex(signature));
             }
           }
  else           if (data.getName().equals(CommonEPConstans.REQUEST_KEY_ATTR_NAME)) {
-            requestkey=crcrlfFix(attribute.get());
+            requestkey=attribute.get();
             if (LOG.isTraceEnabled()) {
               LOG.trace("Multipart name " + data.getName() + " type "+ data.getHttpDataType().name()+ " requestKey set. size: "+ requestkey.length);
               LOG.trace(MessageEncoderDecoder.bytesToHex(requestkey));
             }
           }
  else           if (data.getName().equals(CommonEPConstans.REQUEST_DATA_ATTR_NAME)) {
-            requestData=crcrlfFix(attribute.get());
+            requestData=attribute.get();
             if (LOG.isTraceEnabled()) {
               LOG.trace("Multipart name " + data.getName() + " type "+ data.getHttpDataType().name()+ " requestData set. size: "+ requestData.length);
               LOG.trace(MessageEncoderDecoder.bytesToHex(requestData));

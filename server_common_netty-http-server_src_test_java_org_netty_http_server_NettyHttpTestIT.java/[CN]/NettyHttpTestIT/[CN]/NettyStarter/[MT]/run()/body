@@ -1,0 +1,13 @@
+{
+  LOG.info("NettyHttpServer starting...");
+  try {
+    bindChannel.closeFuture().sync();
+  }
+ catch (  InterruptedException e) {
+    LOG.error("NettyHttpServer error",e);
+  }
+ finally {
+    shutdown();
+    LOG.info("NettyHttpServer shut down");
+  }
+}

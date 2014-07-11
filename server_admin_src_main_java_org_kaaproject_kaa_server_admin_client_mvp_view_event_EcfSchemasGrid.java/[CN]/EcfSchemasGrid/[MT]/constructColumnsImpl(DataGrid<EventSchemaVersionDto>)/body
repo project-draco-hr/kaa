@@ -1,0 +1,22 @@
+{
+  float prefWidth=0;
+  prefWidth+=constructStringColumn(table,Utils.constants.schemaVersion(),new StringValueProvider<EventSchemaVersionDto>(){
+    @Override public String getValue(    EventSchemaVersionDto item){
+      return item.getVersion() + "";
+    }
+  }
+,80);
+  prefWidth+=constructStringColumn(table,Utils.constants.author(),new StringValueProvider<EventSchemaVersionDto>(){
+    @Override public String getValue(    EventSchemaVersionDto item){
+      return item.getCreatedUsername();
+    }
+  }
+,80);
+  prefWidth+=constructStringColumn(table,Utils.constants.dateCreated(),new StringValueProvider<EventSchemaVersionDto>(){
+    @Override public String getValue(    EventSchemaVersionDto item){
+      return Utils.millisecondsToDateString(item.getCreatedTime());
+    }
+  }
+,80);
+  return prefWidth;
+}

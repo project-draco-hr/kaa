@@ -4,9 +4,9 @@
   ProfileFilter oldProfileFilter=profileFilterDao.findById(id);
   if (oldProfileFilter != null) {
     UpdateStatus status=oldProfileFilter.getStatus();
-    ObjectId oid=oldProfileFilter.getEndpointGroupId();
+    String oid=oldProfileFilter.getGroupId();
     if (oid != null) {
-      EndpointGroup group=endpointGroupDao.findById(oid.toString());
+      EndpointGroup group=endpointGroupDao.findById(oid);
       if (group != null && group.getWeight() == 0) {
         throw new IncorrectParameterException("Can't deactivate default profile filter");
       }

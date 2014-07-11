@@ -1,0 +1,14 @@
+{
+  LOG.debug("Generate application...");
+  if (tenant == null) {
+    tenant=generateTenant();
+  }
+  Application app=new Application();
+  app.setName("Test app name" + UUID.randomUUID().toString());
+  app.setTenant(tenant);
+  app.setApplicationToken(UUID.randomUUID().toString());
+  app.setSequenceNumber(RANDOM.nextInt());
+  app=applicationDao.save(app);
+  LOG.debug("Generated application {}",app);
+  return app;
+}

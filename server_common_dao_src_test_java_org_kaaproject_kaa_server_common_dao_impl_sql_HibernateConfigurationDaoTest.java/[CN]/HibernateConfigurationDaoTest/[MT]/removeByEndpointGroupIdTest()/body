@@ -1,0 +1,9 @@
+{
+  List<Configuration> configs=generateConfiguration(null,null,3,UpdateStatus.ACTIVE);
+  Assert.assertEquals(3,configs.size());
+  Long id=configs.get(0).getId();
+  EndpointGroup group=configs.get(0).getEndpointGroup();
+  configurationDao.removeByEndpointGroupId(group.getId().toString());
+  Configuration found=configurationDao.findById(id.toString());
+  Assert.assertNull(found);
+}

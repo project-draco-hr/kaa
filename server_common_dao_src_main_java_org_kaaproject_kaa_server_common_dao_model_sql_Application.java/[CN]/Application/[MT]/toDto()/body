@@ -1,0 +1,13 @@
+{
+  ApplicationDto dto=createDto();
+  dto.setId(getStringId());
+  dto.setApplicationToken(applicationToken);
+  dto.setName(name);
+  dto.setSequenceNumber(sequenceNumber);
+  dto.setUserVerifierName(userVerifierName);
+  if (tenant != null) {
+    dto.setTenantId(tenant.getStringId());
+  }
+  dto.setLogAppendersNames(logAppendersNames);
+  return dto;
+}

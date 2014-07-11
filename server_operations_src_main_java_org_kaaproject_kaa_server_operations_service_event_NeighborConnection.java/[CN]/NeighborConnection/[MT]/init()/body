@@ -1,0 +1,13 @@
+{
+  executor=Executors.newFixedThreadPool(getMaxNumberConnection());
+  messageQueue=new LinkedBlockingQueue<>(messageQueueLingth);
+  workers=new LinkedList<>();
+  rnd=new Random();
+  clientFactory=ThriftFactory.create(OperationsThriftService.Iface.class);
+  setId(Neighbors.getOperationsServerID(connectionInfo));
+  InetSocketAddress address=new InetSocketAddress(connectionInfo.getThriftHost().toString(),connectionInfo.getThriftPort());
+  Set<InetSocketAddress> backends=new HashSet<InetSocketAddress>();
+  backends.add(address);
+  thrift=clientFactory.withMaxConnectionsPerEndpoint(maxNumberConnection).withSocketTimeout(Amount.of(socketTimeout,Time.SECONDS)).build(backends);
+  initWorkers();
+}

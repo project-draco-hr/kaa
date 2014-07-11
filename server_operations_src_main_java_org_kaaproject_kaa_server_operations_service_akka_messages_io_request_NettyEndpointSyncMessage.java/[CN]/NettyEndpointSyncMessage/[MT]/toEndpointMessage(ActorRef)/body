@@ -1,4 +1,4 @@
 {
-  EndpointObjectHash endpointKey=EndpointObjectHash.fromBytes(request.getEndpointPublicKeyHash().array());
-  return new SyncRequestMessage(request.getApplicationToken(),endpointKey,request,originator);
+  EndpointObjectHash endpointKey=EndpointObjectHash.fromBytes(request.getSyncRequestMetaData().getEndpointPublicKeyHash().array());
+  return new SyncRequestMessage(getCommand(),getHandlerUuid(),getChannelContext(),getChannelType(),request.getSyncRequestMetaData().getApplicationToken(),endpointKey,request,originator);
 }

@@ -52,6 +52,33 @@ struct.setNotificationSchemaVersionIsSet(true);
 org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);
 }
 break;
+case 6:
+if (schemeField.type == org.apache.thrift.protocol.TType.LIST) {
+{
+org.apache.thrift.protocol.TList _list200=iprot.readListBegin();
+struct.aefMapIds=new ArrayList<String>(_list200.size);
+for (int _i201=0; _i201 < _list200.size; ++_i201) {
+String _elem202;
+_elem202=iprot.readString();
+struct.aefMapIds.add(_elem202);
+}
+iprot.readListEnd();
+}
+struct.setAefMapIdsIsSet(true);
+}
+ else {
+org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);
+}
+break;
+case 7:
+if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
+struct.logSchemaVersion=iprot.readI32();
+struct.setLogSchemaVersionIsSet(true);
+}
+ else {
+org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);
+}
+break;
 default :
 org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);
 }

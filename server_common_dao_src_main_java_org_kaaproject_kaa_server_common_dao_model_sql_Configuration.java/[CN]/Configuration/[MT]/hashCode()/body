@@ -1,0 +1,8 @@
+{
+  final int prime=31;
+  int result=1;
+  result=prime * result + super.hashCode();
+  result=prime * result + Arrays.hashCode(configurationBody);
+  result=prime * result + ((configurationSchema == null) ? 0 : configurationSchema.hashCode());
+  return result;
+}

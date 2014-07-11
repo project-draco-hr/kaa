@@ -1,0 +1,9 @@
+{
+  IPParameters p1=new IPParameters();
+  IPParameters p2=new IPParameters();
+  p1.setHostName("host1");
+  p2.setHostName("host1");
+  p1.setPort(10);
+  p2.setPort(10);
+  assertEquals(p1.hashCode(),p2.hashCode());
+}

@@ -1,5 +1,6 @@
 {
-  if (isValidId(tenantId)) {
+  LOG.debug("Remove applications by tenant id [{}]",tenantId);
+  if (isValidSqlId(tenantId)) {
     List<ApplicationDto> applications=findAppsByTenantId(tenantId);
     for (    ApplicationDto application : applications) {
       removeAppById(application.getId());

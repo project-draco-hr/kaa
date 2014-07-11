@@ -1,0 +1,11 @@
+{
+  FileKeyStoreService fs=(FileKeyStoreService)keyStore;
+  File privFile=new File(fs.getPrivateKeyLocation());
+  if (privFile.exists()) {
+    privFile.delete();
+  }
+  File pubFile=new File(fs.getPublicKeyLocation());
+  if (pubFile.exists()) {
+    pubFile.delete();
+  }
+}

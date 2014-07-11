@@ -10,6 +10,10 @@ case CONFIGURATION_SCHEMA_VERSION:
 return Integer.valueOf(getConfigurationSchemaVersion());
 case NOTIFICATION_SCHEMA_VERSION:
 return Integer.valueOf(getNotificationSchemaVersion());
+case AEF_MAP_IDS:
+return getAefMapIds();
+case LOG_SCHEMA_VERSION:
+return Integer.valueOf(getLogSchemaVersion());
 }
 throw new IllegalStateException();
 }

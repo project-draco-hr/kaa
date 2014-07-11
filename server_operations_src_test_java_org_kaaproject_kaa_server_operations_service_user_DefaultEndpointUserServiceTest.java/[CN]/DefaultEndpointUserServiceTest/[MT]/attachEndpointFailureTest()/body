@@ -1,0 +1,9 @@
+{
+  EndpointAttachRequest request=new EndpointAttachRequest(REQUEST_ID,ENDPOINT_ACCESS_TOKEN);
+  EndpointProfileDto profileMock=mock(EndpointProfileDto.class);
+  when(profileMock.getEndpointUserId()).thenReturn(null);
+  EndpointAttachResponse response=endpointUserService.attachEndpoint(profileMock,request);
+  assertNotNull(response);
+  assertEquals(SyncResponseResultType.FAILURE,response.getResult());
+  assertEquals(REQUEST_ID,response.getRequestId());
+}

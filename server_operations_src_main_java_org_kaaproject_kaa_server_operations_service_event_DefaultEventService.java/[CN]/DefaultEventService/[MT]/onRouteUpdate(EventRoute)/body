@@ -1,0 +1,16 @@
+{
+  LOG.debug("onEventRouteUpdate .... {} routes updated in {} listeners",route.getRouteInfo().size(),listeners.size());
+  for (  EventServiceListener listener : listeners) {
+    for (    org.kaaproject.kaa.server.common.thrift.gen.operations.RouteInfo routeInfo : route.getRouteInfo()) {
+      String applicationToken=routeInfo.getApplicationToken();
+      EndpointObjectHash endpointKey=EndpointObjectHash.fromBytes(routeInfo.getEndpointId());
+      RouteTableAddress address=new RouteTableAddress(endpointKey,applicationToken,route.getOperationsServerId());
+      List<EventClassFamilyVersion> ecfVersions=new ArrayList<>();
+      for (      org.kaaproject.kaa.server.common.thrift.gen.operations.EventClassFamilyVersion ecfv : routeInfo.getEventClassFamilyVersion()) {
+        EventClassFamilyVersion ecf=new EventClassFamilyVersion(ecfv.getEndpointClassFamilyId(),ecfv.getEndpointClassFamilyVersion());
+        ecfVersions.add(ecf);
+      }
+      listener.onRouteInfo(new RouteInfo(route.getTenantId(),route.getUserId(),address,ecfVersions));
+    }
+  }
+}

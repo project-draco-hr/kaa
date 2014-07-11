@@ -1,0 +1,28 @@
+{
+  URL protocolSchemaUrl=Thread.currentThread().getContextClassLoader().getResource("delta/primitiveFieldsDeltaProtocolSchema.json");
+  Schema protocolSchema=new Schema.Parser().parse(new File(protocolSchemaUrl.getPath()));
+  URL schemaUrl=Thread.currentThread().getContextClassLoader().getResource("delta/primitiveFieldsDeltaSchema.json");
+  Schema schema=new Schema.Parser().parse(new File(schemaUrl.getPath()));
+  DeltaCalculationAlgorithm calculator=new DefaultDeltaCalculationAlgorithm(protocolSchema,schema);
+  ByteArrayOutputStream baosOld=new ByteArrayOutputStream();
+  URL oldConfigUrl=Thread.currentThread().getContextClassLoader().getResource("delta/primitiveFieldsDeltaCurrent.json");
+  IOUtils.copy(new FileInputStream(oldConfigUrl.getPath()),baosOld,1024);
+  String oldStr=new String(baosOld.toByteArray(),"UTF-8");
+  ByteArrayOutputStream baosNew=new ByteArrayOutputStream();
+  URL newConfigUrl=Thread.currentThread().getContextClassLoader().getResource("delta/primitiveFieldsDeltaNew.json");
+  IOUtils.copy(new FileInputStream(newConfigUrl.getPath()),baosNew,1024);
+  String newStr=new String(baosNew.toByteArray(),"UTF-8");
+  BaseData oldData=new BaseData(new BaseSchema(schema.toString()),oldStr);
+  BaseData newData=new BaseData(new BaseSchema(schema.toString()),newStr);
+  RawBinaryDelta deltaResult=calculator.calculate(oldData,newData);
+  GenericRecord delta=new GenericData.Record(getDeltaSchemaByFullName(protocolSchema,"org.kaa.config.testT"));
+  GenericEnumSymbol unchanged=new GenericData.EnumSymbol(getSchemaByFullName(delta.getSchema().getField("testField1").schema().getTypes(),"org.kaaproject.configuration.unchangedT"),"unchanged");
+  byte[] rawUuid=new byte[]{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
+  GenericFixed uuid=new GenericData.Fixed(delta.getSchema().getField("__uuid").schema(),rawUuid);
+  delta.put("testField1",unchanged);
+  delta.put("testField2",456);
+  delta.put("__uuid",uuid);
+  AvroBinaryDelta deltaExpected=new AvroBinaryDelta(protocolSchema);
+  deltaExpected.addDelta(delta);
+  assertArrayEquals(deltaExpected.getData(),deltaResult.getData());
+}

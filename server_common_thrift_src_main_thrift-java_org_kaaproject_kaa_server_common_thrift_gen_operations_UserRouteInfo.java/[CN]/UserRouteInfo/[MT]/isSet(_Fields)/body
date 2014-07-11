@@ -1,0 +1,16 @@
+{
+  if (field == null) {
+    throw new IllegalArgumentException();
+  }
+switch (field) {
+case USER_ID:
+    return isSetUserId();
+case TENANT_ID:
+  return isSetTenantId();
+case OPERATIONS_SERVER_ID:
+return isSetOperationsServerId();
+case UPDATE_TYPE:
+return isSetUpdateType();
+}
+throw new IllegalStateException();
+}

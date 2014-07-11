@@ -3,17 +3,15 @@
   BitSet incoming=iprot.readBitSet(1);
   if (incoming.get(0)) {
 {
-      org.apache.thrift.protocol.TMap _map6=new org.apache.thrift.protocol.TMap(org.apache.thrift.protocol.TType.STRING,org.apache.thrift.protocol.TType.STRUCT,iprot.readI32());
-      struct.operationsServerMap=new HashMap<String,OperationsServer>(2 * _map6.size);
-      for (int _i7=0; _i7 < _map6.size; ++_i7) {
-        String _key8;
-        OperationsServer _val9;
-        _key8=iprot.readString();
-        _val9=new OperationsServer();
-        _val9.read(iprot);
-        struct.operationsServerMap.put(_key8,_val9);
+      org.apache.thrift.protocol.TList _list13=new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT,iprot.readI32());
+      struct.operationsServersList=new ArrayList<ThriftOperationsServer>(_list13.size);
+      for (int _i14=0; _i14 < _list13.size; ++_i14) {
+        ThriftOperationsServer _elem15;
+        _elem15=new ThriftOperationsServer();
+        _elem15.read(iprot);
+        struct.operationsServersList.add(_elem15);
       }
     }
-    struct.setOperationsServerMapIsSet(true);
+    struct.setOperationsServersListIsSet(true);
   }
 }

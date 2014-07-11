@@ -1,0 +1,6 @@
+{
+  Session session=getSession();
+  o=(T)session.merge(o);
+  LOG.debug("Saved {} entity: [{}] ",getSimpleClassName(),o);
+  return o;
+}

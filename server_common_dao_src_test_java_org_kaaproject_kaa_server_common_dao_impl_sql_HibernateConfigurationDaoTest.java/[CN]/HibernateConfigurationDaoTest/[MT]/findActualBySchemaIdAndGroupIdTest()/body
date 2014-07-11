@@ -1,0 +1,15 @@
+{
+  List<Configuration> configs=generateConfiguration(null,null,4,UpdateStatus.DEPRECATED);
+  Configuration first=configs.get(0);
+  EndpointGroup group=first.getEndpointGroup();
+  ConfigurationSchema schema=first.getConfigurationSchema();
+  List<Configuration> active=generateConfiguration(schema,group,1,UpdateStatus.ACTIVE);
+  generateConfiguration(null,group,1,UpdateStatus.ACTIVE);
+  List<Configuration> inactive=generateConfiguration(schema,group,1,UpdateStatus.INACTIVE);
+  List<Configuration> actual=new ArrayList<>();
+  actual.addAll(active);
+  actual.addAll(inactive);
+  List<Configuration> found=configurationDao.findActualBySchemaIdAndGroupId(schema.getId().toString(),group.getId().toString());
+  Assert.assertEquals(actual.size(),found.size());
+  Assert.assertEquals(actual,found);
+}

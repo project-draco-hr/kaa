@@ -1,0 +1,14 @@
+{
+  List<EventClass> eventClasses=generateEventClass(null,null,2);
+  EventClass dto=eventClassDao.findById(eventClasses.get(0).getStringId());
+  Assert.assertNotNull(dto);
+  List<EventClass> eventClassesList=eventClassDao.findByEcfId(dto.getEcf().getStringId());
+  EventClass eventClass=null;
+  for (  EventClass found : eventClassesList) {
+    if (dto.getId().equals(found.getId())) {
+      eventClass=found;
+    }
+  }
+  Assert.assertNotNull(eventClass);
+  Assert.assertEquals(dto,eventClass);
+}

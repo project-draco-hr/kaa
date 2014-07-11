@@ -1,0 +1,5 @@
+{
+  LOG.debug("[{}] Processing remote event message: {}",userId,message);
+  EndpointEvent localEvent=message.getEvent().toLocalEvent();
+  processEvent(context,localEvent);
+}

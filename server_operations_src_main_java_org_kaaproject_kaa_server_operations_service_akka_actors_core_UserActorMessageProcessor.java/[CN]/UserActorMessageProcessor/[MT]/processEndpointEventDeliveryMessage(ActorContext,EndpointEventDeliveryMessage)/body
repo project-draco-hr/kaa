@@ -1,0 +1,15 @@
+{
+  LOG.debug("[{}] processing event delivery message for [{}] with status {}",userId,message.getMessage().getAddress(),message.getStatus());
+  boolean success=message.getStatus() == EventDeliveryStatus.SUCCESS;
+  RouteTableAddress address=message.getMessage().getAddress();
+  for (  EndpointEvent event : message.getMessage().getEndpointEvents()) {
+    if (success) {
+      LOG.debug("[{}] registering successful delivery of event [{}] to address {}",userId,event.getId(),address);
+      eventDeliveryTable.registerDeliverySuccess(event,address);
+    }
+ else {
+      LOG.debug("[{}] registering failure to delivery of event [{}] to address {}",userId,event.getId(),address);
+      eventDeliveryTable.registerDeliveryFailure(event,address);
+    }
+  }
+}

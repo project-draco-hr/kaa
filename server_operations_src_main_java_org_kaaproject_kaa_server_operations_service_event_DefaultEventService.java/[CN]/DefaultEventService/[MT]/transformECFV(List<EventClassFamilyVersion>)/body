@@ -1,0 +1,12 @@
+{
+  List<org.kaaproject.kaa.server.common.thrift.gen.operations.EventClassFamilyVersion> ecfvThL=new ArrayList<>();
+  if (ecfVersions != null) {
+    for (    EventClassFamilyVersion ecfv : ecfVersions) {
+      org.kaaproject.kaa.server.common.thrift.gen.operations.EventClassFamilyVersion ecfvTh=new org.kaaproject.kaa.server.common.thrift.gen.operations.EventClassFamilyVersion();
+      ecfvTh.setEndpointClassFamilyId(ecfv.getEcfId());
+      ecfvTh.setEndpointClassFamilyVersion(ecfv.getVersion());
+      ecfvThL.add(ecfvTh);
+    }
+  }
+  return ecfvThL;
+}

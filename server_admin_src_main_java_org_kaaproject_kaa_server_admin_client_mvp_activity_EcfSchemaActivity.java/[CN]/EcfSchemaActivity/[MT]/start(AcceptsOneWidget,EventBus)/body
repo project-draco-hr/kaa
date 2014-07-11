@@ -1,0 +1,6 @@
+{
+  super.start(containerWidget,eventBus);
+  AbstractGrid<EventClassDto,String> eventClassesGrid=detailsView.getEventClassesGrid();
+  eventClassesDataProvider=new EventClassesDataProvider(eventClassesGrid.getSelectionModel(),new DataLoadCallback<EventClassDto>(detailsView),entityId,place.getVersion());
+  eventClassesDataProvider.addDataDisplay(eventClassesGrid.getDisplay());
+}

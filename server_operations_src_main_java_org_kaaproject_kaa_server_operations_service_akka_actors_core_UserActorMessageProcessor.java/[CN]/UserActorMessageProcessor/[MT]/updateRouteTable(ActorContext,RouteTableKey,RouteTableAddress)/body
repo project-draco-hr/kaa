@@ -1,0 +1,5 @@
+{
+  LOG.debug("[{}] adding to route table key: {} address: {}",userId,key,address);
+  routeTable.add(key,address);
+  sendPendingEvents(context,key,address);
+}

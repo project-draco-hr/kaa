@@ -1,0 +1,11 @@
+{
+  try {
+    SupportedChannel record=new SupportedChannel();
+    record.channelType=fieldSetFlags()[0] ? this.channelType : (org.kaaproject.kaa.common.bootstrap.gen.ChannelType)defaultValue(fields()[0]);
+    record.communicationParameters=fieldSetFlags()[1] ? this.communicationParameters : (java.lang.Object)defaultValue(fields()[1]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

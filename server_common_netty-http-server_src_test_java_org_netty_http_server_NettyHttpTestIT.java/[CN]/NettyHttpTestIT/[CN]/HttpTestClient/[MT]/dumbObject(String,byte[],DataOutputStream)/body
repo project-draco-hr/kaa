@@ -1,0 +1,9 @@
+{
+  out.writeBytes("--" + boundary + crlf);
+  out.writeBytes(CONTENT_DISPOSITION + CONTENT_NAME + "\""+ name+ "\""+ crlf);
+  out.writeBytes("Content-Type: application/octet-stream" + crlf);
+  out.writeBytes(crlf);
+  out.write(bytes);
+  out.writeBytes(crlf);
+  out.writeBytes("--" + boundary + "--"+ crlf);
+}

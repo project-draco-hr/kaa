@@ -1,0 +1,18 @@
+{
+  if (field == null) {
+    throw new IllegalArgumentException();
+  }
+switch (field) {
+case UUID:
+    return isSetUuid();
+case SENDER:
+  return isSetSender();
+case EVENT_DATA:
+return isSetEventData();
+case CREATE_TIME:
+return isSetCreateTime();
+case VERSION:
+return isSetVersion();
+}
+throw new IllegalStateException();
+}

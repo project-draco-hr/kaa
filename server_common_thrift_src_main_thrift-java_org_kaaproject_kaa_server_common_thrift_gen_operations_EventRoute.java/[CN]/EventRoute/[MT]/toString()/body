@@ -1,0 +1,41 @@
+{
+  StringBuilder sb=new StringBuilder("EventRoute(");
+  boolean first=true;
+  sb.append("userId:");
+  if (this.userId == null) {
+    sb.append("null");
+  }
+ else {
+    sb.append(this.userId);
+  }
+  first=false;
+  if (!first)   sb.append(", ");
+  sb.append("tenantId:");
+  if (this.tenantId == null) {
+    sb.append("null");
+  }
+ else {
+    sb.append(this.tenantId);
+  }
+  first=false;
+  if (!first)   sb.append(", ");
+  sb.append("routeInfo:");
+  if (this.routeInfo == null) {
+    sb.append("null");
+  }
+ else {
+    sb.append(this.routeInfo);
+  }
+  first=false;
+  if (!first)   sb.append(", ");
+  sb.append("operationsServerId:");
+  if (this.operationsServerId == null) {
+    sb.append("null");
+  }
+ else {
+    sb.append(this.operationsServerId);
+  }
+  first=false;
+  sb.append(")");
+  return sb.toString();
+}

@@ -1,0 +1,29 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  EventClassFamilyIdKey other=(EventClassFamilyIdKey)obj;
+  if (name == null) {
+    if (other.name != null) {
+      return false;
+    }
+  }
+ else   if (!name.equals(other.name)) {
+    return false;
+  }
+  if (tenantId == null) {
+    if (other.tenantId != null) {
+      return false;
+    }
+  }
+ else   if (!tenantId.equals(other.tenantId)) {
+    return false;
+  }
+  return true;
+}

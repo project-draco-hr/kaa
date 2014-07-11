@@ -1,0 +1,20 @@
+{
+  this.id=getLongId(dto.getId());
+  Long applicationId=getLongId(dto.getApplicationId());
+  if (applicationId != null) {
+    this.application=new Application(applicationId);
+  }
+  Long ecfId=getLongId(dto.getEcfId());
+  if (ecfId != null) {
+    this.ecf=new EventClassFamily(ecfId);
+  }
+  this.version=dto.getVersion();
+  this.createdUsername=dto.getCreatedUsername();
+  this.createdTime=dto.getCreatedTime();
+  if (dto.getEventMaps() != null) {
+    this.eventMaps=new ArrayList<>(dto.getEventMaps().size());
+    for (    ApplicationEventMapDto eventMap : dto.getEventMaps()) {
+      this.eventMaps.add(new ApplicationEventMap(eventMap));
+    }
+  }
+}

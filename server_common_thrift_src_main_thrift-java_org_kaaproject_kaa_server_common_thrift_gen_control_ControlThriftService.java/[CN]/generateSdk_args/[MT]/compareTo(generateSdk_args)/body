@@ -53,5 +53,25 @@
       return lastComparison;
     }
   }
+  lastComparison=Boolean.valueOf(isSetAefMapIds()).compareTo(other.isSetAefMapIds());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetAefMapIds()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.aefMapIds,other.aefMapIds);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  lastComparison=Boolean.valueOf(isSetLogSchemaVersion()).compareTo(other.isSetLogSchemaVersion());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetLogSchemaVersion()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.logSchemaVersion,other.logSchemaVersion);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
   return 0;
 }

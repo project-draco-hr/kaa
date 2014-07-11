@@ -1,0 +1,12 @@
+{
+  List<Configuration> configs=generateConfiguration(null,null,1,UpdateStatus.ACTIVE);
+  Assert.assertEquals(1,configs.size());
+  Configuration first=configs.get(0);
+  ConfigurationSchema schema=first.getConfigurationSchema();
+  EndpointGroup group=first.getEndpointGroup();
+  Assert.assertEquals(UpdateStatus.ACTIVE,first.getStatus());
+  Configuration deactivated=configurationDao.deactivateOldConfiguration(schema.getId().toString(),group.getId().toString(),"Test user");
+  Configuration found=configurationDao.findById(first.getId().toString());
+  Assert.assertEquals(UpdateStatus.DEPRECATED,deactivated.getStatus());
+  Assert.assertEquals(deactivated,found);
+}

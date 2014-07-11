@@ -1,0 +1,21 @@
+{
+  if (isShutdown) {
+    LOG.info("Can't sync. Channel {} is down",getId());
+    return;
+  }
+  LOG.info("Processing sync {} for channel {}",type,getId());
+  if (multiplexer != null && demultiplexer != null) {
+    if (currentServer != null) {
+      if (SUPPORTED_TYPES.get(type) != null) {
+        stopPoll();
+        startPoll();
+      }
+ else {
+        LOG.error("Unsupported type {} for channel {}",type,getId());
+      }
+    }
+ else {
+      LOG.warn("Can't sync. Server is null");
+    }
+  }
+}

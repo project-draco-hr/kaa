@@ -1,0 +1,27 @@
+{
+  struct.validate();
+  oprot.writeStructBegin(STRUCT_DESC);
+  if (struct.uuid != null) {
+    oprot.writeFieldBegin(UUID_FIELD_DESC);
+    oprot.writeString(struct.uuid);
+    oprot.writeFieldEnd();
+  }
+  if (struct.sender != null) {
+    oprot.writeFieldBegin(SENDER_FIELD_DESC);
+    oprot.writeBinary(struct.sender);
+    oprot.writeFieldEnd();
+  }
+  if (struct.eventData != null) {
+    oprot.writeFieldBegin(EVENT_DATA_FIELD_DESC);
+    oprot.writeBinary(struct.eventData);
+    oprot.writeFieldEnd();
+  }
+  oprot.writeFieldBegin(CREATE_TIME_FIELD_DESC);
+  oprot.writeI64(struct.createTime);
+  oprot.writeFieldEnd();
+  oprot.writeFieldBegin(VERSION_FIELD_DESC);
+  oprot.writeI32(struct.version);
+  oprot.writeFieldEnd();
+  oprot.writeFieldStop();
+  oprot.writeStructEnd();
+}

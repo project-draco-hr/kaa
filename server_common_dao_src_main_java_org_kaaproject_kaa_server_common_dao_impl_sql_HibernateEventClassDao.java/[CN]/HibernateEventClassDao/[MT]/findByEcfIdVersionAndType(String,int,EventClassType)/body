@@ -1,0 +1,15 @@
+{
+  LOG.debug("Find event class by ecf id [{}] version [{}] and type [{}]",ecfId,version,type);
+  List<EventClass> eventClasses=Collections.emptyList();
+  if (isNotBlank(ecfId)) {
+    List<Criterion> predicates=new ArrayList<>();
+    predicates.add(Restrictions.eq(ECF_REFERENCE,Long.valueOf(ecfId)));
+    predicates.add(Restrictions.eq(VERSION_PROPERTY,version));
+    if (type != null) {
+      predicates.add(Restrictions.eq(EVENT_CLASS_TYPE_PROPERTY,type));
+    }
+    eventClasses=findListByCriterionWithAlias(ECF_PROPERTY,ECF_ALIAS,Restrictions.and(predicates.toArray(new Criterion[]{})));
+  }
+  LOG.debug("Found event classes {} by ecf id {}, version {} and type {}",eventClasses,ecfId,version,type);
+  return eventClasses;
+}

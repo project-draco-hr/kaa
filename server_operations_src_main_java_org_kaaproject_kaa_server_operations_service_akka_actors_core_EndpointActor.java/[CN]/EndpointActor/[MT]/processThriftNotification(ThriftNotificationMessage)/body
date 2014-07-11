@@ -1,8 +1,3 @@
 {
-  SyncRequest syncRequest=pendingRequest.getRequest();
-  SyncResponse syncResponse=pendingResponse.getResponse();
-  LOG.debug("[{}] Change original request {} appSeqNumber from {} to {}",endpointActorKey,syncRequest,syncRequest.getAppStateSeqNumber(),syncResponse.getAppStateSeqNumber());
-  syncRequest.setAppStateSeqNumber(syncResponse.getAppStateSeqNumber());
-  LOG.debug("[{}] Processing request {}",endpointActorKey,pendingRequest);
-  processLongSync(pendingRequest);
+  messageProcessor.processThriftNotification(context(),message);
 }

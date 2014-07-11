@@ -1,0 +1,45 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  ApplicationEventMap other=(ApplicationEventMap)obj;
+  if (id == null) {
+    if (other.id != null) {
+      return false;
+    }
+  }
+ else   if (!id.equals(other.id)) {
+    return false;
+  }
+  if (action == null) {
+    if (other.action != null) {
+      return false;
+    }
+  }
+ else   if (!action.equals(other.action)) {
+    return false;
+  }
+  if (eventClass == null) {
+    if (other.eventClass != null) {
+      return false;
+    }
+  }
+ else   if (!eventClass.equals(other.eventClass)) {
+    return false;
+  }
+  if (fqn == null) {
+    if (other.fqn != null) {
+      return false;
+    }
+  }
+ else   if (!fqn.equals(other.fqn)) {
+    return false;
+  }
+  return true;
+}

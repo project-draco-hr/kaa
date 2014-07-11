@@ -1,0 +1,11 @@
+{
+  LOG.debug("Find vacant schemas, application id [{}], used schema ids [{}] ",applicationId,usedSchemaIds);
+  if (isNotBlank(applicationId)) {
+    Criteria criteria=getCriteria().createAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS).add(Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(applicationId)));
+    if (usedSchemaIds != null && !usedSchemaIds.isEmpty()) {
+      criteria.add(Restrictions.not(Restrictions.in(ID_PROPERTY,stringIdsToLongIds(usedSchemaIds))));
+    }
+    return findListByCriteria(criteria);
+  }
+  return Collections.emptyList();
+}

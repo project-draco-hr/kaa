@@ -1,0 +1,38 @@
+{
+  NotificationSyncResponse notificationSyncResponse=new NotificationSyncResponse();
+  notificationSyncResponse.setResponseStatus(status);
+  int topicListSize=rnd.nextInt(MAX_TOPIC_LIST_SIZE);
+  List<Topic> topics=new Vector<>(topicListSize);
+  for (int i=0; i < topicListSize; i++) {
+    Topic topic=new Topic();
+    topic.setId(MultipartObjects.getRandomString(10));
+    topic.setName(MultipartObjects.getRandomString(20));
+    if (rnd.nextBoolean()) {
+      topic.setSubscriptionType(SubscriptionType.MANDATORY);
+    }
+ else {
+      topic.setSubscriptionType(SubscriptionType.VOLUNTARY);
+    }
+    topics.add(topic);
+  }
+  notificationSyncResponse.setAvailableTopics(topics);
+  int notifListSize=rnd.nextInt(MAX_NOTIFICATION_LIST_SIZE);
+  List<Notification> notifications=new Vector<>(notifListSize);
+  for (int i=0; i < notifListSize; i++) {
+    Notification notif=new Notification();
+    notif.setUid(MultipartObjects.getRandomString(10));
+    notif.setTopicId(MultipartObjects.getRandomString(20));
+    notif.setSeqNumber(rnd.nextInt());
+    notif.setBody(ByteBuffer.wrap(HttpTestSyncClient.getRandomBytes(256)));
+    if (rnd.nextBoolean()) {
+      notif.setType(NotificationType.CUSTOM);
+    }
+ else {
+      notif.setType(NotificationType.SYSTEM);
+    }
+    notifications.add(notif);
+  }
+  notificationSyncResponse.setNotifications(notifications);
+  response.setNotificationSyncResponse(notificationSyncResponse);
+  return response;
+}

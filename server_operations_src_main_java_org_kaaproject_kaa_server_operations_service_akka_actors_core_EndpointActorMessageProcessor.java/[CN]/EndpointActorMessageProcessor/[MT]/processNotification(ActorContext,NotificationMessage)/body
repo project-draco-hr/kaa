@@ -1,0 +1,10 @@
+{
+  List<ChannelMetaData> channels=channelMap.getByTransportType(TransportType.NOTIFICATION);
+  for (  ChannelMetaData channel : channels) {
+    SyncResponse syncResponse=operationsService.updateSyncResponse(channel.getResponse().getResponse(),message.getNotifications(),message.getUnicastNotificationId());
+    sendReply(context,channel.getRequest(),syncResponse);
+    if (!channel.getType().isAsync()) {
+      channelMap.removeChannel(channel);
+    }
+  }
+}

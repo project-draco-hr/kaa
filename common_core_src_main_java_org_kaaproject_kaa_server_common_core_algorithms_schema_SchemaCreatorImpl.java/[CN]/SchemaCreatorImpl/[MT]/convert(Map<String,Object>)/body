@@ -1,0 +1,11 @@
+{
+  if (root.get(TYPE_FIELD).equals(ARRAY_FIELD_VALUE)) {
+    processArray(root);
+  }
+ else   if (root.get(FIELDS_FIELD) != null) {
+    processRecord(root);
+  }
+ else   if (root.get(TYPE_FIELD).equals(MAP_FIELD_VALUE)) {
+    throw new SchemaCreationException("Map is not supported");
+  }
+}

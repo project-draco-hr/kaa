@@ -1,0 +1,16 @@
+{
+  if (that == null)   return false;
+  boolean this_present_applicationId=true && this.isSetApplicationId();
+  boolean that_present_applicationId=true && that.isSetApplicationId();
+  if (this_present_applicationId || that_present_applicationId) {
+    if (!(this_present_applicationId && that_present_applicationId))     return false;
+    if (!this.applicationId.equals(that.applicationId))     return false;
+  }
+  boolean this_present_password=true && this.isSetPassword();
+  boolean that_present_password=true && that.isSetPassword();
+  if (this_present_password || that_present_password) {
+    if (!(this_present_password && that_present_password))     return false;
+    if (!this.password.equals(that.password))     return false;
+  }
+  return true;
+}

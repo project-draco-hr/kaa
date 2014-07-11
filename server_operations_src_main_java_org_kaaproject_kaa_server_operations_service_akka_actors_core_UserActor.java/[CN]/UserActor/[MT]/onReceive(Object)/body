@@ -1,0 +1,27 @@
+{
+  LOG.debug("[{}] Received: {}",userId,message);
+  if (message instanceof EndpointUserConnectMessage) {
+    processEndpointConnectMessage((EndpointUserConnectMessage)message);
+  }
+ else   if (message instanceof EndpointEventSendMessage) {
+    processEndpointEventSendMessage((EndpointEventSendMessage)message);
+  }
+ else   if (message instanceof RemoteEndpointEventMessage) {
+    processRemoteEndpointEventMessage((RemoteEndpointEventMessage)message);
+  }
+ else   if (message instanceof EndpointEventTimeoutMessage) {
+    processEndpointEventTimeoutMessage((EndpointEventTimeoutMessage)message);
+  }
+ else   if (message instanceof EndpointEventDeliveryMessage) {
+    processEndpointEventDeliveryMessage((EndpointEventDeliveryMessage)message);
+  }
+ else   if (message instanceof RouteInfoMessage) {
+    processRouteInfoMessage((RouteInfoMessage)message);
+  }
+ else   if (message instanceof UserRouteInfoMessage) {
+    processUserRouteInfoMessage((UserRouteInfoMessage)message);
+  }
+ else   if (message instanceof Terminated) {
+    processTerminationMessage((Terminated)message);
+  }
+}

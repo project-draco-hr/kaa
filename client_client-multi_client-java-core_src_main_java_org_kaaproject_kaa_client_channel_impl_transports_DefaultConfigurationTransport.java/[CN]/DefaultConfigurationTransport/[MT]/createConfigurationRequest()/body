@@ -1,0 +1,13 @@
+{
+  if (clientState != null && hashContainer != null) {
+    EndpointObjectHash hash=hashContainer.getConfigurationHash();
+    clientState.setConfigurationHash(hash);
+    ConfigurationSyncRequest request=new ConfigurationSyncRequest();
+    if (hash != null) {
+      request.setConfigurationHash(ByteBuffer.wrap(hash.getData()));
+    }
+    request.setAppStateSeqNumber(clientState.getConfigSeqNumber());
+    return request;
+  }
+  return null;
+}

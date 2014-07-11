@@ -1,0 +1,60 @@
+{
+  if (profile.getEndpointUserId() == null || profile.getEndpointUserId().isEmpty()) {
+    LOG.info("Can't find listeners for unassigned endpoint!");
+    return new EventListenersResponse(request.getRequestId(),null,SyncResponseResultType.FAILURE);
+  }
+  List<EndpointProfileDto> endpointProfiles=endpointService.findEndpointProfilesByUserId(profile.getEndpointUserId());
+  if (endpointProfiles.size() <= 1) {
+    LOG.info("There is only one endpoint(current) assigned to this user!");
+    List<String> emptyList=Collections.emptyList();
+    return new EventListenersResponse(request.getRequestId(),emptyList,SyncResponseResultType.SUCCESS);
+  }
+  String tenantId=cacheService.getTenantIdByAppToken(appSeqNumber.getAppToken());
+  Set<EndpointObjectHash> eventClassIntersectionSet=null;
+  for (  String eventClassFqn : request.getEventClassFQNs()) {
+    Set<EndpointObjectHash> eventClassSet=new HashSet<>();
+    LOG.debug("Lookup event class family id using tenant [{}] and event class fqn {}",tenantId,eventClassFqn);
+    String ecfId=cacheService.getEventClassFamilyIdByEventClassFqn(new EventClassFqnKey(tenantId,eventClassFqn));
+    int version=0;
+    for (    EventClassFamilyVersionStateDto ecfVersionDto : profile.getEcfVersionStates()) {
+      if (ecfVersionDto.getEcfId().equals(ecfId)) {
+        version=ecfVersionDto.getVersion();
+        break;
+      }
+    }
+    if (version > 0) {
+      LOG.debug("Load recepient keys using tenant [{}] event class {} and version {}",tenantId,eventClassFqn,version);
+      Set<RouteTableKey> recipientKeys=cacheService.getRouteKeys(new EventClassFqnVersion(tenantId,eventClassFqn,version));
+      for (      EndpointProfileDto endpointProfile : endpointProfiles) {
+        if (endpointProfile.getId().equals(profile.getId())) {
+          continue;
+        }
+        for (        RouteTableKey routeTableKey : recipientKeys) {
+          AppSeqNumber endpointProfileSeqNumber=cacheService.getAppSeqNumber(routeTableKey.getAppToken());
+          if (!endpointProfile.getApplicationId().equals(endpointProfileSeqNumber.getAppId())) {
+            continue;
+          }
+          for (          EventClassFamilyVersionStateDto ecfVersionDto : profile.getEcfVersionStates()) {
+            if (ecfVersionDto.getEcfId().equals(routeTableKey.getEcfVersion().getEcfId()) && ecfVersionDto.getVersion() == routeTableKey.getEcfVersion().getVersion()) {
+              eventClassSet.add(EndpointObjectHash.fromBytes(endpointProfile.getEndpointKeyHash()));
+            }
+          }
+        }
+      }
+    }
+ else {
+      LOG.warn("Lookup event class family version using tenant [{}] and event class fqn {} FAILED!",tenantId,eventClassFqn);
+    }
+    if (eventClassIntersectionSet == null) {
+      eventClassIntersectionSet=eventClassSet;
+    }
+ else {
+      eventClassIntersectionSet.retainAll(eventClassSet);
+    }
+  }
+  List<String> result=new ArrayList<>();
+  for (  EndpointObjectHash eoHash : eventClassIntersectionSet) {
+    result.add(Base64Util.encode(eoHash.getData()));
+  }
+  return new EventListenersResponse(request.getRequestId(),result,SyncResponseResultType.SUCCESS);
+}

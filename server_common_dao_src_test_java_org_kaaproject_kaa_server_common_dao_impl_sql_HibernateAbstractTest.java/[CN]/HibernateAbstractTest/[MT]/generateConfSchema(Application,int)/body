@@ -1,0 +1,24 @@
+{
+  List<ConfigurationSchema> schemas=Collections.emptyList();
+  try {
+    if (app == null) {
+      app=generateApplication(null);
+    }
+    ConfigurationSchema schema;
+    schemas=new ArrayList<>(count);
+    for (int i=0; i < count; i++) {
+      schema=new ConfigurationSchema();
+      schema.setApplication(app);
+      schema.setSchema(readSchemaFileAsString("dao/schema/testDataSchema.json"));
+      schema.setMajorVersion(i + 1);
+      schema=configurationSchemaDao.save(schema);
+      Assert.assertNotNull(schema);
+      schemas.add(schema);
+    }
+  }
+ catch (  IOException e) {
+    LOG.error("Can't generate configuration schemas {}",e);
+    Assert.fail("Can't generate configuration schemas." + e.getMessage());
+  }
+  return schemas;
+}

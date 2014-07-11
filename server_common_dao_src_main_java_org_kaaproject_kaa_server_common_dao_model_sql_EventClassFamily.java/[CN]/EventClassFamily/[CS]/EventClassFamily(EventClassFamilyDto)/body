@@ -1,0 +1,19 @@
+{
+  this.id=getLongId(dto.getId());
+  Long tenantId=getLongId(dto.getTenantId());
+  if (tenantId != null) {
+    this.tenant=new Tenant(tenantId);
+  }
+  this.name=dto.getName();
+  this.namespace=dto.getNamespace();
+  this.className=dto.getClassName();
+  this.description=dto.getDescription();
+  this.createdUsername=dto.getCreatedUsername();
+  this.createdTime=dto.getCreatedTime();
+  if (dto.getSchemas() != null) {
+    this.schemas=new ArrayList<>(dto.getSchemas().size());
+    for (    EventSchemaVersionDto schema : dto.getSchemas()) {
+      this.schemas.add(new EventSchemaVersion(schema));
+    }
+  }
+}

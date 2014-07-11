@@ -1,0 +1,10 @@
+{
+  Iterator<RouteTableAddress> recipientsIterator=recipients.iterator();
+  while (recipientsIterator.hasNext()) {
+    RouteTableAddress recipient=recipientsIterator.next();
+    if (recipient.getEndpointKey().equals(event.getSender())) {
+      recipientsIterator.remove();
+    }
+  }
+  return recipients;
+}

@@ -1,0 +1,36 @@
+{
+switch (field) {
+case USER_ID:
+    if (value == null) {
+      unsetUserId();
+    }
+ else {
+      setUserId((String)value);
+    }
+  break;
+case TENANT_ID:
+if (value == null) {
+  unsetTenantId();
+}
+ else {
+  setTenantId((String)value);
+}
+break;
+case ROUTE_INFO:
+if (value == null) {
+unsetRouteInfo();
+}
+ else {
+setRouteInfo((List<RouteInfo>)value);
+}
+break;
+case OPERATIONS_SERVER_ID:
+if (value == null) {
+unsetOperationsServerId();
+}
+ else {
+setOperationsServerId((String)value);
+}
+break;
+}
+}

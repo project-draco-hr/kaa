@@ -1,0 +1,10 @@
+{
+  Map<RouteTableAddress,DeliveryState> attempts=data.get(event);
+  if (attempts == null) {
+    attempts=new HashMap<>();
+    data.put(event,attempts);
+  }
+  for (  RouteTableAddress address : addresses) {
+    attempts.put(address,DeliveryState.PENDING);
+  }
+}

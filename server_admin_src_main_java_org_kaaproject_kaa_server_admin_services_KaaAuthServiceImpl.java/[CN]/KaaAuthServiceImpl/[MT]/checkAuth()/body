@@ -1,11 +1,5 @@
 {
   AuthResultDto result=new AuthResultDto();
-  HttpServletRequest request=SpringGwtRemoteServiceServlet.getRequest();
-  HttpSession session=request.getSession();
-  Object authException=session.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
-  if (authException != null && authException instanceof AuthenticationException) {
-    throw new Exception(((AuthenticationException)authException).getMessage());
-  }
   Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
   if (!isLoggedIn(authentication)) {
     System.out.println("Not logged in");

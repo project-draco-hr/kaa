@@ -1,5 +1,7 @@
 {
   EndpointGroupDto group=createEndpointGroup();
+  TopicDto addedTopic=createTopic(group.getApplicationId(),TopicTypeDto.MANDATORY);
+  group=toDto(client.addTopicsToEndpointGroup(group.getId(),addedTopic.getId()));
   TopicDto topic=createTopic(group.getApplicationId(),TopicTypeDto.MANDATORY);
   LOGGER.debug("Created topic with id {}",topic.getId());
   List<TopicDto> storedTopic=toDtoList(client.getVacantTopicByEndpointGroupId(group.getId()));

@@ -1,0 +1,15 @@
+{
+  HttpLongPollParameters params=new HttpLongPollParameters();
+  assertNotNull(params);
+  params.setHostName("host1");
+  params.setPort(100);
+  SupportedChannel suppChannel=HttpLongPollChannel.getSupportedChannelFromHttpLongPollParameters(params);
+  assertNotNull(suppChannel);
+  try {
+    HttpLongPollParameters afterParams=HttpLongPollChannel.getHttpLongPollParametersFromSupportedChannel(suppChannel);
+    assertEquals(params,afterParams);
+  }
+ catch (  ParsingException e) {
+    fail(e.toString());
+  }
+}

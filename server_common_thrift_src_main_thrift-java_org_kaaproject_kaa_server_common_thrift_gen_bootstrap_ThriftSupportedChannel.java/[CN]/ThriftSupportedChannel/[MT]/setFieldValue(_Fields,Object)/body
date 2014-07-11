@@ -1,0 +1,20 @@
+{
+switch (field) {
+case TYPE:
+    if (value == null) {
+      unsetType();
+    }
+ else {
+      setType((ThriftChannelType)value);
+    }
+  break;
+case COMMUNICATION_PARAMS:
+if (value == null) {
+  unsetCommunicationParams();
+}
+ else {
+  setCommunicationParams((ThriftCommunicationParameters)value);
+}
+break;
+}
+}

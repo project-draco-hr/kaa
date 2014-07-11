@@ -1,0 +1,18 @@
+{
+  String endpointUserId=detachEndpoint.getEndpointUserId();
+  validateString(endpointUserId,"Incorrect endpointUserId " + endpointUserId);
+  EndpointUser endpointUser=endpointUserDao.findById(endpointUserId);
+  if (endpointUser != null) {
+    List<String> endpointIds=endpointUser.getEndpointIds();
+    if (endpointIds != null) {
+      endpointIds.remove(detachEndpoint.getId());
+    }
+    endpointUserDao.save(endpointUser);
+    detachEndpoint.setEndpointUserId(null);
+    saveEndpointProfile(detachEndpoint);
+  }
+ else {
+    LOG.warn("Endpoint user with id {} is not present in db.",endpointUserId);
+    throw new DatabaseProcessingException("Endpoint user is not present in db.");
+  }
+}

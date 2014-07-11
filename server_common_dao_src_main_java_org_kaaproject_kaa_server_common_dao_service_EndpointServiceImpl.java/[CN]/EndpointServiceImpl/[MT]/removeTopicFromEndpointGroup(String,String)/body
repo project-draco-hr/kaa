@@ -1,5 +1,5 @@
 {
-  validateId(id,"Can't remove endpoint group topics " + topicId + ". Incorrect endpoint group id."+ id);
+  validateSqlId(id,"Can't remove endpoint group topics " + topicId + ". Incorrect endpoint group id."+ id);
   UpdateNotificationDto<EndpointGroupDto> dto=null;
   EndpointGroup endpointGroup=endpointGroupDao.removeTopicFromEndpointGroup(id,topicId);
   if (endpointGroup != null) {
@@ -11,7 +11,7 @@
     }
     dto.setChangeType(ChangeType.REMOVE_TOPIC);
     dto.setTopicId(topicId);
-    dto.setGroupId(endpointGroup.getId());
+    dto.setGroupId(endpointGroup.getId().toString());
     dto.setPayload(endpointGroup.toDto());
   }
  else {

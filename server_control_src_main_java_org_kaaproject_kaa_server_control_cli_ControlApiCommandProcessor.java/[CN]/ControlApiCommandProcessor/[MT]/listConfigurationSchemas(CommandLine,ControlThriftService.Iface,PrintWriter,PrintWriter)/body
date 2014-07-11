@@ -9,7 +9,7 @@
         writer.println(dto);
       }
       writer.println();
-      writer.println("Total: " + dtos.size());
+      writer.println(TOTAL + dtos.size());
       if (line.hasOption("o")) {
         String outFileName=line.getOptionValue("o");
         storeObjectIds(outFileName,dtos,errorWriter);

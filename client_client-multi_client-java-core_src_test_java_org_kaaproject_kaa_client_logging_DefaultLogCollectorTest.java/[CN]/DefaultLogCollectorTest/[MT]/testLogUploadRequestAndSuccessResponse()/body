@@ -1,0 +1,31 @@
+{
+  LogTransport transport=mock(LogTransport.class);
+  DefaultLogCollector logCollector=new DefaultLogCollector(transport);
+  DefaultLogUploadConfiguration conf=new DefaultLogUploadConfiguration(15,25,50);
+  logCollector.setConfiguration(conf);
+  try {
+    SuperRecord record=new SuperRecord();
+    record.setLogdata("test");
+    logCollector.addLogRecord(record);
+    logCollector.addLogRecord(record);
+    logCollector.addLogRecord(record);
+    logCollector.addLogRecord(record);
+    logCollector.addLogRecord(record);
+    logCollector.addLogRecord(record);
+    LogSyncRequest request1=new LogSyncRequest();
+    logCollector.fillSyncRequest(request1);
+    Assert.assertTrue("Actual: " + request1.getLogEntries().size(),request1.getLogEntries().size() == 3);
+    LogSyncResponse uploadResponse=new LogSyncResponse();
+    uploadResponse.setRequestId(request1.getRequestId());
+    uploadResponse.setResult(SyncResponseResultType.SUCCESS);
+    try {
+      logCollector.onLogResponse(uploadResponse);
+    }
+ catch (    Exception e) {
+    }
+    verify(transport,times(2)).sync();
+  }
+ catch (  Exception e) {
+    Assert.assertTrue("Exception: " + e.toString(),false);
+  }
+}

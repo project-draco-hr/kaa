@@ -6,10 +6,10 @@
   if (oldProfileFilter != null) {
     UpdateStatus status=oldProfileFilter.getStatus();
     if (status != null && status == INACTIVE) {
-      ObjectId schemaId=oldProfileFilter.getSchemaId();
-      ObjectId groupId=oldProfileFilter.getEndpointGroupId();
+      String schemaId=oldProfileFilter.getSchemaId();
+      String groupId=oldProfileFilter.getGroupId();
       if (schemaId != null && groupId != null) {
-        profileFilterDao.deactivateOldFilter(schemaId.toString(),groupId.toString(),activatedUsername);
+        profileFilterDao.deactivateOldFilter(schemaId,groupId,activatedUsername);
       }
  else {
         throw new DatabaseProcessingException("Incorrect old profile filters. Profile schema id is empty.");

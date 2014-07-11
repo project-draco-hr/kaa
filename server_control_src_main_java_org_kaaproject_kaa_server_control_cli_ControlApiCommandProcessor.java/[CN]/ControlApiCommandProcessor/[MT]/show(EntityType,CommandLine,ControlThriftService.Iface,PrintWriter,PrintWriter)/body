@@ -19,6 +19,9 @@ break;
 case CONFIGURATION_SCHEMA:
 dto=ThriftDtoConverter.<ConfigurationSchemaDto>toDto(client.getConfigurationSchema(id));
 break;
+case LOG_SCHEMA:
+dto=ThriftDtoConverter.<LogSchemaDto>toDto(client.getLogSchema(id));
+break;
 case ENDPOINT_GROUP:
 dto=ThriftDtoConverter.<EndpointGroupDto>toDto(client.getEndpointGroup(id));
 break;
@@ -40,6 +43,9 @@ break;
 case TOPIC:
 dto=ThriftDtoConverter.<ConfigurationDto>toDto(client.getTopic(id));
 break;
+case ENDPOINT_USER:
+dto=ThriftDtoConverter.<ConfigurationDto>toDto(client.getEndpointUser(id));
+break;
 default :
 break;
 }
@@ -48,7 +54,7 @@ writer.println("Found " + type.getName() + ":");
 writer.println(dto);
 }
  else {
-writer.println(type.getName() + " with id " + id+ " not found!");
+writer.println(type.getName() + " with id " + id+ NOT_FOUND);
 }
 }
  catch (TException e) {

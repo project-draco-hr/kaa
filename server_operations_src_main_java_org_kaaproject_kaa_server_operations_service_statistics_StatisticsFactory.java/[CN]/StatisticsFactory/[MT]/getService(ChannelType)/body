@@ -1,0 +1,13 @@
+{
+synchronized (sync) {
+    if (services.containsKey(type)) {
+      return services.get(type);
+    }
+ else {
+      StatisticsService service=new StatisticsService(type);
+      service.start();
+      services.put(type,service);
+      return service;
+    }
+  }
+}

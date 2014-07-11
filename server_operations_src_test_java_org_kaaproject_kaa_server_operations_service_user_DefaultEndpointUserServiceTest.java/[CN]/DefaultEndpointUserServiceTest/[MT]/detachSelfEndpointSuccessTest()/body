@@ -1,0 +1,12 @@
+{
+  EndpointDetachRequest request=new EndpointDetachRequest(REQUEST_ID,Base64Util.encode(ENDPOINT_KEY_HASH));
+  EndpointProfileDto profileMock=mock(EndpointProfileDto.class);
+  when(profileMock.getEndpointUserId()).thenReturn(EXTERNAL_USER_ID);
+  when(profileMock.getEndpointKeyHash()).thenReturn(ENDPOINT_KEY_HASH);
+  EndpointDetachResponse response=endpointUserService.detachEndpoint(profileMock,request);
+  Mockito.verify(endpointService,Mockito.never()).findEndpointProfileByKeyHash(Mockito.any(byte[].class));
+  Mockito.verify(endpointService).detachEndpointFromUser(profileMock);
+  assertNotNull(response);
+  assertEquals(SyncResponseResultType.SUCCESS,response.getResult());
+  assertEquals(REQUEST_ID,response.getRequestId());
+}

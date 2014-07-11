@@ -1,6 +1,6 @@
 {
   super.setServer(server);
-  conf=(OperationsServerConfig)getServer().getConf();
+  conf=((NettyHttpServiceChannelConfig)getServer().getConf()).getOperationServerConfig();
   operationsService=conf.getOperationsBootstrapService().getOperationsService();
   cacheService=conf.getOperationsBootstrapService().getCacheService();
   KeyStoreService keyStoreService=conf.getOperationsBootstrapService().getKeyStoreService();

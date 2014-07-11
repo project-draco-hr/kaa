@@ -1,0 +1,62 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  Change other=(Change)obj;
+  if (id == null) {
+    if (other.id != null) {
+      return false;
+    }
+  }
+ else   if (!id.equals(other.id)) {
+    return false;
+  }
+  if (this.filterVersion != other.filterVersion) {
+    return false;
+  }
+  if (this.configurationVersion != other.configurationVersion) {
+    return false;
+  }
+  if (this.type != other.type) {
+    return false;
+  }
+  if (groupId == null) {
+    if (other.groupId != null) {
+      return false;
+    }
+  }
+ else   if (!groupId.equals(other.groupId)) {
+    return false;
+  }
+  if (topicId == null) {
+    if (other.topicId != null) {
+      return false;
+    }
+  }
+ else   if (!topicId.equals(other.topicId)) {
+    return false;
+  }
+  if (configurationId == null) {
+    if (other.configurationId != null) {
+      return false;
+    }
+  }
+ else   if (!configurationId.equals(other.configurationId)) {
+    return false;
+  }
+  if (profileFilterId == null) {
+    if (other.profileFilterId != null) {
+      return false;
+    }
+  }
+ else   if (!profileFilterId.equals(other.profileFilterId)) {
+    return false;
+  }
+  return true;
+}

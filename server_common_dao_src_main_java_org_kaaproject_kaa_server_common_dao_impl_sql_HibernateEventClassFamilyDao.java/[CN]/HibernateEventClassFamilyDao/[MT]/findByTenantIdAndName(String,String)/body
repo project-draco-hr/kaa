@@ -1,0 +1,8 @@
+{
+  LOG.debug("Find event class family by tenant id [{}] and name {}",tenantId,name);
+  EventClassFamily eventClassFamily=null;
+  if (isNotBlank(tenantId)) {
+    eventClassFamily=findOneByCriterionWithAlias(TENANT_PROPERTY,TENANT_ALIAS,Restrictions.and(Restrictions.eq(TENANT_REFERENCE,Long.valueOf(tenantId)),Restrictions.eq(NAME_PROPERTY,name)));
+  }
+  return eventClassFamily;
+}

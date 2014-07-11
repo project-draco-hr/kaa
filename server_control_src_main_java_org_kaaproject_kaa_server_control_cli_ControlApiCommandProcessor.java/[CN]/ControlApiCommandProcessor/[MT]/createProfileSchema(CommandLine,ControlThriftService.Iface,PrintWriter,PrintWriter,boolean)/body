@@ -5,7 +5,7 @@
       String profileSchemaId=line.getOptionValue("i");
       profileSchema=toDto(client.getProfileSchema(profileSchemaId));
       if (profileSchema == null) {
-        writer.println("Profile Schema with id " + profileSchemaId + " not found!");
+        writer.println("Profile Schema with id " + profileSchemaId + NOT_FOUND);
         return;
       }
     }
@@ -16,7 +16,7 @@
       String schemaFile=line.getOptionValue("f");
       String schema=readFile(schemaFile,errorWriter);
       if (schema != null) {
-        profileSchema.setSchema(schema);
+        profileSchema.setSchema(new KaaSchemaFactoryImpl().createDataSchema(schema).getRawSchema());
       }
  else {
         return;
@@ -42,6 +42,6 @@
     }
   }
  catch (  TException e) {
-    handleException("Unable to " + (edit ? "update" : "create") + " Profile Schema",e,errorWriter);
+    handleException(UNABLE_TO + (edit ? UPDATE : CREATE) + PROFILE_SCHEMA,e,errorWriter);
   }
 }

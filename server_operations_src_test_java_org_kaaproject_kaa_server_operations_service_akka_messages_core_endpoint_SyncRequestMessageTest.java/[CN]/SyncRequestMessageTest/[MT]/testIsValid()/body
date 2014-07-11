@@ -1,0 +1,33 @@
+{
+  SyncRequest request=new SyncRequest();
+  request.setSyncRequestMetaData(new SyncRequestMetaData());
+  SyncRequestMessage message=new SyncRequestMessage(null,null,null,null,null,null,request,null);
+  SyncRequest other=new SyncRequest();
+  other.setSyncRequestMetaData(new SyncRequestMetaData());
+  SyncRequestMessage otherMessage=new SyncRequestMessage(null,null,null,null,null,null,other,null);
+  Assert.assertFalse(message.isValid(TransportType.BOOTSTRAP));
+  Assert.assertFalse(message.isValid(TransportType.PROFILE));
+  other.setProfileSyncRequest(new ProfileSyncRequest());
+  message.update(otherMessage);
+  Assert.assertTrue(message.isValid(TransportType.PROFILE));
+  Assert.assertFalse(message.isValid(TransportType.CONFIGURATION));
+  other.setConfigurationSyncRequest(new ConfigurationSyncRequest());
+  message.update(otherMessage);
+  Assert.assertTrue(message.isValid(TransportType.CONFIGURATION));
+  Assert.assertFalse(message.isValid(TransportType.NOTIFICATION));
+  other.setNotificationSyncRequest(new NotificationSyncRequest());
+  message.update(otherMessage);
+  Assert.assertTrue(message.isValid(TransportType.NOTIFICATION));
+  Assert.assertFalse(message.isValid(TransportType.USER));
+  other.setUserSyncRequest(new UserSyncRequest());
+  message.update(otherMessage);
+  Assert.assertTrue(message.isValid(TransportType.USER));
+  Assert.assertFalse(message.isValid(TransportType.LOGGING));
+  other.setLogSyncRequest(new LogSyncRequest());
+  message.update(otherMessage);
+  Assert.assertTrue(message.isValid(TransportType.LOGGING));
+  Assert.assertFalse(message.isValid(TransportType.EVENT));
+  other.setEventSyncRequest(new EventSyncRequest());
+  message.update(otherMessage);
+  Assert.assertTrue(message.isValid(TransportType.EVENT));
+}

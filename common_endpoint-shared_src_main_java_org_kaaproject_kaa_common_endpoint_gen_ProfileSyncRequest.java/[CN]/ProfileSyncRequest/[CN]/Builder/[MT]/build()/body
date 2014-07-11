@@ -1,0 +1,13 @@
+{
+  try {
+    ProfileSyncRequest record=new ProfileSyncRequest();
+    record.endpointPublicKey=fieldSetFlags()[0] ? this.endpointPublicKey : (java.nio.ByteBuffer)defaultValue(fields()[0]);
+    record.profileBody=fieldSetFlags()[1] ? this.profileBody : (java.nio.ByteBuffer)defaultValue(fields()[1]);
+    record.versionInfo=fieldSetFlags()[2] ? this.versionInfo : (org.kaaproject.kaa.common.endpoint.gen.EndpointVersionInfo)defaultValue(fields()[2]);
+    record.endpointAccessToken=fieldSetFlags()[3] ? this.endpointAccessToken : (java.lang.String)defaultValue(fields()[3]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

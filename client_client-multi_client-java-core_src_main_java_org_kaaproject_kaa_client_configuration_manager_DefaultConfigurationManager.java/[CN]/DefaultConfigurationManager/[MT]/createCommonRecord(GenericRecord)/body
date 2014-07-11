@@ -1,0 +1,12 @@
+{
+  GenericFixed uuidFixed=(GenericFixed)avroRecord.get(UUID);
+  if (uuidFixed != null) {
+    UUID uuid=AvroGenericUtils.createUuidFromFixed(uuidFixed);
+    CommonRecord newRecord=commonFactory.createCommonRecord(uuid,avroRecord.getSchema());
+    records.put(uuid,newRecord);
+    return newRecord;
+  }
+ else {
+    return commonFactory.createCommonRecord(avroRecord.getSchema());
+  }
+}

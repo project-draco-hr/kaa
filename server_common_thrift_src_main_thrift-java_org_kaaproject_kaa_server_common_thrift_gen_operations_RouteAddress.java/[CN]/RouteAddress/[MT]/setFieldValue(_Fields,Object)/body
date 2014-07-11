@@ -1,0 +1,28 @@
+{
+switch (field) {
+case ENDPOINT_KEY:
+    if (value == null) {
+      unsetEndpointKey();
+    }
+ else {
+      setEndpointKey((ByteBuffer)value);
+    }
+  break;
+case APPLICATION_TOKEN:
+if (value == null) {
+  unsetApplicationToken();
+}
+ else {
+  setApplicationToken((String)value);
+}
+break;
+case OPERATIONS_SERVER_ID:
+if (value == null) {
+unsetOperationsServerId();
+}
+ else {
+setOperationsServerId((String)value);
+}
+break;
+}
+}

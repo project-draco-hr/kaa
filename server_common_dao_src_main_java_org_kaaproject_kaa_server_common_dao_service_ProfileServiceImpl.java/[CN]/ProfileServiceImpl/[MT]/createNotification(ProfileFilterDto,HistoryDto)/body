@@ -9,7 +9,7 @@
     if (isValidId(endpointGroupId)) {
       EndpointGroup group=endpointGroupDao.findById(endpointGroupId);
       if (group != null) {
-        changeNotificationDto.setGroupId(group.getId());
+        changeNotificationDto.setGroupId(group.getId().toString());
         changeNotificationDto.setGroupSeqNumber(group.getSequenceNumber());
       }
  else {

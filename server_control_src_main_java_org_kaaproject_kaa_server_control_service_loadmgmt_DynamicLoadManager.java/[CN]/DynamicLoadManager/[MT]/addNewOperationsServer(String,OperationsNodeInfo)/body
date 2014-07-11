@@ -1,0 +1,7 @@
+{
+  OperationsServerMeta meta=new OperationsServerMeta(null,nodeInfo);
+  List<ThriftSupportedChannel> thriftSuppChannels=getThriftSupportedChannelsFromZkSupportedChannels(nodeInfo.getSupportedChannelsArray(),meta);
+  ThriftOperationsServer operations=new ThriftOperationsServer(dnsName,DEFAULT_PRIORITY,nodeInfo.getConnectionInfo().getPublicKey(),thriftSuppChannels);
+  meta.opsServer=operations;
+  opsServersMap.put(dnsName,meta);
+}

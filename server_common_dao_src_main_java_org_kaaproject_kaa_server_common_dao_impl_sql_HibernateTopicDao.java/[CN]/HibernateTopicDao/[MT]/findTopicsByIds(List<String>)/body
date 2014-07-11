@@ -1,0 +1,11 @@
+{
+  List<Topic> topics=Collections.emptyList();
+  LOG.debug("Find topics by ids {} and type",ids);
+  if (ids != null && !ids.isEmpty()) {
+    List<Long> lids=toLongIds(ids);
+    if (!lids.isEmpty()) {
+      topics=findListByCriterion(Restrictions.in(ID_PROPERTY,lids));
+    }
+  }
+  return topics;
+}

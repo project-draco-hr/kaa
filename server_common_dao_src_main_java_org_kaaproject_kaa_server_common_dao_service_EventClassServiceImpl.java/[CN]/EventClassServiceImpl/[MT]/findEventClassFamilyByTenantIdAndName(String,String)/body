@@ -1,0 +1,9 @@
+{
+  if (isValidSqlId(tenantId)) {
+    LOG.debug("Find event class family by tenant id [{}] and name {}",tenantId,name);
+    return eventClassFamilyDao.findByTenantIdAndName(tenantId,name).toDto();
+  }
+ else {
+    throw new IncorrectParameterException("Incorrect tenant id: " + tenantId);
+  }
+}

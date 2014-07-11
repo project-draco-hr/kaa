@@ -1,0 +1,11 @@
+{
+  if (!pattern.matcher(identifier).matches()) {
+    return false;
+  }
+  for (  String part : identifier.split("\\.")) {
+    if (RESERVED_KEYWORDS.contains(part)) {
+      return false;
+    }
+  }
+  return identifier.length() > 0;
+}

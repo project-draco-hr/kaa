@@ -8,7 +8,7 @@
     tenantAdmin.setName(tenant.getName());
     List<User> users=userDao.findByTenantIdAndAuthority(tenant.getId(),KaaAuthorityDto.TENANT_ADMIN.name());
     if (!users.isEmpty()) {
-      tenantAdmin.setUserId(users.get(0).getId());
+      tenantAdmin.setUserId(users.get(0).getId().toString());
       tenantAdmin.setUsername(users.get(0).getUsername());
       tenantAdmin.setExternalUid(users.get(0).getExternalUid());
     }

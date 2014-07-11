@@ -1,0 +1,14 @@
+{
+  LogTransport transport=mock(LogTransport.class);
+  DefaultLogCollector logCollector=new DefaultLogCollector(transport);
+  logCollector.setUploadStrategy(new CustomStrategy());
+  try {
+    SuperRecord record=new SuperRecord();
+    record.setLogdata("test");
+    logCollector.addLogRecord(record);
+    verify(transport,times(1)).sync();
+  }
+ catch (  Exception e) {
+    Assert.assertTrue("Exception: " + e.toString(),false);
+  }
+}

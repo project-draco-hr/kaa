@@ -1,0 +1,8 @@
+{
+  LOG.debug("eventUserRouteInfo .... User routes updates in {} listeners",listeners.size());
+  LOG.debug("UserRouteInfo UserId={}; TenantId={}; OperationServerId={}",userRoute.getUserId(),userRoute.getTenantId(),userRoute.getOperationsServerId());
+  for (  EventServiceListener listener : listeners) {
+    org.kaaproject.kaa.server.operations.service.event.UserRouteInfo routeInfo=new org.kaaproject.kaa.server.operations.service.event.UserRouteInfo(userRoute.getTenantId(),userRoute.getUserId(),userRoute.getOperationsServerId(),transformUpdateType(userRoute.getUpdateType()));
+    listener.onUserRouteInfo(routeInfo);
+  }
+}

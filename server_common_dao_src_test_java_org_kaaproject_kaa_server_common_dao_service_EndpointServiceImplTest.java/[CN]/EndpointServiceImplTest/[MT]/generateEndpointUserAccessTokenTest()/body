@@ -1,0 +1,9 @@
+{
+  TenantDto tenantDto=generateTenant();
+  EndpointUserDto savedEndpointUserDto=generateEndpointUser(tenantDto.getId());
+  Assert.assertNull(savedEndpointUserDto.getAccessToken());
+  String generatedAccessToken=endpointService.generateEndpointUserAccessToken(savedEndpointUserDto.getExternalId(),savedEndpointUserDto.getTenantId());
+  EndpointUserDto endpointUser=endpointService.findEndpointUserById(savedEndpointUserDto.getId());
+  Assert.assertNotNull(generatedAccessToken);
+  Assert.assertEquals(generatedAccessToken,endpointUser.getAccessToken());
+}

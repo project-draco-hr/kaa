@@ -27,7 +27,7 @@
     configuration.setEndpointGroupId(endpointGroupId);
   }
   GenericAvroConverter converter=new GenericAvroConverter(configSchema.getOverrideSchema());
-  configuration.setBinaryBody(converter.encodeToJsonBytes(converter.decodeJson(config)));
+  configuration.setBody(converter.endcodeToJson(converter.decodeJson(config)));
   ConfigurationDto savedConfiguration=toDto(client.editConfiguration(toDataStruct(configuration)));
   return savedConfiguration;
 }

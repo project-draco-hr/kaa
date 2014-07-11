@@ -1,0 +1,9 @@
+{
+  Path schemaUrl=Paths.get(Thread.currentThread().getContextClassLoader().getResource("override/schema.json").toURI());
+  DataSchema configurationSchema=new DataSchema(new String(Files.readAllBytes(schemaUrl)));
+  SchemaGenerationAlgorithmFactory factory=new SchemaGenerationAlgorithmFactoryImpl();
+  SchemaGenerationAlgorithm generator=factory.createSchemaGenerator(configurationSchema);
+  KaaSchema baseSchemaString=generator.getBaseSchema();
+  ArrayOverrideStrategyResolver arrayMergeStrategyResolver=new ArrayOverrideStrategyResolver(baseSchemaString);
+  arrayMergeStrategyResolver.resolve("wrong_parent_name","org.kaa.config","child_name");
+}

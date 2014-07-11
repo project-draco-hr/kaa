@@ -1,0 +1,11 @@
+{
+  LOG.debug("Validate fqn, tenant id [{}], ecf id [{}], className [{}]",tenantId,ecfId,className);
+  Criteria criteria=getCriteria();
+  criteria.createAlias(TENANT_PROPERTY,TENANT_ALIAS);
+  criteria.add(Restrictions.and(Restrictions.eq(TENANT_REFERENCE,Long.valueOf(tenantId)),Restrictions.eq(CLASS_NAME_PROPERTY,className)));
+  if (isNotBlank(ecfId)) {
+    criteria=criteria.add(Restrictions.ne(ID_PROPERTY,Long.valueOf(ecfId)));
+  }
+  List<EventClassFamily> eventClassFamilies=findListByCriteria(criteria);
+  return eventClassFamilies == null || eventClassFamilies.isEmpty();
+}

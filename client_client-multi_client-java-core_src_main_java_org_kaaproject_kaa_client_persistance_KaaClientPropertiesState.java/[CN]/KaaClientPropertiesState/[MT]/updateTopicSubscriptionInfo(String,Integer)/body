@@ -1,0 +1,8 @@
+{
+  TopicSubscriptionInfo subscriptionInfo=nfSubscriptions.get(topicId);
+  if (subscriptionInfo != null) {
+    subscriptionInfo.setSeqNumber(Math.max(sequenceNumber,subscriptionInfo.getSeqNumber()));
+    nfSubscriptions.put(topicId,subscriptionInfo);
+    LOG.info("Updated seqNumber to {} for {} subscription",subscriptionInfo.getSeqNumber(),topicId);
+  }
+}

@@ -1,0 +1,19 @@
+{
+  if (this == o) {
+    return true;
+  }
+  if (o == null || getClass() != o.getClass()) {
+    return false;
+  }
+  SecureRole that=(SecureRole)o;
+  if (role != null ? !role.equals(that.role) : that.role != null) {
+    return false;
+  }
+  if (privileges != null ? !privileges.equals(that.privileges) : that.privileges != null) {
+    return false;
+  }
+  if (roles != null ? !roles.equals(that.roles) : that.roles != null) {
+    return false;
+  }
+  return true;
+}

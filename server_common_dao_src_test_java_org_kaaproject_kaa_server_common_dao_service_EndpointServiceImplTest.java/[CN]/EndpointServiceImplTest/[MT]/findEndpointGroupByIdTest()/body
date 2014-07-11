@@ -1,5 +1,6 @@
 {
-  EndpointGroupDto group=endpointService.findEndpointGroupById(endGroups.get(0));
-  Assert.assertNotNull(group);
+  EndpointGroupDto group=generateEndpointGroup(null);
+  EndpointGroupDto foundGroup=endpointService.findEndpointGroupById(group.getId());
+  Assert.assertNotNull(foundGroup);
   group=endpointService.findEndpointGroupById(INCORRECT_ID);
 }

@@ -1,0 +1,18 @@
+{
+  String[] serversSplit=servers.split(";");
+  List<BootstrapServerInfo> result=new ArrayList<BootstrapServerInfo>();
+  for (  String server : serversSplit) {
+    if (server != null && !server.trim().isEmpty()) {
+      String[] serverInfoSplit=server.split(":");
+      if (serverInfoSplit.length == 3) {
+        String host=serverInfoSplit[0];
+        int port=Integer.parseInt(serverInfoSplit[1]);
+        String publicKeyBase64=serverInfoSplit[2];
+        PublicKey publicKey=KeyFactory.getInstance("RSA").generatePublic(new X509EncodedKeySpec(Base64.decodeBase64(publicKeyBase64.getBytes(Charsets.UTF_8))));
+        BootstrapServerInfo serverInfo=new BootstrapServerInfo(host,port,publicKey);
+        result.add(serverInfo);
+      }
+    }
+  }
+  return result;
+}

@@ -1,0 +1,5 @@
+{
+  String collectionName=(String)ReflectionTestUtils.getField(logAppender,"collectionName");
+  logAppender.setApplicationId(FAKE_APPLICATION_ID);
+  Assert.assertEquals(collectionName,ReflectionTestUtils.getField(logAppender,"collectionName"));
+}

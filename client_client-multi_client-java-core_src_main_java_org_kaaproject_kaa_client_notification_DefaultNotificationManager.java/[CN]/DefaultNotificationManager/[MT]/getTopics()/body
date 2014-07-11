@@ -1,0 +1,9 @@
+{
+  List<Topic> topicList=new LinkedList<Topic>();
+synchronized (topics) {
+    for (    Topic topic : topics.values()) {
+      topicList.add(topic);
+    }
+  }
+  return topicList;
+}

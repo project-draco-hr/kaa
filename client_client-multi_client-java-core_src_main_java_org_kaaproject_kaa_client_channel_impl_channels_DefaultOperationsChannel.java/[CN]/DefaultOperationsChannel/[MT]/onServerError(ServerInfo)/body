@@ -1,0 +1,12 @@
+{
+  if (!stopped) {
+    LOG.debug("Channel {} connection failed",getId());
+synchronized (this) {
+      stopPollScheduler(false);
+    }
+    client.getChannelMananager().onServerFailed(info);
+  }
+ else {
+    LOG.debug("Channel {} connection aborted",getId());
+  }
+}

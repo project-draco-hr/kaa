@@ -14,6 +14,6 @@
   Mockito.verify(applicationService).findAppById(TEST_APP_ID);
   Mockito.verify(cacheService).getFilter(TEST_PF_ID);
   Mockito.verify(cacheService).resetFilters(new AppVersionKey(TEST_APP_TOKEN,PF_VERSION));
-  Mockito.verify(cacheService,Mockito.times(0)).putAppSeqNumber(Mockito.anyString(),Mockito.anyInt());
+  Mockito.verify(cacheService,Mockito.times(0)).putAppSeqNumber(Mockito.anyString(),Mockito.any(AppSeqNumber.class));
   Mockito.verify(akkaService).onNotification(notification);
 }

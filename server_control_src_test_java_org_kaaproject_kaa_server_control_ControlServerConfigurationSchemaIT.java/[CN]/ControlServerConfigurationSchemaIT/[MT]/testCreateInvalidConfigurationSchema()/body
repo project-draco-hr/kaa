@@ -2,7 +2,7 @@
   ConfigurationSchemaDto configurationSchema=new ConfigurationSchemaDto();
   configurationSchema.setStatus(UpdateStatus.ACTIVE);
   String schema=getResourceAsString(TEST_INVALID_CONFIG_SCHEMA);
-  configurationSchema.setSchema(schema);
+  configurationSchema.setSchema(new KaaSchemaFactoryImpl().createDataSchema(schema).getRawSchema());
   ApplicationDto application=createApplication();
   configurationSchema.setApplicationId(application.getId());
   client.editConfigurationSchema(toDataStruct(configurationSchema));

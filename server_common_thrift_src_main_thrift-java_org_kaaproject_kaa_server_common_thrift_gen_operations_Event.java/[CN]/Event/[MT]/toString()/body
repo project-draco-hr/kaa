@@ -1,0 +1,41 @@
+{
+  StringBuilder sb=new StringBuilder("Event(");
+  boolean first=true;
+  sb.append("userId:");
+  if (this.userId == null) {
+    sb.append("null");
+  }
+ else {
+    sb.append(this.userId);
+  }
+  first=false;
+  if (!first)   sb.append(", ");
+  sb.append("tenantId:");
+  if (this.tenantId == null) {
+    sb.append("null");
+  }
+ else {
+    sb.append(this.tenantId);
+  }
+  first=false;
+  if (!first)   sb.append(", ");
+  sb.append("endpointEvent:");
+  if (this.endpointEvent == null) {
+    sb.append("null");
+  }
+ else {
+    sb.append(this.endpointEvent);
+  }
+  first=false;
+  if (!first)   sb.append(", ");
+  sb.append("routeAddress:");
+  if (this.routeAddress == null) {
+    sb.append("null");
+  }
+ else {
+    sb.append(this.routeAddress);
+  }
+  first=false;
+  sb.append(")");
+  return sb.toString();
+}

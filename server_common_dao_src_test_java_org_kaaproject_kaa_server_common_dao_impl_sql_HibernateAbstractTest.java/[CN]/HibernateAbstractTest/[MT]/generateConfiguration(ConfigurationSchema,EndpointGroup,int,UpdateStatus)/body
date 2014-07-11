@@ -1,0 +1,32 @@
+{
+  List<Configuration> configs=Collections.emptyList();
+  try {
+    if (schema == null) {
+      schema=generateConfSchema(null,1).get(0);
+    }
+    if (group == null) {
+      group=generateEndpointGroup(schema.getApplication(),null);
+    }
+    Assert.assertNotNull(schema);
+    configs=new ArrayList<>();
+    for (int i=0; i < count; i++) {
+      Configuration dto=new Configuration();
+      dto.setId(null);
+      dto.setStatus(status != null ? status : UpdateStatus.INACTIVE);
+      dto.setConfigurationBody(new byte[]{0,2,3,4});
+      dto.setConfigurationSchema(schema);
+      dto.setSequenceNumber(i);
+      dto.setMajorVersion(i + 1);
+      dto.setApplication(schema.getApplication());
+      dto.setEndpointGroup(group);
+      Configuration saved=configurationDao.save(dto);
+      Assert.assertNotNull(saved);
+      configs.add(saved);
+    }
+  }
+ catch (  Exception e) {
+    LOG.error("Can't generate configs {}",e);
+    Assert.fail("Can't generate configurations." + e.getMessage());
+  }
+  return configs;
+}

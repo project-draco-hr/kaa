@@ -1,0 +1,8 @@
+{
+  ActorRef applicationActor=applications.get(appToken);
+  if (applicationActor == null) {
+    applicationActor=context().actorOf(Props.create(new ApplicationActor.ActorCreator(operationsService,notificationDeltaService,applicationService,logAppenderService,appToken)),appToken);
+    applications.put(appToken,applicationActor);
+  }
+  return applicationActor;
+}

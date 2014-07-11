@@ -1,0 +1,9 @@
+{
+  List<Configuration> configs=generateConfiguration(null,null,3,UpdateStatus.ACTIVE);
+  Assert.assertEquals(3,configs.size());
+  Long id=configs.get(0).getId();
+  ConfigurationSchema schema=configs.get(0).getConfigurationSchema();
+  configurationDao.removeByConfigurationSchemaId(schema.getId().toString());
+  Configuration found=configurationDao.findById(id.toString());
+  Assert.assertNull(found);
+}

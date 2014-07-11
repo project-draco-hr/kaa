@@ -1,0 +1,23 @@
+{
+  StringBuilder sb=new StringBuilder("ThriftSupportedChannel(");
+  boolean first=true;
+  sb.append("type:");
+  if (this.type == null) {
+    sb.append("null");
+  }
+ else {
+    sb.append(this.type);
+  }
+  first=false;
+  if (!first)   sb.append(", ");
+  sb.append("communicationParams:");
+  if (this.communicationParams == null) {
+    sb.append("null");
+  }
+ else {
+    sb.append(this.communicationParams);
+  }
+  first=false;
+  sb.append(")");
+  return sb.toString();
+}

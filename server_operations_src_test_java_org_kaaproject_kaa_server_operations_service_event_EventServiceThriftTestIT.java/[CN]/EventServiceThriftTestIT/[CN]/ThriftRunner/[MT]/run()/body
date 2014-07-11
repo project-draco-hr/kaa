@@ -1,0 +1,17 @@
+{
+  LOG.info("Initializing Thrift Service for Operations Server....");
+  LOG.info("thrift host: {}",thriftHost);
+  LOG.info("thrift port: {}",thriftPort);
+  registerZK();
+  try {
+    OperationsThriftService.Processor<OperationsThriftService.Iface> processor=new OperationsThriftService.Processor<OperationsThriftService.Iface>(operationsThriftService);
+    TServerTransport serverTransport=new TServerSocket(new InetSocketAddress(thriftHost,thriftPort));
+    server=new TThreadPoolServer(new Args(serverTransport).processor(processor));
+    LOG.info("Operations Server {}:{} Started.",thriftHost,thriftPort);
+    server.serve();
+    LOG.info("Operations Server {}:{} Stopped.",thriftHost,thriftPort);
+  }
+ catch (  TTransportException e) {
+    LOG.error("TTransportException",e);
+  }
+}

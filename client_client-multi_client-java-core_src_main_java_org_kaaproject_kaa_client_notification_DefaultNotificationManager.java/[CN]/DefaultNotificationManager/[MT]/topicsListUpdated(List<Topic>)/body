@@ -1,0 +1,23 @@
+{
+  Map<String,Topic> newTopics=new HashMap<String,Topic>();
+synchronized (topics) {
+    for (    Topic topic : list) {
+      newTopics.put(topic.getId(),topic);
+      if (topics.remove(topic.getId()) == null) {
+        state.addTopic(topic);
+      }
+    }
+synchronized (notificationListeners) {
+      for (      Topic topic : topics.values()) {
+        notificationListeners.remove(topic.getId());
+        state.removeTopic(topic.getId());
+      }
+    }
+    topics=newTopics;
+  }
+synchronized (topicsListeners) {
+    for (    NotificationTopicListListener listener : topicsListeners) {
+      listener.onListUpdated(list);
+    }
+  }
+}

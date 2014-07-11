@@ -1,7 +1,7 @@
 {
   if (zkEnabled) {
     ControlNodeInfo nodeInfo=new ControlNodeInfo();
-    ConnectionInfo connectionInfo=new ConnectionInfo(host,port,host,0,null);
+    ConnectionInfo connectionInfo=new ConnectionInfo(host,port,null);
     nodeInfo.setConnectionInfo(connectionInfo);
     controlZKNode=new ControlNode(nodeInfo,zkHostPortList,60 * 1000,3 * 1000,new RetryUntilElapsed(zkMaxRetryTime,zkSleepTime));
     try {

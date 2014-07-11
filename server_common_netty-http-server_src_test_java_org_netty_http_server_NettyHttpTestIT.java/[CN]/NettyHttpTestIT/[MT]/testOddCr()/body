@@ -1,0 +1,24 @@
+{
+  LOG.info("Starting HTTP test");
+  assertNotNull(netty);
+  String host="localhost";
+  Random rnd=new Random();
+  int arrayLength=16;
+  sendingArray=new byte[arrayLength];
+  rnd.nextBytes(sendingArray);
+  sendingArray[arrayLength - 3]=0x0d;
+  sendingArray[arrayLength - 2]=0x0d;
+  sendingArray[arrayLength - 1]=0x0d;
+  try {
+    LOG.info("Starting HTTP test to {}:{} ",host,HTTP_BIND_PORT);
+    HttpTestClient test=new HttpTestClient(host,HTTP_BIND_PORT,sendingArray);
+    executor.submit(test);
+    byte[] response=test.getResponseBody();
+    assertEquals(ByteBuffer.wrap(sendingArray),ByteBuffer.wrap(response));
+  }
+ catch (  IOException e) {
+    LOG.error("Error: ",e);
+    fail(e.toString());
+  }
+  LOG.info("Test complete");
+}

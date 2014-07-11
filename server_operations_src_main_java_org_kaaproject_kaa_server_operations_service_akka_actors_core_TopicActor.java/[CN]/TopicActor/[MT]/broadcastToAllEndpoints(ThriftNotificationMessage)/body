@@ -6,6 +6,7 @@
   }
  else {
     notificationCache.put(notificationDto.getSecNum(),notificationDto);
+    LOG.debug("[{}] Put notification to topic actor cache {}",notificationDto.getTopicId(),notificationDto);
     NotificationMessage notificationMessage=NotificationMessage.fromNotifications(Collections.singletonList(notificationDto));
     for (    ActorInfo endpoint : endpointSessions.values()) {
       if (isSchemaVersionMatch(notificationDto,endpoint.getSystemNfVersion(),endpoint.getUserNfVersion())) {

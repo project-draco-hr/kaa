@@ -1,0 +1,14 @@
+{
+  RouteTableKey remoteKey=new RouteTableKey(APP_TOKEN,new EventClassFamilyVersion(ECF1,1));
+  RouteTableAddress remoteAddress=new RouteTableAddress(endpoint,APP_TOKEN,SERVER1);
+  testTable.add(remoteKey,remoteAddress);
+  Assert.assertNotNull(testTable.getRemoteServers());
+  Assert.assertEquals(1,testTable.getRemoteServers().size());
+  Assert.assertEquals(SERVER1,testTable.getRemoteServers().iterator().next());
+  Assert.assertNotNull(testTable.getRoutes(remoteKey,null));
+  Assert.assertEquals(1,testTable.getRoutes(remoteKey,null).size());
+  Assert.assertEquals(remoteAddress,testTable.getRoutes(remoteKey,null).iterator().next());
+  Assert.assertNotNull(testTable.getRoutes(Collections.singleton(remoteKey),null));
+  Assert.assertEquals(1,testTable.getRoutes(Collections.singleton(remoteKey),null).size());
+  Assert.assertEquals(remoteAddress,testTable.getRoutes(Collections.singleton(remoteKey),null).iterator().next());
+}

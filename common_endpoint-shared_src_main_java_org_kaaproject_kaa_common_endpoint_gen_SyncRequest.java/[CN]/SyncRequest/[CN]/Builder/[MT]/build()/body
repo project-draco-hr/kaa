@@ -1,15 +1,13 @@
 {
   try {
     SyncRequest record=new SyncRequest();
-    record.applicationToken=fieldSetFlags()[0] ? this.applicationToken : (java.lang.String)defaultValue(fields()[0]);
-    record.endpointPublicKeyHash=fieldSetFlags()[1] ? this.endpointPublicKeyHash : (java.nio.ByteBuffer)defaultValue(fields()[1]);
-    record.profileHash=fieldSetFlags()[2] ? this.profileHash : (java.nio.ByteBuffer)defaultValue(fields()[2]);
-    record.configurationHash=fieldSetFlags()[3] ? this.configurationHash : (java.nio.ByteBuffer)defaultValue(fields()[3]);
-    record.topicListHash=fieldSetFlags()[4] ? this.topicListHash : (java.nio.ByteBuffer)defaultValue(fields()[4]);
-    record.appStateSeqNumber=fieldSetFlags()[5] ? this.appStateSeqNumber : (java.lang.Integer)defaultValue(fields()[5]);
-    record.acceptedUnicastNotifications=fieldSetFlags()[6] ? this.acceptedUnicastNotifications : (java.util.List<java.lang.String>)defaultValue(fields()[6]);
-    record.topicStates=fieldSetFlags()[7] ? this.topicStates : (java.util.List<org.kaaproject.kaa.common.endpoint.gen.TopicState>)defaultValue(fields()[7]);
-    record.subscriptionCommands=fieldSetFlags()[8] ? this.subscriptionCommands : (java.util.List<org.kaaproject.kaa.common.endpoint.gen.SubscriptionCommand>)defaultValue(fields()[8]);
+    record.syncRequestMetaData=fieldSetFlags()[0] ? this.syncRequestMetaData : (org.kaaproject.kaa.common.endpoint.gen.SyncRequestMetaData)defaultValue(fields()[0]);
+    record.profileSyncRequest=fieldSetFlags()[1] ? this.profileSyncRequest : (org.kaaproject.kaa.common.endpoint.gen.ProfileSyncRequest)defaultValue(fields()[1]);
+    record.configurationSyncRequest=fieldSetFlags()[2] ? this.configurationSyncRequest : (org.kaaproject.kaa.common.endpoint.gen.ConfigurationSyncRequest)defaultValue(fields()[2]);
+    record.notificationSyncRequest=fieldSetFlags()[3] ? this.notificationSyncRequest : (org.kaaproject.kaa.common.endpoint.gen.NotificationSyncRequest)defaultValue(fields()[3]);
+    record.userSyncRequest=fieldSetFlags()[4] ? this.userSyncRequest : (org.kaaproject.kaa.common.endpoint.gen.UserSyncRequest)defaultValue(fields()[4]);
+    record.eventSyncRequest=fieldSetFlags()[5] ? this.eventSyncRequest : (org.kaaproject.kaa.common.endpoint.gen.EventSyncRequest)defaultValue(fields()[5]);
+    record.logSyncRequest=fieldSetFlags()[6] ? this.logSyncRequest : (org.kaaproject.kaa.common.endpoint.gen.LogSyncRequest)defaultValue(fields()[6]);
     return record;
   }
  catch (  Exception e) {

@@ -1,0 +1,10 @@
+{
+  editLogSchema_result result=new editLogSchema_result();
+  try {
+    result.success=iface.editLogSchema(args.logSchema);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

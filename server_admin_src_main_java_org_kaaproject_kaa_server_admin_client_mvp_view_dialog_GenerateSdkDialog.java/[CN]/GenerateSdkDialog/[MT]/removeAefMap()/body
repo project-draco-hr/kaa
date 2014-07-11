@@ -1,0 +1,11 @@
+{
+  List<AefMapInfoDto> selected=selectedAefMaps.getValue();
+  selectedAefMaps.setValue(null,true);
+  List<AefMapInfoDto> totalSelected=new ArrayList<>();
+  for (  AefMapInfoDto aefMap : selectedAefMaps.getValues()) {
+    if (!selected.contains(aefMap)) {
+      totalSelected.add(aefMap);
+    }
+  }
+  updateAefMapLists(totalSelected);
+}

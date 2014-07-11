@@ -1,0 +1,8 @@
+{
+  LOG.debug("Generate tenant...");
+  Tenant tenant=new Tenant();
+  tenant.setName("Test tenant" + RANDOM.nextInt());
+  tenant=tenantDao.save(tenant);
+  LOG.debug("Generate tenant {}",tenant);
+  return tenant;
+}

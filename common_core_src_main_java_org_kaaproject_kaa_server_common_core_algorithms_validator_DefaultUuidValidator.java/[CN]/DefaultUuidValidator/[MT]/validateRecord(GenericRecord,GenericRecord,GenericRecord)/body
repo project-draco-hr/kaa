@@ -1,0 +1,87 @@
+{
+  if (currentRecord != null) {
+    LOG.debug("Processing new record: {}, old record: {}",currentRecord,previousRecord);
+    if (isRecordHaveUuid(currentRecord)) {
+      GenericData.Fixed uuidValue=(GenericData.Fixed)currentRecord.get(UUID_FIELD);
+      if (uuidValue == null) {
+        if (previousRecord != null) {
+          copyUuid(currentRecord,previousRecord);
+        }
+ else {
+          generateUuidForRecord(currentRecord);
+        }
+      }
+ else {
+        LOG.info("Validating existing UUID {}",uuidValue);
+        if (!processedUuids.contains(uuidValue)) {
+          if (previousRecord == null) {
+            GenericRecord validatingRecord=findRecordByUuid(rootPreviousRecord,uuidValue);
+            if (validatingRecord == null || !validatingRecord.getSchema().getFullName().equals(currentRecord.getSchema().getFullName())) {
+              LOG.info("Unknown UUID {}. Generating a new one",uuidValue);
+              generateUuidForRecord(currentRecord);
+            }
+ else             if (!uuidValue.equals(validatingRecord.get(UUID_FIELD))) {
+              copyUuid(currentRecord,validatingRecord);
+            }
+ else {
+              LOG.info("UUID {} is valid",uuidValue);
+              processedUuids.add(uuidValue);
+            }
+          }
+ else           if (!uuidValue.equals(previousRecord.get(UUID_FIELD))) {
+            copyUuid(currentRecord,previousRecord);
+          }
+ else {
+            LOG.info("UUID {} is valid",uuidValue);
+            processedUuids.add(uuidValue);
+          }
+        }
+ else {
+          LOG.info("UUID {} is already in use. Generating a new one",uuidValue);
+          generateUuidForRecord(currentRecord);
+        }
+      }
+    }
+    List<Schema.Field> fields=currentRecord.getSchema().getFields();
+    if (fields != null && !fields.isEmpty()) {
+      for (      Schema.Field field : fields) {
+        int position=field.pos();
+        Object currentValue=currentRecord.get(position);
+        Object previousValue=null;
+        if (previousRecord != null) {
+          previousValue=previousRecord.get(position);
+        }
+        if (currentValue instanceof GenericRecord) {
+          GenericRecord subResult=null;
+          GenericRecord currentSubRecord=(GenericRecord)currentValue;
+          if (previousValue != null && previousValue instanceof GenericRecord) {
+            GenericRecord previousSubRecord=(GenericRecord)previousValue;
+            String currentName=currentSubRecord.getSchema().getFullName();
+            String previousName=previousSubRecord.getSchema().getFullName();
+            subResult=validateRecord(currentSubRecord,currentName.equals(previousName) ? previousSubRecord : null,rootPreviousRecord);
+          }
+ else {
+            subResult=validateRecord(currentSubRecord,null,rootPreviousRecord);
+          }
+          currentRecord.put(position,subResult);
+        }
+ else         if (currentValue instanceof GenericArray) {
+          LOG.debug("Found array value {}",currentValue);
+          GenericArray array=(GenericArray)currentValue;
+          if (array != null) {
+            int size=array.size();
+            for (int i=0; i < size; i++) {
+              Object item=array.get(i);
+              if (item instanceof GenericRecord) {
+                GenericRecord itemRecord=(GenericRecord)item;
+                array.set(i,validateRecord(itemRecord,null,rootPreviousRecord));
+              }
+            }
+            currentRecord.put(position,array);
+          }
+        }
+      }
+    }
+  }
+  return currentRecord;
+}

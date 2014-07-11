@@ -1,6 +1,6 @@
 {
-  SyncRequest syncRequest=new SyncRequest();
-  assertTrue(DefaultOperationsService.isFirstRequest(syncRequest));
-  syncRequest.setConfigurationHash(ByteBuffer.wrap(new byte[0]));
-  assertTrue(DefaultOperationsService.isFirstRequest(syncRequest));
+  EndpointProfileDto profile=new EndpointProfileDto();
+  assertTrue(DefaultOperationsService.isFirstRequest(profile));
+  profile.setConfigurationHash(new byte[0]);
+  assertTrue(DefaultOperationsService.isFirstRequest(profile));
 }

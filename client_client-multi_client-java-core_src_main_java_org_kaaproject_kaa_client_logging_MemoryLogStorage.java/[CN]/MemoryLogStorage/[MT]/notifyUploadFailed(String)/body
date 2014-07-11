@@ -1,0 +1,12 @@
+{
+  LOG.warn("Failed to upload log group with id {}. Try to send them later",id);
+  Iterator<Bucket> it=buckets.iterator();
+  while (it.hasNext()) {
+    Bucket bucket=it.next();
+    if (bucket.getId().equals(id) && bucket.isUsed) {
+      bucket.setUsage(false);
+      break;
+    }
+  }
+  resize(maxBucketSize);
+}

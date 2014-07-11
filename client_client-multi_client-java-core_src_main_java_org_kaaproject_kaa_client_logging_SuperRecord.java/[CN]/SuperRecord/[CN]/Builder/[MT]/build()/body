@@ -1,0 +1,10 @@
+{
+  try {
+    SuperRecord record=new SuperRecord();
+    record.logdata=fieldSetFlags()[0] ? this.logdata : (java.lang.String)defaultValue(fields()[0]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

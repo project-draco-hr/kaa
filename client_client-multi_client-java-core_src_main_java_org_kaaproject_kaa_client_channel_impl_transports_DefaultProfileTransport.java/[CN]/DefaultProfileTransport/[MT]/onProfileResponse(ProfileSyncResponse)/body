@@ -1,0 +1,9 @@
+{
+  if (response.getResponseStatus() == SyncResponseStatus.RESYNC) {
+    syncAll(TransportType.PROFILE);
+  }
+ else   if (clientState != null && !clientState.isRegistered()) {
+    clientState.setRegistered(true);
+  }
+  LOG.info("Processed profile response");
+}

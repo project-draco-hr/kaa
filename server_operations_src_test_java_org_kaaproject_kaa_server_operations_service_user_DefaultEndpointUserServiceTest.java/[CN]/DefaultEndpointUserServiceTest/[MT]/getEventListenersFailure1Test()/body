@@ -1,0 +1,12 @@
+{
+  EventListenersRequest request=new EventListenersRequest();
+  request.setEventClassFQNs(Arrays.asList("fqn2","fqn3"));
+  request.setRequestId(REQUEST_ID);
+  EndpointProfileDto profileMock=mock(EndpointProfileDto.class);
+  when(profileMock.getId()).thenReturn("A");
+  when(profileMock.getEndpointUserId()).thenReturn(null);
+  EventListenersResponse response=endpointUserService.findListeners(profileMock,new AppSeqNumber(TEST_APP_ID,TEST_APP_TOKEN,TEST_APP_SEQ_NUM),request);
+  assertNotNull(response);
+  assertEquals(SyncResponseResultType.FAILURE,response.getResult());
+  assertEquals(REQUEST_ID,response.getRequestId());
+}

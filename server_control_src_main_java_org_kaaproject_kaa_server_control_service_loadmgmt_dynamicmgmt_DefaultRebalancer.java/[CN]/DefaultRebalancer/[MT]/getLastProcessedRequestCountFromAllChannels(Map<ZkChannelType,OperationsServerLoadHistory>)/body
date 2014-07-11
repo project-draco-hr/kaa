@@ -1,0 +1,10 @@
+{
+  int totalLoad=0;
+  for (  OperationsServerLoadHistory history : map.values()) {
+    List<OperationsServerLoad> load=history.getHistory();
+    if (load.size() > 0) {
+      totalLoad+=load.get(load.size() - 1).getProcessedRequestCount();
+    }
+  }
+  return totalLoad;
+}

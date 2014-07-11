@@ -1,0 +1,9 @@
+{
+  final int prime=37;
+  int result=1;
+  result=prime * result + super.hashCode();
+  result=prime * result + ((baseSchema == null) ? 0 : baseSchema.hashCode());
+  result=prime * result + ((protocolSchema == null) ? 0 : protocolSchema.hashCode());
+  result=prime * result + ((overrideSchema == null) ? 0 : overrideSchema.hashCode());
+  return result;
+}

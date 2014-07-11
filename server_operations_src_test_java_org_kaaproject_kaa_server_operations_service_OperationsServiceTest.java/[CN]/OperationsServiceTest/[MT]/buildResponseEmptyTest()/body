@@ -1,8 +1,0 @@
-{
-  GetDeltaResponse deltaResponse=new GetDeltaResponse(GetDeltaResponseType.NO_DELTA);
-  GetNotificationResponse notificationResponse=new GetNotificationResponse();
-  SyncResponseHolder responseHolder=DefaultOperationsService.buildResponse(123,deltaResponse,notificationResponse);
-  assertNotNull(responseHolder);
-  assertNotNull(responseHolder.getResponse());
-  assertEquals(Integer.valueOf(123),responseHolder.getResponse().getAppStateSeqNumber());
-}

@@ -1,0 +1,29 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  RouteTableKey other=(RouteTableKey)obj;
+  if (appToken == null) {
+    if (other.appToken != null) {
+      return false;
+    }
+  }
+ else   if (!appToken.equals(other.appToken)) {
+    return false;
+  }
+  if (ecfVersion == null) {
+    if (other.ecfVersion != null) {
+      return false;
+    }
+  }
+ else   if (!ecfVersion.equals(other.ecfVersion)) {
+    return false;
+  }
+  return true;
+}

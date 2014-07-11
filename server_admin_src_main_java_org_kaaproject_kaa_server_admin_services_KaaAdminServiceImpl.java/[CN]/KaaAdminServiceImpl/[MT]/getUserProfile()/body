@@ -1,7 +1,7 @@
 {
   try {
     User user=userFacade.findById(Long.valueOf(getCurrentUser().getExternalUid()));
-    org.kaaproject.kaa.server.admin.shared.dto.UserDto result=new org.kaaproject.kaa.server.admin.shared.dto.UserDto(user.getId().toString(),user.getUsername(),user.getFirstName(),user.getLastName(),user.getMail(),KaaAuthorityDto.valueOf(user.getAuthorities().iterator().next().getAuthority()));
+    org.kaaproject.kaa.common.dto.admin.UserDto result=new org.kaaproject.kaa.common.dto.admin.UserDto(user.getId().toString(),user.getUsername(),user.getFirstName(),user.getLastName(),user.getMail(),KaaAuthorityDto.valueOf(user.getAuthorities().iterator().next().getAuthority()));
     return result;
   }
  catch (  Exception e) {

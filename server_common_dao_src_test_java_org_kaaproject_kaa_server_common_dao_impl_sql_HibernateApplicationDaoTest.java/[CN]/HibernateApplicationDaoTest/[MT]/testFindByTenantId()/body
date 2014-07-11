@@ -1,0 +1,6 @@
+{
+  Tenant ten=generateTenant();
+  Application app=generateApplication(ten);
+  List<Application> found=applicationDao.findByTenantId(ten.getId().toString());
+  Assert.assertEquals(app,found.get(0));
+}

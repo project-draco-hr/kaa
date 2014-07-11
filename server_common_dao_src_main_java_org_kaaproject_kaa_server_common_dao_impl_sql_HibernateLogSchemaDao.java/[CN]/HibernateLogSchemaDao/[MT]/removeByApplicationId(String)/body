@@ -1,0 +1,7 @@
+{
+  LOG.debug("Remove log schema  by application id [{}] ",applicationId);
+  if (isNotBlank(applicationId)) {
+    List<LogSchema> logSchemas=findListByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(applicationId)));
+    removeList(logSchemas);
+  }
+}

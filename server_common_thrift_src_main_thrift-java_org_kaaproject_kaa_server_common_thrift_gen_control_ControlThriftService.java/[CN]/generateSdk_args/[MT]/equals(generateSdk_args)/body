@@ -30,5 +30,17 @@
     if (!(this_present_notificationSchemaVersion && that_present_notificationSchemaVersion))     return false;
     if (this.notificationSchemaVersion != that.notificationSchemaVersion)     return false;
   }
+  boolean this_present_aefMapIds=true && this.isSetAefMapIds();
+  boolean that_present_aefMapIds=true && that.isSetAefMapIds();
+  if (this_present_aefMapIds || that_present_aefMapIds) {
+    if (!(this_present_aefMapIds && that_present_aefMapIds))     return false;
+    if (!this.aefMapIds.equals(that.aefMapIds))     return false;
+  }
+  boolean this_present_logSchemaVersion=true;
+  boolean that_present_logSchemaVersion=true;
+  if (this_present_logSchemaVersion || that_present_logSchemaVersion) {
+    if (!(this_present_logSchemaVersion && that_present_logSchemaVersion))     return false;
+    if (this.logSchemaVersion != that.logSchemaVersion)     return false;
+  }
   return true;
 }

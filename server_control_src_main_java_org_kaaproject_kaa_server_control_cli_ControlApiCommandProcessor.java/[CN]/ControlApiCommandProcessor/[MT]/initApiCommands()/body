@@ -10,6 +10,8 @@
   addCommand(createProfileSchemaCommand(true));
   addCommand(createConfigurationSchemaCommand(false));
   addCommand(createConfigurationSchemaCommand(true));
+  addCommand(createLogSchemaCommand(false));
+  addCommand(createLogSchemaCommand(true));
   addCommand(createEndpointGroupCommand(false));
   addCommand(createEndpointGroupCommand(true));
   addCommand(createProfileFilterCommand(false));
@@ -26,9 +28,12 @@
   addCommand(createNotificationSchemaCommand(true));
   addCommand(createNotificationSchemaCommand(false));
   addCommand(createUnicastNotificationCommand());
+  addCommand(createEndpointUserCommand(false));
+  addCommand(createEndpointUserCommand(true));
   addCommand(listCommand(EntityType.USER));
   addCommand(listCommand(EntityType.TENANT));
   addCommand(listCommand(EntityType.TOPIC));
+  addCommand(listCommand(EntityType.ENDPOINT_USER));
   addCommand(listApplicationsCommand());
   addCommand(listProfileSchemasCommand());
   addCommand(listConfigurationSchemasCommand());

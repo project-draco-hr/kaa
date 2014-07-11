@@ -1,0 +1,15 @@
+{
+  if (dto != null) {
+    this.id=getLongId(dto);
+    Long appId=getLongId(dto.getApplicationId());
+    this.application=appId != null ? new Application(appId) : null;
+    this.majorVersion=dto.getMajorVersion();
+    this.minorVersion=dto.getMinorVersion();
+    this.schema=dto.getSchema();
+    this.name=dto.getName();
+    this.description=dto.getDescription();
+    this.createdUsername=dto.getCreatedUsername();
+    this.createdTime=dto.getCreatedTime();
+    this.endpointCount=dto.getEndpointCount();
+  }
+}

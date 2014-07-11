@@ -1,0 +1,13 @@
+{
+  EventSchemaVersionDto schema=null;
+  for (  EventSchemaVersionDto schemaVersion : entity.getSchemas()) {
+    if (schemaVersion.getVersion() == place.getVersion()) {
+      schema=schemaVersion;
+      break;
+    }
+  }
+  detailsView.getVersion().setValue("" + schema.getVersion());
+  detailsView.getCreatedUsername().setValue(schema.getCreatedUsername());
+  detailsView.getCreatedDateTime().setValue(Utils.millisecondsToDateTimeString(schema.getCreatedTime()));
+  detailsView.getSchema().setValue(schema.getSchema());
+}

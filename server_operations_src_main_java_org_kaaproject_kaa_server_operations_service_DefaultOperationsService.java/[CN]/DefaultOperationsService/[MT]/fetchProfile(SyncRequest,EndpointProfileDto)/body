@@ -1,8 +1,0 @@
-{
-  if (profile == null) {
-    EndpointObjectHash endpointHash=EndpointObjectHash.fromBytes(request.getEndpointPublicKeyHash().array());
-    LOG.debug("Fetching endpoint profile for {}",endpointHash);
-    profile=profileService.getProfile(endpointHash);
-  }
-  return profile;
-}

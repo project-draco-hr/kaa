@@ -1,0 +1,7 @@
+{
+  this.onEvent=onEvent;
+synchronized (sync) {
+    callCounter--;
+    sync.notify();
+  }
+}

@@ -1,0 +1,16 @@
+{
+  T result=null;
+  String className=getSimpleClassName();
+  LOG.debug("Find {} entity by id [{}] ",className,id);
+  if (isNotBlank(id)) {
+    Session session=getSession();
+    if (lazy) {
+      result=(T)session.load(getEntityClass(),Long.parseLong(id));
+    }
+ else {
+      result=(T)session.get(getEntityClass(),Long.parseLong(id));
+    }
+  }
+  LOG.debug("Found {} entity: [{}] by id [{}]",className,result,id);
+  return result;
+}

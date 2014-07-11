@@ -1,0 +1,4 @@
+{
+  LOG.debug("Remove user by external uid [{}] and tenant id [{}] ",externalId,tenantId);
+  remove(query(where(EXTERNAL_ID).is(externalId).and(TENANT_ID).is(tenantId)));
+}

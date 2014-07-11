@@ -1,0 +1,4 @@
+{
+  LOG.debug("Find users by tenant id [{}] and authority [{}]",id,authority);
+  return findListByCriterionWithAlias(TENANT_PROPERTY,TENANT_ALIAS,Restrictions.and(Restrictions.eq(TENANT_REFERENCE,Long.valueOf(id)),Restrictions.eq(AUTHORITY_PROPERTY,KaaAuthorityDto.parse(authority))));
+}

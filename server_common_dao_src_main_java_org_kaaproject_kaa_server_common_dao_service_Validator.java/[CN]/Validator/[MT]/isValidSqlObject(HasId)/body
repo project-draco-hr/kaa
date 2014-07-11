@@ -1,0 +1,18 @@
+{
+  boolean correct=false;
+  if (id != null) {
+    String sid=id.getId();
+    if (StringUtils.isNotBlank(sid)) {
+      try {
+        Long.valueOf(sid);
+        correct=true;
+      }
+ catch (      NumberFormatException e) {
+      }
+    }
+ else {
+      correct=true;
+    }
+  }
+  return correct;
+}

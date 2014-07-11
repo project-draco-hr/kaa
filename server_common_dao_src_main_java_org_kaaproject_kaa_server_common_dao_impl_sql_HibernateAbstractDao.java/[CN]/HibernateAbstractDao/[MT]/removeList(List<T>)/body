@@ -1,0 +1,9 @@
+{
+  if (list != null && !list.isEmpty()) {
+    Session session=getSession();
+    for (    T o : list) {
+      session.delete(o);
+    }
+    LOG.debug("Removed list of {} entities ",list);
+  }
+}

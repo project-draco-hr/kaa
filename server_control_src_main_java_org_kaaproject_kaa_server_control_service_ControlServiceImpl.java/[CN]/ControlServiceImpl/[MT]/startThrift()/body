@@ -8,6 +8,15 @@
     server=createServer(serverTransport,processor);
     LOG.info("Control Server Started.");
     server.serve();
+    if (executorService != null && !executorService.isTerminated()) {
+      for (      TSocketWrapper socket : new ArrayList<>(openedSockets)) {
+        if (socket.getSocket() != null && !socket.getSocket().isClosed()) {
+          socket.close();
+        }
+      }
+      LOG.info("Terminating executor service.");
+      executorService.shutdownNow();
+    }
     LOG.info("Control Server Stopped.");
   }
  catch (  TTransportException e) {

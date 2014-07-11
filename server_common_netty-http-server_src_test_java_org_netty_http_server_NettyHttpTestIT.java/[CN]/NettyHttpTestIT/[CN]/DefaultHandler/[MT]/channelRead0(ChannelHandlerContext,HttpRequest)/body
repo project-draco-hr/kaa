@@ -1,0 +1,23 @@
+{
+  HttpHandler handler=new HttpHandler();
+  handler.setHttpRequest(msg);
+  final Future<HttpHandler> future=(Future<HttpHandler>)eventExecutor.submit(handler);
+  future.addListener(new GenericFutureListener<Future<HttpHandler>>(){
+    @Override public void operationComplete(    Future<HttpHandler> future) throws Exception {
+      LOG.trace("HttpHandler().operationComplete...");
+      if (future.isSuccess()) {
+        HttpResponse response=future.get().getHttpResponse();
+        if (response != null) {
+          ctx.writeAndFlush(response);
+        }
+ else {
+          ctx.fireExceptionCaught(new Exception("Error creating response"));
+        }
+      }
+ else {
+        ctx.fireExceptionCaught(future.cause());
+      }
+    }
+  }
+);
+}

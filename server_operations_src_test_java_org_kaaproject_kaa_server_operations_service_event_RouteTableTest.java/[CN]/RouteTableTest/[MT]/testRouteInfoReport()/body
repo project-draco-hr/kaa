@@ -1,0 +1,8 @@
+{
+  RouteTableKey localKey=new RouteTableKey(APP_TOKEN,new EventClassFamilyVersion(ECF1,1));
+  RouteTableAddress localAddress=new RouteTableAddress(endpoint,APP_TOKEN);
+  testTable.add(localKey,localAddress);
+  Assert.assertTrue(testTable.isDeliveryRequired(SERVER1,localAddress));
+  testTable.registerRouteInfoReport(Collections.singleton(localAddress),SERVER1);
+  Assert.assertFalse(testTable.isDeliveryRequired(SERVER1,localAddress));
+}

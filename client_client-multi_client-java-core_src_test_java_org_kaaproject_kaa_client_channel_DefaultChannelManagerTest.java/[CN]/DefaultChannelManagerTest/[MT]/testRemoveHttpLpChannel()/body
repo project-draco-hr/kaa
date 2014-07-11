@@ -1,0 +1,28 @@
+{
+  List<BootstrapServerInfo> bootststrapServers=new LinkedList<>();
+  bootststrapServers.add(new BootstrapServerInfo("localhost",9889,KeyUtil.generateKeyPair().getPublic()));
+  BootstrapManager bootstrapManager=Mockito.mock(BootstrapManager.class);
+  Map<TransportType,ChannelDirection> typesForChannel2=new HashMap<>(SUPPORTED_TYPES);
+  typesForChannel2.remove(TransportType.USER);
+  KaaDataChannel channel1=Mockito.mock(KaaDataChannel.class);
+  Mockito.when(channel1.getSupportedTransportTypes()).thenReturn(typesForChannel2);
+  Mockito.when(channel1.getType()).thenReturn(ChannelType.HTTP_LP);
+  Mockito.when(channel1.getId()).thenReturn("mock_channel");
+  KaaDataChannel channel2=Mockito.mock(KaaDataChannel.class);
+  Mockito.when(channel2.getSupportedTransportTypes()).thenReturn(SUPPORTED_TYPES);
+  Mockito.when(channel2.getType()).thenReturn(ChannelType.HTTP);
+  Mockito.when(channel2.getId()).thenReturn("mock_channel2");
+  KaaChannelManager channelManager=new DefaultChannelManager(bootstrapManager,bootststrapServers);
+  channelManager.addChannel(channel1);
+  channelManager.addChannel(channel2);
+  ServerInfo opServer=new HttpLongPollServerInfo("localhost",9999,KeyUtil.generateKeyPair().getPublic());
+  channelManager.onServerUpdated(opServer);
+  ServerInfo opServer2=new HttpServerInfo("localhost",9889,KeyUtil.generateKeyPair().getPublic());
+  channelManager.onServerUpdated(opServer2);
+  Mockito.verify(channel1,Mockito.times(1)).setServer(opServer);
+  Mockito.verify(channel2,Mockito.times(1)).setServer(opServer2);
+  assertEquals(channel2,channelManager.getChannelByTransportType(TransportType.PROFILE));
+  channelManager.removeChannel(channel2);
+  assertEquals(channel1,channelManager.getChannelByTransportType(TransportType.PROFILE));
+  assertNull(channelManager.getChannelByTransportType(TransportType.USER));
+}

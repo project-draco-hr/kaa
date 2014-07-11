@@ -1,0 +1,9 @@
+{
+  List<Configuration> configs=generateConfiguration(null,null,1,UpdateStatus.ACTIVE);
+  Assert.assertEquals(1,configs.size());
+  Configuration first=configs.get(0);
+  EndpointGroup group=first.getEndpointGroup();
+  ConfigurationSchema schema=first.getConfigurationSchema();
+  Configuration found=configurationDao.findLatestActiveBySchemaIdAndGroupId(schema.getId().toString(),group.getId().toString());
+  Assert.assertEquals(first,found);
+}

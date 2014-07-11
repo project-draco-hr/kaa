@@ -1,0 +1,16 @@
+{
+  UserSyncResponse response=new UserSyncResponse();
+  if (request.getUserAttachRequest() != null) {
+    LOG.debug("[{}] processing user attach request {}",endpointId,request.getUserAttachRequest());
+    UserAttachResponse userAttachResponse=endpointUserService.attachUser(profile,request.getUserAttachRequest());
+    LOG.debug("[{}] user attach response {}",endpointId,userAttachResponse);
+    response.setUserAttachResponse(userAttachResponse);
+  }
+  if (request.getEndpointAttachRequests() != null) {
+    response.setEndpointAttachResponses(processEndpointAttachRequests(endpointId,requestHash,request,profile));
+  }
+  if (request.getEndpointDetachRequests() != null) {
+    response.setEndpointDetachResponses(processEndpointDetachRequests(endpointId,requestHash,request,profile));
+  }
+  return response;
+}

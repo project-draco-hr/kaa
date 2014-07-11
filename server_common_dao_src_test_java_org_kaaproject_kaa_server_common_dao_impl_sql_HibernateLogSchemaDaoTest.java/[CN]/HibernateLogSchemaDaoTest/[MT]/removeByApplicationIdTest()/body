@@ -1,0 +1,7 @@
+{
+  LogSchema logSchema=generateLogSchema(null,null,1).get(0);
+  Assert.assertNotNull(logSchema);
+  logSchemaDao.removeByApplicationId(logSchema.getApplication().getStringId());
+  LogSchema schema=logSchemaDao.findById(logSchema.getStringId());
+  Assert.assertNull(schema);
+}

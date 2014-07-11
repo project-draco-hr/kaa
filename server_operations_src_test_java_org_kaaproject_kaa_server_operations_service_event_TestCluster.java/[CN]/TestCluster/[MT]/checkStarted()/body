@@ -1,0 +1,8 @@
+{
+  zkCluster=new TestingCluster(new InstanceSpec(null,EventServiceThriftTestIT.ZK_PORT,-1,-1,true,-1,-1,-1));
+  zkCluster.start();
+  logger.info("ZK Cluster started");
+  OperationsNodeInfo endpointNodeInfo=buildEndpointNodeInfo();
+  operationsNode=new OperationsNode(endpointNodeInfo,zkCluster.getConnectString(),buildDefaultRetryPolicy());
+  operationsNode.start();
+}

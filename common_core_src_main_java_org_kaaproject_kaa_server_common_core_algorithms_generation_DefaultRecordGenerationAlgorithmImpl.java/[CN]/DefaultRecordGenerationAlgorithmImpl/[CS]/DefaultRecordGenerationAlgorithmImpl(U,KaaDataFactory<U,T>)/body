@@ -1,0 +1,13 @@
+{
+  LOG.debug("Generating default configuration for configuration schema: " + kaaSchema.getRawSchema());
+  try {
+    this.rootSchema=kaaSchema;
+    this.dataFactory=factory;
+    this.rawBaseSchema=jsonMapper.readValue(kaaSchema.getRawSchema(),Map.class);
+    this.rootSchemaName=getFullNameFromRaw(this.rawBaseSchema);
+  }
+ catch (  IOException ioe) {
+    LOG.error("Unexpected exception occurred while generating configuration.",ioe);
+    throw new ConfigurationGenerationException(ioe);
+  }
+}

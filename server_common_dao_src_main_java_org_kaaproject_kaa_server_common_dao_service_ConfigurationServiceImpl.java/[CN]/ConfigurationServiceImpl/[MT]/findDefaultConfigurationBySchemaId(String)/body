@@ -3,10 +3,10 @@
   ConfigurationDto configuration=null;
   ConfigurationSchema configurationSchema=configurationSchemaDao.findById(schemaId);
   if (configurationSchema != null) {
-    String appId=idToString(configurationSchema.getApplicationId());
+    String appId=configurationSchema.getApplicationId();
     EndpointGroup endpointGroup=endpointGroupDao.findByAppIdAndWeight(appId,0);
     if (endpointGroup != null) {
-      String endpointGroupId=endpointGroup.getId();
+      String endpointGroupId=String.valueOf(endpointGroup.getId());
       configuration=getDto(configurationDao.findConfigurationByEndpointGroupIdAndVersion(endpointGroupId,configurationSchema.getMajorVersion()));
     }
  else {

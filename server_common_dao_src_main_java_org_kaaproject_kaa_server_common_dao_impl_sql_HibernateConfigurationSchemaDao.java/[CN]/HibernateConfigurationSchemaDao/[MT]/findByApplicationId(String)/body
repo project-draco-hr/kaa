@@ -1,0 +1,8 @@
+{
+  List<ConfigurationSchema> schemas=null;
+  LOG.debug("Find configuration schemas by application id {} ",applicationId);
+  if (isNotBlank(applicationId)) {
+    schemas=findListByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(applicationId)));
+  }
+  return schemas;
+}

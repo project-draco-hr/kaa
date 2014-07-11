@@ -1,17 +1,20 @@
 {
   executor=Executors.newCachedThreadPool();
   config=new OperationsServerConfig();
-  config.setPort(bindPort);
-  config.setClientMaxBodySize(MAX_HTTP_REQUEST_SIZE);
-  config.setExecutorThreadSize(3);
-  config.setServerInitializerClass("org.kaaproject.kaa.server.operations.service.http.TestEndPointServerInitializer");
-  config.setBindInterface("localhost");
+  HttpChannelConfig httpChannelConfig=new HttpChannelConfig();
+  httpChannelConfig.setChannelEnabled(true);
+  httpChannelConfig.setBindInterface("localhost");
+  httpChannelConfig.setPort(bindPort);
+  httpChannelConfig.setClientMaxBodySize(MAX_HTTP_REQUEST_SIZE);
+  httpChannelConfig.setExecutorThreadSize(3);
+  httpChannelConfig.setServerInitializerClass("org.kaaproject.kaa.server.operations.service.http.TestEndPointServerInitializer");
   List<String> commands=new Vector<>();
-  commands.add("org.kaaproject.kaa.server.operations.service.http.commands.RegisterEndpointCommand");
-  commands.add("org.kaaproject.kaa.server.operations.service.http.commands.UpdateEndpointCommand");
   commands.add("org.kaaproject.kaa.server.operations.service.http.commands.SyncCommand");
   commands.add("org.kaaproject.kaa.server.operations.service.http.commands.LongSyncCommand");
-  config.setCommandList(commands);
+  httpChannelConfig.setCommandList(commands);
+  List<ServiceChannelConfig> channelList=new ArrayList<>();
+  channelList.add(httpChannelConfig);
+  config.setChannelList(channelList);
   config.setAkkaService(testAkkaService);
   KeyPairGenerator serverKeyGen;
   try {

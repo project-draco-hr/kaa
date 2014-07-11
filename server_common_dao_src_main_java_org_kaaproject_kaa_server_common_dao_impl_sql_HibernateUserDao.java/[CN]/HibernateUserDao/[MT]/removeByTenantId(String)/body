@@ -1,0 +1,5 @@
+{
+  LOG.debug("Remove users by tenant id [{}] ",tenantId);
+  List<User> users=findListByCriterionWithAlias(TENANT_PROPERTY,TENANT_ALIAS,Restrictions.eq(TENANT_REFERENCE,Long.valueOf(tenantId)));
+  removeList(users);
+}

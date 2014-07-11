@@ -1,0 +1,7 @@
+{
+  LogEvent logEvent=new LogEvent();
+  Assert.assertNull(logEvent.getLogData());
+  logEvent.setLogData(logData);
+  Assert.assertEquals(logData,logEvent.getLogData());
+  Assert.assertNotEquals(fakeLogData,logEvent.getLogData());
+}

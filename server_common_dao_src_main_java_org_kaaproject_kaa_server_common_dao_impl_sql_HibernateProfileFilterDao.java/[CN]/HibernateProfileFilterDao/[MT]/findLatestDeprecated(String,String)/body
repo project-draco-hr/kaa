@@ -1,0 +1,12 @@
+{
+  ProfileFilter filter=null;
+  if (isNotBlank(schemaId) && isNotBlank(groupId)) {
+    Criteria cr=getCriteria();
+    cr.createAlias(PROFILE_SCHEMA_PROPERTY,PROFILE_SCHEMA_ALIAS);
+    cr.createAlias(ENDPOINT_GROUP_PROPERTY,ENDPOINT_GROUP_ALIAS);
+    Criterion crit=Restrictions.and(Restrictions.eq(ENDPOINT_GROUP_REFERENCE,Long.valueOf(groupId)),Restrictions.eq(PROFILE_SCHEMA_REFERENCE,Long.valueOf(schemaId)),Restrictions.eq(STATUS_PROPERTY,UpdateStatus.DEPRECATED));
+    filter=(ProfileFilter)cr.add(crit).addOrder(Order.desc(SEQUENCE_NUMBER_PROPERTY)).setMaxResults(FIRST).uniqueResult();
+  }
+  LOG.debug("Found latest deprecated profile filter {} by profile schema id {} and group id {} ",filter,schemaId,groupId);
+  return filter;
+}

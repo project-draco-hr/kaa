@@ -1,0 +1,8 @@
+{
+  byte[] requestBodyRaw=multiplexer.compileRequest(types);
+  LinkedHashMap<String,byte[]> requestEntity=new LinkedHashMap<String,byte[]>();
+  requestEntity.put(CommonBSConstants.APPLICATION_TOKEN_ATTR_NAME,requestBodyRaw);
+  LOG.debug("Going to execute {}",requestEntity);
+  byte[] responseDataRaw=httpClient.executeHttpRequest("",requestEntity);
+  demultiplexer.processResponse(responseDataRaw);
+}

@@ -1,0 +1,16 @@
+{
+  if (field == null) {
+    throw new IllegalArgumentException();
+  }
+switch (field) {
+case NAME:
+    return isSetName();
+case PRIORITY:
+  return isSetPriority();
+case PUBLIC_KEY:
+return isSetPublicKey();
+case SUPPORTED_CHANNELS:
+return isSetSupportedChannels();
+}
+throw new IllegalStateException();
+}

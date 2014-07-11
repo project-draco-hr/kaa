@@ -1,0 +1,8 @@
+{
+  SyncResponse response=new SyncResponse();
+  response.setConfigurationSyncResponse(new ConfigurationSyncResponse());
+  response.getConfigurationSyncResponse().setResponseStatus(SyncResponseStatus.NO_DELTA);
+  assertFalse(new SyncResponseHolder(response).requireImmediateReply());
+  response.getConfigurationSyncResponse().setResponseStatus(SyncResponseStatus.DELTA);
+  assertTrue(new SyncResponseHolder(response).requireImmediateReply());
+}

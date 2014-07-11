@@ -1,0 +1,9 @@
+{
+  Schema.Parser parser=new Schema.Parser();
+  try {
+    parser.parse(schema);
+  }
+ catch (  SchemaParseException spe) {
+    throw new KaaAdminServiceException(spe.getMessage(),ServiceErrorCode.INVALID_SCHEMA);
+  }
+}

@@ -1,0 +1,7 @@
+{
+  EndpointUserDto endpointUserDto=null;
+  if (isValidId(id)) {
+    endpointUserDto=getDto(endpointUserDao.findById(id));
+  }
+  return endpointUserDto;
+}

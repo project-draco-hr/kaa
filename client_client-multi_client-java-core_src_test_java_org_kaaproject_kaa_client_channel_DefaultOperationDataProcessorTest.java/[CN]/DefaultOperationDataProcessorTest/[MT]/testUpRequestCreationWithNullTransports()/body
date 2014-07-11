@@ -1,0 +1,11 @@
+{
+  DefaultOperationDataProcessor operationsDataProcessor=new DefaultOperationDataProcessor();
+  Map<TransportType,ChannelDirection> transportTypes=new HashMap<TransportType,ChannelDirection>();
+  transportTypes.put(TransportType.PROFILE,ChannelDirection.BIDIRECTIONAL);
+  transportTypes.put(TransportType.CONFIGURATION,ChannelDirection.BIDIRECTIONAL);
+  transportTypes.put(TransportType.NOTIFICATION,ChannelDirection.BIDIRECTIONAL);
+  transportTypes.put(TransportType.USER,ChannelDirection.BIDIRECTIONAL);
+  transportTypes.put(TransportType.EVENT,ChannelDirection.BIDIRECTIONAL);
+  transportTypes.put(TransportType.LOGGING,ChannelDirection.BIDIRECTIONAL);
+  assertNotNull(operationsDataProcessor.compileRequest(transportTypes));
+}

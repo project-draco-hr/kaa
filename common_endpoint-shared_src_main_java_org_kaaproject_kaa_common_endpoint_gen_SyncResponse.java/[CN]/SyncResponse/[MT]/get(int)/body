@@ -1,15 +1,21 @@
 {
 switch (field$) {
 case 0:
-    return appStateSeqNumber;
+    return status;
 case 1:
-  return responseType;
+  return profileSyncResponse;
 case 2:
-return confSyncResponse;
+return configurationSyncResponse;
 case 3:
 return notificationSyncResponse;
 case 4:
+return userSyncResponse;
+case 5:
+return eventSyncResponse;
+case 6:
 return redirectSyncResponse;
+case 7:
+return logSyncResponse;
 default :
 throw new org.apache.avro.AvroRuntimeException("Bad index");
 }

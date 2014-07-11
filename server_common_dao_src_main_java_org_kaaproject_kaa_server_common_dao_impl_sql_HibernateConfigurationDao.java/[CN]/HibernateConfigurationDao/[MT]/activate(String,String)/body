@@ -1,0 +1,12 @@
+{
+  LOG.debug("Activate configuration with id [{}] and increment sequence number.",id);
+  Configuration configuration=findById(id);
+  if (configuration != null) {
+    configuration.setStatus(UpdateStatus.ACTIVE);
+    configuration.setSequenceNumber(configuration.getSequenceNumber() + 1);
+    configuration.setActivatedUsername(activatedUsername);
+    configuration.setActivatedTime(System.currentTimeMillis());
+    save(configuration);
+  }
+  return configuration;
+}

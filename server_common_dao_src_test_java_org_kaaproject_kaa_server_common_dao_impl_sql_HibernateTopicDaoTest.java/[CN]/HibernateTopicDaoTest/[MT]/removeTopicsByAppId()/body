@@ -1,0 +1,7 @@
+{
+  Topic topic=generateTopic(null,null);
+  Application app=topic.getApplication();
+  topicDao.removeTopicsByAppId(app.getId().toString());
+  Topic found=topicDao.findById(topic.getId().toString());
+  Assert.assertNull(found);
+}

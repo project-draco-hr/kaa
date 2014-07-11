@@ -1,0 +1,36 @@
+{
+switch (field) {
+case USER_ID:
+    if (value == null) {
+      unsetUserId();
+    }
+ else {
+      setUserId((String)value);
+    }
+  break;
+case TENANT_ID:
+if (value == null) {
+  unsetTenantId();
+}
+ else {
+  setTenantId((String)value);
+}
+break;
+case ENDPOINT_EVENT:
+if (value == null) {
+unsetEndpointEvent();
+}
+ else {
+setEndpointEvent((EndpointEvent)value);
+}
+break;
+case ROUTE_ADDRESS:
+if (value == null) {
+unsetRouteAddress();
+}
+ else {
+setRouteAddress((RouteAddress)value);
+}
+break;
+}
+}

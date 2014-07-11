@@ -1,0 +1,9 @@
+{
+  List<EventClass> eventClasses=generateEventClass(null,null,2);
+  String id=eventClasses.get(0).getStringId();
+  EventClass dto=eventClassDao.findById(id);
+  Assert.assertNotNull(dto);
+  eventClassDao.removeById(id);
+  dto=eventClassDao.findById(id);
+  Assert.assertNull(dto);
+}

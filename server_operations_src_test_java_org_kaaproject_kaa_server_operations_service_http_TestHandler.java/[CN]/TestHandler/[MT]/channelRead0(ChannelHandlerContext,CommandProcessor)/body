@@ -1,6 +1,6 @@
 {
   AbstractOperationsCommand<SpecificRecordBase,SpecificRecordBase> command=(AbstractOperationsCommand<SpecificRecordBase,SpecificRecordBase>)msg;
-  NettyEncodedRequestMessage message=new NettyEncodedRequestMessage(uuidToStr(uuid),ctx,command);
+  NettyEncodedRequestMessage message=new NettyEncodedRequestMessage(uuidToStr(uuid),ctx,command,ChannelType.HTTP);
   LOG.trace("Forwarding {} to akka",message);
   akkaService.addCommand(message);
 }

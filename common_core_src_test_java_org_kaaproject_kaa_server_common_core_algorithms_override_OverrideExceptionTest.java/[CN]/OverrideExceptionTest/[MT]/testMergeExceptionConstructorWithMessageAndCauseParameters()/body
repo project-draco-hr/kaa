@@ -1,0 +1,7 @@
+{
+  String message="test_message";
+  Exception cause=new RuntimeException();
+  OverrideException mergeException=new OverrideException(message,cause);
+  Assert.assertEquals(message,mergeException.getMessage());
+  Assert.assertTrue(cause == mergeException.getCause());
+}

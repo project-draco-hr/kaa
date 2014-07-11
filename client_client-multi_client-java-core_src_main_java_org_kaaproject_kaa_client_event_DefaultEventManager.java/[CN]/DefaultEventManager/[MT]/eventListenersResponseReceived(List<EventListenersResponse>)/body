@@ -1,0 +1,14 @@
+{
+  for (  EventListenersResponse singleResponse : response) {
+    LOG.debug("Received event listener resolution response: {}",response);
+    EventListenersRequestBinding bind=eventListenersRequests.remove(singleResponse.getRequestId());
+    if (bind != null) {
+      if (singleResponse.getResult() == SyncResponseResultType.SUCCESS) {
+        bind.getListener().onEventListenersReceived(singleResponse.getListeners());
+      }
+ else {
+        bind.getListener().onRequestFailed();
+      }
+    }
+  }
+}

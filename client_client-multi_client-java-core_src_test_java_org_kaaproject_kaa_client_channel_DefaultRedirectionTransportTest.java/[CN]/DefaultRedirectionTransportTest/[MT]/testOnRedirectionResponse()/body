@@ -1,0 +1,13 @@
+{
+  BootstrapManager manager=Mockito.mock(BootstrapManager.class);
+  RedirectionTransport transport=new DefaultRedirectionTransport();
+  RedirectSyncResponse response=new RedirectSyncResponse();
+  transport.onRedirectionResponse(response);
+  transport.setBootstrapManager(manager);
+  transport.onRedirectionResponse(response);
+  response.setDnsName(new String());
+  transport.onRedirectionResponse(response);
+  response.setDnsName("name");
+  transport.onRedirectionResponse(response);
+  Mockito.verify(manager,Mockito.times(1)).useNextOperationsServerByDnsName(Mockito.eq("name"));
+}

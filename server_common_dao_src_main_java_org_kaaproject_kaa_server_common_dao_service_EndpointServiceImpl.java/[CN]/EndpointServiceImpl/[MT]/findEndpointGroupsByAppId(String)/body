@@ -1,4 +1,4 @@
 {
-  validateId(applicationId,"Can't find endpoint groups by application id. Incorrect application id " + applicationId);
+  validateSqlId(applicationId,"Can't find endpoint groups by application id. Incorrect application id " + applicationId);
   return convertDtoList(endpointGroupDao.findByApplicationId(applicationId));
 }

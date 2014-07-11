@@ -1,0 +1,16 @@
+{
+  __isset_bitfield=other.__isset_bitfield;
+  if (other.isSetType()) {
+    this.type=other.type;
+  }
+  this.eventId=other.eventId;
+  if (other.isSetEvent()) {
+    this.event=new Event(other.event);
+  }
+  if (other.isSetRoute()) {
+    this.route=new EventRoute(other.route);
+  }
+  if (other.isSetUserRoute()) {
+    this.userRoute=new UserRouteInfo(other.userRoute);
+  }
+}

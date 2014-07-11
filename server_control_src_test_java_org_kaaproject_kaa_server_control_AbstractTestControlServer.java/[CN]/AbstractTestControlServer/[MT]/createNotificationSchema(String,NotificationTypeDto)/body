@@ -1,6 +1,6 @@
 {
   NotificationSchemaDto notificationSchema=new NotificationSchemaDto();
-  notificationSchema.setSchema(BasicSystemNotification.SCHEMA$.toString());
+  notificationSchema.setSchema(new KaaSchemaFactoryImpl().createDataSchema(BasicSystemNotification.SCHEMA$.toString()).getRawSchema());
   notificationSchema.setType(type);
   notificationSchema.setName(generateString("Test Schema"));
   notificationSchema.setDescription(generateString("Test Desc"));

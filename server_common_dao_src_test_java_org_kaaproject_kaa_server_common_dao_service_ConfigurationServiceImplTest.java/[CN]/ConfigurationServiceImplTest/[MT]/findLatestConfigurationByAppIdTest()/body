@@ -1,5 +1,6 @@
 {
-  String applicationId=apps.get(0);
-  ConfigurationDto configurationDto=configurationService.findConfigurationByAppIdAndVersion(applicationId,1);
-  Assert.assertNotNull(configurationDto);
+  List<ConfigurationDto> configurations=generateConfiguration(null,null,1,false,false);
+  ConfigurationDto expected=configurations.get(0);
+  ConfigurationDto found=configurationService.findConfigurationByAppIdAndVersion(expected.getApplicationId(),1);
+  Assert.assertNotNull(found);
 }

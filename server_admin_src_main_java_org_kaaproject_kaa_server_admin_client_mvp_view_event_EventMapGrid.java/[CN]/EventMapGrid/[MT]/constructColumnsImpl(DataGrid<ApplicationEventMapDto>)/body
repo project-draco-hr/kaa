@@ -1,0 +1,50 @@
+{
+  float prefWidth=0;
+  prefWidth+=constructStringColumn(table,Utils.constants.fqn(),new StringValueProvider<ApplicationEventMapDto>(){
+    @Override public String getValue(    ApplicationEventMapDto item){
+      return item.getFqn();
+    }
+  }
+,160);
+  final Renderer<ApplicationEventAction> actionRenderer=new Renderer<ApplicationEventAction>(){
+    @Override public String render(    ApplicationEventAction action){
+      return Utils.constants.getString(action.name().toLowerCase());
+    }
+    @Override public void render(    ApplicationEventAction action,    Appendable appendable) throws IOException {
+      appendable.append(render(action));
+    }
+  }
+;
+  if (editable) {
+    List<ApplicationEventAction> actions=new ArrayList<>();
+    for (    ApplicationEventAction action : ApplicationEventAction.values()) {
+      actions.add(action);
+    }
+    ValueSelectionCell<ApplicationEventAction> actionsCell=new ValueSelectionCell<>(actions,actionRenderer);
+    Column<ApplicationEventMapDto,ApplicationEventAction> actionColumn=new Column<ApplicationEventMapDto,ApplicationEventAction>(actionsCell){
+      @Override public ApplicationEventAction getValue(      ApplicationEventMapDto object){
+        return object.getAction();
+      }
+    }
+;
+    Header<SafeHtml> actionHeader=new SafeHtmlHeader(SafeHtmlUtils.fromSafeConstant(Utils.constants.action()));
+    table.addColumn(actionColumn,actionHeader);
+    actionColumn.setFieldUpdater(new FieldUpdater<ApplicationEventMapDto,ApplicationEventAction>(){
+      @Override public void update(      int index,      ApplicationEventMapDto object,      ApplicationEventAction value){
+        object.setAction(value);
+      }
+    }
+);
+    table.setColumnWidth(actionColumn,80,Unit.PX);
+    prefWidth+=80;
+  }
+ else {
+    prefWidth+=constructStringColumn(table,Utils.constants.action(),new StringValueProvider<ApplicationEventMapDto>(){
+      @Override public String getValue(      ApplicationEventMapDto item){
+        return actionRenderer.render(item.getAction());
+      }
+    }
+,80);
+  }
+  return prefWidth;
+}

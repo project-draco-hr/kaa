@@ -1,13 +1,12 @@
 {
   controlClientConnect();
   ControlApiCliThriftClient cli=new ControlApiCliThriftClient();
-  String applicationId=editApplicationCli(cli,null,null,false);
-  String configSchemaId=editConfigSchemaCli(cli,null,applicationId,true);
-  configSchemaId=editConfigSchemaCli(cli,null,applicationId,false);
+  String applicationId=editApplicationCli(cli,null,"testApplication",null,"testTenant",false);
+  String configSchemaId=editConfigSchemaCli(cli,null,applicationId,null,null,true);
+  configSchemaId=editConfigSchemaCli(cli,null,applicationId,null,null,false);
   Assert.assertFalse(strIsEmpty(configSchemaId));
-  Assert.assertEquals(configSchemaId.length(),24);
-  editConfigSchemaCli(cli,configSchemaId,applicationId,false);
-  editConfigSchemaCli(cli,FAKE_ID,applicationId,false);
+  editConfigSchemaCli(cli,configSchemaId,applicationId,null,null,false);
+  editConfigSchemaCli(cli,FAKE_SQL_ID,applicationId,null,null,false);
   showEntityCli(cli,configSchemaId,EntityType.CONFIGURATION_SCHEMA);
   listConfigSchemasCli(cli,applicationId,false);
   listConfigSchemasCli(cli,applicationId,true);

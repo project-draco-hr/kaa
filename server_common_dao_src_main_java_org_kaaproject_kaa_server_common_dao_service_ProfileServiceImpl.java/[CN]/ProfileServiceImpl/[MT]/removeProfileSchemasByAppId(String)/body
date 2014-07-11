@@ -4,7 +4,7 @@
   if (schemas != null && !schemas.isEmpty()) {
     LOG.debug("Remove profile shemas by application id {}",applicationId);
     for (    ProfileSchema schema : schemas) {
-      removeProfileSchemaById(schema.getId());
+      removeProfileSchemaById(schema.getId().toString());
     }
   }
 }

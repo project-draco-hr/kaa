@@ -1,0 +1,8 @@
+{
+  EndpointGroup group=null;
+  LOG.debug("Find endpoint group by application id {} and weight {}",appId,weight);
+  if (isNotBlank(appId)) {
+    group=findOneByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.and(Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(appId)),Restrictions.eq(WEIGHT_PROPERTY,weight)));
+  }
+  return group;
+}

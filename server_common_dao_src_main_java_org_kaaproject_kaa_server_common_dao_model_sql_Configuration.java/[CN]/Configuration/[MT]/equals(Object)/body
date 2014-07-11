@@ -1,0 +1,27 @@
+{
+  if (!super.equals(obj)) {
+    return false;
+  }
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  Configuration other=(Configuration)obj;
+  if (!Arrays.equals(configurationBody,other.configurationBody)) {
+    return false;
+  }
+  if (configurationSchema == null) {
+    if (other.configurationSchema != null) {
+      return false;
+    }
+  }
+ else   if (!configurationSchema.equals(other.configurationSchema)) {
+    return false;
+  }
+  return true;
+}

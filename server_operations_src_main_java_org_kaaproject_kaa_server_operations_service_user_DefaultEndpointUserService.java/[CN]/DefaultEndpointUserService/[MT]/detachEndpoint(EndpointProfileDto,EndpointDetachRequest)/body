@@ -1,0 +1,36 @@
+{
+  EndpointDetachResponse response=new EndpointDetachResponse();
+  response.setRequestId(endpointDetachRequest.getRequestId());
+  response.setResult(SyncResponseResultType.FAILURE);
+  if (isValid(endpointDetachRequest) && isNotEmpty(profile.getEndpointUserId())) {
+    try {
+      byte[] endpointKeyHash=Base64Util.decode(endpointDetachRequest.getEndpointKeyHash());
+      if (Arrays.equals(profile.getEndpointKeyHash(),endpointKeyHash)) {
+        endpointService.detachEndpointFromUser(profile);
+        response.setResult(SyncResponseResultType.SUCCESS);
+      }
+ else {
+        EndpointProfileDto detachEndpoint=endpointService.findEndpointProfileByKeyHash(endpointKeyHash);
+        if (detachEndpoint != null) {
+          if (detachEndpoint.getEndpointUserId() != null && detachEndpoint.getEndpointUserId().equals(profile.getEndpointUserId())) {
+            endpointService.detachEndpointFromUser(detachEndpoint);
+            response.setResult(SyncResponseResultType.SUCCESS);
+          }
+ else {
+            LOG.warn("[{}] received detach endpoint request, but requested {} and current {} user mismatch.",Base64Util.encode(profile.getEndpointKeyHash()),profile.getEndpointUserId(),detachEndpoint.getEndpointUserId());
+          }
+        }
+ else {
+          LOG.warn("[{}] received detach endpoint request, for not existing endpoint.",Base64Util.encode(profile.getEndpointKeyHash()));
+        }
+      }
+    }
+ catch (    DatabaseProcessingException e) {
+      LOG.warn("[{}] failed to detach endpoint {} ",profile);
+    }
+  }
+ else {
+    LOG.warn("[{}] detach endpoint request {} or profile {} is not valid",Base64Util.encode(profile.getEndpointKeyHash()),endpointDetachRequest,profile);
+  }
+  return response;
+}

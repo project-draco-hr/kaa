@@ -1,6 +1,8 @@
 {
+  String appId=generateApplication(null).getId();
   ProfileSchemaDto profileSchema=new ProfileSchemaDto();
-  profileSchema.setId(new ObjectId().toString());
+  profileSchema.setId("-1");
+  profileSchema.setApplicationId(appId);
   profileSchema.setName("Updated name");
   profileSchema.setDescription("Updated description");
   profileService.saveProfileSchema(profileSchema);

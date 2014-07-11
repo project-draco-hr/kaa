@@ -1,0 +1,29 @@
+{
+  TTupleProtocol iprot=(TTupleProtocol)prot;
+  BitSet incoming=iprot.readBitSet(4);
+  if (incoming.get(0)) {
+    struct.updateType=EventRouteUpdateType.findByValue(iprot.readI32());
+    struct.setUpdateTypeIsSet(true);
+  }
+  if (incoming.get(1)) {
+{
+      org.apache.thrift.protocol.TList _list5=new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT,iprot.readI32());
+      struct.eventClassFamilyVersion=new ArrayList<EventClassFamilyVersion>(_list5.size);
+      for (int _i6=0; _i6 < _list5.size; ++_i6) {
+        EventClassFamilyVersion _elem7;
+        _elem7=new EventClassFamilyVersion();
+        _elem7.read(iprot);
+        struct.eventClassFamilyVersion.add(_elem7);
+      }
+    }
+    struct.setEventClassFamilyVersionIsSet(true);
+  }
+  if (incoming.get(2)) {
+    struct.applicationToken=iprot.readString();
+    struct.setApplicationTokenIsSet(true);
+  }
+  if (incoming.get(3)) {
+    struct.endpointId=iprot.readBinary();
+    struct.setEndpointIdIsSet(true);
+  }
+}

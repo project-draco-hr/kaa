@@ -4,9 +4,12 @@
   List<Configuration> configurations=configurationDao.findActualByEndpointGroupId(endpointGroupId);
   List<String> usedSchemaIds=new ArrayList<>();
   for (  Configuration configuration : configurations) {
-    usedSchemaIds.add(idToString(configuration.getSchemaId()));
+    ConfigurationSchema schema=configuration.getConfigurationSchema();
+    if (schema != null) {
+      usedSchemaIds.add(idToString(schema.getId()));
+    }
   }
-  List<ConfigurationSchema> schemas=configurationSchemaDao.findVacantSchemas(idToString(group.getApplicationId()),usedSchemaIds);
+  List<ConfigurationSchema> schemas=configurationSchemaDao.findVacantSchemas(group.getApplicationId(),usedSchemaIds);
   List<SchemaDto> schemaDtoList=new ArrayList<>();
   for (  ConfigurationSchema schema : schemas) {
     schemaDtoList.add(schema.toSchemaDto());

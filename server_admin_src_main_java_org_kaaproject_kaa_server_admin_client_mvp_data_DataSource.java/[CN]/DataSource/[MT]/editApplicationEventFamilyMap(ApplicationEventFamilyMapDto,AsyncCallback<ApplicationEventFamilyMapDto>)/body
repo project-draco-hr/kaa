@@ -1,0 +1,8 @@
+{
+  rpcService.editApplicationEventFamilyMap(applicationEventFamilyMap,new DataCallback<ApplicationEventFamilyMapDto>(callback){
+    @Override protected void onResult(    ApplicationEventFamilyMapDto result){
+      eventBus.fireEvent(new DataEvent(ApplicationEventFamilyMapDto.class));
+    }
+  }
+);
+}

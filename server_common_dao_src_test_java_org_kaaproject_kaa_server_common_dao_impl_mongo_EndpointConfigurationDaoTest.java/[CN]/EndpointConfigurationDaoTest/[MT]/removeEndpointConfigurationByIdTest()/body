@@ -1,0 +1,8 @@
+{
+  String id=endConf.get(0);
+  EndpointConfiguration endpointConfiguration=endpointConfigurationDao.findById(id);
+  Assert.assertNotNull(endpointConfiguration);
+  endpointConfigurationDao.removeById(id);
+  endpointConfiguration=endpointConfigurationDao.findById(id);
+  Assert.assertNull(endpointConfiguration);
+}

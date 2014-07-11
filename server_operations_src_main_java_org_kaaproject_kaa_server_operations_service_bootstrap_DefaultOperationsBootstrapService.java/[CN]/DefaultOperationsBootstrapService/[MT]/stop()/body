@@ -1,16 +1,13 @@
 {
-  if (httpService != null) {
-    httpService.stop();
-    httpService=null;
+  for (  ServiceChannel channel : serviceChannels) {
+    channel.stop();
   }
-  if (statistics != null) {
-    statistics.shutdown();
-    statistics=null;
-  }
+  serviceChannels.clear();
+  StatisticsFactory.shutdown();
   if (akkaService != null) {
     akkaService.getActorSystem().shutdown();
   }
-  if (zkEnabled) {
+  if (getConfig().isZkEnabled()) {
     stopZK();
   }
   server.stop();

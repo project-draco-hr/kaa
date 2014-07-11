@@ -1,0 +1,14 @@
+{
+  if (delim == null) {
+    delim=":";
+  }
+  StringBuffer sb=new StringBuffer();
+  for (int i=0; i < bytes.length; i++) {
+    int f=(bytes[i] & 0xF0) >> 4;
+    int s=bytes[i] & 0x0F;
+    sb.append(hex[f]);
+    sb.append(hex[s]);
+    sb.append(delim);
+  }
+  return sb.toString();
+}

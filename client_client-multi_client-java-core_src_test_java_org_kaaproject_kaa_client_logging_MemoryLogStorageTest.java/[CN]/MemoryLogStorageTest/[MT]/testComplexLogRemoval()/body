@@ -1,0 +1,21 @@
+{
+  long bucketSize=3;
+  MemoryLogStorage storage=new MemoryLogStorage(bucketSize);
+  LogRecord record=new LogRecord();
+  int insertionCount=8;
+  int iter=insertionCount;
+  while (iter-- > 0) {
+    storage.addLogRecord(record);
+  }
+  LogBlock removingBlock1=storage.getRecordBlock(7);
+  insertionCount-=removingBlock1.getRecords().size();
+  LogBlock removingBlock2=storage.getRecordBlock(9);
+  insertionCount-=removingBlock2.getRecords().size();
+  LogBlock removingBlock3=storage.getRecordBlock(6);
+  insertionCount-=removingBlock3.getRecords().size();
+  storage.removeRecordBlock(removingBlock2.getBlockId());
+  storage.notifyUploadFailed(removingBlock1.getBlockId());
+  insertionCount+=removingBlock1.getRecords().size();
+  LogBlock leftBlock=storage.getRecordBlock(50);
+  Assert.assertTrue("Ac: " + leftBlock.getRecords().size() + ", ex: "+ insertionCount,leftBlock.getRecords().size() == insertionCount);
+}

@@ -1,0 +1,14 @@
+{
+  if (!stopped) {
+    stopped=true;
+    if (!processingResponse) {
+      if (pollFuture != null) {
+        LOG.info("Stopping poll future..");
+        pollFuture.cancel(forced);
+        if (forced) {
+          task.waitUntilExecuted();
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  HashCodeBuilder builder=new HashCodeBuilder();
+  boolean present_updateType=true && (isSetUpdateType());
+  builder.append(present_updateType);
+  if (present_updateType)   builder.append(updateType.getValue());
+  boolean present_eventClassFamilyVersion=true && (isSetEventClassFamilyVersion());
+  builder.append(present_eventClassFamilyVersion);
+  if (present_eventClassFamilyVersion)   builder.append(eventClassFamilyVersion);
+  boolean present_applicationToken=true && (isSetApplicationToken());
+  builder.append(present_applicationToken);
+  if (present_applicationToken)   builder.append(applicationToken);
+  boolean present_endpointId=true && (isSetEndpointId());
+  builder.append(present_endpointId);
+  if (present_endpointId)   builder.append(endpointId);
+  return builder.toHashCode();
+}

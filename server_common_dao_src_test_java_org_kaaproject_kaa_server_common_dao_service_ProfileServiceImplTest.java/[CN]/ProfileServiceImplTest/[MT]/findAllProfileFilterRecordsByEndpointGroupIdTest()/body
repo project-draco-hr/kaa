@@ -1,5 +1,5 @@
 {
-  String appId=generateApplication().getId();
+  String appId=generateApplication(null).getId();
   EndpointGroupDto groupDto=generateEndpointGroup(appId);
   ProfileSchemaDto schema=generateProfSchema(appId,1).get(0);
   ProfileFilterDto filter=generateFilter(schema.getId(),groupDto.getId(),3,true).get(2);

@@ -1,0 +1,17 @@
+{
+synchronized (buckets) {
+    if (buckets.isEmpty()) {
+      initBucketList();
+    }
+    boolean isPushed=currentBucket.tryPushRecord(record);
+    if (!isPushed) {
+      Bucket newBucket=new Bucket(maxBucketSize);
+      buckets.add(newBucket);
+      currentBucket=newBucket;
+      currentBucket.tryPushRecord(record);
+    }
+    consumedSize+=record.getSize();
+    ++recordCount;
+    LOG.trace("Added new log record, records: {}",recordCount);
+  }
+}

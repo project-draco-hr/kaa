@@ -1,0 +1,8 @@
+{
+  Tenant tenant=generateTenant();
+  generateUser(tenant,KaaAuthorityDto.TENANT_ADMIN);
+  generateUser(tenant,KaaAuthorityDto.TENANT_ADMIN);
+  generateUser(tenant,KaaAuthorityDto.KAA_ADMIN);
+  List<User> users=userDao.findByTenantIdAndAuthorities(tenant.getId().toString(),new String[]{KaaAuthorityDto.TENANT_ADMIN.name()});
+  Assert.assertEquals(2,users.size());
+}

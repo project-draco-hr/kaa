@@ -1,3 +1,5 @@
 {
-  configurationService.activateConfiguration(configurations.get(6),null);
+  List<ConfigurationDto> configurations=generateConfiguration(null,null,1,true,false);
+  ConfigurationDto configuration=configurations.get(0);
+  configurationService.activateConfiguration(configuration.getId(),null);
 }

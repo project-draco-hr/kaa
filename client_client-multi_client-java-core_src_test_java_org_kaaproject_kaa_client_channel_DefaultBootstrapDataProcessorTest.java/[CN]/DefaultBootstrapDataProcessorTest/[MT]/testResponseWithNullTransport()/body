@@ -1,0 +1,7 @@
+{
+  DefaultBootstrapDataProcessor processor=new DefaultBootstrapDataProcessor();
+  OperationsServerList list=new OperationsServerList();
+  list.setOperationsServerArray(new LinkedList<OperationsServer>());
+  AvroByteArrayConverter<OperationsServerList> converter=new AvroByteArrayConverter<>(OperationsServerList.class);
+  processor.processResponse(converter.toByteArray(list));
+}

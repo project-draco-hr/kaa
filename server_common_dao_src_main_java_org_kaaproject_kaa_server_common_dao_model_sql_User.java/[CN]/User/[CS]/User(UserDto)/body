@@ -1,0 +1,10 @@
+{
+  if (dto != null) {
+    this.id=getLongId(dto);
+    this.username=dto.getUsername();
+    this.externalUid=dto.getExternalUid();
+    this.authority=dto.getAuthority();
+    Long tenantId=getLongId(dto.getTenantId());
+    this.tenant=tenantId != null ? new Tenant(tenantId) : null;
+  }
+}

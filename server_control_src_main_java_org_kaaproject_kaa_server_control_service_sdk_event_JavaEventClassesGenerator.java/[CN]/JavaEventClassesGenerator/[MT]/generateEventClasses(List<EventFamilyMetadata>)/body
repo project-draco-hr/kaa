@@ -1,0 +1,39 @@
+{
+  List<JavaDynamicBean> javaSources=new ArrayList<>();
+  String eventFamilyFactoryImports="";
+  String eventFamilyFactoryMethods="";
+  for (  EventFamilyMetadata efm : eventFamilies) {
+    eventFamilyFactoryImports+="import " + efm.getEcfNamespace() + "."+ efm.getEcfClassName()+ ";\n";
+    String eventFamilyVarName=efm.getEcfClassName().substring(0,1).toLowerCase();
+    if (efm.getEcfClassName().length() > 1) {
+      eventFamilyVarName+=efm.getEcfClassName().substring(1);
+    }
+    eventFamilyFactoryMethods+=eventFamilyFactoryMethod.replaceAll(EVENT_FAMILY_CLASS_NAME_VAR,efm.getEcfClassName()).replaceAll(EVENT_FAMILY_VAR_NAME_VAR,eventFamilyVarName);
+    String addSupportedEventClassFqns="";
+    String eventFamilyListenersOnGenericEvent="";
+    String eventFamilySendEventMethods="";
+    String eventFamilyListenerMethods="";
+    for (    ApplicationEventMapDto eventMap : efm.getEventMaps()) {
+      if (eventMap.getAction() == ApplicationEventAction.SINK || eventMap.getAction() == ApplicationEventAction.BOTH) {
+        addSupportedEventClassFqns+=eventFamilyAddSupportedFqn.replaceAll(EVENT_CLASS_FQN_VAR,eventMap.getFqn()) + "\n";
+        if (eventFamilyListenersOnGenericEvent.length() > 0) {
+          eventFamilyListenersOnGenericEvent+="else ";
+        }
+        eventFamilyListenersOnGenericEvent+=eventFamilyOnGenericEvent.replaceAll(EVENT_CLASS_FQN_VAR,eventMap.getFqn()) + "\n";
+        eventFamilyListenerMethods+=eventFamilyListenerMethod.replaceAll(EVENT_CLASS_FQN_VAR,eventMap.getFqn()) + "\n";
+      }
+      if (eventMap.getAction() == ApplicationEventAction.SOURCE || eventMap.getAction() == ApplicationEventAction.BOTH) {
+        eventFamilySendEventMethods+=eventFamilySendEventMethod.replaceAll(EVENT_CLASS_FQN_VAR,eventMap.getFqn()) + "\n";
+      }
+    }
+    String eventFamilySource=eventFamilyJava.replaceAll(EVENT_FAMILY_NAMESPACE_VAR,efm.getEcfNamespace()).replaceAll(EVENT_FAMILY_CLASS_NAME_VAR,efm.getEcfClassName()).replaceAll(ADD_SUPPORTED_EVENT_CLASS_FQNS_VAR,addSupportedEventClassFqns).replaceAll(EVENT_FAMILY_LISTENERS_ON_GENERIC_EVENT_VAR,eventFamilyListenersOnGenericEvent).replaceAll(EVENT_FAMILY_SEND_EVENT_METHODS_VAR,eventFamilySendEventMethods).replaceAll(EVENT_FAMILY_LISTENER_METHODS_VAR,eventFamilyListenerMethods);
+    LOG.trace("Going to compile {} using source {}",efm.getEcfClassName(),eventFamilySource);
+    JavaDynamicBean eventFamily=new JavaDynamicBean(efm.getEcfClassName(),eventFamilySource);
+    javaSources.add(eventFamily);
+  }
+  String eventFamilyFactorySource=eventFamilyFactoryJava.replaceAll(EVENT_FAMILY_FACTORY_IMPORTS_VAR,eventFamilyFactoryImports).replaceAll(EVENT_FAMILY_FACTORY_METHODS_VAR,eventFamilyFactoryMethods);
+  LOG.trace("Going to compile {} using source {}",EVENT_FAMILY_FACTORY,eventFamilyFactorySource);
+  JavaDynamicBean eventFamilyFactory=new JavaDynamicBean(EVENT_FAMILY_FACTORY,eventFamilyFactorySource);
+  javaSources.add(eventFamilyFactory);
+  return javaSources;
+}

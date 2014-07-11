@@ -1,0 +1,31 @@
+{
+  ControlApiCommand command=new ControlApiCommand(edit ? "editEndpointUser" : "createEndpointUser",(edit ? "edit" : "create") + " EndpointUser"){
+    @Override public void runCommand(    CommandLine line,    ControlThriftService.Iface client,    PrintWriter writer,    PrintWriter errorWriter){
+      createEndpointUser(line,client,writer,errorWriter,edit);
+    }
+  }
+;
+  if (edit) {
+    Option opt=new Option("i","endpointUserId",true,"Endpoint User Id option");
+    opt.setRequired(true);
+    command.addOption(opt);
+  }
+ else {
+    Option opt=new Option("o","output",true,"Output file to store Object Id");
+    opt.setRequired(false);
+    command.addOption(opt);
+  }
+  Option opt=new Option("n","name",true,"Endpoint User Name option");
+  opt.setRequired(!edit);
+  command.addOption(opt);
+  opt=new Option("t","tenantId",true,"Tenant Id option");
+  opt.setRequired(!edit);
+  command.addOption(opt);
+  opt=new Option("e","externalId",true,"Endpoint User External Id option");
+  opt.setRequired(false);
+  command.addOption(opt);
+  opt=new Option("a","accessToken",true,"Endpoint User Access Token option");
+  opt.setRequired(false);
+  command.addOption(opt);
+  return command;
+}

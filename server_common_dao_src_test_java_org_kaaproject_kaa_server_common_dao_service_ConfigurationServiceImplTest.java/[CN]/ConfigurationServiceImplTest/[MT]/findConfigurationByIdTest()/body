@@ -1,5 +1,7 @@
 {
-  String id=configurations.get(0);
-  ConfigurationDto configurationDto=configurationService.findConfigurationById(id);
-  Assert.assertNotNull(configurationDto);
+  List<ConfigurationDto> configurations=generateConfiguration(null,null,1,false,false);
+  ConfigurationDto configuration=configurations.get(0);
+  ConfigurationDto foundConfiguration=configurationService.findConfigurationById(configuration.getId());
+  Assert.assertNotNull(foundConfiguration);
+  Assert.assertEquals(configuration,foundConfiguration);
 }

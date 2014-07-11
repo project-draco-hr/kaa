@@ -5,10 +5,10 @@
     List<EndpointGroup> groups=endpointGroupDao.findEndpointGroupsByTopicIdAndAppId(topic.getApplicationId(),id);
     if (groups != null && !groups.isEmpty()) {
       for (      EndpointGroup eg : groups) {
-        endpointService.removeTopicFromEndpointGroup(eg.getId(),id);
+        endpointService.removeTopicFromEndpointGroup(eg.getId().toString(),id);
       }
     }
-    notificationDao.removeNotificationsByTopicId(id);
     topicDao.removeById(id);
+    notificationDao.removeNotificationsByTopicId(id);
   }
 }

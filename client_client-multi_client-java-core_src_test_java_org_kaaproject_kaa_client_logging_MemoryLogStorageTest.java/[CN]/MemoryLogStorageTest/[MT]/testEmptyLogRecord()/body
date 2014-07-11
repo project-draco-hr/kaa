@@ -1,0 +1,6 @@
+{
+  long bucketSize=3;
+  MemoryLogStorage storage=new MemoryLogStorage(bucketSize);
+  LogBlock group=storage.getRecordBlock(5);
+  Assert.assertTrue(group == null);
+}

@@ -1,0 +1,25 @@
+{
+  T dto=createDto();
+  dto.setId(getStringId());
+  if (application != null) {
+    dto.setApplicationId(application.getStringId());
+  }
+  if (endpointGroup != null) {
+    dto.setEndpointGroupId(endpointGroup.getStringId());
+  }
+  dto.setSequenceNumber(sequenceNumber);
+  dto.setMajorVersion(majorVersion);
+  dto.setMinorVersion(minorVersion);
+  dto.setDescription(description);
+  dto.setCreatedTime(createdTime);
+  dto.setLastModifyTime(lastModifyTime);
+  dto.setActivatedTime(activatedTime);
+  dto.setDeactivatedTime(deactivatedTime);
+  dto.setCreatedUsername(createdUsername);
+  dto.setModifiedUsername(modifiedUsername);
+  dto.setActivatedUsername(activatedUsername);
+  dto.setDeactivatedUsername(deactivatedUsername);
+  dto.setStatus(status);
+  dto.setEndpointCount(endpointCount);
+  return dto;
+}

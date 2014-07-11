@@ -1,10 +1,11 @@
 {
   controlClientConnect();
   ControlApiCliThriftClient cli=new ControlApiCliThriftClient();
-  String applicationId=editApplicationCli(cli,null,null,false);
-  editProfileSchemaCli(cli,null,applicationId,false);
-  editConfigSchemaCli(cli,null,applicationId,false);
-  editNotificationSchemaCli(cli,null,applicationId,NotificationTypeDto.USER,false,false);
-  boolean result=generateSdkCli(cli,applicationId,1,1,2);
+  String applicationId=editApplicationCli(cli,null,"testApplication",null,"testTenant",false);
+  editProfileSchemaCli(cli,null,applicationId,null,null,false);
+  editConfigSchemaCli(cli,null,applicationId,null,null,false);
+  editNotificationSchemaCli(cli,null,applicationId,null,null,NotificationTypeDto.USER,false,false);
+  editLogSchemaCli(cli,null,applicationId,1,null,false);
+  boolean result=generateSdkCli(cli,applicationId,1,1,2,1);
   Assert.assertTrue(result);
 }

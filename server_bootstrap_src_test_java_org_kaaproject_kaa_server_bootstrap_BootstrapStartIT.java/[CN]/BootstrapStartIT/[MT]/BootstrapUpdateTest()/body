@@ -4,8 +4,8 @@
   logger.info("BootstrapNode found....");
   assertEquals(1,nodes.size());
   BootstrapNodeInfo info=nodes.get(0);
-  assertEquals(nettyHost,info.getConnectionInfo().getHttpHost().toString());
-  assertEquals((long)nettyPort,(long)info.getConnectionInfo().getHttpPort());
+  assertEquals(nettyHost,info.getBootstrapHostName().toString());
+  assertEquals((long)nettyPort,(long)info.getBootstrapPort());
   assertEquals(thriftHost,info.getConnectionInfo().getThriftHost().toString());
   assertEquals((long)thriftPort,(long)info.getConnectionInfo().getThriftPort());
   ByteBuffer keyData=ByteBuffer.wrap(bootstrap.getBootstrapInitializationService().getKeyStoreService().getPublicKey().getEncoded());
@@ -17,16 +17,17 @@
     fail(e.toString());
   }
   logger.info("Going to test Thrift OperationsServerList update.....");
-  final Map<String,org.kaaproject.kaa.server.common.thrift.gen.bootstrap.OperationsServer> update=generateDnsUpdate();
+  final List<ThriftOperationsServer> update=generateDnsUpdate();
   logger.info("Generated " + update.size() + " endpoint servers");
   updateBootstrap(nodes.get(0),update);
   DefaultBootstrapInitializationService defBootstrapInitService=(DefaultBootstrapInitializationService)bootstrap.getBootstrapInitializationService();
   List<OperationsServer> list=defBootstrapInitService.getOperationsServerListService().getOpsServerList().getOperationsServerArray();
   assertEquals(update.size(),list.size());
   for (  OperationsServer server : list) {
-    String host=server.getDNSName();
-    if (update.containsKey(host)) {
-      org.kaaproject.kaa.server.common.thrift.gen.bootstrap.OperationsServer sendServ=update.get(host);
+    String host=server.getName();
+    logger.info("Server Name {} 1",host);
+    ThriftOperationsServer sendServ=getThriftOperationsServerByName(host,update);
+    if (sendServ != null) {
       assertEquals(sendServ.priority,server.getPriority().intValue());
       assertEquals(sendServ.publicKey,server.getPublicKey());
     }
@@ -49,9 +50,10 @@ synchronized (httpSync) {
           List<OperationsServer> respList=response.getOperationsServerArray();
           assertEquals(update.size(),respList.size());
           for (          OperationsServer server : respList) {
-            String host=server.getDNSName();
-            if (update.containsKey(host)) {
-              org.kaaproject.kaa.server.common.thrift.gen.bootstrap.OperationsServer sendServ=update.get(host);
+            String host=server.getName();
+            logger.info("Server Name {} 2",host);
+            ThriftOperationsServer sendServ=getThriftOperationsServerByName(host,update);
+            if (sendServ != null) {
               assertEquals(sendServ.priority,server.getPriority().intValue());
               assertEquals(sendServ.publicKey,server.getPublicKey());
             }

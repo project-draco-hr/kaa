@@ -1,0 +1,20 @@
+{
+  EndpointAttachResponse response=new EndpointAttachResponse();
+  response.setRequestId(endpointAttachRequest.getRequestId());
+  response.setResult(SyncResponseResultType.FAILURE);
+  String endpointUserId=profile.getEndpointUserId();
+  if (isNotEmpty(endpointUserId)) {
+    try {
+      EndpointProfileDto attachedEndpoint=endpointService.attachEndpointToUser(endpointUserId,endpointAttachRequest.getEndpointAccessToken());
+      response.setResult(SyncResponseResultType.SUCCESS);
+      response.setEndpointKeyHash(Base64Util.encode(attachedEndpoint.getEndpointKeyHash()));
+    }
+ catch (    DatabaseProcessingException e) {
+      LOG.warn("[{}] failed to attach endpoint with access token {} and user {}",Base64Util.encode(profile.getEndpointKeyHash()),endpointAttachRequest.getEndpointAccessToken(),profile.getEndpointUserId());
+    }
+  }
+ else {
+    LOG.warn("[{}] received attach endpoint request, but there is no user to attach.",Base64Util.encode(profile.getEndpointKeyHash()));
+  }
+  return response;
+}

@@ -1,0 +1,39 @@
+{
+  List<ConfigurationDto> ids=Collections.emptyList();
+  try {
+    ConfigurationSchemaDto schemaDto;
+    if (isNotBlank(schemaId)) {
+      schemaDto=configurationService.findConfSchemaById(schemaId);
+    }
+ else {
+      schemaDto=generateConfSchema(null,1).get(0);
+    }
+    Assert.assertNotNull(schemaDto);
+    KaaSchema kaaSchema=useBaseSchema ? new BaseSchema(schemaDto.getBaseSchema()) : new OverrideSchema(schemaDto.getOverrideSchema());
+    DefaultRecordGenerationAlgorithmImpl configurationProcessor=new DefaultRecordGenerationAlgorithmImpl(kaaSchema,useBaseSchema ? new BaseDataFactory() : new OverrideDataFactory());
+    ids=new ArrayList<>();
+    for (int i=0; i < count; i++) {
+      ConfigurationDto dto=new ConfigurationDto();
+      dto.setId(null);
+      dto.setStatus(null);
+      dto.setBody(configurationProcessor.getRootData().getRawData());
+      dto.setSchemaId(schemaDto.getId());
+      if (isBlank(groupId)) {
+        groupId=generateEndpointGroup(schemaDto.getApplicationId()).getId();
+      }
+      dto.setEndpointGroupId(groupId);
+      ConfigurationDto saved=configurationService.saveConfiguration(dto);
+      Assert.assertNotNull(saved);
+      if (activate) {
+        ChangeConfigurationNotification notification=configurationService.activateConfiguration(saved.getId(),schemaDto.getCreatedUsername());
+        saved=notification.getConfigurationDto();
+      }
+      ids.add(saved);
+    }
+  }
+ catch (  Exception e) {
+    LOGGER.error("Can't generate configs {}",e);
+    Assert.fail("Can't generate configurations. " + e.getMessage());
+  }
+  return ids;
+}

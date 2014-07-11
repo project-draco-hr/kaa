@@ -40,5 +40,21 @@ unsetNotificationSchemaVersion();
 setNotificationSchemaVersion((Integer)value);
 }
 break;
+case AEF_MAP_IDS:
+if (value == null) {
+unsetAefMapIds();
+}
+ else {
+setAefMapIds((List<String>)value);
+}
+break;
+case LOG_SCHEMA_VERSION:
+if (value == null) {
+unsetLogSchemaVersion();
+}
+ else {
+setLogSchemaVersion((Integer)value);
+}
+break;
 }
 }

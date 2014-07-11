@@ -4,7 +4,7 @@
   Assert.assertEquals(configuration.getId(),activatedConfiguration.getId());
   Assert.assertEquals(configuration.getSchemaId(),activatedConfiguration.getSchemaId());
   Assert.assertEquals(configuration.getEndpointGroupId(),activatedConfiguration.getEndpointGroupId());
-  Assert.assertArrayEquals(configuration.getBinaryBody(),activatedConfiguration.getBinaryBody());
+  Assert.assertEquals(configuration.getBody(),activatedConfiguration.getBody());
   Assert.assertEquals(configuration.getProtocolSchema(),activatedConfiguration.getProtocolSchema());
   Assert.assertEquals(configuration.getApplicationId(),activatedConfiguration.getApplicationId());
   Assert.assertEquals(activatedConfiguration.getStatus(),UpdateStatus.ACTIVE);

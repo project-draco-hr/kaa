@@ -1,0 +1,16 @@
+{
+  List<AefMapInfoDto> available=new ArrayList<>();
+  Map<String,AefMapInfoDto> idMap=new HashMap<String,AefMapInfoDto>();
+  for (  AefMapInfoDto aefMap : totalSelected) {
+    idMap.put(aefMap.getEcfId(),aefMap);
+  }
+  for (  AefMapInfoDto aefMap : aefMaps) {
+    if (!idMap.containsKey(aefMap.getEcfId())) {
+      available.add(aefMap);
+    }
+  }
+  Collections.sort(available,aefMapComparator);
+  Collections.sort(totalSelected,aefMapComparator);
+  availableAefMaps.setAcceptableValues(available);
+  selectedAefMaps.setAcceptableValues(totalSelected);
+}

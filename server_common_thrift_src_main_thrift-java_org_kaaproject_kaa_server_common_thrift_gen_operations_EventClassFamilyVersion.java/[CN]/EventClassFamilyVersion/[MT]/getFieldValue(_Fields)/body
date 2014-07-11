@@ -1,0 +1,9 @@
+{
+switch (field) {
+case ENDPOINT_CLASS_FAMILY_ID:
+    return getEndpointClassFamilyId();
+case ENDPOINT_CLASS_FAMILY_VERSION:
+  return Integer.valueOf(getEndpointClassFamilyVersion());
+}
+throw new IllegalStateException();
+}

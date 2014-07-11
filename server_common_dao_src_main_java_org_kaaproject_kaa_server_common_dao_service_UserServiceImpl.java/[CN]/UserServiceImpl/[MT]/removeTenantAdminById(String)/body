@@ -1,5 +1,6 @@
 {
-  if (isValidId(tenantId)) {
-    removeCascadeTenant(tenantId);
+  if (isValidSqlId(tenantId)) {
+    LOG.debug("Remove by tenant id [{}]",tenantId);
+    tenantDao.removeById(tenantId);
   }
 }

@@ -1,0 +1,6 @@
+{
+  List<EndpointUserDto> endpointUsers=endpointService.findAllEndpointUsers();
+  for (  EndpointUserDto endpointUser : endpointUsers) {
+    endpointService.removeEndpointUserById(endpointUser.getId());
+  }
+}

@@ -1,0 +1,20 @@
+{
+  super.bind(eventBus);
+  registrations.add(detailsView.getAddEcfSchemaButton().addClickHandler(new ClickHandler(){
+    public void onClick(    ClickEvent event){
+      addEcfSchema();
+    }
+  }
+));
+  registrations.add(detailsView.getEcfSchemasGrid().addRowActionHandler(new RowActionEventHandler<Integer>(){
+    @Override public void onRowAction(    RowActionEvent<Integer> event){
+      Integer id=event.getClickedId();
+      if (event.getAction() == RowAction.CLICK) {
+        EcfSchemaPlace ecfSchemaPlace=new EcfSchemaPlace(entityId,id);
+        ecfSchemaPlace.setPreviousPlace(place);
+        goTo(ecfSchemaPlace);
+      }
+    }
+  }
+));
+}

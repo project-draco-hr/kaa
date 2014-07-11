@@ -1,0 +1,17 @@
+{
+  String actorKey=message.getActorKey();
+  EndpointObjectHash endpointKey=message.getEndpointKey();
+  LOG.debug("[{}] Stoping actor [{}] with [{}]",applicationToken,message.getActorKey(),endpointKey);
+  ActorMetaData endpointMetaData=endpointSessions.get(endpointKey);
+  if (endpointMetaData != null) {
+    if (actorKey.equals(endpointMetaData.getEndpointActorId())) {
+      endpointSessions.remove(endpointKey);
+      LOG.debug("[{}] Removed actor [{}] from endpoint sessions map",applicationToken,actorKey);
+    }
+  }
+ else {
+    LOG.warn("[{}] EndpointSession for actor {} is not found!",applicationToken,endpointKey);
+  }
+  endpointActorMap.remove(actorKey);
+  message.getOriginator().tell(message,self());
+}

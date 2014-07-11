@@ -1,0 +1,9 @@
+{
+synchronized (sync) {
+    if (this.onServerError != onServerError) {
+      this.onServerError=onServerError;
+      callCounter--;
+      sync.notify();
+    }
+  }
+}

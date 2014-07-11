@@ -1,0 +1,22 @@
+{
+  MemoryLogStorage storage=new MemoryLogStorage(blockSize);
+  List<LogRecord> expectedList=new LinkedList<>();
+  LogRecord record=new LogRecord();
+  while (addedN-- > 0) {
+    storage.addLogRecord(record);
+  }
+  while (expectedN-- > 0) {
+    expectedList.add(record);
+  }
+  LogBlock group=storage.getRecordBlock(blockSize);
+  List<LogRecord> actualList=group.getRecords();
+  Assert.assertTrue("Expected: " + expectedList.size() + ", actual: "+ actualList.size(),expectedList.size() == actualList.size());
+  Iterator<LogRecord> expectedIt=expectedList.iterator();
+  Iterator<LogRecord> actualIt=actualList.iterator();
+  while (expectedIt.hasNext()) {
+    LogRecord expected=expectedIt.next();
+    LogRecord actual=actualIt.next();
+    Assert.assertTrue(expected.getSize() == actual.getSize());
+    Assert.assertArrayEquals(expected.getData(),actual.getData());
+  }
+}

@@ -1,0 +1,9 @@
+{
+  LogProcessor processor=Mockito.mock(LogProcessor.class);
+  LogTransport transport=new DefaultLogTransport();
+  LogSyncResponse response=new LogSyncResponse();
+  transport.onLogResponse(response);
+  transport.setLogProcessor(processor);
+  transport.onLogResponse(response);
+  Mockito.verify(processor,Mockito.times(1)).onLogResponse(response);
+}

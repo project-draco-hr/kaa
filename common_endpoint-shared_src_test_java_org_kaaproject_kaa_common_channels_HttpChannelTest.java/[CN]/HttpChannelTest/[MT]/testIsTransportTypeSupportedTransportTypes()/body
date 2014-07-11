@@ -1,0 +1,10 @@
+{
+  Channel channel=new HttpChannel();
+  assertEquals(false,channel.isTransportTypeSupported(TransportType.BOOTSTRAP));
+  assertEquals(true,channel.isTransportTypeSupported(TransportType.CONFIGURATION));
+  assertEquals(true,channel.isTransportTypeSupported(TransportType.EVENT));
+  assertEquals(true,channel.isTransportTypeSupported(TransportType.LOGGING));
+  assertEquals(true,channel.isTransportTypeSupported(TransportType.NOTIFICATION));
+  assertEquals(true,channel.isTransportTypeSupported(TransportType.PROFILE));
+  assertEquals(true,channel.isTransportTypeSupported(TransportType.USER));
+}

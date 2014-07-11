@@ -1,14 +1,17 @@
 {
-  HashMap<String,org.kaaproject.kaa.server.common.thrift.gen.bootstrap.OperationsServer> update=new HashMap<>();
   int updateSize=rnd.nextInt(10);
+  List<ThriftOperationsServer> operationsServersList=new ArrayList<>();
   for (int i=0; i < updateSize; i++) {
-    org.kaaproject.kaa.server.common.thrift.gen.bootstrap.OperationsServer es=new org.kaaproject.kaa.server.common.thrift.gen.bootstrap.OperationsServer();
-    es.setPriority(rnd.nextInt(100));
-    byte[] key=new byte[256];
-    rnd.nextBytes(key);
-    es.setPublicKey(key);
+    List<ThriftSupportedChannel> scList=new ArrayList<>();
     String host=rnd.nextInt(255) + "." + rnd.nextInt(255)+ "."+ rnd.nextInt(255)+ "."+ rnd.nextInt(255);
-    update.put(host,es);
+    int port=1000 + rnd.nextInt(32768);
+    ThriftIpParameters ipParams=new ThriftIpParameters(host,port);
+    ThriftCommunicationParameters comParam=new ThriftCommunicationParameters();
+    comParam.setHttpParams(ipParams);
+    ThriftSupportedChannel sc=new ThriftSupportedChannel(ThriftChannelType.HTTP,comParam);
+    scList.add(sc);
+    ThriftOperationsServer s=new ThriftOperationsServer(host,rnd.nextInt(100),getRandomByteBuffer(256),scList);
+    operationsServersList.add(s);
   }
-  return update;
+  return operationsServersList;
 }

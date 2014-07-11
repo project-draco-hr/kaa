@@ -1,0 +1,10 @@
+{
+  createSecureCollection_result result=new createSecureCollection_result();
+  try {
+    iface.createSecureCollection(args.applicationId,args.password);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

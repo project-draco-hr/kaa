@@ -1,0 +1,11 @@
+{
+  getLogSchema_result result=new getLogSchema_result();
+  receiveBase(result,"getLogSchema");
+  if (result.isSetSuccess()) {
+    return result.success;
+  }
+  if (result.ControlException != null) {
+    throw result.ControlException;
+  }
+  throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT,"getLogSchema failed: unknown result");
+}

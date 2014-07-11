@@ -1,0 +1,56 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  Application other=(Application)obj;
+  if (applicationToken == null) {
+    if (other.applicationToken != null) {
+      return false;
+    }
+  }
+ else   if (!applicationToken.equals(other.applicationToken)) {
+    return false;
+  }
+  if (id == null) {
+    if (other.id != null) {
+      return false;
+    }
+  }
+ else   if (!id.equals(other.id)) {
+    return false;
+  }
+  if (name == null) {
+    if (other.name != null) {
+      return false;
+    }
+  }
+ else   if (!name.equals(other.name)) {
+    return false;
+  }
+  if (sequenceNumber != other.sequenceNumber) {
+    return false;
+  }
+  if (tenant == null) {
+    if (other.tenant != null) {
+      return false;
+    }
+  }
+ else   if (!tenant.equals(other.tenant)) {
+    return false;
+  }
+  if (logAppendersNames == null) {
+    if (other.logAppendersNames != null) {
+      return false;
+    }
+  }
+ else   if (!logAppendersNames.equals(other.logAppendersNames)) {
+    return false;
+  }
+  return true;
+}

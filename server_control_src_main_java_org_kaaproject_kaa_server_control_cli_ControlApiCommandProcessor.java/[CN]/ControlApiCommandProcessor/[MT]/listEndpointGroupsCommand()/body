@@ -5,10 +5,10 @@
     }
   }
 ;
-  Option opt=new Option("a","applicationId",true,"Application Id option");
+  Option opt=new Option("a",APPLICATION_ID,true,APPLICATION_ID_OPTION);
   opt.setRequired(true);
   command.addOption(opt);
-  opt=new Option("o","output",true,"Output file to store Object Ids");
+  opt=new Option("o",OUTPUT,true,OUTPUT_FILE_TO_STORE_IDS);
   opt.setRequired(false);
   command.addOption(opt);
   return command;

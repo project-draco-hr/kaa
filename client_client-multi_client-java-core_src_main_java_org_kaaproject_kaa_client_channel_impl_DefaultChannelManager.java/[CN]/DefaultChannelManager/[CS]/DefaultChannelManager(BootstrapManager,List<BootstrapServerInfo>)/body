@@ -1,0 +1,10 @@
+{
+  if (manager == null || bootststrapServers == null || bootststrapServers.isEmpty()) {
+    throw new ChannelRuntimeException("Failed to create channel manager");
+  }
+  this.bootstrapManager=manager;
+  this.bootststrapServers=bootststrapServers;
+  this.bootststrapServersIterator=bootststrapServers.iterator();
+  this.lastBootstrapServer=bootststrapServersIterator.next();
+  LOG.info("Initialized channel manager with bootstrap servers: {}",bootststrapServers);
+}

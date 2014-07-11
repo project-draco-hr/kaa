@@ -1,0 +1,11 @@
+{
+  KaaDataChannel result=null;
+  if (channelManager != null) {
+    result=channelManager.getChannelByTransportType(type);
+  }
+  if (result == null) {
+    LOG.error("Failed to find channel for transport {}",type);
+    throw new ChannelRuntimeException("Failed to find channel for transport " + type.toString());
+  }
+  return result;
+}

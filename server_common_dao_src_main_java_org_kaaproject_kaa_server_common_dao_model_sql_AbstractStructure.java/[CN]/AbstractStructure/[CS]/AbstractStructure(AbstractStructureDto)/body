@@ -1,0 +1,23 @@
+{
+  if (dto != null) {
+    this.id=getLongId(dto);
+    this.sequenceNumber=dto.getSequenceNumber();
+    this.majorVersion=dto.getMajorVersion();
+    this.minorVersion=dto.getMinorVersion();
+    this.description=dto.getDescription();
+    this.createdTime=dto.getCreatedTime();
+    this.lastModifyTime=dto.getLastModifyTime();
+    this.activatedTime=dto.getActivatedTime();
+    this.deactivatedTime=dto.getDeactivatedTime();
+    this.createdUsername=dto.getCreatedUsername();
+    this.modifiedUsername=dto.getModifiedUsername();
+    this.activatedUsername=dto.getActivatedUsername();
+    this.deactivatedUsername=dto.getDeactivatedUsername();
+    this.status=dto.getStatus();
+    this.endpointCount=dto.getEndpointCount();
+    Long appId=getLongId(dto.getApplicationId());
+    this.application=appId != null ? new Application(appId) : null;
+    Long groupId=getLongId(dto.getEndpointGroupId());
+    this.endpointGroup=groupId != null ? new EndpointGroup(groupId) : null;
+  }
+}

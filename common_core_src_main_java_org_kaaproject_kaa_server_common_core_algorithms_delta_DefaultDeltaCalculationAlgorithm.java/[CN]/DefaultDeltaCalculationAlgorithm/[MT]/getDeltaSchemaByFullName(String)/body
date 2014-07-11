@@ -1,0 +1,11 @@
+{
+  Schema deltaT=deltaSchema.getElementType();
+  Schema deltaUnion=deltaT.getField(DELTA).schema();
+  List<Schema> deltas=deltaUnion.getTypes();
+  for (  Schema delta : deltas) {
+    if (delta.getFullName().equals(fullName)) {
+      return delta;
+    }
+  }
+  return null;
+}

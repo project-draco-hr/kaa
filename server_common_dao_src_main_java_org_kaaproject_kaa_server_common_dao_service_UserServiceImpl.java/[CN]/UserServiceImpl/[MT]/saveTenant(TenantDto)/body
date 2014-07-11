@@ -1,7 +1,14 @@
 {
+  LOG.trace("Try to save tenant object: {}",tenantDto);
   TenantDto tenant=null;
-  if (isValidObject(tenantDto)) {
-    tenant=getDto(tenantDao.save(new Tenant(tenantDto)));
+  if (isValidSqlObject(tenantDto)) {
+    Tenant checkTenant=tenantDao.findByName(tenantDto.getName());
+    if (checkTenant == null || checkTenant.getId().toString().equals(tenantDto.getId())) {
+      tenant=getDto(tenantDao.save(new Tenant(tenantDto)));
+    }
+ else {
+      throw new IncorrectParameterException("Can't save tenant with same name");
+    }
   }
   return tenant;
 }

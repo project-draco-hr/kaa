@@ -1,0 +1,16 @@
+{
+  customer=new TenantDto();
+  customer.setName(CUSTOMER_ID);
+  customer=userService.saveTenant(customer);
+  Assert.assertNotNull(customer);
+  Assert.assertNotNull(customer.getId());
+  ApplicationDto applicationObject=new ApplicationDto();
+  applicationObject.setTenantId(customer.getId());
+  applicationObject.setName(APPLICATION_NAME);
+  this.applicationDto=applicationService.saveApp(applicationObject);
+  Assert.assertNotNull(applicationDto);
+  Assert.assertNotNull(applicationDto.getId());
+  List<LogAppender> logAppenders=logAppenderService.getApplicationAppenders(applicationDto.getId());
+  Assert.assertNotNull(logAppenders);
+  logAppender=logAppenders.get(0);
+}

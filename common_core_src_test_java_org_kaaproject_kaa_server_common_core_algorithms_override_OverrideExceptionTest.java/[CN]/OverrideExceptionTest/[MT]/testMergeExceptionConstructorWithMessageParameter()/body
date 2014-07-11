@@ -1,0 +1,6 @@
+{
+  String message="test_message";
+  OverrideException mergeException=new OverrideException(message);
+  Assert.assertEquals(message,mergeException.getMessage());
+  Assert.assertNull(mergeException.getCause());
+}

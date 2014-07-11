@@ -1,0 +1,20 @@
+{
+  EventSyncResponse response=new EventSyncResponse();
+  List<EventListenersRequest> requests=request.getEventListenersRequests();
+  if (requests != null && !requests.isEmpty()) {
+    LOG.debug("[{}] processing {} endpoint detach requests",endpointId,requests.size());
+    List<EventListenersResponse> responses=new ArrayList<>(requests.size());
+    for (    EventListenersRequest elRequest : requests) {
+      LOG.debug("[{}] processing event listener request {}",endpointId,request);
+      EventListenersResponse elResponse=endpointUserService.findListeners(profile,appSeqNumber,elRequest);
+      LOG.debug("[{}] event listener response {}",endpointId,response);
+      responses.add(elResponse);
+    }
+    response.setEventListenersResponses(responses);
+  }
+ else {
+    List<EventListenersResponse> emptyList=Collections.emptyList();
+    response.setEventListenersResponses(emptyList);
+  }
+  return response;
+}

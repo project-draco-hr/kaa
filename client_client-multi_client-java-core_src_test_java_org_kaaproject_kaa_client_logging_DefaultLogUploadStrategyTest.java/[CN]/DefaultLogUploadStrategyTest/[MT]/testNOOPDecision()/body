@@ -1,0 +1,6 @@
+{
+  DefaultLogUploadStrategy strategy=new DefaultLogUploadStrategy();
+  DefaultLogUploadConfiguration conf=new DefaultLogUploadConfiguration(20,60,150);
+  TestLogStorageStatus status=new TestLogStorageStatus(30,3);
+  Assert.assertTrue(strategy.isUploadNeeded(conf,status) == LogUploadStrategyDecision.NOOP);
+}

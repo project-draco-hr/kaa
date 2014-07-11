@@ -1,0 +1,7 @@
+{
+  EndpointObjectHash sender=message.getKey();
+  List<Event> events=message.getEvents();
+  for (  Event event : events) {
+    processEvent(context,new EndpointEvent(sender,event));
+  }
+}

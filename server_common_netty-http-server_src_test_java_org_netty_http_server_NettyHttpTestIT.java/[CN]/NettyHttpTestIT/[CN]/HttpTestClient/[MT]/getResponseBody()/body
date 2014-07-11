@@ -1,0 +1,13 @@
+{
+synchronized (sync) {
+    if (!responseComplete) {
+      try {
+        sync.wait();
+      }
+ catch (      InterruptedException e) {
+        LOG.error("Error wait ",e);
+      }
+    }
+  }
+  return response;
+}

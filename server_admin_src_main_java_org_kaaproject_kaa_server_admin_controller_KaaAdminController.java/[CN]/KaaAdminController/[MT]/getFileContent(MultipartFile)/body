@@ -1,0 +1,15 @@
+{
+  if (!file.isEmpty()) {
+    logger.debug("Uploading file with name '{}'",file.getOriginalFilename());
+    try {
+      return file.getBytes();
+    }
+ catch (    IOException e) {
+      throw Utils.handleException(e);
+    }
+  }
+ else {
+    logger.error("No file found in post request!");
+    throw new KaaAdminServiceException("No file found in post request!",ServiceErrorCode.FILE_NOT_FOUND);
+  }
+}

@@ -1,10 +1,13 @@
 {
   if (config != null && config.getZkNode() != null) {
     try {
-      config.getZkNode().updateNodeStatsValues(averageDeltaSync,averageProcessedRequests,averageOnlineSessions);
+      config.getZkNode().updateNodeStatsValues(ZkChannelsUtils.getZkChannelTypeFromChanneltype(getChannelType()),averageDeltaSync,averageProcessedRequests,averageOnlineSessions);
     }
  catch (    IOException e) {
-      LOG.error("Error update statistics values on ZooKepper: " + e.toString());
+      LOG.error("Error update statistics values on ZooKepper: " + e);
+    }
+catch (    ZkChannelException e) {
+      LOG.error("Error statistics UpdateNodeInfo",e);
     }
   }
 }

@@ -1,8 +1,0 @@
-{
-  doInTemplate(new SyncReponseCalculator<ProfileUpdateRequest>(){
-    @Override public SyncResponseHolder getSyncReponse(    ProfileUpdateRequest request) throws GetDeltaException {
-      return operationsService.updateProfile(request);
-    }
-  }
-,message.getRequest(),message);
-}

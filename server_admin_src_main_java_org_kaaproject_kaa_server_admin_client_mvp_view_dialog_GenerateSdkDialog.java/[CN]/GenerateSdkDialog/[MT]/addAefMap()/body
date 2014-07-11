@@ -1,0 +1,15 @@
+{
+  List<AefMapInfoDto> selected=availableAefMaps.getValue();
+  availableAefMaps.setValue(null,true);
+  Map<String,AefMapInfoDto> idMap=new HashMap<String,AefMapInfoDto>();
+  for (  AefMapInfoDto aefMap : selected) {
+    AefMapInfoDto previous=idMap.get(aefMap.getEcfId());
+    if (previous == null || aefMap.getVersion() > previous.getVersion()) {
+      idMap.put(aefMap.getEcfId(),aefMap);
+    }
+  }
+  List<AefMapInfoDto> totalSelected=new ArrayList<>();
+  totalSelected.addAll(idMap.values());
+  totalSelected.addAll(selectedAefMaps.getValues());
+  updateAefMapLists(totalSelected);
+}

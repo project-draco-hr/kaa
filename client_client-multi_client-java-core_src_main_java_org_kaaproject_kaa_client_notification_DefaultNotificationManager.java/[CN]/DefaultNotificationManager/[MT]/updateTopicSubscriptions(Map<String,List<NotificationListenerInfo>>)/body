@@ -1,0 +1,38 @@
+{
+  if (subscribers != null) {
+    for (    Map.Entry<String,List<NotificationListenerInfo>> cursor : subscribers.entrySet()) {
+      Topic listenerTopic=findTopicById(cursor.getKey());
+      if (listenerTopic == null) {
+        throw new UnavailableTopicException("Topic with id " + cursor.getKey() + " is not available");
+      }
+synchronized (notificationListeners) {
+        List<NotificationListener> listeners=notificationListeners.get(cursor.getKey());
+        if (cursor.getValue() != null) {
+          for (          NotificationListenerInfo subscriberInfo : cursor.getValue()) {
+            if (subscriberInfo.getAction() == NotificationListenerInfo.Action.ADD) {
+              if (listeners == null) {
+                listeners=new LinkedList<NotificationListener>();
+                notificationListeners.put(listenerTopic.getId(),listeners);
+              }
+              if (listeners.isEmpty() && listenerTopic.getSubscriptionType() == SubscriptionType.VOLUNTARY) {
+                updateSubscriptionInfo(listenerTopic.getId(),SubscriptionCommandType.ADD);
+              }
+              if (subscriberInfo.getListener() != null && !listeners.contains(subscriberInfo.getListener())) {
+                listeners.add(subscriberInfo.getListener());
+              }
+            }
+ else             if (listeners != null) {
+              listeners.remove(subscriberInfo.getListener());
+              if (listeners.isEmpty() && listenerTopic.getSubscriptionType() == SubscriptionType.VOLUNTARY) {
+                updateSubscriptionInfo(listenerTopic.getId(),SubscriptionCommandType.REMOVE);
+              }
+            }
+          }
+        }
+      }
+    }
+    if (transport != null) {
+      transport.sync();
+    }
+  }
+}

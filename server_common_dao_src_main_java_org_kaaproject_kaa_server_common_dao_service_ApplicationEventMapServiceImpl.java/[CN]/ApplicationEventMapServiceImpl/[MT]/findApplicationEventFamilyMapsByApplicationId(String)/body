@@ -1,0 +1,11 @@
+{
+  List<ApplicationEventFamilyMapDto> eventFamilyMaps;
+  if (isValidSqlId(applicationId)) {
+    LOG.debug("Find application event family maps by applicationId id [{}]",applicationId);
+    eventFamilyMaps=convertDtoList(applicationEventFamilyMapDao.findByApplicationId(applicationId));
+  }
+ else {
+    throw new IncorrectParameterException("Incorrect applicationId id: " + applicationId);
+  }
+  return eventFamilyMaps;
+}

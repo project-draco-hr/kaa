@@ -1,0 +1,42 @@
+{
+  try {
+    EndpointUserDto endpointUser;
+    if (edit) {
+      String endpointUserId=line.getOptionValue("i");
+      endpointUser=toDto(client.getEndpointUser(endpointUserId));
+      if (endpointUser == null) {
+        writer.println("Endpoint user with id " + endpointUserId + " not found!");
+        return;
+      }
+    }
+ else {
+      endpointUser=new EndpointUserDto();
+    }
+    if (line.hasOption("n")) {
+      endpointUser.setUsername(line.getOptionValue("n"));
+    }
+    if (line.hasOption("t")) {
+      endpointUser.setTenantId(line.getOptionValue("t"));
+    }
+    if (line.hasOption("e")) {
+      endpointUser.setExternalId(line.getOptionValue("e"));
+    }
+    if (line.hasOption("a")) {
+      endpointUser.setAccessToken(line.getOptionValue("a"));
+    }
+    EndpointUserDto savedEndpointUser=toDto(client.editEndpointUser(toDataStruct(endpointUser)));
+    if (edit) {
+      writer.println("Endpoint user updated.");
+    }
+ else {
+      writer.println("Created new endpoint user with id: " + savedEndpointUser.getId());
+      if (line.hasOption("o")) {
+        String outFileName=line.getOptionValue("o");
+        storeInfo(outFileName,savedEndpointUser.getId(),errorWriter);
+      }
+    }
+  }
+ catch (  TException e) {
+    handleException("Unable to " + (edit ? "update" : "create") + " endpoint user",e,errorWriter);
+  }
+}

@@ -1,0 +1,7 @@
+{
+  LOG.debug("Remove configurations by endpoint group id [{}]",groupId);
+  if (isNotBlank(groupId)) {
+    List<Configuration> configurations=findListByCriterionWithAlias(ENDPOINT_GROUP_PROPERTY,ENDPOINT_GROUP_ALIAS,Restrictions.eq(ENDPOINT_GROUP_REFERENCE,Long.valueOf(groupId)));
+    removeList(configurations);
+  }
+}

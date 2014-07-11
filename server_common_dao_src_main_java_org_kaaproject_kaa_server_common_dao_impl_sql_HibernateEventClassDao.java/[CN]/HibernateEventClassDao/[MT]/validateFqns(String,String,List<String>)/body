@@ -1,0 +1,12 @@
+{
+  LOG.debug("Validate FQNs by tenant id [{}], ecf id [{}] and FQNs [{}]",tenantId,ecfId,fqns);
+  List<EventClass> eventClasses=Collections.emptyList();
+  if (isNotBlank(tenantId) && isNotBlank(ecfId) && fqns != null && !fqns.isEmpty()) {
+    Criteria criteria=getCriteria();
+    criteria.createAlias(TENANT_PROPERTY,TENANT_ALIAS);
+    criteria.createAlias(ECF_PROPERTY,ECF_ALIAS);
+    criteria.add(Restrictions.and(Restrictions.eq(TENANT_REFERENCE,Long.valueOf(tenantId)),Restrictions.ne(ECF_REFERENCE,Long.valueOf(ecfId)),Restrictions.in(FQN_PROPERTY,fqns)));
+    eventClasses=findListByCriteria(criteria);
+  }
+  return eventClasses == null || eventClasses.isEmpty();
+}

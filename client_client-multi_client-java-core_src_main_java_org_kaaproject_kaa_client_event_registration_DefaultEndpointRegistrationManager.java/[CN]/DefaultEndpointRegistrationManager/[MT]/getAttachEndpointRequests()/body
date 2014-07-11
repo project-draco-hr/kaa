@@ -1,0 +1,7 @@
+{
+  Map<String,EndpointAccessToken> result=new HashMap<>();
+synchronized (attachEndpointRequests) {
+    result.putAll(attachEndpointRequests);
+  }
+  return result;
+}

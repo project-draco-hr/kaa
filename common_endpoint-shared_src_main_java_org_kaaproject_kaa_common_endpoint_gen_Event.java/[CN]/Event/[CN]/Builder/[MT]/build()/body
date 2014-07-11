@@ -1,0 +1,14 @@
+{
+  try {
+    Event record=new Event();
+    record.seqNum=fieldSetFlags()[0] ? this.seqNum : (java.lang.Integer)defaultValue(fields()[0]);
+    record.eventClassFQN=fieldSetFlags()[1] ? this.eventClassFQN : (java.lang.String)defaultValue(fields()[1]);
+    record.eventData=fieldSetFlags()[2] ? this.eventData : (java.nio.ByteBuffer)defaultValue(fields()[2]);
+    record.source=fieldSetFlags()[3] ? this.source : (java.lang.String)defaultValue(fields()[3]);
+    record.target=fieldSetFlags()[4] ? this.target : (java.lang.String)defaultValue(fields()[4]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

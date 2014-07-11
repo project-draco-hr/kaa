@@ -10,10 +10,10 @@
   dto.setEndpointKeyHash(EndpointObjectHash.fromSHA1(request.getEndpointKey()).getData());
   dto.setProfile(profileJson);
   dto.setProfileHash(EndpointObjectHash.fromSHA1(request.getProfile()).getData());
-  dto.setProfileVersion(request.getVersionInfo().getProfileVersion());
-  dto.setConfigurationVersion(request.getVersionInfo().getConfigVersion());
-  dto.setSystemNfVersion(request.getVersionInfo().getSystemNfVersion());
-  dto.setUserNfVersion(request.getVersionInfo().getUserNfVersion());
+  populateVersionStates(applicationDto.getTenantId(),dto,request.getVersionInfo());
+  if (request.getAccessToken() != null) {
+    dto.setAccessToken(request.getAccessToken());
+  }
   dto.setSequenceNumber(0);
   dto.setChangedFlag(Boolean.FALSE);
   return endpointService.saveEndpointProfile(dto);

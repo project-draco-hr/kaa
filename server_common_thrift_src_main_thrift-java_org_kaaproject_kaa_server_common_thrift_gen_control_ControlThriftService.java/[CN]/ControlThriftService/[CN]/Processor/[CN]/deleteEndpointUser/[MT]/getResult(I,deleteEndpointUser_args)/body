@@ -1,0 +1,10 @@
+{
+  deleteEndpointUser_result result=new deleteEndpointUser_result();
+  try {
+    iface.deleteEndpointUser(args.endpointUserId);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

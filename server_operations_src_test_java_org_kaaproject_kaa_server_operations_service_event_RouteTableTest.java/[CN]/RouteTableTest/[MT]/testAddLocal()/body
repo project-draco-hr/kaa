@@ -1,0 +1,17 @@
+{
+  RouteTableKey localKey=new RouteTableKey(APP_TOKEN,new EventClassFamilyVersion(ECF1,1));
+  RouteTableAddress localAddress=new RouteTableAddress(endpoint,APP_TOKEN);
+  testTable.add(localKey,localAddress);
+  Assert.assertNotNull(testTable.getAllLocalRoutes());
+  Assert.assertEquals(1,testTable.getAllLocalRoutes().size());
+  Assert.assertEquals(localAddress,testTable.getAllLocalRoutes().iterator().next());
+  Assert.assertNotNull(testTable.getRoutes(localKey,null));
+  Assert.assertEquals(1,testTable.getRoutes(localKey,null).size());
+  Assert.assertEquals(localAddress,testTable.getRoutes(localKey,null).iterator().next());
+  Assert.assertNotNull(testTable.getRoutes(Collections.singleton(localKey),null));
+  Assert.assertEquals(1,testTable.getRoutes(Collections.singleton(localKey),null).size());
+  Assert.assertEquals(localAddress,testTable.getRoutes(Collections.singleton(localKey),null).iterator().next());
+  Assert.assertNotNull(testTable.getLocalRouteTableKeys(localAddress));
+  Assert.assertEquals(1,testTable.getLocalRouteTableKeys(localAddress).size());
+  Assert.assertEquals(localKey,testTable.getLocalRouteTableKeys(localAddress).iterator().next());
+}

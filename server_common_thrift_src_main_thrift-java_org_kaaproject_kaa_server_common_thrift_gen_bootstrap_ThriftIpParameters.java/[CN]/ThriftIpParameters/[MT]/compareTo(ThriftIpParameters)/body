@@ -1,0 +1,27 @@
+{
+  if (!getClass().equals(other.getClass())) {
+    return getClass().getName().compareTo(other.getClass().getName());
+  }
+  int lastComparison=0;
+  lastComparison=Boolean.valueOf(isSetHostName()).compareTo(other.isSetHostName());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetHostName()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.HostName,other.HostName);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  lastComparison=Boolean.valueOf(isSetPort()).compareTo(other.isSetPort());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetPort()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.Port,other.Port);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  return 0;
+}

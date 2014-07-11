@@ -1,4 +1,4 @@
 {
-  validateId(applicationId,"Incorrect application id " + applicationId + ". Can't find configuration schema.");
+  validateSqlId(applicationId,"Incorrect application id " + applicationId + ". Can't find configuration schema.");
   return getDto(configurationSchemaDao.findByAppIdAndVersion(applicationId,version));
 }

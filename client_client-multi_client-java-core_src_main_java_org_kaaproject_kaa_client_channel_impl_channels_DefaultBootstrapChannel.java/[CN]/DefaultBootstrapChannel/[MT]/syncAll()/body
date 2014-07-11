@@ -1,0 +1,10 @@
+{
+  if (isShutdown) {
+    LOG.info("Can't sync. Channel {} is down",getId());
+    return;
+  }
+  LOG.info("Processing sync all for channel {}",getId());
+  if (multiplexer != null && demultiplexer != null) {
+    executor.submit(new BootstrapRunnable());
+  }
+}

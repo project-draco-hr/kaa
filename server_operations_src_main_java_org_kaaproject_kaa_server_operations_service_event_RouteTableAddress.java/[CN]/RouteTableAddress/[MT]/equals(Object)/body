@@ -1,0 +1,37 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  RouteTableAddress other=(RouteTableAddress)obj;
+  if (applicationToken == null) {
+    if (other.applicationToken != null) {
+      return false;
+    }
+  }
+ else   if (!applicationToken.equals(other.applicationToken)) {
+    return false;
+  }
+  if (endpointKey == null) {
+    if (other.endpointKey != null) {
+      return false;
+    }
+  }
+ else   if (!endpointKey.equals(other.endpointKey)) {
+    return false;
+  }
+  if (serverId == null) {
+    if (other.serverId != null) {
+      return false;
+    }
+  }
+ else   if (!serverId.equals(other.serverId)) {
+    return false;
+  }
+  return true;
+}

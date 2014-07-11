@@ -1,6 +1,5 @@
 {
   SyncResponse response=new SyncResponse();
-  response.setAppStateSeqNumber(request.getAppStateSeqNumber());
-  response.setResponseType(SyncResponseStatus.PROFILE_RESYNC);
+  response.setStatus(SyncResponseResultType.PROFILE_RESYNC);
   return new SyncResponseHolder(response);
 }

@@ -1,0 +1,10 @@
+{
+  EndpointRegistrationProcessor processor=Mockito.mock(EndpointRegistrationProcessor.class);
+  UserTransport transport=new DefaultUserTransport();
+  transport.createUserRequest();
+  transport.setEndpointRegistrationProcessor(processor);
+  transport.createUserRequest();
+  Mockito.verify(processor,Mockito.times(1)).getAttachEndpointRequests();
+  Mockito.verify(processor,Mockito.times(1)).getDetachEndpointRequests();
+  Mockito.verify(processor,Mockito.times(1)).getUserAttachRequest();
+}

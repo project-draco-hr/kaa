@@ -1,0 +1,13 @@
+{
+  String className=getSimpleClassName();
+  LOG.debug("Find {} entities by criterion [{}] ",className,criterion);
+  Criteria criteria=getCriteria();
+  criteria.add(criterion);
+  List<T> resultList=criteria.list();
+  if (LOG.isDebugEnabled()) {
+    if (resultList != null) {
+      LOG.debug("Found {} entities: [{}] ",className,Arrays.toString(resultList.toArray()));
+    }
+  }
+  return resultList;
+}

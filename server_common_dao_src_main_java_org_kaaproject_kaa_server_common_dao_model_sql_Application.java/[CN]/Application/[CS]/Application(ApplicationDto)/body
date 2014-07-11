@@ -1,0 +1,14 @@
+{
+  if (dto != null) {
+    this.id=getLongId(dto);
+    this.applicationToken=dto.getApplicationToken();
+    this.name=dto.getName();
+    this.sequenceNumber=dto.getSequenceNumber();
+    this.userVerifierName=dto.getUserVerifierName();
+    Long tenantId=getLongId(dto.getTenantId());
+    if (tenantId != null) {
+      this.tenant=new Tenant(tenantId);
+    }
+    this.logAppendersNames=dto.getLogAppendersNames();
+  }
+}

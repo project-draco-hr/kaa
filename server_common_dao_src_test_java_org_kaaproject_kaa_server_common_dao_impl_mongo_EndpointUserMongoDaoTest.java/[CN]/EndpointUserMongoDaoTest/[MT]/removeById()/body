@@ -1,0 +1,9 @@
+{
+  TenantDto tenant=generateTenant();
+  EndpointUserDto dto=generateEndpointUser(tenant.getId());
+  EndpointUser user=endpointUserDao.findById(dto.getId());
+  Assert.assertNotNull(user);
+  endpointUserDao.removeById(user.getId());
+  user=endpointUserDao.findById(user.getId());
+  Assert.assertNull(user);
+}

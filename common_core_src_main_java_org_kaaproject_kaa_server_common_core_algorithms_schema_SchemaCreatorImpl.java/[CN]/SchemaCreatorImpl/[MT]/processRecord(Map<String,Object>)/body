@@ -1,0 +1,56 @@
+{
+  if (root.get(NAMESPACE_FIELD) == null) {
+    throw new SchemaCreationException(new StringBuilder().append("Namepsace not found for \"").append((String)root.get(NAME_FIELD)).append("\"").toString());
+  }
+  Boolean addressable=isAddressableValue(root);
+  List<Object> fields=(List<Object>)root.get(FIELDS_FIELD);
+  for (  Object fieldIter : fields) {
+    Map<String,Object> field=(Map<String,Object>)fieldIter;
+    Boolean optional=Boolean.FALSE;
+    if (field.get(OPTIONAL_NAME) != null) {
+      optional=(Boolean)field.get(OPTIONAL_NAME);
+    }
+    List<Object> newUnion=new ArrayList<Object>();
+    boolean isUnionField=false;
+    if (field.get(TYPE_FIELD) instanceof Map) {
+      newUnion.add(field.get(TYPE_FIELD));
+      Map<String,Object> fieldType=(Map<String,Object>)field.get(TYPE_FIELD);
+      checkIfArray(fieldType,newUnion);
+      convert(fieldType);
+    }
+ else     if (field.get(TYPE_FIELD) instanceof List) {
+      List<Object> oldUnion=(List<Object>)field.get(TYPE_FIELD);
+      for (      Object unionIter : oldUnion) {
+        if (unionIter instanceof Map) {
+          Map<String,Object> fieldType=(Map<String,Object>)unionIter;
+          checkIfArray(fieldType,newUnion);
+          convert(fieldType);
+        }
+      }
+      newUnion.addAll(oldUnion);
+      isUnionField=true;
+    }
+ else {
+      newUnion.add(field.get(TYPE_FIELD));
+    }
+    if (strategy.isUnchangedSupported()) {
+      newUnion.add(getUnchangedType());
+    }
+    if (optional) {
+      strategy.onOptionalField(newUnion);
+    }
+ else {
+      strategy.onMandatoryField(newUnion);
+    }
+    if (newUnion.size() > 1) {
+      field.put(TYPE_FIELD,newUnion);
+    }
+  }
+  if (addressable) {
+    fields.add(getUuidField());
+    String fullName=getFullName(root);
+    if (!fullName.equals(rootSchemaName)) {
+      addressableRecords.add(fullName);
+    }
+  }
+}

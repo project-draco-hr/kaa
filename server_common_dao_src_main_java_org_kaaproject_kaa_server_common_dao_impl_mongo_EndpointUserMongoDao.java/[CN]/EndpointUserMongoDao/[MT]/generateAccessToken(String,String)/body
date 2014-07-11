@@ -1,0 +1,7 @@
+{
+  EndpointUser endpointUser=findByExternalIdAndTenantId(externalUid,tenantId);
+  String accessToken=UUID.randomUUID().toString();
+  endpointUser.setAccessToken(accessToken);
+  save(endpointUser);
+  return accessToken;
+}

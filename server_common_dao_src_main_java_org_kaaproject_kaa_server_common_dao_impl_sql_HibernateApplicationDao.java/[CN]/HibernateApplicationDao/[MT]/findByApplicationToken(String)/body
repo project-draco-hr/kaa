@@ -1,0 +1,6 @@
+{
+  LOG.debug("Find application by token {}",token);
+  Application app=findOneByCriterion(Restrictions.eq(APPLICATION_TOKEN_PROPERTY,token));
+  LOG.debug("Found application {} by token {}",app,token);
+  return app;
+}

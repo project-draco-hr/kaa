@@ -1,11 +1,13 @@
 {
 switch (field$) {
 case 0:
-    return DNSName;
+    return name;
 case 1:
-  return Priority;
+  return priority;
 case 2:
-return PublicKey;
+return publicKey;
+case 3:
+return supportedChannelsArray;
 default :
 throw new org.apache.avro.AvroRuntimeException("Bad index");
 }

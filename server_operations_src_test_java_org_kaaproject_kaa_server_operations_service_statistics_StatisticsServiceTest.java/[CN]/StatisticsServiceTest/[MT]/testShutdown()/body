@@ -1,7 +1,7 @@
 {
-  StatisticsService service=StatisticsService.getService();
+  StatisticsService service=StatisticsFactory.getService(ChannelType.HTTP);
   assertNotNull(service);
-  StatisticsService.setConfig(configMock);
+  service.setConfig(configMock);
   try {
     Thread.sleep(500);
   }

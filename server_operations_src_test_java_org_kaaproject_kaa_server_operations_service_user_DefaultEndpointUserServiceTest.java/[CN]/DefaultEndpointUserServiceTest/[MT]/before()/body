@@ -1,0 +1,9 @@
+{
+  endpointUserService=new DefaultEndpointUserService();
+  endpointService=mock(EndpointService.class);
+  cacheService=mock(CacheService.class);
+  applicationService=mock(ApplicationService.class);
+  ReflectionTestUtils.setField(endpointUserService,"endpointService",endpointService);
+  ReflectionTestUtils.setField(endpointUserService,"cacheService",cacheService);
+  ReflectionTestUtils.setField(endpointUserService,"applicationService",applicationService);
+}

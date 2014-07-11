@@ -1,0 +1,12 @@
+{
+  LOG.debug("Find event classes by ecf id [{}] ",ecfId);
+  List<EventClass> eventClasses=Collections.emptyList();
+  if (isNotBlank(ecfId)) {
+    eventClasses=findListByCriterionWithAlias(ECF_PROPERTY,ECF_ALIAS,Restrictions.eq(ECF_REFERENCE,Long.valueOf(ecfId)));
+  }
+  LOG.info("Found event classes {} by ecf id {} ",eventClasses.size(),ecfId);
+  if (LOG.isDebugEnabled()) {
+    LOG.debug("Found event classes {} by ecf id {} ",Arrays.toString(eventClasses.toArray()),ecfId);
+  }
+  return eventClasses;
+}

@@ -1,0 +1,12 @@
+{
+  TTupleProtocol iprot=(TTupleProtocol)prot;
+  BitSet incoming=iprot.readBitSet(2);
+  if (incoming.get(0)) {
+    struct.endpointClassFamilyId=iprot.readString();
+    struct.setEndpointClassFamilyIdIsSet(true);
+  }
+  if (incoming.get(1)) {
+    struct.endpointClassFamilyVersion=iprot.readI32();
+    struct.setEndpointClassFamilyVersionIsSet(true);
+  }
+}

@@ -1,0 +1,11 @@
+{
+  super(org.kaaproject.kaa.common.endpoint.gen.EndpointDetachResponse.SCHEMA$);
+  if (isValidValue(fields()[0],other.requestId)) {
+    this.requestId=data().deepCopy(fields()[0].schema(),other.requestId);
+    fieldSetFlags()[0]=true;
+  }
+  if (isValidValue(fields()[1],other.result)) {
+    this.result=data().deepCopy(fields()[1].schema(),other.result);
+    fieldSetFlags()[1]=true;
+  }
+}

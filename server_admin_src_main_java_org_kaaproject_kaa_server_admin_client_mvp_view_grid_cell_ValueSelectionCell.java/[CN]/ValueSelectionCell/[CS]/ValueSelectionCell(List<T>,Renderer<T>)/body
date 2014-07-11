@@ -1,0 +1,12 @@
+{
+  super(BrowserEvents.CHANGE);
+  if (template == null) {
+    template=GWT.create(Template.class);
+  }
+  this.options=new ArrayList<T>(options);
+  this.renderer=renderer;
+  int index=0;
+  for (  T option : options) {
+    indexForOption.put(option,index++);
+  }
+}

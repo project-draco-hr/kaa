@@ -1,0 +1,24 @@
+{
+  List<ChannelMetaData> channels=new ArrayList<>();
+  channels.addAll(channelMap.getByTransportType(TransportType.CONFIGURATION));
+  channels.addAll(channelMap.getByTransportType(TransportType.NOTIFICATION));
+  LOG.debug("[{}][{}] Processing thrift norification for {} channels",endpointKey,actorKey,channels.size());
+  for (  ChannelMetaData channel : channels) {
+    SyncRequest syncRequest=channel.getRequest().getRequest();
+    SyncResponse syncResponse=channel.getResponse().getResponse();
+    if (syncRequest.getConfigurationSyncRequest() != null) {
+      int oldSeqNumnber=syncRequest.getConfigurationSyncRequest().getAppStateSeqNumber();
+      int newSeqNumnber=syncResponse.getConfigurationSyncResponse().getAppStateSeqNumber();
+      LOG.debug("[{}][{}] Change original configuration request {} appSeqNumber from {} to {}",endpointKey,actorKey,syncRequest,oldSeqNumnber,newSeqNumnber);
+      syncRequest.getConfigurationSyncRequest().setAppStateSeqNumber(newSeqNumnber);
+    }
+    if (syncRequest.getNotificationSyncRequest() != null) {
+      int oldSeqNumnber=syncRequest.getNotificationSyncRequest().getAppStateSeqNumber();
+      int newSeqNumnber=syncResponse.getNotificationSyncResponse().getAppStateSeqNumber();
+      LOG.debug("[{}][{}] Change original notification request {} appSeqNumber from {} to {}",endpointKey,actorKey,syncRequest,oldSeqNumnber,newSeqNumnber);
+      syncRequest.getNotificationSyncRequest().setAppStateSeqNumber(newSeqNumnber);
+    }
+    LOG.debug("[{}][{}] Processing request {}",endpointKey,actorKey,syncRequest);
+    doSync(context,channel.getRequest());
+  }
+}

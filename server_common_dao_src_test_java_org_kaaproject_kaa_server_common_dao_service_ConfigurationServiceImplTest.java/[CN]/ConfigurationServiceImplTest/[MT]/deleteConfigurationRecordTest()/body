@@ -6,6 +6,7 @@
   Assert.assertNotNull(notification);
   ConfigurationDto configurationDto=notification.getConfigurationDto();
   Assert.assertEquals(UpdateStatus.DEPRECATED,configurationDto.getStatus());
-  Configuration inactive=configurationDao.findInactiveBySchemaIdAndGroupId(schemaDto.getId(),group.getId());
-  Assert.assertNull(inactive);
+  StructureRecordDto<ConfigurationDto> records=configurationService.findConfigurationRecordBySchemaIdAndEndpointGroupId(schemaDto.getId(),group.getId());
+  Assert.assertNull(records.getInactiveStructureDto());
+  Assert.assertEquals(UpdateStatus.DEPRECATED,records.getActiveStructureDto().getStatus());
 }

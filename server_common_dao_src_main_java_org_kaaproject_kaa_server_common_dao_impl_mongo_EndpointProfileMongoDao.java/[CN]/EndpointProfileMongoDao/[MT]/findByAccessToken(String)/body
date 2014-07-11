@@ -1,0 +1,6 @@
+{
+  LOG.debug("Find endpoint profile by access token [{}] ",endpointAccessToken);
+  DBObject dbObject=query(where(ACCESS_TOKEN).is(endpointAccessToken)).getQueryObject();
+  DBObject result=mongoTemplate.getDb().getCollection(EndpointProfile.COLLECTION_NAME).findOne(dbObject);
+  return mongoTemplate.getConverter().read(getDocumentClass(),result);
+}

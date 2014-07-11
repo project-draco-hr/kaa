@@ -1,0 +1,8 @@
+{
+  KaaChannelManager channelManager=Mockito.mock(KaaChannelManager.class);
+  KaaClientState clientState=Mockito.mock(KaaClientState.class);
+  ProfileTransport transport=new DefaultProfileTransport();
+  transport.setChannelManager(channelManager);
+  transport.setClientState(clientState);
+  transport.sync();
+}

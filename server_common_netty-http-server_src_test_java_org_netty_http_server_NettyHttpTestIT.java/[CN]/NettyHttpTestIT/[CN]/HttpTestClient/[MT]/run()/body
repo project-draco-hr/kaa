@@ -1,0 +1,33 @@
+{
+  LOG.info("Run Http test to {}",connection.getURL().toString());
+  List<Byte> bodyArray=new Vector<>();
+  try {
+    connection.setRequestMethod("POST");
+    connection.setDoOutput(true);
+    connection.setRequestProperty("Content-Type",CONTENT_TYPE_CONST + boundary);
+    DataOutputStream out=new DataOutputStream(connection.getOutputStream());
+    dumbObject(HTTP_TEST_ATTRIBUTE,object,out);
+    out.flush();
+    out.close();
+    DataInputStream r=new DataInputStream(connection.getInputStream());
+    while (true) {
+      bodyArray.add(new Byte(r.readByte()));
+    }
+  }
+ catch (  EOFException eof) {
+    response=new byte[bodyArray.size()];
+    for (int i=0; i < response.length; i++) {
+      response[i]=bodyArray.get(i);
+    }
+  }
+catch (  IOException e) {
+    LOG.error("Error request HTTP to {}",connection.getURL().toString());
+  }
+ finally {
+    connection.disconnect();
+synchronized (sync) {
+      responseComplete=true;
+      sync.notify();
+    }
+  }
+}

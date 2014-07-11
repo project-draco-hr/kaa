@@ -1,0 +1,14 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    setSchema(notificationSchema,schema);
+    if (isEmpty(notificationSchema.getId())) {
+      notificationSchema.setCreatedUsername(getCurrentUser().getUsername());
+    }
+    notificationSchema.setType(NotificationTypeDto.USER);
+    return toDto(clientProvider.getClient().editNotificationSchema(toDataStruct(notificationSchema)));
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

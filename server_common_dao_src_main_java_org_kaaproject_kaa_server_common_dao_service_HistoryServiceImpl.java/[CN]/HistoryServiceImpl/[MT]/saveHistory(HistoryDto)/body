@@ -1,10 +1,20 @@
 {
   HistoryDto savedDto=null;
-  if (isValidObject(historyDto)) {
+  if (isValidSqlObject(historyDto)) {
     LOG.debug("History dto object is valid. Saving history...");
     String applicationId=historyDto.getApplicationId();
-    if (StringUtils.isNotEmpty(applicationId)) {
-      savedDto=saveHistory(historyDto,applicationId);
+    if (isValidSqlId(applicationId)) {
+      Application application=applicationDao.getNextSeqNumber(applicationId);
+      if (application != null) {
+        int sequenceNumber=application.getSequenceNumber();
+        historyDto.setSequenceNumber(sequenceNumber);
+        historyDto.setLastModifyTime(System.currentTimeMillis());
+        History savedHistory=historyDao.persist(new History(historyDto));
+        savedDto=savedHistory != null ? savedHistory.toDto() : null;
+      }
+ else {
+        LOG.debug("Can't get sequence number for application id [{}] .",applicationId);
+      }
     }
  else {
       LOG.debug("Incorrect application id, can't save history.");

@@ -1,0 +1,19 @@
+{
+  LOG.info("Bootstrap test Server {}:{} waitStart()",thriftHost,thriftPort);
+synchronized (startSync) {
+    if (!startComplete) {
+      try {
+        startSync.wait(60000);
+      }
+ catch (      InterruptedException e) {
+        LOG.error("Interupted ThiftRunner startWait()",e);
+      }
+    }
+  }
+  try {
+    Thread.sleep(100);
+  }
+ catch (  InterruptedException e) {
+    LOG.error("Interupted ThiftRunner startWait() in sleep",e);
+  }
+}

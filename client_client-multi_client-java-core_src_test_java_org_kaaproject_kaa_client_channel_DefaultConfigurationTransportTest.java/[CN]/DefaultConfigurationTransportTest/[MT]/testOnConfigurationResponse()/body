@@ -1,0 +1,23 @@
+{
+  KaaClientState clientState=Mockito.mock(KaaClientState.class);
+  SchemaProcessor schemaProcessor=Mockito.mock(SchemaProcessor.class);
+  ConfigurationProcessor configProcessor=Mockito.mock(ConfigurationProcessor.class);
+  ConfigurationSyncResponse response=new ConfigurationSyncResponse();
+  response.setAppStateSeqNumber(5);
+  response.setResponseStatus(SyncResponseStatus.DELTA);
+  ConfigurationTransport transport=new DefaultConfigurationTransport();
+  transport.onConfigurationResponse(response);
+  transport.setClientState(clientState);
+  transport.onConfigurationResponse(response);
+  transport.setConfigurationProcessor(configProcessor);
+  transport.onConfigurationResponse(response);
+  transport.setSchemaProcessor(schemaProcessor);
+  transport.onConfigurationResponse(response);
+  response.setConfDeltaBody(ByteBuffer.wrap(new byte[]{1,2,3}));
+  transport.onConfigurationResponse(response);
+  response.setConfSchemaBody(ByteBuffer.wrap(new byte[]{1,2,3}));
+  transport.onConfigurationResponse(response);
+  Mockito.verify(clientState,Mockito.times(3)).setConfigSeqNumber(Mockito.eq(new Integer(5)));
+  Mockito.verify(schemaProcessor,Mockito.times(1)).loadSchema(Mockito.eq(ByteBuffer.wrap(new byte[]{1,2,3})));
+  Mockito.verify(configProcessor,Mockito.times(2)).processConfigurationData(Mockito.eq(ByteBuffer.wrap(new byte[]{1,2,3})),Mockito.eq(false));
+}

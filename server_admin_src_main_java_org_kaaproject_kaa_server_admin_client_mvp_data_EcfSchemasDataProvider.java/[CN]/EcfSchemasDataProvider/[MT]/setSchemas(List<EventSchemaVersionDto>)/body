@@ -1,0 +1,12 @@
+{
+  this.schemas.clear();
+  if (schemas != null) {
+    this.schemas.addAll(schemas);
+    Collections.sort(schemas,new Comparator<EventSchemaVersionDto>(){
+      @Override public int compare(      EventSchemaVersionDto o1,      EventSchemaVersionDto o2){
+        return o1.getVersion() - o2.getVersion();
+      }
+    }
+);
+  }
+}

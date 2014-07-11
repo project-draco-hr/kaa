@@ -1,0 +1,9 @@
+{
+  long newConsumedSize=consumedSize + rec.getSize();
+  if (maxBucketSize >= newConsumedSize) {
+    records.add(rec);
+    consumedSize=newConsumedSize;
+    return true;
+  }
+  return false;
+}

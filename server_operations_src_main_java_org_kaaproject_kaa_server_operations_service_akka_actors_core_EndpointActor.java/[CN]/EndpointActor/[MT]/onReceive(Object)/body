@@ -1,36 +1,28 @@
 {
-  LOG.debug("[{}] Received: {}",endpointActorKey,message);
-  if (message instanceof EndpointAwareMessage) {
-    populateEndpointInfo((EndpointAwareMessage)message);
-    if (message instanceof SessionMessage) {
-      processEndpointSyncSession((SessionMessage)message);
-    }
- else {
-      if (message instanceof RegistrationRequestMessage) {
-        processEndpointRegistration((RegistrationRequestMessage)message);
-      }
- else       if (message instanceof UpdateRequestMessage) {
-        processEndpointUpdate((UpdateRequestMessage)message);
-      }
- else       if (message instanceof SyncRequestMessage) {
-        processEndpointSync((SyncRequestMessage)message);
-      }
-    }
+  LOG.debug("[{}] Received: {}",actorKey,message);
+  if (message instanceof SyncRequestMessage) {
+    processEndpointSync((SyncRequestMessage)message);
+  }
+ else   if (message instanceof EndpointEventReceiveMessage) {
+    processEndpointEventReceiveMessage((EndpointEventReceiveMessage)message);
+  }
+ else   if (message instanceof ThriftNotificationMessage) {
+    processThriftNotification((ThriftNotificationMessage)message);
+  }
+ else   if (message instanceof NotificationMessage) {
+    processNotification((NotificationMessage)message);
+  }
+ else   if (message instanceof RequestTimeoutMessage) {
+    processRequestTimeoutMessage((RequestTimeoutMessage)message);
+  }
+ else   if (message instanceof ActorTimeoutMessage) {
+    processActorTimeoutMessage((ActorTimeoutMessage)message);
+  }
+ else   if (message instanceof EndpointStopMessage) {
+    LOG.debug("[{}] Received stop request from application actor",actorKey);
+    context().stop(self());
   }
  else {
-    if (pendingRequest != null && pendingResponse != null) {
-      if (message instanceof ThriftNotificationMessage) {
-        processThriftNotification((ThriftNotificationMessage)message);
-      }
- else       if (message instanceof NotificationMessage) {
-        processNotification((NotificationMessage)message);
-      }
- else       if (message instanceof RequestTimeoutMessage) {
-        sendReply(pendingRequest,pendingResponse.getResponse());
-      }
-    }
- else {
-      LOG.debug("[{}] Message ignored due to pending Request | Response is null",endpointActorKey,message);
-    }
+    LOG.warn("[{}] Received unknown message {}",actorKey,message);
   }
 }

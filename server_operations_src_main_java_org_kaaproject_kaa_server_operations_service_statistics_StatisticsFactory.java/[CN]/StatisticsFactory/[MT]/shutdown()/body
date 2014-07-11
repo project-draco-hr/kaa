@@ -1,0 +1,9 @@
+{
+  LOG.debug("Statistics factory received shutdown command");
+synchronized (sync) {
+    for (    StatisticsService service : services.values()) {
+      service.shutdown();
+    }
+    services.clear();
+  }
+}

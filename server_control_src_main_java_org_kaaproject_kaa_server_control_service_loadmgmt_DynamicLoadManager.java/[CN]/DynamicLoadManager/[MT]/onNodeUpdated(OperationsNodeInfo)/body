@@ -1,12 +1,34 @@
 {
-  String dnsName=getDNSNameFromConnectionInfo(nodeInfo.getConnectionInfo());
+  String dnsName=getNameFromConnectionInfo(nodeInfo.getConnectionInfo());
   LOG.info("Operations server {} update",dnsName);
   if (opsServersMap.containsKey(dnsName)) {
     opsServersMap.get(dnsName).opsServer.setPublicKey(nodeInfo.getConnectionInfo().getPublicKey());
-    opsServersMap.get(dnsName).history.addOpsServerLoad(nodeInfo.getRegisteredUsersCount(),nodeInfo.getProcessedRequestCount(),nodeInfo.getDeltaCalculationCount());
-  }
+    for (    SupportedChannel channel : nodeInfo.getSupportedChannelsArray()) {
+      if (opsServersMap.containsKey(dnsName) && opsServersMap.get(dnsName).history.containsKey(channel.getZkChannel().getChannelType())) {
+        int registeredUsersCount=0;
+        int processedRequestCount=0;
+        int deltaCalculationCount=0;
+switch (channel.getZkChannel().getChannelType()) {
+case HTTP:
+          ZkHttpStatistics httpStats=(ZkHttpStatistics)channel.getZkChannel().getChannelStatistics();
+        registeredUsersCount=httpStats.getZkStatistics().getRegisteredUsersCount();
+      processedRequestCount=httpStats.getZkStatistics().getProcessedRequestCount();
+    deltaCalculationCount=httpStats.getZkStatistics().getDeltaCalculationCount();
+  break;
+case HTTP_LP:
+ZkHttpLpStatistics httpLpStats=(ZkHttpLpStatistics)channel.getZkChannel().getChannelStatistics();
+registeredUsersCount=httpLpStats.getZkStatistics().getRegisteredUsersCount();
+processedRequestCount=httpLpStats.getZkStatistics().getProcessedRequestCount();
+deltaCalculationCount=httpLpStats.getZkStatistics().getDeltaCalculationCount();
+break;
+default :
+break;
+}
+opsServersMap.get(dnsName).history.get(channel.getZkChannel().getChannelType()).addOpsServerLoad(registeredUsersCount,processedRequestCount,deltaCalculationCount);
+}
+}
+}
  else {
-    OperationsServer opsServer=new OperationsServer(DEFAULT_PRIORITY,nodeInfo.getConnectionInfo().getPublicKey());
-    opsServersMap.put(dnsName,new OperationsServerMeta(opsServer,nodeInfo));
-  }
+addNewOperationsServer(dnsName,nodeInfo);
+}
 }

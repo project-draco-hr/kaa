@@ -5,7 +5,7 @@
       String endpointGroupId=line.getOptionValue("i");
       endpointGroup=toDto(client.getEndpointGroup(endpointGroupId));
       if (endpointGroup == null) {
-        writer.println("Endpoint Group with id " + endpointGroupId + " not found!");
+        writer.println("Endpoint Group with id " + endpointGroupId + NOT_FOUND);
         return;
       }
     }
@@ -43,6 +43,6 @@
     }
   }
  catch (  TException e) {
-    handleException("Unable to " + (edit ? "update" : "create") + " Endpoint Group",e,errorWriter);
+    handleException(UNABLE_TO + (edit ? UPDATE : CREATE) + ENDPOINT_GROUP,e,errorWriter);
   }
 }

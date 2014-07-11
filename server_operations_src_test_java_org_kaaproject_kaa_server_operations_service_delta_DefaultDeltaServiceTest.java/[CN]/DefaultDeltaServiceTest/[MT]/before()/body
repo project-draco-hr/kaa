@@ -4,7 +4,7 @@
   profileService=mock(ProfileService.class);
   filterService=mock(FilterService.class);
   deltaCalculatorFactory=mock(DeltaCalculatorFactory.class);
-  deltaCalculator=mock(DeltaCalculator.class);
+  deltaCalculator=mock(DeltaCalculationAlgorithm.class);
   ReflectionTestUtils.setField(deltaService,CACHE_SERVICE,cacheService);
   ReflectionTestUtils.setField(deltaService,PROFILE_SERVICE,profileService);
   ReflectionTestUtils.setField(deltaService,FILTER_SERVICE,filterService);

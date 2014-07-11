@@ -1,0 +1,14 @@
+{
+  List<ApplicationEventFamilyMap> applicationEventFamilyMaps=generateApplicationEventFamilyMap(null,null,null,2,true);
+  ApplicationEventFamilyMap dto=applicationEventFamilyMapDao.findById(applicationEventFamilyMaps.get(0).getStringId());
+  Assert.assertNotNull(dto);
+  List<ApplicationEventFamilyMap> eventFamilyMapList=applicationEventFamilyMapDao.findByApplicationId(dto.getApplication().getStringId());
+  ApplicationEventFamilyMap eventFamilyMap=null;
+  for (  ApplicationEventFamilyMap found : eventFamilyMapList) {
+    if (dto.getId().equals(found.getId())) {
+      eventFamilyMap=found;
+    }
+  }
+  Assert.assertNotNull(eventFamilyMap);
+  Assert.assertEquals(dto,eventFamilyMap);
+}

@@ -1,0 +1,30 @@
+{
+  for (  SupportedChannel channel : nodeInfo.getSupportedChannelsArray()) {
+    if (channel.getZkChannel().getChannelType().equals(channelType)) {
+      BaseStatistics stats=null;
+switch (channelType) {
+case HTTP:
+        ZkHttpStatistics zkHttpStats=(ZkHttpStatistics)channel.getZkChannel().getChannelStatistics();
+      stats=zkHttpStats.getZkStatistics();
+    break;
+case HTTP_LP:
+  ZkHttpLpStatistics zkHttpLpStats=(ZkHttpLpStatistics)channel.getZkChannel().getChannelStatistics();
+stats=zkHttpLpStats.getZkStatistics();
+break;
+}
+if (stats != null) {
+stats.setDeltaCalculationCount(deltaCalculationCount);
+stats.setProcessedRequestCount(processedRequestCount);
+stats.setRegisteredUsersCount(registeredUsersCount);
+}
+break;
+}
+}
+try {
+client.setData().forPath(nodePath,operationsNodeAvroConverter.get().toByteArray(nodeInfo));
+}
+ catch (Exception e) {
+LOG.error("Unknown Error",e);
+close();
+}
+}

@@ -4,7 +4,9 @@
     BootstrapNodeInfo nodeInfo=new BootstrapNodeInfo();
     ByteBuffer keyData=ByteBuffer.wrap(keyStoreService.getPublicKey().getEncoded());
     LOG.trace("Bootstrap server: registering in ZK: thriftHost {}; thriftPort {}; nettyHost {}; nettyPort {}",thriftHost,thriftPort,nettyHost,nettyPort);
-    ConnectionInfo connectionInfo=new ConnectionInfo(thriftHost,thriftPort,nettyHost,nettyPort,keyData);
+    ConnectionInfo connectionInfo=new ConnectionInfo(thriftHost,thriftPort,keyData);
+    nodeInfo.setBootstrapHostName(nettyHost);
+    nodeInfo.setBootstrapPort(nettyPort);
     nodeInfo.setConnectionInfo(connectionInfo);
     bootstrapNode=new BootstrapNode(nodeInfo,zkHostPortList,new RetryUntilElapsed(zkMaxRetryTime,zkSleepTime));
     if (bootstrapNode != null) {

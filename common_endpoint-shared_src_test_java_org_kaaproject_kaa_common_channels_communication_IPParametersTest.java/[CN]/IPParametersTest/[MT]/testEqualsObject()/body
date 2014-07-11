@@ -1,0 +1,37 @@
+{
+  IPParameters p1=new IPParameters();
+  IPParameters p2=new IPParameters();
+  p1.setHostName("host1");
+  p2.setHostName("host1");
+  p1.setPort(10);
+  p2.setPort(10);
+  if (!p1.equals(p2)) {
+    fail("TestEquals to objects failed");
+  }
+  if (!p1.equals(p1)) {
+    fail("TestEquals to himself to objects failed");
+  }
+  if (p1.equals(null)) {
+    fail("TestEquals to null objects failed");
+  }
+  if (p1.equals(new Object())) {
+    fail("TestEquals to Object() objects failed");
+  }
+  IPParameters p3=new IPParameters();
+  IPParameters p4=new IPParameters();
+  if (p3.equals(p1)) {
+    fail("TestEquals to not equals objects failed");
+  }
+  if (!p3.equals(p4)) {
+    fail("TestEquals to not equals objects failed");
+  }
+  p3.setHostName("host2");
+  if (p1.equals(p3)) {
+    fail("TestEquals to not equals objects failed");
+  }
+  p4.setHostName("host1");
+  p4.setPort(20);
+  if (p1.equals(p4)) {
+    fail("TestEquals to not equals objects failed");
+  }
+}

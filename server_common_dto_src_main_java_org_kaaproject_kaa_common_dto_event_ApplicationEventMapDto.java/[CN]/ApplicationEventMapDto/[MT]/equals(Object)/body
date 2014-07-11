@@ -1,0 +1,32 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  ApplicationEventMapDto other=(ApplicationEventMapDto)obj;
+  if (action != other.action) {
+    return false;
+  }
+  if (eventClassId == null) {
+    if (other.eventClassId != null) {
+      return false;
+    }
+  }
+ else   if (!eventClassId.equals(other.eventClassId)) {
+    return false;
+  }
+  if (fqn == null) {
+    if (other.fqn != null) {
+      return false;
+    }
+  }
+ else   if (!fqn.equals(other.fqn)) {
+    return false;
+  }
+  return true;
+}

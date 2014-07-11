@@ -1,0 +1,27 @@
+{
+  PrivateKey privateKey=null;
+  if (storage.exists(privateKeyFileLocation)) {
+    try {
+      InputStream input=storage.openForRead(privateKeyFileLocation);
+      privateKey=KeyUtil.getPrivate(input);
+    }
+ catch (    Exception e) {
+      LOG.info("Error loading Client Private Key",e);
+      throw new RuntimeException(e);
+    }
+  }
+  if (privateKey == null) {
+    LOG.info("Generating Client Key pair");
+    try {
+      OutputStream privateKeyOutput=storage.openForWrite(privateKeyFileLocation);
+      OutputStream publicKeyOutput=storage.openForWrite(clientPublicKeyFileLocation);
+      KeyPair kp=KeyUtil.generateKeyPair(privateKeyOutput,publicKeyOutput);
+      privateKey=kp.getPrivate();
+    }
+ catch (    IOException e) {
+      LOG.info("Error generating Client Key pair",e);
+      throw new RuntimeException(e);
+    }
+  }
+  return privateKey;
+}

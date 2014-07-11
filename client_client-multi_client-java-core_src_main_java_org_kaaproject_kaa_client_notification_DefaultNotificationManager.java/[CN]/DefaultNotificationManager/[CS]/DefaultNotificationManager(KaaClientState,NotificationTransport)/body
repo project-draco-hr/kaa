@@ -1,0 +1,10 @@
+{
+  this.state=state;
+  List<Topic> topicList=state.getTopics();
+  if (topicList != null) {
+    for (    Topic topic : topicList) {
+      topics.put(topic.getId(),topic);
+    }
+  }
+  this.transport=transport;
+}

@@ -1,0 +1,9 @@
+{
+  SyncResponse response=new SyncResponse();
+  response.setUserSyncResponse(new UserSyncResponse());
+  assertFalse(new SyncResponseHolder(response).requireImmediateReply());
+  response.getUserSyncResponse().setEndpointAttachResponses(new ArrayList<EndpointAttachResponse>());
+  assertFalse(new SyncResponseHolder(response).requireImmediateReply());
+  response.getUserSyncResponse().getEndpointAttachResponses().add(new EndpointAttachResponse());
+  assertTrue(new SyncResponseHolder(response).requireImmediateReply());
+}

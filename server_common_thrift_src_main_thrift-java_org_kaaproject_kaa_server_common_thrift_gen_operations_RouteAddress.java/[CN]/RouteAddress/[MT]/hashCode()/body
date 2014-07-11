@@ -1,0 +1,13 @@
+{
+  HashCodeBuilder builder=new HashCodeBuilder();
+  boolean present_endpointKey=true && (isSetEndpointKey());
+  builder.append(present_endpointKey);
+  if (present_endpointKey)   builder.append(endpointKey);
+  boolean present_applicationToken=true && (isSetApplicationToken());
+  builder.append(present_applicationToken);
+  if (present_applicationToken)   builder.append(applicationToken);
+  boolean present_operationsServerId=true && (isSetOperationsServerId());
+  builder.append(present_operationsServerId);
+  if (present_operationsServerId)   builder.append(operationsServerId);
+  return builder.toHashCode();
+}

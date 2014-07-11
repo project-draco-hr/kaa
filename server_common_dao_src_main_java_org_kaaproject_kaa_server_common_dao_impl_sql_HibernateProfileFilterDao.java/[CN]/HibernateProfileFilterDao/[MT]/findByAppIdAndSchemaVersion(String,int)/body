@@ -1,0 +1,8 @@
+{
+  List<ProfileFilter> filters=null;
+  LOG.debug("Find configuration by application id {} and major version {}",appId,schemaVersion);
+  if (isNotBlank(appId)) {
+    filters=findListByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.and(Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(appId)),Restrictions.eq(MAJOR_VERSION_PROPERTY,schemaVersion),Restrictions.eq(STATUS_PROPERTY,UpdateStatus.ACTIVE)));
+  }
+  return filters;
+}

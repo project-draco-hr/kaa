@@ -1,0 +1,8 @@
+{
+  TenantDto tenant=createTenant();
+  EventClassFamilyDto eventClassFamily=createEventClassFamily(tenant.getId());
+  String schema=getResourceAsString(TEST_EVENT_CLASS_FAMILY_SCHEMA);
+  client.addEventClassFamilySchema(eventClassFamily.getId(),schema,null);
+  EventClassFamilyDto secondEventClassFamily=createEventClassFamily(tenant.getId());
+  client.addEventClassFamilySchema(secondEventClassFamily.getId(),schema,null);
+}

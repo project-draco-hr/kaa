@@ -1,0 +1,81 @@
+{
+  try {
+    lastActivityTime=System.currentTimeMillis();
+    long start=lastActivityTime;
+    SyncRequest request=requestMessage.getRequest();
+    ChannelType channelType=requestMessage.getChannelType();
+    LOG.debug("[{}][{}] Processing sync request {} from channel [{}]",endpointKey,actorKey,request,requestMessage.getChannelId());
+    ChannelMetaData channel=channelMap.getById(requestMessage.getChannelId());
+    if (channel == null) {
+      channel=new ChannelMetaData(requestMessage);
+      if (!channel.getType().isAsync() && channel.getType().isLongPoll()) {
+        LOG.debug("[{}][{}] Received request using long poll channel.",endpointKey,actorKey);
+        List<ChannelMetaData> channels=channelMap.getByTransportType(TransportType.EVENT);
+        for (        ChannelMetaData oldChannel : channels) {
+          if (!oldChannel.getType().isAsync() && channel.getType().isLongPoll()) {
+            LOG.debug("[{}][{}] Closing old long poll channel [{}]",endpointKey,actorKey,oldChannel.getId());
+            sendReply(context,oldChannel.getRequest(),oldChannel.getResponse().getResponse());
+            channelMap.removeChannel(oldChannel);
+          }
+        }
+      }
+      channelMap.addChannel(channel);
+    }
+ else {
+      if (channel.getType().isAsync()) {
+        LOG.debug("[{}][{}] Updating request for async channel {}",endpointKey,actorKey,channel);
+        channel.updateRequest(requestMessage);
+      }
+    }
+    SyncResponseHolder responseHolder=operationsService.sync(request);
+    EndpointProfileDto endpointProfile=responseHolder.getEndpointProfile();
+    if (endpointProfile != null) {
+      LogSyncResponse logUploadResponse=sendLogs(context,endpointProfile,request.getLogSyncRequest());
+      if (logUploadResponse != null) {
+        responseHolder.getResponse().setLogSyncResponse(logUploadResponse);
+      }
+      if (isValidForEvents(endpointProfile)) {
+        if (!userRegistrationRequestSent) {
+          userId=endpointProfile.getEndpointUserId();
+          List<EventClassFamilyVersion> ecfVersions=convertToECFVersions(endpointProfile.getEcfVersionStates());
+          EndpointUserConnectMessage userRegistrationRequest=new EndpointUserConnectMessage(userId,key,ecfVersions,appToken,context.self());
+          LOG.debug("[{}][{}] Sending user registration request {}",endpointKey,actorKey,userRegistrationRequest);
+          context.parent().tell(userRegistrationRequest,context.self());
+          userRegistrationRequestSent=true;
+        }
+        sendEventsIfPresent(context,request.getEventSyncRequest());
+      }
+ else {
+        LOG.debug("[{}][{}] Endpoint profile is not valid for send/receive events. Either no assigned user or no event families in sdk",endpointKey,actorKey);
+      }
+    }
+ else {
+      LOG.debug("[{}][{}] Endpoint profile is not set after request processing!",endpointKey,actorKey);
+    }
+    this.syncTime+=System.currentTimeMillis() - start;
+    LOG.debug("[{}][{}] SyncResponseHolder {}",endpointKey,actorKey,responseHolder);
+    if (channelType.isAsync()) {
+      LOG.debug("[{}][{}] Adding async request from channel [{}] to map ",endpointKey,actorKey,requestMessage.getChannelId());
+      channel.updateResponse(responseHolder);
+      subscribeToTopics(context,responseHolder);
+      sendReply(context,requestMessage,responseHolder.getResponse());
+    }
+ else {
+      if (channelType.isLongPoll() && !responseHolder.requireImmediateReply()) {
+        LOG.debug("[{}][{}] Adding long poll request from channel [{}] to map ",endpointKey,actorKey,requestMessage.getChannelId());
+        channel.updateResponse(responseHolder);
+        subscribeToTopics(context,responseHolder);
+        long delay=requestMessage.getRequest().getSyncRequestMetaData().getTimeout() - (System.currentTimeMillis() - start);
+        scheduleTimeoutMessage(context,requestMessage.getUuid(),delay);
+      }
+ else {
+        sendReply(context,requestMessage,responseHolder.getResponse());
+        channelMap.removeChannel(channel);
+      }
+    }
+  }
+ catch (  GetDeltaException e) {
+    LOG.error("[{}][{}] processEndpointRequest",endpointKey,actorKey,e);
+    sendReply(context,requestMessage,e);
+  }
+}

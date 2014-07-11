@@ -1,0 +1,72 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  EventClassFamily other=(EventClassFamily)obj;
+  if (className == null) {
+    if (other.className != null) {
+      return false;
+    }
+  }
+ else   if (!className.equals(other.className)) {
+    return false;
+  }
+  if (createdTime != other.createdTime) {
+    return false;
+  }
+  if (createdUsername == null) {
+    if (other.createdUsername != null) {
+      return false;
+    }
+  }
+ else   if (!createdUsername.equals(other.createdUsername)) {
+    return false;
+  }
+  if (description == null) {
+    if (other.description != null) {
+      return false;
+    }
+  }
+ else   if (!description.equals(other.description)) {
+    return false;
+  }
+  if (id == null) {
+    if (other.id != null) {
+      return false;
+    }
+  }
+ else   if (!id.equals(other.id)) {
+    return false;
+  }
+  if (name == null) {
+    if (other.name != null) {
+      return false;
+    }
+  }
+ else   if (!name.equals(other.name)) {
+    return false;
+  }
+  if (namespace == null) {
+    if (other.namespace != null) {
+      return false;
+    }
+  }
+ else   if (!namespace.equals(other.namespace)) {
+    return false;
+  }
+  if (tenant == null) {
+    if (other.tenant != null) {
+      return false;
+    }
+  }
+ else   if (!tenant.equals(other.tenant)) {
+    return false;
+  }
+  return true;
+}

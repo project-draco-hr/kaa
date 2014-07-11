@@ -1,0 +1,26 @@
+{
+  struct.validate();
+  oprot.writeStructBegin(STRUCT_DESC);
+  if (struct.userId != null) {
+    oprot.writeFieldBegin(USER_ID_FIELD_DESC);
+    oprot.writeString(struct.userId);
+    oprot.writeFieldEnd();
+  }
+  if (struct.tenantId != null) {
+    oprot.writeFieldBegin(TENANT_ID_FIELD_DESC);
+    oprot.writeString(struct.tenantId);
+    oprot.writeFieldEnd();
+  }
+  if (struct.operationsServerId != null) {
+    oprot.writeFieldBegin(OPERATIONS_SERVER_ID_FIELD_DESC);
+    oprot.writeString(struct.operationsServerId);
+    oprot.writeFieldEnd();
+  }
+  if (struct.updateType != null) {
+    oprot.writeFieldBegin(UPDATE_TYPE_FIELD_DESC);
+    oprot.writeI32(struct.updateType.getValue());
+    oprot.writeFieldEnd();
+  }
+  oprot.writeFieldStop();
+  oprot.writeStructEnd();
+}

@@ -1,0 +1,11 @@
+{
+  getEventClassesByFamilyIdVersionAndType_result result=new getEventClassesByFamilyIdVersionAndType_result();
+  receiveBase(result,"getEventClassesByFamilyIdVersionAndType");
+  if (result.isSetSuccess()) {
+    return result.success;
+  }
+  if (result.ControlException != null) {
+    throw result.ControlException;
+  }
+  throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT,"getEventClassesByFamilyIdVersionAndType failed: unknown result");
+}

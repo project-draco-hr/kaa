@@ -1,7 +1,7 @@
 {
-  List<Object> list=new ArrayList<Object>();
+  HashCodeBuilder builder=new HashCodeBuilder();
   boolean present_forceGC=true;
-  list.add(present_forceGC);
-  if (present_forceGC)   list.add(forceGC);
-  return list.hashCode();
+  builder.append(present_forceGC);
+  if (present_forceGC)   builder.append(forceGC);
+  return builder.toHashCode();
 }

@@ -1,0 +1,9 @@
+{
+  List<KaaDataChannel> result=new LinkedList<>();
+  for (  KaaDataChannel channel : channels) {
+    if (channel.getType().equals(type)) {
+      result.add(channel);
+    }
+  }
+  return result;
+}

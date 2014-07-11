@@ -1,0 +1,21 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (!super.equals(obj)) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  AefMapInfoDto other=(AefMapInfoDto)obj;
+  if (aefMapId == null) {
+    if (other.aefMapId != null) {
+      return false;
+    }
+  }
+ else   if (!aefMapId.equals(other.aefMapId)) {
+    return false;
+  }
+  return true;
+}

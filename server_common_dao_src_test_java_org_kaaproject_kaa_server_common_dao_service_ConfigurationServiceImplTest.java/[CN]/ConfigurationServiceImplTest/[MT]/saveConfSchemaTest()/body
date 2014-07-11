@@ -1,11 +1,10 @@
 {
-  String id=schemas.get(0);
-  ConfigurationSchemaDto dto=configurationService.findConfSchemaById(id);
-  Assert.assertNotNull(dto);
-  dto.setId(null);
-  dto.setSchema(readSchemaFileAsString("dao/configuration/default_schema.json"));
-  ConfigurationSchemaDto saved=configurationService.saveConfSchema(dto);
+  String id=generateConfSchema(null,1).get(0).getId();
+  ConfigurationSchemaDto schema=configurationService.findConfSchemaById(id);
+  Assert.assertNotNull(schema);
+  schema.setId(null);
+  schema.setSchema(new DataSchema(readSchemaFileAsString("dao/configuration/default_schema.json")).getRawSchema());
+  ConfigurationSchemaDto saved=configurationService.saveConfSchema(schema);
   Assert.assertNotNull(saved);
-  Assert.assertNotEquals(dto.getId(),saved.getId());
-  Assert.assertEquals(UpdateStatus.ACTIVE,dto.getStatus());
+  Assert.assertNotEquals(schema.getId(),saved.getId());
 }

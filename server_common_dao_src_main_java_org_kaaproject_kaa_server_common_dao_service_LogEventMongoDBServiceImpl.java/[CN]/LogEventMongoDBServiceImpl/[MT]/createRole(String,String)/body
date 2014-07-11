@@ -1,0 +1,18 @@
+{
+  MongoRoleDto roleDto=new MongoRoleDto();
+  MongoPrivilegeDto privilegeDto=new MongoPrivilegeDto();
+  MongoResourceDto resourceDto=new MongoResourceDto();
+  List<String> roles=new ArrayList<>();
+  resourceDto.setDB(secureRoleDao.getDBName());
+  resourceDto.setCollection(collectionName);
+  List<String> actions=new ArrayList<>();
+  actions.add("find");
+  List<MongoPrivilegeDto> privileges=new ArrayList<>();
+  privileges.add(privilegeDto);
+  privilegeDto.setResource(resourceDto);
+  privilegeDto.setActions(actions);
+  roleDto.setPrivileges(privileges);
+  roleDto.setRoleName(name);
+  roleDto.setRoles(roles);
+  secureRoleDao.saveRole(new SecureRole(roleDto));
+}

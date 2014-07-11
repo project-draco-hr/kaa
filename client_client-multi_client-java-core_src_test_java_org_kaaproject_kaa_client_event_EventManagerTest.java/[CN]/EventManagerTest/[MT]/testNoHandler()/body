@@ -1,0 +1,15 @@
+{
+  EventTransport transport=Mockito.mock(EventTransport.class);
+  EventFamily eventFamily=Mockito.mock(EventFamily.class);
+  EventManager eventManager=new DefaultEventManager(transport);
+  eventManager.registerEventFamily(eventFamily);
+  try {
+    eventManager.produceEvent("kaa.test.event.PlayEvent",new byte[0],null);
+  }
+ catch (  IOException e) {
+    assertTrue("Unexpected exception",false);
+  }
+  Mockito.verify(transport,times(1)).sync();
+  verify(eventFamily,times(0)).getSupportedEventFQNs();
+  verify(eventFamily,times(0)).onGenericEvent(anyString(),any(byte[].class),anyString());
+}

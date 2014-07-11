@@ -1,0 +1,6 @@
+{
+  DefaultOperationDataProcessor operationsDataProcessor=new DefaultOperationDataProcessor();
+  Map<TransportType,ChannelDirection> types=new HashMap<>();
+  types.put(TransportType.BOOTSTRAP,ChannelDirection.BIDIRECTIONAL);
+  assertNull(operationsDataProcessor.compileRequest(types));
+}

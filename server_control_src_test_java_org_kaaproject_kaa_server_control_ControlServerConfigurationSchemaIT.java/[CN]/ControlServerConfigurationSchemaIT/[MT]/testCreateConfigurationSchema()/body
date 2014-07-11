@@ -1,5 +1,5 @@
 {
   ConfigurationSchemaDto configurationSchema=createConfigurationSchema();
   Assert.assertFalse(strIsEmpty(configurationSchema.getId()));
-  Assert.assertFalse(strIsEmpty(configurationSchema.getProtocolSchema()));
+  Assert.assertFalse(configurationSchema.getProtocolSchema().isEmpty());
 }

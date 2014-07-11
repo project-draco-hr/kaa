@@ -1,0 +1,7 @@
+{
+  Map<String,Integer> innerMap=new HashMap<>();
+  for (  EventClassFamilyVersion ecfVersion : versions) {
+    innerMap.put(ecfVersion.getEcfId(),ecfVersion.getVersion());
+  }
+  map.put(endpoint,innerMap);
+}

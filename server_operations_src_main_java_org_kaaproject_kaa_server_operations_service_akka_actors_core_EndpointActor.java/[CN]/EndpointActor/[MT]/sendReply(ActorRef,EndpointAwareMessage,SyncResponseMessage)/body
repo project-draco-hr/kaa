@@ -1,6 +1,0 @@
-{
-  targetActor.tell(responseMessage,self());
-  context().parent().tell(new RequestProcessedMessage(endpointActorKey,ActorMetaData.getHash(requestMessage)),self());
-  this.pendingRequest=null;
-  this.pendingResponse=null;
-}

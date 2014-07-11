@@ -1,0 +1,11 @@
+{
+  Assert.assertEquals(0,MongoDBTestRunner.getDB().getCollection("system.roles").count());
+  LogEventMongoDBServiceImpl logEventMongoDBServiceImpl=mock(LogEventMongoDBServiceImpl.class);
+  SecureRoleDao<SecureRole> secureRoleMongoDao=mock(SecureRoleMongoDao.class);
+  MongoTemplate mongoTemplate=mock(MongoTemplate.class);
+  ReflectionTestUtils.setField(secureRoleMongoDao,"mongoTemplate",mongoTemplate);
+  ReflectionTestUtils.setField(logEventMongoDBServiceImpl,"secureRoleDao",secureRoleMongoDao);
+  logEventMongoDBServiceImpl.createRole(TEST_ROLE,TEST_COLLECTION);
+  secureRoleMongoDao.saveRole(null);
+  ((SecureRoleMongoDao)verify(ReflectionTestUtils.getField(logEventMongoDBServiceImpl,"secureRoleDao"))).saveRole(any(SecureRole.class));
+}

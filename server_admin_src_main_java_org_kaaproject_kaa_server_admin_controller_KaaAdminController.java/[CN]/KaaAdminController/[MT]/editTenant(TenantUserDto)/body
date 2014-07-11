@@ -1,0 +1,14 @@
+{
+  try {
+    CreateUserResult result=userFacade.saveUserDto(tenantUser,passwordEncoder);
+    tenantUser.setExternalUid(result.getUserId().toString());
+    TenantUserDto tenant=kaaAdminService.editTenant(tenantUser);
+    if (StringUtils.isNotBlank(result.getPassword())) {
+      tenant.setTempPassword(result.getPassword());
+    }
+    return tenant;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

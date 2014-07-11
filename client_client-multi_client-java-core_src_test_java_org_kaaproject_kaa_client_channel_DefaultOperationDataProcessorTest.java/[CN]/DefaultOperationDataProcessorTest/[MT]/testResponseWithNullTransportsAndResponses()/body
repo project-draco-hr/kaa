@@ -1,0 +1,7 @@
+{
+  DefaultOperationDataProcessor operationsDataProcessor=new DefaultOperationDataProcessor();
+  SyncResponse response=new SyncResponse();
+  response.setStatus(SyncResponseResultType.SUCCESS);
+  AvroByteArrayConverter<SyncResponse> converter=new AvroByteArrayConverter<>(SyncResponse.class);
+  operationsDataProcessor.processResponse(converter.toByteArray(response));
+}

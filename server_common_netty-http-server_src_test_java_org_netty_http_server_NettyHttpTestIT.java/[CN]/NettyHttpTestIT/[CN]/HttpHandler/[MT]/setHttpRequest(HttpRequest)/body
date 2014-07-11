@@ -1,0 +1,20 @@
+{
+  if (request == null) {
+    LOG.error("HttpRequest not initialized");
+    throw new BadRequestException("HttpRequest not initialized");
+  }
+  if (!request.getMethod().equals(HttpMethod.POST)) {
+    LOG.error("Got invalid HTTP method: expecting only POST");
+    throw new BadRequestException("Incorrect method " + request.getMethod().toString() + ", expected POST");
+  }
+  HttpDataFactory factory=new DefaultHttpDataFactory(DefaultHttpDataFactory.MINSIZE);
+  HttpPostRequestDecoder decoder=new HttpPostRequestDecoder(factory,request);
+  InterfaceHttpData data=decoder.getBodyHttpData(HTTP_TEST_ATTRIBUTE);
+  if (data == null) {
+    LOG.error("HTTP Resolve request inccorect, {} attribute not found",HTTP_TEST_ATTRIBUTE);
+    throw new BadRequestException("HTTP Resolve request inccorect, " + HTTP_TEST_ATTRIBUTE + " attribute not found");
+  }
+  Attribute attribute=(Attribute)data;
+  requestData=attribute.get();
+  LOG.trace("Name {}, type {} found, data size {}",data.getName(),data.getHttpDataType().name(),requestData.length);
+}

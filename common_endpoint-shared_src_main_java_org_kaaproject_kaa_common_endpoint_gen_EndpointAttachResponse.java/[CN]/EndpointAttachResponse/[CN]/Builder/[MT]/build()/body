@@ -1,0 +1,12 @@
+{
+  try {
+    EndpointAttachResponse record=new EndpointAttachResponse();
+    record.requestId=fieldSetFlags()[0] ? this.requestId : (java.lang.String)defaultValue(fields()[0]);
+    record.endpointKeyHash=fieldSetFlags()[1] ? this.endpointKeyHash : (java.lang.String)defaultValue(fields()[1]);
+    record.result=fieldSetFlags()[2] ? this.result : (org.kaaproject.kaa.common.endpoint.gen.SyncResponseResultType)defaultValue(fields()[2]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

@@ -1,11 +1,11 @@
 {
 switch (field) {
-case OPERATIONS_SERVER_MAP:
+case OPERATIONS_SERVERS_LIST:
     if (value == null) {
-      unsetOperationsServerMap();
+      unsetOperationsServersList();
     }
  else {
-      setOperationsServerMap((Map<String,OperationsServer>)value);
+      setOperationsServersList((List<ThriftOperationsServer>)value);
     }
   break;
 }

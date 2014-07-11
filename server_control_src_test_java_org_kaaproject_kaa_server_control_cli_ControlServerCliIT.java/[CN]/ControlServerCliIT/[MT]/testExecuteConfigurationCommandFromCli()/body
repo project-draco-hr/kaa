@@ -1,15 +1,14 @@
 {
   controlClientConnect();
   ControlApiCliThriftClient cli=new ControlApiCliThriftClient();
-  String applicationId=editApplicationCli(cli,null,null,false);
-  String configurationId=editConfigurationCli(cli,null,null,null,false);
-  String endpointGroupId=editEndpointGroupCli(cli,null,applicationId,"10",false);
-  String configSchemaId=editConfigSchemaCli(cli,null,applicationId,false);
-  configurationId=editConfigurationCli(cli,null,configSchemaId,endpointGroupId,true);
+  String applicationId=editApplicationCli(cli,null,"testApplication1",null,"testTenant1",false);
+  String configurationId=editConfigurationCli(cli,null,null,"testApplication2","testTenant2",null,false);
+  String endpointGroupId=editEndpointGroupCli(cli,null,applicationId,null,null,"10",false);
+  String configSchemaId=editConfigSchemaCli(cli,null,applicationId,null,null,false);
+  configurationId=editConfigurationCli(cli,null,configSchemaId,"testApplication3","testTenant3",endpointGroupId,true);
   Assert.assertFalse(strIsEmpty(configurationId));
-  Assert.assertEquals(configurationId.length(),24);
-  editConfigurationCli(cli,configurationId,configSchemaId,endpointGroupId,false);
-  editConfigurationCli(cli,FAKE_ID,configSchemaId,endpointGroupId,false);
+  editConfigurationCli(cli,configurationId,configSchemaId,"testApplication3","testTenant3",endpointGroupId,false);
+  editConfigurationCli(cli,FAKE_SQL_ID,configSchemaId,"testApplication3","testTenant3",endpointGroupId,false);
   showEntityCli(cli,configurationId,EntityType.CONFIGURATION);
   activateConfigurationCli(cli,configurationId);
 }

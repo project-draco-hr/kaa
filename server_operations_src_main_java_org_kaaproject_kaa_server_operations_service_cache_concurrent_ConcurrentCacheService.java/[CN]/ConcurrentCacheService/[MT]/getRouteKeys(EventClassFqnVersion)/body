@@ -1,0 +1,28 @@
+{
+  return routeKeysMemorizer.compute(key,new Computable<EventClassFqnVersion,Set<RouteTableKey>>(){
+    @Override public Set<RouteTableKey> compute(    EventClassFqnVersion key){
+      LOG.debug("Fetching result for getRouteKeys using key {}",key);
+      Set<RouteTableKey> routeKeys=new HashSet<>();
+      EventClassDto eventClass=eventClassService.findEventClassByTenantIdAndFQNAndVersion(key.getTenantId(),key.getFqn(),key.getVersion());
+      String eventClassFamilyId=eventClass.getEcfId();
+      List<ApplicationEventFamilyMapDto> mappingList=applicationEventMapService.findByEcfIdAndVersion(eventClassFamilyId,key.getVersion());
+      for (      ApplicationEventFamilyMapDto mapping : mappingList) {
+        String applicationId=mapping.getApplicationId();
+        ApplicationDto appDto=applicationService.findAppById(applicationId);
+        RouteTableKey routeTableKey=new RouteTableKey(appDto.getApplicationToken(),new EventClassFamilyVersion(eventClassFamilyId,key.getVersion()));
+        if (!routeKeys.contains(routeTableKey)) {
+          for (          ApplicationEventMapDto eventMap : mapping.getEventMaps()) {
+            if (eventMap.getEventClassId().equals(eventClass.getId())) {
+              if (ApplicationEventAction.SINK == eventMap.getAction() || ApplicationEventAction.BOTH == eventMap.getAction()) {
+                routeKeys.add(routeTableKey);
+                break;
+              }
+            }
+          }
+        }
+      }
+      return routeKeys;
+    }
+  }
+);
+}

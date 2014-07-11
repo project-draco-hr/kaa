@@ -1,0 +1,7 @@
+{
+  ConfigurationDto dto=super.toDto();
+  dto.setBody(binaryToString(configurationBody));
+  dto.setSchemaId(ModelUtils.getStringId(configurationSchema.getId()));
+  dto.setProtocolSchema(configurationSchema != null ? configurationSchema.getProtocolSchema() : null);
+  return dto;
+}

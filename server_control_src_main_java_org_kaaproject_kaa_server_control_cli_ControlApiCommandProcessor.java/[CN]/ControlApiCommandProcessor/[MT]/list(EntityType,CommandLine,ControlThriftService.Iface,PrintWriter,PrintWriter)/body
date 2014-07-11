@@ -8,6 +8,9 @@ case TENANT:
 case USER:
   dtos=ThriftDtoConverter.<UserDto>toDtoList(client.getUsers());
 break;
+case ENDPOINT_USER:
+dtos=ThriftDtoConverter.<UserDto>toDtoList(client.getEndpointUsers());
+break;
 default :
 break;
 }
@@ -21,7 +24,7 @@ for (HasId dto : dtos) {
 writer.println(dto);
 }
 writer.println();
-writer.println("Total: " + dtos.size());
+writer.println(TOTAL + dtos.size());
 if (line.hasOption("o")) {
 String outFileName=line.getOptionValue("o");
 storeObjectIds(outFileName,dtos,errorWriter);

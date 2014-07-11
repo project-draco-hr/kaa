@@ -1,0 +1,9 @@
+{
+  List<ProfileSchema> schemas=generateProfSchema(null,3);
+  Assert.assertEquals(3,schemas.size());
+  ProfileSchema schema=schemas.get(0);
+  Application app=schema.getApplication();
+  List<ProfileSchema> found=schemaDao.findByApplicationId(app.getId().toString());
+  Assert.assertEquals(3,found.size());
+  Assert.assertEquals(schemas,found);
+}

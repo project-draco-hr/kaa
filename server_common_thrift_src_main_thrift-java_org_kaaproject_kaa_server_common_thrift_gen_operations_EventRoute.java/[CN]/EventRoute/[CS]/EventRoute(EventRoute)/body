@@ -1,0 +1,18 @@
+{
+  if (other.isSetUserId()) {
+    this.userId=other.userId;
+  }
+  if (other.isSetTenantId()) {
+    this.tenantId=other.tenantId;
+  }
+  if (other.isSetRouteInfo()) {
+    List<RouteInfo> __this__routeInfo=new ArrayList<RouteInfo>(other.routeInfo.size());
+    for (    RouteInfo other_element : other.routeInfo) {
+      __this__routeInfo.add(new RouteInfo(other_element));
+    }
+    this.routeInfo=__this__routeInfo;
+  }
+  if (other.isSetOperationsServerId()) {
+    this.operationsServerId=other.operationsServerId;
+  }
+}

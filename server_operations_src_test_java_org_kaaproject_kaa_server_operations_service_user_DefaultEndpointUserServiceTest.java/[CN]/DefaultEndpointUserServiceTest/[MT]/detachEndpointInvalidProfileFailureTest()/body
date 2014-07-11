@@ -1,0 +1,8 @@
+{
+  EndpointDetachRequest request=new EndpointDetachRequest(REQUEST_ID,Base64Util.encode(ENDPOINT_KEY_HASH_OTHER));
+  EndpointProfileDto profileMock=mock(EndpointProfileDto.class);
+  EndpointDetachResponse response=endpointUserService.detachEndpoint(profileMock,request);
+  assertNotNull(response);
+  assertEquals(SyncResponseResultType.FAILURE,response.getResult());
+  assertEquals(REQUEST_ID,response.getRequestId());
+}

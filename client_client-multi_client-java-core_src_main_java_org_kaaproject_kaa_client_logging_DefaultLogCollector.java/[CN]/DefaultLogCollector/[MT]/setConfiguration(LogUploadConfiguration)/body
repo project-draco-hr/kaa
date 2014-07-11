@@ -1,0 +1,7 @@
+{
+  if (configuration != null) {
+    this.configuration=configuration;
+    LOG.info("New log configuration was set");
+    processUploadDecision(uploadStrategy.isUploadNeeded(configuration,storageStatus));
+  }
+}

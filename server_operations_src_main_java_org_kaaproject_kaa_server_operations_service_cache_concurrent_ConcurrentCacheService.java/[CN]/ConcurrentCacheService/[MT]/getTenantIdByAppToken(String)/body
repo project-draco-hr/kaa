@@ -1,0 +1,10 @@
+{
+  return tenantIdMemorizer.compute(key,new Computable<String,String>(){
+    @Override public String compute(    String key){
+      LOG.debug("Fetching result for token id");
+      ApplicationDto appDto=applicationService.findAppByApplicationToken(key);
+      return appDto.getTenantId();
+    }
+  }
+);
+}

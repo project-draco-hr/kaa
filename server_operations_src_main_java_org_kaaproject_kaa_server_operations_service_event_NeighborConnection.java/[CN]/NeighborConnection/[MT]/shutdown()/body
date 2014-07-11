@@ -1,0 +1,11 @@
+{
+  cancelWorkers();
+  executor.shutdown();
+  try {
+    executor.awaitTermination(1,TimeUnit.MINUTES);
+  }
+ catch (  InterruptedException e) {
+    LOG.error("Neighbor Connection {} error terminates ExecutorService",getId(),e);
+  }
+  thrift.close();
+}

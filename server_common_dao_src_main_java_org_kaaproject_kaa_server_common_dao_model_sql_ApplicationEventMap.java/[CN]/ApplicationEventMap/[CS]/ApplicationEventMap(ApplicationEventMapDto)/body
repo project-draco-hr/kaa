@@ -1,0 +1,9 @@
+{
+  this.id=getLongId(dto.getId());
+  Long eventClassId=getLongId(dto.getEventClassId());
+  if (eventClassId != null) {
+    this.eventClass=new EventClass(eventClassId);
+  }
+  this.fqn=dto.getFqn();
+  this.action=dto.getAction();
+}

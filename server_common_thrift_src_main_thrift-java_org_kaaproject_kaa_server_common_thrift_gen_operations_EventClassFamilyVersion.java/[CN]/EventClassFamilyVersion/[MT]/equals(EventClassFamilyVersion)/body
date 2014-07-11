@@ -1,0 +1,16 @@
+{
+  if (that == null)   return false;
+  boolean this_present_endpointClassFamilyId=true && this.isSetEndpointClassFamilyId();
+  boolean that_present_endpointClassFamilyId=true && that.isSetEndpointClassFamilyId();
+  if (this_present_endpointClassFamilyId || that_present_endpointClassFamilyId) {
+    if (!(this_present_endpointClassFamilyId && that_present_endpointClassFamilyId))     return false;
+    if (!this.endpointClassFamilyId.equals(that.endpointClassFamilyId))     return false;
+  }
+  boolean this_present_endpointClassFamilyVersion=true;
+  boolean that_present_endpointClassFamilyVersion=true;
+  if (this_present_endpointClassFamilyVersion || that_present_endpointClassFamilyVersion) {
+    if (!(this_present_endpointClassFamilyVersion && that_present_endpointClassFamilyVersion))     return false;
+    if (this.endpointClassFamilyVersion != that.endpointClassFamilyVersion)     return false;
+  }
+  return true;
+}

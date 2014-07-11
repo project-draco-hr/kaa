@@ -1,0 +1,8 @@
+{
+  EqualsVerifier.forClass(DefaultCommonRecord.class).verify();
+  Schema schema=mock(Schema.class);
+  CommonRecord record=new DefaultCommonRecord(schema);
+  UUID uuid=new UUID(1234,5678);
+  record.setUuid(uuid);
+  assertEquals(uuid,record.getUuid());
+}

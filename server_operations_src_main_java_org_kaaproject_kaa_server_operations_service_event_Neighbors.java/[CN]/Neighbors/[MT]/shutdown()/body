@@ -1,0 +1,14 @@
+{
+  LOG.info("Operations server {}  Neighbors list({}) shutdown all Neighbor connections....",selfId,uniqId);
+synchronized (neighborsUpdateSync) {
+    for (    NeighborConnection neigbor : neigbors.values()) {
+      LOG.info("Operations server {}  Neighbors list({}) shutdown connection to {}",selfId,uniqId,neigbor.getId());
+      neigbor.shutdown();
+    }
+    neigbors.clear();
+  }
+  if (timerUpdate != null) {
+    timerUpdate.cancel();
+    timerUpdate=null;
+  }
+}

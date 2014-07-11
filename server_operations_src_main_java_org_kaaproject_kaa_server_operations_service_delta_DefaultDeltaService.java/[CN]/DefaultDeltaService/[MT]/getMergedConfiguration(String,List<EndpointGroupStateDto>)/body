@@ -1,6 +1,6 @@
 {
-  byte[] mergedConfiguration=cacheService.getMergedConfiguration(egsList,new Computable<List<EndpointGroupStateDto>,byte[]>(){
-    @Override public byte[] compute(    List<EndpointGroupStateDto> key){
+  BaseData mergedConfiguration=cacheService.getMergedConfiguration(egsList,new Computable<List<EndpointGroupStateDto>,BaseData>(){
+    @Override public BaseData compute(    List<EndpointGroupStateDto> key){
       LOG.trace("[{}] getMergedConfiguration.compute begin",endpointId);
       try {
         List<EndpointGroupDto> endpointGroups=new ArrayList<>();
@@ -25,12 +25,11 @@
             configurationSchema=configurationService.findConfSchemaById(configuration.getSchemaId());
           }
         }
-        ConfigurationMerger configurationMerger=configurationMergerFactory.createConfigurationMerger();
-        return configurationMerger.merge(endpointGroups,configurations,configurationSchema);
+        return processEndpointGroups(endpointGroups,configurations,configurationSchema);
       }
- catch (      MergeException me) {
-        LOG.error("[{}] Unexpected exception occurred while merging configuration: ",endpointId,me);
-        throw new RuntimeException(me);
+ catch (      OverrideException|IOException oe) {
+        LOG.error("[{}] Unexpected exception occurred while merging configuration: ",endpointId,oe);
+        throw new RuntimeException(oe);
       }
  finally {
         LOG.trace("[{}] getMergedConfiguration.compute end",endpointId);

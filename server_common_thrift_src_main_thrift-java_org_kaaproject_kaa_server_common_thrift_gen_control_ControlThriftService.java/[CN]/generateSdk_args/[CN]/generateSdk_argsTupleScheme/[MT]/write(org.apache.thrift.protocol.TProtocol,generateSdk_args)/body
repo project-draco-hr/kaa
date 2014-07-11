@@ -16,7 +16,13 @@
   if (struct.isSetNotificationSchemaVersion()) {
     optionals.set(4);
   }
-  oprot.writeBitSet(optionals,5);
+  if (struct.isSetAefMapIds()) {
+    optionals.set(5);
+  }
+  if (struct.isSetLogSchemaVersion()) {
+    optionals.set(6);
+  }
+  oprot.writeBitSet(optionals,7);
   if (struct.isSetSdkPlatform()) {
     oprot.writeI32(struct.sdkPlatform.getValue());
   }
@@ -31,5 +37,16 @@
   }
   if (struct.isSetNotificationSchemaVersion()) {
     oprot.writeI32(struct.notificationSchemaVersion);
+  }
+  if (struct.isSetAefMapIds()) {
+{
+      oprot.writeI32(struct.aefMapIds.size());
+      for (      String _iter204 : struct.aefMapIds) {
+        oprot.writeString(_iter204);
+      }
+    }
+  }
+  if (struct.isSetLogSchemaVersion()) {
+    oprot.writeI32(struct.logSchemaVersion);
   }
 }

@@ -20,6 +20,20 @@
   oprot.writeFieldBegin(NOTIFICATION_SCHEMA_VERSION_FIELD_DESC);
   oprot.writeI32(struct.notificationSchemaVersion);
   oprot.writeFieldEnd();
+  if (struct.aefMapIds != null) {
+    oprot.writeFieldBegin(AEF_MAP_IDS_FIELD_DESC);
+{
+      oprot.writeListBegin(new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRING,struct.aefMapIds.size()));
+      for (      String _iter203 : struct.aefMapIds) {
+        oprot.writeString(_iter203);
+      }
+      oprot.writeListEnd();
+    }
+    oprot.writeFieldEnd();
+  }
+  oprot.writeFieldBegin(LOG_SCHEMA_VERSION_FIELD_DESC);
+  oprot.writeI32(struct.logSchemaVersion);
+  oprot.writeFieldEnd();
   oprot.writeFieldStop();
   oprot.writeStructEnd();
 }

@@ -1,0 +1,17 @@
+{
+  List<EndpointAttachRequest> requests=syncRequest.getEndpointAttachRequests();
+  if (requests != null && !requests.isEmpty()) {
+    LOG.debug("[{}][{}] processing {} endpoint attach requests",endpointId,requestHash,requests.size());
+    List<EndpointAttachResponse> responses=new ArrayList<>(requests.size());
+    for (    EndpointAttachRequest request : syncRequest.getEndpointAttachRequests()) {
+      LOG.debug("[{}][{}] processing endpoint attach request {}",endpointId,requestHash,request);
+      EndpointAttachResponse response=endpointUserService.attachEndpoint(profile,request);
+      LOG.debug("[{}][{}] endpoint attach response {}",endpointId,requestHash,response);
+      responses.add(response);
+    }
+    return responses;
+  }
+ else {
+    return Collections.emptyList();
+  }
+}

@@ -1,0 +1,17 @@
+{
+  List<EventClassFamilyVersionInfo> result=new ArrayList<EventClassFamilyVersionInfo>();
+  if (eventFamiliesInfo != null) {
+    String[] eventFamilyInfoSplit=eventFamiliesInfo.split(";");
+    for (    String efInfo : eventFamilyInfoSplit) {
+      if (efInfo != null && !efInfo.trim().isEmpty()) {
+        String[] eventFamilyInfo=efInfo.split(":");
+        if (eventFamilyInfo.length == 2) {
+          String name=eventFamilyInfo[0];
+          int version=Integer.parseInt(eventFamilyInfo[1]);
+          result.add(new EventClassFamilyVersionInfo(name,version));
+        }
+      }
+    }
+  }
+  return result;
+}

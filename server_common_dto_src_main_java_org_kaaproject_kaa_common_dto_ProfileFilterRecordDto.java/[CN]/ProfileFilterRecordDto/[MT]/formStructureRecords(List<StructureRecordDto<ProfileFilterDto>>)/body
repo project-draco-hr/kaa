@@ -1,0 +1,8 @@
+{
+  List<ProfileFilterRecordDto> result=new ArrayList<>();
+  for (  StructureRecordDto<ProfileFilterDto> record : records) {
+    ProfileFilterRecordDto profileFilterRecord=new ProfileFilterRecordDto(record.getActiveStructureDto(),record.getInactiveStructureDto());
+    result.add(profileFilterRecord);
+  }
+  return result;
+}

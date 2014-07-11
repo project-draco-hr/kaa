@@ -1,0 +1,14 @@
+{
+  List<EventClassFamily> eventClassFamilies=generateEventClassFamily(null,2);
+  EventClassFamily dto=eventClassFamilyDao.findById(eventClassFamilies.get(0).getStringId());
+  Assert.assertNotNull(dto);
+  List<EventClassFamily> eventClassFamilyList=eventClassFamilyDao.findByTenantId(dto.getTenant().getStringId());
+  EventClassFamily eventClassFamily=null;
+  for (  EventClassFamily found : eventClassFamilyList) {
+    if (dto.getId().equals(found.getId())) {
+      eventClassFamily=found;
+    }
+  }
+  Assert.assertNotNull(eventClassFamily);
+  Assert.assertEquals(dto,eventClassFamily);
+}

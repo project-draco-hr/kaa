@@ -1,0 +1,8 @@
+{
+  ApplicationDto app=generateApplication();
+  EndpointGroupDto group=generateEndpointGroup(app.getId());
+  TopicDto topic=generateTopic(app.getId(),null);
+  endpointService.addTopicToEndpointGroup(group.getId(),topic.getId());
+  List<TopicDto> found=topicService.findTopicsByEndpointGroupId(group.getId());
+  Assert.assertEquals(topic,found.get(0));
+}

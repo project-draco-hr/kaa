@@ -1,0 +1,15 @@
+{
+  RouteInfo routeInfo=message.getRouteInfo();
+  if (RouteOperation.DELETE.equals(routeInfo.getRouteOperation())) {
+    LOG.debug("[{}] Removing all routes from route table by address {}",userId,routeInfo.getAddress());
+    routeTable.removeByAddress(routeInfo.getAddress());
+  }
+ else {
+    for (    EventClassFamilyVersion ecfVersion : routeInfo.getEcfVersions()) {
+      RouteTableKey key=new RouteTableKey(routeInfo.getAddress().getApplicationToken(),ecfVersion);
+      LOG.debug("[{}] Updating route table with key {} and address {}",userId,key,routeInfo.getAddress());
+      updateRouteTable(context,key,routeInfo.getAddress());
+    }
+  }
+  reportAllLocalRoutes(routeInfo.getAddress().getServerId());
+}

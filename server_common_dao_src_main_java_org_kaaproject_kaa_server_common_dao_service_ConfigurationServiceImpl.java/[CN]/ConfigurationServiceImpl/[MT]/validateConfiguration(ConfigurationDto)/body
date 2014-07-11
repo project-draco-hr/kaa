@@ -1,9 +1,5 @@
 {
-  validateObject(dto,"Can't save configuration, object is invalid.");
-  if (!isValidId(dto.getSchemaId())) {
-    throw new IncorrectParameterException("Configuration object invalid. Configuration schema id invalid: " + dto.getSchemaId());
-  }
- else   if (!isValidId(dto.getEndpointGroupId())) {
-    throw new IncorrectParameterException("Configuration object invalid. Endpoint group id invalid: " + dto.getEndpointGroupId());
-  }
+  validateSqlObject(dto,"Can't save configuration, object is invalid.");
+  validateSqlId(dto.getSchemaId(),"Configuration object invalid. Incorrect configuration schema id : " + dto.getSchemaId());
+  validateSqlId(dto.getEndpointGroupId(),"Configuration object invalid. Incorrect endpoint group id : " + dto.getEndpointGroupId());
 }

@@ -1,12 +1,12 @@
 {
-  String appId=generateApplication().getId();
-  List<ProfileFilter> filters=profileFilterDao.findByAppIdAndSchemaVersion(appId,1);
+  String appId=generateApplication(null).getId();
+  List<ProfileFilterDto> filters=profileService.findProfileFilterByAppIdAndVersion(appId,1);
   Assert.assertNotNull(filters);
-  ProfileFilter filter=filters.get(0);
+  ProfileFilterDto filter=filters.get(0);
   filter.setId(null);
-  String groupId=generateEndpointGroup(appId).getId();
-  filter.setEndpointGroupId(new ObjectId(groupId));
-  ProfileFilterDto dto=profileService.saveProfileFilter(filter.toDto());
+  EndpointGroupDto group=generateEndpointGroup(appId);
+  filter.setEndpointGroupId(group.getId());
+  ProfileFilterDto dto=profileService.saveProfileFilter(filter);
   ChangeProfileFilterNotification change=profileService.activateProfileFilter(dto.getId(),null);
   Assert.assertNotNull(change);
   Assert.assertEquals(UpdateStatus.ACTIVE,change.getProfileFilterDto().getStatus());
