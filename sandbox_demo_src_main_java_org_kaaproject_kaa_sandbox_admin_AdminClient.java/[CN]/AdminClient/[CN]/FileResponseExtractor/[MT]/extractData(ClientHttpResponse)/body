@@ -1,0 +1,20 @@
+{
+  String fileName="";
+  String contentDisposition=response.getHeaders().getFirst("Content-Disposition");
+  if (StringUtils.isNotBlank(contentDisposition)) {
+    Matcher m=fileNamePattern.matcher(contentDisposition);
+    if (m.matches()) {
+      fileName=m.group(2);
+    }
+  }
+  if (StringUtils.isBlank(fileName)) {
+    fileName="downloaded-" + System.currentTimeMillis();
+  }
+  destFile=new File(destDir,fileName);
+  InputStream is=response.getBody();
+  OutputStream os=new BufferedOutputStream(new FileOutputStream(destFile));
+  IOUtils.copyLarge(is,os);
+  IOUtils.closeQuietly(is);
+  IOUtils.closeQuietly(os);
+  return null;
+}

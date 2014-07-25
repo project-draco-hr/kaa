@@ -19,15 +19,19 @@
 switch (authInfo.getAuthority()) {
 case KAA_ADMIN:
     historyMapper=GWT.create(KaaAdminPlaceHistoryMapper.class);
-  break;
+  clientFactory.setHomePlace(new TenantsPlace());
+break;
 case TENANT_ADMIN:
 historyMapper=GWT.create(TenantAdminPlaceHistoryMapper.class);
+clientFactory.setHomePlace(new ApplicationsPlace());
 break;
 case TENANT_DEVELOPER:
 historyMapper=GWT.create(TenantDeveloperPlaceHistoryMapper.class);
+clientFactory.setHomePlace(new ApplicationsPlace());
 break;
 case TENANT_USER:
 historyMapper=GWT.create(TenantUserPlaceHistoryMapper.class);
+clientFactory.setHomePlace(new ApplicationsPlace());
 break;
 }
 PlaceHistoryHandler historyHandler=new PlaceHistoryHandler(historyMapper);

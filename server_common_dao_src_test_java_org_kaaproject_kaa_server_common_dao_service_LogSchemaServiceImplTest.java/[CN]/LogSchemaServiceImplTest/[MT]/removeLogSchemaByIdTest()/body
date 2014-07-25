@@ -1,0 +1,7 @@
+{
+  List<LogSchemaDto> schemas=logSchemaService.findLogSchemasByAppId(applicationDto.getId());
+  Assert.assertEquals(1,schemas.size());
+  logSchemaService.removeLogSchemaById(schemas.get(0).getId());
+  schemas=logSchemaService.findLogSchemasByAppId(applicationDto.getId());
+  Assert.assertEquals(0,schemas.size());
+}

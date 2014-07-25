@@ -1,0 +1,21 @@
+{
+  KaaChannelManager manager=Mockito.mock(KaaChannelManager.class);
+  AbstractHttpClient httpClient=Mockito.mock(AbstractHttpClient.class);
+  Mockito.when(httpClient.executeHttpRequest(Mockito.anyString(),Mockito.any(LinkedHashMap.class))).thenThrow(new Exception());
+  AbstractKaaClient client=Mockito.mock(AbstractKaaClient.class);
+  Mockito.when(client.createHttpClient(Mockito.anyString(),Mockito.any(PrivateKey.class),Mockito.any(PublicKey.class),Mockito.any(PublicKey.class))).thenReturn(httpClient);
+  Mockito.when(client.getChannelMananager()).thenReturn(manager);
+  KaaClientState state=Mockito.mock(KaaClientState.class);
+  KaaDataMultiplexer multiplexer=Mockito.mock(KaaDataMultiplexer.class);
+  KaaDataDemultiplexer demultiplexer=Mockito.mock(KaaDataDemultiplexer.class);
+  DefaultOperationsChannelFake channel=new DefaultOperationsChannelFake(client,state,0);
+  channel.syncAll();
+  channel.setDemultiplexer(demultiplexer);
+  channel.setMultiplexer(multiplexer);
+  channel.shutdown();
+  HttpLongPollServerInfo server=new HttpLongPollServerInfo("localhost",9889,KeyUtil.generateKeyPair().getPublic());
+  channel.setServer(server);
+  channel.sync(TransportType.EVENT);
+  channel.syncAll();
+  channel.verify();
+}

@@ -1,0 +1,7 @@
+{
+  deleteForwardedPorts();
+  forwardPort("ssh",22,sshForwardPort);
+  forwardPort("web-gui",DEFAULT_WEB_ADMIN_PORT,webAdminForwardPort);
+  clearSharedFolders();
+  createSharedFolder();
+}

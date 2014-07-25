@@ -1,0 +1,10 @@
+{
+  List<String> ids=Collections.emptyList();
+  if (topics != null && !topics.isEmpty()) {
+    ids=new ArrayList<>();
+    for (    GenericModel model : topics) {
+      ids.add(model.getId().toString());
+    }
+  }
+  return ids;
+}

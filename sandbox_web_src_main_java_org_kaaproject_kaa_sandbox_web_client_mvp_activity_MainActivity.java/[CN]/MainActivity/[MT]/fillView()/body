@@ -1,0 +1,28 @@
+{
+  Sandbox.getSandboxService().changeKaaHostEnabled(new AsyncCallback<Boolean>(){
+    @Override public void onFailure(    Throwable caught){
+      view.setErrorMessage(Utils.getErrorMessage(caught));
+    }
+    @Override public void onSuccess(    Boolean enabled){
+      view.setChangeKaaHostEnabled(enabled);
+      if (enabled) {
+        registrations.add(view.getChangeKaaHostButton().addClickHandler(new ClickHandler(){
+          @Override public void onClick(          ClickEvent event){
+            changeKaaHost();
+          }
+        }
+));
+      }
+    }
+  }
+);
+  Sandbox.getSandboxService().getDemoProjects(new AsyncCallback<List<Project>>(){
+    @Override public void onFailure(    Throwable caught){
+      view.setErrorMessage(Utils.getErrorMessage(caught));
+    }
+    @Override public void onSuccess(    List<Project> result){
+      view.setProjects(result);
+    }
+  }
+);
+}

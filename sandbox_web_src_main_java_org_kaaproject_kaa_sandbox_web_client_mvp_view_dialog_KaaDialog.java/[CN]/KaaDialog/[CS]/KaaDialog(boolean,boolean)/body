@@ -1,0 +1,15 @@
+{
+  super(autoHide,modal);
+  setAutoHideOnHistoryEventsEnabled(true);
+  setGlassEnabled(true);
+  setAnimationEnabled(true);
+  buttonsPanel=new HorizontalPanel();
+  buttonsPanel.setSpacing(5);
+  buttonsPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
+  bottomPanel=new BottomPanel();
+  bottomPanel.setStyleName("Bottom");
+  bottomPanel.add(buttonsPanel);
+  Element td=getCellElement(2,1);
+  DOM.insertChild(td,bottomPanel.getElement(),0);
+  adopt(bottomPanel);
+}

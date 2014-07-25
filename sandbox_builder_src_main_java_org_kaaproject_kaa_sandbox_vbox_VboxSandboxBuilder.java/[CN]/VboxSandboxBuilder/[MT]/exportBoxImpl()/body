@@ -1,0 +1,5 @@
+{
+  logger.info("Exporting box '{}' to file '{}'",boxName,imageOutputFile.getAbsolutePath());
+  vboxManage("export",boxName,"--output",imageOutputFile.getAbsolutePath());
+  logger.info("Box '{}' successfuly exported",boxName);
+}

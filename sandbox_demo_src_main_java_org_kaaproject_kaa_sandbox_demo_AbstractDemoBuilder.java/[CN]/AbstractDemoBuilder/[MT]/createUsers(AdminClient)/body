@@ -1,0 +1,11 @@
+{
+  if (!usersCreated) {
+    logger.info("Creating users...");
+    client.createKaaAdmin(kaaAdminUser,kaaAdminPassword);
+    loginKaaAdmin(client);
+    createDemoTenant(client);
+    loginTenantAdmin(client);
+    createTenantDeveloper(client);
+    usersCreated=true;
+  }
+}

@@ -1,0 +1,12 @@
+{
+  ActorMetaData endpointMetaData=endpointSessions.get(message.getKey());
+  if (endpointMetaData != null) {
+    LOG.debug("[{}] Found affected endpoint and forwarding message to it",applicationToken);
+    endpointMetaData.actorRef.tell(message,self());
+  }
+ else   if (escalate) {
+    LOG.debug("[{}] Failed to fing affected endpoint in scope of current application. Forwarding message to tenant actor",applicationToken);
+    EndpointUserActionRouteMessage routeMessage=new EndpointUserActionRouteMessage(message,applicationToken);
+    context().parent().tell(routeMessage,self());
+  }
+}

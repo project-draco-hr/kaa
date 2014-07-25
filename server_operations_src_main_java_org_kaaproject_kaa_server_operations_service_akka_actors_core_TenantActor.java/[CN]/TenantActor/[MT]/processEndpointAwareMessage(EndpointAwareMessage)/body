@@ -2,6 +2,9 @@
   if (message instanceof EndpointUserConnectMessage) {
     processUserAwareMessage((EndpointUserConnectMessage)message);
   }
+ else   if (message instanceof EndpointUserDisconnectMessage) {
+    processUserAwareMessage((EndpointUserDisconnectMessage)message);
+  }
  else   if (message instanceof EndpointEventSendMessage) {
     processUserAwareMessage((EndpointEventSendMessage)message);
   }

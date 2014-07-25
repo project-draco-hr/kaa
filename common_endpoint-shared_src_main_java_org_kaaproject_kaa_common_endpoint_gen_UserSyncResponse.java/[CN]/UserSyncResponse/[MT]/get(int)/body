@@ -3,8 +3,12 @@ switch (field$) {
 case 0:
     return userAttachResponse;
 case 1:
-  return endpointAttachResponses;
+  return userAttachNotification;
 case 2:
+return userDetachNotification;
+case 3:
+return endpointAttachResponses;
+case 4:
 return endpointDetachResponses;
 default :
 throw new org.apache.avro.AvroRuntimeException("Bad index");

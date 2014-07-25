@@ -1,0 +1,45 @@
+{
+  super.log(message,throwable,msgLevel);
+switch (msgLevel) {
+case MSG_ERR:
+    if (throwable != null) {
+      logger.error(message,throwable);
+    }
+ else {
+      logger.error(message);
+    }
+  break;
+case MSG_WARN:
+if (throwable != null) {
+  logger.warn(message,throwable);
+}
+ else {
+  logger.warn(message);
+}
+break;
+case MSG_INFO:
+if (throwable != null) {
+logger.info(message,throwable);
+}
+ else {
+logger.info(message);
+}
+break;
+case MSG_VERBOSE:
+if (throwable != null) {
+logger.debug(message,throwable);
+}
+ else {
+logger.debug(message);
+}
+break;
+case MSG_DEBUG:
+if (throwable != null) {
+logger.trace(message,throwable);
+}
+ else {
+logger.trace(message);
+}
+break;
+}
+}

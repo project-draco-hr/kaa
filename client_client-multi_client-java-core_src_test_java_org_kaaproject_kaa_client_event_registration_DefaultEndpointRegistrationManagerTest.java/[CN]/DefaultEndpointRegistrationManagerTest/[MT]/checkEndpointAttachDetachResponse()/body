@@ -4,6 +4,8 @@
     when(state.getEndpointAccessToken()).thenReturn("");
     UserTransport transport=new DefaultUserTransport();
     DefaultEndpointRegistrationManager manager=spy(new DefaultEndpointRegistrationManager(state,transport,null));
+    AttachedEndpointListChangedListener listListener=mock(AttachedEndpointListChangedListener.class);
+    manager.addAttachedEndpointListChangeListener(listListener);
     transport.setEndpointRegistrationProcessor(manager);
     UserSyncResponse sr=new UserSyncResponse();
     sr.setEndpointAttachResponses(null);
@@ -12,12 +14,14 @@
     attach.add(new EndpointAttachResponse("requestId","keyHash",SyncResponseResultType.SUCCESS));
     sr.setEndpointAttachResponses(attach);
     transport.onUserResponse(sr);
+    manager.removeAttachedEndpointListChangeListener(listListener);
     List<EndpointDetachResponse> detach=new LinkedList<EndpointDetachResponse>();
     detach.add(new EndpointDetachResponse("requestId",SyncResponseResultType.SUCCESS));
     sr.setEndpointAttachResponses(null);
     sr.setEndpointDetachResponses(detach);
     transport.onUserResponse(sr);
-    verify(manager,times(2)).onUpdate(anyListOf(EndpointAttachResponse.class),anyListOf(EndpointDetachResponse.class),any(UserAttachResponse.class));
+    verify(manager,times(2)).onUpdate(anyListOf(EndpointAttachResponse.class),anyListOf(EndpointDetachResponse.class),any(UserAttachResponse.class),any(UserAttachNotification.class),any(UserDetachNotification.class));
+    verify(listListener,times(1)).onAttachedEndpointListChanged(anyMapOf(EndpointAccessToken.class,EndpointKeyHash.class));
   }
  catch (  IOException e) {
     assertTrue("Unexpected exception " + e.getMessage(),false);

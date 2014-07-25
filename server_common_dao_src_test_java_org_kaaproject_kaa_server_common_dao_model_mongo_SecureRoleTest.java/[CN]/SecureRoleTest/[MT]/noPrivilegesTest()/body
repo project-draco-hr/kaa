@@ -1,0 +1,5 @@
+{
+  SecureRole role=new SecureRole();
+  List<MongoPrivilegeDto> privileges=null;
+  Assert.assertNull(ReflectionTestUtils.invokeMethod(role,"convertPrivileges",privileges));
+}

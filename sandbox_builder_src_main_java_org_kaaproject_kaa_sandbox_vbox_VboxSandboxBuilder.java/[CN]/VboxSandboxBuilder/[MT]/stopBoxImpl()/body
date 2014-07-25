@@ -1,0 +1,27 @@
+{
+  logger.info("Performing graceful shutdown...");
+  boolean skipShutdown=false;
+  try {
+    executeSudoSsh("shutdown -P now");
+  }
+ catch (  Exception e) {
+    logger.error("Unable to connect to box! Cause: '{}'",e.getMessage());
+    logger.info("Graceful shutdown is impossible. Skipping.");
+    skipShutdown=true;
+  }
+  boolean poweredOff=false;
+  if (!skipShutdown) {
+    int retry=0;
+    while (!(poweredOff=isPoweredOff()) && retry < 5) {
+      Thread.sleep(5000);
+      retry++;
+    }
+  }
+  if (poweredOff) {
+    logger.info("Graceful shutdown complete.");
+  }
+ else {
+    logger.info("Machine is still running. Halting...");
+    vboxManage("controlvm",boxName,"poweroff");
+  }
+}

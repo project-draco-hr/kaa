@@ -15,10 +15,10 @@
       result=fileData.toString();
     }
  catch (    FileNotFoundException e) {
-      errorWriter.println("Unable to locate specified file '" + file + "'!");
+      LOG.error("Unable to locate specified file '{}'!",file);
     }
 catch (    IOException e) {
-      errorWriter.println("Unable to read from specified file '" + file + ERROR+ e.getMessage());
+      LOG.error("Unable to read from specified file '{}'! Error:  {}",file,e.getMessage());
       e.printStackTrace(errorWriter);
     }
   }

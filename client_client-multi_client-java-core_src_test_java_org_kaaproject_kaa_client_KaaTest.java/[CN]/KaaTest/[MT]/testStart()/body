@@ -1,0 +1,12 @@
+{
+  start();
+  init();
+  AbstractKaaClient client=(AbstractKaaClient)getClient();
+  verify(client,times(1)).init();
+  init();
+  verify(client,times(1)).stop();
+  client=(AbstractKaaClient)getClient();
+  verify(client,times(1)).init();
+  start();
+  verify(client,times(1)).start();
+}

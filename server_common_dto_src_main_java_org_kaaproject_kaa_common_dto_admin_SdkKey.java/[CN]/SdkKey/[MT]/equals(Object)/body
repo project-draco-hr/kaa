@@ -1,32 +1,64 @@
 {
-  if (this == obj)   return true;
-  if (obj == null)   return false;
-  if (getClass() != obj.getClass())   return false;
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
   SdkKey other=(SdkKey)obj;
   if (aefMapIds == null) {
-    if (other.aefMapIds != null)     return false;
+    if (other.aefMapIds != null) {
+      return false;
+    }
   }
- else   if (!aefMapIds.equals(other.aefMapIds))   return false;
+ else   if (!aefMapIds.equals(other.aefMapIds)) {
+    return false;
+  }
   if (applicationId == null) {
-    if (other.applicationId != null)     return false;
+    if (other.applicationId != null) {
+      return false;
+    }
   }
- else   if (!applicationId.equals(other.applicationId))   return false;
+ else   if (!applicationId.equals(other.applicationId)) {
+    return false;
+  }
   if (configurationSchemaVersion == null) {
-    if (other.configurationSchemaVersion != null)     return false;
+    if (other.configurationSchemaVersion != null) {
+      return false;
+    }
   }
- else   if (!configurationSchemaVersion.equals(other.configurationSchemaVersion))   return false;
+ else   if (!configurationSchemaVersion.equals(other.configurationSchemaVersion)) {
+    return false;
+  }
   if (notificationSchemaVersion == null) {
-    if (other.notificationSchemaVersion != null)     return false;
+    if (other.notificationSchemaVersion != null) {
+      return false;
+    }
   }
- else   if (!notificationSchemaVersion.equals(other.notificationSchemaVersion))   return false;
+ else   if (!notificationSchemaVersion.equals(other.notificationSchemaVersion)) {
+    return false;
+  }
   if (profileSchemaVersion == null) {
-    if (other.profileSchemaVersion != null)     return false;
+    if (other.profileSchemaVersion != null) {
+      return false;
+    }
   }
- else   if (!profileSchemaVersion.equals(other.profileSchemaVersion))   return false;
+ else   if (!profileSchemaVersion.equals(other.profileSchemaVersion)) {
+    return false;
+  }
   if (logSchemaVersion == null) {
-    if (other.logSchemaVersion != null)     return false;
+    if (other.logSchemaVersion != null) {
+      return false;
+    }
   }
- else   if (!logSchemaVersion.equals(other.logSchemaVersion))   return false;
-  if (targetPlatform != other.targetPlatform)   return false;
+ else   if (!logSchemaVersion.equals(other.logSchemaVersion)) {
+    return false;
+  }
+  if (targetPlatform != other.targetPlatform) {
+    return false;
+  }
   return true;
 }

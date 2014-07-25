@@ -1,0 +1,8 @@
+{
+  AbstractKaaClient client=Mockito.mock(AbstractKaaClient.class);
+  KaaClientState state=Mockito.mock(KaaClientState.class);
+  KaaDataChannel channel=new DefaultOperationsChannel(client,state);
+  Assert.assertEquals(SUPPORTED_TYPES,channel.getSupportedTransportTypes());
+  Assert.assertEquals(ChannelType.HTTP_LP,channel.getType());
+  Assert.assertEquals("default_operations_long_poll_channel",channel.getId());
+}

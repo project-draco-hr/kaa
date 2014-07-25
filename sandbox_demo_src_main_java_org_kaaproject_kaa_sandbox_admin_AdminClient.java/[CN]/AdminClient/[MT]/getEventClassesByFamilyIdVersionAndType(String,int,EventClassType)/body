@@ -1,0 +1,7 @@
+{
+  ParameterizedTypeReference<List<EventClassDto>> typeRef=new ParameterizedTypeReference<List<EventClassDto>>(){
+  }
+;
+  ResponseEntity<List<EventClassDto>> entity=restTemplate.exchange(url + "eventClasses?eventClassFamilyId={eventClassFamilyId}&version={version}&type={type}",HttpMethod.GET,null,typeRef,eventClassFamilyId,version,type);
+  return entity.getBody();
+}

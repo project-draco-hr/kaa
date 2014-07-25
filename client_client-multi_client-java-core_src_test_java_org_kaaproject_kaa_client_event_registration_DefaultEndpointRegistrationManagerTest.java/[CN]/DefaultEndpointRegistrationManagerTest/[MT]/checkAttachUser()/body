@@ -1,10 +1,12 @@
 {
   KaaClientState state=mock(KaaClientState.class);
   when(state.getEndpointAccessToken()).thenReturn("");
-  EndpointRegistrationManager manager=new DefaultEndpointRegistrationManager(state,null,null);
+  UserTransport transport=mock(UserTransport.class);
+  EndpointRegistrationManager manager=new DefaultEndpointRegistrationManager(state,transport,null);
   manager.attachUser("userExternalId","userAccessToken",new UserAuthResultListener(){
     @Override public void onAuthResult(    UserAttachResponse response){
     }
   }
 );
+  verify(transport,times(1)).sync();
 }

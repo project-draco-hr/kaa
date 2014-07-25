@@ -1,0 +1,6 @@
+{
+  byte[] data=new byte[len];
+  System.arraycopy(b,off,data,0,len);
+  String message=new String(data);
+  res.getBroadcaster().broadcast(message,res);
+}

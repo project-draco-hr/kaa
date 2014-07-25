@@ -1,0 +1,67 @@
+{
+  File basePath=null;
+  BoxType boxType=null;
+  OsType osType=null;
+  URL baseImageUrl=null;
+  String boxName=null;
+  File imageOutputFile=null;
+  int sshForwardPort=-1;
+  int webAdminForwardPort=-1;
+  if (args.length < 8) {
+    logger.error("Insufficient arguments!");
+    throw new RuntimeException("Insufficient arguments!");
+  }
+  try {
+    basePath=new File(args[0]);
+    if (!basePath.exists() || !basePath.isDirectory()) {
+      logger.error("Base path [{}] doesn't exists or not a directory!",args[0]);
+      throw new RuntimeException("Invalid base path!");
+    }
+    boxType=BoxType.valueOf(args[1].toUpperCase());
+    osType=OsType.valueOf(args[2].toUpperCase());
+    try {
+      baseImageUrl=new URL(args[3]);
+    }
+ catch (    MalformedURLException e) {
+      logger.error("Invalid base image url [{}]!",args[3]);
+      throw new RuntimeException("Invalid base image url!");
+    }
+    boxName=args[4];
+    imageOutputFile=new File(args[5]);
+    try {
+      sshForwardPort=Integer.valueOf(args[6]);
+    }
+ catch (    NumberFormatException nfe) {
+      logger.error("Invalid ssh forward port [{}]!",args[6]);
+      throw new RuntimeException("Invalid ssh forward port!");
+    }
+    try {
+      webAdminForwardPort=Integer.valueOf(args[7]);
+    }
+ catch (    NumberFormatException nfe) {
+      logger.error("Invalid web admin forward port [{}]!",args[7]);
+      throw new RuntimeException("Invalid web admin forward port!");
+    }
+  }
+ catch (  Exception e) {
+    logger.error("Unable to parse arguments!",e);
+    throw new RuntimeException("Unable to parse arguments!");
+  }
+  logger.info("Going to build sandbox image with the following parameters:");
+  logger.info("Base path: [{}]",basePath);
+  logger.info("Box type: [{}]",boxType);
+  logger.info("Os type: [{}]",osType);
+  logger.info("Base image url: [{}]",baseImageUrl.toString());
+  logger.info("Box name: [{}]",boxName);
+  logger.info("Image output file: [{}]",imageOutputFile.getAbsolutePath());
+  logger.info("Ssh forward port: [{}]",sshForwardPort);
+  logger.info("Web admin forward port: [{}]",webAdminForwardPort);
+  SandboxMain builder=new SandboxMain(basePath,boxType,osType,baseImageUrl,boxName,imageOutputFile,sshForwardPort,webAdminForwardPort);
+  try {
+    builder.buildSandboxImage();
+  }
+ catch (  Exception e) {
+    logger.error("Unable to build sandbox image!",e);
+    throw new RuntimeException("Unable to build sandbox image!");
+  }
+}

@@ -23,7 +23,9 @@
   label.addStyleName("required");
   configurationSchemaVersion=new SchemaListBox();
   configurationSchemaVersion.setWidth("80px");
-  configurationSchemaVersion.setAcceptableValues(schemaVersions.getConfigurationSchemaVersions());
+  List<SchemaDto> confSchemaVersions=schemaVersions.getConfigurationSchemaVersions();
+  configurationSchemaVersion.setValue(getMaxSchemaVersions(confSchemaVersions));
+  configurationSchemaVersion.setAcceptableValues(confSchemaVersions);
   configurationSchemaVersion.addValueChangeHandler(schemaValueChangeHandler);
   table.setWidget(row,0,label);
   table.setWidget(row,1,configurationSchemaVersion);
@@ -33,7 +35,9 @@
   label.addStyleName("required");
   profileSchemaVersion=new SchemaListBox();
   profileSchemaVersion.setWidth("80px");
-  profileSchemaVersion.setAcceptableValues(schemaVersions.getProfileSchemaVersions());
+  List<SchemaDto> pfSchemaVersions=schemaVersions.getProfileSchemaVersions();
+  profileSchemaVersion.setValue(getMaxSchemaVersions(pfSchemaVersions));
+  profileSchemaVersion.setAcceptableValues(pfSchemaVersions);
   profileSchemaVersion.addValueChangeHandler(schemaValueChangeHandler);
   table.setWidget(row,0,label);
   table.setWidget(row,1,profileSchemaVersion);
@@ -43,7 +47,9 @@
   label.addStyleName("required");
   notificationSchemaVersion=new SchemaListBox();
   notificationSchemaVersion.setWidth("80px");
-  notificationSchemaVersion.setAcceptableValues(schemaVersions.getNotificationSchemaVersions());
+  List<SchemaDto> notSchemaVersions=schemaVersions.getNotificationSchemaVersions();
+  notificationSchemaVersion.setValue(getMaxSchemaVersions(notSchemaVersions));
+  notificationSchemaVersion.setAcceptableValues(notSchemaVersions);
   notificationSchemaVersion.addValueChangeHandler(schemaValueChangeHandler);
   table.setWidget(row,0,label);
   table.setWidget(row,1,notificationSchemaVersion);
@@ -53,7 +59,9 @@
   label.addStyleName("required");
   logSchemaVersion=new SchemaListBox();
   logSchemaVersion.setWidth("80px");
-  logSchemaVersion.setAcceptableValues(schemaVersions.getLogSchemaVersions());
+  List<SchemaDto> logSchemaVersions=schemaVersions.getLogSchemaVersions();
+  logSchemaVersion.setValue(getMaxSchemaVersions(logSchemaVersions));
+  logSchemaVersion.setAcceptableValues(logSchemaVersions);
   logSchemaVersion.addValueChangeHandler(schemaValueChangeHandler);
   table.setWidget(row,0,label);
   table.setWidget(row,1,logSchemaVersion);
@@ -77,6 +85,7 @@
 ;
   targetPlatform=new ValueListBox<>(targetPlatformRenderer);
   targetPlatform.setWidth("80px");
+  targetPlatform.setValue(SdkPlatform.ANDROID);
   targetPlatform.setAcceptableValues(Arrays.asList(SdkPlatform.values()));
   targetPlatform.addValueChangeHandler(new ValueChangeHandler<SdkPlatform>(){
     @Override public void onValueChange(    ValueChangeEvent<SdkPlatform> event){
@@ -166,4 +175,5 @@
   addButton(generateSdkButton);
   addButton(closeButton);
   generateSdkButton.setEnabled(false);
+  fireChanged();
 }

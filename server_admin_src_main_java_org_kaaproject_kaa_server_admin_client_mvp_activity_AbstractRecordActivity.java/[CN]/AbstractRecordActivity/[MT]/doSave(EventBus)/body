@@ -13,7 +13,7 @@
       goTo(getRecordPlace(applicationId,schemaId,endpointGroupId,false,false,Math.random()));
     }
     public void onFailure(    Throwable caught){
-      recordView.setErrorMessage(Utils.getErrorMessage(caught));
+      recordView.setErrorMessage(customizeErrorMessage(caught));
     }
   }
 );

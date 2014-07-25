@@ -1,0 +1,7 @@
+{
+  String message=caught.getMessage();
+  if (message != null && message.contains("uuid")) {
+    return Utils.messages.incorrectConfiguration();
+  }
+  return message;
+}

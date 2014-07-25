@@ -1,0 +1,23 @@
+{
+  if (isShutdown) {
+    LOG.info("Can't sync. Channel {} is down",getId());
+    return;
+  }
+  if (isPaused) {
+    LOG.info("Can't sync. Channel {} is paused",getId());
+    return;
+  }
+  if (executor == null) {
+    executor=createExecutor();
+  }
+  LOG.info("Processing sync all for channel {}",getId());
+  if (multiplexer != null && demultiplexer != null) {
+    if (currentServer != null) {
+      executor.submit(createChannelRunnable(getSupportedTransportTypes()));
+    }
+ else {
+      lastConnectionFailed=true;
+      LOG.warn("Can't sync. Server is null");
+    }
+  }
+}

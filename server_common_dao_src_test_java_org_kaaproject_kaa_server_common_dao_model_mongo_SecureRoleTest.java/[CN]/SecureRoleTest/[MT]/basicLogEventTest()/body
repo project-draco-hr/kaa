@@ -1,0 +1,19 @@
+{
+  SecureRole role=new SecureRole();
+  Assert.assertNull(role.getId());
+  Assert.assertNull(role.getRoleName());
+  Assert.assertNull(role.getPrivileges());
+  Assert.assertNull(role.getRoles());
+  role.setId(TEST_ID);
+  role.setRoleName(TEST_ROLE);
+  role.setPrivileges(TEST_PRIVILEGES);
+  role.setRoles(TEST_ROLES);
+  Assert.assertEquals(TEST_ID,role.getId());
+  Assert.assertEquals(TEST_ROLE,role.getRoleName());
+  Assert.assertEquals(TEST_PRIVILEGES,role.getPrivileges());
+  Assert.assertEquals(TEST_ROLES,role.getRoles());
+  MongoRoleDto dto=role.toDto();
+  Assert.assertEquals(TEST_ID,dto.getId());
+  Assert.assertEquals(TEST_ROLE,dto.getRoleName());
+  Assert.assertEquals(TEST_ROLES,dto.getRoles());
+}

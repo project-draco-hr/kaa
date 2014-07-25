@@ -30,7 +30,7 @@
           typeDto=NotificationTypeDto.valueOf(type);
         }
  catch (        IllegalArgumentException ex) {
-          errorWriter.println("Incorrect type of notification");
+          LOG.error("Incorrect type of notification {}",ex);
           return;
         }
         notificationSchemaDto.setType(typeDto);

@@ -1,6 +1,7 @@
 {
   if (types != null) {
     SyncRequest request=new SyncRequest();
+    request.setRequestId(requestsCounter.incrementAndGet());
     if (metaDataTransport != null) {
       request.setSyncRequestMetaData(metaDataTransport.createMetaDataRequest());
     }
@@ -20,7 +21,7 @@ case EVENT:
       request.setEventSyncRequest(new EventSyncRequest());
     }
  else     if (eventTransport != null) {
-      request.setEventSyncRequest(eventTransport.createEventRequest());
+      request.setEventSyncRequest(eventTransport.createEventRequest(request.getRequestId()));
     }
   break;
 case NOTIFICATION:
@@ -34,7 +35,6 @@ break;
 case PROFILE:
 if (!isDownDirection && profileTransport != null) {
 request.setProfileSyncRequest(profileTransport.createProfileRequest());
-;
 }
 break;
 case USER:

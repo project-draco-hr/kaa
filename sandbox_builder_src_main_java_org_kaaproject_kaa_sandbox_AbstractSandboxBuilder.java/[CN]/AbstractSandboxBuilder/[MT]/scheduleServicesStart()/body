@@ -1,0 +1,6 @@
+{
+  for (  KaaPackage kaaPackage : KaaPackage.values()) {
+    String command=osType.getStartServiceTemplate().replaceAll(SERVICE_NAME_VAR,kaaPackage.getServiceName());
+    scheduleSudoSshCommand(command);
+  }
+}

@@ -14,7 +14,8 @@
   if (request.getAccessToken() != null) {
     dto.setAccessToken(request.getAccessToken());
   }
-  dto.setSequenceNumber(0);
+  dto.setCfSequenceNumber(0);
+  dto.setNfSequenceNumber(0);
   dto.setChangedFlag(Boolean.FALSE);
   return endpointService.saveEndpointProfile(dto);
 }

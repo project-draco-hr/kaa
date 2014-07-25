@@ -5,5 +5,5 @@
   transport.onUserResponse(response);
   transport.setEndpointRegistrationProcessor(processor);
   transport.onUserResponse(response);
-  Mockito.verify(processor,Mockito.times(1)).onUpdate(Mockito.anyListOf(EndpointAttachResponse.class),Mockito.anyListOf(EndpointDetachResponse.class),Mockito.any(UserAttachResponse.class));
+  Mockito.verify(processor,Mockito.times(1)).onUpdate(Mockito.anyListOf(EndpointAttachResponse.class),Mockito.anyListOf(EndpointDetachResponse.class),Mockito.any(UserAttachResponse.class),Mockito.any(UserAttachNotification.class),Mockito.any(UserDetachNotification.class));
 }

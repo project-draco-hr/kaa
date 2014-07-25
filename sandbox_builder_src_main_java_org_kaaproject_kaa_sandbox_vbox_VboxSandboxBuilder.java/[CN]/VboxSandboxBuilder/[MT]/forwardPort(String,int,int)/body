@@ -1,0 +1,4 @@
+{
+  logger.info("Forwarding '" + name + "' port '{}'-->'{}' ...",guestPort,hostPort);
+  vboxManage("modifyvm",boxName,"--natpf1",name + ",tcp," + DEFAULT_HOST+ ","+ hostPort+ ",,"+ guestPort);
+}

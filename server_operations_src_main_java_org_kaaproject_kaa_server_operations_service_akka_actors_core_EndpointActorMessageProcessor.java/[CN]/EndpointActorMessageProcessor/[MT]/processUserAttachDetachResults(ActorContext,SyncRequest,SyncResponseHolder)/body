@@ -1,0 +1,32 @@
+{
+  if (responseHolder.getResponse().getUserSyncResponse() != null) {
+    List<EndpointAttachResponse> attachResponses=responseHolder.getResponse().getUserSyncResponse().getEndpointAttachResponses();
+    if (attachResponses != null) {
+      for (      EndpointAttachResponse response : attachResponses) {
+        if (response.getResult() != SyncResponseResultType.SUCCESS) {
+          LOG.debug("[{}][{}] Skipped unsuccessful attach response [{}]",endpointKey,actorKey,response.getRequestId());
+          continue;
+        }
+        EndpointUserAttachMessage attachMessage=new EndpointUserAttachMessage(EndpointObjectHash.fromBytes(Base64Util.decode(response.getEndpointKeyHash())),userId,endpointKey);
+        context.parent().tell(attachMessage,context.self());
+        LOG.debug("[{}][{}] Notification to attached endpoint [{}] sent",endpointKey,actorKey,response.getEndpointKeyHash());
+      }
+    }
+    List<EndpointDetachRequest> detachRequests=request.getUserSyncRequest() == null ? null : request.getUserSyncRequest().getEndpointDetachRequests();
+    if (detachRequests != null) {
+      for (      EndpointDetachRequest detachRequest : detachRequests) {
+        for (        EndpointDetachResponse detachResponse : responseHolder.getResponse().getUserSyncResponse().getEndpointDetachResponses()) {
+          if (detachRequest.getRequestId().equals(detachResponse.getRequestId())) {
+            if (detachResponse.getResult() != SyncResponseResultType.SUCCESS) {
+              LOG.debug("[{}][{}] Skipped unsuccessful detach response [{}]",endpointKey,actorKey,detachResponse.getRequestId());
+              continue;
+            }
+            EndpointUserDetachMessage attachMessage=new EndpointUserDetachMessage(EndpointObjectHash.fromBytes(Base64Util.decode(detachRequest.getEndpointKeyHash())),userId,endpointKey);
+            context.parent().tell(attachMessage,context.self());
+            LOG.debug("[{}][{}] Notification to detached endpoint [{}] sent",endpointKey,actorKey,detachRequest.getEndpointKeyHash());
+          }
+        }
+      }
+    }
+  }
+}

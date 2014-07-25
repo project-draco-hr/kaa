@@ -1,0 +1,40 @@
+{
+  reset();
+  int row=0;
+  for (  final Project project : projects) {
+    Label projectTitleLabel=new Label(project.getName());
+    projectTitleLabel.addStyleName("b-app-content-title-label");
+    if (row > 0) {
+      projectTitleLabel.getElement().getStyle().setPaddingTop(10,Unit.PX);
+    }
+    setWidget(row++,0,projectTitleLabel);
+    Label platformLabel=new Label("Platform: " + project.getPlatform().name());
+    platformLabel.getElement().getStyle().setFontWeight(FontWeight.NORMAL);
+    setWidget(row++,0,platformLabel);
+    HTML descLabel=new HTML(project.getDescription());
+    setWidget(row++,0,descLabel);
+    HorizontalPanel buttonsPanel=new HorizontalPanel();
+    buttonsPanel.setSpacing(5);
+    setWidget(row++,0,buttonsPanel);
+    Button getSourceCodeButton=new Button("Get source code");
+    buttonsPanel.add(getSourceCodeButton);
+    Button getBinaryButton=new Button("Get binary");
+    buttonsPanel.add(getBinaryButton);
+    registrations.add(getSourceCodeButton.addClickHandler(new ClickHandler(){
+      @Override public void onClick(      ClickEvent event){
+        String projectId=project.getId();
+        ProjectActionEvent action=new ProjectActionEvent(projectId,ProjectAction.GET_SOURCE_CODE);
+        fireEvent(action);
+      }
+    }
+));
+    registrations.add(getBinaryButton.addClickHandler(new ClickHandler(){
+      @Override public void onClick(      ClickEvent event){
+        String projectId=project.getId();
+        ProjectActionEvent action=new ProjectActionEvent(projectId,ProjectAction.GET_BINARY);
+        fireEvent(action);
+      }
+    }
+));
+  }
+}

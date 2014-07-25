@@ -15,7 +15,10 @@
   if (profileVersion != that.profileVersion) {
     return false;
   }
-  if (sequenceNumber != that.sequenceNumber) {
+  if (cfSequenceNumber != that.cfSequenceNumber) {
+    return false;
+  }
+  if (nfSequenceNumber != that.nfSequenceNumber) {
     return false;
   }
   if (systemNfVersion != that.systemNfVersion) {
@@ -33,7 +36,10 @@
   if (!Arrays.equals(configurationHash,that.configurationHash)) {
     return false;
   }
-  if (endpointGroupState != null ? !endpointGroupState.equals(that.endpointGroupState) : that.endpointGroupState != null) {
+  if (cfGroupState != null ? !cfGroupState.equals(that.cfGroupState) : that.cfGroupState != null) {
+    return false;
+  }
+  if (nfGroupState != null ? !nfGroupState.equals(that.nfGroupState) : that.nfGroupState != null) {
     return false;
   }
   if (!Arrays.equals(endpointKey,that.endpointKey)) {

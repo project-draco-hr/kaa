@@ -1,5 +1,7 @@
 {
   isShutdown=true;
   stopPoll();
-  scheduler.shutdownNow();
+  if (scheduler != null) {
+    scheduler.shutdownNow();
+  }
 }

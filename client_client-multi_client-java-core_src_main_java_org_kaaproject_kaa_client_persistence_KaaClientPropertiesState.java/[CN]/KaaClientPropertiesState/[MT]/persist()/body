@@ -1,0 +1,31 @@
+{
+  ByteArrayOutputStream baos=new ByteArrayOutputStream();
+  BinaryEncoder encoder=EncoderFactory.get().binaryEncoder(baos,null);
+  SpecificDatumWriter<TopicSubscriptionInfo> datumWriter=new SpecificDatumWriter<TopicSubscriptionInfo>(TopicSubscriptionInfo.class);
+  try {
+    for (    Map.Entry<String,TopicSubscriptionInfo> cursor : nfSubscriptions.entrySet()) {
+      datumWriter.write(cursor.getValue(),encoder);
+      LOG.info("Persisted {}",cursor.getValue());
+    }
+    encoder.flush();
+    state.setProperty(NF_SUBSCRIPTIONS,baos.toString());
+  }
+ catch (  IOException e) {
+    LOG.error("Can't persist notification subscription info",e);
+  }
+  StringBuilder attachedEndpointsString=new StringBuilder();
+  for (  Map.Entry<EndpointAccessToken,EndpointKeyHash> attached : attachedEndpoints.entrySet()) {
+    attachedEndpointsString.append(attached.getKey().getToken()).append(":").append(attached.getValue().getKeyHash()).append(',');
+  }
+  state.setProperty(ATTACHED_ENDPOINTS,attachedEndpointsString.toString());
+  state.setProperty(EVENT_SEQ_NUM,"" + eventSequence.get());
+  try {
+    storage.renameTo(stateFileLocation,stateFileLocation + "_bckp");
+    OutputStream os=storage.openForWrite(stateFileLocation);
+    state.store(os,null);
+    os.close();
+  }
+ catch (  IOException e) {
+    LOG.error("Can't persist state file",e);
+  }
+}

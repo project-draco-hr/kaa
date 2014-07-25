@@ -1,0 +1,10 @@
+{
+  System.setProperty(KaaClientProperties.KAA_CLIENT_PROPERTIES_FILE,"client-test.properties");
+  KaaClientProperties properties=new KaaClientProperties();
+  EndpointVersionInfo versionInfo=properties.getVersionInfo();
+  assertEquals(1,versionInfo.getConfigVersion().intValue());
+  assertEquals(1,versionInfo.getProfileVersion().intValue());
+  assertEquals(1,versionInfo.getSystemNfVersion().intValue());
+  assertEquals(1,versionInfo.getUserNfVersion().intValue());
+  assertEquals(1,versionInfo.getLogSchemaVersion().intValue());
+}

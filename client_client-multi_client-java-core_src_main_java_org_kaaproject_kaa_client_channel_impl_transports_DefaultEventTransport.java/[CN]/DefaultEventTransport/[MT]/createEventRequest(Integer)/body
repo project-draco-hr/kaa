@@ -1,0 +1,23 @@
+{
+  if (manager != null) {
+    EventSyncRequest request=new EventSyncRequest();
+    manager.fillEventListenersSyncRequest(request);
+    List<Event> events=new LinkedList<Event>();
+    if (!sentEvents.isEmpty()) {
+      for (      Map.Entry<Integer,List<Event>> pendingEvents : sentEvents.entrySet()) {
+        LOG.debug("Have not received response for {} events sent with request id {}",pendingEvents.getValue().size(),pendingEvents.getKey());
+        events.addAll(pendingEvents.getValue());
+      }
+      sentEvents.clear();
+    }
+    events.addAll(manager.getPendingEvents());
+    if (!events.isEmpty()) {
+      Collections.sort(events,eventComparator);
+      LOG.debug("Going to send {} event{}",events.size(),(events.size() == 1 ? "" : "s"));
+      request.setEvents(events);
+      sentEvents.put(requestId,events);
+    }
+    return request;
+  }
+  return null;
+}

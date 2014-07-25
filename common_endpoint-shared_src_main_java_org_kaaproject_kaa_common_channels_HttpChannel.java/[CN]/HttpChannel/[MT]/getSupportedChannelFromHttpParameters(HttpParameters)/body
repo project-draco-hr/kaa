@@ -1,5 +1,4 @@
 {
   HTTPComunicationParameters communicationParameters=new HTTPComunicationParameters(params.getHostName(),params.getPort());
-  SupportedChannel schannel=new SupportedChannel(getType(),(Object)communicationParameters);
-  return schannel;
+  return new SupportedChannel(getType(),(Object)communicationParameters);
 }

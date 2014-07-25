@@ -1,0 +1,16 @@
+{
+  String errorMessage=caught.getMessage();
+  if (errorMessage.contains(LEFT_SQUARE_BRACKET) && errorMessage.contains(RIGHT_SQUARE_BRACKET)) {
+    StringBuilder builder=new StringBuilder();
+    builder.append("Incorrect json schema: Please check your schema at");
+    String[] array=errorMessage.substring(errorMessage.indexOf(LEFT_SQUARE_BRACKET),errorMessage.indexOf(RIGHT_SQUARE_BRACKET)).split(SEMICOLON);
+    if (array != null && array.length == 2) {
+      builder.append(array[1]);
+      errorMessage=builder.toString();
+    }
+  }
+ else {
+    return "Incorrect schema: Please validate your schema.";
+  }
+  return errorMessage;
+}

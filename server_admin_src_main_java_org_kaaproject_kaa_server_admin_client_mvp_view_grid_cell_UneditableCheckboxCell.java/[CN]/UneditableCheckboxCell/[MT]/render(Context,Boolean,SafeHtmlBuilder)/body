@@ -1,0 +1,14 @@
+{
+  Object key=context.getKey();
+  Boolean viewData=getViewData(key);
+  if (viewData != null && viewData.equals(value)) {
+    clearViewData(key);
+    viewData=null;
+  }
+  if (value != null && ((viewData != null) ? viewData : value)) {
+    sb.append(INPUT_CHECKED_DISABLED);
+  }
+ else {
+    sb.append(INPUT_UNCHECKED_DISABLED);
+  }
+}

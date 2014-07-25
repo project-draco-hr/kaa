@@ -1,0 +1,12 @@
+{
+  if (logException) {
+    logger.error("Unexpected exception catched!",exception);
+  }
+  if (exception instanceof SandboxServiceException) {
+    return (SandboxServiceException)exception;
+  }
+ else {
+    SandboxServiceException sandboxServiceException=new SandboxServiceException(exception.getMessage());
+    return sandboxServiceException;
+  }
+}

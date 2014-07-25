@@ -4,12 +4,20 @@
     this.userAttachResponse=data().deepCopy(fields()[0].schema(),other.userAttachResponse);
     fieldSetFlags()[0]=true;
   }
-  if (isValidValue(fields()[1],other.endpointAttachResponses)) {
-    this.endpointAttachResponses=data().deepCopy(fields()[1].schema(),other.endpointAttachResponses);
+  if (isValidValue(fields()[1],other.userAttachNotification)) {
+    this.userAttachNotification=data().deepCopy(fields()[1].schema(),other.userAttachNotification);
     fieldSetFlags()[1]=true;
   }
-  if (isValidValue(fields()[2],other.endpointDetachResponses)) {
-    this.endpointDetachResponses=data().deepCopy(fields()[2].schema(),other.endpointDetachResponses);
+  if (isValidValue(fields()[2],other.userDetachNotification)) {
+    this.userDetachNotification=data().deepCopy(fields()[2].schema(),other.userDetachNotification);
     fieldSetFlags()[2]=true;
+  }
+  if (isValidValue(fields()[3],other.endpointAttachResponses)) {
+    this.endpointAttachResponses=data().deepCopy(fields()[3].schema(),other.endpointAttachResponses);
+    fieldSetFlags()[3]=true;
+  }
+  if (isValidValue(fields()[4],other.endpointDetachResponses)) {
+    this.endpointDetachResponses=data().deepCopy(fields()[4].schema(),other.endpointDetachResponses);
+    fieldSetFlags()[4]=true;
   }
 }

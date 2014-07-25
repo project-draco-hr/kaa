@@ -20,7 +20,7 @@
  catch (    IOException e) {
       throw new DatabaseProcessingException("Can't serialize notification body using schema: " + schemaId);
     }
-    long currentTime=System.currentTimeMillis();
+    long currentTime=new GregorianCalendar(TimeZone.getTimeZone("UTC")).getTimeInMillis();
     Date expiredAt=dto.getExpiredAt();
     dto.setExpiredAt(expiredAt != null ? expiredAt : new Date(currentTime + TTL));
     dto.setLastTimeModify(new Date(currentTime));

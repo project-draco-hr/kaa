@@ -1,5 +1,6 @@
 {
-  if (httpClient.canAbort()) {
+  canceled=true;
+  if (httpClient != null && httpClient.canAbort()) {
     httpClient.abort();
   }
 }

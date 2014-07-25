@@ -42,7 +42,7 @@
  else {
       throw new DatabaseProcessingException("Can't find notification schema by id " + schemaId);
     }
-    long currentTime=System.currentTimeMillis();
+    long currentTime=new GregorianCalendar(TimeZone.getTimeZone("UTC")).getTimeInMillis();
     Date expiredAt=notificationDto.getExpiredAt();
     notificationDto.setExpiredAt(expiredAt != null ? expiredAt : new Date(currentTime + TTL));
     notificationDto.setLastTimeModify(new Date(currentTime));

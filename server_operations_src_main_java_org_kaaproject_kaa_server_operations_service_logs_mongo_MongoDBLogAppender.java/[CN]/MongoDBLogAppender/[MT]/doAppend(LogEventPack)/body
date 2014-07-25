@@ -18,6 +18,6 @@
     LOG.debug("[{}] appended {} logs to mongodb collection",collectionName,logEventPack.getEvents().size());
   }
  else {
-    LOG.info("Can't append logs caused by Appender closed state is [{}] ",closed);
+    LOG.info("Attempted to append to closed appender named [{}].",name);
   }
 }

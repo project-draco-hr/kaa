@@ -1,0 +1,12 @@
+{
+  SecureResource resource=new SecureResource();
+  Assert.assertNull(resource.getDB());
+  Assert.assertNull(resource.getCollection());
+  resource.setDB(TEST_DB);
+  resource.setCollection(TEST_COLLECCTION);
+  Assert.assertEquals(TEST_DB,resource.getDB());
+  Assert.assertEquals(TEST_COLLECCTION,resource.getCollection());
+  MongoResourceDto dto=resource.toDto();
+  Assert.assertEquals(TEST_DB,dto.getDB());
+  Assert.assertEquals(TEST_COLLECCTION,dto.getCollection());
+}

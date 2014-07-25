@@ -8,7 +8,7 @@
             goTo(place.getPreviousPlace());
           }
           @Override public void onFailure(          Throwable caught){
-            detailsView.setErrorMessage(Utils.getErrorMessage(caught));
+            detailsView.setErrorMessage(ErrorMessageBuilder.buildErrorMessage(caught));
           }
         }
 );

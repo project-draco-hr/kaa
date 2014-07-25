@@ -1,0 +1,12 @@
+{
+  if (this == obj)   return true;
+  if (obj == null)   return false;
+  if (getClass() != obj.getClass())   return false;
+  ProjectDataKey other=(ProjectDataKey)obj;
+  if (projectDataType != other.projectDataType)   return false;
+  if (projectId == null) {
+    if (other.projectId != null)     return false;
+  }
+ else   if (!projectId.equals(other.projectId))   return false;
+  return true;
+}

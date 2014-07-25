@@ -1,0 +1,8 @@
+{
+  ChannelMap map=new ChannelMap("endpointKey","actorKey");
+  Assert.assertNull(map.getByRequestId(UUID.randomUUID()));
+  SyncRequestMessage message=new SyncRequestMessage(null,null,null,null,null,null,null,null);
+  map.addChannel(new ChannelMetaData(message));
+  Assert.assertNotNull(map.getByRequestId(message.getUuid()));
+  Assert.assertNull(map.getByRequestId(UUID.randomUUID()));
+}

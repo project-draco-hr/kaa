@@ -1,0 +1,7 @@
+{
+  MultiValueMap<String,String> params=new LinkedMultiValueMap<String,String>();
+  params.add("username",username);
+  params.add("oldPassword",oldPassword);
+  params.add("newPassword",newPassword);
+  return restTemplate.postForObject(url + "auth/changePassword",params,ResultCode.class);
+}

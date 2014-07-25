@@ -50,7 +50,6 @@
     LOG.debug("[{}] No changes to current application group configurations was maid -> no delta",endpointId);
     response=new GetDeltaResponse(GetDeltaResponseType.NO_DELTA,curAppSeqNumber);
   }
-  profile.setSequenceNumber(curAppSeqNumber);
   LOG.debug("[{}] Response: {}",endpointId,response);
   return response;
 }

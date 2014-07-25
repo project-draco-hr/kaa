@@ -1,0 +1,37 @@
+{
+  view.clearMessages();
+  Sandbox.getSandboxService().checkProjectDataExists(projectId,type,new AsyncCallback<Boolean>(){
+    @Override public void onFailure(    Throwable caught){
+      view.setErrorMessage(Utils.getErrorMessage(caught));
+    }
+    @Override public void onSuccess(    Boolean result){
+      if (result) {
+        ServletHelper.downloadProjectFile(projectId,type);
+      }
+ else {
+        ConsoleDialog.startConsoleDialog(new ConsoleDialogListener(){
+          @Override public void onOk(          boolean success){
+            if (success) {
+              ServletHelper.downloadProjectFile(projectId,type);
+            }
+          }
+          @Override public void onStart(          String uuid,          final ConsoleDialog dialog,          final AsyncCallback<Void> callback){
+            Sandbox.getSandboxService().buildProjectData(uuid,projectId,type,new AsyncCallback<Void>(){
+              @Override public void onFailure(              Throwable caught){
+                callback.onFailure(caught);
+              }
+              @Override public void onSuccess(              Void result){
+                dialog.appendToConsoleAtFinish("Succesfully prepared project data!\n");
+                dialog.appendToConsoleAtFinish("\n\n\n-------- CLICK OK TO START DOWNLOAD " + (type == ProjectDataType.SOURCE ? "PROJECT SOURCES" : "BINARY FILE") + " --------\n\n\n");
+                callback.onSuccess(result);
+              }
+            }
+);
+          }
+        }
+);
+      }
+    }
+  }
+);
+}

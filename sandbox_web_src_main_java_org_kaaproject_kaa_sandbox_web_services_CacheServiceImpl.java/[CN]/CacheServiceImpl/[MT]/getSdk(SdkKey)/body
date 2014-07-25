@@ -1,0 +1,12 @@
+{
+  AdminClient client=clientProvider.getClient();
+  client.login(TENANT_DEVELOPER_USER,TENANT_DEVELOPER_PASSWORD);
+  FileData fileData;
+  try {
+    fileData=client.downloadSdk(key);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+  return fileData;
+}

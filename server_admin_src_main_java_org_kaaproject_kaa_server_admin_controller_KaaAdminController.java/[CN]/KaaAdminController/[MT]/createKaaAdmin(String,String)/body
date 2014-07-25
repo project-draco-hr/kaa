@@ -1,3 +1,8 @@
 {
-  kaaAuthService.createKaaAdmin(username,password);
+  if (!userFacade.isAuthorityExists(KaaAuthorityDto.KAA_ADMIN.name())) {
+    kaaAuthService.createKaaAdmin(username,password);
+  }
+ else {
+    throw new KaaAdminServiceException("Kaa admin already exists. Can't create more than one kaa admin users.",ServiceErrorCode.GENERAL_ERROR);
+  }
 }

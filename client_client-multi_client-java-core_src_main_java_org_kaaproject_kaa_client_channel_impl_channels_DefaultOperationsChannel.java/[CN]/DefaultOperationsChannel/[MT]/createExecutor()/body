@@ -1,0 +1,12 @@
+{
+  LOG.info("Creating a new executor for channel {}",getId());
+  return new ScheduledThreadPoolExecutor(1){
+    @Override protected <V>RunnableScheduledFuture<V> decorateTask(    Runnable runnable,    RunnableScheduledFuture<V> task){
+      if (runnable instanceof CancelableRunnable) {
+        return new CancelableScheduledFuture<V>((CancelableRunnable)runnable,task);
+      }
+      return super.decorateTask(runnable,task);
+    }
+  }
+;
+}

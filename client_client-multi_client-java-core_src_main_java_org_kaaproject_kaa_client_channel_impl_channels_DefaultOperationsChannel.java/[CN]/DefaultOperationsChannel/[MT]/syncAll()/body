@@ -3,6 +3,10 @@
     LOG.info("Can't sync. Channel {} is down",getId());
     return;
   }
+  if (isPaused) {
+    LOG.info("Can't sync. Channel {} is paused",getId());
+    return;
+  }
   LOG.info("Processing sync all for channel {}",getId());
   if (multiplexer != null && demultiplexer != null) {
     if (currentServer != null) {

@@ -5,6 +5,7 @@
         recordView.setErrorMessage(Utils.getErrorMessage(caught));
       }
       @Override public void onSuccess(      List<SchemaDto> result){
+        recordView.getSchema().setValue(Utils.getMaxSchemaVersions(result));
         recordView.getSchema().setAcceptableValues(result);
         recordView.getRecordPanel().setData(record);
         recordView.getRecordPanel().openDraft();

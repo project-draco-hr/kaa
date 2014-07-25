@@ -1,0 +1,8 @@
+{
+  isPaused=true;
+  stopPoll();
+  if (scheduler != null) {
+    scheduler.shutdownNow();
+    scheduler=null;
+  }
+}

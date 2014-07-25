@@ -1,20 +1,22 @@
 {
 switch (field$) {
 case 0:
-    return status;
+    return requestId;
 case 1:
-  return profileSyncResponse;
+  return status;
 case 2:
-return configurationSyncResponse;
+return profileSyncResponse;
 case 3:
-return notificationSyncResponse;
+return configurationSyncResponse;
 case 4:
-return userSyncResponse;
+return notificationSyncResponse;
 case 5:
-return eventSyncResponse;
+return userSyncResponse;
 case 6:
-return redirectSyncResponse;
+return eventSyncResponse;
 case 7:
+return redirectSyncResponse;
+case 8:
 return logSyncResponse;
 default :
 throw new org.apache.avro.AvroRuntimeException("Bad index");

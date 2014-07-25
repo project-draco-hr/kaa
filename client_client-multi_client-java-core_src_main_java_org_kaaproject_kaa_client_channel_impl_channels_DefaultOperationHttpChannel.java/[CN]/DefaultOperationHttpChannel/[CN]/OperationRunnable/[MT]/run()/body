@@ -1,13 +1,10 @@
 {
-synchronized (DefaultOperationHttpChannel.this) {
-    try {
-      processTypes(typesToProcess);
-      lastConnectionFailed=false;
-    }
- catch (    Exception e) {
-      LOG.error("Failed to receive response from the operation {}",e);
-      lastConnectionFailed=true;
-      client.getChannelMananager().onServerFailed(currentServer);
-    }
+  try {
+    processTypes(typesToProcess);
+    connectionFailed(false);
+  }
+ catch (  Exception e) {
+    LOG.error("Failed to receive response from the operation {}",e);
+    connectionFailed(true);
   }
 }

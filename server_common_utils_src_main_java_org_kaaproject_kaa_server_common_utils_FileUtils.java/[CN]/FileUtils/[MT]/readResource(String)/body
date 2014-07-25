@@ -14,7 +14,7 @@
     result=fileData.toString();
   }
  catch (  IOException e) {
-    logger.error("Unable to read from specified resource '" + resource + "'! Error: "+ e.getMessage(),e);
+    LOG.error("Unable to read from specified resource '" + resource + "'! Error: "+ e.getMessage(),e);
     throw e;
   }
   return result;

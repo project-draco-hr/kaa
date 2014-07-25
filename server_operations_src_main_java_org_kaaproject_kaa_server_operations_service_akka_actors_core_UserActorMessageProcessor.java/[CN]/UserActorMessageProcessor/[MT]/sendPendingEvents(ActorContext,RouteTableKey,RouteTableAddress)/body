@@ -1,6 +1,6 @@
 {
   List<EndpointEvent> events=eventStorage.getEvents(key,address);
-  for (  EndpointEvent event : events) {
-    sendEventToRecepient(context,event,address);
+  if (events.size() > 0) {
+    sendEventsToRecepient(context,address,events);
   }
 }

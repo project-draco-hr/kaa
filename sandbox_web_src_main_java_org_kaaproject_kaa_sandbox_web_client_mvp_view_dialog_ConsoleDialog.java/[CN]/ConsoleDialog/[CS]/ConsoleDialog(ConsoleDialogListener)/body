@@ -1,0 +1,31 @@
+{
+  super(false,true);
+  this.listener=listener;
+  VerticalPanel dialogContents=new VerticalPanel();
+  dialogContents.setSpacing(4);
+  setWidget(dialogContents);
+  console=new TextArea();
+  console.setReadOnly(true);
+  int width=Window.getClientWidth();
+  int height=Window.getClientHeight();
+  console.setSize(width * 2 / 3 + "px",height * 2 / 3 + "px");
+  Style consoleStyle=console.getElement().getStyle();
+  consoleStyle.setPropertyPx("minHeight",200);
+  consoleStyle.setBackgroundColor("#000000");
+  consoleStyle.setColor("#00FF00");
+  consoleStyle.setFontSize(11,Unit.PX);
+  consoleStyle.setProperty("fontFamily","Georgia");
+  okButton=new Button("Ok");
+  addButton(okButton);
+  dialogContents.add(console);
+  okButton.addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      hide();
+      if (ConsoleDialog.this.listener != null) {
+        ConsoleDialog.this.listener.onOk(success);
+      }
+    }
+  }
+);
+  okButton.setEnabled(false);
+}

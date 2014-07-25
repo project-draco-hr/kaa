@@ -1,0 +1,14 @@
+{
+  List<String> commandList=new ArrayList<>();
+  commandList.add(vboxManagePath);
+  commandList.addAll(Arrays.asList(command));
+  String commandString="";
+  for (  String _command : commandList) {
+    if (StringUtils.isNotBlank(commandString)) {
+      commandString+=" ";
+    }
+    commandString+=_command;
+  }
+  logger.info(commandString);
+  return execute(logOutput,commandList).trim();
+}

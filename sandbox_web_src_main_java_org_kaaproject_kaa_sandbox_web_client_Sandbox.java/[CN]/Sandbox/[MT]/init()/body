@@ -1,0 +1,19 @@
+{
+  injectThemeStyleSheet();
+  Utils.resources.css().ensureInjected();
+  ClientFactory clientFactory=GWT.create(ClientFactory.class);
+  EventBus eventBus=clientFactory.getEventBus();
+  PlaceController placeController=clientFactory.getPlaceController();
+  ActivityMapper headerActivityMapper=new HeaderActivityMapper(clientFactory);
+  ActivityManager headerActivityManager=new ActivityManager(headerActivityMapper,eventBus);
+  headerActivityManager.setDisplay(appWidget.getAppHeaderHolder());
+  ActivityMapper appActivityMapper=new SandboxActivityMapper(clientFactory);
+  ActivityManager appActivityManager=new ActivityManager(appActivityMapper,eventBus);
+  appActivityManager.setDisplay(appWidget.getAppContentHolder());
+  PlaceHistoryMapper historyMapper=GWT.create(SandboxPlaceHistoryMapper.class);
+  PlaceHistoryHandler historyHandler=new PlaceHistoryHandler(historyMapper);
+  Place place=new MainPlace();
+  historyHandler.register(placeController,eventBus,place);
+  RootLayoutPanel.get().add(appWidget);
+  historyHandler.handleCurrentHistory();
+}

@@ -1,0 +1,7 @@
+{
+  ProfileTransport transport=Mockito.mock(ProfileTransport.class);
+  ProfileListener listener=new DefaultProfileListener(transport);
+  listener.onProfileUpdated(null);
+  listener.onProfileUpdated(new byte[1]);
+  Mockito.verify(transport,Mockito.times(1)).sync();
+}

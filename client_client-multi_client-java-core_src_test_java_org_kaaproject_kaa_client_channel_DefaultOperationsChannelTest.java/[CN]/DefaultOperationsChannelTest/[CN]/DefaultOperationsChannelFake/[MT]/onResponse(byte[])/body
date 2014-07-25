@@ -1,0 +1,11 @@
+{
+  super.onResponse(response);
+  try {
+    Field field=DefaultOperationsChannel.class.getDeclaredField("stopped");
+    field.setAccessible(true);
+    field.setBoolean(this,true);
+  }
+ catch (  Exception e) {
+    throw new AssertionError(e.getMessage());
+  }
+}

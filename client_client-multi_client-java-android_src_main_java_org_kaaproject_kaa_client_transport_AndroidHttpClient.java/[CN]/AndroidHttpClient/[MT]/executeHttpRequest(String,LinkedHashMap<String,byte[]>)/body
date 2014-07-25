@@ -6,20 +6,26 @@
     requestEntity.addPart(key,new ByteArrayBody(entity.get(key),null));
   }
   method.setEntity(requestEntity);
-  LOG.debug("Executing request {}",method.getRequestLine());
-  HttpResponse response=httpClient.execute(method);
-  try {
-    LOG.debug("Received {}",response.getStatusLine());
-    int status=response.getStatusLine().getStatusCode();
-    if (status >= 200 && status < 300) {
-      responseDataRaw=getResponseBody(response);
-    }
+  if (!Thread.currentThread().isInterrupted()) {
+    LOG.debug("Executing request {}",method.getRequestLine());
+    HttpResponse response=httpClient.execute(method);
+    try {
+      LOG.debug("Received {}",response.getStatusLine());
+      int status=response.getStatusLine().getStatusCode();
+      if (status >= 200 && status < 300) {
+        responseDataRaw=getResponseBody(response);
+      }
  else {
-      throw new TransportException("Invalid response code from server: " + status);
+        throw new TransportException("Invalid response code from server: " + status);
+      }
+    }
+  finally {
+      method=null;
     }
   }
-  finally {
+ else {
     method=null;
+    throw new InterruptedException();
   }
   return responseDataRaw;
 }

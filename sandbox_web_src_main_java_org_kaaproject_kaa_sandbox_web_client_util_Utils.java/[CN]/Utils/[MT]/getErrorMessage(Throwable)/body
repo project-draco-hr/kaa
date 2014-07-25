@@ -1,0 +1,11 @@
+{
+  if (throwable instanceof SandboxServiceException) {
+    SandboxServiceException sandboxException=(SandboxServiceException)throwable;
+    String message=constants.general_error();
+    message+=sandboxException.getMessage();
+    return message;
+  }
+ else {
+    return throwable.getMessage();
+  }
+}

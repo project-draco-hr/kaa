@@ -2,6 +2,9 @@
   if (!stopped) {
     stopPollScheduler(true);
   }
+  if (scheduler == null) {
+    scheduler=createExecutor();
+  }
   stopped=false;
   LOG.info("Starting poll scheduler..");
   taskPosted=true;

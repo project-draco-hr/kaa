@@ -1,0 +1,11 @@
+{
+  if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
+    String userName=view.getUsernameBox().getText();
+    String password=view.getPasswordBox().getText();
+    if (userName != null && password != null) {
+      if (userName.length() > 0 && password.length() > 0) {
+        onClick(null);
+      }
+    }
+  }
+}

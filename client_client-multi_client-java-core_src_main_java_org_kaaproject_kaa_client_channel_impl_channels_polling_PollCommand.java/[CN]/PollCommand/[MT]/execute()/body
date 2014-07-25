@@ -1,13 +1,23 @@
 {
   try {
-    LinkedHashMap<String,byte[]> request=processor.createRequest(transportTypes);
-    if (request != null) {
-      byte[] responseDataRaw=httpClient.executeHttpRequest("",request);
-      processor.onResponse(responseDataRaw);
+    if (httpClient != null) {
+      LinkedHashMap<String,byte[]> request=processor.createRequest(transportTypes);
+      if (request != null && !canceled) {
+        byte[] responseDataRaw=httpClient.executeHttpRequest("",request);
+        processor.onResponse(responseDataRaw);
+      }
+    }
+ else {
+      LOG.warn("Unable to execute http request, http client is null.");
     }
   }
  catch (  Exception e) {
-    LOG.error("Server failed {}",e);
+    if (!canceled) {
+      LOG.error("Server failed {}",e);
+    }
+ else {
+      LOG.debug("PollCommand execution aborted");
+    }
     processor.onServerError(serverInfo);
   }
 }

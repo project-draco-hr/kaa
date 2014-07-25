@@ -1,11 +1,21 @@
 {
-  if (this == obj)   return true;
-  if (obj == null)   return false;
-  if (getClass() != obj.getClass())   return false;
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
   TenantUserDto other=(TenantUserDto)obj;
   if (getTenantId() == null) {
-    if (other.getTenantId() != null)     return false;
+    if (other.getTenantId() != null) {
+      return false;
+    }
   }
- else   if (!getTenantId().equals(other.getTenantId()))   return false;
+ else   if (!getTenantId().equals(other.getTenantId())) {
+    return false;
+  }
   return true;
 }

@@ -1,8 +1,8 @@
 {
   EventManager manager=Mockito.mock(EventManager.class);
   EventTransport transport=new DefaultEventTransport();
-  transport.createEventRequest();
+  transport.createEventRequest(1);
   transport.setEventManager(manager);
-  transport.createEventRequest();
-  Mockito.verify(manager,Mockito.times(1)).fillEventSyncRequest(Mockito.any(EventSyncRequest.class));
+  transport.createEventRequest(2);
+  Mockito.verify(manager,Mockito.times(1)).fillEventListenersSyncRequest(Mockito.any(EventSyncRequest.class));
 }

@@ -1,8 +1,9 @@
 {
+  KaaClientPropertiesState state=new KaaClientPropertiesState(new FilePersistentStorage(),KaaClientPropertiesStateTest.getProperties());
   EventTransport transport=Mockito.mock(EventTransport.class);
   ConcreteEventFamily eventFamily=new ConcreteEventFamily("kaa.test.event.PlayEvent");
   ConcreteEventFamily eventFamily2=new ConcreteEventFamily("kaa.test.event.StopEvent");
-  EventManager eventManager=new DefaultEventManager(transport);
+  EventManager eventManager=new DefaultEventManager(state,transport);
   eventManager.registerEventFamily(eventFamily);
   eventManager.registerEventFamily(eventFamily2);
   assertEquals("Events count doesn't match",new Integer(0),eventFamily.getEventsCount());

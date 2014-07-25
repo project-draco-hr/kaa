@@ -1,0 +1,40 @@
+{
+  if (boxLoaded()) {
+    logger.info("Box with name '{}' already exists. Going to unload old instance ...",boxName);
+    if (boxRunning()) {
+      stopBox();
+    }
+    unloadBox();
+  }
+  loadBox();
+  try {
+    prepareBox();
+    startBox();
+    provisionBox();
+    schedulePackagesInstall();
+    scheduleServicesStart();
+    logger.info("Executing remote ssh commands...");
+    executeScheduledSshCommands();
+    logger.info("Remote ssh commands execution is completed.");
+    logger.info("Sleeping 20 sec.");
+    Thread.sleep(20000);
+    initBoxData();
+    logger.info("Sleeping 5 sec.");
+    Thread.sleep(5000);
+    unprovisionBox();
+    logger.info("Executing remote ssh commands...");
+    executeScheduledSshCommands();
+    logger.info("Remote ssh commands execution is completed.");
+    stopBox();
+    cleanupBox();
+    exportBox();
+  }
+  finally {
+    if (boxLoaded()) {
+      if (boxRunning()) {
+        stopBox();
+      }
+      unloadBox();
+    }
+  }
+}

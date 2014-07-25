@@ -1,0 +1,20 @@
+{
+  SecureUser user=new SecureUser();
+  Assert.assertNull(user.getId());
+  Assert.assertNull(user.getUserName());
+  Assert.assertNull(user.getPassword());
+  Assert.assertNull(user.getRoles());
+  user.setId(TEST_ID);
+  user.setUserName(TEST_NAME);
+  user.setPassword(TEST_PASSWORD);
+  user.setRoles(TEST_ROLES);
+  Assert.assertEquals(TEST_ID,user.getId());
+  Assert.assertEquals(TEST_NAME,user.getUserName());
+  Assert.assertEquals(TEST_PASSWORD,user.getPassword());
+  Assert.assertEquals(TEST_ROLES,user.getRoles());
+  MongoUserDto dto=user.toDto();
+  Assert.assertEquals(TEST_ID,dto.getId());
+  Assert.assertEquals(TEST_NAME,dto.getUserName());
+  Assert.assertEquals(TEST_PASSWORD,dto.getPassword());
+  Assert.assertEquals(TEST_ROLES,dto.getRoles());
+}

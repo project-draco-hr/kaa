@@ -1,0 +1,9 @@
+{
+  if (place != null) {
+    Class<? extends Place> clazz=place.getClass();
+    if (clazz == MainPlace.class) {
+      return new MainActivity((MainPlace)place,clientFactory);
+    }
+  }
+  return null;
+}

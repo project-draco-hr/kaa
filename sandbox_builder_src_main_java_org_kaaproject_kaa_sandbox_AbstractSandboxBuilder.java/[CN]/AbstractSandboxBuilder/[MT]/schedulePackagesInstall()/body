@@ -1,0 +1,6 @@
+{
+  for (  KaaPackage kaaPackage : KaaPackage.values()) {
+    String command=osType.getInstallPackageTemplate().replaceAll(DISTRO_PATH_VAR,DISTRO_PATH).replaceAll(PACKAGE_NAME_VAR,kaaPackage.getPackageName());
+    scheduleSudoSshCommand(command);
+  }
+}

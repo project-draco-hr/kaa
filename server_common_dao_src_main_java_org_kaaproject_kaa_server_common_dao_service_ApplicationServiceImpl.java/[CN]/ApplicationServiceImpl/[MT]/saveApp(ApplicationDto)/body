@@ -18,7 +18,7 @@
       applicationDto.setUserVerifierName(DUMMY_ENDPOINT_USER_VERIFIER);
     }
     if (applicationDto.getLogAppendersNames() == null || applicationDto.getLogAppendersNames().isEmpty()) {
-      applicationDto.setLogAppendersNames(MONGODB_ENDPOINT_LOG_APPENDER);
+      applicationDto.setLogAppendersNames(MONGODB_ENDPOINT_LOG_APPENDER + "," + FILESYSTEM_ENDPOINT_LOG_APPENDER);
     }
     EndpointUserVerifier userVerifier=verifierResolver.resolve(applicationDto.getUserVerifierName());
     if (userVerifier == null) {

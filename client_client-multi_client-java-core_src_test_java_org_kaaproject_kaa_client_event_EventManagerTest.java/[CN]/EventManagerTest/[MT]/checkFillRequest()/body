@@ -1,6 +1,7 @@
 {
+  KaaClientPropertiesState state=new KaaClientPropertiesState(new FilePersistentStorage(),KaaClientPropertiesStateTest.getProperties());
   EventTransport transport=Mockito.mock(EventTransport.class);
-  EventManager eventManager=new DefaultEventManager(transport);
+  EventManager eventManager=new DefaultEventManager(state,transport);
   EventSyncRequest request=new EventSyncRequest();
   try {
     eventManager.produceEvent("kaa.test.event.SomeEvent",new byte[0],"theTarget");
@@ -8,7 +9,8 @@
  catch (  IOException e) {
     assertTrue("Unexpected exception",false);
   }
-  eventManager.fillEventSyncRequest(request);
+  eventManager.fillEventListenersSyncRequest(request);
+  request.setEvents(eventManager.getPendingEvents());
   assertNotNull(request.getEvents());
   assertEquals(1,request.getEvents().size());
   assertEquals("kaa.test.event.SomeEvent",request.getEvents().get(0).getEventClassFQN());
@@ -31,7 +33,7 @@
     }
   }
 );
-  eventManager.fillEventSyncRequest(request);
+  eventManager.fillEventListenersSyncRequest(request);
   assertNotNull(request.getEventListenersRequests());
   assertEquals(2,request.getEventListenersRequests().size());
   assertArrayEquals(eventFQNs.toArray(),request.getEventListenersRequests().get(0).getEventClassFQNs().toArray());

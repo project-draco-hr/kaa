@@ -1,0 +1,7 @@
+{
+  List<Topic> topics=new LinkedList<Topic>();
+  for (  Map.Entry<String,TopicSubscriptionInfo> cursor : nfSubscriptions.entrySet()) {
+    topics.add(cursor.getValue().getTopicInfo());
+  }
+  return topics;
+}

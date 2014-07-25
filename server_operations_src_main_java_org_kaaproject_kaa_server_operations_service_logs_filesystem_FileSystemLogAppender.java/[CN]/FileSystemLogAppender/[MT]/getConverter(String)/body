@@ -1,0 +1,8 @@
+{
+  if (!converters.containsKey(schema)) {
+    ThreadLocal<GenericAvroConverter<GenericRecord>> converter=new ThreadLocal<GenericAvroConverter<GenericRecord>>();
+    converter.set(new GenericAvroConverter<GenericRecord>(schema));
+    converters.put(schema,converter);
+  }
+  return converters.get(schema).get();
+}

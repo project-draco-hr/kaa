@@ -1,0 +1,20 @@
+{
+  KaaClientState state=mock(KaaClientState.class);
+  when(state.getEndpointAccessToken()).thenReturn("");
+  CurrentEndpointAttachListener listener=mock(CurrentEndpointAttachListener.class);
+  DefaultEndpointRegistrationManager manager=new DefaultEndpointRegistrationManager(state,null,null);
+  manager.setAttachedListener(null);
+  manager.onUpdate(null,null,null,new UserAttachNotification("foo","bar"),null);
+  manager.setAttachedListener(listener);
+  manager.onUpdate(null,null,null,new UserAttachNotification("foo","bar"),null);
+  verify(listener,times(1)).onAttachedToUser("foo","bar");
+  verify(state,times(2)).setAttachedToUser(true);
+  manager.setAttachedListener(null);
+  manager.attachUser("foo","bar",null);
+  manager.onUpdate(null,null,new UserAttachResponse(SyncResponseResultType.SUCCESS),null,null);
+  manager.setAttachedListener(listener);
+  manager.attachUser("foo","bar",null);
+  manager.onUpdate(null,null,new UserAttachResponse(SyncResponseResultType.SUCCESS),null,null);
+  verify(listener,times(2)).onAttachedToUser(anyString(),anyString());
+  verify(state,times(4)).setAttachedToUser(true);
+}

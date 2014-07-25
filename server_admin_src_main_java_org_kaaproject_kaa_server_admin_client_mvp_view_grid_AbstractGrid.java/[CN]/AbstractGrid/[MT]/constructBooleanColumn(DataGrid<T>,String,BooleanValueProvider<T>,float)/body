@@ -1,6 +1,6 @@
 {
   Header<SafeHtml> header=new SafeHtmlHeader(SafeHtmlUtils.fromSafeConstant(title));
-  Column<T,Boolean> column=new Column<T,Boolean>(new CheckboxCell()){
+  Column<T,Boolean> column=new Column<T,Boolean>(new UneditableCheckboxCell()){
     @Override public Boolean getValue(    T item){
       return valueProvider.getValue(item);
     }

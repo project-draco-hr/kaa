@@ -26,10 +26,10 @@ break;
 }
 topicList.add(topic);
 }
+response.setAvailableTopics(topicList);
+}
 if (notificationResponse.hasDelta()) {
 response.setResponseStatus(SyncResponseStatus.DELTA);
-}
-response.setAvailableTopics(topicList);
 }
 response.setAppStateSeqNumber(curAppSeqNumber);
 return response;

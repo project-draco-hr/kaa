@@ -1,0 +1,7 @@
+{
+  SandboxSshExec sshExec=createSshExec();
+  sshExec.setCommand("sudo " + command);
+  sshExec.setOutputproperty("sshOutProp");
+  sshExec.execute();
+  return sandboxProject.getProperty("sshOutProp");
+}

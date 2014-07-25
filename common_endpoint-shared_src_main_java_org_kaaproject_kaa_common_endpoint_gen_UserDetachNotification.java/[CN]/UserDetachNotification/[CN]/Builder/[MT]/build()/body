@@ -1,0 +1,10 @@
+{
+  try {
+    UserDetachNotification record=new UserDetachNotification();
+    record.endpointAccessToken=fieldSetFlags()[0] ? this.endpointAccessToken : (java.lang.String)defaultValue(fields()[0]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

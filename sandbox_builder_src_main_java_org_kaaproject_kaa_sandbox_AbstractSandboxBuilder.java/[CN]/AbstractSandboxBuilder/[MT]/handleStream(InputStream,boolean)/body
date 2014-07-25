@@ -1,0 +1,16 @@
+{
+  String line;
+  StringWriter output=new StringWriter();
+  BufferedReader reader=new BufferedReader(new InputStreamReader(input));
+  BufferedWriter writer=new BufferedWriter(output);
+  while ((line=reader.readLine()) != null) {
+    if (logOutput) {
+      logger.info(line);
+    }
+    writer.write(line);
+    writer.newLine();
+  }
+  input.close();
+  writer.close();
+  return output.toString();
+}

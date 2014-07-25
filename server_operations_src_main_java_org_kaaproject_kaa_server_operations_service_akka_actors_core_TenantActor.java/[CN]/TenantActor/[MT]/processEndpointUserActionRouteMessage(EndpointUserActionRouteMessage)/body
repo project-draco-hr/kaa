@@ -1,0 +1,8 @@
+{
+  for (  Entry<String,ActorRef> entry : applications.entrySet()) {
+    if (!entry.getKey().equals(message.getOriginalApplicationToken())) {
+      LOG.debug("[{}] Forwarding message to [{}] application",tenantId,entry.getKey());
+      entry.getValue().tell(message,self());
+    }
+  }
+}

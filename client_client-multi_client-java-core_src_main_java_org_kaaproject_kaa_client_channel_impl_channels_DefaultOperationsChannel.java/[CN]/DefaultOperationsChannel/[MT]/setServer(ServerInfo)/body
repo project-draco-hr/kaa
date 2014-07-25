@@ -6,7 +6,12 @@
   if (server != null) {
     stopPoll();
     this.currentServer=(HttpLongPollServerInfo)server;
-    this.httpClient=client.createHttpClient(currentServer.getURL(),state.getPrivateKey(),state.getPublicKey(),currentServer.getPublicKey());
+synchronized (httpClientLock) {
+      this.httpClient=client.createHttpClient(currentServer.getURL(),state.getPrivateKey(),state.getPublicKey(),currentServer.getPublicKey());
+synchronized (httpClientSetLock) {
+        httpClientSetLock.notifyAll();
+      }
+    }
     startPoll();
   }
 }

@@ -3,6 +3,9 @@
   if (message instanceof EndpointUserConnectMessage) {
     processEndpointConnectMessage((EndpointUserConnectMessage)message);
   }
+ else   if (message instanceof EndpointUserDisconnectMessage) {
+    processEndpointDisconnectMessage((EndpointUserDisconnectMessage)message);
+  }
  else   if (message instanceof EndpointEventSendMessage) {
     processEndpointEventSendMessage((EndpointEventSendMessage)message);
   }

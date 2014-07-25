@@ -1,5 +1,5 @@
 {
-  HistoryDelta historyDelta=historyDeltaService.getDelta(profile,APP1_TOKEN,101,101);
+  HistoryDelta historyDelta=historyDeltaService.getDelta(profile,HistorySubject.CONFIGURATION,APP1_TOKEN,101,101);
   Assert.assertNotNull(historyDelta);
   Assert.assertFalse(historyDelta.isConfigurationChanged());
   Assert.assertFalse(historyDelta.isTopicListChanged());

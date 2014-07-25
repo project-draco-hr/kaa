@@ -1,0 +1,11 @@
+{
+  try {
+    UserAttachNotification record=new UserAttachNotification();
+    record.userExternalId=fieldSetFlags()[0] ? this.userExternalId : (java.lang.String)defaultValue(fields()[0]);
+    record.endpointAccessToken=fieldSetFlags()[1] ? this.endpointAccessToken : (java.lang.String)defaultValue(fields()[1]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

@@ -1,0 +1,53 @@
+{
+  AdminClient adminClient=new AdminClient(DEFAULT_HOST,webAdminForwardPort);
+  List<DemoBuilder> demoBuilders=DemoBuildersRegistry.getRegisteredDemoBuilders();
+  List<Project> projects=new ArrayList<>();
+  for (  DemoBuilder demoBuilder : demoBuilders) {
+    demoBuilder.buildDemoApplication(adminClient);
+    projects.add(demoBuilder.getProjectConfig());
+  }
+  File projectsXmlFile=new File(demoProjectsPath,DEMO_PROJECTS_XML);
+  ProjectsConfig projectsConfig=new ProjectsConfig();
+  projectsConfig.getProjects().addAll(projects);
+  JAXBContext jc=JAXBContext.newInstance("org.kaaproject.kaa.sandbox.demo.projects");
+  Marshaller marshaller=jc.createMarshaller();
+  marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT,Boolean.TRUE);
+  marshaller.marshal(projectsConfig,projectsXmlFile);
+  String sandboxSplashFileTemplate=FileUtils.readResource(SANDBOX_SPLASH_PY_TEMPLATE);
+  String sandboxSplashFileSource=AbstractDemoBuilder.updateCredentialsInfo(sandboxSplashFileTemplate);
+  sandboxSplashFileSource=sandboxSplashFileSource.replaceAll(WEB_ADMIN_PORT_VAR,DEFAULT_WEB_ADMIN_PORT + "").replaceAll(SSH_FORWARD_PORT_VAR,DEFAULT_SSH_FORWARD_PORT + "");
+  File sandboxSplashFile=new File(distroPath,SANDBOX_SPLASH_PY);
+  FileOutputStream fos=new FileOutputStream(sandboxSplashFile);
+  fos.write(sandboxSplashFileSource.getBytes());
+  fos.close();
+  executeSudoSsh("cp " + DISTRO_PATH + "/"+ SANDBOX_SPLASH_PY+ " "+ SANDBOX_FOLDER+ "/"+ SANDBOX_SPLASH_PY);
+  String changeKaaHostFileTemplate=FileUtils.readResource(CHANGE_KAA_HOST_TEMPLATE);
+  String stopServices="";
+  String setNewHosts="";
+  String startServices="";
+  for (  KaaPackage kaaPackage : KaaPackage.values()) {
+    if (kaaPackage.getHostProperties() != null && kaaPackage.getHostProperties().length > 0) {
+      if (StringUtils.isNotBlank(stopServices)) {
+        stopServices+="\n";
+        startServices+="\n";
+      }
+      stopServices+=osType.getStopServiceTemplate().replaceAll(SERVICE_NAME_VAR,kaaPackage.getServiceName());
+      startServices+=osType.getStartServiceTemplate().replaceAll(SERVICE_NAME_VAR,kaaPackage.getServiceName());
+      for (      String propertyName : kaaPackage.getHostProperties()) {
+        if (StringUtils.isNotBlank(setNewHosts)) {
+          setNewHosts+="\n";
+        }
+        setNewHosts+="setNewHost " + kaaPackage.getPropertiesFile() + " "+ propertyName;
+      }
+    }
+  }
+  String changeKaaHostFileSource=changeKaaHostFileTemplate.replaceAll(STOP_SERVICES_VAR,stopServices).replaceAll(SET_NEW_HOSTS,setNewHosts).replaceAll(START_SERVICES_VAR,startServices);
+  File changeKaaHostFile=new File(distroPath,CHANGE_KAA_HOST);
+  fos=new FileOutputStream(changeKaaHostFile);
+  fos.write(changeKaaHostFileSource.getBytes());
+  fos.close();
+  executeSudoSsh("cp " + DISTRO_PATH + "/"+ CHANGE_KAA_HOST+ " "+ SANDBOX_FOLDER+ "/"+ CHANGE_KAA_HOST);
+  executeSudoSsh("chmod +x " + SANDBOX_FOLDER + "/"+ CHANGE_KAA_HOST);
+  executeSudoSsh("cp -r " + DEMO_PROJECTS_PATH + " "+ SANDBOX_FOLDER+ "/");
+  executeSudoSsh("cp -r " + SANDBOX_PATH + "/*"+ " "+ ADMIN_FOLDER+ "/");
+}

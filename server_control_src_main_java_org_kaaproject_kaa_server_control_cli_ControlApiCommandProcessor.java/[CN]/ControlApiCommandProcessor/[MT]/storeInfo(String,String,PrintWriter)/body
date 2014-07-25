@@ -8,6 +8,6 @@
     writer.close();
   }
  catch (  Exception e) {
-    errorWriter.println("Unable to write Object Id to specified file '" + file + ERROR+ e.getMessage());
+    LOG.error("Unable to write Object Id to specified file '{}'! Error: {}",file,e.getMessage());
   }
 }

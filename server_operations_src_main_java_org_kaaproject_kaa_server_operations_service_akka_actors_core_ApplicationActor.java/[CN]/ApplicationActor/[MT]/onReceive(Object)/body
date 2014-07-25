@@ -18,4 +18,10 @@
  else   if (message instanceof LogEventPackMessage) {
     processLogEventPackMessage((LogEventPackMessage)message);
   }
+ else   if (message instanceof EndpointUserActionMessage) {
+    processEndpointUserActionMessage((EndpointUserActionMessage)message,true);
+  }
+ else   if (message instanceof EndpointUserActionRouteMessage) {
+    processEndpointUserActionMessage(((EndpointUserActionRouteMessage)message).getMessage(),false);
+  }
 }

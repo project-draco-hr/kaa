@@ -1,10 +1,9 @@
 {
   try (InputStream input=Thread.currentThread().getContextClassLoader().getResourceAsStream(resource)){
-    byte[] bytes=IOUtils.toByteArray(input);
-    return bytes;
+    return IOUtils.toByteArray(input);
   }
  catch (  IOException e) {
-    logger.error("Unable to read from specified resource '" + resource + "'! Error: "+ e.getMessage(),e);
+    LOG.error("Unable to read from specified resource '" + resource + "'! Error: "+ e.getMessage(),e);
     throw e;
   }
 }

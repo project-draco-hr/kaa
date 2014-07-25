@@ -1,0 +1,10 @@
+{
+  String info=vboxManage(false,"showvminfo",boxName,"--machinereadable");
+  for (  String line : info.split("\n")) {
+    Matcher m=vmStatePattern.matcher(line.trim());
+    if (m.matches()) {
+      return m.group(1);
+    }
+  }
+  return "unknown";
+}

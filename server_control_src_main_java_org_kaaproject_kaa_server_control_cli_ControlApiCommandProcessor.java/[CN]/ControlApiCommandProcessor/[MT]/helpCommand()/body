@@ -1,9 +1,8 @@
 {
-  ControlApiCommand command=new ControlApiCommand("help","display available commands"){
+  return new ControlApiCommand("help","display available commands"){
     @Override public void runCommand(    CommandLine line,    ControlThriftService.Iface client,    PrintWriter writer,    PrintWriter errorWriter){
       help(writer);
     }
   }
 ;
-  return command;
 }

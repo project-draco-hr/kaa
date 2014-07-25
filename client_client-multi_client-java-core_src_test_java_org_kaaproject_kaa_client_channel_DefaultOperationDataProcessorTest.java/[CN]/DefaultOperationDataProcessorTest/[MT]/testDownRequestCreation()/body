@@ -23,7 +23,7 @@
   transportTypes.put(TransportType.LOGGING,ChannelDirection.DOWN);
   assertNotNull(operationsDataProcessor.compileRequest(transportTypes));
   Mockito.verify(profileTransport,Mockito.times(0)).createProfileRequest();
-  Mockito.verify(eventTransport,Mockito.times(0)).createEventRequest();
+  Mockito.verify(eventTransport,Mockito.times(0)).createEventRequest(Mockito.anyInt());
   Mockito.verify(notificationTransport,Mockito.times(0)).createNotificationRequest();
   Mockito.verify(configurationTransport,Mockito.times(0)).createConfigurationRequest();
   Mockito.verify(userTransport,Mockito.times(0)).createUserRequest();

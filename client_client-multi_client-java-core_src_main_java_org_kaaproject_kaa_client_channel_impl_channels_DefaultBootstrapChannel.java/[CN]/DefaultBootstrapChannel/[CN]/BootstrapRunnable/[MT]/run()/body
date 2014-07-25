@@ -1,13 +1,10 @@
 {
-synchronized (DefaultBootstrapChannel.this) {
-    try {
-      processTypes(SUPPORTED_TYPES);
-      lastConnectionFailed=false;
-    }
- catch (    Exception e) {
-      LOG.error("Failed to receive operation servers list {}",e);
-      lastConnectionFailed=true;
-      client.getChannelMananager().onServerFailed(currentServer);
-    }
+  try {
+    processTypes(SUPPORTED_TYPES);
+    connectionFailed(false);
+  }
+ catch (  Exception e) {
+    LOG.error("Failed to receive operation servers list {}",e);
+    connectionFailed(true);
   }
 }

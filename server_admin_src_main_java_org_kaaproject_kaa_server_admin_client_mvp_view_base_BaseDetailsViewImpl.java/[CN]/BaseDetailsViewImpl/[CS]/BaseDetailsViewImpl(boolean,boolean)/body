@@ -19,6 +19,9 @@
   updateSaveButton(false,false);
   detailsTable.getColumnFormatter().setWidth(0,"200px");
   detailsTable.getColumnFormatter().setWidth(1,"300px");
+  if (!create) {
+    detailsTable.getColumnFormatter().setWidth(2,"300px");
+  }
   initDetailsTable();
   saveButton.addClickHandler(new ClickHandler(){
     @Override public void onClick(    ClickEvent event){

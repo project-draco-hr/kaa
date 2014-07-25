@@ -9,7 +9,7 @@
   }
   kaaClientState=new KaaClientPropertiesState(createPersistentStorage(),properties);
   defaultOperationsChannel=new DefaultOperationsChannel(this,kaaClientState);
-  defaultBootstrapChannel=new DefaultBootstrapChannel(this);
+  defaultBootstrapChannel=new DefaultBootstrapChannel(this,kaaClientState);
   defaultOperationsHttpChannel=new DefaultOperationHttpChannel(this,kaaClientState);
   BootstrapTransport bootstratpTransport=new DefaultBootstrapTransport(properties.getApplicationToken());
   ProfileTransport profileTransport=new DefaultProfileTransport();
@@ -37,7 +37,7 @@
   profileManager=new DefaultProfileManager(profileTransport);
   bootstrapManager=new DefaultBootstrapManager(bootstratpTransport);
   notificationManager=new DefaultNotificationManager(this.kaaClientState,notificationTransport);
-  eventManager=new DefaultEventManager(eventTransport);
+  eventManager=new DefaultEventManager(this.kaaClientState,eventTransport);
   eventFamilyFactory=new EventFamilyFactory(this.eventManager);
   endpointRegistrationManager=new DefaultEndpointRegistrationManager(this.kaaClientState,userTransport,profileTransport);
   logCollector=new DefaultLogCollector(logTransport);

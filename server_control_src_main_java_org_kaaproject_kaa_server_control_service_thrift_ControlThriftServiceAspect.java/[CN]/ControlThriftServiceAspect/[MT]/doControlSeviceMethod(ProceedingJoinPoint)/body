@@ -9,8 +9,7 @@
     PrintWriter writer=new PrintWriter(outStream);
     t.printStackTrace(writer);
     writer.flush();
-    ControlThriftException pte=new ControlThriftException(t.getMessage(),t.getClass().getName(),outStream.toString());
-    throw pte;
+    throw new ControlThriftException(t.getMessage(),t.getClass().getName(),outStream.toString());
   }
   return retVal;
 }

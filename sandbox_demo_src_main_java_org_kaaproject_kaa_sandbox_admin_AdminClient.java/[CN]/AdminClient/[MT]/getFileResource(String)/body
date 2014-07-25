@@ -1,0 +1,10 @@
+{
+  byte[] data=FileUtils.readResourceBytes(resource);
+  ByteArrayResource bar=new ByteArrayResource(data){
+    @Override public String getFilename(){
+      return resource;
+    }
+  }
+;
+  return bar;
+}

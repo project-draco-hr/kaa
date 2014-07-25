@@ -1,0 +1,8 @@
+{
+  EventClassFamily classFamily=generateEventClassFamily(null,1).get(0);
+  Tenant tenant=classFamily.getTenant();
+  List<EventClass> events=generateEventClass(tenant,classFamily,3);
+  EventClass ec=events.get(0);
+  List<EventClass> found=eventClassDao.findByTenantIdAndFqn(tenant.getId().toString(),ec.getFqn());
+  Assert.assertEquals(ec,found.get(0));
+}

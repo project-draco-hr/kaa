@@ -1,0 +1,13 @@
+{
+  performChangePassword(new AsyncCallback<ResultCode>(){
+    @Override public void onFailure(    Throwable caught){
+    }
+    @Override public void onSuccess(    ResultCode result){
+      if (result == ResultCode.OK) {
+        hide();
+        listener.onChangePassword();
+      }
+    }
+  }
+);
+}

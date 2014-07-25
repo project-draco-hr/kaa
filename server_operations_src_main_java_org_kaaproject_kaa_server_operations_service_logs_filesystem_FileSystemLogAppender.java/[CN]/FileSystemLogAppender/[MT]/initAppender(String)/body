@@ -1,0 +1,10 @@
+{
+  LOG.debug("Starting initialize rolling file appender");
+  DailyRollingFileAppender fileAppender=new DailyRollingFileAppender();
+  fileAppender.setFile(path);
+  fileAppender.setDatePattern(datePattern);
+  fileAppender.setAppend(true);
+  fileAppender.setLayout(new PatternLayout(layoutPattern));
+  fileAppender.activateOptions();
+  return fileAppender;
+}

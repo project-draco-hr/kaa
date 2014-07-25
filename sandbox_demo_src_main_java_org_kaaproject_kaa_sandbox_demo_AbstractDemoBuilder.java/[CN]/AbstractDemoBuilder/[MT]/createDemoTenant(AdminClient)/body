@@ -1,0 +1,14 @@
+{
+  TenantUserDto tenant=new TenantUserDto();
+  tenant.setTenantName("Demo Tenant");
+  tenant.setAuthority(KaaAuthorityDto.TENANT_ADMIN);
+  tenant.setUsername(tenantAdminUser);
+  tenant.setMail("admin@demoproject.org");
+  tenant.setFirstName("Tenant");
+  tenant.setLastName("Admin");
+  tenant=client.editTenant(tenant);
+  if (StringUtils.isNotBlank(tenant.getTempPassword())) {
+    client.clearCredentials();
+    client.changePassword(tenant.getUsername(),tenant.getTempPassword(),tenantAdminPassword);
+  }
+}

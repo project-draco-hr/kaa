@@ -2,7 +2,7 @@
   if (request != null) {
     List<Event> events=request.getEvents();
     if (userId != null && events != null && !events.isEmpty()) {
-      LOG.debug("[{}][{}] Processing events {}",endpointKey,actorKey,events);
+      LOG.debug("[{}][{}] Processing events {} with seq number > {}",endpointKey,actorKey,events,processedEventSeqNum);
       List<Event> eventsToSend=new ArrayList<>(events.size());
       int maxSentEventSeqNum=processedEventSeqNum;
       for (      Event event : events) {
@@ -11,9 +11,12 @@
           eventsToSend.add(event);
           maxSentEventSeqNum=Math.max(event.getSeqNum(),maxSentEventSeqNum);
         }
+ else {
+          LOG.debug("[{}][{}] Ignoring duplicate/old event {} due to seq number < {}",endpointKey,actorKey,events,processedEventSeqNum);
+        }
       }
       processedEventSeqNum=maxSentEventSeqNum;
-      if (eventsToSend.size() > 0) {
+      if (!eventsToSend.isEmpty()) {
         EndpointEventSendMessage message=new EndpointEventSendMessage(userId,eventsToSend,key,appToken,context.self());
         context.parent().tell(message,context.self());
       }

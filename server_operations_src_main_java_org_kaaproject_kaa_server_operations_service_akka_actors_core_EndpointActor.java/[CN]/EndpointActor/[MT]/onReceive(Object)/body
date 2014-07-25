@@ -18,6 +18,9 @@
  else   if (message instanceof ActorTimeoutMessage) {
     processActorTimeoutMessage((ActorTimeoutMessage)message);
   }
+ else   if (message instanceof EndpointUserActionMessage) {
+    processEndpointUserActionMessage((EndpointUserActionMessage)message);
+  }
  else   if (message instanceof EndpointStopMessage) {
     LOG.debug("[{}] Received stop request from application actor",actorKey);
     context().stop(self());

@@ -1,0 +1,8 @@
+{
+  AbstractKaaClient client=Mockito.mock(AbstractKaaClient.class);
+  KaaClientState state=Mockito.mock(KaaClientState.class);
+  KaaDataChannel channel=new DefaultBootstrapChannel(client,state);
+  Assert.assertEquals(ChannelDirection.BIDIRECTIONAL,channel.getSupportedTransportTypes().get(TransportType.BOOTSTRAP));
+  Assert.assertEquals(ChannelType.BOOTSTRAP,channel.getType());
+  Assert.assertEquals("default_bootstrap_channel",channel.getId());
+}

@@ -1,0 +1,20 @@
+{
+  ProjectDataKey result=null;
+  String projectId=request.getParameter(ProjectDataKey.PROJECT_ID_PARAMETER);
+  String type=request.getParameter(ProjectDataKey.PROJECT_DATA_TYPE_PARAMETER);
+  ProjectDataType dataType=null;
+  if (type != null && type.length() > 0) {
+    try {
+      dataType=ProjectDataType.valueOf(type.toUpperCase());
+    }
+ catch (    Exception e) {
+    }
+  }
+  if (projectId != null && projectId.length() > 0 && dataType != null) {
+    result=new ProjectDataKey(projectId,dataType);
+  }
+  if (result == null) {
+    logger.error("Invalid parameters: projectId [{}]  type [{}]",projectId,type);
+  }
+  return result;
+}

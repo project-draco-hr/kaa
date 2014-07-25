@@ -1,7 +1,10 @@
 {
   injectThemeStyleSheet();
   resources.css().ensureInjected();
-  view.getLoginButton().addClickHandler(new LoginHandler());
+  EnterKeyDownHandler loginHandler=new EnterKeyDownHandler();
+  view.getLoginButton().addClickHandler(loginHandler);
+  view.getUsernameBox().addKeyDownHandler(loginHandler);
+  view.getPasswordBox().addKeyDownHandler(loginHandler);
   view.clearMessages();
   RootLayoutPanel.get().clear();
   RootLayoutPanel.get().add(view);

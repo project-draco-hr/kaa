@@ -1,0 +1,9 @@
+{
+  ProcessBuilder pb=new ProcessBuilder(command).directory(basePath);
+  Process p=pb.start();
+  String result=handleStream(p.getInputStream(),logOutput);
+  handleStream(p.getErrorStream(),true);
+  p.waitFor();
+  p.destroy();
+  return result;
+}

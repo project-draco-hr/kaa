@@ -1,0 +1,13 @@
+{
+  int result;
+  if (o != null) {
+    result=compare(majorVersion,o.getMajorVersion());
+    if (result == EQ) {
+      result=compare(minorVersion,o.getMinorVersion());
+    }
+  }
+ else {
+    result=LT;
+  }
+  return result;
+}

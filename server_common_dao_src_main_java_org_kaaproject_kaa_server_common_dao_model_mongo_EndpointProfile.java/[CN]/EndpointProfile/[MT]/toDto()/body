@@ -1,9 +1,11 @@
 {
   EndpointProfileDto dto=new EndpointProfileDto();
   dto.setId(id);
-  dto.setEndpointGroups(DaoUtil.<EndpointGroupStateDto>convertDtoList(endpointGroup));
+  dto.setCfGroupStates(DaoUtil.<EndpointGroupStateDto>convertDtoList(cfGroupState));
+  dto.setNfGroupStates(DaoUtil.<EndpointGroupStateDto>convertDtoList(nfGroupState));
   dto.setChangedFlag(changedFlag);
-  dto.setSequenceNumber(sequenceNumber);
+  dto.setCfSequenceNumber(cfSequenceNumber);
+  dto.setNfSequenceNumber(nfSequenceNumber);
   dto.setConfigurationHash(configurationHash);
   dto.setConfigurationVersion(configurationVersion);
   dto.setApplicationId(applicationId);

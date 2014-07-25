@@ -1,0 +1,28 @@
+{
+  List<EndpointEvent> eventsToSend=new ArrayList<>(events.size());
+  for (  EndpointEvent event : events) {
+    if (!eventDeliveryTable.isDeliveryStarted(event,recipient)) {
+      eventsToSend.add(event);
+    }
+  }
+  if (eventsToSend.size() > 0) {
+    if (recipient.isLocal()) {
+      for (      EndpointEvent event : eventsToSend) {
+        LOG.debug("[{}] forwarding event {} to local recepient {}",userId,event,recipient);
+      }
+      EndpointEventReceiveMessage message=new EndpointEventReceiveMessage(userId,eventsToSend,recipient,context.self());
+      sendEventToLocal(context,message);
+    }
+ else {
+      for (      EndpointEvent event : eventsToSend) {
+        LOG.debug("[{}] forwarding event {} to remote recepient {}",userId,event,recipient);
+        RemoteEndpointEvent remoteEvent=new RemoteEndpointEvent(tenantId,userId,event,recipient);
+        eventService.sendEvent(remoteEvent);
+      }
+    }
+    for (    EndpointEvent event : eventsToSend) {
+      LOG.debug("[{}] registering delivery attempt of event {} to recepient {}",userId,event,recipient);
+      eventDeliveryTable.registerDeliveryAttempt(event,recipient);
+    }
+  }
+}

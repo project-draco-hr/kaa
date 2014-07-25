@@ -1,6 +1,7 @@
 {
   super(false,true);
   this.username=username;
+  InputChangeHandler handler=new InputChangeHandler(listener);
   setWidth("500px");
   setTitle(Utils.constants.change_password());
   VerticalPanel dialogContents=new VerticalPanel();
@@ -22,7 +23,8 @@
   oldPassword=new ExtendedPasswordTextBox();
   table.setWidget(row,0,label);
   table.setWidget(row,1,oldPassword);
-  oldPassword.addInputHandler(this);
+  oldPassword.addInputHandler(handler);
+  oldPassword.addKeyDownHandler(handler);
   table.getCellFormatter().setHorizontalAlignment(row,0,HasHorizontalAlignment.ALIGN_RIGHT);
   row++;
   label=new Label(Utils.constants.newPassword());
@@ -30,7 +32,8 @@
   newPassword=new ExtendedPasswordTextBox();
   table.setWidget(row,0,label);
   table.setWidget(row,1,newPassword);
-  newPassword.addInputHandler(this);
+  newPassword.addInputHandler(handler);
+  newPassword.addKeyDownHandler(handler);
   table.getCellFormatter().setHorizontalAlignment(row,0,HasHorizontalAlignment.ALIGN_RIGHT);
   row++;
   label=new Label(Utils.constants.newPasswordAgain());
@@ -38,25 +41,11 @@
   newPasswordAgain=new ExtendedPasswordTextBox();
   table.setWidget(row,0,label);
   table.setWidget(row,1,newPasswordAgain);
-  newPasswordAgain.addInputHandler(this);
+  newPasswordAgain.addInputHandler(handler);
+  newPasswordAgain.addKeyDownHandler(handler);
   table.getCellFormatter().setHorizontalAlignment(row,0,HasHorizontalAlignment.ALIGN_RIGHT);
   dialogContents.add(table);
-  changePasswordButton=new Button(Utils.constants.change_password(),new ClickHandler(){
-    @Override public void onClick(    ClickEvent event){
-      performChangePassword(new AsyncCallback<ResultCode>(){
-        @Override public void onFailure(        Throwable caught){
-        }
-        @Override public void onSuccess(        ResultCode result){
-          if (result == ResultCode.OK) {
-            hide();
-            listener.onChangePassword();
-          }
-        }
-      }
-);
-    }
-  }
-);
+  changePasswordButton=new Button(Utils.constants.change_password(),handler);
   Button cancelButton=new Button(Utils.constants.cancel(),new ClickHandler(){
     @Override public void onClick(    ClickEvent event){
       hide();

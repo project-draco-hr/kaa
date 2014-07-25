@@ -5,6 +5,9 @@
  else   if (message instanceof EndpointUserConnectMessage) {
     processEndpointUserRegistration((EndpointUserConnectMessage)message);
   }
+ else   if (message instanceof EndpointUserDisconnectMessage) {
+    processEndpointUserDeregistration((EndpointUserDisconnectMessage)message);
+  }
  else   if (message instanceof EndpointEventSendMessage) {
     processEndpointEventSendMessage((EndpointEventSendMessage)message);
   }

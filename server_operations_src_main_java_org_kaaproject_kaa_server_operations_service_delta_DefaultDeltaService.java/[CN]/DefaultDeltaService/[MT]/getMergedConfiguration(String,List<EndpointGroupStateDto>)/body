@@ -1,5 +1,5 @@
 {
-  BaseData mergedConfiguration=cacheService.getMergedConfiguration(egsList,new Computable<List<EndpointGroupStateDto>,BaseData>(){
+  return cacheService.getMergedConfiguration(egsList,new Computable<List<EndpointGroupStateDto>,BaseData>(){
     @Override public BaseData compute(    List<EndpointGroupStateDto> key){
       LOG.trace("[{}] getMergedConfiguration.compute begin",endpointId);
       try {
@@ -37,5 +37,4 @@
     }
   }
 );
-  return mergedConfiguration;
 }

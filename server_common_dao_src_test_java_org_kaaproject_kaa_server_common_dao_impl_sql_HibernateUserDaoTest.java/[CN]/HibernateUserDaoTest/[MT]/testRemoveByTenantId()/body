@@ -1,0 +1,7 @@
+{
+  Tenant tenant=generateTenant();
+  User user=generateUser(tenant,null);
+  userDao.removeByTenantId(tenant.getId().toString());
+  User found=userDao.findById(user.getId().toString());
+  Assert.assertNull(found);
+}

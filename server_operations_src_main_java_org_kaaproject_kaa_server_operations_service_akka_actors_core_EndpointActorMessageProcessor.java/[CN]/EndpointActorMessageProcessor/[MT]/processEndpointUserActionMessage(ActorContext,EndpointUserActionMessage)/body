@@ -1,0 +1,31 @@
+{
+  Set<ChannelMetaData> eventChannels=new HashSet<ChannelMetaData>(channelMap.getByTransportType(TransportType.EVENT));
+  eventChannels.addAll(channelMap.getByTransportType(TransportType.USER));
+  LOG.debug("[{}][{}] Current Endpoint was attached/detached from user. Need to close all current event channels {}",endpointKey,actorKey,eventChannels.size());
+  userRegistrationRequestSent=false;
+  if (!eventChannels.isEmpty()) {
+    for (    ChannelMetaData channel : eventChannels) {
+      SyncRequestMessage pendingRequest=channel.getRequest();
+      SyncResponse pendingResponse=channel.getResponse().getResponse();
+      UserSyncResponse userSyncResponse=pendingResponse.getUserSyncResponse();
+      if (userSyncResponse != null) {
+        if (message instanceof EndpointUserAttachMessage) {
+          userSyncResponse.setUserAttachNotification(new UserAttachNotification(message.getUserId(),message.getOriginator()));
+          LOG.debug("[{}][{}] Adding user attach notification",endpointKey,actorKey);
+        }
+ else         if (message instanceof EndpointUserDetachMessage) {
+          userSyncResponse.setUserDetachNotification(new UserDetachNotification(message.getOriginator()));
+          LOG.debug("[{}][{}] Adding user detach notification",endpointKey,actorKey);
+        }
+      }
+      LOG.debug("[{}][{}] sending reply to [{}] channel",endpointKey,actorKey,channel.getId());
+      sendReply(context,pendingRequest,pendingResponse);
+      if (!channel.getType().isAsync()) {
+        channelMap.removeChannel(channel);
+      }
+    }
+  }
+ else {
+    LOG.debug("[{}][{}] Message ignored due to no channel contexts registered for events",endpointKey,actorKey,message);
+  }
+}

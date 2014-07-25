@@ -1,0 +1,14 @@
+{
+  SyncRequest request=new SyncRequest();
+  request.setSyncRequestMetaData(new SyncRequestMetaData());
+  UUID sameUid=UUID.randomUUID();
+  SyncRequestMessage message=new SyncRequestMessage(null,sameUid.toString(),null,ChannelType.HTTP,null,null,request,null);
+  ChannelMetaData md1=new ChannelMetaData(message);
+  SyncRequestMessage message2=new SyncRequestMessage(null,sameUid.toString(),null,ChannelType.HTTP,null,null,request,null);
+  ChannelMetaData md2=new ChannelMetaData(message2);
+  Assert.assertEquals(md1,md2);
+  SyncRequest newRequest=new SyncRequest();
+  newRequest.setSyncRequestMetaData(new SyncRequestMetaData());
+  md2.updateRequest(new SyncRequestMessage(null,sameUid.toString(),null,ChannelType.TCP,"appToken",EndpointObjectHash.fromBytes(new byte[0]),request,null));
+  Assert.assertEquals(md1,md2);
+}

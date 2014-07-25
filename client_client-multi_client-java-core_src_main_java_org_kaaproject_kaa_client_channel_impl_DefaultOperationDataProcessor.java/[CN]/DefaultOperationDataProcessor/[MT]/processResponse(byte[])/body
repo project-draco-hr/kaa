@@ -5,8 +5,11 @@
     if (syncResponse.getConfigurationSyncResponse() != null && configurationTransport != null) {
       configurationTransport.onConfigurationResponse(syncResponse.getConfigurationSyncResponse());
     }
-    if (syncResponse.getEventSyncResponse() != null && eventTransport != null) {
-      eventTransport.onEventResponse(syncResponse.getEventSyncResponse());
+    if (eventTransport != null) {
+      eventTransport.onSyncResposeIdReceived(syncResponse.getRequestId());
+      if (syncResponse.getEventSyncResponse() != null) {
+        eventTransport.onEventResponse(syncResponse.getEventSyncResponse());
+      }
     }
     if (syncResponse.getNotificationSyncResponse() != null && notificationTransport != null) {
       notificationTransport.onNotificationResponse(syncResponse.getNotificationSyncResponse());

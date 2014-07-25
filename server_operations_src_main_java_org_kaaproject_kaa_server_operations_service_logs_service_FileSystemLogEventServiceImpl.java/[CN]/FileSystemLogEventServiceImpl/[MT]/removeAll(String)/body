@@ -1,0 +1,11 @@
+{
+  LOG.debug("Starting delete directory with path: {}",path);
+  File directory=new File(path);
+  try {
+    FileUtils.deleteDirectory(directory);
+    LOG.debug("Directory was successfully deleted");
+  }
+ catch (  IOException e) {
+    LOG.error("Unable to delete directory with path: {}",path);
+  }
+}

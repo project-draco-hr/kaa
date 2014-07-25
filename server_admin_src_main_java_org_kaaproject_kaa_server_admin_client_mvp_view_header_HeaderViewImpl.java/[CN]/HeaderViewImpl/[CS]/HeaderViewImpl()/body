@@ -3,4 +3,10 @@
   settingsLabel.setStyleName("b-app-header-menu");
   initWidget(uiBinder.createAndBindUi(this));
   signoutLabel.setText(Utils.constants.signOut());
+  title.addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      presenter.goToHome();
+    }
+  }
+);
 }

@@ -1,0 +1,20 @@
+{
+  CloseableHttpClient httpClient=(CloseableHttpClient)HttpClients.createSystem();
+  CloseableHttpResponse response=null;
+  try {
+    HttpContext context=HttpClientContext.create();
+    HttpGet httpGet=new HttpGet(sourceUrl.toURI());
+    response=httpClient.execute(httpGet,context);
+    HttpEntity entity=response.getEntity();
+    long length=entity.getContentLength();
+    InputStream in=new BufferedInputStream(entity.getContent());
+    OutputStream out=new BufferedOutputStream(new FileOutputStream(targetFile));
+    copyLarge(in,out,new byte[DEFAULT_BUFFER_SIZE],length);
+    IOUtils.closeQuietly(in);
+    IOUtils.closeQuietly(out);
+  }
+  finally {
+    IOUtils.closeQuietly(response);
+    IOUtils.closeQuietly(httpClient);
+  }
+}

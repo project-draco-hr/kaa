@@ -1,0 +1,13 @@
+{
+  logger.info("Demo application build started...");
+  createUsers(client);
+  buildDemoApplicationImpl(client);
+  setupProjectConfig();
+  logger.info("Demo application build finished.");
+  try {
+    projectConfig.setSdkKeyBase64(Base64.encodeObject(sdkKey,Base64.URL_SAFE));
+  }
+ catch (  IOException e) {
+    logger.error("Unable to generate sdk key",e);
+  }
+}

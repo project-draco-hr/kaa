@@ -6,8 +6,10 @@
   this.endpointUserId=dto.getEndpointUserId();
   this.accessToken=dto.getAccessToken();
   this.profileSchemaId=dto.getProfileSchemaId();
-  this.endpointGroup=convertDtoToModelList(dto.getEndpointGroups());
-  this.sequenceNumber=dto.getSequenceNumber();
+  this.cfGroupState=convertDtoToModelList(dto.getCfGroupStates());
+  this.nfGroupState=convertDtoToModelList(dto.getNfGroupStates());
+  this.cfSequenceNumber=dto.getCfSequenceNumber();
+  this.nfSequenceNumber=dto.getNfSequenceNumber();
   this.changedFlag=dto.getChangedFlag();
   this.profile=(DBObject)JSON.parse(dto.getProfile());
   this.profileHash=dto.getProfileHash();

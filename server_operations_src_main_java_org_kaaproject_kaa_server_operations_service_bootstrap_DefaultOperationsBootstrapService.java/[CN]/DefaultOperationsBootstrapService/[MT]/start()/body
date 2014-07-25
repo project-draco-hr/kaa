@@ -19,7 +19,7 @@ LOG.error("Channel {} unrecognized....",channelConf.getChannelType().toString())
 break;
 }
 }
-if (serviceChannels.size() > 0) {
+if (!serviceChannels.isEmpty()) {
 if (getConfig().isZkEnabled()) {
 startZK();
 }

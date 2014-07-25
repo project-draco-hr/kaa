@@ -1,0 +1,5 @@
+{
+  EndpointObjectHash publicKeyHash=EndpointObjectHash.fromSHA1(kp.getPublic().getEncoded());
+  String keyHash=new String(Base64.encodeBase64(publicKeyHash.getData()));
+  state.setProperty(ENDPOINT_KEY_HASH,keyHash);
+}

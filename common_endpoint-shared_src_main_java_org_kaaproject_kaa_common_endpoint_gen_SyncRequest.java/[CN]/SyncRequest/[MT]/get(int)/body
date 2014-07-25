@@ -1,18 +1,20 @@
 {
 switch (field$) {
 case 0:
-    return syncRequestMetaData;
+    return requestId;
 case 1:
-  return profileSyncRequest;
+  return syncRequestMetaData;
 case 2:
-return configurationSyncRequest;
+return profileSyncRequest;
 case 3:
-return notificationSyncRequest;
+return configurationSyncRequest;
 case 4:
-return userSyncRequest;
+return notificationSyncRequest;
 case 5:
-return eventSyncRequest;
+return userSyncRequest;
 case 6:
+return eventSyncRequest;
+case 7:
 return logSyncRequest;
 default :
 throw new org.apache.avro.AvroRuntimeException("Bad index");

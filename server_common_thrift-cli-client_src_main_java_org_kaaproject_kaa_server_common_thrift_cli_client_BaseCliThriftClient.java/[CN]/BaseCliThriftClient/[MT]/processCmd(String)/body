@@ -42,8 +42,6 @@ catch (    TException e) {
       ret=-10002;
       err.println("[Thrift Error]: " + errMsg);
     }
- finally {
-    }
   }
  else {
     PrintStream out=ss.out;
@@ -65,6 +63,7 @@ catch (    TException e) {
             port=Integer.valueOf(strPort);
           }
  catch (          Exception e) {
+            LOG.error("Unexpected exception while parsing port. Can not parse String: {} to Integer",strPort);
           }
           if (port > 0) {
             parsed=true;

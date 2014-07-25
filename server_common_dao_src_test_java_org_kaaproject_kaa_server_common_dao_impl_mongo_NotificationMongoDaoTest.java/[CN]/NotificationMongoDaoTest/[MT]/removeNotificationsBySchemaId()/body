@@ -1,0 +1,11 @@
+{
+  NotificationDto notification=generateNotifications(null,null,1,null).get(0);
+  Assert.assertNotNull(notification.getId());
+  String schemaId=notification.getSchemaId();
+  List<Notification> found=notificationDao.findNotificationsBySchemaId(schemaId);
+  Assert.assertEquals(notification,found.get(0).toDto());
+  notificationDao.removeNotificationsBySchemaId(schemaId);
+  ;
+  found=notificationDao.findNotificationsBySchemaId(schemaId);
+  Assert.assertTrue(found.isEmpty());
+}

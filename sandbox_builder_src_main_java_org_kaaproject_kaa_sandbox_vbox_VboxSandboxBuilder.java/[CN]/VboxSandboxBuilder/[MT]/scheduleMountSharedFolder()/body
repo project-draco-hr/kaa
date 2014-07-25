@@ -1,0 +1,5 @@
+{
+  scheduleSudoSshCommand("mkdir -p /" + SHARED_FOLDER);
+  String mountCommand="mount -t vboxsf -o uid=`id -u kaa`,gid=`getent group kaa | cut -d: -f3`,dmode=1777,fmode=777 " + SHARED_FOLDER + " /"+ SHARED_FOLDER;
+  scheduleSudoSshCommand(mountCommand);
+}

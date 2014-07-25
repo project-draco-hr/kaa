@@ -5,28 +5,7 @@
     SyncRequest request=requestMessage.getRequest();
     ChannelType channelType=requestMessage.getChannelType();
     LOG.debug("[{}][{}] Processing sync request {} from channel [{}]",endpointKey,actorKey,request,requestMessage.getChannelId());
-    ChannelMetaData channel=channelMap.getById(requestMessage.getChannelId());
-    if (channel == null) {
-      channel=new ChannelMetaData(requestMessage);
-      if (!channel.getType().isAsync() && channel.getType().isLongPoll()) {
-        LOG.debug("[{}][{}] Received request using long poll channel.",endpointKey,actorKey);
-        List<ChannelMetaData> channels=channelMap.getByTransportType(TransportType.EVENT);
-        for (        ChannelMetaData oldChannel : channels) {
-          if (!oldChannel.getType().isAsync() && channel.getType().isLongPoll()) {
-            LOG.debug("[{}][{}] Closing old long poll channel [{}]",endpointKey,actorKey,oldChannel.getId());
-            sendReply(context,oldChannel.getRequest(),oldChannel.getResponse().getResponse());
-            channelMap.removeChannel(oldChannel);
-          }
-        }
-      }
-      channelMap.addChannel(channel);
-    }
- else {
-      if (channel.getType().isAsync()) {
-        LOG.debug("[{}][{}] Updating request for async channel {}",endpointKey,actorKey,channel);
-        channel.updateRequest(requestMessage);
-      }
-    }
+    ChannelMetaData channel=fetchChannelMetaData(context,requestMessage);
     SyncResponseHolder responseHolder=operationsService.sync(request);
     EndpointProfileDto endpointProfile=responseHolder.getEndpointProfile();
     if (endpointProfile != null) {
@@ -35,19 +14,29 @@
         responseHolder.getResponse().setLogSyncResponse(logUploadResponse);
       }
       if (isValidForEvents(endpointProfile)) {
+        if (userId != null && userId != endpointProfile.getEndpointUserId()) {
+          LOG.debug("[{}][{}] Detected user change from [{}] to [{}]",endpointKey,actorKey,userId,endpointProfile.getEndpointUserId());
+          EndpointUserDisconnectMessage userDisconnectMessage=new EndpointUserDisconnectMessage(userId,key,appToken,context.self());
+          context.parent().tell(userDisconnectMessage,context.self());
+          userRegistrationRequestSent=false;
+        }
         if (!userRegistrationRequestSent) {
           userId=endpointProfile.getEndpointUserId();
           List<EventClassFamilyVersion> ecfVersions=convertToECFVersions(endpointProfile.getEcfVersionStates());
-          EndpointUserConnectMessage userRegistrationRequest=new EndpointUserConnectMessage(userId,key,ecfVersions,appToken,context.self());
-          LOG.debug("[{}][{}] Sending user registration request {}",endpointKey,actorKey,userRegistrationRequest);
-          context.parent().tell(userRegistrationRequest,context.self());
+          EndpointUserConnectMessage userRegistrationMessage=new EndpointUserConnectMessage(userId,key,ecfVersions,appToken,context.self());
+          LOG.debug("[{}][{}] Sending user registration request {}",endpointKey,actorKey,userRegistrationMessage);
+          context.parent().tell(userRegistrationMessage,context.self());
           userRegistrationRequestSent=true;
+        }
+ else {
+          LOG.trace("[{}][{}] User registration request is already sent.",endpointKey,actorKey);
         }
         sendEventsIfPresent(context,request.getEventSyncRequest());
       }
  else {
         LOG.debug("[{}][{}] Endpoint profile is not valid for send/receive events. Either no assigned user or no event families in sdk",endpointKey,actorKey);
       }
+      processUserAttachDetachResults(context,request,responseHolder);
     }
  else {
       LOG.debug("[{}][{}] Endpoint profile is not set after request processing!",endpointKey,actorKey);

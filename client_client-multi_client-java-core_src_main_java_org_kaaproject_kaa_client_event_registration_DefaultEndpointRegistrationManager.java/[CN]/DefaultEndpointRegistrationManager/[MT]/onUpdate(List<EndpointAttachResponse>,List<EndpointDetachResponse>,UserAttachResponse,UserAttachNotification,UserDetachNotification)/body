@@ -1,0 +1,47 @@
+{
+  if (userResponse != null) {
+    if (userAuthResultListener != null) {
+      userAuthResultListener.onAuthResult(userResponse);
+      userAuthResultListener=null;
+    }
+    if (userResponse.getResult() == SyncResponseResultType.SUCCESS) {
+      state.setAttachedToUser(true);
+      if (currentEndpointAttachListener != null) {
+        currentEndpointAttachListener.onAttachedToUser(userAttachRequest.getUserExternalId(),endpointAccessToken);
+      }
+    }
+    userAttachRequest=null;
+  }
+  if (attachResponses != null && !attachResponses.isEmpty()) {
+    for (    EndpointAttachResponse attached : attachResponses) {
+      notifyAttachedListener(attached.getResult(),endpointAttachListeners.remove(attached.getRequestId()),new EndpointKeyHash(attached.getEndpointKeyHash()));
+      attachEndpointRequests.remove(attached.getRequestId());
+    }
+  }
+  if (detachResponses != null && !detachResponses.isEmpty()) {
+    for (    EndpointDetachResponse detached : detachResponses) {
+      notifyDetachedListener(detached.getResult(),endpointDetachListeners.remove(detached.getRequestId()));
+      EndpointKeyHash endpointKeyHash=detachEndpointRequests.remove(detached.getRequestId());
+      if (endpointKeyHash != null && detached.getResult() == SyncResponseResultType.SUCCESS) {
+        if (endpointKeyHash.equals(state.getEndpointKeyHash())) {
+          state.setAttachedToUser(false);
+        }
+      }
+    }
+  }
+  if ((attachResponses != null && !attachResponses.isEmpty()) || (detachResponses != null && !detachResponses.isEmpty())) {
+    notifyListeners();
+  }
+  if (userAttachNotification != null) {
+    state.setAttachedToUser(true);
+    if (currentEndpointAttachListener != null) {
+      currentEndpointAttachListener.onAttachedToUser(userAttachNotification.getUserExternalId(),userAttachNotification.getEndpointAccessToken());
+    }
+  }
+  if (userDetachNotification != null) {
+    state.setAttachedToUser(false);
+    if (currentEndpointDetachListener != null) {
+      currentEndpointDetachListener.onDetachedFromUser(userDetachNotification.getEndpointAccessToken());
+    }
+  }
+}

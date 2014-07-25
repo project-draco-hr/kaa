@@ -11,8 +11,7 @@
   if (commands.containsKey(command)) {
     LOG.trace("Command {} found",command);
     Class<?> c=commands.get(command);
-    CommandProcessor cp=(CommandProcessor)c.newInstance();
-    return cp;
+    return (CommandProcessor)c.newInstance();
   }
   LOG.warn("Requested command not found: {}",command);
   throw new Exception("Requested command not found");

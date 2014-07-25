@@ -1,6 +1,6 @@
 {
   boolean result=tenantName.getValue().length() > 0;
   result&=userName.getValue().length() > 0;
-  result&=email.getValue().length() > 0;
+  result&=Utils.validateEmail(email.getValue());
   return result;
 }

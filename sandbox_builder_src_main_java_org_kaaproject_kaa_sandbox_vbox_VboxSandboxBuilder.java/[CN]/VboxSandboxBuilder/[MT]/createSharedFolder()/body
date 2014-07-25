@@ -1,0 +1,5 @@
+{
+  logger.info("Creating shared folder '{}' ...",SHARED_FOLDER);
+  vboxManage("sharedfolder","add",boxName,"--name",SHARED_FOLDER,"--hostpath",basePath.getAbsolutePath());
+  vboxManage("setextradata",boxName,"VBoxInternal2/SharedFoldersEnableSymlinksCreate/" + SHARED_FOLDER,"1");
+}

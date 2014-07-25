@@ -3,6 +3,7 @@
     return MessageDigest.getInstance(algorithm);
   }
  catch (  NoSuchAlgorithmException e) {
+    LOG.error("No such algorithm: {}",algorithm);
     return null;
   }
 }
