@@ -1,7 +1,0 @@
-{
-  Tenant tenant=tenantDao.findById(tenants.get(0));
-  Assert.assertNotNull(tenant);
-  TenantDto dto=tenant.toDto();
-  Tenant converted=new Tenant(dto);
-  Assert.assertEquals(tenant,converted);
-}

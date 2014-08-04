@@ -1,5 +1,0 @@
-{
-  LOG.debug("Add topic [{}] to endpoint group with id [{}] ",topicId,id);
-  Update update=new Update().inc(SEQUENCE_NUMBER,ONE).push(TOPICS,topicId);
-  return findAndModify(query(where(ID).is(new ObjectId(id))),update,returnNew);
-}

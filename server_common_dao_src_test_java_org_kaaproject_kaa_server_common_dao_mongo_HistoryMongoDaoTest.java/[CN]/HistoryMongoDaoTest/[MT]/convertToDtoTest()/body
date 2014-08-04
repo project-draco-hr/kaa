@@ -1,8 +1,0 @@
-{
-  History history=historyDao.findById(hists.get(0));
-  Assert.assertNotNull(history);
-  HistoryDto dto=history.toDto();
-  Assert.assertNotNull(dto);
-  History converted=new History(dto);
-  Assert.assertEquals(history,converted);
-}

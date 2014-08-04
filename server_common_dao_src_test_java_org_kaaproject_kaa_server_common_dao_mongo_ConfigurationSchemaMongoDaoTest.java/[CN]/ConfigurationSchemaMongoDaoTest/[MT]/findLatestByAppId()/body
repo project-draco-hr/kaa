@@ -1,6 +1,0 @@
-{
-  ConfigurationSchema schema=configurationSchemaDao.findLatestByApplicationId(apps.get(0));
-  Assert.assertNotNull(schema);
-  Assert.assertEquals(schema.getStatus(),UpdateStatus.ACTIVE);
-  Assert.assertSame(schema.getMajorVersion(),1);
-}

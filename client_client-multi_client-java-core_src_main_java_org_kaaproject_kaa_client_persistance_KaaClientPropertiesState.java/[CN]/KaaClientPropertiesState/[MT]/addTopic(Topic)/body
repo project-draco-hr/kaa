@@ -1,8 +1,0 @@
-{
-  TopicSubscriptionInfo subscriptionInfo=nfSubscriptions.get(topic.getId());
-  if (subscriptionInfo == null) {
-    subscriptionInfo=TopicSubscriptionInfo.newBuilder().setTopicInfo(topic).setSeqNumber(0).build();
-    nfSubscriptions.put(topic.getId(),subscriptionInfo);
-    LOG.info("Adding new seqNumber 0 for {} subscription",topic.getId());
-  }
-}

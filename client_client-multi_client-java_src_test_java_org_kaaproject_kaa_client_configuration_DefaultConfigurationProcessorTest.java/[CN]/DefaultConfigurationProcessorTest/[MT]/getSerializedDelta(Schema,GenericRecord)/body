@@ -1,9 +1,0 @@
-{
-  DefaultConfigurationManagerTest.fillComplexFullResyncDelta(delta);
-  GenericRecord deltaHandler=new GenericData.Record(schema.getElementType());
-  deltaHandler.put("delta",delta);
-  GenericArray<GenericRecord> array=new GenericData.Array<GenericRecord>(1,schema);
-  array.add(deltaHandler);
-  GenericAvroConverter<GenericArray<GenericRecord>> converter=new GenericAvroConverter<GenericArray<GenericRecord>>(schema);
-  return converter.encode(array);
-}

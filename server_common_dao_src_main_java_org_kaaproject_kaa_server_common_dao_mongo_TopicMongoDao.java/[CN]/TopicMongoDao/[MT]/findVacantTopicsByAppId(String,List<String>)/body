@@ -1,4 +1,0 @@
-{
-  LOG.debug("Find vacant topics by application id [{}]",appId);
-  return find(query(where(APPLICATION_ID).is(new ObjectId(appId)).and(ID).nin(stringListToObjectIdList(excludeIds))));
-}

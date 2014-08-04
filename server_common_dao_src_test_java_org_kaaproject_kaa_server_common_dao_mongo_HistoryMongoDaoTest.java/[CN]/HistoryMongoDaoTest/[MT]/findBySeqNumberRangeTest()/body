@@ -1,7 +1,0 @@
-{
-  History history=historyDao.findById(hists.get(1));
-  Assert.assertNotNull(history);
-  List<History> hist=historyDao.findBySeqNumberRange(history.getApplicationId().toString(),0,4);
-  Assert.assertNotNull(hist);
-  Assert.assertSame(hist.size(),1);
-}

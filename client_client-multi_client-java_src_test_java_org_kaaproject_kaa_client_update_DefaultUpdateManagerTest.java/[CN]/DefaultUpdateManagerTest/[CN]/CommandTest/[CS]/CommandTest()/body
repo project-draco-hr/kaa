@@ -1,8 +1,0 @@
-{
-  this.transport=mock(OperationsTransport.class);
-  this.props=getProperties();
-  this.state=getClientState(props);
-  this.manager=getManager(transport,props,state);
-  this.listener=mock(UpdateListener.class);
-  this.factory=new DefaultCommandFactory(manager,state,props);
-}

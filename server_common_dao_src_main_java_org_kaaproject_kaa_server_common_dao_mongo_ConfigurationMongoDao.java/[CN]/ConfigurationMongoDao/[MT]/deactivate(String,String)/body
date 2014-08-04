@@ -1,6 +1,0 @@
-{
-  LOG.debug("Deactivate configuration, found by id [{}] ",id);
-  Update update=new Update().set(STATUS,UpdateStatus.DEPRECATED.name()).set(DEACTIVATED_TIME,System.currentTimeMillis()).set(DEACTIVATED_USERNAME,deactivatedUsername);
-  FindAndModifyOptions options=new FindAndModifyOptions().returnNew(true);
-  return findAndModify(query(where(ID).is(new ObjectId(id))),update,options);
-}

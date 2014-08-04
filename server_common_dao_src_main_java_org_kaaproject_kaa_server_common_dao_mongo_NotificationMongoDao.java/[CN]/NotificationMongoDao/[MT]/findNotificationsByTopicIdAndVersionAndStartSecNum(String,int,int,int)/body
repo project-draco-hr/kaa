@@ -1,4 +1,0 @@
-{
-  LOG.debug("Find notifications by topic id [{}], sequence number start [{}], system schema version [{}], user schema version [{}]",topicId,seqNumber,sysNfVersion,userNfVersion);
-  return find(query(where(TOPIC_ID).is(new ObjectId(topicId)).and(SEQUENCE_NUMBER).gt(seqNumber).orOperator(where(VERSION).is(sysNfVersion).and(NOTIFICATION_TYPE).is(NotificationTypeDto.SYSTEM),where(VERSION).is(userNfVersion).and(NOTIFICATION_TYPE).is(NotificationTypeDto.USER))));
-}

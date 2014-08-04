@@ -1,7 +1,0 @@
-{
-  ProfileSchemaDto schema=generateProfSchema(null,1).get(0);
-  ProfileFilterDto filter=generateFilter(schema.getId(),null,1,true).get(0);
-  Assert.assertNotNull(filter);
-  ProfileFilter found=profileFilterDao.findActiveByEndpointGroupId(filter.getEndpointGroupId().toString());
-  Assert.assertEquals(new ProfileFilter(filter),found);
-}

@@ -1,8 +1,0 @@
-{
-  Object nameField=fieldDefinition.get(NAME_FIELD);
-  if (UUID_FIELD.equals(nameField)) {
-    Schema avroSchema=schemaParser.getTypes().get(UUID_TYPE);
-    return generateUUIDObject(avroSchema);
-  }
-  return processType(fieldDefinition,fieldDefinition.get(BY_DEFAULT_FIELD));
-}

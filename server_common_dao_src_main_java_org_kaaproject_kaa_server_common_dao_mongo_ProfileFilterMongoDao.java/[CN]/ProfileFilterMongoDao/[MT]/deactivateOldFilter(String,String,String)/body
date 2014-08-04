@@ -1,6 +1,0 @@
-{
-  LOG.debug("Deactivate old profile filters, by profile schema id [{}] and group id [{}]",schemaId,groupId);
-  Update update=new Update().set(STATUS,UpdateStatus.DEPRECATED.name()).set(DEACTIVATED_TIME,System.currentTimeMillis()).set(DEACTIVATED_USERNAME,deactivatedUsername);
-  FindAndModifyOptions options=new FindAndModifyOptions().returnNew(true);
-  return findAndModify(query(where(SCHEMA_ID).is(new ObjectId(schemaId)).and(ENDPOINT_GROUP_ID).is(new ObjectId(groupId)).and(STATUS).is(ACTIVE.name())),update,options);
-}

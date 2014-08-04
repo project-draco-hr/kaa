@@ -1,9 +1,0 @@
-{
-  Schema enumSchema=symbol.getSchema();
-  if (AvroGenericUtils.isReset(symbol)) {
-    record.getField(fieldName).getArray().getList().clear();
-  }
- else   if (!AvroGenericUtils.isUnchanged(symbol)) {
-    record.setField(fieldName,commonFactory.createCommonValue(commonFactory.createCommonEnum(enumSchema,symbol.toString())));
-  }
-}

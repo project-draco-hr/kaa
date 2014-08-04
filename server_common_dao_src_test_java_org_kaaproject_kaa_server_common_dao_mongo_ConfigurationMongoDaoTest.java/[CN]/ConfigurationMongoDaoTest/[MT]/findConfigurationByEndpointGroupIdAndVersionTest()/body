@@ -1,8 +1,0 @@
-{
-  String id=endGroups.get(0);
-  int majorVersion=1;
-  Configuration configuration=configurationDao.findConfigurationByEndpointGroupIdAndVersion(id,majorVersion);
-  Assert.assertNotNull(configuration);
-  Assert.assertEquals(majorVersion,configuration.getMajorVersion());
-  Assert.assertEquals(UpdateStatus.ACTIVE,configuration.getStatus());
-}

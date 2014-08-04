@@ -1,9 +1,0 @@
-{
-  String id=configurations.get(7);
-  Configuration inactiveConfig=configurationDao.findById(id);
-  Configuration activateConfig=configurationDao.activate(id,null);
-  Assert.assertNotNull(activateConfig);
-  Assert.assertNotEquals(inactiveConfig,activateConfig);
-  Assert.assertEquals(activateConfig.getStatus(),UpdateStatus.ACTIVE);
-  Assert.assertSame(inactiveConfig.getSequenceNumber() + 1,activateConfig.getSequenceNumber());
-}

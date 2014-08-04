@@ -1,8 +1,0 @@
-{
-  Application application=applicationDao.findById(apps.get(0));
-  Assert.assertNotNull(application);
-  application.setUpdate(null);
-  ApplicationDto dto=application.toDto();
-  Application converted=new Application(dto);
-  Assert.assertEquals(application,converted);
-}

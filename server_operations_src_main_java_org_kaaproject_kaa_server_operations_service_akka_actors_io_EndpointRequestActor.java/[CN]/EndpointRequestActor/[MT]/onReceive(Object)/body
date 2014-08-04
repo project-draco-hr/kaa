@@ -1,9 +1,0 @@
-{
-  LOG.debug("Received: {}",message);
-  if (message instanceof NettyDecodedRequestMessage) {
-    procesCommandRequest((NettyDecodedRequestMessage)message);
-  }
- else   if (message instanceof SyncResponseMessage) {
-    processEndpointSyncResponse((SyncResponseMessage)message);
-  }
-}

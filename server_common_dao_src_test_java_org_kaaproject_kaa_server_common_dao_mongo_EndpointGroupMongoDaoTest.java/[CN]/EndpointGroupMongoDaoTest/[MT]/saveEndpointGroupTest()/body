@@ -1,7 +1,0 @@
-{
-  EndpointGroup found=endpointGroupDao.findById(endGroups.get(0));
-  found.setId(null);
-  found.setWeight(found.getWeight() + 1);
-  EndpointGroup dto=endpointGroupDao.save(found);
-  Assert.assertEquals(dto,found);
-}

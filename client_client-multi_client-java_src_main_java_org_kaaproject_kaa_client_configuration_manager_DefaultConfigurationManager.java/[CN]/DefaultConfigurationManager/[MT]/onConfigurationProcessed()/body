@@ -1,8 +1,0 @@
-{
-  CommonRecord copyRecord=commonFactory.createCommonRecord(rootRecord);
-synchronized (subscribers) {
-    for (    ConfigurationReceiver receiver : subscribers) {
-      receiver.onConfigurationUpdated(copyRecord);
-    }
-  }
-}

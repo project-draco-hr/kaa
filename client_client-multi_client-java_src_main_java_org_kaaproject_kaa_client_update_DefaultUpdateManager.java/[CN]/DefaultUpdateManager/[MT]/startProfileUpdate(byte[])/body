@@ -1,8 +1,0 @@
-{
-  LOG.info("Profile has been updated: {}",profile);
-  state.setProfileHash(EndpointObjectHash.fromSHA1(profile));
-  transport.abortRequest();
-  pollStrategy.stopPoll();
-  pollStrategy.executeCommand(commandFactory.createProfileUpdateCommand(transport,profile,acceptedUnicastNotificationIds));
-  startPoll();
-}

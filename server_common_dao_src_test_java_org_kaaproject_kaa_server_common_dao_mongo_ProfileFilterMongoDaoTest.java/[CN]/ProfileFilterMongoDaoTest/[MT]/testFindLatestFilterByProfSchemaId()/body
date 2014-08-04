@@ -1,6 +1,0 @@
-{
-  ProfileFilterDto dto=generateFilter(null,null,1,true).get(0);
-  ProfileFilter filter=profileFilterDao.findLatestFilter(dto.getSchemaId(),dto.getEndpointGroupId());
-  Assert.assertNotNull(filter);
-  Assert.assertNotEquals(filter.getStatus(),UpdateStatus.INACTIVE);
-}

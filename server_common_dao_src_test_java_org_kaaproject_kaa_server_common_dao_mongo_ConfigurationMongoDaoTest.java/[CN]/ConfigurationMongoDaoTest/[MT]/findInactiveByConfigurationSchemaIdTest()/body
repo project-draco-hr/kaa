@@ -1,7 +1,0 @@
-{
-  Configuration configuration=configurationDao.findInactiveByConfigurationSchemaId(schemas.get(2));
-  Assert.assertNotNull(configuration);
-  Assert.assertEquals(configuration.getStatus(),UpdateStatus.INACTIVE);
-  Assert.assertSame(configuration.getMajorVersion(),3);
-  Assert.assertSame(configuration.getSequenceNumber(),2);
-}

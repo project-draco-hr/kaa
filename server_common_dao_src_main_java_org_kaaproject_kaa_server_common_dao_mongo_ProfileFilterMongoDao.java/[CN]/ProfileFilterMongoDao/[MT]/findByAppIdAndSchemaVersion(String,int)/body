@@ -1,4 +1,0 @@
-{
-  LOG.debug("Find profile filter by application id [{}] and major schema version [{}] ",appId,schemaVersion);
-  return find(query(where(APPLICATION_ID).is(new ObjectId(appId)).and(MAJOR_VERSION).is(schemaVersion).and(STATUS).is(ACTIVE.name())));
-}

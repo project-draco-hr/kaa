@@ -1,7 +1,0 @@
-{
-  ApplicationDto application=new ApplicationDto();
-  application.setName("My Application");
-  application.setTenantId(new ObjectId().toString());
-  application=applicationService.saveApp(application);
-  Assert.assertTrue(ObjectId.isValid(application.getId()));
-}

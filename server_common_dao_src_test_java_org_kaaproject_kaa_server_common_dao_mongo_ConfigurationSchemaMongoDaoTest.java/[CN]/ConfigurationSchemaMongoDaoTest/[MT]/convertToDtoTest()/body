@@ -1,8 +1,0 @@
-{
-  String id=schemas.get(0);
-  ConfigurationSchema schema=configurationSchemaDao.findById(id);
-  Assert.assertNotNull(schema);
-  ConfigurationSchemaDto dto=schema.toDto();
-  ConfigurationSchema converted=new ConfigurationSchema(dto);
-  Assert.assertEquals(schema,converted);
-}

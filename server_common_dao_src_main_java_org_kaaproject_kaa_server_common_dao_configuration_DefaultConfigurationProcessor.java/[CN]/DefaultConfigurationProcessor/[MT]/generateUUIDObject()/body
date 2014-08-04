@@ -1,8 +1,0 @@
-{
-  LOG.debug("Generated UUID");
-  Schema schema=schemaParser.getTypes().get(UUID_TYPE);
-  if (schema == null) {
-    schema=Schema.createFixed(UUID_SCHEMA_NAME,null,UUID_SCHEMA_SPACE,UUID_SIZE);
-  }
-  return new GenericData.Fixed(schema,generateUUIDBytes());
-}

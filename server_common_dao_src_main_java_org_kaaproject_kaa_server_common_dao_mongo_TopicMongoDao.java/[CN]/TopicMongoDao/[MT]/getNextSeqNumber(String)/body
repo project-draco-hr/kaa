@@ -1,6 +1,0 @@
-{
-  LOG.debug("Increment update.seq_num for topic found by id [{}] ",id);
-  Update update=new Update().inc(UPDATE_SEQUENCE_NUMBER,ONE);
-  update.set(UPDATE_PROCESSING_STATUS,ProcessingStatus.PENDING.name());
-  return findAndModify(query(where(ID).is(new ObjectId(id)).and(UPDATE_PROCESSING_STATUS).is(ProcessingStatus.IDLE.name())),update,returnNew);
-}

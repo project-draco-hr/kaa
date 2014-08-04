@@ -1,7 +1,0 @@
-{
-  GenericArray testField1=new GenericData.Array(1,getArraySchema(delta,"testField1"));
-  byte[] rawUuidToRemove=new byte[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1};
-  GenericFixed uuidToRemove=new GenericData.Fixed(getSchemaByFullName(testField1.getSchema().getElementType().getTypes(),"org.kaaproject.configuration.uuidT"),rawUuidToRemove);
-  testField1.add(uuidToRemove);
-  delta.put("testField1",testField1);
-}

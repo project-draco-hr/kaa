@@ -1,8 +1,0 @@
-{
-  LOG.debug("Find configuration schemas by application id [{}] ",applicationId);
-  List<Order> orders=new ArrayList<>();
-  orders.add(new Order(Direction.DESC,MAJOR_VERSION));
-  orders.add(new Order(Direction.DESC,MINOR_VERSION));
-  Sort sort=new Sort(orders);
-  return findOne(query(where(APPLICATION_ID).is(new ObjectId(applicationId)).and(STATUS).is(ACTIVE.name())).with(sort));
-}

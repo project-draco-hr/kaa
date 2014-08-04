@@ -1,4 +1,0 @@
-{
-  LOG.debug("Find configuration by application id [{}] and version [{}]",applicationId,version);
-  return findOne(query(where(APPLICATION_ID).is(new ObjectId(applicationId)).and(MAJOR_VERSION).is(version).and(STATUS).is(ACTIVE.name())));
-}

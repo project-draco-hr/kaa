@@ -1,4 +1,0 @@
-{
-  LOG.debug("Find inactive configuration by configuration schema id [{}] ",configurationSchemaId);
-  return findOne(query(where(SCHEMA_ID).is(new ObjectId(configurationSchemaId)).and(STATUS).is(INACTIVE.name())));
-}

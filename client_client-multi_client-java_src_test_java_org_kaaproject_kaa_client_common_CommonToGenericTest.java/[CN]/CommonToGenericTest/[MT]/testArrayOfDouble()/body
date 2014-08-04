@@ -1,6 +1,0 @@
-{
-  Schema doubleSchema=Schema.create(Type.DOUBLE);
-  GenericArray avroArray=CommonToGeneric.createArray(createCommonArray(doubleSchema,new Double(5.5)));
-  Double avroDouble=(Double)avroArray.get(0);
-  assertEquals(5.5,avroDouble.doubleValue(),0.1);
-}

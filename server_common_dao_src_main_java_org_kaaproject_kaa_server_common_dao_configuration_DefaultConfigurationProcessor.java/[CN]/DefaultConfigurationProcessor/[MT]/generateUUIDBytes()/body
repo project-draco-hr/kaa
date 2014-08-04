@@ -1,7 +1,0 @@
-{
-  UUID uuid=UUID.randomUUID();
-  ByteBuffer byteBuffer=ByteBuffer.wrap(new byte[UUID_SIZE]);
-  byteBuffer.putLong(uuid.getMostSignificantBits());
-  byteBuffer.putLong(uuid.getLeastSignificantBits());
-  return byteBuffer.array();
-}

@@ -1,8 +1,0 @@
-{
-  Path schemaUrl=Paths.get(Thread.currentThread().getContextClassLoader().getResource("service/delta/merge/schema.json").toURI());
-  String configuraionSchema=new String(Files.readAllBytes(schemaUrl));
-  SchemaCreator baseSchemaCreator=new SchemaCreatorImpl(new BaseDataSchemaStrategy());
-  String baseSchemaString=baseSchemaCreator.createSchema(new StringReader(configuraionSchema));
-  ArrayMergeStrategyResolver arrayMergeStrategyResolver=new ArrayMergeStrategyResolver(baseSchemaString);
-  arrayMergeStrategyResolver.resolve("wrong_parent_name","org.kaa.config","child_name");
-}

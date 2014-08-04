@@ -1,6 +1,0 @@
-{
-  Schema stringSchema=Schema.create(Type.STRING);
-  GenericArray avroArray=CommonToGeneric.createArray(createCommonArray(stringSchema,new String("abc")));
-  String avroString=(String)avroArray.get(0);
-  assertEquals("abc",avroString);
-}

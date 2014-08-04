@@ -1,7 +1,0 @@
-{
-  String schemaId=configurationDao.findById(configurations.get(6)).getSchemaId().toString();
-  configurationDao.removeByConfigurationSchemaId(schemaId);
-  List<Configuration> configs=configurationDao.findActiveByConfigurationSchemaId(schemaId);
-  Assert.assertNotNull(configs);
-  Assert.assertSame(configs.size(),0);
-}

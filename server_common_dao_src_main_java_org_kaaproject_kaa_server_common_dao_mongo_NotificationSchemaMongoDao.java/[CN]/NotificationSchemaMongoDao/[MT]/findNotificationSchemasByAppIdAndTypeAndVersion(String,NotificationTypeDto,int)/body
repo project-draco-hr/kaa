@@ -1,4 +1,0 @@
-{
-  LOG.debug("Find notification schema by application id [{}] type [{}] and major version",appId,type,majorVersion);
-  return findOne(query(where(APPLICATION_ID).is(new ObjectId(appId)).and(NOTIFICATION_TYPE).is(type.name()).and(MAJOR_VERSION).is(majorVersion)));
-}

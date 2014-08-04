@@ -1,8 +1,0 @@
-{
-  Tenant tenant=tenantDao.findById(tenants.get(0));
-  tenantDao.save(tenant);
-  LOGGER.debug("New tenant id " + tenant.getId());
-  String id=tenant.getId();
-  tenantDao.removeById(id);
-  Assert.assertNull(tenantDao.findById(id));
-}

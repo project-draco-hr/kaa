@@ -1,9 +1,0 @@
-{
-  Path schemaUrl=Paths.get(Thread.currentThread().getContextClassLoader().getResource("service/delta/merge/schema_for_array_merge_strategy_resolver_with_empty_fields_definition.json").toURI());
-  String configuraionSchema=new String(Files.readAllBytes(schemaUrl));
-  SchemaCreator baseSchemaCreator=new SchemaCreatorImpl(new BaseDataSchemaStrategy());
-  String baseSchemaString=baseSchemaCreator.createSchema(new StringReader(configuraionSchema));
-  ArrayMergeStrategyResolver arrayMergeStrategyResolver=new ArrayMergeStrategyResolver(baseSchemaString);
-  ArrayMergeStrategy actualArrayMergeStrategy=arrayMergeStrategyResolver.resolve("testT","org.kaa.config","child_name");
-  Assert.assertTrue(ArrayMergeStrategy.REPLACE == actualArrayMergeStrategy);
-}

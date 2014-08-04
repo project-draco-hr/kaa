@@ -1,8 +1,0 @@
-{
-  History history=historyDao.findById(hists.get(0));
-  Assert.assertNotNull(history);
-  history.setId(null);
-  History saved=historyDao.save(history);
-  Assert.assertNotNull(saved);
-  Assert.assertNotNull(saved.getId());
-}

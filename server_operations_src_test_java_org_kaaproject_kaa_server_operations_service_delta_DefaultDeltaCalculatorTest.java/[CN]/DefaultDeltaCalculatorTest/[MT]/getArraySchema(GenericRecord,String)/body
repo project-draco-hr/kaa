@@ -1,9 +1,0 @@
-{
-  List<Schema> fieldTypes=delta.getSchema().getField(field).schema().getTypes();
-  for (  Schema type : fieldTypes) {
-    if (type.getType() == Schema.Type.ARRAY) {
-      return type;
-    }
-  }
-  return null;
-}

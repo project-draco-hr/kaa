@@ -1,7 +1,0 @@
-{
-  int result=sequenceNumber;
-  result=31 * result + (applicationId != null ? applicationId.hashCode() : 0);
-  result=31 * result + (change != null ? change.hashCode() : 0);
-  result=31 * result + (int)(lastModifyTime ^ (lastModifyTime >>> 32));
-  return result;
-}

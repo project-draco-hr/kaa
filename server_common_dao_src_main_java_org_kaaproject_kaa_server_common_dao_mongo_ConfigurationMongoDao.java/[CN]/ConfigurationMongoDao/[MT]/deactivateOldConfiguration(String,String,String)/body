@@ -1,5 +1,0 @@
-{
-  LOG.debug("Deactivate old configuration, by configuration schema id [{}] and endpoint group id [{}] ",schemaId,groupId);
-  Update update=new Update().set(STATUS,UpdateStatus.DEPRECATED.name()).set(DEACTIVATED_TIME,System.currentTimeMillis()).set(DEACTIVATED_USERNAME,deactivatedUsername);
-  return findAndModify(query(where(SCHEMA_ID).is(new ObjectId(schemaId)).and(ENDPOINT_GROUP_ID).is(new ObjectId(groupId)).and(STATUS).is(ACTIVE.name())),update,returnNew);
-}

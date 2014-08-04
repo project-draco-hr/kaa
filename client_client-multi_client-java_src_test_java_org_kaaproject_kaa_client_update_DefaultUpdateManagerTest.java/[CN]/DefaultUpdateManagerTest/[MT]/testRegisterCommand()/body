@@ -1,6 +1,0 @@
-{
-  CommandTest cmdTest=new CommandTest();
-  Command cmd=cmdTest.getCommandFactory().createRegisterCommand(cmdTest.getTransport(),new byte[]{1,2,3});
-  cmdTest.verifyListener(cmd);
-  verify(cmdTest.getTransport(),times(2)).sendRegisterCommand(any(EndpointRegistrationRequest.class));
-}

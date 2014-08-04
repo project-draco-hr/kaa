@@ -1,6 +1,0 @@
-{
-  LOG.debug("Activate profile filter and increment seq_num, found by id [{}] ",id);
-  Update update=new Update().inc(SEQUENCE_NUMBER,ONE).set(STATUS,UpdateStatus.ACTIVE.name()).set(ACTIVATED_TIME,System.currentTimeMillis()).set(ACTIVATED_USERNAME,activatedUsername);
-  FindAndModifyOptions options=new FindAndModifyOptions().returnNew(true);
-  return findAndModify(query(where(ID).is(new ObjectId(id))),update,options);
-}

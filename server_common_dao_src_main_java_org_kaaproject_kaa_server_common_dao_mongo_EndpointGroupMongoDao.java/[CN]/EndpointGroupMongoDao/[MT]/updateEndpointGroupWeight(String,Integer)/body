@@ -1,5 +1,0 @@
-{
-  LOG.debug("Update endpoint group weight to [{}], endpoint group id [{}] ",weight,id);
-  Update update=new Update().inc(SEQUENCE_NUMBER,ONE).set(WEIGHT,weight);
-  return findAndModify(query(where(ID).is(new ObjectId(id))),update,returnNew);
-}
