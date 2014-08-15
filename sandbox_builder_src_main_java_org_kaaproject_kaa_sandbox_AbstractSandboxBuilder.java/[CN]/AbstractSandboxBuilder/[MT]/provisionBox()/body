@@ -1,3 +1,12 @@
 {
   provisionBoxImpl();
+  scheduleSudoSshCommand("rm -rf " + "/" + SHARED_FOLDER);
+  scheduleSudoSshCommand("mkdir -p " + "/" + SHARED_FOLDER);
+  scheduleSudoSshCommand("mkdir -p " + SANDBOX_FOLDER);
+  scheduleSudoSshCommand("chown -R " + SSH_USERNAME + ":"+ SSH_USERNAME+ " "+ "/"+ SHARED_FOLDER);
+  scheduleSudoSshCommand("chown -R " + SSH_USERNAME + ":"+ SSH_USERNAME+ " "+ SANDBOX_FOLDER);
+  executeScheduledSshCommands();
+  logger.info("Transfering sandbox data...");
+  transferAllFromDir(basePath.getAbsolutePath(),"/" + SHARED_FOLDER);
+  logger.info("Sandbox data transfered");
 }

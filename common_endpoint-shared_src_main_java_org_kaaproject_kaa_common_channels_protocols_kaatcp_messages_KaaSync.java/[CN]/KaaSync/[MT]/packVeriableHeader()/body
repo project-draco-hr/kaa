@@ -1,0 +1,18 @@
+{
+  buffer.put(FIXED_HEADER_CONST);
+  byte mId1=(byte)(messageId & 0x0000FF00);
+  buffer.put(mId1);
+  byte mId2=(byte)(messageId & 0x000000FF);
+  buffer.put(mId2);
+  byte flags=0x00;
+  if (isRequest()) {
+    flags=(byte)(flags | KAASYNC_REQUEST_FLAG);
+  }
+  if (isZipped()) {
+    flags=(byte)(flags | KAASYNC_ZIPPED_FLAG);
+  }
+  if (isEncrypted()) {
+    flags=(byte)(flags | KAASYNC_ENCRYPTED_FLAG);
+  }
+  buffer.put(flags);
+}

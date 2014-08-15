@@ -1,0 +1,5 @@
+{
+  TimeoutMessage message=new ChannelTimeoutMessage(channel.getId(),channel.getLastActivityTime());
+  LOG.debug("Scheduling channel timeout message: {} to timout in {}",message,channel.getKeepAlive() * 1000);
+  scheduleTimeoutMessage(context,message,channel.getKeepAlive() * 1000);
+}

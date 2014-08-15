@@ -2,7 +2,11 @@
   SyncResponse response=new SyncResponse();
   response.setStatus(SyncResponseResultType.SUCCESS);
   response.setNotificationSyncResponse(new NotificationSyncResponse());
-  SyncResponse result=operationsService.updateSyncResponse(response,new ArrayList<NotificationDto>(),null);
+  NotificationDto nfDto=new NotificationDto();
+  nfDto.setId("nfId");
+  nfDto.setBody("body".getBytes());
+  nfDto.setType(NotificationTypeDto.SYSTEM);
+  SyncResponse result=operationsService.updateSyncResponse(response,Collections.singletonList(nfDto),null);
   assertNotNull(result);
   assertNotNull(result.getNotificationSyncResponse());
   assertNotNull(result.getNotificationSyncResponse().getNotifications());
@@ -12,7 +16,7 @@
   NotificationSyncResponse nfResponse=new NotificationSyncResponse();
   nfResponse.setNotifications(new ArrayList<Notification>());
   response.setNotificationSyncResponse(new NotificationSyncResponse());
-  result=operationsService.updateSyncResponse(response,new ArrayList<NotificationDto>(),null);
+  result=operationsService.updateSyncResponse(response,Collections.singletonList(nfDto),null);
   assertNotNull(result);
   assertNotNull(result.getNotificationSyncResponse());
   assertNotNull(result.getNotificationSyncResponse().getNotifications());

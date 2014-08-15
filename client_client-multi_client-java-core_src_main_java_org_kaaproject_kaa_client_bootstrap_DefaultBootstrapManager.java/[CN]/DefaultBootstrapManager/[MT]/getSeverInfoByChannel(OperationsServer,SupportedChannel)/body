@@ -10,6 +10,10 @@ case HTTP_LP:
 HttpLongPollParameters longPollParams=HttpLongPollChannel.getHttpLongPollParametersFromSupportedChannel(supportedChannel);
 info=new HttpLongPollServerInfo(longPollParams.getHostName(),longPollParams.getPort(),server.getPublicKey().array());
 break;
+case KAATCP:
+KaaTcpParameters tcpParams=KaaTcpChannel.getKaaTcpParametersFromSupportedChannel(supportedChannel);
+info=new KaaTcpServerInfo(tcpParams.getHostName(),tcpParams.getPort(),server.getPublicKey().array());
+break;
 default :
 throw new BootstrapRuntimeException("Invalid type");
 }

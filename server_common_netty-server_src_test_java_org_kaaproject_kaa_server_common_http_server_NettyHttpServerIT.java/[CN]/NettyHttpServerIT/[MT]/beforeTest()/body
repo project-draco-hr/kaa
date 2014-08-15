@@ -1,0 +1,11 @@
+{
+  config.setSessionTrack(this);
+  sessionsCreated=0;
+  sessionsClosed=0;
+  testProcessed=0;
+  averageTime=0;
+  netty=new NettyHttpServer(config,new DefaultHttpServerInitializer());
+  netty.init();
+  netty.start();
+  assertNotNull(netty);
+}

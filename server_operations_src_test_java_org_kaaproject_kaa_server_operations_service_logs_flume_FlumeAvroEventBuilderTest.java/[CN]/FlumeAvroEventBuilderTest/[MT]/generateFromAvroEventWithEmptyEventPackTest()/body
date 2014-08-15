@@ -1,0 +1,7 @@
+{
+  eventBuilder=new FlumeAvroEventBuilder();
+  ReflectionTestUtils.setField(eventBuilder,"applicationService",applicationService);
+  Mockito.when(applicationService.findAppById(APP_ID)).thenReturn(app);
+  Event event=eventBuilder.generateEvent(null);
+  Assert.assertNull(event);
+}

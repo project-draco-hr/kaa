@@ -1,0 +1,22 @@
+{
+  if (user != null) {
+    return user.doAs(action);
+  }
+ else {
+    try {
+      return action.run();
+    }
+ catch (    IOException ex) {
+      throw ex;
+    }
+catch (    InterruptedException ex) {
+      throw ex;
+    }
+catch (    RuntimeException ex) {
+      throw ex;
+    }
+catch (    Exception ex) {
+      throw new RuntimeException("Unexpected exception.",ex);
+    }
+  }
+}

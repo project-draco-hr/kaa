@@ -1,0 +1,11 @@
+{
+  OperationsService osMock=Mockito.mock(OperationsService.class);
+  ActorContext ctxMock=Mockito.mock(ActorContext.class);
+  ActorRef appActorMock=Mockito.mock(ActorRef.class);
+  Mockito.when(ctxMock.parent()).thenReturn(appActorMock);
+  EndpointActorMessageProcessor processor=Mockito.spy(new EndpointActorMessageProcessor(osMock,"APP_TOKEN",EndpointObjectHash.fromSHA1("key"),"actorKey"));
+  EndpointEventReceiveMessage msg=Mockito.mock(EndpointEventReceiveMessage.class);
+  Mockito.doNothing().when(processor).tellParent(Mockito.any(ActorContext.class),Mockito.any(Object.class));
+  processor.processEndpointEventReceiveMessage(ctxMock,msg);
+  Mockito.verify(processor).tellParent(Mockito.any(ActorContext.class),Mockito.any(Object.class));
+}

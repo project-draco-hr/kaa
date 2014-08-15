@@ -1,5 +1,5 @@
 {
-  List<ChannelMetaData> channels=new ArrayList<>();
+  Set<ChannelMetaData> channels=new HashSet<>();
   channels.addAll(channelMap.getByTransportType(TransportType.CONFIGURATION));
   channels.addAll(channelMap.getByTransportType(TransportType.NOTIFICATION));
   LOG.debug("[{}][{}] Processing thrift norification for {} channels",endpointKey,actorKey,channels.size());
@@ -19,6 +19,6 @@
       syncRequest.getNotificationSyncRequest().setAppStateSeqNumber(newSeqNumnber);
     }
     LOG.debug("[{}][{}] Processing request {}",endpointKey,actorKey,syncRequest);
-    doSync(context,channel.getRequest());
+    sync(context,channel.getRequest());
   }
 }

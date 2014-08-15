@@ -1,0 +1,14 @@
+{
+  if (buffer == null) {
+    int remainingLegth=getRemainingLegth();
+    byte[] kaaTcpHeader=new byte[6];
+    int headerSize=fillFixedHeader(remainingLegth,kaaTcpHeader);
+    int remainingSize=remainingLegth + headerSize;
+    LOG.trace("Allocating buffer size = {}",remainingSize);
+    buffer=ByteBuffer.allocate(remainingSize);
+    buffer.put(kaaTcpHeader,0,headerSize);
+    pack();
+    buffer.position(0);
+  }
+  return buffer;
+}

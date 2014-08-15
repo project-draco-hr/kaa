@@ -1,0 +1,34 @@
+{
+  Config config=new Config();
+  config.setBindInterface(TEST_HOST);
+  config.setPort(TEST_PORT);
+  KaaCommandProcessorFactory<MqttFrame,MqttFrame> factory=getCommandFactory();
+  List<KaaCommandProcessorFactory> commands=new ArrayList<>();
+  commands.add(factory);
+  config.setCommandList(commands);
+  NettyKaaTcpServer server=createServer(config);
+  PingResponseListener listener=Mockito.mock(PingResponseListener.class);
+  final MessageFactory messageFactory=new MessageFactory();
+  messageFactory.registerMessageListener(listener);
+  try {
+    LOG.debug("Initializing TCP server");
+    server.init();
+    LOG.debug("Starting TCP server");
+    server.start();
+    final Socket socket=new Socket(TEST_HOST,TEST_PORT);
+    Runnable readTask=createReader(messageFactory,socket);
+    Thread reader=new Thread(readTask);
+    reader.start();
+    PingRequest request=new PingRequest();
+    socket.getOutputStream().write(request.getFrame().array());
+    Mockito.verify(listener,Mockito.timeout(TIMEOUT).atLeastOnce()).onMessage(Mockito.any(PingResponse.class));
+    PingResponse response=new PingResponse();
+    socket.getOutputStream().write(response.getFrame().array());
+    reader.interrupt();
+    socket.close();
+  }
+  finally {
+    LOG.debug("Shutdown TCP server");
+    server.shutdown();
+  }
+}

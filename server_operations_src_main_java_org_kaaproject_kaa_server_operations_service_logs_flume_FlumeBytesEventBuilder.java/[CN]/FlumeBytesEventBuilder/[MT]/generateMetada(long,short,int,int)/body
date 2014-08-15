@@ -1,0 +1,9 @@
+{
+  ByteBuffer metaData=ByteBuffer.allocate(METADATA_SIZE_IN_BYTES);
+  metaData.putInt(EMPTY_HEADER);
+  metaData.putLong(appToken);
+  metaData.putShort(schemaVersion);
+  metaData.putInt(eventCount);
+  metaData.putInt(payloadSize);
+  return metaData;
+}

@@ -5,7 +5,9 @@
     List<TenantUserDto> tenantUsers=new ArrayList<TenantUserDto>(tenantAdmins.size());
     for (    TenantAdminDto tenantAdmin : tenantAdmins) {
       TenantUserDto tenantUser=toTenantUser(tenantAdmin);
-      tenantUsers.add(tenantUser);
+      if (tenantUser != null) {
+        tenantUsers.add(tenantUser);
+      }
     }
     return tenantUsers;
   }

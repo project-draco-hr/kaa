@@ -1,5 +1,9 @@
 {
   LOG.debug("Fetching log schema for application {} and version {}",applicationId,logSchemaVersion);
+  LogSchema logSchema=null;
   LogSchemaDto logSchemaDto=logSchemaService.findLogSchemaByAppIdAndVersion(applicationId,logSchemaVersion);
-  return new LogSchema(logSchemaDto);
+  if (logSchemaDto != null) {
+    logSchema=new LogSchema(logSchemaDto);
+  }
+  return logSchema;
 }

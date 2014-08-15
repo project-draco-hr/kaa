@@ -1,0 +1,15 @@
+{
+  UUID channelId=UUID.randomUUID();
+  ChannelHandlerContext ctx=Mockito.mock(ChannelHandlerContext.class);
+  ChannelType channelType=ChannelType.TCP;
+  SecretKey sessionKey=Mockito.mock(SecretKey.class);
+  EndpointObjectHash key=EndpointObjectHash.fromSHA1("key");
+  String applicationToken="AppToken";
+  int keepAlive=100;
+  NettySessionInfo session=new NettySessionInfo(channelId,ctx,channelType,sessionKey,key,applicationToken,keepAlive);
+  KaaSync command=new KaaSync(false,"avroObject".getBytes(),false,false);
+  NettyTcpSyncMessage message=new NettyTcpSyncMessage(command,session,null,null,null);
+  Assert.assertArrayEquals("avroObject".getBytes(),message.getEncodedRequestData());
+  Assert.assertEquals(session,message.getSessionInfo());
+  Assert.assertNotNull(message.toString());
+}

@@ -1,0 +1,25 @@
+{
+  Context context=new Context();
+  context.put("capacity","100000000");
+  context.put("transactionCapacity","10000000");
+  context.put("keep-alive","1");
+  context.put("port","31333");
+  context.put("bind","localhost");
+  context.put(ConfigurationConstants.CONFIG_ROOT_HDFS_PATH,fileSystem.makeQualified(new Path("/logs")).toString());
+  context.put(ConfigurationConstants.CONFIG_HDFS_TXN_EVENT_MAX,"100000");
+  context.put(ConfigurationConstants.CONFIG_HDFS_THREAD_POOL_SIZE,"20");
+  context.put(ConfigurationConstants.CONFIG_HDFS_ROLL_TIMER_POOL_SIZE,"1");
+  context.put(ConfigurationConstants.CONFIG_HDFS_MAX_OPEN_FILES,"5000");
+  context.put(ConfigurationConstants.CONFIG_HDFS_CALL_TIMEOUT,"10000");
+  context.put(ConfigurationConstants.CONFIG_HDFS_ROLL_INTERVAL,"86400000");
+  context.put(ConfigurationConstants.CONFIG_HDFS_ROLL_SIZE,"0");
+  context.put(ConfigurationConstants.CONFIG_HDFS_ROLL_COUNT,"5500000");
+  context.put(ConfigurationConstants.CONFIG_HDFS_BATCH_SIZE,"" + flushRecordsCount);
+  context.put(ConfigurationConstants.CONFIG_HDFS_DEFAULT_BLOCK_SIZE,"" + blockSize);
+  context.put(ConfigurationConstants.CONFIG_HDFS_FILE_PREFIX,"data");
+  context.put(ConfigurationConstants.CONFIG_STATISTICS_INTERVAL,"10");
+  context.put("serializer.compressionCodec","null");
+  context.put("serializer.avro.schema.source","local");
+  context.put("serializer.avro.schema.local.root",logSchemasRootDir.getAbsolutePath());
+  return context;
+}

@@ -1,10 +1,11 @@
 {
+  NettySessionInfo session=new NettySessionInfo(UUID.randomUUID(),null,ChannelType.HTTP,null,null,"applicationToken",0);
   SyncRequest request=new SyncRequest();
   request.setSyncRequestMetaData(new SyncRequestMetaData());
-  SyncRequestMessage message=new SyncRequestMessage(null,null,null,null,null,null,request,null);
+  SyncRequestMessage message=new SyncRequestMessage(session,request,null,null);
   SyncRequest other=new SyncRequest();
   other.setSyncRequestMetaData(new SyncRequestMetaData());
-  SyncRequestMessage otherMessage=new SyncRequestMessage(null,null,null,null,null,null,other,null);
+  SyncRequestMessage otherMessage=new SyncRequestMessage(session,other,null,null);
   Assert.assertFalse(message.isValid(TransportType.BOOTSTRAP));
   Assert.assertFalse(message.isValid(TransportType.PROFILE));
   other.setProfileSyncRequest(new ProfileSyncRequest());

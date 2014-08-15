@@ -1,26 +1,31 @@
 {
   LOG.trace("Starting Bootstrap service..." + propertiesToString());
   try {
+    LOG.trace("Bootstrap Service ZK started");
+    if (operationsServerListService == null) {
+      throw new Exception("Error initializing OperationsServerListService()");
+    }
+    operationsServerListService.init();
+    LOG.trace("Config: " + getConfig().toString());
+    httpService.start();
+    final CountDownLatch thriftStartupLatch=new CountDownLatch(1);
+    final CountDownLatch thriftShutdownLatch=new CountDownLatch(1);
+    startThrift(thriftStartupLatch,thriftShutdownLatch);
+    try {
+      thriftStartupLatch.await();
+    }
+ catch (    InterruptedException e) {
+      LOG.error("Interrupted while waiting for thrift to start...",e);
+    }
     if (zkEnabled) {
       startZK();
     }
-    LOG.trace("Bootstrap Service ZK started");
-    if (operationsServerListService == null) {
-      operationsServerListService=new OperationsServerListService(getConfig());
-      if (operationsServerListService == null) {
-        throw new Exception("Error initializing OperationsServerListService()");
-      }
-      getConfig().setOperationsServerListService(operationsServerListService);
-      if (zkEnabled) {
-        getConfig().setBootstrapNode(bootstrapNode);
-      }
-      operationsServerListService.init();
+    try {
+      thriftShutdownLatch.await();
     }
-    LOG.trace("Config: " + getConfig().toString());
-    httpService=new ProtocolService(getConfig());
-    httpService.start();
-    bootstrapThriftService.setConfig(getConfig());
-    startThrift();
+ catch (    InterruptedException e) {
+      LOG.error("Interrupted while waiting for thrift to stop...",e);
+    }
   }
  catch (  Exception e) {
     LOG.error("Error starting Bootstrap Service",e);

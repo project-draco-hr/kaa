@@ -1,0 +1,21 @@
+{
+  LOG.debug("Process log appender notification [{}]",notification);
+switch (notification.getOp()) {
+case ADD_LOG_APPENDER:
+    LOG.debug("[{}] Add new appender to list of log appenders.",applicationToken);
+  addLogAppender(notification.getAppenderId());
+break;
+case REMOVE_LOG_APPENDER:
+LOG.debug("[{}] Remove appender from list of log appenders.",applicationToken);
+removeLogAppender(notification.getAppenderId());
+break;
+case UPDATE_LOG_APPENDER:
+LOG.debug("[{}] Update configuration of existing appender",applicationToken);
+String id=notification.getAppenderId();
+removeLogAppender(id);
+addLogAppender(id);
+break;
+default :
+LOG.debug("[{}] Operation [{}] does not support.",applicationToken,notification.getOp());
+}
+}

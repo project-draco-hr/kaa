@@ -24,7 +24,6 @@
   if (create) {
     String out=output.trim();
     int index="Created new Configuration with id: ".length();
-    logger.debug(" ---> TEST LOGS: " + out);
     if (out.length() > index) {
       return out.substring(index).trim();
     }
@@ -34,12 +33,10 @@
     }
   }
  else   if (configurationId.equals(FAKE_SQL_ID)) {
-    logger.debug(" ---> TEST LOGS: " + output.trim());
     Assert.assertTrue(output.trim().startsWith("Configuration with id " + FAKE_SQL_ID + " not found!"));
     return configurationId;
   }
  else {
-    logger.debug(" ---> TEST LOGS: " + output.trim());
     Assert.assertTrue(output.trim().startsWith("Configuration updated."));
     return configurationId;
   }

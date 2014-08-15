@@ -1,0 +1,12 @@
+{
+  Logger testLogger=Mockito.mock(Logger.class);
+  Field field=logAppender.getClass().getDeclaredField("LOG");
+  field.setAccessible(true);
+  Field modifiersField=Field.class.getDeclaredField("modifiers");
+  modifiersField.setAccessible(true);
+  modifiersField.setInt(field,field.getModifiers() & ~Modifier.FINAL);
+  field.set(null,testLogger);
+  logAppender.close();
+  logAppender.doAppend(null);
+  Mockito.verify(testLogger).info(Mockito.anyString(),Mockito.anyString());
+}

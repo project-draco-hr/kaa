@@ -9,6 +9,7 @@
     if (confBody != null) {
       configProcessor.processConfigurationData(confBody,response.getResponseStatus().equals(SyncResponseStatus.RESYNC));
     }
-    LOG.info("Processed configuration response");
+    syncAck(response.getResponseStatus());
+    LOG.info("Processed configuration response.");
   }
 }

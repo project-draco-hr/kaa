@@ -1,0 +1,8 @@
+{
+  List<LogAppender> appenders=Collections.emptyList();
+  LOG.debug("Find log appenders by application id {}",appId);
+  if (isNotBlank(appId)) {
+    appenders=findListByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.and(Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(appId)),Restrictions.eq(LOG_APPENDER_STATUS,LogAppenderStatusDto.REGISTERED)));
+  }
+  return appenders;
+}

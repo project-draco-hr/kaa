@@ -1,0 +1,10 @@
+{
+  Long t=null;
+  try {
+    t=Long.valueOf(token);
+  }
+ catch (  NumberFormatException e) {
+    LOG.warn("Can't convert string application token {} to Long format.",token);
+  }
+  return t;
+}

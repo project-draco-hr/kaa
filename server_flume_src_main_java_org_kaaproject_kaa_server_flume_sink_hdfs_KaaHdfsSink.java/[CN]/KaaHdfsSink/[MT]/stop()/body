@@ -1,0 +1,41 @@
+{
+  started=false;
+  Map<HdfsSinkKey,BucketWriter> writers=writerCache.asMap();
+  for (  Entry<HdfsSinkKey,BucketWriter> entry : writers.entrySet()) {
+    logger.info("Closing {}",entry.getKey());
+    try {
+      close(entry.getValue());
+    }
+ catch (    Exception ex) {
+      logger.warn("Exception while closing " + entry.getKey() + ". "+ "Exception follows.",ex);
+      if (ex instanceof InterruptedException) {
+        Thread.currentThread().interrupt();
+      }
+    }
+  }
+  if (statisticsFuture != null && !statisticsFuture.isDone()) {
+    statisticsFuture.cancel(false);
+    statisticsFuture=null;
+  }
+  ExecutorService toShutdown[]={callTimeoutPool,timedRollerPool,statisticsPool};
+  for (  ExecutorService execService : toShutdown) {
+    if (execService != null) {
+      execService.shutdown();
+      try {
+        while (execService.isTerminated() == false) {
+          execService.awaitTermination(Math.max(ConfigurationConstants.DEFAULT_HDFS_CALL_TIMEOUT,callTimeout),TimeUnit.MILLISECONDS);
+        }
+      }
+ catch (      InterruptedException ex) {
+        logger.warn("shutdown interrupted on " + execService,ex);
+      }
+    }
+  }
+  callTimeoutPool=null;
+  timedRollerPool=null;
+  statisticsPool=null;
+  writerCache.cleanUp();
+  writerCache=null;
+  sinkCounter.stop();
+  super.stop();
+}

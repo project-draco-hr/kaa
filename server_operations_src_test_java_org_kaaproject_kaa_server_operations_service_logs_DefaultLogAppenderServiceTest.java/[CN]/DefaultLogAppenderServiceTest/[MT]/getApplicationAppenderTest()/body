@@ -1,0 +1,13 @@
+{
+  ApplicationDto dto=new ApplicationDto();
+  dto.setApplicationToken(APPLICATION_TOKEN);
+  dto.setTenantId(TENANT_ID);
+  dto.setLogAppendersNames(APPENDER_NAME);
+  when(applicationService.findAppById(APPLICATION_ID)).thenReturn(dto);
+  when(applicationService.findAppById(APPLICATION_ID)).thenReturn(dto);
+  when(logAppendersService.findLogAppenderById(APPENDER_ID)).thenReturn(new LogAppenderDto());
+  when(logAppenderResolver.getAppender(any(LogAppenderDto.class))).thenReturn(mongoDBLogAppender);
+  LogAppender appender=logAppenderService.getApplicationAppender(APPENDER_ID,APPLICATION_TOKEN);
+  Assert.assertNotNull(appender);
+  Assert.assertEquals(mongoDBLogAppender.getName(),appender.getName());
+}

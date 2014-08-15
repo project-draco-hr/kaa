@@ -1,0 +1,6 @@
+{
+  ResolveCommand command=new ResolveCommand();
+  command.operationsServerListService=operationsServerListService;
+  command.crypt=new MessageEncoderDecoder(keyStoreService.getPrivateKey(),keyStoreService.getPublicKey(),null);
+  return command;
+}

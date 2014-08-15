@@ -1,0 +1,11 @@
+{
+  if (this == obj)   return true;
+  if (obj == null)   return false;
+  if (getClass() != obj.getClass())   return false;
+  FileAppenderParametersDto other=(FileAppenderParametersDto)obj;
+  if (filePath == null) {
+    if (other.filePath != null)     return false;
+  }
+ else   if (!filePath.equals(other.filePath))   return false;
+  return true;
+}

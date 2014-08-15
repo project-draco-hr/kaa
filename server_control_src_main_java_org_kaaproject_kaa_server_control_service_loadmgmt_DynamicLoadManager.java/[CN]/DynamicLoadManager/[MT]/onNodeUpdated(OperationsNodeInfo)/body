@@ -21,6 +21,12 @@ registeredUsersCount=httpLpStats.getZkStatistics().getRegisteredUsersCount();
 processedRequestCount=httpLpStats.getZkStatistics().getProcessedRequestCount();
 deltaCalculationCount=httpLpStats.getZkStatistics().getDeltaCalculationCount();
 break;
+case KAATCP:
+ZkKaaTcpStatistics tcpStats=(ZkKaaTcpStatistics)channel.getZkChannel().getChannelStatistics();
+registeredUsersCount=tcpStats.getZkStatistics().getRegisteredUsersCount();
+processedRequestCount=tcpStats.getZkStatistics().getProcessedRequestCount();
+deltaCalculationCount=tcpStats.getZkStatistics().getDeltaCalculationCount();
+break;
 default :
 break;
 }

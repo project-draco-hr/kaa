@@ -1,0 +1,27 @@
+{
+  logger.info("Starting {}...",this);
+  eventFactory=new KaaEventFactory();
+  String timeoutName="hdfs-" + getName() + "-call-runner-%d";
+  callTimeoutPool=Executors.newFixedThreadPool(threadsPoolSize,new ThreadFactoryBuilder().setNameFormat(timeoutName).build());
+  String rollerName="hdfs-" + getName() + "-roll-timer-%d";
+  timedRollerPool=(ScheduledThreadPoolExecutor)Executors.newScheduledThreadPool(rollTimerPoolSize,new ThreadFactoryBuilder().setNameFormat(rollerName).build());
+  if (statisticsInterval > 0) {
+    String statisticsName="hdfs-" + getName() + "-statistics-%d";
+    statisticsPool=Executors.newScheduledThreadPool(1,new ThreadFactoryBuilder().setNameFormat(statisticsName).build());
+    Runnable action=new Runnable(){
+      @Override public void run(){
+        logger.info("Statistics: Drain attempt events: " + sinkCounter.getEventDrainAttemptCount() + "; "+ "Drain success events: "+ sinkCounter.getEventDrainSuccessCount());
+      }
+    }
+;
+    statisticsFuture=statisticsPool.scheduleWithFixedDelay(action,0,statisticsInterval,TimeUnit.SECONDS);
+  }
+  cacheCleanupStartInterval=System.currentTimeMillis();
+  bucketWriterLoader=new BucketWriterLoader(rollInterval,rollSize,rollCount,batchSize,defaultBlockSize,context,filePrefix,timedRollerPool,proxyTicket,sinkCounter);
+  writerCache=CacheBuilder.newBuilder().maximumSize(maxOpenFiles).expireAfterWrite(writerExpirationInterval,TimeUnit.SECONDS).removalListener(this).build(bucketWriterLoader);
+  writerFlushMap=new HashMap<HdfsSinkKey,BucketWriter>();
+  sinkCounter.start();
+  started=true;
+  super.start();
+  logger.info("Kaa Hdfs Sink {} started.",getName());
+}

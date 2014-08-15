@@ -7,6 +7,7 @@ synchronized (attachEndpointRequests) {
         for (        EndpointAttachResponse attached : response.getEndpointAttachResponses()) {
           EndpointAccessToken attachedToken=attachEndpointRequests.remove(attached.getRequestId());
           if (attached.getResult() == SyncResponseResultType.SUCCESS) {
+            LOG.info("Token {}",attachedToken);
             attachedEndpoints.put(attachedToken,new EndpointKeyHash(attached.getEndpointKeyHash()));
             hasChanges=true;
           }
@@ -26,7 +27,9 @@ synchronized (detachEndpointRequests) {
               for (              Map.Entry<EndpointAccessToken,EndpointKeyHash> entry : attachedEndpoints.entrySet()) {
                 if (detachedEndpointKeyHash.equals(entry.getValue())) {
                   EndpointKeyHash removed=attachedEndpoints.remove(entry.getKey());
-                  hasChanges=(removed != null);
+                  if (!hasChanges) {
+                    hasChanges=(removed != null);
+                  }
                   break;
                 }
               }

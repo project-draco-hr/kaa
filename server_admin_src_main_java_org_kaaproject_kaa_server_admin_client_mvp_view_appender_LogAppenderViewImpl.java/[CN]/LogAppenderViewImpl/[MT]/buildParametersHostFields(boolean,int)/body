@@ -1,0 +1,12 @@
+{
+  this.hasPriority=hasPriority;
+  this.defaultRowCountLimit=defaultRowCount;
+  getFooter().clear();
+  hostTable=generateTable(hasPriority);
+  for (int i=1; i <= defaultRowCount - 1; i++) {
+    addEmptyRow(i,hasPriority);
+  }
+  getFooter().add(hostTable);
+  getFooter().add(addHost);
+  getFooter().add(removeHost);
+}

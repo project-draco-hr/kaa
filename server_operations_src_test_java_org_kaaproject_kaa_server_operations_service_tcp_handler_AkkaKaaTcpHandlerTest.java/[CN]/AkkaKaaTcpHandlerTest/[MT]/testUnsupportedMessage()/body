@@ -1,0 +1,11 @@
+{
+  UUID uuid=UUID.randomUUID();
+  AkkaService akkaService=Mockito.mock(AkkaService.class);
+  AbstractKaaTcpCommandProcessor msg=Mockito.mock(AbstractKaaTcpCommandProcessor.class);
+  Mockito.when(msg.getRequest()).thenReturn(new PingResponse());
+  AkkaKaaTcpHandler handler=new AkkaKaaTcpHandler(uuid,akkaService);
+  handler.onSessionCreated(buildSessionInfo(uuid));
+  handler.channelRead0(null,msg);
+  Mockito.verify(akkaService,Mockito.never()).process(Mockito.any(SessionAware.class));
+  Mockito.verify(akkaService,Mockito.never()).process(Mockito.any(SessionInitRequest.class));
+}

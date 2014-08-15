@@ -1,0 +1,36 @@
+{
+  int count=100;
+  List<TestLogData> testLogs=new ArrayList<>();
+  LogData logData=new LogData();
+  logData.setApplicationToken(applicationToken);
+  logData.setSchemaVersion(logSchemaVersion);
+  List<ByteBuffer> events=new ArrayList<>();
+  SpecificDatumWriter<TestLogData> avroWriter=new SpecificDatumWriter<>(TestLogData.class);
+  ByteArrayOutputStream baos;
+  BinaryEncoder encoder=null;
+  for (int i=0; i < count; i++) {
+    TestLogData testLogData=new TestLogData();
+    testLogData.setLevel(i % 2 == 0 ? Level.INFO : Level.DEBUG);
+    testLogData.setTag("TestKaaHdfsSink");
+    testLogData.setMessage("Test log message # " + i);
+    baos=new ByteArrayOutputStream();
+    encoder=EncoderFactory.get().binaryEncoder(baos,encoder);
+    avroWriter.write(testLogData,encoder);
+    encoder.flush();
+    byte[] data=baos.toByteArray();
+    events.add(ByteBuffer.wrap(data));
+    testLogs.add(testLogData);
+  }
+  logData.setLogEvents(events);
+  SpecificDatumWriter<LogData> logDataAvroWriter=new SpecificDatumWriter<>(LogData.class);
+  baos=new ByteArrayOutputStream();
+  encoder=EncoderFactory.get().binaryEncoder(baos,encoder);
+  logDataAvroWriter.write(logData,encoder);
+  encoder.flush();
+  byte[] data=baos.toByteArray();
+  AvroFlumeEvent eventToSend=new AvroFlumeEvent();
+  eventToSend.setHeaders(new HashMap<CharSequence,CharSequence>());
+  eventToSend.setBody(ByteBuffer.wrap(data));
+  source.append(eventToSend);
+  return testLogs;
+}

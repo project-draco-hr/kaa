@@ -1,8 +1,8 @@
 {
-  for (  ServiceChannel channel : serviceChannels) {
-    channel.stop();
+  for (  ServiceChannel server : nettyServersList) {
+    server.stop();
   }
-  serviceChannels.clear();
+  nettyServersList.clear();
   StatisticsFactory.shutdown();
   if (akkaService != null) {
     akkaService.getActorSystem().shutdown();

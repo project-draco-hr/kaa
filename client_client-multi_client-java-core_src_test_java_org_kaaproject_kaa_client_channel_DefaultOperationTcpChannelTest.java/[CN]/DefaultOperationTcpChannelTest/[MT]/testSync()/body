@@ -1,0 +1,36 @@
+{
+  KaaClientState clientState=Mockito.mock(KaaClientState.class);
+  Mockito.when(clientState.getPrivateKey()).thenReturn(clientKeys.getPrivate());
+  Mockito.when(clientState.getPublicKey()).thenReturn(clientKeys.getPublic());
+  KaaChannelManager channelManager=Mockito.mock(KaaChannelManager.class);
+  TestOperationTcpChannel tcpChannel=new TestOperationTcpChannel(clientState,channelManager);
+  AvroByteArrayConverter<SyncResponse> responseCreator=new AvroByteArrayConverter<SyncResponse>(SyncResponse.class);
+  AvroByteArrayConverter<SyncRequest> requestCreator=new AvroByteArrayConverter<SyncRequest>(SyncRequest.class);
+  KaaDataMultiplexer multiplexer=Mockito.mock(KaaDataMultiplexer.class);
+  Mockito.when(multiplexer.compileRequest(Mockito.anyMapOf(TransportType.class,ChannelDirection.class))).thenReturn(requestCreator.toByteArray(new SyncRequest()));
+  KaaDataDemultiplexer demultiplexer=Mockito.mock(KaaDataDemultiplexer.class);
+  tcpChannel.setMultiplexer(multiplexer);
+  tcpChannel.setDemultiplexer(demultiplexer);
+  tcpChannel.sync(TransportType.USER);
+  tcpChannel.sync(TransportType.PROFILE);
+  KaaTcpServerInfo serverInfo=new KaaTcpServerInfo("localhost",9009,KeyUtil.generateKeyPair().getPublic());
+  tcpChannel.setServer(serverInfo);
+  byte[] rawConnack=new byte[]{0x20,0x02,0x00,0x01};
+  tcpChannel.os.write(rawConnack);
+  SyncResponse response=new SyncResponse();
+  response.setStatus(SyncResponseResultType.SUCCESS);
+  tcpChannel.os.write(new KaaSync(false,responseCreator.toByteArray(response),false,false).getFrame().array());
+  tcpChannel.sync(TransportType.USER);
+  Mockito.verify(multiplexer,Mockito.times(3)).compileRequest(Mockito.anyMapOf(TransportType.class,ChannelDirection.class));
+  tcpChannel.sync(TransportType.EVENT);
+  Mockito.verify(multiplexer,Mockito.times(4)).compileRequest(Mockito.anyMapOf(TransportType.class,ChannelDirection.class));
+  Mockito.verify(tcpChannel.socketMock,Mockito.times(4)).getOutputStream();
+  Mockito.reset(multiplexer);
+  tcpChannel.os.write(new PingResponse().getFrame().array());
+  tcpChannel.syncAll();
+  Mockito.verify(multiplexer,Mockito.times(1)).compileRequest(tcpChannel.getSupportedTransportTypes());
+  tcpChannel.os.write(new Disconnect(DisconnectReason.INTERNAL_ERROR).getFrame().array());
+  tcpChannel.syncAll();
+  Mockito.verify(multiplexer,Mockito.times(1)).compileRequest(tcpChannel.getSupportedTransportTypes());
+  tcpChannel.shutdown();
+}

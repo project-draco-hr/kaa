@@ -1,0 +1,17 @@
+{
+  KaaCommandProcessorFactory<MqttFrame,MqttFrame> factory=new KaaCommandProcessorFactory<MqttFrame,MqttFrame>(){
+    @Override public String getCommandName(){
+      return KaaTcpDecoder.KAA_TCP_COMMAND_NAME;
+    }
+    @Override public KaaCommandProcessor<MqttFrame,MqttFrame> createCommandProcessor(){
+      return new AbstractKaaTcpCommandProcessor(){
+        @Override public String getName(){
+          return KaaTcpDecoder.KAA_TCP_COMMAND_NAME;
+        }
+      }
+;
+    }
+  }
+;
+  return factory;
+}

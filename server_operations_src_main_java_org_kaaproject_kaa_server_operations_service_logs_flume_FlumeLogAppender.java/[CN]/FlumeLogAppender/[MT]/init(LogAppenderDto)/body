@@ -1,0 +1,5 @@
+{
+  LogAppenderParametersDto parameters=appender.getProperties();
+  FlumeAppenderParametersDto flumeParameters=(FlumeAppenderParametersDto)parameters.getParameters();
+  flumeClientManger=FlumeClientManager.getInstance(flumeParameters);
+}

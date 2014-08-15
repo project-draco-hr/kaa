@@ -1,0 +1,7 @@
+{
+  for (int i=0; i < FIXED_HEADER_CONST.length; i++) {
+    if (FIXED_HEADER_CONST[i] != buffer.get()) {
+      throw new KaaTcpProtocolException("Kaatcp protocol version missmatch");
+    }
+  }
+}

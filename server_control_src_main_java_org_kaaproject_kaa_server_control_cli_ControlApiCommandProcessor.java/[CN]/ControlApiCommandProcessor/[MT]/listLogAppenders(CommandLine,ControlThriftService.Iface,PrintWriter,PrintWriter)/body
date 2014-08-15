@@ -1,0 +1,22 @@
+{
+  if (line.hasOption("a")) {
+    try {
+      String appId=line.getOptionValue("a");
+      List<? extends HasId> dtos=ThriftDtoConverter.<NotificationDto>toDtoList(client.getLogAppendersByApplicationId(appId));
+      writer.println("List of logAppenders:");
+      writer.println();
+      for (      HasId dto : dtos) {
+        writer.println(dto);
+      }
+      writer.println();
+      writer.println(TOTAL + dtos.size());
+      if (line.hasOption("o")) {
+        String outFileName=line.getOptionValue("o");
+        storeObjectIds(outFileName,dtos,errorWriter);
+      }
+    }
+ catch (    TException e) {
+      handleException("Unable to get list of log appenders",e,errorWriter);
+    }
+  }
+}

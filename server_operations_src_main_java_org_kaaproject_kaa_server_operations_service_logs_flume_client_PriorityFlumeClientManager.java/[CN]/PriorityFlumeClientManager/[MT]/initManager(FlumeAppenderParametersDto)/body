@@ -1,0 +1,10 @@
+{
+  hosts=parameters.getHosts();
+  if (!hosts.isEmpty()) {
+    Collections.sort(hosts);
+  }
+ else {
+    Log.warn("Can't initialize flume Rpc client. No required hosts paraneters.");
+  }
+  return getNextClient(true);
+}

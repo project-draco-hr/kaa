@@ -1,11 +1,12 @@
 {
   ResolveCommand cmd=new ResolveCommand();
-  cmd.setServer(serverMock);
+  cmd.operationsServerListService=operationsServerListServiceMock;
+  cmd.crypt=new MessageEncoderDecoder(privateKey,publicKey,null);
   try {
-    cmd.setHttpRequest(getRequest(false));
+    cmd.setRequest(getRequest(false));
     cmd.parse();
     cmd.process();
-    HttpResponse response=cmd.getHttpResponse();
+    HttpResponse response=cmd.getResponse();
     assertNotNull(response);
     String xsig=response.headers().get(CommonBSConstants.SIGNATURE_HEADER_NAME);
     assertNotNull(xsig);

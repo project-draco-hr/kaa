@@ -1,0 +1,10 @@
+{
+  LOG.trace("Command {} looking in the map",name);
+  KaaCommandProcessorFactory factory=factories.get(name);
+  if (factory != null) {
+    LOG.trace("Command {} found",name);
+    return factory.createCommandProcessor();
+  }
+  LOG.warn("Requested command not found: {}",name);
+  throw new Exception("Requested command not found");
+}

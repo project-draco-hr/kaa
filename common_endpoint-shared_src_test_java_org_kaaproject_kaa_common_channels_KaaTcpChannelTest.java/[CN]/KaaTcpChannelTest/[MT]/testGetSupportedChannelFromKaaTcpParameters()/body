@@ -1,0 +1,8 @@
+{
+  SupportedChannel channel=new SupportedChannel();
+  channel.setChannelType(ChannelType.KAATCP);
+  channel.setCommunicationParameters(new KaaTCPComunicationParameters("localhost",1234));
+  KaaTcpParameters parameters=KaaTcpChannel.getKaaTcpParametersFromSupportedChannel(channel);
+  SupportedChannel channel1=KaaTcpChannel.getSupportedChannelFromKaaTcpParameters(parameters);
+  assertEquals(channel,channel1);
+}

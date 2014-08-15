@@ -1,0 +1,8 @@
+{
+  UUID uuid=UUID.randomUUID();
+  AbstractKaaTcpCommandProcessor msg=Mockito.mock(AbstractKaaTcpCommandProcessor.class);
+  Mockito.when(msg.getRequest()).thenReturn(new KaaSync());
+  AkkaKaaTcpHandler handler=new AkkaKaaTcpHandler(uuid,akkaService);
+  handler.onSessionCreated(buildSessionInfo(uuid));
+  handler.channelRead0(null,msg);
+}

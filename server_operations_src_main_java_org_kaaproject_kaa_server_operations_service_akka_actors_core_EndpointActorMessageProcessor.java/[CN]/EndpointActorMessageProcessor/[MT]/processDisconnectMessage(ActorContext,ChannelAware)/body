@@ -1,0 +1,12 @@
+{
+  LOG.debug("[{}][{}] Received disconnect message for channel [{}]",endpointKey,actorKey,message.getChannelUuid());
+  ChannelMetaData channel=channelMap.getById(message.getChannelUuid());
+  if (channel != null) {
+    channelMap.removeChannel(channel);
+    return true;
+  }
+ else {
+    LOG.debug("[{}][{}] Can't find channel by uuid [{}]",endpointKey,actorKey,message.getChannelUuid());
+    return false;
+  }
+}

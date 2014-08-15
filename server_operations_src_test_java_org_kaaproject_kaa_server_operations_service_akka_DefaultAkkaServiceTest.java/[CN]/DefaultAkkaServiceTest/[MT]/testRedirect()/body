@@ -1,12 +1,25 @@
 {
   ChannelHandlerContext channelContextMock=Mockito.mock(ChannelHandlerContext.class);
-  AbstractOperationsCommand commandMock=Mockito.mock(AbstractOperationsCommand.class);
-  akkaService.onRedirectionRule(new RedirectionRule("testDNS",123,1.0,1000));
-  NettyEncodedRequestMessage message=new NettyEncodedRequestMessage("testUUID",channelContextMock,commandMock,ChannelType.TCP);
+  MessageEncoderDecoder crypt=new MessageEncoderDecoder(clientPair.getPrivate(),clientPair.getPublic(),serverPair.getPublic());
+  akkaService.onRedirectionRule(new RedirectionRule("testDNS",123,1.0,60000));
+  Thread.sleep(1000);
+  SyncRequest request=new SyncRequest();
+  request.setRequestId(32);
+  SyncRequestMetaData md=new SyncRequestMetaData();
+  md.setApplicationToken(APP_TOKEN);
+  md.setEndpointPublicKeyHash(clientPublicKeyHash);
+  md.setTimeout(2l * TIMEOUT);
+  request.setSyncRequestMetaData(md);
+  ResponseBuilder responseBuilder=Mockito.mock(ResponseBuilder.class);
+  ErrorBuilder errorBuilder=Mockito.mock(ErrorBuilder.class);
+  SessionInitRequest message=toSignedRequest(UUID.randomUUID(),ChannelType.HTTP_LP,channelContextMock,request,responseBuilder,errorBuilder,crypt);
   akkaService.process(message);
   SyncResponse response=new SyncResponse();
+  response.setRequestId(request.getRequestId());
   response.setStatus(SyncResponseResultType.REDIRECT);
   response.setRedirectSyncResponse(new RedirectSyncResponse("testDNS"));
-  Mockito.verify(commandMock,Mockito.never()).decode();
-  Mockito.verify(commandMock,Mockito.timeout(TIMEOUT / 2).atLeastOnce()).encode(response);
+  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT / 2).never()).sync(request);
+  AvroByteArrayConverter<SyncResponse> responseConverter=new AvroByteArrayConverter<>(SyncResponse.class);
+  byte[] encodedData=crypt.encodeData(responseConverter.toByteArray(response));
+  Mockito.verify(responseBuilder,Mockito.timeout(TIMEOUT).atLeastOnce()).build(encodedData);
 }

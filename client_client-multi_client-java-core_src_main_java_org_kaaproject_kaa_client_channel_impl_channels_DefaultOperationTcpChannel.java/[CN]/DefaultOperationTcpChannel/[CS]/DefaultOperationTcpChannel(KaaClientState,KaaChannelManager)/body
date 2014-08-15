@@ -1,0 +1,8 @@
+{
+  this.state=state;
+  this.channelManager=channelManager;
+  messageFactory.registerMessageListener(connAckListener);
+  messageFactory.registerMessageListener(kaaSyncListener);
+  messageFactory.registerMessageListener(pingResponseListener);
+  messageFactory.registerMessageListener(disconnectListener);
+}

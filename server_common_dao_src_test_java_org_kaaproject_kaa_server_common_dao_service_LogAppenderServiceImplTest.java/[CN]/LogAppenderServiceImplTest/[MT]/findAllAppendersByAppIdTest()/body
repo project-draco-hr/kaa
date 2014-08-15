@@ -1,0 +1,13 @@
+{
+  LogAppenderDto unreg=generateLogAppender(application.getId(),null,null,LogAppenderStatusDto.UNREGISTERED);
+  Assert.assertNotNull(unreg);
+  LogAppenderDto reg=generateLogAppender(application.getId(),null,null,LogAppenderStatusDto.REGISTERED);
+  Assert.assertNotNull(reg);
+  List<LogAppenderDto> appenders=logAppendersService.findAllAppendersByAppId(application.getId());
+  Assert.assertNotNull(appenders);
+  Assert.assertEquals(2,appenders.size());
+  List<LogAppenderDto> regAppenders=logAppendersService.findRegisteredLogAppendersByAppId(application.getId());
+  Assert.assertNotNull(regAppenders);
+  Assert.assertEquals(1,regAppenders.size());
+  Assert.assertEquals(reg,regAppenders.get(0));
+}

@@ -1,0 +1,15 @@
+{
+  super(other);
+  if (isValidValue(fields()[0],other.level)) {
+    this.level=data().deepCopy(fields()[0].schema(),other.level);
+    fieldSetFlags()[0]=true;
+  }
+  if (isValidValue(fields()[1],other.tag)) {
+    this.tag=data().deepCopy(fields()[1].schema(),other.tag);
+    fieldSetFlags()[1]=true;
+  }
+  if (isValidValue(fields()[2],other.message)) {
+    this.message=data().deepCopy(fields()[2].schema(),other.message);
+    fieldSetFlags()[2]=true;
+  }
+}

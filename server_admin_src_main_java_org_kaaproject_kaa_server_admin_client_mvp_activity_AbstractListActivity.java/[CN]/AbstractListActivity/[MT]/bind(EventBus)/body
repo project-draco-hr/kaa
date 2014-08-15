@@ -30,6 +30,7 @@
     @Override public void onDataChanged(    DataEvent event){
       if (event.checkClass(dataClass)) {
         dataProvider.reload(listView.getDisplay());
+        onCustomDataChangedEvent(event);
       }
     }
   }

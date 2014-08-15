@@ -1,0 +1,22 @@
+{
+  Attribute<UUID> sessionUuidAttr=ctx.channel().attr(NettyHttpServer.UUID_KEY);
+  if (!(msg instanceof CommandProcessor)) {
+    LOG.warn("Session [{}] got invalid HTTP response: {}",sessionUuidAttr,msg);
+    super.write(ctx,msg,promise);
+    return;
+  }
+ else {
+    LOG.trace("Session [{}] got valid HTTP response: {}",sessionUuidAttr,msg);
+  }
+  CommandProcessor cp=(CommandProcessor)msg;
+  Attribute<Track> sessionTrackAttr=ctx.channel().attr(NettyHttpServer.TRACK_KEY);
+  HttpResponse httpResponse=cp.getResponse();
+  if (sessionTrackAttr.get() != null) {
+    sessionTrackAttr.get().setProcessTime(cp.getCommandId(),cp.getSyncTime());
+    sessionTrackAttr.get().closeRequest(cp.getCommandId());
+  }
+  ChannelFuture future=ctx.writeAndFlush(httpResponse,promise);
+  if (!HttpHeaders.isKeepAlive(httpResponse)) {
+    future.addListener(ChannelFutureListener.CLOSE);
+  }
+}

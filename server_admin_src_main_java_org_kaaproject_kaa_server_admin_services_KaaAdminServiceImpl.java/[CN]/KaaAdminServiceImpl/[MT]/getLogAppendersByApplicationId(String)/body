@@ -1,0 +1,9 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    return toDtoList(clientProvider.getClient().getLogAppendersByApplicationId(appId));
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

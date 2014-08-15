@@ -22,6 +22,9 @@ break;
 case LOG_SCHEMA:
 dto=ThriftDtoConverter.<LogSchemaDto>toDto(client.getLogSchema(id));
 break;
+case LOG_APPENDER:
+dto=ThriftDtoConverter.<LogSchemaDto>toDto(client.getLogAppender(id));
+break;
 case ENDPOINT_GROUP:
 dto=ThriftDtoConverter.<EndpointGroupDto>toDto(client.getEndpointGroup(id));
 break;

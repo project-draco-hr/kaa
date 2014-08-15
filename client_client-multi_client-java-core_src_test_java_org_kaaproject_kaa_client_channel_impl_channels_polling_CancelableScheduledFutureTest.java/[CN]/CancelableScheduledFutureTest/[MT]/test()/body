@@ -1,0 +1,27 @@
+{
+  CancelableRunnable cancelableRunnable=Mockito.mock(CancelableRunnable.class);
+  RunnableScheduledFuture futureTask=Mockito.mock(RunnableScheduledFuture.class);
+  CancelableScheduledFuture<Object> future=new CancelableScheduledFuture<Object>(cancelableRunnable,futureTask);
+  future.cancel(false);
+  Mockito.verify(futureTask,Mockito.times(1)).cancel(false);
+  future.run();
+  Mockito.verify(futureTask,Mockito.times(1)).run();
+  future.cancel(true);
+  Mockito.verify(cancelableRunnable,Mockito.times(1)).cancel();
+  Mockito.verify(futureTask,Mockito.times(1)).cancel(true);
+  future.isDone();
+  Mockito.verify(futureTask,Mockito.times(1)).isDone();
+  future.isPeriodic();
+  Mockito.verify(futureTask,Mockito.times(1)).isPeriodic();
+  future.get();
+  Mockito.verify(futureTask,Mockito.times(1)).get();
+  future.get(100L,TimeUnit.MICROSECONDS);
+  Mockito.verify(futureTask,Mockito.times(1)).get(100L,TimeUnit.MICROSECONDS);
+  future.getDelay(TimeUnit.HOURS);
+  Mockito.verify(futureTask,Mockito.times(1)).getDelay(TimeUnit.HOURS);
+  CancelableScheduledFuture<Object> future2=new CancelableScheduledFuture<Object>(cancelableRunnable,futureTask);
+  assertTrue(future.equals(future));
+  assertTrue(future.equals(future2));
+  assertEquals(future.hashCode(),future.hashCode());
+  assertEquals(future.hashCode(),future2.hashCode());
+}

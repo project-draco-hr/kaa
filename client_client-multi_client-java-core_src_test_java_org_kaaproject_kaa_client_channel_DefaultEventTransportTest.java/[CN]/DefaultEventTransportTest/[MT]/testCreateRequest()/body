@@ -1,8 +1,11 @@
 {
   EventManager manager=Mockito.mock(EventManager.class);
+  Mockito.when(manager.getPendingEvents()).thenReturn(Arrays.asList(new Event(),new Event()));
   EventTransport transport=new DefaultEventTransport();
   transport.createEventRequest(1);
   transport.setEventManager(manager);
   transport.createEventRequest(2);
   Mockito.verify(manager,Mockito.times(1)).fillEventListenersSyncRequest(Mockito.any(EventSyncRequest.class));
+  EventSyncRequest request=transport.createEventRequest(3);
+  Assert.assertTrue(request.getEvents().size() == 4);
 }

@@ -1,16 +1,30 @@
 {
   LOG.debug("Received: {}",message);
-  if (message instanceof NettyEncodedRequestMessage) {
+  if (message instanceof SessionInitRequest) {
     RedirectionRule redirection=checkRedirection(redirectionRules,random.nextDouble());
     if (redirection == null) {
-      decodeAndForward((NettyEncodedRequestMessage)message);
+      messageProcessor.decodeAndForward(context(),(SessionInitRequest)message);
     }
  else {
-      encodeAndReply(redirection,(NettyEncodedRequestMessage)message);
+      messageProcessor.redirect(redirection,(SessionInitRequest)message);
     }
   }
- else   if (message instanceof NettyDecodedResponseMessage) {
-    encodeAndReply((NettyDecodedResponseMessage)message);
+ else   if (message instanceof SessionAware) {
+    if (message instanceof SessionAwareRequest) {
+      RedirectionRule redirection=checkRedirection(redirectionRules,random.nextDouble());
+      if (redirection == null) {
+        messageProcessor.decodeAndForward(context(),(SessionAwareRequest)message);
+      }
+ else {
+        messageProcessor.redirect(redirection,(SessionAwareRequest)message);
+      }
+    }
+ else {
+      messageProcessor.forward(context(),(SessionAware)message);
+    }
+  }
+ else   if (message instanceof SessionResponse) {
+    messageProcessor.encodeAndReply((SessionResponse)message);
   }
  else   if (message instanceof RedirectionRule) {
     applyRedirectionRule((RedirectionRule)message);

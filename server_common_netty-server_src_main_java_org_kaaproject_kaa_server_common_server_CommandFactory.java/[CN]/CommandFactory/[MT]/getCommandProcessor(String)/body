@@ -1,0 +1,20 @@
+{
+  if (uri == null || uri.length() <= 0) {
+    throw new Exception("URI parameter incorrect");
+  }
+  String[] params=uri.split("/");
+  if (params.length < 3) {
+    throw new Exception("URI parameter " + uri + " incorrect");
+  }
+  String command=params[2];
+  LOG.trace("Command {} looking for URI {}",command,uri);
+  KaaCommandProcessorFactory factory=factories.get(command);
+  if (factory != null) {
+    LOG.trace("Command {} found",command);
+    return factory.createCommandProcessor();
+  }
+ else {
+    LOG.warn("Requested command not found: {}",command);
+    throw new Exception("Requested command not found");
+  }
+}

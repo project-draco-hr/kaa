@@ -8,5 +8,8 @@
   if (info instanceof BootstrapServerInfo) {
     return ChannelType.BOOTSTRAP;
   }
+  if (info instanceof KaaTcpServerInfo) {
+    return ChannelType.KAATCP;
+  }
   return null;
 }

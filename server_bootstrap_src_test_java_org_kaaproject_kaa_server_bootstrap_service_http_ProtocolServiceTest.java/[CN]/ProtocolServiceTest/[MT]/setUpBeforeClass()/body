@@ -1,5 +1,6 @@
 {
   config=new BootstrapConfig();
   serverMock=mock(NettyHttpServer.class);
+  initializerMock=mock(DefaultHttpServerInitializer.class);
   when(serverMock.getConf()).thenReturn(config);
 }

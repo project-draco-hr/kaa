@@ -1,0 +1,12 @@
+{
+  KeyPairGenerator gen=KeyPairGenerator.getInstance("RSA");
+  gen.initialize(512);
+  KeyPair clientKeyPair=gen.generateKeyPair();
+  KeyPair remoteKeyPair=gen.generateKeyPair();
+  TestHttpClient client=new TestHttpClient("test_url",clientKeyPair.getPrivate(),clientKeyPair.getPublic(),remoteKeyPair.getPublic());
+  MessageEncoderDecoder serverEncoder=new MessageEncoderDecoder(remoteKeyPair.getPrivate(),remoteKeyPair.getPublic());
+  byte[] message={1,2,3};
+  byte[] signature=serverEncoder.sign(message);
+  Assert.assertArrayEquals(message,client.verifyResponse(message,signature));
+  Assert.assertTrue(client.getEncoderDecoder().verify(message,signature));
+}

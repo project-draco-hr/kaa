@@ -15,6 +15,7 @@
   processMap.put("deleteTenantAdmin",new deleteTenantAdmin());
   processMap.put("getApplicationsByTenantId",new getApplicationsByTenantId());
   processMap.put("getApplication",new getApplication());
+  processMap.put("getApplicationByApplicationToken",new getApplicationByApplicationToken());
   processMap.put("editApplication",new editApplication());
   processMap.put("deleteApplication",new deleteApplication());
   processMap.put("getConfigurationSchemaVersionsByApplicationId",new getConfigurationSchemaVersionsByApplicationId());
@@ -28,6 +29,7 @@
   processMap.put("getLogSchemaVersionsByApplicationId",new getLogSchemaVersionsByApplicationId());
   processMap.put("getLogSchemasByApplicationId",new getLogSchemasByApplicationId());
   processMap.put("getLogSchema",new getLogSchema());
+  processMap.put("getLogSchemaByApplicationIdAndVersion",new getLogSchemaByApplicationIdAndVersion());
   processMap.put("editLogSchema",new editLogSchema());
   processMap.put("getEndpointGroupsByApplicationId",new getEndpointGroupsByApplicationId());
   processMap.put("getEndpointGroup",new getEndpointGroup());
@@ -86,5 +88,11 @@
   processMap.put("deleteEndpointUser",new deleteEndpointUser());
   processMap.put("generateEndpointUserAccessToken",new generateEndpointUserAccessToken());
   processMap.put("createSecureCollection",new createSecureCollection());
+  processMap.put("getLogAppendersByApplicationId",new getLogAppendersByApplicationId());
+  processMap.put("getLogAppender",new getLogAppender());
+  processMap.put("editLogAppender",new editLogAppender());
+  processMap.put("registerLogAppender",new registerLogAppender());
+  processMap.put("unregisterLogAppender",new unregisterLogAppender());
+  processMap.put("deleteLogAppender",new deleteLogAppender());
   return processMap;
 }

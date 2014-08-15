@@ -19,12 +19,10 @@
   Assert.assertEquals(result,0);
   String output=cliOut.toString("UTF-8");
   if (create) {
-    logger.debug(" ---> TEST LOGS: " + output.trim());
     String id=output.trim().substring("Created new Topic with id: ".length()).trim();
     return id;
   }
  else   if (topicId.equals(FAKE_SQL_ID)) {
-    logger.debug(" ---> TEST LOGS: " + output.trim());
     Assert.assertTrue(output.trim().startsWith("Topic with id " + FAKE_SQL_ID + " not found!"));
     return topicId;
   }

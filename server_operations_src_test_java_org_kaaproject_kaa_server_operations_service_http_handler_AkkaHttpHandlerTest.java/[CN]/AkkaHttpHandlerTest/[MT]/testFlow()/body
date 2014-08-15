@@ -1,0 +1,10 @@
+{
+  UUID uuid=UUID.randomUUID();
+  AkkaService akkaService=Mockito.mock(AkkaService.class);
+  EventExecutorGroup executor=Mockito.mock(EventExecutorGroup.class);
+  AbstractHttpSyncCommand commandMock=Mockito.mock(AbstractHttpSyncCommand.class);
+  Mockito.when(commandMock.getChannelType()).thenReturn(ChannelType.HTTP);
+  AkkaHttpHandler handler=new AkkaHttpHandler(uuid,akkaService,executor);
+  handler.channelRead0(null,commandMock);
+  Mockito.verify(akkaService).process(Mockito.any(NettyHttpSyncMessage.class));
+}

@@ -1,0 +1,38 @@
+{
+  LogAppenderParametersDto dto=null;
+  AvroByteArrayConverter<LogAppenderParameters> converter=new AvroByteArrayConverter<LogAppenderParameters>(LogAppenderParameters.class);
+  try {
+    LogAppenderParameters logParameters=converter.fromByteArray(bytes);
+    if (logParameters != null) {
+      dto=new LogAppenderParametersDto();
+      Object parameters=logParameters.getAppenderParameters();
+      if (parameters instanceof FlumeAppenderParameters) {
+        FlumeAppenderParametersDto flumeParameters=new FlumeAppenderParametersDto();
+        FlumeAppenderParameters avroParameters=(FlumeAppenderParameters)parameters;
+        List<Object> hosts=avroParameters.getHostsInfo();
+        if (hosts != null && !hosts.isEmpty()) {
+          List<HostInfoDto> hostInfoList=new ArrayList<>(hosts.size());
+          for (          Object o : hosts) {
+            HostInfo host=(HostInfo)o;
+            hostInfoList.add(new HostInfoDto(host.getHostname(),host.getPort(),host.getPriority()));
+          }
+          flumeParameters.setHosts(hostInfoList);
+        }
+        flumeParameters.setBalancingType(balancingTypeFromAvro(avroParameters.getBalancingType()));
+        dto.setParameters(flumeParameters);
+      }
+ else       if (parameters instanceof MongoAppenderParameters) {
+        MongoAppenderParameters mongoParameters=(MongoAppenderParameters)parameters;
+        dto.setParameters(new MongoAppenderParametersDto(mongoParameters.getCollectionName()));
+      }
+ else       if (parameters instanceof FileAppenderParameters) {
+        FileAppenderParameters fileParameters=(FileAppenderParameters)parameters;
+        dto.setParameters(new FileAppenderParametersDto(fileParameters.getFilePath()));
+      }
+    }
+  }
+ catch (  IOException e) {
+    LOG.warn("Can't convert bytes to log appender parameters.");
+  }
+  return dto;
+}

@@ -1,0 +1,22 @@
+{
+  customer=new TenantDto();
+  customer.setName(CUSTOMER_ID);
+  customer=userService.saveTenant(customer);
+  Assert.assertNotNull(customer);
+  Assert.assertNotNull(customer.getId());
+  ApplicationDto applicationObject=new ApplicationDto();
+  applicationObject.setTenantId(customer.getId());
+  applicationObject.setName(APPLICATION_NAME);
+  this.applicationDto=applicationService.saveApp(applicationObject);
+  Assert.assertNotNull(applicationDto);
+  Assert.assertNotNull(applicationDto.getId());
+  logAppender=new MongoDBLogAppender();
+  ReflectionTestUtils.setField(logAppender,"logEventService",logEventService);
+  ReflectionTestUtils.setField(logAppender,"applicationService",applicationService);
+  LogAppenderDto appenderDto=new LogAppenderDto();
+  appenderDto.setApplicationId(APPLICATION_ID);
+  appenderDto.setApplicationToken(APPLICATION_TOKEN);
+  appenderDto.setTenantId(TENANT_ID);
+  appenderDto.setType(LogAppenderTypeDto.MONGO);
+  logAppender.init(appenderDto);
+}

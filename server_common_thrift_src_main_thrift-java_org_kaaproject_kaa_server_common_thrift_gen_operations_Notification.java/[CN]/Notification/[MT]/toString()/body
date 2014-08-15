@@ -97,6 +97,15 @@
     sb.append(this.op);
   }
   first=false;
+  if (!first)   sb.append(", ");
+  sb.append("appenderId:");
+  if (this.appenderId == null) {
+    sb.append("null");
+  }
+ else {
+    sb.append(this.appenderId);
+  }
+  first=false;
   sb.append(")");
   return sb.toString();
 }

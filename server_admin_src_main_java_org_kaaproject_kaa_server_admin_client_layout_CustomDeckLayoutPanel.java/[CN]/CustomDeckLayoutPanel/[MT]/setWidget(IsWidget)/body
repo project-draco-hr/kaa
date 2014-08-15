@@ -1,0 +1,10 @@
+{
+  if (w == null) {
+    showWidget(null);
+    return;
+  }
+  if (w.asWidget().getParent() != this) {
+    add(w);
+  }
+  showWidget(w.asWidget());
+}

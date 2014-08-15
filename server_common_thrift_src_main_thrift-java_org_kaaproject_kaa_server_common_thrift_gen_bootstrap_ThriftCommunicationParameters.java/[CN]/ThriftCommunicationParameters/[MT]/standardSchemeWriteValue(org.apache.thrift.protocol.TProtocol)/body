@@ -8,6 +8,10 @@ case HTTP_LP_PARAMS:
 ThriftIpParameters httpLpParams=(ThriftIpParameters)value_;
 httpLpParams.write(oprot);
 return;
+case KAA_TCP_PARAMS:
+ThriftIpParameters kaaTcpParams=(ThriftIpParameters)value_;
+kaaTcpParams.write(oprot);
+return;
 default :
 throw new IllegalStateException("Cannot write union with unknown field " + setField_);
 }

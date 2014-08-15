@@ -4,7 +4,7 @@
   ConnectionInfo connectionInfo=new ConnectionInfo(getConfig().getThriftHost(),getConfig().getThriftPort(),keyData);
   nodeInfo.setConnectionInfo(connectionInfo);
   List<SupportedChannel> suppChannels=new ArrayList<>();
-  for (  ServiceChannel sc : serviceChannels) {
+  for (  ServiceChannel sc : nettyServersList) {
     try {
       suppChannels.add(sc.getZkSupportedChannel());
     }
@@ -16,7 +16,6 @@
   operationsNode=new OperationsNode(nodeInfo,getConfig().getZkHostPortList(),new RetryUntilElapsed(getConfig().getZkMaxRetryTime(),getConfig().getZkSleepTime()));
   try {
     operationsNode.start();
-    getConfig().setZkNode(operationsNode);
     eventService.setZkNode(operationsNode);
   }
  catch (  Exception e) {

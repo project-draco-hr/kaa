@@ -3,7 +3,7 @@
     if (httpClient != null) {
       LinkedHashMap<String,byte[]> request=processor.createRequest(transportTypes);
       if (request != null && !canceled) {
-        byte[] responseDataRaw=httpClient.executeHttpRequest("",request);
+        byte[] responseDataRaw=httpClient.executeHttpRequest("",request,false);
         processor.onResponse(responseDataRaw);
       }
     }

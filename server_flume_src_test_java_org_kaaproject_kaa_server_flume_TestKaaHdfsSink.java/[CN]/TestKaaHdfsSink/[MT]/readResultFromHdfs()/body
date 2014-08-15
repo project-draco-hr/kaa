@@ -1,0 +1,20 @@
+{
+  Path logsPath=new Path("/logs" + Path.SEPARATOR + applicationToken+ Path.SEPARATOR+ logSchemaVersion+ Path.SEPARATOR+ "data*");
+  FileStatus[] statuses=fileSystem.globStatus(logsPath);
+  List<TestLogData> result=new ArrayList<>();
+  for (  FileStatus status : statuses) {
+    FileReader<TestLogData> fileReader=null;
+    try {
+      SeekableInput input=new FsInput(status.getPath(),fileSystem.getConf());
+      DatumReader<TestLogData> datumReader=new SpecificDatumReader<>(TestLogData.class);
+      fileReader=DataFileReader.openReader(input,datumReader);
+      for (      TestLogData testLogData : fileReader) {
+        result.add(testLogData);
+      }
+    }
+  finally {
+      IOUtils.closeQuietly(fileReader);
+    }
+  }
+  return result;
+}

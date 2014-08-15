@@ -1,0 +1,35 @@
+{
+  final SimplePanel emptyPanel=new SimplePanel();
+  navContent=new CustomDeckLayoutPanel();
+  navContent.setAnimationVertical(false);
+  navContent.setAnimationDuration(0);
+  navContent.setStyleName("b-nav-content");
+  navContent.setSize("200px","100%");
+  navPanel.add(navContent);
+  final Label back=new Label(OPEN);
+  back.setStyleName("b-nav-label");
+  navPanel.add(back);
+  appHeader.setSize("100%","60px");
+  appContent.setStyleName("b-app-content");
+  navPanel.setStyleName("b-nav-panel");
+  back.addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      if (clickCount == 1) {
+        navContent.add(emptyPanel);
+        navContent.setAnimationDuration(100);
+        navContent.showWidget(clickCount,new CustomAnimationCallback(true));
+        back.setText(CLOSE);
+      }
+ else       if (clickCount % 2 == 0) {
+        navContent.showWidget(0,new CustomAnimationCallback(false));
+        back.setText(OPEN);
+      }
+ else {
+        navContent.showWidget(1,new CustomAnimationCallback(true));
+        back.setText(CLOSE);
+      }
+      incr();
+    }
+  }
+);
+}

@@ -1,0 +1,36 @@
+{
+  Configurables.configure(source,context);
+  Configurables.configure(channel,context);
+  ChannelSelector cs=new KaaLoadChannelSelector();
+  cs.setChannels(Lists.newArrayList(channel));
+  Configurables.configure(cs,context);
+  source.setChannelProcessor(new ChannelProcessor(cs));
+  Configurables.configure(sink,context);
+  sink.setChannel(channel);
+  sinkRunner=new SinkRunner();
+  SinkProcessor policy=new DefaultSinkProcessor();
+  List<Sink> sinks=new ArrayList<Sink>();
+  sinks.add(sink);
+  policy.setSinks(sinks);
+  sinkRunner.setSink(policy);
+  sinkRunner.start();
+  source.start();
+  List<TestLogData> testLogs=generateAndSendRecords();
+  logger.info("Sent records count: " + testLogs.size());
+  logger.info("Waiting for sink...");
+  int maxWaitTime=5000;
+  int elapsed=0;
+  while (sink.getEventDrainSuccessCount() < testLogs.size() && elapsed < maxWaitTime) {
+    try {
+      Thread.sleep(1000);
+      elapsed+=1000;
+    }
+ catch (    InterruptedException e) {
+    }
+  }
+  Assert.assertTrue(sink.getEventDrainSuccessCount() == testLogs.size());
+  source.stop();
+  sinkRunner.stop();
+  List<TestLogData> resultTestLogs=readResultFromHdfs();
+  Assert.assertEquals(testLogs,resultTestLogs);
+}

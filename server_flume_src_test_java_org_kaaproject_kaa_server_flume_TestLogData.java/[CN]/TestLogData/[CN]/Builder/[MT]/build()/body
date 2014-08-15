@@ -1,0 +1,12 @@
+{
+  try {
+    TestLogData record=new TestLogData();
+    record.level=fieldSetFlags()[0] ? this.level : (org.kaaproject.kaa.server.flume.Level)defaultValue(fields()[0]);
+    record.tag=fieldSetFlags()[1] ? this.tag : (java.lang.CharSequence)defaultValue(fields()[1]);
+    record.message=fieldSetFlags()[2] ? this.message : (java.lang.CharSequence)defaultValue(fields()[2]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

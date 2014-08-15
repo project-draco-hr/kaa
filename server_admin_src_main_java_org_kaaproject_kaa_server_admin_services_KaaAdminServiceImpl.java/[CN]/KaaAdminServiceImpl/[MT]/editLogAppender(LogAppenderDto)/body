@@ -1,0 +1,12 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    if (isEmpty(appender.getId())) {
+      appender.setCreatedUsername(getCurrentUser().getUsername());
+    }
+    return toDto(clientProvider.getClient().editLogAppender(toDataStruct(appender)));
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

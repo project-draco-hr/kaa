@@ -1,13 +1,27 @@
 {
   KaaChannelManager channelManager=Mockito.mock(KaaChannelManager.class);
-  KaaClientState clientState=Mockito.mock(KaaClientState.class);
+  KaaClientState clientState1=Mockito.mock(KaaClientState.class);
   KaaDataChannel channel=Mockito.mock(KaaDataChannel.class);
   Mockito.when(channelManager.getChannelByTransportType(TransportType.PROFILE)).thenReturn(channel);
   ProfileTransport transport=new DefaultProfileTransport();
   transport.setChannelManager(channelManager);
-  transport.setClientState(clientState);
-  ProfileSyncResponse response=new ProfileSyncResponse();
-  response.setResponseStatus(SyncResponseStatus.RESYNC);
-  transport.onProfileResponse(response);
+  transport.setClientState(clientState1);
+  ProfileSyncResponse response1=new ProfileSyncResponse();
+  response1.setResponseStatus(SyncResponseStatus.RESYNC);
+  transport.onProfileResponse(response1);
   Mockito.verify(channel,Mockito.times(1)).syncAll();
+  ProfileSyncResponse response2=new ProfileSyncResponse();
+  response2.setResponseStatus(SyncResponseStatus.DELTA);
+  transport.setClientState(null);
+  transport.onProfileResponse(response2);
+  Mockito.verify(clientState1,Mockito.times(0)).setRegistered(Mockito.anyBoolean());
+  Mockito.when(clientState1.isRegistered()).thenReturn(false);
+  transport.setClientState(clientState1);
+  transport.onProfileResponse(response2);
+  Mockito.verify(clientState1,Mockito.times(1)).setRegistered(Mockito.eq(true));
+  KaaClientState clientState2=Mockito.mock(KaaClientState.class);
+  Mockito.when(clientState2.isRegistered()).thenReturn(true);
+  transport.setClientState(clientState2);
+  transport.onProfileResponse(response2);
+  Mockito.verify(clientState2,Mockito.times(0)).setRegistered(Mockito.anyBoolean());
 }

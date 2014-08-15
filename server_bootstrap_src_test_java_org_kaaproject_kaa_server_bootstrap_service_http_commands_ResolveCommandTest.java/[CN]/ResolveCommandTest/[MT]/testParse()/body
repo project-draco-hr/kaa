@@ -1,8 +1,9 @@
 {
   ResolveCommand cmd=new ResolveCommand();
-  cmd.setServer(serverMock);
+  cmd.operationsServerListService=operationsServerListServiceMock;
+  cmd.crypt=new MessageEncoderDecoder(privateKey,publicKey,null);
   try {
-    cmd.setHttpRequest(getRequest(false));
+    cmd.setRequest(getRequest(false));
     cmd.parse();
   }
  catch (  Exception e) {
@@ -10,9 +11,10 @@
   }
   assertNotNull(cmd.requestData);
   ResolveCommand cmd1=new ResolveCommand();
-  cmd1.setServer(serverMock);
+  cmd1.operationsServerListService=operationsServerListServiceMock;
+  cmd1.crypt=new MessageEncoderDecoder(privateKey,publicKey,null);
   try {
-    cmd1.setHttpRequest(getRequest(true));
+    cmd1.setRequest(getRequest(true));
     cmd1.parse();
     fail("Parse should fire Exception, No Application Token attribute");
   }

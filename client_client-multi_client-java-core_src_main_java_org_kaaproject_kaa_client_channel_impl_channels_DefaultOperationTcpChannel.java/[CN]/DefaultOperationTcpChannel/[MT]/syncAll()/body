@@ -1,0 +1,26 @@
+{
+  if (isShutdown) {
+    LOG.info("Can't sync. Channel [{}] is down",getId());
+    return;
+  }
+  if (!isFirstResponseReceived) {
+    LOG.info("Can't sync. Channel [{}] is waiting for CONNACK + KAASYNC message",getId());
+    isPendingSyncRequest=true;
+    return;
+  }
+  LOG.info("Processing sync all for channel [{}]",getId());
+  if (multiplexer != null && demultiplexer != null) {
+    if (currentServer != null && socket != null) {
+      try {
+        sendKaaSync(SUPPORTED_TYPES);
+      }
+ catch (      Exception e) {
+        LOG.error("Failed to sync channel [{}]: {}",getId(),e);
+        onServerFailed();
+      }
+    }
+ else {
+      LOG.warn("Can't sync. Server is {}, socket is {}",currentServer,socket);
+    }
+  }
+}

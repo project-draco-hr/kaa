@@ -1,0 +1,5 @@
+{
+  install.startAgent("agent",CONFIG_FILE_PRCCLIENT_TEST);
+  clientManager=FlumeClientManager.getInstance(parametersDto);
+  clientManager.sendEventToFlume(EventBuilder.withBody(testEventBody));
+}

@@ -1,0 +1,15 @@
+{
+  StringBuffer sb=new StringBuffer();
+  sb.append("NettyServer config:\n");
+  sb.append("Netty HTTP Port = " + getPort() + "\n");
+  sb.append("Netty HTTP Interface = " + getBindInterface() + "\n");
+  sb.append("Client MAX Body Size = " + getClientMaxBodySize() + "\n");
+  sb.append("Task Executor pool Size = " + getExecutorThreadSize() + "\n");
+  if (commandFactories != null) {
+    sb.append("Command List:\n");
+    for (    KaaCommandProcessorFactory command : commandFactories) {
+      sb.append("\t" + command + "\n");
+    }
+  }
+  return sb.toString();
+}

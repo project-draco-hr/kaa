@@ -1,0 +1,7 @@
+{
+  TestHttpClient client=new TestHttpClient("test_url",null,null,null);
+  client.disableVerification();
+  byte[] body={1,2,3};
+  byte[] signature={1,2,3};
+  Assert.assertArrayEquals(body,client.verifyResponse(body,signature));
+}

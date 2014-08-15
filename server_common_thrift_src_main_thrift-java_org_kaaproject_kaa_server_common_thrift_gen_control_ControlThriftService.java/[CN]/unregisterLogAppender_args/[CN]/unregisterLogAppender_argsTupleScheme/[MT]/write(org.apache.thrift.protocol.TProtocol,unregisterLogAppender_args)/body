@@ -1,0 +1,11 @@
+{
+  TTupleProtocol oprot=(TTupleProtocol)prot;
+  BitSet optionals=new BitSet();
+  if (struct.isSetLogAppenderId()) {
+    optionals.set(0);
+  }
+  oprot.writeBitSet(optionals,1);
+  if (struct.isSetLogAppenderId()) {
+    oprot.writeString(struct.logAppenderId);
+  }
+}

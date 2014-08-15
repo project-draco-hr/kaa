@@ -1,0 +1,17 @@
+{
+  schemaSourceType=context.getString(CONFIG_AVRO_EVENT_SERIALIZER_SCHEMA_SOURCE,DEFAULT_AVRO_EVENT_SERIALIZER_SCHEMA_SOURCE);
+  if (schemaSourceType.equals(SCHEMA_SOURCE_REST)) {
+    kaaRestHost=context.getString(CONFIG_KAA_REST_HOST,DEFAULT_KAA_REST_HOST);
+    kaaRestPort=context.getInteger(CONFIG_KAA_REST_PORT,DEFAULT_KAA_REST_PORT);
+    kaaRestUser=context.getString(CONFIG_KAA_REST_USER);
+    kaaRestPassword=context.getString(CONFIG_KAA_REST_PASSWORD);
+    Preconditions.checkArgument(kaaRestUser != null && kaaRestUser.length() > 0,CONFIG_KAA_REST_USER + " must be specified for " + SCHEMA_SOURCE_REST+ " avro schema source");
+    Preconditions.checkArgument(kaaRestPassword != null && kaaRestPassword.length() > 0,CONFIG_KAA_REST_PASSWORD + " must be specified for " + SCHEMA_SOURCE_REST+ " avro schema source");
+    adminClient=new AdminClient(kaaRestHost,kaaRestPort);
+    adminClient.login(kaaRestUser,kaaRestPassword);
+  }
+ else {
+    schemaLocalRoot=context.getString(CONFIG_AVRO_EVENT_SERIALIZER_SCHEMA_LOCAL_ROOT);
+    Preconditions.checkArgument(schemaLocalRoot != null && schemaLocalRoot.length() > 0,CONFIG_AVRO_EVENT_SERIALIZER_SCHEMA_LOCAL_ROOT + " must be specified for " + SCHEMA_SOURCE_LOCAL+ " avro schema source");
+  }
+}

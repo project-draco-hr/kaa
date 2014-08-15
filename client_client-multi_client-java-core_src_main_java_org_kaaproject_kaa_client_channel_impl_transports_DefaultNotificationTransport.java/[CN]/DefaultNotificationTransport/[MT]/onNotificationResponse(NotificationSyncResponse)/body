@@ -1,6 +1,8 @@
 {
   if (processor != null && clientState != null) {
-    acceptedUnicastNotificationIds.clear();
+    if (response.getResponseStatus() == SyncResponseStatus.NO_DELTA) {
+      acceptedUnicastNotificationIds.clear();
+    }
     List<Topic> topics=response.getAvailableTopics();
     if (topics != null) {
       for (      Topic topic : topics) {
@@ -10,20 +12,32 @@
     }
     List<Notification> notifications=response.getNotifications();
     if (notifications != null) {
-      for (      Notification notification : notifications) {
+      List<Notification> newNotifications=new ArrayList<>(notifications.size());
+      List<Notification> unicastNotifications=getUnicastNotifications(notifications);
+      List<Notification> multicastNotifications=getMulticastNotifications(notifications);
+      for (      Notification notification : unicastNotifications) {
         LOG.info("Received {}",notification);
-        if (notification.getUid() != null) {
-          LOG.info("Adding {} to unicast accepted notifications",notification.getUid());
-          acceptedUnicastNotificationIds.add(notification.getUid());
+        if (acceptedUnicastNotificationIds.add(notification.getUid())) {
+          newNotifications.add(notification);
         }
  else {
-          clientState.updateTopicSubscriptionInfo(notification.getTopicId(),notification.getSeqNumber());
+          LOG.info("Notification with uid [{}] was already received",notification.getUid());
         }
       }
-      processor.notificationReceived(notifications);
+      for (      Notification notification : multicastNotifications) {
+        LOG.info("Received {}",notification);
+        if (clientState.updateTopicSubscriptionInfo(notification.getTopicId(),notification.getSeqNumber())) {
+          newNotifications.add(notification);
+        }
+ else {
+          LOG.info("Notification with seq number {} was already received",notification.getSeqNumber());
+        }
+      }
+      processor.notificationReceived(newNotifications);
     }
     sentNotificationCommands.clear();
     clientState.setNotificationSeqNumber(response.getAppStateSeqNumber());
-    LOG.info("Processed notification response");
+    syncAck(response.getResponseStatus());
+    LOG.info("Processed notification response.");
   }
 }

@@ -1,0 +1,6 @@
+{
+  LOG.debug("Sending KaaSync from channel [{}]",getId());
+  byte[] body=multiplexer.compileRequest(types);
+  byte[] requestBodyEncoded=encDec.encodeData(body);
+  sendFrame(new KaaSync(true,requestBodyEncoded,false,true));
+}

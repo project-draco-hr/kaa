@@ -1,0 +1,27 @@
+{
+  HttpEntity resEntity=response.getEntity();
+  if (resEntity != null) {
+    byte[] body=toByteArray(resEntity);
+    consume(resEntity);
+    if (verifyResponse) {
+      Header signatureHeader=response.getFirstHeader(CommonEPConstans.SIGNATURE_HEADER_NAME);
+      if (signatureHeader == null) {
+        throw new IOException("can't verify message");
+      }
+      byte[] signature;
+      if (signatureHeader.getValue() != null) {
+        signature=Base64.decodeBase64(signatureHeader.getValue().getBytes(Charsets.UTF_8));
+      }
+ else {
+        signature=new byte[0];
+      }
+      return verifyResponse(body,signature);
+    }
+ else {
+      return body;
+    }
+  }
+ else {
+    throw new IOException("can't read message");
+  }
+}

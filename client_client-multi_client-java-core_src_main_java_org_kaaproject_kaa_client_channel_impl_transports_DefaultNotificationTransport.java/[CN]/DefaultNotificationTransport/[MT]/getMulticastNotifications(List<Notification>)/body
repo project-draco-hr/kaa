@@ -1,0 +1,15 @@
+{
+  List<Notification> result=new ArrayList<>();
+  for (  Notification notification : notifications) {
+    if (notification.getUid() == null) {
+      result.add(notification);
+    }
+  }
+  Collections.sort(result,new Comparator<Notification>(){
+    @Override public int compare(    Notification o1,    Notification o2){
+      return o1.getSeqNumber() - o2.getSeqNumber();
+    }
+  }
+);
+  return result;
+}

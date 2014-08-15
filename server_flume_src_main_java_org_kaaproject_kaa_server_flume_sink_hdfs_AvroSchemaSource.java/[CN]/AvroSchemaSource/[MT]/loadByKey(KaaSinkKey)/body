@@ -1,0 +1,22 @@
+{
+  Schema schema=null;
+  String schemaString=null;
+  if (schemaSourceType.equals(SCHEMA_SOURCE_REST)) {
+    LogSchemaDto logSchemaDto=adminClient.getLogSchemaByApplicationTokenAndSchemaVersion(key.getApplicationToken(),key.getSchemaVersion());
+    schemaString=logSchemaDto.getSchema();
+  }
+ else {
+    String applicationToken=key.getApplicationToken();
+    int version=key.getSchemaVersion();
+    String separator=System.getProperty("file.separator");
+    File schemaFile=new File(schemaLocalRoot + separator + applicationToken+ separator+ "schema_v"+ version);
+    if (schemaFile.exists()) {
+      schemaString=FileUtils.readFileToString(schemaFile);
+    }
+  }
+  if (schemaString != null) {
+    Schema.Parser parser=new Schema.Parser();
+    schema=parser.parse(schemaString);
+  }
+  return schema;
+}

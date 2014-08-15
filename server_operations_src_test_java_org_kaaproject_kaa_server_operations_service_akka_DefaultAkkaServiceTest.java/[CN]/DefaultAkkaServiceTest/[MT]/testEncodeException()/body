@@ -1,9 +1,0 @@
-{
-  ChannelHandlerContext channelContextMock=Mockito.mock(ChannelHandlerContext.class);
-  AbstractOperationsCommand commandMock=Mockito.mock(AbstractOperationsCommand.class);
-  Mockito.when(commandMock.decode()).thenThrow(new GeneralSecurityException("test"));
-  NettyEncodedRequestMessage message=new NettyEncodedRequestMessage("testUUID",channelContextMock,commandMock,ChannelType.HTTP);
-  Assert.assertNotNull(akkaService.getActorSystem());
-  akkaService.process(message);
-  Mockito.verify(channelContextMock,Mockito.timeout(TIMEOUT).atLeastOnce()).fireExceptionCaught(Mockito.any(GeneralSecurityException.class));
-}

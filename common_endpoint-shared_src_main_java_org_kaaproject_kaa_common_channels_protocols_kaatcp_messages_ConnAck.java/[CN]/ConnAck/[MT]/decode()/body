@@ -1,0 +1,24 @@
+{
+  byte code=buffer.get(1);
+  if (code == ReturnCode.ACCEPTED.getReturnCode()) {
+    returnCode=ReturnCode.ACCEPTED;
+  }
+ else   if (code == ReturnCode.REFUSE_BAD_CREDETIALS.getReturnCode()) {
+    returnCode=ReturnCode.REFUSE_BAD_CREDETIALS;
+  }
+ else   if (code == ReturnCode.REFUSE_BAD_PROTOCOL.getReturnCode()) {
+    returnCode=ReturnCode.REFUSE_BAD_PROTOCOL;
+  }
+ else   if (code == ReturnCode.REFUSE_ID_REJECT.getReturnCode()) {
+    returnCode=ReturnCode.REFUSE_ID_REJECT;
+  }
+ else   if (code == ReturnCode.REFUSE_NO_AUTH.getReturnCode()) {
+    returnCode=ReturnCode.REFUSE_NO_AUTH;
+  }
+ else   if (code == ReturnCode.REFUSE_SERVER_UNAVAILABLE.getReturnCode()) {
+    returnCode=ReturnCode.REFUSE_SERVER_UNAVAILABLE;
+  }
+ else {
+    returnCode=ReturnCode.UNDEFINED;
+  }
+}

@@ -1,0 +1,7 @@
+{
+  if (socket != null) {
+synchronized (socket) {
+      socket.getOutputStream().write(frame.getFrame().array());
+    }
+  }
+}

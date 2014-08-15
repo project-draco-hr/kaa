@@ -1,0 +1,11 @@
+{
+  getLogAppender_result result=new getLogAppender_result();
+  receiveBase(result,"getLogAppender");
+  if (result.isSetSuccess()) {
+    return result.success;
+  }
+  if (result.ControlException != null) {
+    throw result.ControlException;
+  }
+  throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT,"getLogAppender failed: unknown result");
+}

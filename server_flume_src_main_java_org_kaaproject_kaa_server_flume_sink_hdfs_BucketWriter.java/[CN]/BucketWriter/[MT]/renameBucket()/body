@@ -1,0 +1,8 @@
+{
+  Path srcPath=new Path(bucketPath + IN_USE_EXT);
+  Path dstPath=new Path(bucketPath + AVRO_EXT);
+  if (fileSystem.exists(srcPath)) {
+    LOG.info("Renaming " + srcPath + " to "+ dstPath);
+    fileSystem.rename(srcPath,dstPath);
+  }
+}

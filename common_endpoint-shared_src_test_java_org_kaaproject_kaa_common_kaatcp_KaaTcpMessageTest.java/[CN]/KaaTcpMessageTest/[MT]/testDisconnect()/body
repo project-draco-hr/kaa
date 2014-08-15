@@ -1,0 +1,5 @@
+{
+  final byte[] disconnect=new byte[]{(byte)0xE0,0x02,0x00,0x02};
+  Disconnect message=new Disconnect(DisconnectReason.INTERNAL_ERROR);
+  Assert.assertArrayEquals(disconnect,message.getFrame().array());
+}

@@ -1,0 +1,14 @@
+{
+  final byte[] disconnect=new byte[]{(byte)0xE0,0x02,0x00,0x02};
+  MessageFactory factory=new MessageFactory();
+  factory.getFramer().pushBytes(disconnect);
+  DisconnectListener listener=Mockito.spy(new DisconnectListener(){
+    @Override public void onMessage(    Disconnect message){
+      Assert.assertEquals(DisconnectReason.INTERNAL_ERROR,message.getReason());
+    }
+  }
+);
+  factory.registerMessageListener(listener);
+  factory.getFramer().pushBytes(disconnect);
+  Mockito.verify(listener,Mockito.times(1)).onMessage(Mockito.any(Disconnect.class));
+}

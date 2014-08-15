@@ -1,7 +1,4 @@
 {
-  Cipher sessionKeyCipher=RSA_CIPHER.get();
-  sessionKeyCipher.init(Cipher.DECRYPT_MODE,privateKey);
-  byte[] sessionKeyBytes=sessionKeyCipher.doFinal(encodedKey);
-  sessionKey=new SecretKeySpec(sessionKeyBytes,0,SESSION_KEY_SIZE / 8,SESSION_KEY_ALGORITHM);
+  decodeSessionKey(encodedKey);
   return decodeData(message);
 }

@@ -39,5 +39,8 @@
   boolean present_op=true && (isSetOp());
   builder.append(present_op);
   if (present_op)   builder.append(op.getValue());
+  boolean present_appenderId=true && (isSetAppenderId());
+  builder.append(present_appenderId);
+  if (present_appenderId)   builder.append(appenderId);
   return builder.toHashCode();
 }

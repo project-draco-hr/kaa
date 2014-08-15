@@ -1,7 +1,7 @@
 {
   BootstrapThriftServiceImpl b=new BootstrapThriftServiceImpl();
+  ReflectionTestUtils.setField(b,"operationsServerListService",operationsListMock);
   assertNotNull(b);
-  b.setConfig(confMock);
   ByteBuffer pk=ByteBuffer.wrap(new byte[]{1,2,3});
   List<ThriftSupportedChannel> scl1=new ArrayList<>();
   ThriftIpParameters ip1=new ThriftIpParameters("host1",123);
@@ -13,15 +13,15 @@
   List<ThriftSupportedChannel> scl2=new ArrayList<>();
   ThriftIpParameters ip2=new ThriftIpParameters("host2",123);
   ThriftCommunicationParameters com12=new ThriftCommunicationParameters();
-  com12.setHttpParams(ip2);
-  ThriftSupportedChannel sc12=new ThriftSupportedChannel(ThriftChannelType.HTTP,com12);
+  com12.setHttpLpParams(ip2);
+  ThriftSupportedChannel sc12=new ThriftSupportedChannel(ThriftChannelType.HTTP_LP,com12);
   scl2.add(sc12);
   ThriftOperationsServer s2=new ThriftOperationsServer("host2",10,pk,scl2);
   List<ThriftSupportedChannel> scl3=new ArrayList<>();
   ThriftIpParameters ip3=new ThriftIpParameters("host3",123);
   ThriftCommunicationParameters com13=new ThriftCommunicationParameters();
-  com13.setHttpParams(ip3);
-  ThriftSupportedChannel sc13=new ThriftSupportedChannel(ThriftChannelType.HTTP,com13);
+  com13.setKaaTcpParams(ip3);
+  ThriftSupportedChannel sc13=new ThriftSupportedChannel(ThriftChannelType.KAATCP,com13);
   scl3.add(sc13);
   ThriftOperationsServer s3=new ThriftOperationsServer("host3",10,pk,scl3);
   List<ThriftOperationsServer> operationsServersList=new ArrayList<>();
@@ -30,7 +30,7 @@
   operationsServersList.add(s3);
   try {
     b.onOperationsServerListUpdate(operationsServersList);
-    verify(endpointListMock,times(1)).updateList(operationsServersList);
+    verify(operationsListMock,times(1)).updateList(operationsServersList);
   }
  catch (  TException e) {
     fail(e.toString());

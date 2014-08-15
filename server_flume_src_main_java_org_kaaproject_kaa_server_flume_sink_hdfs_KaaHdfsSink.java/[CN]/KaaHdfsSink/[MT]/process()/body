@@ -1,0 +1,77 @@
+{
+  Channel channel=getChannel();
+  Transaction transaction=channel.getTransaction();
+  transaction.begin();
+  try {
+    Event event=null;
+    int txnEventCount=0;
+    int sinkEventCount=0;
+    for (txnEventCount=0; txnEventCount < txnEventMax; txnEventCount++) {
+      event=channel.take();
+      if (event == null) {
+        if ((System.currentTimeMillis() - cacheCleanupStartInterval) >= cacheCleanupInterval) {
+          logger.info("Starting Writer cache cleanup.");
+          writerCache.cleanUp();
+          timedRollerPool.purge();
+          cacheCleanupStartInterval=System.currentTimeMillis();
+        }
+        break;
+      }
+      Map<KaaSinkKey,List<Event>> incomingEventsMap=eventFactory.processIncomingFlumeEvent(event);
+      if (incomingEventsMap == null || incomingEventsMap.isEmpty()) {
+        if (logger.isWarnEnabled()) {
+          logger.warn("Unable to parse incoming event: " + event);
+        }
+        continue;
+      }
+      for (      KaaSinkKey key : incomingEventsMap.keySet()) {
+        HdfsSinkKey hdfsSinkKey=new HdfsSinkKey(rootHdfsPath,key);
+        BucketWriter bucketWriter;
+        bucketWriter=writerCache.get(hdfsSinkKey);
+        writerFlushMap.put(hdfsSinkKey,bucketWriter);
+        List<Event> events=incomingEventsMap.get(key);
+        sinkEventCount+=events.size();
+        appendBatch(bucketWriter,events);
+      }
+    }
+    if (txnEventCount == 0) {
+      sinkCounter.incrementBatchEmptyCount();
+    }
+ else     if (txnEventCount == txnEventMax) {
+      sinkCounter.incrementBatchCompleteCount();
+    }
+ else {
+      sinkCounter.incrementBatchUnderflowCount();
+    }
+    for (    BucketWriter bucketWriter : writerFlushMap.values()) {
+      flush(bucketWriter);
+    }
+    writerFlushMap.clear();
+    transaction.commit();
+    if (sinkEventCount > 0) {
+      sinkCounter.addToEventDrainSuccessCount(sinkEventCount);
+    }
+    if (event == null) {
+      return Status.BACKOFF;
+    }
+    return Status.READY;
+  }
+ catch (  IOException eIO) {
+    transaction.rollback();
+    logger.warn("HDFS IO error",eIO);
+    return Status.BACKOFF;
+  }
+catch (  Throwable th) {
+    transaction.rollback();
+    logger.error("process failed",th);
+    if (th instanceof Error) {
+      throw (Error)th;
+    }
+ else {
+      throw new EventDeliveryException(th);
+    }
+  }
+ finally {
+    transaction.close();
+  }
+}

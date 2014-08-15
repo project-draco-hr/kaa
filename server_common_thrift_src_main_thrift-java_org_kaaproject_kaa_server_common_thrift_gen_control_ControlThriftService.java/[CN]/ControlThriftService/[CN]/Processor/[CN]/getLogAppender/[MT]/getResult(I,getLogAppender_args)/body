@@ -1,0 +1,10 @@
+{
+  getLogAppender_result result=new getLogAppender_result();
+  try {
+    result.success=iface.getLogAppender(args.logAppenderId);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

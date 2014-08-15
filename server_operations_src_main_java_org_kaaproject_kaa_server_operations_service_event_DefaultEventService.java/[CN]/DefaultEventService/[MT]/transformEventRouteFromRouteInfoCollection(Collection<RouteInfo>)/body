@@ -1,15 +1,15 @@
 {
   List<EventRoute> routes=new ArrayList<>();
-  HashMap<Key,List<org.kaaproject.kaa.server.common.thrift.gen.operations.RouteInfo>> routeInfosTh=new HashMap<>();
+  HashMap<UserTenantKey,List<org.kaaproject.kaa.server.common.thrift.gen.operations.RouteInfo>> routeInfosTh=new HashMap<>();
   for (  RouteInfo ri : routeInfos) {
     org.kaaproject.kaa.server.common.thrift.gen.operations.RouteInfo riTh=new org.kaaproject.kaa.server.common.thrift.gen.operations.RouteInfo(transformUpdateType(ri.getRouteOperation()),transformECFV(ri.getEcfVersions()),ri.getAddress().getApplicationToken(),ByteBuffer.wrap(ri.getAddress().getEndpointKey().getData()));
-    Key key=new Key(ri.getUserId(),ri.getTenantId());
+    UserTenantKey key=new UserTenantKey(ri.getUserId(),ri.getTenantId());
     if (!routeInfosTh.containsKey(key)) {
       routeInfosTh.put(key,new ArrayList<org.kaaproject.kaa.server.common.thrift.gen.operations.RouteInfo>());
     }
     routeInfosTh.get(key).add(riTh);
   }
-  for (  Key key : routeInfosTh.keySet()) {
+  for (  UserTenantKey key : routeInfosTh.keySet()) {
     EventRoute route=new EventRoute(key.getUserId(),key.getTenantId(),routeInfosTh.get(key),neighbors.getSelfId());
     routes.add(route);
   }

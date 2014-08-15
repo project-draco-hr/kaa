@@ -12,5 +12,5 @@
     response=new EndpointEventDeliveryMessage(message,EventDeliveryStatus.FAILURE);
     userRegistrationRequestSent=false;
   }
-  context.parent().tell(response,context.self());
+  tellParent(context,response);
 }

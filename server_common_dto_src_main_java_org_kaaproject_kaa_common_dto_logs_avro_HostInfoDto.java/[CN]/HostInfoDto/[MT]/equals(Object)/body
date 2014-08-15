@@ -1,0 +1,13 @@
+{
+  if (this == obj)   return true;
+  if (obj == null)   return false;
+  if (getClass() != obj.getClass())   return false;
+  HostInfoDto other=(HostInfoDto)obj;
+  if (hostname == null) {
+    if (other.hostname != null)     return false;
+  }
+ else   if (!hostname.equals(other.hostname))   return false;
+  if (port != other.port)   return false;
+  if (priority != other.priority)   return false;
+  return true;
+}

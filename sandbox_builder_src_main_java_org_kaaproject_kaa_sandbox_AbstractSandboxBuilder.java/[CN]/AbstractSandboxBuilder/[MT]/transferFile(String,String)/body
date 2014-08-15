@@ -1,0 +1,6 @@
+{
+  Scp scp=createScp();
+  scp.setLocalFile(file);
+  scp.setRemoteTodir(SSH_USERNAME + "@" + DEFAULT_HOST+ ":"+ to);
+  scp.execute();
+}

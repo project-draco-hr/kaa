@@ -133,5 +133,15 @@
       return lastComparison;
     }
   }
+  lastComparison=Boolean.valueOf(isSetAppenderId()).compareTo(other.isSetAppenderId());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetAppenderId()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.appenderId,other.appenderId);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
   return 0;
 }

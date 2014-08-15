@@ -1,5 +1,8 @@
 {
   org.kaaproject.kaa.server.admin.services.entity.User userEntity=new org.kaaproject.kaa.server.admin.services.entity.User();
+  if (!checkPasswordStrength(password)) {
+    throw new KaaAdminServiceException("Bad password strength. Password length must be greater than 5 characters.",ServiceErrorCode.GENERAL_ERROR);
+  }
   userEntity.setUsername(username);
   userEntity.setPassword(passwordEncoder.encodePassword(password,null));
   userEntity.setEnabled(true);

@@ -1,22 +1,22 @@
 {
   ChannelHandlerContext channelContextMock=Mockito.mock(ChannelHandlerContext.class);
-  AbstractOperationsCommand commandMock=Mockito.mock(AbstractOperationsCommand.class);
   SyncRequest request=new SyncRequest();
+  request.setRequestId(REQUEST_ID);
   SyncRequestMetaData md=new SyncRequestMetaData();
   md.setApplicationToken(APP_TOKEN);
-  md.setEndpointPublicKeyHash(ByteBuffer.wrap(SHA1HashUtils.hashToBytes(ENDPOINT_PUBLIC_KEY.getBytes())));
+  md.setEndpointPublicKeyHash(clientPublicKeyHash);
   request.setSyncRequestMetaData(md);
   ProfileSyncRequest profileSync=new ProfileSyncRequest();
-  profileSync.setEndpointPublicKey(ByteBuffer.wrap(ENDPOINT_PUBLIC_KEY.getBytes()));
+  profileSync.setEndpointPublicKey(clientPublicKey);
   profileSync.setProfileBody(ByteBuffer.wrap(PROFILE_BODY.getBytes()));
   profileSync.setVersionInfo(new EndpointVersionInfo(1,2,3,4,null,5));
   request.setProfileSyncRequest(profileSync);
-  SyncResponseHolder holder=new SyncResponseHolder(new SyncResponse());
-  Mockito.when(commandMock.decode()).thenReturn(request);
-  Mockito.when(operationsService.sync(request)).thenReturn(holder);
-  NettyEncodedRequestMessage message=new NettyEncodedRequestMessage("testUUID",channelContextMock,commandMock,ChannelType.HTTP);
+  Mockito.when(operationsService.sync(request)).thenReturn(simpleResponse);
+  ResponseBuilder responseBuilder=Mockito.mock(ResponseBuilder.class);
+  ErrorBuilder errorBuilder=Mockito.mock(ErrorBuilder.class);
+  SessionInitRequest message=toSignedRequest(UUID.randomUUID(),ChannelType.HTTP,channelContextMock,request,responseBuilder,errorBuilder);
   Assert.assertNotNull(akkaService.getActorSystem());
   akkaService.process(message);
-  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeastOnce()).sync(request);
-  Mockito.verify(commandMock,Mockito.timeout(TIMEOUT).atLeastOnce()).encode(Mockito.any(SyncResponse.class));
+  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT * 10).atLeastOnce()).sync(request);
+  Mockito.verify(responseBuilder,Mockito.timeout(TIMEOUT).atLeastOnce()).build(Mockito.any(byte[].class));
 }

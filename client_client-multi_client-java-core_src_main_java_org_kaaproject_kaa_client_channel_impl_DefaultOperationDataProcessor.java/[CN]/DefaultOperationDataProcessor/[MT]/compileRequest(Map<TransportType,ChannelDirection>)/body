@@ -9,10 +9,7 @@
       boolean isDownDirection=type.getValue().equals(ChannelDirection.DOWN);
 switch (type.getKey()) {
 case CONFIGURATION:
-        if (isDownDirection) {
-          request.setConfigurationSyncRequest(new ConfigurationSyncRequest());
-        }
- else         if (configurationTransport != null) {
+        if (configurationTransport != null) {
           request.setConfigurationSyncRequest(configurationTransport.createConfigurationRequest());
         }
       break;
@@ -25,11 +22,13 @@ case EVENT:
     }
   break;
 case NOTIFICATION:
-if (isDownDirection) {
-  request.setNotificationSyncRequest(new NotificationSyncRequest());
-}
- else if (notificationTransport != null) {
-  request.setNotificationSyncRequest(notificationTransport.createNotificationRequest());
+if (notificationTransport != null) {
+  if (isDownDirection) {
+    request.setNotificationSyncRequest(notificationTransport.createEmptyNotificationRequest());
+  }
+ else {
+    request.setNotificationSyncRequest(notificationTransport.createNotificationRequest());
+  }
 }
 break;
 case PROFILE:

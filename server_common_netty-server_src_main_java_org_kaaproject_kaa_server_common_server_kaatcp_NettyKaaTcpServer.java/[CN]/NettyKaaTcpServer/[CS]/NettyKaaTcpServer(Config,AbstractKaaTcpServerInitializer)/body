@@ -1,0 +1,6 @@
+{
+  super(conf.getBindInterface(),conf.getPort(),conf.getExecutorThreadSize());
+  this.conf=conf;
+  this.initializer=initializer;
+  LOG.trace("NettyKaaTcpServer config:\n{}",conf.toString());
+}

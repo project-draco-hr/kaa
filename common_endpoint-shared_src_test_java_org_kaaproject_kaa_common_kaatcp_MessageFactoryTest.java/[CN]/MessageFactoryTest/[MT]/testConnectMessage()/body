@@ -1,0 +1,37 @@
+{
+  KeyPair clientPair=KeyUtil.generateKeyPair();
+  KeyPair serverPair=KeyUtil.generateKeyPair();
+  MessageEncoderDecoder crypt=new MessageEncoderDecoder(clientPair.getPrivate(),clientPair.getPublic(),serverPair.getPublic());
+  AvroByteArrayConverter<SyncRequest> requestConverter=new AvroByteArrayConverter<>(SyncRequest.class);
+  SyncRequest request=new SyncRequest();
+  request.setRequestId(42);
+  SyncRequestMetaData md=new SyncRequestMetaData();
+  md.setApplicationToken("AppToken");
+  md.setEndpointPublicKeyHash(ByteBuffer.wrap(SHA1HashUtils.hashToBytes(clientPair.getPublic().getEncoded())));
+  request.setSyncRequestMetaData(md);
+  byte[] rawData=requestConverter.toByteArray(request);
+  final byte[] payload=crypt.encodeData(rawData);
+  final byte[] sessionKey=crypt.getEncodedSessionKey();
+  final byte[] signature=crypt.sign(sessionKey);
+  final byte connectHeader[]=new byte[]{0x10,(byte)0xBE,0x04,0x00,0x06,'K','a','a','t','c','p',0x01,0x02,0x11,0x01,0x00,(byte)0xC8};
+  ByteBuffer connectBuffer=ByteBuffer.allocate(sessionKey.length + signature.length + payload.length+ 17);
+  connectBuffer.put(connectHeader);
+  connectBuffer.put(sessionKey);
+  connectBuffer.put(signature);
+  connectBuffer.put(payload);
+  connectBuffer.position(0);
+  MessageFactory factory=new MessageFactory();
+  factory.getFramer().pushBytes(connectBuffer.array());
+  ConnectListener listener=Mockito.spy(new ConnectListener(){
+    @Override public void onMessage(    Connect message){
+      Assert.assertEquals(200,message.getKeepAlive());
+      Assert.assertArrayEquals(signature,message.getSignature());
+      Assert.assertArrayEquals(sessionKey,message.getAesSessionKey());
+      Assert.assertArrayEquals(payload,message.getSyncRequest());
+    }
+  }
+);
+  factory.registerMessageListener(listener);
+  factory.getFramer().pushBytes(connectBuffer.array());
+  Mockito.verify(listener,Mockito.times(1)).onMessage(Mockito.any(Connect.class));
+}

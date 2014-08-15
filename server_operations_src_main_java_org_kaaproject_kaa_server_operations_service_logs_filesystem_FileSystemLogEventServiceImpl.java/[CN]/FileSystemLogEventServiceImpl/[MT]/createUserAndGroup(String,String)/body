@@ -1,0 +1,27 @@
+{
+  LOG.debug("Starting create user and group for application with id: {}",applicationId);
+  ApplicationDto dto=applicationService.findAppById(applicationId);
+  String userName="kaa_log_user_" + dto.getApplicationToken();
+  String groupName="kaa_log_group_" + dto.getApplicationToken();
+  String publicKey=dto.getPublicKey();
+  File tmpKeyFile=null;
+  try {
+    createDirectory(tmpKeys);
+    tmpKeyFile=new File(tmpKeys + "/" + applicationId+ "_pub.key");
+    PrintWriter out=new PrintWriter(tmpKeyFile);
+    out.write(publicKey);
+    out.close();
+    String command=new StringBuilder("sudo /usr/lib/kaa-operations/bin/kaa-operations create_user ").append(userName).append(" ").append(groupName).append(" ").append(path).append(" ").append(tmpKeyFile.getAbsolutePath()).append(" ").toString();
+    LOG.info("Executing system command: {}",command);
+    Process process=Runtime.getRuntime().exec(command);
+    process.waitFor();
+  }
+ catch (  IOException|InterruptedException e) {
+    LOG.error("Unexpected exception occurred while executing create_user script",e);
+  }
+ finally {
+    if (tmpKeyFile != null) {
+      tmpKeyFile.delete();
+    }
+  }
+}

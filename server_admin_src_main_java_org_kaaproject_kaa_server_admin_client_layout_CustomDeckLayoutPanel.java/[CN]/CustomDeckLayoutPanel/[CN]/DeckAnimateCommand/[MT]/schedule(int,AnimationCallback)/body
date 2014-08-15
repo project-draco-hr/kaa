@@ -1,0 +1,16 @@
+{
+  super.schedule(duration,new AnimationCallback(){
+    @Override public void onAnimationComplete(){
+      CustomDeckLayoutPanel.this.doAfterLayout();
+      if (callback != null) {
+        callback.onAnimationComplete();
+      }
+    }
+    @Override public void onLayout(    Layer layer,    double progress){
+      if (callback != null) {
+        callback.onLayout(layer,progress);
+      }
+    }
+  }
+);
+}

@@ -1,0 +1,11 @@
+{
+  try {
+    FlumeAppenderParameters record=new FlumeAppenderParameters();
+    record.hostsInfo=fieldSetFlags()[0] ? this.hostsInfo : (java.util.List<java.lang.Object>)defaultValue(fields()[0]);
+    record.balancingType=fieldSetFlags()[1] ? this.balancingType : (org.kaaproject.kaa.server.common.dao.model.sql.avro.gen.FlumeBalancingType)defaultValue(fields()[1]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

@@ -1,0 +1,17 @@
+{
+  if (!getClass().equals(other.getClass())) {
+    return getClass().getName().compareTo(other.getClass().getName());
+  }
+  int lastComparison=0;
+  lastComparison=Boolean.valueOf(isSetLogAppenderId()).compareTo(other.isSetLogAppenderId());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetLogAppenderId()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.logAppenderId,other.logAppenderId);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  return 0;
+}

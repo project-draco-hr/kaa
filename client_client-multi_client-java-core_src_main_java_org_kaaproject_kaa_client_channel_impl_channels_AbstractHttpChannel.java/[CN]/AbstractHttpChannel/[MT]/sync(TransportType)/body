@@ -7,9 +7,6 @@
     LOG.info("Can't sync. Channel {} is paused",getId());
     return;
   }
-  if (executor == null) {
-    executor=createExecutor();
-  }
   LOG.info("Processing sync {} for channel {}",type,getId());
   if (multiplexer != null && demultiplexer != null) {
     if (currentServer != null) {

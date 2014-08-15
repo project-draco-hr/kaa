@@ -1,0 +1,13 @@
+{
+  try {
+    SyncRequest request=decodeRequest(message);
+    SyncResponse response=buildRedirectionResponse(redirection,request);
+    NettySessionInfo sessionInfo=message.getSessionInfo();
+    SessionResponse responseMessage=new NettySessionResponseMessage(sessionInfo,response,message.getResponseBuilder(),message.getErrorBuilder());
+    LOG.debug("Redirect Response: {}",response);
+    processSessionResponse(responseMessage);
+  }
+ catch (  GeneralSecurityException|IOException e) {
+    processErrors(message.getChannelContext(),message.getErrorBuilder(),e);
+  }
+}

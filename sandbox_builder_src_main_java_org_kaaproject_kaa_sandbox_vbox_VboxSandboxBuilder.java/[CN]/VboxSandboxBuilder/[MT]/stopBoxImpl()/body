@@ -12,7 +12,7 @@
   boolean poweredOff=false;
   if (!skipShutdown) {
     int retry=0;
-    while (!(poweredOff=isPoweredOff()) && retry < 5) {
+    while (!(poweredOff=isPoweredOff()) && retry < 20) {
       Thread.sleep(5000);
       retry++;
     }

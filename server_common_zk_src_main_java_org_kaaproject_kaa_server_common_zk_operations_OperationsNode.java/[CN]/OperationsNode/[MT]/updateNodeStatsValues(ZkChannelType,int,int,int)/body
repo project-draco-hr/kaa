@@ -11,20 +11,24 @@ case HTTP_LP:
   ZkHttpLpStatistics zkHttpLpStats=(ZkHttpLpStatistics)channel.getZkChannel().getChannelStatistics();
 stats=zkHttpLpStats.getZkStatistics();
 break;
+case KAATCP:
+ZkKaaTcpStatistics zkTcpStats=(ZkKaaTcpStatistics)channel.getZkChannel().getChannelStatistics();
+stats=zkTcpStats.getZkStatistics();
+break;
 }
 if (stats != null) {
 stats.setDeltaCalculationCount(deltaCalculationCount);
 stats.setProcessedRequestCount(processedRequestCount);
 stats.setRegisteredUsersCount(registeredUsersCount);
-}
-break;
-}
-}
 try {
 client.setData().forPath(nodePath,operationsNodeAvroConverter.get().toByteArray(nodeInfo));
 }
  catch (Exception e) {
 LOG.error("Unknown Error",e);
 close();
+}
+}
+break;
+}
 }
 }

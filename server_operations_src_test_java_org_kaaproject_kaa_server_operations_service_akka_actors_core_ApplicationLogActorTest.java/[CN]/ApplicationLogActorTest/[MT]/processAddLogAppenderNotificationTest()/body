@@ -1,0 +1,16 @@
+{
+  FlumeLogAppender flumeAppender=new FlumeLogAppender();
+  flumeAppender.setName("Flume");
+  flumeAppender.setAppenderId(APPENDER_ID);
+  Notification notification=new Notification();
+  notification.setAppenderId(APPENDER_ID);
+  notification.setAppId(APPLICATION_ID);
+  notification.setOp(Operation.ADD_LOG_APPENDER);
+  List<LogAppender> appenders=mock(List.class);
+  ReflectionTestUtils.setField(applicationLogActor,"logAppenders",appenders);
+  when(logAppenderService.getApplicationAppender(APPENDER_ID,APP_TOKEN)).thenReturn(flumeAppender);
+  ReflectionTestUtils.invokeMethod(applicationLogActor,"processLogAppenderNotification",notification);
+  verify(logAppenderService,times(1)).getApplicationAppender(APPENDER_ID,APP_TOKEN);
+  verify(appenders,times(1)).add(any(LogAppender.class));
+  ReflectionTestUtils.setField(applicationLogActor,"logAppenders",logAppenders);
+}

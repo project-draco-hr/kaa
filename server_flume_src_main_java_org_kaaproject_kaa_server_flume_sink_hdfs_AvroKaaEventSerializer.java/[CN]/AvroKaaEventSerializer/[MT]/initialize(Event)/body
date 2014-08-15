@@ -1,0 +1,34 @@
+{
+  Schema schema=null;
+  KaaSinkKey key=new KaaSinkKey(event.getHeaders());
+  schema=schemaCache.get(key);
+  if (schema == null) {
+    try {
+      schema=schemaSource.loadByKey(key);
+    }
+ catch (    Exception e) {
+      logger.error("Unable to load schema by key {}",key);
+      logger.error("Caused by: ",e);
+      throw new FlumeException("Could not find schema for event " + event);
+    }
+    schemaCache.put(key,schema);
+  }
+  if (schema == null) {
+    String schemaString=event.getHeaders().get(AVRO_SCHEMA_LITERAL_HEADER);
+    if (schemaString == null) {
+      throw new FlumeException("Could not find schema for event " + event);
+    }
+    schema=new Schema.Parser().parse(schemaString);
+  }
+  writer=new GenericDatumWriter<Object>(schema);
+  dataFileWriter=new DataFileWriter<Object>(writer);
+  dataFileWriter.setSyncInterval(syncIntervalBytes);
+  try {
+    CodecFactory codecFactory=CodecFactory.fromString(compressionCodec);
+    dataFileWriter.setCodec(codecFactory);
+  }
+ catch (  AvroRuntimeException e) {
+    logger.warn("Unable to instantiate avro codec with name (" + compressionCodec + "). Compression disabled. Exception follows.",e);
+  }
+  dataFileWriter.create(schema,out);
+}

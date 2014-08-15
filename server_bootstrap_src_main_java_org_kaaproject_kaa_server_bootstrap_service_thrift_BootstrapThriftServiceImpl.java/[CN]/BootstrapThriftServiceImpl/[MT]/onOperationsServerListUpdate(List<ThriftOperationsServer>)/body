@@ -13,12 +13,16 @@ case HTTP_LP:
   ThriftCommunicationParameters httpLpParams=channel.getCommunicationParams();
 LOG.trace("HostName: {}, port {}",httpLpParams.getHttpLpParams().getHostName(),httpLpParams.getHttpLpParams().getPort());
 break;
+case KAATCP:
+ThriftCommunicationParameters kaaTcpParams=channel.getCommunicationParams();
+LOG.trace("HostName: {}, port {}",kaaTcpParams.getKaaTcpParams().getHostName(),kaaTcpParams.getKaaTcpParams().getPort());
+break;
 }
 }
 }
-if (getConfig() != null && getConfig().getOperationsServerListService() != null) {
+if (operationsServerListService != null) {
 LOG.trace("Updating OperationsServerListService");
-getConfig().getOperationsServerListService().updateList(operationsServersList);
+operationsServerListService.updateList(operationsServersList);
 }
  else {
 throw new TException("Bootstrap server not initialized properly, config not set");

@@ -8,6 +8,10 @@
     LOG.debug("[{}] Forwarding message to specific endpoint",applicationToken);
     sendToSpecificEndpoint(message);
   }
+ else   if (notification.isSetAppenderId()) {
+    LOG.debug("[{}] Forwarding message to application log actor",applicationToken);
+    processLogNotificationMessage(message);
+  }
  else {
     LOG.debug("[{}] Broadcasting message to all endpoints",applicationToken);
     broadcastToAllEndpoints(message);

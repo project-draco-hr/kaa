@@ -1,0 +1,19 @@
+{
+  int size=1;
+  byte byte1=getMessageType().getType();
+  byte1=(byte)(byte1 & (byte)0x0F);
+  byte1=(byte)(byte1 << 4);
+  dst[0]=byte1;
+  byte digit=0x00;
+  do {
+    digit=(byte)(remainingLegth % 0x00000080);
+    remainingLegth/=0x00000080;
+    if (remainingLegth > 0) {
+      digit=(byte)(digit | 0x80);
+    }
+    dst[size]=digit;
+    ++size;
+  }
+ while (remainingLegth > 0);
+  return size;
+}

@@ -24,8 +24,19 @@ case HTTP_LP_PARAMS:
       org.apache.thrift.protocol.TProtocolUtil.skip(iprot,field.type);
       return null;
     }
+case KAA_TCP_PARAMS:
+  if (field.type == KAA_TCP_PARAMS_FIELD_DESC.type) {
+    ThriftIpParameters kaaTcpParams;
+    kaaTcpParams=new ThriftIpParameters();
+    kaaTcpParams.read(iprot);
+    return kaaTcpParams;
+  }
+ else {
+    org.apache.thrift.protocol.TProtocolUtil.skip(iprot,field.type);
+    return null;
+  }
 default :
-  throw new IllegalStateException("setField wasn't null, but didn't match any of the case statements!");
+throw new IllegalStateException("setField wasn't null, but didn't match any of the case statements!");
 }
 }
  else {

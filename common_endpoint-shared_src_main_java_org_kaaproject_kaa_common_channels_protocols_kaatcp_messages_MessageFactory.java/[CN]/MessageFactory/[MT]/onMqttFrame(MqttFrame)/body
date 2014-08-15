@@ -1,0 +1,36 @@
+{
+switch (frame.getMessageType()) {
+case CONNACK:
+    if (connAckListener != null) {
+      connAckListener.onMessage((ConnAck)frame);
+    }
+  break;
+case CONNECT:
+if (connectListener != null) {
+  connectListener.onMessage((Connect)frame);
+}
+break;
+case DISCONNECT:
+if (disconnectListener != null) {
+disconnectListener.onMessage((Disconnect)frame);
+}
+break;
+case KAASYNC:
+if (kaaSyncListener != null) {
+kaaSyncListener.onMessage((KaaSync)frame);
+}
+break;
+case PINGREQ:
+if (pingRequestListener != null) {
+pingRequestListener.onMessage((PingRequest)frame);
+}
+break;
+case PINGRESP:
+if (pingResponseListener != null) {
+pingResponseListener.onMessage((PingResponse)frame);
+}
+break;
+default :
+break;
+}
+}

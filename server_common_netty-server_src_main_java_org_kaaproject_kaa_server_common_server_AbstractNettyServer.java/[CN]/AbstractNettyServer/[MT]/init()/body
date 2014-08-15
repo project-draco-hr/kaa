@@ -1,0 +1,22 @@
+{
+  try {
+    LOG.info("NettyServer Initializing...");
+    bossGroup=new NioEventLoopGroup();
+    LOG.debug("NettyServer bossGroup created");
+    workerGroup=new NioEventLoopGroup();
+    LOG.debug("NettyServer workGroup created");
+    bServer=new ServerBootstrap();
+    LOG.debug("NettyServer ServerBootstrap created");
+    executor=new DefaultEventExecutorGroup(threadPoolSize);
+    LOG.debug("NettyServer Task Executor created");
+    ChannelInitializer<SocketChannel> sInit=configureInitializer();
+    LOG.debug("NettyServer InitClass instance created");
+    LOG.debug("NettyServer InitClass instance init()");
+    bServer.group(bossGroup,workerGroup).channel(NioServerSocketChannel.class).childHandler(sInit).option(ChannelOption.SO_REUSEADDR,true);
+    LOG.debug("NettyServer ServerBootstrap group initialized");
+    bindChannel=bServer.bind(bindAddress,bindPort).sync().channel();
+  }
+ catch (  Exception e) {
+    LOG.error("NettyHttpServer init() failed",e);
+  }
+}

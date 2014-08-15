@@ -1,5 +1,6 @@
 {
-  Set<ChannelMetaData> eventChannels=new HashSet<ChannelMetaData>(channelMap.getByTransportType(TransportType.EVENT));
+  Set<ChannelMetaData> eventChannels=new HashSet<ChannelMetaData>();
+  eventChannels.addAll(channelMap.getByTransportType(TransportType.EVENT));
   eventChannels.addAll(channelMap.getByTransportType(TransportType.USER));
   LOG.debug("[{}][{}] Current Endpoint was attached/detached from user. Need to close all current event channels {}",endpointKey,actorKey,eventChannels.size());
   userRegistrationRequestSent=false;

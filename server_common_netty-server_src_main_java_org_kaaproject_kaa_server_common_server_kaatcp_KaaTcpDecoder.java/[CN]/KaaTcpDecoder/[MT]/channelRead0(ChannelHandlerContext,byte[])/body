@@ -1,0 +1,7 @@
+{
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("channelRead0: {}",Arrays.toString(data));
+  }
+  currentCtx=ctx;
+  messageFactory.getFramer().pushBytes(data);
+}

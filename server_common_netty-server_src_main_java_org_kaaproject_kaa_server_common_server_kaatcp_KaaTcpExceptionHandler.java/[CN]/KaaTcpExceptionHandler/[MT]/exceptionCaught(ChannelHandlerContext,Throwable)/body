@@ -1,0 +1,14 @@
+{
+  LOG.error("Exception caught",cause);
+  DisconnectReason reason=null;
+  if (cause instanceof BadRequestException) {
+    reason=DisconnectReason.BAD_REQUEST;
+  }
+ else {
+    reason=DisconnectReason.INTERNAL_ERROR;
+  }
+  Disconnect message=new Disconnect(reason);
+  ChannelFuture future=ctx.writeAndFlush(message.getFrame().array());
+  future.addListener(ChannelFutureListener.CLOSE);
+  ctx.close();
+}

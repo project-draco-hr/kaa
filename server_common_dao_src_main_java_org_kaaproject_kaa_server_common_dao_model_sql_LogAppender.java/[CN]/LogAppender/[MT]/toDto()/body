@@ -1,0 +1,16 @@
+{
+  LogAppenderDto dto=createDto();
+  dto.setId(getStringId());
+  dto.setApplicationId(application.getStringId());
+  dto.setApplicationToken(application.getApplicationToken());
+  dto.setTenantId(application.getTenant().getStringId());
+  dto.setName(name);
+  dto.setCreatedTime(createdTime);
+  dto.setCreatedUsername(createdUsername);
+  dto.setDescription(description);
+  dto.setSchema(new SchemaDto(logSchema.getStringId(),logSchema.getMajorVersion(),logSchema.getMinorVersion()));
+  dto.setStatus(status);
+  dto.setType(type);
+  dto.setProperties(DaoAvroUtil.convertParametersFromBytes(properties));
+  return dto;
+}

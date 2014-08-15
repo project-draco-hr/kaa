@@ -18,6 +18,11 @@ httpLpParams.setHostName(thriftParams.getHttpLpParams().getHostName());
 httpLpParams.setPort(thriftParams.getHttpLpParams().getPort());
 supportedChannels.add(HttpLongPollChannel.getSupportedChannelFromHttpLongPollParameters(httpLpParams));
 break;
+case KAATCP:
+KaaTcpParameters kaaTcpParams=new KaaTcpParameters();
+kaaTcpParams.setHostName(thriftParams.getKaaTcpParams().getHostName());
+kaaTcpParams.setPort(thriftParams.getKaaTcpParams().getPort());
+supportedChannels.add(KaaTcpChannel.getSupportedChannelFromKaaTcpParameters(kaaTcpParams));
 }
 eps.setName(server.getName());
 eps.setSupportedChannelsArray(supportedChannels);

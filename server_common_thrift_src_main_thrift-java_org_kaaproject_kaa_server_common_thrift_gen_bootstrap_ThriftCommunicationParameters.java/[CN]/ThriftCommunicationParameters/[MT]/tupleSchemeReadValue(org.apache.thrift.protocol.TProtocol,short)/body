@@ -12,6 +12,11 @@ ThriftIpParameters httpLpParams;
 httpLpParams=new ThriftIpParameters();
 httpLpParams.read(iprot);
 return httpLpParams;
+case KAA_TCP_PARAMS:
+ThriftIpParameters kaaTcpParams;
+kaaTcpParams=new ThriftIpParameters();
+kaaTcpParams.read(iprot);
+return kaaTcpParams;
 default :
 throw new IllegalStateException("setField wasn't null, but didn't match any of the case statements!");
 }

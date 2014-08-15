@@ -1,0 +1,12 @@
+{
+  boolean doRotate=false;
+  if ((rollCount > 0) && (rollCount <= eventCounter)) {
+    LOG.debug("rolling: rollCount: {}, events: {}",rollCount,eventCounter);
+    doRotate=true;
+  }
+  if ((rollSize > 0) && (rollSize <= processSize)) {
+    LOG.debug("rolling: rollSize: {}, bytes: {}",rollSize,processSize);
+    doRotate=true;
+  }
+  return doRotate;
+}

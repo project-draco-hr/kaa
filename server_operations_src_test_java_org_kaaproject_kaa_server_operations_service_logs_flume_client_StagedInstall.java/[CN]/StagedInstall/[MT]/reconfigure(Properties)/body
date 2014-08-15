@@ -1,0 +1,6 @@
+{
+  File configFile=createConfigurationFile(agentName,properties);
+  Files.copy(configFile,new File(configFilePath));
+  configFile.delete();
+  LOGGER.info("Updated agent config file: " + configFilePath);
+}

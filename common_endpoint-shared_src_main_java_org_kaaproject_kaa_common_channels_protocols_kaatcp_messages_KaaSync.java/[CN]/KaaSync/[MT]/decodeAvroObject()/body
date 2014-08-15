@@ -1,0 +1,7 @@
+{
+  int avroObjectSize=buffer.capacity() - buffer.position();
+  if (avroObjectSize > 0) {
+    avroObject=new byte[avroObjectSize];
+    buffer.get(avroObject);
+  }
+}

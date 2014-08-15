@@ -1,0 +1,8 @@
+{
+  if (getSetField() == _Fields.KAA_TCP_PARAMS) {
+    return (ThriftIpParameters)getFieldValue();
+  }
+ else {
+    throw new RuntimeException("Cannot get field 'kaaTcpParams' because union is currently set to " + getFieldDesc(getSetField()).name);
+  }
+}

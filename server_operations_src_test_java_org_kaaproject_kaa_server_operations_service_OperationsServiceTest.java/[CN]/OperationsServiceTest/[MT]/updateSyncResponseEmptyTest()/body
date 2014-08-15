@@ -2,8 +2,5 @@
   SyncResponse response=new SyncResponse();
   response.setStatus(SyncResponseResultType.SUCCESS);
   SyncResponse result=operationsService.updateSyncResponse(response,new ArrayList<NotificationDto>(),null);
-  assertNotNull(result);
-  assertNotNull(result.getNotificationSyncResponse());
-  assertNotNull(result.getNotificationSyncResponse().getNotifications());
-  assertEquals(SyncResponseStatus.DELTA,result.getNotificationSyncResponse().getResponseStatus());
+  assertNull(result);
 }

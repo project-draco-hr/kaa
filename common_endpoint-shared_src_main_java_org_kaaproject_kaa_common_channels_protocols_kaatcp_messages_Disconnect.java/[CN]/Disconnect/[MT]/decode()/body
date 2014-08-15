@@ -1,0 +1,12 @@
+{
+  byte code=buffer.get(1);
+  if (code == DisconnectReason.NONE.getReason()) {
+    reason=DisconnectReason.NONE;
+  }
+ else   if (code == DisconnectReason.BAD_REQUEST.getReason()) {
+    reason=DisconnectReason.BAD_REQUEST;
+  }
+ else   if (code == DisconnectReason.INTERNAL_ERROR.getReason()) {
+    reason=DisconnectReason.INTERNAL_ERROR;
+  }
+}

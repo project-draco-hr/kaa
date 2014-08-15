@@ -5,6 +5,7 @@
   logSchemas=new HashMap<>();
   logAppenders=new ArrayList<>();
   logAppender=mock(LogAppender.class);
+  ReflectionTestUtils.setField(applicationLogActor,"applicationToken",APP_TOKEN);
   ReflectionTestUtils.setField(applicationLogActor,"logSchemas",logSchemas);
   ReflectionTestUtils.setField(applicationLogActor,"logAppenders",logAppenders);
   ReflectionTestUtils.setField(applicationLogActor,"logAppenderService",logAppenderService);

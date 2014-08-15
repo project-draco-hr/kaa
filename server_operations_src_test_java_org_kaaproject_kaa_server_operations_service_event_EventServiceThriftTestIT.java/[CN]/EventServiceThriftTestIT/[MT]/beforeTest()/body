@@ -1,6 +1,6 @@
 {
   eventService.setConfig(new OperationsServerConfig());
-  eventService.getConfig().setZkNode(TestCluster.getOperationsNode());
+  eventService.setZkNode(TestCluster.getOperationsNode());
   for (int i=0; i < numberOfServers; i++) {
     ThriftRunner runner=new ThriftRunner(thriftHostBase,thriftPortBase + i);
     executor.execute(runner);

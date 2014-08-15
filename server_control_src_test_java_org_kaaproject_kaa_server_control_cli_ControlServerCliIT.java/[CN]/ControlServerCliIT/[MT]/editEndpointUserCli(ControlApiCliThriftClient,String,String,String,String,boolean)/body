@@ -21,17 +21,14 @@
   String output=cliOut.toString("UTF-8");
   if (create) {
     String test=output.trim();
-    logger.debug(" ---> TEST LOGS: " + test);
     String id=test.substring("Created new endpoint user with id: ".length()).trim();
     return id;
   }
  else   if (endpointUserId.equals(FAKE_ID)) {
-    logger.debug(" ---> TEST LOGS: " + output.trim());
     Assert.assertTrue(output.trim().startsWith("Endpoint user with id " + FAKE_ID + " not found!"));
     return endpointUserId;
   }
  else {
-    logger.debug(" ---> TEST LOGS: " + output.trim());
     Assert.assertTrue(output.trim().startsWith("Endpoint user updated."));
     return endpointUserId;
   }

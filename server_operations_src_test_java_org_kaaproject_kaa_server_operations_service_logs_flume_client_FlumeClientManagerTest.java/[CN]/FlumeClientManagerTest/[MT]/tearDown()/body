@@ -1,0 +1,8 @@
+{
+  if (clientManager != null) {
+    clientManager.cleanUp();
+  }
+  if (install != null && install.isRunning()) {
+    install.stopAgent();
+  }
+}

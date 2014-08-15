@@ -1,6 +1,6 @@
 {
   LOG.debug("OperationsServer {} Nighbors({}) Update server list. Now {} neighbors.",selfId,uniqId,neigbors.size());
-  OperationsNode node=eventService.getConfig().getZkNode();
+  OperationsNode node=eventService.getZkNode();
   List<OperationsNodeInfo> nodes=node.getCurrentOperationServerNodes();
   for (  OperationsNodeInfo opServer : nodes) {
     String opId=getOperationsServerID(opServer.getConnectionInfo());

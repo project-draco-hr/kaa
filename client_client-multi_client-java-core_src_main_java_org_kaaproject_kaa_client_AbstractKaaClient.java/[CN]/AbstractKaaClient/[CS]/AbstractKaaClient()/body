@@ -8,9 +8,6 @@
     Collections.shuffle(bootstrapServers);
   }
   kaaClientState=new KaaClientPropertiesState(createPersistentStorage(),properties);
-  defaultOperationsChannel=new DefaultOperationsChannel(this,kaaClientState);
-  defaultBootstrapChannel=new DefaultBootstrapChannel(this,kaaClientState);
-  defaultOperationsHttpChannel=new DefaultOperationHttpChannel(this,kaaClientState);
   BootstrapTransport bootstratpTransport=new DefaultBootstrapTransport(properties.getApplicationToken());
   ProfileTransport profileTransport=new DefaultProfileTransport();
   EventTransport eventTransport=new DefaultEventTransport();
@@ -28,10 +25,7 @@
   operationsDataProcessor.setUserTransport(userTransport);
   operationsDataProcessor.setLogTransport(logTransport);
   bootstrapDataProcessor.setBootstrapTransport(bootstratpTransport);
-  defaultOperationsChannel.setMultiplexer(operationsDataProcessor);
-  defaultOperationsChannel.setDemultiplexer(operationsDataProcessor);
-  defaultOperationsHttpChannel.setMultiplexer(operationsDataProcessor);
-  defaultOperationsHttpChannel.setDemultiplexer(operationsDataProcessor);
+  defaultBootstrapChannel=new DefaultBootstrapChannel(this,kaaClientState);
   defaultBootstrapChannel.setMultiplexer(bootstrapDataProcessor);
   defaultBootstrapChannel.setDemultiplexer(bootstrapDataProcessor);
   profileManager=new DefaultProfileManager(profileTransport);
@@ -42,9 +36,11 @@
   endpointRegistrationManager=new DefaultEndpointRegistrationManager(this.kaaClientState,userTransport,profileTransport);
   logCollector=new DefaultLogCollector(logTransport);
   channelManager=new DefaultChannelManager(bootstrapManager,bootstrapServers);
+  defaultOperationTcpChannel=new DefaultOperationTcpChannel(kaaClientState,channelManager);
+  defaultOperationTcpChannel.setMultiplexer(operationsDataProcessor);
+  defaultOperationTcpChannel.setDemultiplexer(operationsDataProcessor);
   channelManager.addChannel(defaultBootstrapChannel);
-  channelManager.addChannel(defaultOperationsChannel);
-  channelManager.addChannel(defaultOperationsHttpChannel);
+  channelManager.addChannel(defaultOperationTcpChannel);
   bootstrapManager.setChannelManager(channelManager);
   publicKeyHash=EndpointObjectHash.fromSHA1(kaaClientState.getPublicKey().getEncoded());
   metaDataTransport.setClientProperties(properties);

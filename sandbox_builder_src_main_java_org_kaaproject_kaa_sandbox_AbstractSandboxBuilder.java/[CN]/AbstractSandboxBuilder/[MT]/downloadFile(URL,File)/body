@@ -1,11 +1,11 @@
 {
-  CloseableHttpClient httpClient=(CloseableHttpClient)HttpClients.createSystem();
-  CloseableHttpResponse response=null;
+  HttpEntity entity=null;
   try {
-    HttpContext context=HttpClientContext.create();
+    HttpClient httpClient=new DefaultHttpClient();
+    HttpContext context=new BasicHttpContext();
     HttpGet httpGet=new HttpGet(sourceUrl.toURI());
-    response=httpClient.execute(httpGet,context);
-    HttpEntity entity=response.getEntity();
+    HttpResponse response=httpClient.execute(httpGet,context);
+    entity=response.getEntity();
     long length=entity.getContentLength();
     InputStream in=new BufferedInputStream(entity.getContent());
     OutputStream out=new BufferedOutputStream(new FileOutputStream(targetFile));
@@ -14,7 +14,6 @@
     IOUtils.closeQuietly(out);
   }
   finally {
-    IOUtils.closeQuietly(response);
-    IOUtils.closeQuietly(httpClient);
+    EntityUtils.consumeQuietly(entity);
   }
 }

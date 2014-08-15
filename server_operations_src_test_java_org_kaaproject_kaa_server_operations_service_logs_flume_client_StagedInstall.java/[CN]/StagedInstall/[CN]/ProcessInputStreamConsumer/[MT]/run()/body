@@ -1,0 +1,12 @@
+{
+  try {
+    byte[] buffer=new byte[1024];
+    int length=0;
+    while ((length=is.read(buffer,0,1024)) != -1) {
+      LOGGER.info("[process-out] " + new String(buffer,0,length));
+    }
+  }
+ catch (  Exception ex) {
+    LOGGER.warn("Error while reading process stream",ex);
+  }
+}

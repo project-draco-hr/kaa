@@ -1,0 +1,7 @@
+{
+  int syncRequestSize=buffer.capacity() - buffer.position();
+  if (syncRequestSize > 0) {
+    syncRequest=new byte[syncRequestSize];
+    buffer.get(syncRequest);
+  }
+}

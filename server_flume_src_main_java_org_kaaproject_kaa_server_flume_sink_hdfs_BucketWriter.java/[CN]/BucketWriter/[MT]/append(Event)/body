@@ -1,0 +1,29 @@
+{
+  if (!isOpen) {
+    open(generateSerial(event));
+  }
+  if (shouldRotate()) {
+    close();
+    open(generateSerial(event));
+  }
+  try {
+    sinkCounter.incrementEventDrainAttemptCount();
+    writer.append(event);
+  }
+ catch (  IOException e) {
+    LOG.warn("Caught IOException writing to HDFSWriter ({}). Closing file (" + bucketPath + IN_USE_EXT+ ") and rethrowing exception.",e.getMessage());
+    try {
+      close();
+    }
+ catch (    IOException e2) {
+      LOG.warn("Caught IOException while closing file (" + bucketPath + IN_USE_EXT+ "). Exception follows.",e2);
+    }
+    throw e;
+  }
+  processSize+=event.getBody().length;
+  eventCounter++;
+  batchCounter++;
+  if (batchCounter == batchSize) {
+    flush();
+  }
+}

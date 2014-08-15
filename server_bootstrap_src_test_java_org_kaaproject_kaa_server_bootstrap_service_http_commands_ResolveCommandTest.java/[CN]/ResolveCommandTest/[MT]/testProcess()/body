@@ -1,8 +1,9 @@
 {
   ResolveCommand cmd=new ResolveCommand();
-  cmd.setServer(serverMock);
+  cmd.operationsServerListService=operationsServerListServiceMock;
+  cmd.crypt=new MessageEncoderDecoder(privateKey,publicKey,null);
   try {
-    cmd.setHttpRequest(getRequest(false));
+    cmd.setRequest(getRequest(false));
     cmd.parse();
     cmd.process();
   }

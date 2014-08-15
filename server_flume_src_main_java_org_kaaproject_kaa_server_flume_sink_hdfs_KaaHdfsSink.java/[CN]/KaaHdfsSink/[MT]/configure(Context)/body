@@ -1,0 +1,30 @@
+{
+  this.context=context;
+  rootHdfsPath=context.getString(CONFIG_ROOT_HDFS_PATH,DEFAULT_ROOT_HDFS_PATH);
+  Preconditions.checkNotNull(rootHdfsPath,"rootHdfsPath is required");
+  txnEventMax=context.getLong(CONFIG_HDFS_TXN_EVENT_MAX,DEFAULT_HDFS_TXN_EVENT_MAX);
+  statisticsInterval=context.getLong(CONFIG_STATISTICS_INTERVAL,DEFAULT_STATISTICS_INTERVAL);
+  threadsPoolSize=context.getInteger(CONFIG_HDFS_THREAD_POOL_SIZE,DEFAULT_HDFS_THREAD_POOL_SIZE);
+  rollTimerPoolSize=context.getInteger(CONFIG_HDFS_ROLL_TIMER_POOL_SIZE,DEFAULT_HDFS_ROLL_TIMER_POOL_SIZE);
+  maxOpenFiles=context.getInteger(CONFIG_HDFS_MAX_OPEN_FILES,DEFAULT_HDFS_MAX_OPEN_FILES);
+  cacheCleanupInterval=context.getInteger(CONFIG_HDFS_CACHE_CLEANUP_INTERVAL,DEFAULT_HDFS_CACHE_CLEANUP_INTERVAL) * 1000;
+  writerExpirationInterval=context.getInteger(CONFIG_HDFS_WRITER_EXPIRATION_INTERVAL,DEFAULT_HDFS_WRITER_EXPIRATION_INTERVAL);
+  callTimeout=context.getLong(CONFIG_HDFS_CALL_TIMEOUT,DEFAULT_HDFS_CALL_TIMEOUT);
+  rollInterval=context.getLong(CONFIG_HDFS_ROLL_INTERVAL,DEFAULT_HDFS_ROLL_INTERVAL);
+  rollSize=context.getLong(CONFIG_HDFS_ROLL_SIZE,DEFAULT_HDFS_ROLL_SIZE);
+  rollCount=context.getLong(CONFIG_HDFS_ROLL_COUNT,DEFAULT_HDFS_ROLL_COUNT);
+  batchSize=context.getLong(CONFIG_HDFS_BATCH_SIZE,DEFAULT_HDFS_BATCH_SIZE);
+  defaultBlockSize=context.getLong(CONFIG_HDFS_DEFAULT_BLOCK_SIZE,DEFAULT_HDFS_DEFAULT_BLOCK_SIZE);
+  filePrefix=context.getString(CONFIG_HDFS_FILE_PREFIX,DEFAULT_HDFS_FILE_PREFIX);
+  Preconditions.checkArgument(batchSize > 0,"batchSize must be greater than 0");
+  Preconditions.checkArgument(txnEventMax > 0,"txnEventMax must be greater than 0");
+  kerbConfPrincipal=context.getString(CONFIG_HDFS_KERBEROS_PRINCIPAL,"");
+  kerbKeytab=context.getString(CONFIG_HDFS_KERBEROS_KEYTAB,"");
+  proxyUserName=context.getString(CONFIG_HDFS_PROXY_USER,"");
+  if (!authenticate(rootHdfsPath)) {
+    logger.error("Failed to authenticate!");
+  }
+  if (sinkCounter == null) {
+    sinkCounter=new SinkCounter(getName());
+  }
+}

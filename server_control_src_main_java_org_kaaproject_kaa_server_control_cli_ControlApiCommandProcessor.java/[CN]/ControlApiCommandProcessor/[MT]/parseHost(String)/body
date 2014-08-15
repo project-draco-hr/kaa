@@ -1,0 +1,9 @@
+{
+  if (host.indexOf(":") != -1) {
+    String[] params=host.split(":");
+    return new HostInfoDto(params[1],Integer.valueOf(params[2].trim()),Integer.valueOf(params[0].trim()));
+  }
+ else {
+    return null;
+  }
+}

@@ -1,0 +1,10 @@
+{
+  try {
+    ZkKaaTcpStatistics record=new ZkKaaTcpStatistics();
+    record.ZkStatistics=fieldSetFlags()[0] ? this.ZkStatistics : (org.kaaproject.kaa.server.common.zk.gen.BaseStatistics)defaultValue(fields()[0]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

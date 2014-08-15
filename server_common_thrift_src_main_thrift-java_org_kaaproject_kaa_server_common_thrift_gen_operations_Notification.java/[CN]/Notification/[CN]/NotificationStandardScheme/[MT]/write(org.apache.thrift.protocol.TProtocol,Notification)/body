@@ -58,6 +58,11 @@
     oprot.writeI32(struct.op.getValue());
     oprot.writeFieldEnd();
   }
+  if (struct.appenderId != null) {
+    oprot.writeFieldBegin(APPENDER_ID_FIELD_DESC);
+    oprot.writeString(struct.appenderId);
+    oprot.writeFieldEnd();
+  }
   oprot.writeFieldStop();
   oprot.writeStructEnd();
 }

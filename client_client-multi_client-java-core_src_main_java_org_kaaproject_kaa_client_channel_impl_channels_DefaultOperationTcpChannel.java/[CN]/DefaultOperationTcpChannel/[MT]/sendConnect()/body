@@ -1,0 +1,8 @@
+{
+  LOG.debug("Sending Connect from channel [{}]",getId());
+  byte[] body=multiplexer.compileRequest(SUPPORTED_TYPES);
+  byte[] requestBodyEncoded=encDec.encodeData(body);
+  byte[] sessionKey=encDec.getEncodedSessionKey();
+  byte[] signature=encDec.sign(sessionKey);
+  sendFrame(new Connect(PING_TIMEOUT,sessionKey,requestBodyEncoded,signature));
+}

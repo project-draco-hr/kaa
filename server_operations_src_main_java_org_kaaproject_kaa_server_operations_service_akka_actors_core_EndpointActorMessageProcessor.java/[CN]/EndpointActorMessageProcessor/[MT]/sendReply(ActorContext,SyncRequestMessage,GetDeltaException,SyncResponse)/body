@@ -1,7 +1,10 @@
 {
   LOG.debug("[{}] response: {}",actorKey,syncResponse);
-  request.getCommand().setSyncTime(syncTime);
-  NettyDecodedResponseMessage response=new NettyDecodedResponseMessage(request.getChannelId(),request.getChannelContext(),request.getCommand(),request.getCommand().getChannelType(),syncResponse);
-  request.getOriginator().tell(response,context.self());
+  SyncStatistics stats=request.getCommand().getSyncStatistics();
+  if (stats != null) {
+    stats.reportSyncTime(syncTime);
+  }
+  NettySessionResponseMessage response=new NettySessionResponseMessage(request.getSession(),syncResponse,request.getCommand().getResponseBuilder(),request.getCommand().getErrorBuilder());
+  tellActor(context,request.getOriginator(),response);
   scheduleActorTimeout(context);
 }

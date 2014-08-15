@@ -1,10 +1,5 @@
 {
-  BootstrapNode bootstrapNode=mock(BootstrapNode.class);
-  List<OperationsNodeInfo> endpointNodes=Arrays.asList(new OperationsNodeInfo(new ConnectionInfo("host1",123,null),System.currentTimeMillis(),new ArrayList<SupportedChannel>()),new OperationsNodeInfo(new ConnectionInfo("host2",123,null),System.currentTimeMillis(),new ArrayList<SupportedChannel>()),new OperationsNodeInfo(new ConnectionInfo("host3",123,null),System.currentTimeMillis(),new ArrayList<SupportedChannel>()));
-  when(bootstrapNode.getCurrentOperationServerNodes()).thenReturn(endpointNodes);
-  BootstrapConfig config=new BootstrapConfig();
-  config.setBootstrapNode(bootstrapNode);
-  OperationsServerListService endpointListService=new OperationsServerListService(config);
+  OperationsServerListService endpointListService=new OperationsServerListService();
   endpointListService.init();
-  endpointListService.deinit();
+  endpointListService.stop();
 }

@@ -1,0 +1,22 @@
+{
+  executor=Executors.newFixedThreadPool(5);
+  config=new Config();
+  config.setPort(bindPort);
+  config.setClientMaxBodySize(MAX_HTTP_REQUEST_SIZE);
+  config.setExecutorThreadSize(3);
+  config.setBindInterface("localhost");
+  KaaCommandProcessorFactory<HttpRequest,HttpResponse> commandTestProcessorFactory=new KaaCommandProcessorFactory<HttpRequest,HttpResponse>(){
+    @Override public String getCommandName(){
+      return CommandTestProcessor.TEST_COMMAND_NAME;
+    }
+    @Override public KaaCommandProcessor<HttpRequest,HttpResponse> createCommandProcessor(){
+      return new CommandTestProcessor();
+    }
+  }
+;
+  List<KaaCommandProcessorFactory> commands=new ArrayList<>();
+  commands.add(commandTestProcessorFactory);
+  config.setCommandList(commands);
+  testMessages=new ConcurrentHashMap<String,NettyHttpServerIT.HttpTest>();
+  rnd=new Random();
+}

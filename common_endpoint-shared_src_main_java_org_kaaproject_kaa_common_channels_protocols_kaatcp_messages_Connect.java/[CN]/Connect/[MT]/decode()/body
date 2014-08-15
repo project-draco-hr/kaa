@@ -1,0 +1,13 @@
+{
+  decodeVariableHeader();
+  boolean hasKey=buffer.get() != 0;
+  boolean hasSignature=buffer.get() != 0;
+  decodeKeepAlive();
+  if (hasKey) {
+    decodeSessionKey();
+  }
+  if (hasSignature) {
+    decodeSignature();
+  }
+  decodeSyncRequest();
+}

@@ -1,0 +1,12 @@
+{
+  LOG.trace("Request processing failed",e);
+  Object[] responses=converter.build(e);
+  if (responses != null && responses.length > 0) {
+    for (    Object response : responses) {
+      ctx.writeAndFlush(response);
+    }
+  }
+ else {
+    ctx.fireExceptionCaught(e);
+  }
+}

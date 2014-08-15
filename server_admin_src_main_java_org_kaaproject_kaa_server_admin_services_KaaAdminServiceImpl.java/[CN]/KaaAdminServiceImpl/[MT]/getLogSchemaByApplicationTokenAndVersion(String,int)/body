@@ -1,0 +1,11 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    ApplicationDto storedApplication=toDto(clientProvider.getClient().getApplicationByApplicationToken(applicationToken));
+    checkTenantId(storedApplication.getTenantId());
+    return toDto(clientProvider.getClient().getLogSchemaByApplicationIdAndVersion(storedApplication.getId(),version));
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

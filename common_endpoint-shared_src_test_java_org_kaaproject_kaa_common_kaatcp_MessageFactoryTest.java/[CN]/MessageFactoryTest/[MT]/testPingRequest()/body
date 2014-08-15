@@ -1,0 +1,9 @@
+{
+  final byte[] pingRequest=new byte[]{(byte)0xC0,0x00};
+  MessageFactory factory=new MessageFactory();
+  factory.getFramer().pushBytes(pingRequest);
+  PingRequestListener listener=Mockito.mock(PingRequestListener.class);
+  factory.registerMessageListener(listener);
+  factory.getFramer().pushBytes(pingRequest);
+  Mockito.verify(listener,Mockito.times(1)).onMessage(Mockito.any(PingRequest.class));
+}

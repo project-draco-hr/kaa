@@ -1,0 +1,18 @@
+{
+  Properties props=new Properties();
+  props.put(CLIENT_TYPE,"default_loadbalance");
+  List<HostInfoDto> list=parameters.getHosts();
+  StringBuilder hostsAlias=new StringBuilder();
+  for (int i=0; i < list.size(); i++) {
+    String host=H + (i + 1);
+    hostsAlias.append(host).append(" ");
+    HostInfoDto hostInfo=list.get(i);
+    props.put(HOSTS + "." + host,hostInfo.getHostname() + ":" + hostInfo.getPort());
+  }
+  props.put(HOSTS,hostsAlias.toString().trim());
+  props.put(HOST_SELECTOR,ROUND_ROBIN);
+  props.put(CONNECT_TIMEOUT,2000);
+  props.put(REQUEST_TIMEOUT,2000);
+  LOG.debug("Generated properties: {}",props);
+  return props;
+}

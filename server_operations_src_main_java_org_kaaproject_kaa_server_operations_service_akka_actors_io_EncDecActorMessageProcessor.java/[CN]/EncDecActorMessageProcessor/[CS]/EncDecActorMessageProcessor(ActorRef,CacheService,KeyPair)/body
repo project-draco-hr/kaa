@@ -1,0 +1,8 @@
+{
+  super();
+  this.opsActor=epsActor;
+  this.cacheService=cacheService;
+  this.crypt=new MessageEncoderDecoder(serverKeys.getPrivate(),serverKeys.getPublic());
+  this.requestConverter=new AvroByteArrayConverter<>(SyncRequest.class);
+  this.responseConverter=new AvroByteArrayConverter<>(SyncResponse.class);
+}

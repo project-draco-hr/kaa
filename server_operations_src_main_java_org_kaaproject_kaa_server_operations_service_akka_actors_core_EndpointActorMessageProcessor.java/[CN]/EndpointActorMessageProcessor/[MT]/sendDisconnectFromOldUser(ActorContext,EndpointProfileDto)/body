@@ -1,0 +1,5 @@
+{
+  LOG.debug("[{}][{}] Detected user change from [{}] to [{}]",endpointKey,actorKey,userId,endpointProfile.getEndpointUserId());
+  EndpointUserDisconnectMessage userDisconnectMessage=new EndpointUserDisconnectMessage(userId,key,appToken,context.self());
+  context.parent().tell(userDisconnectMessage,context.self());
+}

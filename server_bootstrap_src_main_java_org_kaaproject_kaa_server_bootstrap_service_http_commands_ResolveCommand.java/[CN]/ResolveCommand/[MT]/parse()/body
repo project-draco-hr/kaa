@@ -1,7 +1,7 @@
 {
   LOG.trace("CommandName {}: parse",COMMAND_NAME);
   HttpDataFactory factory=new DefaultHttpDataFactory(DefaultHttpDataFactory.MINSIZE);
-  HttpPostRequestDecoder decoder=new HttpPostRequestDecoder(factory,getHttpRequest());
+  HttpPostRequestDecoder decoder=new HttpPostRequestDecoder(factory,getRequest());
   InterfaceHttpData data=decoder.getBodyHttpData(APPLICATION_TOKEN_ATTR_NAME);
   if (data != null) {
     Attribute attribute=(Attribute)data;

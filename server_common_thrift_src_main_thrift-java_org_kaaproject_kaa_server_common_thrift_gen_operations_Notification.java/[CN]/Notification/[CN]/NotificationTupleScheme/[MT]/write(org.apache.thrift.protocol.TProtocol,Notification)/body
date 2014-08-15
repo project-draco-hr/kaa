@@ -40,7 +40,10 @@
   if (struct.isSetOp()) {
     optionals.set(12);
   }
-  oprot.writeBitSet(optionals,13);
+  if (struct.isSetAppenderId()) {
+    optionals.set(13);
+  }
+  oprot.writeBitSet(optionals,14);
   if (struct.isSetAppId()) {
     oprot.writeString(struct.appId);
   }
@@ -79,5 +82,8 @@
   }
   if (struct.isSetOp()) {
     oprot.writeI32(struct.op.getValue());
+  }
+  if (struct.isSetAppenderId()) {
+    oprot.writeString(struct.appenderId);
   }
 }

@@ -2,7 +2,7 @@
   logger.info("Test Akka Service started: ");
   setName("Test_Service:");
   while (operate) {
-    NettyEncodedRequestMessage command=null;
+    SessionInitRequest command=null;
     try {
 synchronized (commands) {
         if (commands.size() > 0) {

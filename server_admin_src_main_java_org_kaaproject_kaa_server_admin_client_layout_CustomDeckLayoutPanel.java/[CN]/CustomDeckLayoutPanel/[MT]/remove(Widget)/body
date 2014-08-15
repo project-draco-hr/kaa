@@ -1,0 +1,18 @@
+{
+  boolean removed=super.remove(w);
+  if (removed) {
+    Layer layer=(Layer)w.getLayoutData();
+    layout.removeChild(layer);
+    w.setLayoutData(null);
+    if (visibleWidget == w) {
+      visibleWidget=null;
+    }
+    if (hidingWidget == w) {
+      hidingWidget=null;
+    }
+    if (lastVisibleWidget == w) {
+      lastVisibleWidget=null;
+    }
+  }
+  return removed;
+}

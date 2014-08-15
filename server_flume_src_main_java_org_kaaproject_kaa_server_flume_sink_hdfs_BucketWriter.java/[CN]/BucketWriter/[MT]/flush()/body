@@ -1,0 +1,11 @@
+{
+  if (!isBatchComplete()) {
+    runPrivileged(new PrivilegedExceptionAction<Void>(){
+      @Override public Void run() throws Exception {
+        doFlush();
+        return null;
+      }
+    }
+);
+  }
+}

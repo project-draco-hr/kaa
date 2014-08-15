@@ -1,0 +1,4 @@
+{
+  long timestamp=System.currentTimeMillis();
+  return Arrays.hashCode(event.getBody()) + ManagementFactory.getRuntimeMXBean().getName().hashCode() + (int)(timestamp ^ (timestamp >>> 32));
+}

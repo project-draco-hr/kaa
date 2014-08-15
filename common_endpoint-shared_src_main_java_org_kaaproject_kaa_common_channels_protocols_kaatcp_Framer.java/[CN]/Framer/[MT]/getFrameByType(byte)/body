@@ -1,0 +1,25 @@
+{
+  MqttFrame frame=null;
+  if (type == MessageType.CONNACK.getType()) {
+    frame=new ConnAck();
+  }
+ else   if (type == MessageType.CONNECT.getType()) {
+    frame=new Connect();
+  }
+ else   if (type == MessageType.DISCONNECT.getType()) {
+    frame=new Disconnect();
+  }
+ else   if (type == MessageType.KAASYNC.getType()) {
+    frame=new KaaSync();
+  }
+ else   if (type == MessageType.PINGREQ.getType()) {
+    frame=new PingRequest();
+  }
+ else   if (type == MessageType.PINGRESP.getType()) {
+    frame=new PingResponse();
+  }
+ else {
+    throw new KaaTcpProtocolException("Got incorrect messageType format " + type);
+  }
+  return frame;
+}

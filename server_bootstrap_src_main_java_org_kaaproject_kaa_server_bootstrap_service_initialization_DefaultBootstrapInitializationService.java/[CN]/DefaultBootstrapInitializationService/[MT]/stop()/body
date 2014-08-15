@@ -5,8 +5,7 @@
     httpService=null;
   }
   if (operationsServerListService != null) {
-    operationsServerListService.deinit();
-    operationsServerListService=null;
+    operationsServerListService.stop();
   }
   if (zkEnabled) {
     stopZK();

@@ -3,10 +3,8 @@
   testFailed=0;
   requestTime=0;
   sessionTime=0;
-  HttpChannelConfig httpChannelConfig=(HttpChannelConfig)config.getChannelList().get(0);
   httpChannelConfig.setSessionTrack(new Statistics());
-  httpChannelConfig.setOperationServerConfig(config);
-  netty=new NettyHttpServer(httpChannelConfig);
+  netty=new NettyHttpServer(httpChannelConfig,new TestEndPointServerInitializer(testAkkaService));
   netty.init();
   netty.start();
   assertNotNull(netty);

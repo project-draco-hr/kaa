@@ -1,0 +1,6 @@
+{
+  KaaTcpCommandFactory commandFactory=new KaaTcpCommandFactory();
+  KaaTcpCommand command=(KaaTcpCommand)commandFactory.createCommandProcessor();
+  Assert.assertNotNull(command);
+  Assert.assertEquals(KaaTcpCommand.KAA_TCP,command.getName());
+}

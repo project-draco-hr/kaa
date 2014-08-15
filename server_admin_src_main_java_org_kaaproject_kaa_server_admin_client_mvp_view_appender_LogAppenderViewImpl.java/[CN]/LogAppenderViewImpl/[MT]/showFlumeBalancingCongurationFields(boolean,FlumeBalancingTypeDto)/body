@@ -1,0 +1,24 @@
+{
+  typeBalancingLabel=new Label(Utils.constants.logAppenderHostsBalancing());
+  flumeBalancingType=new FlumeBalancingTypeListBox();
+  flumeBalancingType.setValue(value);
+  if (isCreate) {
+    flumeBalancingType.setAcceptableValues(Arrays.asList(FlumeBalancingTypeDto.values()));
+    flumeBalancingType.addValueChangeHandler(new ValueChangeHandler<FlumeBalancingTypeDto>(){
+      @Override public void onValueChange(      ValueChangeEvent<FlumeBalancingTypeDto> event){
+        if (event.getValue().equals(FlumeBalancingTypeDto.PRIORITIZED)) {
+          buildParametersHostFields(true,DEFAULT_PRIORITIZED_TABLE_ROW_COUNT);
+          fireChanged();
+        }
+ else {
+          buildParametersHostFields(false,DEFAULT_ROUND_ROBIN_TABLE_ROW_COUNT);
+          fireChanged();
+        }
+      }
+    }
+);
+  }
+  flumeBalancingType.setEnabled(isCreate);
+  detailsTable.setWidget(7,0,typeBalancingLabel);
+  detailsTable.setWidget(7,1,flumeBalancingType);
+}

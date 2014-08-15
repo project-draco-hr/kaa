@@ -1,0 +1,12 @@
+{
+  boolean result=isNotBlank(name.getValue());
+  if (hostTable != null && type != null && LogAppenderTypeDto.FLUME.equals(type.getValue())) {
+    for (int i=1; i < hostTable.getRowCount(); i++) {
+      result&=isNotBlank(((SizedTextBox)hostTable.getWidget(i,0)).getValue()) && isNotBlank(((SizedTextBox)hostTable.getWidget(i,1)).getValue());
+      if (flumeBalancingType != null && FlumeBalancingTypeDto.PRIORITIZED.equals(flumeBalancingType.getValue())) {
+        result&=isNotBlank(((SizedTextBox)hostTable.getWidget(i,2)).getValue());
+      }
+    }
+  }
+  return result;
+}

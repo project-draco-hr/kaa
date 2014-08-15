@@ -1,16 +1,18 @@
 {
   if (isShutdown) {
-    LOG.info("Can't set server. Channel {} is down",getId());
+    LOG.info("Can't set server. Channel [{}] is down",getId());
     return;
   }
   if (server != null) {
     stopPoll();
     this.currentServer=(HttpLongPollServerInfo)server;
 synchronized (httpClientLock) {
+      LOG.debug("Channel [{}]: creating HTTP client..",getId());
       this.httpClient=client.createHttpClient(currentServer.getURL(),state.getPrivateKey(),state.getPublicKey(),currentServer.getPublicKey());
 synchronized (httpClientSetLock) {
         httpClientSetLock.notifyAll();
       }
+      LOG.debug("Channel [{}]: HTTP client created",getId());
     }
     startPoll();
   }

@@ -1,0 +1,8 @@
+{
+  if (widget == visibleWidget) {
+    return;
+  }
+  assertIsChild(widget);
+  visibleWidget=widget;
+  animate((widget == null) ? 0 : animationDuration);
+}

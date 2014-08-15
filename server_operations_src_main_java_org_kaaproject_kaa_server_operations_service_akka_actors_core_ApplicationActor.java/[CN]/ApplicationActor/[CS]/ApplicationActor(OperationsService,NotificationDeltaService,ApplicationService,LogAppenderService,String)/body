@@ -1,9 +1,12 @@
 {
   this.operationsService=operationsService;
+  this.applicationService=applicationService;
+  this.logAppenderService=logAppenderService;
   this.notificationDeltaService=notificationDeltaService;
-  this.applicationLogActor=context().actorOf(Props.create(new ApplicationLogActor.ActorCreator(logAppenderService,applicationService,applicationToken)));
   this.applicationToken=applicationToken;
   this.endpointSessions=new HashMap<>();
   this.endpointActorMap=new HashMap<>();
   this.topicSessions=new HashMap<>();
+  this.logsSessions=new HashMap<>();
+  this.applicationLogActor=getOrCreateLogActor(null,logAppenderService,applicationService);
 }

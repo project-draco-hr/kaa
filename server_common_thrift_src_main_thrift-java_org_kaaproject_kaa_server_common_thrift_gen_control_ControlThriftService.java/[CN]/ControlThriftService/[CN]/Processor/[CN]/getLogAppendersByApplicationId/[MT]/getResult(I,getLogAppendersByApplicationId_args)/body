@@ -1,0 +1,10 @@
+{
+  getLogAppendersByApplicationId_result result=new getLogAppendersByApplicationId_result();
+  try {
+    result.success=iface.getLogAppendersByApplicationId(args.applicationId);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

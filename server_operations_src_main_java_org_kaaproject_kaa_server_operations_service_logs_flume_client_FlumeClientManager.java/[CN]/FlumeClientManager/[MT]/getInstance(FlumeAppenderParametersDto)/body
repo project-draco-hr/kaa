@@ -1,0 +1,18 @@
+{
+  FlumeClientManager clientManager=null;
+switch (flumeParameters.getBalancingType()) {
+case PRIORITIZED:
+    LOG.debug("Init priority client manager");
+  clientManager=new PriorityFlumeClientManager();
+break;
+case ROUND_ROBIN:
+LOG.debug("Init round robin client manager");
+clientManager=new BalancingFlumeClientManager();
+break;
+default :
+LOG.warn("Balancing type: {} does not supported.",flumeParameters.getBalancingType());
+break;
+}
+clientManager.init(flumeParameters);
+return clientManager;
+}

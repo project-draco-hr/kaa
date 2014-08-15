@@ -9,12 +9,12 @@
     return false;
   }
   ChannelMetaData other=(ChannelMetaData)obj;
-  if (id == null) {
-    if (other.id != null) {
+  if (session == null) {
+    if (other.session != null) {
       return false;
     }
   }
- else   if (!id.equals(other.id)) {
+ else   if (!session.equals(other.session)) {
     return false;
   }
   return true;

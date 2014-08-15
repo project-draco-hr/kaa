@@ -1,0 +1,11 @@
+{
+  getApplicationByApplicationToken_result result=new getApplicationByApplicationToken_result();
+  receiveBase(result,"getApplicationByApplicationToken");
+  if (result.isSetSuccess()) {
+    return result.success;
+  }
+  if (result.ControlException != null) {
+    throw result.ControlException;
+  }
+  throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT,"getApplicationByApplicationToken failed: unknown result");
+}

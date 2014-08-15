@@ -1,0 +1,8 @@
+{
+  try {
+    processSessionRequest(context,message);
+  }
+ catch (  GeneralSecurityException|IOException e) {
+    processErrors(message.getChannelContext(),message.getErrorBuilder(),e);
+  }
+}

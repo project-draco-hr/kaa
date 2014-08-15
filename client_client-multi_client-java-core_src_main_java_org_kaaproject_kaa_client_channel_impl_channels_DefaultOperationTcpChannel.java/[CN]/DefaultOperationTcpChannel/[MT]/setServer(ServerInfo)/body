@@ -1,0 +1,20 @@
+{
+  if (isShutdown) {
+    LOG.info("Can't set server. Channel [{}] is down",getId());
+    return;
+  }
+  if (executor == null) {
+    executor=createExecutor();
+  }
+  if (server != null) {
+    closeConnection();
+    this.currentServer=(KaaTcpServerInfo)server;
+    this.encDec=new MessageEncoderDecoder(state.getPrivateKey(),state.getPublicKey(),currentServer.getPublicKey());
+    executor.submit(new Runnable(){
+      @Override public void run(){
+        openConnection();
+      }
+    }
+);
+  }
+}

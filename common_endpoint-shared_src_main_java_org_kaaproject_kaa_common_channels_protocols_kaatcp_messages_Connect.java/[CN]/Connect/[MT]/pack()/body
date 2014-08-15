@@ -1,0 +1,12 @@
+{
+  packVeriableHeader();
+  if (getAesSessionKey() != null) {
+    buffer.put(getAesSessionKey());
+  }
+  if (getSignature() != null) {
+    buffer.put(getSignature());
+  }
+  if (getSyncRequest() != null) {
+    buffer.put(getSyncRequest());
+  }
+}

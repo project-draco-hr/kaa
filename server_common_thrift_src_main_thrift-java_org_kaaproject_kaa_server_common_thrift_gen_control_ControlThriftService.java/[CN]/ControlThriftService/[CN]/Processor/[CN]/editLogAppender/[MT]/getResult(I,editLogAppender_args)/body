@@ -1,0 +1,10 @@
+{
+  editLogAppender_result result=new editLogAppender_result();
+  try {
+    result.success=iface.editLogAppender(args.logAppender);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

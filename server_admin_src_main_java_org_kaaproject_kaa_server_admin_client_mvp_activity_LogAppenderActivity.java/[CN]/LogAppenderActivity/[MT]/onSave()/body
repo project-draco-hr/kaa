@@ -1,0 +1,36 @@
+{
+  entity.setName(detailsView.getName().getValue());
+  entity.setSchema(detailsView.getSchemaVersions().getValue());
+  entity.setStatus(LogAppenderStatusDto.REGISTERED);
+  entity.setDescription(detailsView.getDescription().getValue());
+  LogAppenderTypeDto appenderType=detailsView.getType().getValue();
+  entity.setType(appenderType);
+switch (appenderType) {
+case FILE:
+case MONGO:
+    entity.setProperties(new LogAppenderParametersDto());
+  break;
+case FLUME:
+FlumeAppenderParametersDto flume=new FlumeAppenderParametersDto();
+FlumeBalancingTypeDto type=detailsView.getFlumeBalancingType().getValue();
+flume.setBalancingType(type);
+FlexTable table=detailsView.getHostTable();
+List<HostInfoDto> hosts=new ArrayList<>();
+for (int i=1; i < table.getRowCount(); i++) {
+String host=((SizedTextBox)table.getWidget(i,0)).getValue();
+String port=((SizedTextBox)table.getWidget(i,1)).getValue();
+if (FlumeBalancingTypeDto.PRIORITIZED.equals(type)) {
+String priority=((SizedTextBox)table.getWidget(i,2)).getValue();
+if (isNotBlank(host) && isNotBlank(port) && isNotBlank(priority)) {
+hosts.add(new HostInfoDto(host,Integer.valueOf(port),Integer.valueOf(priority)));
+}
+}
+ else if (isNotBlank(host) && isNotBlank(port)) {
+hosts.add(new HostInfoDto(host,Integer.valueOf(port),0));
+}
+}
+flume.setHosts(hosts);
+entity.setProperties(new LogAppenderParametersDto(flume));
+break;
+}
+}

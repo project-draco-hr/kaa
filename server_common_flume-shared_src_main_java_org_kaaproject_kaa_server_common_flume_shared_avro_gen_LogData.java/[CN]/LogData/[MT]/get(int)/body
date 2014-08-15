@@ -1,0 +1,12 @@
+{
+switch (field$) {
+case 0:
+    return schemaVersion;
+case 1:
+  return applicationToken;
+case 2:
+return logEvents;
+default :
+throw new org.apache.avro.AvroRuntimeException("Bad index");
+}
+}

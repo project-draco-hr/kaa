@@ -1,0 +1,5 @@
+{
+  byte[] pingRequest=new byte[]{(byte)0xC0,0x00};
+  PingRequest message=new PingRequest();
+  Assert.assertArrayEquals(pingRequest,message.getFrame().array());
+}

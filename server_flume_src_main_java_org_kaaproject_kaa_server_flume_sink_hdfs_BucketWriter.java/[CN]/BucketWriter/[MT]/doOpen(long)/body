@@ -1,0 +1,49 @@
+{
+  if ((filePath == null) || (writer == null)) {
+    throw new IOException("Invalid file settings");
+  }
+  Configuration config=new Configuration();
+  config.setBoolean("fs.automatic.close",false);
+  long blockSize=DFSConfigKeys.DFS_BLOCK_SIZE_DEFAULT;
+  if (defaultBlockSize > 0) {
+    blockSize=defaultBlockSize;
+  }
+  config.set(DFSConfigKeys.DFS_BLOCK_SIZE_KEY,"" + blockSize);
+synchronized (staticLock) {
+    try {
+      bucketPath=filePath + "." + serial;
+      fileSystem=new Path(bucketPath).getFileSystem(config);
+      String currentBucket=bucketPath + IN_USE_EXT;
+      LOG.debug("Creating " + currentBucket);
+      writer.open(currentBucket);
+    }
+ catch (    Exception ex) {
+      sinkCounter.incrementConnectionFailedCount();
+      if (ex instanceof IOException) {
+        throw (IOException)ex;
+      }
+ else {
+        throw Throwables.propagate(ex);
+      }
+    }
+  }
+  sinkCounter.incrementConnectionCreatedCount();
+  resetCounters();
+  if (rollInterval > 0) {
+    Callable<Void> action=new Callable<Void>(){
+      @Override public Void call() throws Exception {
+        LOG.debug("Rolling file ({}): Roll scheduled after {} sec elapsed.",bucketPath + IN_USE_EXT,rollInterval);
+        try {
+          close();
+        }
+ catch (        Throwable t) {
+          LOG.error("Unexpected error",t);
+        }
+        return null;
+      }
+    }
+;
+    timedRollFuture=timedRollerPool.schedule(action,rollInterval,TimeUnit.SECONDS);
+  }
+  isOpen=true;
+}

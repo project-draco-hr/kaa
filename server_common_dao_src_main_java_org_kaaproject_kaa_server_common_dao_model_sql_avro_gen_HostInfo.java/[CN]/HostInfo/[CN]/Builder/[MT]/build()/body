@@ -1,0 +1,12 @@
+{
+  try {
+    HostInfo record=new HostInfo();
+    record.hostname=fieldSetFlags()[0] ? this.hostname : (java.lang.String)defaultValue(fields()[0]);
+    record.port=fieldSetFlags()[1] ? this.port : (java.lang.Integer)defaultValue(fields()[1]);
+    record.priority=fieldSetFlags()[2] ? this.priority : (java.lang.Integer)defaultValue(fields()[2]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

@@ -1,0 +1,4 @@
+{
+  MessageEncoderDecoder crypt=new MessageEncoderDecoder(clientPair.getPrivate(),clientPair.getPublic(),serverPair.getPublic());
+  return toSignedRequest(uuid,channelType,ctx,request,responseBuilder,errorBuilder,crypt);
+}

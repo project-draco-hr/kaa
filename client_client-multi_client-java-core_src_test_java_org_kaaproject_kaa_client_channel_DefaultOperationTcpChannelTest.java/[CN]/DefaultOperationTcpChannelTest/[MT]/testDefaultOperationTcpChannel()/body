@@ -1,0 +1,8 @@
+{
+  KaaClientState clientState=Mockito.mock(KaaClientState.class);
+  KaaChannelManager channelManager=Mockito.mock(KaaChannelManager.class);
+  KaaDataChannel tcpChannel=new DefaultOperationTcpChannel(clientState,channelManager);
+  assertNotNull("New channel's id is null",tcpChannel.getId());
+  assertNotNull("New channel does not support any of transport types",tcpChannel.getSupportedTransportTypes());
+  assertNotEquals(0,tcpChannel.getSupportedTransportTypes().size());
+}

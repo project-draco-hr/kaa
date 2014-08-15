@@ -1,0 +1,10 @@
+{
+  KeyPairGenerator gen=KeyPairGenerator.getInstance("RSA");
+  gen.initialize(512);
+  KeyPair clientKeyPair=gen.generateKeyPair();
+  KeyPair remoteKeyPair=gen.generateKeyPair();
+  TestHttpClient client=new TestHttpClient("test_url",clientKeyPair.getPrivate(),clientKeyPair.getPublic(),remoteKeyPair.getPublic());
+  byte[] body={1,2,3};
+  byte[] signature={1,2,3};
+  client.verifyResponse(body,signature);
+}

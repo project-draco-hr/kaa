@@ -1,0 +1,27 @@
+{
+  String currentBucket=bucketPath + IN_USE_EXT;
+  LOG.debug("Closing {}",currentBucket);
+  if (isOpen) {
+    try {
+      writer.close();
+      sinkCounter.incrementConnectionClosedCount();
+    }
+ catch (    IOException e) {
+      LOG.warn("failed to close() HDFSWriter for file (" + currentBucket + "). Exception follows.",e);
+      sinkCounter.incrementConnectionFailedCount();
+    }
+    isOpen=false;
+  }
+ else {
+    LOG.info("HDFSWriter is already closed: {}",currentBucket);
+  }
+  if (timedRollFuture != null) {
+    if (!timedRollFuture.isDone())     timedRollFuture.cancel(false);
+    timedRollerPool.remove((Runnable)timedRollFuture);
+    timedRollFuture=null;
+  }
+  if (bucketPath != null && fileSystem != null) {
+    renameBucket();
+    fileSystem=null;
+  }
+}

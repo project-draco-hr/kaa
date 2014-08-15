@@ -1,0 +1,16 @@
+{
+  if (dto != null) {
+    this.id=getLongId(dto.getId());
+    Long appId=getLongId(dto.getApplicationId());
+    this.application=appId != null ? new Application(appId) : null;
+    Long schemaId=getLongId(dto.getSchema());
+    this.logSchema=schemaId != null ? new LogSchema(schemaId) : null;
+    this.name=dto.getName();
+    this.status=dto.getStatus();
+    this.description=dto.getDescription();
+    this.createdUsername=dto.getCreatedUsername();
+    this.createdTime=dto.getCreatedTime();
+    this.type=dto.getType();
+    this.properties=DaoAvroUtil.convertParametersToBytes(dto.getProperties());
+  }
+}

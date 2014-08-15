@@ -1,0 +1,8 @@
+{
+  if (process != null) {
+    throw new Exception("A process is already running");
+  }
+  Properties props=new Properties();
+  props.load(ClassLoader.getSystemResourceAsStream(configResource));
+  startAgent(name,props);
+}

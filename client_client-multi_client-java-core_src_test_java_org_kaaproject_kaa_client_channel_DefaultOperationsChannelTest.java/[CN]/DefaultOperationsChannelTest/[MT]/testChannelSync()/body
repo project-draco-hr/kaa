@@ -1,7 +1,7 @@
 {
   KaaChannelManager manager=Mockito.mock(KaaChannelManager.class);
   AbstractHttpClient httpClient=Mockito.mock(AbstractHttpClient.class);
-  Mockito.when(httpClient.executeHttpRequest(Mockito.anyString(),Mockito.any(LinkedHashMap.class))).thenReturn(new byte[]{5,5,5});
+  Mockito.when(httpClient.executeHttpRequest(Mockito.anyString(),Mockito.any(LinkedHashMap.class),Mockito.anyBoolean())).thenReturn(new byte[]{5,5,5});
   MessageEncoderDecoder encDec=Mockito.mock(MessageEncoderDecoder.class);
   Mockito.when(httpClient.getEncoderDecoder()).thenReturn(encDec);
   AbstractKaaClient client=Mockito.mock(AbstractKaaClient.class);

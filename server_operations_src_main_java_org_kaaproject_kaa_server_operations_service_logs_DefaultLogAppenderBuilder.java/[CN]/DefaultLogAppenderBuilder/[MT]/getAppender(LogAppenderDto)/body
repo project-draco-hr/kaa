@@ -1,0 +1,26 @@
+{
+  LogAppender logAppender=null;
+  if (appenderConfig != null) {
+switch (appenderConfig.getType()) {
+case FILE:
+      logAppender=applicationContext.getBean(FileSystemLogAppender.class);
+    break;
+case FLUME:
+  logAppender=applicationContext.getBean(FlumeLogAppender.class);
+break;
+case MONGO:
+logAppender=applicationContext.getBean(MongoDBLogAppender.class);
+break;
+default :
+LOG.debug("Incorrect type of log appender [{}].",appenderConfig.getType());
+break;
+}
+if (logAppender != null) {
+LOG.debug("Init log appender [{}] with appender configuration {[]}.",logAppender,appenderConfig);
+logAppender.setName(appenderConfig.getName());
+logAppender.setAppenderId(appenderConfig.getId());
+logAppender.init(appenderConfig);
+}
+}
+return logAppender;
+}

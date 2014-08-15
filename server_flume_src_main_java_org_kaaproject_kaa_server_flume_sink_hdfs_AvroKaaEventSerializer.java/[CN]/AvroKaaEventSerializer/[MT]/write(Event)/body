@@ -1,0 +1,6 @@
+{
+  if (dataFileWriter == null) {
+    initialize(event);
+  }
+  dataFileWriter.appendEncoded(ByteBuffer.wrap(event.getBody()));
+}

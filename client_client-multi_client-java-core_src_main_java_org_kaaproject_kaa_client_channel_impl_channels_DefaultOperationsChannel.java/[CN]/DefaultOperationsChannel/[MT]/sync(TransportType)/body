@@ -1,13 +1,13 @@
 {
   if (isShutdown) {
-    LOG.info("Can't sync. Channel {} is down",getId());
+    LOG.info("Can't sync. Channel [{}] is down",getId());
     return;
   }
   if (isPaused) {
-    LOG.info("Can't sync. Channel {} is paused",getId());
+    LOG.info("Can't sync. Channel [{}] is paused",getId());
     return;
   }
-  LOG.info("Processing sync {} for channel {}",type,getId());
+  LOG.info("Processing sync {} for channel [{}]",type,getId());
   if (multiplexer != null && demultiplexer != null) {
     if (currentServer != null) {
       if (SUPPORTED_TYPES.get(type) != null) {
@@ -15,7 +15,7 @@
         startPoll();
       }
  else {
-        LOG.error("Unsupported type {} for channel {}",type,getId());
+        LOG.error("Unsupported type {} for channel [{}]",type,getId());
       }
     }
  else {

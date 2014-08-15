@@ -1,0 +1,6 @@
+{
+  AbstractServerInfo serverInfo=new KaaTcpServerInfo("localhost",9909,KeyUtil.generateKeyPair().getPublic());
+  assertEquals("URL is not empty for TCP server info " + serverInfo.toString(),"",serverInfo.getURL());
+  serverInfo=new KaaTcpServerInfo("localhost",9009,KeyUtil.generateKeyPair().getPublic().getEncoded());
+  assertEquals("URL is not empty for TCP server info " + serverInfo.toString(),"",serverInfo.getURL());
+}

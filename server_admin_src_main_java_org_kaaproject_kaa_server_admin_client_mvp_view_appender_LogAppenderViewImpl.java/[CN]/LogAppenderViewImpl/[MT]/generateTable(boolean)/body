@@ -1,0 +1,12 @@
+{
+  hostTable=new FlexTable();
+  hostTable.getColumnFormatter().setWidth(0,"300px");
+  hostTable.getColumnFormatter().setWidth(1,"150px");
+  hostTable.setWidget(0,0,new Label(Utils.constants.host()));
+  hostTable.setWidget(0,1,new Label(Utils.constants.port()));
+  if (hasPriority) {
+    hostTable.getColumnFormatter().setWidth(2,"150px");
+    hostTable.setWidget(0,2,new Label(Utils.constants.priority()));
+  }
+  return hostTable;
+}

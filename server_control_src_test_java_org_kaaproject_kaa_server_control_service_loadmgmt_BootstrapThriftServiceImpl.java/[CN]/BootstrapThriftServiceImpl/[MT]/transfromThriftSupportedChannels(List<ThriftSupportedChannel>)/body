@@ -12,6 +12,9 @@ case HTTP_LP:
 channelType=ChannelType.HTTP_LP;
 communicationParameters=new HTTPLPComunicationParameters(thriftSuppChannel.getCommunicationParams().getHttpLpParams().getHostName(),thriftSuppChannel.getCommunicationParams().getHttpLpParams().getPort());
 break;
+case KAATCP:
+channelType=ChannelType.KAATCP;
+communicationParameters=new KaaTCPComunicationParameters(thriftSuppChannel.getCommunicationParams().getKaaTcpParams().getHostName(),thriftSuppChannel.getCommunicationParams().getKaaTcpParams().getPort());
 default :
 break;
 }

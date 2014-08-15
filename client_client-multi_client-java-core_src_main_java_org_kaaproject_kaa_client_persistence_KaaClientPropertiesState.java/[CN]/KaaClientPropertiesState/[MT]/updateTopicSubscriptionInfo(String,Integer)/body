@@ -1,8 +1,13 @@
 {
   TopicSubscriptionInfo subscriptionInfo=nfSubscriptions.get(topicId);
+  boolean updated=false;
   if (subscriptionInfo != null) {
-    subscriptionInfo.setSeqNumber(Math.max(sequenceNumber,subscriptionInfo.getSeqNumber()));
-    nfSubscriptions.put(topicId,subscriptionInfo);
-    LOG.info("Updated seqNumber to {} for {} subscription",subscriptionInfo.getSeqNumber(),topicId);
+    if (sequenceNumber > subscriptionInfo.getSeqNumber()) {
+      updated=true;
+      subscriptionInfo.setSeqNumber(sequenceNumber);
+      nfSubscriptions.put(topicId,subscriptionInfo);
+      LOG.info("Updated seqNumber to {} for {} subscription",subscriptionInfo.getSeqNumber(),topicId);
+    }
   }
+  return updated;
 }

@@ -1,0 +1,10 @@
+{
+  List<TransportType> transports=KaaTcpChannel.getSupportedTransportTypes();
+  assertNotNull(transports);
+  assertEquals(5,transports.size());
+  assertEquals(TransportType.CONFIGURATION,transports.get(0));
+  assertEquals(TransportType.EVENT,transports.get(1));
+  assertEquals(TransportType.NOTIFICATION,transports.get(2));
+  assertEquals(TransportType.PROFILE,transports.get(3));
+  assertEquals(TransportType.USER,transports.get(4));
+}

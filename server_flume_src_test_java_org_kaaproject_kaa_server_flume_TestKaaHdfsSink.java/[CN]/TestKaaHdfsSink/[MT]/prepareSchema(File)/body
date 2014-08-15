@@ -1,0 +1,8 @@
+{
+  File schemaDir=new File(rootDir,"" + applicationToken);
+  if (!schemaDir.exists()) {
+    schemaDir.mkdirs();
+  }
+  File schemaFile=new File(schemaDir,"schema_v" + logSchemaVersion);
+  FileUtils.write(schemaFile,TestLogData.getClassSchema().toString());
+}

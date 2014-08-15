@@ -19,12 +19,9 @@
     logger.info("Sleeping 20 sec.");
     Thread.sleep(20000);
     initBoxData();
-    logger.info("Sleeping 5 sec.");
-    Thread.sleep(5000);
+    logger.info("Sleeping 20 sec.");
+    Thread.sleep(20000);
     unprovisionBox();
-    logger.info("Executing remote ssh commands...");
-    executeScheduledSshCommands();
-    logger.info("Remote ssh commands execution is completed.");
     stopBox();
     cleanupBox();
     exportBox();

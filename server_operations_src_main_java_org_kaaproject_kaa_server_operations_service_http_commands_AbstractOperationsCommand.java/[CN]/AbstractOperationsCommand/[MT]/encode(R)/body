@@ -1,8 +1,0 @@
-{
-  byte[] encodedReponse=responseConverter.toByteArray(response);
-  responseBody=crypt.encodeData(encodedReponse);
-  LOG.trace("CommandName: " + COMMAND_NAME + ": Process.. response encrypted");
-  responseSignature=crypt.sign(responseBody);
-  LOG.trace("CommandName: " + COMMAND_NAME + ": Process.. response signed");
-  LOG.trace("CommandName: " + COMMAND_NAME + ": Process.. Complete");
-}

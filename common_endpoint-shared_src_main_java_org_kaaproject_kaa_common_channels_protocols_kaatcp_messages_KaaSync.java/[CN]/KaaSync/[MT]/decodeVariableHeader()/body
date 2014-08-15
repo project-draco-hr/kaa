@@ -1,0 +1,29 @@
+{
+  for (int i=0; i < FIXED_HEADER_CONST.length; i++) {
+    if (FIXED_HEADER_CONST[i] != buffer.get()) {
+      throw new KaaTcpProtocolException("Kaatcp protocol version missmatch");
+    }
+  }
+  int msb=((buffer.get() & 0xFF) << 8);
+  int lsb=(buffer.get() & 0xFF);
+  messageId=(msb | lsb);
+  byte flag=buffer.get();
+  if (((flag & 0xFF) & KAASYNC_REQUEST_FLAG) != 0) {
+    request=true;
+  }
+ else {
+    request=false;
+  }
+  if (((flag & 0xFF) & KAASYNC_ZIPPED_FLAG) != 0) {
+    zipped=true;
+  }
+ else {
+    zipped=false;
+  }
+  if (((flag & 0xFF) & KAASYNC_ENCRYPTED_FLAG) != 0) {
+    encrypted=true;
+  }
+ else {
+    encrypted=false;
+  }
+}

@@ -1,0 +1,5 @@
+{
+  LogAppenderDto appenderDto=createLogAppender(null,null,null,null);
+  List<LogAppenderDto> found=toDtoList(client.getLogAppendersByApplicationId(appenderDto.getApplicationId()));
+  Assert.assertEquals(1,found.size());
+}

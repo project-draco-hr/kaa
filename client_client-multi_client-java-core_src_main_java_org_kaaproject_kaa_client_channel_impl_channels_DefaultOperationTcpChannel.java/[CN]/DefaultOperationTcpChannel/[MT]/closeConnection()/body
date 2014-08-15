@@ -1,0 +1,30 @@
+{
+  if (socket != null) {
+    LOG.info("Channel \"{}\": closing current connection",getId());
+    if (pingTaskFuture != null) {
+      pingTaskFuture.cancel(true);
+      pingTaskFuture=null;
+    }
+    if (readTaskFuture != null) {
+      readTaskFuture.cancel(true);
+      readTaskFuture=null;
+    }
+    try {
+      sendDisconnect();
+    }
+ catch (    IOException e) {
+      LOG.error("Failed to send Disconnect to server: {}",e);
+    }
+ finally {
+      try {
+        socket.close();
+      }
+ catch (      IOException e) {
+        LOG.error("Failed to close socket: {}",e);
+      }
+      socket=null;
+      messageFactory.getFramer().flush();
+      isFirstResponseReceived=false;
+    }
+  }
+}

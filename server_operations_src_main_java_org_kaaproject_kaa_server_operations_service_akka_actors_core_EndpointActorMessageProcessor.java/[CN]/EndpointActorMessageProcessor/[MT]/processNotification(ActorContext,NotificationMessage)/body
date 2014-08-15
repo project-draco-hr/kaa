@@ -1,10 +1,15 @@
 {
+  LOG.debug("[{}][{}] Processing notification {}",endpointKey,actorKey,message);
   List<ChannelMetaData> channels=channelMap.getByTransportType(TransportType.NOTIFICATION);
   for (  ChannelMetaData channel : channels) {
+    LOG.debug("[{}][{}] processing channel {} and response {}",endpointKey,actorKey,channel,channel.getResponse().getResponse());
     SyncResponse syncResponse=operationsService.updateSyncResponse(channel.getResponse().getResponse(),message.getNotifications(),message.getUnicastNotificationId());
-    sendReply(context,channel.getRequest(),syncResponse);
-    if (!channel.getType().isAsync()) {
-      channelMap.removeChannel(channel);
+    if (syncResponse != null) {
+      LOG.debug("[{}][{}] processed channel {} and response {}",endpointKey,actorKey,channel,syncResponse);
+      sendReply(context,channel.getRequest(),syncResponse);
+      if (!channel.getType().isAsync()) {
+        channelMap.removeChannel(channel);
+      }
     }
   }
 }

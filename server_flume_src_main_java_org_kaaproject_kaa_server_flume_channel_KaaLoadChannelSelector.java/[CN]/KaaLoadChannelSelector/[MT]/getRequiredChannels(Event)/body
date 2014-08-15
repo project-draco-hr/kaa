@@ -1,0 +1,8 @@
+{
+  Channel channel=allChannels.get(currentChannel);
+  currentChannel++;
+  if (currentChannel == allChannels.size()) {
+    currentChannel=0;
+  }
+  return Collections.singletonList(channel);
+}

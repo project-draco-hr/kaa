@@ -1,10 +1,18 @@
 {
+  Map<String,EndpointAccessToken> attachedEPs=new HashMap<>();
+  attachedEPs.put("key1",new EndpointAccessToken("acessToken1"));
+  Map<String,EndpointKeyHash> detachedEPs=new HashMap<>();
+  detachedEPs.put("key1",new EndpointKeyHash("keyhash1"));
   EndpointRegistrationProcessor processor=Mockito.mock(EndpointRegistrationProcessor.class);
+  Mockito.when(processor.getAttachEndpointRequests()).thenReturn(attachedEPs);
+  Mockito.when(processor.getDetachEndpointRequests()).thenReturn(detachedEPs);
   UserTransport transport=new DefaultUserTransport();
   transport.createUserRequest();
   transport.setEndpointRegistrationProcessor(processor);
-  transport.createUserRequest();
+  UserSyncRequest request=transport.createUserRequest();
   Mockito.verify(processor,Mockito.times(1)).getAttachEndpointRequests();
   Mockito.verify(processor,Mockito.times(1)).getDetachEndpointRequests();
   Mockito.verify(processor,Mockito.times(1)).getUserAttachRequest();
+  Assert.assertTrue(!request.getEndpointAttachRequests().isEmpty());
+  Assert.assertTrue(!request.getEndpointDetachRequests().isEmpty());
 }

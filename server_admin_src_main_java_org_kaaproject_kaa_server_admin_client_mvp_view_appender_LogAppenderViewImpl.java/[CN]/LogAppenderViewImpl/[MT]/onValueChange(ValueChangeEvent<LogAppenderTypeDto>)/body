@@ -1,0 +1,13 @@
+{
+switch (event.getValue()) {
+case FILE:
+case MONGO:
+    hideFlumeCongurationFields();
+  fireChanged();
+break;
+case FLUME:
+showFlumeCongurationFields();
+fireChanged();
+break;
+}
+}

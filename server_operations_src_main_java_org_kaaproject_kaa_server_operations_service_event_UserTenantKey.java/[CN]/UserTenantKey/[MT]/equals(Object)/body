@@ -1,0 +1,29 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  UserTenantKey other=(UserTenantKey)obj;
+  if (tenantId == null) {
+    if (other.tenantId != null) {
+      return false;
+    }
+  }
+ else   if (!tenantId.equals(other.tenantId)) {
+    return false;
+  }
+  if (userId == null) {
+    if (other.userId != null) {
+      return false;
+    }
+  }
+ else   if (!userId.equals(other.userId)) {
+    return false;
+  }
+  return true;
+}

@@ -1,0 +1,15 @@
+{
+  SizedTextBox textBox=null;
+  if (!editable) {
+    textBox=new SizedTextBox(-1,false);
+  }
+ else {
+    textBox=new SizedTextBox(textSize);
+  }
+  textBox.setWidth(width);
+  textBox.addInputHandler(this);
+  if (value != null) {
+    textBox.setValue(value);
+  }
+  return textBox;
+}

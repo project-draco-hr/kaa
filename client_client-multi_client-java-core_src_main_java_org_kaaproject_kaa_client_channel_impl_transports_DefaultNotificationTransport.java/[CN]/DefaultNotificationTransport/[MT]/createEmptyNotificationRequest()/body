@@ -1,0 +1,9 @@
+{
+  if (clientState != null && manager != null) {
+    NotificationSyncRequest request=new NotificationSyncRequest();
+    request.setAppStateSeqNumber(clientState.getNotificationSeqNumber());
+    request.setTopicStates(getTopicStates());
+    return request;
+  }
+  return null;
+}

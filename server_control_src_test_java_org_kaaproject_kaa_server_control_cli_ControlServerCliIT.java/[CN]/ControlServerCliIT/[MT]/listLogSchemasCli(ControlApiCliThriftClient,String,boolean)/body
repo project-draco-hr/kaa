@@ -1,0 +1,11 @@
+{
+  cliOut.reset();
+  String cmdLine="listLogSchemas -a " + appId;
+  if (createOut) {
+    cmdLine+=" -o dummy.obj";
+  }
+  int result=cli.processLine(cmdLine);
+  Assert.assertEquals(0,result);
+  String output=cliOut.toString("UTF-8");
+  Assert.assertTrue(output.trim().startsWith("List of LogSchema:"));
+}

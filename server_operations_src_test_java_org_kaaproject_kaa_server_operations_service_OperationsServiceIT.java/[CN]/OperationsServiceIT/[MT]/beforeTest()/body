@@ -59,4 +59,32 @@
   userDto=endpointService.saveEndpointUser(userDto);
   Assert.assertNotNull(userDto);
   Assert.assertNotNull(userDto.getId());
+  mandatoryTopicDto=new TopicDto();
+  mandatoryTopicDto.setApplicationId(applicationDto.getId());
+  mandatoryTopicDto.setName("Mandatory");
+  mandatoryTopicDto.setType(TopicTypeDto.MANDATORY);
+  mandatoryTopicDto=topicService.saveTopic(mandatoryTopicDto);
+  voluntaryTopicDto=new TopicDto();
+  voluntaryTopicDto.setApplicationId(applicationDto.getId());
+  voluntaryTopicDto.setName("Voluntary");
+  voluntaryTopicDto.setType(TopicTypeDto.VOLUNTARY);
+  voluntaryTopicDto=topicService.saveTopic(voluntaryTopicDto);
+  List<EndpointGroupDto> groups=endpointService.findEndpointGroupsByAppId(applicationDto.getId());
+  for (  EndpointGroupDto group : groups) {
+    endpointService.addTopicToEndpointGroup(group.getId(),mandatoryTopicDto.getId());
+    endpointService.addTopicToEndpointGroup(group.getId(),voluntaryTopicDto.getId());
+  }
+  NotificationSchemaDto userSchemaDto=notificationService.findNotificationSchemaByAppIdAndTypeAndVersion(applicationDto.getId(),NotificationTypeDto.USER,1);
+  NotificationDto mNotificationDto=new NotificationDto();
+  mNotificationDto.setTopicId(mandatoryTopicDto.getId());
+  mNotificationDto.setSchemaId(userSchemaDto.getId());
+  mNotificationDto.setType(NotificationTypeDto.USER);
+  mNotificationDto.setBody("{\"message\": \"mandatory\"}".getBytes(Charset.forName("UTF-8")));
+  notificationService.saveNotification(mNotificationDto);
+  NotificationDto vNotificationDto=new NotificationDto();
+  vNotificationDto.setTopicId(voluntaryTopicDto.getId());
+  vNotificationDto.setSchemaId(userSchemaDto.getId());
+  vNotificationDto.setType(NotificationTypeDto.USER);
+  vNotificationDto.setBody("{\"message\": \"voluntary\"}".getBytes(Charset.forName("UTF-8")));
+  notificationService.saveNotification(vNotificationDto);
 }

@@ -1,0 +1,28 @@
+{
+  LOG.debug("Build flume event with appToken [{}], schema version [{}] and events [{}].",appToken,schemaVersion,logEvents);
+  Event event=null;
+  LogData logData=new LogData();
+  logData.setSchemaVersion(schemaVersion);
+  logData.setApplicationToken(appToken);
+  List<ByteBuffer> bytes=new ArrayList<>(logEvents.size());
+  for (  LogEvent logEvent : logEvents) {
+    bytes.add(ByteBuffer.wrap(logEvent.getLogData()));
+  }
+  logData.setLogEvents(bytes);
+  EncoderFactory factory=EncoderFactory.get();
+  GenericDatumWriter<LogData> writer=new GenericDatumWriter<>(logData.getSchema());
+  LOG.debug("Convert load data [{}] to bytes.",logData);
+  ByteArrayOutputStream baos=new ByteArrayOutputStream();
+  factory.binaryEncoder(baos,null);
+  BinaryEncoder encoder=factory.binaryEncoder(baos,null);
+  try {
+    writer.write(logData,encoder);
+    encoder.flush();
+    event=EventBuilder.withBody(baos.toByteArray());
+  }
+ catch (  IOException e) {
+    LOG.warn("Can't convert avro object {} to binary.",logData);
+  }
+  LOG.trace("Build flume event with array body [{}]",baos);
+  return event;
+}

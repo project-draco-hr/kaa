@@ -1,0 +1,7 @@
+{
+  super(other);
+  if (isValidValue(fields()[0],other.filePath)) {
+    this.filePath=data().deepCopy(fields()[0].schema(),other.filePath);
+    fieldSetFlags()[0]=true;
+  }
+}

@@ -1,0 +1,5 @@
+{
+  byte[] rawConnack=new byte[]{0x20,0x02,0x00,0x03};
+  ConnAck message=new ConnAck(ReturnCode.REFUSE_ID_REJECT);
+  Assert.assertArrayEquals(rawConnack,message.getFrame().array());
+}

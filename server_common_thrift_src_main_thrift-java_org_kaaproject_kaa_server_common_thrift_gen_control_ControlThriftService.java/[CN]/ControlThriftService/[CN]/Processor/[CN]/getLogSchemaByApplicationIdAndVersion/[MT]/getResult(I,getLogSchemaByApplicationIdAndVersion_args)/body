@@ -1,0 +1,10 @@
+{
+  getLogSchemaByApplicationIdAndVersion_result result=new getLogSchemaByApplicationIdAndVersion_result();
+  try {
+    result.success=iface.getLogSchemaByApplicationIdAndVersion(args.applicationId,args.version);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

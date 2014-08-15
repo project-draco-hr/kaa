@@ -1,0 +1,8 @@
+{
+  LOG.trace("Frame ({}): payload processed",getMessageType());
+  if (buffer != null) {
+    buffer.position(0);
+  }
+  decode();
+  frameDecodeComplete=true;
+}

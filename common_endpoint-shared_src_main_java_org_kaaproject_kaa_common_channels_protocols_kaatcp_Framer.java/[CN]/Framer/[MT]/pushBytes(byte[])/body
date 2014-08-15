@@ -1,0 +1,26 @@
+{
+  if (LOG.isTraceEnabled()) {
+    if (bytes != null) {
+      LOG.trace("Received bytes: {}",Arrays.toString(bytes));
+    }
+  }
+  int used=0;
+  while (bytes.length > used) {
+    if (currentFrame == null) {
+      if ((bytes.length - used) >= 1) {
+        int intType=bytes[used] & 0xFF;
+        currentFrame=getFrameByType((byte)(intType >> 4));
+        ++used;
+      }
+ else {
+        break;
+      }
+    }
+    used+=currentFrame.push(bytes,used);
+    if (currentFrame.decodeComplete()) {
+      callListeners(currentFrame);
+      currentFrame=null;
+    }
+  }
+  return used;
+}

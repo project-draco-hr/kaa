@@ -1,0 +1,7 @@
+{
+  LOG.debug("Close flume rpc client.");
+  if (currentClient != null) {
+    currentClient.close();
+    currentClient=null;
+  }
+}

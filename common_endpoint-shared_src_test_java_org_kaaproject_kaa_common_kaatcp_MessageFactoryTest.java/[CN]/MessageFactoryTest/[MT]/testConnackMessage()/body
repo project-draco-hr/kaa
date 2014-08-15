@@ -1,0 +1,68 @@
+{
+  MessageFactory factory=new MessageFactory();
+  byte[] rawConnack=new byte[]{0x20,0x02,0x00,0x03};
+  factory.getFramer().pushBytes(rawConnack);
+  ConnAckListener idRejectListener=Mockito.spy(new ConnAckListener(){
+    @Override public void onMessage(    ConnAck message){
+      Assert.assertEquals(ReturnCode.REFUSE_ID_REJECT,message.getReturnCode());
+    }
+  }
+);
+  factory.registerMessageListener(idRejectListener);
+  factory.getFramer().pushBytes(rawConnack);
+  Mockito.verify(idRejectListener,Mockito.times(1)).onMessage(Mockito.any(ConnAck.class));
+  byte[] rawConnackAccept=new byte[]{0x20,0x02,0x00,0x01};
+  ConnAckListener acceptListener=new ConnAckListener(){
+    @Override public void onMessage(    ConnAck message){
+      Assert.assertEquals(ReturnCode.ACCEPTED,message.getReturnCode());
+    }
+  }
+;
+  factory.registerMessageListener(acceptListener);
+  factory.getFramer().pushBytes(rawConnackAccept);
+  byte[] rawConnackBadProto=new byte[]{0x20,0x02,0x00,0x02};
+  ConnAckListener badProtoListener=new ConnAckListener(){
+    @Override public void onMessage(    ConnAck message){
+      Assert.assertEquals(ReturnCode.REFUSE_BAD_PROTOCOL,message.getReturnCode());
+    }
+  }
+;
+  factory.registerMessageListener(badProtoListener);
+  factory.getFramer().pushBytes(rawConnackBadProto);
+  byte[] rawConnackServerUnavailable=new byte[]{0x20,0x02,0x00,0x04};
+  ConnAckListener serverUnavailableListener=new ConnAckListener(){
+    @Override public void onMessage(    ConnAck message){
+      Assert.assertEquals(ReturnCode.REFUSE_SERVER_UNAVAILABLE,message.getReturnCode());
+    }
+  }
+;
+  factory.registerMessageListener(serverUnavailableListener);
+  factory.getFramer().pushBytes(rawConnackServerUnavailable);
+  byte[] rawConnackBadCredentials=new byte[]{0x20,0x02,0x00,0x05};
+  ConnAckListener badCredentialsListener=new ConnAckListener(){
+    @Override public void onMessage(    ConnAck message){
+      Assert.assertEquals(ReturnCode.REFUSE_BAD_CREDETIALS,message.getReturnCode());
+    }
+  }
+;
+  factory.registerMessageListener(badCredentialsListener);
+  factory.getFramer().pushBytes(rawConnackBadCredentials);
+  byte[] rawConnackNoAuth=new byte[]{0x20,0x02,0x00,0x06};
+  ConnAckListener noAuthListener=new ConnAckListener(){
+    @Override public void onMessage(    ConnAck message){
+      Assert.assertEquals(ReturnCode.REFUSE_NO_AUTH,message.getReturnCode());
+    }
+  }
+;
+  factory.registerMessageListener(noAuthListener);
+  factory.getFramer().pushBytes(rawConnackNoAuth);
+  byte[] rawConnackUndefined=new byte[]{0x20,0x02,0x00,0x07};
+  ConnAckListener undefinedListener=new ConnAckListener(){
+    @Override public void onMessage(    ConnAck message){
+      Assert.assertEquals(ReturnCode.UNDEFINED,message.getReturnCode());
+    }
+  }
+;
+  factory.registerMessageListener(undefinedListener);
+  factory.getFramer().pushBytes(rawConnackUndefined);
+}

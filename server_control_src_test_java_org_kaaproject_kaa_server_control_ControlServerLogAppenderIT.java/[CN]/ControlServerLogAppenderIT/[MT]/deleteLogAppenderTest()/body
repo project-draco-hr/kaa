@@ -1,0 +1,6 @@
+{
+  LogAppenderDto appenderDto=createLogAppender(null,null,null,null);
+  client.deleteLogAppender(appenderDto.getId());
+  LogAppenderDto found=toDto(client.getLogAppender(appenderDto.getId()));
+  Assert.assertNull(found);
+}

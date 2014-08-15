@@ -1,0 +1,11 @@
+{
+  LogAppenderDto logAppenderDto=logAppenderService.findLogAppenderById(logAppenderId);
+  LOG.info("Remove log appender ...");
+  logAppenderService.removeLogAppenderById(logAppenderId);
+  Notification thriftNotification=new Notification();
+  thriftNotification.setAppId(logAppenderDto.getApplicationId());
+  thriftNotification.setAppenderId(logAppenderDto.getId());
+  thriftNotification.setOp(Operation.REMOVE_LOG_APPENDER);
+  LOG.info("Send notification to operation servers about removing appender.");
+  controlZKService.sendEndpointNotification(thriftNotification);
+}

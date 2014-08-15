@@ -1,0 +1,35 @@
+{
+  if (create) {
+    KaaAdmin.getDataSource().loadLogSchemasVersion(applicationId,new AsyncCallback<List<SchemaDto>>(){
+      @Override public void onFailure(      Throwable caught){
+        detailsView.setErrorMessage(Utils.getErrorMessage(caught));
+      }
+      @Override public void onSuccess(      List<SchemaDto> result){
+        SchemaListBox versions=detailsView.getSchemaVersions();
+        versions.setValue(Utils.getMaxSchemaVersions(result));
+        versions.setAcceptableValues(result);
+      }
+    }
+);
+  }
+ else {
+    detailsView.getName().setValue(entity.getName());
+    detailsView.getStatus().setValue(entity.getStatus() == LogAppenderStatusDto.REGISTERED);
+    detailsView.getDescription().setValue(entity.getDescription());
+    detailsView.getCreatedUsername().setValue(entity.getCreatedUsername());
+    detailsView.getCreatedDateTime().setValue(Utils.millisecondsToDateTimeString(entity.getCreatedTime()));
+    detailsView.getSchemaVersions().setValue(entity.getSchema());
+    LogAppenderTypeDto type=entity.getType();
+    detailsView.getType().setValue(type);
+switch (type) {
+case FILE:
+      break;
+case MONGO:
+    break;
+case FLUME:
+  FlumeAppenderParametersDto flume=(FlumeAppenderParametersDto)entity.getProperties().getParameters();
+detailsView.showFlumeCongurationFields(flume);
+break;
+}
+}
+}

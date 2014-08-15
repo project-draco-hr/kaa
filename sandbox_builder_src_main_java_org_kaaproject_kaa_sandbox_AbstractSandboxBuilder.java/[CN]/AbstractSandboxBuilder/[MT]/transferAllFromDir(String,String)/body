@@ -1,0 +1,9 @@
+{
+  Scp scp=createScp();
+  FileSet fileSet=new FileSet();
+  fileSet.setDir(new File(dir));
+  fileSet.setIncludes("**/*");
+  scp.addFileset(fileSet);
+  scp.setRemoteTodir(SSH_USERNAME + "@" + DEFAULT_HOST+ ":"+ to);
+  scp.execute();
+}

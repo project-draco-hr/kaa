@@ -1,0 +1,10 @@
+{
+  deleteLogAppender_result result=new deleteLogAppender_result();
+  try {
+    iface.deleteLogAppender(args.logAppenderId);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

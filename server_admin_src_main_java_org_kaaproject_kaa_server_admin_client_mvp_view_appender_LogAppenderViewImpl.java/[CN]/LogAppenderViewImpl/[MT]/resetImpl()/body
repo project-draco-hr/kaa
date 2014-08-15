@@ -1,0 +1,14 @@
+{
+  name.setValue("");
+  status.setValue(false);
+  description.setValue("");
+  createdUsername.setValue("");
+  createdDateTime.setValue("");
+  if (type != null) {
+    type.setValue(LogAppenderTypeDto.FILE);
+  }
+  getFooter().clear();
+  if (detailsTable.getRowCount() == FULL_TABLE_SIZE) {
+    detailsTable.removeRow(FULL_TABLE_SIZE - 1);
+  }
+}

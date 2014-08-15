@@ -79,6 +79,12 @@
  else     if (clazz == AefMapPlace.class) {
       return new AefMapActivity((AefMapPlace)place,clientFactory);
     }
+ else     if (clazz == LogAppendersPlace.class) {
+      return new LogAppendersActivity((LogAppendersPlace)place,clientFactory);
+    }
+ else     if (clazz == LogAppenderPlace.class) {
+      return new LogAppenderActivity((LogAppenderPlace)place,clientFactory);
+    }
   }
   return null;
 }

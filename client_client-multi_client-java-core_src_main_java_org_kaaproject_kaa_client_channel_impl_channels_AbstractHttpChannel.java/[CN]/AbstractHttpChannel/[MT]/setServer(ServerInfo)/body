@@ -3,6 +3,9 @@
     LOG.info("Can't set server. Channel {} is down",getId());
     return;
   }
+  if (executor == null) {
+    executor=createExecutor();
+  }
   if (server != null) {
     this.currentServer=(AbstractServerInfo)server;
     this.httpClient=client.createHttpClient(currentServer.getURL(),state.getPrivateKey(),state.getPublicKey(),currentServer.getPublicKey());

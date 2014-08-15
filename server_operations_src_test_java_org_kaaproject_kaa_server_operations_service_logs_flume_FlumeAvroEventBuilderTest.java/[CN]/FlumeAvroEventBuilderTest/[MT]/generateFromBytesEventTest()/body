@@ -1,0 +1,9 @@
+{
+  eventBuilder=new FlumeBytesEventBuilder();
+  ReflectionTestUtils.setField(eventBuilder,"applicationService",applicationService);
+  Mockito.when(applicationService.findAppById(APP_ID)).thenReturn(app);
+  Event event=eventBuilder.generateEvent(eventPack);
+  Assert.assertEquals(FlumeBytesEventBuilder.METADATA_SIZE_IN_BYTES + COUNT * 8,event.getBody().length);
+  eventBuilder.generateEvent(eventPack);
+  Mockito.verify(applicationService,Mockito.times(1)).findAppById(APP_ID);
+}

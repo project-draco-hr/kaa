@@ -1,0 +1,7 @@
+{
+  for (  Widget child : getChildren()) {
+    if (child instanceof RequiresResize) {
+      ((RequiresResize)child).onResize();
+    }
+  }
+}

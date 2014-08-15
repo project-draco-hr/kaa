@@ -1,0 +1,24 @@
+{
+  int pos=position;
+  if (currentState.equals(FrameParsingState.NONE)) {
+    remainingLength=0;
+    currentState=FrameParsingState.PROCESSING_LENGTH;
+  }
+  while (pos < bytes.length && !frameDecodeComplete) {
+    if (currentState.equals(FrameParsingState.PROCESSING_PAYLOAD)) {
+      int bytesToCopy=(remainingLength > bytes.length - pos) ? bytes.length - pos : remainingLength;
+      buffer.put(bytes,pos,bytesToCopy);
+      pos+=bytesToCopy;
+      remainingLength-=bytesToCopy;
+      LOG.trace("Frame ({}): copied {} bytes of payload. {} bytes left",getMessageType(),bytesToCopy,remainingLength);
+      if (remainingLength == 0) {
+        onFrameDone();
+      }
+    }
+ else {
+      processByte(bytes[pos]);
+      ++pos;
+    }
+  }
+  return pos - position;
+}

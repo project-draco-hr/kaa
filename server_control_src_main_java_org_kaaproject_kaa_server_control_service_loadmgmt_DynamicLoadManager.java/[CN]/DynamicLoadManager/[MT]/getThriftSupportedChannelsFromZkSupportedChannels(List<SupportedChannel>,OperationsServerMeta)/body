@@ -14,6 +14,11 @@ thriftType=ThriftChannelType.HTTP_LP;
 ZkHttpLpComunicationParameters zkLpCommParams=(ZkHttpLpComunicationParameters)channel.getZkChannel().getCommunicationParameters();
 communicationParams.setHttpLpParams(new ThriftIpParameters(zkLpCommParams.getZkComunicationParameters().getHostName().toString(),zkLpCommParams.getZkComunicationParameters().getPort().intValue()));
 break;
+case KAATCP:
+thriftType=ThriftChannelType.KAATCP;
+ZkKaaTcpComunicationParameters zkTcpCommParams=(ZkKaaTcpComunicationParameters)channel.getZkChannel().getCommunicationParameters();
+communicationParams.setKaaTcpParams(new ThriftIpParameters(zkTcpCommParams.getZkComunicationParameters().getHostName().toString(),zkTcpCommParams.getZkComunicationParameters().getPort().intValue()));
+break;
 default :
 break;
 }

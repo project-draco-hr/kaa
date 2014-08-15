@@ -2,6 +2,7 @@
   StatisticsService service=StatisticsFactory.getService(ChannelType.HTTP);
   assertNotNull(service);
   service.setConfig(configMock);
+  service.setZkNode(zkNodeMock);
   try {
     Thread.sleep(5000);
   }

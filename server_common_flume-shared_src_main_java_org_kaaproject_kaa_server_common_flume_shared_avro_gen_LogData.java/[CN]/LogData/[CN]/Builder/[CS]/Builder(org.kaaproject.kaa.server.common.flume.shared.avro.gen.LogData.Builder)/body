@@ -1,0 +1,15 @@
+{
+  super(other);
+  if (isValidValue(fields()[0],other.schemaVersion)) {
+    this.schemaVersion=data().deepCopy(fields()[0].schema(),other.schemaVersion);
+    fieldSetFlags()[0]=true;
+  }
+  if (isValidValue(fields()[1],other.applicationToken)) {
+    this.applicationToken=data().deepCopy(fields()[1].schema(),other.applicationToken);
+    fieldSetFlags()[1]=true;
+  }
+  if (isValidValue(fields()[2],other.logEvents)) {
+    this.logEvents=data().deepCopy(fields()[2].schema(),other.logEvents);
+    fieldSetFlags()[2]=true;
+  }
+}

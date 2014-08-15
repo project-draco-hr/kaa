@@ -78,5 +78,11 @@
     if (!(this_present_op && that_present_op))     return false;
     if (!this.op.equals(that.op))     return false;
   }
+  boolean this_present_appenderId=true && this.isSetAppenderId();
+  boolean that_present_appenderId=true && that.isSetAppenderId();
+  if (this_present_appenderId || that_present_appenderId) {
+    if (!(this_present_appenderId && that_present_appenderId))     return false;
+    if (!this.appenderId.equals(that.appenderId))     return false;
+  }
   return true;
 }

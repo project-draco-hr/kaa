@@ -1,0 +1,10 @@
+{
+  try {
+    FileAppenderParameters record=new FileAppenderParameters();
+    record.filePath=fieldSetFlags()[0] ? this.filePath : (java.lang.String)defaultValue(fields()[0]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

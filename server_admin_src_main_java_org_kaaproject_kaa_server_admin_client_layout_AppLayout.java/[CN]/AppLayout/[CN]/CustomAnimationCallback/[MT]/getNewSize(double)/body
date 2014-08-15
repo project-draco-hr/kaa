@@ -1,0 +1,21 @@
+{
+  double delta=getDelta(progres);
+  if (isOpen) {
+    double newSize=PANEL_WIDTH - delta;
+    if (newSize < 0) {
+      return 0;
+    }
+ else {
+      return newSize;
+    }
+  }
+ else {
+    double newSize=delta;
+    if (newSize > PANEL_WIDTH) {
+      return PANEL_WIDTH;
+    }
+ else {
+      return newSize;
+    }
+  }
+}

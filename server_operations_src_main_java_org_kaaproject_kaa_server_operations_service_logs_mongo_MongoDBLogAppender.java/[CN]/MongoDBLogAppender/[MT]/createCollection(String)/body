@@ -1,0 +1,9 @@
+{
+  if (collectionName == null) {
+    collectionName="logs_" + applicationToken;
+    logEventService.createCollection(collectionName);
+  }
+ else {
+    LOG.error("Appender is already initialized..");
+  }
+}

@@ -1,0 +1,10 @@
+{
+  getApplicationByApplicationToken_result result=new getApplicationByApplicationToken_result();
+  try {
+    result.success=iface.getApplicationByApplicationToken(args.applicationToken);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}
