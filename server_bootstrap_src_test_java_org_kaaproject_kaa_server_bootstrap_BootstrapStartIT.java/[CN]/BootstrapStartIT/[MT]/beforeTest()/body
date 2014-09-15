@@ -9,4 +9,26 @@
   List<BootstrapNodeInfo> nodes=listener.getNodes();
   logger.info("BootstrapNode found....");
   assertEquals(1,nodes.size());
+  assertNotNull("Bootstrap failed to Initialize, supported  channels not initialized",nodes.get(0).getSupportedChannelsArray());
+  assertEquals(2,nodes.get(0).getSupportedChannelsArray().size());
+  assertNotNull(nodes.get(0).getSupportedChannelsArray().get(0).getZkChannel());
+  assertNotNull(nodes.get(0).getSupportedChannelsArray().get(0).getZkChannel().getCommunicationParameters());
+  assertNotNull(nodes.get(0).getSupportedChannelsArray().get(0).getZkChannel().getChannelType());
+  assertNotNull(nodes.get(0).getSupportedChannelsArray().get(1).getZkChannel());
+  assertNotNull(nodes.get(0).getSupportedChannelsArray().get(1).getZkChannel().getCommunicationParameters());
+  assertNotNull(nodes.get(0).getSupportedChannelsArray().get(1).getZkChannel().getChannelType());
+  if (nodes.get(0).getSupportedChannelsArray().get(0).getZkChannel().getChannelType() == ZkChannelType.HTTP) {
+    ZkHttpComunicationParameters httpParams=(ZkHttpComunicationParameters)nodes.get(0).getSupportedChannelsArray().get(0).getZkChannel().getCommunicationParameters();
+    assertNotNull(httpParams.getZkComunicationParameters());
+    assertNotNull(httpParams.getZkComunicationParameters().getHostName());
+    assertEquals(nettyHost,httpParams.getZkComunicationParameters().getHostName().toString());
+    assertEquals(Integer.valueOf(nettyPort),httpParams.getZkComunicationParameters().getPort());
+  }
+ else   if (nodes.get(0).getSupportedChannelsArray().get(1).getZkChannel().getChannelType() == ZkChannelType.KAATCP) {
+    ZkKaaTcpComunicationParameters kaaTcpParams=(ZkKaaTcpComunicationParameters)nodes.get(0).getSupportedChannelsArray().get(1).getZkChannel().getCommunicationParameters();
+    assertNotNull(kaaTcpParams.getZkComunicationParameters());
+    assertNotNull(kaaTcpParams.getZkComunicationParameters().getHostName());
+    assertEquals(kaaTcpHost,kaaTcpParams.getZkComunicationParameters().getHostName().toString());
+    assertEquals(Integer.valueOf(kaaTcpPort),kaaTcpParams.getZkComunicationParameters().getPort());
+  }
 }

@@ -1,0 +1,17 @@
+{
+  boolean isConnectionExists=false;
+  if (context != null) {
+    ConnectivityManager cm=(ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+    NetworkInfo[] networkInfos=cm.getAllNetworkInfo();
+    if (networkInfos != null) {
+      for (      NetworkInfo tempNetworkInfo : networkInfos) {
+        if (tempNetworkInfo.isConnected()) {
+          isConnectionExists=true;
+          LOG.info("Connection to the network exists");
+          break;
+        }
+      }
+    }
+  }
+  return isConnectionExists;
+}

@@ -1,0 +1,13 @@
+{
+  this.parentName=parentName;
+  this.fieldName=fieldName;
+  this.direction=DirectionType.INOUT;
+  if (direction != null) {
+    if (direction.equalsIgnoreCase("out")) {
+      this.direction=DirectionType.OUT;
+    }
+ else     if (direction.equalsIgnoreCase("in")) {
+      this.direction=DirectionType.IN;
+    }
+  }
+}

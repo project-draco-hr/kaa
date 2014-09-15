@@ -1,7 +1,15 @@
 {
   super(org.kaaproject.kaa.server.common.dao.model.sql.avro.gen.FileAppenderParameters.SCHEMA$);
-  if (isValidValue(fields()[0],other.filePath)) {
-    this.filePath=data().deepCopy(fields()[0].schema(),other.filePath);
+  if (isValidValue(fields()[0],other.logDirectoryPath)) {
+    this.logDirectoryPath=data().deepCopy(fields()[0].schema(),other.logDirectoryPath);
     fieldSetFlags()[0]=true;
+  }
+  if (isValidValue(fields()[1],other.username)) {
+    this.username=data().deepCopy(fields()[1].schema(),other.username);
+    fieldSetFlags()[1]=true;
+  }
+  if (isValidValue(fields()[2],other.sshKey)) {
+    this.sshKey=data().deepCopy(fields()[2].schema(),other.sshKey);
+    fieldSetFlags()[2]=true;
   }
 }

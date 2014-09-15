@@ -2,8 +2,7 @@
   checkAuthority(KaaAuthorityDto.TENANT_ADMIN);
   try {
     if (!isEmpty(application.getId())) {
-      ApplicationDto storedApplication=toDto(clientProvider.getClient().getApplication(application.getId()));
-      checkTenantId(storedApplication.getTenantId());
+      checkApplicationId(application.getId());
     }
     application.setTenantId(getTenantId());
     return toDto(clientProvider.getClient().editApplication(toDataStruct(application)));

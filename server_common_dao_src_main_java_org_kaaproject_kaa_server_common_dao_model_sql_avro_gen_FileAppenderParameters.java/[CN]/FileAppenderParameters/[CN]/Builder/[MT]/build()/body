@@ -1,7 +1,9 @@
 {
   try {
     FileAppenderParameters record=new FileAppenderParameters();
-    record.filePath=fieldSetFlags()[0] ? this.filePath : (java.lang.String)defaultValue(fields()[0]);
+    record.logDirectoryPath=fieldSetFlags()[0] ? this.logDirectoryPath : (java.lang.String)defaultValue(fields()[0]);
+    record.username=fieldSetFlags()[1] ? this.username : (java.lang.String)defaultValue(fields()[1]);
+    record.sshKey=fieldSetFlags()[2] ? this.sshKey : (java.lang.String)defaultValue(fields()[2]);
     return record;
   }
  catch (  Exception e) {

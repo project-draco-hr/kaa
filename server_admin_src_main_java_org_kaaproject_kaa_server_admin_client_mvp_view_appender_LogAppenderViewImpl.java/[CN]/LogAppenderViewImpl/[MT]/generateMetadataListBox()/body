@@ -1,0 +1,15 @@
+{
+  if (metadatalistBox != null) {
+    metadatalistBox.clear();
+  }
+ else {
+    metadatalistBox=new ChosenListBox(true);
+    metadatalistBox.addChosenChangeHandler(this);
+  }
+  metadatalistBox.setPixelSize(300,30);
+  metadatalistBox.setPlaceholderText("Select metadata components");
+  metadatalistBox.addItem(LogHeaderStructureDto.KEYHASH.getValue());
+  metadatalistBox.addItem(LogHeaderStructureDto.TIMESTAMP.getValue());
+  metadatalistBox.addItem(LogHeaderStructureDto.TOKEN.getValue());
+  metadatalistBox.addItem(LogHeaderStructureDto.VERSION.getValue());
+}

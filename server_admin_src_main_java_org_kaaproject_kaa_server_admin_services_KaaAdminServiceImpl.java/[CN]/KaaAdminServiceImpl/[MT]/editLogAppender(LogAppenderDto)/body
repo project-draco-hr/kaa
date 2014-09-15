@@ -3,6 +3,12 @@
   try {
     if (isEmpty(appender.getId())) {
       appender.setCreatedUsername(getCurrentUser().getUsername());
+      checkApplicationId(appender.getApplicationId());
+    }
+ else {
+      LogAppenderDto storedlLogAppender=toDto(clientProvider.getClient().getLogAppender(appender.getId()));
+      Utils.checkNotNull(storedlLogAppender);
+      checkApplicationId(storedlLogAppender.getApplicationId());
     }
     return toDto(clientProvider.getClient().editLogAppender(toDataStruct(appender)));
   }

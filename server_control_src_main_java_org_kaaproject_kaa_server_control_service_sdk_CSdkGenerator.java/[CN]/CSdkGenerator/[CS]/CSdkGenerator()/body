@@ -1,0 +1,9 @@
+{
+  velocityEngine=new VelocityEngine();
+  velocityEngine.addProperty("resource.loader","class, file");
+  velocityEngine.addProperty("class.resource.loader.class","org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
+  velocityEngine.addProperty("file.resource.loader.class","org.apache.velocity.runtime.resource.loader.FileResourceLoader");
+  velocityEngine.addProperty("file.resource.loader.path","/, .");
+  velocityEngine.setProperty("runtime.references.strict",true);
+  velocityEngine.setProperty("runtime.log.logsystem.class","org.apache.velocity.runtime.log.NullLogSystem");
+}

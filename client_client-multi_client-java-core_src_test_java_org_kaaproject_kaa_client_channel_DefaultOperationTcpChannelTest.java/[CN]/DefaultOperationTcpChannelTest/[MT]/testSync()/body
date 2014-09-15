@@ -13,13 +13,13 @@
   tcpChannel.setDemultiplexer(demultiplexer);
   tcpChannel.sync(TransportType.USER);
   tcpChannel.sync(TransportType.PROFILE);
-  KaaTcpServerInfo serverInfo=new KaaTcpServerInfo("localhost",9009,KeyUtil.generateKeyPair().getPublic());
+  KaaTcpServerInfo serverInfo=new KaaTcpServerInfo(ServerType.OPERATIONS,"localhost",9009,KeyUtil.generateKeyPair().getPublic());
   tcpChannel.setServer(serverInfo);
   byte[] rawConnack=new byte[]{0x20,0x02,0x00,0x01};
   tcpChannel.os.write(rawConnack);
   SyncResponse response=new SyncResponse();
   response.setStatus(SyncResponseResultType.SUCCESS);
-  tcpChannel.os.write(new KaaSync(false,responseCreator.toByteArray(response),false,false).getFrame().array());
+  tcpChannel.os.write(new org.kaaproject.kaa.common.channels.protocols.kaatcp.messages.SyncResponse(responseCreator.toByteArray(response),false,false).getFrame().array());
   tcpChannel.sync(TransportType.USER);
   Mockito.verify(multiplexer,Mockito.times(3)).compileRequest(Mockito.anyMapOf(TransportType.class,ChannelDirection.class));
   tcpChannel.sync(TransportType.EVENT);

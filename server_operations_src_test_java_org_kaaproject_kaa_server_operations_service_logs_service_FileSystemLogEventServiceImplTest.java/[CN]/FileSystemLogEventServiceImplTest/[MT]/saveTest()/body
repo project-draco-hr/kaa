@@ -9,8 +9,8 @@
     fileAppender.setLayout(new PatternLayout("%m%n"));
     fileAppender.activateOptions();
     org.apache.log4j.Logger logger=org.apache.log4j.Logger.getLogger("test" + System.currentTimeMillis());
-    LogEventDto logEventDto=new LogEventDto(TEST_ENDPOINT_KEY,TEST_DATE_CREATED,TEST_EVENT);
-    String realEvent=new StringBuilder("{\"Date created\": \"").append(TEST_DATE_CREATED).append("\", \"Endpoint key\": \"").append(TEST_ENDPOINT_KEY).append("\", \"Event\": ").append(TEST_EVENT).append("}").append(System.getProperty("line.separator")).toString();
+    LogEventDto logEventDto=new LogEventDto(TEST_HEADER,TEST_EVENT);
+    String realEvent=new StringBuilder("{\"Log Header\": \"").append(TEST_HEADER).append("\", \"Event\": ").append(TEST_EVENT).append("}").append(System.getProperty("line.separator")).toString();
     fileSystemLogEventService.save(Collections.singletonList(logEventDto),logger,fileAppender);
     byte[] encoded=Files.readAllBytes(Paths.get(tempDir + TEST_FILE));
     String eventFromFile=new String(encoded,UTF_8);

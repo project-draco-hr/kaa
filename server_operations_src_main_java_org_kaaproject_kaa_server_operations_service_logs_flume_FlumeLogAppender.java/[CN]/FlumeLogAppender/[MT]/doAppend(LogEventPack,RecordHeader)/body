@@ -1,0 +1,14 @@
+{
+  Event event=flumeEventBuilder.generateEvent(logEventPack,header);
+  try {
+    if (flumeClientManger != null) {
+      flumeClientManger.sendEventToFlume(event);
+    }
+ else {
+      LOG.warn("Flume client wasn't initialized. Invoke method init before.");
+    }
+  }
+ catch (  EventDeliveryException e) {
+    LOG.warn("Can't send flume event.");
+  }
+}

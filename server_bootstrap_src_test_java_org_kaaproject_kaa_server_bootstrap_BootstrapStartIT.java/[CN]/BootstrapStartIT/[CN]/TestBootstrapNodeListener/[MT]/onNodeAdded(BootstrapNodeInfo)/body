@@ -1,5 +1,5 @@
 {
-  logger.info("Bootstrap node added " + nodeInfo.getConnectionInfo().toString());
+  logger.info("Bootstrap node added [{}, {}]",nodeInfo.getConnectionInfo().getThriftHost(),nodeInfo.getConnectionInfo().getThriftPort());
 synchronized (sync) {
     nodeInfos.add(nodeInfo);
     sync.notify();

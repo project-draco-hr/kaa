@@ -21,7 +21,7 @@
     }
  else     if (params instanceof FileAppenderParametersDto) {
       FileAppenderParametersDto fileDto=(FileAppenderParametersDto)params;
-      avroParameters.setAppenderParameters(new FileAppenderParameters(fileDto.getFilePath()));
+      avroParameters.setAppenderParameters(new FileAppenderParameters(fileDto.getLogDirectoryPath(),fileDto.getUsername(),fileDto.getSshKey()));
     }
     AvroByteArrayConverter<LogAppenderParameters> converter=new AvroByteArrayConverter<LogAppenderParameters>(LogAppenderParameters.class);
     try {

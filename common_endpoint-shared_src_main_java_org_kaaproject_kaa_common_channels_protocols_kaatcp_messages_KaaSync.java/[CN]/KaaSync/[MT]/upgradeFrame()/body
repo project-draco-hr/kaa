@@ -1,0 +1,21 @@
+{
+switch (getKaaSyncMessageType()) {
+case SYNC:
+    if (isRequest()) {
+      return new SyncRequest(this);
+    }
+ else {
+      return new SyncResponse(this);
+    }
+case BOOTSTRAP:
+  if (isRequest()) {
+    return new BootstrapResolve(this);
+  }
+ else {
+    return new BootstrapResponse(this);
+  }
+case UNUSED:
+throw new KaaTcpProtocolException("KaaSync Message type is incorrect");
+}
+throw new KaaTcpProtocolException("KaaSync Message type is incorrect");
+}

@@ -18,5 +18,6 @@
   appenderDto.setApplicationToken(APPLICATION_TOKEN);
   appenderDto.setTenantId(TENANT_ID);
   appenderDto.setType(LogAppenderTypeDto.MONGO);
+  appenderDto.setHeaderStructure(Arrays.asList(LogHeaderStructureDto.values()));
   logAppender.init(appenderDto);
 }

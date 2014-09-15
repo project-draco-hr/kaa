@@ -1,0 +1,18 @@
+{
+  List<LogHeaderStructureDto> header=Collections.emptyList();
+  if (metadatalistBox != null) {
+    String[] selected=metadatalistBox.getValues();
+    if (selected != null && selected.length != 0) {
+      header=new ArrayList<>();
+      for (      String field : selected) {
+        for (        LogHeaderStructureDto value : LogHeaderStructureDto.values()) {
+          if (value.getValue().equalsIgnoreCase(field)) {
+            header.add(value);
+            continue;
+          }
+        }
+      }
+    }
+  }
+  return header;
+}

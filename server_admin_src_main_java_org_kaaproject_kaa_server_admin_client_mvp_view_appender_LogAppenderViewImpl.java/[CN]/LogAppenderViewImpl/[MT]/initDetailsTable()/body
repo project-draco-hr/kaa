@@ -1,28 +1,28 @@
 {
   Label authorLabel=new Label(Utils.constants.author());
   createdUsername=new SizedTextBox(-1,false);
-  createdUsername.setWidth("100%");
+  createdUsername.setWidth(FULL_WIDTH);
   detailsTable.setWidget(0,0,authorLabel);
   detailsTable.setWidget(0,1,createdUsername);
   authorLabel.setVisible(!create);
   createdUsername.setVisible(!create);
   Label dateTimeCreatedLabel=new Label(Utils.constants.dateTimeCreated());
   createdDateTime=new SizedTextBox(-1,false);
-  createdDateTime.setWidth("100%");
+  createdDateTime.setWidth(FULL_WIDTH);
   detailsTable.setWidget(1,0,dateTimeCreatedLabel);
   detailsTable.setWidget(1,1,createdDateTime);
   dateTimeCreatedLabel.setVisible(!create);
   createdDateTime.setVisible(!create);
   name=new SizedTextBox(DEFAULT_TEXTBOX_SIZE);
-  name.setWidth("100%");
+  name.setWidth(FULL_WIDTH);
   Label nameLabel=new Label(Utils.constants.name());
-  nameLabel.addStyleName("required");
+  nameLabel.addStyleName(REQUIRED);
   detailsTable.setWidget(2,0,nameLabel);
   detailsTable.setWidget(2,1,name);
   name.addInputHandler(this);
   Label statusLabel=new Label(Utils.constants.activate());
   status=new CheckBox();
-  status.setWidth("100%");
+  status.setWidth(FULL_WIDTH);
   status.setEnabled(false);
   statusLabel.setVisible(!create);
   status.setVisible(!create);
@@ -33,22 +33,26 @@
   schema.setEnabled(create);
   detailsTable.setWidget(4,0,schemaLabel);
   detailsTable.setWidget(4,1,schema);
+  Label logMetadata=new Label(Utils.constants.logMetada());
+  generateMetadataListBox();
+  detailsTable.setWidget(5,0,logMetadata);
+  detailsTable.setWidget(5,1,metadatalistBox);
   description=new SizedTextArea(1024);
-  description.setWidth("100%");
+  description.setWidth(FULL_WIDTH);
   description.getTextArea().getElement().getStyle().setPropertyPx("minHeight",100);
   Label descriptionLabel=new Label(Utils.constants.description());
-  detailsTable.setWidget(5,0,descriptionLabel);
-  detailsTable.setWidget(5,1,description);
-  detailsTable.getCellFormatter().setVerticalAlignment(5,0,HasVerticalAlignment.ALIGN_TOP);
+  detailsTable.setWidget(6,0,descriptionLabel);
+  detailsTable.setWidget(6,1,description);
+  detailsTable.getCellFormatter().setVerticalAlignment(6,0,HasVerticalAlignment.ALIGN_TOP);
   description.addInputHandler(this);
   Label typeLabel=new Label(Utils.constants.logAppenderType());
   type=new LogTypeListBox();
-  type.setValue(LogAppenderTypeDto.FILE);
+  type.setValue(LogAppenderTypeDto.FILE,true);
   type.setAcceptableValues(Arrays.asList(LogAppenderTypeDto.values()));
   type.setEnabled(create);
   type.addValueChangeHandler(this);
-  detailsTable.setWidget(6,0,typeLabel);
-  detailsTable.setWidget(6,1,type);
+  detailsTable.setWidget(7,0,typeLabel);
+  detailsTable.setWidget(7,1,type);
   addHost=new Button(Utils.constants.addHost());
   addHost.addClickHandler(new ClickHandler(){
     @Override public void onClick(    ClickEvent event){
@@ -72,4 +76,5 @@
   addHost.addStyleName("button-margin-left");
   getFooter().setStyleName("b-app-content-details-table");
   name.setFocus(true);
+  showFileCongurationFields();
 }

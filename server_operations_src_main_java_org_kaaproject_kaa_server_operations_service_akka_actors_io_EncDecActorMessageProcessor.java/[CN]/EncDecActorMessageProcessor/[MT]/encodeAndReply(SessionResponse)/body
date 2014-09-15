@@ -2,7 +2,7 @@
   try {
     processSessionResponse(message);
   }
- catch (  GeneralSecurityException|IOException e) {
+ catch (  Exception e) {
     processErrors(message.getChannelContext(),message.getErrorConverter(),e);
   }
 }

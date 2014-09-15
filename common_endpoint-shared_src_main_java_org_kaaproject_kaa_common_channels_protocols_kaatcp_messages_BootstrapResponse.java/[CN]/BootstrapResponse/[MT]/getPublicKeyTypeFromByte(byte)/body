@@ -1,0 +1,11 @@
+{
+  if (UNUSED.getType() == b) {
+    return UNUSED;
+  }
+ else   if (RSA_PKSC8.getType() == b) {
+    return RSA_PKSC8;
+  }
+ else {
+    throw new KaaTcpProtocolException("Error parsing PublicKeyType, unknown type");
+  }
+}

@@ -1,0 +1,49 @@
+{
+  try {
+    BootstrapResolve resolve=new BootstrapResolve(applicationToken);
+    outWriter.write(resolve.getFrame().array());
+    byte[] buff=new byte[1024];
+    int c=0;
+    while (!frameReceived) {
+      c=inReader.read(buff);
+      byte[] buffer=Arrays.copyOf(buff,c);
+      if (c > 0) {
+        factory.getFramer().pushBytes(buffer);
+      }
+    }
+    logger.debug("KaaTcp message got, wait socket close");
+    c=inReader.read();
+    if (c == -1) {
+      connected=false;
+    }
+    logger.debug("KaaTcp socket close, read {} bytes",c);
+  }
+ catch (  IOException e) {
+    logger.error("KaaTcp IOException",e);
+    exception=e;
+  }
+catch (  KaaTcpProtocolException e) {
+    logger.error("KaaTcp KaatcpProtocolException",e);
+    exception=e;
+  }
+ finally {
+    try {
+      clientSocket.close();
+    }
+ catch (    IOException e) {
+      e.printStackTrace();
+    }
+    if (opServerList != null) {
+      activity.httpRequestComplete(exception,0,opServerList);
+    }
+ else {
+      if (exception != null) {
+        activity.httpRequestComplete(exception,0,null);
+      }
+ else {
+        exception=new Exception("Error KaaTcp BootstrapResolve not parsed");
+        activity.httpRequestComplete(exception,0,null);
+      }
+    }
+  }
+}

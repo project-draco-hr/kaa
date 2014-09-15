@@ -1,9 +1,16 @@
 {
   checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
-    setSchema(configurationSchema,fileItemName);
     if (isEmpty(configurationSchema.getId())) {
       configurationSchema.setCreatedUsername(getCurrentUser().getUsername());
+      checkApplicationId(configurationSchema.getApplicationId());
+      setSchema(configurationSchema,fileItemName);
+    }
+ else {
+      ConfigurationSchemaDto storedConfigurationSchema=toDto(clientProvider.getClient().getConfigurationSchema(configurationSchema.getId()));
+      Utils.checkNotNull(storedConfigurationSchema);
+      checkApplicationId(storedConfigurationSchema.getApplicationId());
+      configurationSchema.setSchema(storedConfigurationSchema.getSchema());
     }
     return toDto(clientProvider.getClient().editConfigurationSchema(toDataStruct(configurationSchema)));
   }

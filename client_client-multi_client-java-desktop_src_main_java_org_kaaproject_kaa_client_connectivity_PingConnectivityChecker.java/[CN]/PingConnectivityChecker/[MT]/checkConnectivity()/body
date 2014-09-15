@@ -1,0 +1,13 @@
+{
+  AbstractServerInfo si=serverStorage.getCurrentPingServer();
+  LOG.info("Connectivity check will be performed on {}:{}",si.getHost(),si.getPort());
+  InetSocketAddress addr=new InetSocketAddress(si.getHost(),si.getPort());
+  try (Socket sock=new Socket()){
+    sock.connect(addr,CONNECTION_TIMEOUT_MS);
+    LOG.info("Connection to the network exists");
+    return true;
+  }
+ catch (  IOException e) {
+  }
+  return false;
+}

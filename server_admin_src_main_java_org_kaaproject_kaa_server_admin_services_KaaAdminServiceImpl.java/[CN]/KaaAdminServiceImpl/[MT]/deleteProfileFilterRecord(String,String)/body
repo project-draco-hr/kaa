@@ -1,6 +1,9 @@
 {
   checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
+    StructureRecordDto<ProfileFilterDto> record=toGenericDto(clientProvider.getClient().getProfileFilterRecord(schemaId,endpointGroupId));
+    Utils.checkNotNull(record);
+    checkEndpointGroupId(record.getEndpointGroupId());
     String username=this.getCurrentUser().getUsername();
     clientProvider.getClient().deleteProfileFilterRecord(schemaId,endpointGroupId,username);
   }

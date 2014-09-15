@@ -1,6 +1,9 @@
 {
   checkAuthority(KaaAuthorityDto.TENANT_ADMIN,KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
+    EventClassFamilyDto storedEventClassFamily=toDto(clientProvider.getClient().getEventClassFamily(eventClassFamilyId));
+    Utils.checkNotNull(storedEventClassFamily);
+    checkTenantId(storedEventClassFamily.getTenantId());
     return toDtoList(clientProvider.getClient().getEventClassesByFamilyIdVersionAndType(eventClassFamilyId,version,toGenericDataStruct(type)));
   }
  catch (  Exception e) {

@@ -1,0 +1,13 @@
+{
+  ServerInfo bsi=null;
+  List<ServerInfo> serverList=bootststrapServers.get(currentServer.getChannelType());
+  int serverIndex=serverList.indexOf(currentServer);
+  if (serverIndex >= 0) {
+    if (++serverIndex == serverList.size()) {
+      serverIndex=0;
+    }
+    bsi=serverList.get(serverIndex);
+    lastBSServers.put(currentServer.getChannelType(),bsi);
+  }
+  return bsi;
+}

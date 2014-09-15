@@ -4,11 +4,14 @@
   description.setValue("");
   createdUsername.setValue("");
   createdDateTime.setValue("");
+  if (metadatalistBox != null) {
+    generateMetadataListBox();
+  }
   if (type != null) {
-    type.setValue(LogAppenderTypeDto.FILE);
+    type.setValue(LogAppenderTypeDto.FILE,true);
   }
   getFooter().clear();
-  if (detailsTable.getRowCount() == FULL_TABLE_SIZE) {
-    detailsTable.removeRow(FULL_TABLE_SIZE - 1);
+  if (sshKey != null) {
+    sshKey.setValue("");
   }
 }

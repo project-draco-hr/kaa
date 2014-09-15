@@ -17,7 +17,7 @@
         }
         break;
       }
-      Map<KaaSinkKey,List<Event>> incomingEventsMap=eventFactory.processIncomingFlumeEvent(event);
+      Map<KaaSinkKey,List<KaaRecordEvent>> incomingEventsMap=eventFactory.processIncomingFlumeEvent(event);
       if (incomingEventsMap == null || incomingEventsMap.isEmpty()) {
         if (logger.isWarnEnabled()) {
           logger.warn("Unable to parse incoming event: " + event);
@@ -29,7 +29,7 @@
         BucketWriter bucketWriter;
         bucketWriter=writerCache.get(hdfsSinkKey);
         writerFlushMap.put(hdfsSinkKey,bucketWriter);
-        List<Event> events=incomingEventsMap.get(key);
+        List<KaaRecordEvent> events=incomingEventsMap.get(key);
         sinkEventCount+=events.size();
         appendBatch(bucketWriter,events);
       }

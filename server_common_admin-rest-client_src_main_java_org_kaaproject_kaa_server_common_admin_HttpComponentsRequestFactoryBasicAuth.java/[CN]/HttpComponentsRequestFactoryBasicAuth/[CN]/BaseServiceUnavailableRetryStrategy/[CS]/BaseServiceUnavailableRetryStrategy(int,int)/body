@@ -1,0 +1,11 @@
+{
+  super();
+  if (maxRetries < 1) {
+    throw new IllegalArgumentException("MaxRetries must be greater than 1");
+  }
+  if (retryInterval < 1) {
+    throw new IllegalArgumentException("Retry interval must be greater than 1");
+  }
+  this.maxRetries=maxRetries;
+  this.retryInterval=retryInterval;
+}

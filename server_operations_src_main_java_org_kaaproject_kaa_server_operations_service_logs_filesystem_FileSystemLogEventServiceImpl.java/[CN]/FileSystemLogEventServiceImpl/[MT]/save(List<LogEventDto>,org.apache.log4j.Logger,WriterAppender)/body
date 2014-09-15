@@ -2,7 +2,7 @@
   LOG.debug("Starting saving {} logs",logEventPackDtos.size());
   List<String> events=new ArrayList<>();
   for (  LogEventDto logEventDto : logEventPackDtos) {
-    String event=new StringBuilder("{\"Date created\": \"").append(logEventDto.getDateCreated()).append("\", \"Endpoint key\": \"").append(logEventDto.getEndpointKey()).append("\", \"Event\": ").append(logEventDto.getEvent()).append("}").toString();
+    String event=new StringBuilder("{\"Log Header\": \"").append(logEventDto.getHeader()).append("\", \"Event\": ").append(logEventDto.getEvent()).append("}").toString();
     events.add(event);
   }
   LOG.debug("Starting writing {} logs to file",logEventPackDtos.size());

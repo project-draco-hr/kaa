@@ -1,6 +1,9 @@
 {
   checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
+    ConfigurationDto storedConfiguration=toDto(clientProvider.getClient().getConfiguration(configurationId));
+    Utils.checkNotNull(storedConfiguration);
+    checkEndpointGroupId(storedConfiguration.getEndpointGroupId());
     String username=this.getCurrentUser().getUsername();
     return toDto(clientProvider.getClient().activateConfiguration(configurationId,username));
   }

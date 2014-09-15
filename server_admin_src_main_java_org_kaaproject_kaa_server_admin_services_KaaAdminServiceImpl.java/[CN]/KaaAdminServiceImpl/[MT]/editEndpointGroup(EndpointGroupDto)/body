@@ -3,6 +3,10 @@
   try {
     if (isEmpty(endpointGroup.getId())) {
       endpointGroup.setCreatedUsername(getCurrentUser().getUsername());
+      checkApplicationId(endpointGroup.getApplicationId());
+    }
+ else {
+      checkEndpointGroupId(endpointGroup.getId());
     }
     return toDto(clientProvider.getClient().editEndpointGroup(toDataStruct(endpointGroup)));
   }

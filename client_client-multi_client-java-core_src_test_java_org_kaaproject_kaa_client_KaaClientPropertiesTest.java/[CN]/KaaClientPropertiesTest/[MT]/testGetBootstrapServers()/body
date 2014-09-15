@@ -1,8 +1,9 @@
 {
   System.setProperty(KaaClientProperties.KAA_CLIENT_PROPERTIES_FILE,"client-test.properties");
   KaaClientProperties properties=new KaaClientProperties();
-  List<BootstrapServerInfo> bootstraps=properties.getBootstrapServers();
+  Map<ChannelType,List<ServerInfo>> bootstraps=properties.getBootstrapServers();
   assertEquals(1,bootstraps.size());
-  assertEquals("localhost",bootstraps.get(0).getHost());
-  assertEquals(9889,bootstraps.get(0).getPort());
+  KaaTcpServerInfo si=(KaaTcpServerInfo)bootstraps.get(ChannelType.KAATCP).get(0);
+  assertEquals("localhost",si.getHost());
+  assertEquals(9889,si.getPort());
 }

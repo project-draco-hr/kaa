@@ -1,9 +1,16 @@
 {
   checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
-    setSchema(notificationSchema,schema);
     if (isEmpty(notificationSchema.getId())) {
       notificationSchema.setCreatedUsername(getCurrentUser().getUsername());
+      checkApplicationId(notificationSchema.getApplicationId());
+      setSchema(notificationSchema,schema);
+    }
+ else {
+      NotificationSchemaDto storedNotificationSchema=toDto(clientProvider.getClient().getNotificationSchema(notificationSchema.getId()));
+      Utils.checkNotNull(storedNotificationSchema);
+      checkApplicationId(storedNotificationSchema.getApplicationId());
+      notificationSchema.setSchema(storedNotificationSchema.getSchema());
     }
     notificationSchema.setType(NotificationTypeDto.USER);
     return toDto(clientProvider.getClient().editNotificationSchema(toDataStruct(notificationSchema)));

@@ -1,8 +1,12 @@
 {
 switch (field$) {
 case 0:
-    return filePath;
+    return logDirectoryPath;
+case 1:
+  return username;
+case 2:
+return sshKey;
 default :
-  throw new org.apache.avro.AvroRuntimeException("Bad index");
+throw new org.apache.avro.AvroRuntimeException("Bad index");
 }
 }

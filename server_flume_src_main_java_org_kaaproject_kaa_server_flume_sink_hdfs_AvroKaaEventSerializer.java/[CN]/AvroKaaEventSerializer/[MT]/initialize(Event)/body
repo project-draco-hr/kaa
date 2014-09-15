@@ -1,5 +1,6 @@
 {
   Schema schema=null;
+  Schema wrapperSchema=null;
   KaaSinkKey key=new KaaSinkKey(event.getHeaders());
   schema=schemaCache.get(key);
   if (schema == null) {
@@ -20,7 +21,9 @@
     }
     schema=new Schema.Parser().parse(schemaString);
   }
-  writer=new GenericDatumWriter<Object>(schema);
+  datumReader=new GenericDatumReader<GenericRecord>(schema);
+  wrapperSchema=RecordWrapperSchemaGenerator.generateRecordWrapperSchema(schema.toString());
+  writer=new GenericDatumWriter<Object>(wrapperSchema);
   dataFileWriter=new DataFileWriter<Object>(writer);
   dataFileWriter.setSyncInterval(syncIntervalBytes);
   try {
@@ -30,5 +33,6 @@
  catch (  AvroRuntimeException e) {
     logger.warn("Unable to instantiate avro codec with name (" + compressionCodec + "). Compression disabled. Exception follows.",e);
   }
-  dataFileWriter.create(schema,out);
+  dataFileWriter.create(wrapperSchema,out);
+  wrapperRecord=new GenericData.Record(wrapperSchema);
 }

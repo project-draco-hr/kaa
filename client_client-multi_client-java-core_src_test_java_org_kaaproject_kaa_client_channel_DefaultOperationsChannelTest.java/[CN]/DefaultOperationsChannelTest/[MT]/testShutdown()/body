@@ -13,7 +13,7 @@
   channel.setDemultiplexer(demultiplexer);
   channel.setMultiplexer(multiplexer);
   channel.shutdown();
-  HttpLongPollServerInfo server=new HttpLongPollServerInfo("localhost",9889,KeyUtil.generateKeyPair().getPublic());
+  HttpLongPollServerInfo server=new HttpLongPollServerInfo(ServerType.OPERATIONS,"localhost",9889,KeyUtil.generateKeyPair().getPublic());
   channel.setServer(server);
   channel.sync(TransportType.EVENT);
   channel.syncAll();

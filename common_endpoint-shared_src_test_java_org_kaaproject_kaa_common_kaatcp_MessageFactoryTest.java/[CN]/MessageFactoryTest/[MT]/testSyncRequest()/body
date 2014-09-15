@@ -1,0 +1,18 @@
+{
+  final byte syncRequest[]=new byte[]{(byte)0xF0,0x0D,0x00,0x06,'K','a','a','t','c','p',0x01,0x00,0x05,0x15,(byte)0xFF};
+  MessageFactory factory=new MessageFactory();
+  SyncRequestListener listener=Mockito.spy(new SyncRequestListener(){
+    @Override public void onMessage(    SyncRequest message){
+      Assert.assertEquals(1,message.getAvroObject().length);
+      Assert.assertEquals(0xFF,message.getAvroObject()[0] & 0xFF);
+      Assert.assertEquals(5,message.getMessageId());
+      Assert.assertEquals(false,message.isZipped());
+      Assert.assertEquals(true,message.isEncrypted());
+      Assert.assertEquals(true,message.isRequest());
+    }
+  }
+);
+  factory.registerMessageListener(listener);
+  factory.getFramer().pushBytes(syncRequest);
+  Mockito.verify(listener,Mockito.times(1)).onMessage(Mockito.any(SyncRequest.class));
+}

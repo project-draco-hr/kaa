@@ -15,5 +15,5 @@
   l.shutdown();
   assertNotNull(dbiService);
   assertNull(dbiService.getBootstrapNode());
-  assertNull(dbiService.getHttpService());
+  assertEquals(0,dbiService.getNettyServersList().size());
 }

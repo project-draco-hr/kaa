@@ -1,8 +1,7 @@
 {
   checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
-    ApplicationDto storedApplication=toDto(clientProvider.getClient().getApplication(applicationId));
-    checkTenantId(storedApplication.getTenantId());
+    checkApplicationId(applicationId);
     return toDtoList(clientProvider.getClient().getApplicationEventFamilyMapsByApplicationId(applicationId));
   }
  catch (  Exception e) {

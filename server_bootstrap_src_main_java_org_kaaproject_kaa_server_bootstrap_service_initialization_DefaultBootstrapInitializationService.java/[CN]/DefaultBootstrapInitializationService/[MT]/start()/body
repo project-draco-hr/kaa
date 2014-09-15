@@ -7,7 +7,10 @@
     }
     operationsServerListService.init();
     LOG.trace("Config: " + getConfig().toString());
-    httpService.start();
+    for (    ServiceChannel channel : nettyServersList) {
+      LOG.trace("Starting Channel {} ",channel.getChannelType().toString());
+      channel.start();
+    }
     final CountDownLatch thriftStartupLatch=new CountDownLatch(1);
     final CountDownLatch thriftShutdownLatch=new CountDownLatch(1);
     startThrift(thriftStartupLatch,thriftShutdownLatch);

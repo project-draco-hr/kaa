@@ -1,0 +1,33 @@
+{
+  LogAppenderParametersDto propertiesDto=appender.getProperties();
+  if (propertiesDto != null) {
+    FileAppenderParametersDto parametersDto=(FileAppenderParametersDto)propertiesDto.getParameters();
+    if (parametersDto != null) {
+      String applicationId=appender.getApplicationId();
+      LOG.debug("Starting create user and group for application with id: {}",applicationId);
+      String userName="kaa_log_user_" + appender.getApplicationToken();
+      String groupName="kaa_log_group_" + appender.getApplicationToken();
+      String publicKey=parametersDto.getSshKey();
+      File tmpKeyFile=null;
+      try {
+        createDirectory(tmpKeys);
+        tmpKeyFile=new File(tmpKeys + "/" + applicationId+ "_pub.key");
+        PrintWriter out=new PrintWriter(tmpKeyFile);
+        out.write(publicKey);
+        out.close();
+        String command=new StringBuilder("sudo /usr/lib/kaa-operations/bin/kaa-operations create_user ").append(userName).append(" ").append(groupName).append(" ").append(path).append(" ").append(tmpKeyFile.getAbsolutePath()).append(" ").toString();
+        LOG.info("Executing system command: {}",command);
+        Process process=Runtime.getRuntime().exec(command);
+        process.waitFor();
+      }
+ catch (      IOException|InterruptedException e) {
+        LOG.error("Unexpected exception occurred while executing create_user script",e);
+      }
+ finally {
+        if (tmpKeyFile != null) {
+          tmpKeyFile.delete();
+        }
+      }
+    }
+  }
+}

@@ -6,7 +6,7 @@
   EndpointObjectHash key=EndpointObjectHash.fromSHA1("key");
   String applicationToken="AppToken";
   int keepAlive=100;
-  NettySessionInfo session=new NettySessionInfo(channelId,ctx,channelType,sessionKey,key,applicationToken,keepAlive);
+  NettySessionInfo session=new NettySessionInfo(channelId,ctx,channelType,sessionKey,key,applicationToken,keepAlive,true);
   Connect command=new Connect(keepAlive,"aesSessionKey".getBytes(),"syncRequest".getBytes(),"signature".getBytes());
   SessionCreateListener listener=Mockito.mock(SessionCreateListener.class);
   ResponseBuilder responseBuilder=Mockito.mock(ResponseBuilder.class);

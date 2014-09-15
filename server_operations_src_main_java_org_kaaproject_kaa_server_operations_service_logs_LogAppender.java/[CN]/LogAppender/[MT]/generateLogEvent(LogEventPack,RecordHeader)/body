@@ -1,0 +1,24 @@
+{
+  LOG.debug("Generate LogEventDto objects from LogEventPack [{}] and header [{}]",logEventPack,header);
+  List<LogEventDto> events=new ArrayList<>(logEventPack.getEvents().size());
+  GenericAvroConverter<GenericRecord> eventConverter=getConverter(logEventPack.getLogSchema().getSchema());
+  GenericAvroConverter<GenericRecord> headerConverter=getConverter(header.getSchema().toString());
+  try {
+    for (    LogEvent logEvent : logEventPack.getEvents()) {
+      LOG.debug("Convert log events [{}] to dto objects.",logEvent);
+      if (logEvent == null | logEvent.getLogData() == null) {
+        continue;
+      }
+      LOG.trace("Avro record converter [{}] with log data [{}]",eventConverter,logEvent.getLogData());
+      GenericRecord decodedLog=eventConverter.decodeBinary(logEvent.getLogData());
+      LOG.trace("Avro header record converter [{}]",headerConverter);
+      String encodedJsonLogHeader=headerConverter.endcodeToJson(header);
+      String encodedJsonLog=eventConverter.endcodeToJson(decodedLog);
+      events.add(new LogEventDto(encodedJsonLogHeader,encodedJsonLog));
+    }
+  }
+ catch (  IOException e) {
+    LOG.error("Unexpected IOException while decoding LogEvents",e);
+  }
+  return events;
+}

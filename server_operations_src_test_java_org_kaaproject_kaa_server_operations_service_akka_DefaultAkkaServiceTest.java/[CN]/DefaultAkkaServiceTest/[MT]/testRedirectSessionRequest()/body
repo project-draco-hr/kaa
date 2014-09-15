@@ -13,8 +13,8 @@
   ResponseBuilder responseBuilder=Mockito.mock(ResponseBuilder.class);
   ErrorBuilder errorBuilder=Mockito.mock(ErrorBuilder.class);
   AvroByteArrayConverter<SyncRequest> requestConverter=new AvroByteArrayConverter<>(SyncRequest.class);
-  KaaSync kaaSync=new KaaSync(true,crypt.encodeData(requestConverter.toByteArray(request)),false,false);
-  NettySessionInfo session=new NettySessionInfo(UUID.randomUUID(),channelContextMock,ChannelType.TCP,crypt.getDecodedSessionKey(),EndpointObjectHash.fromBytes(clientPublicKey.array()),APP_TOKEN,100);
+  org.kaaproject.kaa.common.channels.protocols.kaatcp.messages.SyncRequest kaaSync=new org.kaaproject.kaa.common.channels.protocols.kaatcp.messages.SyncRequest(crypt.encodeData(requestConverter.toByteArray(request)),false,true);
+  NettySessionInfo session=new NettySessionInfo(UUID.randomUUID(),channelContextMock,ChannelType.TCP,crypt.getDecodedSessionKey(),EndpointObjectHash.fromBytes(clientPublicKey.array()),APP_TOKEN,100,true);
   SessionAwareRequest message=new NettyTcpSyncMessage(kaaSync,session,responseBuilder,errorBuilder,null);
   akkaService.process(message);
   SyncResponse response=new SyncResponse();
@@ -24,5 +24,5 @@
   Mockito.verify(operationsService,Mockito.timeout(TIMEOUT / 2).never()).sync(request);
   AvroByteArrayConverter<SyncResponse> responseConverter=new AvroByteArrayConverter<>(SyncResponse.class);
   byte[] encodedData=crypt.encodeData(responseConverter.toByteArray(response));
-  Mockito.verify(responseBuilder,Mockito.timeout(TIMEOUT).atLeastOnce()).build(encodedData);
+  Mockito.verify(responseBuilder,Mockito.timeout(TIMEOUT).atLeastOnce()).build(encodedData,true);
 }

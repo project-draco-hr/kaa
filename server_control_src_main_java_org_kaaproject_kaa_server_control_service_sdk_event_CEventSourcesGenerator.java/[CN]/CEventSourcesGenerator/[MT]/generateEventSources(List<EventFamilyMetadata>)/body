@@ -1,0 +1,75 @@
+{
+  List<TarEntryData> eventSources=new ArrayList<>();
+  LOG.debug("[sdk generateEventSources] eventFamilies.size(): {}",eventFamilies.size());
+  VelocityContext context=new VelocityContext();
+  context.put("eventFamilies",eventFamilies);
+  StringWriter commonWriter=new StringWriter();
+  velocityEngine.getTemplate(EVENT_C_PATTERN).merge(context,commonWriter);
+  for (  EventFamilyMetadata eventFamily : eventFamilies) {
+    context.put("StyleUtils",StyleUtils.class);
+    String name=StyleUtils.toLowerUnderScore(eventFamily.getEcfClassName());
+    String NAME=StyleUtils.toUpperUnderScore(eventFamily.getEcfClassName());
+    context.put("event_family_name",name);
+    context.put("EVENT_FAMILY_NAME",NAME);
+    context.put("namespacePrefix",NAME_PREFIX_TEMPLATE.replace("{name}",name));
+    Schema eventFamilySchema=new Schema.Parser().parse(eventFamily.getEcfSchema());
+    List<String> incomingEventFqns=new ArrayList<>();
+    List<String> outgoingEventFqns=new ArrayList<>();
+    if (eventFamily.getEventMaps() != null) {
+      for (      ApplicationEventMapDto appEventDto : eventFamily.getEventMaps()) {
+        if (appEventDto.getAction() == ApplicationEventAction.SINK || appEventDto.getAction() == ApplicationEventAction.BOTH) {
+          incomingEventFqns.add(appEventDto.getFqn());
+        }
+        if (appEventDto.getAction() == ApplicationEventAction.SOURCE || appEventDto.getAction() == ApplicationEventAction.BOTH) {
+          outgoingEventFqns.add(appEventDto.getFqn());
+        }
+      }
+    }
+    context.put("incomingEventFqns",incomingEventFqns);
+    context.put("outgoingEventFqns",outgoingEventFqns);
+    StringWriter headerWriter=new StringWriter();
+    LOG.debug("[sdk generateEventSources] header generating:");
+    velocityEngine.getTemplate(EVENT_FAMILIES_H_PATTERN).merge(context,headerWriter);
+    TarArchiveEntry entry=new TarArchiveEntry(EVENT_SOURCE_OUTPUT + EVENT_FAMILIES_H_FILE.replace("{name}",name));
+    LOG.debug("[sdk generateEventSources] header generated: {}",entry.getName());
+    byte[] data=headerWriter.toString().getBytes();
+    entry.setSize(data.length);
+    TarEntryData tarEntry=new TarEntryData(entry,data);
+    eventSources.add(tarEntry);
+    StringWriter sourceWriter=new StringWriter();
+    LOG.debug("[sdk generateEventSources] source generating:");
+    velocityEngine.getTemplate(EVENT_FAMILIES_C_PATTERN).merge(context,sourceWriter);
+    entry=new TarArchiveEntry(EVENT_SOURCE_OUTPUT + EVENT_FAMILIES_C_FILE.replace("{name}",name));
+    LOG.debug("[sdk generateEventSources] source generated: {}",entry.getName());
+    data=sourceWriter.toString().getBytes();
+    entry.setSize(data.length);
+    tarEntry=new TarEntryData(entry,data);
+    eventSources.add(tarEntry);
+    entry=new TarArchiveEntry(SOURCE_OUTPUT + EVENT_C_FILE);
+    data=commonWriter.toString().getBytes();
+    entry.setSize(data.length);
+    tarEntry=new TarEntryData(entry,data);
+    eventSources.add(tarEntry);
+    try (OutputStream hdrStream=new ByteArrayOutputStream();OutputStream srcStream=new ByteArrayOutputStream()){
+      String fileName=EVENT_FAMILY_DEFINITION_PATTERN.replace("{name}",name);
+      Compiler compiler=new Compiler(eventFamilySchema,fileName,hdrStream,srcStream);
+      compiler.setNamespacePrefix(NAME_PREFIX_TEMPLATE.replace("{name}",name));
+      compiler.generate();
+      String eventData=hdrStream.toString();
+      entry=new TarArchiveEntry(EVENT_SOURCE_OUTPUT + fileName + ".h");
+      entry.setSize(eventData.length());
+      tarEntry=new TarEntryData(entry,eventData.getBytes());
+      eventSources.add(tarEntry);
+      entry=new TarArchiveEntry(EVENT_SOURCE_OUTPUT + fileName + ".c");
+      eventData=srcStream.toString();
+      entry.setSize(eventData.length());
+      tarEntry=new TarEntryData(entry,eventData.getBytes());
+      eventSources.add(tarEntry);
+    }
+ catch (    Exception e) {
+      LOG.error("got exception",e);
+    }
+  }
+  LOG.debug("[sdk generateEventSources] exit. Generated {} files",eventSources.size());
+  return eventSources;
+}

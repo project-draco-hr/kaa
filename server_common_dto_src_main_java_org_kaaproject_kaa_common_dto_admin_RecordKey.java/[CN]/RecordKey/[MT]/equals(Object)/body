@@ -1,0 +1,13 @@
+{
+  if (this == obj)   return true;
+  if (obj == null)   return false;
+  if (getClass() != obj.getClass())   return false;
+  RecordKey other=(RecordKey)obj;
+  if (applicationId == null) {
+    if (other.applicationId != null)     return false;
+  }
+ else   if (!applicationId.equals(other.applicationId))   return false;
+  if (logSchemaVersion != other.logSchemaVersion)   return false;
+  if (recordFiles != other.recordFiles)   return false;
+  return true;
+}

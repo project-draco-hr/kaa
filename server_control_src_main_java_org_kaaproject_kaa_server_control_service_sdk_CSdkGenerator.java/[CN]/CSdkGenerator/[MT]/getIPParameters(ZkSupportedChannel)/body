@@ -1,0 +1,17 @@
+{
+  IpComunicationParameters params=null;
+switch (channel.getChannelType()) {
+case HTTP:
+    params=((ZkHttpComunicationParameters)channel.getCommunicationParameters()).getZkComunicationParameters();
+  break;
+case HTTP_LP:
+params=((ZkHttpLpComunicationParameters)channel.getCommunicationParameters()).getZkComunicationParameters();
+break;
+case KAATCP:
+params=((ZkKaaTcpComunicationParameters)channel.getCommunicationParameters()).getZkComunicationParameters();
+break;
+default :
+break;
+}
+return params;
+}

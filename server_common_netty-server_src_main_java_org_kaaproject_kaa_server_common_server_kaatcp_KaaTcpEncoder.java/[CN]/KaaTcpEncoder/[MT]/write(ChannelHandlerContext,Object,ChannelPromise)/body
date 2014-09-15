@@ -8,6 +8,9 @@
     MqttFrame frame=(MqttFrame)msg;
     byte[] data=frame.getFrame().array();
     LOG.trace("Sending {} data for frame {}",Arrays.toString(data),frame);
-    ctx.writeAndFlush(data,promise);
+    ChannelFuture future=ctx.writeAndFlush(data,promise);
+    if (frame.isNeedCloseConnection()) {
+      future.addListener(ChannelFutureListener.CLOSE);
+    }
   }
 }

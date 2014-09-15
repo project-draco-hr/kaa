@@ -1,6 +1,9 @@
 {
   checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
+    TopicDto topic=toDto(clientProvider.getClient().getTopic(topicId));
+    Utils.checkNotNull(topic);
+    checkApplicationId(topic.getApplicationId());
     clientProvider.getClient().deleteTopicById(topicId);
   }
  catch (  Exception e) {

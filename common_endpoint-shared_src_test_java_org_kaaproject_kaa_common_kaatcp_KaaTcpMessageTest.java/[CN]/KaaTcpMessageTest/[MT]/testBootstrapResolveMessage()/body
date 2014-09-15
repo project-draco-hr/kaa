@@ -1,0 +1,8 @@
+{
+  final byte bootstrapResolve[]=new byte[]{(byte)0xF0,0x18,0x00,0x06,'K','a','a','t','c','p',0x01,0x00,0x05,0x21,'a','p','p','l','i','c','a','t','i','o','n','1'};
+  final String applicationToken="application1";
+  BootstrapResolve message=new BootstrapResolve(applicationToken);
+  message.setMessageId(5);
+  byte[] actual=message.getFrame().array();
+  Assert.assertArrayEquals(bootstrapResolve,actual);
+}

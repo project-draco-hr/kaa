@@ -13,7 +13,9 @@
     if (session != null) {
 switch (frame.getMessageType()) {
 case KAASYNC:
-        akkaService.process(new NettyTcpSyncMessage((KaaSync)frame,session,syncResponseConverter,syncErrorConverter,null));
+        if (((KaaSync)frame).getKaaSyncMessageType() == KaaSyncMessageType.SYNC) {
+          akkaService.process(new NettyTcpSyncMessage((SyncRequest)frame,session,syncResponseConverter,syncErrorConverter,null));
+        }
       break;
 case PINGREQ:
     akkaService.process(new NettyTcpPingMessage(session));

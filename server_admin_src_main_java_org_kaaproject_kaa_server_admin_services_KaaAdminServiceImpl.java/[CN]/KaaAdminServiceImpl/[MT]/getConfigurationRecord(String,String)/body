@@ -1,7 +1,10 @@
 {
   checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
-    return toGenericDto(clientProvider.getClient().getConfigurationRecord(schemaId,endpointGroupId));
+    checkEndpointGroupId(endpointGroupId);
+    StructureRecordDto<ConfigurationDto> record=toGenericDto(clientProvider.getClient().getConfigurationRecord(schemaId,endpointGroupId));
+    Utils.checkNotNull(record);
+    return record;
   }
  catch (  Exception e) {
     throw Utils.handleException(e);

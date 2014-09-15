@@ -1,9 +1,14 @@
 {
-  NettySessionInfo session=message.getSessionInfo();
-  crypt.setDecodedSessionKey(session.getSessionKey());
-  byte[] requestRaw=crypt.decodeData(message.getEncodedRequestData());
-  LOG.trace("Request data decrypted");
-  SyncRequest request=requestConverter.fromByteArray(requestRaw);
-  LOG.trace("Request data deserialized");
-  return request;
+  SyncRequest syncRequest=null;
+  if (message.isEncrypted()) {
+    syncRequest=decodeEncryptedRequest(message);
+  }
+ else   if (supportUnencryptedConnection) {
+    syncRequest=decodeUnencryptedRequest(message);
+  }
+ else {
+    LOG.warn("Received unencrypted aware message, but unencrypted connection forbidden by configuration.");
+    throw new GeneralSecurityException("Unencrypted connection forbidden by configuration.");
+  }
+  return syncRequest;
 }

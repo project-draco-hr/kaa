@@ -1,0 +1,8 @@
+{
+  try {
+    return clientProvider.getClient().getRecordStructureSchema(key.getApplicationId(),key.getLogSchemaVersion());
+  }
+ catch (  TException e) {
+    throw Utils.handleException(e);
+  }
+}

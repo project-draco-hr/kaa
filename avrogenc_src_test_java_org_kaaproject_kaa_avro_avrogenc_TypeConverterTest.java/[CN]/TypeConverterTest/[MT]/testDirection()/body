@@ -1,0 +1,18 @@
+{
+  final String DIRECTION_FIELD="direction";
+  Schema inOutSchema=Schema.createEnum("test1","doc","namespace",Arrays.asList("node"));
+  Assert.assertTrue(TypeConverter.isTypeOut(inOutSchema));
+  Assert.assertTrue(TypeConverter.isTypeIn(inOutSchema));
+  Schema outSchema=Schema.createRecord("test2","doc","namespace",false);
+  outSchema.addProp(DIRECTION_FIELD,"out");
+  Assert.assertTrue(TypeConverter.isTypeOut(outSchema));
+  Assert.assertFalse(TypeConverter.isTypeIn(outSchema));
+  Schema inSchema=Schema.createRecord("test13","doc","namespace",false);
+  inSchema.addProp(DIRECTION_FIELD,"in");
+  Assert.assertTrue(TypeConverter.isTypeIn(inSchema));
+  Assert.assertFalse(TypeConverter.isTypeOut(inSchema));
+  Schema invalidDirectionSchema=Schema.createRecord("test4","doc","namespace",false);
+  invalidDirectionSchema.addProp(DIRECTION_FIELD,"inOut");
+  Assert.assertFalse(TypeConverter.isTypeIn(invalidDirectionSchema));
+  Assert.assertFalse(TypeConverter.isTypeOut(invalidDirectionSchema));
+}

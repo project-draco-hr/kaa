@@ -1,0 +1,23 @@
+{
+  String result=new String(parentName);
+  for (  Schema branchSchema : schema.getTypes()) {
+    result+=branchSchema.getType();
+switch (branchSchema.getType()) {
+case RECORD:
+      result+="_";
+    result+=StyleUtils.toUpperUnderScore(branchSchema.getName());
+  break;
+case ARRAY:
+result+="_";
+result+=StyleUtils.toUpperUnderScore(branchSchema.getElementType().getName());
+case ENUM:
+result+="_";
+result+=StyleUtils.toUpperUnderScore(branchSchema.getName());
+default :
+break;
+}
+result+="_";
+}
+result+="UNION";
+return result;
+}

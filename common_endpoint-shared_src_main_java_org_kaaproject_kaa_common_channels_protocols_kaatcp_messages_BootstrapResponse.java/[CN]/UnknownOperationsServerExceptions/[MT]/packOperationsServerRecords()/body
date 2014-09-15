@@ -1,0 +1,11 @@
+{
+  int recordsLength=4;
+  operationsServersRecordPacked.clear();
+  for (  OperationsServerRecord record : operationsServersMap.values()) {
+    byte[] bytesRecord=packOperationsServerRecord(record);
+    operationsServersRecordPacked.add(bytesRecord);
+    recordsLength+=4;
+    recordsLength+=bytesRecord.length;
+  }
+  remainingLength=KAASYNC_VERIABLE_HEADER_LENGTH_V1 + recordsLength;
+}

@@ -1,0 +1,14 @@
+{
+  try {
+    if (isEmpty(endpointGroupId)) {
+      throw new KaaAdminServiceException(ServiceErrorCode.INVALID_ARGUMENTS);
+    }
+    EndpointGroupDto endpointGroup=toDto(clientProvider.getClient().getEndpointGroup(endpointGroupId));
+    Utils.checkNotNull(endpointGroup);
+    checkApplicationId(endpointGroup.getApplicationId());
+    return endpointGroup;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

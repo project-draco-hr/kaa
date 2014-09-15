@@ -1,0 +1,11 @@
+{
+  ServerInfo bsi=lastBSServers.get(type);
+  if (bsi == null) {
+    List<ServerInfo> serverList=bootststrapServers.get(type);
+    if (serverList != null && !serverList.isEmpty()) {
+      bsi=serverList.get(0);
+      lastBSServers.put(type,bsi);
+    }
+  }
+  return bsi;
+}

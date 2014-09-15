@@ -1,0 +1,9 @@
+{
+  VelocityContext context=new VelocityContext();
+  context.put("schema",schema);
+  context.put("StyleUtils",StyleUtils.class);
+  context.put("namespacePrefix",namespacePrefix);
+  StringWriter writer=new StringWriter();
+  engine.getTemplate("enum.h.vm").merge(context,writer);
+  appendResult(writer.toString(),true);
+}

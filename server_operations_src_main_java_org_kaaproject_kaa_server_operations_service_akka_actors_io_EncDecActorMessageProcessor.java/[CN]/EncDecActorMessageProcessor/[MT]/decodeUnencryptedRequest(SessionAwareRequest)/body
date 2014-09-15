@@ -1,0 +1,6 @@
+{
+  byte[] requestRaw=message.getEncodedRequestData();
+  SyncRequest request=requestConverter.fromByteArray(requestRaw);
+  LOG.trace("Request data deserialized");
+  return request;
+}

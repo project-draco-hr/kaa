@@ -19,15 +19,19 @@
     detailsView.getCreatedUsername().setValue(entity.getCreatedUsername());
     detailsView.getCreatedDateTime().setValue(Utils.millisecondsToDateTimeString(entity.getCreatedTime()));
     detailsView.getSchemaVersions().setValue(entity.getSchema());
+    detailsView.setMetadataListBox(entity.getHeaderStructure());
     LogAppenderTypeDto type=entity.getType();
     detailsView.getType().setValue(type);
 switch (type) {
 case FILE:
-      break;
+      FileAppenderParametersDto file=(FileAppenderParametersDto)entity.getProperties().getParameters();
+    detailsView.setPublicKey(file.getSshKey());
+  break;
 case MONGO:
-    break;
+detailsView.hideFileCongurationFields();
+break;
 case FLUME:
-  FlumeAppenderParametersDto flume=(FlumeAppenderParametersDto)entity.getProperties().getParameters();
+FlumeAppenderParametersDto flume=(FlumeAppenderParametersDto)entity.getProperties().getParameters();
 detailsView.showFlumeCongurationFields(flume);
 break;
 }

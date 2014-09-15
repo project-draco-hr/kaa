@@ -1,13 +1,15 @@
 {
   NettySessionInfo session=message.getSessionInfo();
-  crypt.setDecodedSessionKey(session.getSessionKey());
-  byte[] response=responseConverter.toByteArray(message.getResponse());
+  byte[] responseData=responseConverter.toByteArray(message.getResponse());
   LOG.trace("Response data serialized");
-  byte[] encodedResponse=crypt.encodeData(response);
-  LOG.trace("Response data crypted");
+  if (session.isEncrypted()) {
+    crypt.setDecodedSessionKey(session.getSessionKey());
+    responseData=crypt.encodeData(responseData);
+    LOG.trace("Response data crypted");
+  }
   ChannelHandlerContext context=message.getSessionInfo().getCtx();
   ResponseBuilder converter=message.getResponseConverter();
-  Object[] objects=converter.build(encodedResponse);
+  Object[] objects=converter.build(responseData,session.isEncrypted());
   if (objects != null && objects.length > 0) {
     for (    Object object : objects) {
       context.write(object);

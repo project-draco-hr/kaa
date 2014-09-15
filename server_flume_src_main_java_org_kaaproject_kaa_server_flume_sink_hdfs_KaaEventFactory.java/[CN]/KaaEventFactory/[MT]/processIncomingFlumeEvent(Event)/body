@@ -1,8 +1,8 @@
 {
-  Map<KaaSinkKey,List<Event>> eventsMap=new LinkedHashMap<KaaSinkKey,List<Event>>();
+  Map<KaaSinkKey,List<KaaRecordEvent>> eventsMap=new LinkedHashMap<KaaSinkKey,List<KaaRecordEvent>>();
   byte[] body=event.getBody();
   decoder=DecoderFactory.get().binaryDecoder(body,decoder);
-  LogData data=avroReader.read(null,decoder);
+  RecordData data=avroReader.read(null,decoder);
   KaaSinkKey sinkKey=new KaaSinkKey(data.getApplicationToken(),data.getSchemaVersion());
   Map<String,String> headers=headersMap.get(sinkKey);
   if (headers == null) {
@@ -10,10 +10,10 @@
     sinkKey.updateHeaders(headers);
     headersMap.put(sinkKey,headers);
   }
-  List<Event> events=Lists.newArrayList();
-  for (  ByteBuffer eventData : data.getLogEvents()) {
-    Event logEvent=EventBuilder.withBody(eventData.array(),headers);
-    events.add(logEvent);
+  List<KaaRecordEvent> events=Lists.newArrayList();
+  for (  ByteBuffer eventData : data.getEventRecords()) {
+    KaaRecordEvent kaaRecordEvent=new KaaRecordEvent(data.getRecordHeader(),headers,eventData.array());
+    events.add(kaaRecordEvent);
   }
   eventsMap.put(sinkKey,events);
   return eventsMap;

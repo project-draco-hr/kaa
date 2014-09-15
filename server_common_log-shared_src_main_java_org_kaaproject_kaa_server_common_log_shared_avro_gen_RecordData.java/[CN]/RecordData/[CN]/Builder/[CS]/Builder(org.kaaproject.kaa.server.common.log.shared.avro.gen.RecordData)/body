@@ -1,0 +1,19 @@
+{
+  super(org.kaaproject.kaa.server.common.log.shared.avro.gen.RecordData.SCHEMA$);
+  if (isValidValue(fields()[0],other.recordHeader)) {
+    this.recordHeader=data().deepCopy(fields()[0].schema(),other.recordHeader);
+    fieldSetFlags()[0]=true;
+  }
+  if (isValidValue(fields()[1],other.schemaVersion)) {
+    this.schemaVersion=data().deepCopy(fields()[1].schema(),other.schemaVersion);
+    fieldSetFlags()[1]=true;
+  }
+  if (isValidValue(fields()[2],other.applicationToken)) {
+    this.applicationToken=data().deepCopy(fields()[2].schema(),other.applicationToken);
+    fieldSetFlags()[2]=true;
+  }
+  if (isValidValue(fields()[3],other.eventRecords)) {
+    this.eventRecords=data().deepCopy(fields()[3].schema(),other.eventRecords);
+    fieldSetFlags()[3]=true;
+  }
+}

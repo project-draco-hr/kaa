@@ -67,5 +67,5 @@
   AvroByteArrayConverter<SyncResponse> responseConverter=new AvroByteArrayConverter<>(SyncResponse.class);
   byte[] response=responseConverter.toByteArray(targetSyncResponse);
   byte[] encodedData=targetCrypt.encodeData(response);
-  Mockito.verify(targetResponseBuilder,Mockito.timeout(TIMEOUT).atLeastOnce()).build(encodedData);
+  Mockito.verify(targetResponseBuilder,Mockito.timeout(TIMEOUT).atLeastOnce()).build(encodedData,true);
 }

@@ -1,0 +1,18 @@
+{
+  LOG.info("KaaTcp handler session {}, got command {}",uuid.toString(),arg1.getName());
+  KaaTcpCommand command=(KaaTcpCommand)arg1;
+  Callable<KaaTcpCommand> callable=(Callable<KaaTcpCommand>)command;
+  final Future<KaaTcpCommand> future=executor.submit(callable);
+  future.addListener(new GenericFutureListener<Future<KaaTcpCommand>>(){
+    @Override public void operationComplete(    Future<KaaTcpCommand> arg0) throws Exception {
+      LOG.trace("BootstrapKaaTcpHandler().operationComplete...");
+      if (arg0.isSuccess()) {
+        ctx.writeAndFlush(arg0.get().getResponse());
+      }
+ else {
+        ctx.fireExceptionCaught(arg0.cause());
+      }
+    }
+  }
+);
+}

@@ -1,0 +1,24 @@
+{
+  OperationsServerRecord record=new OperationsServerRecord();
+  int nameLength=buffer.getInt();
+  byte[] nameBytes=new byte[nameLength];
+  buffer.get(nameBytes);
+  record.name=new String(nameBytes);
+  int namePadding=(4 - (nameLength & 0x00000003)) & 3;
+  buffer.position(buffer.position() + namePadding);
+  record.priority=buffer.getInt();
+  record.publicKeyType=PublicKeyType.getPublicKeyTypeFromByte(buffer.get());
+  buffer.get();
+  int publicKeyLength=buffer.getShort();
+  record.publicKey=new byte[publicKeyLength];
+  buffer.get(record.publicKey);
+  int suppChennelsNumber=buffer.getInt();
+  for (int i=0; i < suppChennelsNumber; i++) {
+    int suppRecordLength=buffer.getInt();
+    SupportedChannelRecord suppRecord=decodeSupportedChannelRecord(suppRecordLength);
+    record.supportedChannelsList.add(suppRecord);
+    int suppPadding=(4 - (suppRecordLength & 0x00000003)) & 3;
+    buffer.position(buffer.position() + suppPadding);
+  }
+  return record;
+}

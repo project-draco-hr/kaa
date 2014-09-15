@@ -1,0 +1,31 @@
+{
+  KaaSyncMessageType type=frame.getKaaSyncMessageType();
+switch (type) {
+case SYNC:
+    if (frame.isRequest()) {
+      if (syncRequestListener != null) {
+        syncRequestListener.onMessage((SyncRequest)frame);
+      }
+    }
+ else {
+      if (syncResponseListener != null) {
+        syncResponseListener.onMessage((SyncResponse)frame);
+      }
+    }
+  break;
+case BOOTSTRAP:
+if (frame.isRequest()) {
+  if (bootstrapResolveListener != null) {
+    bootstrapResolveListener.onMessage((BootstrapResolve)frame);
+  }
+}
+ else {
+  if (bootstrapResponseListener != null) {
+    bootstrapResponseListener.onMessage((BootstrapResponse)frame);
+  }
+}
+break;
+case UNUSED:
+break;
+}
+}

@@ -1,6 +1,7 @@
 {
   try {
     User user=userFacade.findById(Long.valueOf(getCurrentUser().getExternalUid()));
+    Utils.checkNotNull(user);
     org.kaaproject.kaa.common.dto.admin.UserDto result=new org.kaaproject.kaa.common.dto.admin.UserDto(user.getId().toString(),user.getUsername(),user.getFirstName(),user.getLastName(),user.getMail(),KaaAuthorityDto.valueOf(user.getAuthorities().iterator().next().getAuthority()));
     return result;
   }

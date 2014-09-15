@@ -10,11 +10,6 @@
     closeConnection();
     this.currentServer=(KaaTcpServerInfo)server;
     this.encDec=new MessageEncoderDecoder(state.getPrivateKey(),state.getPublicKey(),currentServer.getPublicKey());
-    executor.submit(new Runnable(){
-      @Override public void run(){
-        openConnection();
-      }
-    }
-);
+    executor.submit(openConnectionTask);
   }
 }

@@ -1,0 +1,14 @@
+{
+  try {
+    FileData file=cacheService.getRecordLibrary(key);
+    response.setContentType("application/java-archive");
+    ServletUtils.prepareDisposition(request,response,file.getFileName());
+    response.setContentLength(file.getData().length);
+    response.setBufferSize(BUFFER);
+    response.getOutputStream().write(file.getData());
+    response.flushBuffer();
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

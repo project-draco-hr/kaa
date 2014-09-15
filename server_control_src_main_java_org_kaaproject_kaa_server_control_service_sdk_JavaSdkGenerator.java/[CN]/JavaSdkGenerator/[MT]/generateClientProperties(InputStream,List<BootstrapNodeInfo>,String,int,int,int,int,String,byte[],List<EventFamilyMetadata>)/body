@@ -3,13 +3,37 @@
   clientProperties.load(clientPropertiesStream);
   String bootstrapServers="";
   LOG.debug("[sdk generateClientProperties] bootstrapNodes.size(): {}",bootstrapNodes.size());
-  for (int i=0; i < bootstrapNodes.size(); i++) {
-    if (i > 0) {
+  for (int nodeIndex=0; nodeIndex < bootstrapNodes.size(); ++nodeIndex) {
+    if (nodeIndex > 0) {
       bootstrapServers+=";";
     }
-    ConnectionInfo bootstrapConnection=bootstrapNodes.get(i).getConnectionInfo();
-    String publicKeyBase64=Base64.encodeBase64String(bootstrapConnection.getPublicKey().array());
-    bootstrapServers+=bootstrapNodes.get(i).getBootstrapHostName() + ":" + bootstrapNodes.get(i).getBootstrapPort()+ ":"+ publicKeyBase64;
+    BootstrapNodeInfo node=bootstrapNodes.get(nodeIndex);
+    List<BootstrapSupportedChannel> supportedChannels=node.getSupportedChannelsArray();
+    for (int chIndex=0; chIndex < supportedChannels.size(); ++chIndex) {
+      ZkSupportedChannel channel=supportedChannels.get(chIndex).getZkChannel();
+      bootstrapServers+=channel.getChannelType().ordinal();
+      bootstrapServers+=":";
+      if (channel.getChannelType() == ZkChannelType.HTTP) {
+        ZkHttpComunicationParameters params=(ZkHttpComunicationParameters)channel.getCommunicationParameters();
+        bootstrapServers+=params.getZkComunicationParameters().getHostName();
+        bootstrapServers+=":";
+        bootstrapServers+=params.getZkComunicationParameters().getPort();
+      }
+ else       if (channel.getChannelType() == ZkChannelType.HTTP_LP) {
+        ZkHttpLpComunicationParameters params=(ZkHttpLpComunicationParameters)channel.getCommunicationParameters();
+        bootstrapServers+=params.getZkComunicationParameters().getHostName();
+        bootstrapServers+=":";
+        bootstrapServers+=params.getZkComunicationParameters().getPort();
+      }
+ else       if (channel.getChannelType() == ZkChannelType.KAATCP) {
+        ZkKaaTcpComunicationParameters params=(ZkKaaTcpComunicationParameters)channel.getCommunicationParameters();
+        bootstrapServers+=params.getZkComunicationParameters().getHostName();
+        bootstrapServers+=":";
+        bootstrapServers+=params.getZkComunicationParameters().getPort();
+      }
+      bootstrapServers+="|";
+    }
+    bootstrapServers+=Base64.encodeBase64String(node.getConnectionInfo().getPublicKey().array());
   }
   String ecfs="";
   if (eventFamilies != null) {

@@ -3,9 +3,17 @@
   if (obj == null)   return false;
   if (getClass() != obj.getClass())   return false;
   FileAppenderParametersDto other=(FileAppenderParametersDto)obj;
-  if (filePath == null) {
-    if (other.filePath != null)     return false;
+  if (logDirectoryPath == null) {
+    if (other.logDirectoryPath != null)     return false;
   }
- else   if (!filePath.equals(other.filePath))   return false;
+ else   if (!logDirectoryPath.equals(other.logDirectoryPath))   return false;
+  if (sshKey == null) {
+    if (other.sshKey != null)     return false;
+  }
+ else   if (!sshKey.equals(other.sshKey))   return false;
+  if (username == null) {
+    if (other.username != null)     return false;
+  }
+ else   if (!username.equals(other.username))   return false;
   return true;
 }

@@ -1,0 +1,13 @@
+{
+  try {
+    RecordHeader record=new RecordHeader();
+    record.endpointKeyHash=fieldSetFlags()[0] ? this.endpointKeyHash : (java.lang.String)defaultValue(fields()[0]);
+    record.applicationToken=fieldSetFlags()[1] ? this.applicationToken : (java.lang.String)defaultValue(fields()[1]);
+    record.headerVersion=fieldSetFlags()[2] ? this.headerVersion : (java.lang.Integer)defaultValue(fields()[2]);
+    record.timestamp=fieldSetFlags()[3] ? this.timestamp : (java.lang.Long)defaultValue(fields()[3]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

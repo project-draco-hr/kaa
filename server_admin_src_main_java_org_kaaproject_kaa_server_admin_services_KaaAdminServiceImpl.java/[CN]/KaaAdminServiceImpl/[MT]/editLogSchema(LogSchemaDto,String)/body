@@ -1,9 +1,16 @@
 {
   checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
-    setSchema(logSchema,fileItemName);
     if (isEmpty(logSchema.getId())) {
       logSchema.setCreatedUsername(getCurrentUser().getUsername());
+      checkApplicationId(logSchema.getApplicationId());
+      setSchema(logSchema,fileItemName);
+    }
+ else {
+      LogSchemaDto storedLogSchema=toDto(clientProvider.getClient().getLogSchema(logSchema.getId()));
+      Utils.checkNotNull(storedLogSchema);
+      checkApplicationId(storedLogSchema.getApplicationId());
+      logSchema.setSchema(storedLogSchema.getSchema());
     }
     return toDto(clientProvider.getClient().editLogSchema(toDataStruct(logSchema)));
   }

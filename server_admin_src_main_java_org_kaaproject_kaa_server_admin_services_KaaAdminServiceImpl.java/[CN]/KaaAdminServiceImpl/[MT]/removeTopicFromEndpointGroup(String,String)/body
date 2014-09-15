@@ -1,6 +1,10 @@
 {
   checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
+    checkEndpointGroupId(endpointGroupId);
+    TopicDto topic=toDto(clientProvider.getClient().getTopic(topicId));
+    Utils.checkNotNull(topic);
+    checkApplicationId(topic.getApplicationId());
     clientProvider.getClient().removeTopicsFromEndpointGroup(endpointGroupId,topicId);
   }
  catch (  Exception e) {

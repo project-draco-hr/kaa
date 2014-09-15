@@ -1,9 +1,9 @@
 {
   LOG.trace("Stopping Bootstrap Service..." + propertiesToString());
-  if (httpService != null) {
-    httpService.stop();
-    httpService=null;
+  for (  ServiceChannel channel : nettyServersList) {
+    channel.stop();
   }
+  nettyServersList.clear();
   if (operationsServerListService != null) {
     operationsServerListService.stop();
   }

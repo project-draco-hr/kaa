@@ -3,6 +3,9 @@
   try {
     String schema=new String(data);
     validateSchema(schema);
+    EventClassFamilyDto storedEventClassFamily=toDto(clientProvider.getClient().getEventClassFamily(eventClassFamilyId));
+    Utils.checkNotNull(storedEventClassFamily);
+    checkTenantId(storedEventClassFamily.getTenantId());
     String username=this.getCurrentUser().getUsername();
     clientProvider.getClient().addEventClassFamilySchema(eventClassFamilyId,schema,username);
   }

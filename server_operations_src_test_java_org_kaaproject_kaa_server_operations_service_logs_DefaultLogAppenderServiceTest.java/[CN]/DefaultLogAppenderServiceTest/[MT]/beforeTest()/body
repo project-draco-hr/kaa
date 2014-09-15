@@ -8,10 +8,8 @@
   logSchemaService=mock(LogSchemaService.class);
   logEventService=mock(LogEventService.class);
   logAppendersService=mock(LogAppendersService.class);
-  ReflectionTestUtils.setField(logAppenderService,"applicationService",applicationService);
   ReflectionTestUtils.setField(logAppenderService,"logSchemaService",logSchemaService);
   ReflectionTestUtils.setField(logAppenderService,"logAppenderResolver",logAppenderResolver);
-  ReflectionTestUtils.setField(mongoDBLogAppender,"applicationService",applicationService);
   ReflectionTestUtils.setField(mongoDBLogAppender,"logEventService",logEventService);
   ReflectionTestUtils.setField(logAppenderService,"logAppendersService",logAppendersService);
 }

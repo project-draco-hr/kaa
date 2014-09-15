@@ -19,5 +19,5 @@
   Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeastOnce()).sync(request);
   Mockito.verify(logAppenderService,Mockito.timeout(TIMEOUT).atLeastOnce()).getLogSchema(APP_ID,44);
   Mockito.verify(mockAppender,Mockito.timeout(TIMEOUT).atLeastOnce()).doAppend(Mockito.any(LogEventPack.class));
-  Mockito.verify(responseBuilder,Mockito.timeout(TIMEOUT).atLeastOnce()).build(Mockito.any(byte[].class));
+  Mockito.verify(responseBuilder,Mockito.timeout(TIMEOUT).atLeastOnce()).build(Mockito.any(byte[].class),Mockito.any(boolean.class));
 }

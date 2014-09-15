@@ -1,0 +1,8 @@
+{
+  super((MqttFrame)old);
+  this.messageId=old.getMessageId();
+  this.request=old.isRequest();
+  this.zipped=old.isZipped();
+  this.encrypted=old.isEncrypted();
+  this.kaaSyncMessageType=old.getKaaSyncMessageType();
+}

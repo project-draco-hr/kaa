@@ -4,7 +4,7 @@
   LOG.info("Initializing Akka EPS actor...");
   opsActor=akka.actorOf(Props.create(new OperationsServerActor.ActorCreator(cacheService,operationsService,notificationDeltaService,eventService,applicationService,logAppenderService)),EPS);
   LOG.info("Initializing Akka io router...");
-  ioRouter=akka.actorOf(new RoundRobinPool(IO_WORKERS_COUNT).props(Props.create(new EncDecActor.ActorCreator(opsActor,cacheService,new KeyPair(keyStoreService.getPublicKey(),keyStoreService.getPrivateKey())))),"ioRouter");
+  ioRouter=akka.actorOf(new RoundRobinPool(IO_WORKERS_COUNT).props(Props.create(new EncDecActor.ActorCreator(opsActor,cacheService,new KeyPair(keyStoreService.getPublicKey(),keyStoreService.getPrivateKey()),supportUnencryptedConnection))),"ioRouter");
   LOG.info("Initializing Akka event service listener...");
   listener=new AkkaEventServiceListener(opsActor);
   eventService.addListener(listener);

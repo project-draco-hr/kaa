@@ -1,0 +1,7 @@
+{
+  buffer.putInt(operationsServersRecordPacked.size());
+  for (  byte[] bytesRecord : operationsServersRecordPacked) {
+    buffer.putInt(bytesRecord.length);
+    buffer.put(bytesRecord);
+  }
+}

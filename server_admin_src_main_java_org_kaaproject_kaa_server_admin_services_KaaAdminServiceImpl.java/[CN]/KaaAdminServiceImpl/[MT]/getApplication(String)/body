@@ -1,9 +1,7 @@
 {
   checkAuthority(KaaAuthorityDto.TENANT_ADMIN,KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
-    ApplicationDto application=toDto(clientProvider.getClient().getApplication(applicationId));
-    checkTenantId(application.getTenantId());
-    return application;
+    return checkApplicationId(applicationId);
   }
  catch (  Exception e) {
     throw Utils.handleException(e);

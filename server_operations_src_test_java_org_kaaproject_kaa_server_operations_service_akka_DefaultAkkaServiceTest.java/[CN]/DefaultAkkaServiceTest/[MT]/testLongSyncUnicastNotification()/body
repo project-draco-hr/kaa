@@ -23,5 +23,5 @@
   thriftNotification.setKeyHash(clientPublicKeyHash.array());
   akkaService.onNotification(thriftNotification);
   Mockito.verify(operationsService,Mockito.timeout(10 * TIMEOUT / 2).atLeastOnce()).updateSyncResponse(noDeltaResponse.getResponse(),new ArrayList<NotificationDto>(),UNICAST_NOTIFICATION_ID);
-  Mockito.verify(responseBuilder,Mockito.timeout(TIMEOUT).atLeastOnce()).build(Mockito.any(byte[].class));
+  Mockito.verify(responseBuilder,Mockito.timeout(TIMEOUT).atLeastOnce()).build(Mockito.any(byte[].class),Mockito.any(boolean.class));
 }

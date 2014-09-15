@@ -8,5 +8,8 @@
       }
     }
   }
+  if (sshKey != null && type != null && LogAppenderTypeDto.FILE.equals(type.getValue())) {
+    result&=isNotBlank(sshKey.getValue());
+  }
   return result;
 }

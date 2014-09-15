@@ -1,0 +1,11 @@
+{
+  ApplicationDto application=createApplication();
+  ProfileSchemaDto profileSchema=createProfileSchema(application.getId());
+  ConfigurationSchemaDto configSchema=createConfigurationSchema(application.getId());
+  NotificationSchemaDto notificationSchema=createUserNotificationSchema(application.getId());
+  LogSchemaDto logSchema=createLogSchema(application.getId());
+  Sdk sdk=client.generateSdk(SdkPlatform.C,application.getId(),profileSchema.getMajorVersion(),configSchema.getMajorVersion(),notificationSchema.getMajorVersion(),null,logSchema.getMajorVersion());
+  Assert.assertNotNull(sdk);
+  Assert.assertFalse(strIsEmpty(sdk.getFileName()));
+  Assert.assertNotNull(sdk.getData());
+}

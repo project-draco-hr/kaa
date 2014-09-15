@@ -18,7 +18,7 @@
     }
     used+=currentFrame.push(bytes,used);
     if (currentFrame.decodeComplete()) {
-      callListeners(currentFrame);
+      callListeners(currentFrame.upgradeFrame());
       currentFrame=null;
     }
   }

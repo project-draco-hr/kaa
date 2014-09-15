@@ -1,0 +1,12 @@
+{
+  SupportedChannelRecord record=new SupportedChannelRecord();
+  record.supportedChannelType=supportedChannelType;
+  record.hostName=hostName;
+  record.port=port;
+  if (operationsServersMap.containsKey(opServerName)) {
+    operationsServersMap.get(opServerName).supportedChannelsList.add(record);
+  }
+ else {
+    throw new UnknownOperationsServerExceptions();
+  }
+}

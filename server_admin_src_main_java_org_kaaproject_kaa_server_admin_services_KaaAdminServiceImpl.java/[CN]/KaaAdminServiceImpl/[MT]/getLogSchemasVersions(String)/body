@@ -2,6 +2,7 @@
   checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   List<SchemaDto> logSchemaVersions=Collections.emptyList();
   try {
+    checkApplicationId(applicationId);
     logSchemaVersions=toDtoList(clientProvider.getClient().getLogSchemaVersionsByApplicationId(applicationId));
   }
  catch (  Exception e) {

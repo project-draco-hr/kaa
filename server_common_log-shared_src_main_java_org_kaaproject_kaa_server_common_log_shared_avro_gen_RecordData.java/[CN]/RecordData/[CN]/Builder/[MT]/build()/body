@@ -1,0 +1,13 @@
+{
+  try {
+    RecordData record=new RecordData();
+    record.recordHeader=fieldSetFlags()[0] ? this.recordHeader : (org.kaaproject.kaa.server.common.log.shared.avro.gen.RecordHeader)defaultValue(fields()[0]);
+    record.schemaVersion=fieldSetFlags()[1] ? this.schemaVersion : (java.lang.Integer)defaultValue(fields()[1]);
+    record.applicationToken=fieldSetFlags()[2] ? this.applicationToken : (java.lang.String)defaultValue(fields()[2]);
+    record.eventRecords=fieldSetFlags()[3] ? this.eventRecords : (java.util.List<java.nio.ByteBuffer>)defaultValue(fields()[3]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

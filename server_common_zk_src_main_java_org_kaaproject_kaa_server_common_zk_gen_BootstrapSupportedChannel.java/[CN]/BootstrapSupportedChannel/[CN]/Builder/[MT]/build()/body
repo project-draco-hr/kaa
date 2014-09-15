@@ -1,0 +1,10 @@
+{
+  try {
+    BootstrapSupportedChannel record=new BootstrapSupportedChannel();
+    record.ZkChannel=fieldSetFlags()[0] ? this.ZkChannel : (org.kaaproject.kaa.server.common.zk.gen.ZkSupportedChannel)defaultValue(fields()[0]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

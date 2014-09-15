@@ -2,5 +2,13 @@
   if (dataFileWriter == null) {
     initialize(event);
   }
-  dataFileWriter.appendEncoded(ByteBuffer.wrap(event.getBody()));
+  if (!(event instanceof KaaRecordEvent)) {
+    throw new IOException("Not instance of KaaRecordEvent!");
+  }
+  KaaRecordEvent kaaRecordEvent=(KaaRecordEvent)event;
+  binaryDecoder=DecoderFactory.get().binaryDecoder(kaaRecordEvent.getBody(),binaryDecoder);
+  GenericRecord recordData=datumReader.read(null,binaryDecoder);
+  wrapperRecord.put(RecordWrapperSchemaGenerator.RECORD_HEADER_FIELD,kaaRecordEvent.getRecordHeader());
+  wrapperRecord.put(RecordWrapperSchemaGenerator.RECORD_DATA_FIELD,recordData);
+  dataFileWriter.append(wrapperRecord);
 }

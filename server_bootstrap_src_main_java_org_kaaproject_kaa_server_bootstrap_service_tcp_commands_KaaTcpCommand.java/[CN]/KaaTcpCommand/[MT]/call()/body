@@ -1,0 +1,22 @@
+{
+  if (getRequest() != null) {
+    if (getRequest().getMessageType() == MessageType.KAASYNC) {
+      KaaSync kaaSync=(KaaSync)getRequest();
+      if (kaaSync.getKaaSyncMessageType() == KaaSyncMessageType.BOOTSTRAP) {
+        BootstrapResolve resolve=(BootstrapResolve)kaaSync;
+        int messageId=resolve.getMessageId();
+        setResponse(getNewBootstrapResponse(messageId));
+      }
+ else {
+        setResponse(new Disconnect(DisconnectReason.BAD_REQUEST));
+      }
+    }
+ else {
+      setResponse(new Disconnect(DisconnectReason.BAD_REQUEST));
+    }
+  }
+ else {
+    setResponse(new Disconnect(DisconnectReason.BAD_REQUEST));
+  }
+  return this;
+}

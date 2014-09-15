@@ -1,0 +1,23 @@
+{
+  Integer logSchemaVersion=Integer.valueOf(event.getClickedId());
+  final RowAction action=event.getAction();
+  AsyncCallback<String> callback=new AsyncCallback<String>(){
+    @Override public void onFailure(    Throwable caught){
+      listView.setErrorMessage(Utils.getErrorMessage(caught));
+    }
+    @Override public void onSuccess(    String key){
+      ServletHelper.downloadRecordLibrary(key);
+    }
+  }
+;
+switch (action) {
+case DOWNLOAD_LIBRARY:
+    KaaAdmin.getDataSource().getRecordLibrary(applicationId,logSchemaVersion,RecordFiles.LIBRARY,callback);
+  break;
+case DOWNLOAD_SCHEMA:
+KaaAdmin.getDataSource().getRecordLibrary(applicationId,logSchemaVersion,RecordFiles.SCHEMA,callback);
+break;
+default :
+break;
+}
+}

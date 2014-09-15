@@ -1,0 +1,27 @@
+{
+  if (!getClass().equals(other.getClass())) {
+    return getClass().getName().compareTo(other.getClass().getName());
+  }
+  int lastComparison=0;
+  lastComparison=Boolean.valueOf(isSetApplicationId()).compareTo(other.isSetApplicationId());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetApplicationId()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.applicationId,other.applicationId);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  lastComparison=Boolean.valueOf(isSetLogSchemaVersion()).compareTo(other.isSetLogSchemaVersion());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetLogSchemaVersion()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.logSchemaVersion,other.logSchemaVersion);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  return 0;
+}

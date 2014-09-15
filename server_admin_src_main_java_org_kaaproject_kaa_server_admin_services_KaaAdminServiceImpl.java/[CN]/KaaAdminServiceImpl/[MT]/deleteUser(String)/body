@@ -2,6 +2,7 @@
   checkAuthority(KaaAuthorityDto.TENANT_ADMIN);
   try {
     UserDto user=toDto(clientProvider.getClient().getUser(userId));
+    Utils.checkNotNull(user);
     checkTenantId(user.getTenantId());
     userFacade.deleteUser(Long.valueOf(user.getExternalUid()));
     clientProvider.getClient().deleteUser(user.getId());

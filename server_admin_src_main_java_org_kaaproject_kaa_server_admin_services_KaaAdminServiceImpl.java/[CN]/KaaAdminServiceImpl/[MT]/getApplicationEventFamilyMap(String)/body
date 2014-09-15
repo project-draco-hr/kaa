@@ -1,7 +1,10 @@
 {
   checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
-    return toDto(clientProvider.getClient().getApplicationEventFamilyMap(applicationEventFamilyMapId));
+    ApplicationEventFamilyMapDto aefMap=toDto(clientProvider.getClient().getApplicationEventFamilyMap(applicationEventFamilyMapId));
+    Utils.checkNotNull(aefMap);
+    checkApplicationId(aefMap.getApplicationId());
+    return aefMap;
   }
  catch (  Exception e) {
     throw Utils.handleException(e);

@@ -16,9 +16,7 @@ disconnectListener.onMessage((Disconnect)frame);
 }
 break;
 case KAASYNC:
-if (kaaSyncListener != null) {
-kaaSyncListener.onMessage((KaaSync)frame);
-}
+onKaaSyncMessage((KaaSync)frame);
 break;
 case PINGREQ:
 if (pingRequestListener != null) {

@@ -1,0 +1,37 @@
+{
+  BootstrapResponse response=new BootstrapResponse();
+  response.setMessageId(messageId);
+  for (  OperationsServer server : operationsServerListService.getOpsServerList().getOperationsServerArray()) {
+    response.addOperationsServer(server.getName(),server.getPriority(),PublicKeyType.RSA_PKSC8,server.getPublicKey().array());
+    for (    SupportedChannel ch : server.getSupportedChannelsArray()) {
+      SupportedChannelType supportedChannelType;
+      String hostName;
+      int port;
+      if (ch.getChannelType() == ChannelType.HTTP) {
+        supportedChannelType=SupportedChannelType.HTTP;
+        HTTPComunicationParameters params=(HTTPComunicationParameters)ch.getCommunicationParameters();
+        hostName=params.getHostName();
+        port=params.getPort();
+      }
+ else       if (ch.getChannelType() == ChannelType.HTTP_LP) {
+        supportedChannelType=SupportedChannelType.HTTPLP;
+        HTTPLPComunicationParameters params=(HTTPLPComunicationParameters)ch.getCommunicationParameters();
+        hostName=params.getHostName();
+        port=params.getPort();
+      }
+ else       if (ch.getChannelType() == ChannelType.KAATCP) {
+        supportedChannelType=SupportedChannelType.KAATCP;
+        KaaTCPComunicationParameters params=(KaaTCPComunicationParameters)ch.getCommunicationParameters();
+        hostName=params.getHostName();
+        port=params.getPort();
+      }
+ else {
+        supportedChannelType=SupportedChannelType.UNUSED;
+        hostName="";
+        port=0;
+      }
+      response.addSupportedChannel(server.getName(),supportedChannelType,hostName,port);
+    }
+  }
+  return response;
+}

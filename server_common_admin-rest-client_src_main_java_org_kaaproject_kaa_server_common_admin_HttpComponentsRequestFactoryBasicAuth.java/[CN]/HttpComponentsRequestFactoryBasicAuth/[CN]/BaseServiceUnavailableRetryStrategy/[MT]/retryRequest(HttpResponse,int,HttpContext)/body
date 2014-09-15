@@ -1,0 +1,3 @@
+{
+  return executionCount <= maxRetries && (response.getStatusLine().getStatusCode() == HttpStatus.SC_SERVICE_UNAVAILABLE || response.getStatusLine().getStatusCode() == HttpStatus.SC_NOT_FOUND);
+}

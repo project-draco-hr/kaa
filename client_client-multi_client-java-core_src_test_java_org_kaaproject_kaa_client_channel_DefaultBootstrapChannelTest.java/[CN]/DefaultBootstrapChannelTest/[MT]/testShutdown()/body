@@ -12,7 +12,7 @@
   channel.setDemultiplexer(demultiplexer);
   channel.setMultiplexer(multiplexer);
   channel.shutdown();
-  BootstrapServerInfo server=new BootstrapServerInfo("localhost",9889,KeyUtil.generateKeyPair().getPublic());
+  ServerInfo server=new HttpServerInfo(ServerType.BOOTSTRAP,"localhost",9889,KeyUtil.generateKeyPair().getPublic());
   channel.setServer(server);
   channel.sync(TransportType.BOOTSTRAP);
   channel.syncAll();

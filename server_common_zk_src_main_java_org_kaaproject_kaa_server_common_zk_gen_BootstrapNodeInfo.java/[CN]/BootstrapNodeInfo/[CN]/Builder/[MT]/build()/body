@@ -2,9 +2,7 @@
   try {
     BootstrapNodeInfo record=new BootstrapNodeInfo();
     record.connectionInfo=fieldSetFlags()[0] ? this.connectionInfo : (org.kaaproject.kaa.server.common.zk.gen.ConnectionInfo)defaultValue(fields()[0]);
-    record.BootstrapHostName=fieldSetFlags()[1] ? this.BootstrapHostName : (java.lang.CharSequence)defaultValue(fields()[1]);
-    record.BootstrapPort=fieldSetFlags()[2] ? this.BootstrapPort : (java.lang.Integer)defaultValue(fields()[2]);
-    record.processedRequestCount=fieldSetFlags()[3] ? this.processedRequestCount : (java.lang.Integer)defaultValue(fields()[3]);
+    record.SupportedChannelsArray=fieldSetFlags()[1] ? this.SupportedChannelsArray : (java.util.List<org.kaaproject.kaa.server.common.zk.gen.BootstrapSupportedChannel>)defaultValue(fields()[1]);
     return record;
   }
  catch (  Exception e) {

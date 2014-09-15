@@ -1,0 +1,21 @@
+{
+  Map<ChannelType,List<ServerInfo>> bootststrapServers=new HashMap<>();
+  bootststrapServers.put(ChannelType.HTTP,Arrays.asList((ServerInfo)new HttpServerInfo(ServerType.BOOTSTRAP,"localhost",9889,KeyUtil.generateKeyPair().getPublic())));
+  BootstrapManager bootstrapManager=Mockito.mock(BootstrapManager.class);
+  DefaultChannelManager channelManager=new DefaultChannelManager(bootstrapManager,bootststrapServers);
+  ChannelType type=ChannelType.KAATCP;
+  KaaDataChannel channel1=Mockito.mock(KaaDataChannel.class);
+  Mockito.when(channel1.getType()).thenReturn(type);
+  KaaDataChannel channel2=Mockito.mock(KaaDataChannel.class);
+  Mockito.when(channel2.getType()).thenReturn(type);
+  channelManager.addChannel(channel1);
+  channelManager.addChannel(channel2);
+  ConnectivityChecker checker=Mockito.mock(ConnectivityChecker.class);
+  channelManager.setConnectivityChecker(checker);
+  Mockito.verify(channel1,Mockito.times(1)).setConnectivityChecker(checker);
+  Mockito.verify(channel2,Mockito.times(1)).setConnectivityChecker(checker);
+  KaaDataChannel channel3=Mockito.mock(KaaDataChannel.class);
+  Mockito.when(channel3.getType()).thenReturn(type);
+  channelManager.addChannel(channel3);
+  Mockito.verify(channel3,Mockito.times(1)).setConnectivityChecker(checker);
+}

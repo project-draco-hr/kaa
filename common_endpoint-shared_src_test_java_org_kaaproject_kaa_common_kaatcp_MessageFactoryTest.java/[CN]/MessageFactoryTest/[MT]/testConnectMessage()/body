@@ -2,8 +2,8 @@
   KeyPair clientPair=KeyUtil.generateKeyPair();
   KeyPair serverPair=KeyUtil.generateKeyPair();
   MessageEncoderDecoder crypt=new MessageEncoderDecoder(clientPair.getPrivate(),clientPair.getPublic(),serverPair.getPublic());
-  AvroByteArrayConverter<SyncRequest> requestConverter=new AvroByteArrayConverter<>(SyncRequest.class);
-  SyncRequest request=new SyncRequest();
+  AvroByteArrayConverter<org.kaaproject.kaa.common.endpoint.gen.SyncRequest> requestConverter=new AvroByteArrayConverter<>(org.kaaproject.kaa.common.endpoint.gen.SyncRequest.class);
+  org.kaaproject.kaa.common.endpoint.gen.SyncRequest request=new org.kaaproject.kaa.common.endpoint.gen.SyncRequest();
   request.setRequestId(42);
   SyncRequestMetaData md=new SyncRequestMetaData();
   md.setApplicationToken("AppToken");

@@ -4,12 +4,12 @@
     SyncResponse response=buildRedirectionResponse(redirection,request);
     EndpointObjectHash key=getEndpointObjectHash(request);
     String appToken=getAppToken(request);
-    NettySessionInfo sessionInfo=new NettySessionInfo(message.getChannelUuid(),message.getChannelContext(),message.getChannelType(),crypt.getDecodedSessionKey(),key,appToken,message.getKeepAlive());
+    NettySessionInfo sessionInfo=new NettySessionInfo(message.getChannelUuid(),message.getChannelContext(),message.getChannelType(),crypt.getDecodedSessionKey(),key,appToken,message.getKeepAlive(),message.isEncrypted());
     SessionResponse responseMessage=new NettySessionResponseMessage(sessionInfo,response,message.getResponseBuilder(),message.getErrorBuilder());
     LOG.debug("Redirect Response: {}",response);
     processSessionResponse(responseMessage);
   }
- catch (  GeneralSecurityException|IOException e) {
+ catch (  Exception e) {
     processErrors(message.getChannelContext(),message.getErrorBuilder(),e);
   }
 }

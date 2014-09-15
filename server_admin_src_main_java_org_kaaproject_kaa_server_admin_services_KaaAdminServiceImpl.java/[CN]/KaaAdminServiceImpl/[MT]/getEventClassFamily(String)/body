@@ -2,6 +2,7 @@
   checkAuthority(KaaAuthorityDto.TENANT_ADMIN);
   try {
     EventClassFamilyDto eventClassFamily=toDto(clientProvider.getClient().getEventClassFamily(eventClassFamilyId));
+    Utils.checkNotNull(eventClassFamily);
     checkTenantId(eventClassFamily.getTenantId());
     return eventClassFamily;
   }

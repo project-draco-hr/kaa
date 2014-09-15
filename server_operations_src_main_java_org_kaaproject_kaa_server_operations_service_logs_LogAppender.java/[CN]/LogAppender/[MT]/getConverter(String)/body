@@ -1,0 +1,11 @@
+{
+  LOG.trace("Get converter for schema [{}]",schema);
+  GenericAvroConverter<GenericRecord> genAvroConverter=converters.get(schema);
+  if (genAvroConverter == null) {
+    LOG.trace("Create new converter for schema [{}]",schema);
+    genAvroConverter=new GenericAvroConverter<GenericRecord>(schema);
+    converters.put(schema,genAvroConverter);
+  }
+  LOG.trace("Get converter [{}] from map.",genAvroConverter);
+  return genAvroConverter;
+}

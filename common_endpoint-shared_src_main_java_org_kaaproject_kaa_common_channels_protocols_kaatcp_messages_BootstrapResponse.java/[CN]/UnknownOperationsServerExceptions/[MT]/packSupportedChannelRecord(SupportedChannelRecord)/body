@@ -1,0 +1,10 @@
+{
+  int recordLength=4;
+  recordLength+=suppRecord.hostName.getBytes().length;
+  ByteBuffer packedRecord=ByteBuffer.allocate(recordLength);
+  packedRecord.put(suppRecord.supportedChannelType.getType());
+  packedRecord.put((byte)suppRecord.hostName.getBytes().length);
+  packedRecord.putShort((short)suppRecord.port);
+  packedRecord.put(suppRecord.hostName.getBytes());
+  return packedRecord.array();
+}

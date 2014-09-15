@@ -1,12 +1,8 @@
 {
   LogEvent logEvent=new LogEvent();
-  Assert.assertNull(logEvent.getEndpointKey());
-  Assert.assertEquals(0,logEvent.getDateCreated());
   Assert.assertNull(logEvent.getEvent());
-  logEvent.setEndpointKey(TEST_ENDPOINT_KEY);
-  logEvent.setDateCreated(TEST_DATE_CREATED);
+  logEvent.setHeader(TEST_LOG_HEADER);
   logEvent.setEvent(TEST_EVENT);
-  Assert.assertEquals(TEST_ENDPOINT_KEY,logEvent.getEndpointKey());
-  Assert.assertEquals(TEST_DATE_CREATED,logEvent.getDateCreated());
+  Assert.assertEquals(TEST_LOG_HEADER,logEvent.getHeader());
   Assert.assertEquals(TEST_EVENT,logEvent.getEvent());
 }

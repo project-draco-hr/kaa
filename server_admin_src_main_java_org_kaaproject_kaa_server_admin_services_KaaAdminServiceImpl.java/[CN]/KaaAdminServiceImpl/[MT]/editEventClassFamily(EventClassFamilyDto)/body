@@ -3,6 +3,7 @@
   try {
     if (!isEmpty(eventClassFamily.getId())) {
       EventClassFamilyDto storedEventClassFamily=toDto(clientProvider.getClient().getEventClassFamily(eventClassFamily.getId()));
+      Utils.checkNotNull(storedEventClassFamily);
       checkTenantId(storedEventClassFamily.getTenantId());
     }
  else {

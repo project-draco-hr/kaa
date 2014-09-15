@@ -1,11 +1,17 @@
 {
 switch (event.getValue()) {
 case FILE:
-case MONGO:
     hideFlumeCongurationFields();
-  fireChanged();
+  showFileCongurationFields();
+fireChanged();
+break;
+case MONGO:
+hideFlumeCongurationFields();
+hideFileCongurationFields();
+fireChanged();
 break;
 case FLUME:
+hideFileCongurationFields();
 showFlumeCongurationFields();
 fireChanged();
 break;

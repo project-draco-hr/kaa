@@ -3,4 +3,5 @@
   LogAppenderDto found=logAppendersService.findLogAppenderById(appender.getId());
   Assert.assertNotNull(found);
   Assert.assertEquals(appender,found);
+  Assert.assertArrayEquals(LogHeaderStructureDto.values(),found.getHeaderStructure().toArray(new LogHeaderStructureDto[]{}));
 }

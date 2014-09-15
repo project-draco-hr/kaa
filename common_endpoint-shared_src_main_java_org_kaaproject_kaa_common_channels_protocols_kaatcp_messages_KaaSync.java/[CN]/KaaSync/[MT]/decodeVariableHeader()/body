@@ -26,4 +26,14 @@
  else {
     encrypted=false;
   }
+  byte kaaSyncType=(byte)((flag >> KAASYNC_MESSAGE_TYPE_SHIFT) & 0x0F);
+  if (kaaSyncType == KaaSyncMessageType.SYNC.getType()) {
+    kaaSyncMessageType=KaaSyncMessageType.SYNC;
+  }
+ else   if (kaaSyncType == KaaSyncMessageType.BOOTSTRAP.getType()) {
+    kaaSyncMessageType=KaaSyncMessageType.BOOTSTRAP;
+  }
+ else {
+    kaaSyncMessageType=KaaSyncMessageType.UNUSED;
+  }
 }

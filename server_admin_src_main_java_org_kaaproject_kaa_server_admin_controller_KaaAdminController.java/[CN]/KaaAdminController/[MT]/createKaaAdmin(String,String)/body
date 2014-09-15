@@ -3,6 +3,6 @@
     kaaAuthService.createKaaAdmin(username,password);
   }
  else {
-    throw new KaaAdminServiceException("Kaa admin already exists. Can't create more than one kaa admin users.",ServiceErrorCode.GENERAL_ERROR);
+    throw new KaaAdminServiceException("Kaa admin already exists. Can't create more than one kaa admin users.",ServiceErrorCode.PERMISSION_DENIED);
   }
 }

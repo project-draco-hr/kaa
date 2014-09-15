@@ -1,0 +1,11 @@
+{
+  if (recordWrapperSchemaTemplate == null) {
+    recordWrapperSchemaTemplate=FileUtils.readResource(RECORD_WRAPPER_SCHEMA_TEMPLATE);
+    String recordHeaderSchema=RecordHeader.getClassSchema().toString();
+    recordWrapperSchemaTemplate=recordWrapperSchemaTemplate.replaceAll(RECORD_HEADER_SCHEMA_VAR,recordHeaderSchema);
+  }
+  String recordWrapperSchemaString=recordWrapperSchemaTemplate.replaceAll(RECORD_DATA_SCHEMA_VAR,userRecordSchema);
+  Schema.Parser parser=new Schema.Parser();
+  Schema recordWrapperSchema=parser.parse(recordWrapperSchemaString);
+  return recordWrapperSchema;
+}

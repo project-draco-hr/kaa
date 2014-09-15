@@ -2,6 +2,7 @@
   checkAuthority(KaaAuthorityDto.KAA_ADMIN);
   try {
     UserDto user=toDto(clientProvider.getClient().getUser(userId));
+    Utils.checkNotNull(user);
     TenantAdminDto tenantAdmin=toDto(clientProvider.getClient().getTenantAdmin(user.getTenantId()));
     return toTenantUser(tenantAdmin);
   }

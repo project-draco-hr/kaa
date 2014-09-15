@@ -1,0 +1,7 @@
+{
+  final byte kaaSync[]=new byte[]{(byte)0xF0,0x0D,0x00,0x06,'K','a','a','t','c','p',0x01,0x00,0x05,0x15,(byte)0xFF};
+  SyncRequest message=new SyncRequest(new byte[]{(byte)0xFF},false,true);
+  message.setMessageId(5);
+  byte[] actual=message.getFrame().array();
+  Assert.assertArrayEquals(kaaSync,actual);
+}

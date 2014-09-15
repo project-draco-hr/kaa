@@ -1,0 +1,8 @@
+{
+  FileOutputStream hdrOs=new FileOutputStream("src/main/resources/header.tmpl.gen");
+  hdrOs.write(hdrWriter.toString().getBytes());
+  hdrOs.close();
+  FileOutputStream srcOs=new FileOutputStream("src/main/resources/source.tmpl.gen");
+  srcOs.write(srcWriter.toString().getBytes());
+  srcOs.close();
+}

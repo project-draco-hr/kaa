@@ -27,7 +27,11 @@
       }
  else       if (parameters instanceof FileAppenderParameters) {
         FileAppenderParameters fileParameters=(FileAppenderParameters)parameters;
-        dto.setParameters(new FileAppenderParametersDto(fileParameters.getFilePath()));
+        FileAppenderParametersDto fileDto=new FileAppenderParametersDto();
+        fileDto.setLogDirectoryPath(fileParameters.getLogDirectoryPath());
+        fileDto.setUsername(fileParameters.getUsername());
+        fileDto.setSshKey(fileParameters.getSshKey());
+        dto.setParameters(fileDto);
       }
     }
   }

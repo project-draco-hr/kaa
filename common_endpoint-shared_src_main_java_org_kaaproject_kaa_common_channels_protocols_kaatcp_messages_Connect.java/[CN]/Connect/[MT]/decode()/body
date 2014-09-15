@@ -1,9 +1,9 @@
 {
   decodeVariableHeader();
-  boolean hasKey=buffer.get() != 0;
-  boolean hasSignature=buffer.get() != 0;
+  hasAesSessionKey=buffer.get() != 0;
+  hasSignature=buffer.get() != 0;
   decodeKeepAlive();
-  if (hasKey) {
+  if (hasAesSessionKey) {
     decodeSessionKey();
   }
   if (hasSignature) {

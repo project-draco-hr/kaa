@@ -1,0 +1,29 @@
+{
+  GenerationContext existingContext=schemaQueue.get(schema);
+  if (existingContext != null) {
+    existingContext.updateDirection(context);
+    return;
+  }
+switch (schema.getType()) {
+case RECORD:
+    for (    Field f : schema.getFields()) {
+      filterSchemas(f.schema(),new GenerationContext(schema.getName(),f.name(),schema.getProp(DIRECTION_PROP)));
+    }
+  schemaQueue.put(schema,null);
+break;
+case UNION:
+for (Schema branchSchema : schema.getTypes()) {
+filterSchemas(branchSchema,context);
+}
+schemaQueue.put(schema,context);
+break;
+case ARRAY:
+filterSchemas(schema.getElementType(),context);
+break;
+case ENUM:
+schemaQueue.put(schema,null);
+break;
+default :
+break;
+}
+}

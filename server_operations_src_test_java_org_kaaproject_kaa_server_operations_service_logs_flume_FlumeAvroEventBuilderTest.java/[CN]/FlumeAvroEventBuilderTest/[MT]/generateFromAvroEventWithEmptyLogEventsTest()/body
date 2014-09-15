@@ -3,6 +3,6 @@
   ReflectionTestUtils.setField(eventBuilder,"applicationService",applicationService);
   Mockito.when(applicationService.findAppById(APP_ID)).thenReturn(app);
   eventPack.setEvents(new ArrayList<LogEvent>());
-  Event event=eventBuilder.generateEvent(eventPack);
+  Event event=eventBuilder.generateEvent(eventPack,null);
   Assert.assertNull(event);
 }

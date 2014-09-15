@@ -1,0 +1,26 @@
+{
+  RecordHeader logHeader=null;
+  if (header != null) {
+    logHeader=new RecordHeader();
+    for (    LogHeaderStructureDto field : header) {
+switch (field) {
+case KEYHASH:
+        logHeader.setEndpointKeyHash(logEventPack.getEndpointKey());
+      break;
+case TIMESTAMP:
+    logHeader.setTimestamp(System.currentTimeMillis());
+  break;
+case TOKEN:
+logHeader.setApplicationToken(applicationToken);
+break;
+case VERSION:
+logHeader.setHeaderVersion(LOG_HEADER_VERSION);
+break;
+default :
+LOG.warn("Current header field [{}] doesn't support",field);
+break;
+}
+}
+}
+return logHeader;
+}

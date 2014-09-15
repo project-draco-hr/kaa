@@ -14,15 +14,9 @@
 ,80);
   prefWidth+=constructStringColumn(table,Utils.constants.logAppenderType(),new StringValueProvider<LogAppenderDto>(){
     @Override public String getValue(    LogAppenderDto item){
-      return item.getType().name();
+      return item.getType().getLabel();
     }
   }
 ,80);
-  prefWidth+=constructBooleanColumn(table,Utils.constants.active(),new BooleanValueProvider<LogAppenderDto>(){
-    @Override public Boolean getValue(    LogAppenderDto item){
-      return item.getStatus() == LogAppenderStatusDto.REGISTERED;
-    }
-  }
-,40);
   return prefWidth;
 }

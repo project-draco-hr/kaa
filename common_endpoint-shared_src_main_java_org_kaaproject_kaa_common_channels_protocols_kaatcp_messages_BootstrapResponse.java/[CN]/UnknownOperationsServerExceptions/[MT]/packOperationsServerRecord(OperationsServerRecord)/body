@@ -1,0 +1,39 @@
+{
+  int recordLength=4;
+  int nameLength=record.name.getBytes().length;
+  nameLength=((nameLength + 3) >> 2);
+  nameLength=nameLength << 2;
+  recordLength+=nameLength;
+  recordLength+=4;
+  recordLength+=4;
+  recordLength+=record.publicKey.length;
+  recordLength+=4;
+  List<byte[]> packedSupportedChannels=new LinkedList<>();
+  for (  SupportedChannelRecord suppRecord : record.supportedChannelsList) {
+    recordLength+=4;
+    byte[] packedSuppRecord=packSupportedChannelRecord(suppRecord);
+    packedSupportedChannels.add(packedSuppRecord);
+    int packedSuppChannelLength=packedSuppRecord.length;
+    packedSuppChannelLength=((packedSuppChannelLength + 3) >> 2);
+    packedSuppChannelLength=packedSuppChannelLength << 2;
+    recordLength+=packedSuppChannelLength;
+  }
+  ByteBuffer packedRecord=ByteBuffer.allocate(recordLength);
+  packedRecord.putInt(record.name.getBytes().length);
+  packedRecord.put(record.name.getBytes());
+  int namePadding=nameLength - record.name.getBytes().length;
+  packedRecord.position(packedRecord.position() + namePadding);
+  packedRecord.putInt(record.priority);
+  packedRecord.put(record.publicKeyType.getType());
+  packedRecord.put((byte)0x00);
+  packedRecord.putShort((short)record.publicKey.length);
+  packedRecord.put(record.publicKey);
+  packedRecord.putInt(packedSupportedChannels.size());
+  for (  byte[] packedSuppRecord : packedSupportedChannels) {
+    packedRecord.putInt(packedSuppRecord.length);
+    packedRecord.put(packedSuppRecord);
+    int paddLength=(4 - (packedSuppRecord.length & 0x00000003)) & 3;
+    packedRecord.position(packedRecord.position() + paddLength);
+  }
+  return packedRecord.array();
+}

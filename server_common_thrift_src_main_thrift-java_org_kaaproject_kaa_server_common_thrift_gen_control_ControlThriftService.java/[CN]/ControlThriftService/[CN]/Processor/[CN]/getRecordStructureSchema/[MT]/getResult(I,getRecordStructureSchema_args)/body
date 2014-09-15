@@ -1,0 +1,10 @@
+{
+  getRecordStructureSchema_result result=new getRecordStructureSchema_result();
+  try {
+    result.success=iface.getRecordStructureSchema(args.applicationId,args.logSchemaVersion);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

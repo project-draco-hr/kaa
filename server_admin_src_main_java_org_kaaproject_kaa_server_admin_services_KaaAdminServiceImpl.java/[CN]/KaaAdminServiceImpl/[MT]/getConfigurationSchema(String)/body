@@ -1,7 +1,10 @@
 {
   checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
-    return toDto(clientProvider.getClient().getConfigurationSchema(configurationSchemaId));
+    ConfigurationSchemaDto configurationSchema=toDto(clientProvider.getClient().getConfigurationSchema(configurationSchemaId));
+    Utils.checkNotNull(configurationSchema);
+    checkApplicationId(configurationSchema.getApplicationId());
+    return configurationSchema;
   }
  catch (  Exception e) {
     throw Utils.handleException(e);

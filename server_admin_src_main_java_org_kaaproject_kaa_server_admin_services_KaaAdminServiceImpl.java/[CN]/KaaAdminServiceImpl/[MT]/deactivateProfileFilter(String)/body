@@ -1,6 +1,9 @@
 {
   checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
+    ProfileFilterDto storedProfileFilter=toDto(clientProvider.getClient().getProfileFilter(profileFilterId));
+    Utils.checkNotNull(storedProfileFilter);
+    checkEndpointGroupId(storedProfileFilter.getEndpointGroupId());
     String username=this.getCurrentUser().getUsername();
     return toDto(clientProvider.getClient().deactivateProfileFilter(profileFilterId,username));
   }

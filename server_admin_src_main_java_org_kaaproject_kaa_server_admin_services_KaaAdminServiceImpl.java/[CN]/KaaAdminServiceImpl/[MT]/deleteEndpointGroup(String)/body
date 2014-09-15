@@ -1,6 +1,7 @@
 {
   checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
+    checkEndpointGroupId(endpointGroupId);
     clientProvider.getClient().deleteEndpointGroup(endpointGroupId);
   }
  catch (  Exception e) {

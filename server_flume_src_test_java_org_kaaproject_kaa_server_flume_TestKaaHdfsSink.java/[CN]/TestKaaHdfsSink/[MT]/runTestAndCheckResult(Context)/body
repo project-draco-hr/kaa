@@ -15,7 +15,12 @@
   sinkRunner.setSink(policy);
   sinkRunner.start();
   source.start();
-  List<TestLogData> testLogs=generateAndSendRecords();
+  RecordHeader header=new RecordHeader();
+  header.setApplicationToken(applicationToken);
+  header.setEndpointKeyHash(new String(endpointKeyHash));
+  header.setHeaderVersion(1);
+  header.setTimestamp(System.currentTimeMillis());
+  List<TestLogData> testLogs=generateAndSendRecords(header);
   logger.info("Sent records count: " + testLogs.size());
   logger.info("Waiting for sink...");
   int maxWaitTime=5000;
@@ -31,6 +36,5 @@
   Assert.assertTrue(sink.getEventDrainSuccessCount() == testLogs.size());
   source.stop();
   sinkRunner.stop();
-  List<TestLogData> resultTestLogs=readResultFromHdfs();
-  Assert.assertEquals(testLogs,resultTestLogs);
+  readAndCheckResultsFromHdfs(header,testLogs);
 }

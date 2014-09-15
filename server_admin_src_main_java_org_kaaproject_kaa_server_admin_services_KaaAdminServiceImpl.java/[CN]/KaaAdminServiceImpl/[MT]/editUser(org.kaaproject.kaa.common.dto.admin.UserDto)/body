@@ -3,6 +3,7 @@
   try {
     if (!isEmpty(user.getId())) {
       UserDto storedUser=toDto(clientProvider.getClient().getUser(user.getId()));
+      Utils.checkNotNull(storedUser);
       checkTenantId(storedUser.getTenantId());
     }
     Long userId=saveUser(user);

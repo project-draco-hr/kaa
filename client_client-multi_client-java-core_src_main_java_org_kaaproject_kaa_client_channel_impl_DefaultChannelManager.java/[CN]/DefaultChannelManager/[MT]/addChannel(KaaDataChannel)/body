@@ -1,9 +1,10 @@
 {
   if (!channels.contains(channel)) {
+    channel.setConnectivityChecker(connectivityChecker);
     channels.add(channel);
     ServerInfo server;
-    if (channel.getType().equals(ChannelType.BOOTSTRAP)) {
-      server=lastBootstrapServer;
+    if (channel.getServerType() == ServerType.BOOTSTRAP) {
+      server=getCurrentBootstrapServer(channel.getType());
     }
  else {
       server=lastServers.get(channel.getType());

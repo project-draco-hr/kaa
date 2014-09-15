@@ -11,6 +11,7 @@
  else {
     user=findById(Long.valueOf(userDto.getExternalUid()));
   }
+  Utils.checkNotNull(user);
   user.setUsername(userDto.getUsername());
   user.setFirstName(userDto.getFirstName());
   user.setLastName(userDto.getLastName());

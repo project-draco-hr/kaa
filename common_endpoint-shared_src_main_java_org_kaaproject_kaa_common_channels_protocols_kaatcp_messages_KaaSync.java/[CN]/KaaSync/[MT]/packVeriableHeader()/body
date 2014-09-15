@@ -14,5 +14,6 @@
   if (isEncrypted()) {
     flags=(byte)(flags | KAASYNC_ENCRYPTED_FLAG);
   }
+  flags=(byte)(flags | (getKaaSyncMessageType().getType() << KAASYNC_MESSAGE_TYPE_SHIFT));
   buffer.put(flags);
 }

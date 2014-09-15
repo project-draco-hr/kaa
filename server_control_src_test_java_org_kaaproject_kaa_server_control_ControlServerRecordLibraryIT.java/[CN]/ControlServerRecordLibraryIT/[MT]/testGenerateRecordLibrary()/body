@@ -1,0 +1,8 @@
+{
+  ApplicationDto application=createApplication();
+  LogSchemaDto logSchema=createLogSchema(application.getId());
+  FileData library=client.generateRecordStructureLibrary(application.getId(),logSchema.getMajorVersion());
+  Assert.assertNotNull(library);
+  Assert.assertFalse(strIsEmpty(library.getFileName()));
+  Assert.assertNotNull(library.getData());
+}

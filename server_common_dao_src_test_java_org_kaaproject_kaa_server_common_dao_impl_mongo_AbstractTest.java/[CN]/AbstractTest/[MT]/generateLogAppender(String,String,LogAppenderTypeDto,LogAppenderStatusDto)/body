@@ -19,11 +19,12 @@
   logAppender.setSchema(new SchemaDto(schemaId,schema.getMajorVersion(),schema.getMinorVersion()));
   logAppender.setTenantId(app.getTenantId());
   logAppender.setStatus(status != null ? status : LogAppenderStatusDto.REGISTERED);
+  logAppender.setHeaderStructure(Arrays.asList(LogHeaderStructureDto.values()));
   logAppender.setType(type != null ? type : LogAppenderTypeDto.FILE);
   LogAppenderParametersDto parameters=new LogAppenderParametersDto();
 switch (logAppender.getType()) {
 case FILE:
-    parameters.setParameters(new FileAppenderParametersDto("testPath"));
+    parameters.setParameters(new FileAppenderParametersDto("testPath","testUsername","testSshKey"));
   break;
 case FLUME:
 FlumeAppenderParametersDto flumeProp=new FlumeAppenderParametersDto();

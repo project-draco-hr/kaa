@@ -4,6 +4,12 @@
     if (isEmpty(applicationEventFamilyMap.getId())) {
       String username=this.getCurrentUser().getUsername();
       applicationEventFamilyMap.setCreatedUsername(username);
+      checkApplicationId(applicationEventFamilyMap.getApplicationId());
+    }
+ else {
+      ApplicationEventFamilyMapDto storedApplicationEventFamilyMap=toDto(clientProvider.getClient().getApplicationEventFamilyMap(applicationEventFamilyMap.getId()));
+      Utils.checkNotNull(storedApplicationEventFamilyMap);
+      checkApplicationId(storedApplicationEventFamilyMap.getApplicationId());
     }
     return toDto(clientProvider.getClient().editApplicationEventFamilyMap(toDataStruct(applicationEventFamilyMap)));
   }

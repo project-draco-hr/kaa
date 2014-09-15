@@ -1,6 +1,7 @@
 {
   checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
+    checkApplicationId(applicationId);
     return toGenericDtoList(clientProvider.getClient().getEventClassFamiliesByApplicationId(applicationId));
   }
  catch (  Exception e) {

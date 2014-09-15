@@ -1,0 +1,17 @@
+{
+  try {
+    ApplicationDto application=applicationService.findAppById(applicationId);
+    if (application == null) {
+      throw new TException("Application not found!");
+    }
+    LogSchemaDto logSchema=logSchemaService.findLogSchemaByAppIdAndVersion(applicationId,logSchemaVersion);
+    if (logSchema == null) {
+      throw new TException("Log schema not found!");
+    }
+    return RecordLibraryGenerator.generateRecordLibrary(logSchemaVersion,logSchema.getSchema());
+  }
+ catch (  Exception e) {
+    LOG.error("Unable to generate Record Structure Library",e);
+    throw new TException(e);
+  }
+}
