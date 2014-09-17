@@ -3,5 +3,8 @@
   ZkHttpComunicationParameters CommunicationParameters=new ZkHttpComunicationParameters(new IpComunicationParameters(host,port));
   ZkHttpStatistics ChannelStatistics=new ZkHttpStatistics(new BaseStatistics(Integer.valueOf(0),Integer.valueOf(0),Integer.valueOf(0),Long.valueOf(0)));
   chList.add(new BootstrapSupportedChannel(new ZkSupportedChannel(ZkChannelType.HTTP,true,CommunicationParameters,ChannelStatistics)));
+  ZkKaaTcpComunicationParameters kaaCommunicationParameters=new ZkKaaTcpComunicationParameters(new IpComunicationParameters(host,port + 1));
+  ZkKaaTcpStatistics kaaChannelStatistics=new ZkKaaTcpStatistics(new BaseStatistics(Integer.valueOf(0),Integer.valueOf(0),Integer.valueOf(0),Long.valueOf(0)));
+  chList.add(new BootstrapSupportedChannel(new ZkSupportedChannel(ZkChannelType.KAATCP,true,kaaCommunicationParameters,kaaChannelStatistics)));
   return new BootstrapNodeInfo(bsConnectionInfo,chList);
 }

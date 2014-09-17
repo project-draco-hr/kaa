@@ -1,0 +1,39 @@
+{
+  KaaTcpCommand command=new KaaTcpCommand(opListMock);
+  assertNotNull(command);
+  BootstrapResolve request=new BootstrapResolve("11111");
+  request.setMessageId(111);
+  command.setRequest(request);
+  assertNotNull(command.getRequest());
+  try {
+    command.call();
+    assertNotNull(command.getResponse());
+    if (command.getResponse().getMessageType() == MessageType.DISCONNECT) {
+      fail("Incorect response message type");
+    }
+    BootstrapResponse response=(BootstrapResponse)command.getResponse();
+    assertEquals(111,response.getMessageId());
+    assertNotNull(response.getOperationsServers());
+    assertEquals(1,response.getOperationsServers().size());
+    assertNotNull(response.getOperationsServers().get("Name1"));
+    assertEquals(10,response.getOperationsServers().get("Name1").priority);
+    assertArrayEquals(key,response.getOperationsServers().get("Name1").publicKey);
+    assertEquals(PublicKeyType.RSA_PKSC8,response.getOperationsServers().get("Name1").publicKeyType);
+    for (    SupportedChannelRecord record : response.getOperationsServers().get("Name1").supportedChannelsList) {
+      if (record.supportedChannelType == SupportedChannelType.HTTP || record.supportedChannelType == SupportedChannelType.HTTPLP || record.supportedChannelType == SupportedChannelType.KAATCP) {
+        assertEquals(hostName,record.hostName);
+        assertEquals(port,record.port);
+      }
+ else       if (record.supportedChannelType == SupportedChannelType.UNUSED) {
+        assertEquals("",record.hostName);
+        assertEquals(0,record.port);
+      }
+ else {
+        fail("unknown channel type");
+      }
+    }
+  }
+ catch (  Exception e) {
+    fail(e.toString());
+  }
+}

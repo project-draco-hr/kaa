@@ -7,6 +7,14 @@
   ZkHttpStatistics httpChannelStatistics=new ZkHttpStatistics(statistics);
   SupportedChannel channelHttp=new SupportedChannel(new ZkSupportedChannel(ZkChannelType.HTTP,true,httpCommunicationParameters,httpChannelStatistics));
   supportedChannels.add(channelHttp);
+  ZkHttpLpComunicationParameters httpLpCommunicationParameters=new ZkHttpLpComunicationParameters(new IpComunicationParameters("localhost",httpPort + 1));
+  ZkHttpLpStatistics httpLpChannelStatistics=new ZkHttpLpStatistics(statistics);
+  SupportedChannel channelHttpLp=new SupportedChannel(new ZkSupportedChannel(ZkChannelType.HTTP_LP,true,httpLpCommunicationParameters,httpLpChannelStatistics));
+  supportedChannels.add(channelHttpLp);
+  ZkKaaTcpComunicationParameters kaaCommunicationParameters=new ZkKaaTcpComunicationParameters(new IpComunicationParameters("localhost",httpPort + 2));
+  ZkKaaTcpStatistics kaaChannelStatistics=new ZkKaaTcpStatistics(statistics);
+  SupportedChannel channelKaa=new SupportedChannel(new ZkSupportedChannel(ZkChannelType.KAATCP,true,kaaCommunicationParameters,kaaChannelStatistics));
+  supportedChannels.add(channelKaa);
   nodeInfo.setSupportedChannelsArray(supportedChannels);
   nodeInfo.setConnectionInfo(new ConnectionInfo(thriftHost,thriftPort,publicKey));
   return nodeInfo;

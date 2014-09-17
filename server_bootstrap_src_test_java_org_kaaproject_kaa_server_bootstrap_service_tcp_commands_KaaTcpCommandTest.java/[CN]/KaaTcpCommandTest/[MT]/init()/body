@@ -1,0 +1,19 @@
+{
+  opListMock=mock(OperationsServerListService.class);
+  OperationsServerList osl=new OperationsServerList();
+  List<OperationsServer> value=new ArrayList<>();
+  List<SupportedChannel> supportedChannelsArray=new ArrayList<>();
+  KaaTCPComunicationParameters kaaTCPComunicationParameters=new KaaTCPComunicationParameters(hostName,port);
+  SupportedChannel supChannel=new SupportedChannel(ChannelType.KAATCP,kaaTCPComunicationParameters);
+  supportedChannelsArray.add(supChannel);
+  HTTPLPComunicationParameters httpLPComunicationParameters=new HTTPLPComunicationParameters(hostName,port);
+  SupportedChannel supChannel1=new SupportedChannel(ChannelType.HTTP_LP,httpLPComunicationParameters);
+  supportedChannelsArray.add(supChannel1);
+  HTTPLPComunicationParameters unusedLPComunicationParameters=new HTTPLPComunicationParameters(hostName,port);
+  SupportedChannel supChannel2=new SupportedChannel(ChannelType.BOOTSTRAP,unusedLPComunicationParameters);
+  supportedChannelsArray.add(supChannel2);
+  OperationsServer opServer=new OperationsServer("Name1",10,ByteBuffer.wrap(key),supportedChannelsArray);
+  value.add(opServer);
+  osl.setOperationsServerArray(value);
+  when(opListMock.getOpsServerList()).thenReturn(osl);
+}

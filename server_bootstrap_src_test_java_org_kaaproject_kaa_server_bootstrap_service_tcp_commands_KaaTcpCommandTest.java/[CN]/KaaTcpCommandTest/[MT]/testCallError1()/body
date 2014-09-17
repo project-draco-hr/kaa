@@ -1,0 +1,18 @@
+{
+  KaaTcpCommand command=new KaaTcpCommand(opListMock);
+  assertNotNull(command);
+  try {
+    command.call();
+    assertNotNull(command.getResponse());
+    if (command.getResponse().getMessageType() != MessageType.DISCONNECT) {
+      fail("Incorect response message type");
+    }
+    Disconnect disconnect=(Disconnect)command.getResponse();
+    if (disconnect.getReason() != DisconnectReason.BAD_REQUEST) {
+      fail("Bad Disconnect reason");
+    }
+  }
+ catch (  Exception e) {
+    fail(e.toString());
+  }
+}
