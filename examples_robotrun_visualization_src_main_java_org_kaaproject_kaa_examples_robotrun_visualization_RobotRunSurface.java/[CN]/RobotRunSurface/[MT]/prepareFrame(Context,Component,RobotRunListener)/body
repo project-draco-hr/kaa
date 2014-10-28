@@ -1,0 +1,14 @@
+{
+  JFrame frame=new JFrame();
+  frame.setLayout(new BorderLayout());
+  context.registerRobotRunListener(listener);
+  WindowAdapter adapter=new WindowAdapter(){
+    public void windowClosing(    WindowEvent e){
+      context.unregisterRobotRunListener(listener);
+    }
+  }
+;
+  frame.addWindowListener(adapter);
+  frame.add(comp,BorderLayout.CENTER);
+  return frame;
+}

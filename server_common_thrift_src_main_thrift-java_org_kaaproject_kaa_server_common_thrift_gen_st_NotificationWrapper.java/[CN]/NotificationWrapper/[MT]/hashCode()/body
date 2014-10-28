@@ -1,0 +1,13 @@
+{
+  HashCodeBuilder builder=new HashCodeBuilder();
+  boolean present_receivedTime=true;
+  builder.append(present_receivedTime);
+  if (present_receivedTime)   builder.append(receivedTime);
+  boolean present_body=true && (isSetBody());
+  builder.append(present_body);
+  if (present_body)   builder.append(body);
+  boolean present_topicId=true && (isSetTopicId());
+  builder.append(present_topicId);
+  if (present_topicId)   builder.append(topicId);
+  return builder.toHashCode();
+}

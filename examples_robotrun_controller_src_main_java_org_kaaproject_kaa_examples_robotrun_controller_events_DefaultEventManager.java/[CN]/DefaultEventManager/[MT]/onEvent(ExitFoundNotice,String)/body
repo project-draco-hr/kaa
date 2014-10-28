@@ -1,0 +1,19 @@
+{
+  if (checkEventAllowed(paramExitFoundNotice,sourceEndpointKey)) {
+    LOG.info("Exit found  by [{}]",sourceEndpointKey);
+    boolean reportExitFoundCompleted=!robotPositions.isEmpty();
+    robotPositions.remove(sourceEndpointKey);
+    reportExitFoundCompleted&=robotPositions.isEmpty();
+    LOG.debug("Removed robot due to ExitFoundNotice, robot count [{}].",getRobotCount());
+    Cell cell=locationToCell(paramExitFoundNotice.getExitLocation());
+    for (    EventListener listener : listeners) {
+      listener.onExitFound(cell);
+    }
+    if (reportExitFoundCompleted) {
+      LOG.debug("All robots escaped!");
+      for (      EventListener listener : listeners) {
+        listener.onExitFoundCompeted();
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  if (location != null) {
+    return dataProvider.getLabyrinth().getCell(location.getX(),location.getY());
+  }
+ else {
+    throw new RuntimeException("Location can't be null.");
+  }
+}

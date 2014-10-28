@@ -15,7 +15,7 @@
   targetResponse.setStatus(SyncResponseResultType.SUCCESS);
   SyncResponseHolder targetResponseHolder=new SyncResponseHolder(targetResponse);
   targetResponseHolder.setEndpointProfile(targetProfileMock);
-  when(operationsService.sync(targetRequest)).thenReturn(targetResponseHolder);
+  when(operationsService.sync(targetRequest,null)).thenReturn(targetResponseHolder);
   when(targetProfileMock.getEndpointUserId()).thenReturn(USER_ID);
   when(targetProfileMock.getEndpointKeyHash()).thenReturn(targetPublicKeyHash.array());
   when(targetProfileMock.getEcfVersionStates()).thenReturn(Arrays.asList(ecfVdto));
@@ -28,7 +28,7 @@
   MessageEncoderDecoder targetCrypt=new MessageEncoderDecoder(targetPair.getPrivate(),targetPair.getPublic(),serverPair.getPublic());
   SessionInitRequest targetMessage=toSignedRequest(UUID.randomUUID(),ChannelType.HTTP_LP,channelContextMock,targetRequest,responseBuilder,errorBuilder,targetCrypt);
   akkaService.process(targetMessage);
-  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeastOnce()).sync(targetRequest);
+  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeastOnce()).sync(targetRequest,null);
   Event event=new Event(0,FQN1,ByteBuffer.wrap(new byte[0]),null,null);
   EndpointEvent endpointEvent=new EndpointEvent(EndpointObjectHash.fromBytes(clientPublicKeyHash.array()),event,UUID.randomUUID(),System.currentTimeMillis(),ECF1_VERSION);
   RemoteEndpointEvent remoteEvent=new RemoteEndpointEvent(TENANT_ID,USER_ID,endpointEvent,new RouteTableAddress(EndpointObjectHash.fromBytes(targetPublicKeyHash.array()),APP_TOKEN,"SERVER1"));

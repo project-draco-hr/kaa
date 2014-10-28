@@ -16,7 +16,7 @@
   targetResponse.setStatus(SyncResponseResultType.SUCCESS);
   SyncResponseHolder targetResponseHolder=new SyncResponseHolder(targetResponse);
   targetResponseHolder.setEndpointProfile(targetProfileMock);
-  when(operationsService.sync(targetRequest)).thenReturn(targetResponseHolder);
+  when(operationsService.sync(targetRequest,null)).thenReturn(targetResponseHolder);
   when(targetProfileMock.getEndpointUserId()).thenReturn(USER_ID);
   when(targetProfileMock.getEndpointKeyHash()).thenReturn(targetPublicKeyHash.array());
   when(targetProfileMock.getEcfVersionStates()).thenReturn(Arrays.asList(ecfVdto));
@@ -28,7 +28,7 @@
   ErrorBuilder errorBuilder=Mockito.mock(ErrorBuilder.class);
   SessionInitRequest message=toSignedRequest(UUID.randomUUID(),ChannelType.HTTP_LP,channelContextMock,targetRequest,responseBuilder,errorBuilder,targetCrypt);
   akkaService.process(message);
-  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeastOnce()).sync(targetRequest);
+  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeastOnce()).sync(targetRequest,null);
   Mockito.verify(eventService,Mockito.timeout(TIMEOUT).atLeastOnce()).sendUserRouteInfo(new UserRouteInfo(TENANT_ID,USER_ID));
   UserRouteInfo userRouteInfo=new UserRouteInfo(TENANT_ID,USER_ID,SERVER2,RouteOperation.ADD);
   akkaService.getListener().onUserRouteInfo(userRouteInfo);
@@ -51,7 +51,7 @@
   targetResponseHolder=new SyncResponseHolder(targetResponse);
   targetResponseHolder.setEndpointProfile(targetProfileMock);
   when(targetProfileMock.getEndpointUserId()).thenReturn(USER_ID + "2");
-  when(operationsService.sync(targetRequest)).thenReturn(targetResponseHolder);
+  when(operationsService.sync(targetRequest,targetProfileMock)).thenReturn(targetResponseHolder);
   SessionInitRequest targetMessage=toSignedRequest(UUID.randomUUID(),ChannelType.HTTP_LP,channelContextMock,targetRequest,responseBuilder,errorBuilder,targetCrypt);
   akkaService.process(targetMessage);
   Mockito.verify(eventService,Mockito.timeout(TIMEOUT).atLeastOnce()).sendUserRouteInfo(new UserRouteInfo(TENANT_ID,USER_ID + "2"));

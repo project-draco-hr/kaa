@@ -1,0 +1,15 @@
+{
+  Log.i(TAG,"BluetoothAdapter ServerSocket shutdown() ....");
+  super.shutdown();
+  try {
+    if (mmServerSocket != null) {
+      mmServerSocket.close();
+    }
+  }
+ catch (  IOException e) {
+    Log.e(TAG,"BT: error shutdown()",e);
+  }
+ finally {
+    mmServerSocket=null;
+  }
+}

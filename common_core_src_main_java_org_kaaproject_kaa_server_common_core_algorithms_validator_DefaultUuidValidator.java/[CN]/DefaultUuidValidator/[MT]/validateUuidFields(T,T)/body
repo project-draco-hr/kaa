@@ -11,6 +11,6 @@
   if (currentRecord != null) {
     config=converter.endcodeToJson(currentRecord);
   }
-  LOG.info("Generated uuid fields for records {}",currentRecord);
+  LOG.trace("Generated uuid fields for records {}",currentRecord);
   return dataFactory.createData(schema,config);
 }

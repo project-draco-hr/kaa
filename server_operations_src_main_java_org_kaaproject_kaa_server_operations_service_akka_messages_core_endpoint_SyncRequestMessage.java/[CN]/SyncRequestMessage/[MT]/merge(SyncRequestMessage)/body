@@ -1,0 +1,42 @@
+{
+  UUID channelUuid=getChannelUuid();
+  SyncRequest other=syncRequest.getRequest();
+  LOG.trace("[{}] Merging original request {} with new request {}",channelUuid,request,other);
+  request.setRequestId(other.getRequestId());
+  request.getSyncRequestMetaData().setProfileHash(other.getSyncRequestMetaData().getProfileHash());
+  LOG.debug("[{}] Updated request id and profile hash",channelUuid);
+  SyncRequest diff=new SyncRequest();
+  diff.setRequestId(other.getRequestId());
+  diff.setSyncRequestMetaData(other.getSyncRequestMetaData());
+  if (other.getConfigurationSyncRequest() != null) {
+    diff.setConfigurationSyncRequest(diff(request.getConfigurationSyncRequest(),other.getConfigurationSyncRequest()));
+    request.setConfigurationSyncRequest(other.getConfigurationSyncRequest());
+    LOG.debug("[{}] Updated configuration request",channelUuid);
+  }
+  if (other.getNotificationSyncRequest() != null) {
+    diff.setNotificationSyncRequest(diff(request.getNotificationSyncRequest(),other.getNotificationSyncRequest()));
+    request.setNotificationSyncRequest(other.getNotificationSyncRequest());
+    LOG.debug("[{}] Updated notification request",channelUuid);
+  }
+  if (other.getProfileSyncRequest() != null) {
+    diff.setProfileSyncRequest(other.getProfileSyncRequest());
+    request.setProfileSyncRequest(other.getProfileSyncRequest());
+    LOG.debug("[{}] Updated profile request",channelUuid);
+  }
+  if (other.getUserSyncRequest() != null) {
+    diff.setUserSyncRequest(other.getUserSyncRequest());
+    request.setUserSyncRequest(other.getUserSyncRequest());
+    LOG.debug("[{}] Updated user request",channelUuid);
+  }
+  if (other.getEventSyncRequest() != null) {
+    diff.setEventSyncRequest(other.getEventSyncRequest());
+    request.setEventSyncRequest(other.getEventSyncRequest());
+    LOG.debug("[{}] Updated event request",channelUuid);
+  }
+  if (other.getLogSyncRequest() != null) {
+    diff.setLogSyncRequest(other.getLogSyncRequest());
+    request.setLogSyncRequest(other.getLogSyncRequest());
+    LOG.debug("[{}] Updated log request",channelUuid);
+  }
+  return diff;
+}

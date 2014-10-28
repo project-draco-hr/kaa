@@ -1,0 +1,23 @@
+{
+  MoveForward move=new MoveForward(getTimeout(),new OperationCallback(){
+    @Override public void complete(    OperationStatus status){
+      OperationStatus realStatus=status;
+      if (status == OperationStatus.SUCESSFULL) {
+        try {
+          updatePositionForward();
+        }
+ catch (        MovementCollision e) {
+          realStatus=OperationStatus.FAILED;
+          if (errorCallabck != null) {
+            errorCallabck.error(e);
+          }
+        }
+      }
+      if (mForwardCallback != null) {
+        mForwardCallback.complete(realStatus);
+      }
+    }
+  }
+);
+  executor.execute(move);
+}

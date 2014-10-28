@@ -1,0 +1,51 @@
+{
+  if (!exitCell.isExit()) {
+    throw new IllegalArgumentException("Not an exit cell");
+  }
+  return new Cell(){
+    @Override public BorderUpdate setBorder(    Direction side,    BorderType border){
+      return null;
+    }
+    @Override public boolean isExit(){
+      return false;
+    }
+    @Override public boolean isDiscovered(){
+      return true;
+    }
+    @Override public int getY(){
+switch (exitCell.getExitDirection()) {
+case NORTH:
+        return -1;
+case SOUTH:
+      return exitCell.getY() + 1;
+default :
+    return exitCell.getY();
+}
+}
+@Override public int getX(){
+switch (exitCell.getExitDirection()) {
+case WEST:
+  return -1;
+case EAST:
+return exitCell.getX() + 1;
+default :
+return exitCell.getX();
+}
+}
+@Override public BorderType getBorder(Direction side){
+return BorderType.FREE;
+}
+@Override public Direction getExitDirection(){
+return null;
+}
+@Override public String toString(){
+return "ExitCell [ " + getX() + ", "+ getY()+ " ]";
+}
+@Override public boolean isDeadEnd(){
+return false;
+}
+@Override public void markDeadEnd(){
+}
+}
+;
+}

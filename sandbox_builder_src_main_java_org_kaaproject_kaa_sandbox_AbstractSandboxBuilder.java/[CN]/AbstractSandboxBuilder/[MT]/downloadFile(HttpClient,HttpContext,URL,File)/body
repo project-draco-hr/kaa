@@ -1,0 +1,18 @@
+{
+  logger.debug("Download {} to file {}",sourceUrl.toString(),targetFile.getAbsolutePath());
+  HttpEntity entity=null;
+  try {
+    HttpGet httpGet=new HttpGet(sourceUrl.toURI());
+    HttpResponse response=httpClient.execute(httpGet,context);
+    entity=response.getEntity();
+    long length=entity.getContentLength();
+    InputStream in=new BufferedInputStream(entity.getContent());
+    OutputStream out=new BufferedOutputStream(new FileOutputStream(targetFile));
+    copyLarge(in,out,new byte[DEFAULT_BUFFER_SIZE],length);
+    IOUtils.closeQuietly(in);
+    IOUtils.closeQuietly(out);
+  }
+  finally {
+    EntityUtils.consumeQuietly(entity);
+  }
+}

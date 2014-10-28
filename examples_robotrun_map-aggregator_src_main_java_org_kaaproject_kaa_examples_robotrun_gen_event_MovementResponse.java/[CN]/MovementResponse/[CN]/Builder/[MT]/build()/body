@@ -1,0 +1,11 @@
+{
+  try {
+    MovementResponse record=new MovementResponse();
+    record.requestId=fieldSetFlags()[0] ? this.requestId : (java.lang.String)defaultValue(fields()[0]);
+    record.accepted=fieldSetFlags()[1] ? this.accepted : (java.lang.Boolean)defaultValue(fields()[1]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

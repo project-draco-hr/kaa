@@ -3,5 +3,7 @@
 synchronized (eventsGuard) {
     currentEvents.add(new Event(state.getAndIncrementEventSeqNum(),eventFqn,ByteBuffer.wrap(data),null,target));
   }
-  transport.sync();
+  if (!isEngaged) {
+    transport.sync();
+  }
 }

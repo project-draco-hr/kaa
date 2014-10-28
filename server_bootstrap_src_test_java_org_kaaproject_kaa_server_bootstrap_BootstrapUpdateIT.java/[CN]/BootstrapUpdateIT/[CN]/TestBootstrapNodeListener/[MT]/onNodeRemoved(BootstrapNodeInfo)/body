@@ -1,0 +1,7 @@
+{
+  logger.info("Bootstrap node removed " + nodeInfo.getConnectionInfo().getThriftHost());
+synchronized (sync) {
+    nodeInfos.remove(nodeInfo);
+    sync.notify();
+  }
+}

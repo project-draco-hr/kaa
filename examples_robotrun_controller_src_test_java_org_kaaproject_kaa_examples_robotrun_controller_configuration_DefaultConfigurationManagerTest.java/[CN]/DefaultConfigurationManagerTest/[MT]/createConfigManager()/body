@@ -1,0 +1,6 @@
+{
+  AbstractKaaClient client=Mockito.mock(AbstractKaaClient.class);
+  ConfigurationManager configManager=Mockito.mock(ConfigurationManager.class);
+  Mockito.when(client.getConfigurationManager()).thenReturn(configManager);
+  return new DefaultConfigurationManager(client);
+}

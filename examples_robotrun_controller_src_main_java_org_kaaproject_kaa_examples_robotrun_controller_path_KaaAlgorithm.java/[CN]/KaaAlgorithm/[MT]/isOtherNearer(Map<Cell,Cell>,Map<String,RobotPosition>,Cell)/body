@@ -1,0 +1,11 @@
+{
+  boolean isOtherNearer=false;
+  for (  Map.Entry<String,RobotPosition> cursorEntry : other.entrySet()) {
+    Cell robotPosition=cursorEntry.getValue().getCell();
+    if (robotPosition.equals(target) || (isNeightbors(robotPosition,target) && graph.get(robotPosition) != null)) {
+      isOtherNearer=true;
+      break;
+    }
+  }
+  return isOtherNearer;
+}

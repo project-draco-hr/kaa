@@ -1,0 +1,7 @@
+{
+  LOG.info("onDisconnected, controller.isStarted [{}]",controller.isStarted());
+  this.connected=false;
+  if (controller.isStarted()) {
+    stop();
+  }
+}

@@ -1,6 +1,6 @@
 {
   String fqn=event.getEventClassFQN();
-  LOG.debug("[{}] Processing event {} from {}",userId,fqn,event.getSender());
+  LOG.debug("[{}] Processing event {} from {}",userId,event.getId(),event.getSender());
   Integer version;
   if (event.getVersion() == 0) {
     version=lookupVersion(event,fqn);
@@ -12,7 +12,7 @@
     event.setVersion(version);
     Set<RouteTableKey> recipientKeys=cacheService.getRouteKeys(new EventClassFqnVersion(tenantId,fqn,version));
     if (!recipientKeys.isEmpty()) {
-      LOG.debug("[{}] Put event {} with {} recipient keys to storage",userId,event,recipientKeys.size());
+      LOG.debug("[{}] Put event {} with {} recipient keys to storage",userId,event.getId(),recipientKeys.size());
       eventStorage.put(event,recipientKeys);
       Set<RouteTableAddress> recipients=routeTable.getRoutes(recipientKeys,event.getTarget());
       recipients=filterOutRecipientsByKeyHash(event,recipients);
@@ -25,7 +25,7 @@
       scheduleTimeoutMessage(context,event);
     }
  else {
-      LOG.debug("[{}] event {} is ignored due to it does not have any potential recepients",userId,event);
+      LOG.debug("[{}] event {} is ignored due to it does not have any potential recepients",userId,event.getId());
     }
   }
 }

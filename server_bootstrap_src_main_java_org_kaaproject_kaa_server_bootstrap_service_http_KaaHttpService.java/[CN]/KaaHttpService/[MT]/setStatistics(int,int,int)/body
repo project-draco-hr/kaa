@@ -1,0 +1,21 @@
+{
+  LOG.trace("HTTP Service setStatistics, {},{},{}",averageProcessedRequests,averageOnlineSessions,averageDeltaSync);
+  processedRequestCount=Integer.valueOf(averageProcessedRequests);
+  registeredUsersCount=Integer.valueOf(averageOnlineSessions);
+  deltaCalculationCount=Integer.valueOf(averageDeltaSync);
+  timeStarted=System.currentTimeMillis();
+  if (serverConfig.getBootstrapNode() != null) {
+    try {
+      serverConfig.getBootstrapNode().updateNodeStatsValues(ZkChannelsUtils.getZkChannelTypeFromChanneltype(getChannelType()),averageDeltaSync,averageProcessedRequests,averageOnlineSessions);
+    }
+ catch (    IOException e) {
+      LOG.error("Error update statistics for channel " + getChannelType(),e);
+    }
+catch (    ZkChannelException e) {
+      LOG.error("Error update statistics for channel " + getChannelType(),e);
+    }
+  }
+ else {
+    LOG.error("Error update statistics for channel " + getChannelType() + " BootstrapNode not set.");
+  }
+}

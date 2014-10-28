@@ -1,0 +1,21 @@
+{
+  Labyrinth labyrinth=new BasicLabyrinth(3,6);
+  Cell target, neighbor;
+  target=labyrinth.getCell(1,4);
+  target.setBorder(Direction.WEST,BorderType.SOLID);
+  neighbor=labyrinth.getCell(0,4);
+  Assert.assertEquals(BorderType.SOLID,neighbor.getBorder(Direction.EAST));
+  target.setBorder(Direction.WEST,BorderType.UNKNOWN);
+  target.setBorder(Direction.EAST,BorderType.SOLID);
+  neighbor=labyrinth.getCell(2,4);
+  Assert.assertEquals(BorderType.SOLID,neighbor.getBorder(Direction.WEST));
+  target.setBorder(Direction.EAST,BorderType.UNKNOWN);
+  target.setBorder(Direction.NORTH,BorderType.SOLID);
+  neighbor=labyrinth.getCell(1,3);
+  Assert.assertEquals(BorderType.SOLID,neighbor.getBorder(Direction.SOUTH));
+  target.setBorder(Direction.NORTH,BorderType.UNKNOWN);
+  target.setBorder(Direction.SOUTH,BorderType.SOLID);
+  neighbor=labyrinth.getCell(1,5);
+  Assert.assertEquals(BorderType.SOLID,neighbor.getBorder(Direction.NORTH));
+  target.setBorder(Direction.SOUTH,BorderType.UNKNOWN);
+}

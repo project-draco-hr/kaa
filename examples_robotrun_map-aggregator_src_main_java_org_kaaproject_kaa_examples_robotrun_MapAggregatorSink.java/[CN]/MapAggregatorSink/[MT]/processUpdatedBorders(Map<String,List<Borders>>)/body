@@ -1,0 +1,10 @@
+{
+  LOG.trace("processUpdatedBorders, updatedBordersMap.size={}",updatedBordersMap.size());
+  for (  String appToken : updatedBordersMap.keySet()) {
+    List<Borders> updatedBorders=updatedBordersMap.get(appToken);
+    ConfigurationDto configuration=getLastActiveConfiguration(appToken);
+    GenericRecord labirynth=getLabyrinth(configuration);
+    updateLabyrinth(labirynth,updatedBorders);
+    updateConfiguration(configuration,labirynth);
+  }
+}

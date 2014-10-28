@@ -1,0 +1,37 @@
+{
+  initialX=rnd.nextInt(LABYRINTH_WIDTH - 1) + 1;
+  initialY=rnd.nextInt(LABYRINTH_HEIGHT - 1) + 1;
+  int initialD=rnd.nextInt(4);
+  if (initialD == 0) {
+    setInitialDirection(Direction.NORTH);
+  }
+ else   if (initialD == 1) {
+    setInitialDirection(Direction.SOUTH);
+  }
+ else   if (initialD == 2) {
+    setInitialDirection(Direction.WEST);
+  }
+ else   if (initialD == 3) {
+    setInitialDirection(Direction.EAST);
+  }
+ else {
+    setInitialDirection(Direction.NORTH);
+  }
+  int side=rnd.nextInt(4);
+  if (side == 0) {
+    exitY=0;
+    exitX=rnd.nextInt(LABYRINTH_WIDTH);
+  }
+ else   if (side == 1) {
+    exitY=LABYRINTH_HEIGHT - 1;
+    exitX=rnd.nextInt(LABYRINTH_WIDTH);
+  }
+ else   if (side == 2) {
+    exitX=0;
+    exitY=rnd.nextInt(LABYRINTH_HEIGHT);
+  }
+ else {
+    exitX=LABYRINTH_HEIGHT - 1;
+    exitY=rnd.nextInt(LABYRINTH_HEIGHT);
+  }
+}

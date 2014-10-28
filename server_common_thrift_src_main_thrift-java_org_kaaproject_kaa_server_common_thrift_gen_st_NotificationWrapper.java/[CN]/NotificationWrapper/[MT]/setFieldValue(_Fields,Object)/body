@@ -1,0 +1,28 @@
+{
+switch (field) {
+case RECEIVED_TIME:
+    if (value == null) {
+      unsetReceivedTime();
+    }
+ else {
+      setReceivedTime((Long)value);
+    }
+  break;
+case BODY:
+if (value == null) {
+  unsetBody();
+}
+ else {
+  setBody((String)value);
+}
+break;
+case TOPIC_ID:
+if (value == null) {
+unsetTopicId();
+}
+ else {
+setTopicId((String)value);
+}
+break;
+}
+}

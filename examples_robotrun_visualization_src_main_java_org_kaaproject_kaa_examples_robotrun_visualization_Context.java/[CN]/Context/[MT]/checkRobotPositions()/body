@@ -1,0 +1,15 @@
+{
+  Map<Cell,String> cells=new HashMap<>();
+  for (  String key : robotPositions.keySet()) {
+    RobotPosition position=robotPositions.get(key);
+    if (cells.containsKey(position.getCell())) {
+      String previousKey=cells.get(position.getCell());
+      RobotPosition previousPosition=robotPositions.get(previousKey);
+      LOG.error("Robot collision detected at position: {}, between enpoints: [{}, {}], names [{}, {}]",position.getCell(),key,previousKey,position.getName(),previousPosition.getName());
+      showErrorDialog("Robot collision detected at position: " + position,true);
+    }
+ else {
+      cells.put(position.getCell(),key);
+    }
+  }
+}

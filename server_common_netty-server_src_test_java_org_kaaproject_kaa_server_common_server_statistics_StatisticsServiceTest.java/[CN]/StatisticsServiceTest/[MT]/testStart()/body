@@ -1,0 +1,15 @@
+{
+  try {
+    Thread.sleep(5000);
+  }
+ catch (  InterruptedException e) {
+    fail(e.toString());
+  }
+  for (  StatisticsServiceContainer serviceContainer : statServices.values()) {
+    assertNotNull(serviceContainer.service);
+    assertTrue(serviceContainer.service.isAlive());
+    if (serviceContainer.updater.updateCount <= 0) {
+      fail("Updater not work for service " + serviceContainer.type.toString());
+    }
+  }
+}

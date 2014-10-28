@@ -1,36 +1,28 @@
 {
   try {
-    lastActivityTime=System.currentTimeMillis();
-    long start=lastActivityTime;
+    long start=lastActivityTime=System.currentTimeMillis();
     ChannelMetaData channel=initChannel(context,requestMessage);
-    SyncRequest request=channel.getRequest().getRequest();
+    SyncRequest request;
+    if (channel.getType().isAsync()) {
+      if (channel.isFirstRequest()) {
+        request=channel.getRequestMessage().getRequest();
+      }
+ else {
+        LOG.debug("[{}][{}] Updating request for async channel {}",endpointKey,actorKey,channel);
+        request=channel.mergeRequest(requestMessage);
+        LOG.trace("[{}][{}] Updated request for async channel {} : {}",endpointKey,actorKey,channel,request);
+      }
+    }
+ else {
+      request=channel.getRequestMessage().getRequest();
+    }
     ChannelType channelType=channel.getType();
-    LOG.debug("[{}][{}] Processing sync request {} from channel [{}]",endpointKey,actorKey,request,requestMessage.getChannelUuid());
-    SyncResponseHolder responseHolder=operationsService.sync(request);
-    EndpointProfileDto endpointProfile=responseHolder.getEndpointProfile();
+    LOG.debug("[{}][{}] Processing sync request {} from {} channel [{}]",endpointKey,actorKey,request,channelType,requestMessage.getChannelUuid());
+    SyncResponseHolder responseHolder=operationsService.sync(request,endpointProfile);
+    endpointProfile=responseHolder.getEndpointProfile();
     if (endpointProfile != null) {
-      LogSyncResponse logUploadResponse=sendLogs(context,endpointProfile,request.getLogSyncRequest());
-      if (logUploadResponse != null) {
-        responseHolder.getResponse().setLogSyncResponse(logUploadResponse);
-      }
-      if (isValidForEvents(endpointProfile)) {
-        if (userId != null && !userId.equals(endpointProfile.getEndpointUserId())) {
-          sendDisconnectFromOldUser(context,endpointProfile);
-          userRegistrationRequestSent=false;
-        }
-        if (!userRegistrationRequestSent) {
-          userId=endpointProfile.getEndpointUserId();
-          sendConnectToNewUser(context,endpointProfile);
-          userRegistrationRequestSent=true;
-        }
- else {
-          LOG.trace("[{}][{}] User registration request is already sent.",endpointKey,actorKey);
-        }
-        sendEventsIfPresent(context,request.getEventSyncRequest());
-      }
- else {
-        LOG.debug("[{}][{}] Endpoint profile is not valid for send/receive events. Either no assigned user or no event families in sdk",endpointKey,actorKey);
-      }
+      processLogUpload(context,request,responseHolder);
+      processEvents(context,request);
       processUserAttachDetachResults(context,request,responseHolder);
     }
  else {
@@ -40,14 +32,14 @@
     LOG.debug("[{}][{}] SyncResponseHolder {}",endpointKey,actorKey,responseHolder);
     if (channelType.isAsync()) {
       LOG.debug("[{}][{}] Adding async request from channel [{}] to map ",endpointKey,actorKey,requestMessage.getChannelUuid());
-      channel.updateReqResp(responseHolder);
+      channel.update(responseHolder);
       subscribeToTopics(context,responseHolder);
       sendReply(context,requestMessage,responseHolder.getResponse());
     }
  else {
       if (channelType.isLongPoll() && !responseHolder.requireImmediateReply()) {
         LOG.debug("[{}][{}] Adding long poll request from channel [{}] to map ",endpointKey,actorKey,requestMessage.getChannelUuid());
-        channel.updateReqResp(responseHolder);
+        channel.update(responseHolder);
         subscribeToTopics(context,responseHolder);
         scheduleTimeoutMessage(context,requestMessage.getChannelUuid(),getDelay(requestMessage,start));
       }

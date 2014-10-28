@@ -1,0 +1,13 @@
+{
+  if (oldRequest == null) {
+    return newRequest;
+  }
+ else {
+    if (oldRequest.getAppStateSeqNumber() != newRequest.getAppStateSeqNumber() || Arrays.equals(oldRequest.getConfigurationHash().array(),newRequest.getConfigurationHash().array())) {
+      return newRequest;
+    }
+ else {
+      return null;
+    }
+  }
+}

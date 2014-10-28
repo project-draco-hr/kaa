@@ -1,0 +1,8 @@
+{
+  boolean result=false;
+synchronized (listeners) {
+    result=listeners.add(listener);
+  }
+  LOG.info("{} labyrinth update listener {}",(result ? "Added" : "Failed to add"),listener);
+  return result;
+}

@@ -1,0 +1,11 @@
+{
+  if (stopped)   return;
+  if (runawayPath != null && !runawayPath.isEmpty()) {
+    Cell target=runawayPath.get(0);
+    LOG.info("Going to request move to [{}]",target);
+    eventManager.requestMove(target,eventListener);
+  }
+ else {
+    doExit();
+  }
+}

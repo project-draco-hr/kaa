@@ -1,5 +1,5 @@
 {
-  LOG.debug("Received: {}",message);
+  LOG.debug("Received: {}",message.getClass().getName());
   if (message instanceof SessionInitRequest) {
     RedirectionRule redirection=checkRedirection(redirectionRules,random.nextDouble());
     if (redirection == null) {

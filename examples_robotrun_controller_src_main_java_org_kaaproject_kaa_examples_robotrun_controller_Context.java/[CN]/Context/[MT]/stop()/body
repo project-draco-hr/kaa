@@ -1,0 +1,10 @@
+{
+  LOG.info("Stopping context...");
+  if (state != null) {
+    state.stop();
+    state=null;
+  }
+  if (robotManager != null) {
+    robotManager.stop();
+  }
+}

@@ -1,0 +1,10 @@
+{
+  LOG.info("BT notify: Connected");
+synchronized (btSync) {
+    BtConnected=true;
+    btSync.notify();
+    if (stateCallback != null) {
+      stateCallback.onConnected(deviceName);
+    }
+  }
+}

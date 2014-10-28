@@ -1,0 +1,9 @@
+{
+  DefaultConfigurationManager manager=createConfigManager();
+  manager.onConfigurationUpdated(createSampleLabyrinthConfig());
+  Labyrinth labyrinth=manager.getLabyrinth();
+  assertNotNull(labyrinth);
+  assertFalse(labyrinth.isEmpty());
+  assertEquals(2,labyrinth.getWidth());
+  assertEquals(2,labyrinth.getHeight());
+}

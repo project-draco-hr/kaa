@@ -1,0 +1,7 @@
+{
+  super(other);
+  if (isValidValue(fields()[0],other.entityInfo)) {
+    this.entityInfo=data().deepCopy(fields()[0].schema(),other.entityInfo);
+    fieldSetFlags()[0]=true;
+  }
+}

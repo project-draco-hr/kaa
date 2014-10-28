@@ -1,0 +1,13 @@
+{
+  logger.debug("Starting download [{}] ...",url);
+  HttpGet httpGet=new HttpGet(URI.create(url));
+  HttpResponse response=httpClient.execute(httpGet,context);
+  HttpEntity entity=response.getEntity();
+  InputStream in=entity.getContent();
+  ByteArrayOutputStream out=new ByteArrayOutputStream();
+  IOUtils.copy(in,out);
+  IOUtils.closeQuietly(in);
+  IOUtils.closeQuietly(out);
+  String checkSum=new String(out.toByteArray(),StandardCharsets.UTF_8);
+  return checkSum != null ? checkSum.trim() : "";
+}

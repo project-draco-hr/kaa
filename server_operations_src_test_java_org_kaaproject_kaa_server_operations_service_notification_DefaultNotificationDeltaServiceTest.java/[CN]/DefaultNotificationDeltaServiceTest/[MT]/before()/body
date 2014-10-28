@@ -3,6 +3,8 @@
   notificationService=mock(NotificationService.class);
   topicService=mock(TopicService.class);
   endpointService=mock(EndpointService.class);
+  cacheService=mock(CacheService.class);
+  ReflectionTestUtils.setField(notificationDeltaService,"cacheService",cacheService);
   ReflectionTestUtils.setField(notificationDeltaService,"notificationService",notificationService);
   ReflectionTestUtils.setField(notificationDeltaService,"topicService",topicService);
   ReflectionTestUtils.setField(notificationDeltaService,"endpointService",endpointService);

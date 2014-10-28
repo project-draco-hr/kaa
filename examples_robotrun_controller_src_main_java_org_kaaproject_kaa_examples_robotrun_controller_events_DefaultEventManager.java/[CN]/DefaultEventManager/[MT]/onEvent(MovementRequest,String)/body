@@ -1,0 +1,57 @@
+{
+  if (checkEventAllowed(paramMovementRequest,sourceEndpointKey)) {
+    LOG.info("Got movement request from [{}]. Current cell {}, Target cell {}, target allowed {}",sourceEndpointKey,dataProvider.getCurrentCell(),targetCell,targetCellApproved);
+    if (entityType == EntityType.ROBOT) {
+      final MovementResponse response=new MovementResponse(paramMovementRequest.getRequestId(),true);
+      Cell requestCell=locationToCell(paramMovementRequest.getTargetLocation());
+      Cell current=dataProvider.getCurrentCell();
+      if (current != null && current.equals(requestCell)) {
+        LOG.info("Can't allow move to my current position for request [{}].",paramMovementRequest.getRequestId());
+        response.setAccepted(false);
+      }
+ else {
+        if (targetCell != null && targetCell.equals(requestCell)) {
+          if (targetCellApproved) {
+            LOG.info("Can't allow move to my target position for request [{}] due to approval.",paramMovementRequest.getRequestId());
+            response.setAccepted(false);
+          }
+ else {
+            analyzePriority(paramMovementRequest,sourceEndpointKey,response,"target");
+          }
+        }
+      }
+      if (response.getAccepted() && !requestCell.isDiscovered()) {
+        if (Context.isNeighbors(current,requestCell)) {
+          LOG.info("Current and request cells are neighbors");
+          Direction borderDirection=Context.getDirection(current,requestCell);
+          if (current.getBorder(borderDirection) == BorderType.UNKNOWN) {
+            LOG.info("Can't allow to move to my undiscovered cell neighbor");
+            response.setAccepted(false);
+          }
+ else {
+            LOG.info("Conflict border is already discovered!");
+          }
+        }
+ else         if (targetCell != null && Context.isNeighbors(targetCell,requestCell)) {
+          LOG.info("Target and request cells are neighbors");
+          Direction borderDirection=Context.getDirection(targetCell,requestCell);
+          if (targetCell.getBorder(borderDirection) == BorderType.UNKNOWN) {
+            analyzePriority(paramMovementRequest,sourceEndpointKey,response,"target neighbor");
+          }
+ else {
+            LOG.info("Conflict border is already discovered!");
+          }
+        }
+      }
+      if (response.getAccepted()) {
+        LOG.info("Allowed to move to [{}] for request [{}].",requestCell,paramMovementRequest.getRequestId());
+      }
+      eventExecutor.submit(new Runnable(){
+        @Override public void run(){
+          family.sendEvent(response,sourceEndpointKey);
+        }
+      }
+);
+    }
+  }
+}

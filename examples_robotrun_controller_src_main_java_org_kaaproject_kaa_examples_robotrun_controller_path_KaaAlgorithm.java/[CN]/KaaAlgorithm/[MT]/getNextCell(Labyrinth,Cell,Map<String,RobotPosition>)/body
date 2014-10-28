@@ -1,0 +1,60 @@
+{
+  LOG.trace("Calculating next cell for current cell {}",current);
+  if (steps.size() == 0 || !steps.getLast().equals(current)) {
+    CellMetaData md=cellData.get(current);
+    if (md == null) {
+      md=new CellMetaData();
+      cellData.put(current,md);
+    }
+    md.visitCount++;
+    LOG.trace("Adding current cell to steps queue");
+    steps.addLast(current);
+  }
+  Cell result=null;
+  List<Cell> neighbors=getNeighbors(labyrinth,current);
+  LOG.info("Current cell has {} neighbors",neighbors.size());
+  List<Cell> options=filterDeadEnds(getAllButPrevious(current,neighbors));
+  LOG.info("Neighbors has {} options",options.size());
+  boolean deadend=isDeadEnd(labyrinth,current,options);
+  if (deadend) {
+    LOG.info("Deadend found!");
+    current.markDeadEnd();
+    steps.removeLast();
+    if (steps.size() > 0 && isValid(steps.getLast(),robotPositions)) {
+      result=steps.getLast();
+    }
+ else     if (filterDeadEnds(neighbors).size() == 1) {
+      result=filterDeadEnds(neighbors).get(0);
+    }
+ else {
+      LOG.info("Surrounded by deadends. Going to start wave algorithm!");
+      result=getNextCellByWaveAlgorithm(labyrinth,current,robotPositions);
+    }
+  }
+ else {
+    for (    Cell option : options) {
+      LOG.info("Analyzing option {} ",option);
+      boolean isVisited=isVisited(option);
+      boolean isConflict=isConflict(option,robotPositions);
+      LOG.info("Option is visited by us or other robots = {} is in conflict with other robots = {}",isVisited,isConflict);
+      if (!isVisited && !isConflict) {
+        result=option;
+        break;
+      }
+    }
+    if (result == null) {
+      LOG.info("Can't find suitable option. Going to start wave algorithm!");
+      result=getNextCellByWaveAlgorithm(labyrinth,current,robotPositions);
+    }
+  }
+  if (filterDeadEnds(neighbors).size() == 1) {
+    LOG.info("Neighbors has only one not dead end. This is a dead end!");
+    current.markDeadEnd();
+  }
+  if (result == null) {
+    LOG.trace("Can't find any option!");
+    result=current;
+  }
+  LOG.info("Next cell will be {}",result);
+  return result;
+}

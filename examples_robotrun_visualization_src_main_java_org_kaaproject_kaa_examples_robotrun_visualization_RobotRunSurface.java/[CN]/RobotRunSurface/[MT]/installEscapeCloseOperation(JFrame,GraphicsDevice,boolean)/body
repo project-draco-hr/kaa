@@ -1,0 +1,15 @@
+{
+  Action dispatchClosing=new AbstractAction(){
+    private static final long serialVersionUID=1L;
+    public void actionPerformed(    ActionEvent event){
+      if (device != null && isFullscreen) {
+        device.setFullScreenWindow(null);
+      }
+      frame.dispatchEvent(new WindowEvent(frame,WindowEvent.WINDOW_CLOSING));
+    }
+  }
+;
+  JRootPane root=frame.getRootPane();
+  root.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(escapeStroke,dispatchWindowClosingActionMapKey);
+  root.getActionMap().put(dispatchWindowClosingActionMapKey,dispatchClosing);
+}

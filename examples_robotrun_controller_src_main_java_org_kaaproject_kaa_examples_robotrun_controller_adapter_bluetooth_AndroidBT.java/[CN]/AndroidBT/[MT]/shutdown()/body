@@ -1,0 +1,13 @@
+{
+  Log.i(TAG,"BluetoothAdapter shutdown() ....");
+  closeBTConnection();
+  if (!executor.isShutdown()) {
+    executor.shutdown();
+    try {
+      executor.awaitTermination(1,TimeUnit.MINUTES);
+    }
+ catch (    InterruptedException e1) {
+      Log.e(TAG,"BT: error shutdown()",e1);
+    }
+  }
+}

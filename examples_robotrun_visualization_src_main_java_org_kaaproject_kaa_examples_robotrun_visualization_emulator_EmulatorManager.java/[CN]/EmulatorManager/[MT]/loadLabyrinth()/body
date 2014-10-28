@@ -1,0 +1,14 @@
+{
+  Labyrinth labyrinth=null;
+  File labyrinthFile=new File(LABYRINTH_FILE);
+  if (labyrinthFile.exists()) {
+    try {
+      FileInputStream fis=new FileInputStream(labyrinthFile);
+      labyrinth=BasicLabyrinth.load(fis);
+    }
+ catch (    Exception e) {
+      LOG.error("Unable to load labyrinth from file [{}]!",labyrinthFile);
+    }
+  }
+  return labyrinth;
+}

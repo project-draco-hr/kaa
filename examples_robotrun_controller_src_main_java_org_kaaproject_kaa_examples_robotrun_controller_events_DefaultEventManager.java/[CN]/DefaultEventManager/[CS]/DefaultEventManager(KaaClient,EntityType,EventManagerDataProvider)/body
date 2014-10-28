@@ -1,0 +1,8 @@
+{
+  LOG.debug("Init default event manager.");
+  this.entityType=entityType;
+  this.client=client;
+  this.dataProvider=dataProvider;
+  this.family=client.getEventFamilyFactory().getRobotRunEventClassFamily();
+  family.addListener(this);
+}

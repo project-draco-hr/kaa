@@ -1,0 +1,18 @@
+{
+  EntityInfo entityInfo=new EntityInfo();
+  entityInfo.setEntityType(entityType);
+  Location location=null;
+  if (entityType == EntityType.ROBOT) {
+    location=cellToLocation(cell);
+    entityInfo.setDeadEnd(cell.isDeadEnd());
+  }
+ else {
+    location=new Location();
+    location.setX(-1);
+    location.setY(-1);
+    entityInfo.setDeadEnd(false);
+  }
+  entityInfo.setLocation(location);
+  entityInfo.setName(dataProvider.getEntityName());
+  return entityInfo;
+}

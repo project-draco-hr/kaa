@@ -1,0 +1,35 @@
+{
+  while (!exitCell.isDiscovered() && !stopped) {
+    try {
+      Thread.sleep(200);
+    }
+ catch (    InterruptedException e) {
+      break;
+    }
+  }
+  LOG.info("Exiting labyrint from cell [{}] isExit = {}",exitCell,exitCell.isExit());
+  Cell outerExitCell=getOuterExitCell(exitCell);
+  robotManager.move(outerExitCell,new RobotMoveListener(){
+    @Override public void onMoveSuccess(){
+      LOG.info("Exited labyrinth!");
+      context.getEventManager().exitFound(context.getCell());
+      Thread stopThread=new Thread(new Runnable(){
+        @Override public void run(){
+          try {
+            Thread.sleep(1500);
+            context.stop();
+          }
+ catch (          InterruptedException e) {
+          }
+        }
+      }
+);
+      stopThread.start();
+    }
+    @Override public void onMoveFailure(){
+      LOG.error("Failed to exit the labyrinth!");
+      tryMove();
+    }
+  }
+);
+}

@@ -1,19 +1,17 @@
 {
-  HttpEntity entity=null;
-  try {
-    HttpClient httpClient=new DefaultHttpClient();
-    HttpContext context=new BasicHttpContext();
-    HttpGet httpGet=new HttpGet(sourceUrl.toURI());
-    HttpResponse response=httpClient.execute(httpGet,context);
-    entity=response.getEntity();
-    long length=entity.getContentLength();
-    InputStream in=new BufferedInputStream(entity.getContent());
-    OutputStream out=new BufferedOutputStream(new FileOutputStream(targetFile));
-    copyLarge(in,out,new byte[DEFAULT_BUFFER_SIZE],length);
-    IOUtils.closeQuietly(in);
-    IOUtils.closeQuietly(out);
+  HttpClient httpClient=new DefaultHttpClient();
+  HttpContext context=new BasicHttpContext();
+  if (targetFile.exists()) {
+    String checksumFileUrl=sourceUrl.toString() + MD5_FILE_EXT;
+    String md5sum=downloadCheckSumFile(httpClient,context,checksumFileUrl);
+    boolean result=compareChecksum(targetFile,md5sum);
+    logger.debug("Compare checksum result is {}",result);
+    if (!result) {
+      targetFile.delete();
+      downloadFile(httpClient,context,sourceUrl,targetFile);
+    }
   }
-  finally {
-    EntityUtils.consumeQuietly(entity);
+ else {
+    downloadFile(httpClient,context,sourceUrl,targetFile);
   }
 }

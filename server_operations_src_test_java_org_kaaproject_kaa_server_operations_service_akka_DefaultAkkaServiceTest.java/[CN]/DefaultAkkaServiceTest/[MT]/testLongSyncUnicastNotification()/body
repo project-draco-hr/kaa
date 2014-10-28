@@ -8,13 +8,13 @@
   request.setSyncRequestMetaData(md);
   NotificationSyncRequest nfRequest=new NotificationSyncRequest();
   request.setNotificationSyncRequest(nfRequest);
-  Mockito.when(operationsService.sync(Mockito.any(SyncRequest.class))).thenReturn(noDeltaResponse);
+  Mockito.when(operationsService.sync(Mockito.any(SyncRequest.class),Mockito.any(EndpointProfileDto.class))).thenReturn(noDeltaResponse);
   ResponseBuilder responseBuilder=Mockito.mock(ResponseBuilder.class);
   ErrorBuilder errorBuilder=Mockito.mock(ErrorBuilder.class);
   SessionInitRequest message=toSignedRequest(UUID.randomUUID(),ChannelType.HTTP_LP,channelContextMock,request,responseBuilder,errorBuilder);
   Assert.assertNotNull(akkaService.getActorSystem());
   akkaService.process(message);
-  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT / 2).atLeastOnce()).sync(request);
+  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT / 2).atLeastOnce()).sync(request,null);
   Mockito.when(operationsService.updateSyncResponse(noDeltaResponse.getResponse(),new ArrayList<NotificationDto>(),UNICAST_NOTIFICATION_ID)).thenReturn(noDeltaResponse.getResponse());
   Mockito.when(applicationService.findAppById(APP_ID)).thenReturn(applicationDto);
   Notification thriftNotification=new Notification();

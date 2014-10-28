@@ -1,0 +1,22 @@
+{
+  if (that == null)   return false;
+  boolean this_present_receivedTime=true;
+  boolean that_present_receivedTime=true;
+  if (this_present_receivedTime || that_present_receivedTime) {
+    if (!(this_present_receivedTime && that_present_receivedTime))     return false;
+    if (this.receivedTime != that.receivedTime)     return false;
+  }
+  boolean this_present_body=true && this.isSetBody();
+  boolean that_present_body=true && that.isSetBody();
+  if (this_present_body || that_present_body) {
+    if (!(this_present_body && that_present_body))     return false;
+    if (!this.body.equals(that.body))     return false;
+  }
+  boolean this_present_topicId=true && this.isSetTopicId();
+  boolean that_present_topicId=true && that.isSetTopicId();
+  if (this_present_topicId || that_present_topicId) {
+    if (!(this_present_topicId && that_present_topicId))     return false;
+    if (!this.topicId.equals(that.topicId))     return false;
+  }
+  return true;
+}

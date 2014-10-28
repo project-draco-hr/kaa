@@ -1,0 +1,10 @@
+{
+  EmulatorSetupDialog dialog=new EmulatorSetupDialog(context,listener);
+  dialog.setModal(true);
+  dialog.setTitle("Setup Robot Run Emulator");
+  Dimension screenSize=Toolkit.getDefaultToolkit().getScreenSize();
+  dialog.setSize(screenSize.width / 3,screenSize.width / 3);
+  dialog.setLocationRelativeTo(parent);
+  dialog.setVisible(true);
+  return dialog;
+}

@@ -1,0 +1,14 @@
+{
+  boolean isEqual=true;
+  logger.trace("start: {},{},{} - current: {},{},{}",start.getDeltaCalculationCount(),start.getProcessedRequestCount(),start.getRegisteredUsersCount(),current.getDeltaCalculationCount(),current.getProcessedRequestCount(),current.getRegisteredUsersCount());
+  if (!start.getDeltaCalculationCount().equals(current.getDeltaCalculationCount())) {
+    isEqual=false;
+  }
+ else   if (!start.getProcessedRequestCount().equals(current.getProcessedRequestCount())) {
+    isEqual=false;
+  }
+ else   if (!start.getRegisteredUsersCount().equals(current.getRegisteredUsersCount())) {
+    isEqual=false;
+  }
+  return isEqual;
+}

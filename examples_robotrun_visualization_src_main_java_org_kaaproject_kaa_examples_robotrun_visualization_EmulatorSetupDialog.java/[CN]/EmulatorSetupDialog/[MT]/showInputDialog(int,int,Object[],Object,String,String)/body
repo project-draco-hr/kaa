@@ -1,0 +1,55 @@
+{
+  final JOptionPane pane=new JOptionPane(message,JOptionPane.PLAIN_MESSAGE,JOptionPane.OK_CANCEL_OPTION,null,null,null);
+  pane.setWantsInput(true);
+  pane.setSelectionValues(possibilities);
+  pane.setInitialSelectionValue(initialValue);
+  final JDialog dialog=new JDialog(this,title,true);
+  Container contentPane=dialog.getContentPane();
+  contentPane.setLayout(new BorderLayout());
+  contentPane.add(pane,BorderLayout.CENTER);
+  dialog.setResizable(false);
+  dialog.pack();
+  dialog.setLocation(x - dialog.getWidth() / 2,y - dialog.getHeight() / 2);
+  final PropertyChangeListener listener=new PropertyChangeListener(){
+    public void propertyChange(    PropertyChangeEvent event){
+      if (dialog.isVisible() && event.getSource() == pane && (event.getPropertyName().equals(JOptionPane.VALUE_PROPERTY)) && event.getNewValue() != null && event.getNewValue() != JOptionPane.UNINITIALIZED_VALUE) {
+        dialog.setVisible(false);
+      }
+    }
+  }
+;
+  WindowAdapter adapter=new WindowAdapter(){
+    private boolean gotFocus=false;
+    public void windowClosing(    WindowEvent we){
+      pane.setValue(null);
+    }
+    public void windowClosed(    WindowEvent e){
+      removePropertyChangeListener(listener);
+      dialog.getContentPane().removeAll();
+    }
+    public void windowGainedFocus(    WindowEvent we){
+      if (!gotFocus) {
+        pane.selectInitialValue();
+        gotFocus=true;
+      }
+    }
+  }
+;
+  dialog.addWindowListener(adapter);
+  dialog.addWindowFocusListener(adapter);
+  dialog.addComponentListener(new ComponentAdapter(){
+    public void componentShown(    ComponentEvent ce){
+      pane.setValue(JOptionPane.UNINITIALIZED_VALUE);
+    }
+  }
+);
+  pane.addPropertyChangeListener(listener);
+  pane.selectInitialValue();
+  dialog.show();
+  dialog.dispose();
+  Object value=pane.getInputValue();
+  if (value == JOptionPane.UNINITIALIZED_VALUE) {
+    value=null;
+  }
+  return value;
+}

@@ -1,0 +1,30 @@
+{
+  final RobotEmulator emu=new RobotEmulator(labyrinth,getInitialPosition(),getInitialDirection(),null);
+  assertNotNull(emu);
+  emu.registerErrorCallback(new ErrorCallback(){
+    @Override public void error(    Exception exception){
+      exception.printStackTrace();
+      fail(exception.toString());
+    }
+  }
+);
+  final Object objSync=new Object();
+  emu.registerPingCallback(new PingCallback(){
+    @Override public void pong(    PongStatus status){
+      if (status == PongStatus.EMPTY) {
+        assertEquals(BorderType.FREE,emu.getCurrentPosition().getBorder(emu.getCurrentDirection()));
+      }
+ else       if (status == PongStatus.WALL) {
+        assertEquals(BorderType.SOLID,emu.getCurrentPosition().getBorder(emu.getCurrentDirection()));
+      }
+ else {
+        fail("Ping test failed");
+      }
+synchronized (objSync) {
+        objSync.notify();
+      }
+    }
+  }
+);
+  emu.ping();
+}

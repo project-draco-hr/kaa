@@ -18,7 +18,7 @@
   sourceResponse.setStatus(SyncResponseResultType.SUCCESS);
   SyncResponseHolder sourceResponseHolder=new SyncResponseHolder(sourceResponse);
   sourceResponseHolder.setEndpointProfile(sourceProfileMock);
-  when(operationsService.sync(sourceRequest)).thenReturn(sourceResponseHolder);
+  when(operationsService.sync(sourceRequest,null)).thenReturn(sourceResponseHolder);
   when(sourceProfileMock.getEndpointUserId()).thenReturn(USER_ID);
   when(sourceProfileMock.getEndpointKeyHash()).thenReturn(clientPublicKeyHash.array());
   when(sourceProfileMock.getEcfVersionStates()).thenReturn(Arrays.asList(ecfVdto));
@@ -31,7 +31,7 @@
   MessageEncoderDecoder sourceCrypt=new MessageEncoderDecoder(clientPair.getPrivate(),clientPair.getPublic(),serverPair.getPublic());
   SessionInitRequest sourceMessage=toSignedRequest(UUID.randomUUID(),ChannelType.HTTP_LP,channelContextMock,sourceRequest,responseBuilder,errorBuilder,sourceCrypt);
   akkaService.process(sourceMessage);
-  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeastOnce()).sync(Mockito.any(SyncRequest.class));
+  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeastOnce()).sync(Mockito.any(SyncRequest.class),Mockito.any(EndpointProfileDto.class));
   UserRouteInfo userRouteInfo=new UserRouteInfo(TENANT_ID,USER_ID,SERVER2,RouteOperation.ADD);
   akkaService.getListener().onUserRouteInfo(userRouteInfo);
   RouteTableAddress remoteAddress=new RouteTableAddress(EndpointObjectHash.fromBytes(targetPublicKeyHash.array()),APP_TOKEN,SERVER2);

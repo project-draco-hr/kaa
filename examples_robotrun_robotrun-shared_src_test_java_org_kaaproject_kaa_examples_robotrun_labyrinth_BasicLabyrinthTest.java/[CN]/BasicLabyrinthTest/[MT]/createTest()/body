@@ -1,0 +1,10 @@
+{
+  Labyrinth labyrinth=new BasicLabyrinth(6,6);
+  for (int i=0; i < labyrinth.getHeight(); i++) {
+    for (int j=0; j < labyrinth.getWidth(); j++) {
+      for (      Direction side : Direction.values()) {
+        Assert.assertEquals(BorderType.UNKNOWN,labyrinth.getCell(j,i).getBorder(side));
+      }
+    }
+  }
+}

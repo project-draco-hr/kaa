@@ -1,0 +1,10 @@
+{
+  generatePosition();
+  if ((initialX >= LABYRINTH_WIDTH) || (initialY >= LABYRINTH_HEIGHT)) {
+    fail("Error generation initial position");
+  }
+  LabyrinthGenerator generator=new BasicLabyrinthGenerator(LABYRINTH_WIDTH,LABYRINTH_HEIGHT);
+  labyrinth=generator.generate(initialX,initialY,exitX,exitY);
+  assertNotNull(labyrinth);
+  initialPosition=labyrinth.getCell(initialX,initialY);
+}

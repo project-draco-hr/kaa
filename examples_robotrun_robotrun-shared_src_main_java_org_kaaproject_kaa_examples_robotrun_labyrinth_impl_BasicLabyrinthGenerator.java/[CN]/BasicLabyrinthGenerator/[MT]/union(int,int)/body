@@ -1,0 +1,15 @@
+{
+  int rootP=find(p);
+  int rootQ=find(q);
+  if (rootP == rootQ) {
+    return;
+  }
+  if (sz[rootP] < sz[rootQ]) {
+    id[rootP]=rootQ;
+    sz[rootQ]+=sz[rootP];
+  }
+ else {
+    id[rootQ]=rootP;
+    sz[rootP]+=sz[rootQ];
+  }
+}

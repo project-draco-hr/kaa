@@ -1,0 +1,16 @@
+{
+  if (getOperationServerConfig().getOperationsNode() != null) {
+    try {
+      getOperationServerConfig().getOperationsNode().updateNodeStatsValues(ZkChannelsUtils.getZkChannelTypeFromChanneltype(conf.getChannelType()),averageDeltaSync,averageProcessedRequests,averageOnlineSessions);
+    }
+ catch (    IOException e) {
+      LOG.error("Error update statistics for channel " + conf.getChannelType(),e);
+    }
+catch (    ZkChannelException e) {
+      LOG.error("Error update statistics for channel " + conf.getChannelType(),e);
+    }
+  }
+ else {
+    LOG.error("Error update statistics for channel " + conf.getChannelType() + " OperationsNode not set.");
+  }
+}

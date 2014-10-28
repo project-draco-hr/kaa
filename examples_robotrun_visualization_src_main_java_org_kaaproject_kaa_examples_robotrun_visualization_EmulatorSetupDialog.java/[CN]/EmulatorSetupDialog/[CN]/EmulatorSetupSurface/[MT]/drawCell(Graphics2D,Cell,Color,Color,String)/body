@@ -1,0 +1,20 @@
+{
+  int x=cell.getX();
+  int y=cell.getY();
+  int startX=offsetX + x * side;
+  int startY=offsetY + y * side;
+  g2d.setColor(cellColor);
+  g2d.fillRect(startX,startY,side,side);
+  g2d.setColor(textColor);
+  g2d.setFont(textFont);
+  FontMetrics fm=g2d.getFontMetrics();
+  int fontSize=textFont.getSize();
+  while (fm.stringWidth(text) + 5 > side) {
+    fontSize--;
+    g2d.setFont(new Font("Dialog",Font.BOLD,fontSize));
+    fm=g2d.getFontMetrics();
+  }
+  int textX=startX + (side - fm.stringWidth(text)) / 2;
+  int textY=startY + side / 2 - (fm.getAscent() + fm.getDescent()) / 2 + fm.getAscent();
+  g2d.drawString(text,textX,textY);
+}

@@ -1,0 +1,19 @@
+{
+  GL2 gl=drawable.getGL().getGL2();
+  glu=new GLU();
+  glut=new GLUT();
+  renderer=new TextRenderer(new Font("SansSerif",Font.BOLD,72));
+  gl.glEnable(GL2.GL_LIGHTING);
+  gl.glEnable(GL2.GL_LIGHT0);
+  gl.glDepthFunc(GL.GL_LESS);
+  gl.glEnable(GL.GL_DEPTH_TEST);
+  gl.glShadeModel(GLLightingFunc.GL_SMOOTH);
+  gl.glEnable(GL2.GL_POLYGON_SMOOTH);
+  gl.glEnable(GL2.GL_LINE_SMOOTH);
+  gl.glHint(GL2.GL_POLYGON_SMOOTH_HINT,GL.GL_NICEST);
+  gl.glHint(GL2.GL_LINE_SMOOTH_HINT,GL.GL_NICEST);
+  gl.glHint(GL2.GL_PERSPECTIVE_CORRECTION_HINT,GL.GL_NICEST);
+  gl.glEnable(GL.GL_BLEND);
+  gl.glBlendFunc(GL.GL_SRC_ALPHA,GL.GL_ONE_MINUS_SRC_ALPHA);
+  gl.glEnable(GLLightingFunc.GL_NORMALIZE);
+}

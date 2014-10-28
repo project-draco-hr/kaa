@@ -1,0 +1,11 @@
+{
+synchronized (emulators) {
+    emulators.remove(id);
+  }
+  if (emulators.isEmpty()) {
+synchronized (shutdownMonitor) {
+      shutdownMonitor.notifyAll();
+    }
+    callback.onEmulatorsStopped();
+  }
+}

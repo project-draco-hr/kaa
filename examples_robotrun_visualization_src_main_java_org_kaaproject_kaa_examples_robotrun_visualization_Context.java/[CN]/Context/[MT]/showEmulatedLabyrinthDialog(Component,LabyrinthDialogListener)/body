@@ -1,0 +1,12 @@
+{
+  Labyrinth labyrinth=EmulatorManager.loadLabyrinth();
+  if (labyrinth != null) {
+    if (emulatorLabyrinthDialog != null && emulatorLabyrinthDialog.isVisible()) {
+      emulatorLabyrinthDialog.setVisible(false);
+    }
+    emulatorLabyrinthDialog=LabyrinthDialog.showLabyrinthDialog(parent,labyrinth,listener);
+  }
+ else {
+    showErrorDialog("There is no generated labyrinth!",false);
+  }
+}

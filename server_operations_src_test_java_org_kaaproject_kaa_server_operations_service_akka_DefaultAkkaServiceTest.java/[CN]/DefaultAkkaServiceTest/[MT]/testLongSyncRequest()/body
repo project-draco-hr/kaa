@@ -7,12 +7,12 @@
   md.setTimeout(1000l);
   request.setSyncRequestMetaData(md);
   Mockito.when(cacheService.getEndpointKey(EndpointObjectHash.fromBytes(clientPublicKeyHash.array()))).thenReturn(clientPair.getPublic());
-  Mockito.when(operationsService.sync(Mockito.any(SyncRequest.class))).thenReturn(noDeltaResponse);
+  Mockito.when(operationsService.sync(Mockito.any(SyncRequest.class),Mockito.any(EndpointProfileDto.class))).thenReturn(noDeltaResponse);
   ResponseBuilder responseBuilder=Mockito.mock(ResponseBuilder.class);
   ErrorBuilder errorBuilder=Mockito.mock(ErrorBuilder.class);
   SessionInitRequest message=toSignedRequest(UUID.randomUUID(),ChannelType.HTTP_LP,channelContextMock,request,responseBuilder,errorBuilder);
   Assert.assertNotNull(akkaService.getActorSystem());
   akkaService.process(message);
-  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeastOnce()).sync(request);
+  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeastOnce()).sync(request,null);
   Mockito.verify(responseBuilder,Mockito.timeout(TIMEOUT).atLeastOnce()).build(Mockito.any(byte[].class),Mockito.any(boolean.class));
 }

@@ -4,21 +4,32 @@
   channels.addAll(channelMap.getByTransportType(TransportType.NOTIFICATION));
   LOG.debug("[{}][{}] Processing thrift norification for {} channels",endpointKey,actorKey,channels.size());
   for (  ChannelMetaData channel : channels) {
-    SyncRequest syncRequest=channel.getRequest().getRequest();
-    SyncResponse syncResponse=channel.getResponse().getResponse();
-    if (syncRequest.getConfigurationSyncRequest() != null) {
-      int oldSeqNumnber=syncRequest.getConfigurationSyncRequest().getAppStateSeqNumber();
-      int newSeqNumnber=syncResponse.getConfigurationSyncResponse().getAppStateSeqNumber();
-      LOG.debug("[{}][{}] Change original configuration request {} appSeqNumber from {} to {}",endpointKey,actorKey,syncRequest,oldSeqNumnber,newSeqNumnber);
-      syncRequest.getConfigurationSyncRequest().setAppStateSeqNumber(newSeqNumnber);
+    SyncRequest originalRequest=channel.getRequestMessage().getRequest();
+    SyncResponse syncResponse=channel.getResponseHolder().getResponse();
+    SyncRequest newRequest=new SyncRequest();
+    newRequest.setRequestId(originalRequest.getRequestId());
+    newRequest.setSyncRequestMetaData(originalRequest.getSyncRequestMetaData());
+    if (originalRequest.getConfigurationSyncRequest() != null) {
+      ConfigurationSyncRequest configurationSyncRequest=originalRequest.getConfigurationSyncRequest();
+      if (syncResponse.getConfigurationSyncResponse() != null) {
+        int newSeqNumber=syncResponse.getConfigurationSyncResponse().getAppStateSeqNumber();
+        LOG.debug("[{}][{}] Change original configuration request {} appSeqNumber from {} to {}",endpointKey,actorKey,originalRequest,configurationSyncRequest.getAppStateSeqNumber(),newSeqNumber);
+        configurationSyncRequest.setAppStateSeqNumber(newSeqNumber);
+      }
+      newRequest.setConfigurationSyncRequest(configurationSyncRequest);
+      originalRequest.setConfigurationSyncRequest(null);
     }
-    if (syncRequest.getNotificationSyncRequest() != null) {
-      int oldSeqNumnber=syncRequest.getNotificationSyncRequest().getAppStateSeqNumber();
-      int newSeqNumnber=syncResponse.getNotificationSyncResponse().getAppStateSeqNumber();
-      LOG.debug("[{}][{}] Change original notification request {} appSeqNumber from {} to {}",endpointKey,actorKey,syncRequest,oldSeqNumnber,newSeqNumnber);
-      syncRequest.getNotificationSyncRequest().setAppStateSeqNumber(newSeqNumnber);
+    if (originalRequest.getNotificationSyncRequest() != null) {
+      NotificationSyncRequest notificationSyncRequest=originalRequest.getNotificationSyncRequest();
+      if (syncResponse.getNotificationSyncResponse() != null) {
+        int newSeqNumber=syncResponse.getNotificationSyncResponse().getAppStateSeqNumber();
+        LOG.debug("[{}][{}] Change original notification request {} appSeqNumber from {} to {}",endpointKey,actorKey,originalRequest,notificationSyncRequest.getAppStateSeqNumber(),newSeqNumber);
+        notificationSyncRequest.setAppStateSeqNumber(newSeqNumber);
+      }
+      newRequest.setNotificationSyncRequest(notificationSyncRequest);
+      originalRequest.setNotificationSyncRequest(null);
     }
-    LOG.debug("[{}][{}] Processing request {}",endpointKey,actorKey,syncRequest);
-    sync(context,channel.getRequest());
+    LOG.debug("[{}][{}] Processing request {}",endpointKey,actorKey,originalRequest);
+    sync(context,new SyncRequestMessage(channel.getRequestMessage().getSession(),newRequest,channel.getRequestMessage().getCommand(),channel.getRequestMessage().getOriginator()));
   }
 }

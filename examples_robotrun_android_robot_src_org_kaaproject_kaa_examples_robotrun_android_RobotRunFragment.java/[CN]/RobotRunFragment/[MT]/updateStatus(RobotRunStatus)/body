@@ -1,0 +1,33 @@
+{
+  getActivity().runOnUiThread(new Runnable(){
+    @Override public void run(){
+      statusView.setBackgroundResource(status.backgroundResId);
+      statusText.setText(getResources().getText(status.textResId));
+      Animation fadeAnimation;
+switch (status) {
+case SETUP:
+        enableInput();
+      connectedToText.setVisibility(View.GONE);
+    statusView.clearAnimation();
+  break;
+case SETTING_UP:
+disableInput();
+fadeAnimation=AnimationUtils.loadAnimation(getActivity(),R.anim.fade_infinite);
+statusView.startAnimation(fadeAnimation);
+break;
+case READY:
+statusView.clearAnimation();
+connectedToText.setVisibility(View.VISIBLE);
+connectedToText.setText(String.format(getResources().getString(R.string.connected_to_message),getResources().getString(robotType.textResId),connectedEntityName));
+break;
+case STARTED:
+fadeAnimation=AnimationUtils.loadAnimation(getActivity(),R.anim.fade_infinite);
+statusView.startAnimation(fadeAnimation);
+break;
+default :
+break;
+}
+}
+}
+);
+}

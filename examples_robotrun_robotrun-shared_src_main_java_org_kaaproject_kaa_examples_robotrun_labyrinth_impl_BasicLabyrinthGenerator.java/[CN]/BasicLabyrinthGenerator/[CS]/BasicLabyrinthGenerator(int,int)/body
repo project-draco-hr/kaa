@@ -1,0 +1,12 @@
+{
+  if (width <= 0 || height <= 0) {
+    throw new IllegalArgumentException();
+  }
+  rowNum=height;
+  columnNum=width;
+  count=rowNum * columnNum;
+  id=new int[count];
+  sz=new int[count];
+  hBdrs=new boolean[columnNum][rowNum + 1];
+  vBdrs=new boolean[columnNum + 1][rowNum];
+}

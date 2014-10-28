@@ -1,0 +1,9 @@
+{
+  AlertDialog dialog=new AlertDialog.Builder(getActivity()).setMessage(message).setTitle("Error").setNeutralButton("Close",new DialogInterface.OnClickListener(){
+    public void onClick(    final DialogInterface dialog,    final int which){
+      dialog.dismiss();
+    }
+  }
+).create();
+  dialog.show();
+}

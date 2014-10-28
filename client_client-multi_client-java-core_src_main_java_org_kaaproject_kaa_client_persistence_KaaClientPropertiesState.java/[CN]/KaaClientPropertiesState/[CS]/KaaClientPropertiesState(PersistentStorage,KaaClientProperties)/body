@@ -2,7 +2,7 @@
   super();
   this.storage=storage;
   stateFileLocation=properties.containsKey(STATE_FILE_LOCATION) ? properties.getProperty(STATE_FILE_LOCATION) : STATE_FILE_DEFAULT;
-  privateKeyFileLocation=properties.containsKey(CLIENT_PRIVATE_KEY_FILE_LOCATION) ? properties.getProperty(CLIENT_PRIVATE_KEY_FILE_LOCATION) : CLIENT_PRIVATE_KEY_DEFAULT;
+  clientPrivateKeyFileLocation=properties.containsKey(CLIENT_PRIVATE_KEY_FILE_LOCATION) ? properties.getProperty(CLIENT_PRIVATE_KEY_FILE_LOCATION) : CLIENT_PRIVATE_KEY_DEFAULT;
   clientPublicKeyFileLocation=properties.containsKey(CLIENT_PUBLIC_KEY_FILE_LOCATION) ? properties.getProperty(CLIENT_PUBLIC_KEY_FILE_LOCATION) : CLIENT_PUBLIC_KEY_DEFAULT;
   state=new KaaClientProperties(properties);
   if (storage.exists(stateFileLocation)) {
@@ -14,7 +14,7 @@
         TopicSubscriptionInfo decodedInfo=null;
         while (true) {
           decodedInfo=avroReader.read(null,decoder);
-          LOG.info("Loaded {}",decodedInfo);
+          LOG.debug("Loaded {}",decodedInfo);
           nfSubscriptions.put(decodedInfo.getTopicInfo().getId(),decodedInfo);
         }
       }

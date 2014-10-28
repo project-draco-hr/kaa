@@ -1,0 +1,14 @@
+{
+  final Meter meter=metrics.meter(MetricRegistry.name(name,names));
+  return new MeterClient(){
+    @Override public void mark(){
+      if (enabled) {
+        meter.mark();
+      }
+ else {
+        LOG.trace(METRICS_COLLECTION_IS_DISABLED);
+      }
+    }
+  }
+;
+}

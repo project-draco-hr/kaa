@@ -1,0 +1,18 @@
+{
+  LOG.trace("Runner run() for {}:{}",sendCommand,waitResponse);
+  OperationStatus status=OperationStatus.FAILED;
+  waitConnected();
+  try {
+    getDriver().sendCommand(sendCommand);
+    status=waitResponse(waitResponse);
+    if (callback != null) {
+      callback.complete(status);
+    }
+  }
+ catch (  Exception e) {
+    LOG.error("Send command() failed",e);
+    if (errorCallback != null) {
+      errorCallback.error(e);
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  try {
+    Borders record=new Borders();
+    record.hBorders=fieldSetFlags()[0] ? this.hBorders : (java.util.List<org.kaaproject.kaa.examples.robotrun.gen.Border>)defaultValue(fields()[0]);
+    record.vBorders=fieldSetFlags()[1] ? this.vBorders : (java.util.List<org.kaaproject.kaa.examples.robotrun.gen.Border>)defaultValue(fields()[1]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

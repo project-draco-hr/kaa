@@ -1,0 +1,12 @@
+{
+synchronized (conflictLock) {
+    if (sourceEndpointKey.hashCode() < client.getEndpointKeyHash().hashCode()) {
+      LOG.info("Can't allow move to my {} position for request [{}] due to priority.",log,paramMovementRequest.getRequestId());
+      response.setAccepted(false);
+    }
+ else {
+      LOG.info("Skiped my move due to request [{}].",paramMovementRequest.getRequestId());
+      moveRequestConflict=true;
+    }
+  }
+}

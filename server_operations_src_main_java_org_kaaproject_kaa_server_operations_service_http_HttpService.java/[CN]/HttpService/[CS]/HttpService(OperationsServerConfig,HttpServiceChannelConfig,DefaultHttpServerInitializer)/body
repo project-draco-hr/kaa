@@ -1,4 +1,6 @@
 {
   super(new NettyHttpServer(conf,initializer),conf,operationServerConfig);
   this.conf=conf;
+  statService=new StatisticsService(conf.getChannelType(),conf,this);
+  conf.setSessionTrack(statService);
 }

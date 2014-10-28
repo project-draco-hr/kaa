@@ -1,0 +1,11 @@
+{
+  if (heuristic != null) {
+    Collections.sort(available,heuristic);
+  }
+  for (  Cell c : available) {
+    if (!visited.contains(c)) {
+      return c;
+    }
+  }
+  return null;
+}

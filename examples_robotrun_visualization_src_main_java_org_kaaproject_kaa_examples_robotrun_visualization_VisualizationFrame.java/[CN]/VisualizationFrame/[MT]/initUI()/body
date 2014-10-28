@@ -1,0 +1,17 @@
+{
+  this.setLayout(new BorderLayout());
+  surface=new RobotRunSurface(context,context.getLabyrinth(),context.getRobotPositions(),true,false);
+  context.registerRobotRunListener(surface);
+  controlPane=new ControlPane(context);
+  context.registerContextListener(controlPane);
+  add(surface,BorderLayout.CENTER);
+  add(controlPane,BorderLayout.EAST);
+  WindowAdapter adapter=new WindowAdapter(){
+    public void windowClosing(    WindowEvent e){
+      context.unregisterRobotRunListener(surface);
+      context.unregisterContextListener(controlPane);
+    }
+  }
+;
+  addWindowListener(adapter);
+}

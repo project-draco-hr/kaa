@@ -1,0 +1,48 @@
+{
+  this.context=context;
+  this.labyrinth=labyrinth;
+  this.robotPositions=robotPositions;
+  glMaze=new GLMaze(labyrinth,robotPositions);
+  MouseListener mazeMouse=glMaze.new MazeMouseAdapter();
+  new AWTMouseAdapter(mazeMouse,this).addTo(this);
+  addGLEventListener(new GLEventListener(){
+    @Override public void reshape(    GLAutoDrawable glautodrawable,    int x,    int y,    int width,    int height){
+      glMaze.setup(glautodrawable.getGL().getGL2(),width,height);
+    }
+    @Override public void init(    GLAutoDrawable glautodrawable){
+      glMaze.init(glautodrawable);
+    }
+    @Override public void dispose(    GLAutoDrawable glautodrawable){
+    }
+    @Override public void display(    GLAutoDrawable glautodrawable){
+      glMaze.render(glautodrawable.getGL().getGL2(),glautodrawable.getSurfaceWidth(),glautodrawable.getSurfaceHeight());
+    }
+  }
+);
+  if (!fullScreen) {
+    this.addMouseListener(new java.awt.event.MouseAdapter(){
+      public void mouseClicked(      java.awt.event.MouseEvent e){
+        if (SwingUtilities.isLeftMouseButton(e) && e.getClickCount() == 2) {
+          RobotRunSurface3d surface3d=new RobotRunSurface3d(RobotRunSurface3d.this.context,RobotRunSurface3d.this.labyrinth,RobotRunSurface3d.this.robotPositions,true);
+          RobotRunSurface.showFullScreen(RobotRunSurface3d.this.context,surface3d,surface3d,e);
+        }
+      }
+    }
+);
+  }
+  final Animator animator=new Animator();
+  animator.add(this);
+  this.addHierarchyListener(new HierarchyListener(){
+    @Override public void hierarchyChanged(    HierarchyEvent e){
+      if ((e.getChangeFlags() & HierarchyEvent.SHOWING_CHANGED) > 0) {
+        if (RobotRunSurface3d.this.isShowing()) {
+          animator.start();
+        }
+ else {
+          animator.stop();
+        }
+      }
+    }
+  }
+);
+}

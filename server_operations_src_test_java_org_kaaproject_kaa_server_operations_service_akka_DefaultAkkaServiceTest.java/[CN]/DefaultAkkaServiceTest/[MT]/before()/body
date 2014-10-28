@@ -1,6 +1,7 @@
 {
   akkaService=new DefaultAkkaService();
   cacheService=mock(CacheService.class);
+  metricsService=mock(MetricsService.class);
   keyStoreService=mock(KeyStoreService.class);
   operationsService=mock(OperationsService.class);
   notificationDeltaService=mock(NotificationDeltaService.class);
@@ -8,6 +9,7 @@
   eventService=mock(EventService.class);
   logAppenderService=mock(LogAppenderService.class);
   ReflectionTestUtils.setField(akkaService,"cacheService",cacheService);
+  ReflectionTestUtils.setField(akkaService,"metricsService",metricsService);
   ReflectionTestUtils.setField(akkaService,"keyStoreService",keyStoreService);
   ReflectionTestUtils.setField(akkaService,"operationsService",operationsService);
   ReflectionTestUtils.setField(akkaService,"notificationDeltaService",notificationDeltaService);
@@ -19,12 +21,12 @@
   serverPair=KeyUtil.generateKeyPair();
   Mockito.when(keyStoreService.getPublicKey()).thenReturn(serverPair.getPublic());
   Mockito.when(keyStoreService.getPrivateKey()).thenReturn(serverPair.getPrivate());
+  Mockito.when(metricsService.createMeter(Mockito.anyString(),Mockito.anyString())).thenReturn(Mockito.mock(MeterClient.class));
   if (akkaService.getActorSystem() == null) {
     akkaService.initActorSystem();
   }
   clientPublicKey=ByteBuffer.wrap(clientPair.getPublic().getEncoded());
   clientPublicKeyHash=ByteBuffer.wrap(SHA1HashUtils.hashToBytes(clientPair.getPublic().getEncoded()));
-  targetPublicKey=ByteBuffer.wrap(targetPair.getPublic().getEncoded());
   targetPublicKeyHash=ByteBuffer.wrap(SHA1HashUtils.hashToBytes(targetPair.getPublic().getEncoded()));
   Mockito.when(cacheService.getTenantIdByAppToken(APP_TOKEN)).thenReturn(TENANT_ID);
   Mockito.when(cacheService.getEndpointKey(EndpointObjectHash.fromBytes(clientPublicKeyHash.array()))).thenReturn(clientPair.getPublic());

@@ -1,0 +1,74 @@
+{
+  this.properties=properties;
+  Map<ChannelType,List<ServerInfo>> bootstrapServers=properties.getBootstrapServers();
+  if (bootstrapServers == null || bootstrapServers.isEmpty()) {
+    throw new RuntimeException("Unable to obtain list of bootstrap servers.");
+  }
+  for (  Map.Entry<ChannelType,List<ServerInfo>> cursor : bootstrapServers.entrySet()) {
+    Collections.shuffle(cursor.getValue());
+  }
+  kaaClientState=new KaaClientPropertiesState(createPersistentStorage(),properties);
+  BootstrapTransport bootstratpTransport=new DefaultBootstrapTransport(properties.getApplicationToken());
+  ProfileTransport profileTransport=new DefaultProfileTransport();
+  EventTransport eventTransport=new DefaultEventTransport();
+  NotificationTransport notificationTransport=new DefaultNotificationTransport();
+  ConfigurationTransport configurationTransport=new DefaultConfigurationTransport();
+  UserTransport userTransport=new DefaultUserTransport();
+  RedirectionTransport redirectionTransport=new DefaultRedirectionTransport();
+  LogTransport logTransport=new DefaultLogTransport();
+  operationsDataProcessor.setConfigurationTransport(configurationTransport);
+  operationsDataProcessor.setEventTransport(eventTransport);
+  operationsDataProcessor.setMetaDataTransport(metaDataTransport);
+  operationsDataProcessor.setNotificationTransport(notificationTransport);
+  operationsDataProcessor.setProfileTransport(profileTransport);
+  operationsDataProcessor.setRedirectionTransport(redirectionTransport);
+  operationsDataProcessor.setUserTransport(userTransport);
+  operationsDataProcessor.setLogTransport(logTransport);
+  bootstrapDataProcessor.setBootstrapTransport(bootstratpTransport);
+  defaultBootstrapChannel=new DefaultBootstrapChannel(this,kaaClientState);
+  defaultBootstrapChannel.setMultiplexer(bootstrapDataProcessor);
+  defaultBootstrapChannel.setDemultiplexer(bootstrapDataProcessor);
+  profileManager=new DefaultProfileManager(profileTransport);
+  bootstrapManager=new DefaultBootstrapManager(bootstratpTransport);
+  notificationManager=new DefaultNotificationManager(this.kaaClientState,notificationTransport);
+  eventManager=new DefaultEventManager(this.kaaClientState,eventTransport);
+  eventFamilyFactory=new EventFamilyFactory(this.eventManager);
+  endpointRegistrationManager=new DefaultEndpointRegistrationManager(this.kaaClientState,userTransport,profileTransport);
+  logCollector=new DefaultLogCollector(logTransport);
+  channelManager=new DefaultChannelManager(bootstrapManager,bootstrapServers);
+  defaultOperationTcpChannel=new DefaultOperationTcpChannel(kaaClientState,channelManager);
+  defaultOperationTcpChannel.setMultiplexer(operationsDataProcessor);
+  defaultOperationTcpChannel.setDemultiplexer(operationsDataProcessor);
+  channelManager.addChannel(defaultBootstrapChannel);
+  channelManager.addChannel(defaultOperationTcpChannel);
+  bootstrapManager.setChannelManager(channelManager);
+  publicKeyHash=EndpointObjectHash.fromSHA1(kaaClientState.getPublicKey().getEncoded());
+  metaDataTransport.setClientProperties(properties);
+  metaDataTransport.setClientState(kaaClientState);
+  metaDataTransport.setEndpointPublicKeyhash(publicKeyHash);
+  metaDataTransport.setTimeout(LONG_POLL_TIMEOUT);
+  bootstratpTransport.setBootstrapManager(bootstrapManager);
+  transports.put(TransportType.BOOTSTRAP,bootstratpTransport);
+  profileTransport.setProfileManager(profileManager);
+  profileTransport.setClientProperties(properties);
+  transports.put(TransportType.PROFILE,profileTransport);
+  eventTransport.setEventManager(eventManager);
+  transports.put(TransportType.EVENT,eventTransport);
+  notificationTransport.setNotificationManager(notificationManager);
+  notificationTransport.setNotificationProcessor(notificationManager);
+  transports.put(TransportType.NOTIFICATION,notificationTransport);
+  configurationTransport.setConfigurationHashContainer(configurationPersistenceManager);
+  configurationTransport.setConfigurationProcessor(configurationProcessor);
+  configurationTransport.setSchemaProcessor(schemaProcessor);
+  transports.put(TransportType.CONFIGURATION,configurationTransport);
+  userTransport.setEndpointRegistrationProcessor(endpointRegistrationManager);
+  transports.put(TransportType.USER,userTransport);
+  redirectionTransport.setBootstrapManager(bootstrapManager);
+  transports.put(TransportType.LOGGING,logTransport);
+  logTransport.setLogProcessor(logCollector);
+  for (  KaaTransport transport : transports.values()) {
+    transport.setChannelManager(channelManager);
+    transport.setClientState(kaaClientState);
+  }
+  channelManager.setConnectivityChecker(createConnectivityChecker());
+}

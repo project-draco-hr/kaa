@@ -1,5 +1,6 @@
 {
   LOG.trace("Request processing failed",e);
+  errorMeter.mark();
   Object[] responses=converter.build(e);
   if (responses != null && responses.length > 0) {
     for (    Object response : responses) {

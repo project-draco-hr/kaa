@@ -1,0 +1,11 @@
+{
+switch (field) {
+case RECEIVED_TIME:
+    return Long.valueOf(getReceivedTime());
+case BODY:
+  return getBody();
+case TOPIC_ID:
+return getTopicId();
+}
+throw new IllegalStateException();
+}

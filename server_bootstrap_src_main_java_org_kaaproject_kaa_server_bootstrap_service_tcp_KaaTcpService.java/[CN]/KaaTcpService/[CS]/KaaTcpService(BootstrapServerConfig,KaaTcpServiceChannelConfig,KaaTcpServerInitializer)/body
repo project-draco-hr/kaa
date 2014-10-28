@@ -1,0 +1,9 @@
+{
+  this.setOpServerConfig(opServerConfig);
+  this.kaaTcpConfig=kaaTcpConfig;
+  this.initializer=initializer;
+  this.netty=new NettyKaaTcpServer(kaaTcpConfig,initializer);
+  this.statService=new StatisticsService(getChannelType(),kaaTcpConfig,this);
+  this.kaaTcpConfig.setSessionTrack(statService);
+  LOG.info("KaaTcp netty starting: {}",netty.toString());
+}

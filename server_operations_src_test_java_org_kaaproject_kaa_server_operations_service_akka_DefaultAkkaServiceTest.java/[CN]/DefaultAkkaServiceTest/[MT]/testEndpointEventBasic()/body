@@ -30,8 +30,8 @@
   targetResponse.setStatus(SyncResponseResultType.SUCCESS);
   SyncResponseHolder targetResponseHolder=new SyncResponseHolder(targetResponse);
   targetResponseHolder.setEndpointProfile(targetProfileMock);
-  when(operationsService.sync(sourceRequest)).thenReturn(sourceResponseHolder);
-  when(operationsService.sync(targetRequest)).thenReturn(targetResponseHolder);
+  when(operationsService.sync(sourceRequest,null)).thenReturn(sourceResponseHolder);
+  when(operationsService.sync(targetRequest,null)).thenReturn(targetResponseHolder);
   when(sourceProfileMock.getEndpointUserId()).thenReturn(USER_ID);
   when(sourceProfileMock.getEndpointKeyHash()).thenReturn(clientPublicKeyHash.array());
   when(sourceProfileMock.getEcfVersionStates()).thenReturn(Arrays.asList(ecfVdto));
@@ -47,11 +47,11 @@
   MessageEncoderDecoder sourceCrypt=new MessageEncoderDecoder(clientPair.getPrivate(),clientPair.getPublic(),serverPair.getPublic());
   SessionInitRequest sourceMessage=toSignedRequest(UUID.randomUUID(),ChannelType.HTTP_LP,channelContextMock,sourceRequest,responseBuilder,errorBuilder,sourceCrypt);
   akkaService.process(sourceMessage);
-  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeastOnce()).sync(Mockito.any(SyncRequest.class));
+  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeastOnce()).sync(Mockito.any(SyncRequest.class),Mockito.any(EndpointProfileDto.class));
   MessageEncoderDecoder targetCrypt=new MessageEncoderDecoder(targetPair.getPrivate(),targetPair.getPublic(),serverPair.getPublic());
   SessionInitRequest targetMessage=toSignedRequest(UUID.randomUUID(),ChannelType.HTTP_LP,channelContextMock,targetRequest,responseBuilder,errorBuilder,targetCrypt);
   akkaService.process(targetMessage);
-  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeastOnce()).sync(Mockito.any(SyncRequest.class));
+  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeastOnce()).sync(Mockito.any(SyncRequest.class),Mockito.any(EndpointProfileDto.class));
   SyncResponse eventResponse=new SyncResponse();
   eventResponse.setStatus(SyncResponseResultType.SUCCESS);
   eventResponse.setEventSyncResponse(new EventSyncResponse());

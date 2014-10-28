@@ -1,0 +1,34 @@
+{
+  logger.info("Loading 'Robot Run Demo Application' data...");
+  loginTenantAdmin(client);
+  EventClassFamilyDto robotRunEventClassFamily=new EventClassFamilyDto();
+  robotRunEventClassFamily.setName("Robot Run Event Class Family");
+  robotRunEventClassFamily.setNamespace("org.kaaproject.kaa.examples.robotrun.gen.event");
+  robotRunEventClassFamily.setClassName("RobotRunEventClassFamily");
+  robotRunEventClassFamily=client.editEventClassFamily(robotRunEventClassFamily);
+  client.addEventClassFamilySchema(robotRunEventClassFamily.getId(),"demo/robotrun/robotRunEventClassFamily.json");
+  ApplicationDto robotRunApplication=new ApplicationDto();
+  robotRunApplication.setName("Robot Run");
+  robotRunApplication=client.editApplication(robotRunApplication);
+  sdkKey.setApplicationId(robotRunApplication.getId());
+  sdkKey.setProfileSchemaVersion(1);
+  sdkKey.setNotificationSchemaVersion(1);
+  loginTenantDeveloper(client);
+  ConfigurationSchemaDto configurationSchema=new ConfigurationSchemaDto();
+  configurationSchema.setApplicationId(robotRunApplication.getId());
+  configurationSchema.setName("Labirynth schema");
+  configurationSchema.setDescription("Configuration schema describing labirynth");
+  configurationSchema=client.createConfigurationSchema(configurationSchema,"demo/robotrun/configSchema.json");
+  sdkKey.setConfigurationSchemaVersion(configurationSchema.getMajorVersion());
+  LogSchemaDto logSchema=new LogSchemaDto();
+  logSchema.setApplicationId(robotRunApplication.getId());
+  logSchema.setName("Cell log schema");
+  logSchema.setDescription("Log schema describing information about discovered cell");
+  logSchema=client.createLogSchema(logSchema,"demo/robotrun/logSchema.json");
+  sdkKey.setLogSchemaVersion(logSchema.getMajorVersion());
+  ApplicationEventFamilyMapDto robotRunAefMap=mapEventClassFamily(client,robotRunApplication,robotRunEventClassFamily);
+  List<String> aefMapIds=new ArrayList<>();
+  aefMapIds.add(robotRunAefMap.getId());
+  sdkKey.setAefMapIds(aefMapIds);
+  logger.info("Finished loading 'Robot Run Demo Application' data.");
+}

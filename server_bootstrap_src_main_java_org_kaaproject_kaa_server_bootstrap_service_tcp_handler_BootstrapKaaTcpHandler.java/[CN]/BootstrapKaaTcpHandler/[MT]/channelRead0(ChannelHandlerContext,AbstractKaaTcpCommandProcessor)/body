@@ -2,10 +2,18 @@
   LOG.info("KaaTcp handler session {}, got command {}",uuid.toString(),arg1.getName());
   KaaTcpCommand command=(KaaTcpCommand)arg1;
   Callable<KaaTcpCommand> callable=(Callable<KaaTcpCommand>)command;
+  final long startTime=System.currentTimeMillis();
+  final Attribute<Track> sessionTrackAttr=ctx.channel().attr(NettyHttpServer.TRACK_KEY);
+  if (sessionTrackAttr.get() != null) {
+    int id=sessionTrackAttr.get().newRequest();
+    command.setCommandId(id);
+  }
   final Future<KaaTcpCommand> future=executor.submit(callable);
   future.addListener(new GenericFutureListener<Future<KaaTcpCommand>>(){
     @Override public void operationComplete(    Future<KaaTcpCommand> arg0) throws Exception {
       LOG.trace("BootstrapKaaTcpHandler().operationComplete...");
+      sessionTrackAttr.get().setProcessTime(arg0.get().getCommandId(),System.currentTimeMillis() - startTime);
+      sessionTrackAttr.get().closeRequest(arg0.get().getCommandId());
       if (arg0.isSuccess()) {
         ctx.writeAndFlush(arg0.get().getResponse());
       }

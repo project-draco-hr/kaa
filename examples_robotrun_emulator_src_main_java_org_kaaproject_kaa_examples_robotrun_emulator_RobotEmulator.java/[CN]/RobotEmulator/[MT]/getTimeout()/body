@@ -1,0 +1,8 @@
+{
+  int deviation=rnd.nextInt(getTimeoutDeviation());
+  if (getCommandTimeout() > getTimeoutDeviation()) {
+    long timeout=getCommandTimeout() - (getTimeoutDeviation() / 2) + deviation;
+    return timeout;
+  }
+  return getCommandTimeout();
+}

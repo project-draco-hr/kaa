@@ -1,0 +1,26 @@
+{
+  if (checkEventAllowed(paramEntityInfoResponse,sourceEndpointKey)) {
+    LOG.debug("Got entity info response from [{}].",sourceEndpointKey);
+    EntityInfo entityInfo=paramEntityInfoResponse.getEntityInfo();
+    if (EntityType.ROBOT.equals(entityInfo.getEntityType())) {
+      Location location=entityInfo.getLocation();
+      Cell cell=locationToCell(location);
+      if (Boolean.TRUE.equals(entityInfo.getDeadEnd())) {
+        LOG.debug("DeadEnd info received for cell {}",cell);
+        cell.markDeadEnd();
+      }
+      robotPositions.put(sourceEndpointKey,new RobotPosition(cell,entityInfo.getName()));
+      for (      EventListener listener : listeners) {
+        listener.onRobotLocationChanged(sourceEndpointKey,entityInfo.getName(),cell);
+      }
+    }
+    if (entitiesToDiscover != null && !entitiesToDiscover.isEmpty()) {
+      entitiesToDiscover.remove(sourceEndpointKey);
+      LOG.info("Discovered entity [{}], entitiesToDiscover.size [{}]",sourceEndpointKey,entitiesToDiscover.size());
+      if (entitiesToDiscover.isEmpty()) {
+        LOG.info("All entities discovered, robot count [{}].",getRobotCount());
+        processStartRun();
+      }
+    }
+  }
+}

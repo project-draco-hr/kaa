@@ -1,0 +1,10 @@
+{
+  if (runawayPath != null) {
+    if (!runawayPath.isEmpty()) {
+      LOG.info("Moving to the exit.");
+      robotListener=new RunawayRobotMoveListener();
+      eventListener=new RunawayMoveEventListener();
+    }
+  }
+  tryMove();
+}

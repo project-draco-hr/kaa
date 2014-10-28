@@ -1,0 +1,8 @@
+{
+  List<Cell> result=new ArrayList<>(neighbors);
+  Cell previous=getPrevious(current);
+  if (previous != null) {
+    result.remove(previous);
+  }
+  return result;
+}

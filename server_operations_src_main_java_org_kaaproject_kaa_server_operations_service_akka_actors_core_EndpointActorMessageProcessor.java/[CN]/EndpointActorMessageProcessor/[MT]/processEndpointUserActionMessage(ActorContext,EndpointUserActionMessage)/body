@@ -6,15 +6,21 @@
   userRegistrationRequestSent=false;
   if (!eventChannels.isEmpty()) {
     for (    ChannelMetaData channel : eventChannels) {
-      SyncRequestMessage pendingRequest=channel.getRequest();
-      SyncResponse pendingResponse=channel.getResponse().getResponse();
+      SyncRequestMessage pendingRequest=channel.getRequestMessage();
+      SyncResponse pendingResponse=channel.getResponseHolder().getResponse();
       UserSyncResponse userSyncResponse=pendingResponse.getUserSyncResponse();
       if (userSyncResponse != null) {
         if (message instanceof EndpointUserAttachMessage) {
+          if (endpointProfile != null) {
+            endpointProfile.setEndpointUserId(message.getUserId());
+          }
           userSyncResponse.setUserAttachNotification(new UserAttachNotification(message.getUserId(),message.getOriginator()));
           LOG.debug("[{}][{}] Adding user attach notification",endpointKey,actorKey);
         }
  else         if (message instanceof EndpointUserDetachMessage) {
+          if (endpointProfile != null && message.getUserId().equals(endpointProfile.getEndpointUserId())) {
+            endpointProfile.setEndpointUserId(null);
+          }
           userSyncResponse.setUserDetachNotification(new UserDetachNotification(message.getOriginator()));
           LOG.debug("[{}][{}] Adding user detach notification",endpointKey,actorKey);
         }
@@ -22,7 +28,7 @@
       LOG.debug("[{}][{}] sending reply to [{}] channel",endpointKey,actorKey,channel.getId());
       sendReply(context,pendingRequest,pendingResponse);
       if (channel.getType().isAsync()) {
-        sync(context,channel.getRequest());
+        updateUserConnection(context);
       }
  else {
         channelMap.removeChannel(channel);

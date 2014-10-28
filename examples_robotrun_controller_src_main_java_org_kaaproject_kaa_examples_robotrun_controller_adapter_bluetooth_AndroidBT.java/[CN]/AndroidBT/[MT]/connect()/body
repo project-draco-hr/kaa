@@ -1,0 +1,36 @@
+{
+  if (!btInited) {
+    Log.e(TAG,"AndroidBT not initialized.");
+    throw new BTException("AndroidBT not initialized");
+  }
+  String name="";
+  UUID uuid=null;
+  Set<BluetoothDevice> devices=mBluetoothAdapter.getBondedDevices();
+  Log.v(TAG,"Start looking for paired robot, see " + devices.size() + " devices");
+  for (  BluetoothDevice device : devices) {
+    Log.i(TAG,"Device " + device.getName() + ";");
+    if (device.getName().startsWith(ROBOTRUN_BLUETOOTH_PREFIX)) {
+      name=device.getName();
+      ParcelUuid[] uuids=BluetoothNativeHelper.getUuids(device);
+      if (uuids == null || uuids.length == 0) {
+        pendingDiscoveryDeviceName=name;
+        IntentFilter filter=new IntentFilter(BluetoothNativeHelper.ACTION_UUID);
+        context.registerReceiver(this,filter);
+        if (!BluetoothNativeHelper.fetchUuidsWithSdp(device)) {
+          pendingDiscoveryDeviceName=null;
+          context.unregisterReceiver(this);
+          throw new BTException("Error initializing BT, can't fetch device uuids.");
+        }
+      }
+ else {
+        uuid=uuids[0].getUuid();
+        Log.i(TAG,"Device " + device.getName() + " found, UUID "+ uuid.toString());
+        connect(device,uuid);
+      }
+      break;
+    }
+  }
+  if (name == null || name.trim().equals("")) {
+    throw new BTException("Error initializing BT, necessary device not found.");
+  }
+}

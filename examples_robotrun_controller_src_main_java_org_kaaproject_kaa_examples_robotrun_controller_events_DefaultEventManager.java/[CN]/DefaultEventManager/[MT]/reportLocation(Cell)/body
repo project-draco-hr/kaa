@@ -1,0 +1,11 @@
+{
+  targetCell=null;
+  final EntityInfoResponse response=new EntityInfoResponse();
+  response.setEntityInfo(buildEntityInfo(cell));
+  eventExecutor.submit(new Runnable(){
+    @Override public void run(){
+      family.sendEventToAll(response);
+    }
+  }
+);
+}

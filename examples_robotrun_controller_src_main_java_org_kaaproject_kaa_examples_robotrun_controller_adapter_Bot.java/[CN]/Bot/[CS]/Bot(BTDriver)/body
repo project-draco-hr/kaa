@@ -1,0 +1,10 @@
+{
+  executor=Executors.newFixedThreadPool(1);
+  if (driver == null) {
+    throw new BotException("driver is null");
+  }
+  this.driver=driver;
+  this.driver.registerResponseCallback(this);
+  this.driver.init();
+  LOG.info("Bot: initialization complete.");
+}

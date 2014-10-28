@@ -1,0 +1,9 @@
+{
+  eventManager.reset();
+  for (  ContextListener listener : contextListeners) {
+    listener.onEmulatorStopped();
+  }
+  if (emulatorLabyrinthDialog != null && emulatorLabyrinthDialog.isVisible()) {
+    emulatorLabyrinthDialog.setVisible(false);
+  }
+}

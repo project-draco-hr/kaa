@@ -1,0 +1,6 @@
+{
+  if (checkEventAllowed(paramMovementResponse,sourceEndpointKey)) {
+    LOG.info("Got movement response [{}] for request [{}] from [{}]",paramMovementResponse.getAccepted(),paramMovementResponse.getRequestId(),sourceEndpointKey);
+    updateResponses(paramMovementResponse);
+  }
+}

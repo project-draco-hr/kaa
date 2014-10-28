@@ -1,0 +1,8 @@
+{
+  try {
+    kaaClient.getLogCollector().addLogRecord(toBorders(borderUpdate));
+  }
+ catch (  IOException e) {
+    LOG.warn("Failed to add border report: {}",e.toString());
+  }
+}

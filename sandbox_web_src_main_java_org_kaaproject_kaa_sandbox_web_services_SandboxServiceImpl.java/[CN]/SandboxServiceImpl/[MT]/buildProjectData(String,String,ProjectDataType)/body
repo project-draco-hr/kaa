@@ -39,7 +39,10 @@
           }
  else {
             outStream.println("Building binary file...");
-            File projectFolder=new File(rootDir,project.getProjectFolder());
+            File projectFolder=rootDir;
+            if (project.getProjectFolder() != null && !project.getProjectFolder().trim().isEmpty()) {
+              projectFolder=new File(rootDir,project.getProjectFolder());
+            }
             executeCommand(outStream,new String[]{"ant"},projectFolder);
             outStream.println("Build finished.");
             File binaryFile=new File(rootDir,project.getDestBinaryFile());
@@ -50,6 +53,9 @@
             binaryFileData.setFileData(binaryFileBytes);
             if (project.getPlatform() == Platform.ANDROID) {
               binaryFileData.setContentType("application/vnd.android.package-archive");
+            }
+ else             if (project.getPlatform() == Platform.JAVA) {
+              binaryFileData.setContentType("application/x-compressed");
             }
             cacheService.putProjectFile(dataKey,binaryFileData);
           }

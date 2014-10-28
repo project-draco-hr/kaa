@@ -1,0 +1,20 @@
+{
+  UUID uuid=UUID.randomUUID();
+  SessionHistory history=new SessionHistory(uuid);
+  assertNotNull(history);
+  history.newRequest();
+  assertNotNull(history.getRequests());
+  assertTrue(history.getRequests().size() == 1);
+  RequestHistory rhSync=history.getRequests().get(0);
+  assertNotNull(rhSync);
+  history.newRequest();
+  assertNotNull(history.getRequests());
+  assertTrue(history.getRequests().size() == 2);
+  RequestHistory rhLongSync=history.getRequests().get(1);
+  assertNotNull(rhLongSync);
+  history.newRequest();
+  assertNotNull(history.getRequests());
+  assertTrue(history.getRequests().size() == 3);
+  RequestHistory rhTest=history.getRequests().get(2);
+  assertNotNull(rhTest);
+}

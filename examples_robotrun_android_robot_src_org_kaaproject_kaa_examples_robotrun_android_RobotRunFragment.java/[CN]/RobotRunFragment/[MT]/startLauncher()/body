@@ -1,0 +1,10 @@
+{
+  try {
+    launcher.start();
+  }
+ catch (  RuntimeException e) {
+    LOG.error("Failed to start launcher!",e);
+    showError("Failed to start launcher!\n" + e.getMessage());
+    stop();
+  }
+}

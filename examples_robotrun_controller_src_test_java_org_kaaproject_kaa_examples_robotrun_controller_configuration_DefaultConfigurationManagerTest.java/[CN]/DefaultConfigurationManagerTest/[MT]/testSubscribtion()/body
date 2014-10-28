@@ -1,0 +1,11 @@
+{
+  DefaultConfigurationManager manager=createConfigManager();
+  LabyrinthUpdateListener listener=Mockito.mock(LabyrinthUpdateListener.class);
+  manager.onConfigurationUpdated(createSampleLabyrinthConfig());
+  manager.addListener(listener);
+  manager.addListener(listener);
+  manager.onConfigurationUpdated(createSampleLabyrinthConfig());
+  manager.removeListener(listener);
+  manager.onConfigurationUpdated(createSampleLabyrinthConfig());
+  Mockito.verify(listener,Mockito.times(1)).onLabyrinthUpdate(Mockito.any(Labyrinth.class));
+}

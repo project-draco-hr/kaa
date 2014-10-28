@@ -1,5 +1,6 @@
 {
   try {
+    redirectMeter.mark();
     SyncRequest request=decodeRequest(message);
     SyncResponse response=buildRedirectionResponse(redirection,request);
     NettySessionInfo sessionInfo=message.getSessionInfo();

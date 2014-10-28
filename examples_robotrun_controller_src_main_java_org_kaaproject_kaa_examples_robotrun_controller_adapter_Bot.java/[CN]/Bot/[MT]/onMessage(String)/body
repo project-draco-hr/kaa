@@ -1,0 +1,32 @@
+{
+  LOG.info("Bot: onMessage({});",msg);
+  recivedResponseBuffer+=msg;
+synchronized (waitSync) {
+    if (waitResponse != null) {
+      if (!recivedResponseBuffer.isEmpty()) {
+        if (recivedResponseBuffer.matches(waitResponse)) {
+          waitStatus=OperationStatus.SUCESSFULL;
+          flushResponseBuffer();
+        }
+ else         if (recivedResponseBuffer.matches(COMMAND_BUSY)) {
+          waitStatus=OperationStatus.FAILED;
+          LOG.info("Bot: onMessage({}: robot busy)",recivedResponseBuffer);
+          flushResponseBuffer();
+        }
+ else         if (recivedResponseBuffer.matches(COMMAND_INVALID)) {
+          waitStatus=OperationStatus.FAILED;
+          LOG.info("Bot: onMessage({}: command invalid)",recivedResponseBuffer);
+          flushResponseBuffer();
+        }
+ else {
+          waitStatus=OperationStatus.FAILED;
+          LOG.info("Bot: onMessage({}: unrecognized)",recivedResponseBuffer);
+        }
+      }
+    }
+ else {
+      waitSync.notify();
+    }
+  }
+  LOG.info("Bot: onMessage({}), waitStatus={};",msg,waitStatus);
+}

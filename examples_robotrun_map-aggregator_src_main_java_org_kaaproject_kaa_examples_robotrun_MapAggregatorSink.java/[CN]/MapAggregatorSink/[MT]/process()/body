@@ -1,0 +1,56 @@
+{
+  Channel channel=getChannel();
+  Transaction transaction=channel.getTransaction();
+  LOG.trace("process(), transaction.begin");
+  transaction.begin();
+  try {
+    Event event=null;
+    int txnEventCount=0;
+    Map<String,List<Borders>> updatedBordersMap=new HashMap<>();
+    List<Event> events=new ArrayList<>();
+    for (txnEventCount=0; txnEventCount < txnEventMax; txnEventCount++) {
+      event=channel.take();
+      if (event == null) {
+        break;
+      }
+      events.add(event);
+      byte[] body=event.getBody();
+      decoder=DecoderFactory.get().binaryDecoder(body,decoder);
+      RecordData data=avroRecordDataReader.read(null,decoder);
+      String appToken=data.getRecordHeader().getApplicationToken();
+      List<Borders> updatedBorders=updatedBordersMap.get(appToken);
+      if (updatedBorders == null) {
+        updatedBorders=new ArrayList<>();
+        updatedBordersMap.put(appToken,updatedBorders);
+      }
+      for (      ByteBuffer eventData : data.getEventRecords()) {
+        decoder=DecoderFactory.get().binaryDecoder(eventData.array(),decoder);
+        Borders borders=avroBordersReader.read(null,decoder);
+        updatedBorders.add(borders);
+      }
+    }
+    processUpdatedBorders(updatedBordersMap);
+    if (nextSink != null && !events.isEmpty()) {
+      nextSink.appendBatch(events);
+    }
+    transaction.commit();
+    if (event == null) {
+      return Status.BACKOFF;
+    }
+    return Status.READY;
+  }
+ catch (  Throwable th) {
+    transaction.rollback();
+    LOG.error("process failed",th);
+    if (th instanceof Error) {
+      throw (Error)th;
+    }
+ else {
+      throw new EventDeliveryException(th);
+    }
+  }
+ finally {
+    LOG.trace("process(), transaction.close");
+    transaction.close();
+  }
+}

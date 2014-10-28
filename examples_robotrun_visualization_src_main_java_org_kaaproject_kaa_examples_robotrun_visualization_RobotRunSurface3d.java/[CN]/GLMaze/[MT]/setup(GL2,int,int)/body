@@ -1,0 +1,13 @@
+{
+  this.width=w;
+  this.height=h;
+  int startX=0;
+  int startY=0;
+  if (this.height > this.width) {
+    startY=(this.height - this.width) / 2;
+    this.height=this.width;
+  }
+  gl2.setSwapInterval(1);
+  doLook(gl2);
+  gl2.glViewport(startX,startY,width,height);
+}

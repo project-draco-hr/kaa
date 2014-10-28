@@ -1,0 +1,8 @@
+{
+  ConfigurationDto configuration=getLastActiveConfiguration();
+  configuration.setId(null);
+  configuration.setBody(genLabyrinthJson(configuration,width,height));
+  configuration.setStatus(UpdateStatus.INACTIVE);
+  configuration=adminClient.editConfiguration(configuration);
+  adminClient.activateConfiguration(configuration.getId());
+}

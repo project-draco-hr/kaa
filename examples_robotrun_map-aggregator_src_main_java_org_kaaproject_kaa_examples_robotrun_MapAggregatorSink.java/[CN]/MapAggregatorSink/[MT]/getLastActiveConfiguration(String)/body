@@ -1,0 +1,37 @@
+{
+  String endpointGroupId=appTokenToGroupMap.get(appToken);
+  if (endpointGroupId == null) {
+    List<ApplicationDto> applications=adminClient.getApplications();
+    ApplicationDto application=null;
+    for (    ApplicationDto app : applications) {
+      if (app.getApplicationToken().equals(appToken)) {
+        application=app;
+        break;
+      }
+    }
+    if (application == null) {
+      throw new RuntimeException("Can't find application by application token " + appToken);
+    }
+    List<EndpointGroupDto> endpointGroups=adminClient.getEndpointGroups(application.getId());
+    EndpointGroupDto endpointGroup=null;
+    for (    EndpointGroupDto group : endpointGroups) {
+      if (group.getWeight() == 0) {
+        endpointGroup=group;
+      }
+    }
+    if (endpointGroup == null) {
+      throw new RuntimeException("Can't get default endpoint group for application with token " + appToken);
+    }
+    endpointGroupId=endpointGroup.getId();
+    appTokenToGroupMap.put(appToken,endpointGroupId);
+  }
+  List<ConfigurationRecordDto> configurationRecords=adminClient.getConfigurationRecords(endpointGroupId,false);
+  int version=-1;
+  ConfigurationDto config=null;
+  for (  ConfigurationRecordDto configurationRecord : configurationRecords) {
+    if (configurationRecord.getActiveConfiguration() != null && configurationRecord.getActiveConfiguration().getMajorVersion() > version) {
+      config=configurationRecord.getActiveConfiguration();
+    }
+  }
+  return config;
+}

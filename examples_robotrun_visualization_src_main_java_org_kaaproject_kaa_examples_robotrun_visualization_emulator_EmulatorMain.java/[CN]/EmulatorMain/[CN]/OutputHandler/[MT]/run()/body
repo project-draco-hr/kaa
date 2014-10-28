@@ -1,0 +1,22 @@
+{
+  BufferedReader reader=new BufferedReader(new InputStreamReader(System.in));
+  String line=null;
+  try {
+    while ((line=reader.readLine()) != null) {
+      LOG.info("Received command: " + line);
+      if (line.equals("shutdown")) {
+        LOG.info("Recevied shutdown command!");
+        if (launcher != null && started) {
+          launcher.stop();
+        }
+ else {
+          System.exit(0);
+        }
+      }
+    }
+  }
+ catch (  IOException e) {
+    LOG.error("Error reading console!",e);
+    System.exit(-1);
+  }
+}

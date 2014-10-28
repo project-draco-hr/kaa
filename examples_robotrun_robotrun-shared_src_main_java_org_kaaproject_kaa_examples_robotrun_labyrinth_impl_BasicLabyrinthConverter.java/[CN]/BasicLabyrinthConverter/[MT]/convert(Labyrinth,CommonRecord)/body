@@ -1,0 +1,28 @@
+{
+  if (config != null) {
+    BorderType[][] hBorders=toBorders(config.getField("hBorders"));
+    BorderType[][] vBorders=toBorders(config.getField("vBorders"));
+    int width=hBorders.length;
+    int height=0;
+    if (width > 0) {
+      height=Math.max(0,hBorders[0].length - 1);
+    }
+    if (reuse != null && reuse.getWidth() == width && reuse.getHeight() == height) {
+      reuse.update(hBorders,vBorders);
+      return reuse;
+    }
+ else {
+      BasicLabyrinth labyrinth=new BasicLabyrinth(width,height);
+      labyrinth.update(hBorders,vBorders);
+      return labyrinth;
+    }
+  }
+ else {
+    if (reuse != null && reuse.isEmpty()) {
+      return reuse;
+    }
+ else {
+      return new BasicLabyrinth(0,0);
+    }
+  }
+}

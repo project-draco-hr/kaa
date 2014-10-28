@@ -1,0 +1,19 @@
+{
+  if (!isExit()) {
+    throw new IllegalStateException(CELL_IS_NOT_LABYRINTH_EXIT);
+  }
+ else {
+    if (x == 0 && getBorder(Direction.WEST) == BorderType.FREE) {
+      return Direction.WEST;
+    }
+ else     if (x == (BasicLabyrinth.this.getWidth() - 1) && getBorder(Direction.EAST) == BorderType.FREE) {
+      return Direction.EAST;
+    }
+ else     if (y == 0 && getBorder(Direction.NORTH) == BorderType.FREE) {
+      return Direction.NORTH;
+    }
+ else {
+      return Direction.SOUTH;
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  return topicsMemorizer.compute(topicId,new Computable<String,TopicDto>(){
+    @Override public TopicDto compute(    String key){
+      LOG.debug("Fetching result for token id");
+      TopicDto topicDto=topicService.findTopicById(key);
+      return topicDto;
+    }
+  }
+);
+}

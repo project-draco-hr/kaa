@@ -1,0 +1,28 @@
+{
+  Cell result=null;
+switch (direction) {
+case WEST:
+    if (current.getX() >= 1) {
+      result=labyrinth.getCell(current.getX() - 1,current.getY());
+    }
+  break;
+case EAST:
+if (current.getX() < labyrinth.getWidth() - 1) {
+  result=labyrinth.getCell(current.getX() + 1,current.getY());
+}
+break;
+case NORTH:
+if (current.getY() >= 1) {
+result=labyrinth.getCell(current.getX(),current.getY() - 1);
+}
+break;
+case SOUTH:
+if (current.getY() < labyrinth.getHeight() - 1) {
+result=labyrinth.getCell(current.getX(),current.getY() + 1);
+}
+break;
+default :
+throw new IllegalArgumentException("Unknown direction: " + direction);
+}
+return result;
+}

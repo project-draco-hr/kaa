@@ -1,0 +1,7 @@
+{
+  if (config != null && config.getStatisticsUpdateTimes() > 0) {
+    statsUpdateTimes=config.getStatisticsUpdateTimes();
+    recalculationPeriod=config.getStatisticsCalculationWindow() * 1000 / statsUpdateTimes;
+    LOG.debug("StatisticsService for {}: recalculation_period set to {}",channelType.toString(),recalculationPeriod);
+  }
+}

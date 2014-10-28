@@ -1,0 +1,25 @@
+{
+  try {
+    Bot bot=new Bot(new TestBTDriver());
+    assertNotNull(bot);
+    assertNotNull(bot.getDriver());
+    assertNotNull(bot.getExecutor());
+    TestBTDriver testBot=(TestBTDriver)bot.getDriver();
+    if (!testBot.isConstrcutorInvoked()) {
+      fail("BTDriver constrcutor invoke failed");
+    }
+    if (!testBot.isInitInvoked()) {
+      fail("BTDriver init() invoke failed");
+    }
+    if (!testBot.isSetCallbackInvoked()) {
+      fail("BTDriver set callback invoke failed");
+    }
+    bot.start();
+    if (!testBot.isConnectInvoked()) {
+      fail("BTDriver connect invoke failed");
+    }
+  }
+ catch (  Exception e) {
+    fail(e.toString());
+  }
+}

@@ -1,7 +1,7 @@
 {
   if (transport != null && response != null) {
     OperationsServerList list=responseConverter.fromByteArray(response);
-    LOG.info("Received OperationssServerList response {}",list);
+    LOG.trace("Received OperationssServerList response {}",list);
     transport.onResolveResponse(list);
   }
 }

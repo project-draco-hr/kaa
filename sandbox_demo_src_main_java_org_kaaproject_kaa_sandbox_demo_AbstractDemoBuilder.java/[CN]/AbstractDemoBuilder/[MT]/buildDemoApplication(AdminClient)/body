@@ -2,10 +2,18 @@
   logger.info("Demo application build started...");
   createUsers(client);
   buildDemoApplicationImpl(client);
-  setupProjectConfig();
+  setupProjectConfigs();
   logger.info("Demo application build finished.");
   try {
-    projectConfig.setSdkKeyBase64(Base64.encodeObject(sdkKey,Base64.URL_SAFE));
+    for (    Project projectConfig : projectConfigs) {
+      if (projectConfig.getPlatform() == Platform.ANDROID) {
+        sdkKey.setTargetPlatform(SdkPlatform.ANDROID);
+      }
+ else       if (projectConfig.getPlatform() == Platform.JAVA) {
+        sdkKey.setTargetPlatform(SdkPlatform.JAVA);
+      }
+      projectConfig.setSdkKeyBase64(Base64.encodeObject(sdkKey,Base64.URL_SAFE));
+    }
   }
  catch (  IOException e) {
     logger.error("Unable to generate sdk key",e);

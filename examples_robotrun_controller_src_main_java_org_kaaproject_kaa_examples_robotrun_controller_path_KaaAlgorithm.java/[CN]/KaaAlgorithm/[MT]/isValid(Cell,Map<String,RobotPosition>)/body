@@ -1,0 +1,13 @@
+{
+  if (step.isDeadEnd()) {
+    return false;
+  }
+ else {
+    for (    RobotPosition position : robotPositions.values()) {
+      if (step.equals(position)) {
+        return false;
+      }
+    }
+    return true;
+  }
+}

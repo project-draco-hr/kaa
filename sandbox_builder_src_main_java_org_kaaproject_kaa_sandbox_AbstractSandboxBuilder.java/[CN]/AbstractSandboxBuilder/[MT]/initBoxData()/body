@@ -30,7 +30,7 @@
   List<Project> projects=new ArrayList<>();
   for (  DemoBuilder demoBuilder : demoBuilders) {
     demoBuilder.buildDemoApplication(adminClient);
-    projects.add(demoBuilder.getProjectConfig());
+    projects.addAll(demoBuilder.getProjectConfigs());
   }
   File projectsXmlFile=new File(demoProjectsPath,DEMO_PROJECTS_XML);
   ProjectsConfig projectsConfig=new ProjectsConfig();

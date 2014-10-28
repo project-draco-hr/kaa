@@ -1,0 +1,7 @@
+{
+  LOG.trace("Robot [{}] location changed to {}",key,cell);
+  CellMetaData md=cellMetaData.get(cell);
+  if (md != null) {
+    md.update(key,cell);
+  }
+}

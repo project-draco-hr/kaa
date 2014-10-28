@@ -1,0 +1,38 @@
+{
+  int moves=0;
+  Set<Cell> visitedCells=new HashSet<Cell>();
+  List<Cell> path=new ArrayList<Cell>();
+  Cell current=start;
+  LOG.debug("Searching path from [{}, {}] to [{}, {}]",current.getX(),current.getY(),target.getX(),target.getY());
+  while (!current.equals(target)) {
+    moves++;
+    visitedCells.add(current);
+    LOG.debug("Adding cell [{}, {}] to visited set",current.getX(),current.getY());
+    List<Cell> available=getAvailableTargets(current,target,labyrinth);
+    if (available.isEmpty()) {
+      LOG.info("There are no available paths from cell (dead end or cell is not yet discovered) [{}, {}]",current.getX(),current.getY());
+      return null;
+    }
+    Cell next=getNext(available,visitedCells);
+    LOG.debug("Next cell will be {}",next);
+    if (next != null) {
+      path.add(current);
+      current=next;
+    }
+ else {
+      if (!path.isEmpty()) {
+        LOG.debug("Path size is {}.",path.size());
+        current=path.remove(path.size() - 1);
+        LOG.debug("Going back to cell [{}, {}]",current.getX(),current.getY());
+      }
+ else {
+        LOG.info("Path was not found.");
+        return null;
+      }
+    }
+  }
+  path.add(current);
+  path.remove(0);
+  LOG.trace("Took {} moves",moves);
+  return path;
+}

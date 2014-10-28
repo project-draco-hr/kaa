@@ -1,0 +1,25 @@
+{
+  if (emulatorSetupPending) {
+    emulatorSetupPending=false;
+    for (    Cell cell : emulatorRobots.keySet()) {
+      Direction direction=emulatorRobots.get(cell);
+      LOG.info("Setup emulator cell {} direction {}",cell,direction);
+    }
+    try {
+      Properties robotProperties=new Properties();
+      robotProperties.put(RobotEmulator.PROPERTY_NAME_COMMAND_TIMEOUT,"" + RobotEmulator.DEFAULT_COMMAND_TIMEOUT / 5);
+      robotProperties.put(RobotEmulator.PROPERTY_NAME_COMMAND_TIMEOUT_DEVIATION,"" + RobotEmulator.DEFAULT_COMMAND_TIMEOUT_DEVIATION / 5);
+      robotProperties.put(RobotEmulator.PROPERTY_NAME_PING_TIMEOUT,"" + RobotEmulator.DEFAULT_PING_TIMEOUT / 5);
+      emulatorManager.setupEmulators(emulatorRobots,robotProperties);
+    }
+ catch (    IOException e) {
+      LOG.error("Failed to setup emulators!",e);
+      showErrorDialog("Failed to setup emulators!",false);
+    }
+    emulatorManager.startEmulators();
+    fireEmulatorSetupComplete();
+  }
+ else {
+    callback.onContextInitCompleted();
+  }
+}

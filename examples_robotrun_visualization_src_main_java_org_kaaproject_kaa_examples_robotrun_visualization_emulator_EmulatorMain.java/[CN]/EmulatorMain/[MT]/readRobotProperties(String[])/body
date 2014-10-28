@@ -1,0 +1,17 @@
+{
+  Properties props=new Properties();
+  for (  String arg : args) {
+    if (arg != null && arg.length() > 0) {
+      String[] params=arg.split("=");
+      if (params != null && params.length == 2) {
+        String name=params[0];
+        String value=params[1];
+        if (name != null && value != null && value.length() > 0) {
+          LOG.info("Robot property {} = {}",name,value);
+          props.put(name,value);
+        }
+      }
+    }
+  }
+  return props;
+}

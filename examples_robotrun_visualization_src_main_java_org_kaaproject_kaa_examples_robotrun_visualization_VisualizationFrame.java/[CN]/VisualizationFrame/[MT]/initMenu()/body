@@ -1,0 +1,17 @@
+{
+  JMenu menu;
+  JMenuItem menuItem;
+  menuBar=new JMenuBar();
+  menu=new JMenu("Main");
+  menuBar.add(menu);
+  menu.addSeparator();
+  menuItem=new JMenuItem("Exit");
+  menuItem.addActionListener(new ActionListener(){
+    @Override public void actionPerformed(    ActionEvent e){
+      System.exit(0);
+    }
+  }
+);
+  menu.add(menuItem);
+  setJMenuBar(menuBar);
+}

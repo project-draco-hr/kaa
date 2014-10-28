@@ -1,0 +1,9 @@
+{
+  if (attachedEndpoints.contains(sourceEndpointKey)) {
+    return true;
+  }
+ else {
+    LOG.warn("Ignoring {} event from unknown source {}",event.getClass().getName(),sourceEndpointKey);
+    return false;
+  }
+}

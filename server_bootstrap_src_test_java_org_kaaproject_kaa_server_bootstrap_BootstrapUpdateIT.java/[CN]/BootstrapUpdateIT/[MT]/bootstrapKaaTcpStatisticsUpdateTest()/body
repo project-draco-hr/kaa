@@ -1,0 +1,35 @@
+{
+  assertNotNull("Bootstrap not started",bootstrap);
+  List<BootstrapNodeInfo> nodes=listener.getNodes();
+  logger.info("BootstrapNode found....");
+  assertEquals(1,nodes.size());
+  BootstrapNodeInfo info=nodes.get(0);
+  Map<ZkChannelType,BaseStatistics> startStatistics=getStatisticsFromNode(info);
+  logger.info("Found {} channels statistics",startStatistics.size());
+  for (int i=0; i < 10; i++) {
+    makeKaaTcpRequest();
+  }
+  boolean kaatcpOk=false;
+  for (int j=0; j < 10; j++) {
+    try {
+      Thread.sleep(3000);
+    }
+ catch (    InterruptedException e) {
+      fail(e.toString());
+    }
+    nodes=listener.getNodes();
+    logger.info("BootstrapNode found.... {} nodes",nodes.size());
+    Map<ZkChannelType,BaseStatistics> current=getStatisticsFromNode(nodes.get(0));
+    assertNotNull(current.get(ZkChannelType.KAATCP));
+    if (!isStatisticsEquals(startStatistics.get(ZkChannelType.KAATCP),current.get(ZkChannelType.KAATCP))) {
+      kaatcpOk=true;
+      logger.info("Updated stats KAATCP: {},{},{}",current.get(ZkChannelType.KAATCP).getProcessedRequestCount(),current.get(ZkChannelType.KAATCP).getDeltaCalculationCount(),current.get(ZkChannelType.KAATCP).getRegisteredUsersCount());
+    }
+    if (kaatcpOk) {
+      break;
+    }
+  }
+  if (!kaatcpOk) {
+    fail("ZK channel statistics KAATCP update failed");
+  }
+}

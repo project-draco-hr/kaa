@@ -1,0 +1,12 @@
+{
+  int iX=i / columnNum;
+  int iY=i % columnNum;
+  int jX=j / columnNum;
+  int jY=j % columnNum;
+  if (Math.abs(i - j) == 1) {
+    vBdrs[Math.max(iY,jY)][iX]=false;
+  }
+ else {
+    hBdrs[iY][Math.max(iX,jX)]=false;
+  }
+}

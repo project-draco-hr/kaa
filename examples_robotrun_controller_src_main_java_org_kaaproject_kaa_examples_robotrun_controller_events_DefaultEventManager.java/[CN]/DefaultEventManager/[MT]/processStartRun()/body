@@ -1,0 +1,16 @@
+{
+  LOG.info("Processing start run...");
+  if (entityType == EntityType.ROBOT) {
+    for (    EventListener listener : listeners) {
+      listener.onStartRun();
+    }
+  }
+ else {
+    eventExecutor.submit(new Runnable(){
+      @Override public void run(){
+        family.sendEventToAll(new StartRunRequest());
+      }
+    }
+);
+  }
+}

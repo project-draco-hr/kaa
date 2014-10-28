@@ -1,0 +1,18 @@
+{
+  if (checkEventAllowed(paramEntityInfoRequest,sourceEndpointKey)) {
+    LOG.debug("Got entity info request from [{}].",sourceEndpointKey);
+    final EntityInfoResponse response=new EntityInfoResponse();
+    if (entityType == EntityType.ROBOT) {
+      response.setEntityInfo(buildEntityInfo(dataProvider.getCurrentCell()));
+    }
+ else {
+      response.setEntityInfo(buildEntityInfo());
+    }
+    eventExecutor.submit(new Runnable(){
+      @Override public void run(){
+        family.sendEvent(response,sourceEndpointKey);
+      }
+    }
+);
+  }
+}

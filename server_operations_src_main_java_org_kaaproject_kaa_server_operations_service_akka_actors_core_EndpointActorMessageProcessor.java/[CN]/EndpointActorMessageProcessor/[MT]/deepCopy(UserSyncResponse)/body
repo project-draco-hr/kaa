@@ -1,0 +1,22 @@
+{
+  if (source == null) {
+    return null;
+  }
+  UserSyncResponse copy=new UserSyncResponse();
+  if (source.getEndpointAttachResponses() != null) {
+    copy.setEndpointAttachResponses(new ArrayList<>(source.getEndpointAttachResponses()));
+  }
+  if (source.getEndpointDetachResponses() != null) {
+    copy.setEndpointDetachResponses(new ArrayList<>(source.getEndpointDetachResponses()));
+  }
+  if (source.getUserAttachNotification() != null) {
+    copy.setUserAttachNotification(new UserAttachNotification(source.getUserAttachNotification().getUserExternalId(),source.getUserAttachNotification().getEndpointAccessToken()));
+  }
+  if (source.getUserAttachResponse() != null) {
+    copy.setUserAttachResponse(new UserAttachResponse(source.getUserAttachResponse().getResult()));
+  }
+  if (source.getUserDetachNotification() != null) {
+    copy.setUserDetachNotification(new UserDetachNotification(source.getUserDetachNotification().getEndpointAccessToken()));
+  }
+  return copy;
+}

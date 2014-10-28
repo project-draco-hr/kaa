@@ -1,0 +1,13 @@
+{
+  LinkedList<Cell> path=new LinkedList<>();
+  path.push(target);
+  Cell parent=graph.get(target);
+  while (parent != null) {
+    path.push(parent);
+    parent=graph.get(parent);
+  }
+  if (path.size() > 0) {
+    path.pop();
+  }
+  return path;
+}

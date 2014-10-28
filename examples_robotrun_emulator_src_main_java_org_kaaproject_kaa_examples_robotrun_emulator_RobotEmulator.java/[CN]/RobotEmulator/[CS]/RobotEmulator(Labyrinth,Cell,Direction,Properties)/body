@@ -1,0 +1,17 @@
+{
+  this.labyrinth=labyrinth;
+  currentPosition=initialPosition;
+  currentDirection=initialDirection;
+  executor=Executors.newFixedThreadPool(1);
+  if (props != null) {
+    if (props.containsKey(PROPERTY_NAME_COMMAND_TIMEOUT)) {
+      setCommandTimeout(Long.parseLong(props.getProperty(PROPERTY_NAME_COMMAND_TIMEOUT)));
+    }
+    if (props.containsKey(PROPERTY_NAME_COMMAND_TIMEOUT_DEVIATION)) {
+      currentTimeoutDeviation=Integer.parseInt(props.getProperty(PROPERTY_NAME_COMMAND_TIMEOUT_DEVIATION));
+    }
+    if (props.containsKey(PROPERTY_NAME_PING_TIMEOUT)) {
+      pingTimeout=Long.parseLong(props.getProperty(PROPERTY_NAME_PING_TIMEOUT));
+    }
+  }
+}

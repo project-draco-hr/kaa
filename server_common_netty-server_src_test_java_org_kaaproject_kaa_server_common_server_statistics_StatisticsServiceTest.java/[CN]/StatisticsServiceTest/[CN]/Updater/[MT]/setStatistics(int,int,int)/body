@@ -1,0 +1,9 @@
+{
+  this.averageDeltaSync=averageDeltaSync;
+  this.averageOnlineSessions=averageOnlineSessions;
+  this.averageProcessedRequests=averageProcessedRequests;
+  this.updateCount++;
+synchronized (sync) {
+    sync.notify();
+  }
+}

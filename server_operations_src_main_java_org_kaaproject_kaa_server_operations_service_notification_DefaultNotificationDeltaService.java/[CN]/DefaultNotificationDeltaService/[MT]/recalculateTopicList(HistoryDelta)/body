@@ -1,10 +1,10 @@
 {
   Set<TopicDto> topicSet=new HashSet<TopicDto>();
   for (  EndpointGroupStateDto egs : historyDelta.getEndpointGroupStates()) {
-    EndpointGroupDto endpointGroup=endpointService.findEndpointGroupById(egs.getEndpointGroupId());
+    EndpointGroupDto endpointGroup=cacheService.getEndpointGroupById(egs.getEndpointGroupId());
     if (endpointGroup.getTopics() != null) {
       for (      String topicId : endpointGroup.getTopics()) {
-        TopicDto topic=topicService.findTopicById(topicId);
+        TopicDto topic=cacheService.getTopicById(topicId);
         topicSet.add(topic);
       }
     }

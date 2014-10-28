@@ -1,0 +1,16 @@
+{
+  TTupleProtocol iprot=(TTupleProtocol)prot;
+  BitSet incoming=iprot.readBitSet(3);
+  if (incoming.get(0)) {
+    struct.receivedTime=iprot.readI64();
+    struct.setReceivedTimeIsSet(true);
+  }
+  if (incoming.get(1)) {
+    struct.body=iprot.readString();
+    struct.setBodyIsSet(true);
+  }
+  if (incoming.get(2)) {
+    struct.topicId=iprot.readString();
+    struct.setTopicIdIsSet(true);
+  }
+}

@@ -6,9 +6,9 @@
   md.setEndpointPublicKeyHash(clientPublicKeyHash);
   md.setTimeout(1000l);
   request.setSyncRequestMetaData(md);
-  LogSyncRequest logRequest=new LogSyncRequest("logUploadRequest1",new ArrayList<LogEntry>());
+  LogSyncRequest logRequest=new LogSyncRequest("logUploadRequest1",Collections.singletonList(new LogEntry(ByteBuffer.wrap("String".getBytes()))));
   request.setLogSyncRequest(logRequest);
-  Mockito.when(operationsService.sync(Mockito.any(SyncRequest.class))).thenReturn(noDeltaResponseWithTopicState);
+  Mockito.when(operationsService.sync(Mockito.any(SyncRequest.class),Mockito.any(EndpointProfileDto.class))).thenReturn(noDeltaResponseWithTopicState);
   LogAppender mockAppender=Mockito.mock(LogAppender.class);
   Mockito.when(logAppenderService.getApplicationAppenders(APP_ID,APP_TOKEN)).thenReturn(Collections.singletonList(mockAppender));
   ResponseBuilder responseBuilder=Mockito.mock(ResponseBuilder.class);
@@ -16,7 +16,7 @@
   SessionInitRequest message=toSignedRequest(UUID.randomUUID(),ChannelType.HTTP_LP,channelContextMock,request,responseBuilder,errorBuilder);
   Assert.assertNotNull(akkaService.getActorSystem());
   akkaService.process(message);
-  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeastOnce()).sync(request);
+  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeastOnce()).sync(Mockito.any(SyncRequest.class),Mockito.any(EndpointProfileDto.class));
   Mockito.verify(logAppenderService,Mockito.timeout(TIMEOUT).atLeastOnce()).getLogSchema(APP_ID,44);
   Mockito.verify(mockAppender,Mockito.timeout(TIMEOUT).atLeastOnce()).doAppend(Mockito.any(LogEventPack.class));
   Mockito.verify(responseBuilder,Mockito.timeout(TIMEOUT).atLeastOnce()).build(Mockito.any(byte[].class),Mockito.any(boolean.class));

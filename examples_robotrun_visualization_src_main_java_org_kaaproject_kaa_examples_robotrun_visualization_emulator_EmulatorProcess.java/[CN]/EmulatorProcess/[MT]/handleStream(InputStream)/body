@@ -1,0 +1,32 @@
+{
+  Runnable streamHandler=new Runnable(){
+    @Override public void run(){
+      try {
+        BufferedReader reader=new BufferedReader(new InputStreamReader(input));
+        String line=null;
+        while (running) {
+          line=reader.readLine();
+          if (line != null) {
+            emulatorStdout.println(line);
+            emulatorStdout.flush();
+            if (!inited && line.contains("Launcher started!")) {
+              inited=true;
+              callback.onEmulatorInitCompleted(id);
+            }
+          }
+        }
+      }
+ catch (      IOException e) {
+        LOG.error("Unexpected exception in handleStream: ",e);
+      }
+ finally {
+        if (emulatorStdout != null) {
+          emulatorStdout.close();
+        }
+      }
+    }
+  }
+;
+  Thread handleStreamThread=new Thread(streamHandler,"Output handler for emulator " + id);
+  handleStreamThread.start();
+}

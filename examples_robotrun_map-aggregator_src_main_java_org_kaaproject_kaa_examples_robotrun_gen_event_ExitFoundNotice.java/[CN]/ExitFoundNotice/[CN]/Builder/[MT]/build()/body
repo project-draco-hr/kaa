@@ -1,0 +1,10 @@
+{
+  try {
+    ExitFoundNotice record=new ExitFoundNotice();
+    record.exitLocation=fieldSetFlags()[0] ? this.exitLocation : (org.kaaproject.kaa.examples.robotrun.gen.event.Location)defaultValue(fields()[0]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

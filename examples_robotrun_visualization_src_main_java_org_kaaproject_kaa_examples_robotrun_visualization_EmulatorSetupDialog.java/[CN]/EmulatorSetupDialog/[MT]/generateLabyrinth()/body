@@ -1,0 +1,11 @@
+{
+  int startX=startCell.getX();
+  int startY=startCell.getY();
+  int finishX=finishCell.getX();
+  int finishY=finishCell.getY();
+  labyrinth=new BasicLabyrinthGenerator(labyrinth.getWidth(),labyrinth.getHeight()).generate(startX,startY,finishX,finishY);
+  surfacePanel.onLabyrinthUpdated(labyrinth);
+  surfacePanel.repaint();
+  placeRobotsButton.setEnabled(true);
+  EmulatorManager.saveLabyrinth(labyrinth);
+}

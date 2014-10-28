@@ -1,0 +1,8 @@
+{
+  List<Border> borders=new ArrayList<>(bordersSrc.size());
+  for (  BorderInfo borderInfo : bordersSrc) {
+    Border border=new Border(borderInfo.getX(),borderInfo.getY(),BorderType.valueOf(borderInfo.getType().name()));
+    borders.add(border);
+  }
+  return borders;
+}

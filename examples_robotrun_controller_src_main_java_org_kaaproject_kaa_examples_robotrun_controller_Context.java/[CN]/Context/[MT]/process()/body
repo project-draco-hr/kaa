@@ -1,0 +1,10 @@
+{
+  if (state != null) {
+    LOG.debug("Processing {} state",state.getClass().getName());
+    state.process(this);
+  }
+ else {
+    LOG.error("State is not set!");
+    throw new IllegalStateException("State is not set!");
+  }
+}

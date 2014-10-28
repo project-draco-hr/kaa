@@ -1,6 +1,6 @@
 {
   GenericData.Fixed uuid=(GenericData.Fixed)srcRecord.get(UUID_FIELD);
-  LOG.info("Replacing with previous UUID {}",uuid);
+  LOG.trace("Replacing with previous UUID {}",uuid);
   destRecord.put(UUID_FIELD,uuid);
   processedUuids.add(uuid);
 }

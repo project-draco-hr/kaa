@@ -1,0 +1,11 @@
+{
+  try {
+    Location record=new Location();
+    record.x=fieldSetFlags()[0] ? this.x : (java.lang.Integer)defaultValue(fields()[0]);
+    record.y=fieldSetFlags()[1] ? this.y : (java.lang.Integer)defaultValue(fields()[1]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

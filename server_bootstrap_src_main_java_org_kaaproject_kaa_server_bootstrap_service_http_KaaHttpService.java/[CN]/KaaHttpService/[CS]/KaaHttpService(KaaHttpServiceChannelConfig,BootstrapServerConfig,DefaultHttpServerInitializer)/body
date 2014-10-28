@@ -1,0 +1,7 @@
+{
+  this.config=config;
+  this.serverConfig=opConfig;
+  this.netty=new NettyHttpServer(this.config,serverInitializer);
+  this.statService=new StatisticsService(getChannelType(),config,this);
+  this.config.setSessionTrack(statService);
+}

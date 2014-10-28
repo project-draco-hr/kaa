@@ -1,0 +1,44 @@
+{
+  BorderType type=cell.getBorder(direction);
+  if (type != BorderType.FREE) {
+    float[] diffuse=getDiffuse(type);
+    if (type == BorderType.UNKNOWN) {
+      gl2.glDisable(GL2.GL_LIGHTING);
+      gl2.glColor4fv(diffuse,0);
+    }
+ else {
+      gl2.glMaterialfv(GL.GL_FRONT,GLLightingFunc.GL_DIFFUSE,diffuse,0);
+    }
+    gl2.glPushMatrix();
+    float borderHeight=type == BorderType.UNKNOWN ? side * 0.05f : side * 0.65f;
+    float borderThickness=side * 0.05f;
+switch (direction) {
+case NORTH:
+      gl2.glTranslatef(transX(offsetX + x * side + side / 2),transY(offsetY + y * side),borderHeight / 2);
+    gl2.glScalef(side,borderThickness,borderHeight);
+  break;
+case WEST:
+gl2.glTranslatef(transX(offsetX + x * side),transY(offsetY + y * side + side / 2),borderHeight / 2);
+gl2.glScalef(borderThickness,side,borderHeight);
+break;
+case SOUTH:
+gl2.glTranslatef(transX(offsetX + x * side + side / 2),transY(offsetY + (y + 1) * side),borderHeight / 2);
+gl2.glScalef(side,borderThickness,borderHeight);
+break;
+case EAST:
+gl2.glTranslatef(transX(offsetX + (x + 1) * side),transY(offsetY + y * side + side / 2),borderHeight / 2);
+gl2.glScalef(borderThickness,side,borderHeight);
+break;
+}
+if (type == BorderType.UNKNOWN) {
+glut.glutWireCube(1f);
+}
+ else {
+glut.glutSolidCube(1f);
+}
+gl2.glPopMatrix();
+if (type == BorderType.UNKNOWN) {
+gl2.glEnable(GL2.GL_LIGHTING);
+}
+}
+}

@@ -1,0 +1,13 @@
+{
+  if (configStorageFile.exists()) {
+    try {
+      FileInputStream fis=new FileInputStream(configStorageFile);
+      byte[] data=IOUtils.toByteArray(fis);
+      return ByteBuffer.wrap(data);
+    }
+ catch (    IOException e) {
+      LOG.error("Failed to loadConfiguration!",e);
+    }
+  }
+  return null;
+}

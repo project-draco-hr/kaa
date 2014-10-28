@@ -8,5 +8,6 @@
   if (isNeedConnectionClose()) {
     httpResponse.headers().set(CONNECTION,HttpHeaders.Values.CLOSE);
   }
+  setSyncTime(System.currentTimeMillis() - processingStartTimestamp);
   return httpResponse;
 }

@@ -1,0 +1,8 @@
+{
+  bootstrap.shutdown();
+  bootstrap=null;
+  List<BootstrapNodeInfo> nodes=listener.getNodesAfterRemove();
+  assertEquals(0,nodes.size());
+  TestCluster.removeBootstrapListener(listener);
+  listener=null;
+}

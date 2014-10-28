@@ -1,0 +1,7 @@
+{
+  ParameterizedTypeReference<List<ConfigurationRecordDto>> typeRef=new ParameterizedTypeReference<List<ConfigurationRecordDto>>(){
+  }
+;
+  ResponseEntity<List<ConfigurationRecordDto>> entity=restTemplate.exchange(url + "configurationRecords?endpointGroupId={endpointGroupId}&includeDeprecated={includeDeprecated}",HttpMethod.GET,null,typeRef,endpointGroupId,includeDeprecated);
+  return entity.getBody();
+}

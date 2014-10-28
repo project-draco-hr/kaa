@@ -1,0 +1,15 @@
+{
+  LOG.trace("Updating labyrinth, updatedBorders.size={}",updatedBorders.size());
+  for (  Borders borders : updatedBorders) {
+    GenericArray<GenericRecord> hBordersArray=(GenericArray<GenericRecord>)labirynth.get("hBorders");
+    GenericArray<GenericRecord> vBordersArray=(GenericArray<GenericRecord>)labirynth.get("vBorders");
+    if (borders.getHBorders() != null) {
+      LOG.trace("Updating hBorders, size={}",borders.getHBorders().size());
+      updateBorders(hBordersArray,borders.getHBorders());
+    }
+    if (borders.getVBorders() != null) {
+      LOG.trace("Updating vBorders, size={}",borders.getVBorders().size());
+      updateBorders(vBordersArray,borders.getVBorders());
+    }
+  }
+}

@@ -3,8 +3,7 @@ synchronized (buckets) {
     if (buckets.isEmpty()) {
       initBucketList();
     }
-    boolean isPushed=currentBucket.tryPushRecord(record);
-    if (!isPushed) {
+    if (currentBucket.isUsed() || !currentBucket.tryPushRecord(record)) {
       Bucket newBucket=new Bucket(maxBucketSize);
       buckets.add(newBucket);
       currentBucket=newBucket;

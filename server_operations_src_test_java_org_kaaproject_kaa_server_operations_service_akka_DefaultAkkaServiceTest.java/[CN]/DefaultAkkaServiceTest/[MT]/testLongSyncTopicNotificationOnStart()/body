@@ -18,12 +18,12 @@
   request.setNotificationSyncRequest(nfRequest);
   ResponseBuilder responseBuilder=Mockito.mock(ResponseBuilder.class);
   ErrorBuilder errorBuilder=Mockito.mock(ErrorBuilder.class);
-  Mockito.when(operationsService.sync(request)).thenReturn(noDeltaResponseWithTopicState);
+  Mockito.when(operationsService.sync(request,null)).thenReturn(noDeltaResponseWithTopicState);
   Mockito.when(operationsService.updateSyncResponse(noDeltaResponseWithTopicState.getResponse(),Collections.singletonList(topicNotification),null)).thenReturn(noDeltaResponseWithTopicState.getResponse());
   SessionInitRequest message=toSignedRequest(UUID.randomUUID(),ChannelType.HTTP_LP,channelContextMock,request,responseBuilder,errorBuilder);
   Assert.assertNotNull(akkaService.getActorSystem());
   akkaService.process(message);
-  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT / 2).atLeastOnce()).sync(request);
+  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT / 2).atLeastOnce()).sync(request,null);
   Mockito.verify(operationsService,Mockito.timeout(TIMEOUT / 2).atLeastOnce()).updateSyncResponse(noDeltaResponseWithTopicState.getResponse(),Collections.singletonList(topicNotification),null);
   Mockito.verify(responseBuilder,Mockito.timeout(TIMEOUT).atLeastOnce()).build(Mockito.any(byte[].class),Mockito.any(boolean.class));
 }

@@ -1,0 +1,21 @@
+{
+  FileOutputStream fos=null;
+  try {
+    fos=new FileOutputStream(configStorageFile);
+    fos.write(buffer.array());
+    fos.flush();
+    fos.close();
+  }
+ catch (  IOException e) {
+    LOG.error("Failed to saveConfiguration!",e);
+  }
+ finally {
+    if (fos != null) {
+      try {
+        fos.close();
+      }
+ catch (      IOException e) {
+      }
+    }
+  }
+}

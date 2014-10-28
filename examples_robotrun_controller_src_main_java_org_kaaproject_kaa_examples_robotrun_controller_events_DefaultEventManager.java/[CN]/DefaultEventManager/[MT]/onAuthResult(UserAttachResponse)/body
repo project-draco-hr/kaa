@@ -1,0 +1,10 @@
+{
+  if (response.getResult() == SyncResponseResultType.SUCCESS) {
+    fetchEndpointKeys();
+  }
+ else {
+    for (    EventListener listener : listeners) {
+      listener.onEventManagerInitFailed("Unable to attach user!");
+    }
+  }
+}

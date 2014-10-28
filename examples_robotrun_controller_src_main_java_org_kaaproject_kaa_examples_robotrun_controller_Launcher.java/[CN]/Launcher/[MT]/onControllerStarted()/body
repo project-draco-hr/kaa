@@ -1,0 +1,7 @@
+{
+  LOG.info("onControllerStarted, startPending [{}], connected [{}]",startPending,connected);
+  if (startPending && connected) {
+    startPending=false;
+    callback.onLauncherStarted(this.entityName);
+  }
+}

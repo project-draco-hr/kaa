@@ -1,0 +1,36 @@
+{
+  if (stopped) {
+    return;
+  }
+  if (tryExit()) {
+    return;
+  }
+  ;
+  LOG.debug("Get Robot positions");
+  robotPositions=context.getEventManager().getRobotPositions();
+  LOG.debug("Scan current cell");
+  if (!context.getCell().isDiscovered()) {
+    robot.scan(new RobotScanListener(){
+      @Override public void onScan(      Direction direction,      BorderType borderType){
+        LOG.info("Scan result received. Direction: {} borderType: {}",direction,borderType);
+        BorderUpdate tmp=context.getCell().setBorder(direction,borderType);
+        if (update == null) {
+          update=tmp;
+        }
+ else {
+          update.add(tmp);
+        }
+      }
+      @Override public void onScanFailure(){
+        LOG.warn("Scan failure!");
+      }
+      @Override public void onScanComplete(){
+        onCellScanComplete();
+      }
+    }
+);
+  }
+ else {
+    onCellScanComplete();
+  }
+}

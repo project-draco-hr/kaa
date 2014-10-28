@@ -1,0 +1,19 @@
+{
+  Properties props=new Properties();
+  File restPropertiesFile=new File(REST_PROPERTIES_FILE);
+  if (!restPropertiesFile.exists()) {
+    restPropertiesFile.createNewFile();
+  }
+  FileInputStream fis=new FileInputStream(restPropertiesFile);
+  props.load(fis);
+  fis.close();
+  adminHost=props.getProperty(ADMIN_HOST);
+  try {
+    adminPort=Integer.valueOf(props.getProperty(ADMIN_PORT));
+  }
+ catch (  Exception e) {
+  }
+  adminUser=props.getProperty(ADMIN_USER);
+  adminPassword=props.getProperty(ADMIN_PASSWORD);
+  return !strIsEmpty(adminHost) && adminPort > 0 && !strIsEmpty(adminUser) && !strIsEmpty(adminPassword);
+}

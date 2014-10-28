@@ -1,0 +1,14 @@
+{
+  if (userId != null && !userId.equals(endpointProfile.getEndpointUserId())) {
+    sendDisconnectFromOldUser(context,endpointProfile);
+    userRegistrationRequestSent=false;
+  }
+  if (!userRegistrationRequestSent) {
+    userId=endpointProfile.getEndpointUserId();
+    sendConnectToNewUser(context,endpointProfile);
+    userRegistrationRequestSent=true;
+  }
+ else {
+    LOG.trace("[{}][{}] User registration request is already sent.",endpointKey,actorKey);
+  }
+}

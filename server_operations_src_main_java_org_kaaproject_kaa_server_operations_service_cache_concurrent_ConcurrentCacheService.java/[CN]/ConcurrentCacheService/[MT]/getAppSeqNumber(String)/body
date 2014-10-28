@@ -3,7 +3,7 @@
     @Override public AppSeqNumber compute(    String key){
       LOG.debug("Fetching result for getAppSeqNumber");
       ApplicationDto appDto=applicationService.findAppByApplicationToken(key);
-      AppSeqNumber appSeqNumber=new AppSeqNumber(appDto.getId(),appDto.getApplicationToken(),appDto.getSequenceNumber());
+      AppSeqNumber appSeqNumber=new AppSeqNumber(appDto.getTenantId(),appDto.getId(),appDto.getApplicationToken(),appDto.getSequenceNumber());
       putAppSeqNumber(key,appSeqNumber);
       return appSeqNumber;
     }

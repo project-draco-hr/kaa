@@ -1,8 +1,8 @@
 {
   ChannelMetaData channel=channelMap.getByRequestId(message.getRequestId());
   if (channel != null) {
-    SyncResponseHolder response=channel.getResponse();
-    sendReply(context,channel.getRequest(),response.getResponse());
+    SyncResponseHolder response=channel.getResponseHolder();
+    sendReply(context,channel.getRequestMessage(),response.getResponse());
     if (!channel.getType().isAsync()) {
       channelMap.removeChannel(channel);
     }

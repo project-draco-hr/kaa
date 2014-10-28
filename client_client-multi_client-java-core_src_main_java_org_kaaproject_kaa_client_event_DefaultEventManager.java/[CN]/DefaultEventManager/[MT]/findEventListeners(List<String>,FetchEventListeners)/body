@@ -4,6 +4,8 @@
   EventListenersRequestBinding bind=new EventListenersRequestBinding(listener,request);
   eventListenersRequests.put(requestId,bind);
   LOG.debug("Adding event listener resolution request. Request ID: {}",requestId);
-  transport.sync();
+  if (!isEngaged) {
+    transport.sync();
+  }
   return requestId;
 }

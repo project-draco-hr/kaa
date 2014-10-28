@@ -1,0 +1,10 @@
+{
+  return groupsMemorizer.compute(endpointGroupId,new Computable<String,EndpointGroupDto>(){
+    @Override public EndpointGroupDto compute(    String key){
+      LOG.debug("Fetching result for token id");
+      EndpointGroupDto groupDto=endpointService.findEndpointGroupById(key);
+      return groupDto;
+    }
+  }
+);
+}

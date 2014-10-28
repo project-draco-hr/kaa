@@ -1,0 +1,7 @@
+{
+  if (x > offsetX && x < getWidth() - offsetX && y > offsetY && y < getHeight() - offsetY) {
+    int col=(x - offsetX) / side;
+    int row=(y - offsetY) / side;
+    onCellClicked(absX,absY,col,row);
+  }
+}

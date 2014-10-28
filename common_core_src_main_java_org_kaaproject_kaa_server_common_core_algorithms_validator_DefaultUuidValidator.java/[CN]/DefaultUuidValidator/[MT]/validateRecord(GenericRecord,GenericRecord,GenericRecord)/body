@@ -1,6 +1,6 @@
 {
   if (currentRecord != null) {
-    LOG.debug("Processing new record: {}, old record: {}",currentRecord,previousRecord);
+    LOG.trace("Processing new record: {}, old record: {}",currentRecord,previousRecord);
     if (isRecordHaveUuid(currentRecord)) {
       GenericData.Fixed uuidValue=(GenericData.Fixed)currentRecord.get(UUID_FIELD);
       if (uuidValue == null) {
@@ -12,19 +12,19 @@
         }
       }
  else {
-        LOG.info("Validating existing UUID {}",uuidValue);
+        LOG.trace("Validating existing UUID {}",uuidValue);
         if (!processedUuids.contains(uuidValue)) {
           if (previousRecord == null) {
             GenericRecord validatingRecord=findRecordByUuid(rootPreviousRecord,uuidValue);
             if (validatingRecord == null || !validatingRecord.getSchema().getFullName().equals(currentRecord.getSchema().getFullName())) {
-              LOG.info("Unknown UUID {}. Generating a new one",uuidValue);
+              LOG.trace("Unknown UUID {}. Generating a new one",uuidValue);
               generateUuidForRecord(currentRecord);
             }
  else             if (!uuidValue.equals(validatingRecord.get(UUID_FIELD))) {
               copyUuid(currentRecord,validatingRecord);
             }
  else {
-              LOG.info("UUID {} is valid",uuidValue);
+              LOG.trace("UUID {} is valid",uuidValue);
               processedUuids.add(uuidValue);
             }
           }
@@ -32,12 +32,12 @@
             copyUuid(currentRecord,previousRecord);
           }
  else {
-            LOG.info("UUID {} is valid",uuidValue);
+            LOG.trace("UUID {} is valid",uuidValue);
             processedUuids.add(uuidValue);
           }
         }
  else {
-          LOG.info("UUID {} is already in use. Generating a new one",uuidValue);
+          LOG.trace("UUID {} is already in use. Generating a new one",uuidValue);
           generateUuidForRecord(currentRecord);
         }
       }
@@ -66,7 +66,7 @@
           currentRecord.put(position,subResult);
         }
  else         if (currentValue instanceof GenericArray) {
-          LOG.debug("Found array value {}",currentValue);
+          LOG.trace("Found array value {}",currentValue);
           GenericArray array=(GenericArray)currentValue;
           if (array != null) {
             int size=array.size();

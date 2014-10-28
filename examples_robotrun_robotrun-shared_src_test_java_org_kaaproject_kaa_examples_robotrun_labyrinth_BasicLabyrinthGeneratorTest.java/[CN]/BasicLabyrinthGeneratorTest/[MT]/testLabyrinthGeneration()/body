@@ -1,0 +1,14 @@
+{
+  int height=4;
+  int width=3;
+  LabyrinthGenerator generator=new BasicLabyrinthGenerator(width,height);
+  Labyrinth labyrinth=generator.generate(0,0,width - 1,height - 1);
+  Cell startCell=labyrinth.getCell(0,0);
+  Assert.assertTrue(startCell.getBorder(Direction.WEST) == BorderType.SOLID);
+  Assert.assertTrue(startCell.getBorder(Direction.NORTH) == BorderType.SOLID);
+  Assert.assertTrue(startCell.getBorder(Direction.SOUTH) == BorderType.FREE || startCell.getBorder(Direction.EAST) == BorderType.FREE);
+  Cell finishCell=labyrinth.getCell(width - 1,height - 1);
+  Assert.assertTrue(finishCell.getBorder(Direction.EAST) == BorderType.FREE);
+  Assert.assertTrue(finishCell.getBorder(Direction.SOUTH) == BorderType.SOLID);
+  Assert.assertTrue(finishCell.getBorder(Direction.NORTH) == BorderType.FREE || finishCell.getBorder(Direction.WEST) == BorderType.FREE);
+}

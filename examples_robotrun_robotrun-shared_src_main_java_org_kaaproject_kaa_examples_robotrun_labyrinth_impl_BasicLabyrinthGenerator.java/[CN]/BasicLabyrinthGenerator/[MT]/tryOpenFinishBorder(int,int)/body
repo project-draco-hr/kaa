@@ -1,0 +1,14 @@
+{
+  if (finishX == 0) {
+    vBdrs[0][finishY]=false;
+  }
+ else   if (finishY == 0) {
+    hBdrs[finishX][0]=false;
+  }
+ else   if ((finishX + 1) == columnNum) {
+    vBdrs[columnNum][finishY]=false;
+  }
+ else   if ((finishY + 1) == rowNum) {
+    hBdrs[finishX][rowNum]=false;
+  }
+}

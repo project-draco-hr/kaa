@@ -1,0 +1,13 @@
+{
+  try {
+    EntityInfo record=new EntityInfo();
+    record.entityType=fieldSetFlags()[0] ? this.entityType : (org.kaaproject.kaa.examples.robotrun.gen.event.EntityType)defaultValue(fields()[0]);
+    record.location=fieldSetFlags()[1] ? this.location : (org.kaaproject.kaa.examples.robotrun.gen.event.Location)defaultValue(fields()[1]);
+    record.name=fieldSetFlags()[2] ? this.name : (java.lang.String)defaultValue(fields()[2]);
+    record.deadEnd=fieldSetFlags()[3] ? this.deadEnd : (java.lang.Boolean)defaultValue(fields()[3]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

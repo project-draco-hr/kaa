@@ -1,0 +1,19 @@
+{
+  txnEventMax=context.getLong(CONFIG_TXN_EVENT_MAX,DEFAULT_TXN_EVENT_MAX);
+  kaaRestHost=context.getString(CONFIG_KAA_REST_HOST,DEFAULT_KAA_REST_HOST);
+  kaaRestPort=context.getInteger(CONFIG_KAA_REST_PORT,DEFAULT_KAA_REST_PORT);
+  kaaRestUser=context.getString(CONFIG_KAA_REST_USER);
+  kaaRestPassword=context.getString(CONFIG_KAA_REST_PASSWORD);
+  Preconditions.checkArgument(kaaRestUser != null && kaaRestUser.length() > 0,CONFIG_KAA_REST_USER + " must be specified.");
+  Preconditions.checkArgument(kaaRestPassword != null && kaaRestPassword.length() > 0,CONFIG_KAA_REST_PASSWORD + " must be specified.");
+  adminClient=new AdminClient(kaaRestHost,kaaRestPort);
+  adminClient.login(kaaRestUser,kaaRestPassword);
+  String nextSinkHost=context.getString(CONFIG_SINK_HOST,null);
+  if (nextSinkHost != null) {
+    int nextSinkPort=context.getInteger(CONFIG_SINK_PORT,-1);
+    Preconditions.checkArgument(nextSinkPort > -1,CONFIG_SINK_PORT + " must be specified.");
+    nextSink=RpcClientFactory.getDefaultInstance(nextSinkHost,nextSinkPort);
+  }
+  avroRecordDataReader=new SpecificDatumReader<>(RecordData.class);
+  avroBordersReader=new SpecificDatumReader<>(Borders.class);
+}

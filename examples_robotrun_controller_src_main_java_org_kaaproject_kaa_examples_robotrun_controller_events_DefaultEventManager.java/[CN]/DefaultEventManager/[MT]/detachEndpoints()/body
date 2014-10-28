@@ -1,0 +1,31 @@
+{
+  if (!attachedEndpoints.isEmpty()) {
+    final List<String> toDetach=new ArrayList<>(attachedEndpoints);
+    for (    final String endpointKeyHash : toDetach) {
+      EndpointKeyHash endpointKey=new EndpointKeyHash(endpointKeyHash);
+      client.getEndpointRegistrationManager().detachEndpoint(endpointKey,new EndpointOperationResultListener(){
+        @Override public void sendResponse(        String operation,        SyncResponseResultType result,        Object context){
+          if (result == SyncResponseResultType.SUCCESS) {
+            toDetach.remove(endpointKeyHash);
+            if (toDetach.isEmpty()) {
+              for (              EventListener listener : listeners) {
+                listener.onEventManagerInitComplete();
+              }
+            }
+          }
+ else {
+            for (            EventListener listener : listeners) {
+              listener.onEventManagerInitFailed("Unable to detach endpoint!");
+            }
+          }
+        }
+      }
+);
+    }
+  }
+ else {
+    for (    EventListener listener : listeners) {
+      listener.onEventManagerInitComplete();
+    }
+  }
+}

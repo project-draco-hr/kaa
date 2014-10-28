@@ -1,0 +1,10 @@
+{
+  try {
+    out.write(command.getBytes());
+    Log.i(TAG,"BT: SEND: " + command);
+  }
+ catch (  IOException e) {
+    Log.e(TAG,"BT: error BTReader",e);
+    onDisconnect(e);
+  }
+}

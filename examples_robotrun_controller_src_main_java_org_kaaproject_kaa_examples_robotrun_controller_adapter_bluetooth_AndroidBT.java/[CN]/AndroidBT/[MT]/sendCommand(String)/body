@@ -1,0 +1,9 @@
+{
+  if (!btConnected) {
+    throw new BTException("BT not connected");
+  }
+  if (writer == null) {
+    throw new BTException("BT connection incomplete");
+  }
+  writer.send(command);
+}

@@ -1,0 +1,17 @@
+{
+  LOG.info("Shutdown initiated.");
+  if (executor != null) {
+    executor.shutdown();
+    try {
+      executor.awaitTermination(1,TimeUnit.MINUTES);
+    }
+ catch (    InterruptedException e) {
+    }
+ finally {
+      executor=null;
+    }
+  }
+  if (stateCallback != null) {
+    stateCallback.onDisconnected();
+  }
+}

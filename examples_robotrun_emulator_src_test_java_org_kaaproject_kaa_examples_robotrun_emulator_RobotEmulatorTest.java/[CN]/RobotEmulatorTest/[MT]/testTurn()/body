@@ -1,0 +1,132 @@
+{
+  setInitialDirection(Direction.NORTH);
+  RobotEmulator emu=new RobotEmulator(labyrinth,getInitialPosition(),getInitialDirection(),null);
+  assertNotNull(emu);
+  final Object obj=new Object();
+  OK=false;
+  emu.registerStateCallback(new StateCallback(){
+    @Override public void onDisconnected(){
+    }
+    @Override public void onConnected(    String deviceName){
+synchronized (obj) {
+        OK=true;
+        obj.notify();
+      }
+    }
+  }
+);
+  try {
+    emu.start();
+  }
+ catch (  Exception e) {
+    Assert.assertTrue(false);
+  }
+synchronized (obj) {
+    try {
+      obj.wait(2000);
+      assertEquals(true,OK);
+    }
+ catch (    InterruptedException e) {
+      fail("Creator wait failed");
+    }
+  }
+  emu.registerErrorCallback(new ErrorCallback(){
+    @Override public void error(    Exception exception){
+      exception.printStackTrace();
+      fail(exception.toString());
+    }
+  }
+);
+  final Object objSync=new Object();
+  emu.registerTurnCallback(new TurnCallback(){
+    @Override public void complete(    OperationStatus status){
+      if (status == OperationStatus.FAILED) {
+        fail("Turn command failed");
+      }
+synchronized (objSync) {
+        objSync.notify();
+      }
+    }
+  }
+);
+  emu.turn(TurnDirection.RIGHT,false);
+synchronized (objSync) {
+    try {
+      objSync.wait(emu.getCommandTimeout() + emu.getTimeoutDeviation());
+      assertEquals(Direction.EAST,emu.getCurrentDirection());
+    }
+ catch (    InterruptedException e) {
+      fail(e.toString());
+    }
+  }
+  emu.turn(TurnDirection.RIGHT,false);
+synchronized (objSync) {
+    try {
+      objSync.wait(emu.getCommandTimeout() + emu.getTimeoutDeviation());
+      assertEquals(Direction.SOUTH,emu.getCurrentDirection());
+    }
+ catch (    InterruptedException e) {
+      fail(e.toString());
+    }
+  }
+  emu.turn(TurnDirection.RIGHT,false);
+synchronized (objSync) {
+    try {
+      objSync.wait(emu.getCommandTimeout() + emu.getTimeoutDeviation());
+      assertEquals(Direction.WEST,emu.getCurrentDirection());
+    }
+ catch (    InterruptedException e) {
+      fail(e.toString());
+    }
+  }
+  emu.turn(TurnDirection.RIGHT,false);
+synchronized (objSync) {
+    try {
+      objSync.wait(emu.getCommandTimeout() + emu.getTimeoutDeviation());
+      assertEquals(Direction.NORTH,emu.getCurrentDirection());
+    }
+ catch (    InterruptedException e) {
+      fail(e.toString());
+    }
+  }
+  emu.turn(TurnDirection.LEFT,false);
+synchronized (objSync) {
+    try {
+      objSync.wait(emu.getCommandTimeout() + emu.getTimeoutDeviation());
+      assertEquals(Direction.WEST,emu.getCurrentDirection());
+    }
+ catch (    InterruptedException e) {
+      fail(e.toString());
+    }
+  }
+  emu.turn(TurnDirection.LEFT,false);
+synchronized (objSync) {
+    try {
+      objSync.wait(emu.getCommandTimeout() + emu.getTimeoutDeviation());
+      assertEquals(Direction.SOUTH,emu.getCurrentDirection());
+    }
+ catch (    InterruptedException e) {
+      fail(e.toString());
+    }
+  }
+  emu.turn(TurnDirection.LEFT,false);
+synchronized (objSync) {
+    try {
+      objSync.wait(emu.getCommandTimeout() + emu.getTimeoutDeviation());
+      assertEquals(Direction.EAST,emu.getCurrentDirection());
+    }
+ catch (    InterruptedException e) {
+      fail(e.toString());
+    }
+  }
+  emu.turn(TurnDirection.LEFT,false);
+synchronized (objSync) {
+    try {
+      objSync.wait(emu.getCommandTimeout() + emu.getTimeoutDeviation());
+      assertEquals(Direction.NORTH,emu.getCurrentDirection());
+    }
+ catch (    InterruptedException e) {
+      fail(e.toString());
+    }
+  }
+}

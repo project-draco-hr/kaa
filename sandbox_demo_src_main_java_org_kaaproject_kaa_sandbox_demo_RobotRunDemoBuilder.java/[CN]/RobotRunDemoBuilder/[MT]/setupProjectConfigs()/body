@@ -1,0 +1,22 @@
+{
+  Project projectConfig=new Project();
+  projectConfig.setId("robotrun_demo_desktop");
+  projectConfig.setName("Robot Run Demo Desktop");
+  projectConfig.setDescription("Robot Run java application to control and visualize labirynth");
+  projectConfig.setPlatform(Platform.JAVA);
+  projectConfig.setSourceArchive("java/robotrun_demo.tar.gz");
+  projectConfig.setProjectFolder("");
+  projectConfig.setSdkLibDir("lib");
+  projectConfig.setDestBinaryFile("target/visualization.tar.gz");
+  projectConfigs.add(projectConfig);
+  projectConfig=new Project();
+  projectConfig.setId("robotrun_demo_android");
+  projectConfig.setName("Robot Run Demo Android");
+  projectConfig.setDescription("Robot Run android application to control robot");
+  projectConfig.setPlatform(Platform.ANDROID);
+  projectConfig.setSourceArchive("android/robotrun_demo.tar.gz");
+  projectConfig.setProjectFolder("robotrun_demo/RobotRun");
+  projectConfig.setSdkLibDir("robotrun_demo/RobotRun/libs");
+  projectConfig.setDestBinaryFile("robotrun_demo/RobotRun/bin/RobotRun-debug.apk");
+  projectConfigs.add(projectConfig);
+}

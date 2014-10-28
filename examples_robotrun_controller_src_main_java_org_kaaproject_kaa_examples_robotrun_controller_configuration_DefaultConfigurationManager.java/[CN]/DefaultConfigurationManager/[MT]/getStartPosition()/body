@@ -1,0 +1,10 @@
+{
+  if (!startPositionInitialized) {
+    throw new IllegalStateException("Start position was not initialized yet");
+  }
+  if (startX >= labyrinth.getWidth() || startY >= labyrinth.getHeight() || startX < 0 || startY < 0) {
+    LOG.error("Cell coordinates [x: {}, y: {}] are not in labyrinth [{}] bounds",startX,startY,labyrinth);
+    throw new IllegalStateException("Start position is out of labyrinth");
+  }
+  return labyrinth.getCell(startX,startY);
+}

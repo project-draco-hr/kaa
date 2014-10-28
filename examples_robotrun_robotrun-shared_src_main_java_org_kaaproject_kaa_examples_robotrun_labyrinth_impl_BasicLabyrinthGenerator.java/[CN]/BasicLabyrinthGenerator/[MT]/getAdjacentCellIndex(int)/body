@@ -1,0 +1,36 @@
+{
+  final int MAX_ATTEMPTS=4;
+  int adjacentCellIndex=-1;
+  Random directionRandomizer=new Random();
+  int direction=directionRandomizer.nextInt(MAX_ATTEMPTS);
+  int attempt=MAX_ATTEMPTS;
+  while ((attempt > 0) && (0 > adjacentCellIndex || adjacentCellIndex >= count)) {
+switch (direction) {
+case 0:
+      adjacentCellIndex=cellIndex - 1;
+    if ((cellIndex % columnNum) == 0) {
+      adjacentCellIndex=cellIndex - columnNum;
+    }
+  break;
+case 1:
+adjacentCellIndex=cellIndex - columnNum;
+break;
+case 2:
+adjacentCellIndex=cellIndex + 1;
+if ((adjacentCellIndex % columnNum) == 0) {
+adjacentCellIndex=cellIndex + columnNum;
+}
+break;
+case 3:
+adjacentCellIndex=cellIndex + columnNum;
+break;
+default :
+break;
+}
+if (++direction >= MAX_ATTEMPTS) {
+direction=0;
+}
+--attempt;
+}
+return adjacentCellIndex;
+}

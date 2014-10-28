@@ -1,0 +1,8 @@
+{
+  if (!isDiscovered()) {
+    throw new IllegalStateException(CELL_IS_NOT_YET_DISCOVERED);
+  }
+ else {
+    return (x == 0 && getBorder(Direction.WEST) == BorderType.FREE) || (x == (BasicLabyrinth.this.getWidth() - 1) && getBorder(Direction.EAST) == BorderType.FREE) || (y == 0 && getBorder(Direction.NORTH) == BorderType.FREE)|| (y == (BasicLabyrinth.this.getHeight() - 1) && getBorder(Direction.SOUTH) == BorderType.FREE);
+  }
+}

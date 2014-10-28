@@ -1,0 +1,6 @@
+{
+  super();
+  this.messageProcessor=new EncDecActorMessageProcessor(epsActor,metricsService,cacheService,serverKeys,supportUnencryptedConnection);
+  this.redirectionRules=new HashMap<>();
+  this.random=new Random();
+}

@@ -4,7 +4,8 @@
   if (stats != null) {
     stats.reportSyncTime(syncTime);
   }
-  NettySessionResponseMessage response=new NettySessionResponseMessage(request.getSession(),syncResponse,request.getCommand().getResponseBuilder(),request.getCommand().getErrorBuilder());
+  SyncResponse copy=deepCopy(syncResponse);
+  NettySessionResponseMessage response=new NettySessionResponseMessage(request.getSession(),copy,request.getCommand().getResponseBuilder(),request.getCommand().getErrorBuilder());
   tellActor(context,request.getOriginator(),response);
   scheduleActorTimeout(context);
 }

@@ -1,0 +1,13 @@
+{
+  if (configSchemaStorageFile.exists()) {
+    try {
+      FileInputStream fis=new FileInputStream(configSchemaStorageFile);
+      byte[] data=IOUtils.toByteArray(fis);
+      return ByteBuffer.wrap(data);
+    }
+ catch (    IOException e) {
+      LOG.error("Failed to loadSchema!",e);
+    }
+  }
+  return null;
+}

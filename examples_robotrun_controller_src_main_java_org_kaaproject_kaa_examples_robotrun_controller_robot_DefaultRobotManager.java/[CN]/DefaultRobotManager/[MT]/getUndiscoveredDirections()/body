@@ -1,0 +1,14 @@
+{
+  LinkedList<Direction> undiscoveredDirections=new LinkedList<>();
+  Direction[] directionValues=Direction.values();
+  for (int directionCounter=0, index=currentDirection.ordinal(); directionCounter < directionValues.length; ++directionCounter) {
+    if (index < 0 || index >= directionValues.length) {
+      index=(turnClockwise ? 0 : (directionValues.length - 1));
+    }
+    if (currentPos.getBorder(directionValues[index]) == BorderType.UNKNOWN) {
+      undiscoveredDirections.add(directionValues[index]);
+    }
+    index=(turnClockwise ? ++index : --index);
+  }
+  return undiscoveredDirections;
+}

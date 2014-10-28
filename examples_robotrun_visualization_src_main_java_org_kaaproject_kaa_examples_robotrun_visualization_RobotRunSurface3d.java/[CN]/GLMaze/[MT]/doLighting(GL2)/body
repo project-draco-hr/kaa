@@ -1,0 +1,13 @@
+{
+  gl.glEnable(GL2.GL_LIGHTING);
+  gl.glEnable(GL2.GL_LIGHT0);
+  gl.glPushMatrix();
+  gl.glTranslatef(0.0f,-2f,3.0f);
+  gl.glLightfv(GLLightingFunc.GL_LIGHT0,GLLightingFunc.GL_AMBIENT,noAmbient,0);
+  gl.glLightfv(GLLightingFunc.GL_LIGHT0,GLLightingFunc.GL_SPECULAR,spec,0);
+  gl.glLightfv(GLLightingFunc.GL_LIGHT0,GLLightingFunc.GL_DIFFUSE,diffuse,0);
+  gl.glLightfv(GLLightingFunc.GL_LIGHT0,GLLightingFunc.GL_POSITION,lightPos,0);
+  gl.glPopMatrix();
+  gl.glMaterialfv(GL.GL_FRONT,GLLightingFunc.GL_SPECULAR,matSpecular,0);
+  gl.glMaterialf(GL.GL_FRONT,GLLightingFunc.GL_SHININESS,25.0f);
+}

@@ -1,0 +1,10 @@
+{
+  isEngaged=false;
+  boolean needSync=!currentEvents.isEmpty();
+  if (!needSync) {
+    for (    EventListenersRequestBinding b : eventListenersRequests.values()) {
+      needSync|=!b.isSent();
+    }
+  }
+  return needSync;
+}

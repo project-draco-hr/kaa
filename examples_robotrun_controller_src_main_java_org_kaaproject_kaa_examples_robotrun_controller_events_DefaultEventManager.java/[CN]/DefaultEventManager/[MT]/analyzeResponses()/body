@@ -1,0 +1,19 @@
+{
+  boolean allowed=true;
+synchronized (conflictLock) {
+    if (moveRequestConflict) {
+      return false;
+    }
+  }
+  if (moveRequestResponses != null) {
+synchronized (moveRequestResponses) {
+      for (      Boolean response : moveRequestResponses) {
+        if (!response) {
+          allowed=false;
+          break;
+        }
+      }
+    }
+  }
+  return allowed;
+}

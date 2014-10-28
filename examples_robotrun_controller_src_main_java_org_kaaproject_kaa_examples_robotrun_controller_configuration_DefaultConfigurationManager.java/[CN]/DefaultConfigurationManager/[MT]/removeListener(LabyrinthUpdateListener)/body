@@ -1,0 +1,8 @@
+{
+  boolean result=false;
+synchronized (listeners) {
+    result=listeners.remove(listener);
+  }
+  LOG.info("{} labyrinth update listener {}",(result ? "Removed" : "Failed to remove"),listener);
+  return result;
+}

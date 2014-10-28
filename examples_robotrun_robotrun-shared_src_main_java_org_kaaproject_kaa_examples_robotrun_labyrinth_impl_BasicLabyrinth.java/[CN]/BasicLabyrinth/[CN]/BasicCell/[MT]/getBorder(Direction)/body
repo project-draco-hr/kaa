@@ -1,0 +1,14 @@
+{
+switch (side) {
+case WEST:
+    return vBorder[x][y];
+case EAST:
+  return vBorder[x + 1][y];
+case NORTH:
+return hBorder[x][y];
+case SOUTH:
+return hBorder[x][y + 1];
+default :
+throw new IllegalArgumentException("Side " + side.name() + " is not supported");
+}
+}
