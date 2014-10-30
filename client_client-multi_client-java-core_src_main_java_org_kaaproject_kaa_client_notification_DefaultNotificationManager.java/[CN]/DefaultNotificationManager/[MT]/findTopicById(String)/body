@@ -1,5 +1,10 @@
 {
 synchronized (topics) {
-    return topics.get(id);
+    Topic topic=topics.get(id);
+    if (topic == null) {
+      LOG.warn("Failed to find topic: id {} is unknown",id);
+      throw new UnavailableTopicException(String.format("Topic id '%s' is unknown",id));
+    }
+    return topic;
   }
 }

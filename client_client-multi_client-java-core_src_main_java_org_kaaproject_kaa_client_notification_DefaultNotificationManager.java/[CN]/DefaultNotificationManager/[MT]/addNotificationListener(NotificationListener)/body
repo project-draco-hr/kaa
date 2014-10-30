@@ -1,0 +1,11 @@
+{
+  if (listener == null) {
+    LOG.warn("Failed to add notification listener: null");
+    throw new IllegalArgumentException("NUll notification listener");
+  }
+synchronized (mandatoryListeners) {
+    if (!mandatoryListeners.contains(listener)) {
+      mandatoryListeners.add(listener);
+    }
+  }
+}

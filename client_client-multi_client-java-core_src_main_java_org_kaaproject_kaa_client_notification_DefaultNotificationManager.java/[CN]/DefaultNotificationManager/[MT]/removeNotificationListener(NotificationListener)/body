@@ -1,0 +1,9 @@
+{
+  if (listener == null) {
+    LOG.warn("Failed to remove notification listener: null");
+    throw new IllegalArgumentException("NUll notification listener");
+  }
+synchronized (mandatoryListeners) {
+    mandatoryListeners.remove(listener);
+  }
+}

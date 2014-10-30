@@ -1,0 +1,13 @@
+{
+  if (topicId == null || listener == null) {
+    LOG.warn("Failed to remove listener: id={}, listener={}",topicId,listener);
+    throw new IllegalArgumentException("Bad listener data");
+  }
+  findTopicById(topicId);
+synchronized (voluntaryListeners) {
+    List<NotificationListener> listeners=voluntaryListeners.get(topicId);
+    if (listeners != null) {
+      listeners.remove(listener);
+    }
+  }
+}
