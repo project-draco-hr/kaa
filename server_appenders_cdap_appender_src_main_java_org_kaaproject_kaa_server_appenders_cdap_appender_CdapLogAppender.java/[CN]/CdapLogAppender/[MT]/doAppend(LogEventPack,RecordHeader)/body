@@ -1,0 +1,8 @@
+{
+  if (!closed) {
+    LOG.debug("[{}] appending {} logs using cdap appender",logEventPack.getEvents().size());
+  }
+ else {
+    LOG.info("Attempted to append to closed appender named [{}].",getName());
+  }
+}

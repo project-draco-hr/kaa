@@ -36,6 +36,9 @@ break;
 case MONGO:
 parameters.setParameters(new MongoAppenderParametersDto("testCollections"));
 break;
+case CUSTOM:
+parameters.setParameters(new CustomAppenderParametersDto("CustomAppender","org.kaaproject.TestAppender","config"));
+break;
 }
 logAppender.setProperties(parameters);
 return logAppendersService.saveLogAppender(logAppender);

@@ -1,0 +1,12 @@
+{
+  if (this == obj)   return true;
+  if (obj == null)   return false;
+  if (getClass() != obj.getClass())   return false;
+  LogAppenderInfoDto other=(LogAppenderInfoDto)obj;
+  if (appenderClassName == null) {
+    if (other.appenderClassName != null)     return false;
+  }
+ else   if (!appenderClassName.equals(other.appenderClassName))   return false;
+  if (type != other.type)   return false;
+  return true;
+}
