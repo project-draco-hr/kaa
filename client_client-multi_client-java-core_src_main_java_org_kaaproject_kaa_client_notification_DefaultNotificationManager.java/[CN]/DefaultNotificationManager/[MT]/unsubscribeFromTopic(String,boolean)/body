@@ -1,0 +1,12 @@
+{
+  Topic topic=findTopicById(topicId);
+  if (topic.getSubscriptionType() != SubscriptionType.VOLUNTARY) {
+    LOG.warn("Failed to unsubscribe: topic '{}' isn't voluntary",topicId);
+    throw new UnavailableTopicException(String.format("Topic '%s' isn't voluntary",topicId));
+  }
+  topicsListeners.remove(topicId);
+  updateSubscriptionInfo(topicId,SubscriptionCommandType.REMOVE);
+  if (forceSync) {
+    doSync();
+  }
+}

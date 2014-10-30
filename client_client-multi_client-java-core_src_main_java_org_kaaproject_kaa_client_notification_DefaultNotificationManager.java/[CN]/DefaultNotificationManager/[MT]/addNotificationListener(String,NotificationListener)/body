@@ -1,0 +1,15 @@
+{
+  if (topicId == null || listener == null) {
+    LOG.warn("Failed to add listener: id={}, listener={}",topicId,listener);
+    throw new IllegalArgumentException("Bad listener data");
+  }
+  findTopicById(topicId);
+synchronized (voluntaryListeners) {
+    List<NotificationListener> listeners=voluntaryListeners.get(topicId);
+    if (listeners == null) {
+      listeners=new LinkedList<>();
+      voluntaryListeners.put(topicId,listeners);
+    }
+    listeners.add(listener);
+  }
+}

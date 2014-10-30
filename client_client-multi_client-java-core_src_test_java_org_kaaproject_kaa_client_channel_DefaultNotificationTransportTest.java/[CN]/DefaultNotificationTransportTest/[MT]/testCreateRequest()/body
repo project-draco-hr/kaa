@@ -1,12 +1,10 @@
 {
   KaaClientState clientState=Mockito.mock(KaaClientState.class);
-  NotificationManager notificationManager=Mockito.mock(NotificationManager.class);
   Mockito.when(clientState.getNotificationSeqNumber()).thenReturn(new Integer(5));
   NotificationTransport transport=new DefaultNotificationTransport();
   transport.createNotificationRequest();
   transport.setClientState(clientState);
   transport.createNotificationRequest();
-  transport.setNotificationManager(notificationManager);
   NotificationSyncRequest request=transport.createNotificationRequest();
   Assert.assertEquals(new Integer(5),request.getAppStateSeqNumber());
 }

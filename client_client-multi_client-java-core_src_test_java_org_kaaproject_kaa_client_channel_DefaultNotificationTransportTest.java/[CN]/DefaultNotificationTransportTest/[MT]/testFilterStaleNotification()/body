@@ -1,7 +1,6 @@
 {
   KaaClientState clientState=Mockito.mock(KaaClientState.class);
   NotificationProcessor notificationProcessor=Mockito.mock(NotificationProcessor.class);
-  NotificationManager notificationManager=Mockito.mock(NotificationManager.class);
   Mockito.when(clientState.updateTopicSubscriptionInfo(Mockito.anyString(),Mockito.anyInt())).thenReturn(Boolean.FALSE);
   NotificationSyncResponse response=new NotificationSyncResponse();
   response.setAppStateSeqNumber(3);
@@ -11,7 +10,6 @@
   Mockito.when(channelManagerMock.getChannelByTransportType(TransportType.NOTIFICATION)).thenReturn(channelMock);
   NotificationTransport transport=new DefaultNotificationTransport();
   transport.setChannelManager(channelManagerMock);
-  transport.setNotificationManager(notificationManager);
   transport.setNotificationProcessor(notificationProcessor);
   transport.setClientState(clientState);
   Notification nf1=new Notification("u_id1",NotificationType.CUSTOM,null,3,ByteBuffer.wrap(new byte[]{1,2,3}));
