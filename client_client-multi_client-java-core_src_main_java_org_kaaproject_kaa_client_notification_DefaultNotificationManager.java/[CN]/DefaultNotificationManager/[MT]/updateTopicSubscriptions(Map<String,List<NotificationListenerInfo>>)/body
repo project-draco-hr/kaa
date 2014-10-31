@@ -1,38 +1,41 @@
 {
-  if (subscribers != null) {
-    for (    Map.Entry<String,List<NotificationListenerInfo>> cursor : subscribers.entrySet()) {
-      Topic listenerTopic=findTopicById(cursor.getKey());
-      if (listenerTopic == null) {
-        throw new UnavailableTopicException("Topic with id " + cursor.getKey() + " is not available");
-      }
-synchronized (notificationListeners) {
-        List<NotificationListener> listeners=notificationListeners.get(cursor.getKey());
-        if (cursor.getValue() != null) {
-          for (          NotificationListenerInfo subscriberInfo : cursor.getValue()) {
-            if (subscriberInfo.getAction() == NotificationListenerInfo.Action.ADD) {
-              if (listeners == null) {
-                listeners=new LinkedList<NotificationListener>();
-                notificationListeners.put(listenerTopic.getId(),listeners);
-              }
-              if (listeners.isEmpty() && listenerTopic.getSubscriptionType() == SubscriptionType.VOLUNTARY) {
-                updateSubscriptionInfo(listenerTopic.getId(),SubscriptionCommandType.ADD);
-              }
-              if (subscriberInfo.getListener() != null && !listeners.contains(subscriberInfo.getListener())) {
-                listeners.add(subscriberInfo.getListener());
-              }
+  if (subscribers == null) {
+    LOG.warn("Failed to update topic subsciptions: null subscribers");
+    throw new IllegalArgumentException("NUll subscribers");
+  }
+  List<SubscriptionCommand> subscriptionUpdate=new LinkedList<>();
+  for (  Map.Entry<String,List<NotificationListenerInfo>> cursor : subscribers.entrySet()) {
+    Topic listenerTopic=findTopicById(cursor.getKey());
+synchronized (voluntaryListeners) {
+      List<NotificationListener> listeners=voluntaryListeners.get(cursor.getKey());
+      if (cursor.getValue() != null) {
+        for (        NotificationListenerInfo subscriberInfo : cursor.getValue()) {
+          if (subscriberInfo.getAction() == NotificationListenerInfo.Action.ADD) {
+            if (listeners == null) {
+              listeners=new LinkedList<NotificationListener>();
+              voluntaryListeners.put(listenerTopic.getId(),listeners);
             }
- else             if (listeners != null) {
-              listeners.remove(subscriberInfo.getListener());
-              if (listeners.isEmpty() && listenerTopic.getSubscriptionType() == SubscriptionType.VOLUNTARY) {
-                updateSubscriptionInfo(listenerTopic.getId(),SubscriptionCommandType.REMOVE);
-              }
+            if (listeners.isEmpty() && listenerTopic.getSubscriptionType() == SubscriptionType.VOLUNTARY) {
+              subscriptionUpdate.add(new SubscriptionCommand(listenerTopic.getId(),SubscriptionCommandType.ADD));
+            }
+            if (subscriberInfo.getListener() != null && !listeners.contains(subscriberInfo.getListener())) {
+              listeners.add(subscriberInfo.getListener());
+            }
+          }
+ else           if (listeners != null) {
+            listeners.remove(subscriberInfo.getListener());
+            if (listeners.isEmpty() && listenerTopic.getSubscriptionType() == SubscriptionType.VOLUNTARY) {
+              subscriptionUpdate.add(new SubscriptionCommand(listenerTopic.getId(),SubscriptionCommandType.REMOVE));
             }
           }
         }
       }
     }
-    if (transport != null) {
-      transport.sync();
-    }
+  }
+  if (!subscriptionUpdate.isEmpty()) {
+    updateSubscriptionInfo(subscriptionUpdate);
+  }
+  if (transport != null) {
+    transport.sync();
   }
 }
