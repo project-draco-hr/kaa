@@ -1,0 +1,15 @@
+{
+  KaaClientPropertiesState state=new KaaClientPropertiesState(new FilePersistentStorage(),KaaClientPropertiesStateTest.getProperties());
+  NotificationTransport transport=mock(NotificationTransport.class);
+  DefaultNotificationManager notificationManager=new DefaultNotificationManager(state,transport);
+  NotificationTopicListListener listener1=Mockito.mock(NotificationTopicListListener.class);
+  NotificationTopicListListener listener2=Mockito.mock(NotificationTopicListListener.class);
+  notificationManager.addTopicListListener(listener1);
+  notificationManager.addTopicListListener(listener2);
+  List<Topic> topicUpdate=Arrays.asList(new Topic());
+  notificationManager.topicsListUpdated(topicUpdate);
+  notificationManager.removeTopicListListener(listener2);
+  notificationManager.topicsListUpdated(topicUpdate);
+  Mockito.verify(listener1,Mockito.times(2)).onListUpdated(topicUpdate);
+  Mockito.verify(listener2,Mockito.times(1)).onListUpdated(topicUpdate);
+}

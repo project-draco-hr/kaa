@@ -12,7 +12,7 @@
       SpecificDatumReader<TopicSubscriptionInfo> avroReader=new SpecificDatumReader<TopicSubscriptionInfo>(TopicSubscriptionInfo.class);
       try {
         TopicSubscriptionInfo decodedInfo=null;
-        while (true) {
+        while (!decoder.isEnd()) {
           decodedInfo=avroReader.read(null,decoder);
           LOG.debug("Loaded {}",decodedInfo);
           nfSubscriptions.put(decodedInfo.getTopicInfo().getId(),decodedInfo);

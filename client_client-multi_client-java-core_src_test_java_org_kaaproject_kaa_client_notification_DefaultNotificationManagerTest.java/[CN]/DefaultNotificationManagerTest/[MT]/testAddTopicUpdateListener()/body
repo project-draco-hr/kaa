@@ -1,0 +1,18 @@
+{
+  KaaClientPropertiesState state=new KaaClientPropertiesState(new FilePersistentStorage(),KaaClientPropertiesStateTest.getProperties());
+  NotificationTransport transport=mock(NotificationTransport.class);
+  DefaultNotificationManager notificationManager=new DefaultNotificationManager(state,transport);
+  final List<Topic> topicUpdates=new LinkedList<>();
+  topicUpdates.add(new Topic("id1","topic_name1",SubscriptionType.MANDATORY));
+  topicUpdates.add(new Topic("id2","topic_name1",SubscriptionType.MANDATORY));
+  topicUpdates.add(new Topic("id3","topic_name1",SubscriptionType.MANDATORY));
+  notificationManager.addTopicListListener(new NotificationTopicListListener(){
+    @Override public void onListUpdated(    List<Topic> list){
+      Assert.assertArrayEquals(topicUpdates.toArray(),list.toArray());
+      topicUpdates.clear();
+    }
+  }
+);
+  notificationManager.topicsListUpdated(topicUpdates);
+  Assert.assertTrue(topicUpdates.isEmpty());
+}

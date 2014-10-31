@@ -1,7 +1,9 @@
 {
-  if (listener != null) {
+  if (listener == null) {
+    LOG.warn("Failed to remove topic list listener: null");
+    throw new IllegalArgumentException("NUll topic list listener");
+  }
 synchronized (topicsListeners) {
-      topicsListeners.remove(listener);
-    }
+    topicsListeners.remove(listener);
   }
 }

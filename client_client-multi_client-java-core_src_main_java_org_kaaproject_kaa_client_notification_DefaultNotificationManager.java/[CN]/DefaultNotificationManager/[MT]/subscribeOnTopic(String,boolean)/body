@@ -1,0 +1,11 @@
+{
+  Topic topic=findTopicById(topicId);
+  if (topic.getSubscriptionType() != SubscriptionType.VOLUNTARY) {
+    LOG.warn("Failed to subscribe: topic '{}' isn't voluntary",topicId);
+    throw new UnavailableTopicException(String.format("Topic '%s' isn't voluntary",topicId));
+  }
+  updateSubscriptionInfo(topicId,SubscriptionCommandType.ADD);
+  if (forceSync) {
+    doSync();
+  }
+}

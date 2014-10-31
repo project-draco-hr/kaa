@@ -1,0 +1,7 @@
+{
+synchronized (subscriptionInfo) {
+    transport.onSubscriptionChanged(subscriptionInfo);
+    subscriptionInfo.clear();
+    transport.sync();
+  }
+}
