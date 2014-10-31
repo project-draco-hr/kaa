@@ -2,7 +2,7 @@
   UUID channelId=UUID.randomUUID();
   ChannelHandlerContext ctx=Mockito.mock(ChannelHandlerContext.class);
   ChannelType channelType=ChannelType.TCP;
-  SecretKey sessionKey=Mockito.mock(SecretKey.class);
+  CipherPair sessionKey=Mockito.mock(CipherPair.class);
   EndpointObjectHash key=EndpointObjectHash.fromSHA1("key");
   String applicationToken="AppToken";
   int keepAlive=100;
