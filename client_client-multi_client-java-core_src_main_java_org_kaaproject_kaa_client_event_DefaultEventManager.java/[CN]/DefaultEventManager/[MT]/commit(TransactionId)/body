@@ -1,0 +1,15 @@
+{
+  LOG.debug("Commiting events transaction with id {}",trxId);
+synchronized (trxGuard) {
+    List<Event> eventsToCommit=transactions.remove(trxId);
+synchronized (eventsGuard) {
+      for (      Event e : eventsToCommit) {
+        e.setSeqNum(state.getAndIncrementEventSeqNum());
+        currentEvents.add(e);
+      }
+    }
+    if (!isEngaged) {
+      transport.sync();
+    }
+  }
+}

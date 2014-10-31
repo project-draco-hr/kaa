@@ -1,9 +1,3 @@
 {
-  LOG.info("Producing event [eventClassFQN: {}, target: {}]",eventFqn,(target != null ? target : "broadcast"));
-synchronized (eventsGuard) {
-    currentEvents.add(new Event(state.getAndIncrementEventSeqNum(),eventFqn,ByteBuffer.wrap(data),null,target));
-  }
-  if (!isEngaged) {
-    transport.sync();
-  }
+  produceEvent(eventFqn,data,target,null);
 }
