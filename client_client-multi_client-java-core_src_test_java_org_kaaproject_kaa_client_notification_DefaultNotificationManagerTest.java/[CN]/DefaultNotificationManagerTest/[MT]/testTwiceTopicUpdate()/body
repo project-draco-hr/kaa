@@ -1,0 +1,19 @@
+{
+  KaaClientPropertiesState state=new KaaClientPropertiesState(new FilePersistentStorage(),KaaClientPropertiesStateTest.getProperties());
+  NotificationTransport transport=mock(NotificationTransport.class);
+  DefaultNotificationManager notificationManager=new DefaultNotificationManager(state,transport);
+  Topic topic1=new Topic("id1","topic_name1",SubscriptionType.MANDATORY);
+  Topic topic2=new Topic("id2","topic_name1",SubscriptionType.MANDATORY);
+  Topic topic3=new Topic("id3","topic_name1",SubscriptionType.MANDATORY);
+  List<Topic> topicUpdates=new LinkedList<>();
+  topicUpdates.add(topic1);
+  topicUpdates.add(topic2);
+  notificationManager.topicsListUpdated(topicUpdates);
+  topicUpdates.remove(topic2);
+  topicUpdates.add(topic3);
+  notificationManager.topicsListUpdated(topicUpdates);
+  List<Topic> newTopics=notificationManager.getTopics();
+  Assert.assertTrue(newTopics.size() == topicUpdates.size());
+  Assert.assertTrue(newTopics.contains(topic1));
+  Assert.assertTrue(newTopics.contains(topic3));
+}

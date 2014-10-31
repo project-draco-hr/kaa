@@ -2,9 +2,7 @@
   NotificationTransport transport1=new DefaultNotificationTransport();
   Assert.assertNull(transport1.createEmptyNotificationRequest());
   KaaClientState clientState=Mockito.mock(KaaClientState.class);
-  NotificationManager notificationManager=Mockito.mock(NotificationManager.class);
   NotificationTransport transport2=new DefaultNotificationTransport();
-  transport2.setNotificationManager(notificationManager);
   Assert.assertNull(transport2.createEmptyNotificationRequest());
   transport2.setClientState(clientState);
   NotificationSyncRequest request=transport2.createEmptyNotificationRequest();
