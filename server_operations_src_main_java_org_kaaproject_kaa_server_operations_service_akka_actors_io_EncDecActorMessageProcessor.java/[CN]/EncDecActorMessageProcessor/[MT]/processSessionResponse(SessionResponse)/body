@@ -3,7 +3,7 @@
   byte[] responseData=responseConverter.toByteArray(message.getResponse());
   LOG.trace("Response data serialized");
   if (session.isEncrypted()) {
-    crypt.setDecodedSessionKey(session.getSessionKey());
+    crypt.setSessionCipherPair(session.getCipherPair());
     responseData=crypt.encodeData(responseData);
     LOG.trace("Response data crypted");
   }

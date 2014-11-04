@@ -1,5 +1,6 @@
 {
-  Cipher sessionDataCipher=AES_CIPHER.get();
-  sessionDataCipher.init(Cipher.DECRYPT_MODE,sessionKey);
-  return sessionDataCipher.doFinal(message);
+  if (sessionCipherPair == null) {
+    sessionCipherPair=new CipherPair(SESSION_CRYPT_ALGORITHM,sessionKey);
+  }
+  return sessionCipherPair.decCipher.doFinal(message);
 }
