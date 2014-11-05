@@ -1,8 +1,11 @@
 {
   String host=properties.getProperty(HOST,DEFAULT_HOST);
-  Integer port=Integer.valueOf(properties.getProperty(PORT,DEFAULT_PORT));
+  int port=Integer.valueOf(properties.getProperty(PORT,DEFAULT_PORT));
   boolean ssl=Boolean.parseBoolean(properties.getProperty(SSL,DEFAULT_SSL));
   RestStreamClient.Builder builder=RestStreamClient.builder(host,port).ssl(ssl);
+  if (properties.containsKey(WRITER_POOL_SIZE)) {
+    builder.writerPoolSize(getPropertyValue(properties,WRITER_POOL_SIZE,DEFAULT_WRITER_POOL_SIZE,MAX_WRITER_POOL_SIZE));
+  }
   if (properties.containsKey(VERSION)) {
     builder.version(properties.getProperty(VERSION));
   }
