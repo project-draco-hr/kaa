@@ -11,7 +11,13 @@
   profileSchema=new ProfileSchema();
   profileSchema.setMajorVersion(PROFILE_SCHEMA_VERSION);
   profileSchema.setMinorVersion(0);
-  profileSchema.setSchema(BasicEndpointProfile.SCHEMA$.toString());
+  profileSchema.setSchema(Profile.SCHEMA$.toString());
   profileSchema.setApplication(application);
   profileSchema=profileSchemaDao.save(profileSchema);
+  profileSchema2=new ProfileSchema();
+  profileSchema2.setMajorVersion(NEW_PROFILE_SCHEMA_VERSION);
+  profileSchema2.setMinorVersion(0);
+  profileSchema2.setSchema(BasicEndpointProfile.SCHEMA$.toString());
+  profileSchema2.setApplication(application);
+  profileSchema2=profileSchemaDao.save(profileSchema2);
 }
