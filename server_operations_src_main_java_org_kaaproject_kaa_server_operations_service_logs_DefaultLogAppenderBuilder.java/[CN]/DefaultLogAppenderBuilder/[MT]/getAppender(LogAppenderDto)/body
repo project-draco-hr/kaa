@@ -11,6 +11,19 @@ break;
 case MONGO:
 logAppender=applicationContext.getBean(MongoDBLogAppender.class);
 break;
+case CUSTOM:
+CustomAppenderParametersDto customParameters=(CustomAppenderParametersDto)appenderConfig.getProperties().getParameters();
+try {
+@SuppressWarnings("unchecked") Class<LogAppender> appenderClass=(Class<LogAppender>)Class.forName(customParameters.getAppenderClassName());
+logAppender=appenderClass.newInstance();
+}
+ catch (ClassNotFoundException e) {
+LOG.error("Unable to find custom appender class " + customParameters.getAppenderClassName(),e);
+}
+catch (InstantiationException|IllegalAccessException e) {
+LOG.error("Unable to instantiate custom appender from class " + customParameters.getAppenderClassName(),e);
+}
+break;
 default :
 LOG.debug("Incorrect type of log appender [{}].",appenderConfig.getType());
 break;

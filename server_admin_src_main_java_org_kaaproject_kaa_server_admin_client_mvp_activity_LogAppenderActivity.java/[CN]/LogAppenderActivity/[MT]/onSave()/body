@@ -4,10 +4,10 @@
   entity.setStatus(LogAppenderStatusDto.REGISTERED);
   entity.setDescription(detailsView.getDescription().getValue());
   entity.setHeaderStructure(detailsView.getHeader());
-  LogAppenderTypeDto appenderType=detailsView.getType().getValue();
-  entity.setType(appenderType);
+  LogAppenderInfoDto appenderInfo=detailsView.getAppenderInfo().getValue();
+  entity.setType(appenderInfo.getType());
   LogAppenderParametersDto parameters=new LogAppenderParametersDto();
-switch (appenderType) {
+switch (appenderInfo.getType()) {
 case FILE:
     FileAppenderParametersDto fileDto=new FileAppenderParametersDto();
   fileDto.setSshKey(detailsView.getPublicKey());
@@ -36,6 +36,13 @@ hosts.add(new HostInfoDto(host,Integer.valueOf(port),0));
 }
 flume.setHosts(hosts);
 parameters.setParameters(flume);
+break;
+case CUSTOM:
+CustomAppenderParametersDto customParameters=new CustomAppenderParametersDto();
+customParameters.setName(appenderInfo.getName());
+customParameters.setAppenderClassName(appenderInfo.getAppenderClassName());
+customParameters.setConfiguration(detailsView.getConfiguration());
+parameters.setParameters(customParameters);
 break;
 }
 entity.setProperties(parameters);

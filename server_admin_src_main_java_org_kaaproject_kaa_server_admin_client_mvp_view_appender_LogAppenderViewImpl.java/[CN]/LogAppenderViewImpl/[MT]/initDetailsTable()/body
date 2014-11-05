@@ -46,13 +46,12 @@
   detailsTable.getCellFormatter().setVerticalAlignment(6,0,HasVerticalAlignment.ALIGN_TOP);
   description.addInputHandler(this);
   Label typeLabel=new Label(Utils.constants.logAppenderType());
-  type=new LogTypeListBox();
-  type.setValue(LogAppenderTypeDto.FILE,true);
-  type.setAcceptableValues(Arrays.asList(LogAppenderTypeDto.values()));
-  type.setEnabled(create);
-  type.addValueChangeHandler(this);
+  appenderInfo=new AppenderInfoListBox();
+  appenderInfo.setValue(new LogAppenderInfoDto(LogAppenderTypeDto.FILE),true);
+  appenderInfo.setEnabled(create);
+  appenderInfo.addValueChangeHandler(this);
   detailsTable.setWidget(7,0,typeLabel);
-  detailsTable.setWidget(7,1,type);
+  detailsTable.setWidget(7,1,appenderInfo);
   addHost=new Button(Utils.constants.addHost());
   addHost.addClickHandler(new ClickHandler(){
     @Override public void onClick(    ClickEvent event){

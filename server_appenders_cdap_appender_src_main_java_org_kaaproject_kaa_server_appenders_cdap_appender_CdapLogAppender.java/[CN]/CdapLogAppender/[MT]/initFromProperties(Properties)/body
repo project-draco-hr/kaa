@@ -1,0 +1,15 @@
+{
+  try {
+    streamClient=initStreamClient(properties);
+    callbackExecutor=Executors.newFixedThreadPool(getPropertyValue(properties,CALLBACK_THREAD_POOL_SIZE,DEFAULT_CALLBACK_THREAD_POOL_SIZE,MAX_CALLBACK_THREAD_POOL_SIZE));
+    if (properties.containsKey(STREAM)) {
+      streamWriter=streamClient.createWriter(properties.getProperty(STREAM));
+    }
+ else {
+      throw new IllegalArgumentException(STREAM + " property is not set!");
+    }
+  }
+ catch (  Exception e) {
+    LOG.error("Failed to init stream client: ",e);
+  }
+}

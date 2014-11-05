@@ -1,0 +1,16 @@
+{
+  if (appenderInfos == null) {
+    appenderInfos=new ArrayList<LogAppenderInfoDto>();
+    rpcService.getLogAppenderInfos(new DataCallback<List<LogAppenderInfoDto>>(callback){
+      @Override protected void onResult(      List<LogAppenderInfoDto> result){
+        appenderInfos.addAll(result);
+      }
+    }
+);
+  }
+ else {
+    if (callback != null) {
+      callback.onSuccess(appenderInfos);
+    }
+  }
+}
