@@ -7,9 +7,9 @@ synchronized (topics) {
         state.addTopic(topic);
       }
     }
-synchronized (notificationListeners) {
+synchronized (voluntaryListeners) {
       for (      Topic topic : topics.values()) {
-        notificationListeners.remove(topic.getId());
+        voluntaryListeners.remove(topic.getId());
         state.removeTopic(topic.getId());
       }
     }
