@@ -1,5 +1,11 @@
 {
   kaaClientState.persist();
-  defaultBootstrapChannel.shutdown();
-  defaultOperationTcpChannel.shutdown();
+  DefaultBootstrapChannel bootstrap=(DefaultBootstrapChannel)defaultChannels.get(ChannelType.BOOTSTRAP);
+  bootstrap.shutdown();
+  DefaultOperationTcpChannel opsTcp=(DefaultOperationTcpChannel)defaultChannels.get(ChannelType.KAATCP);
+  opsTcp.shutdown();
+  DefaultOperationHttpChannel opsHttp=(DefaultOperationHttpChannel)defaultChannels.get(ChannelType.HTTP);
+  opsHttp.shutdown();
+  DefaultOperationsChannel opsLp=(DefaultOperationsChannel)defaultChannels.get(ChannelType.HTTP_LP);
+  opsLp.shutdown();
 }

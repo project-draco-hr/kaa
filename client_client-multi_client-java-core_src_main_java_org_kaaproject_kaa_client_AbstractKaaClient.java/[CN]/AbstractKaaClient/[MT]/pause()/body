@@ -1,4 +1,5 @@
 {
   kaaClientState.persist();
-  defaultBootstrapChannel.pause();
+  DefaultBootstrapChannel bootstrap=(DefaultBootstrapChannel)defaultChannels.get(ChannelType.BOOTSTRAP);
+  bootstrap.pause();
 }

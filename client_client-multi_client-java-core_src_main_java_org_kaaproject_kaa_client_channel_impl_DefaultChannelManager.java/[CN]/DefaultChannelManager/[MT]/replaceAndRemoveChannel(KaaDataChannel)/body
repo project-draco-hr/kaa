@@ -1,0 +1,8 @@
+{
+  channels.remove(channel);
+  for (  Map.Entry<TransportType,KaaDataChannel> entry : upChannels.entrySet()) {
+    if (entry.getValue() == channel) {
+      useNewChannelForType(entry.getKey());
+    }
+  }
+}

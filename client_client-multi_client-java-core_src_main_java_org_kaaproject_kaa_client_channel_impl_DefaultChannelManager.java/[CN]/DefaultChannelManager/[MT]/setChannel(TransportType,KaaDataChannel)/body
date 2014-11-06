@@ -1,0 +1,8 @@
+{
+  if (channel != null) {
+    if (!useChannelForType(channel,transport)) {
+      throw new KaaInvalidChannelException("Unsupported transport type " + transport.toString() + " for channel \""+ channel.getId()+ "\"");
+    }
+    addChannelToList(channel);
+  }
+}
