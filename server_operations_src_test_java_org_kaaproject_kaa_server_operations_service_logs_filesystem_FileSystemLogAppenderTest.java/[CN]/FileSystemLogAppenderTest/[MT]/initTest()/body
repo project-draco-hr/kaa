@@ -1,7 +1,9 @@
 {
   FileSystemLogAppender appender=new FileSystemLogAppender();
   fileSystemLogEventService=mock(FileSystemLogEventService.class);
+  FileSystemLogger logger=Mockito.mock(FileSystemLogger.class);
   ReflectionTestUtils.setField(appender,"fileSystemLogEventService",fileSystemLogEventService);
+  ReflectionTestUtils.setField(appender,"logger",logger);
   appender.setName(APPENDER_NAME);
   appender.setAppenderId(APPENDER_ID);
   LogAppenderDto logAppenderDto=new LogAppenderDto();

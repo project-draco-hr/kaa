@@ -7,8 +7,8 @@
   if (metadatalistBox != null) {
     generateMetadataListBox();
   }
-  if (type != null) {
-    type.setValue(LogAppenderTypeDto.FILE,true);
+  if (appenderInfo != null) {
+    appenderInfo.setValue(new LogAppenderInfoDto(LogAppenderTypeDto.FILE),true);
   }
   getFooter().clear();
   if (sshKey != null) {

@@ -33,6 +33,14 @@
         fileDto.setSshKey(fileParameters.getSshKey());
         dto.setParameters(fileDto);
       }
+ else       if (parameters instanceof CustomAppenderParameters) {
+        CustomAppenderParameters customParameters=(CustomAppenderParameters)parameters;
+        CustomAppenderParametersDto customDto=new CustomAppenderParametersDto();
+        customDto.setName(customParameters.getName());
+        customDto.setAppenderClassName(customParameters.getAppenderClassName());
+        customDto.setConfiguration(customParameters.getConfiguration());
+        dto.setParameters(customDto);
+      }
     }
   }
  catch (  IOException e) {

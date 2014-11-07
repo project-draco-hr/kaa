@@ -23,6 +23,10 @@
       FileAppenderParametersDto fileDto=(FileAppenderParametersDto)params;
       avroParameters.setAppenderParameters(new FileAppenderParameters(fileDto.getLogDirectoryPath(),fileDto.getUsername(),fileDto.getSshKey()));
     }
+ else     if (params instanceof CustomAppenderParametersDto) {
+      CustomAppenderParametersDto customDto=(CustomAppenderParametersDto)params;
+      avroParameters.setAppenderParameters(new CustomAppenderParameters(customDto.getName(),customDto.getAppenderClassName(),customDto.getConfiguration()));
+    }
     AvroByteArrayConverter<LogAppenderParameters> converter=new AvroByteArrayConverter<LogAppenderParameters>(LogAppenderParameters.class);
     try {
       bytes=converter.toByteArray(avroParameters);

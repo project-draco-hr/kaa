@@ -1,0 +1,27 @@
+{
+  LOG.info("[{}][{}][{}] Initializing with rollingFileNamePatern: {}, rollingMaxHistory: {}, triggerMaxFileSize: {}, encoderPattern: {}",appenderDto.getTenantId(),appenderDto.getApplicationId(),appenderDto.getSchemaVersion(),rollingFileNamePatern,rollingMaxHistory,triggerMaxFileSize,encoderPattern);
+  LoggerContext loggerContext=(LoggerContext)LoggerFactory.getILoggerFactory();
+  rfAppender=new RollingFileAppender();
+  rfAppender.setContext(loggerContext);
+  rfAppender.setFile(filePath.toAbsolutePath().toString());
+  TimeBasedRollingPolicy rollingPolicy=new TimeBasedRollingPolicy<>();
+  rollingPolicy.setFileNamePattern(rollingFileNamePatern);
+  rollingPolicy.setMaxHistory(rollingMaxHistory);
+  rollingPolicy.setContext(loggerContext);
+  rollingPolicy.start();
+  SizeBasedTriggeringPolicy triggeringPolicy=new ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy();
+  triggeringPolicy.setMaxFileSize(triggerMaxFileSize);
+  triggeringPolicy.start();
+  PatternLayoutEncoder encoder=new PatternLayoutEncoder();
+  encoder.setContext(loggerContext);
+  encoder.setPattern(encoderPattern);
+  encoder.start();
+  rfAppender.setEncoder(encoder);
+  rfAppender.setRollingPolicy(rollingPolicy);
+  rfAppender.setTriggeringPolicy(triggeringPolicy);
+  rfAppender.start();
+  logger=loggerContext.getLogger(appenderDto.getTenantId() + "." + appenderDto.getApplicationToken());
+  logger.setLevel(Level.ALL);
+  logger.addAppender(rfAppender);
+  LOG.debug("[{}][{}][{}] Initialized with context {}",appenderDto.getTenantId(),appenderDto.getApplicationId(),appenderDto.getSchemaVersion(),loggerContext);
+}
