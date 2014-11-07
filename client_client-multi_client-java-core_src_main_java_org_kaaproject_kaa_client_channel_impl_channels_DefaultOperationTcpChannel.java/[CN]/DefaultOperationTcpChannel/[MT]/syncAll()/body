@@ -12,7 +12,7 @@
   if (multiplexer != null && demultiplexer != null) {
     if (currentServer != null && socket != null) {
       try {
-        sendKaaSyncRequest(SUPPORTED_TYPES);
+        sendKaaSyncRequest(getSupportedTransportTypes());
       }
  catch (      Exception e) {
         LOG.error("Failed to sync channel [{}]: {}",getId(),e);
