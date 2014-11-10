@@ -1,5 +1,12 @@
 {
+  if (isShutdown) {
+    LOG.warn("Can't add a channel. Channel manager is down");
+    return;
+  }
   if (channel != null) {
+    if (isPaused) {
+      channel.pause();
+    }
     addChannelToList(channel);
     applyNewChannel(channel);
   }

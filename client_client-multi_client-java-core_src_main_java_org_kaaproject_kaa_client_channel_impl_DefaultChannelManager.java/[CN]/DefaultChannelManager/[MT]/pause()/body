@@ -1,0 +1,8 @@
+{
+  if (!isPaused) {
+    isPaused=true;
+    for (    KaaDataChannel channel : upChannels.values()) {
+      channel.pause();
+    }
+  }
+}
