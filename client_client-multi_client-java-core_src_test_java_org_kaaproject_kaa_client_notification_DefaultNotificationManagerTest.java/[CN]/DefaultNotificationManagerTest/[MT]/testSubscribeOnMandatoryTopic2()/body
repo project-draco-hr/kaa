@@ -4,5 +4,5 @@
   DefaultNotificationManager notificationManager=new DefaultNotificationManager(state,transport);
   List<Topic> topicsUpdate=Arrays.asList(new Topic("id1","topic_name1",SubscriptionType.VOLUNTARY),new Topic("id2","topic_name1",SubscriptionType.MANDATORY));
   notificationManager.topicsListUpdated(topicsUpdate);
-  notificationManager.subscribeOnTopics(Arrays.asList("id1","id2"),true);
+  notificationManager.subscribeToTopics(Arrays.asList("id1","id2"),true);
 }
