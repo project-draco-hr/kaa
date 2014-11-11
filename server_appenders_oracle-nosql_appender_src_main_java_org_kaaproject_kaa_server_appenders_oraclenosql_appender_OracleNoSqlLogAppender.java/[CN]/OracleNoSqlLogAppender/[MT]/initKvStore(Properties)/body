@@ -1,0 +1,10 @@
+{
+  String storeName=properties.getProperty(STORE_NAME,DEFAULT_STORE_NAME);
+  String helperHostPort=properties.getProperty(HELPER_HOST_PORT,DEFAULT_HELPER_HOST_PORT);
+  String[] helperHostPorts=helperHostPort.split(HELPER_HOST_PORT_SEPARATOR);
+  KVStoreConfig config=new KVStoreConfig(storeName,helperHostPorts);
+  config.setSecurityProperties(properties);
+  username=properties.getProperty(KVSecurityConstants.AUTH_USERNAME_PROPERTY,"");
+  KVStore kvStore=KVStoreFactory.getStore(config);
+  return kvStore;
+}

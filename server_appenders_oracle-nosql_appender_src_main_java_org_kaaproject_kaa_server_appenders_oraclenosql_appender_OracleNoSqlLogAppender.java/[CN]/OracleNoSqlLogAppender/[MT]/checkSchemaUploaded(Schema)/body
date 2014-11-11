@@ -1,0 +1,22 @@
+{
+  String schemaText=schema.toString(true);
+  AvroDdl avroDdl=new AvroDdl(kvStore);
+  SortedMap<String,SchemaSummary> schemaSummaries=avroDdl.getSchemaSummaries(false);
+  boolean uploaded=false;
+  boolean evolve=schemaSummaries.containsKey(schema.getFullName());
+  if (evolve) {
+    for (    String key : schemaSummaries.keySet()) {
+      SchemaSummary summary=schemaSummaries.get(key);
+      if (checkSchemaUploaded(avroDdl,summary,schemaText)) {
+        uploaded=true;
+        break;
+      }
+    }
+  }
+  if (!uploaded) {
+    AvroSchemaMetadata metadata=new AvroSchemaMetadata(AvroSchemaStatus.ACTIVE,System.currentTimeMillis(),username,getHostName());
+    AddSchemaOptions options=new AddSchemaOptions(evolve,true);
+    AddSchemaResult result=avroDdl.addSchema(metadata,schemaText,options,KVVersion.CURRENT_VERSION);
+    LOG.info("[{}] Uploaded new schema to store, extra message [{}].",getName(),result.getExtraMessage());
+  }
+}

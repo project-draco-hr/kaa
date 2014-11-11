@@ -1,0 +1,15 @@
+{
+  try {
+    Schema recordWrapperSchema=RecordWrapperSchemaGenerator.generateRecordWrapperSchema(logEventPack.getLogSchema().getSchema());
+    checkSchemaUploaded(recordWrapperSchema);
+    AvroCatalog avroCatalog=kvStore.getAvroCatalog();
+    binding=avroCatalog.getGenericBinding(recordWrapperSchema);
+    Schema userSchema=new Schema.Parser().parse(logEventPack.getLogSchema().getSchema());
+    datumReader=new GenericDatumReader<GenericRecord>(userSchema);
+    wrapperRecord=new GenericData.Record(recordWrapperSchema);
+  }
+ catch (  Exception e) {
+    LOG.error("[{}] Unable to initialize parameters for log event pack.",getName());
+    throw e;
+  }
+}
