@@ -1,4 +1,8 @@
 {
+  if (isShutdown) {
+    LOG.warn("Can't resume. Channel manager is down");
+    return;
+  }
   if (isPaused) {
     isPaused=false;
     for (    KaaDataChannel channel : upChannels.values()) {

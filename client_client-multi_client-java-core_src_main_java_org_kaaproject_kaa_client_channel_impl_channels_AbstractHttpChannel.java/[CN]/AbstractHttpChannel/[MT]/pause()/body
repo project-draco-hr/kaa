@@ -1,7 +1,13 @@
 {
-  isPaused=true;
-  if (executor != null) {
-    executor.shutdownNow();
-    executor=null;
+  if (isShutdown) {
+    LOG.info("Can't pause channel. Channel [{}] is down",getId());
+    return;
+  }
+  if (!isPaused) {
+    isPaused=true;
+    if (executor != null) {
+      executor.shutdownNow();
+      executor=null;
+    }
   }
 }
