@@ -1,6 +1,8 @@
 {
-  isShutdown=true;
-  if (executor != null) {
-    executor.shutdownNow();
+  if (!isShutdown) {
+    isShutdown=true;
+    if (executor != null) {
+      executor.shutdownNow();
+    }
   }
 }

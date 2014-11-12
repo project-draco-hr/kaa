@@ -1,8 +1,6 @@
 {
   for (  KaaDataChannel channel : channels) {
-    ChannelDirection direction=channel.getSupportedTransportTypes().get(type);
-    if (direction != null && (direction.equals(ChannelDirection.BIDIRECTIONAL) || direction.equals(ChannelDirection.UP))) {
-      upChannels.put(type,channel);
+    if (useChannelForType(channel,type)) {
       return;
     }
   }
