@@ -1,6 +1,6 @@
 {
   LOG.debug("Find endpoint profile by endpoint key hash [{}] ",endpointKeyHash);
   DBObject dbObject=query(where(ENDPOINT_KEY_HASH).is(endpointKeyHash)).getQueryObject();
-  DBObject result=mongoTemplate.getDb().getCollection(EndpointProfile.COLLECTION_NAME).findOne(dbObject);
+  DBObject result=mongoTemplate.getDb().getCollection(MongoEndpointProfile.COLLECTION_NAME).findOne(dbObject);
   return mongoTemplate.getConverter().read(getDocumentClass(),result);
 }

@@ -1,6 +1,6 @@
 {
   String id=endConf.get(0);
-  EndpointConfiguration endpointConfiguration=endpointConfigurationDao.findById(id);
+  MongoEndpointConfiguration endpointConfiguration=endpointConfigurationDao.findById(id);
   Assert.assertNotNull(endpointConfiguration);
   byte[] bytes=endpointConfiguration.getConfigurationHash();
   endpointConfiguration=endpointConfigurationDao.findByHash(bytes);

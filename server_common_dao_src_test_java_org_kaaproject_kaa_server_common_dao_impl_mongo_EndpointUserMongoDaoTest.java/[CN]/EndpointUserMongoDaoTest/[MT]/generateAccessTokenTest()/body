@@ -3,7 +3,7 @@
   EndpointUserDto dto=generateEndpointUser(tenant.getId());
   Assert.assertNotNull(dto);
   String accessToken=endpointUserDao.generateAccessToken(dto.getExternalId(),dto.getTenantId().toString());
-  EndpointUser found=endpointUserDao.findById(dto.getId());
+  MongoEndpointUser found=endpointUserDao.findById(dto.getId());
   Assert.assertEquals(accessToken,found.getAccessToken());
   Assert.assertTrue(endpointUserDao.checkAccessToken(found.getTenantId().toString(),found.getExternalId(),accessToken));
   Assert.assertFalse(endpointUserDao.checkAccessToken(found.getTenantId().toString(),found.getExternalId(),"invalid"));

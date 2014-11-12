@@ -2,7 +2,7 @@
   EndpointProfileDto endpointProfile=generateEndpointprofile(null,null);
   Assert.assertNotNull(endpointProfile);
   endpointProfile.setId(null);
-  EndpointProfile saved=endpointProfileDao.save(new EndpointProfile(endpointProfile));
+  MongoEndpointProfile saved=endpointProfileDao.save(new MongoEndpointProfile(endpointProfile));
   Assert.assertNotNull(saved);
   Assert.assertEquals(endpointProfile,saved.toDto());
 }

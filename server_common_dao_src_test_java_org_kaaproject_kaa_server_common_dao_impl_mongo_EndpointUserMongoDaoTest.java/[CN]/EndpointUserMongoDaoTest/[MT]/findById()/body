@@ -1,7 +1,7 @@
 {
   TenantDto tenant=generateTenant();
   EndpointUserDto dto=generateEndpointUser(tenant.getId());
-  EndpointUser user=endpointUserDao.findById(dto.getId());
+  MongoEndpointUser user=endpointUserDao.findById(dto.getId());
   Assert.assertNotNull(user);
   Assert.assertEquals(dto,user.toDto());
 }

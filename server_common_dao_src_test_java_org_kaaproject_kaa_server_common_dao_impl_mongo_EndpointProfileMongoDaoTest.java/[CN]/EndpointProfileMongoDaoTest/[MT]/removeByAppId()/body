@@ -3,6 +3,6 @@
   Assert.assertNotNull(endpointProfile);
   byte[] keyHash=endpointProfile.getEndpointKeyHash();
   endpointProfileDao.removeByAppId(endpointProfile.getApplicationId());
-  EndpointProfile found=endpointProfileDao.findByKeyHash(keyHash);
+  MongoEndpointProfile found=endpointProfileDao.findByKeyHash(keyHash);
   Assert.assertNull(found);
 }
