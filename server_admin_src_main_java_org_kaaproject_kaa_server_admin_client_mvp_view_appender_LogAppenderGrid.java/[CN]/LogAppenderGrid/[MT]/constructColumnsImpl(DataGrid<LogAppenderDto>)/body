@@ -14,7 +14,12 @@
 ,80);
   prefWidth+=constructStringColumn(table,Utils.constants.logAppenderType(),new StringValueProvider<LogAppenderDto>(){
     @Override public String getValue(    LogAppenderDto item){
-      return item.getType().getLabel();
+      if (item.getType() == LogAppenderTypeDto.CUSTOM) {
+        return ((CustomAppenderParametersDto)item.getProperties().getParameters()).getName();
+      }
+ else {
+        return item.getType().getLabel();
+      }
     }
   }
 ,80);

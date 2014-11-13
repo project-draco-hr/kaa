@@ -25,9 +25,6 @@
   operationsDataProcessor.setUserTransport(userTransport);
   operationsDataProcessor.setLogTransport(logTransport);
   bootstrapDataProcessor.setBootstrapTransport(bootstratpTransport);
-  defaultBootstrapChannel=new DefaultBootstrapChannel(this,kaaClientState);
-  defaultBootstrapChannel.setMultiplexer(bootstrapDataProcessor);
-  defaultBootstrapChannel.setDemultiplexer(bootstrapDataProcessor);
   profileManager=new DefaultProfileManager(profileTransport);
   bootstrapManager=new DefaultBootstrapManager(bootstratpTransport);
   notificationManager=new DefaultNotificationManager(this.kaaClientState,notificationTransport);
@@ -36,11 +33,22 @@
   endpointRegistrationManager=new DefaultEndpointRegistrationManager(this.kaaClientState,userTransport,profileTransport);
   logCollector=new DefaultLogCollector(logTransport);
   channelManager=new DefaultChannelManager(bootstrapManager,bootstrapServers);
-  defaultOperationTcpChannel=new DefaultOperationTcpChannel(kaaClientState,channelManager);
-  defaultOperationTcpChannel.setMultiplexer(operationsDataProcessor);
-  defaultOperationTcpChannel.setDemultiplexer(operationsDataProcessor);
-  channelManager.addChannel(defaultBootstrapChannel);
-  channelManager.addChannel(defaultOperationTcpChannel);
+  defaultChannels.put(ChannelType.KAATCP,new DefaultOperationTcpChannel(kaaClientState,channelManager));
+  defaultChannels.put(ChannelType.BOOTSTRAP,new DefaultBootstrapChannel(this,kaaClientState));
+  defaultChannels.put(ChannelType.HTTP,new DefaultOperationHttpChannel(this,kaaClientState));
+  defaultChannels.put(ChannelType.HTTP_LP,new DefaultOperationsChannel(this,kaaClientState));
+  for (  Map.Entry<ChannelType,KaaDataChannel> channel : defaultChannels.entrySet()) {
+    if (channel.getKey().equals(ChannelType.BOOTSTRAP)) {
+      channel.getValue().setMultiplexer(bootstrapDataProcessor);
+      channel.getValue().setDemultiplexer(bootstrapDataProcessor);
+    }
+ else {
+      channel.getValue().setMultiplexer(operationsDataProcessor);
+      channel.getValue().setDemultiplexer(operationsDataProcessor);
+    }
+  }
+  channelManager.addChannel(defaultChannels.get(ChannelType.BOOTSTRAP));
+  channelManager.addChannel(defaultChannels.get(ChannelType.KAATCP));
   bootstrapManager.setChannelManager(channelManager);
   publicKeyHash=EndpointObjectHash.fromSHA1(kaaClientState.getPublicKey().getEncoded());
   metaDataTransport.setClientProperties(properties);

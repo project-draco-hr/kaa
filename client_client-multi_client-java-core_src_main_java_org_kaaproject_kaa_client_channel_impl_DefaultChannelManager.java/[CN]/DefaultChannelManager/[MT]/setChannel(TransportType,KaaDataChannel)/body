@@ -1,0 +1,15 @@
+{
+  if (isShutdown) {
+    LOG.warn("Can't set a channel. Channel manager is down");
+    return;
+  }
+  if (channel != null) {
+    if (!useChannelForType(channel,transport)) {
+      throw new KaaInvalidChannelException("Unsupported transport type " + transport.toString() + " for channel \""+ channel.getId()+ "\"");
+    }
+    if (isPaused) {
+      channel.pause();
+    }
+    addChannelToList(channel);
+  }
+}

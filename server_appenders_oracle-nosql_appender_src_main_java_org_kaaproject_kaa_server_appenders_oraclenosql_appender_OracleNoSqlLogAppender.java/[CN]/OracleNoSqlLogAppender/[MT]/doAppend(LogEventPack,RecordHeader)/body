@@ -1,0 +1,19 @@
+{
+  if (!closed) {
+    if (kvStore != null) {
+      LOG.debug("[{}] appending {} logs to Oracle NoSQL kvStore",this.getApplicationToken(),logEventPack.getEvents().size());
+      try {
+        doAppendGenericAvro(logEventPack,header);
+      }
+ catch (      Exception e) {
+        LOG.error("Unable to append logs!",e);
+      }
+    }
+ else {
+      LOG.info("[{}] Attempted to append to empty kvStore.",getName());
+    }
+  }
+ else {
+    LOG.info("[{}] Attempted to append to closed appender.",getName());
+  }
+}

@@ -44,6 +44,8 @@
       ecfs+=eventFamilies.get(i).getEcfName() + ":" + eventFamilies.get(i).getVersion();
     }
   }
+  clientProperties.put(BUILD_VERSION,Version.PROJECT_VERSION);
+  clientProperties.put(BUILD_COMMIT_HASH,Version.COMMIT_HASH);
   clientProperties.put(BOOTSTRAP_SERVERS_PROPERTY,bootstrapServers);
   clientProperties.put(APP_TOKEN_PROPERTY,appToken);
   clientProperties.put(CONFIG_VERSION_PROPERTY,"" + configurationSchemaVersion);

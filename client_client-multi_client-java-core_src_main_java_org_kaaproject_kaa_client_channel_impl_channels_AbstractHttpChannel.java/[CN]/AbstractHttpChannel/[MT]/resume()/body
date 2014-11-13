@@ -1,7 +1,16 @@
 {
-  isPaused=false;
-  if (lastConnectionFailed) {
-    lastConnectionFailed=false;
-    syncAll();
+  if (isShutdown) {
+    LOG.info("Can't resume channel. Channel [{}] is down",getId());
+    return;
+  }
+  if (isPaused) {
+    isPaused=false;
+    if (executor == null) {
+      executor=createExecutor();
+    }
+    if (lastConnectionFailed) {
+      lastConnectionFailed=false;
+      syncAll();
+    }
   }
 }

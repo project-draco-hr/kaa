@@ -3,6 +3,8 @@
   IOUtils.copy(kaaDefaultsStream,writer);
   String kaaDefaultsString=writer.toString();
   LOG.debug("[sdk generateClientProperties] bootstrapNodes.size(): {}",bootstrapNodes.size());
+  kaaDefaultsString=replaceVar(kaaDefaultsString,BUILD_VERSION,Version.PROJECT_VERSION);
+  kaaDefaultsString=replaceVar(kaaDefaultsString,BUILD_COMMIT_HASH,Version.COMMIT_HASH);
   kaaDefaultsString=replaceVar(kaaDefaultsString,APPLICATION_TOKEN_VAR,appToken);
   kaaDefaultsString=replaceVar(kaaDefaultsString,PROFILE_VERSION_VAR,profileSchemaVersion + "");
   kaaDefaultsString=replaceVar(kaaDefaultsString,CONFIG_VERSION_VAR,configurationSchemaVersion + "");
