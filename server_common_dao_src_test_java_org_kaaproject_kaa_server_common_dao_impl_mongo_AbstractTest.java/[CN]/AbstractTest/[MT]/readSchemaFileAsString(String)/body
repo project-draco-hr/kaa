@@ -1,11 +1,26 @@
 {
   try {
-    Path path=Paths.get(Thread.currentThread().getContextClassLoader().getResource(filePath).toURI());
-    byte[] bytes=Files.readAllBytes(path);
-    return new String(bytes);
+    URI uri=this.getClass().getClassLoader().getResource(filePath).toURI();
+    String[] array=uri.toString().split("!");
+    Path path;
+    if (array.length > 1) {
+      LOG.info("Creating fs for {}",array[0]);
+      FileSystem fs;
+      try {
+        fs=FileSystems.newFileSystem(URI.create(array[0]),new HashMap<String,String>());
+      }
+ catch (      FileSystemAlreadyExistsException e) {
+        fs=FileSystems.getFileSystem(URI.create(array[0]));
+      }
+      path=fs.getPath(array[1]);
+    }
+ else {
+      path=Paths.get(uri);
+    }
+    return new String(Files.readAllBytes(path));
   }
  catch (  URISyntaxException e) {
-    LOGGER.error("Can't generate configs {}",e);
+    LOG.error("Can't generate configs {}",e);
   }
   return null;
 }
