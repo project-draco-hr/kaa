@@ -4,6 +4,7 @@
   stateFileLocation=properties.containsKey(STATE_FILE_LOCATION) ? properties.getProperty(STATE_FILE_LOCATION) : STATE_FILE_DEFAULT;
   clientPrivateKeyFileLocation=properties.containsKey(CLIENT_PRIVATE_KEY_FILE_LOCATION) ? properties.getProperty(CLIENT_PRIVATE_KEY_FILE_LOCATION) : CLIENT_PRIVATE_KEY_DEFAULT;
   clientPublicKeyFileLocation=properties.containsKey(CLIENT_PUBLIC_KEY_FILE_LOCATION) ? properties.getProperty(CLIENT_PUBLIC_KEY_FILE_LOCATION) : CLIENT_PUBLIC_KEY_DEFAULT;
+  LOG.info("Version: '{}', commit hash: '{}'",properties.getBuildVersion(),properties.getCommitHash());
   state=new Properties();
   if (storage.exists(stateFileLocation)) {
     try {

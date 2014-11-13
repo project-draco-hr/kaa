@@ -1,6 +1,6 @@
 {
   LOG.debug("Sending Connect from channel [{}]",getId());
-  byte[] body=multiplexer.compileRequest(SUPPORTED_TYPES);
+  byte[] body=multiplexer.compileRequest(getSupportedTransportTypes());
   byte[] requestBodyEncoded=encDec.encodeData(body);
   byte[] sessionKey=encDec.getEncodedSessionKey();
   byte[] signature=encDec.sign(sessionKey);

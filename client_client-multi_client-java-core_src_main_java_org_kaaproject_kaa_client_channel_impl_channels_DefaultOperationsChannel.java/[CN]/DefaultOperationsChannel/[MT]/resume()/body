@@ -1,4 +1,10 @@
 {
-  isPaused=false;
-  startPoll();
+  if (isShutdown) {
+    LOG.info("Can't resume channel. Channel [{}] is down",getId());
+    return;
+  }
+  if (isPaused) {
+    isPaused=false;
+    startPoll();
+  }
 }
