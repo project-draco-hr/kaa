@@ -56,7 +56,7 @@
   endpointConfiguration=new MongoEndpointConfiguration();
   endpointConfiguration.setConfiguration(confDto.getBody().getBytes(UTF_8));
   endpointConfiguration.setConfigurationHash(EndpointObjectHash.fromSHA1(confDto.getBody()).getData());
-  endpointConfiguration=endpointConfigurationDao.save(endpointConfiguration);
+  endpointConfiguration=(MongoEndpointConfiguration)endpointConfigurationDao.save(endpointConfiguration);
   assertNotNull(endpointConfiguration);
   assertNotNull(endpointConfiguration.getId());
   EndpointGroupState egs=new EndpointGroupState();
@@ -71,7 +71,7 @@
   endpointProfile.setProfileVersion(PROFILE_VERSION);
   endpointProfile.setCfGroupState(Collections.singletonList(egs));
   endpointProfile.setNfGroupState(Collections.singletonList(egs));
-  endpointProfile=endpointProfileDao.save(endpointProfile);
+  endpointProfile=(MongoEndpointProfile)endpointProfileDao.save(endpointProfile);
   assertNotNull(endpointProfile);
   assertNotNull(endpointProfile.getId());
 }
