@@ -1,6 +1,8 @@
 {
   VelocityContext context=new VelocityContext();
   LOG.debug("[sdk generateClientProperties] bootstrapNodes.size(): {}",bootstrapNodes.size());
+  context.put("build_version",Version.PROJECT_VERSION);
+  context.put("build_commit_hash",Version.COMMIT_HASH);
   context.put("app_token",appToken);
   context.put("config_version",configurationSchemaVersion);
   context.put("profile_version",profileSchemaVersion);
