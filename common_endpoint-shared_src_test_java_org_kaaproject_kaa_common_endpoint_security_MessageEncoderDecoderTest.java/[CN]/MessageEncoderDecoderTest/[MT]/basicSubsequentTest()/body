@@ -1,0 +1,22 @@
+{
+  String message="secret" + new Random().nextInt();
+  PrivateKey client2Private=theifPrivate;
+  PublicKey client2Public=theifPublic;
+  MessageEncoderDecoder client=new MessageEncoderDecoder(clientPrivate,clientPublic,serverPublic);
+  MessageEncoderDecoder client2=new MessageEncoderDecoder(client2Private,client2Public,serverPublic);
+  MessageEncoderDecoder server=new MessageEncoderDecoder(serverPrivate,serverPublic);
+  byte[] secretData=client.encodeData(message.getBytes());
+  byte[] signature=client.sign(secretData);
+  byte[] encodedSessionKey=client.getEncodedSessionKey();
+  server.setRemotePublicKey(clientPublic);
+  Assert.assertTrue(server.verify(secretData,signature));
+  String decodedSecret=new String(server.decodeData(secretData,encodedSessionKey));
+  Assert.assertEquals(message,decodedSecret);
+  byte[] secretData2=client2.encodeData(message.getBytes());
+  byte[] signature2=client2.sign(secretData2);
+  byte[] encodedSessionKey2=client2.getEncodedSessionKey();
+  server.setRemotePublicKey(client2Public);
+  Assert.assertTrue(server.verify(secretData2,signature2));
+  String decodedSecret2=new String(server.decodeData(secretData2,encodedSessionKey2));
+  Assert.assertEquals(message,decodedSecret2);
+}
