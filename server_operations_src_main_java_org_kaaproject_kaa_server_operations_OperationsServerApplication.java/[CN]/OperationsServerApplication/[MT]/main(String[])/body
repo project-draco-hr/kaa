@@ -1,10 +1,25 @@
 {
   LOG.info("Application starting.. " + Charset.defaultCharset().name());
   String applicationContextXml=DEFAULT_APPLICATION_CONTEXT_XML;
+  List<String> applicationPropertiesFiles=DEFAULT_APPLICATION_CONFIGURATION_FILES;
   if (args.length > 0) {
     applicationContextXml=args[0];
+    if (args.length > 1) {
+      applicationPropertiesFiles=Arrays.asList(Arrays.copyOfRange(args,1,args.length));
+    }
   }
-  ClassPathXmlApplicationContext ctx=new ClassPathXmlApplicationContext(applicationContextXml);
+  ClassPathXmlApplicationContext ctx=new ClassPathXmlApplicationContext(new String[]{applicationContextXml},false);
+  MutablePropertySources sources=ctx.getEnvironment().getPropertySources();
+  for (  String propertyFile : applicationPropertiesFiles) {
+    try {
+      sources.addLast(new ResourcePropertySource(propertyFile,OperationsServerApplication.class.getClassLoader()));
+    }
+ catch (    IOException e) {
+      LOG.error("Can't load properties file {} from classpath",propertyFile);
+      return;
+    }
+  }
+  ctx.refresh();
   final OperationsBootstrapService operationsService=(OperationsBootstrapService)ctx.getBean("operationsBootstrapService");
   operationsService.start();
   ctx.close();
