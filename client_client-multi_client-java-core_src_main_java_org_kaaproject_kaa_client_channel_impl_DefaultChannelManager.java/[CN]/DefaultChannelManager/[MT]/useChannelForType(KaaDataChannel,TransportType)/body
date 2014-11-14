@@ -1,0 +1,8 @@
+{
+  ChannelDirection direction=channel.getSupportedTransportTypes().get(type);
+  if (direction != null && (direction.equals(ChannelDirection.BIDIRECTIONAL) || direction.equals(ChannelDirection.UP))) {
+    upChannels.put(type,channel);
+    return true;
+  }
+  return false;
+}

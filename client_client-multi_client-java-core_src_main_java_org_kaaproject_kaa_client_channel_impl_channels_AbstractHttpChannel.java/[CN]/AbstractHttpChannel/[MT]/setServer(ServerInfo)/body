@@ -3,7 +3,7 @@
     LOG.info("Can't set server. Channel {} is down",getId());
     return;
   }
-  if (executor == null) {
+  if (executor == null && !isPaused) {
     executor=createExecutor();
   }
   if (server != null) {

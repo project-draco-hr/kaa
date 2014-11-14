@@ -1,0 +1,9 @@
+{
+  if (isPaused) {
+    isPaused=false;
+    if (executor == null) {
+      executor=createExecutor();
+    }
+    executor.submit(openConnectionTask);
+  }
+}

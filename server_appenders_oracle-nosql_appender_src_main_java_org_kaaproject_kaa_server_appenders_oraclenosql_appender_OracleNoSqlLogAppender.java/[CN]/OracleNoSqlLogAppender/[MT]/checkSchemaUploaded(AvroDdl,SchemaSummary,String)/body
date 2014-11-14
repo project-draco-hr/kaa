@@ -1,0 +1,10 @@
+{
+  SchemaDetails details=avroDdl.getSchemaDetails(summary.getId());
+  if (details.getText().equals(schemaText)) {
+    return true;
+  }
+ else   if (summary.getPreviousVersion() != null) {
+    return checkSchemaUploaded(avroDdl,summary.getPreviousVersion(),schemaText);
+  }
+  return false;
+}

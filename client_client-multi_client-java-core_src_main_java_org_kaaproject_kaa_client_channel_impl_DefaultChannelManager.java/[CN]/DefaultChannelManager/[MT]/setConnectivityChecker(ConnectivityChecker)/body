@@ -1,4 +1,8 @@
 {
+  if (isShutdown) {
+    LOG.warn("Can't set connectivity checker. Channel manager is down");
+    return;
+  }
   connectivityChecker=checker;
   for (  KaaDataChannel channel : channels) {
     channel.setConnectivityChecker(connectivityChecker);

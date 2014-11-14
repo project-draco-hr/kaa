@@ -4,7 +4,9 @@
     return;
   }
   if (server != null) {
-    stopPoll();
+    if (!isPaused) {
+      stopPoll();
+    }
     this.currentServer=(HttpLongPollServerInfo)server;
 synchronized (httpClientLock) {
       LOG.debug("Channel [{}]: creating HTTP client..",getId());
@@ -14,6 +16,8 @@ synchronized (httpClientSetLock) {
       }
       LOG.debug("Channel [{}]: HTTP client created",getId());
     }
-    startPoll();
+    if (!isPaused) {
+      startPoll();
+    }
   }
 }

@@ -1,0 +1,6 @@
+{
+  LOG.info("Kaa version: {}, commit: {}",Version.PROJECT_VERSION,Version.COMMIT_HASH);
+  for (  String property : systemProperties) {
+    LOG.info("{} : {}",property,System.getProperty(property,"N/A"));
+  }
+}

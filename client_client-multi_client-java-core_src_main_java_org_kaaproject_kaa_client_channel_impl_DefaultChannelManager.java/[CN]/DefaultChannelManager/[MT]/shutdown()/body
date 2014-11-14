@@ -1,0 +1,8 @@
+{
+  if (!isShutdown) {
+    isShutdown=true;
+    for (    KaaDataChannel channel : channels) {
+      channel.shutdown();
+    }
+  }
+}

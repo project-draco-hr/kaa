@@ -3,6 +3,10 @@
     LOG.info("Can't sync. Channel [{}] is down",getId());
     return;
   }
+  if (isPaused) {
+    LOG.info("Can't sync. Channel [{}] is paused",getId());
+    return;
+  }
   if (!isFirstResponseReceived) {
     LOG.info("Can't sync. Channel [{}] is waiting for CONNACK message + KAASYNC message",getId());
     isPendingSyncRequest=true;
