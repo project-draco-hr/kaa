@@ -1,0 +1,41 @@
+{
+  LOG.info("{} application starting...",getName());
+  Environment.logState();
+  String[] appContextXmls=defaultContextFiles;
+  String[] appPropertiesFiles=defaultConfigurationFiles;
+  if (args.length > 0) {
+    List<String> contexts=new ArrayList<>();
+    List<String> properties=new ArrayList<>();
+    for (    String arg : args) {
+      if (arg.endsWith(XML) || arg.endsWith(XML.toUpperCase())) {
+        contexts.add(arg);
+      }
+ else       if (arg.endsWith(PROPERTIES) || arg.endsWith(PROPERTIES.toUpperCase())) {
+        properties.add(arg);
+      }
+    }
+    if (contexts.size() > 0) {
+      appContextXmls=contexts.toArray(new String[contexts.size()]);
+      appPropertiesFiles=properties.toArray(new String[contexts.size()]);
+    }
+  }
+  ClassPathXmlApplicationContext ctx=new ClassPathXmlApplicationContext(appContextXmls,false);
+  try {
+    MutablePropertySources sources=ctx.getEnvironment().getPropertySources();
+    for (    String propertyFile : appPropertiesFiles) {
+      try {
+        sources.addLast(new ResourcePropertySource(propertyFile,AbstractServerApplication.class.getClassLoader()));
+      }
+ catch (      IOException e) {
+        LOG.error("Can't load properties file {} from classpath",propertyFile);
+        return;
+      }
+    }
+    ctx.refresh();
+    init(ctx);
+  }
+  finally {
+    ctx.close();
+  }
+  LOG.info("{} application stopped.",getName());
+}
