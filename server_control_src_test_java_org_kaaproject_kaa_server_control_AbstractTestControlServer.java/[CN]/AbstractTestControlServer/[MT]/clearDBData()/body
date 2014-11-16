@@ -5,7 +5,11 @@
     db.dropDatabase();
   }
   try {
-    if (dataSource.getConnection().getMetaData().getURL().contains("h2")) {
+    String url;
+    try (Connection connection=dataSource.getConnection()){
+      url=connection.getMetaData().getURL();
+    }
+     if (url.contains("h2")) {
       logger.info("Deleting data from H2 database");
       new H2DBTestRunner().truncateTables(dataSource);
     }
