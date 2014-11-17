@@ -16,7 +16,9 @@
     }
     if (contexts.size() > 0) {
       appContextXmls=contexts.toArray(new String[contexts.size()]);
-      appPropertiesFiles=properties.toArray(new String[contexts.size()]);
+    }
+    if (properties.size() > 0) {
+      appPropertiesFiles=properties.toArray(new String[properties.size()]);
     }
   }
   ClassPathXmlApplicationContext ctx=new ClassPathXmlApplicationContext(appContextXmls,false);
@@ -34,7 +36,11 @@
     ctx.refresh();
     init(ctx);
   }
-  finally {
+ catch (  Exception e) {
+    LOG.info("Error during initialization of context",e);
+    throw e;
+  }
+ finally {
     ctx.close();
   }
   LOG.info("{} application stopped.",getName());
