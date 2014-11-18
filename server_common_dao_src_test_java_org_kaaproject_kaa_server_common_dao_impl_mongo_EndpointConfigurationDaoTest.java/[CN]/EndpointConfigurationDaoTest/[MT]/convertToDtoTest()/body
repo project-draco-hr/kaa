@@ -1,8 +1,0 @@
-{
-  String id=endConf.get(0);
-  EndpointConfiguration endpointConfiguration=endpointConfigurationDao.findById(id);
-  Assert.assertNotNull(endpointConfiguration);
-  EndpointConfigurationDto dto=endpointConfiguration.toDto();
-  EndpointConfiguration converted=new EndpointConfiguration(dto);
-  Assert.assertEquals(endpointConfiguration,converted);
-}

@@ -46,7 +46,7 @@
     Date expiredAt=notificationDto.getExpiredAt();
     notificationDto.setExpiredAt(expiredAt != null ? expiredAt : new Date(currentTime + TTL));
     notificationDto.setLastTimeModify(new Date(currentTime));
-    EndpointNotificationDto unicast=getDto(unicastNotificationDao.save(new EndpointNotification(dto)));
+    EndpointNotificationDto unicast=getDto(unicastNotificationDao.save(dto));
     if (unicast != null && unicast.getNotificationDto() != null) {
       LOG.trace("Saved unicast notifications {}",unicast);
       updateNotificationDto=new UpdateNotificationDto<EndpointNotificationDto>();

@@ -1,13 +1,4 @@
 {
-  LOG.info("Operations Server application starting...");
-  Environment.logState();
-  String applicationContextXml=DEFAULT_APPLICATION_CONTEXT_XML;
-  if (args.length > 0) {
-    applicationContextXml=args[0];
-  }
-  ClassPathXmlApplicationContext ctx=new ClassPathXmlApplicationContext(applicationContextXml);
-  final OperationsBootstrapService operationsService=(OperationsBootstrapService)ctx.getBean("operationsBootstrapService");
-  operationsService.start();
-  ctx.close();
-  LOG.info("Operations Server Application stopped.");
+  OperationsServerApplication app=new OperationsServerApplication(DEFAULT_APPLICATION_CONTEXT_XMLS,DEFAULT_APPLICATION_CONFIGURATION_FILES);
+  app.startAndWait(args);
 }
