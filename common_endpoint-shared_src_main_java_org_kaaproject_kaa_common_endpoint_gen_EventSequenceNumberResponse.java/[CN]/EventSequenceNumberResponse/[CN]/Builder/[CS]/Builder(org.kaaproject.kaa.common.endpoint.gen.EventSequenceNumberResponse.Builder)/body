@@ -1,0 +1,7 @@
+{
+  super(other);
+  if (isValidValue(fields()[0],other.seqNum)) {
+    this.seqNum=data().deepCopy(fields()[0].schema(),other.seqNum);
+    fieldSetFlags()[0]=true;
+  }
+}
