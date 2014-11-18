@@ -2,20 +2,38 @@
   if (manager != null) {
     EventSyncRequest request=new EventSyncRequest();
     manager.fillEventListenersSyncRequest(request);
-    List<Event> events=new LinkedList<Event>();
-    if (!sentEvents.isEmpty()) {
-      for (      Map.Entry<Integer,List<Event>> pendingEvents : sentEvents.entrySet()) {
-        LOG.debug("Have not received response for {} events sent with request id {}",pendingEvents.getValue().size(),pendingEvents.getKey());
-        events.addAll(pendingEvents.getValue());
+    if (sequenceNumberSyncStatus == SequenceNumberSyncStatus.SYNCHRONIZED) {
+      List<Event> events=new LinkedList<Event>();
+      if (!sentEvents.isEmpty()) {
+        for (        Map.Entry<Integer,List<Event>> pendingEvents : sentEvents.entrySet()) {
+          LOG.debug("Have not received response for {} events sent with request id {}",pendingEvents.getValue().size(),pendingEvents.getKey());
+          events.addAll(pendingEvents.getValue());
+        }
+        sentEvents.clear();
       }
-      sentEvents.clear();
+      events.addAll(manager.getPendingEvents());
+      if (!events.isEmpty()) {
+        Collections.sort(events,eventComparator);
+        if (events.get(0).getSeqNum() != startEventSN) {
+          clientState.setEventSeqNum(startEventSN + events.size());
+          LOG.info("Put in order event sequence numbers (expected: {}, actual: {})",startEventSN,events.get(0).getSeqNum());
+          for (          Event e : events) {
+            e.setSeqNum(startEventSN++);
+          }
+        }
+ else {
+          startEventSN+=events.size();
+        }
+        LOG.debug("Going to send {} event{}",events.size(),(events.size() == 1 ? "" : "s"));
+        request.setEvents(events);
+        sentEvents.put(requestId,events);
+      }
+      request.setEventSequenceNumberRequest(null);
     }
-    events.addAll(manager.getPendingEvents());
-    if (!events.isEmpty()) {
-      Collections.sort(events,eventComparator);
-      LOG.debug("Going to send {} event{}",events.size(),(events.size() == 1 ? "" : "s"));
-      request.setEvents(events);
-      sentEvents.put(requestId,events);
+ else     if (sequenceNumberSyncStatus == SequenceNumberSyncStatus.UNSYNCHRONIZED) {
+      sequenceNumberSyncStatus=SequenceNumberSyncStatus.IN_PROGRESS;
+      request.setEventSequenceNumberRequest(new EventSequenceNumberRequest());
+      LOG.trace("Sending event sequence number request: " + "restored_sn = {}",startEventSN);
     }
     return request;
   }

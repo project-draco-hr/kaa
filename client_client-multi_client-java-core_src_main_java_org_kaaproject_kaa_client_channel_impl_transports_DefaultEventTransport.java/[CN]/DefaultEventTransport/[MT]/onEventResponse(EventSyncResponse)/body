@@ -1,5 +1,18 @@
 {
   if (manager != null) {
+    if (sequenceNumberSyncStatus == SequenceNumberSyncStatus.IN_PROGRESS && response.getEventSequenceNumberResponse() != null) {
+      int lastSN=response.getEventSequenceNumberResponse().getSeqNum();
+      int expectedSN=(lastSN > 0 ? lastSN + 1 : lastSN);
+      if (startEventSN != expectedSN) {
+        startEventSN=expectedSN;
+        clientState.setEventSeqNum(startEventSN);
+        LOG.info("Event sequence number is unsynchronized. Set to {}",startEventSN);
+      }
+ else {
+        LOG.info("Event sequence number is up to date: {}",startEventSN);
+      }
+      sequenceNumberSyncStatus=SequenceNumberSyncStatus.SYNCHRONIZED;
+    }
     if (response.getEvents() != null && !response.getEvents().isEmpty()) {
       List<Event> events=new ArrayList<>(response.getEvents());
       Collections.sort(events,eventComparator);
@@ -11,5 +24,5 @@
       manager.eventListenersResponseReceived(response.getEventListenersResponses());
     }
   }
-  LOG.info("Processed event response.");
+  LOG.trace("Processed event response");
 }
