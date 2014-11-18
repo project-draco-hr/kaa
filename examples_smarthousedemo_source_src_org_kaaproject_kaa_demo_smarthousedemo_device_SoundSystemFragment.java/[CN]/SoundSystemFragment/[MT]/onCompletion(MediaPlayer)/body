@@ -1,0 +1,7 @@
+{
+  soundSystemHandler.removeCallbacks(progressChangeTracker);
+  playbackInfo.setStatus(PlaybackStatus.PAUSED);
+  playbackInfo.setTime(0);
+  updateSoundSystemUI();
+  mActivity.getSmartHouseController().updatePlaybackInfo(copyPlaybackInfo());
+}

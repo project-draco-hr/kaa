@@ -1,0 +1,7 @@
+{
+  EndpointCommandKey key=new EndpointCommandKey(clazz.getName(),endpontKey);
+  BlockingCallable<T> callable=(BlockingCallable<T>)commandMap.remove(key);
+  if (callable != null) {
+    callable.onComplete(response);
+  }
+}

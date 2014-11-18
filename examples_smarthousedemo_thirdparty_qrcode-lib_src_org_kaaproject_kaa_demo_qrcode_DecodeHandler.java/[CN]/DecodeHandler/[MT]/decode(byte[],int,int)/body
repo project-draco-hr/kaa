@@ -1,0 +1,34 @@
+{
+  long start=System.currentTimeMillis();
+  Result rawResult=null;
+  PlanarYUVLuminanceSource source=activity.getCameraManager().buildLuminanceSource(data,width,height);
+  if (source != null) {
+    BinaryBitmap bitmap=new BinaryBitmap(new HybridBinarizer(source));
+    try {
+      rawResult=multiFormatReader.decodeWithState(bitmap);
+    }
+ catch (    ReaderException re) {
+    }
+ finally {
+      multiFormatReader.reset();
+    }
+  }
+  Handler handler=activity.getHandler();
+  if (rawResult != null) {
+    long end=System.currentTimeMillis();
+    Log.d(TAG,"Found barcode in " + (end - start) + " ms");
+    if (handler != null) {
+      Message message=Message.obtain(handler,R.id.decode_succeeded,rawResult);
+      Bundle bundle=new Bundle();
+      bundleThumbnail(source,bundle);
+      message.setData(bundle);
+      message.sendToTarget();
+    }
+  }
+ else {
+    if (handler != null) {
+      Message message=Message.obtain(handler,R.id.decode_failed);
+      message.sendToTarget();
+    }
+  }
+}

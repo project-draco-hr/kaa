@@ -1,0 +1,10 @@
+{
+  eventExecutor.submit(new Runnable(){
+    @Override public void run(){
+      ChangeDegreeRequest request=new ChangeDegreeRequest();
+      request.setDegree(targetDegree);
+      thermostats.sendEvent(request,endpointKeyHash);
+    }
+  }
+);
+}

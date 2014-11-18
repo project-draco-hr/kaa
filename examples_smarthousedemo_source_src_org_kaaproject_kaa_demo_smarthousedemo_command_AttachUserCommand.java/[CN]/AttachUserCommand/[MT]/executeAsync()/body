@@ -1,0 +1,16 @@
+{
+  Log.d("Kaa","Attaching to user account!");
+  client.getEndpointRegistrationManager().attachUser(userAccount,USER_ACCESS_TOKEN,new UserAuthResultListener(){
+    @Override public void onAuthResult(    UserAttachResponse response){
+      if (response.getResult() == SyncResponseResultType.SUCCESS) {
+        Log.d("Kaa","Attached to user account!");
+        onComplete(true);
+      }
+ else {
+        Log.e("Kaa","Unable to attach to user account!");
+        onException(new CommandException("Unable to attach to user account!"));
+      }
+    }
+  }
+);
+}

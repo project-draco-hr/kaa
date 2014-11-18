@@ -1,0 +1,16 @@
+{
+  String temperatureText;
+  if (mDevice.getThermostatInfo() != null) {
+    temperatureText=String.format(getString(R.string.msg_temperature),mDevice.getThermostatInfo().getDegree(),mDevice.getThermostatInfo().getTargetDegree());
+    mThermostat.setTemp(mDevice.getThermostatInfo().getDegree());
+    if (mDevice.getThermostatInfo().getIsSetManually() || updateTarget) {
+      mThermostat.setTargetTemp(mDevice.getThermostatInfo().getTargetDegree(),false);
+    }
+  }
+ else {
+    temperatureText=getString(R.string.msg_temperature_na);
+    mThermostat.setTemp(70);
+    mThermostat.setTargetTemp(70,false);
+  }
+  mThermostatInfoText.setText(temperatureText);
+}

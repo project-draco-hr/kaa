@@ -1,0 +1,15 @@
+{
+  super.onCreate(savedInstanceState);
+  setContentView(R.layout.activity_login);
+  Button btnLogin=(Button)findViewById(R.id.btnLogin);
+  final EditText usernameField=(EditText)findViewById(R.id.textUsername);
+  btnLogin.setOnClickListener(new OnClickListener(){
+    @Override public void onClick(    View v){
+      String username=usernameField.getText().toString();
+      if (username != null && username.length() > 0) {
+        onLogin(username);
+      }
+    }
+  }
+);
+}

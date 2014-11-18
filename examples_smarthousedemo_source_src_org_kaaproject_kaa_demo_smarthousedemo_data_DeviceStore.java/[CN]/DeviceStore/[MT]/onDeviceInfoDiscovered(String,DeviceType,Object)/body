@@ -1,0 +1,13 @@
+{
+  SmartDeviceInfo device=SmartDeviceInfo.createDeviceInfo(endpointKey,type);
+  List<SmartDeviceInfo> devices=deviceMap.get(device.getDeviceType());
+  if (devices.contains(device)) {
+    int index=devices.indexOf(device);
+    SmartDeviceInfo storedDevice=devices.get(index);
+    storedDevice.setDeviceStatus(DeviceStatus.ONLINE);
+    storedDevice.setDeviceInfo(deviceInfo);
+    DeviceUpdated deviceUpdated=new DeviceUpdated();
+    deviceUpdated.device=storedDevice;
+    eventBus.post(deviceUpdated);
+  }
+}
