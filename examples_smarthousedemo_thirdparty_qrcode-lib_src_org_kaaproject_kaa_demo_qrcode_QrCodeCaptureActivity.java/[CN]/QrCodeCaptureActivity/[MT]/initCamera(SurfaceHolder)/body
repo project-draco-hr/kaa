@@ -1,0 +1,24 @@
+{
+  if (surfaceHolder == null) {
+    throw new IllegalStateException("No SurfaceHolder provided");
+  }
+  if (cameraManager.isOpen()) {
+    Log.w(TAG,"initCamera() while already open -- late SurfaceView callback?");
+    return;
+  }
+  try {
+    cameraManager.openDriver(surfaceHolder);
+    if (handler == null) {
+      handler=new QrCodeCaptureActivityHandler(this,decodeFormats,null,characterSet,cameraManager);
+    }
+    decodeOrStoreSavedBitmap(null,null);
+  }
+ catch (  IOException ioe) {
+    Log.w(TAG,ioe);
+    displayFrameworkBugMessageAndExit();
+  }
+catch (  RuntimeException e) {
+    Log.w(TAG,"Unexpected error initializing camera",e);
+    displayFrameworkBugMessageAndExit();
+  }
+}

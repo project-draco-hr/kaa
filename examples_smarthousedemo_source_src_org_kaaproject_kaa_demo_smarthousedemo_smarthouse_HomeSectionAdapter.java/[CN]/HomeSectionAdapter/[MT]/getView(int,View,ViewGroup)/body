@@ -1,0 +1,8 @@
+{
+  View row=convertView;
+  if (row == null || !(row instanceof RelativeLayout)) {
+    LayoutInflater inflater=((Activity)getContext()).getLayoutInflater();
+    row=inflater.inflate(R.layout.home_list_item,parent,false);
+  }
+  return updateView(position,row);
+}

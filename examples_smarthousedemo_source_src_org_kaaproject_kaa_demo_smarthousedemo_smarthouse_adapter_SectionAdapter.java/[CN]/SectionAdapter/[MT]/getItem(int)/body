@@ -1,0 +1,13 @@
+{
+  for (  Section section : this.sections) {
+    if (position == 0) {
+      return section;
+    }
+    int size=section.adapter.getCount() + 1;
+    if (position < size) {
+      return (section.adapter.getItem(position - 1));
+    }
+    position-=size;
+  }
+  return null;
+}

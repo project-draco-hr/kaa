@@ -1,0 +1,24 @@
+{
+  LayoutInflater li=LayoutInflater.from(context);
+  View renameDeviceView=li.inflate(R.layout.rename_device,null);
+  AlertDialog.Builder alertDialogBuilder=new AlertDialog.Builder(context);
+  alertDialogBuilder.setView(renameDeviceView);
+  final EditText deviceNameInput=(EditText)renameDeviceView.findViewById(R.id.deviceNameInput);
+  alertDialogBuilder.setCancelable(false).setPositiveButton(R.string.ok,new DialogInterface.OnClickListener(){
+    public void onClick(    DialogInterface dialog,    int id){
+      dialog.dismiss();
+      String newDeviceName=deviceNameInput.getText().toString();
+      listener.onNewDeviceName(newDeviceName);
+    }
+  }
+).setNegativeButton(R.string.cancel,new DialogInterface.OnClickListener(){
+    public void onClick(    DialogInterface dialog,    int id){
+      dialog.cancel();
+    }
+  }
+);
+  deviceNameInput.setText(previousName);
+  deviceNameInput.setSelectAllOnFocus(true);
+  AlertDialog alertDialog=alertDialogBuilder.create();
+  alertDialog.show();
+}

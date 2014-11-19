@@ -1,0 +1,17 @@
+{
+  eventExecutor.submit(new Runnable(){
+    @Override public void run(){
+switch (deviceType) {
+case THERMOSTAT:
+        thermostats.sendEvent(new ThermostatInfoRequest(),endpointKeyHash);
+      break;
+case SOUND_SYSTEM:
+    soundSystems.sendEvent(new PlaybackInfoRequest(),endpointKeyHash);
+  break;
+default :
+break;
+}
+}
+}
+);
+}

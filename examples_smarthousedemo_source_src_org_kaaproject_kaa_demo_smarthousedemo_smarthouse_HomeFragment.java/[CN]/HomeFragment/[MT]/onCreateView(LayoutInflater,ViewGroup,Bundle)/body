@@ -1,0 +1,15 @@
+{
+  View view=inflater.inflate(R.layout.fragment_home,container,false);
+  ListView homeListView=(ListView)view.findViewById(R.id.homeList);
+  homeListView.setAdapter(mSectionAdapter);
+  homeListView.setOnItemClickListener(new OnItemClickListener(){
+    public void onItemClick(    AdapterView<?> parent,    View view,    int position,    long id){
+      Object item=parent.getAdapter().getItem(position);
+      if (item instanceof DeviceType) {
+        mActivity.switchToDeviceType((DeviceType)item);
+      }
+    }
+  }
+);
+  return view;
+}

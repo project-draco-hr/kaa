@@ -1,0 +1,20 @@
+{
+  super.onCreate(savedInstanceState);
+  mActivity=(SmartHouseActivity)this.getActivity();
+  mSectionAdapter=new SectionAdapter(){
+    @Override protected View getHeaderView(    String caption,    int index,    View convertView,    ViewGroup parent){
+      LayoutInflater inflater=mActivity.getLayoutInflater();
+      TextView result=(TextView)convertView;
+      if (convertView == null) {
+        result=(TextView)inflater.inflate(R.layout.home_list_header,null);
+      }
+      result.setText(caption);
+      return result;
+    }
+  }
+;
+  mSectionAdapter.addSection(HomeSection.DEVICES.getDesc(),new DevicesSectionAdapter(mActivity));
+  if (!mActivity.getDeviceStore().getEventBus().isRegistered(this)) {
+    mActivity.getDeviceStore().getEventBus().register(this);
+  }
+}

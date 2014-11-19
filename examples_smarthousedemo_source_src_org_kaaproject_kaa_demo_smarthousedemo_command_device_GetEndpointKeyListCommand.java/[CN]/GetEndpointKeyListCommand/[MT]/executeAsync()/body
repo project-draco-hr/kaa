@@ -1,0 +1,14 @@
+{
+  List<String> fqns=Arrays.asList(DeviceInfoRequest.class.getName());
+  client.getEventListenerResolver().findEventListeners(fqns,new FetchEventListeners(){
+    @Override public void onEventListenersReceived(    List<String> endpontKeys){
+      Log.d("Kaa","Got list of attached enpoint keys, size " + endpontKeys.size());
+      onComplete(endpontKeys);
+    }
+    @Override public void onRequestFailed(){
+      Log.e("Kaa","Unable to get list of available endpoint keys!");
+      onException(new CommandException("Unable to get list of endpoint keys!"));
+    }
+  }
+);
+}

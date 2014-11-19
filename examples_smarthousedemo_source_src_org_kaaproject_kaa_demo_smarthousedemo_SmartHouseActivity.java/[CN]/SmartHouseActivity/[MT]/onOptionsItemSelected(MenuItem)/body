@@ -1,0 +1,10 @@
+{
+  int id=item.getItemId();
+  if (id == android.R.id.home) {
+    if (mNavigationDrawerFragment == null || !mNavigationDrawerFragment.getDrawerToggle().isDrawerIndicatorEnabled()) {
+      popBackStack();
+      return true;
+    }
+  }
+  return false;
+}
