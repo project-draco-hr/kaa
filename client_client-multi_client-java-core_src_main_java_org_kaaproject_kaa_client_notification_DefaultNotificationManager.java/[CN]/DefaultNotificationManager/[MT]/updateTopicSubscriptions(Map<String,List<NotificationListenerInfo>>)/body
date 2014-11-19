@@ -6,16 +6,16 @@
   List<SubscriptionCommand> subscriptionUpdate=new LinkedList<>();
   for (  Map.Entry<String,List<NotificationListenerInfo>> cursor : subscribers.entrySet()) {
     Topic listenerTopic=findTopicById(cursor.getKey());
-synchronized (voluntaryListeners) {
-      List<NotificationListener> listeners=voluntaryListeners.get(cursor.getKey());
+synchronized (optionalListeners) {
+      List<NotificationListener> listeners=optionalListeners.get(cursor.getKey());
       if (cursor.getValue() != null) {
         for (        NotificationListenerInfo subscriberInfo : cursor.getValue()) {
           if (subscriberInfo.getAction() == NotificationListenerInfo.Action.ADD) {
             if (listeners == null) {
               listeners=new LinkedList<NotificationListener>();
-              voluntaryListeners.put(listenerTopic.getId(),listeners);
+              optionalListeners.put(listenerTopic.getId(),listeners);
             }
-            if (listeners.isEmpty() && listenerTopic.getSubscriptionType() == SubscriptionType.VOLUNTARY) {
+            if (listeners.isEmpty() && listenerTopic.getSubscriptionType() == SubscriptionType.OPTIONAL) {
               subscriptionUpdate.add(new SubscriptionCommand(listenerTopic.getId(),SubscriptionCommandType.ADD));
             }
             if (subscriberInfo.getListener() != null && !listeners.contains(subscriberInfo.getListener())) {
@@ -24,7 +24,7 @@ synchronized (voluntaryListeners) {
           }
  else           if (listeners != null) {
             listeners.remove(subscriberInfo.getListener());
-            if (listeners.isEmpty() && listenerTopic.getSubscriptionType() == SubscriptionType.VOLUNTARY) {
+            if (listeners.isEmpty() && listenerTopic.getSubscriptionType() == SubscriptionType.OPTIONAL) {
               subscriptionUpdate.add(new SubscriptionCommand(listenerTopic.getId(),SubscriptionCommandType.REMOVE));
             }
           }
