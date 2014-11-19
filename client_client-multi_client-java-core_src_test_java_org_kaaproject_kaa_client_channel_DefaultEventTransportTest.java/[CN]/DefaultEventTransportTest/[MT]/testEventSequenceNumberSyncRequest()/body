@@ -10,6 +10,6 @@
   Assert.assertTrue(eventRequest1.getEventSequenceNumberRequest() != null);
   Assert.assertTrue(eventRequest1.getEvents() == null);
   EventSyncRequest eventRequest2=transport.createEventRequest(requestId++);
-  Assert.assertTrue(eventRequest2.getEventSequenceNumberRequest() == null);
+  Assert.assertTrue(eventRequest2.getEventSequenceNumberRequest() != null);
   Assert.assertTrue(eventRequest2.getEvents() == null);
 }
