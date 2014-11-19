@@ -1,0 +1,6 @@
+{
+  int touchProgress=(int)Math.round(valuePerDegree() * angle);
+  touchProgress=(touchProgress < 0) ? INVALID_PROGRESS_VALUE : touchProgress;
+  touchProgress=(touchProgress > mMax) ? INVALID_PROGRESS_VALUE : touchProgress;
+  return touchProgress;
+}

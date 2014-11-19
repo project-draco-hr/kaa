@@ -1,0 +1,10 @@
+{
+  super.onChange(selfChange);
+  int volume=mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+  if (volume != playbackInfo.getVolume()) {
+    playbackInfo.setVolume(volume);
+    playbackInfo.setVolumeSetOnDevice(true);
+    updateSoundSystemInfo();
+    playbackInfo.setVolumeSetOnDevice(false);
+  }
+}

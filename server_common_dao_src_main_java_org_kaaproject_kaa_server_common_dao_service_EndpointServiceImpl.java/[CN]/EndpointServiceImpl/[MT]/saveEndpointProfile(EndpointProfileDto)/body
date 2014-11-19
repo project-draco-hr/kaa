@@ -6,14 +6,14 @@
   if (isBlank(endpointProfileDto.getId())) {
     if (endpointProfileDao.getCountByKeyHash(keyHash) == 0) {
       LOG.debug("Register new endpoint profile.");
-      dto=getDto(endpointProfileDao.save(new EndpointProfile(endpointProfileDto)));
+      dto=getDto(endpointProfileDao.save(endpointProfileDto));
     }
  else {
       EndpointProfile storedProfile=endpointProfileDao.findByKeyHash(keyHash);
       if (Arrays.equals(storedProfile.getEndpointKey(),endpointProfileDto.getEndpointKey())) {
         LOG.debug("Got register profile for already existing profile {}. Will overwrite existing profile!",keyHash);
         endpointProfileDto.setId(storedProfile.getId());
-        dto=getDto(endpointProfileDao.save(new EndpointProfile(endpointProfileDto)));
+        dto=getDto(endpointProfileDao.save(endpointProfileDto));
       }
  else {
         LOG.warn("Endpoint profile with key hash {} already exists.",keyHash);
@@ -23,7 +23,7 @@
   }
  else {
     LOG.debug("Update endpoint profile with id [{}]",endpointProfileDto.getId());
-    dto=getDto(endpointProfileDao.save(new EndpointProfile(endpointProfileDto)));
+    dto=getDto(endpointProfileDao.save(endpointProfileDto));
   }
   return dto;
 }

@@ -1,0 +1,9 @@
+{
+  super.onCreate(icicle);
+  Window window=getWindow();
+  window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+  setContentView(R.layout.qr_code_scan);
+  hasSurface=false;
+  inactivityTimer=new InactivityTimer(this);
+  ambientLightManager=new AmbientLightManager(this);
+}

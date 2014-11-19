@@ -3,7 +3,7 @@
   Topic topic=topicDao.getNextSeqNumber(dto.getTopicId());
   if (topic != null) {
     dto.setSecNum(topic.getSequenceNumber());
-    Notification savedDto=notificationDao.save(new Notification(dto));
+    Notification savedDto=notificationDao.save(dto);
     notificationDto=savedDto != null ? savedDto.toDto() : null;
   }
  else {

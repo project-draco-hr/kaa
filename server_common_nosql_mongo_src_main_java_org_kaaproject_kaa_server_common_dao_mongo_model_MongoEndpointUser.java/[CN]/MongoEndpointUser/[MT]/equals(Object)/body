@@ -1,0 +1,29 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  MongoEndpointUser other=(MongoEndpointUser)obj;
+  if (externalId == null) {
+    if (other.externalId != null) {
+      return false;
+    }
+  }
+ else   if (!externalId.equals(other.externalId)) {
+    return false;
+  }
+  if (tenantId == null) {
+    if (other.tenantId != null) {
+      return false;
+    }
+  }
+ else   if (!tenantId.equals(other.tenantId)) {
+    return false;
+  }
+  return true;
+}

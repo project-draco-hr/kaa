@@ -1,0 +1,11 @@
+{
+  if (v.getId() == R.id.devicesList) {
+    AdapterView.AdapterContextMenuInfo info=(AdapterView.AdapterContextMenuInfo)menuInfo;
+    SmartDeviceInfo device=mDevicesAdapter.getItem(info.position);
+    menu.setHeaderTitle(device.getDeviceName());
+    String[] menuItems=getResources().getStringArray(R.array.deviceContextMenu);
+    for (int i=0; i < menuItems.length; i++) {
+      menu.add(getDeviceType().ordinal(),i,i,menuItems[i]);
+    }
+  }
+}

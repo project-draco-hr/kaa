@@ -1,0 +1,7 @@
+{
+  SongInfo item=mSongsAdapter.getItem(position);
+  if (item != null) {
+    requestedSongPosition=position;
+    mActivity.getSmartHouseController().playUrl(mDevice.getEndpointKey(),item.getUrl());
+  }
+}

@@ -1,0 +1,10 @@
+{
+  eventExecutor.submit(new Runnable(){
+    @Override public void run(){
+      ChangeVolumeRequest request=new ChangeVolumeRequest();
+      request.setVolume(volume);
+      soundSystems.sendEvent(request,endpointKeyHash);
+    }
+  }
+);
+}

@@ -1,0 +1,8 @@
+{
+  SharedPreferences sp=PreferenceManager.getDefaultSharedPreferences(this);
+  Editor editor=sp.edit();
+  editor.putInt(STARTED_ACTIVITY_PREF,position);
+  editor.commit();
+  Map<String,Object> map=(Map<String,Object>)l.getItemAtPosition(position);
+  startActivity(map);
+}

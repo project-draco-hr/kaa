@@ -1,0 +1,24 @@
+{
+  ResultPoint[] points=rawResult.getResultPoints();
+  if (points != null && points.length > 0) {
+    Canvas canvas=new Canvas(barcode);
+    Paint paint=new Paint();
+    paint.setColor(getResources().getColor(R.color.result_points));
+    if (points.length == 2) {
+      paint.setStrokeWidth(4.0f);
+      drawLine(canvas,paint,points[0],points[1],scaleFactor);
+    }
+ else     if (points.length == 4 && (rawResult.getBarcodeFormat() == BarcodeFormat.UPC_A || rawResult.getBarcodeFormat() == BarcodeFormat.EAN_13)) {
+      drawLine(canvas,paint,points[0],points[1],scaleFactor);
+      drawLine(canvas,paint,points[2],points[3],scaleFactor);
+    }
+ else {
+      paint.setStrokeWidth(10.0f);
+      for (      ResultPoint point : points) {
+        if (point != null) {
+          canvas.drawPoint(scaleFactor * point.getX(),scaleFactor * point.getY(),paint);
+        }
+      }
+    }
+  }
+}

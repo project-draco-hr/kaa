@@ -1,0 +1,11 @@
+{
+  if (player.isPlaying()) {
+    soundSystemHandler.removeCallbacks(progressChangeTracker);
+  }
+  playbackInfo.setTime(time);
+  player.seekTo(playbackInfo.getTime());
+  updateSoundSystemInfo();
+  if (player.isPlaying()) {
+    soundSystemHandler.postDelayed(progressChangeTracker,PROGRESS_UPDATE_DELAY);
+  }
+}

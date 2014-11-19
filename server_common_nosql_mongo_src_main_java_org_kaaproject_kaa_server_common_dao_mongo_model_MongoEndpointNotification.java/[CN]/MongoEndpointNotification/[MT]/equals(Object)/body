@@ -1,0 +1,16 @@
+{
+  if (this == o) {
+    return true;
+  }
+  if (!(o instanceof MongoEndpointNotification)) {
+    return false;
+  }
+  MongoEndpointNotification that=(MongoEndpointNotification)o;
+  if (!Arrays.equals(endpointKeyHash,that.endpointKeyHash)) {
+    return false;
+  }
+  if (notification != null ? !notification.equals(that.notification) : that.notification != null) {
+    return false;
+  }
+  return true;
+}
