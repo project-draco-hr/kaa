@@ -1,6 +1,6 @@
 {
   if (manager != null) {
-    if (sequenceNumberSyncStatus == SequenceNumberSyncStatus.IN_PROGRESS && response.getEventSequenceNumberResponse() != null) {
+    if (!isEventSNSynchronized && response.getEventSequenceNumberResponse() != null) {
       int lastSN=response.getEventSequenceNumberResponse().getSeqNum();
       int expectedSN=(lastSN > 0 ? lastSN + 1 : lastSN);
       if (startEventSN != expectedSN) {
@@ -11,7 +11,7 @@
  else {
         LOG.info("Event sequence number is up to date: {}",startEventSN);
       }
-      sequenceNumberSyncStatus=SequenceNumberSyncStatus.SYNCHRONIZED;
+      isEventSNSynchronized=true;
     }
     if (response.getEvents() != null && !response.getEvents().isEmpty()) {
       List<Event> events=new ArrayList<>(response.getEvents());
