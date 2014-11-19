@@ -1,0 +1,10 @@
+{
+  LOG.debug("Find unicast notifications by endpoint key hash [{}] ",keyHash);
+  DBObject dbObject=query(where(ENDPOINT_KEY_HASH).is(keyHash)).getQueryObject();
+  DBCursor cursor=mongoTemplate.getDb().getCollection(MongoEndpointNotification.COLLECTION_NAME).find(dbObject);
+  List<MongoEndpointNotification> endpointNotifications=new ArrayList<>();
+  while (cursor.hasNext()) {
+    endpointNotifications.add(mongoTemplate.getConverter().read(MongoEndpointNotification.class,cursor.next()));
+  }
+  return endpointNotifications;
+}

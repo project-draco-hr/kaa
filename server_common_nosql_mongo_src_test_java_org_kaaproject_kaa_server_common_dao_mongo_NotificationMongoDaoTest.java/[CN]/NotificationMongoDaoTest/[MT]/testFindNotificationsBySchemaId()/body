@@ -1,0 +1,6 @@
+{
+  NotificationDto notification=generateNotifications(null,null,1,null).get(0);
+  Assert.assertNotNull(notification.getId());
+  List<MongoNotification> found=notificationDao.findNotificationsBySchemaId(notification.getSchemaId());
+  Assert.assertEquals(notification,found.get(0).toDto());
+}

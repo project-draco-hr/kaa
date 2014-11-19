@@ -8,7 +8,7 @@
     endpointUserDto.setExternalId(userExternalId);
     endpointUserDto.setUsername(userExternalId);
     endpointUserDto.setAccessToken(userAccessToken);
-    endpointUser=endpointUserDao.save(new EndpointUser(endpointUserDto));
+    endpointUser=endpointUserDao.save(endpointUserDto);
   }
   List<String> endpointIds=endpointUser.getEndpointIds();
   if (endpointIds == null) {
