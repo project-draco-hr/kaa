@@ -11,6 +11,9 @@
   Map<String,TarEntryData> replacementData=new HashMap<String,TarEntryData>();
   List<TarEntryData> cSources=new ArrayList<>();
   cSources.addAll(generateProfileSources(profileSchemaBody));
+  if (logSchemaBody != null) {
+    cSources.addAll(generateLogSources(logSchemaBody));
+  }
   if (eventFamilies != null && !eventFamilies.isEmpty()) {
     cSources.addAll(CEventSourcesGenerator.generateEventSources(eventFamilies));
   }
@@ -20,19 +23,19 @@
   ArchiveEntry e=null;
   while ((e=templateArchive.getNextEntry()) != null) {
     if (!e.isDirectory()) {
-      if (e.getName().equals(KAA_DEFAULTS_HPP)) {
-        TarArchiveEntry kaaDefaultsEntry=new TarArchiveEntry(KAA_DEFAULTS_HPP);
+      if (e.getName().equals(KAA_DEFAULTS_HDR)) {
+        TarArchiveEntry kaaDefaultsEntry=new TarArchiveEntry(KAA_DEFAULTS_HDR);
         byte[] kaaDefaultsData=generateKaaDefaults(bootstrapNodes,appToken,configurationSchemaVersion,profileSchemaVersion,notificationSchemaVersion,logSchemaVersion,configurationProtocolSchemaBody,defaultConfigurationData,eventFamilies);
         kaaDefaultsEntry.setSize(kaaDefaultsData.length);
         sdkFile.putArchiveEntry(kaaDefaultsEntry);
         sdkFile.write(kaaDefaultsData);
       }
- else       if (e.getName().equals(KAA_CMAKELISTS_TXT)) {
-        TarArchiveEntry kaaCMakeEntry=new TarArchiveEntry(KAA_CMAKELISTS_TXT);
+ else       if (e.getName().equals(KAA_CMAKEGEN)) {
+        TarArchiveEntry kaaCMakeEntry=new TarArchiveEntry(KAA_CMAKEGEN);
         List<String> sourceNames=new LinkedList<>();
         for (        TarEntryData sourceEntry : cSources) {
           String fileName=sourceEntry.getEntry().getName();
-          if (fileName.endsWith(C_SOURCE_SUFFIX)) {
+          if (fileName.endsWith(C_SOURCE_SUFFIX) && !sourceNames.contains(fileName)) {
             sourceNames.add(fileName);
           }
         }
