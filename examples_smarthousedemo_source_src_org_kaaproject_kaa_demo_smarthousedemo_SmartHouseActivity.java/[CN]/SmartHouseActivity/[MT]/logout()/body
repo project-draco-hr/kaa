@@ -1,0 +1,24 @@
+{
+  final List<String> deviceKeys=new ArrayList<>();
+  deviceKeys.add(mSmartHouseController.getCurrentEndpointKey());
+  final List<String> attachedDevicesKeys=mDeviceStore.getAllDeviceKeys();
+  if (!attachedDevicesKeys.isEmpty()) {
+    new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle(R.string.msg_disconnect_title).setMessage(R.string.msg_disconnect).setPositiveButton(R.string.yes,new DialogInterface.OnClickListener(){
+      @Override public void onClick(      DialogInterface dialog,      int which){
+        dialog.dismiss();
+        deviceKeys.addAll(attachedDevicesKeys);
+        performLogout(deviceKeys);
+      }
+    }
+).setNegativeButton(R.string.no,new DialogInterface.OnClickListener(){
+      @Override public void onClick(      DialogInterface dialog,      int which){
+        dialog.dismiss();
+        performLogout(deviceKeys);
+      }
+    }
+).show();
+  }
+ else {
+    performLogout(deviceKeys);
+  }
+}

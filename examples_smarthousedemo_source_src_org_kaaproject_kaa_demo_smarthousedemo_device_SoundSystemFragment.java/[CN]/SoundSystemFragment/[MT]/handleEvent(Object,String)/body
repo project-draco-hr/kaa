@@ -1,0 +1,42 @@
+{
+  if (event instanceof PlayRequest) {
+    final PlayRequest request=(PlayRequest)event;
+    soundSystemHandler.post(new Runnable(){
+      @Override public void run(){
+        playUrl(request.getUrl());
+      }
+    }
+);
+  }
+ else   if (event instanceof PauseRequest) {
+    soundSystemHandler.post(new Runnable(){
+      @Override public void run(){
+        pause();
+      }
+    }
+);
+  }
+ else   if (event instanceof PlayListRequest) {
+    List<SongInfo> playList=new ArrayList<>(mSongMap.values());
+    Collections.sort(playList,mSongComparator);
+    mActivity.getSmartHouseController().sendPlayList(playList,endpointSourceKey);
+  }
+ else   if (event instanceof PlaybackInfoRequest) {
+    mActivity.getSmartHouseController().sendPlaybackInfo(playbackInfo,endpointSourceKey);
+  }
+ else   if (event instanceof SeekRequest) {
+    final SeekRequest seekRequest=(SeekRequest)event;
+    soundSystemHandler.post(new Runnable(){
+      @Override public void run(){
+        seekTo(seekRequest.getTime());
+      }
+    }
+);
+  }
+ else   if (event instanceof ChangeVolumeRequest) {
+    ChangeVolumeRequest changeVolumeRequest=(ChangeVolumeRequest)event;
+    mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC,changeVolumeRequest.getVolume(),0);
+    playbackInfo.setVolume(mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
+    updateSoundSystemInfo();
+  }
+}

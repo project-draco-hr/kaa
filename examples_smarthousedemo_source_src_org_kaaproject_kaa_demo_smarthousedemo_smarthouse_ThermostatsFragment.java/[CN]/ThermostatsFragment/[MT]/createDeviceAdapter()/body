@@ -1,0 +1,19 @@
+{
+  return new DeviceAdapter<ThermostatInfo>(mActivity.getDeviceStore(),mActivity,getDeviceType()){
+    @Override protected int getLayoutResId(){
+      return R.layout.thermostat_list_item;
+    }
+    protected void setAdditionalInfo(    View v,    ThermostatInfo entry){
+      TextView temeratureTextView=(TextView)v.findViewById(R.id.temperatureText);
+      String temperatureText;
+      if (entry.getThermostatInfo() != null) {
+        temperatureText=String.format(getString(R.string.msg_temperature),entry.getThermostatInfo().getDegree(),entry.getThermostatInfo().getTargetDegree());
+      }
+ else {
+        temperatureText=getString(R.string.msg_temperature_na);
+      }
+      temeratureTextView.setText(temperatureText);
+    }
+  }
+;
+}

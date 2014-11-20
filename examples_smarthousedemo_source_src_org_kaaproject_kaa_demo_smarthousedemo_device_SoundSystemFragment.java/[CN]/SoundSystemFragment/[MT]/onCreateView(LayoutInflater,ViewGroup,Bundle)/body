@@ -1,0 +1,54 @@
+{
+  View rootView=inflater.inflate(R.layout.fragment_soundsystem,container,false);
+  mSongAuthor=(TextView)rootView.findViewById(R.id.songAuthor);
+  mSongName=(TextView)rootView.findViewById(R.id.songName);
+  mSongAlbum=(TextView)rootView.findViewById(R.id.songAlbum);
+  mSongProgress=(SeekBar)rootView.findViewById(R.id.songProgress);
+  mSongProgressElapsed=(TextView)rootView.findViewById(R.id.songProgressElapsed);
+  mSongProgressLeft=(TextView)rootView.findViewById(R.id.songProgressLeft);
+  mPreviousButton=(Button)rootView.findViewById(R.id.previousSongAction);
+  mCurrentActionButton=(Button)rootView.findViewById(R.id.currentSongAction);
+  mNextButton=(Button)rootView.findViewById(R.id.nextSongAction);
+  mPreviousButton.setOnClickListener(new OnClickListener(){
+    @Override public void onClick(    View v){
+      playPrevious();
+    }
+  }
+);
+  mNextButton.setOnClickListener(new OnClickListener(){
+    @Override public void onClick(    View v){
+      playNext();
+    }
+  }
+);
+  mCurrentActionButton.setOnClickListener(new OnClickListener(){
+    @Override public void onClick(    View v){
+      togglePlayback();
+    }
+  }
+);
+  mSongProgress.setOnSeekBarChangeListener(new OnSeekBarChangeListener(){
+    @Override public void onProgressChanged(    SeekBar seekBar,    int progress,    boolean fromUser){
+      if (mCurrentSong != null) {
+        if (fromUser) {
+          seekTo(progress);
+        }
+ else {
+          int elapsed=progress;
+          int left=mCurrentSong.getDuration() - elapsed;
+          String elapsedText=Utils.milliSecondsToTimer(elapsed);
+          String leftText="-" + Utils.milliSecondsToTimer(left);
+          mSongProgressElapsed.setText(elapsedText);
+          mSongProgressLeft.setText(leftText);
+        }
+      }
+    }
+    @Override public void onStartTrackingTouch(    SeekBar seekBar){
+    }
+    @Override public void onStopTrackingTouch(    SeekBar seekBar){
+    }
+  }
+);
+  updateSoundSystemUI();
+  return rootView;
+}

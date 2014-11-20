@@ -1,0 +1,10 @@
+{
+  try {
+    result=executeCommand(params);
+  }
+ catch (  Throwable e) {
+    throwable=e;
+    Log.e(CommandAsyncTask.class.getName(),"Throwable catched in command async task",e);
+  }
+  return result;
+}

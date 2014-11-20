@@ -1,0 +1,11 @@
+{
+  if (this == obj)   return true;
+  if (obj == null)   return false;
+  if (getClass() != obj.getClass())   return false;
+  SmartDeviceInfo other=(SmartDeviceInfo)obj;
+  if (endpointKey == null) {
+    if (other.endpointKey != null)     return false;
+  }
+ else   if (!endpointKey.equals(other.endpointKey))   return false;
+  return true;
+}

@@ -1,0 +1,25 @@
+{
+  View v=inflater.inflate(R.layout.fragment_smarthouse_drawer,container,false);
+  mDrawerListView=(ListView)v.findViewById(R.id.menuList);
+  mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+    @Override public void onItemClick(    AdapterView<?> parent,    View view,    int position,    long id){
+      selectItem(position);
+    }
+  }
+);
+  mUsernameView=(TextView)v.findViewById(R.id.usernameLabel);
+  mUsernameView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_account_inverse,0,0,0);
+  List<DrawerMenuInfo> drawerMenuItems=new ArrayList<>();
+  DrawerMenuInfo info=new DrawerMenuInfo();
+  info.textResId=R.string.smart_house;
+  info.iconResId=R.drawable.group_home_normal;
+  drawerMenuItems.add(info);
+  info=new DrawerMenuInfo();
+  info.textResId=R.string.sign_out;
+  info.iconResId=R.drawable.ic_signout;
+  drawerMenuItems.add(info);
+  fragmentsAdapter=new DrawerMenuAdapter(getActionBar().getThemedContext(),drawerMenuItems);
+  mDrawerListView.setAdapter(fragmentsAdapter);
+  mDrawerListView.setItemChecked(mCurrentSelectedPosition,true);
+  return v;
+}

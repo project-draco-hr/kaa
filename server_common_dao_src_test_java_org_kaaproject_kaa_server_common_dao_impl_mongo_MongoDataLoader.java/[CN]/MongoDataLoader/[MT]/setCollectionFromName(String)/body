@@ -3,7 +3,7 @@
   if (idx != -1) {
     String collectionName=line.substring(++idx,line.length()).trim();
     if (StringUtils.isNotEmpty(collectionName)) {
-      logger.info("Loading data into " + collectionName + " collection");
+      LOG.info("Loading data into " + collectionName + " collection");
       currentCollection=MongoDBTestRunner.getDB().getCollectionFromString(collectionName);
     }
  else {

@@ -1,0 +1,10 @@
+{
+  final DeviceType type=getItem(position);
+  ImageView image=(ImageView)row.findViewById(R.id.homeItemImage);
+  image.setImageResource(type.getGroupIconRes());
+  TextView textView=(TextView)row.findViewById(R.id.homeItemTitle);
+  textView.setText(getContext().getResources().getString(type.getTitleRes()));
+  textView=(TextView)row.findViewById(R.id.homeItemLabel);
+  textView.setText(String.valueOf(mActivity.getDeviceStore().getDevices(type).size()));
+  return row;
+}

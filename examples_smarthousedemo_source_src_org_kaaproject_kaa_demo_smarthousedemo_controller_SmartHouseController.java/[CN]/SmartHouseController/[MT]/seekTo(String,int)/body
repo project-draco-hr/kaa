@@ -1,0 +1,10 @@
+{
+  eventExecutor.submit(new Runnable(){
+    @Override public void run(){
+      SeekRequest request=new SeekRequest();
+      request.setTime(time);
+      soundSystems.sendEvent(request,endpointKeyHash);
+    }
+  }
+);
+}

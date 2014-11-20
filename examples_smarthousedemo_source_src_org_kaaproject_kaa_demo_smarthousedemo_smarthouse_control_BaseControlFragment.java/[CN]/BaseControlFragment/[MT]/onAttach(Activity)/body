@@ -1,0 +1,11 @@
+{
+  super.onAttach(activity);
+  mActivity=(SmartHouseActivity)activity;
+  mActivity.resetActionBar();
+  int position=getArguments().getInt(DEV_POSITION);
+  mDevice=(T)mActivity.getDeviceStore().getDevices(getDeviceType()).get(position);
+  getActionBar().setTitle(mDevice.getDeviceName());
+  if (!mActivity.getDeviceStore().getEventBus().isRegistered(this)) {
+    mActivity.getDeviceStore().getEventBus().register(this);
+  }
+}

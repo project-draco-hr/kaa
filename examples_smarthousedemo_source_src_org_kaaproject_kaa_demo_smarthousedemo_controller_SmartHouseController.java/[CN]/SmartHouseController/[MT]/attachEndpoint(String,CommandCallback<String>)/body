@@ -1,0 +1,10 @@
+{
+  checkInited();
+  new CommandAsyncTask<String,String>(callback){
+    @Override protected String executeCommand(    String... endpointAccesToken) throws Throwable {
+      Log.d("Kaa","Executing AttachEndpointCommand for access token " + endpointAccesToken[0]);
+      return new AttachEndpointCommand(client,endpointAccesToken[0]).execute(executor,DEFAULT_TASK_TIMEOUT);
+    }
+  }
+.execute(endpointAccesToken);
+}

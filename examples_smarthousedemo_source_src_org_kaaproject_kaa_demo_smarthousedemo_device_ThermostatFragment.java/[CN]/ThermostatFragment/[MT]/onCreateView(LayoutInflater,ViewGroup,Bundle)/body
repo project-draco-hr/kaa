@@ -1,0 +1,22 @@
+{
+  View rootView=inflater.inflate(R.layout.fragment_thermostat,container,false);
+  mThermostat=(Thermostat)rootView.findViewById(R.id.thermostat);
+  mThermostat.setTemp(thermostatInfo.getDegree());
+  mThermostat.setTargetTemp(thermostatInfo.getTargetDegree(),false);
+  mThermostat.setOnThermostatChangeListener(new OnThermostatChangeListener(){
+    @Override public void onTargetProgressChanged(    Thermostat thermostat,    int targetProgress,    boolean fromUser){
+      thermostatInfo.setTargetDegree(thermostat.getTargetTemp());
+      thermostatInfo.setIsSetManually(true);
+      mActivity.getSmartHouseController().updateThermostatInfo(thermostatInfo);
+    }
+    @Override public void onProgressChanged(    Thermostat Thermostat,    int progress,    boolean fromUser){
+    }
+    @Override public void onStopTrackingTouch(    Thermostat Thermostat){
+    }
+    @Override public void onStartTrackingTouch(    Thermostat Thermostat){
+    }
+  }
+);
+  updateThermostatUI();
+  return rootView;
+}

@@ -1,0 +1,16 @@
+{
+  Future<V> future=executor.submit(callable);
+  try {
+    V result=future.get(timeoutMillis,TimeUnit.MILLISECONDS);
+    return result;
+  }
+ catch (  Exception e) {
+    future.cancel(true);
+    if (e instanceof ExecutionException) {
+      throw e.getCause();
+    }
+ else {
+      throw e;
+    }
+  }
+}

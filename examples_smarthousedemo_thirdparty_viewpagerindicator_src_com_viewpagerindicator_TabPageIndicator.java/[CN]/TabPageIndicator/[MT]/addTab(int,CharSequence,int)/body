@@ -1,0 +1,18 @@
+{
+  TabView tabView=null;
+  if ((text == null || text.length() == 0) && iconResId != 0) {
+    tabView=new ImageTabView(getContext());
+    ((ImageTabView)tabView).setImageResource(iconResId);
+  }
+ else {
+    tabView=new TextTabView(getContext());
+    ((TextTabView)tabView).setText(text);
+    if (iconResId != 0) {
+      ((TextTabView)tabView).setCompoundDrawablesWithIntrinsicBounds(iconResId,0,0,0);
+    }
+  }
+  tabView.setTabIndex(index);
+  ((View)tabView).setFocusable(true);
+  ((View)tabView).setOnClickListener(mTabClickListener);
+  mTabLayout.addView((View)tabView,new LinearLayout.LayoutParams(0,MATCH_PARENT,1));
+}

@@ -1,0 +1,10 @@
+{
+  if (result != null && result.getPlayList() != null) {
+    mSongsAdapter=new SongInfoAdapter(result.getPlayList(),mActivity,mSongsListView);
+    mSongsProgressBar.setVisibility(View.GONE);
+    mSongsListView.setAdapter(mSongsAdapter);
+    mSongsListView.setVisibility(View.VISIBLE);
+    mSongsAdapter.notifyDataSetChanged();
+    updateDeviceInfo(true);
+  }
+}

@@ -1,0 +1,7 @@
+{
+  SmartDeviceInfo device=deviceAdded.device;
+  if (mConnectedEndpointKeyHash != null && mConnectedEndpointKeyHash.equals(device.getEndpointKey())) {
+    switchToDeviceType(device.getDeviceType());
+    mConnectedEndpointKeyHash=null;
+  }
+}
