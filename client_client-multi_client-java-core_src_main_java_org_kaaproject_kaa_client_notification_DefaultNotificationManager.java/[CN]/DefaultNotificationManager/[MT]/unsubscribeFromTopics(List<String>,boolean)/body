@@ -2,9 +2,9 @@
   List<SubscriptionCommand> subscriptionUpdate=new LinkedList<>();
   for (  String id : topicIds) {
     Topic topic=findTopicById(id);
-    if (topic.getSubscriptionType() != SubscriptionType.VOLUNTARY) {
-      LOG.warn("Failed to unsubscribe: topic '{}' isn't voluntary",id);
-      throw new UnavailableTopicException(String.format("Topic '%s' isn't voluntary",id));
+    if (topic.getSubscriptionType() != SubscriptionType.OPTIONAL) {
+      LOG.warn("Failed to unsubscribe: topic '{}' isn't optional",id);
+      throw new UnavailableTopicException(String.format("Topic '%s' isn't optional",id));
     }
     topicsListeners.remove(id);
     subscriptionUpdate.add(new SubscriptionCommand(id,SubscriptionCommandType.REMOVE));
