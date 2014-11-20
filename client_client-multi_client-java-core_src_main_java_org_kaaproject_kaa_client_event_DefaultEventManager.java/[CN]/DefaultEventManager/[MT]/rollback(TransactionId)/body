@@ -1,0 +1,14 @@
+{
+  LOG.debug("Rolling back events transaction with id {}",trxId);
+synchronized (trxGuard) {
+    List<Event> eventsToRemove=transactions.remove(trxId);
+    if (eventsToRemove != null) {
+      for (      Event e : eventsToRemove) {
+        LOG.trace("Removing event {}",e);
+      }
+    }
+ else {
+      LOG.debug("Transaction with id {} was not created",trxId);
+    }
+  }
+}
