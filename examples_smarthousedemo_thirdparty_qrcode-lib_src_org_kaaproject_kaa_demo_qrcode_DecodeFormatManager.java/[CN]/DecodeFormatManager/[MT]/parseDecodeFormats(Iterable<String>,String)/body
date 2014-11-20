@@ -1,0 +1,17 @@
+{
+  if (scanFormats != null) {
+    Set<BarcodeFormat> formats=EnumSet.noneOf(BarcodeFormat.class);
+    try {
+      for (      String format : scanFormats) {
+        formats.add(BarcodeFormat.valueOf(format));
+      }
+      return formats;
+    }
+ catch (    IllegalArgumentException iae) {
+    }
+  }
+  if (decodeMode != null) {
+    return FORMATS_FOR_MODE.get(decodeMode);
+  }
+  return null;
+}

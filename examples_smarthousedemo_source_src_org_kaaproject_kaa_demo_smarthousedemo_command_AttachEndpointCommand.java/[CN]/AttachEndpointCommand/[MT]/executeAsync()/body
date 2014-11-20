@@ -1,0 +1,18 @@
+{
+  Log.d("Kaa","Attaching endpoint to user account!");
+  EndpointAccessToken accessToken=new EndpointAccessToken(endpointAccessToken);
+  client.getEndpointRegistrationManager().attachEndpoint(accessToken,new EndpointOperationResultListener(){
+    @Override public void sendResponse(    String operation,    SyncResponseResultType result,    Object context){
+      if (result == SyncResponseResultType.SUCCESS) {
+        Log.d("Kaa","Endpoint attached to user account!");
+        String endpointKeyHash=((EndpointKeyHash)context).getKeyHash();
+        onComplete(endpointKeyHash);
+      }
+ else {
+        Log.e("Kaa","Unable to attach endpoint to user account!");
+        onException(new CommandException("Unable to attach endpoint to user account!"));
+      }
+    }
+  }
+);
+}

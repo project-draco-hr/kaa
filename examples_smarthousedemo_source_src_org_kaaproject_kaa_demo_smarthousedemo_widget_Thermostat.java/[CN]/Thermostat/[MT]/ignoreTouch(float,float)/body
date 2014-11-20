@@ -1,0 +1,10 @@
+{
+  boolean ignore=false;
+  float x=xPos - mTranslateX;
+  float y=yPos - mTranslateY;
+  float touchRadius=(float)Math.sqrt(((x * x) + (y * y)));
+  if (touchRadius < mTouchIgnoreRadius) {
+    ignore=true;
+  }
+  return ignore;
+}

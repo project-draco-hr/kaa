@@ -1,0 +1,18 @@
+{
+  View rootView=inflater.inflate(R.layout.fragment_devices,container,false);
+  mNoDevicesTextView=(TextView)rootView.findViewById(R.id.noDevicesTextView);
+  String noDevicesText=String.format(getString(R.string.msg_no_devices),getString(getDeviceType().getTitleRes()));
+  mNoDevicesTextView.setText(noDevicesText);
+  mDevicesListView=(ListView)rootView.findViewById(R.id.devicesList);
+  mDevicesListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+    @Override public void onItemClick(    AdapterView<?> parent,    View view,    int position,    long id){
+      onDeviceClicked(position);
+    }
+  }
+);
+  mDevicesListView.setAdapter(mDevicesAdapter);
+  mDevicesListView.setFastScrollEnabled(true);
+  registerForContextMenu(mDevicesListView);
+  updateDevicesVisibility();
+  return rootView;
+}

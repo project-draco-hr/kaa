@@ -1,0 +1,22 @@
+{
+  int lastBest=start;
+  int lo=start;
+  int hi=end - 1;
+  int mid=0;
+  while (lo <= hi) {
+    mid=(lo + hi) >>> 1;
+    int midValCmp=sizeTester.onTestSize(mid,availableSpace);
+    if (midValCmp < 0) {
+      lastBest=lo;
+      lo=mid + 1;
+    }
+ else     if (midValCmp > 0) {
+      hi=mid - 1;
+      lastBest=hi;
+    }
+ else {
+      return mid;
+    }
+  }
+  return lastBest;
+}

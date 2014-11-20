@@ -1,7 +1,0 @@
-{
-  EndpointProfile endpointProfile=endpointProfileDao.findById(endProfiles.get(0));
-  Assert.assertNotNull(endpointProfile);
-  EndpointProfile found=endpointProfileDao.findByKeyHash(endpointProfile.getEndpointKeyHash());
-  Assert.assertNotNull(found);
-  Assert.assertEquals(endpointProfile,found);
-}

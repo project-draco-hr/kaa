@@ -1,0 +1,9 @@
+{
+  super.onAttach(activity);
+  try {
+    mMainActivity=(SmartHouseActivity)activity;
+  }
+ catch (  ClassCastException e) {
+    throw new ClassCastException("Activity must be instance of SmartHouseActivity.");
+  }
+}

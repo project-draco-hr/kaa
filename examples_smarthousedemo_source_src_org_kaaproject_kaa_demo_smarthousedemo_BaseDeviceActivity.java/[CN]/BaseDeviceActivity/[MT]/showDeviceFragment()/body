@@ -1,0 +1,6 @@
+{
+  FragmentManager fragmentManager=getSupportFragmentManager();
+  mDeviceFragment=DeviceFragment.newInstance(deviceType);
+  fragmentManager.beginTransaction().replace(R.id.container,mDeviceFragment).commit();
+  mQrcodeIsShowing=false;
+}

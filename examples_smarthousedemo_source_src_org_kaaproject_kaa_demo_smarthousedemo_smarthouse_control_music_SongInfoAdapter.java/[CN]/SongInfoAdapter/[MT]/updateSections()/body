@@ -1,0 +1,14 @@
+{
+  mAlphaMap=new SparseIntArray();
+  mUrlPositionMap=new HashMap<>();
+  Set<String> allChars=new LinkedHashSet<String>();
+  for (int i=0; i < mSongs.size(); i++) {
+    mUrlPositionMap.put(mSongs.get(i).getUrl(),i);
+    char letter=mSongs.get(i).getTitle().toUpperCase().charAt(0);
+    if (!allChars.contains("" + letter)) {
+      allChars.add("" + letter);
+      mAlphaMap.put(allChars.size() - 1,i);
+    }
+  }
+  mAlphabetArray=allChars.toArray(new String[]{});
+}

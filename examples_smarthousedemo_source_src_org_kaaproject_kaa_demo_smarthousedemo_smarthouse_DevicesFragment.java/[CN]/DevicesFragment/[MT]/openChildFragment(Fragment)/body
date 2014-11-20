@@ -1,0 +1,7 @@
+{
+  FragmentTransaction ft=mActivity.getSupportFragmentManager().beginTransaction();
+  ft.replace(R.id.container,fragment);
+  ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+  ft.addToBackStack(null);
+  ft.commit();
+}

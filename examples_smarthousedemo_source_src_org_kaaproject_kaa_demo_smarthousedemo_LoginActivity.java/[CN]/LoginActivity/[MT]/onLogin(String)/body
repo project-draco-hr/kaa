@@ -1,0 +1,10 @@
+{
+  SharedPreferences sp=PreferenceManager.getDefaultSharedPreferences(this);
+  Editor editor=sp.edit();
+  editor.putString(LoginActivity.USERNAME_PREF,username);
+  editor.commit();
+  Intent intent=new Intent(this,SmartHouseActivity.class);
+  intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+  startActivity(intent);
+  finish();
+}

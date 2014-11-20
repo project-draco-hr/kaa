@@ -1,0 +1,9 @@
+{
+  checkInited();
+  new CommandAsyncTask<String,Boolean>(callback){
+    @Override protected Boolean executeCommand(    String... endpointKey) throws Throwable {
+      return new DetachEndpointCommand(client,endpointKey[0]).execute(executor,DEFAULT_TASK_TIMEOUT);
+    }
+  }
+.execute(endpointKey);
+}

@@ -1,0 +1,6 @@
+{
+  LOG.debug("Find endpoint configuration by hash [{}] ",hash);
+  DBObject dbObject=query(where(CONFIGURATION_HASH).is(hash)).getQueryObject();
+  DBObject result=mongoTemplate.getDb().getCollection(MongoEndpointConfiguration.COLLECTION_NAME).findOne(dbObject);
+  return mongoTemplate.getConverter().read(getDocumentClass(),result);
+}

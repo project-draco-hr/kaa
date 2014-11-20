@@ -1,0 +1,12 @@
+{
+  executeAsync();
+  if (waitForResult) {
+synchronized (this) {
+      wait();
+    }
+  }
+  if (exception != null) {
+    throw exception;
+  }
+  return result;
+}

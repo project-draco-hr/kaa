@@ -1,0 +1,7 @@
+{
+  MongoEndpointProfile endpointProfile=endpointProfileDao.findById(endProfiles.get(0));
+  Assert.assertNotNull(endpointProfile);
+  endpointProfileDao.removeByKeyHash(endpointProfile.getEndpointKeyHash());
+  endpointProfile=endpointProfileDao.findByKeyHash(endpointProfile.getEndpointKeyHash());
+  Assert.assertNull(endpointProfile);
+}
