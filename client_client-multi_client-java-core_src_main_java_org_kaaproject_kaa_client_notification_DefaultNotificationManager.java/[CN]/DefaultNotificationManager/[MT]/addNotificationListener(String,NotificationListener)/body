@@ -4,11 +4,11 @@
     throw new IllegalArgumentException("Bad listener data");
   }
   findTopicById(topicId);
-synchronized (voluntaryListeners) {
-    List<NotificationListener> listeners=voluntaryListeners.get(topicId);
+synchronized (optionalListeners) {
+    List<NotificationListener> listeners=optionalListeners.get(topicId);
     if (listeners == null) {
       listeners=new LinkedList<>();
-      voluntaryListeners.put(topicId,listeners);
+      optionalListeners.put(topicId,listeners);
     }
     listeners.add(listener);
   }

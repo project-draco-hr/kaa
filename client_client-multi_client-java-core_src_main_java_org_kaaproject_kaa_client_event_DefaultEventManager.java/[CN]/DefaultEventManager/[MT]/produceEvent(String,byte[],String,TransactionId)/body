@@ -1,0 +1,23 @@
+{
+  if (trxId == null) {
+    LOG.info("Producing event [eventClassFQN: {}, target: {}]",eventFqn,(target != null ? target : "broadcast"));
+synchronized (eventsGuard) {
+      currentEvents.add(new Event(state.getAndIncrementEventSeqNum(),eventFqn,ByteBuffer.wrap(data),null,target));
+    }
+    if (!isEngaged) {
+      transport.sync();
+    }
+  }
+ else {
+    LOG.info("Adding event [eventClassFQN: {}, target: {}] to transaction {}",eventFqn,(target != null ? target : "broadcast"),trxId);
+synchronized (trxGuard) {
+      List<Event> events=transactions.get(trxId);
+      if (events != null) {
+        events.add(new Event(-1,eventFqn,ByteBuffer.wrap(data),null,target));
+      }
+ else {
+        LOG.warn("Transaction with id {} is missing. Ignoring event");
+      }
+    }
+  }
+}
