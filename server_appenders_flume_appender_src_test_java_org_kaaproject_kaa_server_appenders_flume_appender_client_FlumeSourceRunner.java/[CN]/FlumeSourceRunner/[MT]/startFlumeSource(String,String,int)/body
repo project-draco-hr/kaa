@@ -1,0 +1,16 @@
+{
+  if (flumeSource != null) {
+    throw new Exception("Flume source is already running");
+  }
+  flumeSource=new AvroSource();
+  flumeSource.setName(name);
+  Channel channel=new MemoryChannel();
+  Context context=prepareContext(bindHost,port);
+  Configurables.configure(flumeSource,context);
+  Configurables.configure(channel,context);
+  ChannelSelector cs=new MultiplexingChannelSelector();
+  cs.setChannels(Lists.newArrayList(channel));
+  Configurables.configure(cs,context);
+  flumeSource.setChannelProcessor(new ChannelProcessor(cs));
+  flumeSource.start();
+}

@@ -1,0 +1,10 @@
+{
+  try {
+    if (!mongoTemplate.collectionExists(collectionName)) {
+      mongoTemplate.createCollection(collectionName);
+    }
+  }
+ catch (  UncategorizedMongoDbException e) {
+    LOG.warn("Failed to create collection {} due to",collectionName,e.getMessage());
+  }
+}

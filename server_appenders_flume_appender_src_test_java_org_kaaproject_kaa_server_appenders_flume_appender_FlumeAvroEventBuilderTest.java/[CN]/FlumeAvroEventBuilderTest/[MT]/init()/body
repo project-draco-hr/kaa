@@ -1,0 +1,11 @@
+{
+  appToken=RandomStringUtils.randomNumeric(15);
+  eventPack=new LogEventPack();
+  List<LogEvent> list=generateEvents();
+  eventPack.setEvents(list);
+  LogSchemaDto schemaDto=new LogSchemaDto();
+  schemaDto.setMajorVersion(SCHEMA_VERSION);
+  LogSchema logSchema=new LogSchema(schemaDto);
+  eventPack.setLogSchema(logSchema);
+  eventPack.setLogSchemaVersion(SCHEMA_VERSION);
+}

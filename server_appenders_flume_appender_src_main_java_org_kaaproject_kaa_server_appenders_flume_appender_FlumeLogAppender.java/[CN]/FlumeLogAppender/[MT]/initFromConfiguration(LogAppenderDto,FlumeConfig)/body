@@ -1,0 +1,10 @@
+{
+  LOG.debug("Initializing new instance of Flume log appender");
+  try {
+    flumeEventBuilder=new FlumeAvroEventBuilder();
+    flumeClientManger=FlumeClientManager.getInstance(configuration);
+  }
+ catch (  Exception e) {
+    LOG.error("Failed to init Flume log appender: ",e);
+  }
+}

@@ -1,0 +1,19 @@
+{
+  if (!closed) {
+    Event event=flumeEventBuilder.generateEvent(logEventPack,header,getApplicationToken());
+    try {
+      if (flumeClientManger != null) {
+        flumeClientManger.sendEventToFlume(event);
+      }
+ else {
+        LOG.warn("Flume client wasn't initialized. Invoke method init before.");
+      }
+    }
+ catch (    EventDeliveryException e) {
+      LOG.warn("Can't send flume event.");
+    }
+  }
+ else {
+    LOG.info("Attempted to append to closed appender named [{}].",getName());
+  }
+}

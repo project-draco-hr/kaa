@@ -1,0 +1,13 @@
+{
+  int numvalues=0;
+  KVStore kvStore=connectToStore();
+  if (kvStore != null) {
+    Iterator<Key> it=kvStore.storeKeysIterator(Direction.UNORDERED,100,null,null,null);
+    while (it.hasNext()) {
+      it.next();
+      numvalues++;
+    }
+  }
+  kvStore.close();
+  return numvalues;
+}

@@ -1,0 +1,18 @@
+{
+  LogAppenderDto logAppender=getLogAppender(appenderId);
+  try {
+    LogAppenderFormWrapper wrapper=new LogAppenderFormWrapper(logAppender);
+    if (logAppender.getType() == LogAppenderTypeDto.CUSTOM) {
+      CustomAppenderParametersDto custom=(CustomAppenderParametersDto)logAppender.getProperties().getParameters();
+      Schema schema=appenderConfigSchemas.get(custom.getAppenderClassName());
+      GenericAvroConverter<GenericRecord> converter=new GenericAvroConverter<>(schema);
+      GenericRecord record=converter.decodeBinary(custom.getRawConfiguration());
+      RecordField formData=FormAvroConverter.createRecordFieldFromGenericRecord(record);
+      wrapper.setConfiguration(formData);
+    }
+    return wrapper;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

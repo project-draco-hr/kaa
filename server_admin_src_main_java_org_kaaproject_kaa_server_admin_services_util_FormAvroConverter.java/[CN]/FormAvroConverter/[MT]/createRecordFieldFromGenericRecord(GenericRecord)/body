@@ -1,0 +1,6 @@
+{
+  Schema schema=record.getSchema();
+  RecordField formData=createRecordFieldFromSchema(schema);
+  fillRecordFieldFromGenericRecord(formData,record);
+  return formData;
+}

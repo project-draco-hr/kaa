@@ -10,8 +10,9 @@
   for (  BeanDefinition bean : beans) {
     Class<?> clazz=Class.forName(bean.getBeanClassName());
     AppenderConfig appenderConfig=(AppenderConfig)clazz.newInstance();
-    appenderConfigs.add(appenderConfig);
-    LogAppenderInfoDto appender=new LogAppenderInfoDto(LogAppenderTypeDto.CUSTOM,appenderConfig.getName(),appenderConfig.getDefaultConfig(),appenderConfig.getLogAppenderClass());
+    appenderConfigSchemas.put(appenderConfig.getLogAppenderClass(),appenderConfig.getConfigSchema());
+    RecordField appenderConfigForm=FormAvroConverter.createRecordFieldFromSchema(appenderConfig.getConfigSchema());
+    LogAppenderInfoDto appender=new LogAppenderInfoDto(LogAppenderTypeDto.CUSTOM,appenderConfig.getName(),appenderConfigForm,appenderConfig.getLogAppenderClass());
     appenders.add(appender);
   }
 }

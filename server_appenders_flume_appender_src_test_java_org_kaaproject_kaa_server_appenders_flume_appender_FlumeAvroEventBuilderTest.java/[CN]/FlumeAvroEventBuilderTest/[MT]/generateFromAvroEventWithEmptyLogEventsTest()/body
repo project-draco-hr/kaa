@@ -1,0 +1,6 @@
+{
+  eventBuilder=new FlumeAvroEventBuilder();
+  eventPack.setEvents(new ArrayList<LogEvent>());
+  Event event=eventBuilder.generateEvent(eventPack,null,appToken);
+  Assert.assertNull(event);
+}

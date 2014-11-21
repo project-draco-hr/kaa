@@ -1,0 +1,12 @@
+{
+  if (parameters != null) {
+    currentClient=initManager(parameters);
+    LOG.debug("Initialized rpc client {}",currentClient.getClass());
+  }
+ else {
+    LOG.warn("Flume parameters is empty.");
+  }
+  if (currentClient == null) {
+    throw new RuntimeException("Can't initialize flume Rpc client.");
+  }
+}

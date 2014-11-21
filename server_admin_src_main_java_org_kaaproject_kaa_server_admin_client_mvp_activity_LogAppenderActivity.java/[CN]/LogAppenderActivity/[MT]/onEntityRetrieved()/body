@@ -49,8 +49,8 @@ case CUSTOM:
 CustomAppenderParametersDto custom=(CustomAppenderParametersDto)entity.getProperties().getParameters();
 detailsView.hideFileCongurationFields();
 detailsView.showCustomConfigurationFields();
-detailsView.setConfiguration(custom.getConfiguration());
-LogAppenderInfoDto appenderInfo=new LogAppenderInfoDto(type,custom.getName(),custom.getConfiguration(),custom.getAppenderClassName());
+detailsView.setConfiguration(entity.getConfiguration());
+LogAppenderInfoDto appenderInfo=new LogAppenderInfoDto(type,custom.getName(),entity.getConfiguration(),custom.getAppenderClassName());
 detailsView.getAppenderInfo().setValue(appenderInfo);
 break;
 }

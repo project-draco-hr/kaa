@@ -1,0 +1,10 @@
+{
+  File tempDir=new File(System.getProperty("java.io.tmpdir"));
+  storeRootDir=new File(tempDir,"kvRoot-test");
+  if (storeRootDir.exists()) {
+    FileUtils.deleteQuietly(storeRootDir);
+  }
+  storeRootDir.mkdirs();
+  kvLite=new KVLite(storeRootDir.getAbsolutePath(),STORE_NAME,STORE_PORT,0,STORE_HOST,null,null,KVLite.DEFAULT_NUM_PARTITIONS,null,true);
+  kvLite.start();
+}

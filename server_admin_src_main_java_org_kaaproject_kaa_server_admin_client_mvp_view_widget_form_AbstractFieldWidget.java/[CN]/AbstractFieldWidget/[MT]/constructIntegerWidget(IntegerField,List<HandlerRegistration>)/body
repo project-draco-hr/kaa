@@ -1,0 +1,12 @@
+{
+  final IntegerBox integerBox=new IntegerBox(DEFAULT_DECIMAL_FORMAT);
+  integerBox.setValue(field.getValue());
+  handlerRegistrations.add(integerBox.addKeyUpHandler(new KeyUpHandler(){
+    @Override public void onKeyUp(    KeyUpEvent event){
+      field.setValue(integerBox.getValue());
+      fireChanged();
+    }
+  }
+));
+  return integerBox;
+}

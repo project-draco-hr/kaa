@@ -1,0 +1,29 @@
+{
+switch (value.getType()) {
+case FILE:
+    hideFlumeCongurationFields();
+  hideCustomConfigurationFields();
+showFileCongurationFields();
+fireChanged();
+break;
+case MONGO:
+hideFlumeCongurationFields();
+hideFileCongurationFields();
+hideCustomConfigurationFields();
+fireChanged();
+break;
+case FLUME:
+hideFileCongurationFields();
+hideCustomConfigurationFields();
+showFlumeCongurationFields();
+fireChanged();
+break;
+case CUSTOM:
+hideFlumeCongurationFields();
+hideFileCongurationFields();
+showCustomConfigurationFields();
+configuration.setValue(value.getConfigForm());
+fireChanged();
+break;
+}
+}

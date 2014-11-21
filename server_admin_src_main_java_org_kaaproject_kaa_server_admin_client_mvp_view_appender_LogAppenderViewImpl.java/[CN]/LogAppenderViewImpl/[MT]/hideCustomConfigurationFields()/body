@@ -1,8 +1,8 @@
 {
-  if (configurationLabel != null) {
-    detailsTable.remove(configurationLabel);
-  }
   if (configuration != null) {
-    detailsTable.remove(configuration);
+    getFooter().remove(configuration);
+  }
+  if (confiurationHandlerRegistration != null) {
+    confiurationHandlerRegistration.removeHandler();
   }
 }

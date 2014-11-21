@@ -1,0 +1,15 @@
+{
+  super(element,renderer,parser);
+  this.addKeyPressHandler(new KeyPressHandler(){
+    @Override public void onKeyPress(    KeyPressEvent event){
+      int keyCode=event.getCharCode();
+      if ((keyCode == 46 || keyCode == 8 || keyCode == 9 || keyCode == 27 || keyCode == 13 || keyCode == 110 || keyCode == 190) || (keyCode == 65 && event.isControlKeyDown())) {
+        return;
+      }
+      if (keyCode < 48 || keyCode > 57) {
+        event.preventDefault();
+      }
+    }
+  }
+);
+}

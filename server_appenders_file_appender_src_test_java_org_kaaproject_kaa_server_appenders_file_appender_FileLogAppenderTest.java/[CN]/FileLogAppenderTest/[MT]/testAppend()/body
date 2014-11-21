@@ -1,0 +1,19 @@
+{
+  FileLogAppender appender=new FileLogAppender();
+  appender.setName("test");
+  FileSystemLogEventService service=Mockito.mock(FileSystemLogEventService.class);
+  FileSystemLogger logger=Mockito.mock(FileSystemLogger.class);
+  ReflectionTestUtils.setField(appender,"fileSystemLogEventService",service);
+  ReflectionTestUtils.setField(appender,"logger",logger);
+  ReflectionTestUtils.setField(appender,"header",Arrays.asList(LogHeaderStructureDto.values()));
+  GenericAvroConverter<BasicEndpointProfile> converter=new GenericAvroConverter<BasicEndpointProfile>(BasicEndpointProfile.SCHEMA$);
+  BasicEndpointProfile theLog=new BasicEndpointProfile("test");
+  LogSchemaDto schemaDto=new LogSchemaDto();
+  schemaDto.setSchema(BasicEndpointProfile.SCHEMA$.toString());
+  LogSchema schema=new LogSchema(schemaDto);
+  LogEvent logEvent=new LogEvent();
+  logEvent.setLogData(converter.encode(theLog));
+  LogEventPack logEventPack=new LogEventPack("endpointKey",1234567l,schema,Collections.singletonList(logEvent));
+  appender.doAppend(logEventPack);
+  Mockito.verify(logger).append(Mockito.anyString());
+}

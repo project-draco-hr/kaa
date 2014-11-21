@@ -1,0 +1,19 @@
+{
+  try {
+    LOG.debug("Sending flume event to flume agent {}",event);
+    currentClient.append(event);
+  }
+ catch (  EventDeliveryException e) {
+    LOG.warn("Can't send flume event. Got exception {}",e);
+    currentClient.close();
+    currentClient=getNextClient(false);
+    if (retryCount <= MAX_RETRY_COUNT) {
+      LOG.debug("Retry send flume event. Count {}",retryCount);
+      sendEventToFlume(event,++retryCount);
+    }
+ else {
+      LOG.warn("Flume event wasn't sent. Got exception {}",e);
+      throw e;
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  try {
+    FileConfig record=new FileConfig();
+    record.publicKey=fieldSetFlags()[0] ? this.publicKey : (java.lang.String)defaultValue(fields()[0]);
+    record.logsRootPath=fieldSetFlags()[1] ? this.logsRootPath : (java.lang.String)defaultValue(fields()[1]);
+    record.rollingFileNamePatern=fieldSetFlags()[2] ? this.rollingFileNamePatern : (java.lang.String)defaultValue(fields()[2]);
+    record.rollingMaxHistory=fieldSetFlags()[3] ? this.rollingMaxHistory : (java.lang.Integer)defaultValue(fields()[3]);
+    record.triggerMaxFileSize=fieldSetFlags()[4] ? this.triggerMaxFileSize : (java.lang.String)defaultValue(fields()[4]);
+    record.encoderPattern=fieldSetFlags()[5] ? this.encoderPattern : (java.lang.String)defaultValue(fields()[5]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

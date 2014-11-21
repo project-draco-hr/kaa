@@ -1,0 +1,7 @@
+{
+  flumeSourceRunner.startFlumeSource("agent","localhost",12121);
+  flumeNodes=FlumeNodes.newBuilder().setFlumeNodes(Arrays.asList(new FlumeNode("localhost",12121))).build();
+  configuration.setHostsBalancing(flumeNodes);
+  clientManager=FlumeClientManager.getInstance(configuration);
+  clientManager.sendEventToFlume(EventBuilder.withBody(testEventBody));
+}

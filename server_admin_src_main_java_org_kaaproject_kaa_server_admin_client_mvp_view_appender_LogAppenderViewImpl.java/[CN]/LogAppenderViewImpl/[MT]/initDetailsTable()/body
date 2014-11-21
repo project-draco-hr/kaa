@@ -49,7 +49,12 @@
   appenderInfo=new AppenderInfoListBox();
   appenderInfo.setValue(new LogAppenderInfoDto(LogAppenderTypeDto.FILE),true);
   appenderInfo.setEnabled(create);
-  appenderInfo.addValueChangeHandler(this);
+  appenderInfo.addValueChangeHandler(new ValueChangeHandler<LogAppenderInfoDto>(){
+    @Override public void onValueChange(    ValueChangeEvent<LogAppenderInfoDto> event){
+      updateAppender(event.getValue());
+    }
+  }
+);
   detailsTable.setWidget(7,0,typeLabel);
   detailsTable.setWidget(7,1,appenderInfo);
   addHost=new Button(Utils.constants.addHost());

@@ -1,0 +1,9 @@
+{
+  String schema=EMPTY_SCHEMA;
+  Assert.assertTrue(((Map)ReflectionTestUtils.getField(logAppender,"converters")).isEmpty());
+  GenericAvroConverter<GenericRecord> converter1=ReflectionTestUtils.invokeMethod(logAppender,"getConverter",schema);
+  Assert.assertEquals(1,((Map)ReflectionTestUtils.getField(logAppender,"converters")).size());
+  GenericAvroConverter<GenericRecord> converter2=ReflectionTestUtils.invokeMethod(logAppender,"getConverter",schema);
+  Assert.assertEquals(1,((Map)ReflectionTestUtils.getField(logAppender,"converters")).size());
+  Assert.assertEquals(converter1,converter2);
+}

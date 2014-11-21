@@ -1,0 +1,16 @@
+{
+  LOG.info("Create root log directory...");
+  File createRootLogDirScript=null;
+  try {
+    createRootLogDirScript=prepareScriptFile(CREATE_ROOT_LOG_DIR);
+    executeCommand(null,"sudo",createRootLogDirScript.getAbsolutePath(),logsRootPath,DEFAULT_SYSTEM_USER);
+  }
+ catch (  IOException e) {
+    LOG.error("Can't create root log dir: " + logsRootPath,e);
+  }
+ finally {
+    if (createRootLogDirScript != null) {
+      createRootLogDirScript.delete();
+    }
+  }
+}

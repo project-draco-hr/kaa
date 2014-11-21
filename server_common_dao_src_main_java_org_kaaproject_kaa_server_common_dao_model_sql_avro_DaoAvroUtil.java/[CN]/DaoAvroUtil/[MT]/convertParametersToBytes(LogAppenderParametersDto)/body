@@ -25,7 +25,7 @@
     }
  else     if (params instanceof CustomAppenderParametersDto) {
       CustomAppenderParametersDto customDto=(CustomAppenderParametersDto)params;
-      avroParameters.setAppenderParameters(new CustomAppenderParameters(customDto.getName(),customDto.getAppenderClassName(),customDto.getConfiguration()));
+      avroParameters.setAppenderParameters(new CustomAppenderParameters(customDto.getName(),customDto.getAppenderClassName(),ByteBuffer.wrap(customDto.getRawConfiguration())));
     }
     AvroByteArrayConverter<LogAppenderParameters> converter=new AvroByteArrayConverter<LogAppenderParameters>(LogAppenderParameters.class);
     try {

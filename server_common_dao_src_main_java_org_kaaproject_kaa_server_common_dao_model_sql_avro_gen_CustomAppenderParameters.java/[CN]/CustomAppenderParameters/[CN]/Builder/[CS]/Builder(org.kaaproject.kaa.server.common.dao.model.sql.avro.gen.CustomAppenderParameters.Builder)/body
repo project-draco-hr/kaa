@@ -8,8 +8,8 @@
     this.appenderClassName=data().deepCopy(fields()[1].schema(),other.appenderClassName);
     fieldSetFlags()[1]=true;
   }
-  if (isValidValue(fields()[2],other.configuration)) {
-    this.configuration=data().deepCopy(fields()[2].schema(),other.configuration);
+  if (isValidValue(fields()[2],other.rawConfiguration)) {
+    this.rawConfiguration=data().deepCopy(fields()[2].schema(),other.rawConfiguration);
     fieldSetFlags()[2]=true;
   }
 }

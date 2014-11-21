@@ -1,0 +1,13 @@
+{
+  RecordField recordField=new RecordField();
+  JsonNode displayNameVal=schema.getJsonProp(DISPLAY_NAME);
+  String displayName=schema.getFullName();
+  if (displayNameVal != null && displayNameVal.isTextual()) {
+    displayName=displayNameVal.asText();
+  }
+  recordField.setDisplayName(displayName);
+  recordField.setTypeName(schema.getName());
+  recordField.setTypeNamespace(schema.getNamespace());
+  parseFields(recordField,schema);
+  return recordField;
+}

@@ -1,0 +1,35 @@
+{
+  super(org.kaaproject.kaa.server.appenders.mongo.config.MongoDbConfig.SCHEMA$);
+  if (isValidValue(fields()[0],other.mongoServers)) {
+    this.mongoServers=data().deepCopy(fields()[0].schema(),other.mongoServers);
+    fieldSetFlags()[0]=true;
+  }
+  if (isValidValue(fields()[1],other.dbName)) {
+    this.dbName=data().deepCopy(fields()[1].schema(),other.dbName);
+    fieldSetFlags()[1]=true;
+  }
+  if (isValidValue(fields()[2],other.connectionsPerHost)) {
+    this.connectionsPerHost=data().deepCopy(fields()[2].schema(),other.connectionsPerHost);
+    fieldSetFlags()[2]=true;
+  }
+  if (isValidValue(fields()[3],other.maxWaitTime)) {
+    this.maxWaitTime=data().deepCopy(fields()[3].schema(),other.maxWaitTime);
+    fieldSetFlags()[3]=true;
+  }
+  if (isValidValue(fields()[4],other.connectionTimeout)) {
+    this.connectionTimeout=data().deepCopy(fields()[4].schema(),other.connectionTimeout);
+    fieldSetFlags()[4]=true;
+  }
+  if (isValidValue(fields()[5],other.socketTimeout)) {
+    this.socketTimeout=data().deepCopy(fields()[5].schema(),other.socketTimeout);
+    fieldSetFlags()[5]=true;
+  }
+  if (isValidValue(fields()[6],other.socketKeepalive)) {
+    this.socketKeepalive=data().deepCopy(fields()[6].schema(),other.socketKeepalive);
+    fieldSetFlags()[6]=true;
+  }
+  if (isValidValue(fields()[7],other.autoConnectRetry)) {
+    this.autoConnectRetry=data().deepCopy(fields()[7].schema(),other.autoConnectRetry);
+    fieldSetFlags()[7]=true;
+  }
+}

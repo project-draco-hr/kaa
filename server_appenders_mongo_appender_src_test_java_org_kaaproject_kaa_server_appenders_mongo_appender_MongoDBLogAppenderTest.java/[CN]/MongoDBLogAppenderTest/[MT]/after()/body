@@ -1,0 +1,7 @@
+{
+  LOG.info("Deleting data from MongoDB database");
+  DB db=MongoDBTestRunner.getDB();
+  if (db != null) {
+    db.dropDatabase();
+  }
+}

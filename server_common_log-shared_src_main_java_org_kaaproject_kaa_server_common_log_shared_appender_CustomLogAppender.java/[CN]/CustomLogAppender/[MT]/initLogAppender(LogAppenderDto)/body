@@ -1,17 +1,10 @@
 {
   CustomAppenderParametersDto customParameters=(CustomAppenderParametersDto)appender.getProperties().getParameters();
-  String configurationString=customParameters.getConfiguration();
-  Properties properties=new Properties();
+  byte[] rawConfiguration=customParameters.getRawConfiguration();
   try {
-    properties.load(new StringReader(configurationString));
-    if (LOG.isDebugEnabled()) {
-      StringWriter writer=new StringWriter();
-      PrintWriter printWriter=new PrintWriter(writer,true);
-      properties.list(printWriter);
-      LOG.debug("Initializing appender [{}] with the following configuration:",getName());
-      LOG.debug(writer.toString());
-    }
-    initFromProperties(properties);
+    AvroByteArrayConverter<T> converter=new AvroByteArrayConverter<>(configurationClass);
+    T configuration=converter.fromByteArray(rawConfiguration);
+    initFromConfiguration(appender,configuration);
   }
  catch (  IOException e) {
     LOG.error("Unable to parse configuration for appender '" + getName() + "'",e);

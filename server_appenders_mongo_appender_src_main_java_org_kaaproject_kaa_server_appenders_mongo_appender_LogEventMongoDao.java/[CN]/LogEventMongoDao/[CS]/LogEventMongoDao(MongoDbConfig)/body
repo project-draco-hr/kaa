@@ -1,0 +1,32 @@
+{
+  List<ServerAddress> seeds=new ArrayList<>(configuration.getMongoServers().size());
+  for (  MongoDbServer server : configuration.getMongoServers()) {
+    seeds.add(new ServerAddress(server.getHost(),server.getPort()));
+  }
+  MongoClientOptions.Builder optionsBuilder=new MongoClientOptions.Builder();
+  if (configuration.getConnectionsPerHost() != null) {
+    optionsBuilder.connectionsPerHost(configuration.getConnectionsPerHost());
+  }
+  if (configuration.getMaxWaitTime() != null) {
+    optionsBuilder.maxWaitTime(configuration.getMaxWaitTime());
+  }
+  if (configuration.getConnectionTimeout() != null) {
+    optionsBuilder.connectTimeout(configuration.getConnectionTimeout());
+  }
+  if (configuration.getSocketTimeout() != null) {
+    optionsBuilder.socketTimeout(configuration.getSocketTimeout());
+  }
+  if (configuration.getSocketKeepalive() != null) {
+    optionsBuilder.socketKeepAlive(configuration.getSocketKeepalive());
+  }
+  if (configuration.getAutoConnectRetry() != null) {
+    optionsBuilder.autoConnectRetry(configuration.getAutoConnectRetry());
+  }
+  MongoClientOptions options=optionsBuilder.build();
+  mongoClient=new MongoClient(seeds,options);
+  MongoDbFactory dbFactory=new SimpleMongoDbFactory(mongoClient,configuration.getDbName());
+  MappingMongoConverter converter=new MappingMongoConverter(dbFactory,new MongoMappingContext());
+  converter.setTypeMapper(new DefaultMongoTypeMapper(null));
+  mongoTemplate=new MongoTemplate(dbFactory,converter);
+  mongoTemplate.setWriteResultChecking(WriteResultChecking.EXCEPTION);
+}

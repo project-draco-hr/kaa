@@ -1,0 +1,12 @@
+{
+  final SizedTextBox textBox=new SizedTextBox(field.getMaxLength());
+  textBox.setValue(field.getValue());
+  handlerRegistrations.add(textBox.addInputHandler(new InputEventHandler(){
+    @Override public void onInputChanged(    InputEvent event){
+      field.setValue(textBox.getValue());
+      fireChanged();
+    }
+  }
+));
+  return textBox;
+}

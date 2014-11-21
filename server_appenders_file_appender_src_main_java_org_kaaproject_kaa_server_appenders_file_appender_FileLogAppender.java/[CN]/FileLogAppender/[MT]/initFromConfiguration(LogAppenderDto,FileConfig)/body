@@ -1,0 +1,18 @@
+{
+  LOG.debug("Initializing new instance of file system log appender");
+  try {
+    logsRootPath=configuration.getLogsRootPath();
+    if (fileSystemLogEventService == null) {
+      fileSystemLogEventService=new FileSystemLogEventServiceImpl();
+    }
+    if (logger == null) {
+      logger=new LogbackFileSystemLogger();
+    }
+    initLogDirectories(appenderDto);
+    logger.init(appenderDto,configuration,Paths.get(logsRootPath,tenantDirName,applicationDirName,"application.log"));
+    fileSystemLogEventService.createUserAndGroup(appenderDto,configuration,Paths.get(logsRootPath,tenantDirName,applicationDirName).toAbsolutePath().toString());
+  }
+ catch (  Exception e) {
+    LOG.error("Failed to init file system log appender: ",e);
+  }
+}

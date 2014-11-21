@@ -1,0 +1,7 @@
+{
+  File scriptFile=File.createTempFile(resourceName,".sh");
+  byte[] data=org.kaaproject.kaa.server.common.utils.FileUtils.readResourceBytes(resourceName);
+  FileUtils.writeByteArrayToFile(scriptFile,data);
+  executeCommand(null,"sudo","chmod","+x",scriptFile.getAbsolutePath());
+  return scriptFile;
+}

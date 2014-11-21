@@ -1,0 +1,11 @@
+{
+  final UnionFieldWidget arrayWidget=new UnionFieldWidget();
+  arrayWidget.setValue(field);
+  handlerRegistrations.add(arrayWidget.addValueChangeHandler(new ValueChangeHandler<UnionField>(){
+    @Override public void onValueChange(    ValueChangeEvent<UnionField> event){
+      fireChanged();
+    }
+  }
+));
+  return arrayWidget;
+}

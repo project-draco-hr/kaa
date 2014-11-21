@@ -1,0 +1,10 @@
+{
+  if (unionSchema.getTypes().size() == 2) {
+    for (    Schema typeSchema : unionSchema.getTypes()) {
+      if (typeSchema.getType() == Schema.Type.NULL) {
+        return true;
+      }
+    }
+  }
+  return false;
+}

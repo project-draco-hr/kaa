@@ -38,7 +38,7 @@
         CustomAppenderParametersDto customDto=new CustomAppenderParametersDto();
         customDto.setName(customParameters.getName());
         customDto.setAppenderClassName(customParameters.getAppenderClassName());
-        customDto.setConfiguration(customParameters.getConfiguration());
+        customDto.setRawConfiguration(customParameters.getRawConfiguration().array());
         dto.setParameters(customDto);
       }
     }

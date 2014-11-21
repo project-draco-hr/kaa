@@ -1,0 +1,7 @@
+{
+  super(other);
+  if (isValidValue(fields()[0],other.hostsBalancing)) {
+    this.hostsBalancing=data().deepCopy(fields()[0].schema(),other.hostsBalancing);
+    fieldSetFlags()[0]=true;
+  }
+}
