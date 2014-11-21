@@ -1,0 +1,5 @@
+{
+  byte[] hashFromSDK=sdkProperties.getPropertiesHash();
+  byte[] hashFromStateFile=Base64.decodeBase64(state.getProperty(PROPERTIES_HASH,new String(Base64.encodeBase64(new byte[0]),Charsets.UTF_8)).getBytes(Charsets.UTF_8));
+  return !Arrays.equals(hashFromSDK,hashFromStateFile);
+}

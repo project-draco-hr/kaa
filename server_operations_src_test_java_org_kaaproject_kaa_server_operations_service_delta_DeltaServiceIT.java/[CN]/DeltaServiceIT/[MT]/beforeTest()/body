@@ -53,17 +53,17 @@
   pfAllId=profileFilter.getId();
   ConfigurationDto confDto=configurationService.findConfigurationByEndpointGroupIdAndVersion(egAllId,CONF_SCHEMA_VERSION);
   cfAllId=confDto.getId();
-  endpointConfiguration=new EndpointConfiguration();
+  endpointConfiguration=new MongoEndpointConfiguration();
   endpointConfiguration.setConfiguration(confDto.getBody().getBytes(UTF_8));
   endpointConfiguration.setConfigurationHash(EndpointObjectHash.fromSHA1(confDto.getBody()).getData());
-  endpointConfiguration=endpointConfigurationDao.save(endpointConfiguration);
+  endpointConfiguration=(MongoEndpointConfiguration)endpointConfigurationDao.save(endpointConfiguration);
   assertNotNull(endpointConfiguration);
   assertNotNull(endpointConfiguration.getId());
   EndpointGroupState egs=new EndpointGroupState();
   egs.setConfigurationId(cfAllId);
   egs.setEndpointGroupId(egAllId);
   egs.setProfileFilterId(pfAllId);
-  endpointProfile=new EndpointProfile();
+  endpointProfile=new MongoEndpointProfile();
   endpointProfile.setProfile((DBObject)JSON.parse(PROFILE_JSON));
   endpointProfile.setProfileHash(EndpointObjectHash.fromSHA1(PROFILE_BYTES).getData());
   endpointProfile.setConfigurationHash(endpointConfiguration.getConfigurationHash());
@@ -71,7 +71,7 @@
   endpointProfile.setProfileVersion(PROFILE_VERSION);
   endpointProfile.setCfGroupState(Collections.singletonList(egs));
   endpointProfile.setNfGroupState(Collections.singletonList(egs));
-  endpointProfile=endpointProfileDao.save(endpointProfile);
+  endpointProfile=(MongoEndpointProfile)endpointProfileDao.save(endpointProfile);
   assertNotNull(endpointProfile);
   assertNotNull(endpointProfile.getId());
 }

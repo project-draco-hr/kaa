@@ -1,0 +1,9 @@
+{
+  checkInited();
+  eventExecutor.submit(new Runnable(){
+    @Override public void run(){
+      devices.sendEventToAll(new DeviceInfoRequest());
+    }
+  }
+);
+}

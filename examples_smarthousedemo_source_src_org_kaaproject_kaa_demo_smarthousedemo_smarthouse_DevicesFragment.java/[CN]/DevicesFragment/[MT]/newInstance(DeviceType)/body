@@ -1,0 +1,19 @@
+{
+switch (deviceType) {
+case THERMOSTAT:
+    return new ThermostatsFragment();
+case TV:
+  return new TvsFragment();
+case SOUND_SYSTEM:
+return new SoundSystemsFragment();
+case LAMP:
+return new LampsFragment();
+default :
+return new DevicesFragment<SmartDeviceInfo>(){
+@Override public DeviceType getDeviceType(){
+return deviceType;
+}
+}
+;
+}
+}

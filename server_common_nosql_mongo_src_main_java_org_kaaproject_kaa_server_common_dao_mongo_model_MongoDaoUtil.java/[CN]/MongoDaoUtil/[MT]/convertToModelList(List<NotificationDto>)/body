@@ -1,0 +1,10 @@
+{
+  List<MongoNotification> notifications=null;
+  if (notificationList != null && !notificationList.isEmpty()) {
+    notifications=new ArrayList<>();
+    for (    NotificationDto dto : notificationList) {
+      notifications.add(new MongoNotification(dto));
+    }
+  }
+  return notifications;
+}

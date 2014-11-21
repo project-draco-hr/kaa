@@ -1,0 +1,8 @@
+{
+  super.onCreate(savedInstanceState);
+  mActivity=(SmartHouseActivity)this.getActivity();
+  mDevicesAdapter=createDeviceAdapter();
+  if (!mActivity.getDeviceStore().getEventBus().isRegistered(this)) {
+    mActivity.getDeviceStore().getEventBus().register(this);
+  }
+}

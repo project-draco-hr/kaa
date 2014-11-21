@@ -1,0 +1,7 @@
+{
+  EndpointProfileDto profileDto=new EndpointProfileDto();
+  profileDto.setApplicationId(appId);
+  profileDto.setSubscriptions(topicIds);
+  profileDto.setEndpointKeyHash("TEST_KEY_HASH".getBytes());
+  return endpointProfileDao.save(new MongoEndpointProfile(profileDto)).toDto();
+}

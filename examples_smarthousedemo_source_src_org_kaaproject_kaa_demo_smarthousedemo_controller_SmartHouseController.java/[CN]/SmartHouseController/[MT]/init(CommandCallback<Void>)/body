@@ -1,0 +1,14 @@
+{
+  new CommandAsyncTask<Void,Void>(callback){
+    @Override protected Void executeCommand(    Void... params) throws Throwable {
+      initData();
+      inited=new StartKaa().execute(executor,DEFAULT_TASK_TIMEOUT * 3);
+      if (deviceType == null && userAccount != null && userAccount.length() > 0) {
+        new AttachUserCommand(client,userAccount).execute(executor,DEFAULT_TASK_TIMEOUT);
+        discoverDevices();
+      }
+      return null;
+    }
+  }
+.execute();
+}

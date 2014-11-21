@@ -1,0 +1,15 @@
+{
+  if (this == obj)   return true;
+  if (obj == null)   return false;
+  if (getClass() != obj.getClass())   return false;
+  EndpointCommandKey other=(EndpointCommandKey)obj;
+  if (endpontKey == null) {
+    if (other.endpontKey != null)     return false;
+  }
+ else   if (!endpontKey.equals(other.endpontKey))   return false;
+  if (fqn == null) {
+    if (other.fqn != null)     return false;
+  }
+ else   if (!fqn.equals(other.fqn))   return false;
+  return true;
+}

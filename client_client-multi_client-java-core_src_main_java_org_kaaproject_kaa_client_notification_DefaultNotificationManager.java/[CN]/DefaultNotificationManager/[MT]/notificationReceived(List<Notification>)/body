@@ -3,8 +3,8 @@
     try {
       Topic topic=findTopicById(notification.getTopicId());
       boolean hasOwner=false;
-synchronized (voluntaryListeners) {
-        List<NotificationListener> listeners=voluntaryListeners.get(topic.getId());
+synchronized (optionalListeners) {
+        List<NotificationListener> listeners=optionalListeners.get(topic.getId());
         if (listeners != null && !listeners.isEmpty()) {
           hasOwner=true;
           for (          NotificationListener listener : listeners) {

@@ -1,26 +1,13 @@
 {
-  if (!channels.contains(channel)) {
-    channel.setConnectivityChecker(connectivityChecker);
-    channels.add(channel);
-    ServerInfo server;
-    if (channel.getServerType() == ServerType.BOOTSTRAP) {
-      server=getCurrentBootstrapServer(channel.getType());
+  if (isShutdown) {
+    LOG.warn("Can't add a channel. Channel manager is down");
+    return;
+  }
+  if (channel != null) {
+    if (isPaused) {
+      channel.pause();
     }
- else {
-      server=lastServers.get(channel.getType());
-    }
-    if (server != null) {
-      LOG.debug("Applying server {} for channel [{}] type {}",server,channel.getId(),channel.getType());
-      channel.setServer(server);
-    }
- else {
-      if (lastServers != null && lastServers.isEmpty()) {
-        LOG.warn("Failed to find server for channel [{}] type {}",channel.getId(),channel.getType());
-      }
- else {
-        LOG.debug("list of servers is empty for channel [{}] type {}",channel.getId(),channel.getType());
-      }
-    }
-    useNewChannel(channel);
+    addChannelToList(channel);
+    applyNewChannel(channel);
   }
 }

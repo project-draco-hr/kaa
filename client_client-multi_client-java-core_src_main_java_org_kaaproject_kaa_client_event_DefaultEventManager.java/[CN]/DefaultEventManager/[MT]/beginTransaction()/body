@@ -1,0 +1,10 @@
+{
+  TransactionId trxId=new TransactionId();
+synchronized (trxGuard) {
+    if (!transactions.containsKey(trxId)) {
+      LOG.debug("Creating events transaction with id {}",trxId);
+      transactions.put(trxId,new LinkedList<Event>());
+    }
+  }
+  return trxId;
+}

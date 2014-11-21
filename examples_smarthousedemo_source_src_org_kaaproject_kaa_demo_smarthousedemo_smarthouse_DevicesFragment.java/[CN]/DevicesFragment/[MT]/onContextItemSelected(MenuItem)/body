@@ -1,0 +1,25 @@
+{
+  if (getDeviceType().ordinal() == item.getGroupId()) {
+    AdapterView.AdapterContextMenuInfo info=(AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+    final SmartDeviceInfo device=mDevicesAdapter.getItem(info.position);
+    int menuItemIndex=item.getItemId();
+switch (menuItemIndex) {
+case 0:
+      mActivity.getSmartHouseController().deattachEndpoint(device.getEndpointKey(),new DetachEdnpointCallback(device));
+    break;
+case 1:
+  final String previousDeviceName=device.getDeviceName();
+RenameDeviceDialog.showRenameDeviceDialog(mActivity,previousDeviceName,new RenameDeviceDialogListener(){
+  @Override public void onNewDeviceName(  String newDeviceName){
+    if (!newDeviceName.isEmpty() && !previousDeviceName.equals(newDeviceName)) {
+      mActivity.getDeviceStore().onDeviceRenamed(device,newDeviceName);
+    }
+  }
+}
+);
+break;
+}
+return true;
+}
+return false;
+}

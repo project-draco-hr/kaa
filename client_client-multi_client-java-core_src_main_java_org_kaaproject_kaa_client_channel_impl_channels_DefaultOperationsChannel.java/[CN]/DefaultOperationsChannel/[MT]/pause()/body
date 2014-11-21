@@ -1,8 +1,14 @@
 {
-  isPaused=true;
-  stopPoll();
-  if (scheduler != null) {
-    scheduler.shutdownNow();
-    scheduler=null;
+  if (isShutdown) {
+    LOG.info("Can't pause channel. Channel [{}] is down",getId());
+    return;
+  }
+  if (!isPaused) {
+    isPaused=true;
+    stopPoll();
+    if (scheduler != null) {
+      scheduler.shutdownNow();
+      scheduler=null;
+    }
   }
 }

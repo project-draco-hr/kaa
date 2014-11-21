@@ -1,0 +1,15 @@
+{
+  int typeOffset=TYPE_SECTION_HEADER + 1;
+  for (  Section section : this.sections) {
+    if (position == 0) {
+      return (TYPE_SECTION_HEADER);
+    }
+    int size=section.adapter.getCount() + 1;
+    if (position < size) {
+      return (typeOffset + section.adapter.getItemViewType(position - 1));
+    }
+    position-=size;
+    typeOffset+=section.adapter.getViewTypeCount();
+  }
+  return -1;
+}

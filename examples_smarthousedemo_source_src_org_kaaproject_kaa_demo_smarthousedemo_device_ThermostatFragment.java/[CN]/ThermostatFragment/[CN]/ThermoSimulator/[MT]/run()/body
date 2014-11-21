@@ -1,0 +1,30 @@
+{
+  while (!mFinished) {
+    inc=(int)Math.signum(thermostatInfo.getTargetDegree() - thermostatInfo.getDegree());
+    if (inc != 0) {
+      thermostatInfo.setDegree(thermostatInfo.getDegree() + inc);
+      thermostatHandler.post(new Runnable(){
+        @Override public void run(){
+          updateThermostatUI();
+        }
+      }
+);
+      thermostatInfo.setIsSetManually(false);
+      mActivity.getSmartHouseController().updateThermostatInfo(thermostatInfo);
+    }
+    try {
+      Thread.sleep(500);
+    }
+ catch (    InterruptedException e) {
+    }
+synchronized (mPauseLock) {
+      while (mPaused) {
+        try {
+          mPauseLock.wait();
+        }
+ catch (        InterruptedException e) {
+        }
+      }
+    }
+  }
+}

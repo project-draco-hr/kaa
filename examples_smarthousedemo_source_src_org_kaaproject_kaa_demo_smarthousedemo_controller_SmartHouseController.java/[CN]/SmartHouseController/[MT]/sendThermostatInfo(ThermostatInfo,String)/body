@@ -1,0 +1,10 @@
+{
+  final ThermostatInfoResponse response=new ThermostatInfoResponse();
+  response.setThermostatInfo(thermostatInfo);
+  eventExecutor.submit(new Runnable(){
+    @Override public void run(){
+      thermostats.sendEvent(response,endpointKeyHash);
+    }
+  }
+);
+}

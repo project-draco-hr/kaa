@@ -1,8 +1,4 @@
 {
-  LOG.info("Bootstrap Server application starting... {}",Charset.defaultCharset().name());
-  ClassPathXmlApplicationContext ctx=new ClassPathXmlApplicationContext("bootstrapContext.xml");
-  final BootstrapInitializationService bootstrapInitializationService=(BootstrapInitializationService)ctx.getBean("bootstrapInitializationService");
-  bootstrapInitializationService.start();
-  ctx.close();
-  LOG.info("Bootstrap Server application stopped");
+  BootstrapServerApplication app=new BootstrapServerApplication(DEFAULT_APPLICATION_CONTEXT_XMLS,DEFAULT_APPLICATION_CONFIGURATION_FILES);
+  app.startAndWait(args);
 }

@@ -1,0 +1,16 @@
+{
+  Map<ChannelType,List<ServerInfo>> bootststrapServers=new HashMap<>();
+  bootststrapServers.put(ChannelType.HTTP,Arrays.asList((ServerInfo)new HttpServerInfo(ServerType.BOOTSTRAP,"localhost",9889,KeyUtil.generateKeyPair().getPublic())));
+  BootstrapManager bootstrapManager=Mockito.mock(BootstrapManager.class);
+  DefaultChannelManager channelManager=new DefaultChannelManager(bootstrapManager,bootststrapServers);
+  Map<TransportType,ChannelDirection> types=new HashMap<TransportType,ChannelDirection>();
+  types.put(TransportType.CONFIGURATION,ChannelDirection.BIDIRECTIONAL);
+  KaaDataChannel channel=Mockito.mock(KaaDataChannel.class);
+  Mockito.when(channel.getType()).thenReturn(ChannelType.KAATCP);
+  Mockito.when(channel.getSupportedTransportTypes()).thenReturn(types);
+  Mockito.when(channel.getId()).thenReturn("channel1");
+  channelManager.addChannel(channel);
+  channelManager.pause();
+  channelManager.pause();
+  Mockito.verify(channel,Mockito.times(1)).pause();
+}

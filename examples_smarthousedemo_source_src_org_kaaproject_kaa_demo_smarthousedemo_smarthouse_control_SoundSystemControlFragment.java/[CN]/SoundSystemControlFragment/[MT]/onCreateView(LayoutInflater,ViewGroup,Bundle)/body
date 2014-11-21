@@ -1,0 +1,60 @@
+{
+  View rootView=inflater.inflate(R.layout.fragment_soundsystem_control,container,false);
+  mSongsListView=(ListView)rootView.findViewById(R.id.songsList);
+  mErrorTextView=(TextView)rootView.findViewById(R.id.errorTextView);
+  mSongsProgressBar=(ProgressBar)rootView.findViewById(R.id.progress);
+  mSongsListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+    @Override public void onItemClick(    AdapterView<?> parent,    View view,    int position,    long id){
+      selectItem(position,true);
+    }
+  }
+);
+  mCurrentSongNameView=(TextView)rootView.findViewById(R.id.currentSongName);
+  mCurrentSongDetailsView=(TextView)rootView.findViewById(R.id.currentSongDetails);
+  mCurrentSongActionButton=(Button)rootView.findViewById(R.id.currentSongAction);
+  mCurrentSongSeekBar=(SeekBar)rootView.findViewById(R.id.songSeek);
+  mCurrentSongTimeTextView=(TextView)rootView.findViewById(R.id.songSeekTime);
+  mCurrentSongNameView.setSelected(true);
+  mCurrentSongDetailsView.setSelected(true);
+  mSongsListView.setFastScrollEnabled(true);
+  mCurrentSongActionButton.setOnClickListener(new OnClickListener(){
+    @Override public void onClick(    View v){
+      togglePlayback();
+    }
+  }
+);
+  mCurrentSongSeekBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener(){
+    @Override public void onProgressChanged(    SeekBar seekBar,    int progress,    boolean fromUser){
+      if (mCurrentSong != null) {
+        String timeText=Utils.milliSecondsToTimer(progress) + "/" + Utils.milliSecondsToTimer(mCurrentSong.getDuration());
+        mCurrentSongTimeTextView.setText(timeText);
+        if (fromUser) {
+          mActivity.getSmartHouseController().seekTo(mDevice.getEndpointKey(),progress);
+        }
+      }
+    }
+    @Override public void onStartTrackingTouch(    SeekBar seekBar){
+    }
+    @Override public void onStopTrackingTouch(    SeekBar seekBar){
+    }
+  }
+);
+  final View volumeControlView=inflater.inflate(R.layout.volume_control,null);
+  mVolumeControls=(SeekBar)volumeControlView.findViewById(R.id.volumeSeek);
+  getActionBar().setCustomView(volumeControlView,new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT,ActionBar.LayoutParams.MATCH_PARENT));
+  mVolumeControls.setOnSeekBarChangeListener(new OnSeekBarChangeListener(){
+    @Override public void onProgressChanged(    SeekBar seekBar,    int progress,    boolean fromUser){
+      if (fromUser) {
+        mActivity.getSmartHouseController().changeVolume(mDevice.getEndpointKey(),progress);
+      }
+    }
+    @Override public void onStartTrackingTouch(    SeekBar seekBar){
+    }
+    @Override public void onStopTrackingTouch(    SeekBar seekBar){
+    }
+  }
+);
+  updateDeviceInfo(true);
+  refresh();
+  return rootView;
+}

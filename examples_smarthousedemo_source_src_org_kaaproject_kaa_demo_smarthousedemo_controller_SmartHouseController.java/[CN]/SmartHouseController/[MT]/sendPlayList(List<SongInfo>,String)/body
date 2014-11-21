@@ -1,0 +1,10 @@
+{
+  final PlayListResponse response=new PlayListResponse();
+  response.setPlayList(playList);
+  eventExecutor.submit(new Runnable(){
+    @Override public void run(){
+      soundSystems.sendEvent(response,endpointKeyHash);
+    }
+  }
+);
+}

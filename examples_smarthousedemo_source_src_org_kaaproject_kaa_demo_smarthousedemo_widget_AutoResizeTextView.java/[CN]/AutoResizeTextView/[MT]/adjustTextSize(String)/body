@@ -1,0 +1,11 @@
+{
+  if (!mInitiallized) {
+    return;
+  }
+  int startSize=(int)mMinTextSize;
+  int heightLimit=getMeasuredHeight() - getCompoundPaddingBottom() - getCompoundPaddingTop();
+  mWidthLimit=getMeasuredWidth() - getCompoundPaddingLeft() - getCompoundPaddingRight();
+  mAvailableSpaceRect.right=mWidthLimit;
+  mAvailableSpaceRect.bottom=heightLimit;
+  super.setTextSize(TypedValue.COMPLEX_UNIT_PX,efficientTextSizeSearch(startSize,(int)mMaxTextSize,mSizeTester,mAvailableSpaceRect));
+}

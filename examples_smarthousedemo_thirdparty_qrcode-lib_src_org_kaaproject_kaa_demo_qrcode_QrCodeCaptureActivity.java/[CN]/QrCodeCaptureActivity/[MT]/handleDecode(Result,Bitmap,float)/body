@@ -1,0 +1,17 @@
+{
+  inactivityTimer.onActivity();
+  lastResult=rawResult;
+  ParsedResult result=ResultParser.parseResult(rawResult);
+  boolean fromLiveScan=barcode != null;
+  if (fromLiveScan) {
+    drawResultPoints(barcode,scaleFactor,rawResult);
+  }
+switch (source) {
+case NATIVE_APP_INTENT:
+    handleDecodeExternally(rawResult,result,barcode);
+  break;
+case NONE:
+handleDecodeInternally(rawResult,result,barcode);
+break;
+}
+}
