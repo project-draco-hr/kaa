@@ -15,7 +15,7 @@
     if (field.get(TYPE_FIELD) instanceof Map) {
       newUnion.add(field.get(TYPE_FIELD));
       Map<String,Object> fieldType=(Map<String,Object>)field.get(TYPE_FIELD);
-      checkIfArray(fieldType,newUnion);
+      addResetTypeIfArray(fieldType,newUnion);
       convert(fieldType);
     }
  else     if (field.get(TYPE_FIELD) instanceof List) {
@@ -23,7 +23,7 @@
       for (      Object unionIter : oldUnion) {
         if (unionIter instanceof Map) {
           Map<String,Object> fieldType=(Map<String,Object>)unionIter;
-          checkIfArray(fieldType,newUnion);
+          addResetTypeIfArray(fieldType,newUnion);
           convert(fieldType);
         }
       }
