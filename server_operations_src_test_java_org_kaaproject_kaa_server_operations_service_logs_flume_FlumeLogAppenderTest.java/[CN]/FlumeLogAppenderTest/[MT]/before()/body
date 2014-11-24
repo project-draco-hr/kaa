@@ -1,9 +1,0 @@
-{
-  appender=new FlumeLogAppender();
-  appender.setName(APPENDER_NAME);
-  appender.setAppenderId(APPENDER_ID);
-  flumeEventBuilder=mock(FlumeEventBuilder.class);
-  flumeClientManger=mock(FlumeClientManager.class);
-  ReflectionTestUtils.setField(appender,"flumeEventBuilder",flumeEventBuilder);
-  ReflectionTestUtils.setField(appender,"flumeClientManger",flumeClientManger);
-}

@@ -1,13 +1,13 @@
 {
   Label authorLabel=new Label(Utils.constants.author());
-  createdUsername=new SizedTextBox(-1,false);
+  createdUsername=new KaaAdminSizedTextBox(-1,false);
   createdUsername.setWidth("100%");
   detailsTable.setWidget(0,0,authorLabel);
   detailsTable.setWidget(0,1,createdUsername);
   authorLabel.setVisible(!create);
   createdUsername.setVisible(!create);
   Label dateTimeCreatedLabel=new Label(Utils.constants.dateTimeCreated());
-  createdDateTime=new SizedTextBox(-1,false);
+  createdDateTime=new KaaAdminSizedTextBox(-1,false);
   createdDateTime.setWidth("100%");
   detailsTable.setWidget(1,0,dateTimeCreatedLabel);
   detailsTable.setWidget(1,1,createdDateTime);

@@ -1,5 +1,5 @@
 {
-  LogAppenderDto appender=generateLogAppender(application.getId(),null,LogAppenderTypeDto.FLUME,null);
+  LogAppenderDto appender=generateLogAppender(application.getId(),null,null);
   List<LogAppenderDto> appenders=logAppendersService.findRegisteredLogAppendersByAppId(application.getId());
   Assert.assertNotNull(appenders);
   Assert.assertEquals(1,appenders.size());

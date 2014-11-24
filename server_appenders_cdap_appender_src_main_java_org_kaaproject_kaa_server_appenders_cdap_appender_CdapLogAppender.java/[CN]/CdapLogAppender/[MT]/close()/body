@@ -1,10 +1,13 @@
 {
   closed=true;
   try {
-    streamClient.close();
+    if (streamClient != null) {
+      streamClient.close();
+    }
   }
  catch (  IOException e) {
     LOG.error("Failed to close stream client: ",e);
   }
+  streamClient=null;
   LOG.debug("Stopped Cdap log appender.");
 }

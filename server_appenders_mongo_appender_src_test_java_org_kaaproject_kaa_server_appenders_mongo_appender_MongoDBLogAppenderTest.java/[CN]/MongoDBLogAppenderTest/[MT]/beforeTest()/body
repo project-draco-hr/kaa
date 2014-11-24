@@ -5,8 +5,6 @@
   appenderDto.setApplicationToken(APPLICATION_TOKEN);
   appenderDto.setTenantId(TENANT_ID);
   appenderDto.setHeaderStructure(Arrays.asList(LogHeaderStructureDto.values()));
-  LogAppenderParametersDto parameters=new LogAppenderParametersDto();
-  CustomAppenderParametersDto customParameters=new CustomAppenderParametersDto();
   String dbName=MongoDBTestRunner.getDB().getName();
   List<ServerAddress> serverAddresses=MongoDBTestRunner.getDB().getMongo().getServerAddressList();
   List<MongoDbServer> servers=new ArrayList<>();
@@ -16,8 +14,6 @@
   MongoDbConfig mongoDbConfig=MongoDbConfig.newBuilder().setMongoServers(servers).setDbName(dbName).build();
   AvroByteArrayConverter<MongoDbConfig> converter=new AvroByteArrayConverter<>(MongoDbConfig.class);
   byte[] rawConfiguration=converter.toByteArray(mongoDbConfig);
-  customParameters.setRawConfiguration(rawConfiguration);
-  parameters.setParameters(customParameters);
-  appenderDto.setProperties(parameters);
+  appenderDto.setRawConfiguration(rawConfiguration);
   logAppender.init(appenderDto);
 }

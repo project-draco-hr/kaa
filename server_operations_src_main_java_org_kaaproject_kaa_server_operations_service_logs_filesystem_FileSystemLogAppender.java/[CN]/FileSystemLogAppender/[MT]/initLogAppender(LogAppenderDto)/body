@@ -1,7 +1,0 @@
-{
-  LOG.debug("Starting initialize new instance of file system log appender");
-  setName(appenderDto.getName());
-  initLogDirectories(appenderDto);
-  logger.init(appenderDto,Paths.get(logsRootPath,tenantDirName,applicationDirName,"application.log"));
-  fileSystemLogEventService.createUserAndGroup(appenderDto,Paths.get(logsRootPath,tenantDirName,applicationDirName).toAbsolutePath().toString());
-}

@@ -1,7 +1,0 @@
-{
-  DBObject dbObject=new BasicDBObject();
-  mongoTemplate.getConverter().write(dto,dbObject);
-  LOG.debug("Save role [{}]",dbObject);
-  mongoTemplate.getDb().getCollection(SecureRole.COLLECTION_NAME).save(dbObject);
-  return dto;
-}

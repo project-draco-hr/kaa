@@ -5,6 +5,7 @@
     try {
       InputStream input=storage.openForRead(clientPublicKeyFileLocation);
       publicKey=KeyUtil.getPublic(input);
+      input.close();
     }
  catch (    Exception e) {
       LOG.error("Error loading Client Public Key",e);

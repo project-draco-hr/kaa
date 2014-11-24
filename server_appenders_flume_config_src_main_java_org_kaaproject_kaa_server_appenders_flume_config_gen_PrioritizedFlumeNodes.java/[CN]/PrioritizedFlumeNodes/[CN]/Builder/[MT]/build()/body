@@ -1,0 +1,10 @@
+{
+  try {
+    PrioritizedFlumeNodes record=new PrioritizedFlumeNodes();
+    record.flumeNodes=fieldSetFlags()[0] ? this.flumeNodes : (java.util.List<org.kaaproject.kaa.server.appenders.flume.config.gen.PrioritizedFlumeNode>)defaultValue(fields()[0]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

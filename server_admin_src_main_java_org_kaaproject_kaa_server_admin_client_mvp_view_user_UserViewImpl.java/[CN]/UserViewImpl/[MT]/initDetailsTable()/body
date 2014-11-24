@@ -1,5 +1,5 @@
 {
-  userName=new SizedTextBox(DEFAULT_TEXTBOX_SIZE,create);
+  userName=new KaaAdminSizedTextBox(DEFAULT_TEXTBOX_SIZE,create);
   userName.setWidth("100%");
   userName.addInputHandler(this);
   Label userLabel=new Label(Utils.constants.userName());
@@ -8,7 +8,7 @@
   }
   detailsTable.setWidget(0,0,userLabel);
   detailsTable.setWidget(0,1,userName);
-  email=new SizedTextBox(DEFAULT_TEXTBOX_SIZE);
+  email=new KaaAdminSizedTextBox(DEFAULT_TEXTBOX_SIZE);
   email.setWidth("100%");
   email.addInputHandler(this);
   Label emailLabel=new Label(Utils.constants.email());

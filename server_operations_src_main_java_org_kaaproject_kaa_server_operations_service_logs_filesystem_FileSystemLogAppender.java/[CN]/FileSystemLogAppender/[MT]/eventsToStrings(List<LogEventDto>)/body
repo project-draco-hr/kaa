@@ -1,8 +1,0 @@
-{
-  List<String> events=new ArrayList<>();
-  for (  LogEventDto logEventDto : dtos) {
-    String event=new StringBuilder("{\"Log Header\": \"").append(logEventDto.getHeader()).append("\", \"Event\": ").append(logEventDto.getEvent()).append("}").toString();
-    events.add(event);
-  }
-  return events;
-}

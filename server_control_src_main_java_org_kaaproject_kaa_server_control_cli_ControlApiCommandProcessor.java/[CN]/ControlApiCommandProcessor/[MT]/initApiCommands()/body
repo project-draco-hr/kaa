@@ -43,8 +43,6 @@
   addCommand(listEndpointGroupsCommand());
   addCommand(listLogSchemasCommand());
   addCommand(listLogAppendersCommand());
-  addCommand(createLogAppenderCommand(false));
-  addCommand(createLogAppenderCommand(true));
   for (  EntityType type : EntityType.values()) {
     addCommand(showCommand(type));
     addCommand(deleteCommand(type));

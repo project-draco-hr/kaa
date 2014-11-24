@@ -9,5 +9,6 @@
   KaaClientPropertiesState newState=new KaaClientPropertiesState(new FilePersistentStorage(),KaaClientPropertiesStateTest.getProperties());
   DefaultNotificationManager newNotificationManager=new DefaultNotificationManager(newState,transport);
   Assert.assertTrue(newNotificationManager.getTopics().size() == topics.size());
-  new File(props.getProperty("state.file_location")).delete();
+  boolean deleted=new File(props.getProperty("state.file_location")).delete();
+  Assert.assertTrue(deleted);
 }

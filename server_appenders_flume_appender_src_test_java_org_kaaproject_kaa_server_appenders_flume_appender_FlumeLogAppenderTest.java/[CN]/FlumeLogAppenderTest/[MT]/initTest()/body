@@ -3,15 +3,11 @@
   LogAppenderDto logAppender=new LogAppenderDto();
   logAppender.setApplicationId(APPLICATION_ID);
   logAppender.setId(APPENDER_ID);
-  LogAppenderParametersDto parameters=new LogAppenderParametersDto();
-  CustomAppenderParametersDto customParameters=new CustomAppenderParametersDto();
   FlumeNodes nodes=FlumeNodes.newBuilder().setFlumeNodes(Arrays.asList(new FlumeNode("localhost",12121),new FlumeNode("localhost",12122))).build();
   FlumeConfig flumeConfig=FlumeConfig.newBuilder().setHostsBalancing(nodes).build();
   AvroByteArrayConverter<FlumeConfig> converter=new AvroByteArrayConverter<>(FlumeConfig.class);
   byte[] rawConfiguration=converter.toByteArray(flumeConfig);
-  customParameters.setRawConfiguration(rawConfiguration);
-  parameters.setParameters(customParameters);
-  logAppender.setProperties(parameters);
+  logAppender.setRawConfiguration(rawConfiguration);
   appender.init(logAppender);
   appender.close();
 }

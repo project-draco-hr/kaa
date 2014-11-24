@@ -5,17 +5,13 @@
   appenderDto.setApplicationToken(APPLICATION_TOKEN);
   appenderDto.setTenantId(TENANT_ID);
   appenderDto.setHeaderStructure(Arrays.asList(LogHeaderStructureDto.values()));
-  LogAppenderParametersDto parameters=new LogAppenderParametersDto();
-  CustomAppenderParametersDto customParameters=new CustomAppenderParametersDto();
   List<KvStoreNode> nodes=Arrays.asList(new KvStoreNode(STORE_HOST,STORE_PORT));
   OracleNoSqlConfig oracleConfig=new OracleNoSqlConfig();
   oracleConfig.setKvStoreNodes(nodes);
   oracleConfig.setStoreName(STORE_NAME);
   AvroByteArrayConverter<OracleNoSqlConfig> converter=new AvroByteArrayConverter<>(OracleNoSqlConfig.class);
   byte[] rawConfiguration=converter.toByteArray(oracleConfig);
-  customParameters.setRawConfiguration(rawConfiguration);
-  parameters.setParameters(customParameters);
-  appenderDto.setProperties(parameters);
+  appenderDto.setRawConfiguration(rawConfiguration);
   logAppender.setApplicationToken(appenderDto.getApplicationToken());
   logAppender.init(appenderDto);
 }

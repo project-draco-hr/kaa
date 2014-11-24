@@ -8,7 +8,9 @@
   state=new Properties();
   if (storage.exists(stateFileLocation)) {
     try {
-      state.load(storage.openForRead(stateFileLocation));
+      InputStream stream=storage.openForRead(stateFileLocation);
+      state.load(stream);
+      stream.close();
       if (isSDKPropertiesUpdated(properties,state)) {
         LOG.info("SDK properties were updated");
         setRegistered(false);

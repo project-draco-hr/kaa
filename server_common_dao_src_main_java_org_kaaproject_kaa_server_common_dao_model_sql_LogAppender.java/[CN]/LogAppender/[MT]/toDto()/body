@@ -10,8 +10,9 @@
   dto.setDescription(description);
   dto.setSchema(new SchemaDto(logSchema.getStringId(),logSchema.getMajorVersion(),logSchema.getMinorVersion()));
   dto.setStatus(status);
+  dto.setTypeName(typeName);
+  dto.setAppenderClassName(appenderClassName);
+  dto.setRawConfiguration(rawConfiguration);
   dto.setHeaderStructure(headerStructure != null ? new ArrayList<>(headerStructure) : new ArrayList<LogHeaderStructureDto>());
-  dto.setType(type);
-  dto.setProperties(DaoAvroUtil.convertParametersFromBytes(properties));
   return dto;
 }

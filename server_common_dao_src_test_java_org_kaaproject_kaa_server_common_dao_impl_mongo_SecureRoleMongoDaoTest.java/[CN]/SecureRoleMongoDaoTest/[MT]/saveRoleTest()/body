@@ -1,8 +1,0 @@
-{
-  when(mongoTemplate.getConverter()).thenReturn(mongoConverter);
-  when(mongoTemplate.getDb()).thenReturn(dB);
-  when(dB.getCollection("system.roles")).thenReturn(dBCollection);
-  secureRoleMongoDao.saveRole(new SecureRole());
-  verify(mongoConverter).write(Mockito.any(Object.class),Mockito.any(DBObject.class));
-  verify(dBCollection).save(Mockito.any(DBObject.class));
-}

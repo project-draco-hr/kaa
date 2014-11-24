@@ -1,5 +1,5 @@
 {
-  applicationName=new SizedTextBox(DEFAULT_TEXTBOX_SIZE,editable);
+  applicationName=new KaaAdminSizedTextBox(DEFAULT_TEXTBOX_SIZE,editable);
   applicationName.setWidth("100%");
   Label titleLabel=new Label(Utils.constants.title());
   if (editable) {
@@ -10,7 +10,7 @@
   applicationName.addInputHandler(this);
   applicationName.setFocus(true);
   if (!create) {
-    applicationToken=new SizedTextBox(DEFAULT_TEXTBOX_SIZE * 2,editable);
+    applicationToken=new KaaAdminSizedTextBox(DEFAULT_TEXTBOX_SIZE * 2,editable);
     applicationToken.setWidth("100%");
     applicationToken.setEnabled(false);
     Label tokenLabel=new Label(Utils.constants.appToken());

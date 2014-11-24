@@ -1,0 +1,21 @@
+{
+  FileSystemLogAppender appender=new FileSystemLogAppender();
+  fileSystemLogEventService=mock(FileSystemLogEventService.class);
+  FileSystemLogger logger=Mockito.mock(FileSystemLogger.class);
+  ReflectionTestUtils.setField(appender,"fileSystemLogEventService",fileSystemLogEventService);
+  ReflectionTestUtils.setField(appender,"logger",logger);
+  appender.setName(APPENDER_NAME);
+  appender.setAppenderId(APPENDER_ID);
+  LogAppenderDto logAppenderDto=prepateConfig();
+  logAppenderDto.setApplicationId(APPLICATION_ID);
+  logAppenderDto.setName("test");
+  logAppenderDto.setTenantId(TENANT_ID);
+  try {
+    appender.init(logAppenderDto);
+    Assert.assertEquals(APPENDER_NAME,appender.getName());
+    Assert.assertEquals(APPENDER_ID,appender.getAppenderId());
+  }
+  finally {
+    appender.close();
+  }
+}

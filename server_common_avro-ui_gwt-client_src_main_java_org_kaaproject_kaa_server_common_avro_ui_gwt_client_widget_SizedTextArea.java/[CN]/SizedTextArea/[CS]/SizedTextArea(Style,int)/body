@@ -1,0 +1,27 @@
+{
+  this.style=style;
+  this.style.ensureInjected();
+  this.maxChars=maxChars;
+  text=new ExtendedTextArea();
+  add(text);
+  if (maxChars > -1) {
+    charactersLabel=new Label();
+    charactersLabel.setStyleName(this.style.fieldNotes());
+    text.setMaxLength(maxChars);
+    add(charactersLabel);
+    updateCharactersLabel();
+  }
+  addValueChangeHandler(new ValueChangeHandler<String>(){
+    @Override public void onValueChange(    ValueChangeEvent<String> event){
+      fireInputEvent();
+    }
+  }
+);
+  text.addKeyUpHandler(new KeyUpHandler(){
+    @Override public void onKeyUp(    KeyUpEvent event){
+      updateCharactersLabel();
+      fireInputEvent();
+    }
+  }
+);
+}

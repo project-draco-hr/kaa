@@ -1,0 +1,11 @@
+{
+  LogAppenderDto logAppenderDto=new LogAppenderDto();
+  logAppenderDto.setApplicationId(APPLICATION_ID);
+  logAppenderDto.setName("test");
+  logAppenderDto.setTenantId(TENANT_ID);
+  FileConfig fileConfig=FileConfig.newBuilder().build();
+  AvroByteArrayConverter<FileConfig> converter=new AvroByteArrayConverter<>(FileConfig.class);
+  byte[] rawConfiguration=converter.toByteArray(fileConfig);
+  logAppenderDto.setRawConfiguration(rawConfiguration);
+  return logAppenderDto;
+}

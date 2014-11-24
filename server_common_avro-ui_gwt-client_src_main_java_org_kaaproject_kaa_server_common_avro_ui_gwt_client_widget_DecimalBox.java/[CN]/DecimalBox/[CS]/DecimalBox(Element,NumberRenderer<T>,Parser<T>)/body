@@ -1,0 +1,18 @@
+{
+  super(element,renderer,parser);
+  this.addKeyUpHandler(new KeyUpHandler(){
+    public void onKeyUp(    KeyUpEvent event){
+      if (event.isShiftKeyDown() || event.getNativeKeyCode() > '9' || event.getNativeKeyCode() < '0') {
+        String text=getText();
+        for (int ii=0; ii < text.length(); ii++) {
+          if (text.charAt(ii) > '9' || text.charAt(ii) < '0') {
+            text=text.substring(0,ii) + text.substring(ii + 1);
+            ii--;
+          }
+        }
+        setText(text);
+      }
+    }
+  }
+);
+}
