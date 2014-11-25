@@ -1,0 +1,22 @@
+{
+  int restoredEventSN=10;
+  int lastEventSN=restoredEventSN - 1;
+  KaaClientState clientState=Mockito.mock(KaaClientState.class);
+  Mockito.when(clientState.getEventSeqNum()).thenReturn(restoredEventSN);
+  List<Event> events=Arrays.asList(new Event(restoredEventSN++,null,null,null,null),new Event(restoredEventSN++,null,null,null,null),new Event(restoredEventSN++,null,null,null,null));
+  EventManager manager=Mockito.mock(EventManager.class);
+  Mockito.when(manager.getPendingEvents()).thenReturn(events);
+  EventTransport transport=new DefaultEventTransport(clientState);
+  transport.setEventManager(manager);
+  int requestId=1;
+  transport.createEventRequest(requestId++);
+  EventSyncResponse eventResponse=new EventSyncResponse(new EventSequenceNumberResponse(lastEventSN),null,null);
+  transport.onEventResponse(eventResponse);
+  EventSyncRequest eventRequest2=transport.createEventRequest(requestId);
+  Assert.assertTrue(eventRequest2.getEventSequenceNumberRequest() == null);
+  Assert.assertTrue(eventRequest2.getEvents().size() == events.size());
+  int expectedEventSN=lastEventSN + 1;
+  for (  Event e : eventRequest2.getEvents()) {
+    Assert.assertTrue(e.getSeqNum() == expectedEventSN++);
+  }
+}

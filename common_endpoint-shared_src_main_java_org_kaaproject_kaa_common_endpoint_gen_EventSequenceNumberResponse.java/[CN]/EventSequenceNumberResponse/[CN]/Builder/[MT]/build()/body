@@ -1,0 +1,10 @@
+{
+  try {
+    EventSequenceNumberResponse record=new EventSequenceNumberResponse();
+    record.seqNum=fieldSetFlags()[0] ? this.seqNum : (java.lang.Integer)defaultValue(fields()[0]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

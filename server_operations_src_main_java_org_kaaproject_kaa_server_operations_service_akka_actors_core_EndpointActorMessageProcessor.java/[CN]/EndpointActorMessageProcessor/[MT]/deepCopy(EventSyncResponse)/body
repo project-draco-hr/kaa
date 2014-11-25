@@ -3,6 +3,9 @@
     return null;
   }
   EventSyncResponse copy=new EventSyncResponse();
+  if (source.getEventSequenceNumberResponse() != null) {
+    copy.setEventSequenceNumberResponse(source.getEventSequenceNumberResponse());
+  }
   if (source.getEvents() != null) {
     copy.setEvents(new ArrayList<>(source.getEvents()));
   }
