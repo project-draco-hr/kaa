@@ -1,0 +1,22 @@
+{
+  FlumeClientManager<?> clientManager=null;
+  Object hostsBalancing=configuration.getHostsBalancing();
+  if (hostsBalancing instanceof PrioritizedFlumeNodes) {
+    LOG.debug("Init priority client manager");
+    PrioritizedFlumeNodes flumeNodesConfig=(PrioritizedFlumeNodes)hostsBalancing;
+    PriorityFlumeClientManager priorityClientManager=new PriorityFlumeClientManager();
+    priorityClientManager.init(flumeNodesConfig);
+    clientManager=priorityClientManager;
+  }
+ else   if (hostsBalancing instanceof FlumeNodes) {
+    LOG.debug("Init round robin client manager");
+    FlumeNodes flumeNodesConfig=(FlumeNodes)hostsBalancing;
+    BalancingFlumeClientManager balancingClientManager=new BalancingFlumeClientManager();
+    balancingClientManager.init(flumeNodesConfig);
+    clientManager=balancingClientManager;
+  }
+ else {
+    LOG.error("Balancing type: {} does not supported.",hostsBalancing.getClass());
+  }
+  return (FlumeClientManager<T>)clientManager;
+}

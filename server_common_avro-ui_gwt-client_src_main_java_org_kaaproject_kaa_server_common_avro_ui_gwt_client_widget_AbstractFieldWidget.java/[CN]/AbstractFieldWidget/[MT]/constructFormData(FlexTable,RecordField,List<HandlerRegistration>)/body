@@ -1,0 +1,12 @@
+{
+  table.removeAllRows();
+  table.getColumnFormatter().setWidth(0,"200px");
+  table.getColumnFormatter().setWidth(1,"300px");
+  if (formData != null) {
+    int row=0;
+    for (    FormField field : formData.getValue()) {
+      row=constructField(table,row,field,handlerRegistrations);
+      row++;
+    }
+  }
+}

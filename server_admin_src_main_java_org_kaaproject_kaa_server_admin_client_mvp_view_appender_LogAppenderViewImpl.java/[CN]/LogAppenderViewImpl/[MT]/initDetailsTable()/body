@@ -1,19 +1,19 @@
 {
   Label authorLabel=new Label(Utils.constants.author());
-  createdUsername=new SizedTextBox(-1,false);
+  createdUsername=new KaaAdminSizedTextBox(-1,false);
   createdUsername.setWidth(FULL_WIDTH);
   detailsTable.setWidget(0,0,authorLabel);
   detailsTable.setWidget(0,1,createdUsername);
   authorLabel.setVisible(!create);
   createdUsername.setVisible(!create);
   Label dateTimeCreatedLabel=new Label(Utils.constants.dateTimeCreated());
-  createdDateTime=new SizedTextBox(-1,false);
+  createdDateTime=new KaaAdminSizedTextBox(-1,false);
   createdDateTime.setWidth(FULL_WIDTH);
   detailsTable.setWidget(1,0,dateTimeCreatedLabel);
   detailsTable.setWidget(1,1,createdDateTime);
   dateTimeCreatedLabel.setVisible(!create);
   createdDateTime.setVisible(!create);
-  name=new SizedTextBox(DEFAULT_TEXTBOX_SIZE);
+  name=new KaaAdminSizedTextBox(DEFAULT_TEXTBOX_SIZE);
   name.setWidth(FULL_WIDTH);
   Label nameLabel=new Label(Utils.constants.name());
   nameLabel.addStyleName(REQUIRED);
@@ -37,7 +37,7 @@
   generateMetadataListBox();
   detailsTable.setWidget(5,0,logMetadata);
   detailsTable.setWidget(5,1,metadatalistBox);
-  description=new SizedTextArea(1024);
+  description=new KaaAdminSizedTextArea(1024);
   description.setWidth(FULL_WIDTH);
   description.getTextArea().getElement().getStyle().setPropertyPx("minHeight",100);
   Label descriptionLabel=new Label(Utils.constants.description());
@@ -47,33 +47,18 @@
   description.addInputHandler(this);
   Label typeLabel=new Label(Utils.constants.logAppenderType());
   appenderInfo=new AppenderInfoListBox();
-  appenderInfo.setValue(new LogAppenderInfoDto(LogAppenderTypeDto.FILE),true);
   appenderInfo.setEnabled(create);
-  appenderInfo.addValueChangeHandler(this);
+  appenderInfo.addValueChangeHandler(new ValueChangeHandler<LogAppenderInfoDto>(){
+    @Override public void onValueChange(    ValueChangeEvent<LogAppenderInfoDto> event){
+      updateAppender(event.getValue());
+    }
+  }
+);
   detailsTable.setWidget(7,0,typeLabel);
   detailsTable.setWidget(7,1,appenderInfo);
-  addHost=new Button(Utils.constants.addHost());
-  addHost.addClickHandler(new ClickHandler(){
-    @Override public void onClick(    ClickEvent event){
-      int rowCount=hostTable.getRowCount();
-      addEmptyRow(rowCount,hasPriority);
-      fireChanged();
-    }
-  }
-);
-  removeHost=new Button(Utils.constants.remHost());
-  removeHost.addClickHandler(new ClickHandler(){
-    @Override public void onClick(    ClickEvent event){
-      int rowCount=hostTable.getRowCount();
-      if (rowCount > defaultRowCountLimit) {
-        hostTable.removeRow(rowCount - 1);
-        fireChanged();
-      }
-    }
-  }
-);
-  addHost.addStyleName("button-margin-left");
   getFooter().setStyleName("b-app-content-details-table");
+  configuration=new KaaAdminRecordFieldWidget();
+  configuration.addValueChangeHandler(this);
+  getFooter().add(configuration);
   name.setFocus(true);
-  showFileCongurationFields();
 }

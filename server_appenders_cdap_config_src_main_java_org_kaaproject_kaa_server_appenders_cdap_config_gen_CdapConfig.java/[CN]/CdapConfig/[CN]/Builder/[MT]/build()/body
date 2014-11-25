@@ -1,0 +1,20 @@
+{
+  try {
+    CdapConfig record=new CdapConfig();
+    record.stream=fieldSetFlags()[0] ? this.stream : (java.lang.String)defaultValue(fields()[0]);
+    record.host=fieldSetFlags()[1] ? this.host : (java.lang.String)defaultValue(fields()[1]);
+    record.port=fieldSetFlags()[2] ? this.port : (java.lang.Integer)defaultValue(fields()[2]);
+    record.ssl=fieldSetFlags()[3] ? this.ssl : (java.lang.Boolean)defaultValue(fields()[3]);
+    record.verifySslCert=fieldSetFlags()[4] ? this.verifySslCert : (java.lang.Boolean)defaultValue(fields()[4]);
+    record.writerPoolSize=fieldSetFlags()[5] ? this.writerPoolSize : (java.lang.Integer)defaultValue(fields()[5]);
+    record.callbackThreadPoolSize=fieldSetFlags()[6] ? this.callbackThreadPoolSize : (java.lang.Integer)defaultValue(fields()[6]);
+    record.version=fieldSetFlags()[7] ? this.version : (java.lang.String)defaultValue(fields()[7]);
+    record.authClient=fieldSetFlags()[8] ? this.authClient : (java.lang.String)defaultValue(fields()[8]);
+    record.username=fieldSetFlags()[9] ? this.username : (java.lang.String)defaultValue(fields()[9]);
+    record.password=fieldSetFlags()[10] ? this.password : (java.lang.String)defaultValue(fields()[10]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

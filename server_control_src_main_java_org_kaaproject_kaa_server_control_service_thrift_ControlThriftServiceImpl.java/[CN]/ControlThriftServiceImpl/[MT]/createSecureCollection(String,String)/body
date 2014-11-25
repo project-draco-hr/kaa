@@ -1,8 +1,0 @@
-{
-  String collectionName=applicationService.findAppById(applicationId).getApplicationToken() + "_logs";
-  String roleName=applicationService.findAppById(applicationId).getApplicationToken() + "_role";
-  String userName=applicationService.findAppById(applicationId).getApplicationToken() + "_user";
-  logEventService.createCollection(collectionName);
-  logEventService.createRole(roleName,collectionName);
-  logEventService.createUser(userName,password,roleName);
-}

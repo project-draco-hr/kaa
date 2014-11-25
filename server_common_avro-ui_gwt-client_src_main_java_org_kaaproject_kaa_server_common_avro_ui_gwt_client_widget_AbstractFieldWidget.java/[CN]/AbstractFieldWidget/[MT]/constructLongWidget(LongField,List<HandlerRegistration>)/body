@@ -1,0 +1,12 @@
+{
+  final LongBox longBox=new LongBox(DEFAULT_DECIMAL_FORMAT);
+  longBox.setValue(field.getValue());
+  handlerRegistrations.add(longBox.addKeyUpHandler(new KeyUpHandler(){
+    @Override public void onKeyUp(    KeyUpEvent event){
+      field.setValue(longBox.getValue());
+      fireChanged();
+    }
+  }
+));
+  return longBox;
+}

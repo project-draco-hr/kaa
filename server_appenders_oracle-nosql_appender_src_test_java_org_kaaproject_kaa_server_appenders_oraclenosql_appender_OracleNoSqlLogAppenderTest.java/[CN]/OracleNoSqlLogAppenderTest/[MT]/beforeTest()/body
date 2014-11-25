@@ -1,0 +1,17 @@
+{
+  logAppender=new OracleNoSqlLogAppender();
+  LogAppenderDto appenderDto=new LogAppenderDto();
+  appenderDto.setApplicationId(APPLICATION_ID);
+  appenderDto.setApplicationToken(APPLICATION_TOKEN);
+  appenderDto.setTenantId(TENANT_ID);
+  appenderDto.setHeaderStructure(Arrays.asList(LogHeaderStructureDto.values()));
+  List<KvStoreNode> nodes=Arrays.asList(new KvStoreNode(STORE_HOST,STORE_PORT));
+  OracleNoSqlConfig oracleConfig=new OracleNoSqlConfig();
+  oracleConfig.setKvStoreNodes(nodes);
+  oracleConfig.setStoreName(STORE_NAME);
+  AvroByteArrayConverter<OracleNoSqlConfig> converter=new AvroByteArrayConverter<>(OracleNoSqlConfig.class);
+  byte[] rawConfiguration=converter.toByteArray(oracleConfig);
+  appenderDto.setRawConfiguration(rawConfiguration);
+  logAppender.setApplicationToken(appenderDto.getApplicationToken());
+  logAppender.init(appenderDto);
+}

@@ -1,0 +1,11 @@
+{
+  if (kvLite != null) {
+    kvLite.shutdownStore(true);
+    kvLite.stop(true);
+    kvLite=null;
+  }
+  if (storeRootDir != null) {
+    FileUtils.deleteQuietly(storeRootDir);
+    storeRootDir=null;
+  }
+}

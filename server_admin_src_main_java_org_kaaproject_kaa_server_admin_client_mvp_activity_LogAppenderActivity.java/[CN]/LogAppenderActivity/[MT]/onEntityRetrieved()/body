@@ -14,7 +14,7 @@
         detailsView.setErrorMessage(Utils.getErrorMessage(caught));
       }
       @Override public void onSuccess(      List<SchemaDto> result){
-        SchemaListBox versions=detailsView.getSchemaVersions();
+        ValueListBox<SchemaDto> versions=detailsView.getSchemaVersions();
         versions.setValue(Utils.getMaxSchemaVersions(result));
         versions.setAcceptableValues(result);
       }
@@ -29,30 +29,8 @@
     detailsView.getCreatedDateTime().setValue(Utils.millisecondsToDateTimeString(entity.getCreatedTime()));
     detailsView.getSchemaVersions().setValue(entity.getSchema());
     detailsView.setMetadataListBox(entity.getHeaderStructure());
-    LogAppenderTypeDto type=entity.getType();
-switch (type) {
-case FILE:
-      FileAppenderParametersDto file=(FileAppenderParametersDto)entity.getProperties().getParameters();
-    detailsView.setPublicKey(file.getSshKey());
-  detailsView.getAppenderInfo().setValue(new LogAppenderInfoDto(type));
-break;
-case MONGO:
-detailsView.hideFileCongurationFields();
-detailsView.getAppenderInfo().setValue(new LogAppenderInfoDto(type));
-break;
-case FLUME:
-FlumeAppenderParametersDto flume=(FlumeAppenderParametersDto)entity.getProperties().getParameters();
-detailsView.showFlumeCongurationFields(flume);
-detailsView.getAppenderInfo().setValue(new LogAppenderInfoDto(type));
-break;
-case CUSTOM:
-CustomAppenderParametersDto custom=(CustomAppenderParametersDto)entity.getProperties().getParameters();
-detailsView.hideFileCongurationFields();
-detailsView.showCustomConfigurationFields();
-detailsView.setConfiguration(custom.getConfiguration());
-LogAppenderInfoDto appenderInfo=new LogAppenderInfoDto(type,custom.getName(),custom.getConfiguration(),custom.getAppenderClassName());
-detailsView.getAppenderInfo().setValue(appenderInfo);
-break;
-}
-}
+    detailsView.getConfiguration().setValue(entity.getConfiguration());
+    LogAppenderInfoDto appenderInfo=new LogAppenderInfoDto(entity.getTypeName(),entity.getConfiguration(),entity.getAppenderClassName());
+    detailsView.getAppenderInfo().setValue(appenderInfo);
+  }
 }

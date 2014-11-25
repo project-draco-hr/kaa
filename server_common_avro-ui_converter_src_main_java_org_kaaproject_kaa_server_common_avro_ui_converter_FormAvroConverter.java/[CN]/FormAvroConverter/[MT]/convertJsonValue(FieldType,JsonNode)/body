@@ -1,0 +1,26 @@
+{
+  if (jsonValue == null) {
+    return null;
+  }
+  T value=null;
+switch (type) {
+case BOOLEAN:
+    value=(T)new Boolean(jsonValue.asBoolean());
+  break;
+case INTEGER:
+value=(T)new Integer(jsonValue.asInt());
+break;
+case LONG:
+value=(T)new Long(jsonValue.asLong());
+break;
+case STRING:
+value=(T)jsonValue.asText();
+break;
+case ENUM:
+value=(T)jsonValue.asText();
+break;
+default :
+break;
+}
+return value;
+}

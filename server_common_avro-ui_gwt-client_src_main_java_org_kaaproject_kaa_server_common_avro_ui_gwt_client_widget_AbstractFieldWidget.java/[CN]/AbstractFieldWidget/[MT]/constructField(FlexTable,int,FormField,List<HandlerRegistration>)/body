@@ -1,0 +1,9 @@
+{
+  int column=0;
+  if (field.getFieldType() != FieldType.RECORD && field.getFieldType() != FieldType.ARRAY && field.getFieldType() != FieldType.UNION) {
+    constructLabel(table,field,row,column);
+    column++;
+  }
+  constructWidget(table,field,row,column,handlerRegistrations);
+  return row;
+}

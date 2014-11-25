@@ -1,15 +1,16 @@
 {
-  mongoDBLogAppender=new MongoDBLogAppender(APPENDER_NAME);
+  mongoDBLogAppender=new MongoDbLogAppender();
+  mongoDBLogAppender.setName(APPENDER_NAME);
   appenderMap=new HashMap<>();
   appenderMap.put(APPENDER_NAME,mongoDBLogAppender);
   logAppenderResolver=mock(DefaultLogAppenderBuilder.class);
   logAppenderService=new DefaultLogAppenderService();
   applicationService=mock(ApplicationService.class);
   logSchemaService=mock(LogSchemaService.class);
-  logEventService=mock(LogEventService.class);
+  logEventDao=mock(LogEventDao.class);
   logAppendersService=mock(LogAppendersService.class);
   ReflectionTestUtils.setField(logAppenderService,"logSchemaService",logSchemaService);
   ReflectionTestUtils.setField(logAppenderService,"logAppenderResolver",logAppenderResolver);
-  ReflectionTestUtils.setField(mongoDBLogAppender,"logEventService",logEventService);
+  ReflectionTestUtils.setField(mongoDBLogAppender,"logEventDao",logEventDao);
   ReflectionTestUtils.setField(logAppenderService,"logAppendersService",logAppendersService);
 }

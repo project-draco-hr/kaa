@@ -1,0 +1,5 @@
+{
+  flumeSourceRunner.startFlumeSource("agent","localhost",12121);
+  clientManager=FlumeClientManager.getInstance(configuration);
+  clientManager.sendEventToFlume(EventBuilder.withBody(testEventBody));
+}

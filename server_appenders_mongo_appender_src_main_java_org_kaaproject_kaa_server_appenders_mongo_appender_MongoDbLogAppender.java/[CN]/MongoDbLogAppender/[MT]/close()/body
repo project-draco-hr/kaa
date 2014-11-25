@@ -1,0 +1,10 @@
+{
+  if (!closed) {
+    closed=true;
+    if (logEventDao != null) {
+      logEventDao.close();
+      logEventDao=null;
+    }
+  }
+  LOG.debug("Stoped MongoDB log appender.");
+}

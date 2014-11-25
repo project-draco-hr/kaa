@@ -1,0 +1,16 @@
+{
+  Schema schema=TestAvroSchemas.getArraySchema();
+  RecordField field=FormAvroConverter.createRecordFieldFromSchema(schema);
+  Assert.assertNotNull(field);
+  Assert.assertNotNull(field.getValue());
+  Assert.assertEquals(1,field.getValue().size());
+  FormField formField=field.getValue().get(0);
+  Assert.assertNotNull(formField);
+  Assert.assertTrue(formField instanceof ArrayField);
+  ArrayField arrayField=(ArrayField)formField;
+  Assert.assertNotNull(arrayField.getValue());
+  Assert.assertEquals(1,arrayField.getValue().size());
+  checkSingleFieldRecord(arrayField.getValue().get(0));
+  Assert.assertNotNull(arrayField.getElementMetadata());
+  checkSingleFieldRecord(arrayField.getElementMetadata());
+}

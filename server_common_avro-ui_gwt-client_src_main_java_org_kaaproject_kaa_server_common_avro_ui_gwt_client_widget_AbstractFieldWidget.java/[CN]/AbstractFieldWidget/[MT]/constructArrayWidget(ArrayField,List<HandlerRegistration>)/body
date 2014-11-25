@@ -1,0 +1,11 @@
+{
+  final ArrayFieldWidget arrayWidget=new ArrayFieldWidget(style,sizedTextStyle);
+  arrayWidget.setValue(field);
+  handlerRegistrations.add(arrayWidget.addValueChangeHandler(new ValueChangeHandler<ArrayField>(){
+    @Override public void onValueChange(    ValueChangeEvent<ArrayField> event){
+      fireChanged();
+    }
+  }
+));
+  return arrayWidget;
+}

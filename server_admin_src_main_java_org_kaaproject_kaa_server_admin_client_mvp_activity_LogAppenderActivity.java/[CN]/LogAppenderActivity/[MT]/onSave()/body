@@ -5,45 +5,7 @@
   entity.setDescription(detailsView.getDescription().getValue());
   entity.setHeaderStructure(detailsView.getHeader());
   LogAppenderInfoDto appenderInfo=detailsView.getAppenderInfo().getValue();
-  entity.setType(appenderInfo.getType());
-  LogAppenderParametersDto parameters=new LogAppenderParametersDto();
-switch (appenderInfo.getType()) {
-case FILE:
-    FileAppenderParametersDto fileDto=new FileAppenderParametersDto();
-  fileDto.setSshKey(detailsView.getPublicKey());
-parameters.setParameters(fileDto);
-break;
-case MONGO:
-break;
-case FLUME:
-FlumeAppenderParametersDto flume=new FlumeAppenderParametersDto();
-FlumeBalancingTypeDto type=detailsView.getFlumeBalancingType().getValue();
-flume.setBalancingType(type);
-FlexTable table=detailsView.getHostTable();
-List<HostInfoDto> hosts=new ArrayList<>();
-for (int i=1; i < table.getRowCount(); i++) {
-String host=((SizedTextBox)table.getWidget(i,0)).getValue();
-String port=((SizedTextBox)table.getWidget(i,1)).getValue();
-if (FlumeBalancingTypeDto.PRIORITIZED.equals(type)) {
-String priority=((SizedTextBox)table.getWidget(i,2)).getValue();
-if (isNotBlank(host) && isNotBlank(port) && isNotBlank(priority)) {
-hosts.add(new HostInfoDto(host,Integer.valueOf(port),Integer.valueOf(priority)));
-}
-}
- else if (isNotBlank(host) && isNotBlank(port)) {
-hosts.add(new HostInfoDto(host,Integer.valueOf(port),0));
-}
-}
-flume.setHosts(hosts);
-parameters.setParameters(flume);
-break;
-case CUSTOM:
-CustomAppenderParametersDto customParameters=new CustomAppenderParametersDto();
-customParameters.setName(appenderInfo.getName());
-customParameters.setAppenderClassName(appenderInfo.getAppenderClassName());
-customParameters.setConfiguration(detailsView.getConfiguration());
-parameters.setParameters(customParameters);
-break;
-}
-entity.setProperties(parameters);
+  entity.setTypeName(appenderInfo.getName());
+  entity.setAppenderClassName(appenderInfo.getAppenderClassName());
+  entity.setConfiguration(detailsView.getConfiguration().getValue());
 }

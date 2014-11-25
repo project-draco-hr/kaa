@@ -1,13 +1,13 @@
 {
   Label authorLabel=new Label(Utils.constants.author());
-  createdUsername=new SizedTextBox(-1,false);
+  createdUsername=new KaaAdminSizedTextBox(-1,false);
   createdUsername.setWidth("100%");
   detailsTable.setWidget(0,0,authorLabel);
   detailsTable.setWidget(0,1,createdUsername);
   authorLabel.setVisible(!create);
   createdUsername.setVisible(!create);
   Label dateTimeCreatedLabel=new Label(Utils.constants.dateTimeCreated());
-  createdDateTime=new SizedTextBox(-1,false);
+  createdDateTime=new KaaAdminSizedTextBox(-1,false);
   createdDateTime.setWidth("100%");
   detailsTable.setWidget(1,0,dateTimeCreatedLabel);
   detailsTable.setWidget(1,1,createdDateTime);
@@ -15,7 +15,7 @@
   createdDateTime.setVisible(!create);
   Label nameLabel=new Label(Utils.constants.name());
   nameLabel.addStyleName("required");
-  name=new SizedTextBox(DEFAULT_TEXTBOX_SIZE);
+  name=new KaaAdminSizedTextBox(DEFAULT_TEXTBOX_SIZE);
   name.setWidth("100%");
   detailsTable.setWidget(2,0,nameLabel);
   detailsTable.setWidget(2,1,name);
@@ -25,14 +25,14 @@
   if (create) {
     namespaceLabel.addStyleName("required");
     classNameLabel.addStyleName("required");
-    namespace=new SizedTextBox(DEFAULT_TEXTBOX_SIZE);
+    namespace=new KaaAdminSizedTextBox(DEFAULT_TEXTBOX_SIZE);
     namespace.addInputHandler(this);
-    className=new SizedTextBox(DEFAULT_TEXTBOX_SIZE);
+    className=new KaaAdminSizedTextBox(DEFAULT_TEXTBOX_SIZE);
     className.addInputHandler(this);
   }
  else {
-    namespace=new SizedTextBox(-1,false);
-    className=new SizedTextBox(-1,false);
+    namespace=new KaaAdminSizedTextBox(-1,false);
+    className=new KaaAdminSizedTextBox(-1,false);
   }
   namespace.setWidth("100%");
   className.setWidth("100%");
@@ -40,7 +40,7 @@
   detailsTable.setWidget(3,1,namespace);
   detailsTable.setWidget(4,0,classNameLabel);
   detailsTable.setWidget(4,1,className);
-  description=new SizedTextArea(1024);
+  description=new KaaAdminSizedTextArea(1024);
   description.setWidth("100%");
   description.getTextArea().getElement().getStyle().setPropertyPx("minHeight",100);
   Label descriptionLabel=new Label(Utils.constants.description());

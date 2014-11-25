@@ -1,8 +1,0 @@
-{
-  when(mongoTemplate.getConverter()).thenReturn(mongoConverter);
-  when(mongoTemplate.getDb()).thenReturn(dB);
-  when(dB.getCollection("system.users")).thenReturn(dBCollection);
-  secureUserMongoDao.saveUser(new SecureUser());
-  verify(mongoConverter).write(Mockito.any(Object.class),Mockito.any(DBObject.class));
-  verify(dBCollection).save(Mockito.any(DBObject.class));
-}

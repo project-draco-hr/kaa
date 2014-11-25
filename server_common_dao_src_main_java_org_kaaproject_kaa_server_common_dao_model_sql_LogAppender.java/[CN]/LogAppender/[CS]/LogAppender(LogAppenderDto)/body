@@ -10,8 +10,9 @@
     this.description=dto.getDescription();
     this.createdUsername=dto.getCreatedUsername();
     this.createdTime=dto.getCreatedTime();
-    this.type=dto.getType();
+    this.typeName=dto.getTypeName();
+    this.appenderClassName=dto.getAppenderClassName();
+    this.rawConfiguration=dto.getRawConfiguration();
     this.headerStructure=dto.getHeaderStructure();
-    this.properties=DaoAvroUtil.convertParametersToBytes(dto.getProperties());
   }
 }

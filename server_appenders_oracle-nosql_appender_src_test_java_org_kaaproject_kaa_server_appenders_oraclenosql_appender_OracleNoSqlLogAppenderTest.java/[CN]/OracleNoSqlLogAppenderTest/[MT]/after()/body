@@ -1,0 +1,15 @@
+{
+  LOG.info("Deleting data from Oracle No SQL database");
+  KVStore kvStore=connectToStore();
+  if (kvStore != null) {
+    Iterator<Key> it=kvStore.storeKeysIterator(Direction.UNORDERED,100,null,null,null);
+    int numdeleted=0;
+    while (it.hasNext()) {
+      if (kvStore.delete(it.next())) {
+        numdeleted++;
+      }
+    }
+    LOG.info("Deleted {} key/value pairs",numdeleted);
+  }
+  kvStore.close();
+}

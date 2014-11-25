@@ -7,8 +7,10 @@
   LOG.info("Version: '{}', commit hash: '{}'",properties.getBuildVersion(),properties.getCommitHash());
   state=new Properties();
   if (storage.exists(stateFileLocation)) {
+    InputStream stream=null;
     try {
-      state.load(storage.openForRead(stateFileLocation));
+      stream=storage.openForRead(stateFileLocation);
+      state.load(stream);
       if (isSDKPropertiesUpdated(properties,state)) {
         LOG.info("SDK properties were updated");
         setRegistered(false);
@@ -50,6 +52,9 @@
     }
  catch (    IOException e) {
       LOG.error("Can't load state file",e);
+    }
+ finally {
+      IOUtils.closeQuietly(stream);
     }
   }
  else {

@@ -1,0 +1,28 @@
+{
+  String applicationId=appender.getApplicationId();
+  LOG.debug("Starting create user and group for application with id: {}",applicationId);
+  String userName="kaa_log_user_" + appender.getApplicationToken();
+  String groupName="kaa_log_group_" + appender.getApplicationToken();
+  String publicKey=config.getPublicKey();
+  File tmpKeyFile=null;
+  File createUserScript=null;
+  try {
+    tmpKeyFile=File.createTempFile("app_" + applicationId,"_pub.key");
+    PrintWriter out=new PrintWriter(tmpKeyFile);
+    out.write(publicKey);
+    out.close();
+    createUserScript=prepareScriptFile(CREATE_USER);
+    executeCommand(null,"sudo",createUserScript.getAbsolutePath(),userName,groupName,path,tmpKeyFile.getAbsolutePath());
+  }
+ catch (  IOException e) {
+    LOG.error("Unexpected exception occurred while creating user",e);
+  }
+ finally {
+    if (tmpKeyFile != null) {
+      tmpKeyFile.delete();
+    }
+    if (createUserScript != null) {
+      createUserScript.delete();
+    }
+  }
+}

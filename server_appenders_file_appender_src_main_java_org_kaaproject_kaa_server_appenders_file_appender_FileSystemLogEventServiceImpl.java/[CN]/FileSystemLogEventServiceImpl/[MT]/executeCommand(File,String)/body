@@ -1,0 +1,17 @@
+{
+  Execute exec=new Execute();
+  if (workingDir == null) {
+    String homeDir=System.getProperty("user.home");
+    if (homeDir != null) {
+      workingDir=new File(homeDir);
+    }
+  }
+  if (workingDir != null) {
+    exec.setWorkingDirectory(workingDir);
+  }
+  exec.setCommandline(command);
+  exec.execute();
+  if (exec.isFailure()) {
+    throw new RuntimeException("Process returned bad exit value: " + exec.getExitValue());
+  }
+}

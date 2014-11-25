@@ -1,0 +1,6 @@
+{
+  flumeSourceRunner.startFlumeSource("agent","localhost",12121);
+  clientManager=new PriorityFlumeClientManager();
+  clientManager.init(flumeNodes);
+  clientManager.sendEventToFlume(null);
+}

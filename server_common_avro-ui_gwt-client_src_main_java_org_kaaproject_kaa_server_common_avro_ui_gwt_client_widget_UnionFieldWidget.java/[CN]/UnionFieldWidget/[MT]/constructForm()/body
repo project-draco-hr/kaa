@@ -1,0 +1,16 @@
+{
+  FlexTable table=new FlexTable();
+  table.getColumnFormatter().setWidth(0,"200px");
+  table.getColumnFormatter().setWidth(1,"300px");
+  constructLabel(table,value,0,0);
+  RecordValuesListBox recordValuesBox=new RecordValuesListBox();
+  recordValuesBox.setAcceptableValues(value.getAcceptableValues());
+  recordValuesBox.setWidth("100%");
+  registrations.add(recordValuesBox.addValueChangeHandler(this));
+  table.setWidget(0,1,recordValuesBox);
+  recordTable=new FlexTable();
+  table.setWidget(1,0,recordTable);
+  table.getFlexCellFormatter().setColSpan(1,0,3);
+  recordValuesBox.setValue(value.getValue(),true);
+  return table;
+}

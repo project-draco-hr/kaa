@@ -1,0 +1,16 @@
+{
+  if (!closed) {
+    closed=true;
+    if (logger != null) {
+      try {
+        logger.close();
+      }
+ catch (      IOException e) {
+        LOG.warn("IO Exception");
+      }
+    }
+    fileSystemLogEventService=null;
+    logger=null;
+  }
+  LOG.debug("Stoped filesystem log appender.");
+}

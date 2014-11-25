@@ -1,5 +1,5 @@
 {
-  LogAppenderDto appender=generateLogAppender(application.getId(),null,null,null);
+  LogAppenderDto appender=generateLogAppender(application.getId(),null,null);
   LogAppenderDto unreg=logAppendersService.unregisterLogAppenderById(appender.getId());
   Assert.assertNotNull(unreg);
   Assert.assertNotEquals(appender,unreg);

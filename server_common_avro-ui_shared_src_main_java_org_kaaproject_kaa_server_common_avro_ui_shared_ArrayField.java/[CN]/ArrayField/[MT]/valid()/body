@@ -1,0 +1,10 @@
+{
+  if (value.size() > 0 && value.size() >= minRowCount) {
+    boolean valid=true;
+    for (    RecordField field : value) {
+      valid&=field.isValid();
+    }
+    return valid;
+  }
+  return false;
+}

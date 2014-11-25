@@ -1,0 +1,21 @@
+{
+  if (value != null) {
+    int index=-1;
+    for (int i=0; i < acceptableValues.size(); i++) {
+      if (acceptableValues.get(i).isSameType(value)) {
+        index=i;
+        break;
+      }
+    }
+    if (index > -1) {
+      this.value=value;
+      this.acceptableValues.set(index,value);
+    }
+ else {
+      throw new IllegalArgumentException("Value type not in list of union types!");
+    }
+  }
+ else {
+    this.value=null;
+  }
+}

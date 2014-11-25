@@ -1,5 +1,0 @@
-{
-  when(applicationContext.getBean(MongoDBLogAppender.class)).thenReturn(MONGO_DB_LOG_APPENDER);
-  LogAppender logAppender=DEFAULT_LOG_APPENDER_RESOLVER.getAppender(dto);
-  Assert.assertEquals(APPENDER_NAME,logAppender.getName());
-}

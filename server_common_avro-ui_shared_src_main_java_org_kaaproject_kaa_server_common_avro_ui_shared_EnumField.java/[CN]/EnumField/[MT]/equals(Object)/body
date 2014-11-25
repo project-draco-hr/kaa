@@ -1,0 +1,21 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (!super.equals(obj)) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  EnumField other=(EnumField)obj;
+  if (value == null) {
+    if (other.value != null) {
+      return false;
+    }
+  }
+ else   if (!value.equals(other.value)) {
+    return false;
+  }
+  return true;
+}

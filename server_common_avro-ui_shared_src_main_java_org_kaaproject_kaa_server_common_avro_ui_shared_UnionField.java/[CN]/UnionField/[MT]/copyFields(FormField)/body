@@ -1,0 +1,8 @@
+{
+  super.copyFields(cloned);
+  UnionField clonedUnionField=(UnionField)cloned;
+  for (  RecordField acceptableValue : acceptableValues) {
+    clonedUnionField.acceptableValues.add((RecordField)acceptableValue.clone());
+  }
+  clonedUnionField.setValue(value != null ? (RecordField)value.clone() : null);
+}

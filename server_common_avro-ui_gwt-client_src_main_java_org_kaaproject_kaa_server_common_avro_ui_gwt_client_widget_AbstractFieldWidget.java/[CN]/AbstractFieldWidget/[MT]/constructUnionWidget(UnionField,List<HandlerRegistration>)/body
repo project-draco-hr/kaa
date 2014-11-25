@@ -1,0 +1,11 @@
+{
+  final UnionFieldWidget unionWidget=new UnionFieldWidget(style,sizedTextStyle);
+  unionWidget.setValue(field);
+  handlerRegistrations.add(unionWidget.addValueChangeHandler(new ValueChangeHandler<UnionField>(){
+    @Override public void onValueChange(    ValueChangeEvent<UnionField> event){
+      fireChanged();
+    }
+  }
+));
+  return unionWidget;
+}

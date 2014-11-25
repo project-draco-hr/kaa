@@ -1,0 +1,21 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  FormEnum other=(FormEnum)obj;
+  if (enumSymbol == null) {
+    if (other.enumSymbol != null) {
+      return false;
+    }
+  }
+ else   if (!enumSymbol.equals(other.enumSymbol)) {
+    return false;
+  }
+  return true;
+}

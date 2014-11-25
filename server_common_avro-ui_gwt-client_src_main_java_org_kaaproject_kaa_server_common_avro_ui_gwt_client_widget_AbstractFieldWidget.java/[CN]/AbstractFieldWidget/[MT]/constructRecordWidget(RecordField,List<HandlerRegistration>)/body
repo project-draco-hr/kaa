@@ -1,0 +1,17 @@
+{
+  CaptionPanel recordWidget=new CaptionPanel();
+  if (field.isOptional()) {
+    recordWidget.setCaptionText(field.getDisplayName());
+  }
+ else {
+    SpanElement span=Document.get().createSpanElement();
+    span.appendChild(Document.get().createTextNode(field.getDisplayName()));
+    span.addClassName("gwt-Label");
+    span.addClassName(style.requiredField());
+    recordWidget.setCaptionHTML(span.getString());
+  }
+  FlexTable table=new FlexTable();
+  constructFormData(table,field,handlerRegistrations);
+  recordWidget.setContentWidget(table);
+  return recordWidget;
+}

@@ -1,5 +1,10 @@
 {
-  closed=true;
-  kvStore.close();
+  if (!closed) {
+    closed=true;
+    if (kvStore != null) {
+      kvStore.close();
+      kvStore=null;
+    }
+  }
   LOG.debug("Stopped Oracle NoSQL log appender.");
 }

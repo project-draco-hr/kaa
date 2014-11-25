@@ -1,22 +1,22 @@
 {
-  authority=new SizedTextBox(-1,false);
+  authority=new KaaAdminSizedTextBox(-1,false);
   authority.setWidth("100%");
   Label authorityLabel=new Label(Utils.constants.accountRole());
   detailsTable.setWidget(0,0,authorityLabel);
   detailsTable.setWidget(0,1,authority);
-  firstName=new SizedTextBox(DEFAULT_TEXTBOX_SIZE);
+  firstName=new KaaAdminSizedTextBox(DEFAULT_TEXTBOX_SIZE);
   firstName.setWidth("100%");
   firstName.addInputHandler(this);
   Label firstNameLabel=new Label(Utils.constants.firstName());
   detailsTable.setWidget(1,0,firstNameLabel);
   detailsTable.setWidget(1,1,firstName);
-  lastName=new SizedTextBox(DEFAULT_TEXTBOX_SIZE);
+  lastName=new KaaAdminSizedTextBox(DEFAULT_TEXTBOX_SIZE);
   lastName.setWidth("100%");
   lastName.addInputHandler(this);
   Label lastNameLabel=new Label(Utils.constants.lastName());
   detailsTable.setWidget(2,0,lastNameLabel);
   detailsTable.setWidget(2,1,lastName);
-  email=new SizedTextBox(DEFAULT_TEXTBOX_SIZE);
+  email=new KaaAdminSizedTextBox(DEFAULT_TEXTBOX_SIZE);
   email.setWidth("100%");
   email.addInputHandler(this);
   Label emailLabel=new Label(Utils.constants.email());

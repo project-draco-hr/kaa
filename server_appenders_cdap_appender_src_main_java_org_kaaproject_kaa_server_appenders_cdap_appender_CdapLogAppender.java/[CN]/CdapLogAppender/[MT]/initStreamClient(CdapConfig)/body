@@ -1,0 +1,36 @@
+{
+  String host=configuration.getHost();
+  int port=configuration.getPort();
+  boolean ssl=configuration.getSsl() != null ? configuration.getSsl().booleanValue() : false;
+  RestStreamClient.Builder builder=RestStreamClient.builder(host,port);
+  builder.ssl(ssl);
+  if (configuration.getWriterPoolSize() != null) {
+    int writerPoolSize=Math.min(MAX_WRITER_POOL_SIZE,configuration.getWriterPoolSize().intValue());
+    builder.writerPoolSize(writerPoolSize);
+  }
+  if (configuration.getVersion() != null) {
+    builder.version(configuration.getVersion());
+  }
+  if (configuration.getVerifySslCert() != null) {
+    builder.verifySSLCert(configuration.getVerifySslCert().booleanValue());
+  }
+  if (configuration.getAuthClient() != null) {
+    AuthenticationClient authClient=(AuthenticationClient)Class.forName(configuration.getAuthClient()).getConstructor().newInstance();
+    authClient.setConnectionInfo(host,port,ssl);
+    if (authClient.isAuthEnabled()) {
+      Properties properties=new Properties();
+      if (configuration.getUsername() != null) {
+        properties.put("security.auth.client.username",configuration.getUsername());
+      }
+      if (configuration.getPassword() != null) {
+        properties.put("security.auth.client.password",configuration.getPassword());
+      }
+      if (configuration.getVerifySslCert() != null) {
+        properties.put(BasicAuthenticationClient.VERIFY_SSL_CERT_PROP_NAME,configuration.getVerifySslCert());
+      }
+      authClient.configure(properties);
+    }
+    builder.authClient(authClient);
+  }
+  return builder.build();
+}

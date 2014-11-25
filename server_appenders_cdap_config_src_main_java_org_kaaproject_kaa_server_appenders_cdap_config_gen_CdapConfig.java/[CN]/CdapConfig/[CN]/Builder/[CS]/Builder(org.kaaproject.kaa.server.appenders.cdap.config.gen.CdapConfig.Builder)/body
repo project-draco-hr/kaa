@@ -1,0 +1,47 @@
+{
+  super(other);
+  if (isValidValue(fields()[0],other.stream)) {
+    this.stream=data().deepCopy(fields()[0].schema(),other.stream);
+    fieldSetFlags()[0]=true;
+  }
+  if (isValidValue(fields()[1],other.host)) {
+    this.host=data().deepCopy(fields()[1].schema(),other.host);
+    fieldSetFlags()[1]=true;
+  }
+  if (isValidValue(fields()[2],other.port)) {
+    this.port=data().deepCopy(fields()[2].schema(),other.port);
+    fieldSetFlags()[2]=true;
+  }
+  if (isValidValue(fields()[3],other.ssl)) {
+    this.ssl=data().deepCopy(fields()[3].schema(),other.ssl);
+    fieldSetFlags()[3]=true;
+  }
+  if (isValidValue(fields()[4],other.verifySslCert)) {
+    this.verifySslCert=data().deepCopy(fields()[4].schema(),other.verifySslCert);
+    fieldSetFlags()[4]=true;
+  }
+  if (isValidValue(fields()[5],other.writerPoolSize)) {
+    this.writerPoolSize=data().deepCopy(fields()[5].schema(),other.writerPoolSize);
+    fieldSetFlags()[5]=true;
+  }
+  if (isValidValue(fields()[6],other.callbackThreadPoolSize)) {
+    this.callbackThreadPoolSize=data().deepCopy(fields()[6].schema(),other.callbackThreadPoolSize);
+    fieldSetFlags()[6]=true;
+  }
+  if (isValidValue(fields()[7],other.version)) {
+    this.version=data().deepCopy(fields()[7].schema(),other.version);
+    fieldSetFlags()[7]=true;
+  }
+  if (isValidValue(fields()[8],other.authClient)) {
+    this.authClient=data().deepCopy(fields()[8].schema(),other.authClient);
+    fieldSetFlags()[8]=true;
+  }
+  if (isValidValue(fields()[9],other.username)) {
+    this.username=data().deepCopy(fields()[9].schema(),other.username);
+    fieldSetFlags()[9]=true;
+  }
+  if (isValidValue(fields()[10],other.password)) {
+    this.password=data().deepCopy(fields()[10].schema(),other.password);
+    fieldSetFlags()[10]=true;
+  }
+}
