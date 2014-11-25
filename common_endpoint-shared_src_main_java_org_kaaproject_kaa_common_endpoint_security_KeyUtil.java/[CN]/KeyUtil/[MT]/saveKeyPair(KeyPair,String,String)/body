@@ -1,7 +1,15 @@
 {
   File privateFile=makeDirs(privateKeyFile);
   File publicFile=makeDirs(publicKeyFile);
-  OutputStream privateKeyOutput=new FileOutputStream(privateFile);
-  OutputStream publicKeyOutput=new FileOutputStream(publicFile);
-  saveKeyPair(keyPair,privateKeyOutput,publicKeyOutput);
+  OutputStream privateKeyOutput=null;
+  OutputStream publicKeyOutput=null;
+  try {
+    privateKeyOutput=new FileOutputStream(privateFile);
+    publicKeyOutput=new FileOutputStream(publicFile);
+    saveKeyPair(keyPair,privateKeyOutput,publicKeyOutput);
+  }
+  finally {
+    IOUtils.closeQuietly(privateKeyOutput);
+    IOUtils.closeQuietly(publicKeyOutput);
+  }
 }

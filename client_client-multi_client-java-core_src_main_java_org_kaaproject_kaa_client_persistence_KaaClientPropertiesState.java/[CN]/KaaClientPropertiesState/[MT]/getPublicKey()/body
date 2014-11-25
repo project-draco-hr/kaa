@@ -2,21 +2,26 @@
   PublicKey publicKey=null;
   LOG.debug("Check if key exists {}",clientPublicKeyFileLocation);
   if (storage.exists(clientPublicKeyFileLocation)) {
+    InputStream input=null;
     try {
-      InputStream input=storage.openForRead(clientPublicKeyFileLocation);
+      input=storage.openForRead(clientPublicKeyFileLocation);
       publicKey=KeyUtil.getPublic(input);
-      input.close();
     }
  catch (    Exception e) {
       LOG.error("Error loading Client Public Key",e);
       throw new RuntimeException(e);
     }
+ finally {
+      IOUtils.closeQuietly(input);
+    }
   }
   if (publicKey == null) {
     LOG.debug("Generating Client Key pair");
+    OutputStream privateKeyOutput=null;
+    OutputStream publicKeyOutput=null;
     try {
-      OutputStream privateKeyOutput=storage.openForWrite(clientPrivateKeyFileLocation);
-      OutputStream publicKeyOutput=storage.openForWrite(clientPublicKeyFileLocation);
+      privateKeyOutput=storage.openForWrite(clientPrivateKeyFileLocation);
+      publicKeyOutput=storage.openForWrite(clientPublicKeyFileLocation);
       KeyPair kp=KeyUtil.generateKeyPair(privateKeyOutput,publicKeyOutput);
       updateEndpointKeyHash(kp);
       publicKey=kp.getPublic();
@@ -24,6 +29,10 @@
  catch (    IOException e) {
       LOG.error("Error generating Client Key pair",e);
       throw new RuntimeException(e);
+    }
+ finally {
+      IOUtils.closeQuietly(privateKeyOutput);
+      IOUtils.closeQuietly(publicKeyOutput);
     }
   }
   return publicKey;

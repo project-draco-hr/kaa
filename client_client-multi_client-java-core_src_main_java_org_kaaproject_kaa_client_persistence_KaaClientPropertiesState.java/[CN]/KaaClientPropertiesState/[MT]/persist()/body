@@ -19,13 +19,16 @@
   }
   state.setProperty(ATTACHED_ENDPOINTS,attachedEndpointsString.toString());
   state.setProperty(EVENT_SEQ_NUM,"" + eventSequence.get());
+  OutputStream os=null;
   try {
     storage.renameTo(stateFileLocation,stateFileLocation + "_bckp");
-    OutputStream os=storage.openForWrite(stateFileLocation);
+    os=storage.openForWrite(stateFileLocation);
     state.store(os,null);
-    os.close();
   }
  catch (  IOException e) {
     LOG.error("Can't persist state file",e);
+  }
+ finally {
+    IOUtils.closeQuietly(os);
   }
 }
