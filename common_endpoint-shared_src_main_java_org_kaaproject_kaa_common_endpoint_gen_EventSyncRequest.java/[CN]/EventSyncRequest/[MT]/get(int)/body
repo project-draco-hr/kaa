@@ -1,9 +1,11 @@
 {
 switch (field$) {
 case 0:
-    return eventListenersRequests;
+    return eventSequenceNumberRequest;
 case 1:
-  return events;
+  return eventListenersRequests;
+case 2:
+return events;
 default :
 throw new org.apache.avro.AvroRuntimeException("Bad index");
 }

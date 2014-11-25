@@ -1,10 +1,12 @@
 {
+  KaaClientState clientState=Mockito.mock(KaaClientState.class);
   EventManager manager=Mockito.mock(EventManager.class);
   Mockito.when(manager.getPendingEvents()).thenReturn(Arrays.asList(new Event(),new Event()));
-  EventTransport transport=new DefaultEventTransport();
+  EventTransport transport=new DefaultEventTransport(clientState);
   transport.createEventRequest(1);
   transport.setEventManager(manager);
   transport.createEventRequest(2);
+  transport.onEventResponse(new EventSyncResponse(new EventSequenceNumberResponse(0),null,null));
   transport.createEventRequest(3);
   transport.onSyncResposeIdReceived(3);
   EventSyncRequest request=transport.createEventRequest(4);

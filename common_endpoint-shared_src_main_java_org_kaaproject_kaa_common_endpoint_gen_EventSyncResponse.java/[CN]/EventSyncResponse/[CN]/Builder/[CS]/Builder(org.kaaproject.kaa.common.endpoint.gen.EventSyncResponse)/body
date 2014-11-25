@@ -1,11 +1,15 @@
 {
   super(org.kaaproject.kaa.common.endpoint.gen.EventSyncResponse.SCHEMA$);
-  if (isValidValue(fields()[0],other.eventListenersResponses)) {
-    this.eventListenersResponses=data().deepCopy(fields()[0].schema(),other.eventListenersResponses);
+  if (isValidValue(fields()[0],other.eventSequenceNumberResponse)) {
+    this.eventSequenceNumberResponse=data().deepCopy(fields()[0].schema(),other.eventSequenceNumberResponse);
     fieldSetFlags()[0]=true;
   }
-  if (isValidValue(fields()[1],other.events)) {
-    this.events=data().deepCopy(fields()[1].schema(),other.events);
+  if (isValidValue(fields()[1],other.eventListenersResponses)) {
+    this.eventListenersResponses=data().deepCopy(fields()[1].schema(),other.eventListenersResponses);
     fieldSetFlags()[1]=true;
+  }
+  if (isValidValue(fields()[2],other.events)) {
+    this.events=data().deepCopy(fields()[2].schema(),other.events);
+    fieldSetFlags()[2]=true;
   }
 }

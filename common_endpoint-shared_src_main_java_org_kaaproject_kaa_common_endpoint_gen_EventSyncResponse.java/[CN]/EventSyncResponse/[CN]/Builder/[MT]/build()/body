@@ -1,8 +1,9 @@
 {
   try {
     EventSyncResponse record=new EventSyncResponse();
-    record.eventListenersResponses=fieldSetFlags()[0] ? this.eventListenersResponses : (java.util.List<org.kaaproject.kaa.common.endpoint.gen.EventListenersResponse>)defaultValue(fields()[0]);
-    record.events=fieldSetFlags()[1] ? this.events : (java.util.List<org.kaaproject.kaa.common.endpoint.gen.Event>)defaultValue(fields()[1]);
+    record.eventSequenceNumberResponse=fieldSetFlags()[0] ? this.eventSequenceNumberResponse : (org.kaaproject.kaa.common.endpoint.gen.EventSequenceNumberResponse)defaultValue(fields()[0]);
+    record.eventListenersResponses=fieldSetFlags()[1] ? this.eventListenersResponses : (java.util.List<org.kaaproject.kaa.common.endpoint.gen.EventListenersResponse>)defaultValue(fields()[1]);
+    record.events=fieldSetFlags()[2] ? this.events : (java.util.List<org.kaaproject.kaa.common.endpoint.gen.Event>)defaultValue(fields()[2]);
     return record;
   }
  catch (  Exception e) {

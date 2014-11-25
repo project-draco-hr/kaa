@@ -1,9 +1,0 @@
-{
-  if (isValidForEvents(endpointProfile)) {
-    updateUserConnection(context);
-    sendEventsIfPresent(context,request.getEventSyncRequest());
-  }
- else {
-    LOG.debug("[{}][{}] Endpoint profile is not valid for send/receive events. Either no assigned user or no event families in sdk",endpointKey,actorKey);
-  }
-}
