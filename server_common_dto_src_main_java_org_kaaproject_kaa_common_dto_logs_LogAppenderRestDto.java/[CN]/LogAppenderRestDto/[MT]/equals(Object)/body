@@ -1,0 +1,88 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (!super.equals(obj)) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  LogAppenderRestDto other=(LogAppenderRestDto)obj;
+  if (appenderClassName == null) {
+    if (other.appenderClassName != null) {
+      return false;
+    }
+  }
+ else   if (!appenderClassName.equals(other.appenderClassName)) {
+    return false;
+  }
+  if (applicationId == null) {
+    if (other.applicationId != null) {
+      return false;
+    }
+  }
+ else   if (!applicationId.equals(other.applicationId)) {
+    return false;
+  }
+  if (applicationToken == null) {
+    if (other.applicationToken != null) {
+      return false;
+    }
+  }
+ else   if (!applicationToken.equals(other.applicationToken)) {
+    return false;
+  }
+  if (configuration == null) {
+    if (other.configuration != null) {
+      return false;
+    }
+  }
+ else   if (!configuration.equals(other.configuration)) {
+    return false;
+  }
+  if (headerStructure == null) {
+    if (other.headerStructure != null) {
+      return false;
+    }
+  }
+ else   if (!headerStructure.equals(other.headerStructure)) {
+    return false;
+  }
+  if (id == null) {
+    if (other.id != null) {
+      return false;
+    }
+  }
+ else   if (!id.equals(other.id)) {
+    return false;
+  }
+  if (schema == null) {
+    if (other.schema != null) {
+      return false;
+    }
+  }
+ else   if (!schema.equals(other.schema)) {
+    return false;
+  }
+  if (status != other.status) {
+    return false;
+  }
+  if (tenantId == null) {
+    if (other.tenantId != null) {
+      return false;
+    }
+  }
+ else   if (!tenantId.equals(other.tenantId)) {
+    return false;
+  }
+  if (typeName == null) {
+    if (other.typeName != null) {
+      return false;
+    }
+  }
+ else   if (!typeName.equals(other.typeName)) {
+    return false;
+  }
+  return true;
+}
