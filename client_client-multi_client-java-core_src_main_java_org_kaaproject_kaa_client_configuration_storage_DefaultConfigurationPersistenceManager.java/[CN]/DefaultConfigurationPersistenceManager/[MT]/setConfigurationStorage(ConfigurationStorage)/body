@@ -1,11 +1,11 @@
 {
-  this.storage=storage;
-  if (configurationHash == null) {
-    ByteBuffer byteBuffer=storage.loadConfiguration();
-    if (byteBuffer != null) {
-      ignoreNextUpdate=true;
-      processor.processConfigurationData(byteBuffer,true);
-      configurationHash=EndpointObjectHash.fromSHA1(byteBuffer.array());
+  if (storage != null) {
+    this.storage=storage;
+    if (this.schema != null) {
+      loadConfigurationFromStorage();
+    }
+ else {
+      LOG.warn("Can't load configuration right now. Schema is null");
     }
   }
 }

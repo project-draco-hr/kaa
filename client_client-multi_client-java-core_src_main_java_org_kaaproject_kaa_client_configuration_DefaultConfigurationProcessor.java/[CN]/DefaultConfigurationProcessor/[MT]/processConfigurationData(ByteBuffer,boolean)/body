@@ -1,5 +1,8 @@
 {
   if (buffer != null) {
+    if (schema == null) {
+      throw new ConfigurationRuntimeException("Can't process configuration update. Schema is null");
+    }
     GenericAvroConverter<GenericArray<GenericRecord>> converter=new GenericAvroConverter<GenericArray<GenericRecord>>(schema);
     GenericArray<GenericRecord> deltaArray=converter.decodeBinary(buffer.array());
     for (    GenericRecord delta : deltaArray) {
