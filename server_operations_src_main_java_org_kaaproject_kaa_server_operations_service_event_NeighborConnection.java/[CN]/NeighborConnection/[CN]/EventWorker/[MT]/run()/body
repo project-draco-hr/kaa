@@ -1,13 +1,11 @@
 {
   LinkedList<EventMessage> messages=new LinkedList<>();
-  OperationsThriftService.Iface client=null;
   while (operate) {
     try {
       EventMessage event=messageQueue.poll(1,TimeUnit.HOURS);
       if (event != null) {
         messages.push(event);
         messageQueue.drainTo(messages);
-        client=getClient();
         client.sendEventMessage(messages);
         LOG.debug("EventWorker [{}:<{}>] {} messages sent",getId(),uniqueId,messages.size());
         messages.clear();
