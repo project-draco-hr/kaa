@@ -3,18 +3,20 @@ switch (field$) {
 case 0:
     return mongoServers;
 case 1:
-  return dbName;
+  return mongoCredentials;
 case 2:
-return connectionsPerHost;
+return dbName;
 case 3:
-return maxWaitTime;
+return connectionsPerHost;
 case 4:
-return connectionTimeout;
+return maxWaitTime;
 case 5:
-return socketTimeout;
+return connectionTimeout;
 case 6:
-return socketKeepalive;
+return socketTimeout;
 case 7:
+return socketKeepalive;
+case 8:
 return autoConnectRetry;
 default :
 throw new org.apache.avro.AvroRuntimeException("Bad index");

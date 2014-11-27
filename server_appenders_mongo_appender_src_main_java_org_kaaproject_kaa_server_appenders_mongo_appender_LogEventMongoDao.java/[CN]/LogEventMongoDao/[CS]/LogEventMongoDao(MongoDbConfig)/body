@@ -3,6 +3,12 @@
   for (  MongoDbServer server : configuration.getMongoServers()) {
     seeds.add(new ServerAddress(server.getHost(),server.getPort()));
   }
+  List<MongoCredential> credentials=new ArrayList<>();
+  if (configuration.getMongoCredentials() != null) {
+    for (    MongoDBCredential credential : configuration.getMongoCredentials()) {
+      credentials.add(MongoCredential.createMongoCRCredential(credential.getUser(),configuration.getDbName(),credential.getPassword().toCharArray()));
+    }
+  }
   MongoClientOptions.Builder optionsBuilder=new MongoClientOptions.Builder();
   if (configuration.getConnectionsPerHost() != null) {
     optionsBuilder.connectionsPerHost(configuration.getConnectionsPerHost());
@@ -23,7 +29,7 @@
     optionsBuilder.autoConnectRetry(configuration.getAutoConnectRetry());
   }
   MongoClientOptions options=optionsBuilder.build();
-  mongoClient=new MongoClient(seeds,options);
+  mongoClient=new MongoClient(seeds,credentials,options);
   MongoDbFactory dbFactory=new SimpleMongoDbFactory(mongoClient,configuration.getDbName());
   MappingMongoConverter converter=new MappingMongoConverter(dbFactory,new MongoMappingContext());
   converter.setTypeMapper(new DefaultMongoTypeMapper(null));
