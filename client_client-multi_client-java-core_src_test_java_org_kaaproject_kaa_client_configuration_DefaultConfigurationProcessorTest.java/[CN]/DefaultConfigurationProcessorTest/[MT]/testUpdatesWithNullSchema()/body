@@ -1,19 +1,8 @@
 {
-  GenericDeltaReceiver receiver=mock(GenericDeltaReceiver.class);
   DefaultConfigurationProcessor processor=new DefaultConfigurationProcessor();
-  processor.subscribeForUpdates(receiver);
-  processor.subscribeForUpdates(receiver);
-  processor.subscribeForUpdates(null);
   URL schemaUrl=Thread.currentThread().getContextClassLoader().getResource("configuration/manager/complexFieldsDeltaSchema.json");
   Schema schema=new Schema.Parser().parse(new File(schemaUrl.getPath()));
-  processor.onSchemaUpdated(schema);
-  processor.onSchemaUpdated(null);
   GenericRecord delta=new GenericData.Record(DefaultConfigurationManagerTest.getDeltaSchemaByFullName(schema,"org.kaa.config.testT"));
   byte[] rawData=getSerializedDelta(schema,delta);
   processor.processConfigurationData(ByteBuffer.wrap(rawData),true);
-  processor.processConfigurationData(null,true);
-  processor.unsubscribeFromUpdates(receiver);
-  processor.unsubscribeFromUpdates(null);
-  processor.processConfigurationData(ByteBuffer.wrap(rawData),true);
-  verify(receiver,times(1)).onDeltaReceived(eq(0),eq(delta),eq(true));
 }
