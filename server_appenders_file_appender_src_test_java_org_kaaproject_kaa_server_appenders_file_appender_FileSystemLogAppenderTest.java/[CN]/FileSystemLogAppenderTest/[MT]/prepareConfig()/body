@@ -3,7 +3,7 @@
   logAppenderDto.setApplicationId(APPLICATION_ID);
   logAppenderDto.setName("test");
   logAppenderDto.setTenantId(TENANT_ID);
-  FileConfig fileConfig=FileConfig.newBuilder().build();
+  FileConfig fileConfig=FileConfig.newBuilder().setLogsRootPath(System.getProperty("java.io.tmpdir") + File.separator + "tmp_logs_"+ System.currentTimeMillis()).build();
   AvroByteArrayConverter<FileConfig> converter=new AvroByteArrayConverter<>(FileConfig.class);
   byte[] rawConfiguration=converter.toByteArray(fileConfig);
   logAppenderDto.setRawConfiguration(rawConfiguration);

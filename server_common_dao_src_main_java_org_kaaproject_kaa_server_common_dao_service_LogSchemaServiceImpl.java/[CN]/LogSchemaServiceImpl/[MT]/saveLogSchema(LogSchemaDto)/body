@@ -1,5 +1,4 @@
 {
-  validateLogSchemaObject(logSchemaDto);
   String id=logSchemaDto.getId();
   if (StringUtils.isBlank(id)) {
     LogSchema logSchema=logSchemaDao.findLatestLogSchemaByAppId(logSchemaDto.getApplicationId());
