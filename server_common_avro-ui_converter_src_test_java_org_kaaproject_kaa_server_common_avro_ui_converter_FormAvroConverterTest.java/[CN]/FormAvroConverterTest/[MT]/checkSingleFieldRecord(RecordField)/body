@@ -5,4 +5,5 @@
   FormField formField=field.getValue().get(0);
   Assert.assertNotNull(formField);
   Assert.assertTrue(formField instanceof StringField);
+  Assert.assertEquals(1000,((StringField)formField).getMaxLength());
 }

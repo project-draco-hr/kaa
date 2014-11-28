@@ -2,18 +2,27 @@
   FileSystemLogAppender appender=new FileSystemLogAppender();
   appender.setName("test");
   FileSystemLogEventService service=Mockito.mock(FileSystemLogEventService.class);
-  FileSystemLogger logger=Mockito.mock(FileSystemLogger.class);
   ReflectionTestUtils.setField(appender,"fileSystemLogEventService",service);
-  ReflectionTestUtils.setField(appender,"logger",logger);
-  ReflectionTestUtils.setField(appender,"header",Arrays.asList(LogHeaderStructureDto.values()));
-  GenericAvroConverter<BasicEndpointProfile> converter=new GenericAvroConverter<BasicEndpointProfile>(BasicEndpointProfile.SCHEMA$);
-  BasicEndpointProfile theLog=new BasicEndpointProfile("test");
-  LogSchemaDto schemaDto=new LogSchemaDto();
-  schemaDto.setSchema(BasicEndpointProfile.SCHEMA$.toString());
-  LogSchema schema=new LogSchema(schemaDto);
-  LogEvent logEvent=new LogEvent();
-  logEvent.setLogData(converter.encode(theLog));
-  LogEventPack logEventPack=new LogEventPack("endpointKey",1234567l,schema,Collections.singletonList(logEvent));
-  appender.doAppend(logEventPack);
-  Mockito.verify(logger).append(Mockito.anyString());
+  appender.setName(APPENDER_NAME);
+  appender.setAppenderId(APPENDER_ID);
+  LogAppenderDto logAppenderDto=prepareConfig();
+  logAppenderDto.setApplicationId(APPLICATION_ID);
+  logAppenderDto.setName("test");
+  logAppenderDto.setTenantId(TENANT_ID);
+  try {
+    appender.init(logAppenderDto);
+    ReflectionTestUtils.setField(appender,"header",Arrays.asList(LogHeaderStructureDto.values()));
+    GenericAvroConverter<BasicEndpointProfile> converter=new GenericAvroConverter<BasicEndpointProfile>(BasicEndpointProfile.SCHEMA$);
+    BasicEndpointProfile theLog=new BasicEndpointProfile("test");
+    LogSchemaDto schemaDto=new LogSchemaDto();
+    schemaDto.setSchema(BasicEndpointProfile.SCHEMA$.toString());
+    LogSchema schema=new LogSchema(schemaDto);
+    LogEvent logEvent=new LogEvent();
+    logEvent.setLogData(converter.encode(theLog));
+    LogEventPack logEventPack=new LogEventPack("endpointKey",1234567l,schema,Collections.singletonList(logEvent));
+    appender.doAppend(logEventPack);
+  }
+  finally {
+    appender.close();
+  }
 }
