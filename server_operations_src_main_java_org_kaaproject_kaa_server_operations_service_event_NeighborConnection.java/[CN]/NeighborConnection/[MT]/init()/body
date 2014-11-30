@@ -8,6 +8,6 @@
   InetSocketAddress address=new InetSocketAddress(connectionInfo.getThriftHost().toString(),connectionInfo.getThriftPort());
   Set<InetSocketAddress> backends=new HashSet<InetSocketAddress>();
   backends.add(address);
-  thrift=clientFactory.withMaxConnectionsPerEndpoint(maxNumberConnection).withSocketTimeout(Amount.of(socketTimeout,Time.SECONDS)).build(backends);
+  thrift=clientFactory.withMaxConnectionsPerEndpoint(getMaxNumberConnection()).withSocketTimeout(Amount.of(socketTimeout,Time.SECONDS)).build(backends);
   initWorkers();
 }

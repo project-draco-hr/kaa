@@ -11,7 +11,8 @@
   for (  ServerAddress serverAddress : serverAddresses) {
     servers.add(new MongoDbServer(serverAddress.getHost(),serverAddress.getPort()));
   }
-  MongoDbConfig mongoDbConfig=MongoDbConfig.newBuilder().setMongoServers(servers).setDbName(dbName).build();
+  List<MongoDBCredential> credentials=new ArrayList<>();
+  MongoDbConfig mongoDbConfig=MongoDbConfig.newBuilder().setMongoServers(servers).setMongoCredentials(credentials).setDbName(dbName).build();
   AvroByteArrayConverter<MongoDbConfig> converter=new AvroByteArrayConverter<>(MongoDbConfig.class);
   byte[] rawConfiguration=converter.toByteArray(mongoDbConfig);
   appenderDto.setRawConfiguration(rawConfiguration);

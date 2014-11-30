@@ -2,6 +2,7 @@
   this.thriftHost=thriftHost;
   this.thriftPort=thriftPort;
   DefaultEventService eventServiceInst=new DefaultEventService();
+  eventServiceInst.initBean();
   OperationsServerConfig config=new OperationsServerConfig();
   ReflectionTestUtils.setField(eventServiceInst,"operationsServerConfig",config);
   eventService=eventServiceInst;

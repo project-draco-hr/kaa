@@ -1,14 +1,14 @@
 {
   Schema schema=new Schema.Parser().parse(dataSchema);
   GenericAvroConverter<GenericContainer> converter=new GenericAvroConverter<GenericContainer>(schema);
-  String profileJson;
+  String json;
   try {
     GenericContainer record=converter.decodeBinary(rawData);
-    profileJson=converter.endcodeToJson(record);
+    json=converter.endcodeToJson(record);
   }
  catch (  IOException e) {
     LOG.warn("Can't parse profile raw data",e);
     throw new RuntimeException(e);
   }
-  return profileJson;
+  return json;
 }

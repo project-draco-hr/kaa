@@ -1,0 +1,8 @@
+{
+  DefaultConfigurationProcessor processor=new DefaultConfigurationProcessor();
+  URL schemaUrl=Thread.currentThread().getContextClassLoader().getResource("configuration/manager/complexFieldsDeltaSchema.json");
+  Schema schema=new Schema.Parser().parse(new File(schemaUrl.getPath()));
+  GenericRecord delta=new GenericData.Record(DefaultConfigurationManagerTest.getDeltaSchemaByFullName(schema,"org.kaa.config.testT"));
+  byte[] rawData=getSerializedDelta(schema,delta);
+  processor.processConfigurationData(ByteBuffer.wrap(rawData),true);
+}

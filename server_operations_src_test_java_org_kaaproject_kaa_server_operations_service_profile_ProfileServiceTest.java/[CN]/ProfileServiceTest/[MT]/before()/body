@@ -1,0 +1,11 @@
+{
+  testService=new DefaultProfileService();
+  applicationService=mock(ApplicationService.class);
+  endpointService=mock(EndpointService.class);
+  profileService=mock(org.kaaproject.kaa.server.common.dao.ProfileService.class);
+  cacheService=mock(CacheService.class);
+  ReflectionTestUtils.setField(testService,"applicationService",applicationService);
+  ReflectionTestUtils.setField(testService,"endpointService",endpointService);
+  ReflectionTestUtils.setField(testService,"profileService",profileService);
+  ReflectionTestUtils.setField(testService,"cacheService",cacheService);
+}

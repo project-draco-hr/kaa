@@ -1,0 +1,14 @@
+{
+  Schema schema=new Schema.Parser().parse(dataSchema);
+  GenericAvroConverter<GenericContainer> converter=new GenericAvroConverter<GenericContainer>(schema);
+  byte[] rawData;
+  try {
+    GenericContainer record=converter.decodeJson(json);
+    rawData=converter.encode(record);
+  }
+ catch (  IOException e) {
+    LOG.warn("Can't parse json data",e);
+    throw new RuntimeException(e);
+  }
+  return rawData;
+}

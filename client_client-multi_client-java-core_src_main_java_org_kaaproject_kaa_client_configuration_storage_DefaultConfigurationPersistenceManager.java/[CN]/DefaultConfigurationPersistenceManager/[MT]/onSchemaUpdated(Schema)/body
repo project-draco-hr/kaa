@@ -1,3 +1,14 @@
 {
-  this.schema=schema;
+  if (schema != null) {
+    this.schema=schema;
+    if (this.storage != null) {
+      try {
+        loadConfigurationFromStorage();
+      }
+ catch (      IOException e) {
+        LOG.error("Failed to load the configuration data from the storage");
+        throw new ConfigurationRuntimeException("The configuration storage data is not applicable to the schema");
+      }
+    }
+  }
 }
