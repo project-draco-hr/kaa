@@ -4,6 +4,7 @@
     ClientMessageOutputStream outStream=new ClientMessageOutputStream(res);
     if (guiChangeHostEnabled) {
       executeCommand(outStream,new String[]{"sudo",sandboxHome + "/change_kaa_host.sh",host},null);
+      cacheService.flushAllCaches();
     }
  else {
       outStream.println("WARNING: change host from GUI is disabled!");
