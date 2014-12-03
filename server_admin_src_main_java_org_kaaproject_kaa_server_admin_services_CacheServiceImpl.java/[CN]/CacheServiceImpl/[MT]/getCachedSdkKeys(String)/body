@@ -1,6 +1,6 @@
 {
   List<SdkKey> keys=new ArrayList<>();
-  Ehcache cache=(Ehcache)cacheManager.getCache("sdkCache").getNativeCache();
+  Ehcache cache=(Ehcache)cacheManager.getCache(SDK_CACHE).getNativeCache();
   List<?> cachedKeys=cache.getKeysWithExpiryCheck();
   for (  Object cachedKey : cachedKeys) {
     if (cachedKey instanceof SdkKey) {
