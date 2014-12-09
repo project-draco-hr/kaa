@@ -1,8 +1,8 @@
 {
   int configVersionFromProperties=sdkProperties.getVersionInfo().getConfigVersion();
-  int persistedConfigVersion=Integer.parseInt(state.getProperty(CONFIGURATION_VERSION,Integer.toString(configVersionFromProperties)));
-  isConfigVersionUpdated=(configVersionFromProperties != persistedConfigVersion);
-  if (isConfigVersionUpdated) {
+  String loadedConfigVersionStr=state.getProperty(CONFIGURATION_VERSION);
+  isConfigVersionUpdated=(loadedConfigVersionStr != null ? (configVersionFromProperties != Integer.parseInt(loadedConfigVersionStr)) : false);
+  if (isConfigVersionUpdated || (loadedConfigVersionStr == null)) {
     state.setProperty(CONFIGURATION_VERSION,Integer.toString(configVersionFromProperties));
   }
 }
