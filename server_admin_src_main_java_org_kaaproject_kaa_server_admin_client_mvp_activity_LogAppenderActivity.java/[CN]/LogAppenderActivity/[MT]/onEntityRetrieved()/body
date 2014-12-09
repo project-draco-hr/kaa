@@ -8,29 +8,13 @@
     }
   }
 );
-  if (create) {
-    KaaAdmin.getDataSource().loadLogSchemasVersion(applicationId,new AsyncCallback<List<SchemaDto>>(){
-      @Override public void onFailure(      Throwable caught){
-        detailsView.setErrorMessage(Utils.getErrorMessage(caught));
-      }
-      @Override public void onSuccess(      List<SchemaDto> result){
-        ValueListBox<SchemaDto> versions=detailsView.getSchemaVersions();
-        versions.setValue(Utils.getMaxSchemaVersions(result));
-        versions.setAcceptableValues(result);
-      }
+  KaaAdmin.getDataSource().loadLogSchemasVersion(applicationId,new AsyncCallback<List<SchemaDto>>(){
+    @Override public void onFailure(    Throwable caught){
+      detailsView.setErrorMessage(Utils.getErrorMessage(caught));
     }
+    @Override public void onSuccess(    List<SchemaDto> result){
+      onSchemaVersionsRetrieved(result);
+    }
+  }
 );
-  }
- else {
-    detailsView.getName().setValue(entity.getName());
-    detailsView.getStatus().setValue(entity.getStatus() == LogAppenderStatusDto.REGISTERED);
-    detailsView.getDescription().setValue(entity.getDescription());
-    detailsView.getCreatedUsername().setValue(entity.getCreatedUsername());
-    detailsView.getCreatedDateTime().setValue(Utils.millisecondsToDateTimeString(entity.getCreatedTime()));
-    detailsView.getSchemaVersions().setValue(entity.getSchema());
-    detailsView.setMetadataListBox(entity.getHeaderStructure());
-    detailsView.getConfiguration().setValue(entity.getConfiguration());
-    LogAppenderInfoDto appenderInfo=new LogAppenderInfoDto(entity.getTypeName(),entity.getConfiguration(),entity.getAppenderClassName());
-    detailsView.getAppenderInfo().setValue(appenderInfo);
-  }
 }

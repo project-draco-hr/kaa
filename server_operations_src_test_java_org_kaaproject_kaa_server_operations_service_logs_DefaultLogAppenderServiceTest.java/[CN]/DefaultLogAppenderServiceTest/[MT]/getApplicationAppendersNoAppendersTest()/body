@@ -4,6 +4,6 @@
   dto.setTenantId(TENANT_ID);
   dto.setLogAppendersNames(null);
   when(applicationService.findAppById(APPLICATION_ID)).thenReturn(dto);
-  List<LogAppender> appenders=logAppenderService.getApplicationAppenders(APPLICATION_ID,APPLICATION_TOKEN);
+  List<LogAppender> appenders=logAppenderService.getApplicationAppenders(APPLICATION_ID);
   Assert.assertEquals(0,appenders.size());
 }

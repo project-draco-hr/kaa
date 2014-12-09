@@ -1,5 +1,5 @@
 {
-  LOG.info("[{}][{}][{}] Initializing with rollingFileNamePatern: {}, rollingMaxHistory: {}, triggerMaxFileSize: {}, encoderPattern: {}",appenderDto.getTenantId(),appenderDto.getApplicationId(),appenderDto.getSchemaVersion(),config.getRollingFileNamePatern(),config.getRollingMaxHistory(),config.getTriggerMaxFileSize(),config.getEncoderPattern());
+  LOG.info("[{}][{}] Initializing with rollingFileNamePatern: {}, rollingMaxHistory: {}, triggerMaxFileSize: {}, encoderPattern: {}",appenderDto.getTenantId(),appenderDto.getApplicationId(),config.getRollingFileNamePatern(),config.getRollingMaxHistory(),config.getTriggerMaxFileSize(),config.getEncoderPattern());
   LoggerContext loggerContext=(LoggerContext)LoggerFactory.getILoggerFactory();
   rfAppender=new RollingFileAppender();
   rfAppender.setContext(loggerContext);
@@ -24,5 +24,5 @@
   logger=loggerContext.getLogger(appenderDto.getTenantId() + "." + appenderDto.getApplicationToken());
   logger.setLevel(Level.ALL);
   logger.addAppender(rfAppender);
-  LOG.debug("[{}][{}][{}] Initialized with context {}",appenderDto.getTenantId(),appenderDto.getApplicationId(),appenderDto.getSchemaVersion(),loggerContext);
+  LOG.debug("[{}][{}] Initialized with context {}",appenderDto.getTenantId(),appenderDto.getApplicationId(),loggerContext);
 }

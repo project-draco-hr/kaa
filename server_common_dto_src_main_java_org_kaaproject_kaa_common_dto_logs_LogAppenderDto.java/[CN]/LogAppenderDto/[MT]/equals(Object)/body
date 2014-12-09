@@ -49,15 +49,13 @@
  else   if (!id.equals(other.id)) {
     return false;
   }
-  if (!Arrays.equals(rawConfiguration,other.rawConfiguration)) {
+  if (maxLogSchemaVersion != other.maxLogSchemaVersion) {
     return false;
   }
-  if (schema == null) {
-    if (other.schema != null) {
-      return false;
-    }
+  if (minLogSchemaVersion != other.minLogSchemaVersion) {
+    return false;
   }
- else   if (!schema.equals(other.schema)) {
+  if (!Arrays.equals(rawConfiguration,other.rawConfiguration)) {
     return false;
   }
   if (status != other.status) {
