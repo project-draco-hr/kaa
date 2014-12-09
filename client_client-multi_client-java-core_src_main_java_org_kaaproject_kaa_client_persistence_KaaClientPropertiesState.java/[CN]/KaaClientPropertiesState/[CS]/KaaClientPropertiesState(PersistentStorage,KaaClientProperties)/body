@@ -19,6 +19,7 @@
  else {
         LOG.info("SDK properties are up to date");
       }
+      checkConfigVersionForUpdates(properties);
       BinaryDecoder decoder=DecoderFactory.get().binaryDecoder(state.getProperty(NF_SUBSCRIPTIONS).getBytes(),null);
       SpecificDatumReader<TopicSubscriptionInfo> avroReader=new SpecificDatumReader<TopicSubscriptionInfo>(TopicSubscriptionInfo.class);
       try {
@@ -60,5 +61,6 @@
  else {
     LOG.info("First SDK start");
     setPropertiesHash(properties.getPropertiesHash());
+    state.setProperty(CONFIGURATION_VERSION,Integer.toString(properties.getVersionInfo().getConfigVersion()));
   }
 }
