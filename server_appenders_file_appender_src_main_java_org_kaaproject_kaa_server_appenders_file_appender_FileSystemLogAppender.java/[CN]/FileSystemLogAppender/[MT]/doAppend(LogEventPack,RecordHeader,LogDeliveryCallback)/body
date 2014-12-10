@@ -1,0 +1,23 @@
+{
+  if (!closed) {
+    try {
+      String path=logsRootPath + "/" + tenantDirName+ "/"+ applicationDirName;
+      LOG.debug("[{}] appending {} logs to directory",path,logEventPack.getEvents().size());
+      List<String> dtos=eventsToStrings(generateLogEvent(logEventPack,header));
+      LOG.debug("[{}] saving {} objects",path,dtos.size());
+      for (      String event : dtos) {
+        logger.append(event);
+      }
+      LOG.debug("[{}] appended {} logs to directory",path,logEventPack.getEvents().size());
+      listener.onSuccess();
+    }
+ catch (    Exception e) {
+      LOG.error(MessageFormat.format("[{0}] Attempted to append logs failed",getName()),e);
+      listener.onInternalError();
+    }
+  }
+ else {
+    LOG.info("Attempted to append to closed appender named [{}].",getName());
+    listener.onInternalError();
+  }
+}

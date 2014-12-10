@@ -1,7 +1,4 @@
 {
-  this.logAppenderService=logAppenderService;
-  this.applicationId=applicationService.findAppByApplicationToken(applicationToken).getId();
-  this.logAppenders=logAppenderService.getApplicationAppenders(applicationId,applicationToken);
   this.applicationToken=applicationToken;
-  this.logSchemas=new HashMap<>();
+  this.messageProcessor=new ApplicationLogActorMessageProcessor(logAppenderService,applicationService,applicationToken);
 }

@@ -8,7 +8,8 @@
   response.setProfileSyncResponse(new ProfileSyncResponse(SyncResponseStatus.DELTA));
   response.setRedirectSyncResponse(new RedirectSyncResponse("abc"));
   response.setUserSyncResponse(new UserSyncResponse());
-  response.setLogSyncResponse(new LogSyncResponse("id",SyncResponseResultType.SUCCESS));
+  LogDeliveryStatus status=new LogDeliveryStatus("id",SyncResponseResultType.SUCCESS,null);
+  response.setLogSyncResponse(new LogSyncResponse(Collections.singletonList(status)));
   AvroByteArrayConverter<SyncResponse> converter=new AvroByteArrayConverter<>(SyncResponse.class);
   operationsDataProcessor.processResponse(converter.toByteArray(response));
 }

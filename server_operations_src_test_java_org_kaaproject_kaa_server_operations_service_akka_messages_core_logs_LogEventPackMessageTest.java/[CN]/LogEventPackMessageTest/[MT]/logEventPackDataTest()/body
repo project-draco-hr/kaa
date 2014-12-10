@@ -1,7 +1,7 @@
 {
   LogEventPack logEventPack=new LogEventPack(ENDPOINT_KEY,DATE_CREATED,LOG_SCHEMA,EVENTS);
   logEventPack.setLogSchemaVersion(LOG_SCHEMA_VERSION);
-  LogEventPackMessage logEvent=new LogEventPackMessage(logEventPack);
+  LogEventPackMessage logEvent=new LogEventPackMessage("request1",ActorRef.noSender(),logEventPack);
   Assert.assertEquals(ENDPOINT_KEY,logEvent.getEndpointKey());
   Assert.assertEquals(DATE_CREATED,logEvent.getDateCreated());
   Assert.assertEquals(LOG_SCHEMA_VERSION,logEvent.getLogSchemaVersion());

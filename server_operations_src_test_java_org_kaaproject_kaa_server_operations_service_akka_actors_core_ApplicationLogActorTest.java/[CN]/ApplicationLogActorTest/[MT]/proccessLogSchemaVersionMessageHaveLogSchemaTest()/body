@@ -4,5 +4,5 @@
   when(logEventPackMessage.getLogSchema()).thenReturn(logSchema);
   when(logEventPackMessage.getLogEventPack()).thenReturn(new LogEventPack());
   ReflectionTestUtils.invokeMethod(applicationLogActor,"processLogEventPack",logEventPackMessage);
-  verify(logAppender).doAppend(logEventPackMessage.getLogEventPack());
+  verify(logAppender).doAppend(logEventPackMessage.getLogEventPack(),Mockito.any(LogDeliveryCallback.class));
 }

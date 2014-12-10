@@ -1,0 +1,34 @@
+{
+  LOG.debug("[{}] Processing log event pack with {} appenders",applicationToken,logAppenders.size());
+  LogSchema logSchema=message.getLogSchema();
+  if (logSchema == null) {
+    logSchema=logSchemas.get(message.getLogSchemaVersion());
+    if (logSchema == null) {
+      logSchema=logAppenderService.getLogSchema(applicationId,message.getLogSchemaVersion());
+      logSchemas.put(message.getLogSchemaVersion(),logSchema);
+    }
+    message.setLogSchema(logSchema);
+  }
+  int appenderCount=logAppenders.values().size();
+  if (appenderCount >= 0) {
+    LogDeliveryCallback callback;
+    if (appenderCount > 1) {
+      callback=new MultiLogDeliveryCallback(message.getOriginator(),message.getRequestId(),appenderCount);
+    }
+ else {
+      callback=new SingleLogDeliveryCallback(message.getOriginator(),message.getRequestId());
+    }
+    try {
+      for (      LogAppender logAppender : logAppenders.values()) {
+        logAppender.doAppend(message.getLogEventPack(),callback);
+      }
+    }
+ catch (    Exception e) {
+      LOG.debug("Error during execution of appender(s)",e);
+      sendErrorMessageToEndpoint(message,LogDeliveryErrorCode.APPENDER_INTERNAL_ERROR);
+    }
+  }
+ else {
+    sendErrorMessageToEndpoint(message,LogDeliveryErrorCode.NO_APPENDERS_CONFIGURED);
+  }
+}

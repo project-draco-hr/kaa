@@ -1,10 +1,14 @@
 {
   isUploading=false;
-  if (response.getResult() == SyncResponseResultType.SUCCESS) {
-    storage.removeRecordBlock(response.getRequestId());
-    processUploadDecision(uploadStrategy.isUploadNeeded(configuration,storageStatus));
-  }
+  if (logSyncResponse.getDeliveryStatuses() != null) {
+    for (    LogDeliveryStatus response : logSyncResponse.getDeliveryStatuses()) {
+      if (response.getResult() == SyncResponseResultType.SUCCESS) {
+        storage.removeRecordBlock(response.getRequestId());
+        processUploadDecision(uploadStrategy.isUploadNeeded(configuration,storageStatus));
+      }
  else {
-    storage.notifyUploadFailed(response.getRequestId());
+        storage.notifyUploadFailed(response.getRequestId());
+      }
+    }
   }
 }

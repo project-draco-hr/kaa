@@ -6,6 +6,6 @@
   when(logEventPackMessage.getLogEventPack()).thenReturn(new LogEventPack());
   when(logAppenderService.getLogSchema(APPLICATION_ID,LOG_SCHEMA_VERSION)).thenReturn(logSchema);
   ReflectionTestUtils.invokeMethod(applicationLogActor,"processLogEventPack",logEventPackMessage);
-  verify(logAppender).doAppend(logEventPackMessage.getLogEventPack());
+  verify(logAppender).doAppend(logEventPackMessage.getLogEventPack(),Mockito.any(LogDeliveryCallback.class));
   Assert.assertEquals(1,logSchemas.size());
 }
