@@ -1,0 +1,6 @@
+{
+  LOG.debug("Save endpoint notification {}",endpointNotification);
+  CassandraNotification notification=endpointNotification.getNotification();
+  executeBatch(BatchStatement.Type.UNLOGGED,getSaveQuery(notification,notification.getClass()),getSaveQuery(endpointNotification));
+  return endpointNotification;
+}

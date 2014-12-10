@@ -1,0 +1,20 @@
+{
+  List<InetSocketAddress> addresses=Collections.emptyList();
+  if (StringUtils.isNotBlank(nodeList)) {
+    String[] nodes;
+    addresses=new ArrayList<>();
+    if (nodeList.contains(COMMA)) {
+      nodes=nodeList.split(COMMA);
+    }
+ else {
+      nodes=new String[]{nodeList};
+    }
+    for (    String node : nodes) {
+      if (node.contains(COLON)) {
+        String[] hostAndPort=node.split(COLON);
+        addresses.add(new InetSocketAddress(hostAndPort[0],Integer.valueOf(hostAndPort[1])));
+      }
+    }
+  }
+  return addresses;
+}

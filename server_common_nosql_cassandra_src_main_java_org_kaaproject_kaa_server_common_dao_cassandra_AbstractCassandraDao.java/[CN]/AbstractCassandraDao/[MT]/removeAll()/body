@@ -1,0 +1,5 @@
+{
+  Delete delete=QueryBuilder.delete().all().from(getColumnFamilyName());
+  LOG.debug("Remove all request: {}",delete.toString());
+  session.execute(delete);
+}

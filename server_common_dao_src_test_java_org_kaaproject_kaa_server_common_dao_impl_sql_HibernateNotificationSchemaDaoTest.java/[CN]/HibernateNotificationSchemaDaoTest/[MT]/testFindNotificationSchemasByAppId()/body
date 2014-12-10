@@ -1,0 +1,6 @@
+{
+  Application application=generateApplication(null);
+  List<NotificationSchema> schemas=generateNotificationSchema(application,1,null);
+  List<NotificationSchema> found=notificationSchemaDao.findNotificationSchemasByAppId(application.getStringId());
+  Assert.assertEquals(schemas,found);
+}

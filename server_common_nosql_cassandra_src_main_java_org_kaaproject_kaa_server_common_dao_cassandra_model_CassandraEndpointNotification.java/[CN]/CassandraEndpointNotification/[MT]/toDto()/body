@@ -1,0 +1,7 @@
+{
+  EndpointNotificationDto dto=new EndpointNotificationDto();
+  dto.setId(getId());
+  dto.setEndpointKeyHash(endpointKeyHash != null ? endpointKeyHash.array() : null);
+  dto.setNotificationDto(notification != null ? notification.toDto() : null);
+  return dto;
+}

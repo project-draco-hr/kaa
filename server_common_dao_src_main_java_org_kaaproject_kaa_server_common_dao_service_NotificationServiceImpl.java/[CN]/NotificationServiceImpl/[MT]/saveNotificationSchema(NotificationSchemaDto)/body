@@ -30,5 +30,5 @@
       throw new IncorrectParameterException("Invalid notification schema id: " + id);
     }
   }
-  return getDto(notificationSchemaDao.save(notificationSchemaDto));
+  return getDto(notificationSchemaDao.save(new NotificationSchema(notificationSchemaDto)));
 }

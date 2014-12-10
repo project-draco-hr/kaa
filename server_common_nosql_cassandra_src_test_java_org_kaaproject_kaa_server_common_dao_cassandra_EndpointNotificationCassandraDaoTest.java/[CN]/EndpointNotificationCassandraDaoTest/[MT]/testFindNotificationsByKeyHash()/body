@@ -1,0 +1,6 @@
+{
+  List<CassandraEndpointNotification> notifications=generateEndpointNotification(null,1);
+  CassandraEndpointNotification notification=notifications.get(0);
+  List<CassandraEndpointNotification> found=endpointNotificationCassandraDao.findNotificationsByKeyHash(notification.getEndpointKeyHash().array());
+  Assert.assertEquals(notifications.size(),found.size());
+}
