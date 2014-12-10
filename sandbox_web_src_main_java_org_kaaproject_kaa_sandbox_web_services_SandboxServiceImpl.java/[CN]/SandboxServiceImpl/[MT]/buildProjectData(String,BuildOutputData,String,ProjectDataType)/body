@@ -1,7 +1,16 @@
 {
-  AtmosphereResource res=AtmosphereResourceFactory.getDefault().find(uuid);
+  AtmosphereResource res=null;
+  PrintStream outPrint=null;
+  ByteArrayOutputStream byteOutStream=null;
+  if (uuid != null) {
+    res=AtmosphereResourceFactory.getDefault().find(uuid);
+  }
+ else   if (outputData != null) {
+    byteOutStream=new ByteArrayOutputStream();
+    outPrint=new PrintStream(byteOutStream);
+  }
   try {
-    ClientMessageOutputStream outStream=new ClientMessageOutputStream(res);
+    ClientMessageOutputStream outStream=new ClientMessageOutputStream(res,outPrint);
     Project project=projectsMap.get(projectId);
     if (project != null) {
       String sdkKeyBase64=project.getSdkKeyBase64();
@@ -76,6 +85,13 @@
     throw Utils.handleException(e);
   }
  finally {
-    res.getBroadcaster().broadcast(uuid + " finished",res);
+    if (res != null) {
+      res.getBroadcaster().broadcast(uuid + " finished",res);
+    }
+    if (outPrint != null) {
+      outPrint.flush();
+      outPrint.close();
+      outputData.setOutputData(byteOutStream.toByteArray());
+    }
   }
 }

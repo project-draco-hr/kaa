@@ -5,7 +5,7 @@
     String checksumFileUrl=sourceUrl.toString() + MD5_FILE_EXT;
     String md5sum=downloadCheckSumFile(httpClient,context,checksumFileUrl);
     boolean result=compareChecksum(targetFile,md5sum);
-    logger.debug("Compare checksum result is {}",result);
+    LOG.debug("Compare checksum result is {}",result);
     if (!result) {
       targetFile.delete();
       downloadFile(httpClient,context,sourceUrl,targetFile);

@@ -56,10 +56,33 @@
   scheduleSudoSshCommand("chown -R " + SSH_USERNAME + ":"+ SSH_USERNAME+ " "+ ADMIN_FOLDER+ "/webapps");
   scheduleSudoSshCommand("sed -i \"s/\\(tenant_developer_user=\\).*\\$/\\1" + AbstractDemoBuilder.tenantDeveloperUser + "/\" "+ ADMIN_FOLDER+ "/conf/sandbox-server.properties");
   scheduleSudoSshCommand("sed -i \"s/\\(tenant_developer_password=\\).*\\$/\\1" + AbstractDemoBuilder.tenantDeveloperPassword + "/\" "+ ADMIN_FOLDER+ "/conf/sandbox-server.properties");
+  String stopAdminCommand=osType.getStopServiceTemplate().replaceAll(SERVICE_NAME_VAR,KaaPackage.ADMIN.getServiceName());
+  scheduleSudoSshCommand(stopAdminCommand);
   executeScheduledSshCommands();
   transferFile(changeKaaHostFile.getAbsolutePath(),SANDBOX_FOLDER);
   transferFile(projectsXmlFile.getAbsolutePath(),SANDBOX_FOLDER + "/" + DEMO_PROJECTS);
   transferFile(sandboxSplashFile.getAbsolutePath(),SANDBOX_FOLDER);
   executeSudoSsh("chmod +x " + SANDBOX_FOLDER + "/"+ CHANGE_KAA_HOST);
   executeSudoSsh("chmod +x " + SANDBOX_FOLDER + "/"+ SANDBOX_SPLASH_PY);
+  String startAdminCommand=osType.getStartServiceTemplate().replaceAll(SERVICE_NAME_VAR,KaaPackage.ADMIN.getServiceName());
+  executeSudoSsh(startAdminCommand);
+  LOG.info("Sleeping 50 sec.");
+  Thread.sleep(50000);
+  LOG.info("Building demo applications...");
+  SandboxClient sandboxClient=new SandboxClient(DEFAULT_HOST,webAdminForwardPort);
+  List<Project> sandboxProjects=sandboxClient.getDemoProjects();
+  if (projects.size() != sandboxProjects.size()) {
+    LOG.error("Demo projects count mismatch, expected {}, actual {}",projects.size(),sandboxProjects.size());
+    throw new RuntimeException("Demo projects count mismatch!");
+  }
+  for (  Project sandboxProject : sandboxProjects) {
+    LOG.info("[{}] Building Demo Project...",sandboxProject.getName());
+    String output=sandboxClient.buildProjectBinary(sandboxProject.getId());
+    LOG.info("[{}] Build output:\n{}",sandboxProject.getName(),output);
+    if (!sandboxClient.isProjectBinaryDataExists(sandboxProject.getId())) {
+      LOG.error("Failed to build demo project '{}'",sandboxProject.getName());
+      throw new RuntimeException("Failed to build demo project '" + sandboxProject.getName() + "'!");
+    }
+  }
+  LOG.info("Finihed building demo applications!");
 }

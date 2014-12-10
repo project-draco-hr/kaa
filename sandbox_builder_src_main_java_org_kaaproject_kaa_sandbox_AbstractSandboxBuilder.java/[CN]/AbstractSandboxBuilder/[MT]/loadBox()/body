@@ -1,16 +1,16 @@
 {
-  logger.info("Loading box '{}' ...",boxName);
+  LOG.info("Loading box '{}' ...",boxName);
   String fileName=FilenameUtils.getName(baseImageUrl.toString());
   baseImageFile=new File(System.getProperty("java.io.tmpdir"),fileName);
-  logger.info("Downloading base image to file '{}'...",baseImageFile.getAbsolutePath());
+  LOG.info("Downloading base image to file '{}'...",baseImageFile.getAbsolutePath());
   downloadFile(baseImageUrl,baseImageFile);
   if (baseImageFile.exists() && baseImageFile.isFile()) {
-    logger.info("Downloaded base image to file '{}'.",baseImageFile.getAbsolutePath());
+    LOG.info("Downloaded base image to file '{}'.",baseImageFile.getAbsolutePath());
   }
  else {
-    logger.error("Unable to download image file to '{}'",baseImageFile.getAbsolutePath());
+    LOG.error("Unable to download image file to '{}'",baseImageFile.getAbsolutePath());
     throw new RuntimeException("Unable to download image file!");
   }
   loadBoxImpl();
-  logger.info("Box '{}' is loaded.",boxName);
+  LOG.info("Box '{}' is loaded.",boxName);
 }

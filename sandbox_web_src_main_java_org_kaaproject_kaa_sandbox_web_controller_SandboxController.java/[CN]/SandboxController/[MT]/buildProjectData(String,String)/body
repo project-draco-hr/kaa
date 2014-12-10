@@ -1,0 +1,10 @@
+{
+  BuildOutputData buildOutputData=new BuildOutputData();
+  try {
+    sandboxService.buildProjectData(null,buildOutputData,projectId,ProjectDataType.valueOf(dataType.toUpperCase()));
+  }
+ catch (  SandboxServiceException e) {
+    LOG.error("Failed to build project data!",e);
+  }
+  return buildOutputData.getOutputData();
+}
