@@ -4,8 +4,8 @@
       Header<SafeHtml> deleteHeader=new SafeHtmlHeader(SafeHtmlUtils.fromSafeConstant(Utils.constants.delete()));
       deleteColumn=constructDeleteColumn("");
       table.addColumn(deleteColumn,deleteHeader);
-      table.setColumnWidth(deleteColumn,40,Unit.PX);
-      return 40;
+      table.setColumnWidth(deleteColumn,ACTION_COLUMN_WIDTH,Unit.PX);
+      return ACTION_COLUMN_WIDTH;
     }
  else {
       return 0;
