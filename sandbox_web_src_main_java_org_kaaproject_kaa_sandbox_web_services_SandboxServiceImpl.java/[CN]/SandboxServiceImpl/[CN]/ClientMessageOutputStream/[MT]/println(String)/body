@@ -1,3 +1,8 @@
 {
-  res.getBroadcaster().broadcast((text + "\n"),res);
+  if (res != null) {
+    res.getBroadcaster().broadcast((text + "\n"),res);
+  }
+  if (out != null) {
+    out.println(text);
+  }
 }

@@ -9,10 +9,10 @@
     }
     byte[] digestBytes=messageDigest.digest();
     checkSum=DatatypeConverter.printHexBinary(digestBytes);
-    logger.debug("Calculated checksum for filer[{}]: [{}], downloaded is [{}]",targetFile.getAbsolutePath(),checkSum,downloadedCheckSum);
+    LOG.debug("Calculated checksum for filer[{}]: [{}], downloaded is [{}]",targetFile.getAbsolutePath(),checkSum,downloadedCheckSum);
   }
  catch (  IOException|NoSuchAlgorithmException e) {
-    logger.debug("Can't calculate checksum for file [{}]",targetFile.getAbsolutePath());
+    LOG.debug("Can't calculate checksum for file [{}]",targetFile.getAbsolutePath());
   }
   return checkSum.equalsIgnoreCase(downloadedCheckSum);
 }

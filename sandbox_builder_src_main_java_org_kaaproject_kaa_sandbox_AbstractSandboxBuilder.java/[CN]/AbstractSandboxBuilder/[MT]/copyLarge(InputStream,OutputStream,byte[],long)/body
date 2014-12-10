@@ -1,14 +1,14 @@
 {
   long count=0;
   int n=0;
-  logger.info("0%");
+  LOG.info("0%");
   int loggedPercents=0;
   while (EOF != (n=input.read(buffer))) {
     output.write(buffer,0,n);
     count+=n;
     int percentsComplete=(int)((double)count / (double)length * 100f);
     if (percentsComplete - loggedPercents >= 10) {
-      logger.info(percentsComplete + "%");
+      LOG.info(percentsComplete + "%");
       loggedPercents=percentsComplete;
     }
   }
