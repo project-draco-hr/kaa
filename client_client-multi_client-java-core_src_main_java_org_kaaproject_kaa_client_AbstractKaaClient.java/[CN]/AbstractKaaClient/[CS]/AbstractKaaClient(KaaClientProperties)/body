@@ -8,6 +8,7 @@
     Collections.shuffle(cursor.getValue());
   }
   kaaClientState=new KaaClientPropertiesState(createPersistentStorage(),properties);
+  configurationPersistenceManager=new DefaultConfigurationPersistenceManager(kaaClientState,configurationProcessor);
   BootstrapTransport bootstratpTransport=new DefaultBootstrapTransport(properties.getApplicationToken());
   ProfileTransport profileTransport=new DefaultProfileTransport();
   EventTransport eventTransport=new DefaultEventTransport(kaaClientState);
