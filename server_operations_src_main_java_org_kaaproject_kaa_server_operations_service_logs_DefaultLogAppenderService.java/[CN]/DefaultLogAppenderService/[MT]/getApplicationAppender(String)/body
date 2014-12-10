@@ -1,0 +1,13 @@
+{
+  LOG.debug("Get log appender by id [{}]",appenderId);
+  LogAppenderDto appender=logAppendersService.findLogAppenderById(appenderId);
+  LOG.debug("Found appender [{}] by appender id [{}] ",appender,appenderId);
+  LogAppender logAppender=null;
+  try {
+    logAppender=logAppenderResolver.getAppender(appender);
+  }
+ catch (  Exception e) {
+    LOG.warn("Can't initialize log appender [{}]",appender);
+  }
+  return logAppender;
+}
