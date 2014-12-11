@@ -1,7 +1,7 @@
 {
   LOG.info("[{}] Adding log appender with id [{}].",applicationId,appenderId);
   if (!logAppenders.containsKey(appenderId)) {
-    LogAppender logAppender=logAppenderService.getApplicationAppender(appenderId,applicationToken);
+    LogAppender logAppender=logAppenderService.getApplicationAppender(appenderId);
     if (logAppender != null) {
       logAppenders.put(appenderId,logAppender);
     }

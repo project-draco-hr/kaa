@@ -1,6 +1,6 @@
 {
   if (boxLoaded()) {
-    logger.info("Box with name '{}' already exists. Going to unload old instance ...",boxName);
+    LOG.info("Box with name '{}' already exists. Going to unload old instance ...",boxName);
     if (boxRunning()) {
       stopBox();
     }
@@ -13,20 +13,24 @@
     provisionBox();
     schedulePackagesInstall();
     scheduleServicesStart();
-    logger.info("Executing remote ssh commands...");
+    LOG.info("Executing remote ssh commands...");
     executeScheduledSshCommands();
-    logger.info("Remote ssh commands execution is completed.");
-    logger.info("Sleeping 80 sec.");
+    LOG.info("Remote ssh commands execution is completed.");
+    LOG.info("Sleeping 80 sec.");
     Thread.sleep(80000);
     initBoxData();
-    logger.info("Sleeping 20 sec.");
+    LOG.info("Sleeping 20 sec.");
     Thread.sleep(20000);
     unprovisionBox();
     stopBox();
     cleanupBox();
     exportBox();
   }
-  finally {
+ catch (  Exception e) {
+    LOG.error("Failed to build sandbox image!",e);
+    throw e;
+  }
+ finally {
     if (boxLoaded()) {
       if (boxRunning()) {
         stopBox();

@@ -1,3 +1,13 @@
 {
-  return object != null ? object.toString() : "";
+  if (object != null) {
+    if (object == Integer.MAX_VALUE) {
+      return Utils.constants.infinite();
+    }
+ else {
+      return object.toString();
+    }
+  }
+ else {
+    return "";
+  }
 }

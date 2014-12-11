@@ -5,7 +5,7 @@
   this.applicationId=applicationService.findAppByApplicationToken(applicationToken).getId();
   this.logAppenders=new HashMap<>();
   this.logSchemas=new HashMap<>();
-  for (  LogAppender appender : logAppenderService.getApplicationAppenders(applicationId,applicationToken)) {
+  for (  LogAppender appender : logAppenderService.getApplicationAppenders(applicationId)) {
     logAppenders.put(appender.getAppenderId(),appender);
   }
 }

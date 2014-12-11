@@ -6,7 +6,7 @@
   scheduleSudoSshCommand("chown -R " + SSH_USERNAME + ":"+ SSH_USERNAME+ " "+ "/"+ SHARED_FOLDER);
   scheduleSudoSshCommand("chown -R " + SSH_USERNAME + ":"+ SSH_USERNAME+ " "+ SANDBOX_FOLDER);
   executeScheduledSshCommands();
-  logger.info("Transfering sandbox data...");
+  LOG.info("Transfering sandbox data...");
   transferAllFromDir(basePath.getAbsolutePath(),"/" + SHARED_FOLDER);
-  logger.info("Sandbox data transfered");
+  LOG.info("Sandbox data transfered");
 }

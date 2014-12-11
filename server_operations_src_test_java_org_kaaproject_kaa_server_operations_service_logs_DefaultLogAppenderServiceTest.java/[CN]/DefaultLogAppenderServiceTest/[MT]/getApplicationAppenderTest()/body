@@ -5,7 +5,7 @@
   dto.setLogAppendersNames(APPENDER_NAME);
   when(logAppendersService.findLogAppenderById(APPENDER_ID)).thenReturn(new LogAppenderDto());
   when(logAppenderResolver.getAppender(any(LogAppenderDto.class))).thenReturn(mongoDBLogAppender);
-  LogAppender appender=logAppenderService.getApplicationAppender(APPENDER_ID,APPLICATION_TOKEN);
+  LogAppender appender=logAppenderService.getApplicationAppender(APPENDER_ID);
   Assert.assertNotNull(appender);
   Assert.assertEquals(mongoDBLogAppender.getName(),appender.getName());
 }

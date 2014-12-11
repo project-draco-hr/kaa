@@ -1,0 +1,97 @@
+{
+  AtmosphereResource res=null;
+  PrintStream outPrint=null;
+  ByteArrayOutputStream byteOutStream=null;
+  if (uuid != null) {
+    res=AtmosphereResourceFactory.getDefault().find(uuid);
+  }
+ else   if (outputData != null) {
+    byteOutStream=new ByteArrayOutputStream();
+    outPrint=new PrintStream(byteOutStream);
+  }
+  try {
+    ClientMessageOutputStream outStream=new ClientMessageOutputStream(res,outPrint);
+    Project project=projectsMap.get(projectId);
+    if (project != null) {
+      String sdkKeyBase64=project.getSdkKeyBase64();
+      SdkKey sdkKey=(SdkKey)Base64.decodeToObject(sdkKeyBase64,Base64.URL_SAFE,null);
+      outStream.println("Getting SDK for requested project...");
+      FileData sdkFileData=cacheService.getSdk(sdkKey);
+      if (sdkFileData != null) {
+        outStream.println("Successfuly got SDK.");
+        File rootDir=createTempDirectory("demo-project");
+        try {
+          outStream.println("Processing project archive...");
+          String sourceArchiveFile=sandboxHome + "/" + DEMO_PROJECTS_FOLDER+ "/"+ project.getSourceArchive();
+          String rootProjectDir=rootDir.getAbsolutePath();
+          executeCommand(outStream,new String[]{"tar","-C",rootProjectDir,"-xzvf",sourceArchiveFile},null);
+          File sdkFile=new File(rootProjectDir + "/" + project.getSdkLibDir()+ "/"+ sdkFileData.getFileName());
+          FileOutputStream fos=FileUtils.openOutputStream(sdkFile);
+          fos.write(sdkFileData.getFileData());
+          fos.flush();
+          fos.close();
+          ProjectDataKey dataKey=new ProjectDataKey(projectId,dataType);
+          if (dataType == ProjectDataType.SOURCE) {
+            String sourceArchiveName=FilenameUtils.getName(sourceArchiveFile);
+            outStream.println("Compressing source project archive...");
+            File sourceFile=new File(rootDir,sourceArchiveName);
+            String[] files=rootDir.list();
+            String[] command=(String[])ArrayUtils.addAll(new String[]{"tar","-czvf",sourceFile.getAbsolutePath(),"-C",rootProjectDir},files);
+            executeCommand(outStream,command,null);
+            outStream.println("Source project archive compressed.");
+            byte[] sourceFileBytes=FileUtils.readFileToByteArray(sourceFile);
+            FileData sourceFileData=new FileData();
+            sourceFileData.setFileName(sourceArchiveName);
+            sourceFileData.setFileData(sourceFileBytes);
+            sourceFileData.setContentType("application/x-compressed");
+            cacheService.putProjectFile(dataKey,sourceFileData);
+          }
+ else {
+            outStream.println("Building binary file...");
+            File projectFolder=rootDir;
+            if (project.getProjectFolder() != null && !project.getProjectFolder().trim().isEmpty()) {
+              projectFolder=new File(rootDir,project.getProjectFolder());
+            }
+            executeCommand(outStream,new String[]{"ant"},projectFolder);
+            outStream.println("Build finished.");
+            File binaryFile=new File(rootDir,project.getDestBinaryFile());
+            byte[] binaryFileBytes=FileUtils.readFileToByteArray(binaryFile);
+            FileData binaryFileData=new FileData();
+            String binaryFileName=FilenameUtils.getName(binaryFile.getAbsolutePath());
+            binaryFileData.setFileName(binaryFileName);
+            binaryFileData.setFileData(binaryFileBytes);
+            if (project.getPlatform() == Platform.ANDROID) {
+              binaryFileData.setContentType("application/vnd.android.package-archive");
+            }
+ else             if (project.getPlatform() == Platform.JAVA) {
+              binaryFileData.setContentType("application/x-compressed");
+            }
+            cacheService.putProjectFile(dataKey,binaryFileData);
+          }
+        }
+  finally {
+          FileUtils.deleteDirectory(rootDir);
+        }
+      }
+ else {
+        outStream.println("Unable to get/create SDK for requested project!");
+      }
+    }
+ else {
+      outStream.println("No project configuration found!");
+    }
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+ finally {
+    if (res != null) {
+      res.getBroadcaster().broadcast(uuid + " finished",res);
+    }
+    if (outPrint != null) {
+      outPrint.flush();
+      outPrint.close();
+      outputData.setOutputData(byteOutStream.toByteArray());
+    }
+  }
+}

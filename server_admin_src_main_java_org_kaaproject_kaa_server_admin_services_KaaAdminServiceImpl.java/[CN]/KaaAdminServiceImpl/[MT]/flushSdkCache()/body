@@ -1,0 +1,14 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_ADMIN,KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    List<ApplicationDto> applications=getApplications();
+    for (    ApplicationDto application : applications) {
+      for (      SdkKey key : cacheService.getCachedSdkKeys(application.getId())) {
+        cacheService.flushSdk(key);
+      }
+    }
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

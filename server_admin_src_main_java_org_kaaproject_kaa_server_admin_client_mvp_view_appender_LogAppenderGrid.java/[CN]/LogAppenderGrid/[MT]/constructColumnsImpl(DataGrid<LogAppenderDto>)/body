@@ -6,9 +6,20 @@
     }
   }
 ,80);
-  prefWidth+=constructStringColumn(table,Utils.constants.version(),new StringValueProvider<LogAppenderDto>(){
+  prefWidth+=constructStringColumn(table,Utils.constants.minVersion(),new StringValueProvider<LogAppenderDto>(){
     @Override public String getValue(    LogAppenderDto item){
-      return item.getSchemaVersion();
+      return String.valueOf(item.getMinLogSchemaVersion());
+    }
+  }
+,80);
+  prefWidth+=constructStringColumn(table,Utils.constants.maxVersion(),new StringValueProvider<LogAppenderDto>(){
+    @Override public String getValue(    LogAppenderDto item){
+      if (item.getMaxLogSchemaVersion() == Integer.MAX_VALUE) {
+        return Utils.constants.infinite();
+      }
+ else {
+        return String.valueOf(item.getMaxLogSchemaVersion());
+      }
     }
   }
 ,80);

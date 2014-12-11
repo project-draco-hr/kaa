@@ -20,7 +20,9 @@
     }
     try {
       for (      LogAppender logAppender : logAppenders.values()) {
-        logAppender.doAppend(message.getLogEventPack(),callback);
+        if (logAppender.isSchemaVersionSupported(logSchema.getVersion())) {
+          logAppender.doAppend(message.getLogEventPack(),callback);
+        }
       }
     }
  catch (    Exception e) {

@@ -57,12 +57,10 @@
  else   if (!id.equals(other.id)) {
     return false;
   }
-  if (schema == null) {
-    if (other.schema != null) {
-      return false;
-    }
+  if (maxLogSchemaVersion != other.maxLogSchemaVersion) {
+    return false;
   }
- else   if (!schema.equals(other.schema)) {
+  if (minLogSchemaVersion != other.minLogSchemaVersion) {
     return false;
   }
   if (status != other.status) {

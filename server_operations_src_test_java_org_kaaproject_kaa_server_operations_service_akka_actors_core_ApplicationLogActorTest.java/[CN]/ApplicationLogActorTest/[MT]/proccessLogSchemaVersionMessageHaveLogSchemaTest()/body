@@ -1,8 +1,8 @@
 {
+  applicationLogActorMessageProcessor=new ApplicationLogActorMessageProcessor(logAppenderService,applicationService,APP_TOKEN);
   LogEventPackMessage logEventPackMessage=mock(LogEventPackMessage.class);
-  logAppenders.add(logAppender);
   when(logEventPackMessage.getLogSchema()).thenReturn(logSchema);
   when(logEventPackMessage.getLogEventPack()).thenReturn(new LogEventPack());
-  ReflectionTestUtils.invokeMethod(applicationLogActor,"processLogEventPack",logEventPackMessage);
-  verify(logAppender).doAppend(logEventPackMessage.getLogEventPack(),Mockito.any(LogDeliveryCallback.class));
+  applicationLogActorMessageProcessor.processLogEventPack(Mockito.mock(ActorContext.class),logEventPackMessage);
+  verify(logAppender).doAppend(Mockito.any(LogEventPack.class),Mockito.any(LogDeliveryCallback.class));
 }
