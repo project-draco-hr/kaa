@@ -1,0 +1,20 @@
+{
+  Collections.sort(result);
+  List<Integer> versions=new ArrayList<>(result.size());
+  for (  SchemaDto schema : result) {
+    versions.add(schema.getMajorVersion());
+  }
+  if (!create) {
+    detailsView.getName().setValue(entity.getName());
+    detailsView.getDescription().setValue(entity.getDescription());
+    detailsView.getCreatedUsername().setValue(entity.getCreatedUsername());
+    detailsView.getCreatedDateTime().setValue(Utils.millisecondsToDateTimeString(entity.getCreatedTime()));
+    detailsView.getMinSchemaVersion().setValue(entity.getMinLogSchemaVersion());
+    detailsView.getMaxSchemaVersion().setValue(entity.getMaxLogSchemaVersion());
+    detailsView.setMetadataListBox(entity.getHeaderStructure());
+    detailsView.getConfiguration().setValue(entity.getConfiguration());
+    LogAppenderInfoDto appenderInfo=new LogAppenderInfoDto(entity.getTypeName(),entity.getConfiguration(),entity.getAppenderClassName());
+    detailsView.getAppenderInfo().setValue(appenderInfo);
+  }
+  detailsView.setSchemaVersions(versions);
+}

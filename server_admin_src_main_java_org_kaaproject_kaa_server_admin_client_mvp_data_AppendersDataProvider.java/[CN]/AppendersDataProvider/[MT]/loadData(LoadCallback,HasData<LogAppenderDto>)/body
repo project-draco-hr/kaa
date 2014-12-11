@@ -3,11 +3,9 @@
     KaaAdmin.getDataSource().loadLogAppenders(applicationId,new AsyncCallback<List<LogAppenderDto>>(){
       @Override public void onFailure(      Throwable caught){
         callback.onFailure(caught);
-        handler.onError();
       }
       @Override public void onSuccess(      List<LogAppenderDto> result){
         callback.onSuccess(result,display);
-        handler.onLoad(result);
       }
     }
 );

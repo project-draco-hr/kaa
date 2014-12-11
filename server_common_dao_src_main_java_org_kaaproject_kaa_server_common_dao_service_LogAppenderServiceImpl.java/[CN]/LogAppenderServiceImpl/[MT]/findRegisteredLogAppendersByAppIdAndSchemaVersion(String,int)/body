@@ -1,0 +1,4 @@
+{
+  LOG.debug("Find registered log appenders by application id [{}] and schema version [{}]",appId,schemaVersion);
+  return convertDtoList(logAppenderDao.findByAppIdAndSchemaVersion(appId,schemaVersion));
+}

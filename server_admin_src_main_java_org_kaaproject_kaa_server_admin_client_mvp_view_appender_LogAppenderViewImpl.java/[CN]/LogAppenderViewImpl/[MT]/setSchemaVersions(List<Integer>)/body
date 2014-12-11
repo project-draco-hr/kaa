@@ -1,0 +1,8 @@
+{
+  this.schemaVersions=schemaVersions;
+  if (minSchemaVersion.getValue() == null && !schemaVersions.isEmpty()) {
+    minSchemaVersion.setValue(schemaVersions.get(0));
+  }
+  minSchemaVersion.setAcceptableValues(schemaVersions);
+  updateMaxSchemaVersions();
+}
