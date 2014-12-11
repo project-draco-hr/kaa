@@ -1,16 +1,21 @@
 {
   if (!closed) {
-    Event event=flumeEventBuilder.generateEvent(logEventPack,header,getApplicationToken());
+    List<Event> events=flumeEventBuilder.generateEvents(logEventPack,header,getApplicationToken());
     try {
-      if (flumeClientManger != null) {
-        flumeClientManger.sendEventToFlume(event);
+      if (events != null && !events.isEmpty()) {
+        if (flumeClientManger != null) {
+          flumeClientManger.sendEventsToFlume(events);
+        }
+ else {
+          LOG.warn("Flume client wasn't initialized. Invoke method init before.");
+        }
       }
  else {
-        LOG.warn("Flume client wasn't initialized. Invoke method init before.");
+        LOG.warn("Unable to generate Flume events from log event pack!");
       }
     }
  catch (    EventDeliveryException e) {
-      LOG.warn("Can't send flume event.");
+      LOG.warn("Can't send flume events.");
     }
   }
  else {
