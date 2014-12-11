@@ -1,7 +1,8 @@
 {
   try {
     FlumeConfig record=new FlumeConfig();
-    record.hostsBalancing=fieldSetFlags()[0] ? this.hostsBalancing : (java.lang.Object)defaultValue(fields()[0]);
+    record.flumeEventFormat=fieldSetFlags()[0] ? this.flumeEventFormat : (org.kaaproject.kaa.server.appenders.flume.config.gen.FlumeEventFormat)defaultValue(fields()[0]);
+    record.hostsBalancing=fieldSetFlags()[1] ? this.hostsBalancing : (java.lang.Object)defaultValue(fields()[1]);
     return record;
   }
  catch (  Exception e) {

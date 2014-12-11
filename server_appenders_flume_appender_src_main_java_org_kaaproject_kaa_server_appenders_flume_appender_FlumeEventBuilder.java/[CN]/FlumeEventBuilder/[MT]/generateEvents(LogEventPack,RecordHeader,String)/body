@@ -1,0 +1,18 @@
+{
+  LOG.debug("Build flume event object from LogEventPack object {}",eventPack);
+  List<Event> events=null;
+  LogSchema schema=eventPack.getLogSchema();
+  if (schema != null) {
+    List<LogEvent> logEvents=eventPack.getEvents();
+    if (logEvents != null && !logEvents.isEmpty()) {
+      events=generateEvents(appToken,schema,logEvents,header);
+    }
+ else {
+      LOG.warn("Can't build flume events. Empty Log events.");
+    }
+  }
+ else {
+    LOG.warn("Can't build flume events. LogSchema object is null.");
+  }
+  return events;
+}
