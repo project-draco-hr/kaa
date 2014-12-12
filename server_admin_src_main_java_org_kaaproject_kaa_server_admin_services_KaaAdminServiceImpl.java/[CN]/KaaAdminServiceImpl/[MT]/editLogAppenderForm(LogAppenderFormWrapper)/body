@@ -1,7 +1,7 @@
 {
-  LogAppenderDto logAppender=wrapper.getLogAppender();
+  LogAppenderDto logAppender=new LogAppenderDto(wrapper);
   try {
-    Schema schema=appenderConfigSchemas.get(logAppender.getAppenderClassName());
+    Schema schema=appenderConfigSchemas.get(wrapper.getAppenderClassName());
     GenericRecord record=FormAvroConverter.createGenericRecordFormRecordField(wrapper.getConfiguration(),schema);
     GenericAvroConverter<GenericRecord> converter=new GenericAvroConverter<>(schema);
     byte[] rawConfiguration=converter.encode(record);

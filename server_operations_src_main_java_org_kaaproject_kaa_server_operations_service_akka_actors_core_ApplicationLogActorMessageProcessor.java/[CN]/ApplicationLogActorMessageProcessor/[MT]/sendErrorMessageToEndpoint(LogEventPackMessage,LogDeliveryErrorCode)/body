@@ -1,3 +1,8 @@
 {
-  message.getOriginator().tell(new LogDeliveryMessage(message.getRequestId(),false,errorCode),ActorRef.noSender());
+  if (message.getOriginator() != null) {
+    message.getOriginator().tell(new LogDeliveryMessage(message.getRequestId(),false,errorCode),ActorRef.noSender());
+  }
+ else {
+    LOG.warn("[{}] Can't send error message to unknown originator.",applicationToken);
+  }
 }

@@ -2,23 +2,26 @@
   Label authorLabel=new Label(Utils.constants.author());
   createdUsername=new KaaAdminSizedTextBox(-1,false);
   createdUsername.setWidth(FULL_WIDTH);
-  detailsTable.setWidget(0,0,authorLabel);
-  detailsTable.setWidget(0,1,createdUsername);
+  int idx=0;
+  detailsTable.setWidget(idx,0,authorLabel);
+  detailsTable.setWidget(idx,1,createdUsername);
   authorLabel.setVisible(!create);
   createdUsername.setVisible(!create);
   Label dateTimeCreatedLabel=new Label(Utils.constants.dateTimeCreated());
   createdDateTime=new KaaAdminSizedTextBox(-1,false);
   createdDateTime.setWidth(FULL_WIDTH);
-  detailsTable.setWidget(1,0,dateTimeCreatedLabel);
-  detailsTable.setWidget(1,1,createdDateTime);
+  idx++;
+  detailsTable.setWidget(idx,0,dateTimeCreatedLabel);
+  detailsTable.setWidget(idx,1,createdDateTime);
   dateTimeCreatedLabel.setVisible(!create);
   createdDateTime.setVisible(!create);
   name=new KaaAdminSizedTextBox(DEFAULT_TEXTBOX_SIZE);
   name.setWidth(FULL_WIDTH);
   Label nameLabel=new Label(Utils.constants.name());
   nameLabel.addStyleName(REQUIRED);
-  detailsTable.setWidget(2,0,nameLabel);
-  detailsTable.setWidget(2,1,name);
+  idx++;
+  detailsTable.setWidget(idx,0,nameLabel);
+  detailsTable.setWidget(idx,1,name);
   name.addInputHandler(this);
   Label minSchemaVersionLabel=new Label(Utils.constants.minVersion());
   minSchemaVersionLabel.addStyleName(REQUIRED);
@@ -31,8 +34,9 @@
     }
   }
 );
-  detailsTable.setWidget(3,0,minSchemaVersionLabel);
-  detailsTable.setWidget(3,1,minSchemaVersion);
+  idx++;
+  detailsTable.setWidget(idx,0,minSchemaVersionLabel);
+  detailsTable.setWidget(idx,1,minSchemaVersion);
   Label maxSchemaVersionLabel=new Label(Utils.constants.maxVersion());
   maxSchemaVersionLabel.addStyleName(REQUIRED);
   maxSchemaVersion=new IntegerListBox();
@@ -43,18 +47,33 @@
     }
   }
 );
-  detailsTable.setWidget(4,0,maxSchemaVersionLabel);
-  detailsTable.setWidget(4,1,maxSchemaVersion);
+  idx++;
+  detailsTable.setWidget(idx,0,maxSchemaVersionLabel);
+  detailsTable.setWidget(idx,1,maxSchemaVersion);
+  confirmDelivery=new CheckBox();
+  confirmDelivery.setWidth("100%");
+  Label confirmDeliveryLabel=new Label(Utils.constants.mandatory());
+  idx++;
+  detailsTable.setWidget(idx,0,confirmDeliveryLabel);
+  detailsTable.setWidget(idx,1,confirmDelivery);
+  confirmDelivery.addValueChangeHandler(new ValueChangeHandler<Boolean>(){
+    @Override public void onValueChange(    ValueChangeEvent<Boolean> event){
+      fireChanged();
+    }
+  }
+);
   Label logMetadata=new Label(Utils.constants.logMetada());
   generateMetadataListBox();
-  detailsTable.setWidget(5,0,logMetadata);
-  detailsTable.setWidget(5,1,metadatalistBox);
+  idx++;
+  detailsTable.setWidget(idx,0,logMetadata);
+  detailsTable.setWidget(idx,1,metadatalistBox);
   description=new KaaAdminSizedTextArea(1024);
   description.setWidth(FULL_WIDTH);
   description.getTextArea().getElement().getStyle().setPropertyPx("minHeight",100);
   Label descriptionLabel=new Label(Utils.constants.description());
-  detailsTable.setWidget(6,0,descriptionLabel);
-  detailsTable.setWidget(6,1,description);
+  idx++;
+  detailsTable.setWidget(idx,0,descriptionLabel);
+  detailsTable.setWidget(idx,1,description);
   detailsTable.getCellFormatter().setVerticalAlignment(6,0,HasVerticalAlignment.ALIGN_TOP);
   description.addInputHandler(this);
   Label typeLabel=new Label(Utils.constants.logAppenderType());
@@ -66,8 +85,9 @@
     }
   }
 );
-  detailsTable.setWidget(7,0,typeLabel);
-  detailsTable.setWidget(7,1,appenderInfo);
+  idx++;
+  detailsTable.setWidget(idx,0,typeLabel);
+  detailsTable.setWidget(idx,1,appenderInfo);
   getFooter().setStyleName("b-app-content-details-table");
   configuration=new KaaAdminRecordFieldWidget();
   configuration.addValueChangeHandler(this);

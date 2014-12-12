@@ -3,7 +3,7 @@
   if (!logAppenders.containsKey(appenderId)) {
     LogAppender logAppender=logAppenderService.getApplicationAppender(appenderId);
     if (logAppender != null) {
-      logAppenders.put(appenderId,logAppender);
+      addAppender(appenderId,logAppender);
     }
  else {
       LOG.info("[{}] Log appender [{}] registered.",applicationId,appenderId);

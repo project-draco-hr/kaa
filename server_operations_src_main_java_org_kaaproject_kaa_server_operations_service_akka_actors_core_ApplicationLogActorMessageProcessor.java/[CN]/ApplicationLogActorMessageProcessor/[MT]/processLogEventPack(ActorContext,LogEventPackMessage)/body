@@ -1,28 +1,22 @@
 {
   LOG.debug("[{}] Processing log event pack with {} appenders",applicationToken,logAppenders.size());
-  LogSchema logSchema=message.getLogSchema();
-  if (logSchema == null) {
-    logSchema=logSchemas.get(message.getLogSchemaVersion());
-    if (logSchema == null) {
-      logSchema=logAppenderService.getLogSchema(applicationId,message.getLogSchemaVersion());
-      logSchemas.put(message.getLogSchemaVersion(),logSchema);
+  LogSchema logSchema=fetchLogSchema(message);
+  List<LogAppender> required=filterAppenders(logSchema.getVersion(),true);
+  List<LogAppender> optional=filterAppenders(logSchema.getVersion(),false);
+  if (required.size() > 0 || optional.size() > 0) {
+    for (    LogAppender logAppender : optional) {
+      logAppender.doAppend(message.getLogEventPack(),voidCallback);
     }
-    message.setLogSchema(logSchema);
-  }
-  int appenderCount=logAppenders.values().size();
-  if (appenderCount >= 0) {
     LogDeliveryCallback callback;
-    if (appenderCount > 1) {
-      callback=new MultiLogDeliveryCallback(message.getOriginator(),message.getRequestId(),appenderCount);
+    if (required.size() > 1) {
+      callback=new MultiLogDeliveryCallback(message.getOriginator(),message.getRequestId(),required.size());
     }
  else {
       callback=new SingleLogDeliveryCallback(message.getOriginator(),message.getRequestId());
     }
     try {
-      for (      LogAppender logAppender : logAppenders.values()) {
-        if (logAppender.isSchemaVersionSupported(logSchema.getVersion())) {
-          logAppender.doAppend(message.getLogEventPack(),callback);
-        }
+      for (      LogAppender logAppender : required) {
+        logAppender.doAppend(message.getLogEventPack(),callback);
       }
     }
  catch (    Exception e) {

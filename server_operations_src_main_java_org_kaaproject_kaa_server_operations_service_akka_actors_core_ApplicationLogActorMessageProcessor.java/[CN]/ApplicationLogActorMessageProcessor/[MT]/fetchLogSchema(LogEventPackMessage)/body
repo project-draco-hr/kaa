@@ -1,0 +1,12 @@
+{
+  LogSchema logSchema=message.getLogSchema();
+  if (logSchema == null) {
+    logSchema=logSchemas.get(message.getLogSchemaVersion());
+    if (logSchema == null) {
+      logSchema=logAppenderService.getLogSchema(applicationId,message.getLogSchemaVersion());
+      logSchemas.put(message.getLogSchemaVersion(),logSchema);
+    }
+    message.setLogSchema(logSchema);
+  }
+  return logSchema;
+}

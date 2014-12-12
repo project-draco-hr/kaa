@@ -2,6 +2,8 @@
   LogEventPackMessage logEventPackMessage=mock(LogEventPackMessage.class);
   when(logEventPackMessage.getLogSchema()).thenReturn(logSchema);
   when(logEventPackMessage.getLogEventPack()).thenReturn(new LogEventPack());
+  when(logEventPackMessage.getOriginator()).thenReturn(ActorRef.noSender());
+  when(logEventPackMessage.getRequestId()).thenReturn("request id");
   LogAppender mockAppender=mock(LogAppender.class);
   when(mockAppender.getName()).thenReturn("flume");
   when(mockAppender.getAppenderId()).thenReturn(APPENDER_ID);
