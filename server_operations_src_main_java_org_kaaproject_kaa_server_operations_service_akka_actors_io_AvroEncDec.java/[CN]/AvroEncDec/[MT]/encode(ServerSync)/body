@@ -1,0 +1,7 @@
+{
+  if (sync == null) {
+    return null;
+  }
+  SyncResponse response=convert(sync);
+  return serverSyncConverter.toByteArray(response);
+}

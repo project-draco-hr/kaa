@@ -1,0 +1,31 @@
+{
+  UUID channelUuid=getChannelUuid();
+  LOG.debug("[{}] Cleanup profile request",channelUuid);
+  request.setProfileSyncRequest(null);
+  if (request.getUserSyncRequest() != null) {
+    LOG.debug("[{}] Cleanup user request",channelUuid);
+    request.setUserSyncRequest(new UserClientSync());
+  }
+  if (request.getEventSyncRequest() != null) {
+    LOG.debug("[{}] Cleanup event request",channelUuid);
+    request.setEventSyncRequest(new EventClientSync());
+  }
+  if (request.getLogSyncRequest() != null) {
+    LOG.debug("[{}] Cleanup log request",channelUuid);
+    request.getLogSyncRequest().setLogEntries(null);
+  }
+  if (request.getNotificationSyncRequest() != null) {
+    LOG.debug("[{}] Cleanup/update notification request",channelUuid);
+    if (response != null && response.getNotificationSyncResponse() != null) {
+      request.getNotificationSyncRequest().setAppStateSeqNumber(response.getNotificationSyncResponse().getAppStateSeqNumber());
+    }
+    request.getNotificationSyncRequest().setSubscriptionCommands(null);
+    request.getNotificationSyncRequest().setAcceptedUnicastNotifications(null);
+  }
+  if (request.getConfigurationSyncRequest() != null) {
+    LOG.debug("[{}] Cleanup/update configuration request",channelUuid);
+    if (response != null && response.getConfigurationSyncResponse() != null) {
+      request.getConfigurationSyncRequest().setAppStateSeqNumber(response.getConfigurationSyncResponse().getAppStateSeqNumber());
+    }
+  }
+}

@@ -4,13 +4,13 @@
   channels.addAll(channelMap.getByTransportType(TransportType.NOTIFICATION));
   LOG.debug("[{}][{}] Processing thrift norification for {} channels",endpointKey,actorKey,channels.size());
   for (  ChannelMetaData channel : channels) {
-    SyncRequest originalRequest=channel.getRequestMessage().getRequest();
-    SyncResponse syncResponse=channel.getResponseHolder().getResponse();
-    SyncRequest newRequest=new SyncRequest();
+    ClientSync originalRequest=channel.getRequestMessage().getRequest();
+    ServerSync syncResponse=channel.getResponseHolder().getResponse();
+    ClientSync newRequest=new ClientSync();
     newRequest.setRequestId(originalRequest.getRequestId());
     newRequest.setSyncRequestMetaData(originalRequest.getSyncRequestMetaData());
     if (originalRequest.getConfigurationSyncRequest() != null) {
-      ConfigurationSyncRequest configurationSyncRequest=originalRequest.getConfigurationSyncRequest();
+      ConfigurationClientSync configurationSyncRequest=originalRequest.getConfigurationSyncRequest();
       if (syncResponse.getConfigurationSyncResponse() != null) {
         int newSeqNumber=syncResponse.getConfigurationSyncResponse().getAppStateSeqNumber();
         LOG.debug("[{}][{}] Change original configuration request {} appSeqNumber from {} to {}",endpointKey,actorKey,originalRequest,configurationSyncRequest.getAppStateSeqNumber(),newSeqNumber);
@@ -20,7 +20,7 @@
       originalRequest.setConfigurationSyncRequest(null);
     }
     if (originalRequest.getNotificationSyncRequest() != null) {
-      NotificationSyncRequest notificationSyncRequest=originalRequest.getNotificationSyncRequest();
+      NotificationClientSync notificationSyncRequest=originalRequest.getNotificationSyncRequest();
       if (syncResponse.getNotificationSyncResponse() != null) {
         int newSeqNumber=syncResponse.getNotificationSyncResponse().getAppStateSeqNumber();
         LOG.debug("[{}][{}] Change original notification request {} appSeqNumber from {} to {}",endpointKey,actorKey,originalRequest,notificationSyncRequest.getAppStateSeqNumber(),newSeqNumber);

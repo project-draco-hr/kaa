@@ -1,6 +1,6 @@
 {
-  SyncResponse response=new SyncResponse();
-  response.setNotificationSyncResponse(new NotificationSyncResponse());
+  ServerSync response=new ServerSync();
+  response.setNotificationSyncResponse(new NotificationServerSync());
   response.getNotificationSyncResponse().setResponseStatus(SyncResponseStatus.NO_DELTA);
   assertFalse(new SyncResponseHolder(response).requireImmediateReply());
   response.getNotificationSyncResponse().setResponseStatus(SyncResponseStatus.DELTA);

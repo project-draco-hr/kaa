@@ -1,6 +1,6 @@
 {
-  SyncResponse response=new SyncResponse();
-  response.setUserSyncResponse(new UserSyncResponse());
+  ServerSync response=new ServerSync();
+  response.setUserSyncResponse(new UserServerSync());
   assertFalse(new SyncResponseHolder(response).requireImmediateReply());
   response.getUserSyncResponse().setEndpointAttachResponses(new ArrayList<EndpointAttachResponse>());
   assertFalse(new SyncResponseHolder(response).requireImmediateReply());

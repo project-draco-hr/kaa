@@ -1,21 +1,21 @@
 {
-  SyncResponse response=new SyncResponse();
+  ServerSync response=new ServerSync();
   response.setStatus(SyncResponseResultType.SUCCESS);
-  response.setNotificationSyncResponse(new NotificationSyncResponse());
+  response.setNotificationSyncResponse(new NotificationServerSync());
   NotificationDto nfDto=new NotificationDto();
   nfDto.setId("nfId");
   nfDto.setBody("body".getBytes());
   nfDto.setType(NotificationTypeDto.SYSTEM);
-  SyncResponse result=operationsService.updateSyncResponse(response,Collections.singletonList(nfDto),null);
+  ServerSync result=operationsService.updateSyncResponse(response,Collections.singletonList(nfDto),null);
   assertNotNull(result);
   assertNotNull(result.getNotificationSyncResponse());
   assertNotNull(result.getNotificationSyncResponse().getNotifications());
   assertEquals(SyncResponseStatus.DELTA,result.getNotificationSyncResponse().getResponseStatus());
-  response=new SyncResponse();
+  response=new ServerSync();
   response.setStatus(SyncResponseResultType.SUCCESS);
-  NotificationSyncResponse nfResponse=new NotificationSyncResponse();
+  NotificationServerSync nfResponse=new NotificationServerSync();
   nfResponse.setNotifications(new ArrayList<Notification>());
-  response.setNotificationSyncResponse(new NotificationSyncResponse());
+  response.setNotificationSyncResponse(new NotificationServerSync());
   result=operationsService.updateSyncResponse(response,Collections.singletonList(nfDto),null);
   assertNotNull(result);
   assertNotNull(result.getNotificationSyncResponse());

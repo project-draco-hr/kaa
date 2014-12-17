@@ -1,17 +1,17 @@
 {
   basicRegistrationTest();
   byte[] profile=avroConverter.encode(FAKE_ENDPOINT_PROFILE);
-  SyncRequest request=new SyncRequest();
-  SyncRequestMetaData md=new SyncRequestMetaData();
+  ClientSync request=new ClientSync();
+  ClientSyncMetaData md=new ClientSyncMetaData();
   md.setApplicationToken(application.getApplicationToken());
   md.setEndpointPublicKeyHash(ByteBuffer.wrap(EndpointObjectHash.fromSHA1(ENDPOINT_KEY).getData()));
   md.setProfileHash(ByteBuffer.wrap(EndpointObjectHash.fromSHA1(profile).getData()));
   request.setSyncRequestMetaData(md);
-  ConfigurationSyncRequest confSyncRequest=new ConfigurationSyncRequest();
+  ConfigurationClientSync confSyncRequest=new ConfigurationClientSync();
   confSyncRequest.setAppStateSeqNumber(APPLICATION_SEQ_NUMBER - 1);
   confSyncRequest.setConfigurationHash(ByteBuffer.wrap(currentConfigurationHash));
   request.setConfigurationSyncRequest(confSyncRequest);
-  SyncResponse response=operationsService.sync(request).getResponse();
+  ServerSync response=operationsService.sync(request).getResponse();
   Assert.assertNotNull(response);
   Assert.assertEquals(SyncResponseResultType.PROFILE_RESYNC,response.getStatus());
   Assert.assertNull(response.getConfigurationSyncResponse());

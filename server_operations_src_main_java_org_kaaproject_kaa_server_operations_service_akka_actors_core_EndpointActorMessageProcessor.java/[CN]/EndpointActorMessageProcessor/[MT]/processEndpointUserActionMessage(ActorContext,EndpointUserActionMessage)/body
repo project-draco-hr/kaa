@@ -7,8 +7,8 @@
   if (!eventChannels.isEmpty()) {
     for (    ChannelMetaData channel : eventChannels) {
       SyncRequestMessage pendingRequest=channel.getRequestMessage();
-      SyncResponse pendingResponse=channel.getResponseHolder().getResponse();
-      UserSyncResponse userSyncResponse=pendingResponse.getUserSyncResponse();
+      ServerSync pendingResponse=channel.getResponseHolder().getResponse();
+      UserServerSync userSyncResponse=pendingResponse.getUserSyncResponse();
       if (userSyncResponse != null) {
         if (message instanceof EndpointUserAttachMessage) {
           if (endpointProfile != null) {

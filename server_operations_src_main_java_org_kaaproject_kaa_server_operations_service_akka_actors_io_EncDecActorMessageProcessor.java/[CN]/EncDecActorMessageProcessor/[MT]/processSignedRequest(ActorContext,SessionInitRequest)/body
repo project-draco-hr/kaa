@@ -1,5 +1,5 @@
 {
-  SyncRequest request=decodeRequest(message);
+  ClientSync request=decodeRequest(message);
   EndpointObjectHash key=getEndpointObjectHash(request);
   NettySessionInfo session=new NettySessionInfo(message.getChannelUuid(),message.getChannelContext(),message.getChannelType(),crypt.getSessionCipherPair(),key,request.getSyncRequestMetaData().getApplicationToken(),message.getKeepAlive(),message.isEncrypted());
   message.onSessionCreated(session);

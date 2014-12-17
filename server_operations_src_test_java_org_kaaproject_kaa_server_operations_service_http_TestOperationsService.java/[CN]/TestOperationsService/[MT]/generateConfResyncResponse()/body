@@ -1,7 +1,7 @@
 {
-  SyncResponse response=new SyncResponse();
+  ServerSync response=new ServerSync();
   response.setStatus(SyncResponseResultType.SUCCESS);
-  ConfigurationSyncResponse confSyncResponse=new ConfigurationSyncResponse();
+  ConfigurationServerSync confSyncResponse=new ConfigurationServerSync();
   confSyncResponse.setResponseStatus(SyncResponseStatus.RESYNC);
   confSyncResponse.setConfDeltaBody(ByteBuffer.wrap(HttpTestSyncClient.getRandomBytes(4096)));
   confSyncResponse.setConfSchemaBody(ByteBuffer.wrap(HttpTestSyncClient.getRandomBytes(4096)));

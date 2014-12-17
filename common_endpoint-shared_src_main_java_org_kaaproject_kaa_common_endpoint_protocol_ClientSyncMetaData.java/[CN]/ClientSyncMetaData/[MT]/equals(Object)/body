@@ -1,0 +1,40 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  ClientSyncMetaData other=(ClientSyncMetaData)obj;
+  if (applicationToken == null) {
+    if (other.applicationToken != null) {
+      return false;
+    }
+  }
+ else   if (!applicationToken.equals(other.applicationToken)) {
+    return false;
+  }
+  if (endpointPublicKeyHash == null) {
+    if (other.endpointPublicKeyHash != null) {
+      return false;
+    }
+  }
+ else   if (!endpointPublicKeyHash.equals(other.endpointPublicKeyHash)) {
+    return false;
+  }
+  if (profileHash == null) {
+    if (other.profileHash != null) {
+      return false;
+    }
+  }
+ else   if (!profileHash.equals(other.profileHash)) {
+    return false;
+  }
+  if (timeout != other.timeout) {
+    return false;
+  }
+  return true;
+}

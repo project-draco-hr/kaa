@@ -1,6 +1,6 @@
 {
-  SyncResponse response=new SyncResponse();
-  response.setConfigurationSyncResponse(new ConfigurationSyncResponse());
+  ServerSync response=new ServerSync();
+  response.setConfigurationSyncResponse(new ConfigurationServerSync());
   response.getConfigurationSyncResponse().setResponseStatus(SyncResponseStatus.NO_DELTA);
   assertFalse(new SyncResponseHolder(response).requireImmediateReply());
   response.getConfigurationSyncResponse().setResponseStatus(SyncResponseStatus.DELTA);

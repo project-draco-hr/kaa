@@ -1,0 +1,6 @@
+{
+  ServerSync response=new ServerSync();
+  response.setRequestId(request.getRequestId());
+  response.setStatus(SyncResponseResultType.PROFILE_RESYNC);
+  return new SyncResponseHolder(response);
+}

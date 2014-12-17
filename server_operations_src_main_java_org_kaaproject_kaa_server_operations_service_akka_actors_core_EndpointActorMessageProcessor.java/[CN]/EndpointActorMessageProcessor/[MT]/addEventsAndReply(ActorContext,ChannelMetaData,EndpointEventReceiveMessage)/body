@@ -1,9 +1,9 @@
 {
   SyncRequestMessage pendingRequest=channel.getRequestMessage();
   SyncResponseHolder pendingResponse=channel.getResponseHolder();
-  EventSyncResponse eventResponse=pendingResponse.getResponse().getEventSyncResponse();
+  EventServerSync eventResponse=pendingResponse.getResponse().getEventSyncResponse();
   if (eventResponse == null) {
-    eventResponse=new EventSyncResponse();
+    eventResponse=new EventServerSync();
     pendingResponse.getResponse().setEventSyncResponse(eventResponse);
   }
   eventResponse.setEvents(message.getEvents());

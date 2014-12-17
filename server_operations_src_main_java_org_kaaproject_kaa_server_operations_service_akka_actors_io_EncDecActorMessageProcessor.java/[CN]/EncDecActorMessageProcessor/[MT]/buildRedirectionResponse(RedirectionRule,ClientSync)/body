@@ -1,0 +1,8 @@
+{
+  RedirectServerSync redirectSyncResponse=new RedirectServerSync(redirection.getDnsName());
+  ServerSync response=new ServerSync();
+  response.setRequestId(request.getRequestId());
+  response.setStatus(SyncResponseResultType.REDIRECT);
+  response.setRedirectSyncResponse(redirectSyncResponse);
+  return response;
+}

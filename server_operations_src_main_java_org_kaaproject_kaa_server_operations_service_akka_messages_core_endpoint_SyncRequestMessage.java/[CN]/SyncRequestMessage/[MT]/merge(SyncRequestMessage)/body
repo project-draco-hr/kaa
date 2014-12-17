@@ -1,11 +1,11 @@
 {
   UUID channelUuid=getChannelUuid();
-  SyncRequest other=syncRequest.getRequest();
+  ClientSync other=syncRequest.getRequest();
   LOG.trace("[{}] Merging original request {} with new request {}",channelUuid,request,other);
   request.setRequestId(other.getRequestId());
   request.getSyncRequestMetaData().setProfileHash(other.getSyncRequestMetaData().getProfileHash());
   LOG.debug("[{}] Updated request id and profile hash",channelUuid);
-  SyncRequest diff=new SyncRequest();
+  ClientSync diff=new ClientSync();
   diff.setRequestId(other.getRequestId());
   diff.setSyncRequestMetaData(other.getSyncRequestMetaData());
   if (other.getConfigurationSyncRequest() != null) {

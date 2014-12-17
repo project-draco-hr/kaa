@@ -1,5 +1,5 @@
 {
-  SyncResponse response=getResponse();
+  ServerSync response=getResponse();
   if (response.getProfileSyncResponse() != null && response.getProfileSyncResponse().getResponseStatus() != SyncResponseStatus.NO_DELTA) {
     return true;
   }
@@ -21,7 +21,7 @@
     }
   }
   if (response.getUserSyncResponse() != null) {
-    UserSyncResponse userResponse=response.getUserSyncResponse();
+    UserServerSync userResponse=response.getUserSyncResponse();
     if (userResponse.getEndpointAttachResponses() != null && !userResponse.getEndpointAttachResponses().isEmpty()) {
       return true;
     }

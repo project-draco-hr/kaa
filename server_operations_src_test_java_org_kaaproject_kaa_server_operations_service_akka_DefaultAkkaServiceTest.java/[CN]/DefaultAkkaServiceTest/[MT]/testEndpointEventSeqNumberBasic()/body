@@ -13,11 +13,11 @@
   EventSyncRequest eventRequest=new EventSyncRequest();
   eventRequest.setEventSequenceNumberRequest(new EventSequenceNumberRequest());
   sourceRequest.setEventSyncRequest(eventRequest);
-  SyncResponse sourceResponse=new SyncResponse();
-  sourceResponse.setStatus(SyncResponseResultType.SUCCESS);
+  ServerSync sourceResponse=new ServerSync();
+  sourceResponse.setStatus(org.kaaproject.kaa.common.endpoint.protocol.SyncResponseResultType.SUCCESS);
   SyncResponseHolder sourceResponseHolder=new SyncResponseHolder(sourceResponse);
   sourceResponseHolder.setEndpointProfile(sourceProfileMock);
-  when(operationsService.sync(sourceRequest,null)).thenReturn(sourceResponseHolder);
+  when(operationsService.sync(AvroEncDec.convert(sourceRequest),null)).thenReturn(sourceResponseHolder);
   when(sourceProfileMock.getEndpointUserId()).thenReturn(USER_ID);
   when(sourceProfileMock.getEndpointKeyHash()).thenReturn(clientPublicKeyHash.array());
   when(sourceProfileMock.getEcfVersionStates()).thenReturn(Arrays.asList(ecfVdto));
@@ -30,7 +30,7 @@
   MessageEncoderDecoder sourceCrypt=new MessageEncoderDecoder(clientPair.getPrivate(),clientPair.getPublic(),serverPair.getPublic());
   SessionInitRequest sourceMessage=toSignedRequest(UUID.randomUUID(),ChannelType.HTTP_LP,channelContextMock,sourceRequest,responseBuilder,errorBuilder,sourceCrypt);
   akkaService.process(sourceMessage);
-  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeastOnce()).sync(Mockito.any(SyncRequest.class),Mockito.any(EndpointProfileDto.class));
+  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeastOnce()).sync(Mockito.any(ClientSync.class),Mockito.any(EndpointProfileDto.class));
   SyncResponse eventResponse=new SyncResponse();
   eventResponse.setStatus(SyncResponseResultType.SUCCESS);
   eventResponse.setEventSyncResponse(new EventSyncResponse());

@@ -1,0 +1,16 @@
+{
+  LOG.debug("[{}][{}] Processing log upload request {}",endpointKey,actorKey,logUploadRequest.getLogEntries().size());
+  LogEventPack logPack=new LogEventPack();
+  logPack.setDateCreated(System.currentTimeMillis());
+  logPack.setEndpointKey(Base64Util.encode(key.getData()));
+  List<LogEvent> logEvents=new ArrayList<>(logUploadRequest.getLogEntries().size());
+  for (  LogEntry logEntry : logUploadRequest.getLogEntries()) {
+    LogEvent logEvent=new LogEvent();
+    logEvent.setLogData(logEntry.getData().array());
+    logEvents.add(logEvent);
+  }
+  logPack.setEvents(logEvents);
+  logPack.setLogSchemaVersion(profile.getLogSchemaVersion());
+  context.parent().tell(new LogEventPackMessage(logPack),context.self());
+  return new LogServerSync(logUploadRequest.getRequestId(),SyncResponseResultType.SUCCESS);
+}

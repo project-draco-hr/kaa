@@ -1,7 +1,7 @@
 {
-  SyncResponse response=new SyncResponse();
+  ServerSync response=new ServerSync();
   response.setStatus(SyncResponseResultType.REDIRECT);
-  RedirectSyncResponse redirectResponse=new RedirectSyncResponse();
+  RedirectServerSync redirectResponse=new RedirectServerSync();
   redirectResponse.setDnsName(MultipartObjects.getRandomString(30));
   response.setRedirectSyncResponse(redirectResponse);
   return response;

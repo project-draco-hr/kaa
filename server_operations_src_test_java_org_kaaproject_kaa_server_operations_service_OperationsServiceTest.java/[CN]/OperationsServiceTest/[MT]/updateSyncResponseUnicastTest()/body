@@ -1,8 +1,8 @@
 {
-  SyncResponse response=new SyncResponse();
+  ServerSync response=new ServerSync();
   response.setStatus(SyncResponseResultType.SUCCESS);
-  response.setNotificationSyncResponse(new NotificationSyncResponse());
-  SyncResponse result=operationsService.updateSyncResponse(response,new ArrayList<NotificationDto>(),UNICAST_NF_ID);
+  response.setNotificationSyncResponse(new NotificationServerSync());
+  ServerSync result=operationsService.updateSyncResponse(response,new ArrayList<NotificationDto>(),UNICAST_NF_ID);
   assertNotNull(result);
   assertNotNull(result.getNotificationSyncResponse());
   assertNotNull(result.getNotificationSyncResponse().getNotifications());

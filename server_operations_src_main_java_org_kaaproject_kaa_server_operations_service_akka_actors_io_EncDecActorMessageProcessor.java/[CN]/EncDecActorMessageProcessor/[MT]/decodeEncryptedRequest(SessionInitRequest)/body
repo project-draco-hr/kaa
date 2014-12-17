@@ -1,7 +1,7 @@
 {
   byte[] requestRaw=crypt.decodeData(message.getEncodedRequestData(),message.getEncodedSessionKey());
   LOG.trace("Request data decrypted");
-  SyncRequest request=requestConverter.fromByteArray(requestRaw);
+  ClientSync request=platformEncDecMap.get(AVRO_ENC_DEC_ID).decode(requestRaw);
   LOG.trace("Request data deserialized");
   PublicKey endpointKey=getPublicKey(request);
   if (endpointKey == null) {

@@ -1,6 +1,6 @@
 {
-  SyncResponse response=new SyncResponse();
-  response.setEventSyncResponse(new EventSyncResponse());
+  ServerSync response=new ServerSync();
+  response.setEventSyncResponse(new EventServerSync());
   assertFalse(new SyncResponseHolder(response).requireImmediateReply());
   response.getEventSyncResponse().setEvents(new ArrayList<Event>());
   assertFalse(new SyncResponseHolder(response).requireImmediateReply());
