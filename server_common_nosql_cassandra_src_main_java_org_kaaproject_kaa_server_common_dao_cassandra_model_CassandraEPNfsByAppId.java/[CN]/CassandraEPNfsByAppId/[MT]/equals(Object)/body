@@ -1,0 +1,8 @@
+{
+  if (this == o)   return true;
+  if (o == null || getClass() != o.getClass())   return false;
+  CassandraEPNfsByAppId that=(CassandraEPNfsByAppId)o;
+  if (appId != null ? !appId.equals(that.appId) : that.appId != null)   return false;
+  if (notificationId != null ? !notificationId.equals(that.notificationId) : that.notificationId != null)   return false;
+  return true;
+}

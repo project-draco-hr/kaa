@@ -1,16 +1,8 @@
 {
-  if (this == o) {
-    return true;
-  }
-  if (o == null || getClass() != o.getClass()) {
-    return false;
-  }
+  if (this == o)   return true;
+  if (o == null || getClass() != o.getClass())   return false;
   CassandraEndpointConfiguration that=(CassandraEndpointConfiguration)o;
-  if (!Arrays.equals(configuration,that.configuration)) {
-    return false;
-  }
-  if (!Arrays.equals(configurationHash,that.configurationHash)) {
-    return false;
-  }
+  if (configuration != null ? !configuration.equals(that.configuration) : that.configuration != null)   return false;
+  if (configurationHash != null ? !configurationHash.equals(that.configurationHash) : that.configurationHash != null)   return false;
   return true;
 }

@@ -1,0 +1,16 @@
+{
+  List<NotificationDto> notifications=new ArrayList<>(count);
+  NotificationDto notification;
+  for (int i=0; i < count; i++) {
+    notification=new NotificationDto();
+    notification.setId(UUID.randomUUID().toString());
+    notification.setApplicationId(appId);
+    notification.setSchemaId(schemaId);
+    notification.setTopicId(topicId);
+    notification.setType(type != null ? type : NotificationTypeDto.USER);
+    byte[] body="dao/schema/testBaseData.json".getBytes(Charset.forName("UTF-8"));
+    notification.setBody(body);
+    notifications.add(notification);
+  }
+  return notifications;
+}

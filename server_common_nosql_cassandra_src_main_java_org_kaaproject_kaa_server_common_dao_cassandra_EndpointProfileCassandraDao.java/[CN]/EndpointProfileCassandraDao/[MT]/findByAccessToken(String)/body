@@ -1,3 +1,8 @@
 {
-  return null;
+  CassandraEndpointProfile endpointProfile=null;
+  ByteBuffer epKeyHash=cassandraEPByAccessTokenDao.findEPIdByAccessToken(endpointAccessToken);
+  if (epKeyHash != null) {
+    endpointProfile=(CassandraEndpointProfile)getMapper().get(epKeyHash);
+  }
+  return endpointProfile;
 }

@@ -1,2 +1,7 @@
 {
+  ByteBuffer epKeyHash=ByteBuffer.wrap(generateBytes());
+  generateEndpointNotification(epKeyHash,3);
+  endpointNotificationDao.removeNotificationsByKeyHash(epKeyHash.array());
+  List<CassandraEndpointNotification> found=endpointNotificationDao.findNotificationsByKeyHash(epKeyHash.array());
+  Assert.assertTrue(found.isEmpty());
 }

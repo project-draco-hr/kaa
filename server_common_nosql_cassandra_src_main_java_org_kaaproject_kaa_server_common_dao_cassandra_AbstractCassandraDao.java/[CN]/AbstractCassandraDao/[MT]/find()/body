@@ -1,3 +1,4 @@
 {
-  return Collections.emptyList();
+  LOG.debug("Get all entities from column family {}",getColumnFamilyName());
+  return findListByStatement(QueryBuilder.select().all().from(getColumnFamilyName()));
 }

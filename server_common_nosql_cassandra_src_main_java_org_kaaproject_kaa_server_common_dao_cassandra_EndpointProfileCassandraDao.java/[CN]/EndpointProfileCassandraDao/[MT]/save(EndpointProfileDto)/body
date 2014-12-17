@@ -1,3 +1,19 @@
 {
-  return null;
+  CassandraEndpointProfile profile=new CassandraEndpointProfile(dto);
+  profile.setId(getStringId());
+  ByteBuffer epKeyHash=getByteBuffer(profile.getEndpointKeyHash());
+  Statement saveByAppId=cassandraEPByAppIdDao.getSaveQuery(new CassandraEPByAppId(profile.getApplicationId(),epKeyHash));
+  String accessToken=profile.getAccessToken();
+  Statement saveByAccessToken=null;
+  if (accessToken != null) {
+    saveByAccessToken=cassandraEPByAccessTokenDao.getSaveQuery(new CassandraEPByAccessToken(accessToken,epKeyHash));
+  }
+  Statement saveProfile=getSaveQuery(profile);
+  if (saveByAccessToken != null) {
+    executeBatch(BatchStatement.Type.UNLOGGED,saveProfile,saveByAppId,saveByAccessToken);
+  }
+ else {
+    executeBatch(BatchStatement.Type.UNLOGGED,saveProfile,saveByAppId);
+  }
+  return profile;
 }

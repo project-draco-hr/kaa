@@ -1,3 +1,9 @@
 {
-  return null;
+  List<CassandraEndpointProfile> profileList=Collections.emptyList();
+  List<ByteBuffer> keyHashList=cassandraEPByUserIdDao.findEPKeyHashListByUserId(endpointUserId);
+  if (keyHashList != null) {
+    Statement select=select().from(getColumnFamilyName()).where(in(ENDPOINT_PROFILE_ENDPOINT_KEY_HASH_PROPERTY,keyHashList));
+    profileList=findListByStatement(select);
+  }
+  return profileList;
 }

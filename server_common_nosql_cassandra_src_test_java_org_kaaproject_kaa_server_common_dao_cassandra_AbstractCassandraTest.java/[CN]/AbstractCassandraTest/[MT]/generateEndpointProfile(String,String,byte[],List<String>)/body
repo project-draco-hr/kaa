@@ -1,0 +1,10 @@
+{
+  if (keyHash == null) {
+    keyHash="TEST_KEY_HASH".getBytes();
+  }
+  EndpointProfileDto profileDto=new EndpointProfileDto();
+  profileDto.setApplicationId(appId);
+  profileDto.setSubscriptions(topicIds);
+  profileDto.setEndpointKeyHash(keyHash);
+  return endpointProfileDao.save(new CassandraEndpointProfile(profileDto)).toDto();
+}

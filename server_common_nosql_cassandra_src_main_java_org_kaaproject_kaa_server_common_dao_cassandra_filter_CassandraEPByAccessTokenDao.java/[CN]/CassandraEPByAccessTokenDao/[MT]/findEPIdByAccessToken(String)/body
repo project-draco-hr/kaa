@@ -1,0 +1,8 @@
+{
+  ByteBuffer endpointKeyHash=null;
+  CassandraEPByAccessToken result=findById(accessToken);
+  if (result != null) {
+    endpointKeyHash=result.getEndpointKeyHash();
+  }
+  return endpointKeyHash;
+}

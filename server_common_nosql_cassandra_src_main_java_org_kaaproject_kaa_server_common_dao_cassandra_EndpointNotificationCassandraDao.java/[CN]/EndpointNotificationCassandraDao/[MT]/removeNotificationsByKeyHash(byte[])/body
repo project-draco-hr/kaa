@@ -1,4 +1,5 @@
 {
   LOG.debug("Remove endpoint notifications by endpoint key hash {}",keyHash);
-  getMapper().delete(keyHash);
+  Statement delete=delete().from(getColumnFamilyName()).where(eq(ENDPOINT_NOTIFICATION_ENDPOINT_KEY_HASH_PROPERTY,getByteBuffer(keyHash)));
+  execute(delete);
 }

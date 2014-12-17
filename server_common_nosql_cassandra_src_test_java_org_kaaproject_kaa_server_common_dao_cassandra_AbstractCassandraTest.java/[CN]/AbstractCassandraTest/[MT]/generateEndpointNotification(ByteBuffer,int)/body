@@ -3,13 +3,16 @@
   if (endpointKeyHash == null) {
     endpointKeyHash=ByteBuffer.allocate(8).putLong(RANDOM.nextLong()).compact();
   }
+  String topicId=generateStringId();
+  String appId=generateStringId();
+  String schemaId=generateStringId();
   for (int i=0; i < count; i++) {
     CassandraEndpointNotification endpointNotification=new CassandraEndpointNotification();
     endpointNotification.setEndpointKeyHash(endpointKeyHash);
-    NotificationDto notificationDto=generateNotifications(UUID.randomUUID().toString(),1,NotificationTypeDto.USER).get(0);
+    NotificationDto notificationDto=generateNotifications(topicId,appId,schemaId,1,NotificationTypeDto.USER).get(0);
     endpointNotification.setId(notificationDto.getId());
     endpointNotification.setNotification(new CassandraNotification(notificationDto));
-    savedNotifications.add(endpointNotificationCassandraDao.save(endpointNotification));
+    savedNotifications.add(endpointNotificationDao.save(endpointNotification));
   }
   return savedNotifications;
 }

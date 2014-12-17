@@ -1,4 +1,4 @@
 {
   LOG.debug("Remove endpoint configuration by hash [{}] ",hash);
-  getMapper().delete(hash);
+  getMapper().delete(getByteBuffer(hash));
 }

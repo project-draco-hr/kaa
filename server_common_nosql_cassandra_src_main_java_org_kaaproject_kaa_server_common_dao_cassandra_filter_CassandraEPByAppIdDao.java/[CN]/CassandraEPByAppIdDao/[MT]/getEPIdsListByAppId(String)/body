@@ -1,0 +1,8 @@
+{
+  List<CassandraEPByAppId> filter=findListByStatement(select().from(getColumnFamilyName()).where(eq(EP_BY_APP_ID_APPLICATION_ID_PROPERTY,appId)));
+  List<ByteBuffer> result=new ArrayList<>(filter.size());
+  for (  CassandraEPByAppId ep : filter) {
+    result.add(ep.getEndpointKeyHash());
+  }
+  return result;
+}

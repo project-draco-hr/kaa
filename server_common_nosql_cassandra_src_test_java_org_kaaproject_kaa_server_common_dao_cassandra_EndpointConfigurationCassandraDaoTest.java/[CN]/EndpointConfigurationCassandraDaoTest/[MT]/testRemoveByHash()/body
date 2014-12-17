@@ -1,2 +1,7 @@
 {
+  List<CassandraEndpointConfiguration> configs=generateConfiguration(3);
+  CassandraEndpointConfiguration expected=configs.get(0);
+  endpointConfigurationDao.removeByHash(expected.getConfigurationHash().array());
+  CassandraEndpointConfiguration found=endpointConfigurationDao.findByHash(expected.getConfigurationHash().array());
+  Assert.assertNull(found);
 }
