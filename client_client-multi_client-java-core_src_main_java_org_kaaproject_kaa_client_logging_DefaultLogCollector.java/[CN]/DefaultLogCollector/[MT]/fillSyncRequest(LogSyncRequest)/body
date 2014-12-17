@@ -14,7 +14,7 @@ synchronized (storage) {
       }
       request.setRequestId(group.getBlockId());
       request.setLogEntries(logs);
-      timeoutMap.put(group.getBlockId(),System.currentTimeMillis());
+      timeoutMap.put(group.getBlockId(),System.currentTimeMillis() + configuration.getLogUploadTimeout() * 1000);
     }
   }
  else {

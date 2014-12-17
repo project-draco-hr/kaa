@@ -1,9 +1,8 @@
 {
   boolean isTimeout=false;
-  long uploadTimeout=configuration.getLogUploadTimeout() * 1000;
   long currentTime=System.currentTimeMillis();
   for (  Map.Entry<String,Long> logRequest : timeoutMap.entrySet()) {
-    if ((currentTime - logRequest.getValue()) >= uploadTimeout) {
+    if (currentTime >= logRequest.getValue()) {
       isTimeout=true;
       break;
     }
