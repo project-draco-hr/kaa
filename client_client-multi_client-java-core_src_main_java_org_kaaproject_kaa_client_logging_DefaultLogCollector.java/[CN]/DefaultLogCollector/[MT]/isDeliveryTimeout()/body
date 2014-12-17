@@ -1,0 +1,20 @@
+{
+  boolean isTimeout=false;
+  long uploadTimeout=configuration.getLogUploadTimeout() * 1000;
+  long currentTime=System.currentTimeMillis();
+  for (  Map.Entry<String,Long> logRequest : timeoutMap.entrySet()) {
+    if ((currentTime - logRequest.getValue()) >= uploadTimeout) {
+      isTimeout=true;
+      break;
+    }
+  }
+  if (isTimeout) {
+    LOG.info("Log delivery timeout detected");
+    for (    Map.Entry<String,Long> logRequest : timeoutMap.entrySet()) {
+      storage.notifyUploadFailed(logRequest.getKey());
+    }
+    timeoutMap.clear();
+    failoverStrategy.onTimeout();
+  }
+  return isTimeout;
+}

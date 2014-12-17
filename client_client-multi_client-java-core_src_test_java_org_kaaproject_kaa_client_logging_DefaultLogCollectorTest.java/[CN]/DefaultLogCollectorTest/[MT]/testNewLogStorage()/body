@@ -1,7 +1,8 @@
 {
-  LogStorage storage=mock(LogStorage.class);
-  LogTransport transport=mock(LogTransport.class);
-  DefaultLogCollector logCollector=new DefaultLogCollector(transport);
+  KaaChannelManager channelManager=Mockito.mock(KaaChannelManager.class);
+  LogStorage storage=Mockito.mock(LogStorage.class);
+  LogTransport transport=Mockito.mock(LogTransport.class);
+  DefaultLogCollector logCollector=new DefaultLogCollector(transport,channelManager);
   CustomStorageStatus status=new CustomStorageStatus();
   logCollector.setStorage(storage);
   logCollector.setStorageStatus(status);

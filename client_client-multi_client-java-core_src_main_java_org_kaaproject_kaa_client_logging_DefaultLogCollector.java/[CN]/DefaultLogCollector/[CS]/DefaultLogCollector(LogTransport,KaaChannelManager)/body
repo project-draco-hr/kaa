@@ -1,0 +1,8 @@
+{
+  configuration=new DefaultLogUploadConfiguration.Builder().setBatchVolume(8 * 1024).setVolumeThreshold(4 * 8 * 1024).setMaximumAllowedVolume(1024 * 1024).setLogUploadTimeout(2 * 60).build();
+  storage=new MemoryLogStorage(configuration.getBatchVolume());
+  storageStatus=(LogStorageStatus)storage;
+  uploadStrategy=new DefaultLogUploadStrategy();
+  failoverStrategy=new DefaultLogUploadFailoverStrategy(manager);
+  this.transport=transport;
+}

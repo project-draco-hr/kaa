@@ -1,23 +1,23 @@
 {
-  if (isUploading) {
-    LogBlock group=storage.getRecordBlock(configuration.getBatchVolume());
-    if (group != null) {
-      List<LogRecord> recordList=group.getRecords();
-      LOG.info("Sending {} log records",recordList.size());
-      if (!recordList.isEmpty()) {
-        List<LogEntry> logs=new LinkedList<>();
-        for (        LogRecord record : recordList) {
-          logs.add(new LogEntry(ByteBuffer.wrap(record.getData())));
-        }
-        request.setRequestId(group.getBlockId());
-        request.setLogEntries(logs);
+  LogBlock group=null;
+synchronized (storage) {
+    group=storage.getRecordBlock(configuration.getBatchVolume());
+    isUploading=false;
+  }
+  if (group != null) {
+    List<LogRecord> recordList=group.getRecords();
+    if (!recordList.isEmpty()) {
+      LOG.trace("Sending {} log records",recordList.size());
+      List<LogEntry> logs=new LinkedList<>();
+      for (      LogRecord record : recordList) {
+        logs.add(new LogEntry(ByteBuffer.wrap(record.getData())));
       }
-    }
- else {
-      LOG.warn("Log group is null: storage is empty or log group size is too small");
+      request.setRequestId(group.getBlockId());
+      request.setLogEntries(logs);
+      timeoutMap.put(group.getBlockId(),System.currentTimeMillis());
     }
   }
  else {
-    LOG.info("Skiping log upload");
+    LOG.warn("Log group is null: storage is empty or log group size is too small");
   }
 }

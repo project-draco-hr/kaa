@@ -1,14 +1,15 @@
 {
-  isUploading=false;
   if (logSyncResponse.getDeliveryStatuses() != null) {
     for (    LogDeliveryStatus response : logSyncResponse.getDeliveryStatuses()) {
       if (response.getResult() == SyncResponseResultType.SUCCESS) {
         storage.removeRecordBlock(response.getRequestId());
-        processUploadDecision(uploadStrategy.isUploadNeeded(configuration,storageStatus));
       }
  else {
         storage.notifyUploadFailed(response.getRequestId());
+        failoverStrategy.onFailure(response.getErrorCode());
       }
+      timeoutMap.remove(response.getRequestId());
     }
+    processUploadDecision(uploadStrategy.isUploadNeeded(configuration,storageStatus));
   }
 }
