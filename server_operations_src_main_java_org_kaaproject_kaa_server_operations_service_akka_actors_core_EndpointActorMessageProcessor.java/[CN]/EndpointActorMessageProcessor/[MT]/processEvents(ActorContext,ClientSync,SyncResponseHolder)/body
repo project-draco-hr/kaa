@@ -1,8 +1,8 @@
 {
   if (isValidForEvents(endpointProfile)) {
     updateUserConnection(context);
-    if (request.getEventSyncRequest() != null) {
-      EventClientSync eventRequest=request.getEventSyncRequest();
+    if (request.getEventSync() != null) {
+      EventClientSync eventRequest=request.getEventSync();
       processSeqNumber(eventRequest,responseHolder);
       sendEventsIfPresent(context,eventRequest);
     }

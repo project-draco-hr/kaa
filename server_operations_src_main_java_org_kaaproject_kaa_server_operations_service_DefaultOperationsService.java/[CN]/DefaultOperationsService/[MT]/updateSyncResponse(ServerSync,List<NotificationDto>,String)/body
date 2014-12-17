@@ -1,10 +1,10 @@
 {
   LOG.debug("Updating sync response {}",response);
   boolean modified=false;
-  NotificationServerSync notificationResponse=response.getNotificationSyncResponse();
+  NotificationServerSync notificationResponse=response.getNotificationSync();
   if (notificationResponse == null) {
     notificationResponse=new NotificationServerSync();
-    response.setNotificationSyncResponse(notificationResponse);
+    response.setNotificationSync(notificationResponse);
   }
   List<Notification> notifications=notificationResponse.getNotifications();
   if (notifications == null) {

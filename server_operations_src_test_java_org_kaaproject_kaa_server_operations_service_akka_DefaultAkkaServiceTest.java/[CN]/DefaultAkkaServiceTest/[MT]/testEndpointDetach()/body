@@ -13,8 +13,8 @@
   targetRequest.setSyncRequestMetaData(md);
   targetRequest.setEventSyncRequest(new EventSyncRequest());
   ServerSync targetResponse=new ServerSync();
-  targetResponse.setStatus(org.kaaproject.kaa.common.endpoint.protocol.SyncResponseResultType.SUCCESS);
-  targetResponse.setUserSyncResponse(new UserServerSync());
+  targetResponse.setStatus(org.kaaproject.kaa.server.operations.pojo.sync.SyncResponseResultType.SUCCESS);
+  targetResponse.setUserSync(new UserServerSync());
   SyncResponseHolder targetResponseHolder=new SyncResponseHolder(targetResponse);
   targetResponseHolder.setEndpointProfile(targetProfileMock);
   when(operationsService.sync(AvroEncDec.convert(targetRequest),null)).thenReturn(targetResponseHolder);
@@ -44,10 +44,10 @@
   userSyncRequest.setEndpointDetachRequests(Collections.singletonList(eaRequest));
   sourceRequest.setUserSyncRequest(userSyncRequest);
   ServerSync sourceResponse=new ServerSync();
-  sourceResponse.setStatus(org.kaaproject.kaa.common.endpoint.protocol.SyncResponseResultType.SUCCESS);
+  sourceResponse.setStatus(org.kaaproject.kaa.server.operations.pojo.sync.SyncResponseResultType.SUCCESS);
   UserServerSync userSyncResponse=new UserServerSync();
-  userSyncResponse.setEndpointDetachResponses(Collections.singletonList(new org.kaaproject.kaa.common.endpoint.protocol.EndpointDetachResponse("request1",org.kaaproject.kaa.common.endpoint.protocol.SyncResponseResultType.SUCCESS)));
-  sourceResponse.setUserSyncResponse(userSyncResponse);
+  userSyncResponse.setEndpointDetachResponses(Collections.singletonList(new org.kaaproject.kaa.server.operations.pojo.sync.EndpointDetachResponse("request1",org.kaaproject.kaa.server.operations.pojo.sync.SyncResponseResultType.SUCCESS)));
+  sourceResponse.setUserSync(userSyncResponse);
   SyncResponseHolder sourceResponseHolder=new SyncResponseHolder(sourceResponse);
   sourceResponseHolder.setEndpointProfile(sourceProfileMock);
   when(operationsService.sync(AvroEncDec.convert(sourceRequest),null)).thenReturn(sourceResponseHolder);

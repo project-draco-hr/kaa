@@ -5,6 +5,6 @@
   confSyncResponse.setResponseStatus(SyncResponseStatus.RESYNC);
   confSyncResponse.setConfDeltaBody(ByteBuffer.wrap(HttpTestSyncClient.getRandomBytes(4096)));
   confSyncResponse.setConfSchemaBody(ByteBuffer.wrap(HttpTestSyncClient.getRandomBytes(4096)));
-  response.setConfigurationSyncResponse(confSyncResponse);
+  response.setConfigurationSync(confSyncResponse);
   return response;
 }

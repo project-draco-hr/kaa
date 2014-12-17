@@ -1,8 +1,8 @@
 {
   ServerSync response=new ServerSync();
-  response.setConfigurationSyncResponse(new ConfigurationServerSync());
-  response.getConfigurationSyncResponse().setResponseStatus(SyncResponseStatus.NO_DELTA);
+  response.setConfigurationSync(new ConfigurationServerSync());
+  response.getConfigurationSync().setResponseStatus(SyncResponseStatus.NO_DELTA);
   assertFalse(new SyncResponseHolder(response).requireImmediateReply());
-  response.getConfigurationSyncResponse().setResponseStatus(SyncResponseStatus.DELTA);
+  response.getConfigurationSync().setResponseStatus(SyncResponseStatus.DELTA);
   assertTrue(new SyncResponseHolder(response).requireImmediateReply());
 }

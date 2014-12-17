@@ -1,9 +1,9 @@
 {
   ServerSync response=new ServerSync();
-  response.setUserSyncResponse(new UserServerSync());
+  response.setUserSync(new UserServerSync());
   assertFalse(new SyncResponseHolder(response).requireImmediateReply());
-  response.getUserSyncResponse().setEndpointDetachResponses(new ArrayList<EndpointDetachResponse>());
+  response.getUserSync().setEndpointDetachResponses(new ArrayList<EndpointDetachResponse>());
   assertFalse(new SyncResponseHolder(response).requireImmediateReply());
-  response.getUserSyncResponse().getEndpointDetachResponses().add(new EndpointDetachResponse());
+  response.getUserSync().getEndpointDetachResponses().add(new EndpointDetachResponse());
   assertTrue(new SyncResponseHolder(response).requireImmediateReply());
 }

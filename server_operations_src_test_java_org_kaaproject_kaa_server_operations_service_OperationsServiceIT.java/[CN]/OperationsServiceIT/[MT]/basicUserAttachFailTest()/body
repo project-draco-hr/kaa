@@ -6,16 +6,16 @@
   md.setApplicationToken(application.getApplicationToken());
   md.setEndpointPublicKeyHash(ByteBuffer.wrap(EndpointObjectHash.fromSHA1(ENDPOINT_KEY).getData()));
   md.setProfileHash(ByteBuffer.wrap(EndpointObjectHash.fromSHA1(profile).getData()));
-  request.setSyncRequestMetaData(md);
+  request.setClientSyncMetaData(md);
   UserClientSync userRequest=new UserClientSync();
   userRequest.setUserAttachRequest(new UserAttachRequest(USER_EXTERNAL_ID,INVALID_USER_ACCESS_TOKEN));
-  request.setUserSyncRequest(userRequest);
+  request.setUserSync(userRequest);
   ServerSync response=operationsService.sync(request).getResponse();
   Assert.assertNotNull(response);
   Assert.assertEquals(SyncResponseResultType.SUCCESS,response.getStatus());
-  Assert.assertNull(response.getConfigurationSyncResponse());
-  Assert.assertNull(response.getNotificationSyncResponse());
-  Assert.assertNotNull(response.getUserSyncResponse());
-  Assert.assertNotNull(response.getUserSyncResponse().getUserAttachResponse());
-  Assert.assertEquals(SyncResponseResultType.FAILURE,response.getUserSyncResponse().getUserAttachResponse().getResult());
+  Assert.assertNull(response.getConfigurationSync());
+  Assert.assertNull(response.getNotificationSync());
+  Assert.assertNotNull(response.getUserSync());
+  Assert.assertNotNull(response.getUserSync().getUserAttachResponse());
+  Assert.assertEquals(SyncResponseResultType.FAILURE,response.getUserSync().getUserAttachResponse().getResult());
 }

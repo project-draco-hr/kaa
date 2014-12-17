@@ -1,4 +1,4 @@
 {
-  long delay=requestMessage.getRequest().getSyncRequestMetaData().getTimeout() - (System.currentTimeMillis() - start);
+  long delay=requestMessage.getRequest().getClientSyncMetaData().getTimeout() - (System.currentTimeMillis() - start);
   return delay;
 }

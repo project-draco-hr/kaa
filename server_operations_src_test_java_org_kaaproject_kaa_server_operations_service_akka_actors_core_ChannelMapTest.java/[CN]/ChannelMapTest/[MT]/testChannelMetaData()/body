@@ -1,6 +1,6 @@
 {
   ClientSync request=new ClientSync();
-  request.setSyncRequestMetaData(new ClientSyncMetaData());
+  request.setClientSyncMetaData(new ClientSyncMetaData());
   UUID sameUid=UUID.randomUUID();
   ChannelHandlerContext ctxMock=Mockito.mock(ChannelHandlerContext.class);
   NettySessionInfo session=new NettySessionInfo(sameUid,ctxMock,ChannelType.HTTP,null,null,"applicationToken",0,true);
@@ -10,7 +10,7 @@
   ChannelMetaData md2=new ChannelMetaData(message2);
   Assert.assertEquals(md1,md2);
   ClientSync newRequest=new ClientSync();
-  newRequest.setSyncRequestMetaData(new ClientSyncMetaData());
+  newRequest.setClientSyncMetaData(new ClientSyncMetaData());
   md2.mergeRequest(new SyncRequestMessage(session,request,null,null));
   Assert.assertEquals(md1,md2);
 }

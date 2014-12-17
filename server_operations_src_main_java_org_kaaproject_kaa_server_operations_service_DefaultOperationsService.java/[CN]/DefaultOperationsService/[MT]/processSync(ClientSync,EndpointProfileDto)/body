@@ -1,5 +1,5 @@
 {
-  ClientSyncMetaData metaData=request.getSyncRequestMetaData();
+  ClientSyncMetaData metaData=request.getClientSyncMetaData();
   String endpointId=Base64Util.encode(metaData.getEndpointPublicKeyHash().array());
   int requestHash=request.hashCode();
   LOG.trace("[{}][{}] processing sync. request: {}",endpointId,requestHash,request);
@@ -9,7 +9,7 @@
   SyncResponseHolder response=new SyncResponseHolder(new ServerSync());
   response.setRequestId(request.getRequestId());
   response.setStatus(SyncResponseResultType.SUCCESS);
-  ProfileClientSync profileSyncRequest=request.getProfileSyncRequest();
+  ProfileClientSync profileSyncRequest=request.getProfileSync();
   if (profileSyncRequest != null) {
     ProfileServerSync profileSyncResponse;
     if (profileSyncRequest.getEndpointPublicKey() != null) {
@@ -38,19 +38,19 @@
     LOG.debug("[{}] Profile hash mismatch. Profile resync needed");
     return buildProfileResyncResponse(request);
   }
-  if (request.getUserSyncRequest() != null) {
-    LOG.trace("[{}][{}] procesing user sync request {}.",endpointId,requestHash,request.getUserSyncRequest());
-    UserServerSync userSyncResponse=processUserSyncRequest(endpointId,requestHash,metaData,request.getUserSyncRequest(),profile);
+  if (request.getUserSync() != null) {
+    LOG.trace("[{}][{}] procesing user sync request {}.",endpointId,requestHash,request.getUserSync());
+    UserServerSync userSyncResponse=processUserSyncRequest(endpointId,requestHash,metaData,request.getUserSync(),profile);
     response.setUserSyncResponse(userSyncResponse);
   }
-  if (request.getEventSyncRequest() != null) {
-    LOG.trace("[{}][{}] procesing event sync request {}.",endpointId,requestHash,request.getEventSyncRequest());
-    EventServerSync eventSyncResponse=processEventSyncResponse(endpointId,requestHash,appSeqNumber,request.getEventSyncRequest(),profile);
+  if (request.getEventSync() != null) {
+    LOG.trace("[{}][{}] procesing event sync request {}.",endpointId,requestHash,request.getEventSync());
+    EventServerSync eventSyncResponse=processEventSyncResponse(endpointId,requestHash,appSeqNumber,request.getEventSync(),profile);
     response.setEventSyncResponse(eventSyncResponse);
   }
   boolean updateProfileRequired=false;
-  if (request.getConfigurationSyncRequest() != null) {
-    ConfigurationClientSync confSyncRequest=request.getConfigurationSyncRequest();
+  if (request.getConfigurationSync() != null) {
+    ConfigurationClientSync confSyncRequest=request.getConfigurationSync();
     LOG.trace("[{}][{}] procesing configuration sync request {}.",endpointId,requestHash,confSyncRequest);
     LOG.debug("[{}][{}] fetching history for seq numbers {}-{}",endpointId,requestHash,confSyncRequest.getAppStateSeqNumber(),curAppSeqNumber);
     int startSeqNumber=Math.min(confSyncRequest.getAppStateSeqNumber(),profile.getCfSequenceNumber());
@@ -68,8 +68,8 @@
       updateProfileRequired=true;
     }
   }
-  if (request.getNotificationSyncRequest() != null) {
-    NotificationClientSync nfSyncRequest=request.getNotificationSyncRequest();
+  if (request.getNotificationSync() != null) {
+    NotificationClientSync nfSyncRequest=request.getNotificationSync();
     LOG.trace("[{}][{}] procesing notification sync request {}.",endpointId,requestHash,nfSyncRequest);
     LOG.debug("[{}][{}] fetching history for seq numbers {}-{}",endpointId,requestHash,nfSyncRequest.getAppStateSeqNumber(),curAppSeqNumber);
     int startSeqNumber=Math.min(nfSyncRequest.getAppStateSeqNumber(),profile.getNfSequenceNumber());

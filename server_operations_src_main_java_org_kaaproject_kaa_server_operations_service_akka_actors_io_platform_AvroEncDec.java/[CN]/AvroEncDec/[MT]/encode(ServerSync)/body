@@ -1,0 +1,12 @@
+{
+  if (sync == null) {
+    return null;
+  }
+  SyncResponse response=convert(sync);
+  try {
+    return serverSyncConverter.toByteArray(response);
+  }
+ catch (  IOException e) {
+    throw new PlatformEncDecException(e);
+  }
+}

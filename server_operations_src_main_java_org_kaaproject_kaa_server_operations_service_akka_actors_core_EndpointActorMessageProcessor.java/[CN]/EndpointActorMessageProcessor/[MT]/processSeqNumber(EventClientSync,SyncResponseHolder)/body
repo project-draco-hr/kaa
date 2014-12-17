@@ -1,9 +1,9 @@
 {
   if (request.getEventSequenceNumberRequest() != null) {
-    EventServerSync response=responseHolder.getResponse().getEventSyncResponse();
+    EventServerSync response=responseHolder.getResponse().getEventSync();
     if (response == null) {
       response=new EventServerSync();
-      responseHolder.getResponse().setEventSyncResponse(response);
+      responseHolder.getResponse().setEventSync(response);
     }
     response.setEventSequenceNumberResponse(new EventSequenceNumberResponse(Math.max(processedEventSeqNum,0)));
   }

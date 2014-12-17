@@ -5,12 +5,12 @@
   ServerSync copy=new ServerSync();
   copy.setRequestId(source.getRequestId());
   copy.setStatus(source.getStatus());
-  copy.setUserSyncResponse(deepCopy(source.getUserSyncResponse()));
-  copy.setRedirectSyncResponse(deepCopy(source.getRedirectSyncResponse()));
-  copy.setProfileSyncResponse(deepCopy(source.getProfileSyncResponse()));
-  copy.setNotificationSyncResponse(deepCopy(source.getNotificationSyncResponse()));
-  copy.setLogSyncResponse(deepCopy(source.getLogSyncResponse()));
-  copy.setEventSyncResponse(deepCopy(source.getEventSyncResponse()));
-  copy.setConfigurationSyncResponse(deepCopy(source.getConfigurationSyncResponse()));
+  copy.setUserSync(deepCopy(source.getUserSync()));
+  copy.setRedirectSync(deepCopy(source.getRedirectSync()));
+  copy.setProfileSync(deepCopy(source.getProfileSync()));
+  copy.setNotificationSync(deepCopy(source.getNotificationSync()));
+  copy.setLogSync(deepCopy(source.getLogSync()));
+  copy.setEventSync(deepCopy(source.getEventSync()));
+  copy.setConfigurationSync(deepCopy(source.getConfigurationSync()));
   return copy;
 }

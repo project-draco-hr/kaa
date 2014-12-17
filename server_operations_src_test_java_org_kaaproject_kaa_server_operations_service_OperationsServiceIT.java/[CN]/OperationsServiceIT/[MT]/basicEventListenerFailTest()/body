@@ -6,17 +6,17 @@
   md.setApplicationToken(application.getApplicationToken());
   md.setEndpointPublicKeyHash(ByteBuffer.wrap(EndpointObjectHash.fromSHA1(ENDPOINT_KEY).getData()));
   md.setProfileHash(ByteBuffer.wrap(EndpointObjectHash.fromSHA1(profile).getData()));
-  request.setSyncRequestMetaData(md);
+  request.setClientSyncMetaData(md);
   EventClientSync eventRequest=new EventClientSync();
   eventRequest.setEventListenersRequests(Collections.singletonList(new EventListenersRequest(REQUEST_ID1,Arrays.asList("fqn"))));
-  request.setEventSyncRequest(eventRequest);
+  request.setEventSync(eventRequest);
   ServerSync response=operationsService.sync(request).getResponse();
   Assert.assertNotNull(response);
   Assert.assertEquals(SyncResponseResultType.SUCCESS,response.getStatus());
-  Assert.assertNull(response.getConfigurationSyncResponse());
-  Assert.assertNull(response.getNotificationSyncResponse());
-  Assert.assertNotNull(response.getEventSyncResponse());
-  Assert.assertNotNull(response.getEventSyncResponse().getEventListenersResponses());
-  Assert.assertEquals(1,response.getEventSyncResponse().getEventListenersResponses().size());
-  Assert.assertEquals(SyncResponseResultType.FAILURE,response.getEventSyncResponse().getEventListenersResponses().get(0).getResult());
+  Assert.assertNull(response.getConfigurationSync());
+  Assert.assertNull(response.getNotificationSync());
+  Assert.assertNotNull(response.getEventSync());
+  Assert.assertNotNull(response.getEventSync().getEventListenersResponses());
+  Assert.assertEquals(1,response.getEventSync().getEventListenersResponses().size());
+  Assert.assertEquals(SyncResponseResultType.FAILURE,response.getEventSync().getEventListenersResponses().get(0).getResult());
 }

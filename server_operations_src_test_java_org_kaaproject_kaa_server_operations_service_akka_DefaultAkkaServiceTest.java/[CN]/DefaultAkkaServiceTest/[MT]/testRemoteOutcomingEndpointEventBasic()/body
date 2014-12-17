@@ -15,7 +15,7 @@
   eventRequest.setEvents(Arrays.asList(event));
   sourceRequest.setEventSyncRequest(eventRequest);
   ServerSync sourceResponse=new ServerSync();
-  sourceResponse.setStatus(org.kaaproject.kaa.common.endpoint.protocol.SyncResponseResultType.SUCCESS);
+  sourceResponse.setStatus(org.kaaproject.kaa.server.operations.pojo.sync.SyncResponseResultType.SUCCESS);
   SyncResponseHolder sourceResponseHolder=new SyncResponseHolder(sourceResponse);
   sourceResponseHolder.setEndpointProfile(sourceProfileMock);
   when(operationsService.sync(AvroEncDec.convert(sourceRequest),null)).thenReturn(sourceResponseHolder);

@@ -1,8 +1,8 @@
 {
   ServerSync response=new ServerSync();
-  response.setProfileSyncResponse(new ProfileServerSync());
-  response.getProfileSyncResponse().setResponseStatus(SyncResponseStatus.NO_DELTA);
+  response.setProfileSync(new ProfileServerSync());
+  response.getProfileSync().setResponseStatus(SyncResponseStatus.NO_DELTA);
   assertFalse(new SyncResponseHolder(response).requireImmediateReply());
-  response.getProfileSyncResponse().setResponseStatus(SyncResponseStatus.DELTA);
+  response.getProfileSync().setResponseStatus(SyncResponseStatus.DELTA);
   assertTrue(new SyncResponseHolder(response).requireImmediateReply());
 }

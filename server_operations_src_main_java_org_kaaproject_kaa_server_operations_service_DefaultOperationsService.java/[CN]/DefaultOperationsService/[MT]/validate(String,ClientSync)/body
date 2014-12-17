@@ -1,7 +1,7 @@
 {
-  ClientSyncMetaData md=request.getSyncRequestMetaData();
+  ClientSyncMetaData md=request.getClientSyncMetaData();
   if (md.getProfileHash() == null) {
-    ProfileClientSync profileRequest=request.getProfileSyncRequest();
+    ProfileClientSync profileRequest=request.getProfileSync();
     if (profileRequest != null && profileRequest.getEndpointPublicKey() != null) {
       return true;
     }

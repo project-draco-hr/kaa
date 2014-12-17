@@ -1,14 +1,14 @@
 {
   ServerSync response=new ServerSync();
   response.setStatus(SyncResponseResultType.SUCCESS);
-  response.setNotificationSyncResponse(new NotificationServerSync());
+  response.setNotificationSync(new NotificationServerSync());
   ServerSync result=operationsService.updateSyncResponse(response,new ArrayList<NotificationDto>(),UNICAST_NF_ID);
   assertNotNull(result);
-  assertNotNull(result.getNotificationSyncResponse());
-  assertNotNull(result.getNotificationSyncResponse().getNotifications());
-  assertEquals(SyncResponseStatus.DELTA,result.getNotificationSyncResponse().getResponseStatus());
-  assertEquals(1,result.getNotificationSyncResponse().getNotifications().size());
-  assertEquals(UNICAST_NF_ID,result.getNotificationSyncResponse().getNotifications().get(0).getUid());
-  assertNotNull(result.getNotificationSyncResponse().getNotifications().get(0).getUid());
-  assertNull(result.getNotificationSyncResponse().getNotifications().get(0).getSeqNumber());
+  assertNotNull(result.getNotificationSync());
+  assertNotNull(result.getNotificationSync().getNotifications());
+  assertEquals(SyncResponseStatus.DELTA,result.getNotificationSync().getResponseStatus());
+  assertEquals(1,result.getNotificationSync().getNotifications().size());
+  assertEquals(UNICAST_NF_ID,result.getNotificationSync().getNotifications().get(0).getUid());
+  assertNotNull(result.getNotificationSync().getNotifications().get(0).getUid());
+  assertNull(result.getNotificationSync().getNotifications().get(0).getSeqNumber());
 }

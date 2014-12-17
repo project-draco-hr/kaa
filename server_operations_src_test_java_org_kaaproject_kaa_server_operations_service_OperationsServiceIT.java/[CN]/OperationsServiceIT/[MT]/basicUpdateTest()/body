@@ -7,19 +7,19 @@
   md.setApplicationToken(application.getApplicationToken());
   md.setEndpointPublicKeyHash(ByteBuffer.wrap(EndpointObjectHash.fromSHA1(ENDPOINT_KEY).getData()));
   md.setProfileHash(ByteBuffer.wrap(EndpointObjectHash.fromSHA1(oldProfile).getData()));
-  request.setSyncRequestMetaData(md);
+  request.setClientSyncMetaData(md);
   ProfileClientSync profileSync=new ProfileClientSync(null,ByteBuffer.wrap(profile),new EndpointVersionInfo(CONF_SCHEMA_VERSION,PROFILE_SCHEMA_VERSION,1,1,null,1),null);
-  request.setProfileSyncRequest(profileSync);
+  request.setProfileSync(profileSync);
   ConfigurationClientSync confSyncRequest=new ConfigurationClientSync();
   confSyncRequest.setAppStateSeqNumber(APPLICATION_SEQ_NUMBER);
   confSyncRequest.setConfigurationHash(ByteBuffer.wrap(currentConfigurationHash));
-  request.setConfigurationSyncRequest(confSyncRequest);
+  request.setConfigurationSync(confSyncRequest);
   ServerSync response=operationsService.sync(request).getResponse();
   Assert.assertNotNull(response);
   Assert.assertEquals(SyncResponseResultType.SUCCESS,response.getStatus());
-  Assert.assertNotNull(response.getConfigurationSyncResponse());
-  Assert.assertEquals(SyncResponseStatus.NO_DELTA,response.getConfigurationSyncResponse().getResponseStatus());
-  Assert.assertEquals(APPLICATION_SEQ_NUMBER,(int)response.getConfigurationSyncResponse().getAppStateSeqNumber());
-  Assert.assertNull(response.getConfigurationSyncResponse().getConfDeltaBody());
-  Assert.assertNull(response.getConfigurationSyncResponse().getConfSchemaBody());
+  Assert.assertNotNull(response.getConfigurationSync());
+  Assert.assertEquals(SyncResponseStatus.NO_DELTA,response.getConfigurationSync().getResponseStatus());
+  Assert.assertEquals(APPLICATION_SEQ_NUMBER,(int)response.getConfigurationSync().getAppStateSeqNumber());
+  Assert.assertNull(response.getConfigurationSync().getConfDeltaBody());
+  Assert.assertNull(response.getConfigurationSync().getConfSchemaBody());
 }

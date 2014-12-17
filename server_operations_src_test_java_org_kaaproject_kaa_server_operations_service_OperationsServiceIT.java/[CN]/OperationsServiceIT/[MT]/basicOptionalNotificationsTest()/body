@@ -6,18 +6,18 @@
   md.setApplicationToken(application.getApplicationToken());
   md.setEndpointPublicKeyHash(ByteBuffer.wrap(EndpointObjectHash.fromSHA1(ENDPOINT_KEY).getData()));
   md.setProfileHash(ByteBuffer.wrap(EndpointObjectHash.fromSHA1(profile).getData()));
-  request.setSyncRequestMetaData(md);
+  request.setClientSyncMetaData(md);
   NotificationClientSync nfSyncRequest=new NotificationClientSync();
   nfSyncRequest.setAppStateSeqNumber(APPLICATION_SEQ_NUMBER);
   SubscriptionCommand command=new SubscriptionCommand(optionalTopicDto.getId(),SubscriptionCommandType.ADD);
   nfSyncRequest.setSubscriptionCommands(Collections.singletonList(command));
-  request.setNotificationSyncRequest(nfSyncRequest);
+  request.setNotificationSync(nfSyncRequest);
   ServerSync response=operationsService.sync(request).getResponse();
   Assert.assertNotNull(response);
   Assert.assertEquals(SyncResponseResultType.SUCCESS,response.getStatus());
-  Assert.assertNotNull(response.getNotificationSyncResponse());
-  Assert.assertEquals(SyncResponseStatus.DELTA,response.getNotificationSyncResponse().getResponseStatus());
-  Assert.assertEquals(Integer.valueOf(APPLICATION_SEQ_NUMBER),response.getNotificationSyncResponse().getAppStateSeqNumber());
-  Assert.assertNotNull(response.getNotificationSyncResponse().getNotifications());
-  Assert.assertEquals(2,response.getNotificationSyncResponse().getNotifications().size());
+  Assert.assertNotNull(response.getNotificationSync());
+  Assert.assertEquals(SyncResponseStatus.DELTA,response.getNotificationSync().getResponseStatus());
+  Assert.assertEquals(Integer.valueOf(APPLICATION_SEQ_NUMBER),response.getNotificationSync().getAppStateSeqNumber());
+  Assert.assertNotNull(response.getNotificationSync().getNotifications());
+  Assert.assertEquals(2,response.getNotificationSync().getNotifications().size());
 }
