@@ -13,7 +13,7 @@
   request.setConfigurationSync(confSyncRequest);
   ServerSync response=operationsService.sync(request).getResponse();
   Assert.assertNotNull(response);
-  Assert.assertEquals(SyncResponseResultType.PROFILE_RESYNC,response.getStatus());
+  Assert.assertEquals(SyncStatus.PROFILE_RESYNC,response.getStatus());
   Assert.assertNull(response.getConfigurationSync());
   Assert.assertNull(response.getNotificationSync());
 }

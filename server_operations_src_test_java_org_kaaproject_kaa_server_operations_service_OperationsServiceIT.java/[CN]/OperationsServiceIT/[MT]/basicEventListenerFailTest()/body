@@ -12,11 +12,11 @@
   request.setEventSync(eventRequest);
   ServerSync response=operationsService.sync(request).getResponse();
   Assert.assertNotNull(response);
-  Assert.assertEquals(SyncResponseResultType.SUCCESS,response.getStatus());
+  Assert.assertEquals(SyncStatus.SUCCESS,response.getStatus());
   Assert.assertNull(response.getConfigurationSync());
   Assert.assertNull(response.getNotificationSync());
   Assert.assertNotNull(response.getEventSync());
   Assert.assertNotNull(response.getEventSync().getEventListenersResponses());
   Assert.assertEquals(1,response.getEventSync().getEventListenersResponses().size());
-  Assert.assertEquals(SyncResponseResultType.FAILURE,response.getEventSync().getEventListenersResponses().get(0).getResult());
+  Assert.assertEquals(SyncStatus.FAILURE,response.getEventSync().getEventListenersResponses().get(0).getResult());
 }

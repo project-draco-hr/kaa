@@ -13,7 +13,7 @@
   targetRequest.setSyncRequestMetaData(md);
   targetRequest.setEventSyncRequest(new EventSyncRequest());
   ServerSync targetResponse=new ServerSync();
-  targetResponse.setStatus(org.kaaproject.kaa.server.operations.pojo.sync.SyncResponseResultType.SUCCESS);
+  targetResponse.setStatus(org.kaaproject.kaa.server.operations.pojo.sync.SyncStatus.SUCCESS);
   targetResponse.setUserSync(new UserServerSync());
   SyncResponseHolder targetResponseHolder=new SyncResponseHolder(targetResponse);
   targetResponseHolder.setEndpointProfile(targetProfileMock);
@@ -44,9 +44,9 @@
   userSyncRequest.setEndpointAttachRequests(Collections.singletonList(eaRequest));
   sourceRequest.setUserSyncRequest(userSyncRequest);
   ServerSync sourceResponse=new ServerSync();
-  sourceResponse.setStatus(org.kaaproject.kaa.server.operations.pojo.sync.SyncResponseResultType.SUCCESS);
+  sourceResponse.setStatus(org.kaaproject.kaa.server.operations.pojo.sync.SyncStatus.SUCCESS);
   UserServerSync userSyncResponse=new UserServerSync();
-  userSyncResponse.setEndpointAttachResponses(Collections.singletonList(new org.kaaproject.kaa.server.operations.pojo.sync.EndpointAttachResponse("request1",Base64Util.encode(targetPublicKeyHash.array()),org.kaaproject.kaa.server.operations.pojo.sync.SyncResponseResultType.SUCCESS)));
+  userSyncResponse.setEndpointAttachResponses(Collections.singletonList(new org.kaaproject.kaa.server.operations.pojo.sync.EndpointAttachResponse("request1",Base64Util.encode(targetPublicKeyHash.array()),org.kaaproject.kaa.server.operations.pojo.sync.SyncStatus.SUCCESS)));
   sourceResponse.setUserSync(userSyncResponse);
   SyncResponseHolder sourceResponseHolder=new SyncResponseHolder(sourceResponse);
   sourceResponseHolder.setEndpointProfile(sourceProfileMock);

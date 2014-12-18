@@ -36,7 +36,7 @@
   applicationDto.setApplicationToken(APP_TOKEN);
   ServerSync response=new ServerSync();
   response.setRequestId(REQUEST_ID);
-  response.setStatus(org.kaaproject.kaa.server.operations.pojo.sync.SyncResponseResultType.SUCCESS);
+  response.setStatus(org.kaaproject.kaa.server.operations.pojo.sync.SyncStatus.SUCCESS);
   ConfigurationServerSync confSyncResponse=new ConfigurationServerSync();
   confSyncResponse.setResponseStatus(org.kaaproject.kaa.server.operations.pojo.sync.SyncResponseStatus.NO_DELTA);
   response.setConfigurationSync(confSyncResponse);
@@ -51,14 +51,14 @@
   epDto.setLogSchemaVersion(44);
   noDeltaResponseWithTopicState.setEndpointProfile(epDto);
   response=new ServerSync();
-  response.setStatus(org.kaaproject.kaa.server.operations.pojo.sync.SyncResponseResultType.SUCCESS);
+  response.setStatus(org.kaaproject.kaa.server.operations.pojo.sync.SyncStatus.SUCCESS);
   confSyncResponse=new ConfigurationServerSync();
   confSyncResponse.setResponseStatus(org.kaaproject.kaa.server.operations.pojo.sync.SyncResponseStatus.DELTA);
   response.setConfigurationSync(confSyncResponse);
   deltaResponse=new SyncResponseHolder(response);
   response=new ServerSync();
   response.setRequestId(REQUEST_ID);
-  response.setStatus(org.kaaproject.kaa.server.operations.pojo.sync.SyncResponseResultType.SUCCESS);
+  response.setStatus(org.kaaproject.kaa.server.operations.pojo.sync.SyncStatus.SUCCESS);
   simpleResponse=new SyncResponseHolder(response);
   topicNotification=new NotificationDto();
   topicNotification.setApplicationId(APP_ID);

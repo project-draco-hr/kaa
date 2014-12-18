@@ -14,13 +14,13 @@
   request.setUserSync(userRequest);
   ServerSync response=operationsService.sync(request).getResponse();
   Assert.assertNotNull(response);
-  Assert.assertEquals(SyncResponseResultType.SUCCESS,response.getStatus());
+  Assert.assertEquals(SyncStatus.SUCCESS,response.getStatus());
   Assert.assertNull(response.getConfigurationSync());
   Assert.assertNull(response.getNotificationSync());
   Assert.assertNotNull(response.getUserSync());
   Assert.assertNotNull(response.getUserSync().getUserAttachResponse());
-  Assert.assertEquals(SyncResponseResultType.SUCCESS,response.getUserSync().getUserAttachResponse().getResult());
+  Assert.assertEquals(SyncStatus.SUCCESS,response.getUserSync().getUserAttachResponse().getResult());
   Assert.assertNotNull(response.getUserSync().getEndpointAttachResponses());
   Assert.assertEquals(1,response.getUserSync().getEndpointAttachResponses().size());
-  Assert.assertEquals(SyncResponseResultType.SUCCESS,response.getUserSync().getEndpointAttachResponses().get(0).getResult());
+  Assert.assertEquals(SyncStatus.SUCCESS,response.getUserSync().getEndpointAttachResponses().get(0).getResult());
 }

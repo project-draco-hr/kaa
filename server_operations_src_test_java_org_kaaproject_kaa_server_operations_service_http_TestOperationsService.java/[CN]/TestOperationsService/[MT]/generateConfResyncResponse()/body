@@ -1,6 +1,6 @@
 {
   ServerSync response=new ServerSync();
-  response.setStatus(SyncResponseResultType.SUCCESS);
+  response.setStatus(SyncStatus.SUCCESS);
   ConfigurationServerSync confSyncResponse=new ConfigurationServerSync();
   confSyncResponse.setResponseStatus(SyncResponseStatus.RESYNC);
   confSyncResponse.setConfDeltaBody(ByteBuffer.wrap(HttpTestSyncClient.getRandomBytes(4096)));

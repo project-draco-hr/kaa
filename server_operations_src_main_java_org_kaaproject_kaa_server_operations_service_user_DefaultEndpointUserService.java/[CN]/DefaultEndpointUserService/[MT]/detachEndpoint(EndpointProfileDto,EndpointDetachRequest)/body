@@ -1,20 +1,20 @@
 {
   EndpointDetachResponse response=new EndpointDetachResponse();
   response.setRequestId(endpointDetachRequest.getRequestId());
-  response.setResult(SyncResponseResultType.FAILURE);
+  response.setResult(SyncStatus.FAILURE);
   if (isValid(endpointDetachRequest) && isNotEmpty(profile.getEndpointUserId())) {
     try {
       byte[] endpointKeyHash=Base64Util.decode(endpointDetachRequest.getEndpointKeyHash());
       if (Arrays.equals(profile.getEndpointKeyHash(),endpointKeyHash)) {
         endpointService.detachEndpointFromUser(profile);
-        response.setResult(SyncResponseResultType.SUCCESS);
+        response.setResult(SyncStatus.SUCCESS);
       }
  else {
         EndpointProfileDto detachEndpoint=endpointService.findEndpointProfileByKeyHash(endpointKeyHash);
         if (detachEndpoint != null) {
           if (detachEndpoint.getEndpointUserId() != null && detachEndpoint.getEndpointUserId().equals(profile.getEndpointUserId())) {
             endpointService.detachEndpointFromUser(detachEndpoint);
-            response.setResult(SyncResponseResultType.SUCCESS);
+            response.setResult(SyncStatus.SUCCESS);
           }
  else {
             LOG.warn("[{}] received detach endpoint request, but requested {} and current {} user mismatch.",Base64Util.encode(profile.getEndpointKeyHash()),profile.getEndpointUserId(),detachEndpoint.getEndpointUserId());

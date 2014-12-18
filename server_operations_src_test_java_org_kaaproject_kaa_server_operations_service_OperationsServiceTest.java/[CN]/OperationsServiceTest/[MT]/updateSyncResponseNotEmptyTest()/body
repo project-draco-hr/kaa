@@ -1,6 +1,6 @@
 {
   ServerSync response=new ServerSync();
-  response.setStatus(SyncResponseResultType.SUCCESS);
+  response.setStatus(SyncStatus.SUCCESS);
   response.setNotificationSync(new NotificationServerSync());
   NotificationDto nfDto=new NotificationDto();
   nfDto.setId("nfId");
@@ -12,7 +12,7 @@
   assertNotNull(result.getNotificationSync().getNotifications());
   assertEquals(SyncResponseStatus.DELTA,result.getNotificationSync().getResponseStatus());
   response=new ServerSync();
-  response.setStatus(SyncResponseResultType.SUCCESS);
+  response.setStatus(SyncStatus.SUCCESS);
   NotificationServerSync nfResponse=new NotificationServerSync();
   nfResponse.setNotifications(new ArrayList<Notification>());
   response.setNotificationSync(new NotificationServerSync());

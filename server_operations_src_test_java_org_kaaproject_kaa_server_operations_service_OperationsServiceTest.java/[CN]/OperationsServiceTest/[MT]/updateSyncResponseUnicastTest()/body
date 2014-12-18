@@ -1,6 +1,6 @@
 {
   ServerSync response=new ServerSync();
-  response.setStatus(SyncResponseResultType.SUCCESS);
+  response.setStatus(SyncStatus.SUCCESS);
   response.setNotificationSync(new NotificationServerSync());
   ServerSync result=operationsService.updateSyncResponse(response,new ArrayList<NotificationDto>(),UNICAST_NF_ID);
   assertNotNull(result);

@@ -8,7 +8,7 @@
   }
   SyncResponseHolder response=new SyncResponseHolder(new ServerSync());
   response.setRequestId(request.getRequestId());
-  response.setStatus(SyncResponseResultType.SUCCESS);
+  response.setStatus(SyncStatus.SUCCESS);
   ProfileClientSync profileSyncRequest=request.getProfileSync();
   if (profileSyncRequest != null) {
     ProfileServerSync profileSyncResponse;

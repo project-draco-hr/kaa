@@ -4,7 +4,7 @@
     if (attachResponses != null && !attachResponses.isEmpty()) {
       resetEventSeqNumber();
       for (      EndpointAttachResponse response : attachResponses) {
-        if (response.getResult() != SyncResponseResultType.SUCCESS) {
+        if (response.getResult() != SyncStatus.SUCCESS) {
           LOG.debug("[{}][{}] Skipped unsuccessful attach response [{}]",endpointKey,actorKey,response.getRequestId());
           continue;
         }
@@ -19,7 +19,7 @@
       for (      EndpointDetachRequest detachRequest : detachRequests) {
         for (        EndpointDetachResponse detachResponse : responseHolder.getResponse().getUserSync().getEndpointDetachResponses()) {
           if (detachRequest.getRequestId().equals(detachResponse.getRequestId())) {
-            if (detachResponse.getResult() != SyncResponseResultType.SUCCESS) {
+            if (detachResponse.getResult() != SyncStatus.SUCCESS) {
               LOG.debug("[{}][{}] Skipped unsuccessful detach response [{}]",endpointKey,actorKey,detachResponse.getRequestId());
               continue;
             }

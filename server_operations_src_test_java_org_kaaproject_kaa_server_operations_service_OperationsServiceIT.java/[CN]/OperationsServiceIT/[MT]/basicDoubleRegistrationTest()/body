@@ -10,7 +10,7 @@
   request.setConfigurationSync(new ConfigurationClientSync());
   ServerSync response=operationsService.sync(request).getResponse();
   Assert.assertNotNull(response);
-  Assert.assertEquals(SyncResponseResultType.SUCCESS,response.getStatus());
+  Assert.assertEquals(SyncStatus.SUCCESS,response.getStatus());
   Assert.assertNotNull(response.getConfigurationSync());
   Assert.assertEquals(SyncResponseStatus.RESYNC,response.getConfigurationSync().getResponseStatus());
   Assert.assertEquals(APPLICATION_SEQ_NUMBER,(int)response.getConfigurationSync().getAppStateSeqNumber());
@@ -18,7 +18,7 @@
   Assert.assertNull(response.getConfigurationSync().getConfSchemaBody());
   response=operationsService.sync(request).getResponse();
   Assert.assertNotNull(response);
-  Assert.assertEquals(SyncResponseResultType.SUCCESS,response.getStatus());
+  Assert.assertEquals(SyncStatus.SUCCESS,response.getStatus());
   Assert.assertNotNull(response.getConfigurationSync());
   Assert.assertEquals(SyncResponseStatus.RESYNC,response.getConfigurationSync().getResponseStatus());
   Assert.assertEquals(APPLICATION_SEQ_NUMBER,(int)response.getConfigurationSync().getAppStateSeqNumber());

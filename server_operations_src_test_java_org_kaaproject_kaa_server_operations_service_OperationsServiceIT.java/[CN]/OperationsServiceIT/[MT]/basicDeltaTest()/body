@@ -13,7 +13,7 @@
   request.setConfigurationSync(confSyncRequest);
   ServerSync response=operationsService.sync(request).getResponse();
   Assert.assertNotNull(response);
-  Assert.assertEquals(SyncResponseResultType.SUCCESS,response.getStatus());
+  Assert.assertEquals(SyncStatus.SUCCESS,response.getStatus());
   Assert.assertNotNull(response.getConfigurationSync());
   Assert.assertEquals(SyncResponseStatus.NO_DELTA,response.getConfigurationSync().getResponseStatus());
   Assert.assertEquals(Integer.valueOf(APPLICATION_SEQ_NUMBER),response.getConfigurationSync().getAppStateSeqNumber());

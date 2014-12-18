@@ -9,6 +9,6 @@
   EndpointDetachResponse response=endpointUserService.detachEndpoint(profileMock,request);
   Mockito.verify(endpointService).detachEndpointFromUser(detachMock);
   assertNotNull(response);
-  assertEquals(SyncResponseResultType.SUCCESS,response.getResult());
+  assertEquals(SyncStatus.SUCCESS,response.getResult());
   assertEquals(REQUEST_ID,response.getRequestId());
 }

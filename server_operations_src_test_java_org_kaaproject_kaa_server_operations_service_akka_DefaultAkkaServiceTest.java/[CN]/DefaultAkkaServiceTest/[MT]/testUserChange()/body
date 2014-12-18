@@ -13,7 +13,7 @@
   targetRequest.setSyncRequestMetaData(md);
   targetRequest.setEventSyncRequest(new EventSyncRequest());
   ServerSync targetResponse=new ServerSync();
-  targetResponse.setStatus(org.kaaproject.kaa.server.operations.pojo.sync.SyncResponseResultType.SUCCESS);
+  targetResponse.setStatus(org.kaaproject.kaa.server.operations.pojo.sync.SyncStatus.SUCCESS);
   SyncResponseHolder targetResponseHolder=new SyncResponseHolder(targetResponse);
   targetResponseHolder.setEndpointProfile(targetProfileMock);
   when(operationsService.sync(AvroEncDec.convert(targetRequest),null)).thenReturn(targetResponseHolder);
@@ -47,7 +47,7 @@
   md.setTimeout(TIMEOUT * 1L);
   targetRequest.setSyncRequestMetaData(md);
   targetResponse=new ServerSync();
-  targetResponse.setStatus(org.kaaproject.kaa.server.operations.pojo.sync.SyncResponseResultType.SUCCESS);
+  targetResponse.setStatus(org.kaaproject.kaa.server.operations.pojo.sync.SyncStatus.SUCCESS);
   targetResponseHolder=new SyncResponseHolder(targetResponse);
   targetResponseHolder.setEndpointProfile(targetProfileMock);
   when(targetProfileMock.getEndpointUserId()).thenReturn(USER_ID + "2");

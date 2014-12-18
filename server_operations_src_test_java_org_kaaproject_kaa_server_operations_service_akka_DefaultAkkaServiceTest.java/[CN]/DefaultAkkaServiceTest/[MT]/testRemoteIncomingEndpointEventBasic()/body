@@ -12,7 +12,7 @@
   targetRequest.setSyncRequestMetaData(md);
   targetRequest.setEventSyncRequest(new EventSyncRequest());
   ServerSync targetResponse=new ServerSync();
-  targetResponse.setStatus(org.kaaproject.kaa.server.operations.pojo.sync.SyncResponseResultType.SUCCESS);
+  targetResponse.setStatus(org.kaaproject.kaa.server.operations.pojo.sync.SyncStatus.SUCCESS);
   SyncResponseHolder targetResponseHolder=new SyncResponseHolder(targetResponse);
   targetResponseHolder.setEndpointProfile(targetProfileMock);
   when(operationsService.sync(AvroEncDec.convert(targetRequest),null)).thenReturn(targetResponseHolder);
@@ -35,7 +35,7 @@
   akkaService.getListener().onEvent(remoteEvent);
   event=new org.kaaproject.kaa.server.operations.pojo.sync.Event(0,FQN1,ByteBuffer.wrap(new byte[0]),null,Base64Util.encode(targetPublicKeyHash.array()));
   ServerSync eventResponse=new ServerSync();
-  eventResponse.setStatus(org.kaaproject.kaa.server.operations.pojo.sync.SyncResponseResultType.SUCCESS);
+  eventResponse.setStatus(org.kaaproject.kaa.server.operations.pojo.sync.SyncStatus.SUCCESS);
   eventResponse.setEventSync(new EventServerSync());
   eventResponse.getEventSync().setEvents(Arrays.asList(event));
   AvroByteArrayConverter<SyncResponse> responseConverter=new AvroByteArrayConverter<>(SyncResponse.class);

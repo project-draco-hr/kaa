@@ -12,5 +12,5 @@
   logPack.setEvents(logEvents);
   logPack.setLogSchemaVersion(profile.getLogSchemaVersion());
   context.parent().tell(new LogEventPackMessage(logPack),context.self());
-  return new LogServerSync(logUploadRequest.getRequestId(),SyncResponseResultType.SUCCESS);
+  return new LogServerSync(logUploadRequest.getRequestId(),SyncStatus.SUCCESS);
 }
