@@ -1,7 +1,7 @@
 {
   KaaAdmin.getDataSource().addEcfSchema(ecfId,fileItemName,new AsyncCallback<Void>(){
     @Override public void onFailure(    Throwable caught){
-      setError(Utils.getErrorMessage(caught));
+      Utils.handleException(caught,AddEcfSchemaDialog.this);
     }
     @Override public void onSuccess(    Void result){
       hide();

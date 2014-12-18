@@ -2,7 +2,7 @@
   if (create) {
     getVacantSchemas(endpointGroupId,new AsyncCallback<List<SchemaDto>>(){
       @Override public void onFailure(      Throwable caught){
-        recordView.setErrorMessage(Utils.getErrorMessage(caught));
+        Utils.handleException(caught,recordView);
       }
       @Override public void onSuccess(      List<SchemaDto> result){
         recordView.getSchema().setValue(Utils.getMaxSchemaVersions(result));
