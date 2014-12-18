@@ -1,7 +1,7 @@
 {
   getEntity(entityId,new AsyncCallback<T>(){
     @Override public void onFailure(    Throwable caught){
-      detailsView.setErrorMessage(Utils.getErrorMessage(caught));
+      Utils.handleException(caught,detailsView);
     }
     @Override public void onSuccess(    T result){
       entity=result;

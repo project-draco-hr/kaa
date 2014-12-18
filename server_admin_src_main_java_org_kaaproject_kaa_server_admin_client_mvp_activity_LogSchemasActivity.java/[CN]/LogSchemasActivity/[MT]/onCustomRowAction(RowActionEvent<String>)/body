@@ -3,7 +3,7 @@
   final RowAction action=event.getAction();
   AsyncCallback<String> callback=new AsyncCallback<String>(){
     @Override public void onFailure(    Throwable caught){
-      listView.setErrorMessage(Utils.getErrorMessage(caught));
+      Utils.handleException(caught,listView);
     }
     @Override public void onSuccess(    String key){
       ServletHelper.downloadRecordLibrary(key);

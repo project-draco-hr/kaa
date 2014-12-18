@@ -15,7 +15,7 @@
  else       if (event.getAction() == RowAction.DELETE) {
         deleteEntity(id,new AsyncCallback<Void>(){
           @Override public void onFailure(          Throwable caught){
-            listView.setErrorMessage(Utils.getErrorMessage(caught));
+            Utils.handleException(caught,listView);
           }
           @Override public void onSuccess(          Void result){
           }

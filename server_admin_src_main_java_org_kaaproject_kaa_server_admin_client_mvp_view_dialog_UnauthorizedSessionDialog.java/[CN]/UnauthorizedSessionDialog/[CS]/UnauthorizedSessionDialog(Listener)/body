@@ -1,0 +1,27 @@
+{
+  super(false,true);
+  setWidth("500px");
+  setTitle(Utils.constants.sessionExpired());
+  VerticalPanel dialogContents=new VerticalPanel();
+  dialogContents.setSpacing(4);
+  add(dialogContents);
+  AlertPanel warningPanel=new AlertPanel(AlertPanel.Type.WARNING);
+  warningPanel.setMessage(Utils.messages.sessionExpiredMessage());
+  dialogContents.add(warningPanel);
+  Button loginButton=new Button(Utils.constants.logInAgain(),new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      hide();
+      listener.onLogin();
+    }
+  }
+);
+  Button ignoreButton=new Button(Utils.constants.ignore(),new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      hide();
+      listener.onIgnore();
+    }
+  }
+);
+  addButton(loginButton);
+  addButton(ignoreButton);
+}

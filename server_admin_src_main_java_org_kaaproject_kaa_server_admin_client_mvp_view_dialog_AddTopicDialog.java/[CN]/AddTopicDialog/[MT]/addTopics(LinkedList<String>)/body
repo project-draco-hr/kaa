@@ -3,9 +3,10 @@
     String topicId=topicIds.removeLast();
     KaaAdmin.getDataSource().addTopicToEndpointGroup(endpointGroupId,topicId,new AsyncCallback<Void>(){
       @Override public void onFailure(      Throwable caught){
-        setError(Utils.getErrorMessage(caught));
+        Utils.handleException(caught,AddTopicDialog.this);
       }
       @Override public void onSuccess(      Void result){
+        clearError();
         addTopics(topicIds);
       }
     }
