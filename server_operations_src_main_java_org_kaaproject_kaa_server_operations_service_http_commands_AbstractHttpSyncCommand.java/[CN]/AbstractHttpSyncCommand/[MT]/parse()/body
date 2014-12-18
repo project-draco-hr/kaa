@@ -32,6 +32,10 @@
               LOG.trace(MessageEncoderDecoder.bytesToHex(requestData));
             }
           }
+ else           if (data.getName().equals(CommonEPConstans.NEXT_PROTOCOL_ATTR_NAME)) {
+            nextProtocol=attribute.getString();
+            LOG.trace("[{}] next protocol is {}",getSessionUuid(),nextProtocol);
+          }
         }
       }
     }

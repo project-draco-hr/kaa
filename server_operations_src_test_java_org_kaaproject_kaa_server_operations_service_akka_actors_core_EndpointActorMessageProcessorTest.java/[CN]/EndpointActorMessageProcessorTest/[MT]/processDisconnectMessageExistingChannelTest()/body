@@ -13,7 +13,7 @@
   Mockito.when(message.getChannelType()).thenReturn(ChannelType.TCP);
   Mockito.when(message.getChannelUuid()).thenReturn(channelId);
   Mockito.when(message.getChannelContext()).thenReturn(channelCtx);
-  Mockito.when(message.getSession()).thenReturn(new NettySessionInfo(channelId,channelCtx,ChannelType.TCP,null,EndpointObjectHash.fromSHA1("key"),"APP_TOKEN",1000,true));
+  Mockito.when(message.getSession()).thenReturn(new NettySessionInfo(channelId,AvroEncDec.AVRO_ENC_DEC_ID,channelCtx,ChannelType.TCP,null,EndpointObjectHash.fromSHA1("key"),"APP_TOKEN",1000,true));
   Mockito.when(message.getCommand()).thenReturn(Mockito.mock(Request.class));
   Mockito.when(message.getOriginator()).thenReturn(Mockito.mock(ActorRef.class));
   EndpointActorMessageProcessor processor=Mockito.spy(new EndpointActorMessageProcessor(osMock,"APP_TOKEN",EndpointObjectHash.fromSHA1("key"),"actorKey"));

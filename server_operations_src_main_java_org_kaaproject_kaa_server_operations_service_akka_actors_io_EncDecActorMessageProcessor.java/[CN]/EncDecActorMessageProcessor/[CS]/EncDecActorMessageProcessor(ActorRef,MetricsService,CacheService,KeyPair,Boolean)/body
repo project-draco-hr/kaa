@@ -5,7 +5,7 @@
   this.supportUnencryptedConnection=supportUnencryptedConnection;
   this.crypt=new MessageEncoderDecoder(serverKeys.getPrivate(),serverKeys.getPublic());
   this.platformEncDecMap=new HashMap<>();
-  platformEncDecMap.put(AVRO_ENC_DEC_ID,new AvroEncDec());
+  platformEncDecMap.put(AvroEncDec.AVRO_ENC_DEC_ID,new AvroEncDec());
   this.sessionInitMeter=metricsService.createMeter("sessionInitMeter",Thread.currentThread().getName());
   this.sessionRequestMeter=metricsService.createMeter("sessionRequestMeter",Thread.currentThread().getName());
   this.sessionResponseMeter=metricsService.createMeter("sessionResponseMeter",Thread.currentThread().getName());

@@ -1,6 +1,6 @@
 {
   byte[] requestRaw=message.getEncodedRequestData();
-  ClientSync request=platformEncDecMap.get(AVRO_ENC_DEC_ID).decode(requestRaw);
+  ClientSync request=decodePlatformLevelData(message.getPlatformId(),requestRaw);
   LOG.trace("Request data deserialized");
   return request;
 }
