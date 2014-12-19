@@ -1,0 +1,35 @@
+{
+  super(other);
+  if (isValidValue(fields()[0],other.mailFrom)) {
+    this.mailFrom=data().deepCopy(fields()[0].schema(),other.mailFrom);
+    fieldSetFlags()[0]=true;
+  }
+  if (isValidValue(fields()[1],other.smtpProtocol)) {
+    this.smtpProtocol=data().deepCopy(fields()[1].schema(),other.smtpProtocol);
+    fieldSetFlags()[1]=true;
+  }
+  if (isValidValue(fields()[2],other.smtpHost)) {
+    this.smtpHost=data().deepCopy(fields()[2].schema(),other.smtpHost);
+    fieldSetFlags()[2]=true;
+  }
+  if (isValidValue(fields()[3],other.smtpPort)) {
+    this.smtpPort=data().deepCopy(fields()[3].schema(),other.smtpPort);
+    fieldSetFlags()[3]=true;
+  }
+  if (isValidValue(fields()[4],other.timeout)) {
+    this.timeout=data().deepCopy(fields()[4].schema(),other.timeout);
+    fieldSetFlags()[4]=true;
+  }
+  if (isValidValue(fields()[5],other.enableTls)) {
+    this.enableTls=data().deepCopy(fields()[5].schema(),other.enableTls);
+    fieldSetFlags()[5]=true;
+  }
+  if (isValidValue(fields()[6],other.username)) {
+    this.username=data().deepCopy(fields()[6].schema(),other.username);
+    fieldSetFlags()[6]=true;
+  }
+  if (isValidValue(fields()[7],other.password)) {
+    this.password=data().deepCopy(fields()[7].schema(),other.password);
+    fieldSetFlags()[7]=true;
+  }
+}

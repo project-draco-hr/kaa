@@ -15,7 +15,7 @@
           kaaMessagingMailSender.send(helper.getMimeMessage());
         }
  catch (        MessagingException e) {
-          logger.error("Unexpected error while sendPasswordResetLinkMail",e);
+          LOG.error("Unexpected error while sendPasswordResetLinkMail",e);
         }
         return null;
       }
@@ -23,6 +23,6 @@
 );
   }
  catch (  Exception e) {
-    logger.error("Unexpected error while sendPasswordResetLinkMail",e);
+    LOG.error("Unexpected error while sendPasswordResetLinkMail",e);
   }
 }

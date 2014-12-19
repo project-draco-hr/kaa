@@ -1,6 +1,6 @@
 {
   User user=userFacade.findById(Long.valueOf(tenantAdmin.getExternalUid()));
-  logger.debug("Convert tenant admin to tenant user {}.",user);
+  LOG.debug("Convert tenant admin to tenant user {}.",user);
   TenantUserDto tenantUser=null;
   if (user != null) {
     tenantUser=new TenantUserDto(user.getId().toString(),user.getUsername(),user.getFirstName(),user.getLastName(),user.getMail(),KaaAuthorityDto.valueOf(user.getAuthorities().iterator().next().getAuthority()));
@@ -9,7 +9,7 @@
     tenantUser.setTenantName(tenantAdmin.getTenant().getName());
   }
  else {
-    logger.debug("Can't find tenant user by external id {}.",tenantAdmin.getExternalUid());
+    LOG.debug("Can't find tenant user by external id {}.",tenantAdmin.getExternalUid());
   }
   return tenantUser;
 }

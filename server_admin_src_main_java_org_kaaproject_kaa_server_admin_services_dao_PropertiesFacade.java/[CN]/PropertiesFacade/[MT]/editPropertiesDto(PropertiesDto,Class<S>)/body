@@ -1,0 +1,10 @@
+{
+  Properties entity=findOrCreateByClass(propertiesClass);
+  Schema schema=(Schema)propertiesClass.getField("SCHEMA$").get(null);
+  GenericRecord record=FormAvroConverter.createGenericRecordFormRecordField(propertiesDto.getConfiguration(),schema);
+  GenericAvroConverter<GenericRecord> converter=new GenericAvroConverter<>(schema);
+  byte[] rawConfiguration=converter.encode(record);
+  entity.setRawConfiguration(rawConfiguration);
+  save(entity);
+  return toDto(entity,propertiesClass);
+}

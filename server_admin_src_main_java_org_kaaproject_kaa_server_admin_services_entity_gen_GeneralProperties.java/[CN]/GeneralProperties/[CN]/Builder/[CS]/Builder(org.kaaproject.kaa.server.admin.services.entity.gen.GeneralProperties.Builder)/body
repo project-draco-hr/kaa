@@ -1,0 +1,11 @@
+{
+  super(other);
+  if (isValidValue(fields()[0],other.appTitle)) {
+    this.appTitle=data().deepCopy(fields()[0].schema(),other.appTitle);
+    fieldSetFlags()[0]=true;
+  }
+  if (isValidValue(fields()[1],other.baseUrl)) {
+    this.baseUrl=data().deepCopy(fields()[1].schema(),other.baseUrl);
+    fieldSetFlags()[1]=true;
+  }
+}
