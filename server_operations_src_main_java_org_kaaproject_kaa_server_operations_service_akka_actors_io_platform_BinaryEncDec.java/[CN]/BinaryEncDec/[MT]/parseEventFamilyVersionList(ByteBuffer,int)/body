@@ -1,0 +1,8 @@
+{
+  List<EventClassFamilyVersionInfo> result=new ArrayList<>();
+  for (int i=0; i < count; i++) {
+    int version=getIntFromUnsignedShort(buf);
+    result.add(new EventClassFamilyVersionInfo(getUTF8String(buf),version));
+  }
+  return result;
+}

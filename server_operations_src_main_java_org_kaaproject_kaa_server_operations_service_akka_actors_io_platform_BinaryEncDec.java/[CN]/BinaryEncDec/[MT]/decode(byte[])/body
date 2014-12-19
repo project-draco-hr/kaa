@@ -1,0 +1,17 @@
+{
+  ByteBuffer buf=ByteBuffer.wrap(data);
+  if (buf.remaining() < MIN_SIZE_OF_MESSAGE_HEADER) {
+    throw new PlatformEncDecException(MessageFormat.format("Message header is to small {} to be kaa binary message!",buf.capacity()));
+  }
+  int protocolId=buf.getInt();
+  if (protocolId != PROTOCOL_ID) {
+    throw new PlatformEncDecException(MessageFormat.format("Unknown protocol id {}!",protocolId));
+  }
+  int protocolVersion=buf.getShort();
+  if (protocolVersion < MIN_SUPPORTED_VERSION || protocolVersion > MAX_SUPPORTED_VERSION) {
+    throw new PlatformEncDecException(MessageFormat.format("Can't decode data using protocol version {}!",protocolVersion));
+  }
+  short extensionsCount=buf.getShort();
+  LOG.trace("received data for protocol id {} and version {} that contain {} extensions",protocolId,protocolVersion,extensionsCount);
+  return parseExtensions(buf,protocolVersion,extensionsCount);
+}

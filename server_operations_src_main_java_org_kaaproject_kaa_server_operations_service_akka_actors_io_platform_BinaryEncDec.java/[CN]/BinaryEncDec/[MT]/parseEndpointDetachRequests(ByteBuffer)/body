@@ -1,0 +1,11 @@
+{
+  buf.get();
+  int count=getIntFromUnsignedShort(buf);
+  List<EndpointDetachRequest> requests=new ArrayList<EndpointDetachRequest>(count);
+  for (int i=0; i < count; i++) {
+    int requestId=getIntFromUnsignedShort(buf);
+    buf.getShort();
+    requests.add(new EndpointDetachRequest(String.valueOf(requestId),Base64Util.encode(getNewByteArray(buf,PUBLIC_KEY_HASH_SIZE))));
+  }
+  return requests;
+}

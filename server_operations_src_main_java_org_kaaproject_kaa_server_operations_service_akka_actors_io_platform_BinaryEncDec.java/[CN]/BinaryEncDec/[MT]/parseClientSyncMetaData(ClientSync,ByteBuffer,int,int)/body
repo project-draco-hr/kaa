@@ -1,0 +1,17 @@
+{
+  sync.setRequestId(buf.getInt());
+  ClientSyncMetaData md=new ClientSyncMetaData();
+  if (hasOption(options,0x01)) {
+    md.setTimeout((long)buf.getInt());
+  }
+  if (hasOption(options,0x02)) {
+    md.setEndpointPublicKeyHash(getNewByteBuffer(buf,PUBLIC_KEY_HASH_SIZE));
+  }
+  if (hasOption(options,0x04)) {
+    md.setProfileHash(getNewByteBuffer(buf,PUBLIC_KEY_SIZE));
+  }
+  if (hasOption(options,0x08)) {
+    md.setApplicationToken(getUTF8String(buf));
+  }
+  sync.setClientSyncMetaData(md);
+}
