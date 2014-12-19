@@ -14,7 +14,7 @@
           kaaMessagingMailSender.send(helper.getMimeMessage());
         }
  catch (        MessagingException e) {
-          logger.error("Unexpected error while sendTempPasswordMail",e);
+          LOG.error("Unexpected error while sendTempPasswordMail",e);
         }
         return null;
       }
@@ -22,6 +22,6 @@
 );
   }
  catch (  Exception e) {
-    logger.error("Unexpected error while sendTempPasswordMail",e);
+    LOG.error("Unexpected error while sendTempPasswordMail",e);
   }
 }

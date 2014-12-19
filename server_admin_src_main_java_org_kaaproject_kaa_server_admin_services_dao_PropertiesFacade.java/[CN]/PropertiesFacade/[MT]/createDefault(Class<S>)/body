@@ -1,0 +1,15 @@
+{
+  Properties properties=new Properties();
+  S specificProperties=buildDefaultProperties(propertiesClass);
+  AvroByteArrayConverter<S> converter=new AvroByteArrayConverter<>(propertiesClass);
+  try {
+    properties.setRawConfiguration(converter.toByteArray(specificProperties));
+  }
+ catch (  IOException e) {
+    LOG.error("Unable to serialize configuration for properties",e);
+  }
+  properties.setFqn(propertiesClass.getName());
+  Long id=save(properties);
+  properties.setId(id);
+  return properties;
+}
