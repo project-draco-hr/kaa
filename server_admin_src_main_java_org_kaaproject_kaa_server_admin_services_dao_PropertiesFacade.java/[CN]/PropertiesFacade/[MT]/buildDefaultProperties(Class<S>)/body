@@ -1,0 +1,13 @@
+{
+  S result=null;
+  try {
+    Method newBuilderMethod=propertiesClass.getMethod("newBuilder");
+    Object builderObject=newBuilderMethod.invoke(null);
+    Method buildMethod=builderObject.getClass().getMethod("build");
+    result=(S)buildMethod.invoke(builderObject);
+  }
+ catch (  Exception e) {
+    LOG.error("Unable to build default specific properties for class " + propertiesClass.getSimpleName(),e);
+  }
+  return result;
+}

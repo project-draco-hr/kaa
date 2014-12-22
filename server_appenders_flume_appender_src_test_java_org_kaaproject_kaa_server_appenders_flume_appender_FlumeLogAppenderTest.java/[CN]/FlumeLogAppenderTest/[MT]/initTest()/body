@@ -4,7 +4,7 @@
   logAppender.setApplicationId(APPLICATION_ID);
   logAppender.setId(APPENDER_ID);
   FlumeNodes nodes=FlumeNodes.newBuilder().setFlumeNodes(Arrays.asList(new FlumeNode("localhost",12121),new FlumeNode("localhost",12122))).build();
-  FlumeConfig flumeConfig=FlumeConfig.newBuilder().setHostsBalancing(nodes).build();
+  FlumeConfig flumeConfig=FlumeConfig.newBuilder().setFlumeEventFormat(FlumeEventFormat.RECORDS_CONTAINER).setHostsBalancing(nodes).build();
   AvroByteArrayConverter<FlumeConfig> converter=new AvroByteArrayConverter<>(FlumeConfig.class);
   byte[] rawConfiguration=converter.toByteArray(flumeConfig);
   logAppender.setRawConfiguration(rawConfiguration);

@@ -19,7 +19,7 @@
  else       if (event.getAction() == RowAction.DELETE) {
         KaaAdmin.getDataSource().deleteProfileFilterRecord(id.getSchemaId(),id.getEndpointGroupId(),new AsyncCallback<Void>(){
           @Override public void onFailure(          Throwable caught){
-            detailsView.setErrorMessage(Utils.getErrorMessage(caught));
+            Utils.handleException(caught,detailsView);
           }
           @Override public void onSuccess(          Void result){
           }
@@ -57,7 +57,7 @@
  else       if (event.getAction() == RowAction.DELETE) {
         KaaAdmin.getDataSource().deleteConfigurationRecord(id.getSchemaId(),id.getEndpointGroupId(),new AsyncCallback<Void>(){
           @Override public void onFailure(          Throwable caught){
-            detailsView.setErrorMessage(Utils.getErrorMessage(caught));
+            Utils.handleException(caught,detailsView);
           }
           @Override public void onSuccess(          Void result){
           }
@@ -90,7 +90,7 @@
  else       if (event.getAction() == RowAction.DELETE) {
         KaaAdmin.getDataSource().removeTopicFromEndpointGroup(entityId,id,new AsyncCallback<Void>(){
           @Override public void onFailure(          Throwable caught){
-            detailsView.setErrorMessage(Utils.getErrorMessage(caught));
+            Utils.handleException(caught,detailsView);
           }
           @Override public void onSuccess(          Void result){
           }

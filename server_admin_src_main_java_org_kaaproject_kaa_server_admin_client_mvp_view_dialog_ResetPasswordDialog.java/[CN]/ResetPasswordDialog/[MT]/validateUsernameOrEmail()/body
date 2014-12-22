@@ -1,0 +1,17 @@
+{
+  String usernameOrEmailText=usernameOrEmail.getValue();
+  authService.checkUsernameOrEmailExists(usernameOrEmailText,new AsyncCallback<ResultCode>(){
+    @Override public void onFailure(    Throwable caught){
+      Utils.handleException(caught,ResetPasswordDialog.this);
+    }
+    @Override public void onSuccess(    ResultCode result){
+      if (ResultCode.OK != result) {
+        setErrorMessage(Utils.constants.getString(result.getResourceKey()));
+      }
+ else {
+        sendResetPasswordLink();
+      }
+    }
+  }
+);
+}

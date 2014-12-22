@@ -1,4 +1,7 @@
 {
+  HistoryHandler historyHandler=new HistoryHandler();
+  History.addValueChangeHandler(historyHandler);
+  updateHistoryParamsFromToken(History.getToken());
   authService.checkAuth(new AsyncCallback<AuthResultDto>(){
     @Override public void onFailure(    Throwable caught){
       authResult=Result.ERROR;

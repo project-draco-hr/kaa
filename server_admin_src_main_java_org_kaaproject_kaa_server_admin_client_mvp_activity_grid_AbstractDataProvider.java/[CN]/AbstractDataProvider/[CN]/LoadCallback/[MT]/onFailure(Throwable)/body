@@ -1,4 +1,4 @@
 {
   GWT.log("AbstractDataProvider.LoadCallback.onFailure(caught):",caught);
-  asyncCallback.onFailure(caught);
+  Utils.handleException(caught,hasErrorMessage);
 }

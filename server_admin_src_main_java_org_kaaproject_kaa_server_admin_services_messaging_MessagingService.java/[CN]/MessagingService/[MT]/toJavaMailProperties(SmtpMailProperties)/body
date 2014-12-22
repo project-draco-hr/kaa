@@ -1,0 +1,12 @@
+{
+  Properties javaMailProperties=new Properties();
+  String protocol=smtpMailProperties.getSmtpProtocol().toString().toLowerCase();
+  javaMailProperties.put("mail.transport.protocol",protocol);
+  javaMailProperties.put("mail." + protocol + ".host",smtpMailProperties.getSmtpHost());
+  javaMailProperties.put("mail." + protocol + ".port",String.valueOf(smtpMailProperties.getSmtpPort()));
+  javaMailProperties.put("mail." + protocol + ".timeout",String.valueOf(smtpMailProperties.getTimeout()));
+  javaMailProperties.put("mail." + protocol + ".auth",String.valueOf(!Utils.isEmpty(smtpMailProperties.getUsername())));
+  javaMailProperties.put("mail." + protocol + ".starttls.enable",String.valueOf(smtpMailProperties.getEnableTls()));
+  javaMailProperties.put("mail.debug","true");
+  return javaMailProperties;
+}

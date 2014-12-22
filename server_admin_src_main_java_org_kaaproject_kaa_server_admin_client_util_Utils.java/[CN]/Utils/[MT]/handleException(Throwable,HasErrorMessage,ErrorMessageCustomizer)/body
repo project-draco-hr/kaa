@@ -1,0 +1,14 @@
+{
+  boolean handled=false;
+  if (caught instanceof StatusCodeException) {
+    StatusCodeException sce=(StatusCodeException)caught;
+    if (sce.getStatusCode() == Response.SC_UNAUTHORIZED) {
+      onUnauthorized();
+      handled=true;
+    }
+  }
+  if (!handled) {
+    String message=parseErrorMessage(caught,errorMessageCustomizer);
+    hasErrorMessage.setErrorMessage(message);
+  }
+}

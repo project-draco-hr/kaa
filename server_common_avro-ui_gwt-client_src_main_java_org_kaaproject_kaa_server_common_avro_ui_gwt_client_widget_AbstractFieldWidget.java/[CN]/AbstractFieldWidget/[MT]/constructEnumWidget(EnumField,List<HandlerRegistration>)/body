@@ -1,7 +1,12 @@
 {
   final FormEnumListBox enumBox=new FormEnumListBox();
+  if (!field.isOptional()) {
+    enumBox.setValue(field.getValue());
+  }
   enumBox.setAcceptableValues(field.getEnumValues());
-  enumBox.setValue(field.getValue());
+  if (field.isOptional()) {
+    enumBox.setValue(field.getValue());
+  }
   handlerRegistrations.add(enumBox.addValueChangeHandler(new ValueChangeHandler<FormEnum>(){
     @Override public void onValueChange(    ValueChangeEvent<FormEnum> event){
       field.setValue(event.getValue());

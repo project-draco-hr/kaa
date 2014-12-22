@@ -1,0 +1,48 @@
+{
+  super(false,true);
+  this.listener=listener;
+  setWidth("500px");
+  setTitle(Utils.constants.reset_password());
+  VerticalPanel dialogContents=new VerticalPanel();
+  dialogContents.setSpacing(4);
+  setWidget(dialogContents);
+  errorPanel=new AlertPanel(AlertPanel.Type.ERROR);
+  errorPanel.setVisible(false);
+  dialogContents.add(errorPanel);
+  messagePanel=new AlertPanel(AlertPanel.Type.WARNING);
+  messagePanel.setMessage(Utils.messages.resetPasswordMessage());
+  dialogContents.add(messagePanel);
+  FlexTable table=new FlexTable();
+  table.setCellSpacing(6);
+  int row=0;
+  Widget label=new Label(Utils.constants.usernameOrEmail());
+  label.addStyleName("required");
+  usernameOrEmail=new KaaAdminSizedTextBox(255);
+  table.setWidget(row,0,label);
+  table.setWidget(row,1,usernameOrEmail);
+  usernameOrEmail.addInputHandler(new InputEventHandler(){
+    @Override public void onInputChanged(    InputEvent event){
+      boolean valid=validate();
+      sendResetPasswordLinkButton.setEnabled(valid);
+    }
+  }
+);
+  table.getCellFormatter().setHorizontalAlignment(row,0,HasHorizontalAlignment.ALIGN_RIGHT);
+  dialogContents.add(table);
+  sendResetPasswordLinkButton=new Button(Utils.constants.sendResetPasswordLink(),new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      validateUsernameOrEmail();
+    }
+  }
+);
+  Button cancelButton=new Button(Utils.constants.cancel(),new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      hide();
+      ResetPasswordDialog.this.listener.onCancel();
+    }
+  }
+);
+  addButton(sendResetPasswordLinkButton);
+  addButton(cancelButton);
+  sendResetPasswordLinkButton.setEnabled(false);
+}

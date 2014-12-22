@@ -32,6 +32,6 @@
 );
   }
  catch (  RequestException e) {
-    e.printStackTrace();
+    view.setErrorMessage(Utils.constants.general_error() + e.getMessage());
   }
 }

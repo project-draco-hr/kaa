@@ -9,6 +9,10 @@
   }
   query.setParameter("mail",mail);
   List<User> resultList=query.getResultList();
-  if (!resultList.isEmpty())   return resultList.get(0);
- else   return null;
+  if (!resultList.isEmpty()) {
+    return resultList.get(0);
+  }
+ else {
+    return null;
+  }
 }
