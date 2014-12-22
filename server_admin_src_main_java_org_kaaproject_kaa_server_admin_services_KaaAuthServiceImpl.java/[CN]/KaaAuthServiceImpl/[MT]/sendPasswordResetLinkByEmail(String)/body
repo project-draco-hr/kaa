@@ -1,0 +1,14 @@
+{
+  User userEntity=userFacade.findByUsernameOrMail(usernameOrEmail);
+  if (userEntity == null) {
+    return ResultCode.USER_OR_EMAIL_NOT_FOUND;
+  }
+ else   if (isEmpty(userEntity.getMail())) {
+    return ResultCode.USER_EMAIL_NOT_DEFINED;
+  }
+  String passwordResetHash=RandomStringUtils.randomAlphanumeric(128);
+  userEntity.setPasswordResetHash(passwordResetHash);
+  userFacade.save(userEntity);
+  messagingService.sendPasswordResetLink(passwordResetHash,userEntity.getUsername(),userEntity.getMail());
+  return ResultCode.OK;
+}

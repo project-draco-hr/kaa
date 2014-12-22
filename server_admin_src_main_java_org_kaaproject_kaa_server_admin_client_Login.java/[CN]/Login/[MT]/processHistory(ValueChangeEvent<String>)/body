@@ -1,0 +1,10 @@
+{
+  String historyToken;
+  if (event != null) {
+    historyToken=event.getValue();
+  }
+ else {
+    historyToken=History.getToken();
+  }
+  updateHistoryParamsFromToken(historyToken);
+}

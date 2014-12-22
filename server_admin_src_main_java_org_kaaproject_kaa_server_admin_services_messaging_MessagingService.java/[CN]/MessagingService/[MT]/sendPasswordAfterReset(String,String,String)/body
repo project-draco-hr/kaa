@@ -2,8 +2,8 @@
   try {
     callAsync(new Callable<Void>(){
       @Override public Void call() throws Exception {
-        String subject=messages.getMessage("tempPasswordMailMessageSubject",new Object[]{appName},Locale.ENGLISH);
-        String text=messages.getMessage("resetPasswordMailMessageBody",new Object[]{username,appBaseUrl,appName,password},Locale.ENGLISH);
+        String subject=messages.getMessage("passwordWasResetMailMessageSubject",new Object[]{appName},Locale.ENGLISH);
+        String text=messages.getMessage("passwordWasResetMailMessageBody",new Object[]{username,appBaseUrl,appName,password},Locale.ENGLISH);
         MimeMessage mimeMsg=kaaMessagingMailSender.createMimeMessage();
         MimeMessageHelper helper=new MimeMessageHelper(mimeMsg,"UTF-8");
         try {

@@ -2,9 +2,11 @@
   try {
     callAsync(new Callable<Void>(){
       @Override public Void call() throws Exception {
-        String params="#resetPassword=" + passwordReminderHash;
-        String subject=messages.getMessage("recoveryPasswordMailMessageSubject",new Object[]{appName},Locale.ENGLISH);
-        String text=messages.getMessage("recoveryPasswordMailMessageBody",new Object[]{username,appName,appBaseUrl + params},Locale.ENGLISH);
+        Map<String,String> paramsMap=new HashMap<>();
+        paramsMap.put(UrlParams.RESET_PASSWORD,passwordResetHash);
+        String params="#" + UrlParams.generateParamsUrl(paramsMap);
+        String subject=messages.getMessage("resetPasswordMailMessageSubject",new Object[]{appName},Locale.ENGLISH);
+        String text=messages.getMessage("resetPasswordMailMessageBody",new Object[]{username,appName,appBaseUrl + params},Locale.ENGLISH);
         MimeMessage mimeMsg=kaaMessagingMailSender.createMimeMessage();
         MimeMessageHelper helper=new MimeMessageHelper(mimeMsg,"UTF-8");
         try {

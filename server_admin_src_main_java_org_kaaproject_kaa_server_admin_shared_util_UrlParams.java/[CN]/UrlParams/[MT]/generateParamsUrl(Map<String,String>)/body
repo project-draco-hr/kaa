@@ -1,0 +1,11 @@
+{
+  String paramsUrl="";
+  for (  String key : paramsMap.keySet()) {
+    String val=paramsMap.get(key);
+    if (paramsUrl.length() > 0) {
+      paramsUrl+=PARAMS_SEPARATOR;
+    }
+    paramsUrl+=key + "=" + val;
+  }
+  return paramsUrl;
+}

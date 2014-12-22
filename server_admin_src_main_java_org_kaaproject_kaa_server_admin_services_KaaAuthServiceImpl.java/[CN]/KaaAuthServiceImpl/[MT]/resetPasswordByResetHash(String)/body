@@ -1,0 +1,16 @@
+{
+  User userEntity=userFacade.findByPasswordResetHash(passwordResetHash);
+  if (userEntity == null) {
+    return ResultCode.USER_NOT_FOUND;
+  }
+ else   if (isEmpty(userEntity.getMail())) {
+    return ResultCode.USER_EMAIL_NOT_DEFINED;
+  }
+  userEntity.setPasswordResetHash(null);
+  String generatedPassword=RandomStringUtils.randomAlphanumeric(12);
+  userEntity.setPassword(passwordEncoder.encodePassword(generatedPassword,null));
+  userEntity.setTempPassword(true);
+  userFacade.save(userEntity);
+  messagingService.sendPasswordAfterReset(userEntity.getUsername(),generatedPassword,userEntity.getMail());
+  return ResultCode.OK;
+}

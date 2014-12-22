@@ -1,0 +1,15 @@
+{
+  if (historyParams.containsKey(UrlParams.RESET_PASSWORD)) {
+    String passwordResetHash=historyParams.get(UrlParams.RESET_PASSWORD);
+    resetCurrentHistory();
+    if (!Utils.isBlank(passwordResetHash) && passwordResetHash.length() == 128) {
+      resetPassword(passwordResetHash,callback);
+    }
+ else {
+      callback.onSuccess(null);
+    }
+  }
+ else {
+    callback.onSuccess(null);
+  }
+}
