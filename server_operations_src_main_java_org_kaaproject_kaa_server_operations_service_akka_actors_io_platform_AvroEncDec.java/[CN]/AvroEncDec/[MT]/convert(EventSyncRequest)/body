@@ -3,9 +3,7 @@
     return null;
   }
   EventClientSync sync=new EventClientSync();
-  if (source.getEventSequenceNumberRequest() != null) {
-    sync.setEventSequenceNumberRequest(new EventSequenceNumberRequest());
-  }
+  sync.setSeqNumberRequest(source.getEventSequenceNumberRequest() != null);
   if (source.getEvents() != null) {
     List<Event> events=new ArrayList<Event>(source.getEvents().size());
     for (    org.kaaproject.kaa.common.endpoint.gen.Event event : source.getEvents()) {
