@@ -1,0 +1,15 @@
+{
+  if (source == null) {
+    return null;
+  }
+  LogClientSync sync=new LogClientSync();
+  sync.setRequestId(source.getRequestId());
+  if (source.getLogEntries() != null) {
+    List<LogEntry> logs=new ArrayList<LogEntry>(source.getLogEntries().size());
+    for (    org.kaaproject.kaa.common.endpoint.gen.LogEntry log : source.getLogEntries()) {
+      logs.add(new LogEntry(log.getData()));
+    }
+    sync.setLogEntries(logs);
+  }
+  return sync;
+}

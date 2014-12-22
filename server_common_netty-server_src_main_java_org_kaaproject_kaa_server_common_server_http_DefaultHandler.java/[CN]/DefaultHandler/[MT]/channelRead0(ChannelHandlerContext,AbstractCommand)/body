@@ -1,0 +1,16 @@
+{
+  Callable<AbstractCommand> callable=msg;
+  final Future<AbstractCommand> future=executor.submit(callable);
+  future.addListener(new GenericFutureListener<Future<Object>>(){
+    @Override public void operationComplete(    final Future<Object> future) throws Exception {
+      LOG.trace("DefaultHandler().operationComplete...");
+      if (future.isSuccess()) {
+        ctx.writeAndFlush(future.get());
+      }
+ else {
+        ctx.fireExceptionCaught(future.cause());
+      }
+    }
+  }
+);
+}

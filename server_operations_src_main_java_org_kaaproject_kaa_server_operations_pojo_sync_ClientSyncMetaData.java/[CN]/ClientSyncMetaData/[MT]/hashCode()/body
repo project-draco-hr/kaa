@@ -1,0 +1,9 @@
+{
+  final int prime=31;
+  int result=1;
+  result=prime * result + ((applicationToken == null) ? 0 : applicationToken.hashCode());
+  result=prime * result + ((endpointPublicKeyHash == null) ? 0 : endpointPublicKeyHash.hashCode());
+  result=prime * result + ((profileHash == null) ? 0 : profileHash.hashCode());
+  result=prime * result + (int)(timeout ^ (timeout >>> 32));
+  return result;
+}

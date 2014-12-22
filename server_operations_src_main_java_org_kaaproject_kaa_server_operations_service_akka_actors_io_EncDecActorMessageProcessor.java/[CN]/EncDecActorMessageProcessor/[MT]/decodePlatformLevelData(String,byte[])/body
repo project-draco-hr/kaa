@@ -1,0 +1,9 @@
+{
+  PlatformEncDec encDec=platformEncDecMap.get(platformID);
+  if (encDec != null) {
+    return platformEncDecMap.get(platformID).decode(requestRaw);
+  }
+ else {
+    throw new PlatformEncDecException(MessageFormat.format("Decoder for platform protocol [{0}] is not defined",platformID));
+  }
+}

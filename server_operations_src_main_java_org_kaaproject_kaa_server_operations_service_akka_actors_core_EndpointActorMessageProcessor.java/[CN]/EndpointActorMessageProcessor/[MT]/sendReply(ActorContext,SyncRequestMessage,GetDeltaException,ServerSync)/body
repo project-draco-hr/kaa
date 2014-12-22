@@ -1,0 +1,11 @@
+{
+  LOG.debug("[{}] response: {}",actorKey,syncResponse);
+  SyncStatistics stats=request.getCommand().getSyncStatistics();
+  if (stats != null) {
+    stats.reportSyncTime(syncTime);
+  }
+  ServerSync copy=deepCopy(syncResponse);
+  NettySessionResponseMessage response=new NettySessionResponseMessage(request.getSession(),copy,request.getCommand().getResponseBuilder(),request.getCommand().getErrorBuilder());
+  tellActor(context,request.getOriginator(),response);
+  scheduleActorTimeout(context);
+}

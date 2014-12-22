@@ -1,0 +1,17 @@
+{
+  if (status == null) {
+    return null;
+  }
+switch (status) {
+case SUCCESS:
+    return SyncResponseResultType.SUCCESS;
+case FAILURE:
+  return SyncResponseResultType.FAILURE;
+case PROFILE_RESYNC:
+return SyncResponseResultType.PROFILE_RESYNC;
+case REDIRECT:
+return SyncResponseResultType.REDIRECT;
+default :
+return null;
+}
+}

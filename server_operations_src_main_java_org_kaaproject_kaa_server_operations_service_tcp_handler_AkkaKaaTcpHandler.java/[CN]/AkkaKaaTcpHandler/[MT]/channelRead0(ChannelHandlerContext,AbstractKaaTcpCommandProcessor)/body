@@ -3,7 +3,7 @@
   LOG.trace("[{}] Processing {}",uuid,frame);
   if (frame.getMessageType() == MessageType.CONNECT) {
     if (session == null) {
-      akkaService.process(new NettyTcpConnectMessage(uuid,ctx,(Connect)frame,ChannelType.TCP,this,connectResponseConverter,connectErrorConverter,null));
+      akkaService.process(new NettyTcpConnectMessage(uuid,AvroEncDec.AVRO_ENC_DEC_ID,ctx,(Connect)frame,ChannelType.TCP,this,connectResponseConverter,connectErrorConverter,null));
     }
  else {
       LOG.warn("[{}] Ignoring duplicate {} message ",uuid,MessageType.CONNECT);

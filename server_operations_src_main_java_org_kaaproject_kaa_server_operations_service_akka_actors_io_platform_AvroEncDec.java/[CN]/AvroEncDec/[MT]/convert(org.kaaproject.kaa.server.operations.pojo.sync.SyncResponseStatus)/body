@@ -1,0 +1,15 @@
+{
+  if (responseStatus == null) {
+    return null;
+  }
+switch (responseStatus) {
+case DELTA:
+    return SyncResponseStatus.DELTA;
+case NO_DELTA:
+  return SyncResponseStatus.NO_DELTA;
+case RESYNC:
+return SyncResponseStatus.RESYNC;
+default :
+return null;
+}
+}

@@ -1,0 +1,24 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  SubscriptionCommand other=(SubscriptionCommand)obj;
+  if (command != other.command) {
+    return false;
+  }
+  if (topicId == null) {
+    if (other.topicId != null) {
+      return false;
+    }
+  }
+ else   if (!topicId.equals(other.topicId)) {
+    return false;
+  }
+  return true;
+}
