@@ -7,7 +7,7 @@
     return ResultCode.USER_EMAIL_NOT_DEFINED;
   }
   userEntity.setPasswordResetHash(null);
-  String generatedPassword=RandomStringUtils.randomAlphanumeric(12);
+  String generatedPassword=RandomStringUtils.randomAlphanumeric(User.TEMPORARY_PASSWORD_LENGTH);
   userEntity.setPassword(passwordEncoder.encodePassword(generatedPassword,null));
   userEntity.setTempPassword(true);
   userFacade.save(userEntity);

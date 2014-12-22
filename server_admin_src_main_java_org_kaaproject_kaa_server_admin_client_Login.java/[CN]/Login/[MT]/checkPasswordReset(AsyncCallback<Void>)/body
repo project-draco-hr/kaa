@@ -2,7 +2,7 @@
   if (historyParams.containsKey(UrlParams.RESET_PASSWORD)) {
     String passwordResetHash=historyParams.get(UrlParams.RESET_PASSWORD);
     resetCurrentHistory();
-    if (!Utils.isBlank(passwordResetHash) && passwordResetHash.length() == 128) {
+    if (!Utils.isBlank(passwordResetHash) && passwordResetHash.length() == UrlParams.PASSWORD_RESET_HASH_LENGTH) {
       resetPassword(passwordResetHash,callback);
     }
  else {
