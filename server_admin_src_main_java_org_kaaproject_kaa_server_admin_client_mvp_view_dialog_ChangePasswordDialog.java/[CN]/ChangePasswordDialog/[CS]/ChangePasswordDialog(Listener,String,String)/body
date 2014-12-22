@@ -7,14 +7,14 @@
   VerticalPanel dialogContents=new VerticalPanel();
   dialogContents.setSpacing(4);
   setWidget(dialogContents);
+  errorPanel=new AlertPanel(AlertPanel.Type.ERROR);
+  errorPanel.setVisible(false);
+  dialogContents.add(errorPanel);
   if (message != null) {
     AlertPanel warningPanel=new AlertPanel(AlertPanel.Type.WARNING);
     warningPanel.setMessage(message);
     dialogContents.add(warningPanel);
   }
-  errorPanel=new AlertPanel(AlertPanel.Type.ERROR);
-  errorPanel.setVisible(false);
-  dialogContents.add(errorPanel);
   FlexTable table=new FlexTable();
   table.setCellSpacing(6);
   int row=0;

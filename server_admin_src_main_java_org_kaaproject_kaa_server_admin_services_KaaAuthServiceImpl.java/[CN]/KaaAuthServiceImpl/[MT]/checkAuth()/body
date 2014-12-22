@@ -2,7 +2,6 @@
   AuthResultDto result=new AuthResultDto();
   Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
   if (!isLoggedIn(authentication)) {
-    System.out.println("Not logged in");
     if (userFacade.isAuthorityExists(KaaAuthorityDto.KAA_ADMIN.name())) {
       result.setAuthResult(Result.NOT_LOGGED_IN);
     }

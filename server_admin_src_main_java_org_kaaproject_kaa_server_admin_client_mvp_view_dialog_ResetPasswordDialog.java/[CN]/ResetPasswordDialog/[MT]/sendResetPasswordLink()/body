@@ -1,0 +1,25 @@
+{
+  String usernameOrEmailText=usernameOrEmail.getValue();
+  authService.sendPasswordResetLinkByEmail(usernameOrEmailText,new AsyncCallback<ResultCode>(){
+    @Override public void onFailure(    Throwable caught){
+      Utils.handleException(caught,ResetPasswordDialog.this);
+    }
+    @Override public void onSuccess(    ResultCode result){
+      if (ResultCode.OK != result) {
+        setErrorMessage(Utils.constants.getString(result.getResourceKey()));
+      }
+ else {
+        MessageDialog dialog=new MessageDialog(new MessageDialog.Listener(){
+          @Override public void onOk(){
+            hide();
+            listener.onSendResetPasswordLink();
+          }
+        }
+,Utils.constants.resetLinkWasSent(),Utils.messages.resetPasswordLinkWasSent());
+        dialog.show();
+        dialog.center();
+      }
+    }
+  }
+);
+}
