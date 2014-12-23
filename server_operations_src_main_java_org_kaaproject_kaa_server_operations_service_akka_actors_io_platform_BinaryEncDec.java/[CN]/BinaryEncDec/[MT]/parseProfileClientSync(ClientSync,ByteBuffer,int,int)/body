@@ -1,7 +1,7 @@
 {
   int payloadLimitPosition=buf.position() + payloadLength;
   ProfileClientSync profileSync=new ProfileClientSync();
-  profileSync.setEndpointPublicKey(getNewByteBuffer(buf,buf.getInt()));
+  profileSync.setProfileBody(getNewByteBuffer(buf,buf.getInt()));
   profileSync.setVersionInfo(new EndpointVersionInfo());
   while (buf.position() < payloadLimitPosition) {
     int fieldId=buf.get();

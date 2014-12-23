@@ -1,0 +1,18 @@
+{
+  int eventsCount=getIntFromUnsignedShort(buf);
+  List<Event> events=new ArrayList<>(eventsCount);
+  for (int i=0; i < eventsCount; i++) {
+    Event event=new Event();
+    event.setSeqNum(buf.getInt());
+    int eventOptions=getIntFromUnsignedShort(buf);
+    int fqnLength=getIntFromUnsignedShort(buf);
+    int dataSize=buf.getInt();
+    if (hasOption(eventOptions,0x01)) {
+      event.setTarget(Base64Util.encode(getNewByteArray(buf,PUBLIC_KEY_HASH_SIZE)));
+    }
+    event.setEventClassFQN(getUTF8String(buf,fqnLength));
+    event.setEventData(getNewByteBuffer(buf,dataSize));
+    events.add(event);
+  }
+  return events;
+}

@@ -16,7 +16,7 @@
   Assert.assertEquals(SyncStatus.SUCCESS,response.getStatus());
   Assert.assertNotNull(response.getConfigurationSync());
   Assert.assertEquals(SyncResponseStatus.NO_DELTA,response.getConfigurationSync().getResponseStatus());
-  Assert.assertEquals(Integer.valueOf(APPLICATION_SEQ_NUMBER),response.getConfigurationSync().getAppStateSeqNumber());
+  Assert.assertEquals(APPLICATION_SEQ_NUMBER,response.getConfigurationSync().getAppStateSeqNumber());
   Assert.assertNull(response.getConfigurationSync().getConfDeltaBody());
   Assert.assertNull(response.getConfigurationSync().getConfSchemaBody());
   Assert.assertNull(response.getNotificationSync());

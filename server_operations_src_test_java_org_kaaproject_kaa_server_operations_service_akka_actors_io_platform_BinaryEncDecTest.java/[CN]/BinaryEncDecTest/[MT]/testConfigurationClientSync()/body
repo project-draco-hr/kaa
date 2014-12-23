@@ -1,0 +1,14 @@
+{
+  ByteBuffer buf=ByteBuffer.wrap(new byte[4 + SHA_1_LENGTH]);
+  buf.putInt(MAGIC_NUMBER);
+  byte[] hash=new byte[SHA_1_LENGTH];
+  hash[MAGIC_INDEX]=MAGIC_NUMBER;
+  buf.put(hash);
+  ClientSync sync=encDec.decode(concat(buildHeader(BinaryEncDec.PROTOCOL_ID,1,2),getValidMetaData(),buildExtensionHeader(BinaryEncDec.CONFIGURATION_EXTENSION_ID,0,0,0x02,buf.array().length),buf.array()));
+  Assert.assertNotNull(sync);
+  Assert.assertNotNull(sync.getClientSyncMetaData());
+  Assert.assertNotNull(sync.getConfigurationSync());
+  ConfigurationClientSync cSync=sync.getConfigurationSync();
+  Assert.assertEquals(MAGIC_NUMBER,cSync.getAppStateSeqNumber());
+  Assert.assertEquals(MAGIC_NUMBER,cSync.getConfigurationHash().array()[MAGIC_INDEX]);
+}

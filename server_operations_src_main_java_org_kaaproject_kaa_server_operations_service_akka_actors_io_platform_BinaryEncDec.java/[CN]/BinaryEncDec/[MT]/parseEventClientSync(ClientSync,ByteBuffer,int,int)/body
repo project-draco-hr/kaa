@@ -1,0 +1,22 @@
+{
+  EventClientSync eventSync=new EventClientSync();
+  if (hasOption(options,0x02)) {
+    eventSync.setSeqNumberRequest(true);
+  }
+  int payloadLimitPosition=buf.position() + payloadLength;
+  while (buf.position() < payloadLimitPosition) {
+    int fieldId=buf.get();
+    buf.get();
+switch (fieldId) {
+case EVENT_LISTENERS_FIELD_ID:
+      eventSync.setEventListenersRequests(parseListenerRequests(buf));
+    break;
+case EVENT_LIST_FIELD_ID:
+  eventSync.setEvents(parseEvents(buf));
+break;
+default :
+break;
+}
+}
+sync.setEventSync(eventSync);
+}

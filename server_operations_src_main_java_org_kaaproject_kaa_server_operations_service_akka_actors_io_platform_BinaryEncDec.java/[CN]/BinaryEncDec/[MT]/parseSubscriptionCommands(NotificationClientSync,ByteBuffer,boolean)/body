@@ -1,0 +1,12 @@
+{
+  int count=getIntFromUnsignedShort(buf);
+  if (nfSync.getSubscriptionCommands() == null) {
+    nfSync.setSubscriptionCommands(new ArrayList<SubscriptionCommand>());
+  }
+  List<SubscriptionCommand> commands=new ArrayList<SubscriptionCommand>();
+  for (int i=0; i < count; i++) {
+    long topicId=buf.getLong();
+    commands.add(new SubscriptionCommand(String.valueOf(topicId),add ? SubscriptionCommandType.ADD : SubscriptionCommandType.REMOVE));
+  }
+  nfSync.getSubscriptionCommands().addAll(commands);
+}

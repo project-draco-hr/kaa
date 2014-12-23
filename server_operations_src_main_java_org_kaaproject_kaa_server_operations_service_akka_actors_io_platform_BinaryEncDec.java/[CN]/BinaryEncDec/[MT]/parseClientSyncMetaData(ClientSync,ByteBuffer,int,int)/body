@@ -8,10 +8,10 @@
     md.setEndpointPublicKeyHash(getNewByteBuffer(buf,PUBLIC_KEY_HASH_SIZE));
   }
   if (hasOption(options,0x04)) {
-    md.setProfileHash(getNewByteBuffer(buf,PUBLIC_KEY_SIZE));
+    md.setProfileHash(getNewByteBuffer(buf,PROFILE_HASH_SIZE));
   }
   if (hasOption(options,0x08)) {
-    md.setApplicationToken(getUTF8String(buf));
+    md.setApplicationToken(getUTF8String(buf,buf.getInt()));
   }
   sync.setClientSyncMetaData(md);
 }
