@@ -1,7 +1,7 @@
 {
   KaaTcpCommand command=new KaaTcpCommand(opListMock);
   assertNotNull(command);
-  Connect connect=new Connect(10,key,key,key);
+  Connect connect=new Connect(10,Constants.KAA_PLATFORM_PROTOCOL_AVRO_ID,key,key,key);
   command.setRequest(connect);
   assertNotNull(command.getRequest());
   try {
