@@ -8,5 +8,5 @@
   when(endpointService.checkAccessToken(appDto,EXTERNAL_USER_ID,USER_ACCESS_TOKEN)).thenReturn(Boolean.TRUE);
   UserAttachResponse response=endpointUserService.attachUser(profileMock,request);
   assertNotNull(response);
-  assertEquals(SyncResponseResultType.SUCCESS,response.getResult());
+  assertEquals(SyncStatus.SUCCESS,response.getResult());
 }

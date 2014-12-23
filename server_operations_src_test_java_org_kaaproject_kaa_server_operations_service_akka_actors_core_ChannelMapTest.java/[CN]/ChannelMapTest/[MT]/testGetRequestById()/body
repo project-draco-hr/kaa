@@ -2,7 +2,7 @@
   ChannelMap map=new ChannelMap("endpointKey","actorKey");
   Assert.assertNull(map.getByRequestId(UUID.randomUUID()));
   ChannelHandlerContext ctxMock=Mockito.mock(ChannelHandlerContext.class);
-  NettySessionInfo session=new NettySessionInfo(UUID.randomUUID(),ctxMock,ChannelType.HTTP,null,null,"applicationToken",0,true);
+  NettySessionInfo session=new NettySessionInfo(UUID.randomUUID(),AvroEncDec.AVRO_ENC_DEC_ID,ctxMock,ChannelType.HTTP,null,null,"applicationToken",0,true);
   SyncRequestMessage message=new SyncRequestMessage(session,null,null,null);
   map.addChannel(new ChannelMetaData(message));
   Assert.assertNotNull(map.getByRequestId(message.getChannelUuid()));

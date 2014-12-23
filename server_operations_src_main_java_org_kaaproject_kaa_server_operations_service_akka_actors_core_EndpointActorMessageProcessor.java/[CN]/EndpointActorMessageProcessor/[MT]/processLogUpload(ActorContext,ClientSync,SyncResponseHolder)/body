@@ -1,0 +1,5 @@
+{
+  if (requireLogUpload(request)) {
+    responseHolder.getResponse().setLogSync(sendLogs(context,endpointProfile,request.getLogSync()));
+  }
+}

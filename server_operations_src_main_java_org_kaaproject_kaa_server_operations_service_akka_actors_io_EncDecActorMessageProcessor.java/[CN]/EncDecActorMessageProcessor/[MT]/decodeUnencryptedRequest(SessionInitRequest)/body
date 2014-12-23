@@ -1,7 +1,7 @@
 {
   byte[] requestRaw=message.getEncodedRequestData();
   LOG.trace("Try to convert raw data to SynRequest object");
-  SyncRequest request=requestConverter.fromByteArray(requestRaw);
+  ClientSync request=decodePlatformLevelData(message.getPlatformId(),requestRaw);
   LOG.trace("Request data deserialized");
   PublicKey endpointKey=getPublicKey(request);
   if (endpointKey == null) {

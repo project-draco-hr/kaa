@@ -1,0 +1,31 @@
+{
+  UUID channelUuid=getChannelUuid();
+  LOG.debug("[{}] Cleanup profile request",channelUuid);
+  request.setProfileSync(null);
+  if (request.getUserSync() != null) {
+    LOG.debug("[{}] Cleanup user request",channelUuid);
+    request.setUserSync(new UserClientSync());
+  }
+  if (request.getEventSync() != null) {
+    LOG.debug("[{}] Cleanup event request",channelUuid);
+    request.setEventSync(new EventClientSync());
+  }
+  if (request.getLogSync() != null) {
+    LOG.debug("[{}] Cleanup log request",channelUuid);
+    request.getLogSync().setLogEntries(null);
+  }
+  if (request.getNotificationSync() != null) {
+    LOG.debug("[{}] Cleanup/update notification request",channelUuid);
+    if (response != null && response.getNotificationSync() != null) {
+      request.getNotificationSync().setAppStateSeqNumber(response.getNotificationSync().getAppStateSeqNumber());
+    }
+    request.getNotificationSync().setSubscriptionCommands(null);
+    request.getNotificationSync().setAcceptedUnicastNotifications(null);
+  }
+  if (request.getConfigurationSync() != null) {
+    LOG.debug("[{}] Cleanup/update configuration request",channelUuid);
+    if (response != null && response.getConfigurationSync() != null) {
+      request.getConfigurationSync().setAppStateSeqNumber(response.getConfigurationSync().getAppStateSeqNumber());
+    }
+  }
+}

@@ -9,15 +9,15 @@
   ConfigurationSyncRequest csRequest=new ConfigurationSyncRequest();
   request.setConfigurationSyncRequest(csRequest);
   Mockito.when(cacheService.getEndpointKey(EndpointObjectHash.fromBytes(clientPublicKeyHash.array()))).thenReturn(clientPair.getPublic());
-  Mockito.when(operationsService.sync(Mockito.any(SyncRequest.class),Mockito.any(EndpointProfileDto.class))).thenReturn(noDeltaResponse);
+  Mockito.when(operationsService.sync(Mockito.any(ClientSync.class),Mockito.any(EndpointProfileDto.class))).thenReturn(noDeltaResponse);
   ResponseBuilder responseBuilder=Mockito.mock(ResponseBuilder.class);
   ErrorBuilder errorBuilder=Mockito.mock(ErrorBuilder.class);
   SessionInitRequest message=toSignedRequest(UUID.randomUUID(),ChannelType.HTTP_LP,channelContextMock,request,responseBuilder,errorBuilder);
   Assert.assertNotNull(akkaService.getActorSystem());
   akkaService.process(message);
-  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT / 2).atLeastOnce()).sync(request,null);
+  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT / 2).atLeastOnce()).sync(AvroEncDec.convert(request),null);
   Mockito.when(applicationService.findAppById(APP_ID)).thenReturn(applicationDto);
-  Mockito.when(operationsService.sync(Mockito.any(SyncRequest.class),Mockito.any(EndpointProfileDto.class))).thenReturn(deltaResponse);
+  Mockito.when(operationsService.sync(Mockito.any(ClientSync.class),Mockito.any(EndpointProfileDto.class))).thenReturn(deltaResponse);
   Notification thriftNotification=new Notification();
   thriftNotification.setAppId(APP_ID);
   akkaService.onNotification(thriftNotification);

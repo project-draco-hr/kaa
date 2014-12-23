@@ -6,7 +6,7 @@
   EndpointObjectHash key=EndpointObjectHash.fromSHA1("key");
   String applicationToken="AppToken";
   int keepAlive=100;
-  NettySessionInfo session=new NettySessionInfo(channelId,ctx,channelType,sessionKey,key,applicationToken,keepAlive,true);
+  NettySessionInfo session=new NettySessionInfo(channelId,AvroEncDec.AVRO_ENC_DEC_ID,ctx,channelType,sessionKey,key,applicationToken,keepAlive,true);
   SyncRequest command=new SyncRequest("avroObject".getBytes(),false,false);
   NettyTcpSyncMessage message=new NettyTcpSyncMessage(command,session,null,null,null);
   Assert.assertArrayEquals("avroObject".getBytes(),message.getEncodedRequestData());

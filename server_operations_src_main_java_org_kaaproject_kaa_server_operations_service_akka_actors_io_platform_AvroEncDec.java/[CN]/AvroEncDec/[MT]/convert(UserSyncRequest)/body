@@ -1,0 +1,24 @@
+{
+  if (source == null) {
+    return null;
+  }
+  UserClientSync sync=new UserClientSync();
+  if (source.getUserAttachRequest() != null) {
+    sync.setUserAttachRequest(new UserAttachRequest(source.getUserAttachRequest().getUserExternalId(),source.getUserAttachRequest().getUserAccessToken()));
+  }
+  if (source.getEndpointAttachRequests() != null) {
+    List<EndpointAttachRequest> requests=new ArrayList<>(source.getEndpointAttachRequests().size());
+    for (    org.kaaproject.kaa.common.endpoint.gen.EndpointAttachRequest request : source.getEndpointAttachRequests()) {
+      requests.add(new EndpointAttachRequest(request.getRequestId(),request.getEndpointAccessToken()));
+    }
+    sync.setEndpointAttachRequests(requests);
+  }
+  if (source.getEndpointDetachRequests() != null) {
+    List<EndpointDetachRequest> requests=new ArrayList<>(source.getEndpointDetachRequests().size());
+    for (    org.kaaproject.kaa.common.endpoint.gen.EndpointDetachRequest request : source.getEndpointDetachRequests()) {
+      requests.add(new EndpointDetachRequest(request.getRequestId(),request.getEndpointKeyHash()));
+    }
+    sync.setEndpointDetachRequests(requests);
+  }
+  return sync;
+}

@@ -1,0 +1,12 @@
+{
+  try {
+    SyncRequest source=clientSyncConverter.fromByteArray(data);
+    if (source == null) {
+      return null;
+    }
+    return convert(source);
+  }
+ catch (  IOException e) {
+    throw new PlatformEncDecException(e);
+  }
+}

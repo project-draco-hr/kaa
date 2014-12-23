@@ -7,6 +7,6 @@
   Mockito.verify(endpointService,Mockito.never()).findEndpointProfileByKeyHash(Mockito.any(byte[].class));
   Mockito.verify(endpointService).detachEndpointFromUser(profileMock);
   assertNotNull(response);
-  assertEquals(SyncResponseResultType.SUCCESS,response.getResult());
+  assertEquals(SyncStatus.SUCCESS,response.getResult());
   assertEquals(REQUEST_ID,response.getRequestId());
 }
