@@ -2,11 +2,13 @@
   this.create=create;
   this.editable=editable;
   errorPanel=new AlertPanel(Type.ERROR);
+  kaaAdminStyle=Utils.kaaAdminStyle;
+  fieldWidgetStyle=Utils.fieldWidgetStyle;
   initWidget(uiBinder.createAndBindUi(this));
   titleLabel.setText(Utils.constants.title());
   saveButton.setText(Utils.constants.save());
   cancelButton.setText(Utils.constants.cancel());
-  requiredFieldsNoteLabel.getElement().setInnerSafeHtml(SafeHtmlUtils.fromSafeConstant(Utils.messages.requiredFieldsNote()));
+  requiredFieldsNoteLabel.getElement().setInnerSafeHtml(SafeHtmlUtils.fromSafeConstant(Utils.messages.requiredFieldsNote(Utils.fieldWidgetStyle.requiredField())));
   if (create) {
     titleLabel.setText(getCreateTitle());
     cancelButton.setVisible(true);

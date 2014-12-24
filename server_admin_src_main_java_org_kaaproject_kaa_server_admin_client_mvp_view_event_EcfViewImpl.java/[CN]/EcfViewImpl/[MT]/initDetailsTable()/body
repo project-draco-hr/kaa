@@ -14,7 +14,7 @@
   dateTimeCreatedLabel.setVisible(!create);
   createdDateTime.setVisible(!create);
   Label nameLabel=new Label(Utils.constants.name());
-  nameLabel.addStyleName("required");
+  nameLabel.addStyleName(REQUIRED);
   name=new KaaAdminSizedTextBox(DEFAULT_TEXTBOX_SIZE);
   name.setWidth("100%");
   detailsTable.setWidget(2,0,nameLabel);
@@ -23,8 +23,8 @@
   Label namespaceLabel=new Label(Utils.constants.namespace());
   Label classNameLabel=new Label(Utils.constants.className());
   if (create) {
-    namespaceLabel.addStyleName("required");
-    classNameLabel.addStyleName("required");
+    namespaceLabel.addStyleName(REQUIRED);
+    classNameLabel.addStyleName(REQUIRED);
     namespace=new KaaAdminSizedTextBox(DEFAULT_TEXTBOX_SIZE);
     namespace.addInputHandler(this);
     className=new KaaAdminSizedTextBox(DEFAULT_TEXTBOX_SIZE);
@@ -40,7 +40,7 @@
   detailsTable.setWidget(3,1,namespace);
   detailsTable.setWidget(4,0,classNameLabel);
   detailsTable.setWidget(4,1,className);
-  description=new KaaAdminSizedTextArea(1024);
+  description=new SizedTextArea(1024);
   description.setWidth("100%");
   description.getTextArea().getElement().getStyle().setPropertyPx("minHeight",100);
   Label descriptionLabel=new Label(Utils.constants.description());
@@ -51,9 +51,9 @@
   ecfSchemasGrid=new EcfSchemasGrid();
   ecfSchemasGrid.setSize("700px","200px");
   Label ecfSchemasLabel=new Label(Utils.constants.schemas());
-  ecfSchemasLabel.addStyleName("b-app-content-title-label");
+  ecfSchemasLabel.addStyleName(Utils.kaaAdminStyle.bAppContentTitleLabel());
   addEcfSchemaButton=new Button(Utils.constants.addSchema());
-  addEcfSchemaButton.addStyleName("b-app-button-small");
+  addEcfSchemaButton.addStyleName(Utils.kaaAdminStyle.bAppButtonSmall());
   detailsTable.setWidget(6,0,ecfSchemasLabel);
   ecfSchemasLabel.getElement().getParentElement().getStyle().setPropertyPx("paddingBottom",10);
   detailsTable.setWidget(7,0,ecfSchemasGrid);

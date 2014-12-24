@@ -4,7 +4,7 @@
   userName.addInputHandler(this);
   Label userLabel=new Label(Utils.constants.userName());
   if (create) {
-    userLabel.addStyleName("required");
+    userLabel.addStyleName(REQUIRED);
   }
   detailsTable.setWidget(0,0,userLabel);
   detailsTable.setWidget(0,1,userName);
@@ -12,7 +12,7 @@
   email.setWidth("100%");
   email.addInputHandler(this);
   Label emailLabel=new Label(Utils.constants.email());
-  emailLabel.addStyleName("required");
+  emailLabel.addStyleName(REQUIRED);
   detailsTable.setWidget(1,0,emailLabel);
   detailsTable.setWidget(1,1,email);
   Renderer<KaaAuthorityDto> authorityRenderer=new Renderer<KaaAuthorityDto>(){
@@ -42,7 +42,7 @@
   possibleAuthorities.add(KaaAuthorityDto.TENANT_USER);
   authority.setAcceptableValues(possibleAuthorities);
   Label authorityLabel=new Label(Utils.constants.accountRole());
-  authorityLabel.addStyleName("required");
+  authorityLabel.addStyleName(REQUIRED);
   detailsTable.setWidget(2,0,authorityLabel);
   detailsTable.setWidget(2,1,authority);
   userName.setFocus(true);

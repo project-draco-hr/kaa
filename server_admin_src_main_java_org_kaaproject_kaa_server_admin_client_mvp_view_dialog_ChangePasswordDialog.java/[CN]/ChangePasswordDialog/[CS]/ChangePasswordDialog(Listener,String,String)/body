@@ -19,7 +19,7 @@
   table.setCellSpacing(6);
   int row=0;
   Widget label=new Label(Utils.constants.oldPassword());
-  label.addStyleName("required");
+  label.addStyleName(REQUIRED);
   oldPassword=new ExtendedPasswordTextBox();
   table.setWidget(row,0,label);
   table.setWidget(row,1,oldPassword);
@@ -28,7 +28,7 @@
   table.getCellFormatter().setHorizontalAlignment(row,0,HasHorizontalAlignment.ALIGN_RIGHT);
   row++;
   label=new Label(Utils.constants.newPassword());
-  label.addStyleName("required");
+  label.addStyleName(REQUIRED);
   newPassword=new ExtendedPasswordTextBox();
   table.setWidget(row,0,label);
   table.setWidget(row,1,newPassword);
@@ -37,7 +37,7 @@
   table.getCellFormatter().setHorizontalAlignment(row,0,HasHorizontalAlignment.ALIGN_RIGHT);
   row++;
   label=new Label(Utils.constants.newPasswordAgain());
-  label.addStyleName("required");
+  label.addStyleName(REQUIRED);
   newPasswordAgain=new ExtendedPasswordTextBox();
   table.setWidget(row,0,label);
   table.setWidget(row,1,newPasswordAgain);

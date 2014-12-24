@@ -16,7 +16,7 @@
   detailsTable.setWidget(2,1,createdDateTime);
   Label schemaLabel=new Label(Utils.constants.schema());
   detailsTable.setWidget(3,0,schemaLabel);
-  schema=new KaaAdminSizedTextArea(524288);
+  schema=new SizedTextArea(524288);
   schema.setWidth("500px");
   schema.getTextArea().getElement().getStyle().setPropertyPx("minHeight",150);
   schema.getTextArea().setReadOnly(true);
@@ -25,7 +25,7 @@
   eventClassesGrid=new EventClassesGrid(Unit.PX);
   eventClassesGrid.setSize("700px","300px");
   Label eventClassesLabel=new Label(Utils.constants.eventClasses());
-  eventClassesLabel.addStyleName("b-app-content-title-label");
+  eventClassesLabel.addStyleName(Utils.kaaAdminStyle.bAppContentTitleLabel());
   detailsTable.setWidget(4,0,eventClassesLabel);
   eventClassesLabel.getElement().getParentElement().getStyle().setPropertyPx("paddingBottom",10);
   detailsTable.setWidget(5,0,eventClassesGrid);

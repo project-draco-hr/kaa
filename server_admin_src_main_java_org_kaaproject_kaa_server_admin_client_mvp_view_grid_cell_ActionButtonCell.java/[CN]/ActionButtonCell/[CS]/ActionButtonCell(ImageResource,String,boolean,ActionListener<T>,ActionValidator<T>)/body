@@ -14,9 +14,9 @@
   builder.trustedNameAndValue("background",background).width(width,Unit.PX).height(height,Unit.PX).paddingLeft(paddingLeft,Unit.PX);
   SafeStyles style=SafeStylesUtils.fromTrustedString(builder.toSafeStyles().asString());
   if (small) {
-    this.actionButtonHtml=template.actionButtonSmall(text,style);
+    this.actionButtonHtml=template.actionButtonSmall(Utils.kaaAdminStyle.bAppCellButton(),Utils.kaaAdminStyle.bAppCellButtonSmall(),text,style);
   }
  else {
-    this.actionButtonHtml=template.actionButton(text,style);
+    this.actionButtonHtml=template.actionButton(Utils.kaaAdminStyle.bAppCellButton(),text,style);
   }
 }

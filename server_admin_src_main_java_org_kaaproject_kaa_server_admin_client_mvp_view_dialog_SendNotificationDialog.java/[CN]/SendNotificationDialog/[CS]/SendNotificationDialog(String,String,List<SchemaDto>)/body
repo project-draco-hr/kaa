@@ -14,7 +14,7 @@
   table.setCellSpacing(6);
   int row=0;
   Widget label=new Label(Utils.constants.notificationSchema());
-  label.addStyleName("required");
+  label.addStyleName(REQUIRED);
   notificationSchema=new SchemaListBox();
   notificationSchema.setWidth("80px");
   notificationSchema.setAcceptableValues(notificationSchemas);
@@ -31,7 +31,7 @@
   table.getCellFormatter().setHorizontalAlignment(row,0,HasHorizontalAlignment.ALIGN_RIGHT);
   row++;
   label=new Label(Utils.constants.selectNotificationFile());
-  label.addStyleName("required");
+  label.addStyleName(REQUIRED);
   notificationFileUpload=new FileUploadForm();
   notificationFileUpload.setWidth("200px");
   table.setWidget(row,0,label);

@@ -30,11 +30,11 @@
   name=new KaaAdminSizedTextBox(DEFAULT_TEXTBOX_SIZE);
   name.setWidth("100%");
   Label nameLabel=new Label(Utils.constants.name());
-  nameLabel.addStyleName("required");
+  nameLabel.addStyleName(REQUIRED);
   detailsTable.setWidget(4,0,nameLabel);
   detailsTable.setWidget(4,1,name);
   name.addInputHandler(this);
-  description=new KaaAdminSizedTextArea(1024);
+  description=new SizedTextArea(1024);
   description.setWidth("100%");
   description.getTextArea().getElement().getStyle().setPropertyPx("minHeight",100);
   Label descriptionLabel=new Label(Utils.constants.description());
@@ -44,7 +44,7 @@
   detailsTable.getCellFormatter().setVerticalAlignment(5,0,HasVerticalAlignment.ALIGN_TOP);
   Label schemaLabel=new Label(create ? Utils.constants.selectSchemaFile() : Utils.constants.schema());
   if (create) {
-    schemaLabel.addStyleName("required");
+    schemaLabel.addStyleName(REQUIRED);
   }
   detailsTable.setWidget(6,0,schemaLabel);
   if (create) {
@@ -53,7 +53,7 @@
     detailsTable.setWidget(6,1,schemaFileUpload);
   }
  else {
-    schema=new KaaAdminSizedTextArea(524288);
+    schema=new SizedTextArea(-1);
     schema.setWidth("500px");
     schema.getTextArea().getElement().getStyle().setPropertyPx("minHeight",300);
     schema.getTextArea().setReadOnly(true);

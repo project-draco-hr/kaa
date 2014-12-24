@@ -16,7 +16,7 @@
   table.setCellSpacing(6);
   int row=0;
   Widget label=new Label(Utils.constants.usernameOrEmail());
-  label.addStyleName("required");
+  label.addStyleName(Utils.fieldWidgetStyle.requiredField());
   usernameOrEmail=new KaaAdminSizedTextBox(255);
   table.setWidget(row,0,label);
   table.setWidget(row,1,usernameOrEmail);
