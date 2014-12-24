@@ -4,7 +4,7 @@
   Label schemaLabel=new Label(Utils.constants.schemaVersion());
   detailsTable.setWidget(0,0,schemaLabel);
   if (create) {
-    schemaLabel.addStyleName("required");
+    schemaLabel.addStyleName(Utils.fieldWidgetStyle.requiredField());
     schema=new SchemaListBox();
     schema.setWidth("80px");
     VerticalPanel panel=new VerticalPanel();
