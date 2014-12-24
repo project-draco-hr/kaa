@@ -1,0 +1,53 @@
+{
+  buildExtensionHeader(buf,USER_EXTENSION_ID,NOTHING,NOTHING,NOTHING,0);
+  int extPosition=buf.position();
+  if (userSync.getUserAttachResponse() != null) {
+    buf.put(USER_ATTACH_RESPONSE_FIELD_ID);
+    buf.put(NOTHING);
+    buf.put(userSync.getUserAttachResponse().getResult() == SyncStatus.SUCCESS ? SUCCESS : FAILURE);
+    buf.put(NOTHING);
+  }
+  if (userSync.getUserAttachNotification() != null) {
+    UserAttachNotification nf=userSync.getUserAttachNotification();
+    buf.put(USER_ATTACH_NOTIFICATION_FIELD_ID);
+    buf.put((byte)nf.getUserExternalId().length());
+    buf.putShort((short)nf.getEndpointAccessToken().length());
+    putUTF(buf,nf.getUserExternalId());
+    putUTF(buf,nf.getEndpointAccessToken());
+  }
+  if (userSync.getEndpointDetachResponses() != null) {
+    UserDetachNotification nf=userSync.getUserDetachNotification();
+    buf.put(USER_DETACH_NOTIFICATION_FIELD_ID);
+    buf.put(NOTHING);
+    buf.putShort((short)nf.getEndpointAccessToken().length());
+  }
+  if (userSync.getEndpointAttachResponses() != null) {
+    buf.put(ENDPOINT_ATTACH_RESPONSE_FIELD_ID);
+    buf.put(NOTHING);
+    buf.putShort((short)userSync.getEndpointAttachResponses().size());
+    for (    EndpointAttachResponse response : userSync.getEndpointAttachResponses()) {
+      buf.put(response.getResult() == SyncStatus.SUCCESS ? SUCCESS : FAILURE);
+      if (response.getEndpointKeyHash() != null) {
+        buf.put((byte)0x01);
+      }
+ else {
+        buf.put(NOTHING);
+      }
+      buf.putShort((short)Integer.valueOf(response.getRequestId()).intValue());
+      if (response.getEndpointKeyHash() != null) {
+        putUTF(buf,response.getEndpointKeyHash());
+      }
+    }
+  }
+  if (userSync.getEndpointDetachResponses() != null) {
+    buf.put(ENDPOINT_DETACH_RESPONSE_FIELD_ID);
+    buf.put(NOTHING);
+    buf.putShort((short)userSync.getEndpointDetachResponses().size());
+    for (    EndpointDetachResponse response : userSync.getEndpointDetachResponses()) {
+      buf.put(response.getResult() == SyncStatus.SUCCESS ? SUCCESS : FAILURE);
+      buf.put(NOTHING);
+      buf.putShort((short)Integer.valueOf(response.getRequestId()).intValue());
+    }
+  }
+  buf.putInt(extPosition - SIZE_OF_INT,buf.position() - extPosition);
+}

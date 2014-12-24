@@ -5,7 +5,7 @@
   }
   int payloadLimitPosition=buf.position() + payloadLength;
   while (buf.position() < payloadLimitPosition) {
-    int fieldId=buf.get();
+    byte fieldId=buf.get();
     buf.get();
 switch (fieldId) {
 case EVENT_LISTENERS_FIELD_ID:

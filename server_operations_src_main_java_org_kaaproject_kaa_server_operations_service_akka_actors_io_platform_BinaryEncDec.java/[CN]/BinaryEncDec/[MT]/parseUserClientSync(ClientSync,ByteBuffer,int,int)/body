@@ -2,7 +2,7 @@
   int payloadLimitPosition=buf.position() + payloadLength;
   UserClientSync userSync=new UserClientSync();
   while (buf.position() < payloadLimitPosition) {
-    int fieldId=buf.get();
+    byte fieldId=buf.get();
 switch (fieldId) {
 case USER_ATTACH_FIELD_ID:
       userSync.setUserAttachRequest(parseUserAttachRequest(buf));

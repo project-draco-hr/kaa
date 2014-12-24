@@ -6,12 +6,20 @@
     event.setSeqNum(buf.getInt());
     int eventOptions=getIntFromUnsignedShort(buf);
     int fqnLength=getIntFromUnsignedShort(buf);
-    int dataSize=buf.getInt();
+    int dataSize=0;
+    if (hasOption(eventOptions,0x02)) {
+      dataSize=buf.getInt();
+    }
     if (hasOption(eventOptions,0x01)) {
       event.setTarget(Base64Util.encode(getNewByteArray(buf,PUBLIC_KEY_HASH_SIZE)));
     }
     event.setEventClassFQN(getUTF8String(buf,fqnLength));
-    event.setEventData(getNewByteBuffer(buf,dataSize));
+    if (dataSize > 0) {
+      event.setEventData(getNewByteBuffer(buf,dataSize));
+    }
+ else {
+      event.setEventData(EMPTY_BUFFER);
+    }
     events.add(event);
   }
   return events;

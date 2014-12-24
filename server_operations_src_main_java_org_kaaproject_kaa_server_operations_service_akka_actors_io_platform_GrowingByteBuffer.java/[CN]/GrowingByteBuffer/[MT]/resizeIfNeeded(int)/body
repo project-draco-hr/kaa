@@ -1,0 +1,5 @@
+{
+  if (size > data.remaining()) {
+    data=ByteBuffer.wrap(Arrays.copyOf(data.array(),data.array().length * 2));
+  }
+}

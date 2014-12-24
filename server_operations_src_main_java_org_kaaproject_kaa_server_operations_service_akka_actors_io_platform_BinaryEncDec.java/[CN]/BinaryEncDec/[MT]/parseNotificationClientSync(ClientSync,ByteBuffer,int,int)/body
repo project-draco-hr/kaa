@@ -3,7 +3,7 @@
   NotificationClientSync nfSync=new NotificationClientSync();
   nfSync.setAppStateSeqNumber(buf.getInt());
   while (buf.position() < payloadLimitPosition) {
-    int fieldId=buf.get();
+    byte fieldId=buf.get();
     buf.get();
 switch (fieldId) {
 case NF_TOPIC_STATES_FIELD_ID:
