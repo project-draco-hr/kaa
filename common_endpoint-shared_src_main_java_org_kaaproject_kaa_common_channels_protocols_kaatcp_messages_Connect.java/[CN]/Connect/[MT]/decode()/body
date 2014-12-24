@@ -1,5 +1,6 @@
 {
   decodeVariableHeader();
+  nextProtocolId=buffer.getInt();
   hasAesSessionKey=buffer.get() != 0;
   hasSignature=buffer.get() != 0;
   decodeKeepAlive();
