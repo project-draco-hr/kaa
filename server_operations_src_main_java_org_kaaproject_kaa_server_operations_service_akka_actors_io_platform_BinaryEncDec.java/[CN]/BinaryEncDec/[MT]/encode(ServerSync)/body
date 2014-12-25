@@ -1,7 +1,7 @@
 {
   LOG.trace("Encoding server sync {}",sync);
   GrowingByteBuffer buf=new GrowingByteBuffer(DEFAULT_BUFFER_SIZE);
-  buf.putInt(PROTOCOL_ID);
+  buf.putInt(Constants.KAA_PLATFORM_PROTOCOL_AVRO_ID);
   buf.putShort(PROTOCOL_VERSION);
   buf.putShort(NOTHING);
   encodeMetaData(buf,sync);
