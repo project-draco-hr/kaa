@@ -2,7 +2,7 @@
   String cType=new String();
 switch (schema.getType()) {
 case BOOLEAN:
-    cType="KAA_BOOL";
+    cType="bool";
   break;
 case INT:
 cType="int32_t";
@@ -11,9 +11,10 @@ case LONG:
 cType="int64_t";
 break;
 case STRING:
-cType="char*";
+cType="kaa_string_t*";
 break;
 case BYTES:
+case FIXED:
 cType="kaa_bytes_t*";
 break;
 case ARRAY:
