@@ -14,7 +14,7 @@
   ErrorBuilder errorBuilder=Mockito.mock(ErrorBuilder.class);
   AvroByteArrayConverter<SyncRequest> requestConverter=new AvroByteArrayConverter<>(SyncRequest.class);
   org.kaaproject.kaa.common.channels.protocols.kaatcp.messages.SyncRequest kaaSync=new org.kaaproject.kaa.common.channels.protocols.kaatcp.messages.SyncRequest(crypt.encodeData(requestConverter.toByteArray(request)),false,true);
-  NettySessionInfo session=new NettySessionInfo(UUID.randomUUID(),AvroEncDec.AVRO_ENC_DEC_ID,channelContextMock,ChannelType.TCP,crypt.getSessionCipherPair(),EndpointObjectHash.fromBytes(clientPublicKey.array()),APP_TOKEN,100,true);
+  NettySessionInfo session=new NettySessionInfo(UUID.randomUUID(),Constants.KAA_PLATFORM_PROTOCOL_AVRO_ID,channelContextMock,ChannelType.TCP,crypt.getSessionCipherPair(),EndpointObjectHash.fromBytes(clientPublicKey.array()),APP_TOKEN,100,true);
   SessionAwareRequest message=new NettyTcpSyncMessage(kaaSync,session,responseBuilder,errorBuilder,null);
   akkaService.process(message);
   SyncResponse response=new SyncResponse();

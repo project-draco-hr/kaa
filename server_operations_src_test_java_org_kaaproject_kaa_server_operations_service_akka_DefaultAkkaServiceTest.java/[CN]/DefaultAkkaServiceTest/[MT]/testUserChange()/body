@@ -6,6 +6,7 @@
   ecfVdto.setEcfId(ECF1_ID);
   ecfVdto.setVersion(ECF1_VERSION);
   SyncRequest targetRequest=new SyncRequest();
+  targetRequest.setRequestId(REQUEST_ID);
   SyncRequestMetaData md=new SyncRequestMetaData();
   md.setApplicationToken(APP_TOKEN);
   md.setEndpointPublicKeyHash(targetPublicKeyHash);
@@ -41,6 +42,7 @@
   RouteInfo localRouteInfo=new RouteInfo(TENANT_ID,USER_ID,localAddress,Arrays.asList(new EventClassFamilyVersion(ECF1_ID,ECF1_VERSION)));
   Mockito.verify(eventService,Mockito.timeout(TIMEOUT).atLeastOnce()).sendRouteInfo(Collections.singletonList(localRouteInfo),SERVER2);
   targetRequest=new SyncRequest();
+  targetRequest.setRequestId(REQUEST_ID);
   md=new SyncRequestMetaData();
   md.setApplicationToken(APP_TOKEN);
   md.setEndpointPublicKeyHash(targetPublicKeyHash);

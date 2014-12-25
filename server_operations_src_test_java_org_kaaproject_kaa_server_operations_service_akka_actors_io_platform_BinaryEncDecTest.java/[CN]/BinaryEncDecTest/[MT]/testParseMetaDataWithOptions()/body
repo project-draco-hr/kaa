@@ -2,7 +2,7 @@
   ClientSync sync=encDec.decode(concat(buildHeader(BinaryEncDec.PROTOCOL_ID,1,1),getValidMetaData()));
   Assert.assertNotNull(sync);
   Assert.assertNotNull(sync.getClientSyncMetaData());
-  Assert.assertEquals(1,sync.getRequestId().intValue());
+  Assert.assertEquals(1,sync.getRequestId());
   Assert.assertEquals(60l,sync.getClientSyncMetaData().getTimeout());
   Assert.assertEquals(MAGIC_NUMBER,sync.getClientSyncMetaData().getEndpointPublicKeyHash().get(MAGIC_INDEX));
   Assert.assertEquals(MAGIC_NUMBER + 1,sync.getClientSyncMetaData().getProfileHash().get(MAGIC_INDEX));

@@ -1,5 +1,6 @@
 {
-  GrowingByteBuffer buf=new GrowingByteBuffer(2048);
+  LOG.trace("Encoding server sync {}",sync);
+  GrowingByteBuffer buf=new GrowingByteBuffer(DEFAULT_BUFFER_SIZE);
   buf.putInt(PROTOCOL_ID);
   buf.putShort(PROTOCOL_VERSION);
   buf.putShort(NOTHING);
@@ -34,5 +35,9 @@
     extensionCount++;
   }
   buf.putShort(EXTENSIONS_COUNT_POSITION,extensionCount);
-  return buf.toByteArray();
+  byte[] result=buf.toByteArray();
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("Encoded binary data {}",result);
+  }
+  return result;
 }

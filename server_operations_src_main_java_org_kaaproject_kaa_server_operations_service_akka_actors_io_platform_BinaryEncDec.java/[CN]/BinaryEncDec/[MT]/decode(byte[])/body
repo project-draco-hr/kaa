@@ -1,4 +1,7 @@
 {
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("Decoding binary data {}",Arrays.toString(data));
+  }
   ByteBuffer buf=ByteBuffer.wrap(data);
   if (buf.remaining() < MIN_SIZE_OF_MESSAGE_HEADER) {
     throw new PlatformEncDecException(MessageFormat.format("Message header is to small {0} to be kaa binary message!",buf.capacity()));
@@ -13,5 +16,7 @@
   }
   int extensionsCount=getIntFromUnsignedShort(buf);
   LOG.trace("received data for protocol id {} and version {} that contain {} extensions",protocolId,protocolVersion,extensionsCount);
-  return parseExtensions(buf,protocolVersion,extensionsCount);
+  ClientSync sync=parseExtensions(buf,protocolVersion,extensionsCount);
+  LOG.trace("Decoded binary data {}",sync);
+  return sync;
 }

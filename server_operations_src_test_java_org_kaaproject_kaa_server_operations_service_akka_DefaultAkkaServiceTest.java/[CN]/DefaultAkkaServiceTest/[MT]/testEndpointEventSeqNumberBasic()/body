@@ -5,6 +5,7 @@
   ecfVdto.setEcfId(ECF1_ID);
   ecfVdto.setVersion(ECF1_VERSION);
   SyncRequest sourceRequest=new SyncRequest();
+  sourceRequest.setRequestId(REQUEST_ID);
   SyncRequestMetaData md=new SyncRequestMetaData();
   md.setApplicationToken(APP_TOKEN);
   md.setEndpointPublicKeyHash(clientPublicKeyHash);
@@ -14,6 +15,7 @@
   eventRequest.setEventSequenceNumberRequest(new EventSequenceNumberRequest());
   sourceRequest.setEventSyncRequest(eventRequest);
   ServerSync sourceResponse=new ServerSync();
+  sourceResponse.setRequestId(REQUEST_ID);
   sourceResponse.setStatus(org.kaaproject.kaa.server.operations.pojo.sync.SyncStatus.SUCCESS);
   SyncResponseHolder sourceResponseHolder=new SyncResponseHolder(sourceResponse);
   sourceResponseHolder.setEndpointProfile(sourceProfileMock);
@@ -32,11 +34,13 @@
   akkaService.process(sourceMessage);
   Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeastOnce()).sync(Mockito.any(ClientSync.class),Mockito.any(EndpointProfileDto.class));
   SyncResponse eventResponse=new SyncResponse();
+  eventResponse.setRequestId(REQUEST_ID);
   eventResponse.setStatus(SyncResponseResultType.SUCCESS);
   eventResponse.setEventSyncResponse(new EventSyncResponse());
   eventResponse.getEventSyncResponse().setEventSequenceNumberResponse(new EventSequenceNumberResponse(0));
   AvroByteArrayConverter<SyncResponse> responseConverter=new AvroByteArrayConverter<>(SyncResponse.class);
   byte[] response=responseConverter.toByteArray(eventResponse);
+  LOG.trace("Response to compare {}",Arrays.toString(response));
   byte[] encodedData=sourceCrypt.encodeData(response);
   Mockito.verify(responseBuilder,Mockito.timeout(TIMEOUT).atLeastOnce()).build(encodedData,true);
 }
