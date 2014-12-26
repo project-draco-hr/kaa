@@ -1,7 +1,7 @@
 {
   if (processor != null) {
     boolean hasChanges=false;
-    Map<String,EndpointAccessToken> attachEndpointRequests=processor.getAttachEndpointRequests();
+    Map<Integer,EndpointAccessToken> attachEndpointRequests=processor.getAttachEndpointRequests();
     if (response.getEndpointAttachResponses() != null && !response.getEndpointAttachResponses().isEmpty()) {
 synchronized (attachEndpointRequests) {
         for (        EndpointAttachResponse attached : response.getEndpointAttachResponses()) {
@@ -17,7 +17,7 @@ synchronized (attachEndpointRequests) {
         }
       }
     }
-    Map<String,EndpointKeyHash> detachEndpointRequests=processor.getDetachEndpointRequests();
+    Map<Integer,EndpointKeyHash> detachEndpointRequests=processor.getDetachEndpointRequests();
     if (response.getEndpointDetachResponses() != null && !response.getEndpointDetachResponses().isEmpty()) {
 synchronized (detachEndpointRequests) {
         for (        EndpointDetachResponse detached : response.getEndpointDetachResponses()) {

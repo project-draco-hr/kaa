@@ -1,5 +1,5 @@
 {
-  String requestId=UUID.randomUUID().toString();
+  int requestId=new Random().nextInt();
   EventListenersRequest request=new EventListenersRequest(requestId,eventClassFQNs);
   EventListenersRequestBinding bind=new EventListenersRequestBinding(listener,request);
   eventListenersRequests.put(requestId,bind);

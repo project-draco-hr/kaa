@@ -10,7 +10,7 @@
       buf.getShort();
       fqns.add(getUTF8String(buf,fqnLength));
     }
-    requests.add(new EventListenersRequest(String.valueOf(requestId),fqns));
+    requests.add(new EventListenersRequest(requestId,fqns));
   }
   return requests;
 }

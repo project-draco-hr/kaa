@@ -7,7 +7,7 @@
   md.setEndpointPublicKeyHash(clientPublicKeyHash);
   md.setTimeout(1000l);
   request.setSyncRequestMetaData(md);
-  LogSyncRequest logRequest=new LogSyncRequest("logUploadRequest1",Collections.singletonList(new LogEntry(ByteBuffer.wrap("String".getBytes()))));
+  LogSyncRequest logRequest=new LogSyncRequest(REQUEST_ID,Collections.singletonList(new LogEntry(ByteBuffer.wrap("String".getBytes()))));
   request.setLogSyncRequest(logRequest);
   Mockito.when(operationsService.sync(Mockito.any(ClientSync.class),Mockito.any(EndpointProfileDto.class))).thenReturn(noDeltaResponseWithTopicState);
   LogAppender mockAppender=Mockito.mock(LogAppender.class);

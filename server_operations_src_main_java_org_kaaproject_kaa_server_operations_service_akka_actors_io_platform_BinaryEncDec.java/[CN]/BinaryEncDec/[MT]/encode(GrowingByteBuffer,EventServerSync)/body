@@ -13,7 +13,7 @@
     buf.put(NOTHING);
     buf.putShort((short)eventSync.getEventListenersResponses().size());
     for (    EventListenersResponse response : eventSync.getEventListenersResponses()) {
-      buf.putShort((short)Integer.parseInt(response.getRequestId()));
+      buf.putShort((short)response.getRequestId());
       buf.putShort(response.getResult() == SyncStatus.SUCCESS ? SUCCESS : FAILURE);
       if (response.getListeners() != null) {
         buf.putInt(response.getListeners().size());

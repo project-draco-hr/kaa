@@ -17,12 +17,7 @@
  else   if (!endpointAccessToken.equals(other.endpointAccessToken)) {
     return false;
   }
-  if (requestId == null) {
-    if (other.requestId != null) {
-      return false;
-    }
-  }
- else   if (!requestId.equals(other.requestId)) {
+  if (requestId != other.requestId) {
     return false;
   }
   return true;

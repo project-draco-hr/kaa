@@ -6,7 +6,7 @@
   LOG.info("Lookup platform protocol");
   Set<String> platformProtocols=lookupPlatformProtocols();
   LOG.info("Initializing Akka io router...");
-  ioRouter=akka.actorOf(new RoundRobinPool(IO_WORKERS_COUNT).props(Props.create(new EncDecActor.ActorCreator(opsActor,metricsService,cacheService,new KeyPair(keyStoreService.getPublicKey(),keyStoreService.getPrivateKey()),platformProtocols,supportUnencryptedConnection))),"ioRouter");
+  ioRouter=akka.actorOf(new RoundRobinPool(IO_WORKERS_COUNT).props(Props.create(new EncDecActor.ActorCreator(opsActor,metricsService,cacheService,new KeyPair(keyStoreService.getPublicKey(),keyStoreService.getPrivateKey()),platformProtocols,supportUnencryptedConnection))),IO_ROUTER_ACTOR_NAME);
   LOG.info("Initializing Akka event service listener...");
   listener=new AkkaEventServiceListener(opsActor);
   eventService.addListener(listener);
