@@ -11,7 +11,7 @@
     md.setProfileHash(getNewByteBuffer(buf,PROFILE_HASH_SIZE));
   }
   if (hasOption(options,CLIENT_META_SYNC_APP_TOKEN_OPTION)) {
-    md.setApplicationToken(getUTF8String(buf,APP_TOKEN_SIZE));
+    md.setApplicationToken(getUTF8String(buf,Constants.APP_TOKEN_SIZE));
   }
   sync.setClientSyncMetaData(md);
 }
