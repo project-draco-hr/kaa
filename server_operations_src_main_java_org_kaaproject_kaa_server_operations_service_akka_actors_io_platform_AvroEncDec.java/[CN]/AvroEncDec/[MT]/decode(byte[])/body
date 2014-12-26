@@ -1,10 +1,16 @@
 {
   try {
+    if (LOG.isTraceEnabled()) {
+      LOG.trace("Decoding avro data {}",Arrays.toString(data));
+    }
     SyncRequest source=clientSyncConverter.fromByteArray(data);
+    LOG.trace("Decoding client sync {}",source);
     if (source == null) {
       return null;
     }
-    return convert(source);
+    ClientSync sync=convert(source);
+    LOG.trace("Decoded client sync {}",sync);
+    return sync;
   }
  catch (  IOException e) {
     throw new PlatformEncDecException(e);

@@ -33,7 +33,7 @@
             }
           }
  else           if (CommonEPConstans.NEXT_PROTOCOL_ATTR_NAME.equals(data.getName())) {
-            nextProtocol=attribute.getString();
+            nextProtocol=Integer.valueOf(attribute.getString());
             LOG.trace("[{}] next protocol is {}",getSessionUuid(),nextProtocol);
           }
         }

@@ -1,5 +1,5 @@
 {
-  NettySessionInfo session=new NettySessionInfo(UUID.randomUUID(),AvroEncDec.AVRO_ENC_DEC_ID,null,ChannelType.HTTP,null,null,"applicationToken",0,true);
+  NettySessionInfo session=new NettySessionInfo(UUID.randomUUID(),Constants.KAA_PLATFORM_PROTOCOL_AVRO_ID,null,ChannelType.HTTP,null,null,"applicationToken",0,true);
   ClientSync request=new ClientSync();
   request.setClientSyncMetaData(new ClientSyncMetaData());
   SyncRequestMessage message=new SyncRequestMessage(session,request,null,null);

@@ -6,6 +6,7 @@
   ecfVdto.setVersion(ECF1_VERSION);
   Event event=new Event(0,FQN1,ByteBuffer.wrap(new byte[0]),Base64Util.encode(clientPublicKeyHash.array()),null);
   SyncRequest sourceRequest=new SyncRequest();
+  sourceRequest.setRequestId(REQUEST_ID);
   SyncRequestMetaData md=new SyncRequestMetaData();
   md.setApplicationToken(APP_TOKEN);
   md.setEndpointPublicKeyHash(clientPublicKeyHash);

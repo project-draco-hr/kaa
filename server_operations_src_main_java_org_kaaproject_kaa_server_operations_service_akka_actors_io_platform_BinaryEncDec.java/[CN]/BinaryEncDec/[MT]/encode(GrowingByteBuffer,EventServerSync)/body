@@ -1,0 +1,53 @@
+{
+  byte option=0;
+  if (eventSync.getEventSequenceNumberResponse() != null) {
+    option=1;
+  }
+  buildExtensionHeader(buf,EVENT_EXTENSION_ID,NOTHING,NOTHING,option,0);
+  int extPosition=buf.position();
+  if (eventSync.getEventSequenceNumberResponse() != null) {
+    buf.putInt(eventSync.getEventSequenceNumberResponse().getSeqNum());
+  }
+  if (eventSync.getEventListenersResponses() != null) {
+    buf.put(EVENT_LISTENERS_RESPONSE_FIELD_ID);
+    buf.put(NOTHING);
+    buf.putShort((short)eventSync.getEventListenersResponses().size());
+    for (    EventListenersResponse response : eventSync.getEventListenersResponses()) {
+      buf.putShort((short)Integer.parseInt(response.getRequestId()));
+      buf.putShort(response.getResult() == SyncStatus.SUCCESS ? SUCCESS : FAILURE);
+      if (response.getListeners() != null) {
+        buf.putInt(response.getListeners().size());
+        for (        String listner : response.getListeners()) {
+          buf.put(Base64Util.decode(listner));
+        }
+      }
+ else {
+        buf.putInt(0);
+      }
+    }
+  }
+  if (eventSync.getEvents() != null) {
+    buf.put(EVENT_LIST_RESPONSE_FIELD_ID);
+    buf.put(NOTHING);
+    buf.putShort((short)eventSync.getEvents().size());
+    for (    Event event : eventSync.getEvents()) {
+      boolean eventDataIsEmpty=event.getEventData() == null || event.getEventData().array().length == 0;
+      if (!eventDataIsEmpty) {
+        buf.putShort(EVENT_DATA_IS_EMPTY_OPTION);
+      }
+ else {
+        buf.putShort(NOTHING);
+      }
+      buf.putShort((short)event.getEventClassFQN().length());
+      if (!eventDataIsEmpty) {
+        buf.putInt(event.getEventData().array().length);
+      }
+      buf.put(Base64Util.decode(event.getSource()));
+      putUTF(buf,event.getEventClassFQN());
+      if (!eventDataIsEmpty) {
+        put(buf,event.getEventData().array());
+      }
+    }
+  }
+  buf.putInt(extPosition - SIZE_OF_INT,buf.position() - extPosition);
+}

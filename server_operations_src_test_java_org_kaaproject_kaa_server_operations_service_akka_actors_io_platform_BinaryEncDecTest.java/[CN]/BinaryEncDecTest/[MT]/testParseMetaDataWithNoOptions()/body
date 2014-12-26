@@ -1,0 +1,11 @@
+{
+  byte[] md=new byte[4];
+  md[0]=1;
+  md[1]=2;
+  md[2]=3;
+  md[3]=4;
+  ClientSync sync=encDec.decode(concat(buildHeader(Constants.KAA_PLATFORM_PROTOCOL_AVRO_ID,1,1),buildExtensionHeader(BinaryEncDec.META_DATA_EXTENSION_ID,0,0,0,md.length),md));
+  Assert.assertNotNull(sync);
+  Assert.assertNotNull(sync.getClientSyncMetaData());
+  Assert.assertEquals(1 * 256 * 256* 256 + 2 * 256 * 256 + 3 * 256 + 4,sync.getRequestId());
+}

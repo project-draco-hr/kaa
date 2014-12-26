@@ -6,6 +6,7 @@
   ecfVdto.setEcfId(ECF1_ID);
   ecfVdto.setVersion(ECF1_VERSION);
   SyncRequest targetRequest=new SyncRequest();
+  targetRequest.setRequestId(REQUEST_ID);
   SyncRequestMetaData md=new SyncRequestMetaData();
   md.setApplicationToken(APP_TOKEN);
   md.setEndpointPublicKeyHash(targetPublicKeyHash);
@@ -13,6 +14,7 @@
   targetRequest.setSyncRequestMetaData(md);
   targetRequest.setEventSyncRequest(new EventSyncRequest());
   ServerSync targetResponse=new ServerSync();
+  targetResponse.setRequestId(REQUEST_ID);
   targetResponse.setStatus(org.kaaproject.kaa.server.operations.pojo.sync.SyncStatus.SUCCESS);
   targetResponse.setUserSync(new UserServerSync());
   SyncResponseHolder targetResponseHolder=new SyncResponseHolder(targetResponse);
@@ -33,6 +35,7 @@
   Mockito.verify(eventService,Mockito.timeout(TIMEOUT).atLeastOnce()).sendUserRouteInfo(new UserRouteInfo(TENANT_ID,USER_ID));
   EndpointProfileDto sourceProfileMock=Mockito.mock(EndpointProfileDto.class);
   SyncRequest sourceRequest=new SyncRequest();
+  sourceRequest.setRequestId(REQUEST_ID);
   SyncRequestMetaData sourceMd=new SyncRequestMetaData();
   sourceMd.setApplicationToken(APP_TOKEN);
   sourceMd.setEndpointPublicKeyHash(clientPublicKeyHash);
@@ -44,6 +47,7 @@
   userSyncRequest.setEndpointAttachRequests(Collections.singletonList(eaRequest));
   sourceRequest.setUserSyncRequest(userSyncRequest);
   ServerSync sourceResponse=new ServerSync();
+  sourceResponse.setRequestId(REQUEST_ID);
   sourceResponse.setStatus(org.kaaproject.kaa.server.operations.pojo.sync.SyncStatus.SUCCESS);
   UserServerSync userSyncResponse=new UserServerSync();
   userSyncResponse.setEndpointAttachResponses(Collections.singletonList(new org.kaaproject.kaa.server.operations.pojo.sync.EndpointAttachResponse("request1",Base64Util.encode(targetPublicKeyHash.array()),org.kaaproject.kaa.server.operations.pojo.sync.SyncStatus.SUCCESS)));
@@ -60,11 +64,13 @@
   akkaService.process(sourceMessage);
   Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeastOnce()).sync(AvroEncDec.convert(sourceRequest),null);
   SyncResponse targetSyncResponse=new SyncResponse();
+  targetSyncResponse.setRequestId(REQUEST_ID);
   targetSyncResponse.setStatus(SyncResponseResultType.SUCCESS);
   targetSyncResponse.setUserSyncResponse(new UserSyncResponse());
   targetSyncResponse.getUserSyncResponse().setUserAttachNotification(new UserAttachNotification(USER_ID,Base64Util.encode(clientPublicKeyHash.array())));
   AvroByteArrayConverter<SyncResponse> responseConverter=new AvroByteArrayConverter<>(SyncResponse.class);
   byte[] response=responseConverter.toByteArray(targetSyncResponse);
+  LOG.trace("Expected response {}",Arrays.toString(response));
   byte[] encodedData=targetCrypt.encodeData(response);
   Mockito.verify(responseBuilder,Mockito.timeout(TIMEOUT).atLeastOnce()).build(encodedData,true);
 }

@@ -1,0 +1,12 @@
+{
+  ServerSync sync=new ServerSync();
+  sync.setRequestId(MAGIC_NUMBER);
+  ProfileServerSync pSync=new ProfileServerSync(SyncResponseStatus.RESYNC);
+  sync.setProfileSync(pSync);
+  ByteBuffer buf=ByteBuffer.wrap(encDec.encode(sync));
+  int size=8 + 8 + 4+ 8;
+  Assert.assertEquals(size,buf.array().length);
+  buf.position(buf.capacity() - 12);
+  Assert.assertEquals(MAGIC_NUMBER,buf.getInt());
+  LOG.trace(Arrays.toString(buf.array()));
+}

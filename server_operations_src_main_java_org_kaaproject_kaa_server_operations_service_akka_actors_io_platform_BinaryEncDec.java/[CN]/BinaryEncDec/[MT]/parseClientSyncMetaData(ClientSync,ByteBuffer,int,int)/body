@@ -1,0 +1,17 @@
+{
+  sync.setRequestId(buf.getInt());
+  ClientSyncMetaData md=new ClientSyncMetaData();
+  if (hasOption(options,CLIENT_META_SYNC_TIMEOUT_OPTION)) {
+    md.setTimeout((long)buf.getInt());
+  }
+  if (hasOption(options,CLIENT_META_SYNC_KEY_HASH_OPTION)) {
+    md.setEndpointPublicKeyHash(getNewByteBuffer(buf,PUBLIC_KEY_HASH_SIZE));
+  }
+  if (hasOption(options,CLIENT_META_SYNC_PROFILE_HASH_OPTION)) {
+    md.setProfileHash(getNewByteBuffer(buf,PROFILE_HASH_SIZE));
+  }
+  if (hasOption(options,CLIENT_META_SYNC_APP_TOKEN_OPTION)) {
+    md.setApplicationToken(getUTF8String(buf,Constants.APP_TOKEN_SIZE));
+  }
+  sync.setClientSyncMetaData(md);
+}

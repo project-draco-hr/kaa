@@ -1,7 +1,7 @@
 {
   SessionAwareRequest message=Mockito.mock(SessionAwareRequest.class);
   ErrorBuilder errorBuilder=Mockito.mock(ErrorBuilder.class);
-  NettySessionInfo sessionInfo=new NettySessionInfo(UUID.randomUUID(),AvroEncDec.AVRO_ENC_DEC_ID,Mockito.mock(ChannelHandlerContext.class),ChannelType.TCP,Mockito.mock(CipherPair.class),EndpointObjectHash.fromSHA1("test"),"applicationToken",100,true);
+  NettySessionInfo sessionInfo=new NettySessionInfo(UUID.randomUUID(),Constants.KAA_PLATFORM_PROTOCOL_AVRO_ID,Mockito.mock(ChannelHandlerContext.class),ChannelType.TCP,Mockito.mock(CipherPair.class),EndpointObjectHash.fromSHA1("test"),"applicationToken",100,true);
   Mockito.when(message.getChannelContext()).thenReturn(Mockito.mock(ChannelHandlerContext.class));
   Mockito.when(message.getErrorBuilder()).thenReturn(errorBuilder);
   Mockito.when(message.getSessionInfo()).thenReturn(sessionInfo);
