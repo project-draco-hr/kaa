@@ -1,11 +1,11 @@
 {
   try {
     redirectMeter.mark();
-    SyncRequest request=decodeRequest(message);
-    SyncResponse response=buildRedirectionResponse(redirection,request);
+    ClientSync request=decodeRequest(message);
+    ServerSync response=buildRedirectionResponse(redirection,request);
     EndpointObjectHash key=getEndpointObjectHash(request);
     String appToken=getAppToken(request);
-    NettySessionInfo sessionInfo=new NettySessionInfo(message.getChannelUuid(),message.getChannelContext(),message.getChannelType(),crypt.getSessionCipherPair(),key,appToken,message.getKeepAlive(),message.isEncrypted());
+    NettySessionInfo sessionInfo=new NettySessionInfo(message.getChannelUuid(),message.getPlatformId(),message.getChannelContext(),message.getChannelType(),crypt.getSessionCipherPair(),key,appToken,message.getKeepAlive(),message.isEncrypted());
     SessionResponse responseMessage=new NettySessionResponseMessage(sessionInfo,response,message.getResponseBuilder(),message.getErrorBuilder());
     LOG.debug("Redirect Response: {}",response);
     processSessionResponse(responseMessage);

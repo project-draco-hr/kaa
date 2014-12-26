@@ -1,0 +1,16 @@
+{
+  if (source == null) {
+    return null;
+  }
+  ServerSync copy=new ServerSync();
+  copy.setRequestId(source.getRequestId());
+  copy.setStatus(source.getStatus());
+  copy.setUserSync(deepCopy(source.getUserSync()));
+  copy.setRedirectSync(deepCopy(source.getRedirectSync()));
+  copy.setProfileSync(deepCopy(source.getProfileSync()));
+  copy.setNotificationSync(deepCopy(source.getNotificationSync()));
+  copy.setLogSync(deepCopy(source.getLogSync()));
+  copy.setEventSync(deepCopy(source.getEventSync()));
+  copy.setConfigurationSync(deepCopy(source.getConfigurationSync()));
+  return copy;
+}

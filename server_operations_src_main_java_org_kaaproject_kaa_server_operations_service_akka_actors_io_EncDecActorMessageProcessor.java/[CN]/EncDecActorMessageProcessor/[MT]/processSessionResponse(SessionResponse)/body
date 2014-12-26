@@ -1,6 +1,6 @@
 {
   NettySessionInfo session=message.getSessionInfo();
-  byte[] responseData=responseConverter.toByteArray(message.getResponse());
+  byte[] responseData=encodePlatformLevelData(message.getPlatformId(),message);
   LOG.trace("Response data serialized");
   if (session.isEncrypted()) {
     crypt.setSessionCipherPair(session.getCipherPair());

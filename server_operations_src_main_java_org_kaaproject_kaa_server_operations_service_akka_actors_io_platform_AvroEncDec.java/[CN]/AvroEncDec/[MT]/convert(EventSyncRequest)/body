@@ -1,0 +1,22 @@
+{
+  if (source == null) {
+    return null;
+  }
+  EventClientSync sync=new EventClientSync();
+  sync.setSeqNumberRequest(source.getEventSequenceNumberRequest() != null);
+  if (source.getEvents() != null) {
+    List<Event> events=new ArrayList<Event>(source.getEvents().size());
+    for (    org.kaaproject.kaa.common.endpoint.gen.Event event : source.getEvents()) {
+      events.add(convert(event));
+    }
+    sync.setEvents(events);
+  }
+  if (source.getEventListenersRequests() != null) {
+    List<EventListenersRequest> requests=new ArrayList<EventListenersRequest>(source.getEventListenersRequests().size());
+    for (    org.kaaproject.kaa.common.endpoint.gen.EventListenersRequest request : source.getEventListenersRequests()) {
+      requests.add(new EventListenersRequest(request.getRequestId(),request.getEventClassFQNs()));
+    }
+    sync.setEventListenersRequests(requests);
+  }
+  return sync;
+}

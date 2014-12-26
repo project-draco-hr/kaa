@@ -1,0 +1,12 @@
+{
+  PublicKey endpointKey=null;
+  if (request.getProfileSync() != null && request.getProfileSync().getEndpointPublicKey() != null) {
+    byte[] publicKeySrc=request.getProfileSync().getEndpointPublicKey().array();
+    endpointKey=KeyUtil.getPublic(publicKeySrc);
+  }
+  if (endpointKey == null) {
+    EndpointObjectHash hash=getEndpointObjectHash(request);
+    endpointKey=cacheService.getEndpointKey(hash);
+  }
+  return endpointKey;
+}

@@ -1,0 +1,20 @@
+{
+  ByteBuffer buf=ByteBuffer.wrap(new byte[4 + 4 + 128]);
+  buf.putShort(BIG_MAGIC_NUMBER);
+  buf.put((byte)0);
+  buf.put((byte)1);
+  buf.putInt(127);
+  byte[] logData=new byte[127];
+  logData[MAGIC_NUMBER]=MAGIC_NUMBER;
+  buf.put(logData);
+  buf.put((byte)0);
+  ClientSync sync=encDec.decode(concat(buildHeader(Constants.KAA_PLATFORM_PROTOCOL_AVRO_ID,1,2),getValidMetaData(),buildExtensionHeader(BinaryEncDec.LOGGING_EXTENSION_ID,0,0,0,buf.array().length),buf.array()));
+  Assert.assertNotNull(sync);
+  Assert.assertNotNull(sync.getClientSyncMetaData());
+  Assert.assertNotNull(sync.getLogSync());
+  LogClientSync logSync=sync.getLogSync();
+  Assert.assertEquals(BIG_MAGIC_NUMBER + "",logSync.getRequestId());
+  Assert.assertNotNull(logSync.getLogEntries());
+  Assert.assertEquals(1,logSync.getLogEntries().size());
+  Assert.assertEquals(MAGIC_NUMBER,logSync.getLogEntries().get(0).getData().array()[MAGIC_NUMBER]);
+}

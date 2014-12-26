@@ -1,0 +1,29 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  LogClientSync other=(LogClientSync)obj;
+  if (logEntries == null) {
+    if (other.logEntries != null) {
+      return false;
+    }
+  }
+ else   if (!logEntries.equals(other.logEntries)) {
+    return false;
+  }
+  if (requestId == null) {
+    if (other.requestId != null) {
+      return false;
+    }
+  }
+ else   if (!requestId.equals(other.requestId)) {
+    return false;
+  }
+  return true;
+}
