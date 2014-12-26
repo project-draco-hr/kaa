@@ -28,7 +28,7 @@
     for (    EndpointAttachResponse response : userSync.getEndpointAttachResponses()) {
       buf.put(response.getResult() == SyncStatus.SUCCESS ? SUCCESS : FAILURE);
       if (response.getEndpointKeyHash() != null) {
-        buf.put((byte)0x01);
+        buf.put(USER_SYNC_ENDPOINT_ID_OPTION);
       }
  else {
         buf.put(NOTHING);

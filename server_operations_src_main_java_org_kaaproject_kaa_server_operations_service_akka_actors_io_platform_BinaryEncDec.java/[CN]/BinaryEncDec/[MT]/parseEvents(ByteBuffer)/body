@@ -7,7 +7,7 @@
     int eventOptions=getIntFromUnsignedShort(buf);
     int fqnLength=getIntFromUnsignedShort(buf);
     int dataSize=0;
-    if (hasOption(eventOptions,0x02)) {
+    if (hasOption(eventOptions,CLIENT_EVENT_DATA_IS_PRESENT_OPTION)) {
       dataSize=buf.getInt();
     }
     if (hasOption(eventOptions,0x01)) {

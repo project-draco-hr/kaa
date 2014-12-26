@@ -1,6 +1,6 @@
 {
   EventClientSync eventSync=new EventClientSync();
-  if (hasOption(options,0x02)) {
+  if (hasOption(options,EVENT_SEQ_NUMBER_REQUEST_OPTION)) {
     eventSync.setSeqNumberRequest(true);
   }
   int payloadLimitPosition=buf.position() + payloadLength;

@@ -12,7 +12,7 @@
       }
       return appDto;
     }
-    String appToken=RandomStringUtils.randomNumeric(DEFAULT_TOKEN_SIZE);
+    String appToken=RandomStringUtils.randomNumeric(Constants.APP_TOKEN_SIZE);
     applicationDto.setApplicationToken(appToken);
     if (applicationDto.getUserVerifierName() == null || applicationDto.getUserVerifierName().isEmpty()) {
       applicationDto.setUserVerifierName(DUMMY_ENDPOINT_USER_VERIFIER);

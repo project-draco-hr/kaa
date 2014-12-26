@@ -33,12 +33,15 @@
     for (    Event event : eventSync.getEvents()) {
       boolean eventDataIsEmpty=event.getEventData() == null || event.getEventData().array().length == 0;
       if (!eventDataIsEmpty) {
-        buf.putShort((short)0x02);
+        buf.putShort(EVENT_DATA_IS_EMPTY_OPTION);
       }
  else {
         buf.putShort(NOTHING);
       }
       buf.putShort((short)event.getEventClassFQN().length());
+      if (!eventDataIsEmpty) {
+        buf.putInt(event.getEventData().array().length);
+      }
       buf.put(Base64Util.decode(event.getSource()));
       putUTF(buf,event.getEventClassFQN());
       if (!eventDataIsEmpty) {
