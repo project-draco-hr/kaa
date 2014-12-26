@@ -1,16 +1,16 @@
 {
   sync.setRequestId(buf.getInt());
   ClientSyncMetaData md=new ClientSyncMetaData();
-  if (hasOption(options,0x01)) {
+  if (hasOption(options,CLIENT_META_SYNC_TIMEOUT_OPTION)) {
     md.setTimeout((long)buf.getInt());
   }
-  if (hasOption(options,0x02)) {
+  if (hasOption(options,CLIENT_META_SYNC_KEY_HASH_OPTION)) {
     md.setEndpointPublicKeyHash(getNewByteBuffer(buf,PUBLIC_KEY_HASH_SIZE));
   }
-  if (hasOption(options,0x04)) {
+  if (hasOption(options,CLIENT_META_SYNC_PROFILE_HASH_OPTION)) {
     md.setProfileHash(getNewByteBuffer(buf,PROFILE_HASH_SIZE));
   }
-  if (hasOption(options,0x08)) {
+  if (hasOption(options,CLIENT_META_SYNC_APP_TOKEN_OPTION)) {
     md.setApplicationToken(getUTF8String(buf,APP_TOKEN_SIZE));
   }
   sync.setClientSyncMetaData(md);
