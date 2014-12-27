@@ -1,10 +1,10 @@
 {
   List<CassandraEndpointNotification> savedNotifications=new ArrayList<>();
+  String appId=generateStringId();
   if (endpointKeyHash == null) {
-    endpointKeyHash=ByteBuffer.allocate(8).putLong(RANDOM.nextLong()).compact();
+    endpointKeyHash=ByteBuffer.wrap(generateEndpointProfile(appId,null,null).getEndpointKeyHash());
   }
   String topicId=generateStringId();
-  String appId=generateStringId();
   String schemaId=generateStringId();
   for (int i=0; i < count; i++) {
     CassandraEndpointNotification endpointNotification=new CassandraEndpointNotification();

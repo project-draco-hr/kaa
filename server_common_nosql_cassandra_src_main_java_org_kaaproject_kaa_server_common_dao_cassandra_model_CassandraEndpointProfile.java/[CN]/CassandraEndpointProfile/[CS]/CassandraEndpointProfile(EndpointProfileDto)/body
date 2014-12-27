@@ -1,8 +1,8 @@
 {
   this.id=dto.getId();
   this.applicationId=dto.getApplicationId();
-  this.endpointKey=dto.getEndpointKey();
-  this.endpointKeyHash=dto.getEndpointKeyHash();
+  this.endpointProfileKey=getByteBuffer(dto.getEndpointKey());
+  this.endpointKeyHash=getByteBuffer(dto.getEndpointKeyHash());
   this.endpointUserId=dto.getEndpointUserId();
   this.accessToken=dto.getAccessToken();
   this.profileSchemaId=dto.getProfileSchemaId();
@@ -11,13 +11,13 @@
   this.cfSequenceNumber=dto.getCfSequenceNumber();
   this.nfSequenceNumber=dto.getNfSequenceNumber();
   this.profile=dto.getProfile();
-  this.profileHash=dto.getProfileHash();
+  this.profileHash=getByteBuffer(dto.getProfileHash());
   this.profileVersion=dto.getProfileVersion();
-  this.configurationHash=dto.getConfigurationHash();
+  this.configurationHash=getByteBuffer(dto.getConfigurationHash());
   this.configurationVersion=dto.getConfigurationVersion();
   this.subscriptions=dto.getSubscriptions();
   this.notificationVersion=dto.getNotificationVersion();
-  this.ntHash=dto.getNtHash();
+  this.ntHash=getByteBuffer(dto.getNtHash());
   this.systemNfVersion=dto.getSystemNfVersion();
   this.userNfVersion=dto.getUserNfVersion();
   this.logSchemaVersion=dto.getLogSchemaVersion();

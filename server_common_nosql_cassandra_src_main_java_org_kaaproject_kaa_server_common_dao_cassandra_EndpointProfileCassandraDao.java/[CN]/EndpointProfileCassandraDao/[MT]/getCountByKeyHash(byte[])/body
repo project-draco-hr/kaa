@@ -1,6 +1,6 @@
 {
   int count=0;
-  ResultSet resultSet=execute(select().countAll().from(getColumnFamilyName()).where(eq(ENDPOINT_PROFILE_ENDPOINT_KEY_HASH_PROPERTY,getByteBuffer(endpointKeyHash))));
+  ResultSet resultSet=execute(select().countAll().from(getColumnFamilyName()).where(eq(EP_EP_KEY_HASH_PROPERTY,getByteBuffer(endpointKeyHash))));
   Row row=resultSet.one();
   if (row != null) {
     count=row.getInt(0);

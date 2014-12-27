@@ -1,9 +1,8 @@
 {
   LOG.debug("Save endpoint notification {}",endpointNotification);
   CassandraNotification notification=endpointNotification.getNotification();
-  String appId=notification.getApplicationId();
   String nfId=getStringId();
   notification.setId(nfId);
-  executeBatch(BatchStatement.Type.UNLOGGED,getSaveQuery(notification,notification.getClass()),getSaveQuery(endpointNotification),getSaveQuery(new CassandraEPNfsByAppId(appId,nfId),CassandraEPNfsByAppId.class));
+  executeBatch(BatchStatement.Type.UNLOGGED,getSaveQuery(notification,notification.getClass()),getSaveQuery(endpointNotification));
   return endpointNotification;
 }

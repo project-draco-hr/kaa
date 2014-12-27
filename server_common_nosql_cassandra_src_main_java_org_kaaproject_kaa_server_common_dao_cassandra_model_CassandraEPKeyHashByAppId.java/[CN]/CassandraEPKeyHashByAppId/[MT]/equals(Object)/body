@@ -1,0 +1,8 @@
+{
+  if (this == o)   return true;
+  if (o == null || getClass() != o.getClass())   return false;
+  CassandraEPKeyHashByAppId that=(CassandraEPKeyHashByAppId)o;
+  if (appId != null ? !appId.equals(that.appId) : that.appId != null)   return false;
+  if (epKeyHash != null ? !epKeyHash.equals(that.epKeyHash) : that.epKeyHash != null)   return false;
+  return true;
+}
