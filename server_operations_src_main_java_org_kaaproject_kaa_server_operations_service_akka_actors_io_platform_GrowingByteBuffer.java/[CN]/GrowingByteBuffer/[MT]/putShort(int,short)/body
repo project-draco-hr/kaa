@@ -1,0 +1,8 @@
+{
+  checkPosition(position + SIZE_OF_SHORT);
+  int tmp=data.position();
+  data.position(position);
+  data.putShort(s);
+  data.position(tmp);
+  return this;
+}

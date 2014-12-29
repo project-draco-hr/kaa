@@ -1,9 +1,9 @@
 {
   final byte[] payload=new byte[]{(byte)0xFF,0x01,0x02,0x03};
-  final byte connectHeader[]=new byte[]{0x10,0x12,0x00,0x06,'K','a','a','t','c','p',0x01,0x02,0x00,0x00,0x00,(byte)0xC8};
-  Connect message=new Connect(200,null,payload,null);
+  final byte connectHeader[]=new byte[]{0x10,0x16,0x00,0x06,'K','a','a','t','c','p',0x01,0x02,(byte)0xf2,(byte)0x91,(byte)0xf2,(byte)0xd4,0x00,0x00,0x00,(byte)0xC8};
+  Connect message=new Connect(200,0xf291f2d4,null,payload,null);
   ByteBuffer frame=message.getFrame();
-  byte[] headerCheck=new byte[16];
+  byte[] headerCheck=new byte[20];
   frame.get(headerCheck);
   Assert.assertArrayEquals(connectHeader,headerCheck);
   byte[] payloadCheck=new byte[4];

@@ -1,0 +1,9 @@
+{
+  int count=getIntFromUnsignedShort(buf);
+  List<String> uids=new ArrayList<>(count);
+  for (int i=0; i < count; i++) {
+    int uidLength=buf.getInt();
+    uids.add(getUTF8String(buf,uidLength));
+  }
+  return uids;
+}

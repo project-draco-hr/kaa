@@ -1,0 +1,29 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  EventListenersRequest other=(EventListenersRequest)obj;
+  if (eventClassFQNs == null) {
+    if (other.eventClassFQNs != null) {
+      return false;
+    }
+  }
+ else   if (!eventClassFQNs.equals(other.eventClassFQNs)) {
+    return false;
+  }
+  if (requestId == null) {
+    if (other.requestId != null) {
+      return false;
+    }
+  }
+ else   if (!requestId.equals(other.requestId)) {
+    return false;
+  }
+  return true;
+}

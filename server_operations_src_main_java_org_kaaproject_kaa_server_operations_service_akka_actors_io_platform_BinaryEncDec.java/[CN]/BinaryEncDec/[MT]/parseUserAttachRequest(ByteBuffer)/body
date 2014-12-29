@@ -1,0 +1,7 @@
+{
+  int extIdLength=buf.get() & 0xFF;
+  int tokenLength=getIntFromUnsignedShort(buf);
+  String userExternalId=getUTF8String(buf,extIdLength);
+  String userAccessToken=getUTF8String(buf,tokenLength);
+  return new UserAttachRequest(userExternalId,userAccessToken);
+}

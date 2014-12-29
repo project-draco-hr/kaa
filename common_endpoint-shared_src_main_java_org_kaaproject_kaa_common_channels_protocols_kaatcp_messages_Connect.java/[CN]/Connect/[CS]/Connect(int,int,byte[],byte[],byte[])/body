@@ -1,0 +1,19 @@
+{
+  setMessageType(MessageType.CONNECT);
+  this.setKeepAlive(keepAlive);
+  this.setNextProtocolId(nextProtocolId);
+  this.setAesSessionKey(aesSessionKey);
+  this.setSyncRequest(syncRequest);
+  this.setSignature(signature);
+  remainingLength=CONNECT_VERIABLE_HEADER_LENGTH_V1;
+  if (aesSessionKey != null) {
+    remainingLength+=CONNECT_AES_SESSION_KEY_LENGTH;
+  }
+  if (signature != null) {
+    remainingLength+=CONNECT_SIGNATURE_LENGTH;
+  }
+  if (syncRequest != null) {
+    remainingLength+=syncRequest.length;
+  }
+  LOG.debug("Created Connect message: session key size = {}, signature size = {}, sync request size = {}",aesSessionKey != null ? aesSessionKey.length : "null",signature != null ? signature.length : "null",syncRequest != null ? syncRequest.length : "null");
+}

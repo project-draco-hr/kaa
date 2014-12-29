@@ -13,11 +13,11 @@
   ResponseBuilder responseBuilder=Mockito.mock(ResponseBuilder.class);
   ErrorBuilder errorBuilder=Mockito.mock(ErrorBuilder.class);
   SessionInitRequest message=toSignedRequest(UUID.randomUUID(),ChannelType.HTTP_LP,channelContextMock,request,responseBuilder,errorBuilder,crypt);
-  Mockito.when(operationsService.sync(Mockito.any(SyncRequest.class),Mockito.any(EndpointProfileDto.class))).thenReturn(noDeltaResponseWithTopicState);
+  Mockito.when(operationsService.sync(Mockito.any(ClientSync.class),Mockito.any(EndpointProfileDto.class))).thenReturn(noDeltaResponseWithTopicState);
   akkaService.process(message);
   SyncResponse response=new SyncResponse();
   response.setRequestId(request.getRequestId());
   response.setStatus(SyncResponseResultType.REDIRECT);
   response.setRedirectSyncResponse(new RedirectSyncResponse("testDNS"));
-  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT / 2).atLeastOnce()).sync(request,null);
+  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT / 2).atLeastOnce()).sync(AvroEncDec.convert(request),null);
 }

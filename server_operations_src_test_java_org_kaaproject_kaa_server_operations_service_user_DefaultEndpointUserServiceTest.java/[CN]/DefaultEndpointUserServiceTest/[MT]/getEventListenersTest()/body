@@ -46,7 +46,7 @@
   when(cacheService.getRouteKeys(new EventClassFqnVersion(TEST_TENANT_ID,"fqn3",ECF1_VERSION))).thenReturn(fqn3Keys);
   EventListenersResponse response=endpointUserService.findListeners(profileMock,new AppSeqNumber(TEST_TENANT_ID,TEST_APP_ID,TEST_APP_TOKEN,TEST_APP_SEQ_NUM),request);
   assertNotNull(response);
-  assertEquals(SyncResponseResultType.SUCCESS,response.getResult());
+  assertEquals(SyncStatus.SUCCESS,response.getResult());
   assertEquals(REQUEST_ID,response.getRequestId());
   assertEquals(2,response.getListeners().size());
   assertTrue(response.getListeners().contains(Base64Util.encode(ENDPOINT_KEY_HASH1)));

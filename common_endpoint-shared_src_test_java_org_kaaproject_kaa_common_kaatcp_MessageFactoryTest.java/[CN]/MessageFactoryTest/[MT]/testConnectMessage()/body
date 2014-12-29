@@ -13,8 +13,8 @@
   final byte[] payload=crypt.encodeData(rawData);
   final byte[] sessionKey=crypt.getEncodedSessionKey();
   final byte[] signature=crypt.sign(sessionKey);
-  final byte connectHeader[]=new byte[]{0x10,(byte)0xBE,0x04,0x00,0x06,'K','a','a','t','c','p',0x01,0x02,0x11,0x01,0x00,(byte)0xC8};
-  ByteBuffer connectBuffer=ByteBuffer.allocate(sessionKey.length + signature.length + payload.length+ 17);
+  final byte connectHeader[]=new byte[]{0x10,(byte)0xC2,0x04,0x00,0x06,'K','a','a','t','c','p',0x01,0x02,(byte)0xf2,(byte)0x91,(byte)0xf2,(byte)0xd4,0x11,0x01,0x00,(byte)0xC8};
+  ByteBuffer connectBuffer=ByteBuffer.allocate(sessionKey.length + signature.length + payload.length+ 21);
   connectBuffer.put(connectHeader);
   connectBuffer.put(sessionKey);
   connectBuffer.put(signature);
@@ -28,6 +28,7 @@
       Assert.assertArrayEquals(signature,message.getSignature());
       Assert.assertArrayEquals(sessionKey,message.getAesSessionKey());
       Assert.assertArrayEquals(payload,message.getSyncRequest());
+      Assert.assertEquals(0xf291f2d4,message.getNextProtocolId());
     }
   }
 );

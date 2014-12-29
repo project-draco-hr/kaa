@@ -1,8 +1,8 @@
 {
-  SyncResponse response=new SyncResponse();
-  response.setStatus(SyncResponseResultType.REDIRECT);
-  RedirectSyncResponse redirectResponse=new RedirectSyncResponse();
+  ServerSync response=new ServerSync();
+  response.setStatus(SyncStatus.REDIRECT);
+  RedirectServerSync redirectResponse=new RedirectServerSync();
   redirectResponse.setDnsName(MultipartObjects.getRandomString(30));
-  response.setRedirectSyncResponse(redirectResponse);
+  response.setRedirectSync(redirectResponse);
   return response;
 }
