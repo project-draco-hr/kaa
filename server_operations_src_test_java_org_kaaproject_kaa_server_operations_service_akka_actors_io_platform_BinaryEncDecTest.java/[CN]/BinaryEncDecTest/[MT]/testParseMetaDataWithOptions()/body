@@ -1,5 +1,5 @@
 {
-  ClientSync sync=encDec.decode(concat(buildHeader(Constants.KAA_PLATFORM_PROTOCOL_AVRO_ID,1,1),getValidMetaData()));
+  ClientSync sync=encDec.decode(concat(buildHeader(Constants.KAA_PLATFORM_PROTOCOL_BINARY_ID,1,1),getValidMetaData()));
   Assert.assertNotNull(sync);
   Assert.assertNotNull(sync.getClientSyncMetaData());
   Assert.assertEquals(1,sync.getRequestId());
