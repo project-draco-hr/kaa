@@ -43,14 +43,14 @@
   sourceRequest.setSyncRequestMetaData(sourceMd);
   sourceRequest.setEventSyncRequest(new EventSyncRequest());
   UserSyncRequest userSyncRequest=new UserSyncRequest();
-  EndpointAttachRequest eaRequest=new EndpointAttachRequest("request1","token");
+  EndpointAttachRequest eaRequest=new EndpointAttachRequest(REQUEST_ID,"token");
   userSyncRequest.setEndpointAttachRequests(Collections.singletonList(eaRequest));
   sourceRequest.setUserSyncRequest(userSyncRequest);
   ServerSync sourceResponse=new ServerSync();
   sourceResponse.setRequestId(REQUEST_ID);
   sourceResponse.setStatus(org.kaaproject.kaa.server.operations.pojo.sync.SyncStatus.SUCCESS);
   UserServerSync userSyncResponse=new UserServerSync();
-  userSyncResponse.setEndpointAttachResponses(Collections.singletonList(new org.kaaproject.kaa.server.operations.pojo.sync.EndpointAttachResponse("request1",Base64Util.encode(targetPublicKeyHash.array()),org.kaaproject.kaa.server.operations.pojo.sync.SyncStatus.SUCCESS)));
+  userSyncResponse.setEndpointAttachResponses(Collections.singletonList(new org.kaaproject.kaa.server.operations.pojo.sync.EndpointAttachResponse(REQUEST_ID,Base64Util.encode(targetPublicKeyHash.array()),org.kaaproject.kaa.server.operations.pojo.sync.SyncStatus.SUCCESS)));
   sourceResponse.setUserSync(userSyncResponse);
   SyncResponseHolder sourceResponseHolder=new SyncResponseHolder(sourceResponse);
   sourceResponseHolder.setEndpointProfile(sourceProfileMock);

@@ -1,8 +1,8 @@
 {
-  Map<String,EndpointAccessToken> attachedEPs=new HashMap<>();
-  attachedEPs.put("key1",new EndpointAccessToken("acessToken1"));
-  Map<String,EndpointKeyHash> detachedEPs=new HashMap<>();
-  detachedEPs.put("key1",new EndpointKeyHash("keyhash1"));
+  Map<Integer,EndpointAccessToken> attachedEPs=new HashMap<>();
+  attachedEPs.put(REQUEST_ID_1,new EndpointAccessToken("acessToken1"));
+  Map<Integer,EndpointKeyHash> detachedEPs=new HashMap<>();
+  detachedEPs.put(REQUEST_ID_1,new EndpointKeyHash("keyhash1"));
   EndpointRegistrationProcessor processor=Mockito.mock(EndpointRegistrationProcessor.class);
   Mockito.when(processor.getAttachEndpointRequests()).thenReturn(attachedEPs);
   Mockito.when(processor.getDetachEndpointRequests()).thenReturn(detachedEPs);
