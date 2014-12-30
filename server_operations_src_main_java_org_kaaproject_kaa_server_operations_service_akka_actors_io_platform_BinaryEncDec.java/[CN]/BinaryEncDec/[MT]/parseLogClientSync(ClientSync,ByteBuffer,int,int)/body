@@ -1,6 +1,6 @@
 {
   LogClientSync logSync=new LogClientSync();
-  logSync.setRequestId(String.valueOf(getIntFromUnsignedShort(buf)));
+  logSync.setRequestId(getIntFromUnsignedShort(buf));
   int size=getIntFromUnsignedShort(buf);
   List<LogEntry> logs=new ArrayList<>(size);
   for (int i=0; i < size; i++) {

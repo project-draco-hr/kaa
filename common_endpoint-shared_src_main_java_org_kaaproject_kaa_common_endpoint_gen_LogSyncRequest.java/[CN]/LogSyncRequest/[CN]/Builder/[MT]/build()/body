@@ -1,7 +1,7 @@
 {
   try {
     LogSyncRequest record=new LogSyncRequest();
-    record.requestId=fieldSetFlags()[0] ? this.requestId : (java.lang.String)defaultValue(fields()[0]);
+    record.requestId=fieldSetFlags()[0] ? this.requestId : (java.lang.Integer)defaultValue(fields()[0]);
     record.logEntries=fieldSetFlags()[1] ? this.logEntries : (java.util.List<org.kaaproject.kaa.common.endpoint.gen.LogEntry>)defaultValue(fields()[1]);
     return record;
   }

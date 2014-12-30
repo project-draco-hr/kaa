@@ -5,7 +5,7 @@
   for (int i=0; i < count; i++) {
     int requestId=getIntFromUnsignedShort(buf);
     String accessToken=getUTF8String(buf);
-    requests.add(new EndpointAttachRequest(String.valueOf(requestId),accessToken));
+    requests.add(new EndpointAttachRequest(requestId,accessToken));
   }
   return requests;
 }
