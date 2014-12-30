@@ -46,7 +46,7 @@
   buf.put((byte)0);
   buf.put((byte)0);
   buf.put((byte)0);
-  ClientSync sync=encDec.decode(concat(buildHeader(Constants.KAA_PLATFORM_PROTOCOL_AVRO_ID,1,2),getValidMetaData(),buildExtensionHeader(BinaryEncDec.PROFILE_EXTENSION_ID,0,0,0,buf.array().length),buf.array()));
+  ClientSync sync=encDec.decode(concat(buildHeader(Constants.KAA_PLATFORM_PROTOCOL_BINARY_ID,1,2),getValidMetaData(),buildExtensionHeader(BinaryEncDec.PROFILE_EXTENSION_ID,0,0,0,buf.array().length),buf.array()));
   Assert.assertNotNull(sync);
   Assert.assertNotNull(sync.getClientSyncMetaData());
   Assert.assertNotNull(sync.getProfileSync());
