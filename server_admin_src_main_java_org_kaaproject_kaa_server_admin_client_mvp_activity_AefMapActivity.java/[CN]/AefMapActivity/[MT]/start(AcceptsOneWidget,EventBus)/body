@@ -1,6 +1,6 @@
 {
   super.start(containerWidget,eventBus);
   AbstractGrid<ApplicationEventMapDto,String> eventMapGrid=detailsView.getEventMapGrid();
-  eventMapDataProvider=new EventMapDataProvider(eventMapGrid.getSelectionModel(),new DataLoadCallback<ApplicationEventMapDto>(detailsView));
+  eventMapDataProvider=new EventMapDataProvider(eventMapGrid.getSelectionModel(),detailsView);
   eventMapDataProvider.addDataDisplay(eventMapGrid.getDisplay());
 }

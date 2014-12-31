@@ -34,7 +34,7 @@ catch (  CancellationException ce) {
     throw new InterruptedException("Blocked callable interrupted by rotation event");
   }
 catch (  InterruptedException ex) {
-    logger.warn("Unexpected Exception {}",ex.getMessage(),ex);
+    LOG.warn("Unexpected Exception {}",ex.getMessage(),ex);
     throw ex;
   }
 }

@@ -1,0 +1,22 @@
+{
+switch (field$) {
+case 0:
+    return mailFrom;
+case 1:
+  return smtpProtocol;
+case 2:
+return smtpHost;
+case 3:
+return smtpPort;
+case 4:
+return timeout;
+case 5:
+return enableTls;
+case 6:
+return username;
+case 7:
+return password;
+default :
+throw new org.apache.avro.AvroRuntimeException("Bad index");
+}
+}

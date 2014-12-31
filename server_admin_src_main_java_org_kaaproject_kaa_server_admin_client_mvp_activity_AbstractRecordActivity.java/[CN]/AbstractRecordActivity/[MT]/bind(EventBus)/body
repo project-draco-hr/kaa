@@ -34,13 +34,13 @@
  else {
     KaaAdmin.getDataSource().getEndpointGroup(endpointGroupId,new AsyncCallback<EndpointGroupDto>(){
       @Override public void onFailure(      Throwable caught){
-        recordView.setErrorMessage(Utils.getErrorMessage(caught));
+        Utils.handleException(caught,recordView);
       }
       @Override public void onSuccess(      EndpointGroupDto result){
         endpointGroup=result;
         getRecord(schemaId,endpointGroupId,new AsyncCallback<StructureRecordDto<T>>(){
           @Override public void onFailure(          Throwable caught){
-            recordView.setErrorMessage(Utils.getErrorMessage(caught));
+            Utils.handleException(caught,recordView);
           }
           @Override public void onSuccess(          StructureRecordDto<T> result){
             record=result;

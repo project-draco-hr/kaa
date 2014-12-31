@@ -1,0 +1,17 @@
+{
+  try {
+    SmtpMailProperties record=new SmtpMailProperties();
+    record.mailFrom=fieldSetFlags()[0] ? this.mailFrom : (java.lang.String)defaultValue(fields()[0]);
+    record.smtpProtocol=fieldSetFlags()[1] ? this.smtpProtocol : (org.kaaproject.kaa.server.admin.services.entity.gen.SmtpProtocol)defaultValue(fields()[1]);
+    record.smtpHost=fieldSetFlags()[2] ? this.smtpHost : (java.lang.String)defaultValue(fields()[2]);
+    record.smtpPort=fieldSetFlags()[3] ? this.smtpPort : (java.lang.Integer)defaultValue(fields()[3]);
+    record.timeout=fieldSetFlags()[4] ? this.timeout : (java.lang.Integer)defaultValue(fields()[4]);
+    record.enableTls=fieldSetFlags()[5] ? this.enableTls : (java.lang.Boolean)defaultValue(fields()[5]);
+    record.username=fieldSetFlags()[6] ? this.username : (java.lang.String)defaultValue(fields()[6]);
+    record.password=fieldSetFlags()[7] ? this.password : (java.lang.String)defaultValue(fields()[7]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

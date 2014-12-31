@@ -11,6 +11,7 @@
     detailsView.setCancelEnabled(true);
     registrations.add(detailsView.getCancelButton().addClickHandler(new ClickHandler(){
       public void onClick(      ClickEvent event){
+        canceled=true;
         goTo(place.getPreviousPlace());
       }
     }

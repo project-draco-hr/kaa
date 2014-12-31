@@ -5,7 +5,7 @@
       goTo(getRecordPlace(applicationId,schemaId,endpointGroupId,false,true,Math.random()));
     }
     public void onFailure(    Throwable caught){
-      recordView.setErrorMessage(Utils.getErrorMessage(caught));
+      Utils.handleException(caught,recordView);
     }
   }
 );
