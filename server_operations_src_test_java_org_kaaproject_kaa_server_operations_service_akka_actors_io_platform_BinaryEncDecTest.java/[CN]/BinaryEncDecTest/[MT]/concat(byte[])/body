@@ -1,0 +1,12 @@
+{
+  ByteArrayOutputStream outputStream=new ByteArrayOutputStream();
+  for (  byte[] array : arrays) {
+    try {
+      outputStream.write(array);
+    }
+ catch (    IOException e) {
+      e.printStackTrace();
+    }
+  }
+  return outputStream.toByteArray();
+}

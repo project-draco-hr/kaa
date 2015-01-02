@@ -1,0 +1,14 @@
+{
+  ServerSync sync=new ServerSync();
+  sync.setRequestId(MAGIC_NUMBER);
+  LogServerSync lSync=new LogServerSync(MAGIC_NUMBER,SyncStatus.FAILURE);
+  sync.setLogSync(lSync);
+  ByteBuffer buf=ByteBuffer.wrap(encDec.encode(sync));
+  int size=8 + 8 + 4+ 8+ 4;
+  Assert.assertEquals(size,buf.array().length);
+  buf.position(buf.capacity() - 4);
+  Assert.assertEquals(MAGIC_NUMBER,buf.getShort());
+  buf.position(buf.capacity() - 2);
+  Assert.assertEquals(BinaryEncDec.FAILURE,buf.get());
+  LOG.trace(Arrays.toString(buf.array()));
+}

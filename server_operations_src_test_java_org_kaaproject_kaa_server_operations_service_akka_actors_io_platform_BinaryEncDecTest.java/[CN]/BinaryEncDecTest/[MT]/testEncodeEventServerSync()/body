@@ -1,0 +1,15 @@
+{
+  ServerSync sync=new ServerSync();
+  sync.setRequestId(MAGIC_NUMBER);
+  EventServerSync eSync=new EventServerSync();
+  eSync.setEventSequenceNumberResponse(new EventSequenceNumberResponse(MAGIC_NUMBER));
+  Event event=new Event();
+  event.setEventClassFQN("fqn");
+  event.setSource(Base64Util.encode(new byte[SHA_1_LENGTH]));
+  eSync.setEvents(Collections.singletonList(event));
+  sync.setEventSync(eSync);
+  ByteBuffer buf=ByteBuffer.wrap(encDec.encode(sync));
+  int size=8 + 8 + 4+ 8+ 4+ 4+ 4+ SHA_1_LENGTH+ 4;
+  System.out.println(Arrays.toString(buf.array()));
+  Assert.assertEquals(size,buf.array().length);
+}

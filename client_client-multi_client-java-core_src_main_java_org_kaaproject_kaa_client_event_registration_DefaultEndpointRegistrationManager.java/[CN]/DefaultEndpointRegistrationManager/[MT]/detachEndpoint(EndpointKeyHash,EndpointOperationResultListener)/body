@@ -1,11 +1,11 @@
 {
-  String requestId;
+  int requestId;
 synchronized (detachEndpointRequests) {
-    requestId=UUID.nameUUIDFromBytes(endpointKeyHash.getKeyHash().getBytes()).toString();
+    requestId=new Random().nextInt();
     LOG.info("Going to detach Endpoint by endpoint key hash: {}",endpointKeyHash);
     detachEndpointRequests.put(requestId,endpointKeyHash);
   }
-  if (resultListener != null && requestId != null) {
+  if (resultListener != null) {
     endpointDetachListeners.put(requestId,resultListener);
   }
   if (userTransport != null) {

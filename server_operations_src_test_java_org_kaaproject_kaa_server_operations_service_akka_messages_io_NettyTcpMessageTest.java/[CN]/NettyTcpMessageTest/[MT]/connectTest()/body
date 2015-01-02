@@ -6,8 +6,8 @@
   EndpointObjectHash key=EndpointObjectHash.fromSHA1("key");
   String applicationToken="AppToken";
   int keepAlive=100;
-  NettySessionInfo session=new NettySessionInfo(channelId,ctx,channelType,sessionKey,key,applicationToken,keepAlive,true);
-  Connect command=new Connect(keepAlive,"aesSessionKey".getBytes(),"syncRequest".getBytes(),"signature".getBytes());
+  NettySessionInfo session=new NettySessionInfo(channelId,Constants.KAA_PLATFORM_PROTOCOL_AVRO_ID,ctx,channelType,sessionKey,key,applicationToken,keepAlive,true);
+  Connect command=new Connect(keepAlive,Constants.KAA_PLATFORM_PROTOCOL_AVRO_ID,"aesSessionKey".getBytes(),"syncRequest".getBytes(),"signature".getBytes());
   SessionCreateListener listener=Mockito.mock(SessionCreateListener.class);
   ResponseBuilder responseBuilder=Mockito.mock(ResponseBuilder.class);
   ErrorBuilder errorBuilder=Mockito.mock(ErrorBuilder.class);

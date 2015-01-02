@@ -1,24 +1,24 @@
 {
-  SyncResponse response=new SyncResponse();
-  response.setStatus(SyncResponseResultType.SUCCESS);
-  response.setNotificationSyncResponse(new NotificationSyncResponse());
+  ServerSync response=new ServerSync();
+  response.setStatus(SyncStatus.SUCCESS);
+  response.setNotificationSync(new NotificationServerSync());
   NotificationDto nfDto=new NotificationDto();
   nfDto.setId("nfId");
   nfDto.setBody("body".getBytes());
   nfDto.setType(NotificationTypeDto.SYSTEM);
-  SyncResponse result=operationsService.updateSyncResponse(response,Collections.singletonList(nfDto),null);
+  ServerSync result=operationsService.updateSyncResponse(response,Collections.singletonList(nfDto),null);
   assertNotNull(result);
-  assertNotNull(result.getNotificationSyncResponse());
-  assertNotNull(result.getNotificationSyncResponse().getNotifications());
-  assertEquals(SyncResponseStatus.DELTA,result.getNotificationSyncResponse().getResponseStatus());
-  response=new SyncResponse();
-  response.setStatus(SyncResponseResultType.SUCCESS);
-  NotificationSyncResponse nfResponse=new NotificationSyncResponse();
+  assertNotNull(result.getNotificationSync());
+  assertNotNull(result.getNotificationSync().getNotifications());
+  assertEquals(SyncResponseStatus.DELTA,result.getNotificationSync().getResponseStatus());
+  response=new ServerSync();
+  response.setStatus(SyncStatus.SUCCESS);
+  NotificationServerSync nfResponse=new NotificationServerSync();
   nfResponse.setNotifications(new ArrayList<Notification>());
-  response.setNotificationSyncResponse(new NotificationSyncResponse());
+  response.setNotificationSync(new NotificationServerSync());
   result=operationsService.updateSyncResponse(response,Collections.singletonList(nfDto),null);
   assertNotNull(result);
-  assertNotNull(result.getNotificationSyncResponse());
-  assertNotNull(result.getNotificationSyncResponse().getNotifications());
-  assertEquals(SyncResponseStatus.DELTA,result.getNotificationSyncResponse().getResponseStatus());
+  assertNotNull(result.getNotificationSync());
+  assertNotNull(result.getNotificationSync().getNotifications());
+  assertEquals(SyncResponseStatus.DELTA,result.getNotificationSync().getResponseStatus());
 }

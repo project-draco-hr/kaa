@@ -1,0 +1,43 @@
+{
+  LOG.trace("Encoding server sync {}",sync);
+  GrowingByteBuffer buf=new GrowingByteBuffer(DEFAULT_BUFFER_SIZE);
+  buf.putInt(getId());
+  buf.putShort(PROTOCOL_VERSION);
+  buf.putShort(NOTHING);
+  encodeMetaData(buf,sync);
+  short extensionCount=1;
+  if (sync.getProfileSync() != null) {
+    encode(buf,sync.getProfileSync());
+    extensionCount++;
+  }
+  if (sync.getUserSync() != null) {
+    encode(buf,sync.getUserSync());
+    extensionCount++;
+  }
+  if (sync.getLogSync() != null) {
+    encode(buf,sync.getLogSync());
+    extensionCount++;
+  }
+  if (sync.getConfigurationSync() != null) {
+    encode(buf,sync.getConfigurationSync());
+    extensionCount++;
+  }
+  if (sync.getNotificationSync() != null) {
+    encode(buf,sync.getNotificationSync());
+    extensionCount++;
+  }
+  if (sync.getEventSync() != null) {
+    encode(buf,sync.getEventSync());
+    extensionCount++;
+  }
+  if (sync.getRedirectSync() != null) {
+    encode(buf,sync.getRedirectSync());
+    extensionCount++;
+  }
+  buf.putShort(EXTENSIONS_COUNT_POSITION,extensionCount);
+  byte[] result=buf.toByteArray();
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("Encoded binary data {}",result);
+  }
+  return result;
+}

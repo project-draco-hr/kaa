@@ -1,0 +1,35 @@
+{
+  if (source == null) {
+    return null;
+  }
+  NotificationClientSync sync=new NotificationClientSync();
+  sync.setAppStateSeqNumber(source.getAppStateSeqNumber());
+  sync.setTopicListHash(source.getTopicListHash());
+  if (source.getAcceptedUnicastNotifications() != null) {
+    sync.setAcceptedUnicastNotifications(new ArrayList<String>(source.getAcceptedUnicastNotifications()));
+  }
+  if (source.getSubscriptionCommands() != null) {
+    List<SubscriptionCommand> commands=new ArrayList<SubscriptionCommand>(source.getSubscriptionCommands().size());
+    for (    org.kaaproject.kaa.common.endpoint.gen.SubscriptionCommand command : source.getSubscriptionCommands()) {
+      SubscriptionCommand copy=new SubscriptionCommand();
+      copy.setTopicId(command.getTopicId());
+switch (command.getCommand()) {
+case ADD:
+        copy.setCommand(SubscriptionCommandType.ADD);
+      break;
+case REMOVE:
+    copy.setCommand(SubscriptionCommandType.REMOVE);
+  break;
+}
+commands.add(copy);
+}
+sync.setSubscriptionCommands(commands);
+}
+if (source.getTopicStates() != null) {
+List<TopicState> states=new ArrayList<TopicState>(source.getTopicStates().size());
+for (org.kaaproject.kaa.common.endpoint.gen.TopicState state : source.getTopicStates()) {
+states.add(new TopicState(state.getTopicId(),state.getSeqNumber()));
+}
+}
+return sync;
+}
