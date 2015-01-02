@@ -13,7 +13,7 @@
   Assert.assertNotNull(sync.getClientSyncMetaData());
   Assert.assertNotNull(sync.getLogSync());
   LogClientSync logSync=sync.getLogSync();
-  Assert.assertEquals(BIG_MAGIC_NUMBER + "",logSync.getRequestId());
+  Assert.assertEquals(BIG_MAGIC_NUMBER,logSync.getRequestId());
   Assert.assertNotNull(logSync.getLogEntries());
   Assert.assertEquals(1,logSync.getLogEntries().size());
   Assert.assertEquals(MAGIC_NUMBER,logSync.getLogEntries().get(0).getData().array()[MAGIC_NUMBER]);

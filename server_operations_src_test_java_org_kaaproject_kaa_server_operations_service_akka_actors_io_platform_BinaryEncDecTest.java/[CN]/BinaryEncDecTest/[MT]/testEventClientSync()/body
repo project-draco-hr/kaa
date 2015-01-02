@@ -32,7 +32,7 @@
   Assert.assertEquals(true,eSync.isSeqNumberRequest());
   Assert.assertNotNull(eSync.getEventListenersRequests());
   Assert.assertEquals(1,eSync.getEventListenersRequests().size());
-  Assert.assertEquals(MAGIC_NUMBER + "",eSync.getEventListenersRequests().get(0).getRequestId());
+  Assert.assertEquals(MAGIC_NUMBER,eSync.getEventListenersRequests().get(0).getRequestId());
   Assert.assertNotNull(eSync.getEventListenersRequests().get(0).getEventClassFQNs());
   Assert.assertEquals("name",eSync.getEventListenersRequests().get(0).getEventClassFQNs().get(0));
   Assert.assertNotNull(eSync.getEvents());

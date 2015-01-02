@@ -39,10 +39,10 @@
   Assert.assertEquals("token",uSync.getUserAttachRequest().getUserAccessToken());
   Assert.assertNotNull(uSync.getEndpointAttachRequests());
   Assert.assertEquals(1,uSync.getEndpointAttachRequests().size());
-  Assert.assertEquals(BIG_MAGIC_NUMBER + "",uSync.getEndpointAttachRequests().get(0).getRequestId());
+  Assert.assertEquals(BIG_MAGIC_NUMBER,uSync.getEndpointAttachRequests().get(0).getRequestId());
   Assert.assertEquals("token2",uSync.getEndpointAttachRequests().get(0).getEndpointAccessToken());
   Assert.assertNotNull(uSync.getEndpointDetachRequests());
   Assert.assertEquals(1,uSync.getEndpointDetachRequests().size());
-  Assert.assertEquals((BIG_MAGIC_NUMBER + 1) + "",uSync.getEndpointDetachRequests().get(0).getRequestId());
+  Assert.assertEquals(BIG_MAGIC_NUMBER + 1,uSync.getEndpointDetachRequests().get(0).getRequestId());
   Assert.assertEquals(Base64Util.encode(keyHash),uSync.getEndpointDetachRequests().get(0).getEndpointKeyHash());
 }
