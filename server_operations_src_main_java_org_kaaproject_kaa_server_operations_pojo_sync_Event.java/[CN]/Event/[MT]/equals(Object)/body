@@ -1,0 +1,48 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  Event other=(Event)obj;
+  if (eventClassFQN == null) {
+    if (other.eventClassFQN != null) {
+      return false;
+    }
+  }
+ else   if (!eventClassFQN.equals(other.eventClassFQN)) {
+    return false;
+  }
+  if (eventData == null) {
+    if (other.eventData != null) {
+      return false;
+    }
+  }
+ else   if (!eventData.equals(other.eventData)) {
+    return false;
+  }
+  if (seqNum != other.seqNum) {
+    return false;
+  }
+  if (source == null) {
+    if (other.source != null) {
+      return false;
+    }
+  }
+ else   if (!source.equals(other.source)) {
+    return false;
+  }
+  if (target == null) {
+    if (other.target != null) {
+      return false;
+    }
+  }
+ else   if (!target.equals(other.target)) {
+    return false;
+  }
+  return true;
+}

@@ -1,0 +1,16 @@
+{
+  int requestsCount=getIntFromUnsignedShort(buf);
+  List<EventListenersRequest> requests=new ArrayList<>(requestsCount);
+  for (int i=0; i < requestsCount; i++) {
+    int requestId=getIntFromUnsignedShort(buf);
+    int fqnCount=getIntFromUnsignedShort(buf);
+    List<String> fqns=new ArrayList<>(fqnCount);
+    for (int j=0; j < fqnCount; j++) {
+      int fqnLength=getIntFromUnsignedShort(buf);
+      buf.getShort();
+      fqns.add(getUTF8String(buf,fqnLength));
+    }
+    requests.add(new EventListenersRequest(requestId,fqns));
+  }
+  return requests;
+}

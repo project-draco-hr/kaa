@@ -1,13 +1,14 @@
 {
   ChannelHandlerContext channelContextMock=Mockito.mock(ChannelHandlerContext.class);
   SyncRequest request=new SyncRequest();
+  request.setRequestId(REQUEST_ID);
   SyncRequestMetaData md=new SyncRequestMetaData();
   md.setApplicationToken(APP_TOKEN);
   md.setEndpointPublicKeyHash(clientPublicKeyHash);
   request.setSyncRequestMetaData(md);
   SyncResponseHolder holder=simpleResponse;
   Mockito.when(cacheService.getEndpointKey(EndpointObjectHash.fromBytes(clientPublicKeyHash.array()))).thenReturn(clientPair.getPublic());
-  Mockito.when(operationsService.sync(request,null)).thenReturn(holder);
+  Mockito.when(operationsService.sync(AvroEncDec.convert(request),null)).thenReturn(holder);
   Assert.assertNotNull(akkaService.getActorSystem());
   ResponseBuilder responseBuilder=Mockito.mock(ResponseBuilder.class);
   ErrorBuilder errorBuilder=Mockito.mock(ErrorBuilder.class);
@@ -15,6 +16,6 @@
   SessionInitRequest message2=toSignedRequest(UUID.randomUUID(),ChannelType.HTTP,channelContextMock,request,responseBuilder,errorBuilder);
   akkaService.process(message1);
   akkaService.process(message2);
-  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeast(2)).sync(request,null);
+  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeast(2)).sync(AvroEncDec.convert(request),null);
   Mockito.verify(responseBuilder,Mockito.timeout(TIMEOUT).atLeast(2)).build(Mockito.any(byte[].class),Mockito.any(boolean.class));
 }

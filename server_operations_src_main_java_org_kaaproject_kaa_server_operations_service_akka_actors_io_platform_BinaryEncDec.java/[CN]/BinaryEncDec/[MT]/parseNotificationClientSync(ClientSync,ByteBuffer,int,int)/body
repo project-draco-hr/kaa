@@ -1,0 +1,25 @@
+{
+  int payloadLimitPosition=buf.position() + payloadLength - TOPIC_LIST_HASH_SIZE;
+  NotificationClientSync nfSync=new NotificationClientSync();
+  nfSync.setAppStateSeqNumber(buf.getInt());
+  while (buf.position() < payloadLimitPosition) {
+    byte fieldId=buf.get();
+    buf.get();
+switch (fieldId) {
+case NF_TOPIC_STATES_FIELD_ID:
+      nfSync.setTopicStates(parseTopicStates(buf));
+    break;
+case NF_UNICAST_LIST_FIELD_ID:
+  nfSync.setAcceptedUnicastNotifications(parseUnicastIds(buf));
+break;
+case NF_SUBSCRIPTION_ADD_FIELD_ID:
+parseSubscriptionCommands(nfSync,buf,true);
+break;
+case NF_SUBSCRIPTION_REMOVE_FIELD_ID:
+parseSubscriptionCommands(nfSync,buf,false);
+break;
+}
+}
+nfSync.setTopicListHash(getNewByteBuffer(buf,TOPIC_LIST_HASH_SIZE));
+sync.setNotificationSync(nfSync);
+}

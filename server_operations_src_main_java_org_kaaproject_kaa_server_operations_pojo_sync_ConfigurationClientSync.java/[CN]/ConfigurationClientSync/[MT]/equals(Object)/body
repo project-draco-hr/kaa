@@ -1,0 +1,24 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  ConfigurationClientSync other=(ConfigurationClientSync)obj;
+  if (appStateSeqNumber != other.appStateSeqNumber) {
+    return false;
+  }
+  if (configurationHash == null) {
+    if (other.configurationHash != null) {
+      return false;
+    }
+  }
+ else   if (!configurationHash.equals(other.configurationHash)) {
+    return false;
+  }
+  return true;
+}

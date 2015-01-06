@@ -1,0 +1,11 @@
+{
+  ByteBuffer buf=ByteBuffer.wrap(new byte[4]);
+  buf.putInt(MAGIC_NUMBER);
+  ClientSync sync=encDec.decode(concat(buildHeader(Constants.KAA_PLATFORM_PROTOCOL_BINARY_ID,1,2),getValidMetaData(),buildExtensionHeader(BinaryEncDec.CONFIGURATION_EXTENSION_ID,0,0,0,buf.array().length),buf.array()));
+  Assert.assertNotNull(sync);
+  Assert.assertNotNull(sync.getClientSyncMetaData());
+  Assert.assertNotNull(sync.getConfigurationSync());
+  ConfigurationClientSync cSync=sync.getConfigurationSync();
+  Assert.assertEquals(MAGIC_NUMBER,cSync.getAppStateSeqNumber());
+  Assert.assertNull(cSync.getConfigurationHash());
+}

@@ -7,6 +7,6 @@
   when(attachedEndpointMock.getEndpointKeyHash()).thenReturn(ENDPOINT_KEY_HASH);
   EndpointAttachResponse response=endpointUserService.attachEndpoint(profileMock,request);
   assertNotNull(response);
-  assertEquals(SyncResponseResultType.SUCCESS,response.getResult());
+  assertEquals(SyncStatus.SUCCESS,response.getResult());
   assertEquals(REQUEST_ID,response.getRequestId());
 }

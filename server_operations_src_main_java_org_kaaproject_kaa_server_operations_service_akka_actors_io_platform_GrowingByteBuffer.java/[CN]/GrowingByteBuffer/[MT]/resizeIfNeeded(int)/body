@@ -1,0 +1,7 @@
+{
+  if (size > data.remaining()) {
+    int position=data.position();
+    data=ByteBuffer.wrap(Arrays.copyOf(data.array(),Math.max(data.position() + size,data.array().length * 2)));
+    data.position(position);
+  }
+}

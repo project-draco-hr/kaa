@@ -1,0 +1,19 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  EndpointDetachResponse other=(EndpointDetachResponse)obj;
+  if (requestId != other.requestId) {
+    return false;
+  }
+  if (result != other.result) {
+    return false;
+  }
+  return true;
+}
