@@ -6,6 +6,14 @@
       onUnauthorized();
       handled=true;
     }
+ else     if (sce.getStatusCode() == 0) {
+      handleNetworkConnectionError();
+      handled=true;
+    }
+  }
+ else   if (caught instanceof IncompatibleRemoteServiceException) {
+    MessageDialog.showMessageDialog(AlertPanel.Type.ERROR,constants.incompatibleRemoteService(),messages.incompatibleRemoteService());
+    handled=true;
   }
   if (!handled) {
     String message=parseErrorMessage(caught,errorMessageCustomizer);
