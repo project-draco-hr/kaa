@@ -1,0 +1,14 @@
+{
+  String schema=recordFieldWidget.getValue().getSchema();
+  KaaAdmin.getDataSource().getRecordDataFromFile(schema,recordFileItemName,new AsyncCallback<RecordField>(){
+    @Override public void onSuccess(    RecordField result){
+      setValue(result,true);
+      recordFileUpload.reset();
+      uploadButton.setEnabled(false);
+    }
+    @Override public void onFailure(    Throwable caught){
+      Utils.handleException(caught,hasErrorMessage);
+    }
+  }
+);
+}

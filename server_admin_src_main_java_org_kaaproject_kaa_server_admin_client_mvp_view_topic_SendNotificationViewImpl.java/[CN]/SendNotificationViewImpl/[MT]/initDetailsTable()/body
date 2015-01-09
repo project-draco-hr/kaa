@@ -1,0 +1,24 @@
+{
+  int row=0;
+  Label label=new Label(Utils.constants.notificationSchema());
+  label.addStyleName(Utils.fieldWidgetStyle.requiredField());
+  notificationSchemaInfo=new SchemaInfoListBox();
+  detailsTable.setWidget(row,0,label);
+  detailsTable.setWidget(row,1,notificationSchemaInfo);
+  notificationSchemaInfo.addValueChangeHandler(new ValueChangeHandler<SchemaInfoDto>(){
+    @Override public void onValueChange(    ValueChangeEvent<SchemaInfoDto> event){
+      updateNotificationData(event.getValue());
+    }
+  }
+);
+  row++;
+  label=new Label(Utils.constants.expiresAt());
+  expiredAt=new DateBox();
+  expiredAt.setWidth("200px");
+  detailsTable.setWidget(row,0,label);
+  detailsTable.setWidget(row,1,expiredAt);
+  getFooter().addStyleName(Utils.kaaAdminStyle.bAppContentDetailsTable());
+  notificationData=new RecordPanel(Utils.constants.notificationBody(),this,false,false);
+  notificationData.addValueChangeHandler(this);
+  getFooter().add(notificationData);
+}

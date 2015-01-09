@@ -1,0 +1,47 @@
+{
+  this.readOnly=readOnly;
+  this.hasErrorMessage=hasErrorMessage;
+  FlexTable table=new FlexTable();
+  CaptionPanel recordCaption=new CaptionPanel();
+  if (optional) {
+    recordCaption.setCaptionText(title);
+  }
+ else {
+    SpanElement span=Document.get().createSpanElement();
+    span.appendChild(Document.get().createTextNode(title));
+    span.addClassName("gwt-Label");
+    span.addClassName(REQUIRED);
+    recordCaption.setCaptionHTML(span.getString());
+  }
+  recordFieldWidget=new RecordFieldWidget();
+  recordCaption.setContentWidget(recordFieldWidget);
+  recordCaption.setWidth("100%");
+  table.setWidget(0,0,recordCaption);
+  if (!readOnly) {
+    Widget label=new Label(Utils.constants.uploadFromFile());
+    recordFileUpload=new FileUploadForm();
+    recordFileUpload.setWidth("200px");
+    recordFileUpload.addSubmitCompleteHandler(new SubmitCompleteHandler(){
+      @Override public void onSubmitComplete(      SubmitCompleteEvent event){
+        loadRecordFromFile();
+      }
+    }
+);
+    recordFileUpload.addChangeHandler(this);
+    recordFileItemName=recordFileUpload.getFileItemName();
+    uploadButton=new Button(Utils.constants.upload(),new ClickHandler(){
+      @Override public void onClick(      ClickEvent event){
+        recordFileUpload.submit();
+      }
+    }
+);
+    uploadButton.addStyleName(Utils.kaaAdminStyle.bAppButtonSmall());
+    uploadButton.setEnabled(false);
+    table.setWidget(1,0,label);
+    table.setWidget(1,1,recordFileUpload);
+    table.setWidget(1,2,uploadButton);
+    table.getFlexCellFormatter().setVerticalAlignment(1,0,HasVerticalAlignment.ALIGN_MIDDLE);
+    table.getFlexCellFormatter().setColSpan(0,0,3);
+  }
+  setWidget(table);
+}

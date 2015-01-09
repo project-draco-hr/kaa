@@ -8,7 +8,7 @@
   }
   userEntity.setPasswordResetHash(null);
   String generatedPassword=RandomStringUtils.randomAlphanumeric(User.TEMPORARY_PASSWORD_LENGTH);
-  userEntity.setPassword(passwordEncoder.encodePassword(generatedPassword,null));
+  userEntity.setPassword(passwordEncoder.encode(generatedPassword));
   userEntity.setTempPassword(true);
   userFacade.save(userEntity);
   messagingService.sendPasswordAfterReset(userEntity.getUsername(),generatedPassword,userEntity.getMail());

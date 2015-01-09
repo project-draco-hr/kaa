@@ -4,7 +4,7 @@
   if (userDto.getExternalUid() == null || userDto.getExternalUid().isEmpty()) {
     user=new User();
     generatedPassword=RandomStringUtils.randomAlphanumeric(User.TEMPORARY_PASSWORD_LENGTH);
-    user.setPassword(passwordEncoder.encodePassword(generatedPassword,null));
+    user.setPassword(passwordEncoder.encode(generatedPassword));
     user.setTempPassword(true);
     user.setEnabled(true);
   }
