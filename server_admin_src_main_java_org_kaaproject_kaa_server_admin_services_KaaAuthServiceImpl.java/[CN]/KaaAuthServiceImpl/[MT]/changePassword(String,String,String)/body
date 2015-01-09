@@ -3,13 +3,13 @@
   if (userEntity == null) {
     return ResultCode.USER_NOT_FOUND;
   }
-  if (!passwordEncoder.isPasswordValid(userEntity.getPassword(),oldPassword,null)) {
+  if (!passwordEncoder.matches(oldPassword,userEntity.getPassword())) {
     return ResultCode.OLD_PASSWORD_MISMATCH;
   }
   if (!checkPasswordStrength(newPassword)) {
     return ResultCode.BAD_PASSWORD_STRENGTH;
   }
-  userEntity.setPassword(passwordEncoder.encodePassword(newPassword,null));
+  userEntity.setPassword(passwordEncoder.encode(newPassword));
   userEntity.setTempPassword(false);
   userFacade.save(userEntity);
   return ResultCode.OK;
