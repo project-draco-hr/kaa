@@ -6,7 +6,7 @@
   this.version=dto.getVersion();
   this.lastModifyTime=dto.getLastTimeModify();
   this.type=dto.getType();
-  this.body=ByteBuffer.wrap(dto.getBody());
+  this.body=getByteBuffer(dto.getBody());
   this.expiredAt=dto.getExpiredAt();
   this.seqNum=dto.getSecNum();
 }

@@ -1,2 +1,13 @@
 {
+  String topicId=UUID.randomUUID().toString();
+  List<NotificationDto> expectedList=new ArrayList<>();
+  expectedList.addAll(generateNotifications(topicId,null,null,7,NotificationTypeDto.USER));
+  List<CassandraNotification> foundList=notificationDao.findNotificationsByTopicIdAndVersionAndStartSecNum(topicId,3,0,1);
+  Assert.assertEquals(3,foundList.size());
+  for (int i=0; i < foundList.size(); i++) {
+    CassandraNotification notification=foundList.get(i);
+    Assert.assertEquals(NotificationTypeDto.USER,notification.getType());
+    Assert.assertEquals(topicId,notification.getTopicId());
+    Assert.assertTrue(3 < notification.getSeqNum());
+  }
 }

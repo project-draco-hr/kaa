@@ -1,6 +1,6 @@
 {
   TopicDto topicDto=generateTopic(null,null);
-  EndpointProfileDto profile=generateEndpointprofile(topicDto.getApplicationId(),Arrays.asList(topicDto.getId()));
+  EndpointProfileDto profile=generateEndpointProfile(topicDto.getApplicationId(),Arrays.asList(topicDto.getId()));
   byte[] keyHash=profile.getEndpointKeyHash();
   EndpointNotificationDto notification=generateUnicastNotification(null,topicDto.getId(),keyHash);
   Assert.assertTrue(isNotBlank(notification.getId()));

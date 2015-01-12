@@ -1,5 +1,5 @@
 {
-  EndpointProfileDto endpointProfile=generateEndpointprofile(null,null);
+  EndpointProfileDto endpointProfile=generateEndpointProfile(null,null);
   Assert.assertNotNull(endpointProfile);
   MongoEndpointProfile converted=new MongoEndpointProfile(endpointProfile);
   Assert.assertEquals(endpointProfile,converted.toDto());

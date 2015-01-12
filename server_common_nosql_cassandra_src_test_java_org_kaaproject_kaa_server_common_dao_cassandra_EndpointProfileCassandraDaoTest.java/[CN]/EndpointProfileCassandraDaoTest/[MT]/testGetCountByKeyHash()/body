@@ -1,2 +1,5 @@
 {
+  EndpointProfileDto endpointProfile=generateEndpointProfile(null,null,null);
+  long count=endpointProfileDao.getCountByKeyHash(endpointProfile.getEndpointKeyHash());
+  Assert.assertEquals(1L,count);
 }

@@ -1,5 +1,5 @@
 {
-  EndpointProfileDto endpointProfile=generateEndpointprofile(null,null);
+  EndpointProfileDto endpointProfile=generateEndpointProfile(null,null);
   Assert.assertNotNull(endpointProfile);
   long count=endpointProfileDao.getCountByKeyHash(endpointProfile.getEndpointKeyHash());
   Assert.assertEquals(1,count);

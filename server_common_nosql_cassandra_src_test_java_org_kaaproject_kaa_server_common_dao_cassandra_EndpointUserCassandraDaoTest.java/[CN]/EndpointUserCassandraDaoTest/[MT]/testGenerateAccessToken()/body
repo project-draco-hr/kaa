@@ -1,2 +1,6 @@
 {
+  EndpointUserDto expected=generateEndpointUser();
+  String accessToken=userEndpointUserDao.generateAccessToken(expected.getExternalId(),expected.getTenantId());
+  CassandraEndpointUser found=userEndpointUserDao.findByExternalIdAndTenantId(expected.getExternalId(),expected.getTenantId());
+  Assert.assertEquals(accessToken,found.getAccessToken());
 }

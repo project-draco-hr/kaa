@@ -1,2 +1,6 @@
 {
+  EndpointProfileDto expected=generateEndpointProfile(null,null,null);
+  endpointProfileDao.removeByKeyHash(expected.getEndpointKeyHash());
+  EndpointProfile found=endpointProfileDao.findByKeyHash(expected.getEndpointKeyHash());
+  Assert.assertNull(found);
 }

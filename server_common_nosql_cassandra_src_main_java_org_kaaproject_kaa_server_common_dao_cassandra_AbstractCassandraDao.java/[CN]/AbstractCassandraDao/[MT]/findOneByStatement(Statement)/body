@@ -1,6 +1,6 @@
 {
   T object=null;
-  ResultSet resultSet=session.execute(statement);
+  ResultSet resultSet=getSession().execute(statement);
   Result result=getMapper().map(resultSet);
   if (result != null) {
     object=(T)result.one();

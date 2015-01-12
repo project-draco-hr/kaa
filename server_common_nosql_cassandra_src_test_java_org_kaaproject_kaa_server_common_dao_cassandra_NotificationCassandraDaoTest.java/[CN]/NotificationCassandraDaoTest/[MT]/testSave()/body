@@ -1,2 +1,5 @@
 {
+  NotificationDto expected=generateNotifications(null,null,null,1,NotificationTypeDto.USER).get(0);
+  NotificationDto found=notificationDao.findById(expected.getId()).toDto();
+  Assert.assertEquals(expected,found);
 }

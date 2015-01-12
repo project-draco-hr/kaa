@@ -1,7 +1,5 @@
 {
-  final int prime=31;
-  int result=1;
-  result=prime * result + ((configuration == null) ? 0 : configuration.hashCode());
-  result=prime * result + Arrays.hashCode(configurationHash);
+  int result=configurationHash != null ? Arrays.hashCode(configurationHash) : 0;
+  result=31 * result + (configuration != null ? Arrays.hashCode(configuration) : 0);
   return result;
 }

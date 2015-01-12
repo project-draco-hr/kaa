@@ -7,7 +7,7 @@
   dto.setLastTimeModify(lastModifyTime);
   dto.setVersion(version);
   dto.setType(type);
-  dto.setBody(body != null ? body.array() : null);
+  dto.setBody(body != null ? getBytes(body) : null);
   dto.setExpiredAt(expiredAt);
   dto.setSecNum(seqNum);
   return dto;

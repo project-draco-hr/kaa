@@ -1,8 +1,6 @@
 {
-  String id=endConf.get(0);
-  MongoEndpointConfiguration endpointConfiguration=endpointConfigurationDao.findById(id);
+  EndpointConfigurationDto endpointConfiguration=generateEndpointConfiguration();
   Assert.assertNotNull(endpointConfiguration);
-  EndpointConfigurationDto dto=endpointConfiguration.toDto();
-  MongoEndpointConfiguration converted=new MongoEndpointConfiguration(dto);
-  Assert.assertEquals(endpointConfiguration,converted);
+  MongoEndpointConfiguration converted=new MongoEndpointConfiguration(endpointConfiguration);
+  Assert.assertEquals(endpointConfiguration,converted.toDto());
 }

@@ -1,19 +1,8 @@
 {
-  if (this == o) {
-    return true;
-  }
-  if (!(o instanceof MongoEndpointConfiguration)) {
-    return false;
-  }
+  if (this == o)   return true;
+  if (o == null || getClass() != o.getClass())   return false;
   MongoEndpointConfiguration that=(MongoEndpointConfiguration)o;
-  if (!Arrays.equals(configuration,that.configuration)) {
-    return false;
-  }
-  if (!Arrays.equals(configurationHash,that.configurationHash)) {
-    return false;
-  }
-  if (id != null ? !id.equals(that.id) : that.id != null) {
-    return false;
-  }
+  if (!Arrays.equals(configuration,that.configuration))   return false;
+  if (!Arrays.equals(configurationHash,that.configurationHash))   return false;
   return true;
 }

@@ -1,0 +1,9 @@
+{
+  LOG.debug("Try to remove endpoint user by id {}",id);
+  if (isNotBlank(id) && id.contains(KEY_DELIMITER)) {
+    String[] compositeId=id.split(KEY_DELIMITER);
+    if (compositeId != null && compositeId.length == 2) {
+      removeByExternalIdAndTenantId(compositeId[0],compositeId[1]);
+    }
+  }
+}

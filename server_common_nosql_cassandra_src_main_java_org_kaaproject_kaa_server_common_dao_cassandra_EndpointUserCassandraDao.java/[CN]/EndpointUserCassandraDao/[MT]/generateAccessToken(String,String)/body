@@ -1,3 +1,8 @@
 {
-  return null;
+  LOG.debug("Generating access token for endpoint user with external id {} and tenant id {}",externalId,tenantId);
+  String accessToken=UUID.randomUUID().toString();
+  Update.Where query=update(getColumnFamilyName()).with(set(EP_USER_ACCESS_TOKEN_PROPERTY,accessToken)).where(eq(EP_USER_EXTERNAL_ID_PROPERTY,externalId)).and(eq(EP_USER_TENANT_ID_PROPERTY,tenantId));
+  execute(query);
+  LOG.trace("Generated access token {} for endpoint user by query {}",accessToken,query);
+  return accessToken;
 }

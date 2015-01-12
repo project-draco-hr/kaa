@@ -1,8 +1,7 @@
 {
-  String id=endConf.get(0);
-  MongoEndpointConfiguration endpointConfiguration=endpointConfigurationDao.findById(id);
+  EndpointConfigurationDto endpointConfiguration=generateEndpointConfiguration();
   Assert.assertNotNull(endpointConfiguration);
-  endpointConfigurationDao.removeById(id);
-  endpointConfiguration=endpointConfigurationDao.findById(id);
-  Assert.assertNull(endpointConfiguration);
+  endpointConfigurationDao.removeById(ByteBuffer.wrap(endpointConfiguration.getConfigurationHash()));
+  MongoEndpointConfiguration found=endpointConfigurationDao.findById(ByteBuffer.wrap(endpointConfiguration.getConfigurationHash()));
+  Assert.assertNull(found);
 }

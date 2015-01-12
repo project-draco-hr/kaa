@@ -1,2 +1,8 @@
 {
+  String topicId=UUID.randomUUID().toString();
+  List<NotificationDto> expectedList=new ArrayList<>();
+  expectedList.addAll(generateNotifications(topicId,null,null,2,NotificationTypeDto.USER));
+  expectedList.addAll(generateNotifications(topicId,null,null,1,NotificationTypeDto.SYSTEM));
+  List<CassandraNotification> found=notificationDao.findNotificationsByTopicId(topicId);
+  Assert.assertEquals(expectedList.size(),found.size());
 }

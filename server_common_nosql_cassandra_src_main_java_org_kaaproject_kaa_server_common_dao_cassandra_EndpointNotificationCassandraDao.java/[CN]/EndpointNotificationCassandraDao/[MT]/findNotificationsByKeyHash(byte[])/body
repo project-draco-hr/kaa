@@ -2,7 +2,7 @@
   LOG.debug("Find endpoint notifications by endpoint key hash {}",keyHash);
   List<CassandraEndpointNotification> cassandraEndpointNotifications=Collections.emptyList();
   if (keyHash != null) {
-    Select.Where where=select().from(getColumnFamilyName()).where(eq(ENDPOINT_NOTIFICATION_ENDPOINT_KEY_HASH_PROPERTY,getByteBuffer(keyHash)));
+    Select.Where where=select().from(getColumnFamilyName()).where(eq(ENDPOINT_NF_ENDPOINT_KEY_HASH_PROPERTY,getByteBuffer(keyHash)));
     LOG.debug("Execute query {}:",where);
     cassandraEndpointNotifications=findListByStatement(where);
   }

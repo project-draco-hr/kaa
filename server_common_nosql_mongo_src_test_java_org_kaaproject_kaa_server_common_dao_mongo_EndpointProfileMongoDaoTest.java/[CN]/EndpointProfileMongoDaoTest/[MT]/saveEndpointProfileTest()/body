@@ -1,5 +1,5 @@
 {
-  EndpointProfileDto endpointProfile=generateEndpointprofile(null,null);
+  EndpointProfileDto endpointProfile=generateEndpointProfile(null,null);
   Assert.assertNotNull(endpointProfile);
   endpointProfile.setId(null);
   MongoEndpointProfile saved=endpointProfileDao.save(new MongoEndpointProfile(endpointProfile));

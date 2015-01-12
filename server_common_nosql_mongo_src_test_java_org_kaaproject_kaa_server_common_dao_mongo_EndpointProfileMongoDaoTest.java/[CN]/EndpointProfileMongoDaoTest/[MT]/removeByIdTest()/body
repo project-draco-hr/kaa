@@ -1,7 +1,7 @@
 {
-  EndpointProfileDto epDto=generateEndpointprofile(null,null);
+  EndpointProfileDto epDto=generateEndpointProfile(null,null);
   Assert.assertNotNull(epDto);
-  endpointProfileDao.removeById(epDto.getId());
-  MongoEndpointProfile endpointProfile=endpointProfileDao.findById(epDto.getId());
+  endpointProfileDao.removeById(ByteBuffer.wrap(epDto.getEndpointKeyHash()));
+  MongoEndpointProfile endpointProfile=endpointProfileDao.findById(ByteBuffer.wrap(epDto.getEndpointKeyHash()));
   Assert.assertNull(endpointProfile);
 }

@@ -1,3 +1,9 @@
 {
-  return false;
+  LOG.debug("Check access token [{}] for endpoint user with external id {} and tenant id {}",accessToken,externalId,tenantId);
+  boolean result=false;
+  CassandraEndpointUser endpointUser=findByExternalIdAndTenantId(externalId,tenantId);
+  if (endpointUser != null && accessToken != null) {
+    result=accessToken.equals(endpointUser.getAccessToken());
+  }
+  return result;
 }

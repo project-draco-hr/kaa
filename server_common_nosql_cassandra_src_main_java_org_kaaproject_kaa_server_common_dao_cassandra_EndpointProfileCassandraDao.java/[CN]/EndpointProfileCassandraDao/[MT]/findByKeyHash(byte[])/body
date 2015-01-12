@@ -1,3 +1,4 @@
 {
+  LOG.debug("Try to find endpoint profile by key hash {}",endpointKeyHash);
   return (CassandraEndpointProfile)getMapper().get(getByteBuffer(endpointKeyHash));
 }
