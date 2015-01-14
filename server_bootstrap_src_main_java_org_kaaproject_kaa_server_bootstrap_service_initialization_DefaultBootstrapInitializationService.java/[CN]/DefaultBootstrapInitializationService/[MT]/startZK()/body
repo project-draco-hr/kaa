@@ -4,17 +4,11 @@
     BootstrapNodeInfo nodeInfo=new BootstrapNodeInfo();
     ByteBuffer keyData=ByteBuffer.wrap(keyStoreService.getPublicKey().getEncoded());
     LOG.trace("Bootstrap server: registering in ZK: thriftHost {}; thriftPort {}; nettyHost {}; nettyPort {}",thriftHost,thriftPort,nettyHost,nettyPort);
-    ConnectionInfo connectionInfo=new ConnectionInfo(thriftHost,thriftPort,keyData);
-    List<BootstrapSupportedChannel> supportedChannelsList=new LinkedList<>();
-    for (    ServiceChannel channel : nettyServersList) {
-      supportedChannelsList.add(new BootstrapSupportedChannel(channel.getZkSupportedChannel().getZkChannel()));
-    }
-    nodeInfo.setSupportedChannelsArray(supportedChannelsList);
-    nodeInfo.setConnectionInfo(connectionInfo);
+    nodeInfo.setConnectionInfo(new ConnectionInfo(thriftHost,thriftPort,keyData));
+    nodeInfo.setTransports(new ArrayList<TransportMetaData>());
     bootstrapNode=new BootstrapNode(nodeInfo,zkHostPortList,new RetryUntilElapsed(zkMaxRetryTime,zkSleepTime));
     if (bootstrapNode != null) {
       bootstrapNode.start();
-      serverConfig.setBootstrapNode(bootstrapNode);
     }
   }
 }

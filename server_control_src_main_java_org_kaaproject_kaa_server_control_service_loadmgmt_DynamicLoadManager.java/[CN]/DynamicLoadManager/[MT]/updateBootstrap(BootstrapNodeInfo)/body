@@ -1,5 +1,5 @@
 {
-  final String dnsName=getBootstrapNameFromNodeInfo(nodeInfo);
+  final String dnsName=getNameFromConnectionInfo(nodeInfo.getConnectionInfo());
   LOG.debug("Update bootstrap server: {}",dnsName);
   try {
     ThriftClient<BootstrapThriftService.Client> client=new ThriftClient<BootstrapThriftService.Client>(nodeInfo.getConnectionInfo().getThriftHost().toString(),nodeInfo.getConnectionInfo().getThriftPort(),BootstrapThriftService.Client.class);

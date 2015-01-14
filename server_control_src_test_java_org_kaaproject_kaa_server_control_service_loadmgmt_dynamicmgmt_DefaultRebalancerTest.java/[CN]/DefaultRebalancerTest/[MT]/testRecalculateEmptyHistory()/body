@@ -5,13 +5,9 @@
   OperationsServerLoadHistory server1History=new OperationsServerLoadHistory(MAX_HISTORY_TIME_LIVE);
   String server2="dns2";
   OperationsServerLoadHistory server2History=new OperationsServerLoadHistory(MAX_HISTORY_TIME_LIVE);
-  Map<String,Map<ZkChannelType,OperationsServerLoadHistory>> serversHistory=new HashMap<>();
-  Map<ZkChannelType,OperationsServerLoadHistory> server1OpsHistory=new HashMap<>();
-  server1OpsHistory.put(ZkChannelType.HTTP,server1History);
-  serversHistory.put(server1,server1OpsHistory);
-  Map<ZkChannelType,OperationsServerLoadHistory> server2OpsHistory=new HashMap<>();
-  server2OpsHistory.put(ZkChannelType.HTTP,server2History);
-  serversHistory.put(server2,server2OpsHistory);
+  Map<String,OperationsServerLoadHistory> serversHistory=new HashMap<>();
+  serversHistory.put(server1,server1History);
+  serversHistory.put(server2,server2History);
   Map<String,RedirectionRule> rules=rebalancer.recalculate(serversHistory);
   assertNotNull(rules);
   assertEquals(0,rules.size());

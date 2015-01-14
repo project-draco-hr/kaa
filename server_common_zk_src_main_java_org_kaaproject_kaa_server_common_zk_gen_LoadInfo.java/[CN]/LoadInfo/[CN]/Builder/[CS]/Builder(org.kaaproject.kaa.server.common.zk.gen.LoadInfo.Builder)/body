@@ -1,0 +1,7 @@
+{
+  super(other);
+  if (isValidValue(fields()[0],other.loadIndex)) {
+    this.loadIndex=data().deepCopy(fields()[0].schema(),other.loadIndex);
+    fieldSetFlags()[0]=true;
+  }
+}

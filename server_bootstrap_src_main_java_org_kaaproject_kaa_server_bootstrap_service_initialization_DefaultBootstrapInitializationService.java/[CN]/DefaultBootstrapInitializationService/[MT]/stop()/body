@@ -1,12 +1,5 @@
 {
   LOG.trace("Stopping Bootstrap Service..." + propertiesToString());
-  for (  ServiceChannel channel : nettyServersList) {
-    channel.stop();
-  }
-  nettyServersList.clear();
-  if (operationsServerListService != null) {
-    operationsServerListService.stop();
-  }
   if (zkEnabled) {
     stopZK();
   }

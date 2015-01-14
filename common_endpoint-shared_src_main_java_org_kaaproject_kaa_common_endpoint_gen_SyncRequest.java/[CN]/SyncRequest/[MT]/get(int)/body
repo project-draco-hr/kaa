@@ -5,16 +5,18 @@ case 0:
 case 1:
   return syncRequestMetaData;
 case 2:
-return profileSyncRequest;
+return bootstrapSyncRequest;
 case 3:
-return configurationSyncRequest;
+return profileSyncRequest;
 case 4:
-return notificationSyncRequest;
+return configurationSyncRequest;
 case 5:
-return userSyncRequest;
+return notificationSyncRequest;
 case 6:
-return eventSyncRequest;
+return userSyncRequest;
 case 7:
+return eventSyncRequest;
+case 8:
 return logSyncRequest;
 default :
 throw new org.apache.avro.AvroRuntimeException("Bad index");

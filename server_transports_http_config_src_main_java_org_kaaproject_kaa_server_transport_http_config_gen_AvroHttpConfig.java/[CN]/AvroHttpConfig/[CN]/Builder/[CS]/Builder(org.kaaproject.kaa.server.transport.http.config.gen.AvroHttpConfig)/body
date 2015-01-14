@@ -1,0 +1,15 @@
+{
+  super(org.kaaproject.kaa.server.transport.http.config.gen.AvroHttpConfig.SCHEMA$);
+  if (isValidValue(fields()[0],other.bindInterface)) {
+    this.bindInterface=data().deepCopy(fields()[0].schema(),other.bindInterface);
+    fieldSetFlags()[0]=true;
+  }
+  if (isValidValue(fields()[1],other.bindPort)) {
+    this.bindPort=data().deepCopy(fields()[1].schema(),other.bindPort);
+    fieldSetFlags()[1]=true;
+  }
+  if (isValidValue(fields()[2],other.maxBodySize)) {
+    this.maxBodySize=data().deepCopy(fields()[2].schema(),other.maxBodySize);
+    fieldSetFlags()[2]=true;
+  }
+}

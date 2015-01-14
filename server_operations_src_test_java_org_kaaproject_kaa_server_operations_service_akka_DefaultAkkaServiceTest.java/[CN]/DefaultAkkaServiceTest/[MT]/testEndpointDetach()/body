@@ -1,5 +1,5 @@
 {
-  ChannelHandlerContext channelContextMock=Mockito.mock(ChannelHandlerContext.class);
+  ChannelContext channelContextMock=Mockito.mock(ChannelContext.class);
   MessageEncoderDecoder targetCrypt=new MessageEncoderDecoder(targetPair.getPrivate(),targetPair.getPublic(),serverPair.getPublic());
   EndpointProfileDto targetProfileMock=Mockito.mock(EndpointProfileDto.class);
   EventClassFamilyVersionStateDto ecfVdto=new EventClassFamilyVersionStateDto();
@@ -15,7 +15,7 @@
   targetRequest.setEventSyncRequest(new EventSyncRequest());
   ServerSync targetResponse=new ServerSync();
   targetResponse.setRequestId(REQUEST_ID);
-  targetResponse.setStatus(org.kaaproject.kaa.server.operations.pojo.sync.SyncStatus.SUCCESS);
+  targetResponse.setStatus(org.kaaproject.kaa.server.sync.SyncStatus.SUCCESS);
   targetResponse.setUserSync(new UserServerSync());
   SyncResponseHolder targetResponseHolder=new SyncResponseHolder(targetResponse);
   targetResponseHolder.setEndpointProfile(targetProfileMock);
@@ -27,9 +27,9 @@
   RouteTableKey routeKey=new RouteTableKey(APP_TOKEN,new EventClassFamilyVersion(ECF1_ID,ECF1_VERSION));
   when(cacheService.getRouteKeys(new EventClassFqnVersion(TENANT_ID,FQN1,ECF1_VERSION))).thenReturn(Collections.singleton(routeKey));
   Assert.assertNotNull(akkaService.getActorSystem());
-  ResponseBuilder targetResponseBuilder=Mockito.mock(ResponseBuilder.class);
+  MessageBuilder targetResponseBuilder=Mockito.mock(MessageBuilder.class);
   ErrorBuilder targetErrorBuilder=Mockito.mock(ErrorBuilder.class);
-  SessionInitRequest targetMessage=toSignedRequest(UUID.randomUUID(),ChannelType.HTTP_LP,channelContextMock,targetRequest,targetResponseBuilder,targetErrorBuilder,targetCrypt);
+  SessionInitMessage targetMessage=toSignedRequest(UUID.randomUUID(),ChannelType.HTTP_LP,channelContextMock,targetRequest,targetResponseBuilder,targetErrorBuilder,targetCrypt);
   akkaService.process(targetMessage);
   Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeastOnce()).sync(AvroEncDec.convert(targetRequest),null);
   Mockito.verify(eventService,Mockito.timeout(TIMEOUT).atLeastOnce()).sendUserRouteInfo(new UserRouteInfo(TENANT_ID,USER_ID));
@@ -48,9 +48,9 @@
   sourceRequest.setUserSyncRequest(userSyncRequest);
   ServerSync sourceResponse=new ServerSync();
   sourceResponse.setRequestId(REQUEST_ID);
-  sourceResponse.setStatus(org.kaaproject.kaa.server.operations.pojo.sync.SyncStatus.SUCCESS);
+  sourceResponse.setStatus(org.kaaproject.kaa.server.sync.SyncStatus.SUCCESS);
   UserServerSync userSyncResponse=new UserServerSync();
-  userSyncResponse.setEndpointDetachResponses(Collections.singletonList(new org.kaaproject.kaa.server.operations.pojo.sync.EndpointDetachResponse(REQUEST_ID,org.kaaproject.kaa.server.operations.pojo.sync.SyncStatus.SUCCESS)));
+  userSyncResponse.setEndpointDetachResponses(Collections.singletonList(new org.kaaproject.kaa.server.sync.EndpointDetachResponse(REQUEST_ID,org.kaaproject.kaa.server.sync.SyncStatus.SUCCESS)));
   sourceResponse.setUserSync(userSyncResponse);
   SyncResponseHolder sourceResponseHolder=new SyncResponseHolder(sourceResponse);
   sourceResponseHolder.setEndpointProfile(sourceProfileMock);
@@ -58,9 +58,9 @@
   when(sourceProfileMock.getEndpointUserId()).thenReturn(USER_ID);
   when(sourceProfileMock.getEndpointKeyHash()).thenReturn(clientPublicKeyHash.array());
   when(sourceProfileMock.getEcfVersionStates()).thenReturn(Arrays.asList(ecfVdto));
-  ResponseBuilder sourceResponseBuilder=Mockito.mock(ResponseBuilder.class);
+  MessageBuilder sourceResponseBuilder=Mockito.mock(MessageBuilder.class);
   ErrorBuilder sourceErrorBuilder=Mockito.mock(ErrorBuilder.class);
-  SessionInitRequest sourceMessage=toSignedRequest(UUID.randomUUID(),ChannelType.HTTP_LP,channelContextMock,sourceRequest,sourceResponseBuilder,sourceErrorBuilder);
+  SessionInitMessage sourceMessage=toSignedRequest(UUID.randomUUID(),ChannelType.HTTP_LP,channelContextMock,sourceRequest,sourceResponseBuilder,sourceErrorBuilder);
   akkaService.process(sourceMessage);
   Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeastOnce()).sync(AvroEncDec.convert(sourceRequest),null);
   SyncResponse targetSyncResponse=new SyncResponse();

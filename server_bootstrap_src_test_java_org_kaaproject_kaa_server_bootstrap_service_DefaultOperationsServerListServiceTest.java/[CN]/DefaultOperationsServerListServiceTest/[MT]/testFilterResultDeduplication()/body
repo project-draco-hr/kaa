@@ -1,0 +1,8 @@
+{
+  Set<ProtocolConnectionData> result=service.filter(Arrays.asList(new ProtocolVersionKey(3,1),new ProtocolVersionKey(3,1)));
+  Assert.assertNotNull(result);
+  Assert.assertEquals(1,result.size());
+  Assert.assertNotNull(result.iterator().next());
+  Assert.assertEquals(3,result.iterator().next().getProtocolId());
+  Assert.assertEquals(1,result.iterator().next().getProtocolVersion());
+}

@@ -1,0 +1,9 @@
+{
+  opsMap=new ConcurrentHashMap<String,OperationsNodeInfo>();
+  cache=new Memorizer<List<ProtocolVersionKey>,Set<ProtocolConnectionData>>(new Computable<List<ProtocolVersionKey>,Set<ProtocolConnectionData>>(){
+    @Override public Set<ProtocolConnectionData> compute(    List<ProtocolVersionKey> arg) throws InterruptedException {
+      return filterProtocolInstances(arg);
+    }
+  }
+);
+}

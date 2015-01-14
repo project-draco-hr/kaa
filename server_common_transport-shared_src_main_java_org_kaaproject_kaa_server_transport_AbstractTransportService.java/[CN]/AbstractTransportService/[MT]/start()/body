@@ -1,0 +1,8 @@
+{
+  LOG.info("Starting {} available transports.",transports.size());
+  for (  Entry<Integer,Transport> entry : transports.entrySet()) {
+    LOG.info("Starting transport {}.",configs.get(entry).getName());
+    entry.getValue().start();
+  }
+  notifyListeners();
+}

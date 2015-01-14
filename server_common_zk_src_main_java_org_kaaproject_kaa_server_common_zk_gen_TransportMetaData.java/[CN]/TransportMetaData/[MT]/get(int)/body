@@ -1,0 +1,14 @@
+{
+switch (field$) {
+case 0:
+    return id;
+case 1:
+  return minSupportedVersion;
+case 2:
+return maxSupportedVersion;
+case 3:
+return connectionInfo;
+default :
+throw new org.apache.avro.AvroRuntimeException("Bad index");
+}
+}

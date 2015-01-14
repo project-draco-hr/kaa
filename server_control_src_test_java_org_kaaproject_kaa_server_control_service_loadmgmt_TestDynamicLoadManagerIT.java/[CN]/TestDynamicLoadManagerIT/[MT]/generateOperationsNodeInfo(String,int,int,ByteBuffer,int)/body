@@ -1,0 +1,8 @@
+{
+  OperationsNodeInfo nodeInfo=new OperationsNodeInfo();
+  nodeInfo.setTimeStarted(System.currentTimeMillis());
+  nodeInfo.setTransports(new ArrayList<TransportMetaData>());
+  nodeInfo.setLoadInfo(new LoadInfo(loadInfo));
+  nodeInfo.setConnectionInfo(new ConnectionInfo(thriftHost,thriftPort,publicKey));
+  return nodeInfo;
+}

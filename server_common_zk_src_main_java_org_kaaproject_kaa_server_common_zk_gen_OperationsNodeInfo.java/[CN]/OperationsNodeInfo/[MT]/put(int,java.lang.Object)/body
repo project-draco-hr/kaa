@@ -4,10 +4,13 @@ case 0:
     connectionInfo=(org.kaaproject.kaa.server.common.zk.gen.ConnectionInfo)value$;
   break;
 case 1:
-timeStarted=(java.lang.Long)value$;
+loadInfo=(org.kaaproject.kaa.server.common.zk.gen.LoadInfo)value$;
 break;
 case 2:
-SupportedChannelsArray=(java.util.List<org.kaaproject.kaa.server.common.zk.gen.SupportedChannel>)value$;
+timeStarted=(java.lang.Long)value$;
+break;
+case 3:
+transports=(java.util.List<org.kaaproject.kaa.server.common.zk.gen.TransportMetaData>)value$;
 break;
 default :
 throw new org.apache.avro.AvroRuntimeException("Bad index");

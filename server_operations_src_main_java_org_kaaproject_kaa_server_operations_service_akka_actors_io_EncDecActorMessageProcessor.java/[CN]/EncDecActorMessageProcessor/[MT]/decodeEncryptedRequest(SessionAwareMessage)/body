@@ -1,0 +1,9 @@
+{
+  SessionInfo session=message.getSessionInfo();
+  crypt.setSessionCipherPair(session.getCipherPair());
+  byte[] requestRaw=crypt.decodeData(message.getEncodedMessageData());
+  LOG.trace("Request data decrypted");
+  ClientSync request=decodePlatformLevelData(message.getPlatformId(),requestRaw);
+  LOG.trace("Request data deserialized");
+  return request;
+}

@@ -1,0 +1,10 @@
+{
+  if (source == null) {
+    return Collections.emptyList();
+  }
+  List<ProtocolMetaData> result=new ArrayList<ProtocolMetaData>(source.size());
+  for (  ProtocolConnectionData pcd : source) {
+    result.add(new ProtocolMetaData(pcd.getAccessPointId(),pcd.getProtocolId(),pcd.getProtocolVersion(),ByteBuffer.wrap(pcd.getConnectionData())));
+  }
+  return result;
+}

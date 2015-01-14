@@ -1,11 +1,8 @@
 {
   DynamicLoadManager dm=new DynamicLoadManager(ldServiceMock);
   assertNotNull(dm);
-  Long timeStarted=new Long(0);
-  Integer deltaCalculationCount=new Integer(0);
-  Integer registeredUsersCount=new Integer(0);
   Integer processedRequestCount=new Integer(0);
-  OperationsNodeInfo nodeInfo=generateOperationsNodeInfo("localhost",1200,9898,ByteBuffer.wrap("Just array".getBytes()));
+  OperationsNodeInfo nodeInfo=generateOperationsNodeInfo("localhost",1200,9898,ByteBuffer.wrap("Just array".getBytes()),processedRequestCount);
   dm.onNodeAdded(nodeInfo);
   LOG.info("BootstrapNodeTest Operations Node {} added.",nodeInfo.toString());
   return dm;

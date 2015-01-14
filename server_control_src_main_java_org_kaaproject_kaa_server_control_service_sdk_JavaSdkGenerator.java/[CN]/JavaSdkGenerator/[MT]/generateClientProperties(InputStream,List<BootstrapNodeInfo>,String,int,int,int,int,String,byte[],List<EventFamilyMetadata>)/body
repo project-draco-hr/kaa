@@ -8,32 +8,17 @@
       bootstrapServers+=";";
     }
     BootstrapNodeInfo node=bootstrapNodes.get(nodeIndex);
-    List<BootstrapSupportedChannel> supportedChannels=node.getSupportedChannelsArray();
+    List<TransportMetaData> supportedChannels=node.getTransports();
     for (int chIndex=0; chIndex < supportedChannels.size(); ++chIndex) {
-      ZkSupportedChannel channel=supportedChannels.get(chIndex).getZkChannel();
-      bootstrapServers+=channel.getChannelType().ordinal();
-      bootstrapServers+=":";
-      if (channel.getChannelType() == ZkChannelType.HTTP) {
-        ZkHttpComunicationParameters params=(ZkHttpComunicationParameters)channel.getCommunicationParameters();
-        bootstrapServers+=params.getZkComunicationParameters().getHostName();
+      TransportMetaData transport=supportedChannels.get(chIndex);
+      for (      VersionConnectionInfoPair pair : transport.getConnectionInfo()) {
+        bootstrapServers+=transport.getId();
         bootstrapServers+=":";
-        bootstrapServers+=params.getZkComunicationParameters().getPort();
+        bootstrapServers+=pair.getVersion();
+        bootstrapServers+="|";
+        bootstrapServers+=Base64.encodeBase64String(pair.getConenctionInfo().array());
       }
- else       if (channel.getChannelType() == ZkChannelType.HTTP_LP) {
-        ZkHttpLpComunicationParameters params=(ZkHttpLpComunicationParameters)channel.getCommunicationParameters();
-        bootstrapServers+=params.getZkComunicationParameters().getHostName();
-        bootstrapServers+=":";
-        bootstrapServers+=params.getZkComunicationParameters().getPort();
-      }
- else       if (channel.getChannelType() == ZkChannelType.KAATCP) {
-        ZkKaaTcpComunicationParameters params=(ZkKaaTcpComunicationParameters)channel.getCommunicationParameters();
-        bootstrapServers+=params.getZkComunicationParameters().getHostName();
-        bootstrapServers+=":";
-        bootstrapServers+=params.getZkComunicationParameters().getPort();
-      }
-      bootstrapServers+="|";
     }
-    bootstrapServers+=Base64.encodeBase64String(node.getConnectionInfo().getPublicKey().array());
   }
   String ecfs="";
   if (eventFamilies != null) {

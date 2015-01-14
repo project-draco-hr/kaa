@@ -1,5 +1,5 @@
 {
-  ChannelHandlerContext channelContextMock=Mockito.mock(ChannelHandlerContext.class);
+  ChannelContext channelContextMock=Mockito.mock(ChannelContext.class);
   MessageEncoderDecoder crypt=new MessageEncoderDecoder(clientPair.getPrivate(),clientPair.getPublic(),serverPair.getPublic());
   akkaService.onRedirectionRule(new RedirectionRule("testDNS",123,1.0,1000));
   Thread.sleep(2000);
@@ -10,9 +10,9 @@
   md.setEndpointPublicKeyHash(clientPublicKeyHash);
   md.setTimeout(2l * TIMEOUT);
   request.setSyncRequestMetaData(md);
-  ResponseBuilder responseBuilder=Mockito.mock(ResponseBuilder.class);
+  MessageBuilder responseBuilder=Mockito.mock(MessageBuilder.class);
   ErrorBuilder errorBuilder=Mockito.mock(ErrorBuilder.class);
-  SessionInitRequest message=toSignedRequest(UUID.randomUUID(),ChannelType.HTTP_LP,channelContextMock,request,responseBuilder,errorBuilder,crypt);
+  SessionInitMessage message=toSignedRequest(UUID.randomUUID(),ChannelType.HTTP_LP,channelContextMock,request,responseBuilder,errorBuilder,crypt);
   Mockito.when(operationsService.sync(Mockito.any(ClientSync.class),Mockito.any(EndpointProfileDto.class))).thenReturn(noDeltaResponseWithTopicState);
   akkaService.process(message);
   SyncResponse response=new SyncResponse();

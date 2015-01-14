@@ -1,5 +1,5 @@
 {
-  ChannelHandlerContext channelContextMock=Mockito.mock(ChannelHandlerContext.class);
+  ChannelContext channelContextMock=Mockito.mock(ChannelContext.class);
   EndpointProfileDto sourceProfileMock=Mockito.mock(EndpointProfileDto.class);
   EventClassFamilyVersionStateDto ecfVdto=new EventClassFamilyVersionStateDto();
   ecfVdto.setEcfId(ECF1_ID);
@@ -16,7 +16,7 @@
   eventRequest.setEvents(Arrays.asList(event));
   sourceRequest.setEventSyncRequest(eventRequest);
   ServerSync sourceResponse=new ServerSync();
-  sourceResponse.setStatus(org.kaaproject.kaa.server.operations.pojo.sync.SyncStatus.SUCCESS);
+  sourceResponse.setStatus(org.kaaproject.kaa.server.sync.SyncStatus.SUCCESS);
   SyncResponseHolder sourceResponseHolder=new SyncResponseHolder(sourceResponse);
   sourceResponseHolder.setEndpointProfile(sourceProfileMock);
   when(operationsService.sync(AvroEncDec.convert(sourceRequest),null)).thenReturn(sourceResponseHolder);
@@ -27,10 +27,10 @@
   RouteTableKey routeKey=new RouteTableKey(APP_TOKEN,new EventClassFamilyVersion(ECF1_ID,ECF1_VERSION));
   when(cacheService.getRouteKeys(new EventClassFqnVersion(TENANT_ID,FQN1,ECF1_VERSION))).thenReturn(Collections.singleton(routeKey));
   Assert.assertNotNull(akkaService.getActorSystem());
-  ResponseBuilder responseBuilder=Mockito.mock(ResponseBuilder.class);
+  MessageBuilder responseBuilder=Mockito.mock(MessageBuilder.class);
   ErrorBuilder errorBuilder=Mockito.mock(ErrorBuilder.class);
   MessageEncoderDecoder sourceCrypt=new MessageEncoderDecoder(clientPair.getPrivate(),clientPair.getPublic(),serverPair.getPublic());
-  SessionInitRequest sourceMessage=toSignedRequest(UUID.randomUUID(),ChannelType.HTTP_LP,channelContextMock,sourceRequest,responseBuilder,errorBuilder,sourceCrypt);
+  SessionInitMessage sourceMessage=toSignedRequest(UUID.randomUUID(),ChannelType.HTTP_LP,channelContextMock,sourceRequest,responseBuilder,errorBuilder,sourceCrypt);
   akkaService.process(sourceMessage);
   Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeastOnce()).sync(Mockito.any(ClientSync.class),Mockito.any(EndpointProfileDto.class));
   UserRouteInfo userRouteInfo=new UserRouteInfo(TENANT_ID,USER_ID,SERVER2,RouteOperation.ADD);

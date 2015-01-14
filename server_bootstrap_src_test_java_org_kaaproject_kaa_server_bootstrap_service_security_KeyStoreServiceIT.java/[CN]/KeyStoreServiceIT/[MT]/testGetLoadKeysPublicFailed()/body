@@ -1,6 +1,6 @@
 {
-  assertNotNull("FileKeyStore service created sucessfully",keyStore);
-  FileKeyStoreService fs=(FileKeyStoreService)keyStore;
+  assertNotNull("FileKeyStore service created sucessfully",keyStoreService);
+  FileKeyStoreService fs=(FileKeyStoreService)keyStoreService;
   String pubFileName=fs.getPublicKeyLocation();
   File pubFile=new File(pubFileName);
   if (pubFile.exists() && pubFile.canWrite()) {

@@ -1,7 +1,0 @@
-{
-  KaaHttpService ps=new KaaHttpService(config,serverConfig,initializerMock);
-  ps.setNetty(serverMock);
-  ps.start();
-  verify(serverMock,times(1)).init();
-  verify(serverMock,times(1)).start();
-}

@@ -1,0 +1,11 @@
+{
+  try {
+    BootstrapSyncRequest record=new BootstrapSyncRequest();
+    record.requestId=fieldSetFlags()[0] ? this.requestId : (java.lang.Integer)defaultValue(fields()[0]);
+    record.supportedProtocols=fieldSetFlags()[1] ? this.supportedProtocols : (java.util.List<org.kaaproject.kaa.common.endpoint.gen.ProtocolVersionPair>)defaultValue(fields()[1]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

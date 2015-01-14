@@ -1,6 +1,6 @@
 {
-  assertNotNull("FileKeyStore service created sucessfully",keyStore);
-  FileKeyStoreService fs=(FileKeyStoreService)keyStore;
+  assertNotNull("FileKeyStore service created sucessfully",keyStoreService);
+  FileKeyStoreService fs=(FileKeyStoreService)keyStoreService;
   String privFileName=fs.getPrivateKeyLocation();
   File privFile=new File(privFileName);
   if (privFile.exists() && privFile.canWrite()) {

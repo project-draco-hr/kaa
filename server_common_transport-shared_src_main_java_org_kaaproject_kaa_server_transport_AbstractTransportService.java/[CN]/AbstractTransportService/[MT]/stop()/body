@@ -1,0 +1,7 @@
+{
+  LOG.info("Stoping {} available transports.",transports.size());
+  for (  Entry<Integer,Transport> entry : transports.entrySet()) {
+    LOG.info("Stoping transport {}.",configs.get(entry).getName());
+    entry.getValue().stop();
+  }
+}

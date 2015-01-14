@@ -3,10 +3,5 @@
   assertNotNull(bootstrapThrift.getBootstrapThriftServiceImpl().getOperatonsServerMap());
   assertEquals(1,bootstrapThrift.getBootstrapThriftServiceImpl().getOperatonsServerMap().size());
   assertNotNull(bootstrapThrift.getBootstrapThriftServiceImpl().getOperatonsServerMap().get("localhost:1200"));
-  assertEquals((long)10,(long)bootstrapThrift.getBootstrapThriftServiceImpl().getOperatonsServerMap().get("localhost:1200").getPriority());
-  byte[] pk=bootstrapThrift.getBootstrapThriftServiceImpl().getOperatonsServerMap().get("localhost:1200").getPublicKey().array();
-  assertEquals("Just array".getBytes().length,pk.length);
-  for (int i=0; i < pk.length; i++) {
-    assertEquals("Just array".getBytes()[i],pk[i]);
-  }
+  assertEquals(DEFAULT_PRIORITY,bootstrapThrift.getBootstrapThriftServiceImpl().getOperatonsServerMap().get("localhost:1200").getPriority());
 }

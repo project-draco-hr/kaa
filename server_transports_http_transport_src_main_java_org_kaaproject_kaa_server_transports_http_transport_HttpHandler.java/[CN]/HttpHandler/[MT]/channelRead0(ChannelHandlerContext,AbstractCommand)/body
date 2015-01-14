@@ -1,0 +1,6 @@
+{
+  this.command=(AbstractHttpSyncCommand)msg;
+  NettyHttpSyncMessage message=new NettyHttpSyncMessage(uuid,msg.getNextProtocol(),new NettyChannelContext(ctx),command.getChannelType(),command,this,this);
+  LOG.trace("Forwarding {} to handler",message);
+  messageHandler.process(message);
+}
