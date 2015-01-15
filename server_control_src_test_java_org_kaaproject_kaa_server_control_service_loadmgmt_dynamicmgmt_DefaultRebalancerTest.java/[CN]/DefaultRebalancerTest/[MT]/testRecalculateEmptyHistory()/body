@@ -1,14 +1,14 @@
 {
   DefaultRebalancer rebalancer=new DefaultRebalancer();
   assertNotNull(rebalancer);
-  String server1="dns1";
+  Integer server1="dns1".hashCode();
   OperationsServerLoadHistory server1History=new OperationsServerLoadHistory(MAX_HISTORY_TIME_LIVE);
-  String server2="dns2";
+  Integer server2="dns2".hashCode();
   OperationsServerLoadHistory server2History=new OperationsServerLoadHistory(MAX_HISTORY_TIME_LIVE);
-  Map<String,OperationsServerLoadHistory> serversHistory=new HashMap<>();
+  Map<Integer,OperationsServerLoadHistory> serversHistory=new HashMap<>();
   serversHistory.put(server1,server1History);
   serversHistory.put(server2,server2History);
-  Map<String,RedirectionRule> rules=rebalancer.recalculate(serversHistory);
+  Map<Integer,RedirectionRule> rules=rebalancer.recalculate(serversHistory);
   assertNotNull(rules);
   assertEquals(0,rules.size());
 }

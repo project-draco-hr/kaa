@@ -2,7 +2,7 @@
   DefaultBootstrapManager manager=new DefaultBootstrapManager(null);
   boolean exception=false;
   try {
-    manager.useNextOperationsServer(ChannelType.HTTP_LP);
+    manager.useNextOperationsServer(TransportIdConstants.HTTP_TRANSPORT_ID);
   }
  catch (  BootstrapRuntimeException e) {
     exception=true;
@@ -12,24 +12,16 @@
   KeyPairGenerator keyGen=KeyPairGenerator.getInstance("RSA");
   keyGen.initialize(2048);
   KeyPair keyPair=keyGen.genKeyPair();
-  OperationsServerList serverList=new OperationsServerList();
-  OperationsServer server=new OperationsServer();
-  server.setName("localhost:9889");
-  server.setPublicKey(ByteBuffer.wrap(keyPair.getPublic().getEncoded()));
-  List<SupportedChannel> channels=new LinkedList<>();
-  server.setSupportedChannelsArray(channels);
-  channels.add(new SupportedChannel(ChannelType.HTTP_LP,new HTTPLPComunicationParameters("localhost",9889)));
-  LinkedList<OperationsServer> list=new LinkedList<OperationsServer>();
-  list.add(server);
-  serverList.setOperationsServerArray(list);
-  ChanelManagerMock channelManager=spy(new ChanelManagerMock(true));
+  List<ProtocolMetaData> list=new ArrayList<ProtocolMetaData>();
+  ProtocolMetaData md=IPTransportInfoTest.buildMetaData(TransportIdConstants.HTTP_TRANSPORT_ID,"localhost",9889,keyPair.getPublic());
+  list.add(md);
+  ChanelManagerMock channelManager=spy(new ChanelManagerMock());
   manager.setChannelManager(channelManager);
   manager.setTransport(transport);
-  manager.onServerListUpdated(serverList);
-  manager.useNextOperationsServer(ChannelType.HTTP_LP);
+  manager.onProtocolListUpdated(list);
+  manager.useNextOperationsServer(TransportIdConstants.HTTP_TRANSPORT_ID);
   assertTrue(channelManager.isServerUpdated());
-  assertEquals("http://localhost:9889/EP/LongSync",channelManager.getReceivedUrl());
-  manager.useNextOperationsServerByDnsName(null);
-  manager.useNextOperationsServerByDnsName("some.name");
-  verify(channelManager,times(1)).onServerUpdated(any(ServerInfo.class));
+  assertEquals("http://localhost:9889",channelManager.getReceivedUrl());
+  manager.useNextOperationsServerByAccessPointId("some.name".hashCode());
+  verify(channelManager,times(1)).onServerUpdated(Mockito.any(ServerInfo.class));
 }

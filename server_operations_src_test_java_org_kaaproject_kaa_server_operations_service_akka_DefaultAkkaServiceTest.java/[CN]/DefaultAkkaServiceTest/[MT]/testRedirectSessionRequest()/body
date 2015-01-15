@@ -1,7 +1,7 @@
 {
   ChannelContext channelContextMock=Mockito.mock(ChannelContext.class);
   MessageEncoderDecoder crypt=new MessageEncoderDecoder(clientPair.getPrivate(),clientPair.getPublic(),serverPair.getPublic());
-  akkaService.onRedirectionRule(new RedirectionRule("testDNS",123,1.0,60000));
+  akkaService.onRedirectionRule(new RedirectionRule("testDNS".hashCode(),123,1.0,60000));
   Thread.sleep(1000);
   SyncRequest request=new SyncRequest();
   request.setRequestId(32);
@@ -14,7 +14,7 @@
   final ErrorBuilder errorBuilder=Mockito.mock(ErrorBuilder.class);
   AvroByteArrayConverter<SyncRequest> requestConverter=new AvroByteArrayConverter<>(SyncRequest.class);
   final org.kaaproject.kaa.common.channels.protocols.kaatcp.messages.SyncRequest kaaSync=new org.kaaproject.kaa.common.channels.protocols.kaatcp.messages.SyncRequest(crypt.encodeData(requestConverter.toByteArray(request)),false,true);
-  final SessionInfo session=new SessionInfo(UUID.randomUUID(),Constants.KAA_PLATFORM_PROTOCOL_AVRO_ID,channelContextMock,ChannelType.TCP,crypt.getSessionCipherPair(),EndpointObjectHash.fromBytes(clientPublicKey.array()),APP_TOKEN,100,true);
+  final SessionInfo session=new SessionInfo(UUID.randomUUID(),Constants.KAA_PLATFORM_PROTOCOL_AVRO_ID,channelContextMock,ChannelType.ASYNC,crypt.getSessionCipherPair(),EndpointObjectHash.fromBytes(clientPublicKey.array()),APP_TOKEN,100,true);
   SessionAwareMessage message=new SessionAwareMessage(){
     @Override public SessionInfo getSessionInfo(){
       return session;
@@ -49,7 +49,7 @@
   SyncResponse response=new SyncResponse();
   response.setRequestId(request.getRequestId());
   response.setStatus(SyncResponseResultType.REDIRECT);
-  response.setRedirectSyncResponse(new RedirectSyncResponse("testDNS"));
+  response.setRedirectSyncResponse(new RedirectSyncResponse("testDNS".hashCode()));
   Mockito.verify(operationsService,Mockito.timeout(TIMEOUT / 2).never()).sync(AvroEncDec.convert(request));
   AvroByteArrayConverter<SyncResponse> responseConverter=new AvroByteArrayConverter<>(SyncResponse.class);
   byte[] encodedData=crypt.encodeData(responseConverter.toByteArray(response));

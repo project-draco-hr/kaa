@@ -12,7 +12,7 @@
   Mockito.when(multiplexer.compileRequest(Mockito.anyMap())).thenReturn(new byte[]{1,1,1});
   KaaDataDemultiplexer demultiplexer=Mockito.mock(KaaDataDemultiplexer.class);
   DefaultOperationsChannelFake channel=new DefaultOperationsChannelFake(client,state,3);
-  HttpLongPollServerInfo server=new HttpLongPollServerInfo(ServerType.OPERATIONS,"localhost",9889,KeyUtil.generateKeyPair().getPublic());
+  ServerInfo server=IPTransportInfoTest.createTestServerInfo(ServerType.OPERATIONS,TransportIdConstants.HTTP_TRANSPORT_ID,"localhost",9889,KeyUtil.generateKeyPair().getPublic());
   channel.setDemultiplexer(null);
   channel.setDemultiplexer(demultiplexer);
   channel.setMultiplexer(null);

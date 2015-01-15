@@ -29,7 +29,7 @@
   Assert.assertNotNull(akkaService.getActorSystem());
   MessageBuilder targetResponseBuilder=Mockito.mock(MessageBuilder.class);
   ErrorBuilder targetErrorBuilder=Mockito.mock(ErrorBuilder.class);
-  SessionInitMessage targetMessage=toSignedRequest(UUID.randomUUID(),ChannelType.HTTP_LP,channelContextMock,targetRequest,targetResponseBuilder,targetErrorBuilder,targetCrypt);
+  SessionInitMessage targetMessage=toSignedRequest(UUID.randomUUID(),ChannelType.SYNC_WITH_TIMEOUT,channelContextMock,targetRequest,targetResponseBuilder,targetErrorBuilder,targetCrypt);
   akkaService.process(targetMessage);
   Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeastOnce()).sync(AvroEncDec.convert(targetRequest),null);
   Mockito.verify(eventService,Mockito.timeout(TIMEOUT).atLeastOnce()).sendUserRouteInfo(new UserRouteInfo(TENANT_ID,USER_ID));
@@ -60,7 +60,7 @@
   when(sourceProfileMock.getEcfVersionStates()).thenReturn(Arrays.asList(ecfVdto));
   MessageBuilder sourceResponseBuilder=Mockito.mock(MessageBuilder.class);
   ErrorBuilder sourceErrorBuilder=Mockito.mock(ErrorBuilder.class);
-  SessionInitMessage sourceMessage=toSignedRequest(UUID.randomUUID(),ChannelType.HTTP_LP,channelContextMock,sourceRequest,sourceResponseBuilder,sourceErrorBuilder);
+  SessionInitMessage sourceMessage=toSignedRequest(UUID.randomUUID(),ChannelType.SYNC_WITH_TIMEOUT,channelContextMock,sourceRequest,sourceResponseBuilder,sourceErrorBuilder);
   akkaService.process(sourceMessage);
   Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeastOnce()).sync(AvroEncDec.convert(sourceRequest),null);
   SyncResponse targetSyncResponse=new SyncResponse();

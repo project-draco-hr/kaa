@@ -1,7 +1,7 @@
 {
   SessionAwareMessage message=Mockito.mock(SessionAwareMessage.class);
   ErrorBuilder errorBuilder=Mockito.mock(ErrorBuilder.class);
-  SessionInfo sessionInfo=new SessionInfo(UUID.randomUUID(),Constants.KAA_PLATFORM_PROTOCOL_AVRO_ID,Mockito.mock(ChannelContext.class),ChannelType.TCP,Mockito.mock(CipherPair.class),EndpointObjectHash.fromSHA1("test"),"applicationToken",100,true);
+  SessionInfo sessionInfo=new SessionInfo(UUID.randomUUID(),Constants.KAA_PLATFORM_PROTOCOL_AVRO_ID,Mockito.mock(ChannelContext.class),ChannelType.ASYNC,Mockito.mock(CipherPair.class),EndpointObjectHash.fromSHA1("test"),"applicationToken",100,true);
   Mockito.when(message.getChannelContext()).thenReturn(Mockito.mock(ChannelContext.class));
   Mockito.when(message.getErrorBuilder()).thenReturn(errorBuilder);
   Mockito.when(message.getSessionInfo()).thenReturn(sessionInfo);

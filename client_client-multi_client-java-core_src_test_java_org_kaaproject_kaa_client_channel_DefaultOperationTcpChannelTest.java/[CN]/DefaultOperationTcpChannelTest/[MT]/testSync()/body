@@ -13,8 +13,8 @@
   tcpChannel.setDemultiplexer(demultiplexer);
   tcpChannel.sync(TransportType.USER);
   tcpChannel.sync(TransportType.PROFILE);
-  KaaTcpServerInfo serverInfo=new KaaTcpServerInfo(ServerType.OPERATIONS,"localhost",9009,KeyUtil.generateKeyPair().getPublic());
-  tcpChannel.setServer(serverInfo);
+  ServerInfo server=IPTransportInfoTest.createTestServerInfo(ServerType.OPERATIONS,TransportIdConstants.TCP_TRANSPORT_ID,"localhost",9009,KeyUtil.generateKeyPair().getPublic());
+  tcpChannel.setServer(server);
   byte[] rawConnack=new byte[]{0x20,0x02,0x00,0x01};
   tcpChannel.os.write(rawConnack);
   SyncResponse response=new SyncResponse();

@@ -48,11 +48,11 @@
   MessageBuilder responseBuilder=Mockito.mock(MessageBuilder.class);
   ErrorBuilder errorBuilder=Mockito.mock(ErrorBuilder.class);
   MessageEncoderDecoder sourceCrypt=new MessageEncoderDecoder(clientPair.getPrivate(),clientPair.getPublic(),serverPair.getPublic());
-  SessionInitMessage sourceMessage=toSignedRequest(UUID.randomUUID(),ChannelType.HTTP_LP,channelContextMock,sourceRequest,responseBuilder,errorBuilder,sourceCrypt);
+  SessionInitMessage sourceMessage=toSignedRequest(UUID.randomUUID(),ChannelType.SYNC_WITH_TIMEOUT,channelContextMock,sourceRequest,responseBuilder,errorBuilder,sourceCrypt);
   akkaService.process(sourceMessage);
   Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeastOnce()).sync(Mockito.any(ClientSync.class),Mockito.any(EndpointProfileDto.class));
   MessageEncoderDecoder targetCrypt=new MessageEncoderDecoder(targetPair.getPrivate(),targetPair.getPublic(),serverPair.getPublic());
-  SessionInitMessage targetMessage=toSignedRequest(UUID.randomUUID(),ChannelType.HTTP_LP,channelContextMock,targetRequest,responseBuilder,errorBuilder,targetCrypt);
+  SessionInitMessage targetMessage=toSignedRequest(UUID.randomUUID(),ChannelType.SYNC_WITH_TIMEOUT,channelContextMock,targetRequest,responseBuilder,errorBuilder,targetCrypt);
   akkaService.process(targetMessage);
   Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeastOnce()).sync(Mockito.any(ClientSync.class),Mockito.any(EndpointProfileDto.class));
   SyncResponse eventResponse=new SyncResponse();

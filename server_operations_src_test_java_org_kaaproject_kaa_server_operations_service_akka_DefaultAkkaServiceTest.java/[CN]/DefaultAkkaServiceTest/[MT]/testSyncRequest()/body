@@ -11,7 +11,7 @@
   Mockito.when(operationsService.sync(AvroEncDec.convert(request),null)).thenReturn(holder);
   MessageBuilder responseBuilder=Mockito.mock(MessageBuilder.class);
   ErrorBuilder errorBuilder=Mockito.mock(ErrorBuilder.class);
-  SessionInitMessage message=toSignedRequest(UUID.randomUUID(),ChannelType.HTTP,channelContextMock,request,responseBuilder,errorBuilder);
+  SessionInitMessage message=toSignedRequest(UUID.randomUUID(),ChannelType.SYNC,channelContextMock,request,responseBuilder,errorBuilder);
   Assert.assertNotNull(akkaService.getActorSystem());
   akkaService.process(message);
   Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeastOnce()).sync(AvroEncDec.convert(request),null);

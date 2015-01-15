@@ -1,0 +1,6 @@
+{
+  Map<TransportId,List<ServerInfo>> bootststrapServers=new HashMap<>();
+  ServerInfo server=IPTransportInfoTest.createTestServerInfo(ServerType.BOOTSTRAP,TransportIdConstants.HTTP_TRANSPORT_ID,"localhost",9889,KeyUtil.generateKeyPair().getPublic());
+  bootststrapServers.put(TransportIdConstants.HTTP_TRANSPORT_ID,Collections.singletonList(server));
+  return bootststrapServers;
+}

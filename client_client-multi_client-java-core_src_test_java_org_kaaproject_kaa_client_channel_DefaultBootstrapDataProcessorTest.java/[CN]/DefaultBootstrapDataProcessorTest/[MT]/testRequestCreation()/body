@@ -1,7 +1,7 @@
 {
   DefaultBootstrapDataProcessor processor=new DefaultBootstrapDataProcessor();
   BootstrapTransport transport=Mockito.mock(BootstrapTransport.class);
-  Mockito.when(transport.createResolveRequest()).thenReturn(new Resolve("123"));
+  Mockito.when(transport.createResolveRequest()).thenReturn(new SyncRequest());
   processor.setBootstrapTransport(transport);
   Assert.assertNotNull(processor.compileRequest(null));
   Mockito.verify(transport,Mockito.times(1)).createResolveRequest();

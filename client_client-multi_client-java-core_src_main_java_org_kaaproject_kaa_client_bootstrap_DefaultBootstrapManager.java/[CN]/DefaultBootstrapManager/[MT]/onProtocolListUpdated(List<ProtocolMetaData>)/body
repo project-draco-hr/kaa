@@ -17,9 +17,9 @@
       mappedIterators.put(entry.getKey(),entry.getValue().iterator());
     }
     if (serverToApply != null) {
-      OperationsServer server=getServerByName(serverToApply);
-      if (server != null) {
-        notifyChannelManangerAboutServer(server);
+      List<ProtocolMetaData> servers=getTransportsByAccessPointId(serverToApply);
+      if (servers != null && servers.size() > 0) {
+        notifyChannelManangerAboutServer(servers);
         serverToApply=null;
       }
     }

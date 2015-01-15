@@ -13,7 +13,7 @@
   DefaultOperationsChannelFake channel=new DefaultOperationsChannelFake(client,state,1);
   channel.setDemultiplexer(demultiplexer);
   channel.setMultiplexer(multiplexer);
-  HttpLongPollServerInfo server=new HttpLongPollServerInfo(ServerType.OPERATIONS,"localhost",9889,KeyUtil.generateKeyPair().getPublic());
+  ServerInfo server=IPTransportInfoTest.createTestServerInfo(ServerType.OPERATIONS,TransportIdConstants.HTTP_TRANSPORT_ID,"localhost",9889,KeyUtil.generateKeyPair().getPublic());
   channel.setServer(server);
-  Mockito.verify(manager,Mockito.times(1)).onServerFailed(server);
+  Mockito.verify(manager,Mockito.times(1)).onServerFailed(Mockito.any(ServerInfo.class));
 }

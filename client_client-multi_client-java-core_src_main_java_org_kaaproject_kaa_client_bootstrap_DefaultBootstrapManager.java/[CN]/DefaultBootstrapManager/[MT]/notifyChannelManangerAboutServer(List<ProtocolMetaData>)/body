@@ -1,0 +1,6 @@
+{
+  for (  ProtocolMetaData transport : transports) {
+    LOG.debug("Applying new transport {}",transports);
+    channelManager.onServerUpdated(new GenericTransportInfo(ServerType.OPERATIONS,transport));
+  }
+}
