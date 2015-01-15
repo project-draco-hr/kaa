@@ -7,7 +7,7 @@
     if (!isPaused) {
       stopPoll();
     }
-    this.currentServer=(HttpLongPollServerInfo)server;
+    this.currentServer=new IPTransportInfo(server);
 synchronized (httpClientLock) {
       LOG.debug("Channel [{}]: creating HTTP client..",getId());
       this.httpClient=client.createHttpClient(currentServer.getURL(),state.getPrivateKey(),state.getPublicKey(),currentServer.getPublicKey());

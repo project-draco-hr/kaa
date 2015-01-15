@@ -7,7 +7,7 @@
     LOG.info("Can't set server. Channel [{}] is down",getId());
     return;
   }
-  this.currentServer=(KaaTcpServerInfo)server;
+  this.currentServer=new IPTransportInfo(server);
   this.encDec=new MessageEncoderDecoder(state.getPrivateKey(),state.getPublicKey(),currentServer.getPublicKey());
   if (!isPaused) {
     if (executor == null) {

@@ -1,42 +1,22 @@
 {
-  Map<ChannelType,List<ServerInfo>> servers=new HashMap<>();
+  Map<TransportId,List<ServerInfo>> servers=new HashMap<>();
   String[] serversSplit=serversStr.split(";");
   for (  String server : serversSplit) {
     if (server != null && !server.trim().isEmpty()) {
-      String[] communicationParams=server.split("\\|");
-      PublicKey publicKey=KeyFactory.getInstance("RSA").generatePublic(new X509EncodedKeySpec(Base64.decodeBase64(communicationParams[communicationParams.length - 1].getBytes(Charsets.UTF_8))));
-      for (int i=0; i < (communicationParams.length - 1); ++i) {
-        String[] serverInfoSplit=communicationParams[i].split(":");
-        if (serverInfoSplit.length == 3) {
-          ServerInfo si=null;
-          ChannelType type=null;
-          String host=serverInfoSplit[1];
-          int port=Integer.parseInt(serverInfoSplit[2]);
-switch (Integer.parseInt(serverInfoSplit[0])) {
-case 0:
-            type=ChannelType.HTTP;
-          si=new HttpServerInfo(ServerType.BOOTSTRAP,host,port,publicKey);
-        break;
-case 1:
-      type=ChannelType.HTTP_LP;
-    si=new HttpLongPollServerInfo(ServerType.BOOTSTRAP,host,port,publicKey);
-  break;
-case 2:
-type=ChannelType.KAATCP;
-si=new KaaTcpServerInfo(ServerType.BOOTSTRAP,host,port,publicKey);
-break;
-default :
-break;
-}
-List<ServerInfo> serverList=servers.get(type);
-if (serverList == null) {
-serverList=new LinkedList<>();
-servers.put(type,serverList);
-}
-serverList.add(si);
-}
-}
-}
-}
-return servers;
+      String[] tokens=server.split(":");
+      ProtocolMetaData md=new ProtocolMetaData();
+      md.setAccessPointId(Integer.valueOf(tokens[0]));
+      md.setProtocolId(Integer.valueOf(tokens[1]));
+      md.setProtocolVersion(Integer.valueOf(tokens[2]));
+      md.setConnectionInfo(ByteBuffer.wrap(Base64.decodeBase64(tokens[3])));
+      TransportId key=new TransportId(md.getProtocolId(),md.getProtocolVersion());
+      List<ServerInfo> serverList=servers.get(key);
+      if (serverList == null) {
+        serverList=new ArrayList<ServerInfo>();
+        servers.put(key,serverList);
+      }
+      serverList.add(new GenericTransportInfo(ServerType.BOOTSTRAP,md));
+    }
+  }
+  return servers;
 }

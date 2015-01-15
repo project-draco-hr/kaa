@@ -1,0 +1,21 @@
+{
+  super(parent.getServerType(),new ProtocolMetaData(parent.getAccessPointId(),parent.getTransportId().getProtocolId(),parent.getTransportId().getProtocolVersion(),ByteBuffer.wrap(parent.getConnectionInfo())));
+  ByteBuffer buf=md.getConnectionInfo().duplicate();
+  byte[] publicKeyData=new byte[buf.getInt()];
+  buf.get(publicKeyData);
+  try {
+    this.publicKey=KeyUtil.getPublic(publicKeyData);
+  }
+ catch (  NoSuchAlgorithmException e) {
+    LOG.error("Can't initialize public key",e);
+    throw new RuntimeException(e);
+  }
+catch (  InvalidKeySpecException e) {
+    LOG.error("Can't initialize public key",e);
+    throw new RuntimeException(e);
+  }
+  byte[] hostData=new byte[buf.getInt()];
+  buf.get(hostData);
+  this.host=new String(hostData,UTF8);
+  this.port=buf.getInt();
+}

@@ -1,0 +1,36 @@
+{
+  operationsServerList=list;
+  mappedOperationServerList.clear();
+  mappedIterators.clear();
+  if (operationsServerList != null && !operationsServerList.isEmpty()) {
+    for (    ProtocolMetaData server : operationsServerList) {
+      TransportId transportId=new TransportId(server.getProtocolId(),server.getProtocolVersion());
+      List<ProtocolMetaData> servers=mappedOperationServerList.get(transportId);
+      if (servers == null) {
+        servers=new LinkedList<>();
+        mappedOperationServerList.put(transportId,servers);
+      }
+      servers.add(server);
+    }
+    for (    Map.Entry<TransportId,List<ProtocolMetaData>> entry : mappedOperationServerList.entrySet()) {
+      Collections.shuffle(entry.getValue());
+      mappedIterators.put(entry.getKey(),entry.getValue().iterator());
+    }
+    if (serverToApply != null) {
+      OperationsServer server=getServerByName(serverToApply);
+      if (server != null) {
+        notifyChannelManangerAboutServer(server);
+        serverToApply=null;
+      }
+    }
+ else {
+      for (      Map.Entry<TransportId,Iterator<ProtocolMetaData>> entry : mappedIterators.entrySet()) {
+        ServerInfo info=new GenericTransportInfo(ServerType.OPERATIONS,entry.getValue().next());
+        channelManager.onServerUpdated(info);
+      }
+    }
+  }
+ else {
+    throw new BootstrapRuntimeException("Operations Server list is empty");
+  }
+}

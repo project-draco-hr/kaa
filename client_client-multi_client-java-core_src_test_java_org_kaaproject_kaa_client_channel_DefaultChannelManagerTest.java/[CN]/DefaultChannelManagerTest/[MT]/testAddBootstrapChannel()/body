@@ -13,12 +13,10 @@
   assertEquals(channel,channelManager.getChannelByTransportType(TransportType.PROFILE));
   assertEquals(channel,channelManager.getChannel("mock_channel"));
   assertEquals(channel,channelManager.getChannels().get(0));
-  assertEquals(channel,channelManager.getChannelsByType(ChannelType.HTTP).get(0));
   channelManager.removeChannel(channel);
   assertNull(channelManager.getChannelByTransportType(TransportType.PROFILE));
   assertNull(channelManager.getChannel("mock_channel"));
   assertTrue(channelManager.getChannels().isEmpty());
-  assertTrue(channelManager.getChannelsByType(ChannelType.BOOTSTRAP).isEmpty());
   channelManager.addChannel(channel);
   Mockito.verify(channel,Mockito.times(2)).setServer(server);
 }

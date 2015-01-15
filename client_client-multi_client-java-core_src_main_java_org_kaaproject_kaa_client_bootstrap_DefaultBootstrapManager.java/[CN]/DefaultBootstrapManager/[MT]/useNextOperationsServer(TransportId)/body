@@ -1,0 +1,13 @@
+{
+  if (mappedOperationServerList != null && !mappedOperationServerList.isEmpty()) {
+    if (!mappedIterators.get(transportId).hasNext()) {
+      transport.sync();
+    }
+ else {
+      channelManager.onServerUpdated(new GenericTransportInfo(ServerType.OPERATIONS,mappedIterators.get(transportId).next()));
+    }
+  }
+ else {
+    throw new BootstrapRuntimeException("Operations Server list is empty");
+  }
+}

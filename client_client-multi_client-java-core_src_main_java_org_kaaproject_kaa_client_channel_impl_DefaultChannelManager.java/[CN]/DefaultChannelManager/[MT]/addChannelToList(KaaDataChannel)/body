@@ -4,21 +4,21 @@
     channels.add(channel);
     ServerInfo server;
     if (channel.getServerType() == ServerType.BOOTSTRAP) {
-      server=getCurrentBootstrapServer(channel.getType());
+      server=getCurrentBootstrapServer(channel.getTransportId());
     }
  else {
-      server=lastServers.get(channel.getType());
+      server=lastServers.get(channel.getTransportId());
     }
     if (server != null) {
-      LOG.debug("Applying server {} for channel [{}] type {}",server,channel.getId(),channel.getType());
+      LOG.debug("Applying server {} for channel [{}] type {}",server,channel.getId(),channel.getTransportId());
       channel.setServer(server);
     }
  else {
       if (lastServers != null && lastServers.isEmpty()) {
-        LOG.warn("Failed to find server for channel [{}] type {}",channel.getId(),channel.getType());
+        LOG.warn("Failed to find server for channel [{}] type {}",channel.getId(),channel.getTransportId());
       }
  else {
-        LOG.debug("list of servers is empty for channel [{}] type {}",channel.getId(),channel.getType());
+        LOG.debug("list of servers is empty for channel [{}] type {}",channel.getId(),channel.getTransportId());
       }
     }
   }

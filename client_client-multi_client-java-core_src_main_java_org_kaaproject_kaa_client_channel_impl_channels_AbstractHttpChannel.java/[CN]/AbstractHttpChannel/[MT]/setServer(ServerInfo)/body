@@ -7,7 +7,7 @@
     executor=createExecutor();
   }
   if (server != null) {
-    this.currentServer=(AbstractServerInfo)server;
+    this.currentServer=new IPTransportInfo(server);
     this.httpClient=client.createHttpClient(currentServer.getURL(),state.getPrivateKey(),state.getPublicKey(),currentServer.getPublicKey());
     if (lastConnectionFailed && !isPaused) {
       lastConnectionFailed=false;

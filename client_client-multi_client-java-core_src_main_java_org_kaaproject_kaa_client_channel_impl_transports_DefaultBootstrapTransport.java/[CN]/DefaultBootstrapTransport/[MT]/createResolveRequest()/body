@@ -1,7 +1,11 @@
 {
   if (clientState != null) {
-    Resolve request=new Resolve();
-    request.setApplicationToken(applicationToken);
+    SyncRequest request=new SyncRequest();
+    request.setRequestId(increment.incrementAndGet());
+    BootstrapSyncRequest resolveRequest=new BootstrapSyncRequest();
+    resolveRequest.setRequestId(increment.get());
+    request.setSyncRequestMetaData(new SyncRequestMetaData(applicationToken,null,null,null));
+    request.setBootstrapSyncRequest(resolveRequest);
     return request;
   }
   return null;

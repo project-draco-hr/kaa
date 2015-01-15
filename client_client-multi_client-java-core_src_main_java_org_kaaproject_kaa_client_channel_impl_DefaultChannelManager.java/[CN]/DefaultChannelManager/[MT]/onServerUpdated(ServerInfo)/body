@@ -4,11 +4,11 @@
     return;
   }
   if (newServer.getServerType() == ServerType.OPERATIONS) {
-    lastServers.put(newServer.getChannelType(),newServer);
+    lastServers.put(newServer.getTransportId(),newServer);
   }
   for (  KaaDataChannel channel : channels) {
-    if (channel.getServerType() == newServer.getServerType() && channel.getType() == newServer.getChannelType()) {
-      LOG.debug("Applying server {} for channel [{}] type {}",newServer,channel.getId(),channel.getType());
+    if (channel.getServerType() == newServer.getServerType() && channel.getTransportId().equals(newServer.getTransportId())) {
+      LOG.debug("Applying server {} for channel [{}] type {}",newServer,channel.getId(),channel.getTransportId());
       channel.setServer(newServer);
     }
   }
