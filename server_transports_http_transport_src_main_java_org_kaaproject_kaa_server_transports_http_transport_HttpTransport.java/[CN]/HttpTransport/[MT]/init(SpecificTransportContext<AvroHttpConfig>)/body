@@ -6,7 +6,7 @@
   processors.add(new LongSyncCommandFactory());
   final CommandFactory<HttpRequest,HttpResponse> factory=new CommandFactory<>(processors);
   final int maxBodySize=configuration.getMaxBodySize();
-  this.netty=new AbstractNettyServer(configuration.getBindInterface(),configuration.getBindPort()){
+  this.netty=new AbstractNettyServer("localhost",configuration.getBindPort()){
     @Override protected ChannelInitializer<SocketChannel> configureInitializer() throws Exception {
       return new DefaultHttpServerInitializer(){
         @Override protected SimpleChannelInboundHandler<AbstractCommand> getMainHandler(        UUID uuid){
