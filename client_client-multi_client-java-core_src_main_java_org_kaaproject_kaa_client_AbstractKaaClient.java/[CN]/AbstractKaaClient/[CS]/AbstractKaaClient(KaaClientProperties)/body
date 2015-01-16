@@ -1,10 +1,10 @@
 {
   this.properties=properties;
-  Map<TransportId,List<ServerInfo>> bootstrapServers=properties.getBootstrapServers();
+  Map<TransportProtocolId,List<TransportConnectionInfo>> bootstrapServers=properties.getBootstrapServers();
   if (bootstrapServers == null || bootstrapServers.isEmpty()) {
     throw new RuntimeException("Unable to obtain list of bootstrap servers.");
   }
-  for (  Map.Entry<TransportId,List<ServerInfo>> cursor : bootstrapServers.entrySet()) {
+  for (  Map.Entry<TransportProtocolId,List<TransportConnectionInfo>> cursor : bootstrapServers.entrySet()) {
     Collections.shuffle(cursor.getValue());
   }
   kaaClientState=new KaaClientPropertiesState(createPersistentStorage(),properties);
@@ -42,8 +42,8 @@
   operationsChannel.setMultiplexer(operationsDataProcessor);
   operationsChannel.setDemultiplexer(operationsDataProcessor);
   channelManager.addChannel(operationsChannel);
-  defaultChannels.put(operationsChannel.getTransportId(),operationsChannel);
-  defaultChannels.put(bootstrapChannel.getTransportId(),bootstrapChannel);
+  defaultChannels.put(operationsChannel.getTransportProtocolId(),operationsChannel);
+  defaultChannels.put(bootstrapChannel.getTransportProtocolId(),bootstrapChannel);
   bootstrapManager.setChannelManager(channelManager);
   publicKeyHash=EndpointObjectHash.fromSHA1(kaaClientState.getPublicKey().getEncoded());
   metaDataTransport.setClientProperties(properties);

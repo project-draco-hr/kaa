@@ -1,14 +1,14 @@
 {
-  Map<TransportId,List<ServerInfo>> bootststrapServers=getDefaultBootstrapServers();
+  Map<TransportProtocolId,List<TransportConnectionInfo>> bootststrapServers=getDefaultBootstrapServers();
   BootstrapManager bootstrapManager=Mockito.mock(BootstrapManager.class);
   KaaDataChannel channel=Mockito.mock(KaaDataChannel.class);
   Mockito.when(channel.getSupportedTransportTypes()).thenReturn(SUPPORTED_TYPES);
-  Mockito.when(channel.getTransportId()).thenReturn(TransportIdConstants.HTTP_TRANSPORT_ID);
+  Mockito.when(channel.getTransportProtocolId()).thenReturn(TransportProtocolIdConstants.HTTP_TRANSPORT_ID);
   Mockito.when(channel.getId()).thenReturn("mock_channel");
   KaaChannelManager channelManager=new DefaultChannelManager(bootstrapManager,bootststrapServers);
   channelManager.addChannel(channel);
-  ServerInfo opServer=IPTransportInfoTest.createTestServerInfo(ServerType.OPERATIONS,TransportIdConstants.HTTP_TRANSPORT_ID,"localhost",9999,KeyUtil.generateKeyPair().getPublic());
-  channelManager.onServerUpdated(opServer);
+  TransportConnectionInfo opServer=IPTransportInfoTest.createTestServerInfo(ServerType.OPERATIONS,TransportProtocolIdConstants.HTTP_TRANSPORT_ID,"localhost",9999,KeyUtil.generateKeyPair().getPublic());
+  channelManager.onTransportConnectionInfoUpdated(opServer);
   channelManager.onServerFailed(opServer);
-  Mockito.verify(bootstrapManager,Mockito.times(1)).useNextOperationsServer(TransportIdConstants.HTTP_TRANSPORT_ID);
+  Mockito.verify(bootstrapManager,Mockito.times(1)).useNextOperationsServer(TransportProtocolIdConstants.HTTP_TRANSPORT_ID);
 }

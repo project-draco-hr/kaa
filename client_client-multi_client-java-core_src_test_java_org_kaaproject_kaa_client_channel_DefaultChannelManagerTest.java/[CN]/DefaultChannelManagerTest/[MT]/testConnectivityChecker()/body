@@ -1,12 +1,12 @@
 {
-  Map<TransportId,List<ServerInfo>> bootststrapServers=getDefaultBootstrapServers();
+  Map<TransportProtocolId,List<TransportConnectionInfo>> bootststrapServers=getDefaultBootstrapServers();
   BootstrapManager bootstrapManager=Mockito.mock(BootstrapManager.class);
   DefaultChannelManager channelManager=new DefaultChannelManager(bootstrapManager,bootststrapServers);
-  TransportId type=TransportIdConstants.TCP_TRANSPORT_ID;
+  TransportProtocolId type=TransportProtocolIdConstants.TCP_TRANSPORT_ID;
   KaaDataChannel channel1=Mockito.mock(KaaDataChannel.class);
-  Mockito.when(channel1.getTransportId()).thenReturn(type);
+  Mockito.when(channel1.getTransportProtocolId()).thenReturn(type);
   KaaDataChannel channel2=Mockito.mock(KaaDataChannel.class);
-  Mockito.when(channel2.getTransportId()).thenReturn(type);
+  Mockito.when(channel2.getTransportProtocolId()).thenReturn(type);
   channelManager.addChannel(channel1);
   channelManager.addChannel(channel2);
   ConnectivityChecker checker=Mockito.mock(ConnectivityChecker.class);
@@ -14,7 +14,7 @@
   Mockito.verify(channel1,Mockito.times(1)).setConnectivityChecker(checker);
   Mockito.verify(channel2,Mockito.times(1)).setConnectivityChecker(checker);
   KaaDataChannel channel3=Mockito.mock(KaaDataChannel.class);
-  Mockito.when(channel3.getTransportId()).thenReturn(type);
+  Mockito.when(channel3.getTransportProtocolId()).thenReturn(type);
   channelManager.addChannel(channel3);
   Mockito.verify(channel3,Mockito.times(1)).setConnectivityChecker(checker);
 }

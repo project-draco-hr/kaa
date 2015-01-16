@@ -13,7 +13,7 @@
   tcpChannel.setDemultiplexer(demultiplexer);
   tcpChannel.sync(TransportType.USER);
   tcpChannel.sync(TransportType.PROFILE);
-  ServerInfo server=IPTransportInfoTest.createTestServerInfo(ServerType.OPERATIONS,TransportIdConstants.TCP_TRANSPORT_ID,"localhost",9009,KeyUtil.generateKeyPair().getPublic());
+  TransportConnectionInfo server=IPTransportInfoTest.createTestServerInfo(ServerType.OPERATIONS,TransportProtocolIdConstants.TCP_TRANSPORT_ID,"localhost",9009,KeyUtil.generateKeyPair().getPublic());
   tcpChannel.setServer(server);
   byte[] rawConnack=new byte[]{0x20,0x02,0x00,0x01};
   tcpChannel.os.write(rawConnack);

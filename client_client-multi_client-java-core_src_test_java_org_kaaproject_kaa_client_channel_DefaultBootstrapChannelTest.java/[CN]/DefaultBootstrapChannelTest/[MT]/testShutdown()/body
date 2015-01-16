@@ -12,7 +12,7 @@
   channel.setDemultiplexer(demultiplexer);
   channel.setMultiplexer(multiplexer);
   channel.shutdown();
-  ServerInfo server=IPTransportInfoTest.createTestServerInfo(ServerType.BOOTSTRAP,TransportIdConstants.HTTP_TRANSPORT_ID,"localhost",9889,KeyUtil.generateKeyPair().getPublic());
+  TransportConnectionInfo server=IPTransportInfoTest.createTestServerInfo(ServerType.BOOTSTRAP,TransportProtocolIdConstants.HTTP_TRANSPORT_ID,"localhost",9889,KeyUtil.generateKeyPair().getPublic());
   channel.setServer(server);
   channel.sync(TransportType.BOOTSTRAP);
   channel.syncAll();

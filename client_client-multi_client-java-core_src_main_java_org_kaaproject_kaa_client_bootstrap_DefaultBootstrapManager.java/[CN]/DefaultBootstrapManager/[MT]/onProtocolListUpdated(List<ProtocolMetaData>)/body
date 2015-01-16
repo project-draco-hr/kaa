@@ -4,7 +4,7 @@
   mappedIterators.clear();
   if (operationsServerList != null && !operationsServerList.isEmpty()) {
     for (    ProtocolMetaData server : operationsServerList) {
-      TransportId transportId=new TransportId(server.getProtocolId(),server.getProtocolVersion());
+      TransportProtocolId transportId=new TransportProtocolId(server.getProtocolId(),server.getProtocolVersion());
       List<ProtocolMetaData> servers=mappedOperationServerList.get(transportId);
       if (servers == null) {
         servers=new LinkedList<>();
@@ -12,7 +12,7 @@
       }
       servers.add(server);
     }
-    for (    Map.Entry<TransportId,List<ProtocolMetaData>> entry : mappedOperationServerList.entrySet()) {
+    for (    Map.Entry<TransportProtocolId,List<ProtocolMetaData>> entry : mappedOperationServerList.entrySet()) {
       Collections.shuffle(entry.getValue());
       mappedIterators.put(entry.getKey(),entry.getValue().iterator());
     }
@@ -24,9 +24,9 @@
       }
     }
  else {
-      for (      Map.Entry<TransportId,Iterator<ProtocolMetaData>> entry : mappedIterators.entrySet()) {
-        ServerInfo info=new GenericTransportInfo(ServerType.OPERATIONS,entry.getValue().next());
-        channelManager.onServerUpdated(info);
+      for (      Map.Entry<TransportProtocolId,Iterator<ProtocolMetaData>> entry : mappedIterators.entrySet()) {
+        TransportConnectionInfo info=new GenericTransportInfo(ServerType.OPERATIONS,entry.getValue().next());
+        channelManager.onTransportConnectionInfoUpdated(info);
       }
     }
   }

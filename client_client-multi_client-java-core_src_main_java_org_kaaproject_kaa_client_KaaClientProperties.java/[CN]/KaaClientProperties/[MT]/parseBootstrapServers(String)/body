@@ -1,5 +1,5 @@
 {
-  Map<TransportId,List<ServerInfo>> servers=new HashMap<>();
+  Map<TransportProtocolId,List<TransportConnectionInfo>> servers=new HashMap<>();
   String[] serversSplit=serversStr.split(";");
   for (  String server : serversSplit) {
     if (server != null && !server.trim().isEmpty()) {
@@ -9,10 +9,10 @@
       md.setProtocolId(Integer.valueOf(tokens[1]));
       md.setProtocolVersion(Integer.valueOf(tokens[2]));
       md.setConnectionInfo(ByteBuffer.wrap(Base64.decodeBase64(tokens[3])));
-      TransportId key=new TransportId(md.getProtocolId(),md.getProtocolVersion());
-      List<ServerInfo> serverList=servers.get(key);
+      TransportProtocolId key=new TransportProtocolId(md.getProtocolId(),md.getProtocolVersion());
+      List<TransportConnectionInfo> serverList=servers.get(key);
       if (serverList == null) {
-        serverList=new ArrayList<ServerInfo>();
+        serverList=new ArrayList<TransportConnectionInfo>();
         servers.put(key,serverList);
       }
       serverList.add(new GenericTransportInfo(ServerType.BOOTSTRAP,md));

@@ -8,14 +8,14 @@
   keyGen.initialize(2048);
   KeyPair keyPair=keyGen.genKeyPair();
   List<ProtocolMetaData> list=new ArrayList<ProtocolMetaData>();
-  ProtocolMetaData md=IPTransportInfoTest.buildMetaData(TransportIdConstants.HTTP_TRANSPORT_ID,"localhost",9889,keyPair.getPublic());
+  ProtocolMetaData md=IPTransportInfoTest.buildMetaData(TransportProtocolIdConstants.HTTP_TRANSPORT_ID,"localhost",9889,keyPair.getPublic());
   list.add(md);
   manager.onProtocolListUpdated(list);
   assertEquals("http://localhost:9889",channelManager.getReceivedUrl());
   manager.useNextOperationsServerByAccessPointId("localhost2:9889".hashCode());
   Mockito.verify(transport,Mockito.times(1)).sync();
   list=new ArrayList<ProtocolMetaData>();
-  md=IPTransportInfoTest.buildMetaData(TransportIdConstants.HTTP_TRANSPORT_ID,"localhost2",9889,keyPair.getPublic());
+  md=IPTransportInfoTest.buildMetaData(TransportProtocolIdConstants.HTTP_TRANSPORT_ID,"localhost2",9889,keyPair.getPublic());
   list.add(md);
   manager.onProtocolListUpdated(list);
   assertEquals("http://localhost2:9889",channelManager.getReceivedUrl());

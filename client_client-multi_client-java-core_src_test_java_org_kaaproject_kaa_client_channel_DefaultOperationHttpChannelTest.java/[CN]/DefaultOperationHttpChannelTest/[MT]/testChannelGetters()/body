@@ -3,6 +3,6 @@
   KaaClientState state=Mockito.mock(KaaClientState.class);
   KaaDataChannel channel=new DefaultOperationHttpChannel(client,state);
   Assert.assertEquals(SUPPORTED_TYPES,channel.getSupportedTransportTypes());
-  Assert.assertEquals(TransportIdConstants.HTTP_TRANSPORT_ID,channel.getTransportId());
+  Assert.assertEquals(TransportProtocolIdConstants.HTTP_TRANSPORT_ID,channel.getTransportProtocolId());
   Assert.assertEquals("default_operations_http_channel",channel.getId());
 }

@@ -1,11 +1,11 @@
 {
-  Map<TransportId,List<ServerInfo>> bootststrapServers=new HashMap<>();
-  ServerInfo server=IPTransportInfoTest.createTestServerInfo(ServerType.BOOTSTRAP,TransportIdConstants.HTTP_TRANSPORT_ID,"localhost",9889,KeyUtil.generateKeyPair().getPublic());
-  bootststrapServers.put(TransportIdConstants.HTTP_TRANSPORT_ID,Collections.singletonList(server));
+  Map<TransportProtocolId,List<TransportConnectionInfo>> bootststrapServers=new HashMap<>();
+  TransportConnectionInfo server=IPTransportInfoTest.createTestServerInfo(ServerType.BOOTSTRAP,TransportProtocolIdConstants.HTTP_TRANSPORT_ID,"localhost",9889,KeyUtil.generateKeyPair().getPublic());
+  bootststrapServers.put(TransportProtocolIdConstants.HTTP_TRANSPORT_ID,Collections.singletonList(server));
   BootstrapManager bootstrapManager=Mockito.mock(BootstrapManager.class);
   KaaDataChannel channel=Mockito.mock(KaaDataChannel.class);
   Mockito.when(channel.getSupportedTransportTypes()).thenReturn(SUPPORTED_TYPES);
-  Mockito.when(channel.getTransportId()).thenReturn(TransportIdConstants.HTTP_TRANSPORT_ID);
+  Mockito.when(channel.getTransportProtocolId()).thenReturn(TransportProtocolIdConstants.HTTP_TRANSPORT_ID);
   Mockito.when(channel.getServerType()).thenReturn(ServerType.BOOTSTRAP);
   Mockito.when(channel.getId()).thenReturn("mock_channel");
   KaaChannelManager channelManager=new DefaultChannelManager(bootstrapManager,bootststrapServers);

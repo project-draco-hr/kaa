@@ -11,7 +11,7 @@
   KaaDataMultiplexer multiplexer=Mockito.mock(KaaDataMultiplexer.class);
   KaaDataDemultiplexer demultiplexer=Mockito.mock(KaaDataDemultiplexer.class);
   DefaultOperationHttpChannelFake channel=new DefaultOperationHttpChannelFake(client,state,1);
-  ServerInfo server=IPTransportInfoTest.createTestServerInfo(ServerType.OPERATIONS,TransportIdConstants.HTTP_TRANSPORT_ID,"localhost",9889,KeyUtil.generateKeyPair().getPublic());
+  TransportConnectionInfo server=IPTransportInfoTest.createTestServerInfo(ServerType.OPERATIONS,TransportProtocolIdConstants.HTTP_TRANSPORT_ID,"localhost",9889,KeyUtil.generateKeyPair().getPublic());
   channel.sync(TransportType.EVENT);
   channel.setDemultiplexer(demultiplexer);
   channel.sync(TransportType.EVENT);
@@ -20,5 +20,5 @@
   channel.sync(TransportType.EVENT);
   channel.syncAll();
   channel.setServer(server);
-  Mockito.verify(manager,Mockito.times(1)).onServerFailed(Mockito.any(ServerInfo.class));
+  Mockito.verify(manager,Mockito.times(1)).onServerFailed(Mockito.any(TransportConnectionInfo.class));
 }
