@@ -15,17 +15,34 @@
         response.setBootstrapSync(bsResponse);
         LOG.trace("Response {}",response);
         encodeAndForward(message,crypt,platformEncDecMap,response);
-        LOG.trace("Response forwarded to specific transport",response);
+        LOG.trace("Response forwarded to specific transport {}",response);
       }
  catch (      Exception e) {
         processErrors(message.getChannelContext(),message.getErrorBuilder(),e);
       }
     }
     private void encodeAndForward(    final SessionInitMessage message,    MessageEncoderDecoder crypt,    Map<Integer,PlatformEncDec> platformEncDecMap,    ServerSync response) throws PlatformEncDecException, GeneralSecurityException {
-      byte[] responseData=encodePlatformLevelData(platformEncDecMap,message.getPlatformId(),response);
-      byte[] responseSignature=crypt.sign(responseData);
       MessageBuilder converter=message.getMessageBuilder();
-      converter.build(responseData,responseSignature,message.isEncrypted());
+      byte[] responseData=encodePlatformLevelData(platformEncDecMap,message.getPlatformId(),response);
+      Object[] objects;
+      if (message.isEncrypted()) {
+        byte[] responseSignature=crypt.sign(responseData);
+        responseData=crypt.encodeData(responseData);
+        LOG.trace("Response signature {}",responseSignature);
+        LOG.trace("Response data {}",responseData);
+        objects=converter.build(responseData,responseSignature,message.isEncrypted());
+      }
+ else {
+        LOG.trace("Response data {}",responseData);
+        objects=converter.build(responseData,message.isEncrypted());
+      }
+      ChannelContext context=message.getChannelContext();
+      if (objects != null && objects.length > 0) {
+        for (        Object object : objects) {
+          context.write(object);
+        }
+        context.flush();
+      }
     }
     private void processErrors(    ChannelContext ctx,    ErrorBuilder converter,    Exception e){
       LOG.trace("Message processing failed",e);
