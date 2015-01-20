@@ -6,7 +6,7 @@
     @Override public void onFailure(    Throwable caught){
       authResult=Result.ERROR;
       showLogin();
-      view.setErrorMessage(caught.toString() + ": " + caught.getMessage());
+      Utils.handleException(caught,view);
     }
     @Override public void onSuccess(    AuthResultDto result){
       authResult=result.getAuthResult();
