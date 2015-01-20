@@ -3,7 +3,7 @@
   wrongConf[0]=(byte)(wrongConf[0] + 1);
   EndpointObjectHash newConfHash=EndpointObjectHash.fromSHA1(wrongConf);
   GetDeltaRequest request=new GetDeltaRequest(application.getApplicationToken(),newConfHash,OLD_ENDPOINT_SEQ_NUMBER);
-  request.setEndpointProfile(endpointProfile.toDto());
+  request.setEndpointProfile(endpointProfile);
   List<EndpointGroupStateDto> changes=new ArrayList<>();
   changes.add(new EndpointGroupStateDto(egAllId,pfAllId,cfAllId));
   HistoryDelta historyDelta=new HistoryDelta(changes,true,false);

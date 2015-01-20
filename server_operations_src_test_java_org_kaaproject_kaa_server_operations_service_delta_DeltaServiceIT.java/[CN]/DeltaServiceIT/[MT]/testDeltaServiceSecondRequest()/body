@@ -4,12 +4,12 @@
   byte[] newConfData=newConfConverter.encodeToJsonBytes(container);
   ConfigurationDto newConfDto=new ConfigurationDto();
   newConfDto.setEndpointGroupId(egAllId);
-  newConfDto.setSchemaId(confSchema.getStringId());
+  newConfDto.setSchemaId(confSchema.getId());
   newConfDto.setBody(new String(newConfData,UTF_8));
   newConfDto=configurationService.saveConfiguration(newConfDto);
   configurationService.activateConfiguration(newConfDto.getId(),"test");
   GetDeltaRequest request=new GetDeltaRequest(application.getApplicationToken(),EndpointObjectHash.fromSHA1(endpointConfiguration.getConfiguration()),OLD_ENDPOINT_SEQ_NUMBER);
-  request.setEndpointProfile(endpointProfile.toDto());
+  request.setEndpointProfile(endpointProfile);
   List<EndpointGroupStateDto> changes=new ArrayList<>();
   changes.add(new EndpointGroupStateDto(egAllId,pfAllId,newConfDto.getId()));
   HistoryDelta historyDelta=new HistoryDelta(changes,true,false);
