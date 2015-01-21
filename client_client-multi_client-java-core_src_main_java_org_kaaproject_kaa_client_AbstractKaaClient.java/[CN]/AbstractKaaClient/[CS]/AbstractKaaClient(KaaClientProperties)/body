@@ -42,8 +42,6 @@
   operationsChannel.setMultiplexer(operationsDataProcessor);
   operationsChannel.setDemultiplexer(operationsDataProcessor);
   channelManager.addChannel(operationsChannel);
-  defaultChannels.put(operationsChannel.getTransportProtocolId(),operationsChannel);
-  defaultChannels.put(bootstrapChannel.getTransportProtocolId(),bootstrapChannel);
   bootstrapManager.setChannelManager(channelManager);
   publicKeyHash=EndpointObjectHash.fromSHA1(kaaClientState.getPublicKey().getEncoded());
   metaDataTransport.setClientProperties(properties);
