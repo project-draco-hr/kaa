@@ -1,5 +1,5 @@
 {
-  super(parent.getServerType(),new ProtocolMetaData(parent.getAccessPointId(),parent.getTransportId().getProtocolId(),parent.getTransportId().getProtocolVersion(),ByteBuffer.wrap(parent.getConnectionInfo())));
+  super(parent.getServerType(),new ProtocolMetaData(parent.getAccessPointId(),new ProtocolVersionPair(parent.getTransportId().getProtocolId(),parent.getTransportId().getProtocolVersion()),ByteBuffer.wrap(parent.getConnectionInfo())));
   ByteBuffer buf=md.getConnectionInfo().duplicate();
   byte[] publicKeyData=new byte[buf.getInt()];
   buf.get(publicKeyData);

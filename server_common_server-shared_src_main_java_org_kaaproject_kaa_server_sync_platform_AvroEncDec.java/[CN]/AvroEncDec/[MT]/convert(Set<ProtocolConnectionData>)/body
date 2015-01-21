@@ -4,7 +4,7 @@
   }
   List<ProtocolMetaData> result=new ArrayList<ProtocolMetaData>(source.size());
   for (  ProtocolConnectionData pcd : source) {
-    result.add(new ProtocolMetaData(pcd.getAccessPointId(),pcd.getProtocolId(),pcd.getProtocolVersion(),ByteBuffer.wrap(pcd.getConnectionData())));
+    result.add(new ProtocolMetaData(pcd.getAccessPointId(),new ProtocolVersionPair(pcd.getProtocolId(),pcd.getProtocolVersion()),ByteBuffer.wrap(pcd.getConnectionData())));
   }
   return result;
 }

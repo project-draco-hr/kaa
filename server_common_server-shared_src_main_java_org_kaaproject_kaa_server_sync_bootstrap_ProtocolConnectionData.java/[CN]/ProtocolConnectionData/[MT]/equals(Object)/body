@@ -1,11 +1,27 @@
 {
-  if (this == obj)   return true;
-  if (obj == null)   return false;
-  if (getClass() != obj.getClass())   return false;
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
   ProtocolConnectionData other=(ProtocolConnectionData)obj;
-  if (accessPointId != other.accessPointId)   return false;
-  if (!Arrays.equals(connectionData,other.connectionData))   return false;
-  if (protocolId != other.protocolId)   return false;
-  if (protocolVersion != other.protocolVersion)   return false;
+  if (accessPointId != other.accessPointId) {
+    return false;
+  }
+  if (!Arrays.equals(connectionData,other.connectionData)) {
+    return false;
+  }
+  if (protocolVersionId == null) {
+    if (other.protocolVersionId != null) {
+      return false;
+    }
+  }
+ else   if (!protocolVersionId.equals(other.protocolVersionId)) {
+    return false;
+  }
   return true;
 }

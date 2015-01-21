@@ -2,9 +2,9 @@
   if (supportedProtocols == null) {
     return Collections.emptyList();
   }
-  List<ProtocolVersionKey> result=new ArrayList<ProtocolVersionKey>(supportedProtocols.size());
+  List<ProtocolVersionId> result=new ArrayList<ProtocolVersionId>(supportedProtocols.size());
   for (  ProtocolVersionPair pair : supportedProtocols) {
-    result.add(new ProtocolVersionKey(pair.getId(),pair.getVersion()));
+    result.add(new ProtocolVersionId(pair.getId(),pair.getVersion()));
   }
   return result;
 }

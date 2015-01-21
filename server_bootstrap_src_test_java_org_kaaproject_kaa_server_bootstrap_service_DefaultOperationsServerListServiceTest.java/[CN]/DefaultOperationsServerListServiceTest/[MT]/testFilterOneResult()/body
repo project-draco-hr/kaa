@@ -1,5 +1,5 @@
 {
-  Set<ProtocolConnectionData> result=service.filter(Collections.singletonList(new ProtocolVersionKey(1,42)));
+  Set<ProtocolConnectionData> result=service.filter(Collections.singletonList(new ProtocolVersionId(1,42)));
   Assert.assertNotNull(result);
   Assert.assertEquals(1,result.size());
   Assert.assertNotNull(result.iterator().next());

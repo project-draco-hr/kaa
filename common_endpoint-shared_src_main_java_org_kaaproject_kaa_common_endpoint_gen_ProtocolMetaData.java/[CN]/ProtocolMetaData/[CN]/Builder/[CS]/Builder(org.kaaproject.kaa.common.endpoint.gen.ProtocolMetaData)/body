@@ -4,16 +4,12 @@
     this.accessPointId=data().deepCopy(fields()[0].schema(),other.accessPointId);
     fieldSetFlags()[0]=true;
   }
-  if (isValidValue(fields()[1],other.protocolId)) {
-    this.protocolId=data().deepCopy(fields()[1].schema(),other.protocolId);
+  if (isValidValue(fields()[1],other.protocolVersionInfo)) {
+    this.protocolVersionInfo=data().deepCopy(fields()[1].schema(),other.protocolVersionInfo);
     fieldSetFlags()[1]=true;
   }
-  if (isValidValue(fields()[2],other.protocolVersion)) {
-    this.protocolVersion=data().deepCopy(fields()[2].schema(),other.protocolVersion);
+  if (isValidValue(fields()[2],other.connectionInfo)) {
+    this.connectionInfo=data().deepCopy(fields()[2].schema(),other.connectionInfo);
     fieldSetFlags()[2]=true;
-  }
-  if (isValidValue(fields()[3],other.connectionInfo)) {
-    this.connectionInfo=data().deepCopy(fields()[3].schema(),other.connectionInfo);
-    fieldSetFlags()[3]=true;
   }
 }

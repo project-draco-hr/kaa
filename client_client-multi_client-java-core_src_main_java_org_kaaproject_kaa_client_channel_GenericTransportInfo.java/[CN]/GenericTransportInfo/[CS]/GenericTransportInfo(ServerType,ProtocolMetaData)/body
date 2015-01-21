@@ -2,5 +2,5 @@
   super();
   this.serverType=serverType;
   this.md=md;
-  this.transportId=new TransportProtocolId(md.getProtocolId(),md.getProtocolVersion());
+  this.transportId=new TransportProtocolId(md.getProtocolVersionInfo().getId(),md.getProtocolVersionInfo().getVersion());
 }
