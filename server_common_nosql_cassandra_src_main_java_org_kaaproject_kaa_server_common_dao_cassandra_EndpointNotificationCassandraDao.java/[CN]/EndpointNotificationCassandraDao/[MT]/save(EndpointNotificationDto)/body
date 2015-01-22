@@ -1,3 +1,7 @@
 {
-  return save(new CassandraEndpointNotification(dto));
+  CassandraEndpointNotification endpointNotification=new CassandraEndpointNotification(dto);
+  LOG.debug("Save endpoint notification for endpoint profile {}",endpointNotification.getEndpointKeyHash());
+  save(new CassandraEndpointNotification(dto));
+  LOG.trace("Saved endpoint notification {}",endpointNotification);
+  return endpointNotification;
 }
