@@ -1,0 +1,15 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    checkApplicationId(key.getApplicationId());
+    Sdk sdk=cacheService.getSdk(key);
+    FileData data=new FileData();
+    data.setFileName(sdk.getFileName());
+    data.setContentType(key.getTargetPlatform().getContentType());
+    data.setFileData(sdk.getData());
+    return data;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

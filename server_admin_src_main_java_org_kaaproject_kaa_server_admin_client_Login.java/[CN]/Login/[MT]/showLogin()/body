@@ -1,11 +1,20 @@
 {
   injectThemeStyleSheet();
-  resources.css().ensureInjected();
-  EnterKeyDownHandler loginHandler=new EnterKeyDownHandler();
-  view.getLoginButton().addClickHandler(loginHandler);
-  view.getUsernameBox().addKeyDownHandler(loginHandler);
-  view.getPasswordBox().addKeyDownHandler(loginHandler);
-  view.clearMessages();
-  RootLayoutPanel.get().clear();
-  RootLayoutPanel.get().add(view);
+  Utils.injectKaaStyles();
+  checkPasswordReset(new AsyncCallback<Void>(){
+    @Override public void onSuccess(    Void result){
+      EnterKeyDownHandler loginHandler=new EnterKeyDownHandler();
+      view.getLoginButton().addClickHandler(loginHandler);
+      view.getUsernameBox().addKeyDownHandler(loginHandler);
+      view.getPasswordBox().addKeyDownHandler(loginHandler);
+      ForgotPasswordHandler forgotPasswordHandler=new ForgotPasswordHandler();
+      view.getForgotPasswordLabel().addClickHandler(forgotPasswordHandler);
+      view.clearMessages();
+      RootLayoutPanel.get().clear();
+      RootLayoutPanel.get().add(view);
+    }
+    @Override public void onFailure(    Throwable caught){
+    }
+  }
+);
 }

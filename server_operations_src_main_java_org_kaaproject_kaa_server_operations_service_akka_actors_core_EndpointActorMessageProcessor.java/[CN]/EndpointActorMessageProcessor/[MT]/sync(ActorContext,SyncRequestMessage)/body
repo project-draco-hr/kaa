@@ -2,7 +2,7 @@
   try {
     long start=lastActivityTime=System.currentTimeMillis();
     ChannelMetaData channel=initChannel(context,requestMessage);
-    SyncRequest request;
+    ClientSync request;
     if (channel.getType().isAsync()) {
       if (channel.isFirstRequest()) {
         request=channel.getRequestMessage().getRequest();

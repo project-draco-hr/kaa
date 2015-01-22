@@ -1,17 +1,17 @@
 {
 switch (type) {
 case EVENT:
-    return request.getEventSyncRequest() != null;
+    return request.getEventSync() != null;
 case NOTIFICATION:
-  return request.getNotificationSyncRequest() != null;
+  return request.getNotificationSync() != null;
 case CONFIGURATION:
-return request.getConfigurationSyncRequest() != null;
+return request.getConfigurationSync() != null;
 case USER:
-return request.getUserSyncRequest() != null;
+return request.getUserSync() != null;
 case PROFILE:
-return request.getProfileSyncRequest() != null;
+return request.getProfileSync() != null;
 case LOGGING:
-return request.getLogSyncRequest() != null;
+return request.getLogSync() != null;
 default :
 return false;
 }

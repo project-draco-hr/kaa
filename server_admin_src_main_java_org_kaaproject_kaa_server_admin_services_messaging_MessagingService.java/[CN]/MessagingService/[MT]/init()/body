@@ -1,4 +1,5 @@
 {
   String sendName="send-message-call-runner-%d";
   sendPool=Executors.newFixedThreadPool(sendPoolSize,new ThreadFactoryBuilder().setNameFormat(sendName).build());
+  configureMailSender();
 }

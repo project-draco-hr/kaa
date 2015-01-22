@@ -1,0 +1,36 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  EndpointVersionInfo other=(EndpointVersionInfo)obj;
+  if (configVersion != other.configVersion) {
+    return false;
+  }
+  if (eventFamilyVersions == null) {
+    if (other.eventFamilyVersions != null) {
+      return false;
+    }
+  }
+ else   if (!eventFamilyVersions.equals(other.eventFamilyVersions)) {
+    return false;
+  }
+  if (logSchemaVersion != other.logSchemaVersion) {
+    return false;
+  }
+  if (profileVersion != other.profileVersion) {
+    return false;
+  }
+  if (systemNfVersion != other.systemNfVersion) {
+    return false;
+  }
+  if (userNfVersion != other.userNfVersion) {
+    return false;
+  }
+  return true;
+}

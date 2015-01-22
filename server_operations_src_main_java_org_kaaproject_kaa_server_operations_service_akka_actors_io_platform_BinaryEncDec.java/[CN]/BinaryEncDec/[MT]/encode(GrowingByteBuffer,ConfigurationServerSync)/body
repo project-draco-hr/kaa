@@ -1,0 +1,21 @@
+{
+  int option=0;
+  if (configurationSync.getConfSchemaBody() != null) {
+    option&=0x01;
+  }
+  if (configurationSync.getConfDeltaBody() != null) {
+    option&=0x02;
+  }
+  buildExtensionHeader(buf,CONFIGURATION_EXTENSION_ID,NOTHING,NOTHING,(byte)option,0);
+  int extPosition=buf.position();
+  buf.putInt(configurationSync.getAppStateSeqNumber());
+  if (configurationSync.getConfSchemaBody() != null) {
+    buf.putInt(configurationSync.getConfSchemaBody().array().length);
+  }
+  if (configurationSync.getConfDeltaBody() != null) {
+    buf.putInt(configurationSync.getConfDeltaBody().array().length);
+  }
+  buf.put(configurationSync.getConfSchemaBody().array());
+  buf.put(configurationSync.getConfDeltaBody().array());
+  buf.putInt(extPosition - SIZE_OF_INT,buf.position() - extPosition);
+}

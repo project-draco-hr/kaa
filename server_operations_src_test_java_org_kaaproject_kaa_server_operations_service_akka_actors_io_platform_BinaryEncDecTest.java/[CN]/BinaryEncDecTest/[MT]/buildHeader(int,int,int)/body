@@ -1,0 +1,7 @@
+{
+  ByteBuffer buf=ByteBuffer.wrap(new byte[8]);
+  buf.putInt(protocolId);
+  buf.putShort((short)protocolVersion);
+  buf.putShort((short)extensionsCount);
+  return buf.array();
+}

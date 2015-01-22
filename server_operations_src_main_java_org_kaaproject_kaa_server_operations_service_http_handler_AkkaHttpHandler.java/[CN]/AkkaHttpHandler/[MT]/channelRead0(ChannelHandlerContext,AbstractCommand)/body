@@ -1,0 +1,6 @@
+{
+  this.command=(AbstractHttpSyncCommand)msg;
+  NettyHttpSyncMessage message=new NettyHttpSyncMessage(uuid,msg.getNextProtocol(),ctx,command.getChannelType(),command,this,this,command);
+  LOG.trace("Forwarding {} to akka",message);
+  akkaService.process(message);
+}

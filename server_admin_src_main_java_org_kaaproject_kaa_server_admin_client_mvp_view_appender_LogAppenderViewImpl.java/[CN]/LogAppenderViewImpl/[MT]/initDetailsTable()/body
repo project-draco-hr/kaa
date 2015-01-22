@@ -20,24 +20,36 @@
   detailsTable.setWidget(2,0,nameLabel);
   detailsTable.setWidget(2,1,name);
   name.addInputHandler(this);
-  Label statusLabel=new Label(Utils.constants.activate());
-  status=new CheckBox();
-  status.setWidth(FULL_WIDTH);
-  status.setEnabled(false);
-  statusLabel.setVisible(!create);
-  status.setVisible(!create);
-  detailsTable.setWidget(3,0,statusLabel);
-  detailsTable.setWidget(3,1,status);
-  Label schemaLabel=new Label(Utils.constants.schemaVersion());
-  schema=new SchemaListBox();
-  schema.setEnabled(create);
-  detailsTable.setWidget(4,0,schemaLabel);
-  detailsTable.setWidget(4,1,schema);
+  Label minSchemaVersionLabel=new Label(Utils.constants.minVersion());
+  minSchemaVersionLabel.addStyleName(REQUIRED);
+  minSchemaVersion=new IntegerListBox();
+  minSchemaVersion.setWidth("30%");
+  minSchemaVersion.addValueChangeHandler(new ValueChangeHandler<Integer>(){
+    @Override public void onValueChange(    ValueChangeEvent<Integer> event){
+      updateMaxSchemaVersions();
+      fireChanged();
+    }
+  }
+);
+  detailsTable.setWidget(3,0,minSchemaVersionLabel);
+  detailsTable.setWidget(3,1,minSchemaVersion);
+  Label maxSchemaVersionLabel=new Label(Utils.constants.maxVersion());
+  maxSchemaVersionLabel.addStyleName(REQUIRED);
+  maxSchemaVersion=new IntegerListBox();
+  maxSchemaVersion.setWidth("30%");
+  maxSchemaVersion.addValueChangeHandler(new ValueChangeHandler<Integer>(){
+    @Override public void onValueChange(    ValueChangeEvent<Integer> event){
+      fireChanged();
+    }
+  }
+);
+  detailsTable.setWidget(4,0,maxSchemaVersionLabel);
+  detailsTable.setWidget(4,1,maxSchemaVersion);
   Label logMetadata=new Label(Utils.constants.logMetada());
   generateMetadataListBox();
   detailsTable.setWidget(5,0,logMetadata);
   detailsTable.setWidget(5,1,metadatalistBox);
-  description=new KaaAdminSizedTextArea(1024);
+  description=new SizedTextArea(1024);
   description.setWidth(FULL_WIDTH);
   description.getTextArea().getElement().getStyle().setPropertyPx("minHeight",100);
   Label descriptionLabel=new Label(Utils.constants.description());
@@ -56,8 +68,8 @@
 );
   detailsTable.setWidget(7,0,typeLabel);
   detailsTable.setWidget(7,1,appenderInfo);
-  getFooter().setStyleName("b-app-content-details-table");
-  configuration=new KaaAdminRecordFieldWidget();
+  getFooter().addStyleName(Utils.kaaAdminStyle.bAppContentDetailsTable());
+  configuration=new RecordFieldWidget();
   configuration.addValueChangeHandler(this);
   getFooter().add(configuration);
   name.setFocus(true);

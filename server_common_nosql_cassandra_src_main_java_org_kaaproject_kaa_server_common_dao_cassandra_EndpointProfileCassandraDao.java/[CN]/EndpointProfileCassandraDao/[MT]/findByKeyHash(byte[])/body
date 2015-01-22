@@ -1,4 +1,7 @@
 {
-  LOG.debug("Try to find endpoint profile by key hash {}",endpointKeyHash);
-  return (CassandraEndpointProfile)getMapper().get(getByteBuffer(endpointKeyHash));
+  LOG.debug("Try to find endpoint profile by key hash [{}]",endpointKeyHash);
+  CassandraEndpointProfile endpointProfile=(CassandraEndpointProfile)getMapper().get(getByteBuffer(endpointKeyHash));
+  LOG.debug("{} endpoint profile by key hash [{}]",endpointKeyHash,endpointProfile != null ? "Found" : "No found");
+  LOG.trace("Found endpoint profile {} by key hash [{}]",endpointKeyHash,endpointProfile);
+  return endpointProfile;
 }

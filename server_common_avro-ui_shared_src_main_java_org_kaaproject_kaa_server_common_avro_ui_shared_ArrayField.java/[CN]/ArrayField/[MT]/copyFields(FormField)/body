@@ -1,9 +1,0 @@
-{
-  super.copyFields(cloned);
-  ArrayField clonedArrayField=(ArrayField)cloned;
-  clonedArrayField.minRowCount=minRowCount;
-  clonedArrayField.elementMetadata=(RecordField)elementMetadata.clone();
-  for (  RecordField field : value) {
-    clonedArrayField.value.add((RecordField)field.clone());
-  }
-}

@@ -1,0 +1,11 @@
+{
+  try {
+    GeneralProperties record=new GeneralProperties();
+    record.appTitle=fieldSetFlags()[0] ? this.appTitle : (java.lang.String)defaultValue(fields()[0]);
+    record.baseUrl=fieldSetFlags()[1] ? this.baseUrl : (java.lang.String)defaultValue(fields()[1]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

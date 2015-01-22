@@ -1,0 +1,13 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    byte[] body=getFileContent(fileItemName);
+    GenericAvroConverter<GenericRecord> converter=new GenericAvroConverter<>(schema);
+    GenericRecord record=converter.decodeJson(body);
+    RecordField recordData=FormAvroConverter.createRecordFieldFromGenericRecord(record);
+    return recordData;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

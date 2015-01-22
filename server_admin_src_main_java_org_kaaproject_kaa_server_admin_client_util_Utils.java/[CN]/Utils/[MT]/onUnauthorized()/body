@@ -1,0 +1,14 @@
+{
+  if (unauthorizedSessionDialog == null || !unauthorizedSessionDialog.isShowing()) {
+    unauthorizedSessionDialog=new UnauthorizedSessionDialog(new UnauthorizedSessionDialog.Listener(){
+      @Override public void onLogin(){
+        Window.open(Window.Location.getPath(),"_blank","");
+      }
+      @Override public void onIgnore(){
+      }
+    }
+);
+    unauthorizedSessionDialog.center();
+    unauthorizedSessionDialog.show();
+  }
+}

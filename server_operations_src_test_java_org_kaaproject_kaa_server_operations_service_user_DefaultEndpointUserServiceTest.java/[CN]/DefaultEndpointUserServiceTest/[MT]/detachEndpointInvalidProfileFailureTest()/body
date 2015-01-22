@@ -3,6 +3,6 @@
   EndpointProfileDto profileMock=mock(EndpointProfileDto.class);
   EndpointDetachResponse response=endpointUserService.detachEndpoint(profileMock,request);
   assertNotNull(response);
-  assertEquals(SyncResponseResultType.FAILURE,response.getResult());
+  assertEquals(SyncStatus.FAILURE,response.getResult());
   assertEquals(REQUEST_ID,response.getRequestId());
 }

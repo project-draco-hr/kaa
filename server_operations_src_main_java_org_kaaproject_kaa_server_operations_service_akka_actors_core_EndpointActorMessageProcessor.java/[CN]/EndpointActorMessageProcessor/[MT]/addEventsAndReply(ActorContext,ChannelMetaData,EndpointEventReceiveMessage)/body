@@ -1,10 +1,10 @@
 {
   SyncRequestMessage pendingRequest=channel.getRequestMessage();
   SyncResponseHolder pendingResponse=channel.getResponseHolder();
-  EventSyncResponse eventResponse=pendingResponse.getResponse().getEventSyncResponse();
+  EventServerSync eventResponse=pendingResponse.getResponse().getEventSync();
   if (eventResponse == null) {
-    eventResponse=new EventSyncResponse();
-    pendingResponse.getResponse().setEventSyncResponse(eventResponse);
+    eventResponse=new EventServerSync();
+    pendingResponse.getResponse().setEventSync(eventResponse);
   }
   eventResponse.setEvents(message.getEvents());
   sendReply(context,pendingRequest,pendingResponse.getResponse());

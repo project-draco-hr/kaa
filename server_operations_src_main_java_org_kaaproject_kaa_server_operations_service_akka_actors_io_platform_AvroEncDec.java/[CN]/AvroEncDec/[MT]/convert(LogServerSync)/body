@@ -1,0 +1,9 @@
+{
+  if (source == null) {
+    return null;
+  }
+  LogSyncResponse sync=new LogSyncResponse();
+  sync.setRequestId(source.getRequestId());
+  sync.setResult(convert(source.getResult()));
+  return sync;
+}

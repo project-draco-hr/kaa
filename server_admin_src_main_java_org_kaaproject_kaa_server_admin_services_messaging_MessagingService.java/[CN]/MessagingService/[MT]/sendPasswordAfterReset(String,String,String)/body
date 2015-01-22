@@ -2,8 +2,8 @@
   try {
     callAsync(new Callable<Void>(){
       @Override public Void call() throws Exception {
-        String subject=messages.getMessage("tempPasswordMailMessageSubject",new Object[]{appName},Locale.ENGLISH);
-        String text=messages.getMessage("resetPasswordMailMessageBody",new Object[]{username,appBaseUrl,appName,password},Locale.ENGLISH);
+        String subject=messages.getMessage("passwordWasResetMailMessageSubject",new Object[]{appName},Locale.ENGLISH);
+        String text=messages.getMessage("passwordWasResetMailMessageBody",new Object[]{username,appBaseUrl,appName,password},Locale.ENGLISH);
         MimeMessage mimeMsg=kaaMessagingMailSender.createMimeMessage();
         MimeMessageHelper helper=new MimeMessageHelper(mimeMsg,"UTF-8");
         try {
@@ -14,7 +14,7 @@
           kaaMessagingMailSender.send(helper.getMimeMessage());
         }
  catch (        MessagingException e) {
-          logger.error("Unexpected error while sendPasswordAfterResetMail",e);
+          LOG.error("Unexpected error while sendPasswordAfterResetMail",e);
         }
         return null;
       }
@@ -22,6 +22,6 @@
 );
   }
  catch (  Exception e) {
-    logger.error("Unexpected error while sendPasswordAfterResetMail",e);
+    LOG.error("Unexpected error while sendPasswordAfterResetMail",e);
   }
 }

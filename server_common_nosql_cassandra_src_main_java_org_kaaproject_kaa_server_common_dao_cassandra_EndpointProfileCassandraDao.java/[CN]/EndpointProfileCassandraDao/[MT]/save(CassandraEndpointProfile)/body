@@ -1,6 +1,8 @@
 {
   LOG.debug("Saving endpoint profile...");
-  profile.setId(getStringId());
+  if (profile.getId() == null) {
+    profile.setId(getStringId());
+  }
   ByteBuffer epKeyHash=profile.getEndpointKeyHash();
   Statement saveByAppId=cassandraEPByAppIdDao.getSaveQuery(new CassandraEPByAppId(profile.getApplicationId(),epKeyHash));
   String accessToken=profile.getAccessToken();

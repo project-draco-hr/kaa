@@ -3,8 +3,8 @@
   String generatedPassword=null;
   if (userDto.getExternalUid() == null || userDto.getExternalUid().isEmpty()) {
     user=new User();
-    generatedPassword=RandomStringUtils.randomAlphanumeric(12);
-    user.setPassword(passwordEncoder.encodePassword(generatedPassword,null));
+    generatedPassword=RandomStringUtils.randomAlphanumeric(User.TEMPORARY_PASSWORD_LENGTH);
+    user.setPassword(passwordEncoder.encode(generatedPassword));
     user.setTempPassword(true);
     user.setEnabled(true);
   }

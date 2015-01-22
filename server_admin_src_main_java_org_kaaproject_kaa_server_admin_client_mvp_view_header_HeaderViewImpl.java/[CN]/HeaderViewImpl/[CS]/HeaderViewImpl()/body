@@ -1,6 +1,7 @@
 {
   settingsLabel=new ActionsLabel(Utils.constants.settings());
-  settingsLabel.setStyleName("b-app-header-menu");
+  kaaAdminStyle=Utils.kaaAdminStyle;
+  settingsLabel.setStyleName(kaaAdminStyle.bAppHeaderMenu());
   initWidget(uiBinder.createAndBindUi(this));
   signoutLabel.setText(Utils.constants.signOut());
   title.addClickHandler(new ClickHandler(){

@@ -1,0 +1,10 @@
+{
+  PropertiesDto propertiesDto=new PropertiesDto();
+  propertiesDto.setId(String.valueOf(entity.getId()));
+  Schema schema=(Schema)propertiesClass.getField(SCHEMA).get(null);
+  GenericAvroConverter<GenericRecord> converter=new GenericAvroConverter<>(schema);
+  GenericRecord record=converter.decodeBinary(entity.getRawConfiguration());
+  RecordField configuration=FormAvroConverter.createRecordFieldFromGenericRecord(record);
+  propertiesDto.setConfiguration(configuration);
+  return propertiesDto;
+}

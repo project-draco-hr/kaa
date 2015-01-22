@@ -1,0 +1,30 @@
+{
+  if (source == null) {
+    return null;
+  }
+  UserSyncResponse sync=new UserSyncResponse();
+  if (source.getUserAttachNotification() != null) {
+    sync.setUserAttachNotification(new UserAttachNotification(source.getUserAttachNotification().getUserExternalId(),source.getUserAttachNotification().getEndpointAccessToken()));
+  }
+  if (source.getUserDetachNotification() != null) {
+    sync.setUserDetachNotification(new UserDetachNotification(source.getUserDetachNotification().getEndpointAccessToken()));
+  }
+  if (source.getUserAttachResponse() != null) {
+    sync.setUserAttachResponse(new UserAttachResponse(convert(source.getUserAttachResponse().getResult())));
+  }
+  if (source.getEndpointAttachResponses() != null) {
+    List<EndpointAttachResponse> responses=new ArrayList<>(source.getEndpointAttachResponses().size());
+    for (    org.kaaproject.kaa.server.operations.pojo.sync.EndpointAttachResponse response : source.getEndpointAttachResponses()) {
+      responses.add(new EndpointAttachResponse(response.getRequestId(),response.getEndpointKeyHash(),convert(response.getResult())));
+    }
+    sync.setEndpointAttachResponses(responses);
+  }
+  if (source.getEndpointDetachResponses() != null) {
+    List<EndpointDetachResponse> responses=new ArrayList<>(source.getEndpointDetachResponses().size());
+    for (    org.kaaproject.kaa.server.operations.pojo.sync.EndpointDetachResponse response : source.getEndpointDetachResponses()) {
+      responses.add(new EndpointDetachResponse(response.getRequestId(),convert(response.getResult())));
+    }
+    sync.setEndpointDetachResponses(responses);
+  }
+  return sync;
+}

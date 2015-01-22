@@ -1,8 +1,8 @@
 {
-  logger.info("Exporting box '{}' ...",boxName);
+  LOG.info("Exporting box '{}' ...",boxName);
   if (imageOutputFile.exists()) {
     if (!imageOutputFile.delete()) {
-      logger.error("Unable to delete previous output image file '{}'",imageOutputFile.getAbsoluteFile());
+      LOG.error("Unable to delete previous output image file '{}'",imageOutputFile.getAbsoluteFile());
       throw new RuntimeException("Failed to export sandbox image!");
     }
   }
@@ -10,5 +10,5 @@
     imageOutputFile.getParentFile().mkdirs();
   }
   exportBoxImpl();
-  logger.info("Box '{}' was exported.",boxName);
+  LOG.info("Box '{}' was exported.",boxName);
 }

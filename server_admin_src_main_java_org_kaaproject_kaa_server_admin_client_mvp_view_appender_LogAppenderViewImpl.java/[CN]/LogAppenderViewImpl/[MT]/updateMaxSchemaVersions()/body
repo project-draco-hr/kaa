@@ -1,0 +1,27 @@
+{
+  if (schemaVersions != null) {
+    Integer minVersionValue=minSchemaVersion.getValue();
+    List<Integer> maxSchemaVersions=null;
+    Integer maxVersionValue=maxSchemaVersion.getValue();
+    if (minVersionValue != null) {
+      maxSchemaVersions=new ArrayList<>();
+      for (      Integer version : schemaVersions) {
+        if (version >= minVersionValue) {
+          maxSchemaVersions.add(version);
+        }
+      }
+      if (maxVersionValue != null && maxVersionValue < minVersionValue) {
+        maxVersionValue=minVersionValue;
+      }
+    }
+ else {
+      maxSchemaVersions=new ArrayList<>(schemaVersions);
+    }
+    maxSchemaVersions.add(Integer.MAX_VALUE);
+    if (maxVersionValue == null) {
+      maxVersionValue=Integer.MAX_VALUE;
+    }
+    maxSchemaVersion.setValue(maxVersionValue);
+    maxSchemaVersion.setAcceptableValues(maxSchemaVersions);
+  }
+}

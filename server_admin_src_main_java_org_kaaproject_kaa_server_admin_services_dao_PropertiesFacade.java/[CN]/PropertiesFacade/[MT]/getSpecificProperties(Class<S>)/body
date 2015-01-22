@@ -1,0 +1,17 @@
+{
+  Properties entity=findOrCreateByClass(propertiesClass);
+  S specificProperties=null;
+  if (entity != null) {
+    AvroByteArrayConverter<S> converter=new AvroByteArrayConverter<>(propertiesClass);
+    try {
+      specificProperties=converter.fromByteArray(entity.getRawConfiguration());
+    }
+ catch (    IOException e) {
+      LOG.error("Unable to parse raw data for specific record " + propertiesClass.getSimpleName(),e);
+    }
+  }
+  if (specificProperties == null) {
+    specificProperties=buildDefaultProperties(propertiesClass);
+  }
+  return specificProperties;
+}

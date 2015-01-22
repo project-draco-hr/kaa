@@ -1,0 +1,18 @@
+{
+  if (sync == null) {
+    return null;
+  }
+  LOG.trace("Encoding server sync {}",sync);
+  SyncResponse response=convert(sync);
+  LOG.trace("Encoded server sync {}",response);
+  try {
+    byte[] data=serverSyncConverter.toByteArray(response);
+    if (LOG.isTraceEnabled()) {
+      LOG.trace("Encoded avro data {}",Arrays.toString(data));
+    }
+    return data;
+  }
+ catch (  IOException e) {
+    throw new PlatformEncDecException(e);
+  }
+}

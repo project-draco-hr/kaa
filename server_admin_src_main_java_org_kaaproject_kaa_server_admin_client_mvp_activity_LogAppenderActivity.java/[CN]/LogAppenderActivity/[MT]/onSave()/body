@@ -1,6 +1,7 @@
 {
   entity.setName(detailsView.getName().getValue());
-  entity.setSchema(detailsView.getSchemaVersions().getValue());
+  entity.setMinLogSchemaVersion(detailsView.getMinSchemaVersion().getValue());
+  entity.setMaxLogSchemaVersion(detailsView.getMaxSchemaVersion().getValue());
   entity.setStatus(LogAppenderStatusDto.REGISTERED);
   entity.setDescription(detailsView.getDescription().getValue());
   entity.setHeaderStructure(detailsView.getHeader());

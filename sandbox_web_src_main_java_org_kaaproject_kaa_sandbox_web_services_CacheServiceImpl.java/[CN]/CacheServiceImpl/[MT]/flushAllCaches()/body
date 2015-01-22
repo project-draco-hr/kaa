@@ -1,0 +1,11 @@
+{
+  AdminClient client=clientProvider.getClient();
+  client.login(tenantDeveloperUser,tenantDeveloperPassword);
+  try {
+    client.flushSdkCache();
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+  LOG.info("All caches have been completely flushed.");
+}

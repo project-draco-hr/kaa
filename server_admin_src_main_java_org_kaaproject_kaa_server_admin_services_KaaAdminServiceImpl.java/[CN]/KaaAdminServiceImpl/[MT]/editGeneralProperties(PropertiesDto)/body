@@ -1,0 +1,11 @@
+{
+  checkAuthority(KaaAuthorityDto.KAA_ADMIN);
+  try {
+    PropertiesDto storedPropertiesDto=propertiesFacade.editPropertiesDto(generalPropertiesDto,GeneralProperties.class);
+    messagingService.configureMailSender();
+    return storedPropertiesDto;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

@@ -1,0 +1,9 @@
+{
+  checkAuthority(KaaAuthorityDto.KAA_ADMIN);
+  try {
+    return propertiesFacade.getPropertiesDto(SmtpMailProperties.class);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

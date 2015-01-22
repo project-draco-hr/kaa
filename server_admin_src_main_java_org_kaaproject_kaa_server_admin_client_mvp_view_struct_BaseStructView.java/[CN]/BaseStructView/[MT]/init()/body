@@ -52,7 +52,7 @@
   getFlexCellFormatter().setColSpan(1,0,2);
   detailsTable.getColumnFormatter().setWidth(0,"200px");
   detailsTable.getColumnFormatter().setWidth(1,"300px");
-  description=new KaaAdminSizedTextArea(1024);
+  description=new SizedTextArea(1024);
   description.setWidth("500px");
   description.getTextArea().getElement().getStyle().setPropertyPx("minHeight",100);
   Label descriptionLabel=new Label(Utils.constants.description());
@@ -61,7 +61,7 @@
   detailsTable.getCellFormatter().setVerticalAlignment(0,0,HasVerticalAlignment.ALIGN_TOP);
   bodyLabel=new Label(Utils.constants.body());
   detailsTable.setWidget(1,0,bodyLabel);
-  body=new KaaAdminSizedTextArea(524288);
+  body=new SizedTextArea(-1);
   body.setWidth("500px");
   body.getTextArea().getElement().getStyle().setPropertyPx("minHeight",200);
   detailsTable.setWidget(1,1,body);

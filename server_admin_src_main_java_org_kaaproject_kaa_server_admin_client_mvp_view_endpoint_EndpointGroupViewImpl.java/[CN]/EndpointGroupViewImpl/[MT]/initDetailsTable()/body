@@ -32,7 +32,7 @@
   detailsTable.setWidget(4,0,weightLabel);
   detailsTable.setWidget(4,1,weight);
   weight.addChangeHandler(this);
-  description=new KaaAdminSizedTextArea(1024);
+  description=new SizedTextArea(1024);
   description.setWidth("100%");
   description.getTextArea().getElement().getStyle().setPropertyPx("minHeight",100);
   description.getTextArea().getElement().getStyle().setPropertyPx("maxWidth",487);
@@ -45,11 +45,11 @@
   profileFiltersGrid=new BaseStructGrid<ProfileFilterDto>();
   profileFiltersGrid.setSize("700px","200px");
   Label profileFiltersLabel=new Label(Utils.constants.profileFilters());
-  profileFiltersLabel.addStyleName("b-app-content-title-label");
+  profileFiltersLabel.addStyleName(Utils.kaaAdminStyle.bAppContentTitleLabel());
   includeDeprecatedProfileFilters=new CheckBox(Utils.constants.includeDeprecated());
   setCheckBoxStyle(includeDeprecatedProfileFilters);
   addProfileFilterButton=new Button(Utils.constants.addProfileFilter());
-  addProfileFilterButton.addStyleName("b-app-button-small");
+  addProfileFilterButton.addStyleName(Utils.kaaAdminStyle.bAppButtonSmall());
   detailsTable.setWidget(6,0,profileFiltersLabel);
   profileFiltersLabel.getElement().getParentElement().getStyle().setPropertyPx("paddingBottom",10);
   detailsTable.setWidget(6,1,includeDeprecatedProfileFilters);
@@ -64,11 +64,11 @@
   configurationsGrid=new BaseStructGrid<ConfigurationDto>();
   configurationsGrid.setSize("700px","200px");
   Label configurationsLabel=new Label(Utils.constants.configurations());
-  configurationsLabel.addStyleName("b-app-content-title-label");
+  configurationsLabel.addStyleName(Utils.kaaAdminStyle.bAppContentTitleLabel());
   includeDeprecatedConfigurations=new CheckBox(Utils.constants.includeDeprecated());
   setCheckBoxStyle(includeDeprecatedConfigurations);
   addConfigurationButton=new Button(Utils.constants.addConfiguration());
-  addConfigurationButton.addStyleName("b-app-button-small");
+  addConfigurationButton.addStyleName(Utils.kaaAdminStyle.bAppButtonSmall());
   detailsTable.setWidget(9,0,configurationsLabel);
   configurationsLabel.getElement().getParentElement().getStyle().setPropertyPx("paddingBottom",10);
   detailsTable.setWidget(9,1,includeDeprecatedConfigurations);
@@ -83,9 +83,9 @@
   topicsGrid=new TopicGrid(true);
   topicsGrid.setSize("700px","200px");
   Label topicsLabel=new Label(Utils.constants.notificationTopics());
-  topicsLabel.addStyleName("b-app-content-title-label");
+  topicsLabel.addStyleName(Utils.kaaAdminStyle.bAppContentTitleLabel());
   addTopicButton=new Button(Utils.constants.addNotificationTopic());
-  addTopicButton.addStyleName("b-app-button-small");
+  addTopicButton.addStyleName(Utils.kaaAdminStyle.bAppButtonSmall());
   detailsTable.setWidget(12,0,topicsLabel);
   topicsLabel.getElement().getParentElement().getStyle().setPropertyPx("paddingBottom",10);
   detailsTable.setWidget(13,0,topicsGrid);

@@ -4,6 +4,12 @@
     if (clazz == UserProfilePlace.class) {
       return new UserProfileActivity((UserProfilePlace)place,clientFactory);
     }
+ else     if (clazz == GeneralPropertiesPlace.class) {
+      return new GeneralPropertiesActivity((GeneralPropertiesPlace)place,clientFactory);
+    }
+ else     if (clazz == MailPropertiesPlace.class) {
+      return new MailPropertiesActivity((MailPropertiesPlace)place,clientFactory);
+    }
  else     if (clazz == TenantsPlace.class) {
       return new TenantsActivity((TenantsPlace)place,clientFactory);
     }
@@ -72,6 +78,9 @@
     }
  else     if (clazz == TopicPlace.class) {
       return new TopicActivity((TopicPlace)place,clientFactory);
+    }
+ else     if (clazz == SendNotificationPlace.class) {
+      return new SendNotificationActivity((SendNotificationPlace)place,clientFactory);
     }
  else     if (clazz == AefMapsPlace.class) {
       return new AefMapsActivity((AefMapsPlace)place,clientFactory);

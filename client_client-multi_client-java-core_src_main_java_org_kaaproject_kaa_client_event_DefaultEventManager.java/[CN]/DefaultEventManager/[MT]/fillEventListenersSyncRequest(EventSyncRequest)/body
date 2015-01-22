@@ -2,7 +2,7 @@
   if (!eventListenersRequests.isEmpty()) {
     LOG.debug("There are {} unresolved eventListenersResolution request{}",eventListenersRequests.size(),(eventListenersRequests.size() == 1 ? "" : "s"));
     List<EventListenersRequest> requests=new ArrayList<EventListenersRequest>();
-    for (    Map.Entry<String,EventListenersRequestBinding> entry : eventListenersRequests.entrySet()) {
+    for (    Map.Entry<Integer,EventListenersRequestBinding> entry : eventListenersRequests.entrySet()) {
       if (!entry.getValue().isSent()) {
         requests.add(entry.getValue().getRequest());
         entry.getValue().setSent(Boolean.TRUE);

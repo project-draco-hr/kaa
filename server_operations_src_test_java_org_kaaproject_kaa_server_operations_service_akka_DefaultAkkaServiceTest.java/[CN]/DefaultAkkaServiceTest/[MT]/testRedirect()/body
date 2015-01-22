@@ -18,7 +18,7 @@
   response.setRequestId(request.getRequestId());
   response.setStatus(SyncResponseResultType.REDIRECT);
   response.setRedirectSyncResponse(new RedirectSyncResponse("testDNS"));
-  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT / 2).never()).sync(request);
+  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT / 2).never()).sync(AvroEncDec.convert(request));
   AvroByteArrayConverter<SyncResponse> responseConverter=new AvroByteArrayConverter<>(SyncResponse.class);
   byte[] encodedData=crypt.encodeData(responseConverter.toByteArray(response));
   Mockito.verify(responseBuilder,Mockito.timeout(TIMEOUT).atLeastOnce()).build(encodedData,true);

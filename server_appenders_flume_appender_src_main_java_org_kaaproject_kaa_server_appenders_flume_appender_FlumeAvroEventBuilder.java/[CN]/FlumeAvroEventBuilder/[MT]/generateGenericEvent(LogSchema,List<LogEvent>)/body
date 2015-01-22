@@ -1,0 +1,9 @@
+{
+  List<Event> events=new ArrayList<Event>();
+  for (  LogEvent logEvent : logEvents) {
+    Event event=EventBuilder.withBody(logEvent.getLogData());
+    event.getHeaders().put(AVRO_SCHEMA_HEADER_LITERAL,schema.getSchema());
+    events.add(event);
+  }
+  return events;
+}

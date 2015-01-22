@@ -1,0 +1,12 @@
+{
+  ClientSync dest=new ClientSync();
+  dest.setRequestId(source.getRequestId());
+  dest.setClientSyncMetaData(convert(source.getSyncRequestMetaData()));
+  dest.setProfileSync(convert(source.getProfileSyncRequest()));
+  dest.setConfigurationSync(convert(source.getConfigurationSyncRequest()));
+  dest.setNotificationSync(convert(source.getNotificationSyncRequest()));
+  dest.setEventSync(convert(source.getEventSyncRequest()));
+  dest.setUserSync(convert(source.getUserSyncRequest()));
+  dest.setLogSync(convert(source.getLogSyncRequest()));
+  return dest;
+}

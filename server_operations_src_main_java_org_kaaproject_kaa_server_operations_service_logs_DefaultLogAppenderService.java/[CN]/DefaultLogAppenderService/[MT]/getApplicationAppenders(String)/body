@@ -1,0 +1,17 @@
+{
+  LOG.debug("Get log appenders by application id [{}]",applicationId);
+  List<LogAppenderDto> appenders=logAppendersService.findRegisteredLogAppendersByAppId(applicationId);
+  LOG.debug("Found all appenders [{}] for application.",appenders);
+  List<LogAppender> logAppenders=new ArrayList<>(appenders.size());
+  for (  LogAppenderDto appender : appenders) {
+    try {
+      LogAppender logAppender=logAppenderResolver.getAppender(appender);
+      logAppenders.add(logAppender);
+    }
+ catch (    Exception e) {
+      LOG.warn("Can't initialize log appender [{}]",appender);
+      continue;
+    }
+  }
+  return logAppenders;
+}
