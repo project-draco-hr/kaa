@@ -1,8 +1,8 @@
 {
   EndpointUserDto expected=generateEndpointUser();
-  String accessToken=userEndpointUserDao.generateAccessToken(expected.getExternalId(),expected.getTenantId());
-  Boolean result=userEndpointUserDao.checkAccessToken(expected.getExternalId(),expected.getTenantId(),accessToken);
+  String accessToken=endpointUserDao.generateAccessToken(expected.getExternalId(),expected.getTenantId());
+  Boolean result=endpointUserDao.checkAccessToken(expected.getExternalId(),expected.getTenantId(),accessToken);
   Assert.assertTrue(result);
-  result=userEndpointUserDao.checkAccessToken(expected.getExternalId(),expected.getTenantId(),"");
+  result=endpointUserDao.checkAccessToken(expected.getExternalId(),expected.getTenantId(),"");
   Assert.assertFalse(result);
 }

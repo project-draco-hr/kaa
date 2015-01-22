@@ -1,5 +1,5 @@
 {
   EndpointUserDto expected=generateEndpointUser();
-  CassandraEndpointUser found=userEndpointUserDao.findById(expected.getId());
+  CassandraEndpointUser found=endpointUserDao.findById(expected.getId());
   Assert.assertEquals(expected,found.toDto());
 }

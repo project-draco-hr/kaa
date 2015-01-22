@@ -1,5 +1,15 @@
 {
-  this.id=dto.getId();
   this.endpointKeyHash=ByteBuffer.wrap(dto.getEndpointKeyHash());
-  this.notification=dto.getNotificationDto() != null ? new CassandraNotification(dto.getNotificationDto()) : null;
+  NotificationDto notificationDto=dto.getNotificationDto();
+  if (notificationDto != null) {
+    this.seqNum=notificationDto.getSecNum();
+    this.type=notificationDto.getType();
+    this.applicationId=notificationDto.getApplicationId();
+    this.schemaId=notificationDto.getSchemaId();
+    this.version=notificationDto.getVersion();
+    this.lastModifyTime=notificationDto.getLastTimeModify();
+    this.body=getByteBuffer(notificationDto.getBody());
+    this.expiredAt=notificationDto.getExpiredAt();
+  }
+  this.id=dto.getId() != null ? dto.getId() : generateId();
 }
