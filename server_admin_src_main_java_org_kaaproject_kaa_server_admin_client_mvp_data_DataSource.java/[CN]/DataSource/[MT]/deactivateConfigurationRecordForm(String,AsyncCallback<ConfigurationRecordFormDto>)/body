@@ -1,0 +1,8 @@
+{
+  rpcService.deactivateConfigurationRecordForm(configurationId,new DataCallback<ConfigurationRecordFormDto>(callback){
+    @Override protected void onResult(    ConfigurationRecordFormDto result){
+      eventBus.fireEvent(new DataEvent(ConfigurationRecordFormDto.class));
+    }
+  }
+);
+}

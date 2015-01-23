@@ -12,9 +12,16 @@
     servers.add(new MongoDbServer(serverAddress.getHost(),serverAddress.getPort()));
   }
   List<MongoDBCredential> credentials=new ArrayList<>();
-  MongoDbConfig mongoDbConfig=MongoDbConfig.newBuilder().setMongoServers(servers).setMongoCredentials(credentials).setDbName(dbName).build();
-  AvroByteArrayConverter<MongoDbConfig> converter=new AvroByteArrayConverter<>(MongoDbConfig.class);
-  byte[] rawConfiguration=converter.toByteArray(mongoDbConfig);
+  RawSchema rawSchema=new RawSchema(MongoDbConfig.getClassSchema().toString());
+  DefaultRecordGenerationAlgorithm<RawData> algotithm=new DefaultRecordGenerationAlgorithmImpl<>(rawSchema,new RawDataFactory());
+  RawData rawData=algotithm.getRootData();
+  AvroJsonConverter<MongoDbConfig> converter=new AvroJsonConverter<>(MongoDbConfig.getClassSchema(),MongoDbConfig.class);
+  MongoDbConfig mongoDbConfig=converter.decodeJson(rawData.getRawData());
+  mongoDbConfig.setMongoServers(servers);
+  mongoDbConfig.setMongoCredentials(credentials);
+  mongoDbConfig.setDbName(dbName);
+  AvroByteArrayConverter<MongoDbConfig> byteConverter=new AvroByteArrayConverter<>(MongoDbConfig.class);
+  byte[] rawConfiguration=byteConverter.toByteArray(mongoDbConfig);
   appenderDto.setRawConfiguration(rawConfiguration);
   logAppender.init(appenderDto);
 }

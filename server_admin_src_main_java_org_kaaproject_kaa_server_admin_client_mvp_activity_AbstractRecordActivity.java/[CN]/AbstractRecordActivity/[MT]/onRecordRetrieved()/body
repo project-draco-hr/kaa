@@ -22,7 +22,7 @@
       inactiveStruct.setMajorVersion(record.getMajorVersion());
       inactiveStruct.setMinorVersion(record.getMinorVersion());
       inactiveStruct.setDescription(record.getDescription());
-      inactiveStruct.setBody(record.getActiveStructureDto().getBody());
+      copyBody(record.getActiveStructureDto(),inactiveStruct);
       record.setInactiveStructureDto(inactiveStruct);
     }
     recordView.getRecordPanel().setData(record);

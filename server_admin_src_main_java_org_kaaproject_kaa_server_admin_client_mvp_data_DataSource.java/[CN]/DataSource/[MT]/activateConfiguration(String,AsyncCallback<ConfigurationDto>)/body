@@ -1,8 +1,0 @@
-{
-  rpcService.activateConfiguration(configurationId,new DataCallback<ConfigurationDto>(callback){
-    @Override protected void onResult(    ConfigurationDto result){
-      eventBus.fireEvent(new DataEvent(ConfigurationDto.class));
-    }
-  }
-);
-}
