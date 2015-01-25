@@ -1,5 +1,5 @@
 {
   CRC32 crc32=new CRC32();
-  crc32.update(getNameFromConnectionInfo(info).getBytes(UTF8));
+  crc32.update(getNameFromConnectionInfo(connectionInfo).getBytes(UTF8));
   return (int)crc32.getValue();
 }

@@ -2,9 +2,8 @@
   try {
     ProtocolMetaData record=new ProtocolMetaData();
     record.accessPointId=fieldSetFlags()[0] ? this.accessPointId : (java.lang.Integer)defaultValue(fields()[0]);
-    record.protocolId=fieldSetFlags()[1] ? this.protocolId : (java.lang.Integer)defaultValue(fields()[1]);
-    record.protocolVersion=fieldSetFlags()[2] ? this.protocolVersion : (java.lang.Integer)defaultValue(fields()[2]);
-    record.connectionInfo=fieldSetFlags()[3] ? this.connectionInfo : (java.nio.ByteBuffer)defaultValue(fields()[3]);
+    record.protocolVersionInfo=fieldSetFlags()[1] ? this.protocolVersionInfo : (org.kaaproject.kaa.common.endpoint.gen.ProtocolVersionPair)defaultValue(fields()[1]);
+    record.connectionInfo=fieldSetFlags()[2] ? this.connectionInfo : (java.nio.ByteBuffer)defaultValue(fields()[2]);
     return record;
   }
  catch (  Exception e) {
