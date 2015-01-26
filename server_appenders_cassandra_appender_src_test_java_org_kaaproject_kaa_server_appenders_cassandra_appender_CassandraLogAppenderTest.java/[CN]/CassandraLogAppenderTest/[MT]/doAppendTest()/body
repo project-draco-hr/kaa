@@ -1,0 +1,8 @@
+{
+  logAppender.doAppend(generateLogEventPack(20));
+  CassandraLogEventDao logEventDao=(CassandraLogEventDao)ReflectionTestUtils.getField(logAppender,"logEventDao");
+  Session session=(Session)ReflectionTestUtils.getField(logEventDao,"session");
+  ResultSet resultSet=session.execute(QueryBuilder.select().countAll().from(KEY_SPACE_NAME,"logs_" + appToken));
+  Row row=resultSet.one();
+  Assert.assertEquals(20L,row.getLong(0));
+}

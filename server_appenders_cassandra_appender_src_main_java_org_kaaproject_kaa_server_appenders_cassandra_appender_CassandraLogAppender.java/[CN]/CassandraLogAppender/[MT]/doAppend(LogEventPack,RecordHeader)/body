@@ -1,0 +1,21 @@
+{
+  if (!closed) {
+    LOG.debug("[{}] appending {} logs to cassandra collection",tableName,logEventPack.getEvents().size());
+    List<LogEventDto> dtoList=generateLogEvent(logEventPack,header);
+    LOG.debug("[{}] saving {} objects",tableName,dtoList.size());
+    if (!dtoList.isEmpty()) {
+switch (executeRequestType) {
+case ASYNC:
+        logEventDao.saveAsync(dtoList,tableName);
+      break;
+case SYNC:
+    logEventDao.save(dtoList,tableName);
+  break;
+}
+LOG.debug("[{}] appended {} logs to cassandra collection",tableName,logEventPack.getEvents().size());
+}
+}
+ else {
+LOG.info("Attempted to append to closed appender named [{}].",getName());
+}
+}

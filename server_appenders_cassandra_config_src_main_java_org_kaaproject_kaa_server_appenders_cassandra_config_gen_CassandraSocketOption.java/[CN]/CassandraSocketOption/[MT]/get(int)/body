@@ -1,0 +1,22 @@
+{
+switch (field$) {
+case 0:
+    return sendBufferSize;
+case 1:
+  return receiveBufferSize;
+case 2:
+return soLinger;
+case 3:
+return connectionTimeout;
+case 4:
+return readTimeout;
+case 5:
+return reuseAddress;
+case 6:
+return keepAlive;
+case 7:
+return tcpNoDelay;
+default :
+throw new org.apache.avro.AvroRuntimeException("Bad index");
+}
+}

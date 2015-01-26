@@ -1,0 +1,11 @@
+{
+  LOG.info("Initializing new instance of Cassandra log appender");
+  try {
+    checkExecuteRequestType(configuration);
+    logEventDao=new CassandraLogEventDao(configuration);
+    createTable(appender.getApplicationToken());
+  }
+ catch (  Exception e) {
+    LOG.error("Failed to init cassandra log appender: ",e);
+  }
+}
