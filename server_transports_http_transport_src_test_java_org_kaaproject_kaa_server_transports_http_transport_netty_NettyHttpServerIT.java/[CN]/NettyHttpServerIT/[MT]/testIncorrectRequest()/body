@@ -1,0 +1,20 @@
+{
+  LOG.info("Test Incorrect request");
+  PostParameters params=new PostParameters();
+  String commandName="test";
+  try {
+    final HttpTestClient client=new HttpTestClient(params,new HttpActivity(){
+      @Override public void httpRequestComplete(      IOException ioe,      Map<String,List<String>> header,      String body){
+        assertNotNull(ioe);
+        LOG.info("Test complete, Error 500 got.");
+      }
+    }
+,commandName);
+    executor.execute(client);
+    Thread.sleep(100);
+  }
+ catch (  IOException|InterruptedException e) {
+    e.printStackTrace();
+    fail(e.toString());
+  }
+}

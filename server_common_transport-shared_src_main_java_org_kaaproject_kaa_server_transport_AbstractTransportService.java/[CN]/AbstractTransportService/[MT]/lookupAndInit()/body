@@ -1,0 +1,41 @@
+{
+  LOG.info("Lookup of available transport configurations started in package {}.",TRANSPORT_CONFIGURATION_SCAN_PACKAGE);
+  configs.clear();
+  transports.clear();
+  ClassPathScanningCandidateComponentProvider scanner=new ClassPathScanningCandidateComponentProvider(false);
+  scanner.addIncludeFilter(new AnnotationTypeFilter(KaaTransportConfig.class));
+  Set<BeanDefinition> beans=scanner.findCandidateComponents(TRANSPORT_CONFIGURATION_SCAN_PACKAGE);
+  for (  BeanDefinition bean : beans) {
+    LOG.info("Found transport configuration {}",bean.getBeanClassName());
+    try {
+      Class<?> clazz=Class.forName(bean.getBeanClassName());
+      TransportConfig transportConfig=(TransportConfig)clazz.newInstance();
+      configs.put(transportConfig.getId(),transportConfig);
+    }
+ catch (    ReflectiveOperationException e) {
+      LOG.error(MessageFormat.format("Failed to init transport configuration for {0}",bean.getBeanClassName()),e);
+    }
+  }
+  LOG.info("Lookup of available transport configurations found {} configurations.",configs.size());
+  LOG.info("Lookup of transport properties started");
+  TransportProperties transportProperties=new TransportProperties(getServiceProperties());
+  LOG.info("Lookup of transport properties found {} properties",transportProperties.size());
+  for (  TransportConfig config : configs.values()) {
+    LOG.info("Initializing transport with name {} and class {}",config.getName(),config.getTransportClass());
+    try {
+      Class<?> clazz=Class.forName(config.getTransportClass());
+      Transport transport=(Transport)clazz.newInstance();
+      LOG.info("Lookup of transport configuration file {}",config.getConfigFileName());
+      URL configFileURL=this.getClass().getClassLoader().getResource(config.getConfigFileName());
+      GenericAvroConverter<GenericRecord> configConverter=new GenericAvroConverter<GenericRecord>(config.getConfigSchema());
+      GenericRecord configRecord=configConverter.decodeJson(Files.readAllBytes(Paths.get(configFileURL.toURI())));
+      LOG.info("Lookup of transport configuration file {}",config.getConfigFileName());
+      TransportContext context=new TransportContext(transportProperties,getPublicKey(),getMessageHandler());
+      transport.init(new GenericTransportContext(context,configConverter.encode(configRecord)));
+      transports.put(config.getId(),transport);
+    }
+ catch (    ReflectiveOperationException|IOException|URISyntaxException|TransportLifecycleException e) {
+      LOG.error(MessageFormat.format("Failed to init transport for {0}",config.getTransportClass()),e);
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  byte[] connectionData=null;
+  for (  VersionConnectionInfoPair pair : md.getConnectionInfo()) {
+    if (version == pair.getVersion()) {
+      connectionData=pair.getConenctionInfo().array();
+    }
+  }
+  return new ProtocolConnectionData(ServerNameUtil.crc32(node.getConnectionInfo()),new ProtocolVersionId(md.getId(),version),connectionData);
+}

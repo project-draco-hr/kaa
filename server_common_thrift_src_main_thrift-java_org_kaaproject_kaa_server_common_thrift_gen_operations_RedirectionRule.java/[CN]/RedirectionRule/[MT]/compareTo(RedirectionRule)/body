@@ -3,12 +3,12 @@
     return getClass().getName().compareTo(other.getClass().getName());
   }
   int lastComparison=0;
-  lastComparison=Boolean.valueOf(isSetDnsName()).compareTo(other.isSetDnsName());
+  lastComparison=Boolean.valueOf(isSetAccessPointId()).compareTo(other.isSetAccessPointId());
   if (lastComparison != 0) {
     return lastComparison;
   }
-  if (isSetDnsName()) {
-    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.dnsName,other.dnsName);
+  if (isSetAccessPointId()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.accessPointId,other.accessPointId);
     if (lastComparison != 0) {
       return lastComparison;
     }

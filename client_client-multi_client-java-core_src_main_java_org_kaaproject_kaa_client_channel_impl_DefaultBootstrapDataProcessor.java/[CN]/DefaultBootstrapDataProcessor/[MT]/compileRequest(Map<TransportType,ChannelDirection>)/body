@@ -1,6 +1,6 @@
 {
   if (transport != null) {
-    Resolve request=transport.createResolveRequest();
+    SyncRequest request=transport.createResolveRequest();
     LOG.trace("Created Resolve request {}",request);
     return requestConverter.toByteArray(request);
   }

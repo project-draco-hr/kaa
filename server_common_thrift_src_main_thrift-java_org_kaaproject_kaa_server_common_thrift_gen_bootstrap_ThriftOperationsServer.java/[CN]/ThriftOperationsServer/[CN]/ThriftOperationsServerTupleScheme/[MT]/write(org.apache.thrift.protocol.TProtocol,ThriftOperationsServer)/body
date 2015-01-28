@@ -1,34 +1,17 @@
 {
   TTupleProtocol oprot=(TTupleProtocol)prot;
   BitSet optionals=new BitSet();
-  if (struct.isSetName()) {
+  if (struct.isSetId()) {
     optionals.set(0);
   }
   if (struct.isSetPriority()) {
     optionals.set(1);
   }
-  if (struct.isSetPublicKey()) {
-    optionals.set(2);
-  }
-  if (struct.isSetSupportedChannels()) {
-    optionals.set(3);
-  }
-  oprot.writeBitSet(optionals,4);
-  if (struct.isSetName()) {
-    oprot.writeString(struct.Name);
+  oprot.writeBitSet(optionals,2);
+  if (struct.isSetId()) {
+    oprot.writeString(struct.id);
   }
   if (struct.isSetPriority()) {
     oprot.writeI32(struct.priority);
-  }
-  if (struct.isSetPublicKey()) {
-    oprot.writeBinary(struct.publicKey);
-  }
-  if (struct.isSetSupportedChannels()) {
-{
-      oprot.writeI32(struct.supportedChannels.size());
-      for (      ThriftSupportedChannel _iter4 : struct.supportedChannels) {
-        _iter4.write(oprot);
-      }
-    }
   }
 }

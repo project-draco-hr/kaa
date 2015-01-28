@@ -1,0 +1,14 @@
+{
+  try {
+    redirectMeter.mark();
+    ClientSync request=decodeRequest(message);
+    ServerSync response=buildRedirectionResponse(redirection,request);
+    SessionInfo sessionInfo=message.getSessionInfo();
+    SessionResponse responseMessage=new NettySessionResponseMessage(sessionInfo,response,message.getMessageBuilder(),message.getErrorBuilder());
+    LOG.debug("Redirect Response: {}",response);
+    processSessionResponse(responseMessage);
+  }
+ catch (  Exception e) {
+    processErrors(message.getChannelContext(),message.getErrorBuilder(),e);
+  }
+}

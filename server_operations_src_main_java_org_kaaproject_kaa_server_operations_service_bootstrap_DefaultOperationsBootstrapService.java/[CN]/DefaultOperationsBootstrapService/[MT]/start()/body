@@ -1,31 +1,39 @@
 {
   operationsService.setPublicKey(keyStoreService.getPublicKey());
   operationsThriftService.setEventService(eventService);
-  for (  ServiceChannel server : nettyServersList) {
-    LOG.info("Channel {} initializing....",server.getChannelType());
-    server.start();
+  transportService.lookupAndInit();
+  final CountDownLatch thriftStartupLatch=new CountDownLatch(1);
+  final CountDownLatch thriftShutdownLatch=new CountDownLatch(1);
+  startThrift(thriftStartupLatch,thriftShutdownLatch);
+  try {
+    thriftStartupLatch.await();
   }
-  if (!nettyServersList.isEmpty()) {
-    final CountDownLatch thriftStartupLatch=new CountDownLatch(1);
-    final CountDownLatch thriftShutdownLatch=new CountDownLatch(1);
-    startThrift(thriftStartupLatch,thriftShutdownLatch);
-    try {
-      thriftStartupLatch.await();
-    }
- catch (    InterruptedException e) {
-      LOG.error("Interrupted while waiting for thrift to start...",e);
-    }
-    if (getConfig().isZkEnabled()) {
-      startZK();
-    }
-    try {
-      thriftShutdownLatch.await();
-    }
- catch (    InterruptedException e) {
-      LOG.error("Interrupted while waiting for thrift to stop...",e);
+ catch (  InterruptedException e) {
+    LOG.error("Interrupted while waiting for thrift to start...",e);
+  }
+  if (getConfig().isZkEnabled()) {
+    startZK();
+  }
+  transportService.addListener(new TransportUpdateListener(){
+    @Override public void onTransportsStarted(    List<TransportMetaData> mdList){
+      if (operationsNode != null) {
+        OperationsNodeInfo info=operationsNode.getNodeInfo();
+        info.setTransports(mdList);
+        try {
+          operationsNode.updateNodeData(info);
+        }
+ catch (        IOException e) {
+          LOG.error("Failed to update bootstrap node info",e);
+        }
+      }
     }
   }
- else {
-    LOG.error("Operations start failed, No one Service Channels started...");
+);
+  transportService.start();
+  try {
+    thriftShutdownLatch.await();
+  }
+ catch (  InterruptedException e) {
+    LOG.error("Interrupted while waiting for thrift to stop...",e);
   }
 }

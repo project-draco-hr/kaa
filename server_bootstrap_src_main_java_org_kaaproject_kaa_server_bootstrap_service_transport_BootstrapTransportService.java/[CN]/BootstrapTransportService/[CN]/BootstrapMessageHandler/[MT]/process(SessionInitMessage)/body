@@ -1,0 +1,122 @@
+{
+  executor.execute(new Runnable(){
+    @Override public void run(){
+      MessageEncoderDecoder crypt=getOrInitCrypt();
+      Map<Integer,PlatformEncDec> platformEncDecMap=getOrInitMap(platformProtocols);
+      try {
+        ClientSync request=decodeRequest(message,crypt,platformEncDecMap);
+        LOG.trace("Processing request {}",request);
+        BootstrapClientSync bsRequest=request.getBootstrapSync();
+        Set<ProtocolConnectionData> transports=opsListService.filter(bsRequest.getKeys());
+        BootstrapServerSync bsResponse=new BootstrapServerSync(bsRequest.getRequestId(),transports);
+        ServerSync response=new ServerSync();
+        response.setRequestId(request.getRequestId());
+        response.setStatus(SyncStatus.SUCCESS);
+        response.setBootstrapSync(bsResponse);
+        LOG.trace("Response {}",response);
+        encodeAndForward(message,crypt,platformEncDecMap,response);
+        LOG.trace("Response forwarded to specific transport {}",response);
+      }
+ catch (      Exception e) {
+        processErrors(message.getChannelContext(),message.getErrorBuilder(),e);
+      }
+    }
+    private void encodeAndForward(    final SessionInitMessage message,    MessageEncoderDecoder crypt,    Map<Integer,PlatformEncDec> platformEncDecMap,    ServerSync response) throws PlatformEncDecException, GeneralSecurityException {
+      MessageBuilder converter=message.getMessageBuilder();
+      byte[] responseData=encodePlatformLevelData(platformEncDecMap,message.getPlatformId(),response);
+      Object[] objects;
+      if (message.isEncrypted()) {
+        byte[] responseSignature=crypt.sign(responseData);
+        responseData=crypt.encodeData(responseData);
+        LOG.trace("Response signature {}",responseSignature);
+        LOG.trace("Response data {}",responseData);
+        objects=converter.build(responseData,responseSignature,message.isEncrypted());
+      }
+ else {
+        LOG.trace("Response data {}",responseData);
+        objects=converter.build(responseData,message.isEncrypted());
+      }
+      ChannelContext context=message.getChannelContext();
+      if (objects != null && objects.length > 0) {
+        for (        Object object : objects) {
+          context.write(object);
+        }
+        context.flush();
+      }
+    }
+    private void processErrors(    ChannelContext ctx,    ErrorBuilder converter,    Exception e){
+      LOG.trace("Message processing failed",e);
+      Object[] responses=converter.build(e);
+      if (responses != null && responses.length > 0) {
+        for (        Object response : responses) {
+          ctx.writeAndFlush(response);
+        }
+      }
+ else {
+        ctx.fireExceptionCaught(e);
+      }
+    }
+    private ClientSync decodeRequest(    SessionInitMessage message,    MessageEncoderDecoder crypt,    Map<Integer,PlatformEncDec> platformEncDecMap) throws GeneralSecurityException, PlatformEncDecException {
+      ClientSync syncRequest=null;
+      if (message.isEncrypted()) {
+        syncRequest=decodeEncryptedRequest(message,crypt,platformEncDecMap);
+      }
+ else       if (supportUnencryptedConnection) {
+        syncRequest=decodeUnencryptedRequest(message,crypt,platformEncDecMap);
+      }
+ else {
+        LOG.warn("Received unencrypted init message, but unencrypted connection forbidden by configuration.");
+        throw new GeneralSecurityException("Unencrypted connection forbidden by configuration.");
+      }
+      if (syncRequest.getBootstrapSync() == null) {
+        throw new IllegalArgumentException("Bootstrap sync message is missing");
+      }
+      return syncRequest;
+    }
+    private ClientSync decodeEncryptedRequest(    SessionInitMessage message,    MessageEncoderDecoder crypt,    Map<Integer,PlatformEncDec> platformEncDecMap) throws GeneralSecurityException, PlatformEncDecException {
+      byte[] requestRaw=crypt.decodeData(message.getEncodedMessageData(),message.getEncodedSessionKey());
+      LOG.trace("Request data decrypted");
+      ClientSync request=decodePlatformLevelData(platformEncDecMap,message.getPlatformId(),requestRaw);
+      LOG.trace("Request data deserialized");
+      return request;
+    }
+    private ClientSync decodeUnencryptedRequest(    SessionInitMessage message,    MessageEncoderDecoder crypt,    Map<Integer,PlatformEncDec> platformEncDecMap) throws GeneralSecurityException, PlatformEncDecException {
+      byte[] requestRaw=message.getEncodedMessageData();
+      LOG.trace("Try to convert raw data to SynRequest object");
+      ClientSync request=decodePlatformLevelData(platformEncDecMap,message.getPlatformId(),requestRaw);
+      LOG.trace("Request data deserialized");
+      return request;
+    }
+    private byte[] encodePlatformLevelData(    Map<Integer,PlatformEncDec> platformEncDecMap,    int platformID,    ServerSync sync) throws PlatformEncDecException {
+      PlatformEncDec encDec=platformEncDecMap.get(platformID);
+      if (encDec != null) {
+        return platformEncDecMap.get(platformID).encode(sync);
+      }
+ else {
+        throw new PlatformEncDecException(MessageFormat.format("Encoder for platform protocol [{0}] is not defined",platformID));
+      }
+    }
+    private ClientSync decodePlatformLevelData(    Map<Integer,PlatformEncDec> platformEncDecMap,    Integer platformID,    byte[] requestRaw) throws PlatformEncDecException {
+      PlatformEncDec encDec=platformEncDecMap.get(platformID);
+      if (encDec != null) {
+        return platformEncDecMap.get(platformID).decode(requestRaw);
+      }
+ else {
+        throw new PlatformEncDecException(MessageFormat.format("Decoder for platform protocol [{0}] is not defined",platformID));
+      }
+    }
+    private MessageEncoderDecoder getOrInitCrypt(){
+      if (crypt.get() == null) {
+        crypt.set(new MessageEncoderDecoder(keyPair.getPrivate(),keyPair.getPublic()));
+      }
+      return crypt.get();
+    }
+    private Map<Integer,PlatformEncDec> getOrInitMap(    Set<String> platformProtocols){
+      if (platformEncDecMap.get() == null) {
+        platformEncDecMap.set(PlatformLookup.initPlatformProtocolMap(platformProtocols));
+      }
+      return platformEncDecMap.get();
+    }
+  }
+);
+}

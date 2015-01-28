@@ -1,0 +1,36 @@
+{
+  operationsServerList=list;
+  mappedOperationServerList.clear();
+  mappedIterators.clear();
+  if (operationsServerList != null && !operationsServerList.isEmpty()) {
+    for (    ProtocolMetaData server : operationsServerList) {
+      TransportProtocolId transportId=new TransportProtocolId(server.getProtocolVersionInfo().getId(),server.getProtocolVersionInfo().getVersion());
+      List<ProtocolMetaData> servers=mappedOperationServerList.get(transportId);
+      if (servers == null) {
+        servers=new LinkedList<>();
+        mappedOperationServerList.put(transportId,servers);
+      }
+      servers.add(server);
+    }
+    for (    Map.Entry<TransportProtocolId,List<ProtocolMetaData>> entry : mappedOperationServerList.entrySet()) {
+      Collections.shuffle(entry.getValue());
+      mappedIterators.put(entry.getKey(),entry.getValue().iterator());
+    }
+    if (serverToApply != null) {
+      List<ProtocolMetaData> servers=getTransportsByAccessPointId(serverToApply);
+      if (servers != null && servers.size() > 0) {
+        notifyChannelManangerAboutServer(servers);
+        serverToApply=null;
+      }
+    }
+ else {
+      for (      Map.Entry<TransportProtocolId,Iterator<ProtocolMetaData>> entry : mappedIterators.entrySet()) {
+        TransportConnectionInfo info=new GenericTransportInfo(ServerType.OPERATIONS,entry.getValue().next());
+        channelManager.onTransportConnectionInfoUpdated(info);
+      }
+    }
+  }
+ else {
+    throw new BootstrapRuntimeException("Operations Server list is empty");
+  }
+}

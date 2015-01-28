@@ -1,0 +1,17 @@
+{
+  if (isShutdown) {
+    LOG.info("Can't set server. Channel {} is down",getId());
+    return;
+  }
+  if (executor == null && !isPaused) {
+    executor=createExecutor();
+  }
+  if (server != null) {
+    this.currentServer=new IPTransportInfo(server);
+    this.httpClient=client.createHttpClient(currentServer.getURL() + getURLSufix(),state.getPrivateKey(),state.getPublicKey(),currentServer.getPublicKey());
+    if (lastConnectionFailed && !isPaused) {
+      lastConnectionFailed=false;
+      syncAll();
+    }
+  }
+}

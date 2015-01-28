@@ -9,7 +9,7 @@
   KaaDataMultiplexer multiplexer=Mockito.mock(KaaDataMultiplexer.class);
   KaaDataDemultiplexer demultiplexer=Mockito.mock(KaaDataDemultiplexer.class);
   DefaultBootstrapChannelFake channel=new DefaultBootstrapChannelFake(client,state,2);
-  ServerInfo server=new HttpServerInfo(ServerType.BOOTSTRAP,"localhost",9889,KeyUtil.generateKeyPair().getPublic());
+  TransportConnectionInfo server=IPTransportInfoTest.createTestServerInfo(ServerType.BOOTSTRAP,TransportProtocolIdConstants.HTTP_TRANSPORT_ID,"localhost",9889,KeyUtil.generateKeyPair().getPublic());
   channel.setServer(server);
   channel.sync(TransportType.BOOTSTRAP);
   channel.setDemultiplexer(demultiplexer);

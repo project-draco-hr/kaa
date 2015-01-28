@@ -1,12 +1,10 @@
 {
 synchronized (sync) {
     if (operationsServersList.size() > 0 && opServerMap == null) {
-      opServerMap=new HashMap<String,OperationsServer>();
+      opServerMap=new HashMap<String,ThriftOperationsServer>();
       for (      ThriftOperationsServer thriftServer : operationsServersList) {
-        OperationsServer opServer=new OperationsServer(thriftServer.getName(),thriftServer.getPriority(),ByteBuffer.wrap(thriftServer.getPublicKey()),transfromThriftSupportedChannels(thriftServer.getSupportedChannels()));
         LOG.info("onOperationsServerListUpdate: ThriftOperationsServer {} ",thriftServer.toString());
-        LOG.info("onOperationsServerListUpdate: OperationsServer {} ",opServer.toString());
-        opServerMap.put(thriftServer.getName(),opServer);
+        opServerMap.put(thriftServer.getId(),thriftServer);
       }
       sync.notify();
     }
