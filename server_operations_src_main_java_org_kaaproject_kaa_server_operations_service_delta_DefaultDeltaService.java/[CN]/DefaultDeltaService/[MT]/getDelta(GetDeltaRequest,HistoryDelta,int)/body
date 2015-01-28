@@ -37,19 +37,25 @@
       LOG.debug("[{}] Building regular delta key {}",endpointId,deltaKey);
     }
     DeltaCacheEntry deltaCacheEntry=getDelta(endpointId,deltaKey);
-    if (resync) {
-      response=new GetDeltaResponse(GetDeltaResponseType.CONF_RESYNC,curAppSeqNumber,deltaCacheEntry.getDelta());
+    byte[] configurationHash=deltaCacheEntry.getHash().getData();
+    if (profile.getConfigurationHash() == null && request.getConfigurationHash() != null && request.getConfigurationHash().binaryEquals(configurationHash)) {
+      response=new GetDeltaResponse(GetDeltaResponseType.NO_DELTA,curAppSeqNumber);
     }
  else {
-      if (deltaCacheEntry.getDelta().hasChanges()) {
-        response=new GetDeltaResponse(GetDeltaResponseType.DELTA,curAppSeqNumber,deltaCacheEntry.getDelta());
+      if (resync) {
+        response=new GetDeltaResponse(GetDeltaResponseType.CONF_RESYNC,curAppSeqNumber,deltaCacheEntry.getDelta());
       }
  else {
-        LOG.debug("[{}] Delta has no changes -> no delta",endpointId);
-        response=new GetDeltaResponse(GetDeltaResponseType.NO_DELTA,curAppSeqNumber);
+        if (deltaCacheEntry.getDelta().hasChanges()) {
+          response=new GetDeltaResponse(GetDeltaResponseType.DELTA,curAppSeqNumber,deltaCacheEntry.getDelta());
+        }
+ else {
+          LOG.debug("[{}] Delta has no changes -> no delta",endpointId);
+          response=new GetDeltaResponse(GetDeltaResponseType.NO_DELTA,curAppSeqNumber);
+        }
       }
     }
-    profile.setConfigurationHash(deltaCacheEntry.getHash().getData());
+    profile.setConfigurationHash(configurationHash);
   }
  else {
     LOG.debug("[{}] No changes to current application group configurations was maid -> no delta",endpointId);
