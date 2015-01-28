@@ -1,0 +1,7 @@
+{
+  String[] ids=parseId(id);
+  if (ids != null && ids.length == 4) {
+    Delete.Where deleteQuery=delete().from(getColumnFamilyName()).where(eq(CassandraModelConstants.NF_TOPIC_ID_PROPERTY,ids[0])).and(eq(CassandraModelConstants.NF_NOTIFICATION_TYPE_PROPERTY,ids[1])).and(eq(CassandraModelConstants.NF_VERSION_PROPERTY,Integer.valueOf(ids[2]))).and(eq(CassandraModelConstants.NF_SEQ_NUM_PROPERTY,Integer.valueOf(ids[3])));
+    execute(deleteQuery);
+  }
+}

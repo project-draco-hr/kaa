@@ -1,0 +1,9 @@
+{
+  Statement select=select().from(getColumnFamilyName()).where(eq(CassandraModelConstants.NF_BY_APP_APPLICATION_ID_PROPERTY,appId));
+  List<CassandraNfsByAppId> result=findListByStatement(select);
+  List<String> ids=new ArrayList<>(result.size());
+  for (  CassandraNfsByAppId id : result) {
+    ids.add(id.getNotificationId());
+  }
+  return ids;
+}

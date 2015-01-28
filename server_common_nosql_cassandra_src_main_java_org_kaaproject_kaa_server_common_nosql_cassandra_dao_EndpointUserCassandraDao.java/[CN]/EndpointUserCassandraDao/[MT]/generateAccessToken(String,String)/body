@@ -1,0 +1,8 @@
+{
+  LOG.debug("Generating access token for endpoint user with external id {} and tenant id {}",externalId,tenantId);
+  String accessToken=UUID.randomUUID().toString();
+  Update.Where query=update(getColumnFamilyName()).with(set(CassandraModelConstants.EP_USER_ACCESS_TOKEN_PROPERTY,accessToken)).where(eq(CassandraModelConstants.EP_USER_EXTERNAL_ID_PROPERTY,externalId)).and(eq(CassandraModelConstants.EP_USER_TENANT_ID_PROPERTY,tenantId));
+  execute(query);
+  LOG.trace("Generated access token {} for endpoint user by query {}",accessToken,query);
+  return accessToken;
+}

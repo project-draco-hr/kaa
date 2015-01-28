@@ -1,0 +1,7 @@
+{
+  LOG.debug("Remove endpoint notifications by id {}",id);
+  CassandraEndpointNotification key=new CassandraEndpointNotification(id);
+  Statement delete=delete().from(getColumnFamilyName()).where(eq(CassandraModelConstants.ET_NF_ENDPOINT_KEY_HASH_PROPERTY,key.getEndpointKeyHash())).and(eq(CassandraModelConstants.ET_NF_LAST_MOD_TIME_PROPERTY,key.getLastModifyTime()));
+  execute(delete);
+  LOG.debug("[id] Execute query {}:",id,delete);
+}

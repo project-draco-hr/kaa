@@ -1,0 +1,4 @@
+{
+  LOG.debug("Remove endpoint notifications by endpoint key hash {}",keyHash);
+  execute(delete().from(getColumnFamilyName()).where(eq(CassandraModelConstants.ET_NF_ENDPOINT_KEY_HASH_PROPERTY,getByteBuffer(keyHash))));
+}

@@ -1,0 +1,4 @@
+{
+  Delete.Where query=delete().from(getColumnFamilyName()).where(eq(CassandraModelConstants.NF_TOPIC_ID_PROPERTY,topicId)).and(QueryBuilder.in(CassandraModelConstants.NF_NOTIFICATION_TYPE_PROPERTY,getStringTypes(NotificationTypeDto.values())));
+  execute(query);
+}

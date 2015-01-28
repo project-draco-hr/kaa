@@ -1,0 +1,12 @@
+{
+  List<CassandraEndpointProfile> profileList=Collections.emptyList();
+  CassandraEndpointUser endpointUser=endpointUserDao.findById(endpointUserId);
+  if (endpointUser != null) {
+    List<String> ids=endpointUser.getEndpointIds();
+    if (ids != null && !ids.isEmpty()) {
+      Statement select=select().from(getColumnFamilyName()).where(QueryBuilder.in(CassandraModelConstants.EP_EP_KEY_HASH_PROPERTY,convertStringIds(ids)));
+      profileList=findListByStatement(select);
+    }
+  }
+  return profileList;
+}

@@ -1,0 +1,8 @@
+{
+  LOG.debug("Try to find endpoint user by external id {} and tenant id {}",externalId,tenantId);
+  Where where=select().from(getColumnFamilyName()).where(eq(CassandraModelConstants.EP_USER_EXTERNAL_ID_PROPERTY,externalId)).and(eq(CassandraModelConstants.EP_USER_TENANT_ID_PROPERTY,tenantId));
+  LOG.trace("Try to find endpoint user by cql select",where);
+  CassandraEndpointUser endpointUser=findOneByStatement(where);
+  LOG.trace("Found {} endpoint user",endpointUser);
+  return endpointUser;
+}

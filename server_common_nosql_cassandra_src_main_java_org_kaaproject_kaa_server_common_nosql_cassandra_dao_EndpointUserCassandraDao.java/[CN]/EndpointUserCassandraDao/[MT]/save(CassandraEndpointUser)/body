@@ -1,0 +1,4 @@
+{
+  dto.setId(dto.getExternalId() + CassandraModelConstants.KEY_DELIMITER + dto.getTenantId());
+  return super.save(dto);
+}

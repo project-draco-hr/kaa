@@ -1,6 +1,0 @@
-{
-  LOG.debug("Remove endpoint notifications by app id {}",appId);
-  Statement deleteEPNfs=delete().from(getColumnFamilyName()).where(in(ET_NF_ENDPOINT_KEY_HASH_PROPERTY,cassandraEPByAppIdDao.getEPIdsListByAppId(appId)));
-  Statement deleteEPNfsByAppId=delete().from(NF_BY_APP_COLUMN_FAMILY_NAME).where(eq(NF_BY_APP_APPLICATION_ID_PROPERTY,appId));
-  executeBatch(BatchStatement.Type.UNLOGGED,deleteEPNfs,deleteEPNfsByAppId);
-}

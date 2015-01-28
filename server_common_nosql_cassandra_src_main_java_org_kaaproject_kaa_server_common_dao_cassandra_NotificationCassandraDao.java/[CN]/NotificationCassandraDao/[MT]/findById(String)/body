@@ -1,9 +1,0 @@
-{
-  CassandraNotification cassandraNotification=null;
-  String[] ids=parseId(id);
-  if (ids != null && ids.length == 4) {
-    Where query=select().from(getColumnFamilyName()).where(eq(NF_TOPIC_ID_PROPERTY,ids[0])).and(eq(NF_NOTIFICATION_TYPE_PROPERTY,ids[1])).and(eq(NF_VERSION_PROPERTY,Integer.valueOf(ids[2]))).and(eq(NF_SEQ_NUM_PROPERTY,Integer.valueOf(ids[3])));
-    cassandraNotification=findOneByStatement(query);
-  }
-  return cassandraNotification;
-}

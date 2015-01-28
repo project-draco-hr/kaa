@@ -1,0 +1,9 @@
+{
+  Statement select=select().from(getColumnFamilyName()).where(eq(CassandraModelConstants.EP_KEY_HASH_BY_APP_APPLICATION_ID_PROPERTY,appId));
+  List<CassandraEPKeyHashByAppId> result=findListByStatement(select);
+  List<ByteBuffer> epKeyHashList=new ArrayList<>(result.size());
+  for (  CassandraEPKeyHashByAppId id : result) {
+    epKeyHashList.add(id.getEpKeyHash());
+  }
+  return epKeyHashList;
+}

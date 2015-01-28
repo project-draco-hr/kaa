@@ -1,0 +1,9 @@
+{
+  String id=null;
+  if (endpointKeyHash != null) {
+    StringBuilder builder=new StringBuilder(Bytes.toHexString(endpointKeyHash));
+    builder.append(CassandraModelConstants.KEY_DELIMITER).append(lastModifyTime.getTime());
+    id=builder.toString();
+  }
+  return id;
+}

@@ -63,6 +63,7 @@
   egs.setEndpointGroupId(egAllId);
   egs.setProfileFilterId(pfAllId);
   endpointProfile=new EndpointProfileDto();
+  endpointProfile.setEndpointKeyHash(UUID.randomUUID().toString().getBytes());
   endpointProfile.setProfile(PROFILE_JSON);
   endpointProfile.setProfileHash(EndpointObjectHash.fromSHA1(PROFILE_BYTES).getData());
   endpointProfile.setConfigurationHash(endpointConfiguration.getConfigurationHash());
