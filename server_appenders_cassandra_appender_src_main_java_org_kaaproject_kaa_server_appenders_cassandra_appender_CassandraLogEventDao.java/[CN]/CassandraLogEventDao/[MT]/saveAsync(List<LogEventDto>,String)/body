@@ -1,3 +1,4 @@
 {
-  return executeBatchAsync(prepareQuery(logEventDtoList,collectionName));
+  LOG.debug("Execute async bath request for cassandra table {}",tableName);
+  return executeBatchAsync(prepareQuery(logEventDtoList,tableName));
 }
