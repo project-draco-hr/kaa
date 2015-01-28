@@ -1,0 +1,6 @@
+{
+  if (bootstrapSync == null) {
+    return null;
+  }
+  return new BootstrapSyncResponse(bootstrapSync.getRequestId(),convert(bootstrapSync.getProtocolList()));
+}

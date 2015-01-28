@@ -5,6 +5,7 @@
     stop();
   }
  catch (  Exception e) {
+    LOG.error("Start failure",e);
     assertTrue("Exception was caught during testStart test: " + e.getMessage(),false);
   }
 }

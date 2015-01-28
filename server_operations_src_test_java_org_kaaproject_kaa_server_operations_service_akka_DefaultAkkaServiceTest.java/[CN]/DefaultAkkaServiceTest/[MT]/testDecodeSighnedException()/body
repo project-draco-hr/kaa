@@ -1,9 +1,9 @@
 {
-  SessionInitRequest message=Mockito.mock(SessionInitRequest.class);
+  SessionInitMessage message=Mockito.mock(SessionInitMessage.class);
   ErrorBuilder errorBuilder=Mockito.mock(ErrorBuilder.class);
-  Mockito.when(message.getChannelContext()).thenReturn(Mockito.mock(ChannelHandlerContext.class));
+  Mockito.when(message.getChannelContext()).thenReturn(Mockito.mock(ChannelContext.class));
   Mockito.when(message.getErrorBuilder()).thenReturn(errorBuilder);
-  Mockito.when(message.getEncodedRequestData()).thenReturn("dummy".getBytes());
+  Mockito.when(message.getEncodedMessageData()).thenReturn("dummy".getBytes());
   Mockito.when(message.getEncodedSessionKey()).thenReturn("dummy".getBytes());
   Mockito.when(message.getSessionKeySignature()).thenReturn("dummy".getBytes());
   Mockito.when(message.isEncrypted()).thenReturn(true);

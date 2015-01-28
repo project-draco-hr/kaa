@@ -5,18 +5,20 @@ case 0:
 case 1:
   return status;
 case 2:
-return profileSyncResponse;
+return bootstrapSyncResponse;
 case 3:
-return configurationSyncResponse;
+return profileSyncResponse;
 case 4:
-return notificationSyncResponse;
+return configurationSyncResponse;
 case 5:
-return userSyncResponse;
+return notificationSyncResponse;
 case 6:
-return eventSyncResponse;
+return userSyncResponse;
 case 7:
-return redirectSyncResponse;
+return eventSyncResponse;
 case 8:
+return redirectSyncResponse;
+case 9:
 return logSyncResponse;
 default :
 throw new org.apache.avro.AvroRuntimeException("Bad index");

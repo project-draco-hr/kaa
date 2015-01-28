@@ -1,0 +1,10 @@
+{
+  ByteBuffer buf=ByteBuffer.wrap(new byte[SIZE_OF_INT * 3 + host.getBytes(UTF8).length + key.getEncoded().length]);
+  buf.putInt(key.getEncoded().length);
+  buf.put(key.getEncoded());
+  buf.putInt(host.getBytes(UTF8).length);
+  buf.put(host.getBytes(UTF8));
+  buf.putInt(port);
+  ProtocolMetaData md=new ProtocolMetaData((host + ":" + port).hashCode(),new ProtocolVersionPair(id.getProtocolId(),id.getProtocolVersion()),buf);
+  return md;
+}

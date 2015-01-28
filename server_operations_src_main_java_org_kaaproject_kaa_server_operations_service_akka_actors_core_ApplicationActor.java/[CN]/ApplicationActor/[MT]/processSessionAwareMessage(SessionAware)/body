@@ -1,0 +1,9 @@
+{
+  ActorMetaData endpointMetaData=endpointSessions.get(message.getSessionInfo().getKey());
+  if (endpointMetaData != null) {
+    endpointMetaData.actorRef.tell(message,self());
+  }
+ else {
+    LOG.debug("[{}] Can't find endpoint actor that corresponds to {}",applicationToken,message.getSessionInfo().getKey());
+  }
+}

@@ -1,0 +1,14 @@
+{
+  final ChannelPipeline p=ch.pipeline();
+  final UUID uuid=UUID.randomUUID();
+  LOG.info("DefaultServerInitializer Initializing Channel {} connection from {}:{}",uuid,ch.remoteAddress().getAddress().toString(),ch.remoteAddress().getPort());
+  Attribute<UUID> uuidAttr=ch.attr(AbstractNettyServer.UUID_KEY);
+  uuidAttr.set(uuid);
+  p.addLast("httpDecoder",new HttpRequestDecoder());
+  p.addLast("httpAggregator",new HttpObjectAggregator(getClientMaxBodySize()));
+  p.addLast("httpDecoderAux",getRequestDecoder());
+  p.addLast("httpEncoder",new HttpResponseEncoder());
+  p.addLast("httpEncoderAux",new ResponseEncoder());
+  p.addLast("handler",getMainHandler(uuid));
+  p.addLast("httpExceptionHandler",new DefaultExceptionHandler());
+}

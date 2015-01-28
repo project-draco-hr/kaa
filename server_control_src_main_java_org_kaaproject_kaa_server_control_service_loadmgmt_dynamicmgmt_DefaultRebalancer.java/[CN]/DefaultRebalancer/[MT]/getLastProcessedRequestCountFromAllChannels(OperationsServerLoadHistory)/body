@@ -1,0 +1,10 @@
+{
+  int totalLoad=0;
+  List<OperationsServerLoad> load=history.getHistory();
+  if (!load.isEmpty()) {
+    if (load.get(load.size() - 1).getLoadInfo() != null) {
+      totalLoad+=load.get(load.size() - 1).getLoadInfo().getLoadIndex();
+    }
+  }
+  return totalLoad;
+}

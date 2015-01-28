@@ -1,0 +1,10 @@
+{
+  try {
+    LoadInfo record=new LoadInfo();
+    record.loadIndex=fieldSetFlags()[0] ? this.loadIndex : (java.lang.Integer)defaultValue(fields()[0]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

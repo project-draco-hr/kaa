@@ -1,35 +1,17 @@
 {
   StringBuilder sb=new StringBuilder("ThriftOperationsServer(");
   boolean first=true;
-  sb.append("Name:");
-  if (this.Name == null) {
+  sb.append("id:");
+  if (this.id == null) {
     sb.append("null");
   }
  else {
-    sb.append(this.Name);
+    sb.append(this.id);
   }
   first=false;
   if (!first)   sb.append(", ");
   sb.append("priority:");
   sb.append(this.priority);
-  first=false;
-  if (!first)   sb.append(", ");
-  sb.append("publicKey:");
-  if (this.publicKey == null) {
-    sb.append("null");
-  }
- else {
-    org.apache.thrift.TBaseHelper.toString(this.publicKey,sb);
-  }
-  first=false;
-  if (!first)   sb.append(", ");
-  sb.append("supportedChannels:");
-  if (this.supportedChannels == null) {
-    sb.append("null");
-  }
- else {
-    sb.append(this.supportedChannels);
-  }
   first=false;
   sb.append(")");
   return sb.toString();

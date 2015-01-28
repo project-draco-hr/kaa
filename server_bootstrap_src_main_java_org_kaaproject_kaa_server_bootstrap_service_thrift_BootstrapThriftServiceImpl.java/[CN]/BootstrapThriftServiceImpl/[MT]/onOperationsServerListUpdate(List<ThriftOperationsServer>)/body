@@ -1,30 +1,3 @@
 {
   LOG.info("Operations server list update recived: now {} servers online:",operationsServersList.size());
-  for (  ThriftOperationsServer server : operationsServersList) {
-    LOG.trace("Operations Server {}",server.getName());
-    for (    ThriftSupportedChannel channel : server.getSupportedChannels()) {
-      LOG.trace("SupportedChannel {}",channel.getType().toString());
-switch (channel.getType()) {
-case HTTP:
-        ThriftCommunicationParameters httpParams=channel.getCommunicationParams();
-      LOG.trace("HostName: {}, port {}",httpParams.getHttpParams().getHostName(),httpParams.getHttpParams().getPort());
-    break;
-case HTTP_LP:
-  ThriftCommunicationParameters httpLpParams=channel.getCommunicationParams();
-LOG.trace("HostName: {}, port {}",httpLpParams.getHttpLpParams().getHostName(),httpLpParams.getHttpLpParams().getPort());
-break;
-case KAATCP:
-ThriftCommunicationParameters kaaTcpParams=channel.getCommunicationParams();
-LOG.trace("HostName: {}, port {}",kaaTcpParams.getKaaTcpParams().getHostName(),kaaTcpParams.getKaaTcpParams().getPort());
-break;
-}
-}
-}
-if (operationsServerListService != null) {
-LOG.trace("Updating OperationsServerListService");
-operationsServerListService.updateList(operationsServersList);
-}
- else {
-throw new TException("Bootstrap server not initialized properly, config not set");
-}
 }

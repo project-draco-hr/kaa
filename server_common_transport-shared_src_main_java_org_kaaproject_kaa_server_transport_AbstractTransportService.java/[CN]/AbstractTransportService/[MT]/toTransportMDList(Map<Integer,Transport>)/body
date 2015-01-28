@@ -1,0 +1,17 @@
+{
+  List<org.kaaproject.kaa.server.common.zk.gen.TransportMetaData> mdList=new ArrayList<>(transportMap.size());
+  for (  Entry<Integer,Transport> entry : transportMap.entrySet()) {
+    TransportMetaData source=entry.getValue().getConnectionInfo();
+    org.kaaproject.kaa.server.common.zk.gen.TransportMetaData md=new org.kaaproject.kaa.server.common.zk.gen.TransportMetaData();
+    md.setId(entry.getKey());
+    md.setMinSupportedVersion(source.getMinSupportedVersion());
+    md.setMaxSupportedVersion(source.getMaxSupportedVersion());
+    List<VersionConnectionInfoPair> connectionInfoList=new ArrayList<VersionConnectionInfoPair>();
+    for (int i=md.getMinSupportedVersion(); i <= md.getMaxSupportedVersion(); i++) {
+      connectionInfoList.add(new VersionConnectionInfoPair(i,ByteBuffer.wrap(source.getConnectionInfo(i))));
+    }
+    md.setConnectionInfo(connectionInfoList);
+    mdList.add(md);
+  }
+  return mdList;
+}
