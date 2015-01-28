@@ -5,9 +5,11 @@
         Utils.handleException(caught,recordView);
       }
       @Override public void onSuccess(      List<SchemaDto> result){
-        recordView.getSchema().setValue(Utils.getMaxSchemaVersions(result));
+        SchemaDto schema=Utils.getMaxSchemaVersions(result);
+        recordView.getSchema().setValue(schema);
         recordView.getSchema().setAcceptableValues(result);
         recordView.getRecordPanel().setData(record);
+        schemaSelected(schema);
         recordView.getRecordPanel().openDraft();
       }
     }

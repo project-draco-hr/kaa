@@ -2,6 +2,7 @@
   this.readOnly=readOnly;
   this.hasErrorMessage=hasErrorMessage;
   FlexTable table=new FlexTable();
+  table.setWidth("100%");
   recordCaption=new CaptionPanel();
   if (optional) {
     recordCaption.setCaptionText(title);
@@ -15,7 +16,6 @@
   }
   recordFieldWidget=new RecordFieldWidget(readOnly);
   recordCaption.setContentWidget(recordFieldWidget);
-  recordCaption.setWidth("100%");
   table.setWidget(0,0,recordCaption);
   Label uploadLabel=new Label(Utils.constants.uploadFromFile());
   recordFileUpload=new FileUploadForm();
