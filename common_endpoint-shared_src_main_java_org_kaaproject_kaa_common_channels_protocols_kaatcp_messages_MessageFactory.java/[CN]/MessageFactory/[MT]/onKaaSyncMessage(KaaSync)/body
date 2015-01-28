@@ -13,18 +13,6 @@ case SYNC:
       }
     }
   break;
-case BOOTSTRAP:
-if (frame.isRequest()) {
-  if (bootstrapResolveListener != null) {
-    bootstrapResolveListener.onMessage((BootstrapResolve)frame);
-  }
-}
- else {
-  if (bootstrapResponseListener != null) {
-    bootstrapResponseListener.onMessage((BootstrapResponse)frame);
-  }
-}
-break;
 case UNUSED:
 break;
 }

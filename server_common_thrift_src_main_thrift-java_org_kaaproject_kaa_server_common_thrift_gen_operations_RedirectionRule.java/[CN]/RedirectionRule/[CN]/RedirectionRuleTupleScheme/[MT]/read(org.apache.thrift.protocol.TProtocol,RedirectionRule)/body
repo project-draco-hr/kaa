@@ -2,8 +2,8 @@
   TTupleProtocol iprot=(TTupleProtocol)prot;
   BitSet incoming=iprot.readBitSet(4);
   if (incoming.get(0)) {
-    struct.dnsName=iprot.readString();
-    struct.setDnsNameIsSet(true);
+    struct.accessPointId=iprot.readI32();
+    struct.setAccessPointIdIsSet(true);
   }
   if (incoming.get(1)) {
     struct.ruleId=iprot.readI64();

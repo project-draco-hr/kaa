@@ -1,0 +1,6 @@
+{
+  LOG.info("Add/Update node {}",info);
+  opsMap.put(getNameFromConnectionInfo(info.getConnectionInfo()),info);
+  LOG.info("Cleanup cached responses");
+  cache.clear();
+}

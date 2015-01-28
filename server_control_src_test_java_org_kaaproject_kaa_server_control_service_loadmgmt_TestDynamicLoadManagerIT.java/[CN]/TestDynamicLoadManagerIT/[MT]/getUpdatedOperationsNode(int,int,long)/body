@@ -1,8 +1,5 @@
 {
-  Long timeStarted=new Long(timeStart);
-  Integer deltaCalculationCount=new Integer(0);
-  Integer registeredUsersCount=new Integer(0);
   Integer processedRequestCount=new Integer(processRequestCount);
-  OperationsNodeInfo nodeInfo=generateOperationsNodeInfo("localhost",1200,httpPort,ByteBuffer.wrap("Just array".getBytes()));
+  OperationsNodeInfo nodeInfo=generateOperationsNodeInfo("localhost",1200,httpPort,ByteBuffer.wrap("Just array".getBytes()),processedRequestCount);
   return nodeInfo;
 }

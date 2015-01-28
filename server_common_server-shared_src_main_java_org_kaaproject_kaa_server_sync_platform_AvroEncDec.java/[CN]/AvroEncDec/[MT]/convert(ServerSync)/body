@@ -1,0 +1,14 @@
+{
+  SyncResponse sync=new SyncResponse();
+  sync.setRequestId(source.getRequestId());
+  sync.setStatus(convert(source.getStatus()));
+  sync.setBootstrapSyncResponse(convert(source.getBootstrapSync()));
+  sync.setRedirectSyncResponse(convert(source.getRedirectSync()));
+  sync.setProfileSyncResponse(convert(source.getProfileSync()));
+  sync.setConfigurationSyncResponse(convert(source.getConfigurationSync()));
+  sync.setNotificationSyncResponse(convert(source.getNotificationSync()));
+  sync.setEventSyncResponse(convert(source.getEventSync()));
+  sync.setUserSyncResponse(convert(source.getUserSync()));
+  sync.setLogSyncResponse(convert(source.getLogSync()));
+  return sync;
+}

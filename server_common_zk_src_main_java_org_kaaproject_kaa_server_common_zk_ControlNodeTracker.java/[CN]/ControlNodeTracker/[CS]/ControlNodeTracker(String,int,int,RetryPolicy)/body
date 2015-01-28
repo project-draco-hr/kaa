@@ -6,5 +6,5 @@
  else {
     this.client=CuratorFrameworkFactory.newClient(zkHostPortList,retryPolicy);
   }
-  this.listeners=new ArrayList<ControlNodeListener>();
+  this.listeners=new CopyOnWriteArrayList<ControlNodeListener>();
 }

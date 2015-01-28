@@ -1,7 +1,7 @@
 {
   TTupleProtocol oprot=(TTupleProtocol)prot;
   BitSet optionals=new BitSet();
-  if (struct.isSetDnsName()) {
+  if (struct.isSetAccessPointId()) {
     optionals.set(0);
   }
   if (struct.isSetRuleId()) {
@@ -14,8 +14,8 @@
     optionals.set(3);
   }
   oprot.writeBitSet(optionals,4);
-  if (struct.isSetDnsName()) {
-    oprot.writeString(struct.dnsName);
+  if (struct.isSetAccessPointId()) {
+    oprot.writeI32(struct.accessPointId);
   }
   if (struct.isSetRuleId()) {
     oprot.writeI64(struct.ruleId);

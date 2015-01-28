@@ -1,5 +1,5 @@
 {
-  ChannelHandlerContext channelContextMock=Mockito.mock(ChannelHandlerContext.class);
+  ChannelContext channelContextMock=Mockito.mock(ChannelContext.class);
   SyncRequest request=new SyncRequest();
   request.setRequestId(REQUEST_ID);
   SyncRequestMetaData md=new SyncRequestMetaData();
@@ -12,9 +12,9 @@
   profileSync.setVersionInfo(new EndpointVersionInfo(1,2,3,4,null,5));
   request.setProfileSyncRequest(profileSync);
   Mockito.when(operationsService.sync(AvroEncDec.convert(request),null)).thenReturn(simpleResponse);
-  ResponseBuilder responseBuilder=Mockito.mock(ResponseBuilder.class);
+  MessageBuilder responseBuilder=Mockito.mock(MessageBuilder.class);
   ErrorBuilder errorBuilder=Mockito.mock(ErrorBuilder.class);
-  SessionInitRequest message=toSignedRequest(UUID.randomUUID(),ChannelType.HTTP,channelContextMock,request,responseBuilder,errorBuilder);
+  SessionInitMessage message=toSignedRequest(UUID.randomUUID(),ChannelType.SYNC,channelContextMock,request,responseBuilder,errorBuilder);
   Assert.assertNotNull(akkaService.getActorSystem());
   akkaService.process(message);
   Mockito.verify(operationsService,Mockito.timeout(TIMEOUT * 10).atLeastOnce()).sync(AvroEncDec.convert(request),null);

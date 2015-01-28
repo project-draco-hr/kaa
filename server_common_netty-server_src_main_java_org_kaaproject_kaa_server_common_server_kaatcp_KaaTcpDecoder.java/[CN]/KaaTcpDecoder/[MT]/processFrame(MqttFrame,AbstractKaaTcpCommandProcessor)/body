@@ -1,9 +1,0 @@
-{
-  Attribute<Track> sessionTrackAttr=currentCtx.channel().attr(NettyHttpServer.TRACK_KEY);
-  if (sessionTrackAttr.get() != null) {
-    int id=sessionTrackAttr.get().newRequest();
-    processor.setCommandId(id);
-  }
-  processor.setRequest(frame);
-  currentCtx.fireChannelRead(processor);
-}

@@ -1,16 +1,10 @@
 {
   HashCodeBuilder builder=new HashCodeBuilder();
-  boolean present_Name=true && (isSetName());
-  builder.append(present_Name);
-  if (present_Name)   builder.append(Name);
+  boolean present_id=true && (isSetId());
+  builder.append(present_id);
+  if (present_id)   builder.append(id);
   boolean present_priority=true;
   builder.append(present_priority);
   if (present_priority)   builder.append(priority);
-  boolean present_publicKey=true && (isSetPublicKey());
-  builder.append(present_publicKey);
-  if (present_publicKey)   builder.append(publicKey);
-  boolean present_supportedChannels=true && (isSetSupportedChannels());
-  builder.append(present_supportedChannels);
-  if (present_supportedChannels)   builder.append(supportedChannels);
   return builder.toHashCode();
 }

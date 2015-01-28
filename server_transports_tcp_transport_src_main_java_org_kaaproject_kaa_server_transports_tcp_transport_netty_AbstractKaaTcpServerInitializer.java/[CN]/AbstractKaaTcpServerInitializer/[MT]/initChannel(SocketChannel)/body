@@ -1,0 +1,13 @@
+{
+  final ChannelPipeline p=ch.pipeline();
+  final UUID uuid=UUID.randomUUID();
+  LOG.info("KaaTcpServerInitializer Initializing Channel {} connection from {}:{}",uuid,ch.remoteAddress().getAddress().toString(),ch.remoteAddress().getPort());
+  Attribute<UUID> uuidAttr=ch.attr(AbstractNettyServer.UUID_KEY);
+  uuidAttr.set(uuid);
+  p.addLast("binaryDecoder",new ByteArrayDecoder());
+  p.addLast("kaaTcpDecoder",getDecoder());
+  p.addLast("binaryEncoder",new ByteArrayEncoder());
+  p.addLast("kaaTcpEncoder",new KaaTcpEncoder());
+  p.addLast("mainHandler",getMainHandler(uuid));
+  p.addLast("kaaTcpExceptionHandler",new KaaTcpExceptionHandler());
+}

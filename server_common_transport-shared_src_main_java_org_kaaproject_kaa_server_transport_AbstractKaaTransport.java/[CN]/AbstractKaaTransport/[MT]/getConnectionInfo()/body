@@ -1,0 +1,6 @@
+{
+  LOG.info("Serializing connection info");
+  ByteBuffer buf=getSerializedConnectionInfo();
+  LOG.trace("Serialized connection info is {}",Arrays.toString(buf.array()));
+  return new TransportMetaData(getMinSupportedVersion(),getMaxSupportedVersion(),buf.array());
+}
