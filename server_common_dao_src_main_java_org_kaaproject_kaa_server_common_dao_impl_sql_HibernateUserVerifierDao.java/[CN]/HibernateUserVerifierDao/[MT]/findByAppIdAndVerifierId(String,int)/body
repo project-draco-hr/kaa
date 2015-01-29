@@ -1,0 +1,8 @@
+{
+  UserVerifier verifier=null;
+  if (isNotBlank(appId)) {
+    verifier=findOneByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.and(Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(appId)),Restrictions.eq(USER_VERIFIER_ID,verifierId)));
+    LOG.debug("Found log appender by application id {} and verifier id {}",appId,verifierId);
+  }
+  return verifier;
+}

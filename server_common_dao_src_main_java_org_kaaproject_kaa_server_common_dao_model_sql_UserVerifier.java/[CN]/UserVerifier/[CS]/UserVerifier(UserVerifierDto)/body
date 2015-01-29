@@ -1,0 +1,14 @@
+{
+  if (dto != null) {
+    this.id=getLongId(dto.getId());
+    this.verifierId=dto.getVerifierId();
+    Long appId=getLongId(dto.getApplicationId());
+    this.application=appId != null ? new Application(appId) : null;
+    this.name=dto.getName();
+    this.description=dto.getDescription();
+    this.createdUsername=dto.getCreatedUsername();
+    this.createdTime=dto.getCreatedTime();
+    this.className=dto.getClassName();
+    this.rawConfiguration=dto.getRawConfiguration();
+  }
+}

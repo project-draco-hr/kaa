@@ -1,0 +1,9 @@
+{
+  LOG.debug("Save user verifier [{}]",logAppenderDto);
+  UserVerifierDto saved=null;
+  if (logAppenderDto != null) {
+    logAppenderDto.setCreatedTime(System.currentTimeMillis());
+    saved=getDto(userVerifierDao.save(new UserVerifier(logAppenderDto)));
+  }
+  return saved;
+}

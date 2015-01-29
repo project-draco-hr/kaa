@@ -1,0 +1,43 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (!super.equals(obj)) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  UserVerifierDto other=(UserVerifierDto)obj;
+  if (applicationId == null) {
+    if (other.applicationId != null) {
+      return false;
+    }
+  }
+ else   if (!applicationId.equals(other.applicationId)) {
+    return false;
+  }
+  if (className == null) {
+    if (other.className != null) {
+      return false;
+    }
+  }
+ else   if (!className.equals(other.className)) {
+    return false;
+  }
+  if (id == null) {
+    if (other.id != null) {
+      return false;
+    }
+  }
+ else   if (!id.equals(other.id)) {
+    return false;
+  }
+  if (!Arrays.equals(rawConfiguration,other.rawConfiguration)) {
+    return false;
+  }
+  if (verifierId != other.verifierId) {
+    return false;
+  }
+  return true;
+}
