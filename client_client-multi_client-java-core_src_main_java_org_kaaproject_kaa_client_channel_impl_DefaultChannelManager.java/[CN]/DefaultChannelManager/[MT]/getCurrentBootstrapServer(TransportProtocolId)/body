@@ -1,0 +1,11 @@
+{
+  TransportConnectionInfo bsi=lastBSServers.get(type);
+  if (bsi == null) {
+    List<TransportConnectionInfo> serverList=bootststrapServers.get(type);
+    if (serverList != null && !serverList.isEmpty()) {
+      bsi=serverList.get(0);
+      lastBSServers.put(type,bsi);
+    }
+  }
+  return bsi;
+}

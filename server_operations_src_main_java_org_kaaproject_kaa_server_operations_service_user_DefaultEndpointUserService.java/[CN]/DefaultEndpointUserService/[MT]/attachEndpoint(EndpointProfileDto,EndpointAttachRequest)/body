@@ -1,12 +1,12 @@
 {
   EndpointAttachResponse response=new EndpointAttachResponse();
   response.setRequestId(endpointAttachRequest.getRequestId());
-  response.setResult(SyncResponseResultType.FAILURE);
+  response.setResult(SyncStatus.FAILURE);
   String endpointUserId=profile.getEndpointUserId();
   if (isNotEmpty(endpointUserId)) {
     try {
       EndpointProfileDto attachedEndpoint=endpointService.attachEndpointToUser(endpointUserId,endpointAttachRequest.getEndpointAccessToken());
-      response.setResult(SyncResponseResultType.SUCCESS);
+      response.setResult(SyncStatus.SUCCESS);
       response.setEndpointKeyHash(Base64Util.encode(attachedEndpoint.getEndpointKeyHash()));
     }
  catch (    DatabaseProcessingException e) {

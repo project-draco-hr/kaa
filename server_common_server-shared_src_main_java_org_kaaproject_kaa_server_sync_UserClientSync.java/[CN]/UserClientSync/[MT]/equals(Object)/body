@@ -1,0 +1,37 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  UserClientSync other=(UserClientSync)obj;
+  if (endpointAttachRequests == null) {
+    if (other.endpointAttachRequests != null) {
+      return false;
+    }
+  }
+ else   if (!endpointAttachRequests.equals(other.endpointAttachRequests)) {
+    return false;
+  }
+  if (endpointDetachRequests == null) {
+    if (other.endpointDetachRequests != null) {
+      return false;
+    }
+  }
+ else   if (!endpointDetachRequests.equals(other.endpointDetachRequests)) {
+    return false;
+  }
+  if (userAttachRequest == null) {
+    if (other.userAttachRequest != null) {
+      return false;
+    }
+  }
+ else   if (!userAttachRequest.equals(other.userAttachRequest)) {
+    return false;
+  }
+  return true;
+}

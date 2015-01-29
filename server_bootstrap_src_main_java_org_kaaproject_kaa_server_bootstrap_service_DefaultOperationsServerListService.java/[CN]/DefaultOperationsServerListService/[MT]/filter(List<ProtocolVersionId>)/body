@@ -1,0 +1,9 @@
+{
+  try {
+    return cache.compute(keys);
+  }
+ catch (  InterruptedException e) {
+    LOG.info("Failed to filter protocols",e);
+    throw new RuntimeException(e);
+  }
+}

@@ -1,7 +1,7 @@
 {
   boolean isTimeout=false;
   long currentTime=System.currentTimeMillis();
-  for (  Map.Entry<String,Long> logRequest : timeoutMap.entrySet()) {
+  for (  Map.Entry<Integer,Long> logRequest : timeoutMap.entrySet()) {
     if (currentTime >= logRequest.getValue()) {
       isTimeout=true;
       break;
@@ -9,7 +9,7 @@
   }
   if (isTimeout) {
     LOG.info("Log delivery timeout detected");
-    for (    Map.Entry<String,Long> logRequest : timeoutMap.entrySet()) {
+    for (    Map.Entry<Integer,Long> logRequest : timeoutMap.entrySet()) {
       storage.notifyUploadFailed(logRequest.getKey());
     }
     timeoutMap.clear();

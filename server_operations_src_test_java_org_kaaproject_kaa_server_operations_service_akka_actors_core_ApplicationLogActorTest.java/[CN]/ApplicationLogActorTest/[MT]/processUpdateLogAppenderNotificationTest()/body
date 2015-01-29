@@ -3,7 +3,7 @@
   when(logEventPackMessage.getLogSchema()).thenReturn(logSchema);
   when(logEventPackMessage.getLogEventPack()).thenReturn(new LogEventPack());
   when(logEventPackMessage.getOriginator()).thenReturn(ActorRef.noSender());
-  when(logEventPackMessage.getRequestId()).thenReturn("request id");
+  when(logEventPackMessage.getRequestId()).thenReturn(REQUEST_ID);
   LogAppender mockAppender=mock(LogAppender.class);
   when(mockAppender.getName()).thenReturn("flume");
   when(mockAppender.getAppenderId()).thenReturn(APPENDER_ID);

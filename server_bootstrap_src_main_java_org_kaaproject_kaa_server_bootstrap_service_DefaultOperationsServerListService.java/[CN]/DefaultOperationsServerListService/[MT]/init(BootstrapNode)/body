@@ -1,0 +1,13 @@
+{
+  LOG.info("Initializing with {}",zkNode);
+  opsMap.clear();
+synchronized (listenerLock) {
+    LOG.info("Registering as listener to ZK updates");
+    zkNode.addListener(this);
+    LOG.info("Adding existing nodes");
+    for (    OperationsNodeInfo info : zkNode.getCurrentOperationServerNodes()) {
+      addNode(info);
+    }
+    LOG.info("Added existing nodes");
+  }
+}

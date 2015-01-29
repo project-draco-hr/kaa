@@ -1,0 +1,48 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  NotificationClientSync other=(NotificationClientSync)obj;
+  if (acceptedUnicastNotifications == null) {
+    if (other.acceptedUnicastNotifications != null) {
+      return false;
+    }
+  }
+ else   if (!acceptedUnicastNotifications.equals(other.acceptedUnicastNotifications)) {
+    return false;
+  }
+  if (appStateSeqNumber != other.appStateSeqNumber) {
+    return false;
+  }
+  if (subscriptionCommands == null) {
+    if (other.subscriptionCommands != null) {
+      return false;
+    }
+  }
+ else   if (!subscriptionCommands.equals(other.subscriptionCommands)) {
+    return false;
+  }
+  if (topicListHash == null) {
+    if (other.topicListHash != null) {
+      return false;
+    }
+  }
+ else   if (!topicListHash.equals(other.topicListHash)) {
+    return false;
+  }
+  if (topicStates == null) {
+    if (other.topicStates != null) {
+      return false;
+    }
+  }
+ else   if (!topicStates.equals(other.topicStates)) {
+    return false;
+  }
+  return true;
+}

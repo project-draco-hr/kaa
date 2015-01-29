@@ -7,13 +7,13 @@
     inactiveStruct.setMinorVersion(recordView.getSchema().getValue().getMinorVersion());
   }
   inactiveStruct.setDescription(recordView.getRecordPanel().getDescription().getValue());
-  inactiveStruct.setBody(recordView.getRecordPanel().getBody().getValue());
+  updateBody(inactiveStruct,recordView.getRecordPanel().getBody().getValue());
   editStruct(inactiveStruct,new AsyncCallback<T>(){
     public void onSuccess(    T result){
       goTo(getRecordPlace(applicationId,schemaId,endpointGroupId,false,false,Math.random()));
     }
     public void onFailure(    Throwable caught){
-      recordView.setErrorMessage(customizeErrorMessage(caught));
+      Utils.handleException(caught,recordView,AbstractRecordActivity.this);
     }
   }
 );

@@ -3,7 +3,7 @@
   List<ChannelMetaData> channels=channelMap.getByTransportType(TransportType.NOTIFICATION);
   for (  ChannelMetaData channel : channels) {
     LOG.debug("[{}][{}] processing channel {} and response {}",endpointKey,actorKey,channel,channel.getResponseHolder().getResponse());
-    SyncResponse syncResponse=operationsService.updateSyncResponse(channel.getResponseHolder().getResponse(),message.getNotifications(),message.getUnicastNotificationId());
+    ServerSync syncResponse=operationsService.updateSyncResponse(channel.getResponseHolder().getResponse(),message.getNotifications(),message.getUnicastNotificationId());
     if (syncResponse != null) {
       LOG.debug("[{}][{}] processed channel {} and response {}",endpointKey,actorKey,channel,syncResponse);
       sendReply(context,channel.getRequestMessage(),syncResponse);

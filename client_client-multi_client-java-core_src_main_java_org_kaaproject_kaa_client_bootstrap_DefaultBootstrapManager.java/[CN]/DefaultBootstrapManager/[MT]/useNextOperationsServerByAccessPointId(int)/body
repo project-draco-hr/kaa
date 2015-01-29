@@ -1,0 +1,10 @@
+{
+  List<ProtocolMetaData> servers=getTransportsByAccessPointId(accessPointId);
+  if (servers != null && servers.size() > 0) {
+    notifyChannelManangerAboutServer(servers);
+  }
+ else {
+    serverToApply=accessPointId;
+    transport.sync();
+  }
+}

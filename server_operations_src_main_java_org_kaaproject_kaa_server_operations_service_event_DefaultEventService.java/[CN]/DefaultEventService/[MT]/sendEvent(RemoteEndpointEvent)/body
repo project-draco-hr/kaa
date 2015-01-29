@@ -9,7 +9,8 @@
   RouteAddress routeAddress=new RouteAddress(ByteBuffer.wrap(remoteEndpointEvent.getRecipient().getEndpointKey().getData()),remoteEndpointEvent.getRecipient().getApplicationToken(),serverId);
   ByteBuffer eventData;
   try {
-    eventData=ByteBuffer.wrap(eventConverter.get().toByteArray(remoteEndpointEvent.getEvent().getEvent()));
+    org.kaaproject.kaa.server.sync.Event eventSource=remoteEndpointEvent.getEvent().getEvent();
+    eventData=ByteBuffer.wrap(eventConverter.get().toByteArray(AvroEncDec.convert(eventSource)));
     org.kaaproject.kaa.server.common.thrift.gen.operations.EndpointEvent endpointEvent=new org.kaaproject.kaa.server.common.thrift.gen.operations.EndpointEvent(remoteEndpointEvent.getEvent().getId().toString(),ByteBuffer.wrap(remoteEndpointEvent.getEvent().getSender().getData()),eventData,remoteEndpointEvent.getEvent().getCreateTime(),remoteEndpointEvent.getEvent().getVersion());
     Event event=new Event(remoteEndpointEvent.getUserId(),remoteEndpointEvent.getTenantId(),endpointEvent,routeAddress);
     server.sendEventMessage(packMessage(event));

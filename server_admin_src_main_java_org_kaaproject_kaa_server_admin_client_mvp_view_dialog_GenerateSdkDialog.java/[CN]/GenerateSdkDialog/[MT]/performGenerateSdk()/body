@@ -13,9 +13,10 @@
   }
   KaaAdmin.getDataSource().getSdk(applicationId,configurationSchema.getMajorVersion(),profileSchema.getMajorVersion(),notificationSchema.getMajorVersion(),targetPlatformVal,aefMapIds,logSchema.getMajorVersion(),new AsyncCallback<String>(){
     @Override public void onFailure(    Throwable caught){
-      setError(Utils.getErrorMessage(caught));
+      Utils.handleException(caught,GenerateSdkDialog.this);
     }
     @Override public void onSuccess(    String key){
+      clearError();
       ServletHelper.downloadSdk(key);
     }
   }

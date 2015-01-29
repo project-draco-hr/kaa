@@ -24,4 +24,19 @@
     }
   }
 );
+  KaaAuthorityDto autority=KaaAdmin.getAuthInfo().getAuthority();
+  if (autority == KaaAuthorityDto.KAA_ADMIN) {
+    headerView.getSettingsLabel().addMenuItem(Utils.constants.generalSettings(),new ActionMenuItemListener(){
+      @Override public void onMenuItemSelected(){
+        goTo(new GeneralPropertiesPlace());
+      }
+    }
+);
+    headerView.getSettingsLabel().addMenuItem(Utils.constants.outgoingMailSettings(),new ActionMenuItemListener(){
+      @Override public void onMenuItemSelected(){
+        goTo(new MailPropertiesPlace());
+      }
+    }
+);
+  }
 }

@@ -1,11 +1,9 @@
 {
   struct.validate();
   oprot.writeStructBegin(STRUCT_DESC);
-  if (struct.dnsName != null) {
-    oprot.writeFieldBegin(DNS_NAME_FIELD_DESC);
-    oprot.writeString(struct.dnsName);
-    oprot.writeFieldEnd();
-  }
+  oprot.writeFieldBegin(ACCESS_POINT_ID_FIELD_DESC);
+  oprot.writeI32(struct.accessPointId);
+  oprot.writeFieldEnd();
   oprot.writeFieldBegin(RULE_ID_FIELD_DESC);
   oprot.writeI64(struct.ruleId);
   oprot.writeFieldEnd();

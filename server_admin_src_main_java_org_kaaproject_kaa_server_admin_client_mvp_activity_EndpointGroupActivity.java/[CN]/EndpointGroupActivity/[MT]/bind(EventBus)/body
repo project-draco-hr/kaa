@@ -19,7 +19,7 @@
  else       if (event.getAction() == RowAction.DELETE) {
         KaaAdmin.getDataSource().deleteProfileFilterRecord(id.getSchemaId(),id.getEndpointGroupId(),new AsyncCallback<Void>(){
           @Override public void onFailure(          Throwable caught){
-            detailsView.setErrorMessage(Utils.getErrorMessage(caught));
+            Utils.handleException(caught,detailsView);
           }
           @Override public void onSuccess(          Void result){
           }
@@ -30,14 +30,14 @@
   }
 ));
   detailsView.getIncludeDeprecatedProfileFilters().setValue(place.isIncludeDeprecatedProfileFilters());
-  detailsView.getIncludeDeprecatedProfileFilters().addValueChangeHandler(new ValueChangeHandler<Boolean>(){
+  registrations.add(detailsView.getIncludeDeprecatedProfileFilters().addValueChangeHandler(new ValueChangeHandler<Boolean>(){
     @Override public void onValueChange(    ValueChangeEvent<Boolean> event){
       place.setIncludeDeprecatedProfileFilters(detailsView.getIncludeDeprecatedProfileFilters().getValue());
       profileFiltersDataProvider.setIncludeDeprecated(detailsView.getIncludeDeprecatedProfileFilters().getValue());
       profileFiltersDataProvider.reload(detailsView.getProfileFiltersGrid().getDisplay());
     }
   }
-);
+));
   registrations.add(detailsView.getAddConfigurationButton().addClickHandler(new ClickHandler(){
     public void onClick(    ClickEvent event){
       ConfigurationPlace configurationPlace=new ConfigurationPlace(applicationId,"",entityId,true,false,0);
@@ -57,7 +57,7 @@
  else       if (event.getAction() == RowAction.DELETE) {
         KaaAdmin.getDataSource().deleteConfigurationRecord(id.getSchemaId(),id.getEndpointGroupId(),new AsyncCallback<Void>(){
           @Override public void onFailure(          Throwable caught){
-            detailsView.setErrorMessage(Utils.getErrorMessage(caught));
+            Utils.handleException(caught,detailsView);
           }
           @Override public void onSuccess(          Void result){
           }
@@ -68,14 +68,14 @@
   }
 ));
   detailsView.getIncludeDeprecatedConfigurations().setValue(place.isIncludeDeprecatedConfigurations());
-  detailsView.getIncludeDeprecatedConfigurations().addValueChangeHandler(new ValueChangeHandler<Boolean>(){
+  registrations.add(detailsView.getIncludeDeprecatedConfigurations().addValueChangeHandler(new ValueChangeHandler<Boolean>(){
     @Override public void onValueChange(    ValueChangeEvent<Boolean> event){
       place.setIncludeDeprecatedConfigurations(detailsView.getIncludeDeprecatedConfigurations().getValue());
       configurationsDataProvider.setIncludeDeprecated(detailsView.getIncludeDeprecatedConfigurations().getValue());
       configurationsDataProvider.reload(detailsView.getConfigurationsGrid().getDisplay());
     }
   }
-);
+));
   registrations.add(detailsView.getAddTopicButton().addClickHandler(new ClickHandler(){
     public void onClick(    ClickEvent event){
       addTopic();
@@ -90,7 +90,7 @@
  else       if (event.getAction() == RowAction.DELETE) {
         KaaAdmin.getDataSource().removeTopicFromEndpointGroup(entityId,id,new AsyncCallback<Void>(){
           @Override public void onFailure(          Throwable caught){
-            detailsView.setErrorMessage(Utils.getErrorMessage(caught));
+            Utils.handleException(caught,detailsView);
           }
           @Override public void onSuccess(          Void result){
           }

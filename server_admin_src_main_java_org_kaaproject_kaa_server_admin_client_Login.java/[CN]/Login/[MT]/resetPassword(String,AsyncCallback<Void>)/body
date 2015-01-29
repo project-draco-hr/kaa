@@ -1,0 +1,23 @@
+{
+  authService.resetPasswordByResetHash(passwordResetHash,new AsyncCallback<ResultCode>(){
+    @Override public void onFailure(    Throwable caught){
+      callback.onSuccess(null);
+    }
+    @Override public void onSuccess(    ResultCode result){
+      if (result == ResultCode.OK) {
+        MessageDialog dialog=new MessageDialog(new MessageDialog.Listener(){
+          @Override public void onOk(){
+            callback.onSuccess(null);
+          }
+        }
+,Utils.constants.passwordWasReset(),Utils.messages.passwordWasReset());
+        dialog.show();
+        dialog.center();
+      }
+ else {
+        callback.onSuccess(null);
+      }
+    }
+  }
+);
+}

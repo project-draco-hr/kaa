@@ -1,0 +1,8 @@
+{
+  TransportMetaData http=new TransportMetaData();
+  http.setId(HTTP_ID);
+  http.setMaxSupportedVersion(1);
+  http.setMinSupportedVersion(1);
+  http.setConnectionInfo(Collections.singletonList(new VersionConnectionInfoPair(1,ByteBuffer.wrap("http".getBytes(UTF_8)))));
+  return http;
+}

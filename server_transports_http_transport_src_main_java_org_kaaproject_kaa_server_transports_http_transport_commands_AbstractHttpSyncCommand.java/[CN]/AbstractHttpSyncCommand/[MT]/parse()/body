@@ -1,0 +1,47 @@
+{
+  LOG.trace("CommandName: " + COMMAND_NAME + ": Parse..");
+  HttpDataFactory factory=new DefaultHttpDataFactory(DefaultHttpDataFactory.MINSIZE);
+  HttpPostRequestDecoder decoder=new HttpPostRequestDecoder(factory,getRequest());
+  if (decoder.isMultipart()) {
+    LOG.trace("Chunked: " + HttpHeaders.isTransferEncodingChunked(getRequest()));
+    LOG.trace(": Multipart..");
+    List<InterfaceHttpData> datas=decoder.getBodyHttpDatas();
+    if (!datas.isEmpty()) {
+      for (      InterfaceHttpData data : datas) {
+        LOG.trace("Multipart1 name " + data.getName() + " type "+ data.getHttpDataType().name());
+        if (data.getHttpDataType() == HttpDataType.Attribute) {
+          Attribute attribute=(Attribute)data;
+          if (CommonEPConstans.REQUEST_SIGNATURE_ATTR_NAME.equals(data.getName())) {
+            requestSignature=attribute.get();
+            if (LOG.isTraceEnabled()) {
+              LOG.trace("Multipart name " + data.getName() + " type "+ data.getHttpDataType().name()+ " Signature set. size: "+ requestSignature.length);
+              LOG.trace(MessageEncoderDecoder.bytesToHex(requestSignature));
+            }
+          }
+ else           if (CommonEPConstans.REQUEST_KEY_ATTR_NAME.equals(data.getName())) {
+            requestKey=attribute.get();
+            if (LOG.isTraceEnabled()) {
+              LOG.trace("Multipart name " + data.getName() + " type "+ data.getHttpDataType().name()+ " requestKey set. size: "+ requestKey.length);
+              LOG.trace(MessageEncoderDecoder.bytesToHex(requestKey));
+            }
+          }
+ else           if (CommonEPConstans.REQUEST_DATA_ATTR_NAME.equals(data.getName())) {
+            requestData=attribute.get();
+            if (LOG.isTraceEnabled()) {
+              LOG.trace("Multipart name " + data.getName() + " type "+ data.getHttpDataType().name()+ " requestData set. size: "+ requestData.length);
+              LOG.trace(MessageEncoderDecoder.bytesToHex(requestData));
+            }
+          }
+ else           if (CommonEPConstans.NEXT_PROTOCOL_ATTR_NAME.equals(data.getName())) {
+            nextProtocol=Integer.valueOf(attribute.getString());
+            LOG.trace("[{}] next protocol is {}",getSessionUuid(),nextProtocol);
+          }
+        }
+      }
+    }
+ else {
+      LOG.error("Multipart.. size 0");
+      throw new BadRequestException("HTTP Request inccorect, multiprat size is 0");
+    }
+  }
+}

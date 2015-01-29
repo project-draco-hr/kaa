@@ -1,22 +1,22 @@
 {
   LOG.debug("Received: {}",message.getClass().getName());
-  if (message instanceof SessionInitRequest) {
+  if (message instanceof SessionInitMessage) {
     RedirectionRule redirection=checkRedirection(redirectionRules,random.nextDouble());
     if (redirection == null) {
-      messageProcessor.decodeAndForward(context(),(SessionInitRequest)message);
+      messageProcessor.decodeAndForward(context(),(SessionInitMessage)message);
     }
  else {
-      messageProcessor.redirect(redirection,(SessionInitRequest)message);
+      messageProcessor.redirect(redirection,(SessionInitMessage)message);
     }
   }
  else   if (message instanceof SessionAware) {
-    if (message instanceof SessionAwareRequest) {
+    if (message instanceof SessionAwareMessage) {
       RedirectionRule redirection=checkRedirection(redirectionRules,random.nextDouble());
       if (redirection == null) {
-        messageProcessor.decodeAndForward(context(),(SessionAwareRequest)message);
+        messageProcessor.decodeAndForward(context(),(SessionAwareMessage)message);
       }
  else {
-        messageProcessor.redirect(redirection,(SessionAwareRequest)message);
+        messageProcessor.redirect(redirection,(SessionAwareMessage)message);
       }
     }
  else {

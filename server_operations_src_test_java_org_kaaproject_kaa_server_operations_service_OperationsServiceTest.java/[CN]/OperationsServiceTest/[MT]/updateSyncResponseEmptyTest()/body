@@ -1,6 +1,6 @@
 {
-  SyncResponse response=new SyncResponse();
-  response.setStatus(SyncResponseResultType.SUCCESS);
-  SyncResponse result=operationsService.updateSyncResponse(response,new ArrayList<NotificationDto>(),null);
+  ServerSync response=new ServerSync();
+  response.setStatus(SyncStatus.SUCCESS);
+  ServerSync result=operationsService.updateSyncResponse(response,new ArrayList<NotificationDto>(),null);
   assertNull(result);
 }

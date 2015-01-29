@@ -16,7 +16,7 @@
   name=new KaaAdminSizedTextBox(DEFAULT_TEXTBOX_SIZE);
   name.setWidth("100%");
   Label nameLabel=new Label(Utils.constants.name());
-  nameLabel.addStyleName("required");
+  nameLabel.addStyleName(Utils.avroUiStyle.requiredField());
   detailsTable.setWidget(2,0,nameLabel);
   detailsTable.setWidget(2,1,name);
   name.addInputHandler(this);
@@ -26,7 +26,7 @@
   detailsTable.setWidget(3,0,mandatoryLabel);
   detailsTable.setWidget(3,1,mandatory);
   mandatory.addValueChangeHandler(this);
-  description=new KaaAdminSizedTextArea(1024);
+  description=new SizedTextArea(1024);
   description.setWidth("100%");
   description.getTextArea().getElement().getStyle().setPropertyPx("minHeight",100);
   Label descriptionLabel=new Label(Utils.constants.description());

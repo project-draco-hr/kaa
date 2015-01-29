@@ -1,14 +1,14 @@
 {
-  NettySessionInfo session=message.getSessionInfo();
-  byte[] responseData=responseConverter.toByteArray(message.getResponse());
+  SessionInfo session=message.getSessionInfo();
+  byte[] responseData=encodePlatformLevelData(message.getPlatformId(),message);
   LOG.trace("Response data serialized");
   if (session.isEncrypted()) {
     crypt.setSessionCipherPair(session.getCipherPair());
     responseData=crypt.encodeData(responseData);
     LOG.trace("Response data crypted");
   }
-  ChannelHandlerContext context=message.getSessionInfo().getCtx();
-  ResponseBuilder converter=message.getResponseConverter();
+  ChannelContext context=message.getSessionInfo().getCtx();
+  MessageBuilder converter=message.getMessageBuilder();
   Object[] objects=converter.build(responseData,session.isEncrypted());
   if (objects != null && objects.length > 0) {
     for (    Object object : objects) {

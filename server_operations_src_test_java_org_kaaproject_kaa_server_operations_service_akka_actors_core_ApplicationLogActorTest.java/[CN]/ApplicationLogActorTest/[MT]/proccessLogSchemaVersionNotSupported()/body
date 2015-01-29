@@ -5,7 +5,7 @@
   when(logEventPackMessage.getLogSchema()).thenReturn(logSchema);
   when(logEventPackMessage.getLogEventPack()).thenReturn(new LogEventPack());
   when(logEventPackMessage.getOriginator()).thenReturn(ActorRef.noSender());
-  when(logEventPackMessage.getRequestId()).thenReturn("request id");
+  when(logEventPackMessage.getRequestId()).thenReturn(REQUEST_ID);
   applicationLogActorMessageProcessor.processLogEventPack(Mockito.mock(ActorContext.class),logEventPackMessage);
   verify(logAppender,Mockito.never()).doAppend(Mockito.any(LogEventPack.class),Mockito.any(LogDeliveryCallback.class));
 }

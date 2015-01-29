@@ -1,6 +1,7 @@
 {
   errorPanel=new AlertPanel(Type.ERROR);
   infoPanel=new AlertPanel(Type.INFO);
+  kaaAdminStyle=Utils.kaaAdminStyle;
   initWidget(uiBinder.createAndBindUi(this));
   loginTitle.getElement().setInnerSafeHtml(SafeHtmlUtils.fromSafeConstant(Utils.messages.loginTitle()));
   Label loginLabel=new Label(Utils.constants.username());
@@ -15,14 +16,17 @@
   loginTable.setWidget(0,1,usernameBox);
   loginTable.setWidget(1,0,passwordLabel);
   loginTable.setWidget(1,1,passwordBox);
+  forgotPasswordLabel=new Label(Utils.constants.forgotPassword());
+  forgotPasswordLabel.addStyleName(Utils.kaaAdminStyle.linkLabel());
+  loginTable.setWidget(2,0,forgotPasswordLabel);
   loginTable.getFlexCellFormatter().setWidth(0,0,"130px");
   loginTable.getFlexCellFormatter().setHorizontalAlignment(0,0,HasHorizontalAlignment.ALIGN_RIGHT);
   loginTable.getFlexCellFormatter().setHorizontalAlignment(1,0,HasHorizontalAlignment.ALIGN_RIGHT);
   loginTable.getFlexCellFormatter().setHorizontalAlignment(2,0,HasHorizontalAlignment.ALIGN_RIGHT);
   loginTable.getFlexCellFormatter().setColSpan(2,0,2);
   loginButton=new Button(Utils.constants.login());
-  loginButton.addStyleName("loginButton");
-  loginTable.setWidget(2,2,loginButton);
+  loginButton.addStyleName(Utils.kaaAdminStyle.loginButton());
+  loginTable.setWidget(3,2,loginButton);
   loginButton.getElement().getStyle().setMarginTop(15,Unit.PX);
   loginForm.setWidget(loginTable);
   loginForm.setAction("");

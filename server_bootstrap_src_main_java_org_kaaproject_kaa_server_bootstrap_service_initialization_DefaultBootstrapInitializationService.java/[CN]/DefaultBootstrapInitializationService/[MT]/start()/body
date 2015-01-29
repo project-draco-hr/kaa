@@ -5,12 +5,7 @@
     if (operationsServerListService == null) {
       throw new Exception("Error initializing OperationsServerListService()");
     }
-    operationsServerListService.init();
-    LOG.trace("Config: " + getConfig().toString());
-    for (    ServiceChannel channel : nettyServersList) {
-      LOG.trace("Starting Channel {} ",channel.getChannelType().toString());
-      channel.start();
-    }
+    transportService.lookupAndInit();
     final CountDownLatch thriftStartupLatch=new CountDownLatch(1);
     final CountDownLatch thriftShutdownLatch=new CountDownLatch(1);
     startThrift(thriftStartupLatch,thriftShutdownLatch);
@@ -23,6 +18,21 @@
     if (zkEnabled) {
       startZK();
     }
+    operationsServerListService.init(bootstrapNode);
+    transportService.addListener(new TransportUpdateListener(){
+      @Override public void onTransportsStarted(      List<TransportMetaData> mdList){
+        BootstrapNodeInfo info=bootstrapNode.getNodeInfo();
+        info.setTransports(mdList);
+        try {
+          bootstrapNode.updateNodeData(info);
+        }
+ catch (        IOException e) {
+          LOG.error("Failed to update bootstrap node info",e);
+        }
+      }
+    }
+);
+    transportService.start();
     try {
       thriftShutdownLatch.await();
     }

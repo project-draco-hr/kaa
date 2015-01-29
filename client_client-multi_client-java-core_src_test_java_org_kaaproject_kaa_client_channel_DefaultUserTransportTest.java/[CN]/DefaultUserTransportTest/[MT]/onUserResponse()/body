@@ -1,27 +1,25 @@
 {
-  String requestId1="requestId1";
-  String requestId2="requestId2";
-  Map<String,EndpointAccessToken> attachingEPs=new HashMap<>();
-  attachingEPs.put(requestId1,new EndpointAccessToken("token1"));
-  attachingEPs.put(requestId2,new EndpointAccessToken("token2"));
-  Map<String,EndpointKeyHash> dettachingEPs=new HashMap<>();
-  dettachingEPs.put(requestId1,new EndpointKeyHash("keyhash1"));
-  dettachingEPs.put(requestId2,new EndpointKeyHash("keyhash2"));
+  Map<Integer,EndpointAccessToken> attachingEPs=new HashMap<>();
+  attachingEPs.put(REQUEST_ID_1,new EndpointAccessToken("token1"));
+  attachingEPs.put(REQUEST_ID_2,new EndpointAccessToken("token2"));
+  Map<Integer,EndpointKeyHash> dettachingEPs=new HashMap<>();
+  dettachingEPs.put(REQUEST_ID_1,new EndpointKeyHash("keyhash1"));
+  dettachingEPs.put(REQUEST_ID_2,new EndpointKeyHash("keyhash2"));
   KaaClientState clientState=Mockito.mock(KaaClientState.class);
   EndpointRegistrationProcessor processor=Mockito.mock(EndpointRegistrationProcessor.class);
   Mockito.when(processor.getAttachEndpointRequests()).thenReturn(attachingEPs);
   Mockito.when(processor.getDetachEndpointRequests()).thenReturn(dettachingEPs);
   UserTransport transport=new DefaultUserTransport();
   UserSyncResponse response1=new UserSyncResponse();
-  response1.setEndpointAttachResponses(Arrays.asList(new EndpointAttachResponse(requestId1,"keyhash1",SyncResponseResultType.SUCCESS),new EndpointAttachResponse(requestId2,"keyhash2",SyncResponseResultType.SUCCESS),new EndpointAttachResponse("anotherAttachedRequest","keyhash2",SyncResponseResultType.FAILURE)));
-  response1.setEndpointDetachResponses(Arrays.asList(new EndpointDetachResponse(requestId1,SyncResponseResultType.SUCCESS),new EndpointDetachResponse("anotherRequest",SyncResponseResultType.FAILURE)));
+  response1.setEndpointAttachResponses(Arrays.asList(new EndpointAttachResponse(REQUEST_ID_1,"keyhash1",SyncResponseResultType.SUCCESS),new EndpointAttachResponse(REQUEST_ID_2,"keyhash2",SyncResponseResultType.SUCCESS),new EndpointAttachResponse(REQUEST_ID_1 + 1,"keyhash2",SyncResponseResultType.FAILURE)));
+  response1.setEndpointDetachResponses(Arrays.asList(new EndpointDetachResponse(REQUEST_ID_1,SyncResponseResultType.SUCCESS),new EndpointDetachResponse(REQUEST_ID_1 + 2,SyncResponseResultType.FAILURE)));
   transport.onUserResponse(response1);
   transport.setEndpointRegistrationProcessor(processor);
   transport.setClientState(clientState);
   transport.onUserResponse(response1);
   Mockito.verify(processor,Mockito.times(1)).onUpdate(Mockito.anyListOf(EndpointAttachResponse.class),Mockito.anyListOf(EndpointDetachResponse.class),Mockito.any(UserAttachResponse.class),Mockito.any(UserAttachNotification.class),Mockito.any(UserDetachNotification.class));
   UserSyncResponse response2=new UserSyncResponse();
-  response2.setEndpointDetachResponses(Arrays.asList(new EndpointDetachResponse(requestId2,SyncResponseResultType.SUCCESS)));
+  response2.setEndpointDetachResponses(Arrays.asList(new EndpointDetachResponse(REQUEST_ID_2,SyncResponseResultType.SUCCESS)));
   transport.onUserResponse(response2);
   Mockito.verify(clientState,Mockito.times(2)).setAttachedEndpointsList(Mockito.anyMap());
 }

@@ -1,7 +1,7 @@
 {
   try {
     LogDeliveryStatus record=new LogDeliveryStatus();
-    record.requestId=fieldSetFlags()[0] ? this.requestId : (java.lang.String)defaultValue(fields()[0]);
+    record.requestId=fieldSetFlags()[0] ? this.requestId : (java.lang.Integer)defaultValue(fields()[0]);
     record.result=fieldSetFlags()[1] ? this.result : (org.kaaproject.kaa.common.endpoint.gen.SyncResponseResultType)defaultValue(fields()[1]);
     record.errorCode=fieldSetFlags()[2] ? this.errorCode : (org.kaaproject.kaa.common.endpoint.gen.LogDeliveryErrorCode)defaultValue(fields()[2]);
     return record;

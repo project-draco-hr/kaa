@@ -1,5 +1,6 @@
 {
   buffer.put(FIXED_HEADER_CONST);
+  buffer.putInt(nextProtocolId);
   if (getAesSessionKey() != null) {
     buffer.put(CONNECT_SESSION_KEY_FLAGS);
   }
@@ -12,8 +13,5 @@
  else {
     buffer.put((byte)0);
   }
-  byte ka1=(byte)((keepAlive >> 8) & 0x000000FF);
-  buffer.put(ka1);
-  byte ka2=(byte)(keepAlive & 0x000000FF);
-  buffer.put(ka2);
+  buffer.putChar((char)keepAlive);
 }

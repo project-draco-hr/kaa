@@ -1,0 +1,11 @@
+{
+  if (source == null) {
+    return null;
+  }
+  ProfileClientSync sync=new ProfileClientSync();
+  sync.setEndpointAccessToken(source.getEndpointAccessToken());
+  sync.setEndpointPublicKey(source.getEndpointPublicKey());
+  sync.setProfileBody(source.getProfileBody());
+  sync.setVersionInfo(convert(source.getVersionInfo()));
+  return sync;
+}

@@ -1,5 +1,5 @@
 {
-  ChannelHandlerContext channelContextMock=Mockito.mock(ChannelHandlerContext.class);
+  ChannelContext channelContextMock=Mockito.mock(ChannelContext.class);
   Mockito.when(applicationService.findAppById(APP_ID)).thenReturn(applicationDto);
   Notification thriftNotification=new Notification();
   thriftNotification.setAppId(APP_ID);
@@ -9,6 +9,7 @@
   akkaService.onNotification(thriftNotification);
   Mockito.when(notificationDeltaService.findNotificationById(UNICAST_NOTIFICATION_ID)).thenReturn(topicNotification);
   SyncRequest request=new SyncRequest();
+  request.setRequestId(REQUEST_ID);
   SyncRequestMetaData md=new SyncRequestMetaData();
   md.setApplicationToken(APP_TOKEN);
   md.setEndpointPublicKeyHash(clientPublicKeyHash);
@@ -16,14 +17,14 @@
   request.setSyncRequestMetaData(md);
   NotificationSyncRequest nfRequest=new NotificationSyncRequest();
   request.setNotificationSyncRequest(nfRequest);
-  ResponseBuilder responseBuilder=Mockito.mock(ResponseBuilder.class);
+  MessageBuilder responseBuilder=Mockito.mock(MessageBuilder.class);
   ErrorBuilder errorBuilder=Mockito.mock(ErrorBuilder.class);
-  Mockito.when(operationsService.sync(request,null)).thenReturn(noDeltaResponseWithTopicState);
+  Mockito.when(operationsService.sync(AvroEncDec.convert(request),null)).thenReturn(noDeltaResponseWithTopicState);
   Mockito.when(operationsService.updateSyncResponse(noDeltaResponseWithTopicState.getResponse(),Collections.singletonList(topicNotification),null)).thenReturn(noDeltaResponseWithTopicState.getResponse());
-  SessionInitRequest message=toSignedRequest(UUID.randomUUID(),ChannelType.HTTP_LP,channelContextMock,request,responseBuilder,errorBuilder);
+  SessionInitMessage message=toSignedRequest(UUID.randomUUID(),ChannelType.SYNC_WITH_TIMEOUT,channelContextMock,request,responseBuilder,errorBuilder);
   Assert.assertNotNull(akkaService.getActorSystem());
   akkaService.process(message);
-  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT / 2).atLeastOnce()).sync(request,null);
+  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT / 2).atLeastOnce()).sync(AvroEncDec.convert(request),null);
   Mockito.verify(operationsService,Mockito.timeout(TIMEOUT / 2).atLeastOnce()).updateSyncResponse(noDeltaResponseWithTopicState.getResponse(),Collections.singletonList(topicNotification),null);
   Mockito.verify(responseBuilder,Mockito.timeout(TIMEOUT).atLeastOnce()).build(Mockito.any(byte[].class),Mockito.any(boolean.class));
 }

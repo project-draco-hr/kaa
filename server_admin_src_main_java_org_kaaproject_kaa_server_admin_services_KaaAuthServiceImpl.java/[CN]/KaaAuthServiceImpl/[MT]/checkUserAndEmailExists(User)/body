@@ -1,0 +1,11 @@
+{
+  if (userEntity == null) {
+    return ResultCode.USER_OR_EMAIL_NOT_FOUND;
+  }
+ else   if (isEmpty(userEntity.getMail())) {
+    return ResultCode.USER_EMAIL_NOT_DEFINED;
+  }
+ else {
+    return ResultCode.OK;
+  }
+}

@@ -67,7 +67,7 @@
   idx++;
   detailsTable.setWidget(idx,0,logMetadata);
   detailsTable.setWidget(idx,1,metadatalistBox);
-  description=new KaaAdminSizedTextArea(1024);
+  description=new SizedTextArea(1024);
   description.setWidth(FULL_WIDTH);
   description.getTextArea().getElement().getStyle().setPropertyPx("minHeight",100);
   Label descriptionLabel=new Label(Utils.constants.description());
@@ -88,8 +88,8 @@
   idx++;
   detailsTable.setWidget(idx,0,typeLabel);
   detailsTable.setWidget(idx,1,appenderInfo);
-  getFooter().setStyleName("b-app-content-details-table");
-  configuration=new KaaAdminRecordFieldWidget();
+  getFooter().addStyleName(Utils.kaaAdminStyle.bAppContentDetailsTable());
+  configuration=new RecordFieldWidget();
   configuration.addValueChangeHandler(this);
   getFooter().add(configuration);
   name.setFocus(true);

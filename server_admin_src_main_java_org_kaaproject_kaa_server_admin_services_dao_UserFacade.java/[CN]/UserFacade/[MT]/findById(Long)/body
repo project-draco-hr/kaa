@@ -2,6 +2,10 @@
   TypedQuery<User> query=em.createQuery("SELECT u FROM User u WHERE u.id = :id",User.class);
   query.setParameter("id",id);
   List<User> resultList=query.getResultList();
-  if (!resultList.isEmpty())   return resultList.get(0);
- else   return null;
+  if (!resultList.isEmpty()) {
+    return resultList.get(0);
+  }
+ else {
+    return null;
+  }
 }

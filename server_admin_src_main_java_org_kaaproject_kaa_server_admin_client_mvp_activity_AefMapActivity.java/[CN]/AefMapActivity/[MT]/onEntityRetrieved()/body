@@ -2,7 +2,7 @@
   if (create) {
     KaaAdmin.getDataSource().getVacantEventClassFamilies(place.getApplicationId(),new AsyncCallback<List<EcfInfoDto>>(){
       @Override public void onFailure(      Throwable caught){
-        detailsView.setErrorMessage(Utils.getErrorMessage(caught));
+        Utils.handleException(caught,detailsView);
       }
       @Override public void onSuccess(      List<EcfInfoDto> result){
         detailsView.updateEcfs(result);

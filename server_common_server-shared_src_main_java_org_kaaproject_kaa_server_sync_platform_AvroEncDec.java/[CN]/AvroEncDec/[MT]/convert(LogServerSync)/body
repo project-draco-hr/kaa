@@ -1,0 +1,12 @@
+{
+  if (source == null) {
+    return null;
+  }
+  LogSyncResponse sync=new LogSyncResponse();
+  List<org.kaaproject.kaa.common.endpoint.gen.LogDeliveryStatus> statuses=new ArrayList<org.kaaproject.kaa.common.endpoint.gen.LogDeliveryStatus>();
+  for (  LogDeliveryStatus status : source.getDeliveryStatuses()) {
+    statuses.add(convert(status));
+  }
+  sync.setDeliveryStatuses(statuses);
+  return sync;
+}

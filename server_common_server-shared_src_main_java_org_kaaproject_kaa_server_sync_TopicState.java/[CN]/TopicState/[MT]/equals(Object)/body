@@ -1,0 +1,24 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  TopicState other=(TopicState)obj;
+  if (seqNumber != other.seqNumber) {
+    return false;
+  }
+  if (topicId == null) {
+    if (other.topicId != null) {
+      return false;
+    }
+  }
+ else   if (!topicId.equals(other.topicId)) {
+    return false;
+  }
+  return true;
+}

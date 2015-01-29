@@ -3,9 +3,14 @@
   logAppenderDto.setApplicationId(APPLICATION_ID);
   logAppenderDto.setName("test");
   logAppenderDto.setTenantId(TENANT_ID);
-  FileConfig fileConfig=FileConfig.newBuilder().setLogsRootPath(System.getProperty("java.io.tmpdir") + File.separator + "tmp_logs_"+ System.currentTimeMillis()).build();
-  AvroByteArrayConverter<FileConfig> converter=new AvroByteArrayConverter<>(FileConfig.class);
-  byte[] rawConfiguration=converter.toByteArray(fileConfig);
+  RawSchema rawSchema=new RawSchema(FileConfig.getClassSchema().toString());
+  DefaultRecordGenerationAlgorithm<RawData> algotithm=new DefaultRecordGenerationAlgorithmImpl<>(rawSchema,new RawDataFactory());
+  RawData rawData=algotithm.getRootData();
+  AvroJsonConverter<FileConfig> converter=new AvroJsonConverter<>(FileConfig.getClassSchema(),FileConfig.class);
+  FileConfig fileConfig=converter.decodeJson(rawData.getRawData());
+  fileConfig.setLogsRootPath(System.getProperty("java.io.tmpdir") + File.separator + "tmp_logs_"+ System.currentTimeMillis());
+  AvroByteArrayConverter<FileConfig> byteConverter=new AvroByteArrayConverter<>(FileConfig.class);
+  byte[] rawConfiguration=byteConverter.toByteArray(fileConfig);
   logAppenderDto.setRawConfiguration(rawConfiguration);
   return logAppenderDto;
 }

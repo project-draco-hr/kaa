@@ -1,0 +1,7 @@
+{
+  ConfigurationSchemaDto schemaDto=this.getConfigurationSchema(configuration.getSchemaId());
+  EndpointGroupDto endpointGroup=this.getEndpointGroup(configuration.getEndpointGroupId());
+  String rawSchema=endpointGroup.getWeight() == 0 ? schemaDto.getBaseSchema() : schemaDto.getOverrideSchema();
+  Schema schema=new Schema.Parser().parse(rawSchema);
+  return toConfigurationRecordFormDto(configuration,schema);
+}

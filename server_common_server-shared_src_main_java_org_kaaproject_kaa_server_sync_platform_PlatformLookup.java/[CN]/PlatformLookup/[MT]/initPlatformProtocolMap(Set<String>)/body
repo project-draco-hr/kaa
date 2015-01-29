@@ -1,0 +1,15 @@
+{
+  Map<Integer,PlatformEncDec> platformEncDecMap=new HashMap<>();
+  for (  String platformProtocol : platformProtocols) {
+    try {
+      Class<?> clazz=Class.forName(platformProtocol);
+      PlatformEncDec protocol=(PlatformEncDec)clazz.newInstance();
+      platformEncDecMap.put(protocol.getId(),protocol);
+      LOG.info("Successfully initialized platform protocol {}",platformProtocol);
+    }
+ catch (    ReflectiveOperationException e) {
+      LOG.error("Error during instantiation of platform protocol",e);
+    }
+  }
+  return platformEncDecMap;
+}

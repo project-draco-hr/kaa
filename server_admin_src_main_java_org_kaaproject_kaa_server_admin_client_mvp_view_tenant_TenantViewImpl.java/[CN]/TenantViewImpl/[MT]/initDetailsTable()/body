@@ -3,7 +3,7 @@
   tenantName.setWidth("100%");
   tenantName.addInputHandler(this);
   Label titleLabel=new Label(Utils.constants.tenantName());
-  titleLabel.addStyleName("required");
+  titleLabel.addStyleName(REQUIRED);
   detailsTable.setWidget(0,0,titleLabel);
   detailsTable.setWidget(0,1,tenantName);
   userName=new KaaAdminSizedTextBox(DEFAULT_TEXTBOX_SIZE,create);
@@ -11,7 +11,7 @@
   userName.addInputHandler(this);
   Label userLabel=new Label(Utils.constants.tenantAdminUsername());
   if (create) {
-    userLabel.addStyleName("required");
+    userLabel.addStyleName(REQUIRED);
   }
   detailsTable.setWidget(1,0,userLabel);
   detailsTable.setWidget(1,1,userName);
@@ -19,7 +19,7 @@
   email.setWidth("100%");
   email.addInputHandler(this);
   Label emailLabel=new Label(Utils.constants.tenantAdminEmail());
-  emailLabel.addStyleName("required");
+  emailLabel.addStyleName(REQUIRED);
   detailsTable.setWidget(2,0,emailLabel);
   detailsTable.setWidget(2,1,email);
   tenantName.setFocus(true);

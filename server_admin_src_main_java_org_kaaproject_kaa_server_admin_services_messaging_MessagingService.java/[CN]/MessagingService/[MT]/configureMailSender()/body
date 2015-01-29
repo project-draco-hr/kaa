@@ -1,0 +1,14 @@
+{
+  SmtpMailProperties smtpMailProperties=propertiesFacade.getSpecificProperties(SmtpMailProperties.class);
+  Properties javaMailProperties=toJavaMailProperties(smtpMailProperties);
+  kaaMessagingMailSender=new JavaMailSenderImpl();
+  kaaMessagingMailSender.setHost(smtpMailProperties.getSmtpHost());
+  kaaMessagingMailSender.setPort(smtpMailProperties.getSmtpPort());
+  kaaMessagingMailSender.setUsername(smtpMailProperties.getUsername());
+  kaaMessagingMailSender.setPassword(smtpMailProperties.getPassword());
+  kaaMessagingMailSender.setJavaMailProperties(javaMailProperties);
+  mailFrom=smtpMailProperties.getMailFrom();
+  GeneralProperties generalProperties=propertiesFacade.getSpecificProperties(GeneralProperties.class);
+  appBaseUrl=generalProperties.getBaseUrl();
+  appName=generalProperties.getAppTitle();
+}

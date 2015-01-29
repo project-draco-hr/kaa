@@ -1,27 +1,27 @@
 {
-  SyncResponse response=getResponse();
-  if (response.getProfileSyncResponse() != null && response.getProfileSyncResponse().getResponseStatus() != SyncResponseStatus.NO_DELTA) {
+  ServerSync response=getResponse();
+  if (response.getProfileSync() != null && response.getProfileSync().getResponseStatus() != SyncResponseStatus.NO_DELTA) {
     return true;
   }
-  if (response.getConfigurationSyncResponse() != null && response.getConfigurationSyncResponse().getResponseStatus() != SyncResponseStatus.NO_DELTA) {
+  if (response.getConfigurationSync() != null && response.getConfigurationSync().getResponseStatus() != SyncResponseStatus.NO_DELTA) {
     return true;
   }
-  if (response.getNotificationSyncResponse() != null && response.getNotificationSyncResponse().getResponseStatus() != SyncResponseStatus.NO_DELTA) {
+  if (response.getNotificationSync() != null && response.getNotificationSync().getResponseStatus() != SyncResponseStatus.NO_DELTA) {
     return true;
   }
-  if (response.getEventSyncResponse() != null) {
-    if (response.getEventSyncResponse().getEventSequenceNumberResponse() != null) {
+  if (response.getEventSync() != null) {
+    if (response.getEventSync().getEventSequenceNumberResponse() != null) {
       return true;
     }
-    if (response.getEventSyncResponse().getEvents() != null && !response.getEventSyncResponse().getEvents().isEmpty()) {
+    if (response.getEventSync().getEvents() != null && !response.getEventSync().getEvents().isEmpty()) {
       return true;
     }
-    if (response.getEventSyncResponse().getEventListenersResponses() != null && !response.getEventSyncResponse().getEventListenersResponses().isEmpty()) {
+    if (response.getEventSync().getEventListenersResponses() != null && !response.getEventSync().getEventListenersResponses().isEmpty()) {
       return true;
     }
   }
-  if (response.getUserSyncResponse() != null) {
-    UserSyncResponse userResponse=response.getUserSyncResponse();
+  if (response.getUserSync() != null) {
+    UserServerSync userResponse=response.getUserSync();
     if (userResponse.getEndpointAttachResponses() != null && !userResponse.getEndpointAttachResponses().isEmpty()) {
       return true;
     }
@@ -31,8 +31,14 @@
     if (userResponse.getUserAttachResponse() != null) {
       return true;
     }
+    if (userResponse.getUserAttachNotification() != null) {
+      return true;
+    }
+    if (userResponse.getUserDetachNotification() != null) {
+      return true;
+    }
   }
-  if (response.getLogSyncResponse() != null) {
+  if (response.getLogSync() != null) {
     return true;
   }
   return false;

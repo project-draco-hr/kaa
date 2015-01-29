@@ -1,0 +1,26 @@
+{
+  AvroHttpConfig configuration=context.getConfiguration();
+  configuration.setBindInterface(replaceProperty(configuration.getBindInterface(),BIND_INTERFACE_PROP_NAME,context.getCommonProperties().getProperty(BIND_INTERFACE_PROP_NAME,LOCALHOST)));
+  List<KaaCommandProcessorFactory<HttpRequest,HttpResponse>> processors=new ArrayList<KaaCommandProcessorFactory<HttpRequest,HttpResponse>>();
+  processors.add(new SyncCommandFactory());
+  processors.add(new LongSyncCommandFactory());
+  final CommandFactory<HttpRequest,HttpResponse> factory=new CommandFactory<>(processors);
+  final int maxBodySize=configuration.getMaxBodySize();
+  this.netty=new AbstractNettyServer(configuration.getBindInterface(),configuration.getBindPort()){
+    @Override protected ChannelInitializer<SocketChannel> configureInitializer() throws Exception {
+      return new DefaultHttpServerInitializer(){
+        @Override protected SimpleChannelInboundHandler<AbstractCommand> getMainHandler(        UUID uuid){
+          return new HttpHandler(uuid,HttpTransport.this.handler);
+        }
+        @Override public int getClientMaxBodySize(){
+          return maxBodySize;
+        }
+        @Override protected ChannelHandler getRequestDecoder(){
+          return new RequestDecoder(factory);
+        }
+      }
+;
+    }
+  }
+;
+}

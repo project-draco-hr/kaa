@@ -16,13 +16,15 @@
   deactivatedByLabel.setVisible(false);
   deactivatedUsername.setVisible(false);
   description.setValue("");
-  body.setValue("");
+  body.setValue(null);
   saveButton.setVisible(false);
   activateButton.setVisible(false);
   deactivateButton.setVisible(false);
-  bodyLabel.removeStyleName("required");
+  if (hasLabel()) {
+    bodyLabel.removeStyleName(REQUIRED);
+  }
   description.getTextArea().setReadOnly(true);
-  body.getTextArea().setReadOnly(true);
+  setBodyReadOnly(true);
   updateSaveButton(false,false);
   for (  HandlerRegistration registration : registrations) {
     registration.removeHandler();

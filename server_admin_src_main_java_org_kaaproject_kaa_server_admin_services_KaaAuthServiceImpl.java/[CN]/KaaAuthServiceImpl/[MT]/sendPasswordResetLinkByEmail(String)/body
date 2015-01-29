@@ -1,0 +1,11 @@
+{
+  User userEntity=userFacade.findByUsernameOrMail(usernameOrEmail);
+  ResultCode result=checkUserAndEmailExists(userEntity);
+  if (result == ResultCode.OK) {
+    String passwordResetHash=RandomStringUtils.randomAlphanumeric(UrlParams.PASSWORD_RESET_HASH_LENGTH);
+    userEntity.setPasswordResetHash(passwordResetHash);
+    userFacade.save(userEntity);
+    messagingService.sendPasswordResetLink(passwordResetHash,userEntity.getUsername(),userEntity.getMail());
+  }
+  return result;
+}

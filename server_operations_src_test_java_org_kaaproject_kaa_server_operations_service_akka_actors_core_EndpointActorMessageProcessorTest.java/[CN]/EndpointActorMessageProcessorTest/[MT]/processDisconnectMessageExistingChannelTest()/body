@@ -6,15 +6,15 @@
   Mockito.when(ctxMock.system()).thenReturn(systemMock);
   Mockito.when(systemMock.scheduler()).thenReturn(schedulerMock);
   SyncResponseHolder responseHolder=Mockito.mock(SyncResponseHolder.class);
-  Mockito.when(osMock.sync(Mockito.any(SyncRequest.class),Mockito.any(EndpointProfileDto.class))).thenReturn(responseHolder);
+  Mockito.when(osMock.sync(Mockito.any(ClientSync.class),Mockito.any(EndpointProfileDto.class))).thenReturn(responseHolder);
   final UUID channelId=UUID.randomUUID();
   SyncRequestMessage message=Mockito.mock(SyncRequestMessage.class);
-  ChannelHandlerContext channelCtx=Mockito.mock(ChannelHandlerContext.class);
-  Mockito.when(message.getChannelType()).thenReturn(ChannelType.TCP);
+  ChannelContext channelCtx=Mockito.mock(ChannelContext.class);
+  Mockito.when(message.getChannelType()).thenReturn(ChannelType.ASYNC);
   Mockito.when(message.getChannelUuid()).thenReturn(channelId);
   Mockito.when(message.getChannelContext()).thenReturn(channelCtx);
-  Mockito.when(message.getSession()).thenReturn(new NettySessionInfo(channelId,channelCtx,ChannelType.TCP,null,EndpointObjectHash.fromSHA1("key"),"APP_TOKEN",1000,true));
-  Mockito.when(message.getCommand()).thenReturn(Mockito.mock(Request.class));
+  Mockito.when(message.getSession()).thenReturn(new SessionInfo(channelId,Constants.KAA_PLATFORM_PROTOCOL_AVRO_ID,channelCtx,ChannelType.ASYNC,null,EndpointObjectHash.fromSHA1("key"),"APP_TOKEN",1000,true));
+  Mockito.when(message.getCommand()).thenReturn(Mockito.mock(Message.class));
   Mockito.when(message.getOriginator()).thenReturn(Mockito.mock(ActorRef.class));
   EndpointActorMessageProcessor processor=Mockito.spy(new EndpointActorMessageProcessor(osMock,"APP_TOKEN",EndpointObjectHash.fromSHA1("key"),"actorKey"));
   Mockito.doNothing().when(processor).tellActor(Mockito.any(ActorContext.class),Mockito.any(ActorRef.class),Mockito.any(Object.class));
@@ -24,9 +24,9 @@
       return channelId;
     }
     @Override public ChannelType getChannelType(){
-      return ChannelType.TCP;
+      return ChannelType.ASYNC;
     }
-    @Override public ChannelHandlerContext getChannelContext(){
+    @Override public ChannelContext getChannelContext(){
       return null;
     }
   }

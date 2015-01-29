@@ -1,0 +1,8 @@
+{
+  for (  LogDeliveryStatus status : logSync.getDeliveryStatuses()) {
+    buildExtensionHeader(buf,LOGGING_EXTENSION_ID,NOTHING,NOTHING,NOTHING,4);
+    buf.putShort((short)Integer.valueOf(status.getRequestId()).intValue());
+    buf.put(status.getResult() == SyncStatus.SUCCESS ? SUCCESS : FAILURE);
+    buf.put(NOTHING);
+  }
+}

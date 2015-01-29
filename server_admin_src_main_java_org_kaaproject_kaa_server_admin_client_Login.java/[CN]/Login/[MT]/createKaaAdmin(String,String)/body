@@ -2,7 +2,7 @@
   if (!isEmpty(userName) && !isEmpty(password)) {
     authService.createKaaAdmin(userName,password,new AsyncCallback<Void>(){
       @Override public void onFailure(      Throwable caught){
-        view.setErrorMessage(caught.toString() + ": " + caught.getMessage());
+        Utils.handleException(caught,view);
       }
       @Override public void onSuccess(      Void result){
         login(userName,password);

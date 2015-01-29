@@ -1,8 +1,0 @@
-{
-  for (int column=0; column < record.getValue().size(); column++) {
-    FormField cellField=record.getValue().get(column);
-    if (cellField.getFieldType() != FieldType.ARRAY && cellField.getFieldType() != FieldType.RECORD) {
-      constructWidget(table,cellField,row,column,handlerRegistrations);
-    }
-  }
-}

@@ -1,7 +1,7 @@
 {
   AddTopicDialog.showAddTopicDialog(entityId,new AsyncCallback<AddTopicDialog>(){
     @Override public void onFailure(    Throwable caught){
-      detailsView.setErrorMessage(Utils.getErrorMessage(caught));
+      Utils.handleException(caught,detailsView);
     }
     @Override public void onSuccess(    AddTopicDialog result){
     }

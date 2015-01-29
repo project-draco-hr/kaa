@@ -1,0 +1,14 @@
+{
+  ClientSync syncRequest=null;
+  if (message.isEncrypted()) {
+    syncRequest=decodeEncryptedRequest(message);
+  }
+ else   if (supportUnencryptedConnection) {
+    syncRequest=decodeUnencryptedRequest(message);
+  }
+ else {
+    LOG.warn("Received unencripted init message, but unencrypted connection forbidden by configuration.");
+    throw new GeneralSecurityException("Unencrypted connection forbidden by configuration.");
+  }
+  return syncRequest;
+}

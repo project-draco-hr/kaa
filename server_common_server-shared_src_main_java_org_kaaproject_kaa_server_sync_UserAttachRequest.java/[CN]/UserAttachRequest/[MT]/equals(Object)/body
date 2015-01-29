@@ -1,0 +1,29 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  UserAttachRequest other=(UserAttachRequest)obj;
+  if (userAccessToken == null) {
+    if (other.userAccessToken != null) {
+      return false;
+    }
+  }
+ else   if (!userAccessToken.equals(other.userAccessToken)) {
+    return false;
+  }
+  if (userExternalId == null) {
+    if (other.userExternalId != null) {
+      return false;
+    }
+  }
+ else   if (!userExternalId.equals(other.userExternalId)) {
+    return false;
+  }
+  return true;
+}

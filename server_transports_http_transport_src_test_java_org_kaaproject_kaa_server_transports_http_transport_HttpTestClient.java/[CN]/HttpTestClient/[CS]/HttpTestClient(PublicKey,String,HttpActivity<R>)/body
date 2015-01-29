@@ -1,0 +1,11 @@
+{
+  testId=rnd.nextInt();
+  this.activity=activity;
+  int bindPort=7888;
+  String url="http://localhost:" + bindPort + "/domain/"+ commandName;
+  connection=(HttpURLConnection)new URL(url).openConnection();
+  objects=new MultipartObjects();
+  requestConverter=new AvroByteArrayConverter<>(getRequestConverterClass());
+  responseConverter=new AvroByteArrayConverter<>(getResponseConverterClass());
+  init(serverPublicKey);
+}

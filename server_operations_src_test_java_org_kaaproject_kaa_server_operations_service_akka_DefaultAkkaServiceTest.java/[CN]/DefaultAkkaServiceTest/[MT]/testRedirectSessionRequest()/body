@@ -1,7 +1,7 @@
 {
-  ChannelHandlerContext channelContextMock=Mockito.mock(ChannelHandlerContext.class);
+  ChannelContext channelContextMock=Mockito.mock(ChannelContext.class);
   MessageEncoderDecoder crypt=new MessageEncoderDecoder(clientPair.getPrivate(),clientPair.getPublic(),serverPair.getPublic());
-  akkaService.onRedirectionRule(new RedirectionRule("testDNS",123,1.0,60000));
+  akkaService.onRedirectionRule(new RedirectionRule("testDNS".hashCode(),123,1.0,60000));
   Thread.sleep(1000);
   SyncRequest request=new SyncRequest();
   request.setRequestId(32);
@@ -10,18 +10,47 @@
   md.setEndpointPublicKeyHash(clientPublicKeyHash);
   md.setTimeout(2l * TIMEOUT);
   request.setSyncRequestMetaData(md);
-  ResponseBuilder responseBuilder=Mockito.mock(ResponseBuilder.class);
-  ErrorBuilder errorBuilder=Mockito.mock(ErrorBuilder.class);
+  final MessageBuilder responseBuilder=Mockito.mock(MessageBuilder.class);
+  final ErrorBuilder errorBuilder=Mockito.mock(ErrorBuilder.class);
   AvroByteArrayConverter<SyncRequest> requestConverter=new AvroByteArrayConverter<>(SyncRequest.class);
-  org.kaaproject.kaa.common.channels.protocols.kaatcp.messages.SyncRequest kaaSync=new org.kaaproject.kaa.common.channels.protocols.kaatcp.messages.SyncRequest(crypt.encodeData(requestConverter.toByteArray(request)),false,true);
-  NettySessionInfo session=new NettySessionInfo(UUID.randomUUID(),channelContextMock,ChannelType.TCP,crypt.getSessionCipherPair(),EndpointObjectHash.fromBytes(clientPublicKey.array()),APP_TOKEN,100,true);
-  SessionAwareRequest message=new NettyTcpSyncMessage(kaaSync,session,responseBuilder,errorBuilder,null);
+  final org.kaaproject.kaa.common.channels.protocols.kaatcp.messages.SyncRequest kaaSync=new org.kaaproject.kaa.common.channels.protocols.kaatcp.messages.SyncRequest(crypt.encodeData(requestConverter.toByteArray(request)),false,true);
+  final SessionInfo session=new SessionInfo(UUID.randomUUID(),Constants.KAA_PLATFORM_PROTOCOL_AVRO_ID,channelContextMock,ChannelType.ASYNC,crypt.getSessionCipherPair(),EndpointObjectHash.fromBytes(clientPublicKey.array()),APP_TOKEN,100,true);
+  SessionAwareMessage message=new SessionAwareMessage(){
+    @Override public SessionInfo getSessionInfo(){
+      return session;
+    }
+    @Override public int getPlatformId(){
+      return session.getPlatformId();
+    }
+    @Override public UUID getChannelUuid(){
+      return session.getUuid();
+    }
+    @Override public ChannelType getChannelType(){
+      return session.getChannelType();
+    }
+    @Override public ChannelContext getChannelContext(){
+      return session.getCtx();
+    }
+    @Override public boolean isEncrypted(){
+      return session.isEncrypted();
+    }
+    @Override public MessageBuilder getMessageBuilder(){
+      return responseBuilder;
+    }
+    @Override public ErrorBuilder getErrorBuilder(){
+      return errorBuilder;
+    }
+    @Override public byte[] getEncodedMessageData(){
+      return kaaSync.getAvroObject();
+    }
+  }
+;
   akkaService.process(message);
   SyncResponse response=new SyncResponse();
   response.setRequestId(request.getRequestId());
   response.setStatus(SyncResponseResultType.REDIRECT);
-  response.setRedirectSyncResponse(new RedirectSyncResponse("testDNS"));
-  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT / 2).never()).sync(request);
+  response.setRedirectSyncResponse(new RedirectSyncResponse("testDNS".hashCode()));
+  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT / 2).never()).sync(AvroEncDec.convert(request));
   AvroByteArrayConverter<SyncResponse> responseConverter=new AvroByteArrayConverter<>(SyncResponse.class);
   byte[] encodedData=crypt.encodeData(responseConverter.toByteArray(response));
   Mockito.verify(responseBuilder,Mockito.timeout(TIMEOUT).atLeastOnce()).build(encodedData,true);
