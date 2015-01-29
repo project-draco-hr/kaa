@@ -1,6 +1,6 @@
 {
   TTupleProtocol iprot=(TTupleProtocol)prot;
-  BitSet incoming=iprot.readBitSet(14);
+  BitSet incoming=iprot.readBitSet(15);
   if (incoming.get(0)) {
     struct.appId=iprot.readString();
     struct.setAppIdIsSet(true);
@@ -56,5 +56,9 @@
   if (incoming.get(13)) {
     struct.appenderId=iprot.readString();
     struct.setAppenderIdIsSet(true);
+  }
+  if (incoming.get(14)) {
+    struct.userVerifierId=iprot.readI32();
+    struct.setUserVerifierIdIsSet(true);
   }
 }

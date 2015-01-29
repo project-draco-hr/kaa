@@ -84,5 +84,11 @@
     if (!(this_present_appenderId && that_present_appenderId))     return false;
     if (!this.appenderId.equals(that.appenderId))     return false;
   }
+  boolean this_present_userVerifierId=true;
+  boolean that_present_userVerifierId=true;
+  if (this_present_userVerifierId || that_present_userVerifierId) {
+    if (!(this_present_userVerifierId && that_present_userVerifierId))     return false;
+    if (this.userVerifierId != that.userVerifierId)     return false;
+  }
   return true;
 }

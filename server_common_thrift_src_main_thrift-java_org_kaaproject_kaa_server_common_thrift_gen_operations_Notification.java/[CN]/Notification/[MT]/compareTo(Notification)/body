@@ -143,5 +143,15 @@
       return lastComparison;
     }
   }
+  lastComparison=Boolean.valueOf(isSetUserVerifierId()).compareTo(other.isSetUserVerifierId());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetUserVerifierId()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.userVerifierId,other.userVerifierId);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
   return 0;
 }
