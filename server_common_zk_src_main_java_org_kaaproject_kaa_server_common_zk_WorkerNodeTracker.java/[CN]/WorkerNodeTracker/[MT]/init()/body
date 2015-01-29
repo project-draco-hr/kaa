@@ -1,6 +1,6 @@
 {
   endpointCache=new PathChildrenCache(client,OPERATIONS_SERVER_NODE_PATH,true);
-  endpointListeners=new ArrayList<OperationsNodeListener>();
   bootstrapCache=new PathChildrenCache(client,BOOTSTRAP_SERVER_NODE_PATH,true);
-  bootstrapListeners=new ArrayList<BootstrapNodeListener>();
+  endpointListeners=new CopyOnWriteArrayList<OperationsNodeListener>();
+  bootstrapListeners=new CopyOnWriteArrayList<BootstrapNodeListener>();
 }

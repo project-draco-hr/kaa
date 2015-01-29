@@ -1,0 +1,15 @@
+{
+  byte[] requestRaw=message.getEncodedMessageData();
+  LOG.trace("Try to convert raw data to SynRequest object");
+  ClientSync request=decodePlatformLevelData(message.getPlatformId(),requestRaw);
+  LOG.trace("Request data deserialized");
+  PublicKey endpointKey=getPublicKey(request);
+  if (endpointKey == null) {
+    LOG.warn("Endpoint Key is null");
+    throw new GeneralSecurityException("Endpoint Key is null");
+  }
+ else {
+    LOG.trace("Public key extracted");
+  }
+  return request;
+}

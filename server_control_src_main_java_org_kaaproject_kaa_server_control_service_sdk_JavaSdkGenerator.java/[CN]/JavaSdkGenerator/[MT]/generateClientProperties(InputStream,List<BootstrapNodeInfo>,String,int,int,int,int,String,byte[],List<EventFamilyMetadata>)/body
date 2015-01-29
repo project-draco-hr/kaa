@@ -8,32 +8,20 @@
       bootstrapServers+=";";
     }
     BootstrapNodeInfo node=bootstrapNodes.get(nodeIndex);
-    List<BootstrapSupportedChannel> supportedChannels=node.getSupportedChannelsArray();
+    List<TransportMetaData> supportedChannels=node.getTransports();
+    int accessPointId=ServerNameUtil.crc32(node.getConnectionInfo());
     for (int chIndex=0; chIndex < supportedChannels.size(); ++chIndex) {
-      ZkSupportedChannel channel=supportedChannels.get(chIndex).getZkChannel();
-      bootstrapServers+=channel.getChannelType().ordinal();
-      bootstrapServers+=":";
-      if (channel.getChannelType() == ZkChannelType.HTTP) {
-        ZkHttpComunicationParameters params=(ZkHttpComunicationParameters)channel.getCommunicationParameters();
-        bootstrapServers+=params.getZkComunicationParameters().getHostName();
-        bootstrapServers+=":";
-        bootstrapServers+=params.getZkComunicationParameters().getPort();
+      TransportMetaData transport=supportedChannels.get(chIndex);
+      for (      VersionConnectionInfoPair pair : transport.getConnectionInfo()) {
+        bootstrapServers+=accessPointId;
+        bootstrapServers+=SEPARATOR;
+        bootstrapServers+=transport.getId();
+        bootstrapServers+=SEPARATOR;
+        bootstrapServers+=pair.getVersion();
+        bootstrapServers+=SEPARATOR;
+        bootstrapServers+=Base64.encodeBase64String(pair.getConenctionInfo().array());
       }
- else       if (channel.getChannelType() == ZkChannelType.HTTP_LP) {
-        ZkHttpLpComunicationParameters params=(ZkHttpLpComunicationParameters)channel.getCommunicationParameters();
-        bootstrapServers+=params.getZkComunicationParameters().getHostName();
-        bootstrapServers+=":";
-        bootstrapServers+=params.getZkComunicationParameters().getPort();
-      }
- else       if (channel.getChannelType() == ZkChannelType.KAATCP) {
-        ZkKaaTcpComunicationParameters params=(ZkKaaTcpComunicationParameters)channel.getCommunicationParameters();
-        bootstrapServers+=params.getZkComunicationParameters().getHostName();
-        bootstrapServers+=":";
-        bootstrapServers+=params.getZkComunicationParameters().getPort();
-      }
-      bootstrapServers+="|";
     }
-    bootstrapServers+=Base64.encodeBase64String(node.getConnectionInfo().getPublicKey().array());
   }
   String ecfs="";
   if (eventFamilies != null) {
@@ -41,7 +29,7 @@
       if (i > 0) {
         ecfs+=";";
       }
-      ecfs+=eventFamilies.get(i).getEcfName() + ":" + eventFamilies.get(i).getVersion();
+      ecfs+=eventFamilies.get(i).getEcfName() + SEPARATOR + eventFamilies.get(i).getVersion();
     }
   }
   clientProperties.put(BUILD_VERSION,Version.PROJECT_VERSION);

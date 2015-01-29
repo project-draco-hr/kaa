@@ -1,0 +1,19 @@
+{
+  AvroTcpConfig configuration=context.getConfiguration();
+  configuration.setBindInterface(replaceProperty(configuration.getBindInterface(),BIND_INTERFACE_PROP_NAME,context.getCommonProperties().getProperty(BIND_INTERFACE_PROP_NAME,LOCALHOST)));
+  final KaaTcpCommandFactory factory=new KaaTcpCommandFactory();
+  this.netty=new AbstractNettyServer(configuration.getBindInterface(),configuration.getBindPort()){
+    @Override protected ChannelInitializer<SocketChannel> configureInitializer() throws Exception {
+      return new AbstractKaaTcpServerInitializer(){
+        @Override protected SimpleChannelInboundHandler<AbstractKaaTcpCommandProcessor> getMainHandler(        UUID uuid){
+          return new TcpHandler(uuid,TcpTransport.this.handler);
+        }
+        @Override protected KaaTcpDecoder getDecoder(){
+          return new KaaTcpDecoder(factory);
+        }
+      }
+;
+    }
+  }
+;
+}

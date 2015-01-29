@@ -1,5 +1,5 @@
 {
-  final String dnsName=getBootstrapNameFromNodeInfo(nodeInfo);
+  final String dnsName=getNameFromConnectionInfo(nodeInfo.getConnectionInfo());
   LOG.info("Bootstrap server {} added",dnsName);
   bootstrapsMap.put(dnsName,nodeInfo);
   updateBootstrap(nodeInfo);

@@ -4,10 +4,6 @@
   X509EncodedKeySpec x509EncodedKeySpec=new X509EncodedKeySpec(keys.getPublic().getEncoded());
   ByteBuffer testKeyData=ByteBuffer.wrap(x509EncodedKeySpec.getEncoded());
   nodeInfo.setConnectionInfo(new ConnectionInfo(BOOTSTRAP_NODE_HOST,1000,testKeyData));
-  List<BootstrapSupportedChannel> chList=new LinkedList<>();
-  ZkHttpComunicationParameters CommunicationParameters=new ZkHttpComunicationParameters(new IpComunicationParameters(BOOTSTRAP_NODE_HOST,1001));
-  ZkHttpStatistics ChannelStatistics=new ZkHttpStatistics(new BaseStatistics(Integer.valueOf(1),Integer.valueOf(1),Integer.valueOf(1),Long.valueOf(1)));
-  chList.add(new BootstrapSupportedChannel(new ZkSupportedChannel(ZkChannelType.HTTP,true,CommunicationParameters,ChannelStatistics)));
-  nodeInfo.setSupportedChannelsArray(chList);
+  nodeInfo.setTransports(new ArrayList<TransportMetaData>());
   return nodeInfo;
 }

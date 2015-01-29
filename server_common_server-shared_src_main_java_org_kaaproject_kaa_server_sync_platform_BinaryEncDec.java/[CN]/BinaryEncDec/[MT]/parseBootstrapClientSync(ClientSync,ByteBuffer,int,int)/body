@@ -1,0 +1,10 @@
+{
+  int requestId=buf.getShort();
+  int protocolCount=buf.getShort();
+  List<ProtocolVersionId> keys=new ArrayList<>(protocolCount);
+  for (int i=0; i < protocolCount; i++) {
+    keys.add(new ProtocolVersionId(buf.getInt(),buf.getShort()));
+    buf.getShort();
+  }
+  sync.setBootstrapSync(new BootstrapClientSync(requestId,keys));
+}

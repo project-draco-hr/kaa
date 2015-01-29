@@ -1,0 +1,7 @@
+{
+  AvroTcpConfig config=new AvroTcpConfig();
+  config.setBindInterface(TEST_HOST);
+  config.setBindPort(TEST_PORT);
+  AvroByteArrayConverter<AvroTcpConfig> converter=new AvroByteArrayConverter<AvroTcpConfig>(AvroTcpConfig.class);
+  return converter.toByteArray(config);
+}

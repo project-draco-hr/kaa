@@ -1,0 +1,22 @@
+{
+  LOG.info("Test Incorrect Method request");
+  try {
+    URLConnection connection=new URL("http://" + TEST_HOST + ":"+ TEST_PORT+ "/domain/"+ SyncCommand.getCommandName()).openConnection();
+    StringBuffer b=new StringBuffer();
+    InputStreamReader r=new InputStreamReader(connection.getInputStream(),"UTF-8");
+    int c;
+    while ((c=r.read()) != -1) {
+      b.append((char)c);
+    }
+    fail("Exception not cauth");
+  }
+ catch (  IOException e) {
+    assertNotNull(e);
+    if (!e.toString().contains("HTTP response code: 400 for URL")) {
+      fail(e.toString());
+    }
+ else {
+      LOG.info("Test for incorrect method pass");
+    }
+  }
+}

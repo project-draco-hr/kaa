@@ -7,8 +7,6 @@
     LOG.debug("NettyServer workGroup created");
     bServer=new ServerBootstrap();
     LOG.debug("NettyServer ServerBootstrap created");
-    executor=new DefaultEventExecutorGroup(threadPoolSize);
-    LOG.debug("NettyServer Task Executor created");
     ChannelInitializer<SocketChannel> sInit=configureInitializer();
     LOG.debug("NettyServer InitClass instance created");
     LOG.debug("NettyServer InitClass instance init()");
