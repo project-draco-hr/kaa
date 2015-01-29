@@ -8,5 +8,7 @@
   this.endpointActorMap=new HashMap<>();
   this.topicSessions=new HashMap<>();
   this.logsSessions=new HashMap<>();
+  this.userVerifierSessions=new HashMap<>();
   this.applicationLogActor=getOrCreateLogActor(null,logAppenderService,applicationService);
+  this.userVerifierActor=getOrCreateUserVerifierActor(null,endpointUserService,applicationService);
 }

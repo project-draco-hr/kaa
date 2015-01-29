@@ -1,4 +1,3 @@
 {
-  LOG.debug("[{}] Processing thrift notification message",applicationToken);
-  applicationLogActor.tell(message,self());
+  processThriftNotificationMessage(applicationLogActor,message);
 }

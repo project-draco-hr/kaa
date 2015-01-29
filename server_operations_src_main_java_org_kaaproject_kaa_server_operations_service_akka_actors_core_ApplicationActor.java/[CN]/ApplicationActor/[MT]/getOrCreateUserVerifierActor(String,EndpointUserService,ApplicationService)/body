@@ -1,0 +1,9 @@
+{
+  ActorRef logActor=userVerifierSessions.get(name);
+  if (logActor == null) {
+    logActor=context().actorOf(Props.create(new ApplicationUserVerifierActor.ActorCreator(endpointUserService,applicationService,applicationToken)));
+    context().watch(logActor);
+    userVerifierSessions.put(logActor.path().name(),logActor);
+  }
+  return logActor;
+}
