@@ -5,6 +5,12 @@
     }
   }
 ));
+  registrations.add(view.getGoToAvroUiSandboxWeb().addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      gotoAvroUiSandboxWeb();
+    }
+  }
+));
   registrations.add(view.getProjectsActionSource().addProjectActionHandler(new ProjectActionEventHandler(){
     @Override public void onProjectAction(    ProjectActionEvent event){
 switch (event.getAction()) {
