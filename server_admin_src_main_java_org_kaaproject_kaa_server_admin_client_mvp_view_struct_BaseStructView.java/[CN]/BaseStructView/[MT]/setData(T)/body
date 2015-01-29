@@ -33,7 +33,7 @@
     deactivatedUsername.setValue(struct.getDeactivatedUsername());
   }
   description.setValue(struct.getDescription());
-  body.setValue(struct.getBody());
+  setBodyValue(struct);
   if (this.active) {
     if (struct.getStatus() == UpdateStatus.ACTIVE) {
       deactivateButton.setVisible(true);
@@ -41,10 +41,12 @@
   }
  else {
     description.getTextArea().setReadOnly(false);
-    body.getTextArea().setReadOnly(false);
-    bodyLabel.addStyleName(REQUIRED);
+    setBodyReadOnly(false);
+    if (hasLabel()) {
+      bodyLabel.addStyleName(REQUIRED);
+    }
     registrations.add(description.addInputHandler(this));
-    registrations.add(body.addInputHandler(this));
+    registrations.add(addBodyChangeHandler());
     saveButton.setVisible(true);
     if (isEmpty(struct.getId())) {
       saveButton.setText(Utils.constants.save());

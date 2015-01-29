@@ -5,7 +5,8 @@
     Utils.checkNotNull(storedConfiguration);
     checkEndpointGroupId(storedConfiguration.getEndpointGroupId());
     String username=this.getCurrentUser().getUsername();
-    return toDto(clientProvider.getClient().deactivateConfiguration(configurationId,username));
+    ConfigurationDto stored=toDto(clientProvider.getClient().deactivateConfiguration(configurationId,username));
+    return toConfigurationRecordFormDto(stored);
   }
  catch (  Exception e) {
     throw Utils.handleException(e);
