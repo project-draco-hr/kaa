@@ -1,9 +1,6 @@
 {
   LOG.debug("Remove notifications by topic id {}",topicId);
-  CassandraNfSchemaVersionType[] topicKeyArray=topicKeysByTopicIdDao.getTopicKeysByTopicId(topicId);
-  if (topicKeyArray.length > 0) {
-    Delete.Where query=delete().from(getColumnFamilyName()).where(eq(NF_TOPIC_ID_PROPERTY,topicId)).and(QueryBuilder.in(NF_SCHEMA_VER_USER_TYPE_NAME,topicKeyArray));
-    execute(query);
-    LOG.trace("Execute query {}",query);
-  }
+  Delete.Where query=delete().from(getColumnFamilyName()).where(eq(CassandraModelConstants.NF_TOPIC_ID_PROPERTY,topicId)).and(QueryBuilder.in(CassandraModelConstants.NF_NOTIFICATION_TYPE_PROPERTY,getStringTypes(NotificationTypeDto.values())));
+  execute(query);
+  LOG.trace("Execute query {}",query);
 }

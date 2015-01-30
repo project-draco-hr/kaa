@@ -1,12 +1,7 @@
 {
   LOG.debug("Try to find endpoint user by id {}",id);
-  CassandraEndpointUser endpointUser=null;
-  if (isNotBlank(id) && id.contains(CassandraModelConstants.KEY_DELIMITER)) {
-    String[] compositeId=id.split(CassandraModelConstants.KEY_DELIMITER);
-    if (compositeId.length == 2) {
-      endpointUser=findByExternalIdAndTenantId(compositeId[0],compositeId[1]);
-      LOG.trace("Found endpoint user {} by id {}",endpointUser,id);
-    }
-  }
+  CassandraEndpointUser endpointUser=new CassandraEndpointUser(id);
+  endpointUser=findByExternalIdAndTenantId(endpointUser.getExternalId(),endpointUser.getTenantId());
+  LOG.trace("Found endpoint user {} by id {}",endpointUser,id);
   return endpointUser;
 }

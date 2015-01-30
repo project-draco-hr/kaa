@@ -1,7 +1,7 @@
 {
   LOG.debug("Remove notification by id {}",id);
   CassandraNotification nf=new CassandraNotification(id);
-  Delete.Where deleteQuery=delete().from(getColumnFamilyName()).where(eq(NF_TOPIC_ID_PROPERTY,nf.getTopicId())).and(eq(NF_SCHEMA_VER_USER_TYPE_NAME,nf.getVersionType())).and(eq(NF_SEQ_NUM_PROPERTY,nf.getSeqNum()));
+  Delete.Where deleteQuery=delete().from(getColumnFamilyName()).where(eq(CassandraModelConstants.NF_TOPIC_ID_PROPERTY,nf.getTopicId())).and(eq(CassandraModelConstants.NF_NOTIFICATION_TYPE_PROPERTY,nf.getType().name())).and(eq(CassandraModelConstants.NF_VERSION_PROPERTY,nf.getVersion())).and(eq(NF_SEQ_NUM_PROPERTY,nf.getSeqNum()));
   LOG.trace("Remove notification by id {}",deleteQuery);
   execute(deleteQuery);
 }

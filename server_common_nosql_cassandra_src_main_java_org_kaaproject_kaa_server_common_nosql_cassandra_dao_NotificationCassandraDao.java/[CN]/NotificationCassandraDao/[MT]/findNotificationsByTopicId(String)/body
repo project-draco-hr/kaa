@@ -1,14 +1,10 @@
 {
   LOG.debug("Try to find notifications by topic id {}",topicId);
-  List<CassandraNotification> notifications=Collections.emptyList();
-  CassandraNfSchemaVersionType[] topicKeyArray=topicKeysByTopicIdDao.getTopicKeysByTopicId(topicId);
-  if (topicKeyArray.length > 0) {
-    Where query=select().from(getColumnFamilyName()).where(eq(NF_TOPIC_ID_PROPERTY,topicId)).and(QueryBuilder.in(NF_SCHEMA_VER_USER_TYPE_NAME,topicKeyArray));
-    LOG.trace("Execute query {}",query);
-    notifications=findListByStatement(query);
-    if (LOG.isTraceEnabled()) {
-      LOG.trace("Found notifications {}",Arrays.toString(notifications.toArray()));
-    }
+  Where query=select().from(getColumnFamilyName()).where(eq(CassandraModelConstants.NF_TOPIC_ID_PROPERTY,topicId)).and(QueryBuilder.in(CassandraModelConstants.NF_NOTIFICATION_TYPE_PROPERTY,getStringTypes(NotificationTypeDto.values())));
+  LOG.trace("Execute query {}",query);
+  List<CassandraNotification> notifications=findListByStatement(query);
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("Found notifications {}",Arrays.toString(notifications.toArray()));
   }
   return notifications;
 }

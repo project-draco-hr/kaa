@@ -2,7 +2,9 @@
   this.applicationId=dto.getApplicationId();
   this.schemaId=dto.getSchemaId();
   this.topicId=dto.getTopicId();
-  this.versionType=new CassandraNfSchemaVersionType(dto.getType(),dto.getVersion(),dto.getSecNum() / MAX_BATCH_SIZE);
+  this.type=dto.getType();
+  this.version=dto.getVersion();
+  this.seqNum=dto.getSecNum();
   this.lastModifyTime=dto.getLastTimeModify();
   this.body=getByteBuffer(dto.getBody());
   this.expiredAt=dto.getExpiredAt();

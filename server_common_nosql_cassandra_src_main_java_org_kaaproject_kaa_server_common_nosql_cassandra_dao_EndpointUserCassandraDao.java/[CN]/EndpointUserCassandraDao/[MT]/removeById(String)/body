@@ -1,9 +1,5 @@
 {
   LOG.debug("Try to remove endpoint user by id {}",id);
-  if (isNotBlank(id) && id.contains(CassandraModelConstants.KEY_DELIMITER)) {
-    String[] compositeId=id.split(CassandraModelConstants.KEY_DELIMITER);
-    if (compositeId.length == 2) {
-      removeByExternalIdAndTenantId(compositeId[0],compositeId[1]);
-    }
-  }
+  CassandraEndpointUser endpointUser=new CassandraEndpointUser(id);
+  removeByExternalIdAndTenantId(endpointUser.getExternalId(),endpointUser.getTenantId());
 }
