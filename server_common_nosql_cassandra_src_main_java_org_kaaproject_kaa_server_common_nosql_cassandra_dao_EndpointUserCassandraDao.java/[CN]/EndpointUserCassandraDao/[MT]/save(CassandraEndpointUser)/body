@@ -1,4 +1,5 @@
 {
   dto.setId(dto.getExternalId() + CassandraModelConstants.KEY_DELIMITER + dto.getTenantId());
+  LOG.trace("Save endpoint user {}",dto);
   return super.save(dto);
 }

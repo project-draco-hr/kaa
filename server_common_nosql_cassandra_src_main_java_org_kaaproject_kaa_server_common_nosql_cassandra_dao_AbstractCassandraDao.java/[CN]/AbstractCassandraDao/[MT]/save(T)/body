@@ -1,6 +1,7 @@
 {
-  LOG.info("Save entity {}",dto);
-  Mapper mapper=getMapper();
-  mapper.save(dto);
+  LOG.debug("Save entity {}",dto);
+  Statement saveStatement=getSaveQuery(dto);
+  saveStatement.setConsistencyLevel(getWriteConsistencyLevel());
+  execute(saveStatement);
   return dto;
 }

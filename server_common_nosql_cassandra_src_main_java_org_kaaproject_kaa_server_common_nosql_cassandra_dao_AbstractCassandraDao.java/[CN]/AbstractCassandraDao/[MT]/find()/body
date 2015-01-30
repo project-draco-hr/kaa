@@ -1,4 +1,4 @@
 {
   LOG.debug("Get all entities from column family {}",getColumnFamilyName());
-  return findListByStatement(QueryBuilder.select().all().from(getColumnFamilyName()));
+  return findListByStatement(QueryBuilder.select().all().from(getColumnFamilyName()).setConsistencyLevel(getReadConsistencyLevel()));
 }

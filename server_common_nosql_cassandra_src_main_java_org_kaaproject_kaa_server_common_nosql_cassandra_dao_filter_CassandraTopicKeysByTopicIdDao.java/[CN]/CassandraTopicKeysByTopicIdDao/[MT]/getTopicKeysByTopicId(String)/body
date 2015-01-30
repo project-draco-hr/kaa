@@ -1,0 +1,14 @@
+{
+  LOG.debug("Try to find topic row keys by topic id {}",topicId);
+  Select.Where select=select().from(getColumnFamilyName()).where(eq(TOPIC_IDS_TOPIC_ID_PROPERTY,topicId));
+  List<CassandraTopicKeysByTopicId> topicKeys=findListByStatement(select);
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("Found topic keys {}",Arrays.toString(topicKeys.toArray()));
+  }
+  CassandraNfSchemaVersionType[] topicKeyArray=new CassandraNfSchemaVersionType[topicKeys.size()];
+  int i=0;
+  for (  CassandraTopicKeysByTopicId key : topicKeys) {
+    topicKeyArray[i++]=key.getVersionType();
+  }
+  return topicKeyArray;
+}

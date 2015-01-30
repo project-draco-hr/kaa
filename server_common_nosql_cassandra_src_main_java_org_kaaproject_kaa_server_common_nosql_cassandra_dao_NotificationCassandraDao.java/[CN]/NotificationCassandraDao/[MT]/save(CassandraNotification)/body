@@ -1,11 +1,10 @@
 {
-  StringBuilder builder=new StringBuilder(notification.getTopicId());
-  builder.append(CassandraModelConstants.KEY_DELIMITER);
-  builder.append(notification.getType().name());
-  builder.append(CassandraModelConstants.KEY_DELIMITER);
-  builder.append(notification.getVersion());
-  builder.append(CassandraModelConstants.KEY_DELIMITER);
-  builder.append(notification.getSeqNum());
-  notification.setId(builder.toString());
-  return super.save(notification);
+  if (isBlank(notification.getId())) {
+    notification.generateId();
+  }
+  LOG.debug("Save notification {} ",notification);
+  Statement topicSeqSaveSt=getSaveQuery(new CassandraTopicLastSeqNum(notification.getTopicId(),notification.getSeqNum()),CassandraTopicLastSeqNum.class);
+  Statement nfSaveSt=getSaveQuery(notification);
+  executeBatch(topicSeqSaveSt,nfSaveSt);
+  return notification;
 }

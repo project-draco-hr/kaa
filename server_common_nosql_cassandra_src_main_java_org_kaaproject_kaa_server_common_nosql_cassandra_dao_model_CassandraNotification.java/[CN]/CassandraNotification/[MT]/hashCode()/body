@@ -1,11 +1,10 @@
 {
   int result=topicId != null ? topicId.hashCode() : 0;
-  result=31 * result + (type != null ? type.hashCode() : 0);
+  result=31 * result + (versionType != null ? versionType.hashCode() : 0);
+  result=31 * result + seqNum;
   result=31 * result + (id != null ? id.hashCode() : 0);
   result=31 * result + (applicationId != null ? applicationId.hashCode() : 0);
   result=31 * result + (schemaId != null ? schemaId.hashCode() : 0);
-  result=31 * result + version;
-  result=31 * result + seqNum;
   result=31 * result + (lastModifyTime != null ? lastModifyTime.hashCode() : 0);
   result=31 * result + (body != null ? body.hashCode() : 0);
   result=31 * result + (expiredAt != null ? expiredAt.hashCode() : 0);

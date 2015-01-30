@@ -12,10 +12,10 @@
   }
   Statement saveProfile=getSaveQuery(profile);
   if (saveByAccessToken != null) {
-    executeBatch(BatchStatement.Type.UNLOGGED,saveProfile,saveByAppId,saveByAccessToken);
+    executeBatch(saveProfile,saveByAppId,saveByAccessToken);
   }
  else {
-    executeBatch(BatchStatement.Type.UNLOGGED,saveProfile,saveByAppId);
+    executeBatch(saveProfile,saveByAppId);
   }
   LOG.debug("Endpoint profile saved");
   return profile;

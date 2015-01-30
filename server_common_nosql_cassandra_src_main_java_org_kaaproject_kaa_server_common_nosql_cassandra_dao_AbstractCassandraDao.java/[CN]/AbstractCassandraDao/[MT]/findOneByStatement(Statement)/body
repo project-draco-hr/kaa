@@ -1,9 +1,12 @@
 {
   T object=null;
-  ResultSet resultSet=getSession().execute(statement);
-  Result result=getMapper().map(resultSet);
-  if (result != null) {
-    object=(T)result.one();
+  if (statement != null) {
+    statement.setConsistencyLevel(getReadConsistencyLevel());
+    ResultSet resultSet=getSession().execute(statement);
+    Result result=getMapper().map(resultSet);
+    if (result != null) {
+      object=(T)result.one();
+    }
   }
   return object;
 }

@@ -1,4 +1,5 @@
 {
+  LOG.debug("Try to find endpoint key hash by access token {}",accessToken);
   ByteBuffer endpointKeyHash=null;
   CassandraEPByAccessToken result=findById(accessToken);
   if (result != null) {

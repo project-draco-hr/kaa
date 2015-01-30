@@ -1,9 +1,0 @@
-{
-  LOG.info("Execute cassandra batch {} with type {} ",statements,type);
-  BatchStatement batchStatement=new BatchStatement(type);
-  for (  Statement statement : statements) {
-    batchStatement.add(statement);
-  }
-  ResultSet resultSet=getSession().execute(batchStatement);
-  LOG.info("Result of batch execution is {}",resultSet);
-}

@@ -1,9 +1,9 @@
 {
-  CassandraNotification cassandraNotification=null;
-  String[] ids=parseId(id);
-  if (ids != null && ids.length == 4) {
-    Where query=select().from(getColumnFamilyName()).where(eq(CassandraModelConstants.NF_TOPIC_ID_PROPERTY,ids[0])).and(eq(CassandraModelConstants.NF_NOTIFICATION_TYPE_PROPERTY,ids[1])).and(eq(CassandraModelConstants.NF_VERSION_PROPERTY,Integer.valueOf(ids[2]))).and(eq(CassandraModelConstants.NF_SEQ_NUM_PROPERTY,Integer.valueOf(ids[3])));
-    cassandraNotification=findOneByStatement(query);
-  }
-  return cassandraNotification;
+  LOG.debug("Try to find notification by id {}",id);
+  CassandraNotification nf=new CassandraNotification(id);
+  Where query=select().from(getColumnFamilyName()).where(eq(NF_TOPIC_ID_PROPERTY,nf.getTopicId())).and(eq(NF_SCHEMA_VER_USER_TYPE_NAME,nf.getVersionType())).and(eq(NF_SEQ_NUM_PROPERTY,nf.getSeqNum()));
+  LOG.trace("Execute query {}",query);
+  nf=findOneByStatement(query);
+  LOG.trace("Found notification {} by id {}",nf,id);
+  return nf;
 }

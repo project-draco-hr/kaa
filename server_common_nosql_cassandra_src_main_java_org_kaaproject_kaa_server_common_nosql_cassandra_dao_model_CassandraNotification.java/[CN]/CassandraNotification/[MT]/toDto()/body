@@ -1,12 +1,12 @@
 {
   NotificationDto dto=new NotificationDto();
-  dto.setId(id);
+  dto.setId(getStringId());
   dto.setApplicationId(applicationId);
   dto.setSchemaId(schemaId);
   dto.setTopicId(topicId);
   dto.setLastTimeModify(lastModifyTime);
-  dto.setVersion(version);
-  dto.setType(type);
+  dto.setVersion(versionType != null ? versionType.getVersion() : 0);
+  dto.setType(versionType != null ? versionType.getType() : null);
   dto.setBody(body != null ? getBytes(body) : null);
   dto.setExpiredAt(expiredAt);
   dto.setSecNum(seqNum);

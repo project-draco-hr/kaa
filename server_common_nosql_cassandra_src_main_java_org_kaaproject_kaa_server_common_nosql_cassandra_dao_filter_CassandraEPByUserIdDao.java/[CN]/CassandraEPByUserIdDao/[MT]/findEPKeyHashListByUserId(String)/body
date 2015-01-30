@@ -1,8 +1,0 @@
-{
-  List<CassandraEPByUserId> filter=findListByStatement(getMapper().getQuery(userId));
-  List<ByteBuffer> result=new ArrayList<>(filter.size());
-  for (  CassandraEPByUserId ep : filter) {
-    result.add(ep.getEndpointKeyHash());
-  }
-  return result;
-}

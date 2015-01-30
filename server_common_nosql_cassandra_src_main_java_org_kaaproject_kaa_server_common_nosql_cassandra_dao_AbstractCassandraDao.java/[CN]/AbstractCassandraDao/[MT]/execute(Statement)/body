@@ -1,4 +1,3 @@
 {
-  LOG.info("Execute cassandra batch {}",statement);
-  return getSession().execute(statement);
+  return execute(statement,ConsistencyLevel.ONE);
 }

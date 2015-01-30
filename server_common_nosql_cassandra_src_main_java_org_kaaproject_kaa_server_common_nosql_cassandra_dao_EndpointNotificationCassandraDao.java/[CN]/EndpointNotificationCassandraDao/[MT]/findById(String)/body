@@ -4,7 +4,7 @@
   Select.Where where=select().from(getColumnFamilyName()).where(eq(CassandraModelConstants.ET_NF_ENDPOINT_KEY_HASH_PROPERTY,key.getEndpointKeyHash())).and(eq(CassandraModelConstants.ET_NF_LAST_MOD_TIME_PROPERTY,key.getLastModifyTime()));
   LOG.debug("[id] Execute query {}:",id,where);
   CassandraEndpointNotification endpointNotification=findOneByStatement(where);
-  LOG.debug(" endpoint notification by id {}:",id,endpointNotification != null ? "Found" : "No found");
+  LOG.debug("{} endpoint notification by id {}:",endpointNotification != null ? "Found" : "No found",id);
   LOG.trace("Found endpoint notification {} by id {}:",endpointNotification,id);
   return endpointNotification;
 }

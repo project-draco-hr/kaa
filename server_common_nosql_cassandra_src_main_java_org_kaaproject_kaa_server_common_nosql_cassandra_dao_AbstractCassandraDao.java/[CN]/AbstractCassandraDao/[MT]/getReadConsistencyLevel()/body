@@ -1,7 +1,10 @@
 {
-  ConsistencyLevel defaultConsistencyLevel=ConsistencyLevel.ANY;
+  ConsistencyLevel defaultConsistencyLevel=ConsistencyLevel.ONE;
   if (readConsistencyLevel != null) {
-    defaultConsistencyLevel=ConsistencyLevel.values()[readConsistencyLevel];
+    ConsistencyLevel cl=ConsistencyLevel.valueOf(readConsistencyLevel);
+    if (cl != null) {
+      defaultConsistencyLevel=cl;
+    }
   }
   return defaultConsistencyLevel;
 }

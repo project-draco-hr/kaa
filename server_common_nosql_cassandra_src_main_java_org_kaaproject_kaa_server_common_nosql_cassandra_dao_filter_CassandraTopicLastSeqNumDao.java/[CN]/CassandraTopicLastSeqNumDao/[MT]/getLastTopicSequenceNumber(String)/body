@@ -1,0 +1,8 @@
+{
+  int lastSeq=0;
+  CassandraTopicLastSeqNum filter=findById(topicId);
+  if (filter != null) {
+    lastSeq=filter.getSequenceNumber();
+  }
+  return lastSeq;
+}

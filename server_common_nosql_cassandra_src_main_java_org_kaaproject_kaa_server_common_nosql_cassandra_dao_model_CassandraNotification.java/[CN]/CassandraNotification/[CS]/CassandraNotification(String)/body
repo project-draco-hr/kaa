@@ -1,0 +1,8 @@
+{
+  String[] columns=parseId(id);
+  if (columns != null && columns.length == COMPOSITE_ID_SIZE) {
+    this.topicId=columns[0];
+    this.versionType=new CassandraNfSchemaVersionType(columns[1],columns[2],columns[3]);
+    this.seqNum=Integer.parseInt(columns[4]);
+  }
+}
