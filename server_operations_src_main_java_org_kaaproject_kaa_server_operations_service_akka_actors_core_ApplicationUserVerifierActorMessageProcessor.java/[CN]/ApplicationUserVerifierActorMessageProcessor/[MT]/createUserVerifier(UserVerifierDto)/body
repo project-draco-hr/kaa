@@ -13,7 +13,7 @@
     LOG.error("Unable to find custom verifier class {}",verifierDto.getClassName());
     throw e;
   }
-catch (  InstantiationException|IllegalAccessException e) {
+catch (  InstantiationException|IllegalAccessException|UserVerifierLifecycleException e) {
     LOG.error("Unable to instantiate custom verifier from class {}",verifierDto.getClassName());
     throw e;
   }
