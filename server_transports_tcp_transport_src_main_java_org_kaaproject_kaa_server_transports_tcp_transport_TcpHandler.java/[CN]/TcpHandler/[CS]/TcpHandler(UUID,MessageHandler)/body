@@ -1,0 +1,26 @@
+{
+  this.uuid=uuid;
+  this.handler=akkaService;
+  this.connectResponseConverter=new MessageBuilder(){
+    volatile boolean connAckSent=false;
+    @Override public Object[] build(    byte[] encriptedResponseData,    byte[] encriptedResponseSignature,    boolean isEncrypted){
+      if (!connAckSent) {
+synchronized (this) {
+          if (!connAckSent) {
+            connAckSent=true;
+            Object[] responses=new Object[2];
+            responses[0]=new ConnAck(ReturnCode.ACCEPTED);
+            responses[1]=new org.kaaproject.kaa.common.channels.protocols.kaatcp.messages.SyncResponse(encriptedResponseData,NOT_ZIPPED,isEncrypted);
+            LOG.debug("Sending {} response objects",responses.length);
+            return responses;
+          }
+        }
+      }
+      return syncResponseConverter.build(encriptedResponseData,encriptedResponseSignature,isEncrypted);
+    }
+    @Override public Object[] build(    byte[] messageData,    boolean isEncrypted){
+      return build(messageData,null,isEncrypted);
+    }
+  }
+;
+}

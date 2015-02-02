@@ -1,11 +1,11 @@
 {
 switch (field) {
-case NAME:
+case ID:
     if (value == null) {
-      unsetName();
+      unsetId();
     }
  else {
-      setName((String)value);
+      setId((String)value);
     }
   break;
 case PRIORITY:
@@ -14,22 +14,6 @@ if (value == null) {
 }
  else {
   setPriority((Integer)value);
-}
-break;
-case PUBLIC_KEY:
-if (value == null) {
-unsetPublicKey();
-}
- else {
-setPublicKey((ByteBuffer)value);
-}
-break;
-case SUPPORTED_CHANNELS:
-if (value == null) {
-unsetSupportedChannels();
-}
- else {
-setSupportedChannels((List<ThriftSupportedChannel>)value);
 }
 break;
 }

@@ -1,0 +1,13 @@
+{
+  try {
+    TransportMetaData record=new TransportMetaData();
+    record.id=fieldSetFlags()[0] ? this.id : (java.lang.Integer)defaultValue(fields()[0]);
+    record.minSupportedVersion=fieldSetFlags()[1] ? this.minSupportedVersion : (java.lang.Integer)defaultValue(fields()[1]);
+    record.maxSupportedVersion=fieldSetFlags()[2] ? this.maxSupportedVersion : (java.lang.Integer)defaultValue(fields()[2]);
+    record.connectionInfo=fieldSetFlags()[3] ? this.connectionInfo : (java.util.List<org.kaaproject.kaa.server.common.zk.gen.VersionConnectionInfoPair>)defaultValue(fields()[3]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

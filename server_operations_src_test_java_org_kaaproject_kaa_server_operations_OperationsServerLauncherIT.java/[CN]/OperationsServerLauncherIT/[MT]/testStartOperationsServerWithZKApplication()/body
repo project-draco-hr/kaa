@@ -7,7 +7,7 @@
     zkCluster=new TestingCluster(new InstanceSpec(null,2185,-1,-1,true,-1,-1,-1));
     zkCluster.start();
     operationsServerLauncherThread=new Thread(new Runnable(){
-      @SuppressWarnings("static-access") @Override public void run(){
+      @Override public void run(){
         logger.info("Starting Operations Server ...");
         OperationsServerApplication.main(new String[]{"common-zk-test-context.xml"});
         logger.info("Operations Server Stopped");

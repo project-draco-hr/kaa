@@ -1,6 +1,6 @@
 {
   if (transport != null && response != null) {
-    OperationsServerList list=responseConverter.fromByteArray(response);
+    SyncResponse list=responseConverter.fromByteArray(response);
     LOG.trace("Received OperationssServerList response {}",list);
     transport.onResolveResponse(list);
   }

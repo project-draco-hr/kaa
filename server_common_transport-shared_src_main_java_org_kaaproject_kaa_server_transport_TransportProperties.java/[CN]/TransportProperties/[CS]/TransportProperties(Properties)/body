@@ -1,0 +1,8 @@
+{
+  super();
+  for (  Entry<Object,Object> entry : source.entrySet()) {
+    if (entry.getKey().toString().startsWith(FILTER_PREFIX)) {
+      this.put(entry.getKey(),entry.getValue());
+    }
+  }
+}

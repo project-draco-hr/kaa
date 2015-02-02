@@ -11,10 +11,10 @@
  else   if (message instanceof EndpointEventReceiveMessage) {
     processEndpointEventReceiveMessage((EndpointEventReceiveMessage)message);
   }
- else   if (message instanceof NettyTcpDisconnectMessage) {
+ else   if (message instanceof SessionDisconnectMessage) {
     processDisconnectMessage((ChannelAware)message);
   }
- else   if (message instanceof NettyTcpPingMessage) {
+ else   if (message instanceof SessionPingMessage) {
     processPingMessage((ChannelAware)message);
   }
  else   if (message instanceof ThriftNotificationMessage) {

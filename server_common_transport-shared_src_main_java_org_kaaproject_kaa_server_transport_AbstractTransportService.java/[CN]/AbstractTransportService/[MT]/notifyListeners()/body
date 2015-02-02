@@ -1,0 +1,6 @@
+{
+  List<org.kaaproject.kaa.server.common.zk.gen.TransportMetaData> mdList=toTransportMDList(transports);
+  for (  TransportUpdateListener listener : listeners) {
+    listener.onTransportsStarted(mdList);
+  }
+}
