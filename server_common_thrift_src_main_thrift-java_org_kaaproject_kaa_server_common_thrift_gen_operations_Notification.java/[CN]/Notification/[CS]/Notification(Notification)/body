@@ -35,5 +35,7 @@
   if (other.isSetAppenderId()) {
     this.appenderId=other.appenderId;
   }
-  this.userVerifierId=other.userVerifierId;
+  if (other.isSetUserVerifierToken()) {
+    this.userVerifierToken=other.userVerifierToken;
+  }
 }

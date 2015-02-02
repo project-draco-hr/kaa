@@ -1,0 +1,67 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  Plugin<T> other=(Plugin<T>)obj;
+  if (application == null) {
+    if (other.application != null) {
+      return false;
+    }
+  }
+ else   if (!application.equals(other.application)) {
+    return false;
+  }
+  if (createdTime != other.createdTime) {
+    return false;
+  }
+  if (createdUsername == null) {
+    if (other.createdUsername != null) {
+      return false;
+    }
+  }
+ else   if (!createdUsername.equals(other.createdUsername)) {
+    return false;
+  }
+  if (description == null) {
+    if (other.description != null) {
+      return false;
+    }
+  }
+ else   if (!description.equals(other.description)) {
+    return false;
+  }
+  if (name == null) {
+    if (other.name != null) {
+      return false;
+    }
+  }
+ else   if (!name.equals(other.name)) {
+    return false;
+  }
+  if (pluginClassName == null) {
+    if (other.pluginClassName != null) {
+      return false;
+    }
+  }
+ else   if (!pluginClassName.equals(other.pluginClassName)) {
+    return false;
+  }
+  if (pluginTypeName == null) {
+    if (other.pluginTypeName != null) {
+      return false;
+    }
+  }
+ else   if (!pluginTypeName.equals(other.pluginTypeName)) {
+    return false;
+  }
+  if (!Arrays.equals(rawConfiguration,other.rawConfiguration)) {
+    return false;
+  }
+  return true;
+}

@@ -1,13 +1,5 @@
 {
-  UserVerifierDto dto=createDto();
-  dto.setId(getStringId());
-  dto.setVerifierId(verifierId);
-  dto.setApplicationId(application.getStringId());
-  dto.setName(name);
-  dto.setCreatedTime(createdTime);
-  dto.setCreatedUsername(createdUsername);
-  dto.setDescription(description);
-  dto.setClassName(className);
-  dto.setRawConfiguration(rawConfiguration);
+  UserVerifierDto dto=super.toDto();
+  dto.setVerifierToken(verifierToken);
   return dto;
 }

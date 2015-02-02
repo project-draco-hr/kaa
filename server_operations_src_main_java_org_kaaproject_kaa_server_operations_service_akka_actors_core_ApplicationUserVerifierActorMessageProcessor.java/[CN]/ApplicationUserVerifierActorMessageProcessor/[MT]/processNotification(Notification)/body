@@ -1,18 +1,18 @@
 {
   LOG.debug("Process user verifier notification [{}]",notification);
-  int verifierId=notification.getUserVerifierId();
+  String verifierToken=notification.getUserVerifierToken();
 switch (notification.getOp()) {
 case ADD_USER_VERIFIER:
-    addUserVerifier(verifierId);
+    addUserVerifier(verifierToken);
   break;
 case REMOVE_USER_VERIFIER:
-removeUserVerifier(verifierId);
+removeUserVerifier(verifierToken);
 break;
 case UPDATE_USER_VERIFIER:
-removeUserVerifier(verifierId);
-addUserVerifier(verifierId);
+removeUserVerifier(verifierToken);
+addUserVerifier(verifierToken);
 break;
 default :
-LOG.debug("[{}][{}] Operation [{}] is not supported.",applicationId,verifierId,notification.getOp());
+LOG.debug("[{}][{}] Operation [{}] is not supported.",applicationId,verifierToken,notification.getOp());
 }
 }
