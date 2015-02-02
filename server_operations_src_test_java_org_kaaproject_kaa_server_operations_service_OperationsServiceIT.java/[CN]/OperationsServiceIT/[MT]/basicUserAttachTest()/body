@@ -8,7 +8,7 @@
   md.setProfileHash(ByteBuffer.wrap(EndpointObjectHash.fromSHA1(profile).getData()));
   request.setClientSyncMetaData(md);
   UserClientSync userRequest=new UserClientSync();
-  userRequest.setUserAttachRequest(new UserAttachRequest(USER_EXTERNAL_ID,USER_ACCESS_TOKEN));
+  userRequest.setUserAttachRequest(new UserAttachRequest(USER_VERIFIER_ID,USER_EXTERNAL_ID,USER_ACCESS_TOKEN));
   request.setUserSync(userRequest);
   ServerSync response=operationsService.sync(request).getResponse();
   Assert.assertNotNull(response);
