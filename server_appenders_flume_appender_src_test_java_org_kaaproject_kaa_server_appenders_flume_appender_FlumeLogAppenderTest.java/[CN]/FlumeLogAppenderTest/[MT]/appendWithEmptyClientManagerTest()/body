@@ -1,5 +1,7 @@
 {
   LogEventPack eventPack=new LogEventPack();
   ReflectionTestUtils.setField(appender,"flumeClientManger",null);
-  appender.doAppend(eventPack);
+  TestLogDeliveryCallback callback=new TestLogDeliveryCallback();
+  appender.doAppend(eventPack,callback);
+  Assert.assertTrue(callback.internallError);
 }

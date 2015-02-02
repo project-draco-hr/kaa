@@ -11,6 +11,7 @@
     detailsView.getCreatedDateTime().setValue(Utils.millisecondsToDateTimeString(entity.getCreatedTime()));
     detailsView.getMinSchemaVersion().setValue(entity.getMinLogSchemaVersion());
     detailsView.getMaxSchemaVersion().setValue(entity.getMaxLogSchemaVersion());
+    detailsView.getConfirmDelivery().setValue(entity.isConfirmDelivery());
     detailsView.setMetadataListBox(entity.getHeaderStructure());
     detailsView.getConfiguration().setValue(entity.getConfiguration());
     LogAppenderInfoDto appenderInfo=new LogAppenderInfoDto(entity.getTypeName(),entity.getConfiguration(),entity.getAppenderClassName());

@@ -14,7 +14,7 @@
     }
  catch (    IOException e) {
       LOG.error("[{}] Unable to read log event!",e);
-      continue;
+      throw e;
     }
     wrapperRecord.put(RecordWrapperSchemaGenerator.RECORD_HEADER_FIELD,header);
     wrapperRecord.put(RecordWrapperSchemaGenerator.RECORD_DATA_FIELD,recordData);

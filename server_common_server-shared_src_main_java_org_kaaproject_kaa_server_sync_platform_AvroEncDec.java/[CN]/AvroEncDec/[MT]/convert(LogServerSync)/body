@@ -3,7 +3,10 @@
     return null;
   }
   LogSyncResponse sync=new LogSyncResponse();
-  sync.setRequestId(source.getRequestId());
-  sync.setResult(convert(source.getResult()));
+  List<org.kaaproject.kaa.common.endpoint.gen.LogDeliveryStatus> statuses=new ArrayList<org.kaaproject.kaa.common.endpoint.gen.LogDeliveryStatus>();
+  for (  LogDeliveryStatus status : source.getDeliveryStatuses()) {
+    statuses.add(convert(status));
+  }
+  sync.setDeliveryStatuses(statuses);
   return sync;
 }

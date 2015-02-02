@@ -2,5 +2,14 @@
   if (source == null) {
     return null;
   }
-  return new LogServerSync(source.getRequestId(),source.getResult());
+  if (source.getDeliveryStatuses() != null) {
+    List<LogDeliveryStatus> statusList=new ArrayList<>(source.getDeliveryStatuses().size());
+    for (    LogDeliveryStatus status : source.getDeliveryStatuses()) {
+      statusList.add(new LogDeliveryStatus(status.getRequestId(),status.getResult(),status.getErrorCode()));
+    }
+    return new LogServerSync(statusList);
+  }
+ else {
+    return new LogServerSync();
+  }
 }

@@ -1,0 +1,27 @@
+{
+  if (!closed) {
+    if (kvStore != null) {
+      LOG.debug("[{}] appending {} logs to Oracle NoSQL kvStore",this.getApplicationToken(),logEventPack.getEvents().size());
+      try {
+        doAppendGenericAvro(logEventPack,header);
+        listener.onSuccess();
+      }
+ catch (      FaultException e) {
+        LOG.error("Unable to append logs due to remote exception!",e);
+        listener.onRemoteError();
+      }
+catch (      Exception e) {
+        LOG.error("Unable to append logs!",e);
+        listener.onInternalError();
+      }
+    }
+ else {
+      LOG.info("[{}] Attempted to append to empty kvStore.",getName());
+      listener.onInternalError();
+    }
+  }
+ else {
+    LOG.info("[{}] Attempted to append to closed appender.",getName());
+    listener.onInternalError();
+  }
+}

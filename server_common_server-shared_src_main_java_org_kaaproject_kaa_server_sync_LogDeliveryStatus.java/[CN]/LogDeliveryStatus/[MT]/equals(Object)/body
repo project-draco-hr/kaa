@@ -1,0 +1,22 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  LogDeliveryStatus other=(LogDeliveryStatus)obj;
+  if (errorCode != other.errorCode) {
+    return false;
+  }
+  if (requestId != other.requestId) {
+    return false;
+  }
+  if (result != other.result) {
+    return false;
+  }
+  return true;
+}

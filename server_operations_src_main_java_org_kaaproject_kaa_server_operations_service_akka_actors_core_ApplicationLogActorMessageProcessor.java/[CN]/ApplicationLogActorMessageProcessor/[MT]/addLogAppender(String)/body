@@ -1,0 +1,15 @@
+{
+  LOG.info("[{}] Adding log appender with id [{}].",applicationId,appenderId);
+  if (!logAppenders.containsKey(appenderId)) {
+    LogAppender logAppender=logAppenderService.getApplicationAppender(appenderId);
+    if (logAppender != null) {
+      addAppender(appenderId,logAppender);
+    }
+ else {
+      LOG.info("[{}] Log appender [{}] registered.",applicationId,appenderId);
+    }
+  }
+ else {
+    LOG.info("[{}] Log appender [{}] is already registered.",applicationId,appenderId);
+  }
+}

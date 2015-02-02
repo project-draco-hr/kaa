@@ -1,7 +1,8 @@
 {
-  DefaultLogUploadConfiguration conf=new DefaultLogUploadConfiguration(3,4,50);
-  LogTransport transport=mock(LogTransport.class);
-  DefaultLogCollector logCollector=new DefaultLogCollector(transport);
+  KaaChannelManager channelManager=Mockito.mock(KaaChannelManager.class);
+  DefaultLogUploadConfiguration conf=new DefaultLogUploadConfiguration.Builder().setBatchVolume(3).setVolumeThreshold(4).setMaximumAllowedVolume(50).setLogUploadTimeout(300).build();
+  LogTransport transport=Mockito.mock(LogTransport.class);
+  DefaultLogCollector logCollector=new DefaultLogCollector(transport,channelManager);
   logCollector.setConfiguration(conf);
   try {
     SuperRecord record=new SuperRecord();

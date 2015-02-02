@@ -1,0 +1,12 @@
+{
+  if (config.batchVolume > MAX_BATCH_VOLUME) {
+    throw new IllegalArgumentException("Log batch should be less than " + MAX_BATCH_VOLUME + " KB");
+  }
+  if (config.volumeThreshold > config.maximumAllowedVolume) {
+    throw new IllegalArgumentException("Maximum allowed volume should be greater than volume threshold");
+  }
+  if (config.logUploadTimeout <= 0) {
+    throw new IllegalArgumentException("To small log upload timeout: " + config.logUploadTimeout);
+  }
+  return config;
+}
