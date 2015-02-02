@@ -1,2 +1,8 @@
 {
+  UserVerifier verifier=userVerifiers.get(message.getVerifierId());
+  if (verifier != null) {
+  }
+ else {
+    message.getOriginator().tell(UserVerificationResponseMessage.failure(UserVerifierErrorCode.NO_VERIFIER_CONFIGURED),ActorRef.noSender());
+  }
 }
