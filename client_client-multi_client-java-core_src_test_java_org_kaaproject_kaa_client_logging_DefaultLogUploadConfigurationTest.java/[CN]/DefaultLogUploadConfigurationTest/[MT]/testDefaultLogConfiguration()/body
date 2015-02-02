@@ -2,8 +2,10 @@
   long batchVolume=20;
   long volumeThreshold=60;
   long maxAllowedVolume=600;
-  DefaultLogUploadConfiguration conf=new DefaultLogUploadConfiguration(batchVolume,volumeThreshold,maxAllowedVolume);
+  long uploadTimeout=300;
+  DefaultLogUploadConfiguration conf=new DefaultLogUploadConfiguration.Builder().setBatchVolume(batchVolume).setVolumeThreshold(volumeThreshold).setMaximumAllowedVolume(maxAllowedVolume).setLogUploadTimeout(uploadTimeout).build();
   Assert.assertTrue(conf.getBatchVolume() == batchVolume);
   Assert.assertTrue(conf.getVolumeThreshold() == volumeThreshold);
   Assert.assertTrue(conf.getMaximumAllowedVolume() == maxAllowedVolume);
+  Assert.assertTrue(conf.getLogUploadTimeout() == uploadTimeout);
 }

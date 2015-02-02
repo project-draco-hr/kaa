@@ -1,4 +1,6 @@
 {
   storage.addLogRecord(new LogRecord(record));
-  processUploadDecision(uploadStrategy.isUploadNeeded(configuration,storageStatus));
+  if (!isDeliveryTimeout()) {
+    processUploadDecision(uploadStrategy.isUploadNeeded(configuration,storageStatus));
+  }
 }

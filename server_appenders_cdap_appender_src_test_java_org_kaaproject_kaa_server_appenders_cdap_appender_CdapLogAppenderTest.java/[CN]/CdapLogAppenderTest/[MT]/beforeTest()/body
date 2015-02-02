@@ -1,0 +1,6 @@
+{
+  appender=new CdapLogAppender();
+  writer=Mockito.mock(StreamWriter.class);
+  ReflectionTestUtils.setField(appender,"header",Arrays.asList(LogHeaderStructureDto.values()));
+  ReflectionTestUtils.setField(appender,"streamWriter",writer);
+}

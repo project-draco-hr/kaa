@@ -1,0 +1,29 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (!super.equals(obj)) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  ArrayField other=(ArrayField)obj;
+  if (elementMetadata == null) {
+    if (other.elementMetadata != null) {
+      return false;
+    }
+  }
+ else   if (!elementMetadata.equals(other.elementMetadata)) {
+    return false;
+  }
+  if (value == null) {
+    if (other.value != null) {
+      return false;
+    }
+  }
+ else   if (!value.equals(other.value)) {
+    return false;
+  }
+  return true;
+}

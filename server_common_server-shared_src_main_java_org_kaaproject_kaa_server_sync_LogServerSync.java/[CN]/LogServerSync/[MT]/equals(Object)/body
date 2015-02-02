@@ -1,0 +1,21 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  LogServerSync other=(LogServerSync)obj;
+  if (deliveryStatuses == null) {
+    if (other.deliveryStatuses != null) {
+      return false;
+    }
+  }
+ else   if (!deliveryStatuses.equals(other.deliveryStatuses)) {
+    return false;
+  }
+  return true;
+}

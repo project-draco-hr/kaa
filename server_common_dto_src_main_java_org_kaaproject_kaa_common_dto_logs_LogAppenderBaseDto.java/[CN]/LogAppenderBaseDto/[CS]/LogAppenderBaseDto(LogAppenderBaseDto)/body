@@ -1,0 +1,14 @@
+{
+  super(logAppenderDto);
+  this.id=logAppenderDto.getId();
+  this.applicationId=logAppenderDto.getApplicationId();
+  this.applicationToken=logAppenderDto.getApplicationToken();
+  this.tenantId=logAppenderDto.getTenantId();
+  this.minLogSchemaVersion=logAppenderDto.getMinLogSchemaVersion();
+  this.maxLogSchemaVersion=logAppenderDto.getMaxLogSchemaVersion();
+  this.confirmDelivery=logAppenderDto.isConfirmDelivery();
+  this.status=logAppenderDto.getStatus();
+  this.typeName=logAppenderDto.getTypeName();
+  this.appenderClassName=logAppenderDto.getAppenderClassName();
+  this.headerStructure=new ArrayList<LogHeaderStructureDto>(logAppenderDto.getHeaderStructure());
+}

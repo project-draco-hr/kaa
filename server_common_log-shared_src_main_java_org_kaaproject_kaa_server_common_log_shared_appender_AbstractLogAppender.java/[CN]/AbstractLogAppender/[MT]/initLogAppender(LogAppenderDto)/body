@@ -1,6 +1,7 @@
 {
   this.minSchemaVersion=appender.getMinLogSchemaVersion();
   this.maxSchemaVersion=appender.getMaxLogSchemaVersion();
+  this.confirmDelivery=appender.isConfirmDelivery();
   byte[] rawConfiguration=appender.getRawConfiguration();
   try {
     AvroByteArrayConverter<T> converter=new AvroByteArrayConverter<>(configurationClass);

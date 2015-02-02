@@ -1,0 +1,28 @@
+{
+  FileSystemLogAppender appender=new FileSystemLogAppender();
+  appender.setName("test");
+  FileSystemLogEventService service=Mockito.mock(FileSystemLogEventService.class);
+  ReflectionTestUtils.setField(appender,"fileSystemLogEventService",service);
+  appender.setName(APPENDER_NAME);
+  appender.setAppenderId(APPENDER_ID);
+  LogAppenderDto logAppenderDto=prepareConfig();
+  logAppenderDto.setApplicationId(APPLICATION_ID);
+  logAppenderDto.setName("test");
+  logAppenderDto.setTenantId(TENANT_ID);
+  try {
+    appender.init(logAppenderDto);
+    ReflectionTestUtils.setField(appender,"header",Arrays.asList(LogHeaderStructureDto.values()));
+    LogSchemaDto schemaDto=new LogSchemaDto();
+    schemaDto.setSchema(BasicEndpointProfile.SCHEMA$.toString());
+    LogSchema schema=new LogSchema(schemaDto);
+    LogEvent logEvent=new LogEvent();
+    logEvent.setLogData(new byte[0]);
+    LogEventPack logEventPack=new LogEventPack("endpointKey",1234567l,schema,Collections.singletonList(logEvent));
+    TestLogDeliveryCallback callback=new TestLogDeliveryCallback();
+    appender.doAppend(logEventPack,callback);
+    Assert.assertTrue(callback.internallError);
+  }
+  finally {
+    appender.close();
+  }
+}

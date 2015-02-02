@@ -1,0 +1,6 @@
+{
+  if (!isUploadApproved && System.currentTimeMillis() >= nextUploadAttemptTS) {
+    isUploadApproved=true;
+  }
+  return isUploadApproved;
+}

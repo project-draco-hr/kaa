@@ -1,0 +1,28 @@
+{
+  if (!closed) {
+    if (streamWriter != null) {
+      LOG.debug("[{}] appending {} logs to cdap stream",this.getApplicationToken(),logEventPack.getEvents().size());
+      try {
+        for (        LogEventDto dto : generateLogEvent(logEventPack,header)) {
+          StringBuilder sb=new StringBuilder();
+          sb.append("{\"header\":").append(dto.getHeader()).append(",");
+          sb.append("\"event\":").append(dto.getEvent()).append("}");
+          ListenableFuture<Void> result=streamWriter.write(sb.toString(),UTF8);
+          Futures.addCallback(result,new Callback(listener),callbackExecutor);
+        }
+      }
+ catch (      IOException e) {
+        LOG.debug("[{}] Failed to generate log event.",getName());
+        listener.onInternalError();
+      }
+    }
+ else {
+      LOG.info("[{}] Attempted to append to empty streamWriter.",getName());
+      listener.onInternalError();
+    }
+  }
+ else {
+    LOG.info("[{}] Attempted to append to closed appender.",getName());
+    listener.onInternalError();
+  }
+}
