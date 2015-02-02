@@ -1,0 +1,21 @@
+{
+  if (errorCode == null) {
+    return null;
+  }
+switch (errorCode) {
+case NO_VERIFIER_CONFIGURED:
+    return UserVerifierErrorCode.NO_VERIFIER_CONFIGURED;
+case TOKEN_INVALID:
+  return UserVerifierErrorCode.TOKEN_INVALID;
+case TOKEN_EXPIRED:
+return UserVerifierErrorCode.TOKEN_EXPIRED;
+case INTERNAL_ERROR:
+return UserVerifierErrorCode.INTERNAL_ERROR;
+case CONNECTION_ERROR:
+return UserVerifierErrorCode.CONNECTION_ERROR;
+case REMOTE_ERROR:
+return UserVerifierErrorCode.REMOTE_ERROR;
+default :
+return UserVerifierErrorCode.OTHER;
+}
+}

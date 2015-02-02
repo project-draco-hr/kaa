@@ -1,9 +1,11 @@
 {
 switch (field$) {
 case 0:
-    return userExternalId;
+    return userVerifierId;
 case 1:
-  return userAccessToken;
+  return userExternalId;
+case 2:
+return userAccessToken;
 default :
 throw new org.apache.avro.AvroRuntimeException("Bad index");
 }

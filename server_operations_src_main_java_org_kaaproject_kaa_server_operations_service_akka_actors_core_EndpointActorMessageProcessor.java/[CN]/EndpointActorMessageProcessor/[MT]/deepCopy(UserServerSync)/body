@@ -13,7 +13,8 @@
     copy.setUserAttachNotification(new UserAttachNotification(source.getUserAttachNotification().getUserExternalId(),source.getUserAttachNotification().getEndpointAccessToken()));
   }
   if (source.getUserAttachResponse() != null) {
-    copy.setUserAttachResponse(new UserAttachResponse(source.getUserAttachResponse().getResult()));
+    UserAttachResponse uarSource=source.getUserAttachResponse();
+    copy.setUserAttachResponse(new UserAttachResponse(uarSource.getResult(),uarSource.getErrorCode(),uarSource.getErrorReason()));
   }
   if (source.getUserDetachNotification() != null) {
     copy.setUserDetachNotification(new UserDetachNotification(source.getUserDetachNotification().getEndpointAccessToken()));
