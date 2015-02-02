@@ -1,0 +1,22 @@
+{
+  LOG.trace("CommandName: " + COMMAND_NAME + ": getHttpResponse..");
+  FullHttpResponse httpResponse=new DefaultFullHttpResponse(HTTP_1_1,OK,Unpooled.copiedBuffer(responseBody));
+  httpResponse.headers().set(CONTENT_TYPE,CommonEPConstans.RESPONSE_CONTENT_TYPE);
+  httpResponse.headers().set(CONTENT_LENGTH,httpResponse.content().readableBytes());
+  httpResponse.headers().set(CommonEPConstans.RESPONSE_TYPE,CommonEPConstans.RESPONSE_TYPE_OPERATION);
+  if (responseSignature != null) {
+    httpResponse.headers().set(CommonEPConstans.SIGNATURE_HEADER_NAME,Base64.encodeBase64String(responseSignature));
+  }
+  if (isNeedConnectionClose()) {
+    httpResponse.headers().set(CONNECTION,HttpHeaders.Values.CLOSE);
+  }
+ else {
+    if (HttpHeaders.isKeepAlive(getRequest())) {
+      httpResponse.headers().set(CONNECTION,HttpHeaders.Values.KEEP_ALIVE);
+    }
+ else {
+      httpResponse.headers().set(CONNECTION,HttpHeaders.Values.CLOSE);
+    }
+  }
+  return httpResponse;
+}

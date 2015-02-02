@@ -1,0 +1,9 @@
+{
+  UUID uuid=UUID.randomUUID();
+  MessageHandler akkaService=Mockito.mock(MessageHandler.class);
+  AbstractKaaTcpCommandProcessor msg=Mockito.mock(AbstractKaaTcpCommandProcessor.class);
+  Mockito.when(msg.getRequest()).thenReturn(new Connect());
+  TcpHandler handler=new TcpHandler(uuid,akkaService);
+  handler.channelRead0(null,msg);
+  Mockito.verify(akkaService).process(Mockito.any(NettyTcpConnectMessage.class));
+}

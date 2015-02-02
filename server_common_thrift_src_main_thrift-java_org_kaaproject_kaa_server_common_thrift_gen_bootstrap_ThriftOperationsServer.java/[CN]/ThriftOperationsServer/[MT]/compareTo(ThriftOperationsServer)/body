@@ -3,12 +3,12 @@
     return getClass().getName().compareTo(other.getClass().getName());
   }
   int lastComparison=0;
-  lastComparison=Boolean.valueOf(isSetName()).compareTo(other.isSetName());
+  lastComparison=Boolean.valueOf(isSetId()).compareTo(other.isSetId());
   if (lastComparison != 0) {
     return lastComparison;
   }
-  if (isSetName()) {
-    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.Name,other.Name);
+  if (isSetId()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.id,other.id);
     if (lastComparison != 0) {
       return lastComparison;
     }
@@ -19,26 +19,6 @@
   }
   if (isSetPriority()) {
     lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.priority,other.priority);
-    if (lastComparison != 0) {
-      return lastComparison;
-    }
-  }
-  lastComparison=Boolean.valueOf(isSetPublicKey()).compareTo(other.isSetPublicKey());
-  if (lastComparison != 0) {
-    return lastComparison;
-  }
-  if (isSetPublicKey()) {
-    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.publicKey,other.publicKey);
-    if (lastComparison != 0) {
-      return lastComparison;
-    }
-  }
-  lastComparison=Boolean.valueOf(isSetSupportedChannels()).compareTo(other.isSetSupportedChannels());
-  if (lastComparison != 0) {
-    return lastComparison;
-  }
-  if (isSetSupportedChannels()) {
-    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.supportedChannels,other.supportedChannels);
     if (lastComparison != 0) {
       return lastComparison;
     }

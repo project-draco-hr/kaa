@@ -2,7 +2,7 @@
   LOG.debug("onEvent .... event in {} listeners",listeners.size());
   LOG.debug("Event: {}",event.toString());
   for (  EventServiceListener listener : listeners) {
-    org.kaaproject.kaa.server.operations.pojo.sync.Event localEvent;
+    org.kaaproject.kaa.server.sync.Event localEvent;
     try {
       localEvent=AvroEncDec.convert(eventConverter.get().fromByteArray(event.getEndpointEvent().getEventData()));
       EndpointEvent endpointEvent=new EndpointEvent(EndpointObjectHash.fromBytes(event.getEndpointEvent().getSender()),localEvent,UUID.fromString(event.getEndpointEvent().getUuid()),event.getEndpointEvent().getCreateTime(),event.getEndpointEvent().getVersion());

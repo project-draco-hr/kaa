@@ -2,9 +2,11 @@
   DefaultBootstrapDataProcessor processor=new DefaultBootstrapDataProcessor();
   BootstrapTransport transport=Mockito.mock(BootstrapTransport.class);
   processor.setBootstrapTransport(transport);
-  OperationsServerList list=new OperationsServerList();
-  list.setOperationsServerArray(new LinkedList<OperationsServer>());
-  AvroByteArrayConverter<OperationsServerList> converter=new AvroByteArrayConverter<>(OperationsServerList.class);
-  processor.processResponse(converter.toByteArray(list));
-  Mockito.verify(transport,Mockito.times(1)).onResolveResponse(list);
+  SyncResponse response=new SyncResponse();
+  response.setStatus(SyncResponseResultType.SUCCESS);
+  List<ProtocolMetaData> mdList=new ArrayList<ProtocolMetaData>();
+  response.setBootstrapSyncResponse(new BootstrapSyncResponse(1,mdList));
+  AvroByteArrayConverter<SyncResponse> converter=new AvroByteArrayConverter<>(SyncResponse.class);
+  processor.processResponse(converter.toByteArray(response));
+  Mockito.verify(transport,Mockito.times(1)).onResolveResponse(response);
 }

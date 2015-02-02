@@ -1,8 +1,0 @@
-{
-  ServerSync response=new ServerSync();
-  response.setStatus(SyncStatus.SUCCESS);
-  if (rnd.nextBoolean()) {
-    response=generateNotificationSyncResponse(response,SyncResponseStatus.NO_DELTA);
-  }
-  return response;
-}

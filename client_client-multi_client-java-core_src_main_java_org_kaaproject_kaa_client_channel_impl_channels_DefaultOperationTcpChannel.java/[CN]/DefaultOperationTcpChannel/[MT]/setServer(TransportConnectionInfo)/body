@@ -1,0 +1,22 @@
+{
+  if (server == null) {
+    LOG.warn("Server is null for Channel [{}].",getId());
+    return;
+  }
+  if (isShutdown) {
+    LOG.info("Can't set server. Channel [{}] is down",getId());
+    return;
+  }
+  this.currentServer=new IPTransportInfo(server);
+  this.encDec=new MessageEncoderDecoder(state.getPrivateKey(),state.getPublicKey(),currentServer.getPublicKey());
+  if (!isPaused) {
+    if (executor == null) {
+      executor=createExecutor();
+    }
+    closeConnection();
+    executor.submit(openConnectionTask);
+  }
+ else {
+    LOG.info("Can't start new session. Channel [{}] is paused",getId());
+  }
+}

@@ -3,9 +3,11 @@ switch (field$) {
 case 0:
     return connectionInfo;
 case 1:
-  return timeStarted;
+  return loadInfo;
 case 2:
-return SupportedChannelsArray;
+return timeStarted;
+case 3:
+return transports;
 default :
 throw new org.apache.avro.AvroRuntimeException("Bad index");
 }

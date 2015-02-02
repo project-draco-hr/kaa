@@ -4,12 +4,10 @@
   Mockito.when(clientState.getPublicKey()).thenReturn(clientKeys.getPublic());
   KaaChannelManager channelManager=Mockito.mock(KaaChannelManager.class);
   DefaultOperationTcpChannel channel=new DefaultOperationTcpChannel(clientState,channelManager);
-  KaaTcpServerInfo si=Mockito.mock(KaaTcpServerInfo.class);
-  Mockito.when(si.getHost()).thenReturn("www.test.fake");
-  Mockito.when(si.getPort()).thenReturn(999);
+  TransportConnectionInfo server=IPTransportInfoTest.createTestServerInfo(ServerType.OPERATIONS,TransportProtocolIdConstants.TCP_TRANSPORT_ID,"www.test.fake",999,KeyUtil.generateKeyPair().getPublic());
   ConnectivityChecker checker=Mockito.mock(ConnectivityChecker.class);
   Mockito.when(checker.checkConnectivity()).thenReturn(false);
   channel.setConnectivityChecker(checker);
-  channel.setServer(si);
-  Mockito.verify(channelManager,Mockito.times(0)).onServerFailed(Mockito.any(KaaTcpServerInfo.class));
+  channel.setServer(server);
+  Mockito.verify(channelManager,Mockito.times(0)).onServerFailed(Mockito.any(TransportConnectionInfo.class));
 }

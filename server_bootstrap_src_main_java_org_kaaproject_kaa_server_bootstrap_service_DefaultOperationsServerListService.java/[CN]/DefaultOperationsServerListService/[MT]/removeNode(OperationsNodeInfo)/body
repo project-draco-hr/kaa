@@ -1,0 +1,10 @@
+{
+  if (opsMap.remove(getNameFromConnectionInfo(info.getConnectionInfo())) != null) {
+    LOG.info("Removed node {}",info);
+  }
+ else {
+    LOG.warn("Failed to remove node {}",info);
+  }
+  LOG.info("Cleanup cached responses");
+  cache.clear();
+}

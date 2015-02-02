@@ -1,9 +1,6 @@
 {
   System.setProperty(KaaClientProperties.KAA_CLIENT_PROPERTIES_FILE,"client-test.properties");
   DesktopKaaClient clientSpy=Mockito.spy(new DesktopKaaClient());
-  OperationsServerList opsList=new OperationsServerList();
-  List<OperationsServer> opsListBody=new ArrayList<>();
-  opsList.setOperationsServerArray(opsListBody);
   clientSpy.init();
   Assert.assertNotNull(clientSpy.getConfigurationManager());
   Assert.assertNotNull(clientSpy.getConfigurationPersistenceManager());

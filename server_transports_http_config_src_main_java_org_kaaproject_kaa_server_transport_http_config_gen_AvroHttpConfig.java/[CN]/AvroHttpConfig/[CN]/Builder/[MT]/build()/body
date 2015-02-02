@@ -1,0 +1,12 @@
+{
+  try {
+    AvroHttpConfig record=new AvroHttpConfig();
+    record.bindInterface=fieldSetFlags()[0] ? this.bindInterface : (java.lang.String)defaultValue(fields()[0]);
+    record.bindPort=fieldSetFlags()[1] ? this.bindPort : (java.lang.Integer)defaultValue(fields()[1]);
+    record.maxBodySize=fieldSetFlags()[2] ? this.maxBodySize : (java.lang.Integer)defaultValue(fields()[2]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

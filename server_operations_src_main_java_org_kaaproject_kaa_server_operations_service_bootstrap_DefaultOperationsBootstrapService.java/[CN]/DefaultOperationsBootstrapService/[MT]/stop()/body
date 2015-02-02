@@ -1,8 +1,7 @@
 {
-  for (  ServiceChannel server : nettyServersList) {
-    server.stop();
+  if (transportService != null) {
+    transportService.stop();
   }
-  nettyServersList.clear();
   if (akkaService != null) {
     akkaService.getActorSystem().shutdown();
   }
