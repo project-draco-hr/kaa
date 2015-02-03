@@ -1,0 +1,16 @@
+{
+  if (logAppenderPluginInfos == null) {
+    logAppenderPluginInfos=new ArrayList<PluginInfoDto>();
+    rpcService.getLogAppenderPluginInfos(new DataCallback<List<PluginInfoDto>>(callback){
+      @Override protected void onResult(      List<PluginInfoDto> result){
+        logAppenderPluginInfos.addAll(result);
+      }
+    }
+);
+  }
+ else {
+    if (callback != null) {
+      callback.onSuccess(logAppenderPluginInfos);
+    }
+  }
+}

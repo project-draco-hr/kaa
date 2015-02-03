@@ -94,6 +94,12 @@
  else     if (clazz == LogAppenderPlace.class) {
       return new LogAppenderActivity((LogAppenderPlace)place,clientFactory);
     }
+ else     if (clazz == UserVerifiersPlace.class) {
+      return new UserVerifiersActivity((UserVerifiersPlace)place,clientFactory);
+    }
+ else     if (clazz == UserVerifierPlace.class) {
+      return new UserVerifierActivity((UserVerifierPlace)place,clientFactory);
+    }
   }
   return null;
 }

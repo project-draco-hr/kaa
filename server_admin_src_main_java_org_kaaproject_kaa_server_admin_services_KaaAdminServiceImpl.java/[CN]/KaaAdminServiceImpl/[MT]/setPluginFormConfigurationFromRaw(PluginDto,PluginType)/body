@@ -1,0 +1,8 @@
+{
+  PluginInfoDto pluginInfo=pluginsInfo.get(type).get(plugin.getPluginClassName());
+  byte[] rawConfiguration=plugin.getRawConfiguration();
+  GenericAvroConverter<GenericRecord> converter=new GenericAvroConverter<>(pluginInfo.getFieldConfiguration().getSchema());
+  GenericRecord record=converter.decodeBinary(rawConfiguration);
+  RecordField formData=FormAvroConverter.createRecordFieldFromGenericRecord(record);
+  plugin.setFieldConfiguration(formData);
+}

@@ -1,13 +1,8 @@
 {
-  LogAppenderDto logAppender=new LogAppenderDto(wrapper);
   try {
-    GenericRecord record=FormAvroConverter.createGenericRecordFromRecordField(wrapper.getFieldConfiguration());
-    GenericAvroConverter<GenericRecord> converter=new GenericAvroConverter<>(record.getSchema());
-    byte[] rawConfiguration=converter.encode(record);
-    logAppender.setRawConfiguration(rawConfiguration);
+    setPluginRawConfigurationFromForm(logAppender);
     LogAppenderDto saved=editLogAppender(logAppender);
-    LogAppenderDto savedWrapper=new LogAppenderDto(saved);
-    return savedWrapper;
+    return saved;
   }
  catch (  Exception e) {
     throw Utils.handleException(e);

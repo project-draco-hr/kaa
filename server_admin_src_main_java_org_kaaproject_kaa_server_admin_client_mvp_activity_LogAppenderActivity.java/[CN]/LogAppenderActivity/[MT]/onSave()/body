@@ -1,12 +1,7 @@
 {
-  entity.setName(detailsView.getName().getValue());
+  super.onSave();
   entity.setMinLogSchemaVersion(detailsView.getMinSchemaVersion().getValue());
   entity.setMaxLogSchemaVersion(detailsView.getMaxSchemaVersion().getValue());
   entity.setConfirmDelivery(detailsView.getConfirmDelivery().getValue());
-  entity.setDescription(detailsView.getDescription().getValue());
   entity.setHeaderStructure(detailsView.getHeader());
-  LogAppenderInfoDto appenderInfo=detailsView.getAppenderInfo().getValue();
-  entity.setPluginTypeName(appenderInfo.getName());
-  entity.setPluginClassName(appenderInfo.getAppenderClassName());
-  entity.setFieldConfiguration(detailsView.getConfiguration().getValue());
 }

@@ -1,4 +1,5 @@
 {
   LogAppenderDto logAppender=getLogAppender(appenderId);
-  return toRestLogAppender(logAppender);
+  setPluginJsonConfigurationFromRaw(logAppender,PluginType.LOG_APPENDER);
+  return logAppender;
 }

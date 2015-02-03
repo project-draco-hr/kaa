@@ -1,13 +1,5 @@
 {
-  KaaAdmin.getDataSource().loadAppenderInfos(new AsyncCallback<List<LogAppenderInfoDto>>(){
-    @Override public void onSuccess(    List<LogAppenderInfoDto> result){
-      detailsView.getAppenderInfo().setAcceptableValues(result);
-    }
-    @Override public void onFailure(    Throwable caught){
-      Utils.handleException(caught,detailsView);
-    }
-  }
-);
+  super.onEntityRetrieved();
   KaaAdmin.getDataSource().loadLogSchemasVersion(applicationId,new AsyncCallback<List<SchemaDto>>(){
     @Override public void onFailure(    Throwable caught){
       Utils.handleException(caught,detailsView);

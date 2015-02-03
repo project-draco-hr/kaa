@@ -5,17 +5,10 @@
     versions.add(schema.getMajorVersion());
   }
   if (!create) {
-    detailsView.getName().setValue(entity.getName());
-    detailsView.getDescription().setValue(entity.getDescription());
-    detailsView.getCreatedUsername().setValue(entity.getCreatedUsername());
-    detailsView.getCreatedDateTime().setValue(Utils.millisecondsToDateTimeString(entity.getCreatedTime()));
     detailsView.getMinSchemaVersion().setValue(entity.getMinLogSchemaVersion());
     detailsView.getMaxSchemaVersion().setValue(entity.getMaxLogSchemaVersion());
     detailsView.getConfirmDelivery().setValue(entity.isConfirmDelivery());
     detailsView.setMetadataListBox(entity.getHeaderStructure());
-    detailsView.getConfiguration().setValue(entity.getFieldConfiguration());
-    LogAppenderInfoDto appenderInfo=new LogAppenderInfoDto(entity.getPluginTypeName(),entity.getFieldConfiguration(),entity.getPluginClassName());
-    detailsView.getAppenderInfo().setValue(appenderInfo);
   }
   detailsView.setSchemaVersions(versions);
 }

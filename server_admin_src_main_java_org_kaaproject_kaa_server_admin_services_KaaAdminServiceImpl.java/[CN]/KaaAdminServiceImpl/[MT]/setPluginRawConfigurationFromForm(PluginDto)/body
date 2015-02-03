@@ -1,0 +1,7 @@
+{
+  RecordField fieldConfiguration=plugin.getFieldConfiguration();
+  GenericRecord record=FormAvroConverter.createGenericRecordFromRecordField(fieldConfiguration);
+  GenericAvroConverter<GenericRecord> converter=new GenericAvroConverter<>(record.getSchema());
+  byte[] rawConfiguration=converter.encode(record);
+  plugin.setRawConfiguration(rawConfiguration);
+}

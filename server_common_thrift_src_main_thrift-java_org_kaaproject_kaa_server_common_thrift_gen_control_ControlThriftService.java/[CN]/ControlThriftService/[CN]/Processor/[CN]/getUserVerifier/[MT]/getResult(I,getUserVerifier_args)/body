@@ -1,0 +1,10 @@
+{
+  getUserVerifier_result result=new getUserVerifier_result();
+  try {
+    result.success=iface.getUserVerifier(args.userVerifierId);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

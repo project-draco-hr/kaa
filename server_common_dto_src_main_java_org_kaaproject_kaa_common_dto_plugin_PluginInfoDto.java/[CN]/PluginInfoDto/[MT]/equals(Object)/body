@@ -1,0 +1,37 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  PluginInfoDto other=(PluginInfoDto)obj;
+  if (fieldConfiguration == null) {
+    if (other.fieldConfiguration != null) {
+      return false;
+    }
+  }
+ else   if (!fieldConfiguration.equals(other.fieldConfiguration)) {
+    return false;
+  }
+  if (pluginClassName == null) {
+    if (other.pluginClassName != null) {
+      return false;
+    }
+  }
+ else   if (!pluginClassName.equals(other.pluginClassName)) {
+    return false;
+  }
+  if (pluginTypeName == null) {
+    if (other.pluginTypeName != null) {
+      return false;
+    }
+  }
+ else   if (!pluginTypeName.equals(other.pluginTypeName)) {
+    return false;
+  }
+  return true;
+}

@@ -1,7 +1,0 @@
-{
-  LogAppenderDto restLogAppender=new LogAppenderDto(logAppender);
-  Schema schema=appenderConfigSchemas.get(restLogAppender.getPluginClassName());
-  String configuration=GenericAvroConverter.toJson(logAppender.getRawConfiguration(),schema.toString());
-  restLogAppender.setJsonConfiguration(configuration);
-  return restLogAppender;
-}

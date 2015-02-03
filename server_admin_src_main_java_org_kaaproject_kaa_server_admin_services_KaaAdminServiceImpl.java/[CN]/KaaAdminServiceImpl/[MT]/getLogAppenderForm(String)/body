@@ -1,13 +1,8 @@
 {
   LogAppenderDto logAppender=getLogAppender(appenderId);
   try {
-    LogAppenderDto wrapper=new LogAppenderDto(logAppender);
-    Schema schema=appenderConfigSchemas.get(wrapper.getPluginClassName());
-    GenericAvroConverter<GenericRecord> converter=new GenericAvroConverter<>(schema);
-    GenericRecord record=converter.decodeBinary(logAppender.getRawConfiguration());
-    RecordField formData=FormAvroConverter.createRecordFieldFromGenericRecord(record);
-    wrapper.setFieldConfiguration(formData);
-    return wrapper;
+    setPluginFormConfigurationFromRaw(logAppender,PluginType.LOG_APPENDER);
+    return logAppender;
   }
  catch (  Exception e) {
     throw Utils.handleException(e);

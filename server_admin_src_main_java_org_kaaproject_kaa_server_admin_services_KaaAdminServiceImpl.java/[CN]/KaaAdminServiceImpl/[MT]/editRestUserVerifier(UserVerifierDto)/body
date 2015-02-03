@@ -1,0 +1,6 @@
+{
+  setPluginRawConfigurationFromJson(userVerifier,PluginType.USER_VERIFIER);
+  UserVerifierDto savedUserVerifier=editUserVerifier(userVerifier);
+  setPluginJsonConfigurationFromRaw(savedUserVerifier,PluginType.USER_VERIFIER);
+  return savedUserVerifier;
+}
