@@ -1,6 +1,10 @@
 {
 switch (field$) {
+case 0:
+    return app_id;
+case 1:
+  return app_secret;
 default :
-    throw new org.apache.avro.AvroRuntimeException("Bad index");
+throw new org.apache.avro.AvroRuntimeException("Bad index");
 }
 }

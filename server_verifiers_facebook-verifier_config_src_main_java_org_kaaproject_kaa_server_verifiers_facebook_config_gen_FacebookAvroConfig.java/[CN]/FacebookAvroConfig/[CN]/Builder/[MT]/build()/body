@@ -1,6 +1,8 @@
 {
   try {
     FacebookAvroConfig record=new FacebookAvroConfig();
+    record.app_id=fieldSetFlags()[0] ? this.app_id : (java.lang.String)defaultValue(fields()[0]);
+    record.app_secret=fieldSetFlags()[1] ? this.app_secret : (java.lang.String)defaultValue(fields()[1]);
     return record;
   }
  catch (  Exception e) {
