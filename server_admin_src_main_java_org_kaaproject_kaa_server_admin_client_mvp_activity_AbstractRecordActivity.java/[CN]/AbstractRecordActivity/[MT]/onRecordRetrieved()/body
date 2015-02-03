@@ -5,9 +5,11 @@
         Utils.handleException(caught,recordView);
       }
       @Override public void onSuccess(      List<SchemaDto> result){
-        recordView.getSchema().setValue(Utils.getMaxSchemaVersions(result));
+        SchemaDto schema=Utils.getMaxSchemaVersions(result);
+        recordView.getSchema().setValue(schema);
         recordView.getSchema().setAcceptableValues(result);
         recordView.getRecordPanel().setData(record);
+        schemaSelected(schema);
         recordView.getRecordPanel().openDraft();
       }
     }
@@ -22,7 +24,7 @@
       inactiveStruct.setMajorVersion(record.getMajorVersion());
       inactiveStruct.setMinorVersion(record.getMinorVersion());
       inactiveStruct.setDescription(record.getDescription());
-      inactiveStruct.setBody(record.getActiveStructureDto().getBody());
+      copyBody(record.getActiveStructureDto(),inactiveStruct);
       record.setInactiveStructureDto(inactiveStruct);
     }
     recordView.getRecordPanel().setData(record);

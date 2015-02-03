@@ -1,7 +1,19 @@
 {
   if (clientState != null) {
-    Resolve request=new Resolve();
-    request.setApplicationToken(applicationToken);
+    SyncRequest request=new SyncRequest();
+    request.setRequestId(increment.incrementAndGet());
+    BootstrapSyncRequest resolveRequest=new BootstrapSyncRequest();
+    List<KaaDataChannel> channels=channelManager.getChannels();
+    List<ProtocolVersionPair> pairs=new ArrayList<ProtocolVersionPair>(channels.size());
+    for (    KaaDataChannel channel : channels) {
+      TransportProtocolId channelTransportId=channel.getTransportProtocolId();
+      pairs.add(new ProtocolVersionPair(channelTransportId.getProtocolId(),channelTransportId.getProtocolVersion()));
+      LOG.debug("Adding transport with id {} and version {} to resolve request",channelTransportId.getProtocolId(),channelTransportId.getProtocolVersion());
+    }
+    resolveRequest.setSupportedProtocols(pairs);
+    resolveRequest.setRequestId(increment.get());
+    request.setSyncRequestMetaData(new SyncRequestMetaData(applicationToken,null,null,null));
+    request.setBootstrapSyncRequest(resolveRequest);
     return request;
   }
   return null;

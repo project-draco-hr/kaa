@@ -1,24 +1,3 @@
 {
-  super(false,true);
-  setTitle(title);
-  this.listener=listener;
-  VerticalPanel dialogContents=new VerticalPanel();
-  dialogContents.setSpacing(4);
-  setWidget(dialogContents);
-  AlertPanel messageLabel=new AlertPanel(AlertPanel.Type.INFO);
-  messageLabel.setMessage(message);
-  dialogContents.add(messageLabel);
-  okButton=new Button(Utils.constants.ok(),new ClickHandler(){
-    @Override public void onClick(    ClickEvent event){
-      hide();
-    }
-  }
-);
-  addButton(okButton);
-  this.addCloseHandler(new CloseHandler<PopupPanel>(){
-    @Override public void onClose(    CloseEvent<PopupPanel> event){
-      MessageDialog.this.listener.onOk();
-    }
-  }
-);
+  this(listener,AlertPanel.Type.INFO,title,message);
 }

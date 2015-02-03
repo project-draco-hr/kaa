@@ -1,0 +1,11 @@
+{
+  List<TransportMetaData> supportedTransports=new ArrayList<>();
+  try {
+    supportedTransports.add(getHttpTransportMD());
+    supportedTransports.add(getTcpTransportMD());
+  }
+ catch (  UnsupportedEncodingException e) {
+    e.printStackTrace();
+  }
+  return supportedTransports;
+}

@@ -1,8 +1,0 @@
-{
-  int operationsServerRecordsNumber=buffer.getInt();
-  for (int i=0; i < operationsServerRecordsNumber; i++) {
-    int operationsServerRecordLength=buffer.getInt();
-    OperationsServerRecord record=decodeOperationsServerRecord(operationsServerRecordLength);
-    operationsServersMap.put(record.name,record);
-  }
-}

@@ -4,7 +4,7 @@
     LogAppenderFormWrapper wrapper=new LogAppenderFormWrapper(logAppender);
     Schema schema=appenderConfigSchemas.get(wrapper.getAppenderClassName());
     GenericAvroConverter<GenericRecord> converter=new GenericAvroConverter<>(schema);
-    GenericRecord record=converter.decodeBinary(wrapper.getRawConfiguration());
+    GenericRecord record=converter.decodeBinary(logAppender.getRawConfiguration());
     RecordField formData=FormAvroConverter.createRecordFieldFromGenericRecord(record);
     wrapper.setConfiguration(formData);
     return wrapper;

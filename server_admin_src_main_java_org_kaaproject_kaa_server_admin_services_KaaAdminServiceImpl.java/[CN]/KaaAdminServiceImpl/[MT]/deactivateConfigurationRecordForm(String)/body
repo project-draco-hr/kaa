@@ -1,0 +1,10 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    ConfigurationDto storedConfiguration=deactivateConfiguration(configurationId);
+    return toConfigurationRecordFormDto(storedConfiguration);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

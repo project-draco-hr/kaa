@@ -3,7 +3,7 @@
     ServiceErrorCode errorCode=((KaaAdminServiceException)caught).getErrorCode();
     String message=constants.getString(errorCode.getResKey());
     if (errorCode.showErrorMessage()) {
-      message+=caught.getMessage();
+      message+=caught.getLocalizedMessage();
     }
     return message;
   }
@@ -11,6 +11,6 @@
     return errorMessageCustomizer.customizeErrorMessage(caught);
   }
  else {
-    return caught.getMessage();
+    return caught.getLocalizedMessage();
   }
 }

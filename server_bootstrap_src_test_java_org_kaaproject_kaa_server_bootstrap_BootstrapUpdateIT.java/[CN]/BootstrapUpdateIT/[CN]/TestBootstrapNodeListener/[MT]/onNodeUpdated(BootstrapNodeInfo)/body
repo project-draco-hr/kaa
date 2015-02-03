@@ -1,8 +1,0 @@
-{
-  logger.info("Bootstrap node updated " + nodeInfo.getConnectionInfo().getThriftHost());
-synchronized (sync) {
-    nodeInfos.clear();
-    nodeInfos.add(nodeInfo);
-    sync.notify();
-  }
-}

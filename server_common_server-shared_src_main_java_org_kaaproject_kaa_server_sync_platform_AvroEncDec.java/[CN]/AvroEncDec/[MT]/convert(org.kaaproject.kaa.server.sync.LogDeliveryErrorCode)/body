@@ -1,0 +1,17 @@
+{
+  if (errorCode == null) {
+    return null;
+  }
+switch (errorCode) {
+case NO_APPENDERS_CONFIGURED:
+    return LogDeliveryErrorCode.NO_APPENDERS_CONFIGURED;
+case APPENDER_INTERNAL_ERROR:
+  return LogDeliveryErrorCode.APPENDER_INTERNAL_ERROR;
+case REMOTE_INTERNAL_ERROR:
+return LogDeliveryErrorCode.REMOTE_INTERNAL_ERROR;
+case REMOTE_CONNECTION_ERROR:
+return LogDeliveryErrorCode.REMOTE_CONNECTION_ERROR;
+default :
+return null;
+}
+}

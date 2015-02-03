@@ -1,14 +1,9 @@
 {
 switch (decision) {
 case UPLOAD:
-    if (!isUploading) {
+    if (failoverStrategy.isUploadApproved() && !isUploading) {
       isUploading=true;
-      if (transport != null) {
-        transport.sync();
-      }
- else {
-        LOG.warn("Log transport is null");
-      }
+      transport.sync();
     }
   break;
 case CLEANUP:

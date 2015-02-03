@@ -1,8 +1,0 @@
-{
-  configuration=new DefaultLogUploadConfiguration(8 * 1024,4 * 8 * 1024,1024 * 1024);
-  storage=new MemoryLogStorage(configuration.getBatchVolume());
-  storageStatus=(LogStorageStatus)storage;
-  uploadStrategy=new DefaultLogUploadStrategy();
-  this.transport=transport;
-  isUploading=false;
-}

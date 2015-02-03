@@ -1,3 +1,9 @@
 {
-  return "LogAppenderRestDto [id=" + id + ", applicationId="+ applicationId+ ", applicationToken="+ applicationToken+ ", tenantId="+ tenantId+ ", minLogSchemaVersion="+ minLogSchemaVersion+ ", maxLogSchemaVersion="+ maxLogSchemaVersion+ ", status="+ status+ ", typeName="+ typeName+ ", appenderClassName="+ appenderClassName+ ", configuration="+ configuration+ ", headerStructure="+ headerStructure+ "]";
+  StringBuilder builder=new StringBuilder();
+  builder.append("LogAppenderRestDto [configuration=");
+  builder.append(configuration);
+  builder.append(", parent=");
+  builder.append(super.toString());
+  builder.append("]");
+  return builder.toString();
 }

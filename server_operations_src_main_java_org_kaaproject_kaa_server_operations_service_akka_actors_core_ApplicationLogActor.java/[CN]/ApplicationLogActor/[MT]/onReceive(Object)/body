@@ -1,11 +1,11 @@
 {
   LOG.debug("[{}] Received: {}",applicationToken,message);
   if (message instanceof LogEventPackMessage) {
-    processLogEventPack((LogEventPackMessage)message);
+    messageProcessor.processLogEventPack(getContext(),(LogEventPackMessage)message);
   }
  else   if (message instanceof ThriftNotificationMessage) {
     LOG.debug("[{}] Received thrift notification message: {}",applicationToken,message);
     Notification notification=((ThriftNotificationMessage)message).getNotification();
-    processLogAppenderNotification(notification);
+    messageProcessor.processLogAppenderNotification(notification);
   }
 }

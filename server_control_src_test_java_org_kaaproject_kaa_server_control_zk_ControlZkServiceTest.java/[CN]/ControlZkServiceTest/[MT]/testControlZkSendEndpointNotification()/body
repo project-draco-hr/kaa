@@ -5,7 +5,7 @@
   ReflectionTestUtils.setField(zkService,"zkEnabled",true);
   ControlNode controlZKNode=Mockito.mock(ControlNode.class);
   ReflectionTestUtils.setField(zkService,"controlZKNode",controlZKNode);
-  List<OperationsNodeInfo> endpointNodes=Arrays.asList(new OperationsNodeInfo(new ConnectionInfo("host1",123,null),System.currentTimeMillis(),new ArrayList<SupportedChannel>()));
+  List<OperationsNodeInfo> endpointNodes=Arrays.asList(new OperationsNodeInfo(new ConnectionInfo("host1",123,null),new LoadInfo(1),System.currentTimeMillis(),new ArrayList<TransportMetaData>()));
   Mockito.when(controlZKNode.getCurrentOperationServerNodes()).thenReturn(endpointNodes);
   Notification notification=new Notification();
   zkService.sendEndpointNotification(notification);

@@ -1,0 +1,6 @@
+{
+  byte[] requestRaw=message.getEncodedMessageData();
+  ClientSync request=decodePlatformLevelData(message.getPlatformId(),requestRaw);
+  LOG.trace("Request data deserialized");
+  return request;
+}

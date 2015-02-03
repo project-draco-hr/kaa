@@ -1,5 +1,11 @@
 {
-  if (LOG.isWarnEnabled()) {
-    LOG.warn(String.format("[%s] Error during log delivery",appToken),t);
+  if (t instanceof HttpFailureException) {
+    callback.onRemoteError();
+  }
+ else   if (t instanceof IOException) {
+    callback.onConnectionError();
+  }
+ else {
+    callback.onInternalError();
   }
 }

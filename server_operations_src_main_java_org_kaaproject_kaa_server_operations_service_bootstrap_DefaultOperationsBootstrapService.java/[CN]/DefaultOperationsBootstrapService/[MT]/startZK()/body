@@ -1,18 +1,9 @@
 {
   OperationsNodeInfo nodeInfo=new OperationsNodeInfo();
   ByteBuffer keyData=ByteBuffer.wrap(keyStoreService.getPublicKey().getEncoded());
-  ConnectionInfo connectionInfo=new ConnectionInfo(getConfig().getThriftHost(),getConfig().getThriftPort(),keyData);
-  nodeInfo.setConnectionInfo(connectionInfo);
-  List<SupportedChannel> suppChannels=new ArrayList<>();
-  for (  ServiceChannel sc : nettyServersList) {
-    try {
-      suppChannels.add(sc.getZkSupportedChannel());
-    }
- catch (    ZkChannelException e) {
-      LOG.error("Error advertize Channel ",e);
-    }
-  }
-  nodeInfo.setSupportedChannelsArray(suppChannels);
+  nodeInfo.setConnectionInfo(new ConnectionInfo(getConfig().getThriftHost(),getConfig().getThriftPort(),keyData));
+  nodeInfo.setLoadInfo(new LoadInfo(DEFAULT_LOAD_INDEX));
+  nodeInfo.setTransports(new ArrayList<TransportMetaData>());
   operationsNode=new OperationsNode(nodeInfo,getConfig().getZkHostPortList(),new RetryUntilElapsed(getConfig().getZkMaxRetryTime(),getConfig().getZkSleepTime()));
   try {
     operationsNode.start();

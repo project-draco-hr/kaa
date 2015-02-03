@@ -1,0 +1,23 @@
+{
+  if (isShutdown) {
+    LOG.info("Can't set server. Channel [{}] is down",getId());
+    return;
+  }
+  if (server != null) {
+    if (!isPaused) {
+      stopPoll();
+    }
+    this.currentServer=new IPTransportInfo(server);
+synchronized (httpClientLock) {
+      LOG.debug("Channel [{}]: creating HTTP client..",getId());
+      this.httpClient=client.createHttpClient(currentServer.getURL() + "/EP/LongSync",state.getPrivateKey(),state.getPublicKey(),currentServer.getPublicKey());
+synchronized (httpClientSetLock) {
+        httpClientSetLock.notifyAll();
+      }
+      LOG.debug("Channel [{}]: HTTP client created",getId());
+    }
+    if (!isPaused) {
+      startPoll();
+    }
+  }
+}

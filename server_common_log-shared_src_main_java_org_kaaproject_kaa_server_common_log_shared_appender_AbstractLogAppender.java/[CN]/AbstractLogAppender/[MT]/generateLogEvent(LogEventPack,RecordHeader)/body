@@ -19,6 +19,7 @@
   }
  catch (  IOException e) {
     LOG.error("Unexpected IOException while decoding LogEvents",e);
+    throw e;
   }
   return events;
 }
