@@ -1,0 +1,10 @@
+{
+  if (response.getUserSync() == null) {
+    response.setUserSync(new UserServerSync());
+  }
+  for (  Entry<UUID,UserVerificationResponseMessage> messageEntry : userAttachResponseMap.entrySet()) {
+    response.getUserSync().setUserAttachResponse(toUserAttachResponse(messageEntry.getValue()));
+    userAttachResponseMap.remove(messageEntry.getKey());
+    break;
+  }
+}
