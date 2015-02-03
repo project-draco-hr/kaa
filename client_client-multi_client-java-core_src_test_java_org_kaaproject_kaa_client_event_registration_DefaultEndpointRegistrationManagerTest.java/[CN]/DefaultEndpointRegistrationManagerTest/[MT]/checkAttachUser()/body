@@ -3,7 +3,7 @@
   when(state.getEndpointAccessToken()).thenReturn("");
   UserTransport transport=mock(UserTransport.class);
   EndpointRegistrationManager manager=new DefaultEndpointRegistrationManager(state,transport,null);
-  manager.attachUser("userExternalId","userAccessToken",new UserAuthResultListener(){
+  manager.attachUser("externalId","userExternalId","userAccessToken",new UserAuthResultListener(){
     @Override public void onAuthResult(    UserAttachResponse response){
     }
   }

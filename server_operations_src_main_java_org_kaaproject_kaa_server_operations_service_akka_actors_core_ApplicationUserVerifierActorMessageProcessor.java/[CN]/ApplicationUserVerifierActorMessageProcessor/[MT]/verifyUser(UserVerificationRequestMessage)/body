@@ -1,9 +1,9 @@
 {
   UserVerifier verifier=userVerifiers.get(message.getVerifierId());
   if (verifier != null) {
-    verifier.checkAccessToken(message.getUserId(),message.getAccessToken(),new DefaultVerifierCallback(message.getOriginator(),message.getRequestid()));
+    verifier.checkAccessToken(message.getUserId(),message.getAccessToken(),new DefaultVerifierCallback(message));
   }
  else {
-    message.getOriginator().tell(UserVerificationResponseMessage.failure(message.getRequestid(),UserVerifierErrorCode.NO_VERIFIER_CONFIGURED),ActorRef.noSender());
+    message.getOriginator().tell(UserVerificationResponseMessage.failure(message.getRequestid(),message.getUserId(),UserVerifierErrorCode.NO_VERIFIER_CONFIGURED),ActorRef.noSender());
   }
 }

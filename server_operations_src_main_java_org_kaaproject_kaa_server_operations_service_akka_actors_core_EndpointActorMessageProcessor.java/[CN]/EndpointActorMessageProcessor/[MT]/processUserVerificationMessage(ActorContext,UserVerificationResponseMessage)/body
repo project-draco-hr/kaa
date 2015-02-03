@@ -13,4 +13,8 @@
       channelMap.removeChannel(channel);
     }
   }
+  if (message.isSuccess()) {
+    operationsService.attachEndpointToUser(endpointProfile,appToken,message.getUserId());
+    updateUserConnection(context);
+  }
 }

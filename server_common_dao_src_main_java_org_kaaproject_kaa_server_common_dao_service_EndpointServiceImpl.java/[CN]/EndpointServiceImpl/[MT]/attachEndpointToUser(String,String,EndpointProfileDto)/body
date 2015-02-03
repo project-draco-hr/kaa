@@ -1,0 +1,21 @@
+{
+  validateString(userExternalId,"Incorrect userExternalId " + userExternalId);
+  EndpointUser endpointUser=endpointUserDao.findByExternalIdAndTenantId(userExternalId,tenantId);
+  if (endpointUser == null) {
+    LOG.info("Creating new endpoint user with external id: [{}] in context of [{}] tenant",userExternalId,tenantId);
+    EndpointUserDto endpointUserDto=new EndpointUserDto();
+    endpointUserDto.setTenantId(tenantId);
+    endpointUserDto.setExternalId(userExternalId);
+    endpointUserDto.setUsername(userExternalId);
+    endpointUser=endpointUserDao.save(endpointUserDto);
+  }
+  List<String> endpointIds=endpointUser.getEndpointIds();
+  if (endpointIds == null) {
+    endpointIds=new ArrayList<>();
+    endpointUser.setEndpointIds(endpointIds);
+  }
+  endpointIds.add(profile.getId());
+  endpointUserDao.save(endpointUser);
+  profile.setEndpointUserId(endpointUser.getId());
+  return saveEndpointProfile(profile);
+}

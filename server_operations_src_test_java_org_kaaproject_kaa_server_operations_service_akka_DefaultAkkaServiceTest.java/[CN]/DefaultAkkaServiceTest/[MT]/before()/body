@@ -8,6 +8,7 @@
   applicationService=mock(ApplicationService.class);
   eventService=mock(EventService.class);
   logAppenderService=mock(LogAppenderService.class);
+  endpointUserService=mock(EndpointUserService.class);
   ReflectionTestUtils.setField(akkaService,"cacheService",cacheService);
   ReflectionTestUtils.setField(akkaService,"metricsService",metricsService);
   ReflectionTestUtils.setField(akkaService,"keyStoreService",keyStoreService);
@@ -16,6 +17,7 @@
   ReflectionTestUtils.setField(akkaService,"applicationService",applicationService);
   ReflectionTestUtils.setField(akkaService,"eventService",eventService);
   ReflectionTestUtils.setField(akkaService,"logAppenderService",logAppenderService);
+  ReflectionTestUtils.setField(akkaService,"endpointUserService",endpointUserService);
   clientPair=KeyUtil.generateKeyPair();
   targetPair=KeyUtil.generateKeyPair();
   serverPair=KeyUtil.generateKeyPair();
@@ -71,4 +73,5 @@
   topicNotification.setBody("I am a dummy notification".getBytes());
   when(applicationService.findAppByApplicationToken(APP_TOKEN)).thenReturn(applicationDto);
   when(applicationService.findAppById(APP_ID)).thenReturn(applicationDto);
+  when(endpointUserService.findUserVerifiers(APP_ID)).thenReturn(new ArrayList<UserVerifierDto>());
 }
