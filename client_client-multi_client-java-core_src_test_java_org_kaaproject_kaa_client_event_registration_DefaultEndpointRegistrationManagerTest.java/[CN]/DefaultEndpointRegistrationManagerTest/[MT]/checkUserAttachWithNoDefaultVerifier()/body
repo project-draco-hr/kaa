@@ -1,0 +1,7 @@
+{
+  KaaClientState state=mock(KaaClientState.class);
+  when(state.getEndpointAccessToken()).thenReturn("");
+  UserTransport transport=mock(UserTransport.class);
+  DefaultEndpointRegistrationManager manager=spy(new DefaultEndpointRegistrationManager(state,transport,null));
+  manager.attachUser("externalId","token",null);
+}

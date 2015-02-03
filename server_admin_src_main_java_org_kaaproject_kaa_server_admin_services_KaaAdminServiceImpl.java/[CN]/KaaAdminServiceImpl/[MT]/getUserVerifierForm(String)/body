@@ -1,0 +1,10 @@
+{
+  UserVerifierDto userVerifier=getUserVerifier(userVerifierId);
+  try {
+    setPluginFormConfigurationFromRaw(userVerifier,PluginType.USER_VERIFIER);
+    return userVerifier;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

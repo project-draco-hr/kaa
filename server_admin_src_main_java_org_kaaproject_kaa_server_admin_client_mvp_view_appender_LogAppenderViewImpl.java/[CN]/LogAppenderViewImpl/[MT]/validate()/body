@@ -1,7 +1,6 @@
 {
-  boolean result=isNotBlank(name.getValue());
+  boolean result=super.validate();
   result&=minSchemaVersion.getValue() != null;
   result&=maxSchemaVersion.getValue() != null;
-  result&=configuration.validate();
   return result;
 }

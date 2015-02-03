@@ -1,0 +1,9 @@
+{
+  if (userVerifiers.containsKey(verifierToken)) {
+    LOG.info("[{}] Stopping user verifier with token [{}].",applicationId,verifierToken);
+    userVerifiers.remove(verifierToken).stop();
+  }
+ else {
+    LOG.warn("[{}] Can't remove unregistered user verifier with token [{}]",applicationId,verifierToken);
+  }
+}

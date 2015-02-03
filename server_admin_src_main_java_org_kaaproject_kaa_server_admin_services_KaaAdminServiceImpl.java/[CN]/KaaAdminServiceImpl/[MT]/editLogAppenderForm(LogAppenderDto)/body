@@ -1,0 +1,10 @@
+{
+  try {
+    setPluginRawConfigurationFromForm(logAppender);
+    LogAppenderDto saved=editLogAppender(logAppender);
+    return saved;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

@@ -1,0 +1,10 @@
+{
+  float prefWidth=super.constructColumnsImpl(table);
+  prefWidth+=constructStringColumn(table,Utils.constants.verifierToken(),new StringValueProvider<UserVerifierDto>(){
+    @Override public String getValue(    UserVerifierDto item){
+      return item.getVerifierToken();
+    }
+  }
+,80);
+  return prefWidth;
+}

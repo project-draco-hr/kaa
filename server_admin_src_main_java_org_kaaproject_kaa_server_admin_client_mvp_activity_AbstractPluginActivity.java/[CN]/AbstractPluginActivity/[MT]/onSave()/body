@@ -1,0 +1,8 @@
+{
+  entity.setName(detailsView.getName().getValue());
+  entity.setDescription(detailsView.getDescription().getValue());
+  PluginInfoDto appenderInfo=detailsView.getPluginInfo().getValue();
+  entity.setPluginTypeName(appenderInfo.getPluginTypeName());
+  entity.setPluginClassName(appenderInfo.getPluginClassName());
+  entity.setFieldConfiguration(detailsView.getConfiguration().getValue());
+}

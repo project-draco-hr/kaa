@@ -1,0 +1,16 @@
+{
+  float prefWidth=0;
+  prefWidth+=constructStringColumn(table,Utils.constants.name(),new StringValueProvider<T>(){
+    @Override public String getValue(    T item){
+      return item.getName();
+    }
+  }
+,80);
+  prefWidth+=constructStringColumn(table,Utils.constants.type(),new StringValueProvider<T>(){
+    @Override public String getValue(    T item){
+      return item.getPluginTypeName();
+    }
+  }
+,80);
+  return prefWidth;
+}

@@ -1,13 +1,9 @@
 {
   ClassPathScanningCandidateComponentProvider scanner=new ClassPathScanningCandidateComponentProvider(false);
-  scanner.addIncludeFilter(new AnnotationTypeFilter(KaaAppenderConfig.class));
-  Set<BeanDefinition> beans=scanner.findCandidateComponents("org.kaaproject.kaa.server.appenders");
-  for (  BeanDefinition bean : beans) {
-    Class<?> clazz=Class.forName(bean.getBeanClassName());
-    AppenderConfig appenderConfig=(AppenderConfig)clazz.newInstance();
-    appenderConfigSchemas.put(appenderConfig.getLogAppenderClass(),appenderConfig.getConfigSchema());
-    RecordField appenderConfigForm=FormAvroConverter.createRecordFieldFromSchema(appenderConfig.getConfigSchema());
-    LogAppenderInfoDto appender=new LogAppenderInfoDto(appenderConfig.getName(),appenderConfigForm,appenderConfig.getLogAppenderClass());
-    appenders.add(appender);
+  scanner.addIncludeFilter(new AnnotationTypeFilter(KaaPluginConfig.class));
+  scanPluginsPackage(scanner,"org.kaaproject.kaa.server.appenders");
+  scanPluginsPackage(scanner,"org.kaaproject.kaa.server.verifiers");
+  if (!isEmpty(additionalPluginsScanPackage)) {
+    scanPluginsPackage(scanner,additionalPluginsScanPackage);
   }
 }

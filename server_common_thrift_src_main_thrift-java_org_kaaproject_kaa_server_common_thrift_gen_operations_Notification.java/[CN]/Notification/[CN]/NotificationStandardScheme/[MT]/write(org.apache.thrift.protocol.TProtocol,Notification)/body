@@ -63,9 +63,11 @@
     oprot.writeString(struct.appenderId);
     oprot.writeFieldEnd();
   }
-  oprot.writeFieldBegin(USER_VERIFIER_ID_FIELD_DESC);
-  oprot.writeI32(struct.userVerifierId);
-  oprot.writeFieldEnd();
+  if (struct.userVerifierToken != null) {
+    oprot.writeFieldBegin(USER_VERIFIER_TOKEN_FIELD_DESC);
+    oprot.writeString(struct.userVerifierToken);
+    oprot.writeFieldEnd();
+  }
   oprot.writeFieldStop();
   oprot.writeStructEnd();
 }

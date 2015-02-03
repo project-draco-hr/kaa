@@ -1,0 +1,9 @@
+{
+  final int prime=31;
+  int result=super.hashCode();
+  result=prime * result + (confirmDelivery ? 1231 : 1237);
+  result=prime * result + ((headerStructure == null) ? 0 : headerStructure.hashCode());
+  result=prime * result + maxLogSchemaVersion;
+  result=prime * result + minLogSchemaVersion;
+  return result;
+}

@@ -1,8 +1,9 @@
 {
   try {
     UserAttachRequest record=new UserAttachRequest();
-    record.userExternalId=fieldSetFlags()[0] ? this.userExternalId : (java.lang.String)defaultValue(fields()[0]);
-    record.userAccessToken=fieldSetFlags()[1] ? this.userAccessToken : (java.lang.String)defaultValue(fields()[1]);
+    record.userVerifierId=fieldSetFlags()[0] ? this.userVerifierId : (java.lang.String)defaultValue(fields()[0]);
+    record.userExternalId=fieldSetFlags()[1] ? this.userExternalId : (java.lang.String)defaultValue(fields()[1]);
+    record.userAccessToken=fieldSetFlags()[2] ? this.userAccessToken : (java.lang.String)defaultValue(fields()[2]);
     return record;
   }
  catch (  Exception e) {
