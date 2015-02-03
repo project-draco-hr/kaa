@@ -1,0 +1,4 @@
+{
+  LOG.trace("Received user verification request for user {} and input token {}",userExternalId,userAccessToken);
+  tokenVerifiersPool.submit(new TokenVerifier(userExternalId,userAccessToken,callback,configuration));
+}
