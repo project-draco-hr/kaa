@@ -1,0 +1,11 @@
+{
+  LOG.trace("Received user verification request for user {} and access token {}",userExternalId,accessToken);
+  URL url=null;
+  try {
+    url=new URL("https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=" + accessToken);
+  }
+ catch (  MalformedURLException e) {
+    e.printStackTrace();
+  }
+  thredPool.submit(new RunnableVerifier(url,callback,userExternalId));
+}

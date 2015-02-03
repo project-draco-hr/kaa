@@ -1,0 +1,36 @@
+{
+  BufferedReader br=null;
+  String line;
+  StringBuilder responseJson=new StringBuilder();
+  try {
+    HttpURLConnection connection=establishConnection(url);
+    connection.setRequestMethod("GET");
+    int responseCode=connection.getResponseCode();
+    if (responseCode == 400) {
+      callback.onTokenInvalid();
+      return;
+    }
+    if (responseCode == 200) {
+      br=new BufferedReader(new InputStreamReader(connection.getInputStream()));
+      while ((line=br.readLine()) != null) {
+        responseJson.append(line);
+      }
+      br.close();
+      ObjectMapper mapper=new ObjectMapper();
+      Map<String,String> map=mapper.readValue(responseJson.toString(),Map.class);
+      String userId=map.get("user_id");
+      if (!userExternalId.equals(userId)) {
+        callback.onVerificationFailure("wrong user id");
+        return;
+      }
+ else {
+        callback.onSuccess();
+        return;
+      }
+    }
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+  }
+  callback.onConnectionError();
+}

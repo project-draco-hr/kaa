@@ -1,0 +1,7 @@
+{
+  super(other);
+  if (isValidValue(fields()[0],other.max_parallel_connections)) {
+    this.max_parallel_connections=data().deepCopy(fields()[0].schema(),other.max_parallel_connections);
+    fieldSetFlags()[0]=true;
+  }
+}
