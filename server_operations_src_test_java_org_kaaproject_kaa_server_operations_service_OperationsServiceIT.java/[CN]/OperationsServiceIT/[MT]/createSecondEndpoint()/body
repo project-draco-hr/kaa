@@ -8,7 +8,9 @@
   ProfileClientSync profileSync=new ProfileClientSync(ByteBuffer.wrap(ENDPOINT_KEY2),ByteBuffer.wrap(profile),new EndpointVersionInfo(CONF_SCHEMA_VERSION,PROFILE_SCHEMA_VERSION,1,1,null,1),ENDPOINT_ACCESS_TOKEN);
   request.setProfileSync(profileSync);
   request.setConfigurationSync(new ConfigurationClientSync());
-  ServerSync response=operationsService.sync(request).getResponse();
+  SyncResponseHolder holder=operationsService.sync(request);
+  ServerSync response=holder.getResponse();
   Assert.assertNotNull(response);
   Assert.assertEquals(SyncStatus.SUCCESS,response.getStatus());
+  return holder.getEndpointProfile();
 }
