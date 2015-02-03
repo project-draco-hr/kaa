@@ -1,0 +1,19 @@
+{
+  try {
+    String url;
+    try (Connection connection=dataSource.getConnection()){
+      url=connection.getMetaData().getURL();
+    }
+     if (url.contains("h2")) {
+      LOG.info("Deleting data from H2 database");
+      new H2DBTestRunner().truncateTables(dataSource);
+    }
+ else {
+      LOG.info("Deleting data from PostgreSQL database");
+      new PostgreDBTestRunner().truncateTables(dataSource);
+    }
+  }
+ catch (  SQLException ex) {
+    LOG.error("Can't delete data from databases.",ex);
+  }
+}
