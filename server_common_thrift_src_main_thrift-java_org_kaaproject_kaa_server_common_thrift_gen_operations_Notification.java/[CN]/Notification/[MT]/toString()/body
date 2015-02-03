@@ -107,8 +107,13 @@
   }
   first=false;
   if (!first)   sb.append(", ");
-  sb.append("userVerifierId:");
-  sb.append(this.userVerifierId);
+  sb.append("userVerifierToken:");
+  if (this.userVerifierToken == null) {
+    sb.append("null");
+  }
+ else {
+    sb.append(this.userVerifierToken);
+  }
   first=false;
   sb.append(")");
   return sb.toString();

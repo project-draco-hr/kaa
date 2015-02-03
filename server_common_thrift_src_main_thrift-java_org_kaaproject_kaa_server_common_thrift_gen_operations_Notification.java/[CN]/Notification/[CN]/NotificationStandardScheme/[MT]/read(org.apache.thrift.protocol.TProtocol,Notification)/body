@@ -134,9 +134,9 @@ org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);
 }
 break;
 case 15:
-if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
-struct.userVerifierId=iprot.readI32();
-struct.setUserVerifierIdIsSet(true);
+if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+struct.userVerifierToken=iprot.readString();
+struct.setUserVerifierTokenIsSet(true);
 }
  else {
 org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);

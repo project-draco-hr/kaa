@@ -1,8 +1,46 @@
 {
-  if (this == obj)   return true;
-  if (!super.equals(obj))   return false;
-  if (getClass() != obj.getClass())   return false;
+  if (this == obj) {
+    return true;
+  }
+  if (!super.equals(obj)) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
   LogAppenderDto other=(LogAppenderDto)obj;
-  if (!Arrays.equals(rawConfiguration,other.rawConfiguration))   return false;
+  if (applicationToken == null) {
+    if (other.applicationToken != null) {
+      return false;
+    }
+  }
+ else   if (!applicationToken.equals(other.applicationToken)) {
+    return false;
+  }
+  if (confirmDelivery != other.confirmDelivery) {
+    return false;
+  }
+  if (headerStructure == null) {
+    if (other.headerStructure != null) {
+      return false;
+    }
+  }
+ else   if (!headerStructure.equals(other.headerStructure)) {
+    return false;
+  }
+  if (maxLogSchemaVersion != other.maxLogSchemaVersion) {
+    return false;
+  }
+  if (minLogSchemaVersion != other.minLogSchemaVersion) {
+    return false;
+  }
+  if (tenantId == null) {
+    if (other.tenantId != null) {
+      return false;
+    }
+  }
+ else   if (!tenantId.equals(other.tenantId)) {
+    return false;
+  }
   return true;
 }

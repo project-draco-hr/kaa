@@ -1,0 +1,64 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (!super.equals(obj)) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  PluginDto other=(PluginDto)obj;
+  if (applicationId == null) {
+    if (other.applicationId != null) {
+      return false;
+    }
+  }
+ else   if (!applicationId.equals(other.applicationId)) {
+    return false;
+  }
+  if (fieldConfiguration == null) {
+    if (other.fieldConfiguration != null) {
+      return false;
+    }
+  }
+ else   if (!fieldConfiguration.equals(other.fieldConfiguration)) {
+    return false;
+  }
+  if (id == null) {
+    if (other.id != null) {
+      return false;
+    }
+  }
+ else   if (!id.equals(other.id)) {
+    return false;
+  }
+  if (jsonConfiguration == null) {
+    if (other.jsonConfiguration != null) {
+      return false;
+    }
+  }
+ else   if (!jsonConfiguration.equals(other.jsonConfiguration)) {
+    return false;
+  }
+  if (pluginClassName == null) {
+    if (other.pluginClassName != null) {
+      return false;
+    }
+  }
+ else   if (!pluginClassName.equals(other.pluginClassName)) {
+    return false;
+  }
+  if (pluginTypeName == null) {
+    if (other.pluginTypeName != null) {
+      return false;
+    }
+  }
+ else   if (!pluginTypeName.equals(other.pluginTypeName)) {
+    return false;
+  }
+  if (!Arrays.equals(rawConfiguration,other.rawConfiguration)) {
+    return false;
+  }
+  return true;
+}

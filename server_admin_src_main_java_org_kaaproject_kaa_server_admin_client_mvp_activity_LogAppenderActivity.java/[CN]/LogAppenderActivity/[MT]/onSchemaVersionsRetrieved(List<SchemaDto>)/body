@@ -13,8 +13,8 @@
     detailsView.getMaxSchemaVersion().setValue(entity.getMaxLogSchemaVersion());
     detailsView.getConfirmDelivery().setValue(entity.isConfirmDelivery());
     detailsView.setMetadataListBox(entity.getHeaderStructure());
-    detailsView.getConfiguration().setValue(entity.getConfiguration());
-    LogAppenderInfoDto appenderInfo=new LogAppenderInfoDto(entity.getTypeName(),entity.getConfiguration(),entity.getAppenderClassName());
+    detailsView.getConfiguration().setValue(entity.getFieldConfiguration());
+    LogAppenderInfoDto appenderInfo=new LogAppenderInfoDto(entity.getPluginTypeName(),entity.getFieldConfiguration(),entity.getPluginClassName());
     detailsView.getAppenderInfo().setValue(appenderInfo);
   }
   detailsView.setSchemaVersions(versions);

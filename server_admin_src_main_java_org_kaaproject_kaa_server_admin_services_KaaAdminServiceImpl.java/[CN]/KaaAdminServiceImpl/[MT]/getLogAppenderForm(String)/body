@@ -1,12 +1,12 @@
 {
   LogAppenderDto logAppender=getLogAppender(appenderId);
   try {
-    LogAppenderFormWrapper wrapper=new LogAppenderFormWrapper(logAppender);
-    Schema schema=appenderConfigSchemas.get(wrapper.getAppenderClassName());
+    LogAppenderDto wrapper=new LogAppenderDto(logAppender);
+    Schema schema=appenderConfigSchemas.get(wrapper.getPluginClassName());
     GenericAvroConverter<GenericRecord> converter=new GenericAvroConverter<>(schema);
     GenericRecord record=converter.decodeBinary(logAppender.getRawConfiguration());
     RecordField formData=FormAvroConverter.createRecordFieldFromGenericRecord(record);
-    wrapper.setConfiguration(formData);
+    wrapper.setFieldConfiguration(formData);
     return wrapper;
   }
  catch (  Exception e) {

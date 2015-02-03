@@ -1,6 +1,6 @@
 {
   List<LogAppenderDto> logAppenders=getLogAppendersByApplicationId(appId);
-  List<LogAppenderRestDto> restLogAppenders=new ArrayList<>(logAppenders.size());
+  List<LogAppenderDto> restLogAppenders=new ArrayList<>(logAppenders.size());
   for (  LogAppenderDto logAppender : logAppenders) {
     restLogAppenders.add(toRestLogAppender(logAppender));
   }

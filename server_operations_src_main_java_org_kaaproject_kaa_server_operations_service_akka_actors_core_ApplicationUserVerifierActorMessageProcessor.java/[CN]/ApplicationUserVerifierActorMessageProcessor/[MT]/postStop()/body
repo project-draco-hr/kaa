@@ -1,5 +1,5 @@
 {
-  for (  Entry<Integer,UserVerifier> verifier : userVerifiers.entrySet()) {
+  for (  Entry<String,UserVerifier> verifier : userVerifiers.entrySet()) {
     LOG.info("[{}] Stopping user verifier with id [{}].",applicationId,verifier.getKey());
     verifier.getValue().stop();
   }

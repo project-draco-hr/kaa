@@ -1,6 +1,6 @@
 {
   LOG.debug("Get log appenders by application id [{}]",applicationId);
-  List<LogAppenderDto> appenders=logAppendersService.findRegisteredLogAppendersByAppId(applicationId);
+  List<LogAppenderDto> appenders=logAppendersService.findAllAppendersByAppId(applicationId);
   LOG.debug("Found all appenders [{}] for application.",appenders);
   List<LogAppender> logAppenders=new ArrayList<>(appenders.size());
   for (  LogAppenderDto appender : appenders) {
