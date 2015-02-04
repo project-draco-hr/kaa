@@ -73,5 +73,15 @@
       return lastComparison;
     }
   }
+  lastComparison=Boolean.valueOf(isSetDefaultVerifierToken()).compareTo(other.isSetDefaultVerifierToken());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetDefaultVerifierToken()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.defaultVerifierToken,other.defaultVerifierToken);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
   return 0;
 }

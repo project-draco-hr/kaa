@@ -56,5 +56,13 @@ unsetLogSchemaVersion();
 setLogSchemaVersion((Integer)value);
 }
 break;
+case DEFAULT_VERIFIER_TOKEN:
+if (value == null) {
+unsetDefaultVerifierToken();
+}
+ else {
+setDefaultVerifierToken((String)value);
+}
+break;
 }
 }
