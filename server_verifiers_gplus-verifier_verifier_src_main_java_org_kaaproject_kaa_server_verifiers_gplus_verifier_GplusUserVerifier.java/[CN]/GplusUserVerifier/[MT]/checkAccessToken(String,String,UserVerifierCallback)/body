@@ -1,14 +1,13 @@
 {
-  LOG.trace("Received user verification request for user {} and access token {}",userExternalId,accessToken);
   URL url=null;
   try {
     url=new URL(GOOGLE_OAUTH + URLEncoder.encode(accessToken,"UTF-8"));
   }
  catch (  MalformedURLException e) {
-    e.printStackTrace();
+    LOG.debug("message",e);
   }
 catch (  UnsupportedEncodingException e) {
-    e.printStackTrace();
+    LOG.debug("message",e);
   }
   thredPool.submit(new RunnableVerifier(url,callback,userExternalId));
 }

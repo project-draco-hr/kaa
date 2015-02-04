@@ -1,4 +1,3 @@
 {
-  LOG.info("Initializing user verifier with context {} and configuration {}",context,configuration);
-  thredPool=new ThreadPoolExecutor(0,configuration.getMaxParallelConnections(),60L,TimeUnit.SECONDS,new LinkedBlockingQueue<Runnable>());
+  thredPool=new ThreadPoolExecutor(configuration.getMinParallelConnections(),configuration.getMaxParallelConnections(),configuration.getKeepAliveTimeMilliseconds(),TimeUnit.MILLISECONDS,new LinkedBlockingQueue<Runnable>());
 }

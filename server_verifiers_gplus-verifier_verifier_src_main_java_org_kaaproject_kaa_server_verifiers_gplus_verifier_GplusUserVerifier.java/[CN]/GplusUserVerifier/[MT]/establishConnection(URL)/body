@@ -4,7 +4,7 @@
     connection=(HttpURLConnection)url.openConnection();
   }
  catch (  IOException e) {
-    e.printStackTrace();
+    LOG.debug("message",e);
   }
   return connection;
 }

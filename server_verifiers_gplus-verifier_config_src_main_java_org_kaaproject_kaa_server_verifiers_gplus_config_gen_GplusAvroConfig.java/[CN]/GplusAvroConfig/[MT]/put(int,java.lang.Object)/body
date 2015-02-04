@@ -3,6 +3,12 @@ switch (field$) {
 case 0:
     max_parallel_connections=(java.lang.Integer)value$;
   break;
+case 1:
+min_parallel_connections=(java.lang.Integer)value$;
+break;
+case 2:
+keep_alive_time_milliseconds=(java.lang.Long)value$;
+break;
 default :
 throw new org.apache.avro.AvroRuntimeException("Bad index");
 }
