@@ -33,6 +33,22 @@
  else   if (!configurationSchemaVersion.equals(other.configurationSchemaVersion)) {
     return false;
   }
+  if (defaultVerifierToken == null) {
+    if (other.defaultVerifierToken != null) {
+      return false;
+    }
+  }
+ else   if (!defaultVerifierToken.equals(other.defaultVerifierToken)) {
+    return false;
+  }
+  if (logSchemaVersion == null) {
+    if (other.logSchemaVersion != null) {
+      return false;
+    }
+  }
+ else   if (!logSchemaVersion.equals(other.logSchemaVersion)) {
+    return false;
+  }
   if (notificationSchemaVersion == null) {
     if (other.notificationSchemaVersion != null) {
       return false;
@@ -47,14 +63,6 @@
     }
   }
  else   if (!profileSchemaVersion.equals(other.profileSchemaVersion)) {
-    return false;
-  }
-  if (logSchemaVersion == null) {
-    if (other.logSchemaVersion != null) {
-      return false;
-    }
-  }
- else   if (!logSchemaVersion.equals(other.logSchemaVersion)) {
     return false;
   }
   if (targetPlatform != other.targetPlatform) {

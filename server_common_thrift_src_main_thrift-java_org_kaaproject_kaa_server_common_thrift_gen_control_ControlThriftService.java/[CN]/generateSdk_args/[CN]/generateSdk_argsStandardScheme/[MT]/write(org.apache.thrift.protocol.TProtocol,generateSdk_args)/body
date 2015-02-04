@@ -34,6 +34,11 @@
   oprot.writeFieldBegin(LOG_SCHEMA_VERSION_FIELD_DESC);
   oprot.writeI32(struct.logSchemaVersion);
   oprot.writeFieldEnd();
+  if (struct.defaultVerifierToken != null) {
+    oprot.writeFieldBegin(DEFAULT_VERIFIER_TOKEN_FIELD_DESC);
+    oprot.writeString(struct.defaultVerifierToken);
+    oprot.writeFieldEnd();
+  }
   oprot.writeFieldStop();
   oprot.writeStructEnd();
 }

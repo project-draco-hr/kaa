@@ -42,5 +42,11 @@
     if (!(this_present_logSchemaVersion && that_present_logSchemaVersion))     return false;
     if (this.logSchemaVersion != that.logSchemaVersion)     return false;
   }
+  boolean this_present_defaultVerifierToken=true && this.isSetDefaultVerifierToken();
+  boolean that_present_defaultVerifierToken=true && that.isSetDefaultVerifierToken();
+  if (this_present_defaultVerifierToken || that_present_defaultVerifierToken) {
+    if (!(this_present_defaultVerifierToken && that_present_defaultVerifierToken))     return false;
+    if (!this.defaultVerifierToken.equals(that.defaultVerifierToken))     return false;
+  }
   return true;
 }

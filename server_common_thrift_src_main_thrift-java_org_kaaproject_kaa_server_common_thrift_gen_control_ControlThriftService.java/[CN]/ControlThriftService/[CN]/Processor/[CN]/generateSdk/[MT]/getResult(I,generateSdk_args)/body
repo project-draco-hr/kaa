@@ -1,7 +1,7 @@
 {
   generateSdk_result result=new generateSdk_result();
   try {
-    result.success=iface.generateSdk(args.sdkPlatform,args.applicationId,args.profileSchemaVersion,args.configurationSchemaVersion,args.notificationSchemaVersion,args.aefMapIds,args.logSchemaVersion);
+    result.success=iface.generateSdk(args.sdkPlatform,args.applicationId,args.profileSchemaVersion,args.configurationSchemaVersion,args.notificationSchemaVersion,args.aefMapIds,args.logSchemaVersion,args.defaultVerifierToken);
   }
  catch (  ControlThriftException ControlException) {
     result.ControlException=ControlException;
