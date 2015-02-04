@@ -5,27 +5,7 @@
   HttpURLConnection connection=null;
   try {
     connection=establishConnection(url);
-    try {
-      connection.setRequestMethod("POST");
-    }
- catch (    ProtocolException e) {
-      LOG.debug("message",e);
-    }
-    connection.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
-    connection.setUseCaches(false);
-    connection.setDoInput(true);
-    connection.setDoOutput(true);
-    String urlParameters="access_token=" + accessToken;
-    connection.setRequestProperty("Content-Length","" + Integer.toString(urlParameters.getBytes().length));
-    try {
-      DataOutputStream wr=new DataOutputStream(connection.getOutputStream());
-      wr.writeBytes(urlParameters);
-      wr.flush();
-      wr.close();
-    }
- catch (    IOException e) {
-      LOG.debug("message",e);
-    }
+    connection.setRequestMethod("GET");
     int responseCode=connection.getResponseCode();
     if (responseCode == 400) {
       callback.onTokenInvalid();

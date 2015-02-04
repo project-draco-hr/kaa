@@ -1,10 +1,10 @@
 {
   URL url=null;
   try {
-    url=new URL(GOOGLE_OAUTH);
+    url=new URL(GOOGLE_OAUTH + accessToken);
   }
  catch (  MalformedURLException e) {
     LOG.debug("message",e);
   }
-  threadPool.submit(new RunnableVerifier(url,callback,userExternalId,accessToken));
+  threadPool.submit(new RunnableVerifier(url,callback,userExternalId));
 }
