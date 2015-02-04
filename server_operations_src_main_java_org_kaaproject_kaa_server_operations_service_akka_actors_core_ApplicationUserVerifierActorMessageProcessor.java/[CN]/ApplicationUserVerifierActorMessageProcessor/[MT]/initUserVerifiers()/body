@@ -4,6 +4,7 @@
     try {
       LOG.trace("Initializing user verifier for {}",dto);
       UserVerifier verifier=createUserVerifier(dto);
+      LOG.trace("Registering user verifier with token {}",dto.getVerifierToken());
       userVerifiers.put(dto.getVerifierToken(),verifier);
     }
  catch (    Exception e) {
