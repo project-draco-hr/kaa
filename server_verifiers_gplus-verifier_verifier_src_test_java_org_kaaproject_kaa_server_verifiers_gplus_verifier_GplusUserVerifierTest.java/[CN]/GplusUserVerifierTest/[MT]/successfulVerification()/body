@@ -2,6 +2,7 @@
   String userId="12456789123456";
   verifier=new MyGplusVerifier(200,"{\n" + "  \"audience\":\"8819981768.apps.googleusercontent.com\",\n" + "  \"user_id\":\"" + userId + "\",\n"+ "  \"scope\":\"profile email\",\n"+ "  \"expires_in\":436\n"+ "}");
   verifier.init(null,config);
+  verifier.start();
   UserVerifierCallback callback=mock(UserVerifierCallback.class);
   verifier.checkAccessToken(userId,"someToken",callback);
   verify(callback,Mockito.timeout(1000).atLeastOnce()).onSuccess();

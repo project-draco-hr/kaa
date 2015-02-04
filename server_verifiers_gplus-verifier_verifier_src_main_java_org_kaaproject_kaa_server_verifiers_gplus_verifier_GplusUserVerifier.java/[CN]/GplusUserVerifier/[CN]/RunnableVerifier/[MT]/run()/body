@@ -2,11 +2,12 @@
   BufferedReader bufferedReader=null;
   String line;
   StringBuilder responseJson=new StringBuilder();
+  int responseCode=0;
   HttpURLConnection connection=null;
   try {
     connection=establishConnection(url);
     connection.setRequestMethod("GET");
-    int responseCode=connection.getResponseCode();
+    responseCode=connection.getResponseCode();
     if (responseCode == 400) {
       callback.onTokenInvalid();
       return;
@@ -46,5 +47,6 @@
       }
     }
   }
-  callback.onConnectionError();
+  LOG.trace("Server response code: {} no data can be retrieved" + responseCode);
+  callback.onVerificationFailure("Server response code:" + responseCode + ", no data can be retrieved");
 }

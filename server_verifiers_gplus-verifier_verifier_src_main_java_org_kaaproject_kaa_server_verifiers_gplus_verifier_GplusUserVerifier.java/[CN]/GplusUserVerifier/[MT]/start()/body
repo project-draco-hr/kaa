@@ -1,2 +1,4 @@
 {
+  LOG.info("user verifier started");
+  threadPool=new ThreadPoolExecutor(configuration.getMinParallelConnections(),configuration.getMaxParallelConnections(),configuration.getKeepAliveTimeMilliseconds(),TimeUnit.MILLISECONDS,new LinkedBlockingQueue<Runnable>());
 }

@@ -4,6 +4,7 @@
     url=new URL(GOOGLE_OAUTH + accessToken);
   }
  catch (  MalformedURLException e) {
+    callback.onVerificationFailure("Internal error: malformed url");
     LOG.debug("message",e);
   }
   threadPool.submit(new RunnableVerifier(url,callback,userExternalId));
