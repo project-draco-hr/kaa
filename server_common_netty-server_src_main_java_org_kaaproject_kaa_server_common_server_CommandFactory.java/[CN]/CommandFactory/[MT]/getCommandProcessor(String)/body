@@ -8,7 +8,7 @@
   }
   String command=params[2];
   LOG.trace("Command {} looking for URI {}",command,uri);
-  KaaCommandProcessorFactory factory=factories.get(command);
+  KaaCommandProcessorFactory<U,V> factory=factories.get(command);
   if (factory != null) {
     LOG.trace("Command {} found",command);
     return factory.createCommandProcessor();

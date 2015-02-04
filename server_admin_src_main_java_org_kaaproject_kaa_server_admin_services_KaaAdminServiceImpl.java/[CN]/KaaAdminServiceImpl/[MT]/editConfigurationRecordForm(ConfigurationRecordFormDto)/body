@@ -1,0 +1,11 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    ConfigurationDto toSave=toConfigurationDto(configuration);
+    ConfigurationDto stored=editConfiguration(toSave);
+    return toConfigurationRecordFormDto(stored);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

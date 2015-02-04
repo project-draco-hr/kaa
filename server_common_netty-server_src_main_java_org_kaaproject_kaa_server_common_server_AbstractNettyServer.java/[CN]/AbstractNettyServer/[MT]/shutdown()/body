@@ -26,17 +26,4 @@
       LOG.trace("NettyHttpServer stopping: workerGroup stopped");
     }
   }
-  if (executor != null) {
-    try {
-      Future<? extends Object> f=executor.shutdownGracefully(250,1000,TimeUnit.MILLISECONDS);
-      f.await();
-    }
- catch (    InterruptedException e) {
-      LOG.trace("NettyHttpServer stopping: task executor error",e);
-    }
- finally {
-      executor=null;
-      LOG.trace("NettyHttpServer stopping: task executor stopped.");
-    }
-  }
 }

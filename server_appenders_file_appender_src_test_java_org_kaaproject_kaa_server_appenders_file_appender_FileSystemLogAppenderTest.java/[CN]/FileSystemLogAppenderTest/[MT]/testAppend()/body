@@ -20,7 +20,9 @@
     LogEvent logEvent=new LogEvent();
     logEvent.setLogData(converter.encode(theLog));
     LogEventPack logEventPack=new LogEventPack("endpointKey",1234567l,schema,Collections.singletonList(logEvent));
-    appender.doAppend(logEventPack);
+    TestLogDeliveryCallback callback=new TestLogDeliveryCallback();
+    appender.doAppend(logEventPack,callback);
+    Assert.assertTrue(callback.success);
   }
   finally {
     appender.close();

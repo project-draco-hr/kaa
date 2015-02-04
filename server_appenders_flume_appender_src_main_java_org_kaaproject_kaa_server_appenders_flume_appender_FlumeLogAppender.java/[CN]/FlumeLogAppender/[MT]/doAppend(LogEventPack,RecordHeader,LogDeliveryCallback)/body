@@ -1,0 +1,29 @@
+{
+  if (!closed) {
+    List<Event> events=flumeEventBuilder.generateEvents(logEventPack,header,getApplicationToken());
+    try {
+      if (events != null && !events.isEmpty()) {
+        if (flumeClientManger != null) {
+          flumeClientManger.sendEventsToFlume(events);
+          listener.onSuccess();
+        }
+ else {
+          LOG.warn("Flume client wasn't initialized. Invoke method init before.");
+          listener.onInternalError();
+        }
+      }
+ else {
+        LOG.warn("Unable to generate Flume events from log event pack!");
+        listener.onInternalError();
+      }
+    }
+ catch (    EventDeliveryException e) {
+      LOG.warn("Can't send flume event.");
+      listener.onConnectionError();
+    }
+  }
+ else {
+    LOG.info("Attempted to append to closed appender named [{}].",getName());
+    listener.onInternalError();
+  }
+}

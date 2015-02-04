@@ -1,0 +1,22 @@
+{
+  if (profile.getId() == null) {
+    profile.setId(convertKeyHashToString(profile.getEndpointKeyHash()));
+  }
+  LOG.debug("Saving endpoint profile with id {}",profile.getId());
+  ByteBuffer epKeyHash=profile.getEndpointKeyHash();
+  Statement saveByAppId=cassandraEPByAppIdDao.getSaveQuery(new CassandraEPByAppId(profile.getApplicationId(),epKeyHash));
+  String accessToken=profile.getAccessToken();
+  Statement saveByAccessToken=null;
+  if (accessToken != null) {
+    saveByAccessToken=cassandraEPByAccessTokenDao.getSaveQuery(new CassandraEPByAccessToken(accessToken,epKeyHash));
+  }
+  Statement saveProfile=getSaveQuery(profile);
+  if (saveByAccessToken != null) {
+    executeBatch(saveProfile,saveByAppId,saveByAccessToken);
+  }
+ else {
+    executeBatch(saveProfile,saveByAppId);
+  }
+  LOG.debug("[{}] Endpoint profile saved",profile.getId());
+  return profile;
+}

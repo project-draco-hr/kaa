@@ -1,0 +1,8 @@
+{
+  if (logEventPack != null) {
+    doAppend(logEventPack,generateHeader(logEventPack),listener);
+  }
+ else {
+    LOG.warn("Can't append log events. LogEventPack object is null.");
+  }
+}

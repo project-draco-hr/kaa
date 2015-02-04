@@ -1,0 +1,42 @@
+{
+  LOG.info("DefaultRebalancer recalculate Operations servers balance...");
+  Map<Integer,RedirectionRule> rules=new HashMap<Integer,RedirectionRule>();
+  if (opsServerLoadHistory.size() > 1) {
+    int highestLoadName=0;
+    int highestLoadValue=0;
+    int lowestLoadName=0;
+    int lowestLoadValue=Integer.MAX_VALUE;
+    int averageLoad=0;
+    int loadCount=0;
+    for (    Integer opsServer : opsServerLoadHistory.keySet()) {
+      if (opsServerLoadHistory.get(opsServer) != null) {
+        int processedRequestCountIntegral=getLastProcessedRequestCountFromAllChannels(opsServerLoadHistory.get(opsServer));
+        if (processedRequestCountIntegral > 0) {
+          if (processedRequestCountIntegral > highestLoadValue) {
+            highestLoadValue=processedRequestCountIntegral;
+            highestLoadName=opsServer;
+          }
+          if (processedRequestCountIntegral < lowestLoadValue) {
+            lowestLoadName=opsServer;
+            lowestLoadValue=processedRequestCountIntegral;
+          }
+          averageLoad+=processedRequestCountIntegral;
+          loadCount++;
+        }
+      }
+    }
+    if (loadCount > 0) {
+      averageLoad=averageLoad / loadCount;
+    }
+    if (averageLoad > minRequestCount) {
+      if (((highestLoadValue * 20) / 100) > lowestLoadValue) {
+        RedirectionRule rule=new RedirectionRule();
+        rule.setAccessPointId(lowestLoadName);
+        rule.setRedirectionProbability(0.2);
+        rule.setRuleTTL(300000);
+        rules.put(highestLoadName,rule);
+      }
+    }
+  }
+  return rules;
+}

@@ -29,6 +29,8 @@
   converters.put(dto.getSchema(),converter);
   ReflectionTestUtils.setField(logAppender,"converters",converters);
   Assert.assertEquals(0,getKeyValuesCount());
-  logAppender.doAppend(logEventPack);
+  TestLogDeliveryCallback callback=new TestLogDeliveryCallback();
+  logAppender.doAppend(logEventPack,callback);
+  Assert.assertTrue(callback.success);
   Assert.assertEquals(3,getKeyValuesCount());
 }

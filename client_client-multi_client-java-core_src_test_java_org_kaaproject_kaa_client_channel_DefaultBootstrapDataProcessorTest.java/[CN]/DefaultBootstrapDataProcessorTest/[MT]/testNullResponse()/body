@@ -3,5 +3,5 @@
   BootstrapTransport transport=Mockito.mock(BootstrapTransport.class);
   processor.setBootstrapTransport(transport);
   processor.processResponse(null);
-  Mockito.verify(transport,Mockito.times(0)).onResolveResponse(Mockito.any(OperationsServerList.class));
+  Mockito.verify(transport,Mockito.times(0)).onResolveResponse(Mockito.any(SyncResponse.class));
 }

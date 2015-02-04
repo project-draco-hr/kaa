@@ -1,0 +1,6 @@
+{
+  for (  LogAppender logAppender : logAppenders.values()) {
+    LOG.info("[{}] Closing appender [{}] with name {}",applicationToken,logAppender.getAppenderId(),logAppender.getName());
+    logAppender.close();
+  }
+}

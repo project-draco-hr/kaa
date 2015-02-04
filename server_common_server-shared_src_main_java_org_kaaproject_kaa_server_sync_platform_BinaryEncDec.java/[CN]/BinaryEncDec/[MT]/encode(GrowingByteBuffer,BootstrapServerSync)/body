@@ -1,0 +1,14 @@
+{
+  buildExtensionHeader(buf,BOOTSTRAP_EXTENSION_ID,NOTHING,NOTHING,NOTHING,0);
+  int extPosition=buf.position();
+  buf.putShort((short)bootstrapSync.getRequestId());
+  buf.putShort((short)bootstrapSync.getProtocolList().size());
+  for (  ProtocolConnectionData data : bootstrapSync.getProtocolList()) {
+    buf.putInt(data.getAccessPointId());
+    buf.putInt(data.getProtocolId());
+    buf.putShort((short)data.getProtocolVersion());
+    buf.putShort((short)data.getConnectionData().length);
+    put(buf,data.getConnectionData());
+  }
+  buf.putInt(extPosition - SIZE_OF_INT,buf.position() - extPosition);
+}

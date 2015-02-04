@@ -1,0 +1,12 @@
+{
+  Compression compression=Compression.NONE;
+  if (StringUtils.isNotBlank(cmp)) {
+    for (    Compression current : Compression.values()) {
+      if (current.name().equalsIgnoreCase(cmp)) {
+        compression=current;
+        break;
+      }
+    }
+  }
+  return compression;
+}

@@ -1,0 +1,8 @@
+{
+  if (queryOptions == null) {
+    queryOptions=new QueryOptions();
+    queryOptions.setConsistencyLevel(parseConsistencyLevel(consistencyLevel));
+    queryOptions.setFetchSize(defaultFetchSize);
+  }
+  return queryOptions;
+}

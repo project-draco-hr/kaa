@@ -1,4 +1,5 @@
 {
+  LOG.info("Try to attach endpoint profile with id {}, to user with access token {} ext id {} and tenant id {}",profile.getId(),userAccessToken,userExternalId,tenantId);
   validateString(userExternalId,"Incorrect userExternalId " + userExternalId);
   EndpointUser endpointUser=endpointUserDao.findByExternalIdAndTenantId(userExternalId,tenantId);
   if (endpointUser == null) {
@@ -18,5 +19,6 @@
   endpointIds.add(profile.getId());
   endpointUserDao.save(endpointUser);
   profile.setEndpointUserId(endpointUser.getId());
+  LOG.trace("Save endpoint user {} and endpoint profile {}",endpointUser,profile);
   return saveEndpointProfile(profile);
 }

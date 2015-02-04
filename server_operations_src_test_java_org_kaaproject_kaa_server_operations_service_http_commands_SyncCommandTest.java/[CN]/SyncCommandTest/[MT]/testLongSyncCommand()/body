@@ -1,9 +1,0 @@
-{
-  SyncCommandFactory commandFactory=new LongSyncCommandFactory();
-  SyncCommand command=(LongSyncCommand)commandFactory.createCommandProcessor();
-  command.setResponseBody("responseBody".getBytes());
-  HttpResponse response=command.getResponse();
-  Assert.assertNotNull(response);
-  Assert.assertEquals(RESPONSE_CONTENT_TYPE,response.headers().get(CONTENT_TYPE));
-  Assert.assertEquals(ChannelType.HTTP_LP,command.getChannelType());
-}

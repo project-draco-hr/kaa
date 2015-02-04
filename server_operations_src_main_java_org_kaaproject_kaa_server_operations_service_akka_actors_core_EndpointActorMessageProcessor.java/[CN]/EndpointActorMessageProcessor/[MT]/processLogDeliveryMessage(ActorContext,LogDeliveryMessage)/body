@@ -1,0 +1,17 @@
+{
+  LOG.debug("[{}][{}] Received log delivery message for request [{}] with status {}",endpointKey,actorKey,message.getRequestId(),message.isSuccess());
+  logUploadResponseMap.put(message.getRequestId(),message);
+  List<ChannelMetaData> channels=channelMap.getByTransportType(TransportType.LOGGING);
+  if (channels.size() > 0) {
+    ChannelMetaData channel=channels.get(0);
+    SyncRequestMessage pendingRequest=channel.getRequestMessage();
+    ServerSync pendingResponse=channel.getResponseHolder().getResponse();
+    pendingResponse.setLogSync(toLogDeliveryStatus());
+    logUploadResponseMap.clear();
+    LOG.debug("[{}][{}] sending reply to [{}] channel",endpointKey,actorKey,channel.getId());
+    sendReply(context,pendingRequest,pendingResponse);
+    if (!channel.getType().isAsync()) {
+      channelMap.removeChannel(channel);
+    }
+  }
+}

@@ -1,0 +1,4 @@
+{
+  NotificationDto expected=generateNotifications(null,null,null,1,NotificationTypeDto.USER).get(0);
+  Assert.assertEquals(expected,new CassandraNotification(expected).toDto());
+}

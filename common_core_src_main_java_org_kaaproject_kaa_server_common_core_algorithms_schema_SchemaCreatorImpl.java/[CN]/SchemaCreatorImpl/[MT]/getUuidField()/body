@@ -1,6 +1,8 @@
 {
   Map<String,Object> uuidField=new HashMap<String,Object>();
   uuidField.put(NAME_FIELD,UUID_FIELD);
+  uuidField.put(DISPLAY_NAME_FIELD,UUID_FIELD_DISPLAY_NAME);
+  uuidField.put(FIELD_ACCESS_FIELD,FIELD_ACCESS_READ_ONLY);
   if (strategy.isUuidOptional()) {
     List<Object> union=new ArrayList<Object>(2);
     union.add(getUuidType());

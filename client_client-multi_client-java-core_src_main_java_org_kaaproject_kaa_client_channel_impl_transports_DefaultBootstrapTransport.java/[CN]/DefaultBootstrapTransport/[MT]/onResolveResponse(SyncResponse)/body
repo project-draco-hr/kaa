@@ -1,0 +1,5 @@
+{
+  if (manager != null && syncResponse != null && syncResponse.getBootstrapSyncResponse() != null) {
+    manager.onProtocolListUpdated(syncResponse.getBootstrapSyncResponse().getSupportedProtocols());
+  }
+}

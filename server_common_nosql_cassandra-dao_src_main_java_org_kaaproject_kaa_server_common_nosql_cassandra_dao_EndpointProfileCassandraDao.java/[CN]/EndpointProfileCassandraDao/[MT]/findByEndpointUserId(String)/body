@@ -1,0 +1,17 @@
+{
+  LOG.debug("Try to find endpoint profiles by endpoint user id [{}]",endpointUserId);
+  List<CassandraEndpointProfile> profileList=Collections.emptyList();
+  CassandraEndpointUser endpointUser=endpointUserDao.findById(endpointUserId);
+  if (endpointUser != null) {
+    List<String> ids=endpointUser.getEndpointIds();
+    if (ids != null && !ids.isEmpty()) {
+      Statement select=select().from(getColumnFamilyName()).where(QueryBuilder.in(EP_EP_KEY_HASH_PROPERTY,convertStringIds(ids)));
+      LOG.trace("Execute statements {}",select);
+      profileList=findListByStatement(select);
+    }
+  }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("Found endpoint profiles {}",Arrays.toString(profileList.toArray()));
+  }
+  return profileList;
+}

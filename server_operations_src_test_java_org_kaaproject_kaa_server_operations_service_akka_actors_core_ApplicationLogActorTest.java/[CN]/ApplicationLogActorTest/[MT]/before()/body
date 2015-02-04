@@ -1,15 +1,16 @@
 {
   logAppenderService=mock(LogAppenderService.class);
-  applicationLogActor=mock(ApplicationLogActor.class);
+  applicationService=mock(ApplicationService.class);
+  applicationDto=mock(ApplicationDto.class);
   LogSchemaDto logSchemaDto=new LogSchemaDto();
-  logSchemaDto.setMajorVersion(1);
+  logSchemaDto.setMajorVersion(TEST_SCHEMA_VERSION);
   logSchema=new LogSchema(logSchemaDto);
-  logSchemas=new HashMap<>();
   logAppenders=new ArrayList<>();
   logAppender=mock(LogAppender.class);
-  ReflectionTestUtils.setField(applicationLogActor,"applicationToken",APP_TOKEN);
-  ReflectionTestUtils.setField(applicationLogActor,"logSchemas",logSchemas);
-  ReflectionTestUtils.setField(applicationLogActor,"logAppenders",logAppenders);
-  ReflectionTestUtils.setField(applicationLogActor,"logAppenderService",logAppenderService);
+  logAppenders.add(logAppender);
+  when(logAppenderService.getLogSchema(APPLICATION_ID,LOG_SCHEMA_VERSION)).thenReturn(logSchema);
+  when(applicationService.findAppByApplicationToken(APP_TOKEN)).thenReturn(applicationDto);
+  when(applicationDto.getId()).thenReturn(APPLICATION_ID);
+  when(logAppenderService.getApplicationAppenders(APPLICATION_ID)).thenReturn(logAppenders);
   when(logAppender.isSchemaVersionSupported(Mockito.anyInt())).thenReturn(Boolean.TRUE);
 }

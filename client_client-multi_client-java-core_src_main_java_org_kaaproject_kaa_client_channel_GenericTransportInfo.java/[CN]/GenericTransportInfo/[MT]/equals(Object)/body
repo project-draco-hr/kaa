@@ -1,0 +1,16 @@
+{
+  if (this == obj)   return true;
+  if (obj == null)   return false;
+  if (getClass() != obj.getClass())   return false;
+  GenericTransportInfo other=(GenericTransportInfo)obj;
+  if (md == null) {
+    if (other.md != null)     return false;
+  }
+ else   if (!md.equals(other.md))   return false;
+  if (serverType != other.serverType)   return false;
+  if (transportId == null) {
+    if (other.transportId != null)     return false;
+  }
+ else   if (!transportId.equals(other.transportId))   return false;
+  return true;
+}

@@ -1,0 +1,9 @@
+{
+  if (logAppenders.containsKey(appenderId)) {
+    LOG.info("[{}] Closing log appender with id [{}].",applicationToken,appenderId);
+    removeAppender(appenderId).close();
+  }
+ else {
+    LOG.warn("[{}] Can't remove unregistered appender with id [{}]",applicationToken,appenderId);
+  }
+}

@@ -1,0 +1,7 @@
+{
+  KaaChannelManager channelManager=Mockito.mock(KaaChannelManager.class);
+  DefaultLogUploadFailoverStrategy strategy=new DefaultLogUploadFailoverStrategy(channelManager);
+  Assert.assertTrue(strategy.isUploadApproved());
+  strategy.onFailure(LogDeliveryErrorCode.APPENDER_INTERNAL_ERROR);
+  Assert.assertFalse(strategy.isUploadApproved());
+}

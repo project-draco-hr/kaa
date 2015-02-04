@@ -1,0 +1,12 @@
+{
+  ConsistencyLevel consistencyLevel=ConsistencyLevel.ANY;
+  if (isNotBlank(level)) {
+    for (    ConsistencyLevel current : ConsistencyLevel.values()) {
+      if (current.name().equalsIgnoreCase(level)) {
+        consistencyLevel=current;
+        break;
+      }
+    }
+  }
+  return consistencyLevel;
+}

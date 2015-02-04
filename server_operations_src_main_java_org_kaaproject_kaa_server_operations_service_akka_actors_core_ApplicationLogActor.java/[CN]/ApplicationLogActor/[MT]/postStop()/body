@@ -1,6 +1,4 @@
 {
-  for (  LogAppender logAppender : logAppenders) {
-    logAppender.close();
-  }
+  messageProcessor.stop();
   LOG.info("[{}] Stoped ",applicationToken);
 }

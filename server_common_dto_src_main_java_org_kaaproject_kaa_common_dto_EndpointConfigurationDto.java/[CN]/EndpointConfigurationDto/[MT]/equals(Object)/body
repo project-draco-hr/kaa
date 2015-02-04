@@ -1,13 +1,8 @@
 {
-  if (this == o) {
-    return true;
-  }
-  if (!(o instanceof EndpointConfigurationDto)) {
-    return false;
-  }
+  if (this == o)   return true;
+  if (o == null || getClass() != o.getClass())   return false;
   EndpointConfigurationDto that=(EndpointConfigurationDto)o;
-  if (!Arrays.equals(configurationHash,that.configurationHash)) {
-    return false;
-  }
-  return Arrays.equals(configuration,that.configuration);
+  if (!Arrays.equals(configuration,that.configuration))   return false;
+  if (!Arrays.equals(configurationHash,that.configurationHash))   return false;
+  return true;
 }

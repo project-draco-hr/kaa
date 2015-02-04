@@ -1,7 +1,0 @@
-{
-  for (  StatisticsServiceContainer serviceContainer : statServices.values()) {
-    serviceContainer.service.shutdown();
-    assertTrue(!serviceContainer.service.isAlive());
-  }
-  statServices.clear();
-}

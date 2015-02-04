@@ -1,0 +1,12 @@
+{
+  if (isShutdown) {
+    LOG.warn("Can't process server failure. Channel manager is down");
+    return;
+  }
+  if (server.getServerType() == ServerType.BOOTSTRAP) {
+    onTransportConnectionInfoUpdated(getNextBootstrapServer(server));
+  }
+ else {
+    bootstrapManager.useNextOperationsServer(server.getTransportId());
+  }
+}
