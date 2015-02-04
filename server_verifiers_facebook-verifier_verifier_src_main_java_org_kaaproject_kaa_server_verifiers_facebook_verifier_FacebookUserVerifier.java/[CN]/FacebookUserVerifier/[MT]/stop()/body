@@ -1,3 +1,5 @@
 {
-  LOG.info("user verifier stopped");
+  LOG.info("stopping facebook verifier");
+  tokenVerifiersPool.shutdown();
+  LOG.info("facebook user verifier stopped");
 }

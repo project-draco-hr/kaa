@@ -1,5 +1,4 @@
 {
-  LOG.info("Initializing user verifier with context {} and configuration {}",context,configuration);
+  LOG.info("Initializing facebook user verifier with context {} and configuration {}",context,configuration);
   this.configuration=configuration;
-  tokenVerifiersPool=new ThreadPoolExecutor(0,configuration.getMaxParallelConnections(),60L,TimeUnit.SECONDS,new LinkedBlockingQueue<Runnable>());
 }

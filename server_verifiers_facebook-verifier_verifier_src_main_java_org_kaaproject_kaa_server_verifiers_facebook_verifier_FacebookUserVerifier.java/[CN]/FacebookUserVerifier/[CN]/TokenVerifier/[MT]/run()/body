@@ -6,25 +6,25 @@
     connection=establishConnection(userAccessToken,accessToken);
     responseMapper=new ObjectMapper();
     if (connection.getResponseCode() == 400) {
-      LOG.trace("400 Bad request");
-      callback.onVerificationFailure("400 Bad request");
+      LOG.trace("400: The request could not be understood by the verifier due to malformed syntax");
+      callback.onVerificationFailure("400: The request could not be understood by the verifier due" + " to malformed syntax");
     }
  else     if (connection.getResponseCode() == 200) {
       reader=new BufferedReader(new InputStreamReader(connection.getInputStream()));
-      HashMap<String,Object> responseMap=responseMapper.readValue(reader.readLine(),HashMap.class);
-      HashMap<String,Object> dataMap=(HashMap)responseMap.get("data");
+      Map<String,Object> responseMap=responseMapper.readValue(reader.readLine(),Map.class);
+      Map<String,Object> dataMap=(Map)responseMap.get("data");
       String receivedUserId=(String)dataMap.get("user_id");
       if (receivedUserId == null) {
-        HashMap<String,Object> errorMap=(HashMap)dataMap.get("error");
+        Map<String,Object> errorMap=(Map)dataMap.get("error");
         LOG.trace("Bad input token: {}, errcode = ",errorMap.get("message"),errorMap.get("code"));
         callback.onVerificationFailure("Bad input token: " + errorMap.get("message") + ", errcode = "+ errorMap.get("code"));
       }
  else       if (!receivedUserId.equals(userExternalId)) {
-        LOG.trace("Input token {} doesn't belong to the user with {} id",userAccessToken,userExternalId);
+        LOG.trace("Input token doesn't belong to the user with {} id",userExternalId);
         callback.onVerificationFailure("User access token " + userAccessToken + " doesn't belong to the user");
       }
  else {
-        LOG.trace("Input token {} is confirmed and belongs to the user with {} id",userAccessToken,userExternalId);
+        LOG.trace("Input token is confirmed and belongs to the user with {} id",userExternalId);
         callback.onSuccess();
       }
     }
@@ -34,11 +34,11 @@
     }
   }
  catch (  MalformedURLException e) {
-    LOG.debug(e.toString());
+    LOG.debug("message",e);
     callback.onVerificationFailure("Internal error: malformed url");
   }
 catch (  IOException e) {
-    LOG.debug(e.toString());
+    LOG.debug("message",e);
     callback.onVerificationFailure("Internal error: IOException");
   }
  finally {
@@ -48,7 +48,7 @@ catch (  IOException e) {
         reader.close();
       }
  catch (      IOException e) {
-        LOG.debug(e.toString());
+        LOG.debug("message",e);
       }
     }
   }
