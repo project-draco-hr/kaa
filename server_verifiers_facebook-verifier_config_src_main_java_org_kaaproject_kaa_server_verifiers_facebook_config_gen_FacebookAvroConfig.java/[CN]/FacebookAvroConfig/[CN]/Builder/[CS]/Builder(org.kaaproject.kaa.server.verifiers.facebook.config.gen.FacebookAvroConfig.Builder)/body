@@ -1,0 +1,15 @@
+{
+  super(other);
+  if (isValidValue(fields()[0],other.app_id)) {
+    this.app_id=data().deepCopy(fields()[0].schema(),other.app_id);
+    fieldSetFlags()[0]=true;
+  }
+  if (isValidValue(fields()[1],other.app_secret)) {
+    this.app_secret=data().deepCopy(fields()[1].schema(),other.app_secret);
+    fieldSetFlags()[1]=true;
+  }
+  if (isValidValue(fields()[2],other.max_parallel_connections)) {
+    this.max_parallel_connections=data().deepCopy(fields()[2].schema(),other.max_parallel_connections);
+    fieldSetFlags()[2]=true;
+  }
+}
