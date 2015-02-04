@@ -51,6 +51,9 @@
   if (defaultVerifierToken == null) {
     defaultVerifierToken="null";
   }
+ else {
+    defaultVerifierToken="\"" + defaultVerifierToken + "\"";
+  }
   String userVerifierConstantsSource=userVerifierConstantsTemplate.replaceAll(DEFAULT_USER_VERIFIER_TOKEN_VAR,defaultVerifierToken);
   JavaDynamicBean userVerifierConstantsClassBean=new JavaDynamicBean(USER_VERIFIER_CONSTANTS,userVerifierConstantsSource);
   javaSources.add(userVerifierConstantsClassBean);
