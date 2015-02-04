@@ -9,5 +9,5 @@
 catch (  UnsupportedEncodingException e) {
     LOG.debug("message",e);
   }
-  thredPool.submit(new RunnableVerifier(url,callback,userExternalId));
+  threadPool.submit(new RunnableVerifier(url,callback,userExternalId));
 }

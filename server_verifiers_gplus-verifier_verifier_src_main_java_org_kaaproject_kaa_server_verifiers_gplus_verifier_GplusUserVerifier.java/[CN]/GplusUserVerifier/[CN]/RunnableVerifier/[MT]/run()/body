@@ -2,8 +2,9 @@
   BufferedReader br=null;
   String line;
   StringBuilder responseJson=new StringBuilder();
+  HttpURLConnection connection=null;
   try {
-    HttpURLConnection connection=establishConnection(url);
+    connection=establishConnection(url);
     connection.setRequestMethod("GET");
     int responseCode=connection.getResponseCode();
     if (responseCode == 400) {
@@ -31,6 +32,11 @@
   }
  catch (  IOException e) {
     LOG.debug("message",e);
+  }
+ finally {
+    if (null != connection) {
+      connection.disconnect();
+    }
   }
   callback.onConnectionError();
 }
