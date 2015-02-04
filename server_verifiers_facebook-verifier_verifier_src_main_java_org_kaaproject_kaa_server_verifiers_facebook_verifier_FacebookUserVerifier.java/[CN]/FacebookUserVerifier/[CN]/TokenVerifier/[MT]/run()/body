@@ -29,7 +29,7 @@
       }
     }
  else {
-      LOG.trace("Server response code: {}, no data can be retrieved" + connection.getResponseCode());
+      LOG.trace("Server response code: {}, no data can be retrieved",connection.getResponseCode());
       callback.onVerificationFailure("Server response code:" + connection.getResponseCode() + ", no data can be retrieved");
     }
   }

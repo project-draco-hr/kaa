@@ -1,5 +1,4 @@
 {
   URL myUrl=new URL(FACEBOOK_URL_PREFIX + "?" + "input_token="+ userAccessToken+ "&access_token="+ accessToken);
-  HttpURLConnection connection=(HttpURLConnection)myUrl.openConnection();
-  return connection;
+  return (HttpURLConnection)myUrl.openConnection();
 }
