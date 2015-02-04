@@ -12,11 +12,11 @@
  else     if (connection.getResponseCode() == 200) {
       reader=new BufferedReader(new InputStreamReader(connection.getInputStream()));
       Map<String,Object> responseMap=responseMapper.readValue(reader.readLine(),Map.class);
-      Map<String,Object> dataMap=(Map)responseMap.get("data");
+      Map<String,Object> dataMap=(Map<String,Object>)responseMap.get("data");
       String receivedUserId=(String)dataMap.get("user_id");
       if (receivedUserId == null) {
-        Map<String,Object> errorMap=(Map)dataMap.get("error");
-        LOG.trace("Bad input token: {}, errcode = ",errorMap.get("message"),errorMap.get("code"));
+        Map<String,Object> errorMap=(Map<String,Object>)dataMap.get("error");
+        LOG.trace("Bad input token: {}, errcode = {}",errorMap.get("message"),errorMap.get("code"));
         callback.onVerificationFailure("Bad input token: " + errorMap.get("message") + ", errcode = "+ errorMap.get("code"));
       }
  else       if (!receivedUserId.equals(userExternalId)) {
