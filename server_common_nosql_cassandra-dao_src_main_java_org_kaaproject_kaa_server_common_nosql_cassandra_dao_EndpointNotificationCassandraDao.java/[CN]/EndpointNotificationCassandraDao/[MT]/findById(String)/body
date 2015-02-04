@@ -2,9 +2,8 @@
   LOG.debug("Try to find endpoint notifications by id {}",id);
   CassandraEndpointNotification key=new CassandraEndpointNotification(id);
   Select.Where where=select().from(getColumnFamilyName()).where(eq(ET_NF_ENDPOINT_KEY_HASH_PROPERTY,key.getEndpointKeyHash())).and(eq(ET_NF_LAST_MOD_TIME_PROPERTY,key.getLastModifyTime()));
-  LOG.debug("[id] Execute query {}:",id,where);
+  LOG.debug("[{}] Execute query {}:",id,where);
   CassandraEndpointNotification endpointNotification=findOneByStatement(where);
-  LOG.debug("{} endpoint notification by id {}:",endpointNotification != null ? "Found" : "No found",id);
   LOG.trace("Found endpoint notification {} by id {}:",endpointNotification,id);
   return endpointNotification;
 }
