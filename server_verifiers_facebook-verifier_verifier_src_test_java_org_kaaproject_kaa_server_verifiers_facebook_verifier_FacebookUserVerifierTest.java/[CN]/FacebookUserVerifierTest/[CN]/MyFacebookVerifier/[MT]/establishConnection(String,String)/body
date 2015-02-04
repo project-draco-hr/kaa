@@ -1,0 +1,11 @@
+{
+  HttpURLConnection connection=mock(HttpURLConnection.class);
+  try {
+    when(connection.getResponseCode()).thenReturn(responseCode);
+    when(connection.getInputStream()).thenReturn(new ByteArrayInputStream(inputStreamString.getBytes(StandardCharsets.UTF_8)));
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+  return connection;
+}

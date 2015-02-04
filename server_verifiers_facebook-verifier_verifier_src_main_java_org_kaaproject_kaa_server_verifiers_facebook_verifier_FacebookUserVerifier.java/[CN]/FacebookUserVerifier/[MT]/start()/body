@@ -1,0 +1,4 @@
+{
+  LOG.info("facebook user verifier started");
+  tokenVerifiersPool=new ThreadPoolExecutor(0,configuration.getMaxParallelConnections(),MAX_SEC_FACEBOOK_REQUEST_TIME,TimeUnit.SECONDS,new LinkedBlockingQueue<Runnable>());
+}

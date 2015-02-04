@@ -1,0 +1,12 @@
+{
+  try {
+    FacebookAvroConfig record=new FacebookAvroConfig();
+    record.app_id=fieldSetFlags()[0] ? this.app_id : (java.lang.String)defaultValue(fields()[0]);
+    record.app_secret=fieldSetFlags()[1] ? this.app_secret : (java.lang.String)defaultValue(fields()[1]);
+    record.max_parallel_connections=fieldSetFlags()[2] ? this.max_parallel_connections : (java.lang.Integer)defaultValue(fields()[2]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}
