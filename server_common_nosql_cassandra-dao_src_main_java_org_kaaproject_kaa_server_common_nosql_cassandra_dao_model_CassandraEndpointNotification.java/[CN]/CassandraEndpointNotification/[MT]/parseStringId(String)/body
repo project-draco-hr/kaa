@@ -1,0 +1,7 @@
+{
+  String[] ids=parseId(id);
+  if (ids != null && ids.length == 2) {
+    endpointKeyHash=Bytes.fromHexString(ids[0]);
+    lastModifyTime=new Date(Long.valueOf(ids[1]));
+  }
+}

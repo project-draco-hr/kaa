@@ -1,0 +1,5 @@
+{
+  LOG.debug("Try to remove endpoint user by id {}",id);
+  CassandraEndpointUser endpointUser=new CassandraEndpointUser(id);
+  removeByExternalIdAndTenantId(endpointUser.getExternalId(),endpointUser.getTenantId());
+}

@@ -1,0 +1,7 @@
+{
+  Application application=generateApplication(null);
+  List<NotificationSchema> userSchemas=generateNotificationSchema(application,3,NotificationTypeDto.USER);
+  List<NotificationSchema> systemSchemas=generateNotificationSchema(application,3,NotificationTypeDto.SYSTEM);
+  NotificationSchema found=notificationSchemaDao.findLatestNotificationSchemaByAppId(application.getStringId(),NotificationTypeDto.USER);
+  Assert.assertEquals(userSchemas.get(2),found);
+}

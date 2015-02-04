@@ -1,0 +1,9 @@
+{
+  LOG.debug("Try to find endpoint configuration by hash [{}] ",key);
+  CassandraEndpointConfiguration configuration=null;
+  if (key != null) {
+    configuration=findByHash(getBytes(key));
+  }
+  LOG.debug("[{}] Found endpoint configuration by hash {} ",key,configuration);
+  return configuration;
+}

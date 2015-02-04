@@ -1,0 +1,5 @@
+{
+  Statement delete=QueryBuilder.delete().all().from(getColumnFamilyName()).setConsistencyLevel(getWriteConsistencyLevel());
+  LOG.debug("Remove all request: {}",delete.toString());
+  session.execute(delete);
+}

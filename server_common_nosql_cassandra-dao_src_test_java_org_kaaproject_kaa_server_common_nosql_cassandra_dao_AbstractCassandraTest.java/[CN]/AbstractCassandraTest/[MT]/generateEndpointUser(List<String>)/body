@@ -1,0 +1,8 @@
+{
+  EndpointUserDto endpointUserDto=new EndpointUserDto();
+  endpointUserDto.setExternalId(UUID.randomUUID().toString());
+  endpointUserDto.setUsername("Test username");
+  endpointUserDto.setTenantId(UUID.randomUUID().toString());
+  endpointUserDto.setEndpointIds(endpointIds);
+  return endpointUserDao.save(new CassandraEndpointUser(endpointUserDto)).toDto();
+}

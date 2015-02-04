@@ -1,0 +1,9 @@
+{
+  CassandraEventClassFamilyVersionState state=new CassandraEventClassFamilyVersionState();
+  state.setEcfId("testID");
+  state.setVersion(42);
+  EventClassFamilyVersionStateDto dto=state.toDto();
+  CassandraEventClassFamilyVersionState state2=new CassandraEventClassFamilyVersionState(dto);
+  Assert.assertEquals(state.getEcfId(),state2.getEcfId());
+  Assert.assertEquals(state.getVersion(),state2.getVersion());
+}

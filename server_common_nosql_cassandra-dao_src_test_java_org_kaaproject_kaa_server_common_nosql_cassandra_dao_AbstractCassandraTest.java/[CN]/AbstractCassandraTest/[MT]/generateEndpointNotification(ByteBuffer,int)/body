@@ -1,0 +1,19 @@
+{
+  List<CassandraEndpointNotification> savedNotifications=new ArrayList<>();
+  String appId=generateStringId();
+  if (endpointKeyHash == null) {
+    endpointKeyHash=ByteBuffer.wrap(generateEndpointProfile(appId,null,null).getEndpointKeyHash());
+  }
+  String schemaId=generateStringId();
+  for (int i=0; i < count; i++) {
+    CassandraEndpointNotification endpointNotification=new CassandraEndpointNotification();
+    endpointNotification.setEndpointKeyHash(endpointKeyHash);
+    endpointNotification.setApplicationId(appId);
+    endpointNotification.setSchemaId(schemaId);
+    endpointNotification.setType(NotificationTypeDto.USER);
+    endpointNotification.setSeqNum(100 + i);
+    endpointNotification.setLastModifyTime(new Date(System.currentTimeMillis()));
+    savedNotifications.add(unicastNotificationDao.save(endpointNotification));
+  }
+  return savedNotifications;
+}

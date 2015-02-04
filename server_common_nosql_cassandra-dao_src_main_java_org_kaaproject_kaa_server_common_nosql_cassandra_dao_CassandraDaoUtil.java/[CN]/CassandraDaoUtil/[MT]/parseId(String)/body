@@ -1,0 +1,7 @@
+{
+  String[] ids=null;
+  if (isNotBlank(id) && id.contains(CassandraModelConstants.KEY_DELIMITER)) {
+    ids=id.split(CassandraModelConstants.KEY_DELIMITER);
+  }
+  return ids;
+}

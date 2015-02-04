@@ -1,0 +1,5 @@
+{
+  NotificationDto expected=generateNotifications(null,null,null,1,NotificationTypeDto.USER).get(0);
+  notificationDao.removeById(expected.getId());
+  Assert.assertNull(notificationDao.findById(expected.getId()));
+}
