@@ -1,5 +1,5 @@
 {
-  KaaClientState state=new KaaClientPropertiesState(new FilePersistentStorage(),getProperties());
+  KaaClientState state=new KaaClientPropertiesState(new FilePersistentStorage(),CommonsBase64.getInstance(),getProperties());
   Topic topic1=Topic.newBuilder().setId("1234").setName("testName").setSubscriptionType(SubscriptionType.OPTIONAL).build();
   Topic topic2=Topic.newBuilder().setId("4321").setName("testName").setSubscriptionType(SubscriptionType.MANDATORY).build();
   state.addTopic(topic1);
@@ -13,11 +13,11 @@
   expected.put(topic2.getId(),1);
   assertEquals(expected,state.getNfSubscriptions());
   state.persist();
-  state=new KaaClientPropertiesState(new FilePersistentStorage(),getProperties());
+  state=new KaaClientPropertiesState(new FilePersistentStorage(),CommonsBase64.getInstance(),getProperties());
   assertEquals(expected,state.getNfSubscriptions());
   state.removeTopic(topic1.getId());
   state.persist();
-  state=new KaaClientPropertiesState(new FilePersistentStorage(),getProperties());
+  state=new KaaClientPropertiesState(new FilePersistentStorage(),CommonsBase64.getInstance(),getProperties());
   expected.remove(topic1.getId());
   assertEquals(expected,state.getNfSubscriptions());
 }
