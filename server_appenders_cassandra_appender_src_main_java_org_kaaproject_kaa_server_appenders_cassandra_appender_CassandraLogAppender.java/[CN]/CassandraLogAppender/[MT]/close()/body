@@ -6,6 +6,7 @@
       logEventDao.close();
       logEventDao=null;
     }
+    callbackExecutor.shutdownNow();
   }
   LOG.info("Cassandra log appender stoped.");
 }
