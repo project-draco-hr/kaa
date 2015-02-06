@@ -1,0 +1,20 @@
+{
+  reader=new BufferedReader(new InputStreamReader(connection.getInputStream()));
+  ObjectMapper responseMapper=new ObjectMapper();
+  Map<String,Object> responseMap=responseMapper.readValue(reader.readLine(),Map.class);
+  Map<String,Object> dataMap=(Map<String,Object>)responseMap.get("data");
+  String receivedUserId=String.valueOf(dataMap.get("user_id"));
+  if (dataMap.containsKey("error") || receivedUserId == null) {
+    Map<String,Object> errorMap=(Map<String,Object>)dataMap.get("error");
+    LOG.trace("Bad input token: {}, errcode = {}",errorMap.get("message"),errorMap.get("code"));
+    callback.onTokenInvalid();
+  }
+ else   if (!receivedUserId.equals(userExternalId)) {
+    LOG.trace("Input token doesn't belong to the user with {} id",userExternalId);
+    callback.onVerificationFailure("User access token " + userAccessToken + " doesn't belong to the user");
+  }
+ else {
+    LOG.trace("Input token is confirmed and belongs to the user with {} id",userExternalId);
+    callback.onSuccess();
+  }
+}
