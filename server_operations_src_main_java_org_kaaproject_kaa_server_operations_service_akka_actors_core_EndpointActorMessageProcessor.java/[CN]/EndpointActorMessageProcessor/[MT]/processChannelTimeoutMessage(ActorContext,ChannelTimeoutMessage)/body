@@ -9,6 +9,7 @@
     }
  else {
       LOG.debug("[{}][{}] Timeout message ignored for channel [{}]. Last activity time {} and timeout is {} ",endpointKey,actorKey,message.getChannelUuid(),channel.getLastActivityTime(),message.getLastActivityTime());
+      scheduleKeepAliveCheck(context,channel);
       return false;
     }
   }
