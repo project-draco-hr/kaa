@@ -3,17 +3,17 @@
     EventSyncRequest request=new EventSyncRequest();
     manager.fillEventListenersSyncRequest(request);
     if (isEventSNSynchronized) {
-      List<Event> events=new LinkedList<Event>();
-      if (!sentEvents.isEmpty()) {
-        for (        Map.Entry<Integer,List<Event>> pendingEvents : sentEvents.entrySet()) {
+      Set<Event> eventsSet=new HashSet<Event>();
+      if (!pendingEvents.isEmpty()) {
+        for (        Map.Entry<Integer,Set<Event>> pendingEvents : pendingEvents.entrySet()) {
           LOG.debug("Have not received response for {} events sent with request id {}",pendingEvents.getValue().size(),pendingEvents.getKey());
-          events.addAll(pendingEvents.getValue());
+          eventsSet.addAll(pendingEvents.getValue());
         }
-        sentEvents.clear();
       }
-      events.addAll(manager.getPendingEvents());
+      eventsSet.addAll(manager.getPendingEvents());
+      List<Event> events=new ArrayList<Event>(eventsSet);
       if (!events.isEmpty()) {
-        Collections.sort(events,eventComparator);
+        Collections.sort(events,eventSeqNumberComparator);
         if (events.get(0).getSeqNum() != startEventSN) {
           clientState.setEventSeqNum(startEventSN + events.size());
           LOG.info("Put in order event sequence numbers (expected: {}, actual: {})",startEventSN,events.get(0).getSeqNum());
@@ -26,7 +26,7 @@
         }
         LOG.debug("Going to send {} event{}",events.size(),(events.size() == 1 ? "" : "s"));
         request.setEvents(events);
-        sentEvents.put(requestId,events);
+        pendingEvents.put(requestId,eventsSet);
       }
       request.setEventSequenceNumberRequest(null);
     }

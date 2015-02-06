@@ -15,7 +15,7 @@
     }
     if (response.getEvents() != null && !response.getEvents().isEmpty()) {
       List<Event> events=new ArrayList<>(response.getEvents());
-      Collections.sort(events,eventComparator);
+      Collections.sort(events,eventSeqNumberComparator);
       for (      Event event : events) {
         manager.onGenericEvent(event.getEventClassFQN(),event.getEventData().array(),event.getSource());
       }
