@@ -5,7 +5,7 @@
   }
  catch (  MalformedURLException e) {
     callback.onVerificationFailure("Internal error: malformed url");
-    LOG.debug("message",e);
+    LOG.debug("Internal error: malformed url",e);
   }
   threadPool.submit(new RunnableVerifier(url,callback,userExternalId));
 }
