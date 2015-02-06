@@ -1,5 +1,5 @@
 {
   System.setProperty(KaaClientProperties.KAA_CLIENT_PROPERTIES_FILE,"client-test.properties");
-  KaaClientProperties properties=new KaaClientProperties();
+  KaaClientProperties properties=new KaaClientProperties(CommonsBase64.getInstance());
   assertEquals(1,properties.getSupportedConfigVersion());
 }

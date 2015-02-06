@@ -1,4 +1,6 @@
 {
+  detailsTable.getColumnFormatter().setWidth(0,"250px");
+  detailsTable.getColumnFormatter().setWidth(1,"500px");
   int row=0;
   Widget label=new Label(Utils.constants.configurationSchemaVersion());
   label.addStyleName(REQUIRED);
@@ -49,7 +51,6 @@
   }
 ;
   targetPlatform=new ValueListBox<>(targetPlatformRenderer);
-  targetPlatform.setWidth("80px");
   targetPlatform.addValueChangeHandler(new ValueChangeHandler<SdkPlatform>(){
     @Override public void onValueChange(    ValueChangeEvent<SdkPlatform> event){
       fireChanged();
@@ -84,6 +85,7 @@
   ecfsTable.setWidget(0,0,availableEcfsPanel);
   ecfsTable.setWidget(0,1,ecfButtonsPanel);
   ecfsTable.setWidget(0,2,selectedEcfsPanel);
+  ecfsTable.getFlexCellFormatter().setVerticalAlignment(0,1,HasVerticalAlignment.ALIGN_MIDDLE);
   DisclosurePanel ecfsDisclosure=new DisclosurePanel(Utils.constants.ecfs());
   ecfsDisclosure.setAnimationEnabled(true);
   ecfsDisclosure.setContent(ecfsTable);
@@ -135,7 +137,6 @@
   }
 ;
   defaultUserVerifier=new ValueListBox<>(userVerifierRenderer);
-  defaultUserVerifier.setWidth("80px");
   defaultUserVerifier.addValueChangeHandler(new ValueChangeHandler<UserVerifierDto>(){
     @Override public void onValueChange(    ValueChangeEvent<UserVerifierDto> event){
       fireChanged();

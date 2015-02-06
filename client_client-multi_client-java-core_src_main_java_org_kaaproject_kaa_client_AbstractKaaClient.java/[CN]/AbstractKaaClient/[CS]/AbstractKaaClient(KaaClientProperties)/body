@@ -1,15 +1,20 @@
 {
-  this.properties=properties;
-  Map<TransportProtocolId,List<TransportConnectionInfo>> bootstrapServers=properties.getBootstrapServers();
+  if (properties != null) {
+    this.properties=properties;
+  }
+ else {
+    this.properties=new KaaClientProperties(getBase64());
+  }
+  Map<TransportProtocolId,List<TransportConnectionInfo>> bootstrapServers=this.properties.getBootstrapServers();
   if (bootstrapServers == null || bootstrapServers.isEmpty()) {
     throw new RuntimeException("Unable to obtain list of bootstrap servers.");
   }
   for (  Map.Entry<TransportProtocolId,List<TransportConnectionInfo>> cursor : bootstrapServers.entrySet()) {
     Collections.shuffle(cursor.getValue());
   }
-  kaaClientState=new KaaClientPropertiesState(createPersistentStorage(),properties);
+  kaaClientState=new KaaClientPropertiesState(createPersistentStorage(),getBase64(),this.properties);
   configurationPersistenceManager=new DefaultConfigurationPersistenceManager(kaaClientState,configurationProcessor);
-  BootstrapTransport bootstrapTransport=new DefaultBootstrapTransport(properties.getApplicationToken());
+  BootstrapTransport bootstrapTransport=new DefaultBootstrapTransport(this.properties.getApplicationToken());
   ProfileTransport profileTransport=new DefaultProfileTransport();
   EventTransport eventTransport=new DefaultEventTransport(kaaClientState);
   NotificationTransport notificationTransport=new DefaultNotificationTransport();
@@ -44,14 +49,14 @@
   channelManager.addChannel(operationsChannel);
   bootstrapManager.setChannelManager(channelManager);
   publicKeyHash=EndpointObjectHash.fromSHA1(kaaClientState.getPublicKey().getEncoded());
-  metaDataTransport.setClientProperties(properties);
+  metaDataTransport.setClientProperties(this.properties);
   metaDataTransport.setClientState(kaaClientState);
   metaDataTransport.setEndpointPublicKeyhash(publicKeyHash);
   metaDataTransport.setTimeout(LONG_POLL_TIMEOUT);
   bootstrapTransport.setBootstrapManager(bootstrapManager);
   transports.put(TransportType.BOOTSTRAP,bootstrapTransport);
   profileTransport.setProfileManager(profileManager);
-  profileTransport.setClientProperties(properties);
+  profileTransport.setClientProperties(this.properties);
   transports.put(TransportType.PROFILE,profileTransport);
   eventTransport.setEventManager(eventManager);
   transports.put(TransportType.EVENT,eventTransport);
