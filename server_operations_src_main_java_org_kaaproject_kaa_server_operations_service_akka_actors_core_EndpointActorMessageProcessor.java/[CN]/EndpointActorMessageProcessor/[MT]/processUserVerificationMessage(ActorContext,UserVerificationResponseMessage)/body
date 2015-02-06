@@ -2,8 +2,7 @@
   LOG.debug("[{}][{}] Received user verification message for request [{}] with status {}",endpointKey,actorKey,message.getRequestId(),message.isSuccess());
   userAttachResponseMap.put(message.getRequestId(),message);
   List<ChannelMetaData> channels=channelMap.getByTransportType(TransportType.USER);
-  if (channels.size() > 0) {
-    ChannelMetaData channel=channels.get(0);
+  for (  ChannelMetaData channel : channels) {
     SyncRequestMessage pendingRequest=channel.getRequestMessage();
     ServerSync pendingResponse=channel.getResponseHolder().getResponse();
     updateResponseWithUserAttachResults(pendingResponse);
