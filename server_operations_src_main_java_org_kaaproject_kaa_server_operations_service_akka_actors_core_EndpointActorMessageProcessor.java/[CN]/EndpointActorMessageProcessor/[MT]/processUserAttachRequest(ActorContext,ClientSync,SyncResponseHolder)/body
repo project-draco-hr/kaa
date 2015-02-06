@@ -5,7 +5,9 @@
     context.parent().tell(new UserVerificationRequestMessage(context.self(),aRequest.getUserVerifierId(),aRequest.getUserExternalId(),aRequest.getUserAccessToken()),context.self());
     LOG.debug("[{}][{}] received and forwarded user attach request {}",endpointKey,actorKey,request.getUserAttachRequest());
     if (userAttachResponseMap.size() > 0) {
-      updateResponseWithUserAttachResults(responseHolder.getResponse());
+      Entry<UUID,UserVerificationResponseMessage> entryToSend=userAttachResponseMap.entrySet().iterator().next();
+      updateResponseWithUserAttachResults(responseHolder.getResponse(),entryToSend.getValue());
+      userAttachResponseMap.remove(entryToSend.getKey());
     }
   }
 }
