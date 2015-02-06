@@ -3,6 +3,9 @@
   if (message instanceof EndpointAwareMessage) {
     processEndpointAwareMessage((EndpointAwareMessage)message);
   }
+ else   if (message instanceof SessionControlMessage) {
+    processSessionControlMessage((SessionControlMessage)message);
+  }
  else   if (message instanceof TenantAwareMessage) {
     processTenantAwareMessage((TenantAwareMessage)message);
   }
