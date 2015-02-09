@@ -2,8 +2,8 @@
   System.setProperty(KaaClientProperties.KAA_CLIENT_PROPERTIES_FILE,"client-test.properties");
   DesktopKaaClient clientSpy=Mockito.spy(new DesktopKaaClient());
   ProfileContainer profileContainerMock=Mockito.mock(ProfileContainer.class);
-  clientSpy.getProfileManager().setProfileContainer(profileContainerMock);
-  Mockito.when(profileContainerMock.getSerializedProfile()).thenReturn(new byte[0]);
+  clientSpy.setProfileContainer(profileContainerMock);
+  Mockito.when(profileContainerMock.getProfile()).thenReturn(new Profile());
   clientSpy.start();
   Thread.sleep(5000L);
   clientSpy.stop();
@@ -11,6 +11,5 @@
   Assert.assertNotNull(clientSpy.getConfigurationPersistenceManager());
   Assert.assertNotNull(clientSpy.getDeltaManager());
   Assert.assertNotNull(clientSpy.getNotificationManager());
-  Assert.assertNotNull(clientSpy.getProfileManager());
   Assert.assertNotNull(clientSpy.getSchemaPersistenceManager());
 }

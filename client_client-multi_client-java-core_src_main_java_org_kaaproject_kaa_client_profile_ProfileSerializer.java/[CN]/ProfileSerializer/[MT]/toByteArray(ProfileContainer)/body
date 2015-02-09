@@ -1,0 +1,12 @@
+{
+  if (container == null) {
+    throw new RuntimeException("Profile container is not set!");
+  }
+  Profile profile=container.getProfile();
+  if (profile != null) {
+    return converter.toByteArray(profile);
+  }
+ else {
+    throw new RuntimeException("Profile is not set!");
+  }
+}
