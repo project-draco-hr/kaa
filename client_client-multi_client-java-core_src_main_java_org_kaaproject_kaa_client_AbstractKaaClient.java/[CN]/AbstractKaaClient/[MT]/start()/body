@@ -1,6 +1,10 @@
 {
   if (!isInitialized) {
-    LOG.warn("Client is not initialized!");
+    initKaaConfiguration();
+    isInitialized=true;
+  }
+ else {
+    LOG.warn("Client is already initialized!");
     return;
   }
   if (schemaProcessor.getSchema() == null || configurationPersistenceManager.getConfigurationHash() == null) {
