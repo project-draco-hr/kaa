@@ -1,10 +1,10 @@
 {
   KaaClientProperties props=getProperties();
-  KaaClientState state=new KaaClientPropertiesState(new FilePersistentStorage(),props);
+  KaaClientState state=new KaaClientPropertiesState(new FilePersistentStorage(),CommonsBase64.getInstance(),props);
   Assert.assertFalse(state.isConfigurationVersionUpdated());
   state.persist();
   KaaClientProperties newProps=getProperties();
   newProps.setProperty(KaaClientProperties.CONFIG_VERSION,Integer.toString(100500));
-  KaaClientState newState=new KaaClientPropertiesState(new FilePersistentStorage(),newProps);
+  KaaClientState newState=new KaaClientPropertiesState(new FilePersistentStorage(),CommonsBase64.getInstance(),newProps);
   Assert.assertTrue(newState.isConfigurationVersionUpdated());
 }

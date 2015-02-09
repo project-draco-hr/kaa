@@ -1,6 +1,6 @@
 {
   System.setProperty(KaaClientProperties.KAA_CLIENT_PROPERTIES_FILE,"client-test.properties");
-  KaaClientProperties properties=new KaaClientProperties();
+  KaaClientProperties properties=new KaaClientProperties(CommonsBase64.getInstance());
   List<EventClassFamilyVersionInfo> infos=properties.getEventFamilyVersions();
   assertEquals(2,infos.size());
   assertEquals(1,infos.get(0).getVersion().intValue());

@@ -10,7 +10,7 @@
       }
       byte[] signature;
       if (signatureHeader.getValue() != null) {
-        signature=Base64.decodeBase64(signatureHeader.getValue().getBytes(Charsets.UTF_8));
+        signature=android.util.Base64.decode(signatureHeader.getValue().getBytes(Charsets.UTF_8),android.util.Base64.DEFAULT);
       }
  else {
         signature=new byte[0];

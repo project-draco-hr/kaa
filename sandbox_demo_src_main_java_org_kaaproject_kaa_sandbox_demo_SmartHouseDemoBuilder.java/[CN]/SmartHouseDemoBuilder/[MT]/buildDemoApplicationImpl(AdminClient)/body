@@ -37,5 +37,17 @@
   aefMapIds.add(thermoAefMap.getId());
   aefMapIds.add(musicAefMap.getId());
   sdkKey.setAefMapIds(aefMapIds);
+  TrustfulVerifierConfig trustfulVerifierConfig=new TrustfulVerifierConfig();
+  UserVerifierDto trustfulUserVerifier=new UserVerifierDto();
+  trustfulUserVerifier.setApplicationId(smartHouseApplication.getId());
+  trustfulUserVerifier.setName("Trustful verifier");
+  trustfulUserVerifier.setPluginClassName(trustfulVerifierConfig.getPluginClassName());
+  trustfulUserVerifier.setPluginTypeName(trustfulVerifierConfig.getPluginTypeName());
+  RawSchema rawSchema=new RawSchema(trustfulVerifierConfig.getPluginConfigSchema().toString());
+  DefaultRecordGenerationAlgorithm<RawData> algotithm=new DefaultRecordGenerationAlgorithmImpl<>(rawSchema,new RawDataFactory());
+  RawData rawData=algotithm.getRootData();
+  trustfulUserVerifier.setJsonConfiguration(rawData.getRawData());
+  trustfulUserVerifier=client.editUserVerifierDto(trustfulUserVerifier);
+  sdkKey.setDefaultVerifierToken(trustfulUserVerifier.getVerifierToken());
   logger.info("Finished loading 'Smart House Demo Application' data.");
 }

@@ -6,6 +6,22 @@
       if (startEventSN != expectedSN) {
         startEventSN=expectedSN;
         clientState.setEventSeqNum(startEventSN);
+        Set<Event> eventsSet=new HashSet<Event>();
+        for (        Set<Event> events : pendingEvents.values()) {
+          eventsSet.addAll(events);
+        }
+        List<Event> events=new ArrayList<Event>(eventsSet);
+        Collections.sort(events,eventSeqNumberComparator);
+        clientState.setEventSeqNum(startEventSN + events.size());
+        if (events.get(0).getSeqNum() != startEventSN) {
+          LOG.info("Put in order event sequence numbers (expected: {}, actual: {})",startEventSN,events.get(0).getSeqNum());
+          for (          Event e : events) {
+            e.setSeqNum(startEventSN++);
+          }
+        }
+ else {
+          startEventSN+=events.size();
+        }
         LOG.info("Event sequence number is unsynchronized. Set to {}",startEventSN);
       }
  else {
@@ -15,7 +31,7 @@
     }
     if (response.getEvents() != null && !response.getEvents().isEmpty()) {
       List<Event> events=new ArrayList<>(response.getEvents());
-      Collections.sort(events,eventComparator);
+      Collections.sort(events,eventSeqNumberComparator);
       for (      Event event : events) {
         manager.onGenericEvent(event.getEventClassFQN(),event.getEventData().array(),event.getSource());
       }

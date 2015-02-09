@@ -5,7 +5,6 @@
     long lastActivityTime=System.currentTimeMillis();
     LOG.debug("[{}][{}] Updating last activity time for channel [{}] to ",endpointKey,actorKey,message.getChannelUuid(),lastActivityTime);
     channel.setLastActivityTime(lastActivityTime);
-    scheduleKeepAliveCheck(context,channel);
     channel.getContext().writeAndFlush(new PingResponse());
     return true;
   }

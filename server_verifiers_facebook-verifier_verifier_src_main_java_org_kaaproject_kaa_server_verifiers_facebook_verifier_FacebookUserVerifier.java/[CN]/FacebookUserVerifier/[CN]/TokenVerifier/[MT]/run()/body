@@ -1,9 +1,11 @@
 {
   String accessToken=config.getAppId() + "|" + config.getAppSecret();
+  LOG.trace("Started token verification with accessToken [{}]",accessToken);
   HttpURLConnection connection=null;
   BufferedReader reader=null;
   try {
     connection=establishConnection(userAccessToken,accessToken);
+    LOG.trace("Connection established [{}]",accessToken);
     responseMapper=new ObjectMapper();
     if (connection.getResponseCode() == 400) {
       LOG.trace("400: The request could not be understood by the verifier due to malformed syntax");
@@ -13,7 +15,7 @@
       reader=new BufferedReader(new InputStreamReader(connection.getInputStream()));
       Map<String,Object> responseMap=responseMapper.readValue(reader.readLine(),Map.class);
       Map<String,Object> dataMap=(Map<String,Object>)responseMap.get("data");
-      String receivedUserId=(String)dataMap.get("user_id");
+      String receivedUserId=String.valueOf(dataMap.get("user_id"));
       if (receivedUserId == null) {
         Map<String,Object> errorMap=(Map<String,Object>)dataMap.get("error");
         LOG.trace("Bad input token: {}, errcode = {}",errorMap.get("message"),errorMap.get("code"));
@@ -34,12 +36,16 @@
     }
   }
  catch (  MalformedURLException e) {
-    LOG.debug("message",e);
-    callback.onVerificationFailure("Internal error: malformed url");
+    LOG.debug("Internal error",e);
+    callback.onInternalError(e.getMessage());
   }
 catch (  IOException e) {
-    LOG.debug("message",e);
-    callback.onVerificationFailure("Internal error: IOException");
+    LOG.debug("Connection error",e);
+    callback.onConnectionError(e.getMessage());
+  }
+catch (  Exception e) {
+    LOG.debug("Unexpected error",e);
+    callback.onInternalError(e.getMessage());
   }
  finally {
     if (connection != null)     connection.disconnect();
