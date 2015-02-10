@@ -29,15 +29,14 @@
     }
   }
  catch (  IOException e) {
-    LOG.debug("Internal error: ",e);
+    LOG.warn("Internal error: ",e);
   }
  finally {
     try {
       closeableHttpResponse.close();
     }
  catch (    IOException e) {
-      LOG.debug("??loseableHttpResponse failed to close",e);
-      e.printStackTrace();
+      LOG.warn("??loseableHttpResponse failed to close: ",e);
     }
   }
 }

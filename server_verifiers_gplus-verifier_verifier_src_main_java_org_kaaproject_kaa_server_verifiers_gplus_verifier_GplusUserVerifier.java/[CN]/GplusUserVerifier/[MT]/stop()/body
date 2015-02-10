@@ -5,8 +5,7 @@
     httpClient.close();
   }
  catch (  IOException e) {
-    e.printStackTrace();
-    LOG.debug("Http client failed to close",e);
+    LOG.warn("Http client failed to close: ",e);
   }
   LOG.info("user verifier stopped");
 }

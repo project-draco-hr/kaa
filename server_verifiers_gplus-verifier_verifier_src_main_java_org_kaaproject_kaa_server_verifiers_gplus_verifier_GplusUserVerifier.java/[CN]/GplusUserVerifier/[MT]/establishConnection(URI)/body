@@ -4,7 +4,7 @@
     closeableHttpResponse=httpClient.execute(new HttpGet(uri));
   }
  catch (  IOException e) {
-    e.printStackTrace();
+    LOG.warn("Internal error: ",e);
   }
   return closeableHttpResponse;
 }
