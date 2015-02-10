@@ -1,37 +1,38 @@
 {
-  reader=new BufferedReader(new InputStreamReader(connection.getErrorStream()));
-  ObjectMapper responseMapper=new ObjectMapper();
-  Map<String,Object> responseMap=responseMapper.readValue(reader.readLine(),Map.class);
-  Map<String,Object> errorMap=null;
-  if (responseMap.get("error") != null) {
-    errorMap=(Map<String,Object>)responseMap.get("error");
-  }
-  if (errorMap != null && String.valueOf(errorMap.get("code")).equals(OAUTH_ERROR)) {
-    if (errorMap.get("error_subcode") == null) {
-      LOG.trace("OAuthException: [{}], errcode: [{}], errsubcode: [{}] ",errorMap.get("message"),errorMap.get("errcode"),errorMap.get("error_subcode"));
-      callback.onVerificationFailure("OAuthException:" + errorMap.get("message"));
+  try (BufferedReader reader=new BufferedReader(new InputStreamReader(connection.getErrorStream()))){
+    ObjectMapper responseMapper=new ObjectMapper();
+    Map<String,Object> responseMap=responseMapper.readValue(reader.readLine(),Map.class);
+    Map<String,Object> errorMap=null;
+    if (responseMap.get("error") != null) {
+      errorMap=(Map<String,Object>)responseMap.get("error");
     }
- else     if (String.valueOf(errorMap.get("error_subcode")).equals(TOKEN_EXPIRED)) {
-      LOG.trace("Access Token has expired");
-      callback.onTokenExpired();
-    }
- else     if (String.valueOf(errorMap.get("error_subcode")).equals(TOKEN_INVALID)) {
-      LOG.trace("Access Token is invalid");
-      callback.onTokenInvalid();
+    if (errorMap != null && String.valueOf(errorMap.get("code")).equals(OAUTH_ERROR)) {
+      if (errorMap.get("error_subcode") == null) {
+        LOG.trace("OAuthException: [{}], errcode: [{}], errsubcode: [{}] ",errorMap.get("message"),errorMap.get("errcode"),errorMap.get("error_subcode"));
+        callback.onVerificationFailure("OAuthException:" + errorMap.get("message"));
+      }
+ else       if (String.valueOf(errorMap.get("error_subcode")).equals(TOKEN_EXPIRED)) {
+        LOG.trace("Access Token has expired");
+        callback.onTokenExpired();
+      }
+ else       if (String.valueOf(errorMap.get("error_subcode")).equals(TOKEN_INVALID)) {
+        LOG.trace("Access Token is invalid");
+        callback.onTokenInvalid();
+      }
+ else {
+        LOG.trace("OAuthException: [{}], errcode: [{}], errsubcode: [{}] ",errorMap.get("message"),errorMap.get("errcode"),errorMap.get("error_subcode"));
+        callback.onVerificationFailure("OAuthException:" + errorMap.get("message"));
+      }
     }
  else {
-      LOG.trace("OAuthException: [{}], errcode: [{}], errsubcode: [{}] ",errorMap.get("message"),errorMap.get("errcode"),errorMap.get("error_subcode"));
-      callback.onVerificationFailure("OAuthException:" + errorMap.get("message"));
+      if (errorMap != null) {
+        LOG.trace("Unable to verify token: {}, errcode: [{}]",errorMap.get("message"),errorMap.get("errcode"));
+        callback.onVerificationFailure("Unable to verify token: " + errorMap.get("message") + ", errorcode: "+ errorMap.get("errcode"));
+      }
+ else {
+        LOG.trace("Unable to verify token. HTTP response 400");
+        callback.onVerificationFailure("Unable to verify token. HTTP response 400");
+      }
     }
   }
- else {
-    if (errorMap != null) {
-      LOG.trace("Unable to verify token: {}, errcode: [{}]",errorMap.get("message"),errorMap.get("errcode"));
-      callback.onVerificationFailure("Unable to verify token: " + errorMap.get("message") + ", errorcode: "+ errorMap.get("errcode"));
-    }
- else {
-      LOG.trace("Unable to verify token. HTTP response 400");
-      callback.onVerificationFailure("Unable to verify token. HTTP response 400");
-    }
-  }
-}
+ }
