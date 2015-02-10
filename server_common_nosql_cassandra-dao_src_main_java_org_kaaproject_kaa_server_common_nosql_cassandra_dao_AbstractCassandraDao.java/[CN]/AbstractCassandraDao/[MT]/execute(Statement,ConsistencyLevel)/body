@@ -1,0 +1,5 @@
+{
+  LOG.debug("Execute cassandra batch {}",statement);
+  statement.setConsistencyLevel(consistencyLevel);
+  return getSession().execute(statement);
+}

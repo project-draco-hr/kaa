@@ -17,5 +17,6 @@
   endpointIds.add(profile.getId());
   endpointUserDao.save(endpointUser);
   profile.setEndpointUserId(endpointUser.getId());
+  LOG.trace("Save endpoint user {} and endpoint profile {}",endpointUser,profile);
   return saveEndpointProfile(profile);
 }

@@ -1,0 +1,10 @@
+{
+  LOG.debug("Try to find endpoint profile by access token id [{}]",endpointAccessToken);
+  CassandraEndpointProfile endpointProfile=null;
+  ByteBuffer epKeyHash=cassandraEPByAccessTokenDao.findEPIdByAccessToken(endpointAccessToken);
+  if (epKeyHash != null) {
+    endpointProfile=(CassandraEndpointProfile)getMapper().get(epKeyHash);
+  }
+  LOG.trace("Found endpoint profile {} by access token [{}]",endpointProfile,endpointAccessToken);
+  return endpointProfile;
+}

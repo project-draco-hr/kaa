@@ -1,0 +1,6 @@
+{
+  LOG.debug("Save entity of {} class",clazz.getName());
+  Mapper mapper=getMapper(clazz);
+  mapper.save(dto);
+  return dto;
+}

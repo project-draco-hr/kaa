@@ -1,7 +1,7 @@
 {
   ProfileFilterDto filterDto=generateFilter(null,null,1,false).get(0);
   filterDto.setId(null);
-  filterDto.setSchemaId(new ObjectId().toString());
+  filterDto.setSchemaId("Incorrect Id");
   Assert.assertNotNull(filterDto);
   filterDto.setId(null);
   filterDto.setSchemaId(filterDto.getApplicationId());
