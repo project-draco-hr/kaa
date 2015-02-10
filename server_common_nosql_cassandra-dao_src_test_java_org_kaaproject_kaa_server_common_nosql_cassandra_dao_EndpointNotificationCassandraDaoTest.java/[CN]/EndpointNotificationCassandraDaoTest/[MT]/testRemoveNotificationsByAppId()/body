@@ -1,0 +1,7 @@
+{
+  CassandraEndpointNotification notification=generateEndpointNotification(null,3).get(0);
+  String appId=notification.getApplicationId();
+  unicastNotificationDao.removeNotificationsByAppId(appId);
+  List<CassandraEndpointNotification> found=unicastNotificationDao.findNotificationsByKeyHash(notification.getEndpointKeyHash().array());
+  Assert.assertTrue(found.isEmpty());
+}

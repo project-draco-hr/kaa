@@ -1,0 +1,6 @@
+{
+  EndpointConfigurationDto endpointConfiguration=generateEndpointConfiguration();
+  Assert.assertNotNull(endpointConfiguration);
+  MongoEndpointConfiguration converted=new MongoEndpointConfiguration(endpointConfiguration);
+  Assert.assertEquals(endpointConfiguration,converted.toDto());
+}

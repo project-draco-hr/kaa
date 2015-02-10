@@ -1,0 +1,4 @@
+{
+  LOG.debug("Try to find endpoint configuration by hash [{}] ",hash);
+  return (CassandraEndpointConfiguration)getMapper().get(getByteBuffer(hash));
+}

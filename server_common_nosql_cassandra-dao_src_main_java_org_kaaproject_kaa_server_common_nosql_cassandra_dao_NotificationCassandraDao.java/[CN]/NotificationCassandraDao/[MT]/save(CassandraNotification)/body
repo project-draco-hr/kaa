@@ -1,0 +1,7 @@
+{
+  LOG.debug("Save notification {} ",notification);
+  if (isBlank(notification.getId())) {
+    notification.generateId();
+  }
+  return super.save(notification);
+}

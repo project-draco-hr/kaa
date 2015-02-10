@@ -3,7 +3,7 @@
   if (isNotBlank(applicationId)) {
     Criteria criteria=getCriteria().createAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS).add(Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(applicationId)));
     if (usedSchemaIds != null && !usedSchemaIds.isEmpty()) {
-      criteria.add(Restrictions.not(Restrictions.in(ID_PROPERTY,stringIdsToLongIds(usedSchemaIds))));
+      criteria.add(Restrictions.not(Restrictions.in(ID_PROPERTY,toLongIds(usedSchemaIds))));
     }
     return findListByCriteria(criteria);
   }

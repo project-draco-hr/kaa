@@ -1,0 +1,5 @@
+{
+  EndpointConfigurationDto configurationDto=generateEndpointConfiguration();
+  MongoEndpointConfiguration found=endpointConfigurationDao.findById(ByteBuffer.wrap(configurationDto.getConfigurationHash()));
+  Assert.assertNotNull(found);
+}

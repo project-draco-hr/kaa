@@ -1,0 +1,7 @@
+{
+  EndpointProfileDto endpointProfileDto=generateEndpointProfile(null,null,null);
+  EndpointUserDto endpointUserDto=generateEndpointUser(Arrays.asList(endpointProfileDto.getId()));
+  List<CassandraEndpointProfile> found=endpointProfileDao.findByEndpointUserId(endpointUserDto.getId());
+  Assert.assertFalse(found.isEmpty());
+  Assert.assertEquals(endpointProfileDto,found.get(0).toDto());
+}

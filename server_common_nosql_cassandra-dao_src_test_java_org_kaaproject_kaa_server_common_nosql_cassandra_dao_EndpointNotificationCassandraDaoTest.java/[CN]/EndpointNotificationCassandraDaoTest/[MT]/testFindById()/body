@@ -1,0 +1,7 @@
+{
+  CassandraEndpointNotification notification=generateEndpointNotification(null,1).get(0);
+  CassandraEndpointNotification saved=unicastNotificationDao.save(notification.toDto());
+  Assert.assertNotNull(saved.getId());
+  CassandraEndpointNotification found=unicastNotificationDao.findById(saved.getId());
+  Assert.assertEquals(saved,found);
+}
