@@ -1,13 +1,12 @@
 {
-  HttpURLConnection connection=null;
+  CloseableHttpResponse closeableHttpResponse=null;
   try {
     String responseJson="";
     int responseCode;
-    connection=establishConnection(url);
-    connection.setRequestMethod("GET");
-    responseCode=connection.getResponseCode();
+    closeableHttpResponse=establishConnection(uri);
+    responseCode=closeableHttpResponse.getStatusLine().getStatusCode();
     if (responseCode == HTTP_OK) {
-      responseJson=readResponse(connection.getInputStream());
+      responseJson=readResponse(closeableHttpResponse.getEntity().getContent());
       ObjectMapper mapper=new ObjectMapper();
       Map<String,String> map=mapper.readValue(responseJson.toString(),Map.class);
       String userId=String.valueOf(map.get("user_id"));
@@ -22,7 +21,7 @@
     }
     if (responseCode == HTTP_BAD_REQUEST) {
       callback.onTokenInvalid();
-      LOG.trace("Server auth error: {}",readResponse(connection.getErrorStream()));
+      LOG.trace("Server auth error: {}",readResponse(closeableHttpResponse.getEntity().getContent()));
     }
  else {
       callback.onInternalError();
@@ -33,8 +32,12 @@
     LOG.debug("Internal error: ",e);
   }
  finally {
-    if (null != connection) {
-      connection.disconnect();
+    try {
+      closeableHttpResponse.close();
+    }
+ catch (    IOException e) {
+      LOG.debug("??loseableHttpResponse failed to close",e);
+      e.printStackTrace();
     }
   }
 }

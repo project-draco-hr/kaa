@@ -1,0 +1,10 @@
+{
+  CloseableHttpResponse closeableHttpResponse=null;
+  try {
+    closeableHttpResponse=httpClient.execute(new HttpGet(uri));
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+  }
+  return closeableHttpResponse;
+}

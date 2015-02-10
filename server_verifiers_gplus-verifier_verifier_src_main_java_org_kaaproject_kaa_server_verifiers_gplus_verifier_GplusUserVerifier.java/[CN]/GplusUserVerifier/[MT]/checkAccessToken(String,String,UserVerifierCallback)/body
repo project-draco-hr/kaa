@@ -1,11 +1,10 @@
 {
-  URL url=null;
+  URI uri=null;
   try {
-    url=new URL(GOOGLE_OAUTH + accessToken);
+    uri=new URI(GOOGLE_OAUTH + accessToken);
   }
- catch (  MalformedURLException e) {
-    callback.onVerificationFailure("Internal error: malformed url");
-    LOG.debug("Internal error: malformed url",e);
+ catch (  URISyntaxException e) {
+    e.printStackTrace();
   }
-  threadPool.submit(new RunnableVerifier(url,callback,userExternalId));
+  threadPool.submit(new RunnableVerifier(uri,callback,userExternalId));
 }
