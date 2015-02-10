@@ -1,0 +1,10 @@
+{
+  List<CassandraEndpointConfiguration> configurations=new ArrayList();
+  for (int i=0; i < count; i++) {
+    CassandraEndpointConfiguration configuration=new CassandraEndpointConfiguration();
+    configuration.setConfiguration(ByteBuffer.wrap(generateBytes()));
+    configuration.setConfigurationHash(ByteBuffer.wrap(generateBytes()));
+    configurations.add(endpointConfigurationDao.save(configuration));
+  }
+  return configurations;
+}

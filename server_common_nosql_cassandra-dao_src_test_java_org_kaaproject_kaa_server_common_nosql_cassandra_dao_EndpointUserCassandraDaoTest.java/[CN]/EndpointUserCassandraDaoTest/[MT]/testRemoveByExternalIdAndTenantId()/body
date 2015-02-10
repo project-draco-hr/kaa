@@ -1,0 +1,6 @@
+{
+  EndpointUserDto expected=generateEndpointUser();
+  endpointUserDao.removeByExternalIdAndTenantId(expected.getExternalId(),expected.getTenantId());
+  CassandraEndpointUser found=endpointUserDao.findByExternalIdAndTenantId(expected.getExternalId(),expected.getTenantId());
+  Assert.assertNull(found);
+}

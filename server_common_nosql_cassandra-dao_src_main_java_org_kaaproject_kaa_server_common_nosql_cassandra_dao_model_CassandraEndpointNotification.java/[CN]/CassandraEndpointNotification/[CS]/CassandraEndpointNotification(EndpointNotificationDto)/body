@@ -1,0 +1,16 @@
+{
+  this.endpointKeyHash=ByteBuffer.wrap(dto.getEndpointKeyHash());
+  NotificationDto notificationDto=dto.getNotificationDto();
+  if (notificationDto != null) {
+    this.seqNum=notificationDto.getSecNum();
+    this.type=notificationDto.getType();
+    this.applicationId=notificationDto.getApplicationId();
+    this.schemaId=notificationDto.getSchemaId();
+    this.version=notificationDto.getVersion();
+    this.lastModifyTime=notificationDto.getLastTimeModify();
+    this.body=getByteBuffer(notificationDto.getBody());
+    this.expiredAt=notificationDto.getExpiredAt();
+    this.topicId=notificationDto.getTopicId();
+  }
+  this.id=dto.getId() != null ? dto.getId() : generateId();
+}

@@ -1,0 +1,10 @@
+{
+  ConsistencyLevel defaultConsistencyLevel=ConsistencyLevel.ONE;
+  if (writeConsistencyLevel != null) {
+    ConsistencyLevel cl=ConsistencyLevel.valueOf(writeConsistencyLevel);
+    if (cl != null) {
+      defaultConsistencyLevel=cl;
+    }
+  }
+  return defaultConsistencyLevel;
+}

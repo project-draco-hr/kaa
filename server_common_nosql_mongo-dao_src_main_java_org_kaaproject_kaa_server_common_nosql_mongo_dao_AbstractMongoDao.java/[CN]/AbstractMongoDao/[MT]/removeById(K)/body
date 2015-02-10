@@ -1,0 +1,7 @@
+{
+  LOG.debug("Remove document of collection [{}] by id [{}]",getCollectionName(),key);
+  T object=findById(key);
+  if (object != null) {
+    mongoTemplate.remove(object);
+  }
+}

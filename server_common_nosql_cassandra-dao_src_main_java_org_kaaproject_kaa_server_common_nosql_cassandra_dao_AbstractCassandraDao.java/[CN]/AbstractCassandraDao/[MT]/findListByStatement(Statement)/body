@@ -1,0 +1,12 @@
+{
+  List<T> list=Collections.emptyList();
+  if (statement != null) {
+    statement.setConsistencyLevel(getReadConsistencyLevel());
+    ResultSet resultSet=getSession().execute(statement);
+    Result result=getMapper().map(resultSet);
+    if (result != null) {
+      list=result.all();
+    }
+  }
+  return list;
+}

@@ -1,0 +1,7 @@
+{
+  LOG.debug("Remove endpoint profile by application id [{}]",appId);
+  Statement deleteEps=delete().from(getColumnFamilyName()).where(in(EP_EP_KEY_HASH_PROPERTY,cassandraEPByAppIdDao.getEPIdsListByAppId(appId)));
+  Statement deleteEpsByAppId=delete().from(EP_BY_APP_ID_COLUMN_FAMILY_NAME).where(eq(EP_BY_APP_ID_APPLICATION_ID_PROPERTY,appId));
+  executeBatch(deleteEps,deleteEpsByAppId);
+  LOG.trace("Execute statements {}, {} like batch",deleteEps,deleteEpsByAppId);
+}

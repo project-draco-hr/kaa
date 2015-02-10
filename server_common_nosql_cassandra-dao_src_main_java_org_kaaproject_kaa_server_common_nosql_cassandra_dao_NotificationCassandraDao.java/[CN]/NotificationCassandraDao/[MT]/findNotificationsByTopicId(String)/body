@@ -1,0 +1,10 @@
+{
+  LOG.debug("Try to find notifications by topic id {}",topicId);
+  Where query=select().from(getColumnFamilyName()).where(eq(NF_TOPIC_ID_PROPERTY,topicId)).and(QueryBuilder.in(NF_NOTIFICATION_TYPE_PROPERTY,getStringTypes(NotificationTypeDto.values())));
+  LOG.trace("Execute query {}",query);
+  List<CassandraNotification> notifications=findListByStatement(query);
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("Found notifications {}",Arrays.toString(notifications.toArray()));
+  }
+  return notifications;
+}

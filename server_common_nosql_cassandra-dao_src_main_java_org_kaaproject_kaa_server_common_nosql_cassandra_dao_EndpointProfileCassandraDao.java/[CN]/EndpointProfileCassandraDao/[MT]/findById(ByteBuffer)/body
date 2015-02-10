@@ -1,0 +1,9 @@
+{
+  LOG.debug("Try to find endpoint profiles by key [{}]",key);
+  CassandraEndpointProfile profile=null;
+  if (key != null) {
+    profile=findByKeyHash(key.array());
+  }
+  LOG.trace("Found endpoint profiles {}",profile);
+  return profile;
+}

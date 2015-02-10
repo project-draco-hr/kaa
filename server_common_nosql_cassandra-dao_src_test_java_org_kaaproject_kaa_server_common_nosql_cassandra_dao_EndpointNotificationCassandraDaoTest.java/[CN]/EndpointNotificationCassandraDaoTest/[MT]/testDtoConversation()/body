@@ -1,0 +1,7 @@
+{
+  CassandraEndpointNotification notification=generateEndpointNotification(null,1).get(0);
+  Assert.assertNull(notification.getId());
+  EndpointNotificationDto notificationDto=notification.toDto();
+  CassandraEndpointNotification cassandraEndpointNotification=new CassandraEndpointNotification(notificationDto);
+  Assert.assertEquals(notificationDto,cassandraEndpointNotification.toDto());
+}

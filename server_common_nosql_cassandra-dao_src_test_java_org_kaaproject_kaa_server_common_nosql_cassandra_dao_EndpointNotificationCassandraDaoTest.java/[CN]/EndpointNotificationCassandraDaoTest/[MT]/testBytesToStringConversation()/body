@@ -1,0 +1,8 @@
+{
+  byte[] array=new byte[]{-16,7,51,-98,-75,-19,-82,119,-51,122,-125,-14,22,44,-28,-56,26,111,115,2};
+  String hash=Bytes.toHexString(array);
+  LOG.info("---> hash is {}",hash);
+  byte[] converted=Bytes.fromHexString(hash).array();
+  Assert.assertArrayEquals(array,converted);
+  Assert.assertEquals(hash,Bytes.toHexString(converted));
+}
