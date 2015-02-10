@@ -1,0 +1,17 @@
+{
+  EndpointNotificationDto dto=new EndpointNotificationDto();
+  dto.setId(id != null ? id : generateId());
+  dto.setEndpointKeyHash(endpointKeyHash != null ? endpointKeyHash.array() : null);
+  NotificationDto notificationDto=new NotificationDto();
+  notificationDto.setSecNum(seqNum);
+  notificationDto.setType(type);
+  notificationDto.setApplicationId(applicationId);
+  notificationDto.setSchemaId(schemaId);
+  notificationDto.setVersion(version);
+  notificationDto.setLastTimeModify(lastModifyTime);
+  notificationDto.setBody(getBytes(body));
+  notificationDto.setExpiredAt(expiredAt);
+  notificationDto.setTopicId(topicId);
+  dto.setNotificationDto(notificationDto);
+  return dto;
+}

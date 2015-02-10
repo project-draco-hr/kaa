@@ -1,0 +1,6 @@
+{
+  EndpointConfigurationDto configurationDto=new EndpointConfigurationDto();
+  configurationDto.setConfigurationHash(UUID.randomUUID().toString().getBytes());
+  configurationDto.setConfiguration(UUID.randomUUID().toString().getBytes());
+  return endpointConfigurationDao.save(new MongoEndpointConfiguration(configurationDto)).toDto();
+}

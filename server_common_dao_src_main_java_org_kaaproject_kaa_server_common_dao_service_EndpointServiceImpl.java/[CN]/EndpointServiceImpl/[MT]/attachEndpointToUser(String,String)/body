@@ -1,8 +1,11 @@
 {
+  LOG.info("Try to attach endpoint with access token {} to user with {}",endpointAccessToken,endpointUserId);
   validateString(endpointUserId,"Incorrect endpointUserId " + endpointUserId);
   EndpointUser endpointUser=endpointUserDao.findById(endpointUserId);
+  LOG.trace("[{}] Found endpoint user with id {} ",endpointUserId,endpointUser);
   if (endpointUser != null) {
     EndpointProfile endpoint=endpointProfileDao.findByAccessToken(endpointAccessToken);
+    LOG.trace("[{}] Found endpoint profile by with access token {} ",endpointAccessToken,endpoint);
     if (endpoint != null) {
       if (endpoint.getEndpointUserId() == null || endpointUserId.equals(endpoint.getEndpointUserId())) {
         List<String> endpointIds=endpointUser.getEndpointIds();
@@ -10,6 +13,7 @@
           endpointIds=new ArrayList<>();
           endpointUser.setEndpointIds(endpointIds);
         }
+        LOG.debug("Attach endpoint profile with id {} to endpoint user with id {} ",endpoint.getId(),endpointUser.getId());
         endpointIds.add(endpoint.getId());
         endpointUserDao.save(endpointUser);
         endpoint.setEndpointUserId(endpointUser.getId());

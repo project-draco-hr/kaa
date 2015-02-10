@@ -1,0 +1,10 @@
+{
+  TopicDto topicDto=generateTopic(null,null);
+  EndpointProfileDto profile=generateEndpointProfile(topicDto.getApplicationId(),Arrays.asList(topicDto.getId()));
+  byte[] keyHash=profile.getEndpointKeyHash();
+  EndpointNotificationDto notification=generateUnicastNotification(null,topicDto.getId(),keyHash);
+  Assert.assertTrue(isNotBlank(notification.getId()));
+  notificationService.removeUnicastNotificationsByKeyHash(keyHash);
+  List<EndpointNotificationDto> notifications=notificationService.findUnicastNotificationsByKeyHash(keyHash);
+  Assert.assertTrue(notifications.isEmpty());
+}

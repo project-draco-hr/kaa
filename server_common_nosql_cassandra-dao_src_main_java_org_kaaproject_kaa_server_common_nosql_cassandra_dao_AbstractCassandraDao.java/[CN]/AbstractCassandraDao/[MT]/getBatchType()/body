@@ -1,0 +1,7 @@
+{
+  BatchStatement.Type type=BatchStatement.Type.LOGGED;
+  if (batchType != null && BatchStatement.Type.UNLOGGED.name().equalsIgnoreCase(batchType)) {
+    type=BatchStatement.Type.UNLOGGED;
+  }
+  return type;
+}
