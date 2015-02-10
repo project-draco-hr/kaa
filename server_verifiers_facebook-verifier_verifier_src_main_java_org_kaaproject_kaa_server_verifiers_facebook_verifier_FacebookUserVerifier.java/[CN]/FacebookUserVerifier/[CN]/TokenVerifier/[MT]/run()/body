@@ -1,19 +1,20 @@
 {
   String accessToken=config.getAppId() + "|" + config.getAppSecret();
   LOG.trace("Started token verification with accessToken [{}]",accessToken);
-  HttpURLConnection connection=null;
+  CloseableHttpResponse connection=null;
   try {
     connection=establishConnection(userAccessToken,accessToken);
     LOG.trace("Connection established [{}]",accessToken);
-    if (connection.getResponseCode() == 400) {
-      handle400Response(connection,userExternalId,callback,userAccessToken);
+    int responseCode=connection.getStatusLine().getStatusCode();
+    if (responseCode == HTTP_BAD_REQUEST) {
+      handleBadResponse(connection,callback);
     }
- else     if (connection.getResponseCode() == 200) {
-      handle200Response(connection,userExternalId,callback,userAccessToken);
+ else     if (responseCode == HTTP_OK) {
+      handleResponse(connection,userExternalId,callback,userAccessToken);
     }
  else {
-      LOG.trace("Server response code: {}, no data can be retrieved",connection.getResponseCode());
-      callback.onVerificationFailure("Server response code:" + connection.getResponseCode() + ", no data can be retrieved");
+      LOG.warn("Server response code: {}, no data can be retrieved",responseCode);
+      callback.onVerificationFailure("Server response code:" + responseCode + ", no data can be retrieved");
     }
   }
  catch (  MalformedURLException e) {
@@ -29,6 +30,13 @@ catch (  Exception e) {
     callback.onInternalError(e.getMessage());
   }
  finally {
-    if (connection != null)     connection.disconnect();
+    if (connection != null) {
+      try {
+        connection.close();
+      }
+ catch (      IOException e) {
+        LOG.debug("Connection error: can't close CloseableHttpResponse");
+      }
+    }
   }
 }

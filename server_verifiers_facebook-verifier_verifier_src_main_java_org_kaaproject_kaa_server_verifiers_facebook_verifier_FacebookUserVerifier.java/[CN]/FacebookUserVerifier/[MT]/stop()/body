@@ -1,5 +1,12 @@
 {
   LOG.info("stopping facebook verifier");
   tokenVerifiersPool.shutdown();
+  connectionManager.close();
+  try {
+    httpClient.close();
+  }
+ catch (  IOException e) {
+    LOG.debug("Unable to close HttpClient");
+  }
   LOG.info("facebook user verifier stopped");
 }
