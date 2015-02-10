@@ -13,7 +13,8 @@
       throw new IncorrectParameterException("Invalid Notification type in Notification Schema object.");
     }
     if (foundSchema != null) {
-      notificationSchemaDto.setMajorVersion(foundSchema.incrementVersion());
+      int lastSchemaVersion=foundSchema.getMajorVersion();
+      notificationSchemaDto.setMajorVersion(++lastSchemaVersion);
     }
  else {
       notificationSchemaDto.incrementVersion();
@@ -30,5 +31,5 @@
       throw new IncorrectParameterException("Invalid notification schema id: " + id);
     }
   }
-  return getDto(notificationSchemaDao.save(notificationSchemaDto));
+  return getDto(notificationSchemaDao.save(new NotificationSchema(notificationSchemaDto)));
 }

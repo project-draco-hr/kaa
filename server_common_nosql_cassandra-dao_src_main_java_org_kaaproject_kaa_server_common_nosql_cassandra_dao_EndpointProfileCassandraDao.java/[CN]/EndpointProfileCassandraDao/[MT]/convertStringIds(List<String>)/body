@@ -1,0 +1,7 @@
+{
+  ByteBuffer[] keyHashArray=new ByteBuffer[ids.size()];
+  for (int i=0; i < ids.size(); i++) {
+    keyHashArray[i]=convertStringToKeyHash(ids.get(i));
+  }
+  return keyHashArray;
+}

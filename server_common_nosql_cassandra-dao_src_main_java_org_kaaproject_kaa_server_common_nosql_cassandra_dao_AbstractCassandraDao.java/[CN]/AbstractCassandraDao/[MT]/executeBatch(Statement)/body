@@ -1,0 +1,11 @@
+{
+  LOG.debug("Execute cassandra list of statements");
+  if (LOG.isDebugEnabled()) {
+    LOG.debug("Execute cassandra statements {} ",Arrays.toString(statements));
+  }
+  BatchStatement batchStatement=new BatchStatement(getBatchType());
+  for (  Statement statement : statements) {
+    batchStatement.add(statement);
+  }
+  executeBatch(batchStatement);
+}

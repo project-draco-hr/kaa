@@ -1,0 +1,6 @@
+{
+  List<CassandraEndpointConfiguration> configs=generateConfiguration(3);
+  CassandraEndpointConfiguration expected=configs.get(0);
+  CassandraEndpointConfiguration found=endpointConfigurationDao.findByHash(expected.getConfigurationHash().array());
+  Assert.assertEquals(expected,found);
+}

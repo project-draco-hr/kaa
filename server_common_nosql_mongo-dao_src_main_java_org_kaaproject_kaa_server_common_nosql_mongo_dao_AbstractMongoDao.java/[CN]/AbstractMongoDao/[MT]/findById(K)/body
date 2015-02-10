@@ -1,0 +1,4 @@
+{
+  LOG.debug("Find document of collection [{}] by id [{}]",getCollectionName(),key);
+  return mongoTemplate.findById(key,getDocumentClass());
+}

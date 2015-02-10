@@ -1,0 +1,8 @@
+{
+  LOG.debug("Find notification schema by application id {} type {} version {}",appId,type,majorVersion);
+  NotificationSchema schema=null;
+  if (isNotBlank(appId)) {
+    schema=findOneByCriterion(Restrictions.and(Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(appId)),Restrictions.eq(NOTIFICATION_SCHEMA_TYPE_PROPERTY,type),Restrictions.eq(MAJOR_VERSION_PROPERTY,majorVersion)));
+  }
+  return schema;
+}
