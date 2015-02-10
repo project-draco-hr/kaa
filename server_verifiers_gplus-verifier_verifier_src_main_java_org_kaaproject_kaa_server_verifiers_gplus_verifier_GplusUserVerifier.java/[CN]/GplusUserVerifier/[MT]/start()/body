@@ -1,7 +1,7 @@
 {
   LOG.info("user verifier started");
   threadPool=new ThreadPoolExecutor(configuration.getMinParallelConnections(),configuration.getMaxParallelConnections(),configuration.getKeepAliveTimeMilliseconds(),TimeUnit.MILLISECONDS,new LinkedBlockingQueue<Runnable>());
-  PoolingHttpClientConnectionManager conManager=new PoolingHttpClientConnectionManager();
+  conManager=new PoolingHttpClientConnectionManager();
   conManager.setMaxTotal(configuration.getMaxParallelConnections());
   httpClient=HttpClients.custom().setConnectionManager(conManager).build();
 }
