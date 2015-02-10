@@ -15,11 +15,23 @@
   byte[] clientPropertiesData=generateClientProperties(templateArhive.getInputStream(clientPropertiesEntry),bootstrapNodes,appToken,configurationSchemaVersion,profileSchemaVersion,notificationSchemaVersion,logSchemaVersion,configurationProtocolSchemaBody,defaultConfigurationData,eventFamilies);
   replacementData.put(CLIENT_PROPERTIES,new ZipEntryData(new ZipEntry(CLIENT_PROPERTIES),clientPropertiesData));
   Schema profileSchema=new Schema.Parser().parse(profileSchemaBody);
+  String profileClassName=profileSchema.getName();
+  String profileClassPackage=profileSchema.getNamespace();
   List<JavaDynamicBean> javaSources=generateSchemaSources(profileSchema);
-  String profileContainerTemplate=readResource(ABSTRACT_RPOFILE_CONTAINER_SOURCE_TEMPLATE);
-  String profileContainerSource=profileContainerTemplate.replaceAll(PROFILE_CLASS_PACKAGE_VAR,profileSchema.getNamespace()).replaceAll(PROFILE_CLASS_VAR,profileSchema.getName());
-  JavaDynamicBean profileContainerClassBean=new JavaDynamicBean(ABSTRACT_PROFILE_CONTAINER,profileContainerSource);
+  String profileContainerTemplate=readResource(PROFILE_CONTAINER_SOURCE_TEMPLATE);
+  String profileContainerSource=profileContainerTemplate.replaceAll(PROFILE_CLASS_PACKAGE_VAR,profileClassPackage).replaceAll(PROFILE_CLASS_VAR,profileClassName);
+  JavaDynamicBean profileContainerClassBean=new JavaDynamicBean(PROFILE_CONTAINER,profileContainerSource);
   javaSources.add(profileContainerClassBean);
+  String profileSerializerTemplate;
+  if (profileSchemaVersion == 1) {
+    profileSerializerTemplate=readResource(DEFAULT_PROFILE_SERIALIZER_SOURCE_TEMPLATE);
+  }
+ else {
+    profileSerializerTemplate=readResource(PROFILE_SERIALIZER_SOURCE_TEMPLATE);
+  }
+  String profileSerializerSource=profileSerializerTemplate.replaceAll(PROFILE_CLASS_PACKAGE_VAR,profileClassPackage).replaceAll(PROFILE_CLASS_VAR,profileClassName);
+  JavaDynamicBean profileSerializerClassBean=new JavaDynamicBean(PROFILE_SERIALIZER,profileSerializerSource);
+  javaSources.add(profileSerializerClassBean);
   Schema notificationSchema=new Schema.Parser().parse(notificationSchemaBody);
   javaSources.addAll(generateSchemaSources(notificationSchema));
   String notificationListenerTemplate=readResource(ABSTRACT_NOTIFICATION_LISTENER_SOURCE_TEMPLATE);
