@@ -6,7 +6,7 @@
     connection=establishConnection(url);
     connection.setRequestMethod("GET");
     responseCode=connection.getResponseCode();
-    if (responseCode == 200) {
+    if (responseCode == HTTP_OK) {
       responseJson=readResponse(connection.getInputStream());
       ObjectMapper mapper=new ObjectMapper();
       Map<String,String> map=mapper.readValue(responseJson.toString(),Map.class);
@@ -20,7 +20,7 @@
         LOG.trace("Input token is confirmed and belongs to the user with {} id",userExternalId);
       }
     }
-    if (responseCode == 400) {
+    if (responseCode == HTTP_BAD_REQUEST) {
       callback.onTokenInvalid();
       LOG.trace("Server auth error: {}",readResponse(connection.getErrorStream()));
     }
