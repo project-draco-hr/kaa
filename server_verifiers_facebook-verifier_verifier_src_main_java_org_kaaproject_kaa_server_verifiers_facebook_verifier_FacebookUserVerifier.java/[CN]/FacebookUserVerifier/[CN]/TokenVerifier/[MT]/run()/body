@@ -1,27 +1,23 @@
 {
   String accessToken=config.getAppId() + "|" + config.getAppSecret();
   LOG.trace("Started token verification with accessToken [{}]",accessToken);
-  CloseableHttpResponse connection=null;
+  CloseableHttpResponse closeableHttpResponse=null;
   try {
-    connection=establishConnection(userAccessToken,accessToken);
+    closeableHttpResponse=establishConnection(userAccessToken,accessToken);
     LOG.trace("Connection established [{}]",accessToken);
-    int responseCode=connection.getStatusLine().getStatusCode();
+    int responseCode=closeableHttpResponse.getStatusLine().getStatusCode();
     if (responseCode == HTTP_BAD_REQUEST) {
-      handleBadResponse(connection,callback);
+      handleBadResponse(closeableHttpResponse,callback);
     }
  else     if (responseCode == HTTP_OK) {
-      handleResponse(connection,userExternalId,callback,userAccessToken);
+      handleResponse(closeableHttpResponse,userExternalId,callback,userAccessToken);
     }
  else {
       LOG.warn("Server response code: {}, no data can be retrieved",responseCode);
       callback.onVerificationFailure("Server response code:" + responseCode + ", no data can be retrieved");
     }
   }
- catch (  MalformedURLException e) {
-    LOG.debug("Internal error",e);
-    callback.onInternalError(e.getMessage());
-  }
-catch (  IOException e) {
+ catch (  IOException e) {
     LOG.debug("Connection error",e);
     callback.onConnectionError(e.getMessage());
   }
@@ -30,9 +26,9 @@ catch (  Exception e) {
     callback.onInternalError(e.getMessage());
   }
  finally {
-    if (connection != null) {
+    if (closeableHttpResponse != null) {
       try {
-        connection.close();
+        closeableHttpResponse.close();
       }
  catch (      IOException e) {
         LOG.debug("Connection error: can't close CloseableHttpResponse");

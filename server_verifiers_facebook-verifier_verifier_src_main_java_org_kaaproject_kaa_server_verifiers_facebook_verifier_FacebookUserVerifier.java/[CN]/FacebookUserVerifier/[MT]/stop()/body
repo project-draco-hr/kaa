@@ -1,7 +1,6 @@
 {
   LOG.info("stopping facebook verifier");
   tokenVerifiersPool.shutdown();
-  connectionManager.close();
   try {
     httpClient.close();
   }
