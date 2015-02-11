@@ -1,7 +1,7 @@
 {
   LogBlock group=null;
 synchronized (storage) {
-    group=storage.getRecordBlock(configuration.getBatchVolume());
+    group=storage.getRecordBlock(strategy.getBatchSize());
     isUploading=false;
   }
   if (group != null) {
@@ -14,7 +14,7 @@ synchronized (storage) {
       }
       request.setRequestId(group.getBlockId());
       request.setLogEntries(logs);
-      timeoutMap.put(group.getBlockId(),System.currentTimeMillis() + configuration.getLogUploadTimeout() * 1000);
+      timeoutMap.put(group.getBlockId(),System.currentTimeMillis() + strategy.getTimeout() * 1000);
     }
   }
  else {

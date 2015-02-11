@@ -1,14 +1,11 @@
 {
 switch (decision) {
 case UPLOAD:
-    if (failoverStrategy.isUploadApproved() && !isUploading) {
+    if (!isUploading) {
       isUploading=true;
       transport.sync();
     }
   break;
-case CLEANUP:
-storage.removeOldestRecord(configuration.getMaximumAllowedVolume());
-break;
 case NOOP:
 default :
 break;

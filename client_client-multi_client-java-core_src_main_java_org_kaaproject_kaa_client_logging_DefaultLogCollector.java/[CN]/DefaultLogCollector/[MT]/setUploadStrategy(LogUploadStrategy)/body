@@ -1,6 +1,7 @@
 {
-  if (strategy != null) {
-    uploadStrategy=strategy;
-    LOG.info("New log upload strategy was set");
+  if (strategy == null) {
+    throw new IllegalArgumentException("Strategy is null!");
   }
+  this.strategy=strategy;
+  LOG.info("New log upload strategy was set: {}",strategy);
 }

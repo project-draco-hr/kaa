@@ -1,5 +1,8 @@
 {
 synchronized (buckets) {
+    if (this.getConsumedVolume() + record.getSize() > maxStorageSize) {
+      removeOldestRecord(MAX_STORAGE_SIZE);
+    }
     if (buckets.isEmpty()) {
       initBucketList();
     }

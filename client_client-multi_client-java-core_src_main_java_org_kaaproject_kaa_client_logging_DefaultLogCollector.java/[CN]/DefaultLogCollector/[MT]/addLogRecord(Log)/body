@@ -1,0 +1,11 @@
+{
+  try {
+    storage.addLogRecord(new LogRecord(record));
+  }
+ catch (  IOException e) {
+    LOG.warn("Can't serialize log record {}",record);
+  }
+  if (!isDeliveryTimeout()) {
+    processUploadDecision(strategy.isUploadNeeded(storage.getStatus()));
+  }
+}

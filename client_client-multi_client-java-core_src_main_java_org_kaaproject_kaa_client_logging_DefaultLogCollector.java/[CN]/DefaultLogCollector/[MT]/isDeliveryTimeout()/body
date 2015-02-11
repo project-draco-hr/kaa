@@ -13,7 +13,7 @@
       storage.notifyUploadFailed(logRequest.getKey());
     }
     timeoutMap.clear();
-    failoverStrategy.onTimeout();
+    strategy.onTimeout(controller);
   }
   return isTimeout;
 }
