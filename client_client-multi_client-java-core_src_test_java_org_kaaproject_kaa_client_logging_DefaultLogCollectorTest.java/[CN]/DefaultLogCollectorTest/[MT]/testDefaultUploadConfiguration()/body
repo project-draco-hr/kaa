@@ -4,13 +4,14 @@
   DefaultLogCollector logCollector=new DefaultLogCollector(transport,channelManager);
   DefaultLogUploadStrategy strategy=new DefaultLogUploadStrategy();
   strategy.setCountThreshold(5);
-  logCollector.setUploadStrategy(strategy);
+  logCollector.setStrategy(strategy);
   try {
     Log record=new Log();
     logCollector.addLogRecord(record);
     logCollector.addLogRecord(record);
     logCollector.addLogRecord(record);
     logCollector.addLogRecord(record);
+    verify(transport,times(0)).sync();
     logCollector.addLogRecord(record);
     verify(transport,times(1)).sync();
   }
