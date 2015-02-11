@@ -1,10 +1,10 @@
 {
-  URI uri=null;
   try {
-    uri=new URI(GOOGLE_OAUTH + accessToken);
+    URI uri=new URI(GOOGLE_OAUTH + accessToken);
+    threadPool.submit(new RunnableVerifier(uri,callback,userExternalId));
   }
  catch (  URISyntaxException e) {
-    e.printStackTrace();
+    callback.onInternalError();
+    LOG.warn("Internal error",e);
   }
-  threadPool.submit(new RunnableVerifier(uri,callback,userExternalId));
 }

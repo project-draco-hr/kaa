@@ -5,6 +5,7 @@
   }
  catch (  IOException e) {
     LOG.warn("Internal error: ",e);
+    throw new RuntimeException();
   }
   return closeableHttpResponse;
 }

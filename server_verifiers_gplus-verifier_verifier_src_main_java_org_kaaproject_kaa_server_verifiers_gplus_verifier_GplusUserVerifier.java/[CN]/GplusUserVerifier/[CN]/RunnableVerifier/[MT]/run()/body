@@ -1,7 +1,7 @@
 {
   CloseableHttpResponse closeableHttpResponse=null;
   try {
-    String responseJson="";
+    String responseJson;
     int responseCode;
     closeableHttpResponse=establishConnection(uri);
     responseCode=closeableHttpResponse.getStatusLine().getStatusCode();
@@ -29,14 +29,17 @@
     }
   }
  catch (  IOException e) {
+    callback.onInternalError();
     LOG.warn("Internal error: ",e);
   }
  finally {
-    try {
-      closeableHttpResponse.close();
-    }
- catch (    IOException e) {
-      LOG.warn("Internal error: ",e);
+    if (null != closeableHttpResponse) {
+      try {
+        closeableHttpResponse.close();
+      }
+ catch (      IOException e) {
+        LOG.warn("Internal error: ",e);
+      }
     }
   }
 }
