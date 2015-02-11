@@ -1,0 +1,10 @@
+{
+  if (supportedProtocols == null) {
+    return Collections.emptyList();
+  }
+  List<ProtocolVersionId> result=new ArrayList<ProtocolVersionId>(supportedProtocols.size());
+  for (  ProtocolVersionPair pair : supportedProtocols) {
+    result.add(new ProtocolVersionId(pair.getId(),pair.getVersion()));
+  }
+  return result;
+}

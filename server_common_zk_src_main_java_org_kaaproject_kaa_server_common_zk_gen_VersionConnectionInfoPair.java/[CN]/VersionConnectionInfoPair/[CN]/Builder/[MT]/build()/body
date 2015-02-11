@@ -1,0 +1,11 @@
+{
+  try {
+    VersionConnectionInfoPair record=new VersionConnectionInfoPair();
+    record.version=fieldSetFlags()[0] ? this.version : (java.lang.Integer)defaultValue(fields()[0]);
+    record.conenctionInfo=fieldSetFlags()[1] ? this.conenctionInfo : (java.nio.ByteBuffer)defaultValue(fields()[1]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

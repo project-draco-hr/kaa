@@ -13,15 +13,11 @@
     bootstrapNode.start();
     timing.sleepABit();
     verify(mockListener).onNodeAdded(bootstrapNodeInfo);
-    int random=new Random().nextInt();
-    ZkHttpStatistics channelStats=(ZkHttpStatistics)bootstrapNodeInfo.getSupportedChannelsArray().get(0).getZkChannel().getChannelStatistics();
-    channelStats.getZkStatistics().setProcessedRequestCount(random);
-    ;
+    List<TransportMetaData> transports=bootstrapNodeInfo.getTransports();
+    transports.remove(getHttpTransportMD());
     bootstrapNode.updateNodeData(bootstrapNodeInfo);
     timing.sleepABit();
     verify(mockListener).onNodeUpdated(bootstrapNodeInfo);
-    channelStats=(ZkHttpStatistics)controlNode.getCurrentBootstrapNodes().get(0).getSupportedChannelsArray().get(0).getZkChannel().getChannelStatistics();
-    assertEquals(new Integer(random),channelStats.getZkStatistics().getProcessedRequestCount());
     bootstrapNode.close();
     timing.sleepABit();
     verify(mockListener).onNodeRemoved(bootstrapNodeInfo);

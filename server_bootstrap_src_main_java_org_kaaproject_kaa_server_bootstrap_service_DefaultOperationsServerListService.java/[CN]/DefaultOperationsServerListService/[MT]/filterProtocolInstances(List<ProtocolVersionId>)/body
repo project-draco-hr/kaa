@@ -1,0 +1,13 @@
+{
+  Set<ProtocolConnectionData> result=new HashSet<ProtocolConnectionData>();
+  for (  ProtocolVersionId key : keys) {
+    for (    OperationsNodeInfo node : opsMap.values()) {
+      for (      TransportMetaData md : node.getTransports()) {
+        if (md.getId() == key.getProtocolId() && md.getMinSupportedVersion() <= key.getVersion() && key.getVersion() <= md.getMaxSupportedVersion()) {
+          result.add(toProtocolConnectionData(node,md,key.getVersion()));
+        }
+      }
+    }
+  }
+  return result;
+}

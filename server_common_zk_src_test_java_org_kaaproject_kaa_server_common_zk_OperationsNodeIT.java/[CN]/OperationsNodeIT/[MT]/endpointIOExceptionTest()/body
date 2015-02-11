@@ -1,5 +1,4 @@
 {
-  Timing timing=new Timing();
   TestingCluster cluster=new TestingCluster(3);
   cluster.start();
   try {
@@ -13,6 +12,7 @@
     }
 ,true);
     Assert.assertFalse(endpointNode.isConnected());
+    endpointNode.close();
   }
   finally {
     cluster.close();

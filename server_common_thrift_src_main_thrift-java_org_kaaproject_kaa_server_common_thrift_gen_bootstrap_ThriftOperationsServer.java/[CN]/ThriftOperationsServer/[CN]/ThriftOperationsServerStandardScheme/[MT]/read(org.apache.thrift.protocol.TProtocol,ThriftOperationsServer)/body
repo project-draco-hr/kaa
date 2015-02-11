@@ -9,8 +9,8 @@
 switch (schemeField.id) {
 case 1:
       if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
-        struct.Name=iprot.readString();
-        struct.setNameIsSet(true);
+        struct.id=iprot.readString();
+        struct.setIdIsSet(true);
       }
  else {
         org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);
@@ -24,34 +24,6 @@ case 2:
  else {
     org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);
   }
-break;
-case 3:
-if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
-struct.publicKey=iprot.readBinary();
-struct.setPublicKeyIsSet(true);
-}
- else {
-org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);
-}
-break;
-case 4:
-if (schemeField.type == org.apache.thrift.protocol.TType.LIST) {
-{
-org.apache.thrift.protocol.TList _list0=iprot.readListBegin();
-struct.supportedChannels=new ArrayList<ThriftSupportedChannel>(_list0.size);
-for (int _i1=0; _i1 < _list0.size; ++_i1) {
-ThriftSupportedChannel _elem2;
-_elem2=new ThriftSupportedChannel();
-_elem2.read(iprot);
-struct.supportedChannels.add(_elem2);
-}
-iprot.readListEnd();
-}
-struct.setSupportedChannelsIsSet(true);
-}
- else {
-org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);
-}
 break;
 default :
 org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);

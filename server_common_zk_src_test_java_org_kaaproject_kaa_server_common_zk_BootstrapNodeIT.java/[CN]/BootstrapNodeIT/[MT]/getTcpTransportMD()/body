@@ -1,0 +1,8 @@
+{
+  TransportMetaData tcp=new TransportMetaData();
+  tcp.setId(TCP_ID);
+  tcp.setMaxSupportedVersion(2);
+  tcp.setMinSupportedVersion(2);
+  tcp.setConnectionInfo(Collections.singletonList(new VersionConnectionInfoPair(2,ByteBuffer.wrap("tcp".getBytes(UTF_8)))));
+  return tcp;
+}

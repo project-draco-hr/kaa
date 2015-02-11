@@ -1,11 +1,10 @@
 {
   byte[] requestBodyRaw=getMultiplexer().compileRequest(types);
-  byte[] responseDataRaw=null;
+  byte[] decodedResponse=null;
 synchronized (this) {
-    LinkedHashMap<String,byte[]> requestEntity=new LinkedHashMap<String,byte[]>();
-    requestEntity.put(CommonBSConstants.APPLICATION_TOKEN_ATTR_NAME,requestBodyRaw);
-    LOG.debug("Going to execute {}",requestEntity);
-    responseDataRaw=getHttpClient().executeHttpRequest("",requestEntity,true);
+    LinkedHashMap<String,byte[]> requestEntity=HttpRequestCreator.createBootstrapHttpRequest(requestBodyRaw,getHttpClient().getEncoderDecoder());
+    byte[] responseDataRaw=getHttpClient().executeHttpRequest("",requestEntity,false);
+    decodedResponse=getHttpClient().getEncoderDecoder().decodeData(responseDataRaw);
   }
-  getDemultiplexer().processResponse(responseDataRaw);
+  getDemultiplexer().processResponse(decodedResponse);
 }

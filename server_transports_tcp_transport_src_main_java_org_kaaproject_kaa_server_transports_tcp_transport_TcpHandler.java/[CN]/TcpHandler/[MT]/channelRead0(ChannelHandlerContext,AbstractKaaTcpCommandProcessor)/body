@@ -1,0 +1,34 @@
+{
+  MqttFrame frame=msg.getRequest();
+  LOG.trace("[{}] Processing {}",uuid,frame);
+  if (frame.getMessageType() == MessageType.CONNECT) {
+    if (session == null) {
+      handler.process(new NettyTcpConnectMessage(uuid,new NettyChannelContext(ctx),(Connect)frame,ChannelType.ASYNC,this,connectResponseConverter,connectErrorConverter));
+    }
+ else {
+      LOG.warn("[{}] Ignoring duplicate {} message ",uuid,MessageType.CONNECT);
+    }
+  }
+ else {
+    if (session != null) {
+switch (frame.getMessageType()) {
+case KAASYNC:
+        if (((KaaSync)frame).getKaaSyncMessageType() == KaaSyncMessageType.SYNC) {
+          handler.process(new NettyTcpSyncMessage((SyncRequest)frame,session,syncResponseConverter,syncErrorConverter));
+        }
+      break;
+case PINGREQ:
+    handler.process(new NettyTcpPingMessage(session));
+  break;
+case DISCONNECT:
+handler.process(new NettyTcpDisconnectMessage(session));
+break;
+default :
+break;
+}
+}
+ else {
+LOG.warn("[{}] Ignoring {} message due to incomplete CONNECT sequence",uuid,frame.getMessageType());
+}
+}
+}

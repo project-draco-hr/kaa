@@ -1,5 +1,5 @@
 {
-  AbstractServerInfo si=serverStorage.getCurrentPingServer();
+  IPTransportInfo si=serverStorage.getCurrentPingServer();
   LOG.info("Connectivity check will be performed on {}:{}",si.getHost(),si.getPort());
   InetSocketAddress addr=new InetSocketAddress(si.getHost(),si.getPort());
   try (Socket sock=new Socket()){

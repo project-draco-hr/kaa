@@ -1,5 +1,5 @@
 {
-  ChannelHandlerContext channelContextMock=Mockito.mock(ChannelHandlerContext.class);
+  ChannelContext channelContextMock=Mockito.mock(ChannelContext.class);
   EndpointProfileDto targetProfileMock=Mockito.mock(EndpointProfileDto.class);
   EventClassFamilyVersionStateDto ecfVdto=new EventClassFamilyVersionStateDto();
   ecfVdto.setEcfId(ECF1_ID);
@@ -13,7 +13,7 @@
   targetRequest.setSyncRequestMetaData(md);
   targetRequest.setEventSyncRequest(new EventSyncRequest());
   ServerSync targetResponse=new ServerSync();
-  targetResponse.setStatus(org.kaaproject.kaa.server.operations.pojo.sync.SyncStatus.SUCCESS);
+  targetResponse.setStatus(org.kaaproject.kaa.server.sync.SyncStatus.SUCCESS);
   SyncResponseHolder targetResponseHolder=new SyncResponseHolder(targetResponse);
   targetResponseHolder.setEndpointProfile(targetProfileMock);
   when(operationsService.sync(AvroEncDec.convert(targetRequest),null)).thenReturn(targetResponseHolder);
@@ -24,19 +24,19 @@
   RouteTableKey routeKey=new RouteTableKey(APP_TOKEN,new EventClassFamilyVersion(ECF1_ID,ECF1_VERSION));
   when(cacheService.getRouteKeys(new EventClassFqnVersion(TENANT_ID,FQN1,ECF1_VERSION))).thenReturn(Collections.singleton(routeKey));
   Assert.assertNotNull(akkaService.getActorSystem());
-  ResponseBuilder responseBuilder=Mockito.mock(ResponseBuilder.class);
+  MessageBuilder responseBuilder=Mockito.mock(MessageBuilder.class);
   ErrorBuilder errorBuilder=Mockito.mock(ErrorBuilder.class);
   MessageEncoderDecoder targetCrypt=new MessageEncoderDecoder(targetPair.getPrivate(),targetPair.getPublic(),serverPair.getPublic());
-  SessionInitRequest targetMessage=toSignedRequest(UUID.randomUUID(),ChannelType.HTTP_LP,channelContextMock,targetRequest,responseBuilder,errorBuilder,targetCrypt);
+  SessionInitMessage targetMessage=toSignedRequest(UUID.randomUUID(),ChannelType.SYNC_WITH_TIMEOUT,channelContextMock,targetRequest,responseBuilder,errorBuilder,targetCrypt);
   akkaService.process(targetMessage);
   Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeastOnce()).sync(AvroEncDec.convert(targetRequest),null);
-  org.kaaproject.kaa.server.operations.pojo.sync.Event event=new org.kaaproject.kaa.server.operations.pojo.sync.Event(0,FQN1,ByteBuffer.wrap(new byte[0]),null,null);
+  org.kaaproject.kaa.server.sync.Event event=new org.kaaproject.kaa.server.sync.Event(0,FQN1,ByteBuffer.wrap(new byte[0]),null,null);
   EndpointEvent endpointEvent=new EndpointEvent(EndpointObjectHash.fromBytes(clientPublicKeyHash.array()),event,UUID.randomUUID(),System.currentTimeMillis(),ECF1_VERSION);
   RemoteEndpointEvent remoteEvent=new RemoteEndpointEvent(TENANT_ID,USER_ID,endpointEvent,new RouteTableAddress(EndpointObjectHash.fromBytes(targetPublicKeyHash.array()),APP_TOKEN,"SERVER1"));
   akkaService.getListener().onEvent(remoteEvent);
-  event=new org.kaaproject.kaa.server.operations.pojo.sync.Event(0,FQN1,ByteBuffer.wrap(new byte[0]),null,Base64Util.encode(targetPublicKeyHash.array()));
+  event=new org.kaaproject.kaa.server.sync.Event(0,FQN1,ByteBuffer.wrap(new byte[0]),null,Base64Util.encode(targetPublicKeyHash.array()));
   ServerSync eventResponse=new ServerSync();
-  eventResponse.setStatus(org.kaaproject.kaa.server.operations.pojo.sync.SyncStatus.SUCCESS);
+  eventResponse.setStatus(org.kaaproject.kaa.server.sync.SyncStatus.SUCCESS);
   eventResponse.setEventSync(new EventServerSync());
   eventResponse.getEventSync().setEvents(Arrays.asList(event));
   AvroByteArrayConverter<SyncResponse> responseConverter=new AvroByteArrayConverter<>(SyncResponse.class);

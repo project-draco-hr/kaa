@@ -1,0 +1,11 @@
+{
+  try {
+    ProtocolVersionPair record=new ProtocolVersionPair();
+    record.id=fieldSetFlags()[0] ? this.id : (java.lang.Integer)defaultValue(fields()[0]);
+    record.version=fieldSetFlags()[1] ? this.version : (java.lang.Integer)defaultValue(fields()[1]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

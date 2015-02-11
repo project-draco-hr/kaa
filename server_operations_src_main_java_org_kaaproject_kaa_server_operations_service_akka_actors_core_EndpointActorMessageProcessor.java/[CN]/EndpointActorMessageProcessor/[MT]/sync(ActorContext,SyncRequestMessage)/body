@@ -28,7 +28,6 @@
  else {
       LOG.warn("[{}][{}] Endpoint profile is not set after request processing!",endpointKey,actorKey);
     }
-    this.syncTime+=System.currentTimeMillis() - start;
     LOG.debug("[{}][{}] SyncResponseHolder {}",endpointKey,actorKey,responseHolder);
     if (channelType.isAsync()) {
       LOG.debug("[{}][{}] Adding async request from channel [{}] to map ",endpointKey,actorKey,requestMessage.getChannelUuid());

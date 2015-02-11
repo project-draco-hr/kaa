@@ -4,12 +4,8 @@
   ByteBuffer keyData=ByteBuffer.wrap(new byte[]{45,45,45,45,45});
   ConnectionInfo connectionInfo=new ConnectionInfo(thriftHost,thriftPort,keyData);
   nodeInfo.setConnectionInfo(connectionInfo);
-  SupportedChannel channel=new SupportedChannel();
-  ZkHttpComunicationParameters httpCommunicationParameters=new ZkHttpComunicationParameters(new IpComunicationParameters(thriftHost,1000));
-  BaseStatistics statistics=new BaseStatistics(2,3,1,System.currentTimeMillis());
-  ZkHttpStatistics httpChannelStatistics=new ZkHttpStatistics(statistics);
-  channel.setZkChannel(new ZkSupportedChannel(ZkChannelType.HTTP,true,httpCommunicationParameters,httpChannelStatistics));
-  nodeInfo.setSupportedChannelsArray(Arrays.asList(channel));
+  nodeInfo.setLoadInfo(new LoadInfo(1));
+  nodeInfo.setTransports(new ArrayList<TransportMetaData>());
   String zkHostPortList="localhost:" + ZK_PORT;
   operationsNode=new OperationsNode(nodeInfo,zkHostPortList,new RetryUntilElapsed(3000,1000));
   try {
