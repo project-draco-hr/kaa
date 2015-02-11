@@ -1,6 +1,6 @@
 {
   System.setProperty(KaaClientProperties.KAA_CLIENT_PROPERTIES_FILE,"client-test.properties");
-  DesktopKaaClient clientSpy=Mockito.spy(new DesktopKaaClient());
+  KaaClient clientSpy=Mockito.spy(Kaa.newClient(new DesktopKaaPlatformContext()));
   try {
     clientSpy.start();
     Assert.assertNotNull(clientSpy.getConfigurationManager());

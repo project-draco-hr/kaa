@@ -6,6 +6,6 @@
     LOG.warn("Can't serialize log record {}",record);
   }
   if (!isDeliveryTimeout()) {
-    processUploadDecision(strategy.isUploadNeeded(storage.getStatus()));
+    uploadIfNeeded();
   }
 }
