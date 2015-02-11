@@ -30,6 +30,9 @@
   }
  catch (  IOException e) {
     callback.onInternalError();
+  }
+catch (  Exception e) {
+    callback.onInternalError();
     LOG.warn("Internal error: ",e);
   }
  finally {
