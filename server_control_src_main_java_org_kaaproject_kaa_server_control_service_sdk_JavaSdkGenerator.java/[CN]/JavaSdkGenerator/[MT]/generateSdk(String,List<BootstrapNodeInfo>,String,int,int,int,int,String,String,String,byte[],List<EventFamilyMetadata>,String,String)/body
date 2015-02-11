@@ -23,7 +23,7 @@
   JavaDynamicBean profileContainerClassBean=new JavaDynamicBean(PROFILE_CONTAINER,profileContainerSource);
   javaSources.add(profileContainerClassBean);
   String profileSerializerTemplate;
-  if (profileSchemaVersion == 1) {
+  if (profileSchemaVersion == DEFAULT_SCHEMA_VERSION) {
     profileSerializerTemplate=readResource(DEFAULT_PROFILE_SERIALIZER_SOURCE_TEMPLATE);
   }
  else {
@@ -43,7 +43,7 @@
   javaSources.addAll(generateSchemaSources(notificationSchema));
   String notificationDeserializerSourceTemplate=readResource(NOTIFICATION_DESERIALIZER_SOURCE_TEMPLATE);
   String notificationDeserializerSource=notificationDeserializerSourceTemplate.replaceAll(NOTIFICATION_CLASS_PACKAGE_VAR,notificationClassPackage).replaceAll(NOTIFICATION_CLASS_VAR,notificationClassName);
-  JavaDynamicBean notificationDeserializerClassBean=new JavaDynamicBean(NOTIFICATION_LISTENER,notificationDeserializerSource);
+  JavaDynamicBean notificationDeserializerClassBean=new JavaDynamicBean(NOTIFICATION_DESERIALIZER,notificationDeserializerSource);
   javaSources.add(notificationDeserializerClassBean);
   Schema logSchema=new Schema.Parser().parse(logSchemaBody);
   javaSources.addAll(generateSchemaSources(logSchema));
