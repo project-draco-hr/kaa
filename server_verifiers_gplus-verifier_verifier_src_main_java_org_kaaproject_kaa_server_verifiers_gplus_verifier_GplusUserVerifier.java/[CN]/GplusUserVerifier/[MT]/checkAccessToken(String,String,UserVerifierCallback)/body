@@ -4,7 +4,7 @@
     threadPool.submit(new RunnableVerifier(uri,callback,userExternalId));
   }
  catch (  URISyntaxException e) {
-    callback.onInternalError();
     LOG.warn("Internal error",e);
+    callback.onInternalError();
   }
 }
