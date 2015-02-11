@@ -19,7 +19,7 @@
         LOG.trace("Input token is confirmed and belongs to the user with {} id",userExternalId);
       }
     }
-    if (responseCode == HTTP_BAD_REQUEST) {
+ else     if (responseCode == HTTP_BAD_REQUEST) {
       callback.onTokenInvalid();
       LOG.trace("Server auth error: {}",readResponse(closeableHttpResponse.getEntity().getContent()));
     }

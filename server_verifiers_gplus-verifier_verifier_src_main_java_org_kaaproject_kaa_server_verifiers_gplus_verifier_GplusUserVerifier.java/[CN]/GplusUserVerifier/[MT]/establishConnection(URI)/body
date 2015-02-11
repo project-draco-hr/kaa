@@ -1,11 +1,3 @@
 {
-  CloseableHttpResponse closeableHttpResponse=null;
-  try {
-    closeableHttpResponse=httpClient.execute(new HttpGet(uri));
-  }
- catch (  IOException e) {
-    LOG.warn("Internal error: ",e);
-    throw new RuntimeException();
-  }
-  return closeableHttpResponse;
+  return httpClient.execute(new HttpGet(uri));
 }
