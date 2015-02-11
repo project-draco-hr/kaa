@@ -1,5 +1,5 @@
 {
-  KaaClientPropertiesState state=new KaaClientPropertiesState(new FilePersistentStorage(),KaaClientPropertiesStateTest.getProperties());
+  KaaClientPropertiesState state=new KaaClientPropertiesState(new FilePersistentStorage(),CommonsBase64.getInstance(),KaaClientPropertiesStateTest.getProperties());
   EventTransport transport=Mockito.mock(EventTransport.class);
   EventManager eventManager=new DefaultEventManager(state,transport);
   EventSyncRequest request=new EventSyncRequest();
