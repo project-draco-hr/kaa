@@ -1,12 +1,12 @@
 {
   KaaClientProperties props=KaaClientPropertiesStateTest.getProperties();
-  KaaClientPropertiesState state=new KaaClientPropertiesState(new FilePersistentStorage(),props);
+  KaaClientPropertiesState state=new KaaClientPropertiesState(new FilePersistentStorage(),CommonsBase64.getInstance(),props);
   NotificationTransport transport=mock(NotificationTransport.class);
   DefaultNotificationManager notificationManager=new DefaultNotificationManager(state,transport);
   List<Topic> topics=Arrays.asList(new Topic("id1","topic_name1",SubscriptionType.MANDATORY),new Topic("id2","topic_name1",SubscriptionType.MANDATORY));
   notificationManager.topicsListUpdated(topics);
   state.persist();
-  KaaClientPropertiesState newState=new KaaClientPropertiesState(new FilePersistentStorage(),KaaClientPropertiesStateTest.getProperties());
+  KaaClientPropertiesState newState=new KaaClientPropertiesState(new FilePersistentStorage(),CommonsBase64.getInstance(),KaaClientPropertiesStateTest.getProperties());
   DefaultNotificationManager newNotificationManager=new DefaultNotificationManager(newState,transport);
   Assert.assertTrue(newNotificationManager.getTopics().size() == topics.size());
   boolean deleted=new File(props.getProperty("state.file_location")).delete();

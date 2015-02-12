@@ -1,5 +1,5 @@
 {
-  KaaClientPropertiesState state=new KaaClientPropertiesState(new FilePersistentStorage(),KaaClientPropertiesStateTest.getProperties());
+  KaaClientPropertiesState state=new KaaClientPropertiesState(new FilePersistentStorage(),CommonsBase64.getInstance(),KaaClientPropertiesStateTest.getProperties());
   NotificationTransport transport=mock(NotificationTransport.class);
   DefaultNotificationManager notificationManager=new DefaultNotificationManager(state,transport);
   final List<Topic> topicUpdates=new LinkedList<>();
