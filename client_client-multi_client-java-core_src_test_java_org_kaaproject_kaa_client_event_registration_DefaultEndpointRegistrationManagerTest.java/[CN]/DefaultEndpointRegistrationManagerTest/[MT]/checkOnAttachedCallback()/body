@@ -1,7 +1,7 @@
 {
   KaaClientState state=mock(KaaClientState.class);
   when(state.getEndpointAccessToken()).thenReturn("");
-  CurrentEndpointAttachListener listener=mock(CurrentEndpointAttachListener.class);
+  AttachEndpointToUserCallback listener=mock(AttachEndpointToUserCallback.class);
   DefaultEndpointRegistrationManager manager=new DefaultEndpointRegistrationManager(state,null,null);
   manager.setAttachedListener(null);
   manager.onUpdate(null,null,null,new UserAttachNotification("foo","bar"),null);

@@ -2,7 +2,7 @@
   KaaClientState state=mock(KaaClientState.class);
   when(state.getEndpointAccessToken()).thenReturn("");
   DefaultEndpointRegistrationManager manager=spy(new DefaultEndpointRegistrationManager(state,null,null));
-  EndpointOperationResultListener listener=mock(EndpointOperationResultListener.class);
+  EndpointOperationCallback listener=mock(EndpointOperationCallback.class);
   manager.attachEndpoint(new EndpointAccessToken("accessToken1"),listener);
   UserTransport transport=mock(UserTransport.class);
   manager.setUserTransport(transport);

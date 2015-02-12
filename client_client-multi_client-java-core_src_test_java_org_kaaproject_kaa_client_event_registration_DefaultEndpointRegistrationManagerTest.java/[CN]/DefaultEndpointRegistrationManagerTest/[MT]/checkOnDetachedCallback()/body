@@ -1,7 +1,7 @@
 {
   KaaClientState state=mock(KaaClientState.class);
   when(state.getEndpointAccessToken()).thenReturn("");
-  CurrentEndpointDetachListener listener=mock(CurrentEndpointDetachListener.class);
+  DetachEndpointFromUserCallback listener=mock(DetachEndpointFromUserCallback.class);
   DefaultEndpointRegistrationManager manager=new DefaultEndpointRegistrationManager(state,null,null);
   manager.setDetachedListener(null);
   manager.onUpdate(null,null,null,null,new UserDetachNotification("foo"));

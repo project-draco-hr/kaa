@@ -4,7 +4,7 @@
     when(state.getEndpointAccessToken()).thenReturn("");
     UserTransport transport=new DefaultUserTransport();
     DefaultEndpointRegistrationManager manager=spy(new DefaultEndpointRegistrationManager(state,transport,null));
-    AttachedEndpointListChangedListener listListener=mock(AttachedEndpointListChangedListener.class);
+    ChangedAttachedEndpointListCallback listListener=mock(ChangedAttachedEndpointListCallback.class);
     manager.addAttachedEndpointListChangeListener(listListener);
     transport.setEndpointRegistrationProcessor(manager);
     UserSyncResponse sr=new UserSyncResponse();

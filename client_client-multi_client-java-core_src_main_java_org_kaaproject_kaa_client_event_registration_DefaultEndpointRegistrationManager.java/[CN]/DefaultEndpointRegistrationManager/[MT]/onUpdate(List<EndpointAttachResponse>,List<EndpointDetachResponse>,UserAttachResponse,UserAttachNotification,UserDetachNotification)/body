@@ -6,8 +6,8 @@
     }
     if (userResponse.getResult() == SyncResponseResultType.SUCCESS) {
       state.setAttachedToUser(true);
-      if (currentEndpointAttachListener != null) {
-        currentEndpointAttachListener.onAttachedToUser(userAttachRequest.getUserExternalId(),endpointAccessToken);
+      if (attachEndpointToUserCallback != null) {
+        attachEndpointToUserCallback.onAttachedToUser(userAttachRequest.getUserExternalId(),state.getEndpointAccessToken());
       }
     }
     userAttachRequest=null;
@@ -29,19 +29,16 @@
       }
     }
   }
-  if ((attachResponses != null && !attachResponses.isEmpty()) || (detachResponses != null && !detachResponses.isEmpty())) {
-    notifyListeners();
-  }
   if (userAttachNotification != null) {
     state.setAttachedToUser(true);
-    if (currentEndpointAttachListener != null) {
-      currentEndpointAttachListener.onAttachedToUser(userAttachNotification.getUserExternalId(),userAttachNotification.getEndpointAccessToken());
+    if (attachEndpointToUserCallback != null) {
+      attachEndpointToUserCallback.onAttachedToUser(userAttachNotification.getUserExternalId(),userAttachNotification.getEndpointAccessToken());
     }
   }
   if (userDetachNotification != null) {
     state.setAttachedToUser(false);
-    if (currentEndpointDetachListener != null) {
-      currentEndpointDetachListener.onDetachedFromUser(userDetachNotification.getEndpointAccessToken());
+    if (detachEndpointFromUserCallback != null) {
+      detachEndpointFromUserCallback.onDetachedFromUser(userDetachNotification.getEndpointAccessToken());
     }
   }
 }
