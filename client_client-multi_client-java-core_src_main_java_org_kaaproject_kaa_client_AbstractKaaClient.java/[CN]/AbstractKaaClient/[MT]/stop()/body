@@ -1,5 +1,11 @@
 {
-  kaaClientState.persist();
-  channelManager.shutdown();
-  isInitialized=false;
+  try {
+    kaaClientState.persist();
+    channelManager.shutdown();
+    isInitialized=false;
+    stateListener.onStopped();
+  }
+ catch (  Exception e) {
+    stateListener.onStopFailure(new KaaClientException(e));
+  }
 }

@@ -1,4 +1,10 @@
 {
-  kaaClientState.persist();
-  channelManager.pause();
+  try {
+    kaaClientState.persist();
+    channelManager.pause();
+    stateListener.onPaused();
+  }
+ catch (  Exception e) {
+    stateListener.onPauseFailure(new KaaClientException(e));
+  }
 }
