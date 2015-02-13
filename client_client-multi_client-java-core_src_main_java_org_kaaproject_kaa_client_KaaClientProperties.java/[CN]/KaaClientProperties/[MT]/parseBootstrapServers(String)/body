@@ -7,7 +7,7 @@
       ProtocolMetaData md=new ProtocolMetaData();
       md.setAccessPointId(Integer.valueOf(tokens[0]));
       md.setProtocolVersionInfo(new ProtocolVersionPair(Integer.valueOf(tokens[1]),Integer.valueOf(tokens[2])));
-      md.setConnectionInfo(ByteBuffer.wrap(Base64.decodeBase64(tokens[3])));
+      md.setConnectionInfo(ByteBuffer.wrap(base64.decodeBase64(tokens[3])));
       TransportProtocolId key=new TransportProtocolId(md.getProtocolVersionInfo().getId(),md.getProtocolVersionInfo().getVersion());
       List<TransportConnectionInfo> serverList=servers.get(key);
       if (serverList == null) {

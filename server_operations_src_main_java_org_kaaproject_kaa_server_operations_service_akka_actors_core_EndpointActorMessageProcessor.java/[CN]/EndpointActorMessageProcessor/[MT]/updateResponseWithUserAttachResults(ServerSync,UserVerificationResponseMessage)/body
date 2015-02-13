@@ -1,0 +1,6 @@
+{
+  if (response.getUserSync() == null) {
+    response.setUserSync(new UserServerSync());
+  }
+  response.getUserSync().setUserAttachResponse(toUserAttachResponse(message));
+}

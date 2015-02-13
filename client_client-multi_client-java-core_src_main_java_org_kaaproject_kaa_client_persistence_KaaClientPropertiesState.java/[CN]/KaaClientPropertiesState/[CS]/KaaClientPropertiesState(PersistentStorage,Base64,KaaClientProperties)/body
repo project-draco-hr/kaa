@@ -1,0 +1,66 @@
+{
+  super();
+  this.storage=storage;
+  this.base64=base64;
+  stateFileLocation=properties.containsKey(STATE_FILE_LOCATION) ? properties.getProperty(STATE_FILE_LOCATION) : STATE_FILE_DEFAULT;
+  clientPrivateKeyFileLocation=properties.containsKey(CLIENT_PRIVATE_KEY_FILE_LOCATION) ? properties.getProperty(CLIENT_PRIVATE_KEY_FILE_LOCATION) : CLIENT_PRIVATE_KEY_DEFAULT;
+  clientPublicKeyFileLocation=properties.containsKey(CLIENT_PUBLIC_KEY_FILE_LOCATION) ? properties.getProperty(CLIENT_PUBLIC_KEY_FILE_LOCATION) : CLIENT_PUBLIC_KEY_DEFAULT;
+  LOG.info("Version: '{}', commit hash: '{}'",properties.getBuildVersion(),properties.getCommitHash());
+  state=new Properties();
+  if (storage.exists(stateFileLocation)) {
+    InputStream stream=null;
+    try {
+      stream=storage.openForRead(stateFileLocation);
+      state.load(stream);
+      if (isSDKPropertiesUpdated(properties,state)) {
+        LOG.info("SDK properties were updated");
+        setRegistered(false);
+        setPropertiesHash(properties.getPropertiesHash());
+      }
+ else {
+        LOG.info("SDK properties are up to date");
+      }
+      BinaryDecoder decoder=DecoderFactory.get().binaryDecoder(state.getProperty(NF_SUBSCRIPTIONS).getBytes(),null);
+      SpecificDatumReader<TopicSubscriptionInfo> avroReader=new SpecificDatumReader<TopicSubscriptionInfo>(TopicSubscriptionInfo.class);
+      try {
+        TopicSubscriptionInfo decodedInfo=null;
+        while (!decoder.isEnd()) {
+          decodedInfo=avroReader.read(null,decoder);
+          LOG.debug("Loaded {}",decodedInfo);
+          nfSubscriptions.put(decodedInfo.getTopicInfo().getId(),decodedInfo);
+        }
+      }
+ catch (      Exception e) {
+        LOG.error("Unexpected exception occurred while reading information from decoder");
+      }
+      String attachedEndpointsString=state.getProperty(ATTACHED_ENDPOINTS);
+      String[] splittedEndpointsList=attachedEndpointsString.split(",");
+      for (      String attachedEndpoint : splittedEndpointsList) {
+        if (!attachedEndpoint.isEmpty()) {
+          String[] splittedValues=attachedEndpoint.split(":");
+          attachedEndpoints.put(new EndpointAccessToken(splittedValues[0]),new EndpointKeyHash(splittedValues[1]));
+        }
+      }
+      String eventSeqNumStr=state.getProperty(EVENT_SEQ_NUM);
+      Integer eventSeqNum=0;
+      try {
+        eventSeqNum=Integer.parseInt(eventSeqNumStr);
+      }
+ catch (      NumberFormatException e) {
+        LOG.error("Unexpected exception while parsing event sequence number. Can not parse String: {} to Integer",eventSeqNumStr);
+      }
+      eventSequence.set(eventSeqNum);
+    }
+ catch (    IOException e) {
+      LOG.error("Can't load state file",e);
+    }
+ finally {
+      IOUtils.closeQuietly(stream);
+    }
+  }
+ else {
+    LOG.info("First SDK start");
+    setPropertiesHash(properties.getPropertiesHash());
+  }
+  checkConfigVersionForUpdates(properties);
+}

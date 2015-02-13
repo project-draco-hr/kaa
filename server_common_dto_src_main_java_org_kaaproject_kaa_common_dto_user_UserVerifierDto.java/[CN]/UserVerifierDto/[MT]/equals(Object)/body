@@ -1,0 +1,21 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (!super.equals(obj)) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  UserVerifierDto other=(UserVerifierDto)obj;
+  if (verifierToken == null) {
+    if (other.verifierToken != null) {
+      return false;
+    }
+  }
+ else   if (!verifierToken.equals(other.verifierToken)) {
+    return false;
+  }
+  return true;
+}

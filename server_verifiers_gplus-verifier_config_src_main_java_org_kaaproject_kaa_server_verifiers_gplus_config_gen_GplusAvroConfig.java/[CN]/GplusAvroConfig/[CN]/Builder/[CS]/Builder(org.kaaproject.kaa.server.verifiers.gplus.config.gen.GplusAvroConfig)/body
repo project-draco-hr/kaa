@@ -1,0 +1,15 @@
+{
+  super(org.kaaproject.kaa.server.verifiers.gplus.config.gen.GplusAvroConfig.SCHEMA$);
+  if (isValidValue(fields()[0],other.max_parallel_connections)) {
+    this.max_parallel_connections=data().deepCopy(fields()[0].schema(),other.max_parallel_connections);
+    fieldSetFlags()[0]=true;
+  }
+  if (isValidValue(fields()[1],other.min_parallel_connections)) {
+    this.min_parallel_connections=data().deepCopy(fields()[1].schema(),other.min_parallel_connections);
+    fieldSetFlags()[1]=true;
+  }
+  if (isValidValue(fields()[2],other.keep_alive_time_milliseconds)) {
+    this.keep_alive_time_milliseconds=data().deepCopy(fields()[2].schema(),other.keep_alive_time_milliseconds);
+    fieldSetFlags()[2]=true;
+  }
+}

@@ -4,7 +4,7 @@
   }
   UserClientSync sync=new UserClientSync();
   if (source.getUserAttachRequest() != null) {
-    sync.setUserAttachRequest(new UserAttachRequest(source.getUserAttachRequest().getUserExternalId(),source.getUserAttachRequest().getUserAccessToken()));
+    sync.setUserAttachRequest(new UserAttachRequest(source.getUserAttachRequest().getUserVerifierId(),source.getUserAttachRequest().getUserExternalId(),source.getUserAttachRequest().getUserAccessToken()));
   }
   if (source.getEndpointAttachRequests() != null) {
     List<EndpointAttachRequest> requests=new ArrayList<>(source.getEndpointAttachRequests().size());

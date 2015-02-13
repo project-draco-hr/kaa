@@ -1,0 +1,49 @@
+{
+  CloseableHttpResponse closeableHttpResponse=null;
+  try {
+    String responseJson;
+    int responseCode;
+    closeableHttpResponse=establishConnection(uri);
+    responseCode=closeableHttpResponse.getStatusLine().getStatusCode();
+    if (responseCode == HTTP_OK) {
+      responseJson=readResponse(closeableHttpResponse.getEntity().getContent());
+      ObjectMapper mapper=new ObjectMapper();
+      Map map=mapper.readValue(responseJson,Map.class);
+      String userId=String.valueOf(map.get("user_id"));
+      if (!userExternalId.equals(userId)) {
+        LOG.trace("Input token doesn't belong to the user with {} id",userExternalId);
+        callback.onVerificationFailure("User access token doesn't belong to the user");
+      }
+ else {
+        LOG.trace("Input token is confirmed and belongs to the user with {} id",userExternalId);
+        callback.onSuccess();
+      }
+    }
+ else     if (responseCode == HTTP_BAD_REQUEST) {
+      LOG.trace("Server auth error: {}",readResponse(closeableHttpResponse.getEntity().getContent()));
+      callback.onTokenInvalid();
+    }
+ else {
+      LOG.trace("Server returned the following error code: {}",responseCode);
+      callback.onInternalError();
+    }
+  }
+ catch (  IOException e) {
+    LOG.warn("Internal error: ",e);
+    callback.onInternalError();
+  }
+catch (  Exception e) {
+    LOG.warn("Internal error: ",e);
+    callback.onInternalError();
+  }
+ finally {
+    if (null != closeableHttpResponse) {
+      try {
+        closeableHttpResponse.close();
+      }
+ catch (      IOException e) {
+        LOG.warn("Internal error: ",e);
+      }
+    }
+  }
+}

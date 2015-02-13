@@ -133,6 +133,15 @@ struct.setAppenderIdIsSet(true);
 org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);
 }
 break;
+case 15:
+if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+struct.userVerifierToken=iprot.readString();
+struct.setUserVerifierTokenIsSet(true);
+}
+ else {
+org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);
+}
+break;
 default :
 org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);
 }

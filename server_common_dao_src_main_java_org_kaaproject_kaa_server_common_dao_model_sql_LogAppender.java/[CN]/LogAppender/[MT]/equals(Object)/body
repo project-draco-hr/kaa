@@ -1,0 +1,30 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (!super.equals(obj)) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  LogAppender other=(LogAppender)obj;
+  if (confirmDelivery != other.confirmDelivery) {
+    return false;
+  }
+  if (headerStructure == null) {
+    if (other.headerStructure != null) {
+      return false;
+    }
+  }
+ else   if (!headerStructure.equals(other.headerStructure)) {
+    return false;
+  }
+  if (maxLogSchemaVersion != other.maxLogSchemaVersion) {
+    return false;
+  }
+  if (minLogSchemaVersion != other.minLogSchemaVersion) {
+    return false;
+  }
+  return true;
+}

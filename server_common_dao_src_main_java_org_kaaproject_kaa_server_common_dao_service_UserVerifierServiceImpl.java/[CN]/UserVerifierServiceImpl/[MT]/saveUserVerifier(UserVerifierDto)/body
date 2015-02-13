@@ -1,0 +1,13 @@
+{
+  LOG.debug("Save user verifier [{}]",userVerifierDto);
+  UserVerifierDto saved=null;
+  if (userVerifierDto != null) {
+    if (isBlank(userVerifierDto.getId())) {
+      userVerifierDto.setCreatedTime(System.currentTimeMillis());
+      String verifierToken=RandomStringUtils.randomNumeric(Constants.USER_VERIFIER_TOKEN_SIZE);
+      userVerifierDto.setVerifierToken(verifierToken);
+    }
+    saved=getDto(userVerifierDao.save(new UserVerifier(userVerifierDto)));
+  }
+  return saved;
+}

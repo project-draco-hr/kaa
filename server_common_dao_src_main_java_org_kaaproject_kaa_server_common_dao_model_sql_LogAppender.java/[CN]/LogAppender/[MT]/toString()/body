@@ -1,3 +1,15 @@
 {
-  return "LogAppender [name=" + name + ", application="+ application+ ", minLogSchemaVersion="+ minLogSchemaVersion+ ", maxLogSchemaVersion="+ maxLogSchemaVersion+ ", confirmDelivery="+ confirmDelivery+ ", status="+ status+ ", description="+ description+ ", createdUsername="+ createdUsername+ ", createdTime="+ createdTime+ ", typeName="+ typeName+ ", appenderClassName="+ appenderClassName+ ", rawConfiguration="+ Arrays.toString(rawConfiguration)+ ", headerStructure="+ headerStructure+ "]";
+  StringBuilder builder=new StringBuilder();
+  builder.append("LogAppender [minLogSchemaVersion=");
+  builder.append(minLogSchemaVersion);
+  builder.append(", maxLogSchemaVersion=");
+  builder.append(maxLogSchemaVersion);
+  builder.append(", confirmDelivery=");
+  builder.append(confirmDelivery);
+  builder.append(", headerStructure=");
+  builder.append(headerStructure);
+  builder.append(", parent=");
+  builder.append(super.toString());
+  builder.append("]");
+  return builder.toString();
 }

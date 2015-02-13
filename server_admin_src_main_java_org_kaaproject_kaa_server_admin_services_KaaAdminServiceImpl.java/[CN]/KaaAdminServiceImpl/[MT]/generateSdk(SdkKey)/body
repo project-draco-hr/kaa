@@ -1,0 +1,10 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    checkApplicationId(key.getApplicationId());
+    return Base64.encodeObject(key,Base64.URL_SAFE);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

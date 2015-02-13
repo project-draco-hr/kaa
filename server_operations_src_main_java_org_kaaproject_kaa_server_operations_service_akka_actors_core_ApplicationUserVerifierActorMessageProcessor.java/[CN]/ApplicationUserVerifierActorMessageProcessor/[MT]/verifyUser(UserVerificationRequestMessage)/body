@@ -1,0 +1,10 @@
+{
+  UserVerifier verifier=userVerifiers.get(message.getVerifierId());
+  if (verifier != null) {
+    verifier.checkAccessToken(message.getUserId(),message.getAccessToken(),new DefaultVerifierCallback(message));
+  }
+ else {
+    LOG.debug("Failed to find verifier with token {}",message.getVerifierId());
+    message.getOriginator().tell(UserVerificationResponseMessage.failure(message.getRequestid(),message.getUserId(),UserVerifierErrorCode.NO_VERIFIER_CONFIGURED),ActorRef.noSender());
+  }
+}

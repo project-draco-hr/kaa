@@ -1,11 +1,15 @@
 {
   super(other);
-  if (isValidValue(fields()[0],other.userExternalId)) {
-    this.userExternalId=data().deepCopy(fields()[0].schema(),other.userExternalId);
+  if (isValidValue(fields()[0],other.userVerifierId)) {
+    this.userVerifierId=data().deepCopy(fields()[0].schema(),other.userVerifierId);
     fieldSetFlags()[0]=true;
   }
-  if (isValidValue(fields()[1],other.userAccessToken)) {
-    this.userAccessToken=data().deepCopy(fields()[1].schema(),other.userAccessToken);
+  if (isValidValue(fields()[1],other.userExternalId)) {
+    this.userExternalId=data().deepCopy(fields()[1].schema(),other.userExternalId);
     fieldSetFlags()[1]=true;
+  }
+  if (isValidValue(fields()[2],other.userAccessToken)) {
+    this.userAccessToken=data().deepCopy(fields()[2].schema(),other.userAccessToken);
+    fieldSetFlags()[2]=true;
   }
 }

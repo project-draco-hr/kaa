@@ -1,0 +1,47 @@
+{
+  Label minSchemaVersionLabel=new Label(Utils.constants.minVersion());
+  minSchemaVersionLabel.addStyleName(REQUIRED);
+  minSchemaVersion=new IntegerListBox();
+  minSchemaVersion.setWidth("30%");
+  minSchemaVersion.addValueChangeHandler(new ValueChangeHandler<Integer>(){
+    @Override public void onValueChange(    ValueChangeEvent<Integer> event){
+      updateMaxSchemaVersions();
+      fireChanged();
+    }
+  }
+);
+  idx++;
+  detailsTable.setWidget(idx,0,minSchemaVersionLabel);
+  detailsTable.setWidget(idx,1,minSchemaVersion);
+  Label maxSchemaVersionLabel=new Label(Utils.constants.maxVersion());
+  maxSchemaVersionLabel.addStyleName(REQUIRED);
+  maxSchemaVersion=new IntegerListBox();
+  maxSchemaVersion.setWidth("30%");
+  maxSchemaVersion.addValueChangeHandler(new ValueChangeHandler<Integer>(){
+    @Override public void onValueChange(    ValueChangeEvent<Integer> event){
+      fireChanged();
+    }
+  }
+);
+  idx++;
+  detailsTable.setWidget(idx,0,maxSchemaVersionLabel);
+  detailsTable.setWidget(idx,1,maxSchemaVersion);
+  confirmDelivery=new CheckBox();
+  confirmDelivery.setWidth("100%");
+  Label confirmDeliveryLabel=new Label(Utils.constants.confirmDelivery());
+  idx++;
+  detailsTable.setWidget(idx,0,confirmDeliveryLabel);
+  detailsTable.setWidget(idx,1,confirmDelivery);
+  confirmDelivery.addValueChangeHandler(new ValueChangeHandler<Boolean>(){
+    @Override public void onValueChange(    ValueChangeEvent<Boolean> event){
+      fireChanged();
+    }
+  }
+);
+  Label logMetadata=new Label(Utils.constants.logMetada());
+  generateMetadataListBox();
+  idx++;
+  detailsTable.setWidget(idx,0,logMetadata);
+  detailsTable.setWidget(idx,1,metadatalistBox);
+  return idx;
+}

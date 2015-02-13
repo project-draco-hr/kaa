@@ -22,6 +22,9 @@
  else     if (clazz == ApplicationPlace.class) {
       return new ApplicationActivity((ApplicationPlace)place,clientFactory);
     }
+ else     if (clazz == GenerateSdkPlace.class) {
+      return new GenerateSdkActivity((GenerateSdkPlace)place,clientFactory);
+    }
  else     if (clazz == UsersPlace.class) {
       return new UsersActivity((UsersPlace)place,clientFactory);
     }
@@ -93,6 +96,12 @@
     }
  else     if (clazz == LogAppenderPlace.class) {
       return new LogAppenderActivity((LogAppenderPlace)place,clientFactory);
+    }
+ else     if (clazz == UserVerifiersPlace.class) {
+      return new UserVerifiersActivity((UserVerifiersPlace)place,clientFactory);
+    }
+ else     if (clazz == UserVerifierPlace.class) {
+      return new UserVerifierActivity((UserVerifierPlace)place,clientFactory);
     }
   }
   return null;

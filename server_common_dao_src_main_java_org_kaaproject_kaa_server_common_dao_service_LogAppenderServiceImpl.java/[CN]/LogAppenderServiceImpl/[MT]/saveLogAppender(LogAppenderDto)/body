@@ -2,7 +2,9 @@
   LOG.debug("Save log appender [{}]",logAppenderDto);
   LogAppenderDto saved=null;
   if (logAppenderDto != null) {
-    logAppenderDto.setCreatedTime(System.currentTimeMillis());
+    if (isBlank(logAppenderDto.getId())) {
+      logAppenderDto.setCreatedTime(System.currentTimeMillis());
+    }
     saved=getDto(logAppenderDao.save(new LogAppender(logAppenderDto)));
   }
   return saved;

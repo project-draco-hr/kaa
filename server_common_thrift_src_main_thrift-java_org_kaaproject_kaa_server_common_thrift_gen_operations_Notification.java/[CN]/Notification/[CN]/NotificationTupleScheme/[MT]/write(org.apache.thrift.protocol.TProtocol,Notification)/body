@@ -43,7 +43,10 @@
   if (struct.isSetAppenderId()) {
     optionals.set(13);
   }
-  oprot.writeBitSet(optionals,14);
+  if (struct.isSetUserVerifierToken()) {
+    optionals.set(14);
+  }
+  oprot.writeBitSet(optionals,15);
   if (struct.isSetAppId()) {
     oprot.writeString(struct.appId);
   }
@@ -85,5 +88,8 @@
   }
   if (struct.isSetAppenderId()) {
     oprot.writeString(struct.appenderId);
+  }
+  if (struct.isSetUserVerifierToken()) {
+    oprot.writeString(struct.userVerifierToken);
   }
 }

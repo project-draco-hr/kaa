@@ -13,7 +13,6 @@
   Application appObj=new Application();
   appObj.setTenant(customer);
   appObj.setName(APPLICATION_NAME);
-  appObj.setUserVerifierName("kaaEndpointUserVerifier");
   ApplicationDto applicationDto=applicationService.saveApp(appObj.toDto());
   Assert.assertNotNull(applicationDto);
   Assert.assertNotNull(applicationDto.getId());
@@ -52,7 +51,7 @@
   }
   Assert.assertNotNull(confSchema);
   Assert.assertNotNull(confSchema.getId());
-  EndpointUserDto userDto=new EndpointUserDto();
+  userDto=new EndpointUserDto();
   userDto.setTenantId(customer.getId().toString());
   userDto.setExternalId(USER_EXTERNAL_ID);
   userDto.setAccessToken(USER_ACCESS_TOKEN);

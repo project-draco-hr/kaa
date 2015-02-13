@@ -43,6 +43,15 @@
   sb.append("logSchemaVersion:");
   sb.append(this.logSchemaVersion);
   first=false;
+  if (!first)   sb.append(", ");
+  sb.append("defaultVerifierToken:");
+  if (this.defaultVerifierToken == null) {
+    sb.append("null");
+  }
+ else {
+    sb.append(this.defaultVerifierToken);
+  }
+  first=false;
   sb.append(")");
   return sb.toString();
 }

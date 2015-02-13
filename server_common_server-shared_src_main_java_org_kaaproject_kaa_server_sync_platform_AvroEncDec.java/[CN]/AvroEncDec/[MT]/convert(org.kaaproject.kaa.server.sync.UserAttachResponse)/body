@@ -1,0 +1,7 @@
+{
+  UserAttachResponse response=new UserAttachResponse();
+  response.setResult(source.getResult() == SyncStatus.SUCCESS ? SyncResponseResultType.SUCCESS : SyncResponseResultType.FAILURE);
+  response.setErrorCode(convert(source.getErrorCode()));
+  response.setErrorReason(source.getErrorReason());
+  return response;
+}

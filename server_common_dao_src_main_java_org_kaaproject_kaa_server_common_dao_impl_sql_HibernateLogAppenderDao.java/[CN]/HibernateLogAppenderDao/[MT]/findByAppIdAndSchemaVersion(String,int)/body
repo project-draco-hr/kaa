@@ -1,7 +1,7 @@
 {
   List<LogAppender> appenders=Collections.emptyList();
   if (isNotBlank(appId)) {
-    appenders=findListByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.and(Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(appId)),Restrictions.eq(LOG_APPENDER_STATUS,LogAppenderStatusDto.REGISTERED),Restrictions.le(LOG_APPENDER_MIN_LOG_SCHEMA_VERSION,schemaVersion),Restrictions.ge(LOG_APPENDER_MAX_LOG_SCHEMA_VERSION,schemaVersion)));
+    appenders=findListByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.and(Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(appId)),Restrictions.le(LOG_APPENDER_MIN_LOG_SCHEMA_VERSION,schemaVersion),Restrictions.ge(LOG_APPENDER_MAX_LOG_SCHEMA_VERSION,schemaVersion)));
   }
   return appenders;
 }

@@ -1,4 +1,4 @@
 {
   LOG.debug("Find vacant log appenders by application id [{}]",appId);
-  return convertDtoList(logAppenderDao.findAllLogAppendersByAppId(appId));
+  return convertDtoList(logAppenderDao.findByAppId(appId));
 }

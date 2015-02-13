@@ -1,0 +1,7 @@
+{
+  ChannelHandlerContext channelCtx=Mockito.mock(ChannelHandlerContext.class);
+  Channel channel=Mockito.mock(Channel.class);
+  Mockito.when(channel.closeFuture()).thenReturn(Mockito.mock(ChannelFuture.class));
+  Mockito.when(channelCtx.channel()).thenReturn(channel);
+  return channelCtx;
+}

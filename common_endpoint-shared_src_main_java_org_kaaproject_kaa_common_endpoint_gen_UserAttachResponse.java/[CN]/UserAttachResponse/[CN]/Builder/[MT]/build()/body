@@ -2,6 +2,8 @@
   try {
     UserAttachResponse record=new UserAttachResponse();
     record.result=fieldSetFlags()[0] ? this.result : (org.kaaproject.kaa.common.endpoint.gen.SyncResponseResultType)defaultValue(fields()[0]);
+    record.errorCode=fieldSetFlags()[1] ? this.errorCode : (org.kaaproject.kaa.common.endpoint.gen.UserAttachErrorCode)defaultValue(fields()[1]);
+    record.errorReason=fieldSetFlags()[2] ? this.errorReason : (java.lang.String)defaultValue(fields()[2]);
     return record;
   }
  catch (  Exception e) {

@@ -12,6 +12,10 @@
     LOG.debug("[{}] Forwarding message to application log actor",applicationToken);
     processLogNotificationMessage(message);
   }
+ else   if (notification.isSetUserVerifierToken()) {
+    LOG.debug("[{}] Forwarding message to application log actor",applicationToken);
+    processUserVerifierNotificationMessage(message);
+  }
  else {
     LOG.debug("[{}] Broadcasting message to all endpoints",applicationToken);
     broadcastToAllEndpoints(message);

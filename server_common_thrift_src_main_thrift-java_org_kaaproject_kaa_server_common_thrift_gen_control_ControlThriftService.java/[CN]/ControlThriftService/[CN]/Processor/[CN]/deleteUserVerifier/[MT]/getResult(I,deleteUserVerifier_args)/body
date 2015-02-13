@@ -1,0 +1,10 @@
+{
+  deleteUserVerifier_result result=new deleteUserVerifier_result();
+  try {
+    iface.deleteUserVerifier(args.userVerifierId);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

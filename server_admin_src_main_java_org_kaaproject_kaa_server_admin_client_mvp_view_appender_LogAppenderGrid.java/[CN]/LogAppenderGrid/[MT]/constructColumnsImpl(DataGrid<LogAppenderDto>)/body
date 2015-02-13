@@ -1,23 +1,11 @@
 {
-  float prefWidth=0;
-  prefWidth+=constructStringColumn(table,Utils.constants.name(),new StringValueProvider<LogAppenderDto>(){
-    @Override public String getValue(    LogAppenderDto item){
-      return item.getName();
-    }
-  }
-,80);
+  float prefWidth=super.constructColumnsImpl(table);
   prefWidth+=constructStringColumn(table,Utils.constants.minVersion(),new StringValueProvider<LogAppenderDto>(){
     @Override public String getValue(    LogAppenderDto item){
       return String.valueOf(item.getMinLogSchemaVersion());
     }
   }
 ,80);
-  prefWidth+=constructBooleanColumn(table,Utils.constants.confirmDelivery(),new BooleanValueProvider<LogAppenderDto>(){
-    @Override public Boolean getValue(    LogAppenderDto item){
-      return item.isConfirmDelivery();
-    }
-  }
-,40);
   prefWidth+=constructStringColumn(table,Utils.constants.maxVersion(),new StringValueProvider<LogAppenderDto>(){
     @Override public String getValue(    LogAppenderDto item){
       if (item.getMaxLogSchemaVersion() == Integer.MAX_VALUE) {
@@ -29,11 +17,11 @@
     }
   }
 ,80);
-  prefWidth+=constructStringColumn(table,Utils.constants.logAppenderType(),new StringValueProvider<LogAppenderDto>(){
-    @Override public String getValue(    LogAppenderDto item){
-      return item.getTypeName();
+  prefWidth+=constructBooleanColumn(table,Utils.constants.confirmDelivery(),new BooleanValueProvider<LogAppenderDto>(){
+    @Override public Boolean getValue(    LogAppenderDto item){
+      return item.isConfirmDelivery();
     }
   }
-,80);
+,40);
   return prefWidth;
 }

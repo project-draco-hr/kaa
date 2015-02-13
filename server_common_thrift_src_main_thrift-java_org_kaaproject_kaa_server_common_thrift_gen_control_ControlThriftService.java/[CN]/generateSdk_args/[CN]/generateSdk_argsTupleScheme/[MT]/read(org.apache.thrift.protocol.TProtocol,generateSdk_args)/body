@@ -1,6 +1,6 @@
 {
   TTupleProtocol iprot=(TTupleProtocol)prot;
-  BitSet incoming=iprot.readBitSet(7);
+  BitSet incoming=iprot.readBitSet(8);
   if (incoming.get(0)) {
     struct.sdkPlatform=SdkPlatform.findByValue(iprot.readI32());
     struct.setSdkPlatformIsSet(true);
@@ -36,5 +36,9 @@
   if (incoming.get(6)) {
     struct.logSchemaVersion=iprot.readI32();
     struct.setLogSchemaVersionIsSet(true);
+  }
+  if (incoming.get(7)) {
+    struct.defaultVerifierToken=iprot.readString();
+    struct.setDefaultVerifierTokenIsSet(true);
   }
 }

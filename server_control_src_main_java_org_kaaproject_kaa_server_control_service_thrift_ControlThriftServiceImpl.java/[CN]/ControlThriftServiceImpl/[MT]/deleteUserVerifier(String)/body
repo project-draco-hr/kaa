@@ -1,0 +1,11 @@
+{
+  UserVerifierDto userVerifierDto=userVerifierService.findUserVerifierById(userVerifierId);
+  LOG.info("Remove user verifier ...");
+  userVerifierService.removeUserVerifierById(userVerifierId);
+  Notification thriftNotification=new Notification();
+  thriftNotification.setAppId(userVerifierDto.getApplicationId());
+  thriftNotification.setUserVerifierToken(userVerifierDto.getVerifierToken());
+  thriftNotification.setOp(Operation.REMOVE_USER_VERIFIER);
+  LOG.info("Send notification to operation servers about removing user verifier.");
+  controlZKService.sendEndpointNotification(thriftNotification);
+}

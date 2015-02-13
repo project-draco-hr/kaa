@@ -22,7 +22,10 @@
   if (struct.isSetLogSchemaVersion()) {
     optionals.set(6);
   }
-  oprot.writeBitSet(optionals,7);
+  if (struct.isSetDefaultVerifierToken()) {
+    optionals.set(7);
+  }
+  oprot.writeBitSet(optionals,8);
   if (struct.isSetSdkPlatform()) {
     oprot.writeI32(struct.sdkPlatform.getValue());
   }
@@ -48,5 +51,8 @@
   }
   if (struct.isSetLogSchemaVersion()) {
     oprot.writeI32(struct.logSchemaVersion);
+  }
+  if (struct.isSetDefaultVerifierToken()) {
+    oprot.writeString(struct.defaultVerifierToken);
   }
 }

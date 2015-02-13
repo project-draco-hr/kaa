@@ -1,5 +1,5 @@
 {
-  KaaClientPropertiesState state=new KaaClientPropertiesState(new FilePersistentStorage(),KaaClientPropertiesStateTest.getProperties());
+  KaaClientPropertiesState state=new KaaClientPropertiesState(new FilePersistentStorage(),CommonsBase64.getInstance(),KaaClientPropertiesStateTest.getProperties());
   EventTransport transport=Mockito.mock(EventTransport.class);
   ConcreteEventFamily eventFamily=new ConcreteEventFamily("kaa.test.event.PlayEvent");
   ConcreteEventFamily eventFamily2=new ConcreteEventFamily("kaa.test.event.StopEvent");

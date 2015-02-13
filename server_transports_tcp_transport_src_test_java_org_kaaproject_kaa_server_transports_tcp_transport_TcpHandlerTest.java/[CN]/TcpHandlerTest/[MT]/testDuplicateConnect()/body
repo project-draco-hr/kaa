@@ -5,6 +5,6 @@
   Mockito.when(msg.getRequest()).thenReturn(new Connect());
   TcpHandler handler=new TcpHandler(uuid,akkaService);
   handler.onSessionCreated(buildSessionInfo(uuid));
-  handler.channelRead0(null,msg);
+  handler.channelRead0(buildDummyCtxMock(),msg);
   Mockito.verify(akkaService,Mockito.never()).process(Mockito.any(NettyTcpConnectMessage.class));
 }

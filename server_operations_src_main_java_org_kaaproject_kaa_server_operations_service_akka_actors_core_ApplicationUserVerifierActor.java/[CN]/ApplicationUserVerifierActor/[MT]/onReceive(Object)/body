@@ -1,0 +1,10 @@
+{
+  LOG.debug("[{}] Received: {}",applicationId,message);
+  if (message instanceof UserVerificationRequestMessage) {
+    messageProcessor.verifyUser((UserVerificationRequestMessage)message);
+  }
+ else   if (message instanceof ThriftNotificationMessage) {
+    LOG.debug("[{}] Received thrift notification message: {}",applicationId,message);
+    messageProcessor.processNotification(((ThriftNotificationMessage)message).getNotification());
+  }
+}

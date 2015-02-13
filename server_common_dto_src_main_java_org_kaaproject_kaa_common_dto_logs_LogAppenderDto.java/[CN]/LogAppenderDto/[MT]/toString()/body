@@ -1,7 +1,15 @@
 {
   StringBuilder builder=new StringBuilder();
-  builder.append("LogAppenderDto [rawConfiguration=");
-  builder.append(Arrays.toString(rawConfiguration));
+  builder.append("LogAppenderDto [applicationToken=");
+  builder.append(applicationToken);
+  builder.append(", tenantId=");
+  builder.append(tenantId);
+  builder.append(", minLogSchemaVersion=");
+  builder.append(minLogSchemaVersion);
+  builder.append(", maxLogSchemaVersion=");
+  builder.append(maxLogSchemaVersion);
+  builder.append(", confirmDelivery=");
+  builder.append(confirmDelivery);
   builder.append(", parent=");
   builder.append(super.toString());
   builder.append("]");

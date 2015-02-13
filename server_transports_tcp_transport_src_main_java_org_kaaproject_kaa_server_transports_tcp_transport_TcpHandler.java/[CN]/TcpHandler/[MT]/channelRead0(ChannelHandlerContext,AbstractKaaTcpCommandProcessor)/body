@@ -2,6 +2,20 @@
   MqttFrame frame=msg.getRequest();
   LOG.trace("[{}] Processing {}",uuid,frame);
   if (frame.getMessageType() == MessageType.CONNECT) {
+    ChannelFuture closeFuture=ctx.channel().closeFuture();
+    closeFuture.addListener(new GenericFutureListener<Future<? super Void>>(){
+      @Override public void operationComplete(      Future<? super Void> future) throws Exception {
+        if (!sessionDisconnected) {
+          handler.process(new NettyTcpDisconnectMessage(session));
+          sessionDisconnected=true;
+          LOG.trace("[{}] Channel is closed - sending disconnect",uuid);
+        }
+ else {
+          LOG.trace("[{}] Channel is closed and disconnect is already sent",uuid);
+        }
+      }
+    }
+);
     if (session == null) {
       handler.process(new NettyTcpConnectMessage(uuid,new NettyChannelContext(ctx),(Connect)frame,ChannelType.ASYNC,this,connectResponseConverter,connectErrorConverter));
     }
@@ -21,6 +35,7 @@ case PINGREQ:
     handler.process(new NettyTcpPingMessage(session));
   break;
 case DISCONNECT:
+sessionDisconnected=true;
 handler.process(new NettyTcpDisconnectMessage(session));
 break;
 default :

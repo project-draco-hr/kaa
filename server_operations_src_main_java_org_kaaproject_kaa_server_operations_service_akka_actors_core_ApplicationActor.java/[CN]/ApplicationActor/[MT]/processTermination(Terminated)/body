@@ -19,6 +19,11 @@
       applicationLogActor=getOrCreateLogActor(name,logAppenderService,applicationService);
       LOG.debug("[{}] created log: {}",applicationToken,applicationLogActor);
     }
+ else     if (userVerifierSessions.remove(name) != null) {
+      LOG.debug("[{}] removed log: {}",applicationToken,localActor);
+      userVerifierActor=getOrCreateUserVerifierActor(name,endpointUserService,applicationService);
+      LOG.debug("[{}] created log: {}",applicationToken,applicationLogActor);
+    }
   }
  else {
     LOG.warn("remove commands for remote actors are not supported yet!");

@@ -1,0 +1,21 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (!super.equals(obj)) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  AbstractPluginPlace other=(AbstractPluginPlace)obj;
+  if (pluginId == null) {
+    if (other.pluginId != null) {
+      return false;
+    }
+  }
+ else   if (!pluginId.equals(other.pluginId)) {
+    return false;
+  }
+  return true;
+}
