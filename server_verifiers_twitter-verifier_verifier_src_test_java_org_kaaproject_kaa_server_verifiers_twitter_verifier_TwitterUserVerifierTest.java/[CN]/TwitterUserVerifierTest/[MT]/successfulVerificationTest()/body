@@ -4,7 +4,7 @@
   verifier.init(null,config);
   verifier.start();
   UserVerifierCallback callback=mock(UserVerifierCallback.class);
-  verifier.checkAccessToken(userId,"someToken",callback);
+  verifier.checkAccessToken(userId,"someToken someSecret",callback);
   verify(callback,Mockito.timeout(1000).atLeastOnce()).onSuccess();
   verifier.stop();
 }

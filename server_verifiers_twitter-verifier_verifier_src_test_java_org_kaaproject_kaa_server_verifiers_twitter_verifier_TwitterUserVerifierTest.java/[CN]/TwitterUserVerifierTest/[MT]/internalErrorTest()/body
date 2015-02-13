@@ -6,6 +6,6 @@
   doThrow(new NullPointerException()).when(httpClientMock).execute(any(HttpGet.class));
   ReflectionTestUtils.setField(verifier,"httpClient",httpClientMock);
   UserVerifierCallback callback=mock(UserVerifierCallback.class);
-  verifier.checkAccessToken("id","token",callback);
+  verifier.checkAccessToken("id","token secret",callback);
   Mockito.verify(callback,Mockito.timeout(1000)).onInternalError(any(String.class));
 }
