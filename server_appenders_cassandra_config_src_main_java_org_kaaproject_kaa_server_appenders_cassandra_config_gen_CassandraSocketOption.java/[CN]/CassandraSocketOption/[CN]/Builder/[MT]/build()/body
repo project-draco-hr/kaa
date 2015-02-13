@@ -1,0 +1,17 @@
+{
+  try {
+    CassandraSocketOption record=new CassandraSocketOption();
+    record.sendBufferSize=fieldSetFlags()[0] ? this.sendBufferSize : (java.lang.Integer)defaultValue(fields()[0]);
+    record.receiveBufferSize=fieldSetFlags()[1] ? this.receiveBufferSize : (java.lang.Integer)defaultValue(fields()[1]);
+    record.soLinger=fieldSetFlags()[2] ? this.soLinger : (java.lang.Integer)defaultValue(fields()[2]);
+    record.connectionTimeout=fieldSetFlags()[3] ? this.connectionTimeout : (java.lang.Integer)defaultValue(fields()[3]);
+    record.readTimeout=fieldSetFlags()[4] ? this.readTimeout : (java.lang.Integer)defaultValue(fields()[4]);
+    record.reuseAddress=fieldSetFlags()[5] ? this.reuseAddress : (java.lang.Boolean)defaultValue(fields()[5]);
+    record.keepAlive=fieldSetFlags()[6] ? this.keepAlive : (java.lang.Boolean)defaultValue(fields()[6]);
+    record.tcpNoDelay=fieldSetFlags()[7] ? this.tcpNoDelay : (java.lang.Boolean)defaultValue(fields()[7]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

@@ -1,0 +1,11 @@
+{
+  LOG.info("Try to stop cassandra log appender...");
+  if (!closed) {
+    closed=true;
+    if (logEventDao != null) {
+      logEventDao.close();
+    }
+    callbackExecutor.shutdownNow();
+  }
+  LOG.info("Cassandra log appender stoped.");
+}

@@ -1,0 +1,11 @@
+{
+  if (t instanceof UnsupportedFeatureException) {
+    callback.onRemoteError();
+  }
+ else   if (t instanceof IOException) {
+    callback.onConnectionError();
+  }
+ else {
+    callback.onInternalError();
+  }
+}
