@@ -1,0 +1,8 @@
+{
+  String timestamp=String.valueOf(System.currentTimeMillis() / 1000);
+  String nonce=UUID.randomUUID().toString().replaceAll("-","");
+  String signatureBase=generateSignatureBase(CONSUMER_KEY,accessToken,timestamp,nonce);
+  String signature=generateSignature(signatureBase);
+  String header=getKeyValueString("OAuth " + OAuth.OAUTH_CONSUMER_KEY,CONSUMER_KEY,OAuth.OAUTH_SIGNATURE_METHOD,SIGNATURE_METHOD,OAuth.OAUTH_TIMESTAMP,timestamp,OAuth.OAUTH_NONCE,nonce,OAuth.OAUTH_VERSION,OAuth.VERSION_1_0,OAuth.OAUTH_SIGNATURE,OAuth.percentEncode(signature),OAuth.OAUTH_TOKEN,OAuth.percentEncode(accessToken));
+  return header;
+}

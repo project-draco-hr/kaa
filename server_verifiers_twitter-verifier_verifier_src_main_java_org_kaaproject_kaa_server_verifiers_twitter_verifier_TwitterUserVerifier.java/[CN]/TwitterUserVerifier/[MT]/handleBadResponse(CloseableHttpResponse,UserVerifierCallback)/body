@@ -1,35 +1,13 @@
 {
   Map<String,Object> responseMap=getResponseMap(connection.getEntity().getContent());
-  Map<String,Object> errorMap=null;
-  if (responseMap.get(ERROR) != null) {
-    errorMap=(Map<String,Object>)responseMap.get(ERROR);
-  }
-  if (errorMap != null && String.valueOf(errorMap.get(CODE)).equals(OAUTH_ERROR)) {
-    if (errorMap.get(ERRROR_SUBCODE) == null) {
-      LOG.trace("OAuthException: [{}], errcode: [{}], errsubcode: [{}] ",errorMap.get(MESSAGE),errorMap.get(ERRCODE),errorMap.get(ERRROR_SUBCODE));
-      callback.onVerificationFailure("OAuthException:" + errorMap.get(MESSAGE));
-    }
- else     if (String.valueOf(errorMap.get(ERRROR_SUBCODE)).equals(TOKEN_EXPIRED)) {
-      LOG.trace("Access Token has expired");
-      callback.onTokenExpired();
-    }
- else     if (String.valueOf(errorMap.get(ERRROR_SUBCODE)).equals(TOKEN_INVALID)) {
-      LOG.trace("Access Token is invalid");
-      callback.onTokenInvalid();
-    }
- else {
-      LOG.trace("OAuthException: [{}], errcode: [{}], errsubcode: [{}] ",errorMap.get(MESSAGE),errorMap.get(ERRCODE),errorMap.get(ERRROR_SUBCODE));
-      callback.onVerificationFailure("OAuthException:" + errorMap.get(MESSAGE));
-    }
+  List<Map<String,Object>> errorList=(List<Map<String,Object>>)responseMap.get(ERRORS);
+  Map<String,Object> error=errorList.get(0);
+  if (INVALID_TOKEN_CODE.equals(String.valueOf(error.get(CODE)))) {
+    LOG.trace("Access Token is invalid or expired");
+    callback.onTokenInvalid();
   }
  else {
-    if (errorMap != null) {
-      LOG.trace("Unable to verify token: {}, errcode: [{}]",errorMap.get(MESSAGE),errorMap.get(ERRCODE));
-      callback.onVerificationFailure("Unable to verify token: " + errorMap.get(MESSAGE) + ", errorcode: "+ errorMap.get(ERRCODE));
-    }
- else {
-      LOG.trace("Unable to verify token. HTTP response 400");
-      callback.onVerificationFailure("Unable to verify token. HTTP response 400");
-    }
+    LOG.trace("Unable to verify token. Error code: [{}], message[{}]",error.get(CODE),error.get(MESSAGE));
+    callback.onVerificationFailure("Unable to verify token. Error code: " + error.get(CODE) + ", message: "+ error.get(MESSAGE));
   }
 }

@@ -1,0 +1,14 @@
+{
+  String signature=null;
+  try {
+    Mac mac=Mac.getInstance(ENCRYPTION_ALGO);
+    mac.init(new SecretKeySpec((CONSUMER_SECRET + "&" + ACCESS_TOKEN_SECRET).getBytes(),ENCRYPTION_ALGO));
+    mac.update(signatureBase.getBytes());
+    byte[] res=mac.doFinal();
+    signature=new String(Base64.encodeBase64(res)).trim();
+  }
+ catch (  NoSuchAlgorithmException e) {
+    e.printStackTrace();
+  }
+  return signature;
+}

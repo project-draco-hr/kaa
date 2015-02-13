@@ -1,10 +1,12 @@
 {
 switch (field$) {
 case 0:
-    return app_id;
+    return consumer_key;
 case 1:
-  return app_secret;
+  return consumer_secret;
 case 2:
+return access_token_secret;
+case 3:
 return max_parallel_connections;
 default :
 throw new org.apache.avro.AvroRuntimeException("Bad index");

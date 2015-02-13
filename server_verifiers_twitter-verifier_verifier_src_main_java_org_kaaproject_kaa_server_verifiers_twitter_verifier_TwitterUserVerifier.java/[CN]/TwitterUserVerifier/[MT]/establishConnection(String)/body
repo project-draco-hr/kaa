@@ -1,0 +1,11 @@
+{
+  HttpRequest request=null;
+  try {
+    request=new BasicHttpEntityEnclosingRequest(REQUEST_METHOD,TWITTER_PATH);
+    request.setHeader(REQUEST_HEADER_NAME,oAuthHeaderBuilder.generateHeader(accessToken));
+  }
+ catch (  InvalidKeyException e) {
+    LOG.debug("Invalid key for Encryption",e);
+  }
+  return httpClient.execute(TWITTER_HOST,request);
+}

@@ -1,13 +1,7 @@
 {
   Map<String,Object> responseMap=getResponseMap(connection.getEntity().getContent());
-  Map<String,Object> dataMap=(Map<String,Object>)responseMap.get(DATA);
-  String receivedUserId=String.valueOf(dataMap.get(USER_ID));
-  if (dataMap.containsKey(ERROR) || receivedUserId == null) {
-    Map<String,Object> errorMap=(Map<String,Object>)dataMap.get(ERROR);
-    LOG.warn("Bad input token: {}, errcode = {}",errorMap.get(MESSAGE),errorMap.get(CODE));
-    callback.onTokenInvalid();
-  }
- else   if (!receivedUserId.equals(userExternalId)) {
+  String receivedUserId=String.valueOf(responseMap.get(ID));
+  if (!receivedUserId.equals(userExternalId)) {
     LOG.warn("Input token doesn't belong to the user with {} id",userExternalId);
     callback.onVerificationFailure("User access token " + userAccessToken + " doesn't belong to the user");
   }

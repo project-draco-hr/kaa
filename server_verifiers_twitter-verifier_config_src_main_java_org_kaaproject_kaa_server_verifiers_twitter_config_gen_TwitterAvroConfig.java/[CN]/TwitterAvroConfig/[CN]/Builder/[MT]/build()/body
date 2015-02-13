@@ -1,9 +1,10 @@
 {
   try {
     TwitterAvroConfig record=new TwitterAvroConfig();
-    record.app_id=fieldSetFlags()[0] ? this.app_id : (java.lang.String)defaultValue(fields()[0]);
-    record.app_secret=fieldSetFlags()[1] ? this.app_secret : (java.lang.String)defaultValue(fields()[1]);
-    record.max_parallel_connections=fieldSetFlags()[2] ? this.max_parallel_connections : (java.lang.Integer)defaultValue(fields()[2]);
+    record.consumer_key=fieldSetFlags()[0] ? this.consumer_key : (java.lang.String)defaultValue(fields()[0]);
+    record.consumer_secret=fieldSetFlags()[1] ? this.consumer_secret : (java.lang.String)defaultValue(fields()[1]);
+    record.access_token_secret=fieldSetFlags()[2] ? this.access_token_secret : (java.lang.String)defaultValue(fields()[2]);
+    record.max_parallel_connections=fieldSetFlags()[3] ? this.max_parallel_connections : (java.lang.Integer)defaultValue(fields()[3]);
     return record;
   }
  catch (  Exception e) {
