@@ -8,9 +8,7 @@
       clusterNodes.add(new InetSocketAddress(InetAddress.getByName(node.getHost()),node.getPort()));
     }
     Cluster.Builder builder=Cluster.builder().addContactPointsWithPorts(clusterNodes);
-    if (LOG.isTraceEnabled()) {
-      LOG.trace("Init cassandra cluster with nodes {}",Arrays.toString(clusterNodes.toArray()));
-    }
+    LOG.info("Init cassandra cluster with nodes {}",Arrays.toString(clusterNodes.toArray()));
     CassandraCredential cc=configuration.getCassandraCredential();
     if (cc != null) {
       builder.withCredentials(cc.getUser(),cc.getPassword());
