@@ -17,7 +17,10 @@
   Schema profileSchema=new Schema.Parser().parse(profileSchemaBody);
   String profileClassName=profileSchema.getName();
   String profileClassPackage=profileSchema.getNamespace();
-  List<JavaDynamicBean> javaSources=generateSchemaSources(profileSchema);
+  List<JavaDynamicBean> javaSources=new ArrayList<JavaDynamicBean>();
+  if (profileSchemaVersion != DEFAULT_SCHEMA_VERSION) {
+    javaSources.addAll(generateSchemaSources(profileSchema));
+  }
   String profileContainerTemplate=readResource(PROFILE_CONTAINER_SOURCE_TEMPLATE);
   String profileContainerSource=profileContainerTemplate.replaceAll(PROFILE_CLASS_PACKAGE_VAR,profileClassPackage).replaceAll(PROFILE_CLASS_VAR,profileClassName);
   JavaDynamicBean profileContainerClassBean=new JavaDynamicBean(PROFILE_CONTAINER,profileContainerSource);
@@ -33,20 +36,23 @@
   JavaDynamicBean profileSerializerClassBean=new JavaDynamicBean(PROFILE_SERIALIZER,profileSerializerSource);
   javaSources.add(profileSerializerClassBean);
   Schema notificationSchema=new Schema.Parser().parse(notificationSchemaBody);
-  String notificationClassName=profileSchema.getName();
-  String notificationClassPackage=profileSchema.getNamespace();
-  javaSources.addAll(generateSchemaSources(notificationSchema));
+  String notificationClassName=notificationSchema.getName();
+  String notificationClassPackage=notificationSchema.getNamespace();
+  if (notificationSchemaVersion != DEFAULT_SCHEMA_VERSION) {
+    javaSources.addAll(generateSchemaSources(notificationSchema));
+  }
   String notificationListenerTemplate=readResource(NOTIFICATION_LISTENER_SOURCE_TEMPLATE);
   String notificationListenerSource=notificationListenerTemplate.replaceAll(NOTIFICATION_CLASS_PACKAGE_VAR,notificationClassPackage).replaceAll(NOTIFICATION_CLASS_VAR,notificationClassName);
   JavaDynamicBean notificationListenerClassBean=new JavaDynamicBean(NOTIFICATION_LISTENER,notificationListenerSource);
   javaSources.add(notificationListenerClassBean);
-  javaSources.addAll(generateSchemaSources(notificationSchema));
   String notificationDeserializerSourceTemplate=readResource(NOTIFICATION_DESERIALIZER_SOURCE_TEMPLATE);
   String notificationDeserializerSource=notificationDeserializerSourceTemplate.replaceAll(NOTIFICATION_CLASS_PACKAGE_VAR,notificationClassPackage).replaceAll(NOTIFICATION_CLASS_VAR,notificationClassName);
   JavaDynamicBean notificationDeserializerClassBean=new JavaDynamicBean(NOTIFICATION_DESERIALIZER,notificationDeserializerSource);
   javaSources.add(notificationDeserializerClassBean);
   Schema logSchema=new Schema.Parser().parse(logSchemaBody);
-  javaSources.addAll(generateSchemaSources(logSchema));
+  if (logSchemaVersion != DEFAULT_SCHEMA_VERSION) {
+    javaSources.addAll(generateSchemaSources(logSchema));
+  }
   String logRecordTemplate=readResource(LOG_RECORD_SOURCE_TEMPLATE);
   String logRecordSource=logRecordTemplate.replaceAll(LOG_RECORD_CLASS_PACKAGE_VAR,logSchema.getNamespace()).replaceAll(LOG_RECORD_CLASS_VAR,logSchema.getName());
   String logCollectorInterfaceTemplate=readResource(LOG_COLLECTOR_INTERFACE_TEMPLATE);

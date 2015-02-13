@@ -1,3 +1,13 @@
 {
-  channelManager.resume();
+  try {
+    channelManager.resume();
+    if (stateListener != null) {
+      stateListener.onResume();
+    }
+  }
+ catch (  Exception e) {
+    if (stateListener != null) {
+      stateListener.onResumeFailure(new KaaClientException(e));
+    }
+  }
 }

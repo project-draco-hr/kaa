@@ -1,6 +1,6 @@
 {
   System.setProperty(KaaClientProperties.KAA_CLIENT_PROPERTIES_FILE,"client-test.properties");
-  KaaClient clientSpy=Mockito.spy(Kaa.newClient(new DesktopKaaPlatformContext()));
+  KaaClient clientSpy=Mockito.spy(Kaa.newClient(new DesktopKaaPlatformContext(),null));
   ProfileContainer profileContainerMock=Mockito.mock(ProfileContainer.class);
   clientSpy.setProfileContainer(profileContainerMock);
   Mockito.when(profileContainerMock.getProfile()).thenReturn(new Profile());

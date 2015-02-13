@@ -1,16 +1,26 @@
 {
-  if (!isInitialized) {
-    initKaaConfiguration();
-    isInitialized=true;
-  }
+  try {
+    if (!isInitialized) {
+      initKaaConfiguration();
+      isInitialized=true;
+    }
  else {
-    LOG.warn("Client is already initialized!");
-    return;
+      LOG.warn("Client is already initialized!");
+      return;
+    }
+    if (schemaProcessor.getSchema() == null || configurationPersistenceManager.getConfigurationHash() == null) {
+      LOG.debug("Initializing client state with default configuration");
+      kaaClientState.setAppStateSeqNumber(0);
+      setDefaultConfiguration();
+    }
+    bootstrapManager.receiveOperationsServerList();
+    if (stateListener != null) {
+      stateListener.onStarted();
+    }
   }
-  if (schemaProcessor.getSchema() == null || configurationPersistenceManager.getConfigurationHash() == null) {
-    LOG.debug("Initializing client state with default configuration");
-    kaaClientState.setAppStateSeqNumber(0);
-    setDefaultConfiguration();
+ catch (  IOException|TransportException e) {
+    if (stateListener != null) {
+      stateListener.onStartupFailure(new KaaClusterConnectionException(e));
+    }
   }
-  bootstrapManager.receiveOperationsServerList();
 }
