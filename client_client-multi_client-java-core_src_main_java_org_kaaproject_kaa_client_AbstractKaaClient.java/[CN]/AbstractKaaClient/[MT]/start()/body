@@ -14,9 +14,13 @@
       setDefaultConfiguration();
     }
     bootstrapManager.receiveOperationsServerList();
-    stateListener.onStarted();
+    if (stateListener != null) {
+      stateListener.onStarted();
+    }
   }
  catch (  IOException|TransportException e) {
-    stateListener.onStartupFailure(new KaaClusterConnectionException(e));
+    if (stateListener != null) {
+      stateListener.onStartupFailure(new KaaClusterConnectionException(e));
+    }
   }
 }

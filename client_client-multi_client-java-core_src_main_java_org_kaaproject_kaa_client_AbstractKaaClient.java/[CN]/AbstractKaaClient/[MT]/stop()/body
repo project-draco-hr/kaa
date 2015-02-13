@@ -3,9 +3,13 @@
     kaaClientState.persist();
     channelManager.shutdown();
     isInitialized=false;
-    stateListener.onStopped();
+    if (stateListener != null) {
+      stateListener.onStopped();
+    }
   }
  catch (  Exception e) {
-    stateListener.onStopFailure(new KaaClientException(e));
+    if (stateListener != null) {
+      stateListener.onStopFailure(new KaaClientException(e));
+    }
   }
 }
