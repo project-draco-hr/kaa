@@ -1,0 +1,13 @@
+{
+  EndpointGroup endpointGroup=findById(id);
+  if (endpointGroup != null) {
+    Set<Topic> topics=endpointGroup.getTopics();
+    if (topics != null && !topics.isEmpty()) {
+      for (      Topic topic : topics) {
+        topic.getEndpointGroups().remove(endpointGroup);
+        topicDao.save(topic);
+      }
+    }
+  }
+  remove(endpointGroup);
+}
