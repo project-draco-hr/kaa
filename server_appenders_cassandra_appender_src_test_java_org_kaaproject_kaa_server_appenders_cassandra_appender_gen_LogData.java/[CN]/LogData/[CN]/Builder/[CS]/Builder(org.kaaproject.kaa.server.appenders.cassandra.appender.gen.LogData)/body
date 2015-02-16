@@ -1,0 +1,11 @@
+{
+  super(org.kaaproject.kaa.server.appenders.cassandra.appender.gen.LogData.SCHEMA$);
+  if (isValidValue(fields()[0],other.level)) {
+    this.level=data().deepCopy(fields()[0].schema(),other.level);
+    fieldSetFlags()[0]=true;
+  }
+  if (isValidValue(fields()[1],other.message)) {
+    this.message=data().deepCopy(fields()[1].schema(),other.message);
+    fieldSetFlags()[1]=true;
+  }
+}

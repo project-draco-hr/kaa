@@ -1,0 +1,15 @@
+{
+  Topic first=generateTopic(null,null);
+  Topic second=generateTopic(first.getApplication(),null);
+  Set<Topic> topicsOne=new HashSet<>();
+  topicsOne.add(first);
+  Set<Topic> topicsTwo=new HashSet<>();
+  topicsTwo.add(second);
+  EndpointGroup endpointGroupOne=generateEndpointGroup(first.getApplication(),topicsOne);
+  generateEndpointGroup(first.getApplication(),topicsTwo);
+  endpointGroupDao.removeById(endpointGroupOne.getStringId());
+  Assert.assertNull(endpointGroupDao.findById(endpointGroupOne.getStringId()));
+  Topic f=topicDao.findById(first.getStringId());
+  Assert.assertNotNull(f);
+  Assert.assertTrue(f.getEndpointGroups().isEmpty());
+}

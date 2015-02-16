@@ -1,0 +1,11 @@
+{
+  Batch batch;
+  if (batchType != null && batchType.equals(CassandraBatchType.UNLOGGED)) {
+    batch=QueryBuilder.unloggedBatch(statement);
+  }
+ else {
+    batch=QueryBuilder.batch(statement);
+  }
+  batch.setConsistencyLevel(getWriteConsistencyLevel());
+  return batch;
+}
