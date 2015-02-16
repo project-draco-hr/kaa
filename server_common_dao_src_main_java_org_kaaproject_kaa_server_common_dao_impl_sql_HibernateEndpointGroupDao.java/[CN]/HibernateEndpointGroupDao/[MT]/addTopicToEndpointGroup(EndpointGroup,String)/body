@@ -1,0 +1,8 @@
+{
+  Topic topic=topicDao.findById(topicId);
+  if (topic != null) {
+    topic.getEndpointGroups().add(endpointGroup);
+  }
+  endpointGroup.getTopics().add(save(topic,Topic.class));
+  return endpointGroup;
+}

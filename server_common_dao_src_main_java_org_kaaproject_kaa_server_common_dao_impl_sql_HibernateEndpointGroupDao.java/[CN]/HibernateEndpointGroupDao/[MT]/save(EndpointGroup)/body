@@ -1,0 +1,10 @@
+{
+  Set<Topic> topics=endpointGroup.getTopics();
+  endpointGroup=super.save(endpointGroup);
+  if (topics != null && !topics.isEmpty()) {
+    for (    Topic topic : topics) {
+      addTopicToEndpointGroup(endpointGroup,topic.getStringId());
+    }
+  }
+  return endpointGroup;
+}
