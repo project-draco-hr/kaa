@@ -3,12 +3,7 @@
   EventTransport transport=Mockito.mock(EventTransport.class);
   EventManager eventManager=new DefaultEventManager(state,transport);
   EventSyncRequest request=new EventSyncRequest();
-  try {
-    eventManager.produceEvent("kaa.test.event.SomeEvent",new byte[0],"theTarget");
-  }
- catch (  IOException e) {
-    assertTrue("Unexpected exception",false);
-  }
+  eventManager.produceEvent("kaa.test.event.SomeEvent",new byte[0],"theTarget");
   eventManager.fillEventListenersSyncRequest(request);
   request.setEvents(eventManager.getPendingEvents());
   assertNotNull(request.getEvents());

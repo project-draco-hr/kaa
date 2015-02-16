@@ -1,8 +1,8 @@
 {
   if (userResponse != null) {
-    if (userAuthResultListener != null) {
-      userAuthResultListener.onAuthResult(userResponse);
-      userAuthResultListener=null;
+    if (userAttachCallback != null) {
+      userAttachCallback.onAttachResult(userResponse);
+      userAttachCallback=null;
     }
     if (userResponse.getResult() == SyncResponseResultType.SUCCESS) {
       state.setAttachedToUser(true);

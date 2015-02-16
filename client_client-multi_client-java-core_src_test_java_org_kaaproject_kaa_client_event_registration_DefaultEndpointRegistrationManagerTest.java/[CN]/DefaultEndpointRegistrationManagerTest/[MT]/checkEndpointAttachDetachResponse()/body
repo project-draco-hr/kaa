@@ -5,7 +5,6 @@
     UserTransport transport=new DefaultUserTransport();
     DefaultEndpointRegistrationManager manager=spy(new DefaultEndpointRegistrationManager(state,transport,null));
     ChangedAttachedEndpointListCallback listListener=mock(ChangedAttachedEndpointListCallback.class);
-    manager.addAttachedEndpointListChangeListener(listListener);
     transport.setEndpointRegistrationProcessor(manager);
     UserSyncResponse sr=new UserSyncResponse();
     sr.setEndpointAttachResponses(null);
@@ -14,7 +13,6 @@
     attach.add(new EndpointAttachResponse(REQUEST_ID,"keyHash",SyncResponseResultType.SUCCESS));
     sr.setEndpointAttachResponses(attach);
     transport.onUserResponse(sr);
-    manager.removeAttachedEndpointListChangeListener(listListener);
     List<EndpointDetachResponse> detach=new LinkedList<EndpointDetachResponse>();
     detach.add(new EndpointDetachResponse(REQUEST_ID,SyncResponseResultType.SUCCESS));
     sr.setEndpointAttachResponses(null);
