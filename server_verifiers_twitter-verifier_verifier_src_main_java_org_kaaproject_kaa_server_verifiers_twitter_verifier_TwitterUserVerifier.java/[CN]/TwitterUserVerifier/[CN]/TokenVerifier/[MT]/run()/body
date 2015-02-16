@@ -1,15 +1,15 @@
 {
-  LOG.trace("Started twitter token verification of [{}] accessToken",accessToken);
+  LOG.trace("Started twitter token verification of [{}] tokenAndSecret",tokenAndSecret);
   CloseableHttpResponse closeableHttpResponse=null;
   try {
-    closeableHttpResponse=establishConnection(accessToken);
-    LOG.trace("Connection established [{}]",accessToken);
+    closeableHttpResponse=establishConnection(tokenAndSecret);
+    LOG.trace("Connection established [{}]",tokenAndSecret);
     int responseCode=closeableHttpResponse.getStatusLine().getStatusCode();
     if (responseCode == HTTP_BAD_REQUEST || responseCode == HTTP_UNATHORIZED) {
       handleBadResponse(closeableHttpResponse,callback);
     }
  else     if (responseCode == HTTP_OK) {
-      handleResponse(closeableHttpResponse,userExternalId,callback,accessToken);
+      handleResponse(closeableHttpResponse,userExternalId,callback,tokenAndSecret);
     }
  else {
       LOG.warn("Server response code: {}, no data can be retrieved",responseCode);
