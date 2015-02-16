@@ -1,0 +1,12 @@
+{
+  threadPool.shutdown();
+  if (null != httpClient) {
+    try {
+      httpClient.close();
+    }
+ catch (    IOException e) {
+      LOG.warn("Internal error: ",e);
+    }
+  }
+  LOG.info("user verifier stopped");
+}

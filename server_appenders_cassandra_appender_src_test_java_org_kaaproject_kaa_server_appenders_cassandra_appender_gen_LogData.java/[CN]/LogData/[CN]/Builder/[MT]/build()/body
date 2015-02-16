@@ -1,0 +1,11 @@
+{
+  try {
+    LogData record=new LogData();
+    record.level=fieldSetFlags()[0] ? this.level : (org.kaaproject.kaa.server.appenders.cassandra.appender.gen.Level)defaultValue(fields()[0]);
+    record.message=fieldSetFlags()[1] ? this.message : (java.lang.String)defaultValue(fields()[1]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

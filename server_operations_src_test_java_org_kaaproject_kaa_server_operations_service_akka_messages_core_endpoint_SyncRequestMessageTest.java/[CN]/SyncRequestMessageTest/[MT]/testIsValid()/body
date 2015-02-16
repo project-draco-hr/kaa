@@ -12,7 +12,7 @@
   message.merge(otherMessage);
   Assert.assertTrue(message.isValid(TransportType.PROFILE));
   Assert.assertFalse(message.isValid(TransportType.CONFIGURATION));
-  other.setConfigurationSync(new ConfigurationClientSync(10,ByteBuffer.wrap("String".getBytes())));
+  other.setConfigurationSync(new ConfigurationClientSync(10,ByteBuffer.wrap("String".getBytes()),false));
   message.merge(otherMessage);
   Assert.assertTrue(message.isValid(TransportType.CONFIGURATION));
   Assert.assertFalse(message.isValid(TransportType.NOTIFICATION));

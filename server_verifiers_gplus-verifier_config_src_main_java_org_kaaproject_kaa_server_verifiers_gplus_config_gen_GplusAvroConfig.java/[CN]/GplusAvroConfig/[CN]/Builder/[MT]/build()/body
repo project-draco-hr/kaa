@@ -1,0 +1,12 @@
+{
+  try {
+    GplusAvroConfig record=new GplusAvroConfig();
+    record.max_parallel_connections=fieldSetFlags()[0] ? this.max_parallel_connections : (java.lang.Integer)defaultValue(fields()[0]);
+    record.min_parallel_connections=fieldSetFlags()[1] ? this.min_parallel_connections : (java.lang.Integer)defaultValue(fields()[1]);
+    record.keep_alive_time_milliseconds=fieldSetFlags()[2] ? this.keep_alive_time_milliseconds : (java.lang.Long)defaultValue(fields()[2]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

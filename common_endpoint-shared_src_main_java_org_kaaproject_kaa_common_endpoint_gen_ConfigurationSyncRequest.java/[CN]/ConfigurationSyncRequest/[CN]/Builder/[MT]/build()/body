@@ -3,6 +3,7 @@
     ConfigurationSyncRequest record=new ConfigurationSyncRequest();
     record.appStateSeqNumber=fieldSetFlags()[0] ? this.appStateSeqNumber : (java.lang.Integer)defaultValue(fields()[0]);
     record.configurationHash=fieldSetFlags()[1] ? this.configurationHash : (java.nio.ByteBuffer)defaultValue(fields()[1]);
+    record.resyncOnly=fieldSetFlags()[2] ? this.resyncOnly : (java.lang.Boolean)defaultValue(fields()[2]);
     return record;
   }
  catch (  Exception e) {

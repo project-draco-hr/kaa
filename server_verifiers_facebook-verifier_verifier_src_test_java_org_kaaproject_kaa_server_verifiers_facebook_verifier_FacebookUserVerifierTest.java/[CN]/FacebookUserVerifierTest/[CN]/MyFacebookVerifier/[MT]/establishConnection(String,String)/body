@@ -1,8 +1,12 @@
 {
-  HttpURLConnection connection=mock(HttpURLConnection.class);
+  CloseableHttpResponse connection=mock(CloseableHttpResponse.class);
   try {
-    when(connection.getResponseCode()).thenReturn(responseCode);
-    when(connection.getInputStream()).thenReturn(new ByteArrayInputStream(inputStreamString.getBytes(StandardCharsets.UTF_8)));
+    StatusLine statusLine=mock(StatusLine.class);
+    when(statusLine.getStatusCode()).thenReturn(responseCode);
+    HttpEntity httpEntity=mock(HttpEntity.class);
+    when(httpEntity.getContent()).thenReturn(new ByteArrayInputStream(inputStreamString.getBytes(StandardCharsets.UTF_8)));
+    when(connection.getStatusLine()).thenReturn(statusLine);
+    when(connection.getEntity()).thenReturn(httpEntity);
   }
  catch (  Exception e) {
     e.printStackTrace();
