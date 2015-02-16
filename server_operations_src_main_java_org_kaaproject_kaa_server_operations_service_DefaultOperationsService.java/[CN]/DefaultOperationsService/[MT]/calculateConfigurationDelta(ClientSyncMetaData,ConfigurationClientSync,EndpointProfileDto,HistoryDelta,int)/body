@@ -1,7 +1,7 @@
 {
   GetDeltaRequest deltaRequest;
   if (request.getConfigurationHash() != null) {
-    deltaRequest=new GetDeltaRequest(metaData.getApplicationToken(),EndpointObjectHash.fromBytes(request.getConfigurationHash().array()),request.getAppStateSeqNumber());
+    deltaRequest=new GetDeltaRequest(metaData.getApplicationToken(),EndpointObjectHash.fromBytes(request.getConfigurationHash().array()),request.getAppStateSeqNumber(),request.isResyncOnly());
   }
  else {
     deltaRequest=new GetDeltaRequest(metaData.getApplicationToken(),request.getAppStateSeqNumber());

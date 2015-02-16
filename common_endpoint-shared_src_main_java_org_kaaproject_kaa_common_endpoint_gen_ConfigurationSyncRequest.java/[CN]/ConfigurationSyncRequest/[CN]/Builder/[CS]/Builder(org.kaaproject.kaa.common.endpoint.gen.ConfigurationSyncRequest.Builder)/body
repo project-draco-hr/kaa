@@ -8,4 +8,8 @@
     this.configurationHash=data().deepCopy(fields()[1].schema(),other.configurationHash);
     fieldSetFlags()[1]=true;
   }
+  if (isValidValue(fields()[2],other.resyncOnly)) {
+    this.resyncOnly=data().deepCopy(fields()[2].schema(),other.resyncOnly);
+    fieldSetFlags()[2]=true;
+  }
 }
