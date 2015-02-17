@@ -1,0 +1,4 @@
+{
+  GenericAvroConverter<Configuration> converter=new GenericAvroConverter<Configuration>(Configuration.getClassSchema());
+  System.out.println(Base64.encodeBase64String(converter.encode(new Configuration())));
+}
