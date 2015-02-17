@@ -4,5 +4,5 @@
   PoolingHttpClientConnectionManager connectionManager=new PoolingHttpClientConnectionManager();
   httpClient=HttpClients.custom().setConnectionManager(connectionManager).build();
   connectionManager.setMaxTotal(configuration.getMaxParallelConnections());
-  oAuthHeaderBuilder=new OAuthHeaderBuilder(SIGNATURE_METHOD,REQUEST_METHOD,TWITTER_URL,ENCRYPTION_ALGO,configuration.getConsumerKey(),configuration.getConsumerSecret());
+  oAuthHeaderBuilder=new OAuthHeaderBuilder(SIGNATURE_METHOD,REQUEST_METHOD,configuration.getTwitterVerifyUrl(),ENCRYPTION_ALGO,configuration.getConsumerKey(),configuration.getConsumerSecret());
 }
