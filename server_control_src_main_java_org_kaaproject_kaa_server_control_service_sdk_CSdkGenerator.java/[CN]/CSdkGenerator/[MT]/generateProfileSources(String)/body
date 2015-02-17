@@ -1,33 +1,12 @@
 {
   List<TarEntryData> tarEntries=new LinkedList<>();
-  TarArchiveEntry entry=new TarArchiveEntry(PROFILE_HDR);
-  Schema profileSchema=new Schema.Parser().parse(profileSchemaBody);
   VelocityContext profileContext=new VelocityContext();
-  profileContext.put("profileName",StyleUtils.toLowerUnderScore(profileSchema.getName()));
-  StringWriter profileWriter=new StringWriter();
-  velocityEngine.getTemplate("sdk/c/kaa_profile.vm").merge(profileContext,profileWriter);
-  entry.setSize(profileWriter.toString().length());
-  TarEntryData tarEntry=new TarEntryData(entry,profileWriter.toString().getBytes());
+  profileContext.put("profileName",StyleUtils.toLowerUnderScore(getRecordName(profileSchemaBody)));
+  String profileHeaderStr=processTemplate(TEMPLATE_DIR + File.separator + "kaa_profile.vm",profileContext);
+  TarArchiveEntry entry=new TarArchiveEntry(PROFILE_HEADER);
+  entry.setSize(profileHeaderStr.length());
+  TarEntryData tarEntry=new TarEntryData(entry,profileHeaderStr.getBytes());
   tarEntries.add(tarEntry);
-  OutputStream hdrStream=new ByteArrayOutputStream();
-  OutputStream srcStream=new ByteArrayOutputStream();
-  try {
-    Compiler compiler=new Compiler(profileSchema,KAA_PROFILE_SOURCE_NAME_PATTERN,hdrStream,srcStream);
-    compiler.setNamespacePrefix(NAME_PREFIX_TEMPLATE.replace("{name}","profile"));
-    compiler.generate();
-    String profileData=hdrStream.toString();
-    entry=new TarArchiveEntry(KAA_GEN_SOURCE_DIR + KAA_PROFILE_SOURCE_NAME_PATTERN + C_HEADER_SUFFIX);
-    entry.setSize(profileData.length());
-    tarEntry=new TarEntryData(entry,profileData.getBytes());
-    tarEntries.add(tarEntry);
-    entry=new TarArchiveEntry(KAA_GEN_SOURCE_DIR + KAA_PROFILE_SOURCE_NAME_PATTERN + C_SOURCE_SUFFIX);
-    profileData=srcStream.toString();
-    entry.setSize(profileData.length());
-    tarEntry=new TarEntryData(entry,profileData.getBytes());
-    tarEntries.add(tarEntry);
-  }
- catch (  Exception e) {
-    LOG.error("Failed to generate C sdk profile sources",e);
-  }
+  tarEntries.addAll(generateSourcesFromSchema(profileSchemaBody,KAA_PROFILE_SOURCE_NAME_PATTERN,"profile"));
   return tarEntries;
 }

@@ -14,7 +14,5 @@
   context.put("Base64",Base64.class);
   context.put("Integer",Integer.class);
   context.put("ServerNameUtil",ServerNameUtil.class);
-  StringWriter writer=new StringWriter();
-  velocityEngine.getTemplate("sdk/c/kaa_defaults.vm").merge(context,writer);
-  return writer.toString().getBytes();
+  return processTemplate(TEMPLATE_DIR + File.separator + "kaa_defaults.vm",context).getBytes();
 }

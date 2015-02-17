@@ -55,7 +55,7 @@
       }
     }
     SdkGenerator generator=SdkGeneratorFactory.createSdkGenerator(sdkPlatform);
-    return generator.generateSdk(Version.PROJECT_VERSION,controlZKService.getCurrentBootstrapNodes(),appToken,profileSchemaVersion,configurationSchemaVersion,notificationSchemaVersion,logSchemaVersion,profileSchemaBody,notificationDataSchema.getRawSchema(),protocolSchema.getRawSchema(),defaultConfigurationData,eventFamilies,logDataSchema.getRawSchema(),defaultVerifierToken);
+    return generator.generateSdk(Version.PROJECT_VERSION,controlZKService.getCurrentBootstrapNodes(),appToken,profileSchemaVersion,configurationSchemaVersion,notificationSchemaVersion,logSchemaVersion,profileSchemaBody,notificationDataSchema.getRawSchema(),configurationShema.getBaseSchema(),defaultConfigurationData,eventFamilies,logDataSchema.getRawSchema(),defaultVerifierToken);
   }
  catch (  Exception e) {
     LOG.error("Unable to generate SDK",e);

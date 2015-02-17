@@ -1,0 +1,23 @@
+{
+  List<TarEntryData> tarEntries=new LinkedList<>();
+  Schema schema=new Schema.Parser().parse(schemaStr);
+  OutputStream headerStream=new ByteArrayOutputStream();
+  OutputStream sourceStream=new ByteArrayOutputStream();
+  try {
+    Compiler compiler=new Compiler(schema,sourceName,headerStream,sourceStream);
+    compiler.setNamespacePrefix(KAA_SOURCE_PREFIX + "_" + namespace);
+    compiler.generate();
+    String headerStr=headerStream.toString();
+    TarArchiveEntry headerEntry=new TarArchiveEntry(KAA_GEN_SOURCE_DIR + sourceName + C_HEADER_SUFFIX);
+    headerEntry.setSize(headerStr.length());
+    tarEntries.add(new TarEntryData(headerEntry,headerStr.getBytes()));
+    String sourceStr=sourceStream.toString();
+    TarArchiveEntry sourceEntry=new TarArchiveEntry(KAA_GEN_SOURCE_DIR + sourceName + C_SOURCE_SUFFIX);
+    sourceEntry.setSize(sourceStr.length());
+    tarEntries.add(new TarEntryData(sourceEntry,sourceStr.getBytes()));
+  }
+ catch (  Exception e) {
+    LOG.error("Failed to generate C sdk sources",e);
+  }
+  return tarEntries;
+}

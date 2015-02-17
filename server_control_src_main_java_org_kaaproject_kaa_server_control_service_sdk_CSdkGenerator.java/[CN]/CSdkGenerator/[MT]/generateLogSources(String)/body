@@ -1,33 +1,11 @@
 {
   List<TarEntryData> tarEntries=new LinkedList<>();
-  TarArchiveEntry entry=new TarArchiveEntry(LOG_HDR);
-  Schema logSchema=new Schema.Parser().parse(logSchemaBody);
   VelocityContext logContext=new VelocityContext();
-  logContext.put("logName",StyleUtils.toLowerUnderScore(logSchema.getName()));
-  StringWriter logWriter=new StringWriter();
-  velocityEngine.getTemplate("sdk/c/kaa_logging.vm").merge(logContext,logWriter);
-  entry.setSize(logWriter.toString().length());
-  TarEntryData tarEntry=new TarEntryData(entry,logWriter.toString().getBytes());
-  tarEntries.add(tarEntry);
-  OutputStream hdrStream=new ByteArrayOutputStream();
-  OutputStream srcStream=new ByteArrayOutputStream();
-  try {
-    Compiler compiler=new Compiler(logSchema,KAA_LOG_SOURCE_NAME_PATTERN,hdrStream,srcStream);
-    compiler.setNamespacePrefix(NAME_PREFIX_TEMPLATE.replace("{name}","logging"));
-    compiler.generate();
-    String logData=hdrStream.toString();
-    entry=new TarArchiveEntry(KAA_GEN_SOURCE_DIR + KAA_LOG_SOURCE_NAME_PATTERN + C_HEADER_SUFFIX);
-    entry.setSize(logData.length());
-    tarEntry=new TarEntryData(entry,logData.getBytes());
-    tarEntries.add(tarEntry);
-    entry=new TarArchiveEntry(KAA_GEN_SOURCE_DIR + KAA_LOG_SOURCE_NAME_PATTERN + C_SOURCE_SUFFIX);
-    logData=srcStream.toString();
-    entry.setSize(logData.length());
-    tarEntry=new TarEntryData(entry,logData.getBytes());
-    tarEntries.add(tarEntry);
-  }
- catch (  Exception e) {
-    LOG.error("Failed to generate C sdk log sources",e);
-  }
+  logContext.put("logName",StyleUtils.toLowerUnderScore(getRecordName(logSchemaBody)));
+  String logHeaderStr=processTemplate(TEMPLATE_DIR + File.separator + "kaa_logging.vm",logContext);
+  TarArchiveEntry entry=new TarArchiveEntry(LOG_HEADER);
+  entry.setSize(logHeaderStr.length());
+  tarEntries.add(new TarEntryData(entry,logHeaderStr.getBytes()));
+  tarEntries.addAll(generateSourcesFromSchema(logSchemaBody,KAA_LOG_SOURCE_NAME_PATTERN,"logging"));
   return tarEntries;
 }
