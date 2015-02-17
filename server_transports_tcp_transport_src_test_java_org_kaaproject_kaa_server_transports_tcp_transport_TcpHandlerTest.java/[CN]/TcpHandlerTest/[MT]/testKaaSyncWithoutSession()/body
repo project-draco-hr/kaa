@@ -6,6 +6,8 @@
   TcpHandler handler=new TcpHandler(uuid,akkaService);
   ChannelHandlerContext context=buildDummyCtxMock();
   handler.channelRead0(context,msg);
-  Mockito.verify(context).writeAndFlush(Mockito.any(ConnAck.class));
+  ArgumentCaptor<ConnAck> captor=ArgumentCaptor.forClass(ConnAck.class);
+  Mockito.verify(context).writeAndFlush(captor.capture());
+  Assert.assertTrue(captor.getValue().getReturnCode() == ReturnCode.REFUSE_BAD_PROTOCOL);
   Mockito.verify(akkaService,Mockito.never()).process(Mockito.any(NettyTcpConnectMessage.class));
 }
