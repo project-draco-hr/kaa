@@ -7,7 +7,7 @@
       LOG.warn("Client is already initialized!");
       return;
     }
-    configurationManager.getConfiguration();
+    configurationManager.init();
     bootstrapManager.receiveOperationsServerList();
     if (stateListener != null) {
       stateListener.onStarted();
@@ -16,6 +16,11 @@
  catch (  TransportException e) {
     if (stateListener != null) {
       stateListener.onStartFailure(new KaaClusterConnectionException(e));
+    }
+  }
+catch (  KaaRuntimeException e) {
+    if (stateListener != null) {
+      stateListener.onStartFailure(new KaaException(e));
     }
   }
 }
