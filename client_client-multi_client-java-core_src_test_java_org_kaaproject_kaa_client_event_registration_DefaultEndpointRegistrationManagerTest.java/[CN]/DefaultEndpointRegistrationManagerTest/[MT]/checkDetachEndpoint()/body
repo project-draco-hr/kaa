@@ -1,12 +1,12 @@
 {
   KaaClientState state=mock(KaaClientState.class);
   when(state.getEndpointAccessToken()).thenReturn("");
-  DefaultEndpointRegistrationManager manager=spy(new DefaultEndpointRegistrationManager(state,null,null));
-  EndpointOperationResultListener listener=mock(EndpointOperationResultListener.class);
-  manager.detachEndpoint(new EndpointKeyHash("keyHash1"),listener);
+  EndpointOperationCallback listener=mock(EndpointOperationCallback.class);
   UserTransport transport=mock(UserTransport.class);
-  manager.setUserTransport(transport);
+  DefaultEndpointRegistrationManager manager=spy(new DefaultEndpointRegistrationManager(state,transport,null));
+  manager.detachEndpoint(new EndpointKeyHash("keyHash1"),listener);
   manager.detachEndpoint(new EndpointKeyHash("keyHash2"),listener);
+  ReflectionTestUtils.setField(manager,"userTransport",null);
   manager.detachEndpoint(new EndpointKeyHash("keyHash3"),null);
   verify(transport,times(2)).sync();
 }
