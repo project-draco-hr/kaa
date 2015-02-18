@@ -45,7 +45,7 @@
         }
         VelocityContext context=new VelocityContext();
         context.put("sourceNames",sourceNames);
-        String cSourceData=processTemplate(TEMPLATE_DIR + File.separator + "CMakeGen.vm",context);
+        String cSourceData=generateSourceFromTemplate(TEMPLATE_DIR + File.separator + "CMakeGen.vm",context);
         TarArchiveEntry kaaCMakeEntry=new TarArchiveEntry(KAA_CMAKEGEN);
         kaaCMakeEntry.setSize(cSourceData.length());
         sdkFile.putArchiveEntry(kaaCMakeEntry);

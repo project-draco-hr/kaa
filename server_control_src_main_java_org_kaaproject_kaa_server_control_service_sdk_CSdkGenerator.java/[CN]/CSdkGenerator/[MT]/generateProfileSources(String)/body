@@ -1,12 +1,7 @@
 {
+  Schema schema=new Schema.Parser().parse(profileSchemaBody);
   List<TarEntryData> tarEntries=new LinkedList<>();
-  VelocityContext profileContext=new VelocityContext();
-  profileContext.put("profileName",StyleUtils.toLowerUnderScore(getRecordName(profileSchemaBody)));
-  String profileHeaderStr=processTemplate(TEMPLATE_DIR + File.separator + "kaa_profile.vm",profileContext);
-  TarArchiveEntry entry=new TarArchiveEntry(PROFILE_HEADER);
-  entry.setSize(profileHeaderStr.length());
-  TarEntryData tarEntry=new TarEntryData(entry,profileHeaderStr.getBytes());
-  tarEntries.add(tarEntry);
-  tarEntries.addAll(generateSourcesFromSchema(profileSchemaBody,KAA_PROFILE_SOURCE_NAME_PATTERN,"profile"));
+  tarEntries.add(createTarEntry(PROFILE_HEADER,processHeaderTemplate("kaa_profile.vm",schema)));
+  tarEntries.addAll(generateSourcesFromSchema(schema,KAA_PROFILE_SOURCE_NAME_PATTERN,"profile"));
   return tarEntries;
 }
