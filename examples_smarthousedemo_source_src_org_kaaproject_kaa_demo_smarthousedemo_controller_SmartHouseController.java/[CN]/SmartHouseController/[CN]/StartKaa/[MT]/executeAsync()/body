@@ -1,7 +1,7 @@
 {
   try {
     Log.d("Kaa","Initializing Kaa client...");
-    client=Kaa.newClient(new AndroidKaaPlatformContext(context),new KaaStateListener());
+    client=Kaa.newClient(new AndroidKaaPlatformContext(context),new SimpleKaaClientStateListener());
     EventFamilyFactory eventFamilyFactory=client.getEventFamilyFactory();
     devices=eventFamilyFactory.getDeviceEventClassFamily();
     devices.addListener(SmartHouseController.this);

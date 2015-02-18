@@ -15,7 +15,6 @@
     Collections.shuffle(cursor.getValue());
   }
   kaaClientState=new KaaClientPropertiesState(context.createPersistentStorage(),context.getBase64(),this.properties);
-  configurationPersistenceManager=new DefaultConfigurationPersistenceManager(kaaClientState,configurationProcessor);
   BootstrapTransport bootstrapTransport=new DefaultBootstrapTransport(this.properties.getApplicationToken());
   ProfileTransport profileTransport=new DefaultProfileTransport();
   EventTransport eventTransport=new DefaultEventTransport(kaaClientState);
@@ -56,6 +55,7 @@
   metaDataTransport.setEndpointPublicKeyhash(publicKeyHash);
   metaDataTransport.setTimeout(LONG_POLL_TIMEOUT);
   bootstrapTransport.setBootstrapManager(bootstrapManager);
+  configurationManager=new ResyncConfigurationManager(properties);
   transports.put(TransportType.BOOTSTRAP,bootstrapTransport);
   profileTransport.setProfileManager(profileManager);
   profileTransport.setClientProperties(this.properties);
@@ -64,9 +64,9 @@
   transports.put(TransportType.EVENT,eventTransport);
   notificationTransport.setNotificationProcessor(notificationManager);
   transports.put(TransportType.NOTIFICATION,notificationTransport);
-  configurationTransport.setConfigurationHashContainer(configurationPersistenceManager);
-  configurationTransport.setConfigurationProcessor(configurationProcessor);
-  configurationTransport.setSchemaProcessor(schemaProcessor);
+  configurationTransport.setConfigurationHashContainer(configurationManager.getConfigurationHashContainer());
+  configurationTransport.setConfigurationProcessor(configurationManager.getConfigurationProcessor());
+  configurationTransport.setResyncOnly(true);
   transports.put(TransportType.CONFIGURATION,configurationTransport);
   userTransport.setEndpointRegistrationProcessor(endpointRegistrationManager);
   transports.put(TransportType.USER,userTransport);

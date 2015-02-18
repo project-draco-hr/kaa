@@ -3,10 +3,6 @@
   KaaClient clientSpy=Mockito.spy(Kaa.newClient(new DesktopKaaPlatformContext(),null));
   try {
     clientSpy.start();
-    Assert.assertNotNull(clientSpy.getConfigurationManager());
-    Assert.assertNotNull(clientSpy.getConfigurationPersistenceManager());
-    Assert.assertNotNull(clientSpy.getDeltaManager());
-    Assert.assertNotNull(clientSpy.getSchemaPersistenceManager());
   }
   finally {
     clientSpy.stop();
