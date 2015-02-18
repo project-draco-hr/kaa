@@ -8,14 +8,14 @@ synchronized (optionalListeners) {
         if (listeners != null && !listeners.isEmpty()) {
           hasOwner=true;
           for (          NotificationListener listener : listeners) {
-            listener.onNotificationRaw(topic.getId(),notification.getBody());
+            notifyListeners(listener,topic,notification);
           }
         }
       }
       if (!hasOwner) {
 synchronized (mandatoryListeners) {
           for (          NotificationListener listener : mandatoryListeners) {
-            listener.onNotificationRaw(topic.getId(),notification.getBody());
+            notifyListeners(listener,topic,notification);
           }
         }
       }

@@ -1,9 +1,0 @@
-{
-  ProfileListener listener=mock(ProfileListener.class);
-  DefaultSerializedProfileContainer serializedContainer=new DefaultSerializedProfileContainer();
-  BasicProfileContainer container=new BasicProfileContainer();
-  container.setProfileListener(listener);
-  serializedContainer.setProfileContainer(container);
-  AvroByteArrayConverter<BasicEndpointProfile> converter=new AvroByteArrayConverter<>(BasicEndpointProfile.class);
-  assertArrayEquals(converter.toByteArray(container.getProfile()),serializedContainer.getSerializedProfile());
-}

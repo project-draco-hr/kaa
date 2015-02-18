@@ -1,13 +1,9 @@
 {
-  IPTransportInfo si=serverStorage.getCurrentPingServer();
-  LOG.info("Connectivity check will be performed on {}:{}",si.getHost(),si.getPort());
-  InetSocketAddress addr=new InetSocketAddress(si.getHost(),si.getPort());
-  try (Socket sock=new Socket()){
-    sock.connect(addr,CONNECTION_TIMEOUT_MS);
-    LOG.info("Connection to the network exists");
-    return true;
+  try {
+    return InetAddress.getByName(host).isReachable(CONNECTION_TIMEOUT_MS);
   }
  catch (  IOException e) {
+    LOG.warn(MessageFormat.format("Host {0} is unreachable",host),e);
+    return false;
   }
-  return false;
 }

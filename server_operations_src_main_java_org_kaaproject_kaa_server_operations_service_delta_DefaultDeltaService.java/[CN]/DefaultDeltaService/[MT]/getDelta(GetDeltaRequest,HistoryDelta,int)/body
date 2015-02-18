@@ -12,7 +12,7 @@
   AppVersionKey appConfigVersionKey=new AppVersionKey(request.getApplicationToken(),profile.getConfigurationVersion());
   List<EndpointGroupStateDto> endpointGroups=historyDelta.getEndpointGroupStates();
   if (historyDelta.isConfigurationChanged()) {
-    boolean resync=request.isFirstRequest();
+    boolean resync=request.isFirstRequest() || request.isResyncOnly();
     if (!resync && !request.getConfigurationHash().binaryEquals(profile.getConfigurationHash())) {
       resync=true;
       if (profile.getConfigurationHash() != null && LOG.isWarnEnabled()) {
@@ -29,7 +29,7 @@
     }
     DeltaCacheKey deltaKey;
     if (resync) {
-      deltaKey=new DeltaCacheKey(appConfigVersionKey,endpointGroups,null);
+      deltaKey=new DeltaCacheKey(appConfigVersionKey,endpointGroups,null,request.isResyncOnly());
       LOG.debug("[{}] Building resync delta key {}",endpointId,deltaKey);
     }
  else {

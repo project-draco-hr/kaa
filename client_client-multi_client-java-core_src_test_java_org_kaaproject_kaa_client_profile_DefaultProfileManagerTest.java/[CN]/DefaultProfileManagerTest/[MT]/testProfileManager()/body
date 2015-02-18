@@ -1,8 +1,13 @@
 {
   ProfileTransport transport=mock(ProfileTransport.class);
-  ProfileContainer container=mock(ProfileContainer.class);
   DefaultProfileManager profileManager=new DefaultProfileManager(transport);
-  profileManager.setProfileContainer(container);
-  assertNotNull(profileManager.getSerializedProfileContainer());
-  verify(container,times(1)).setProfileListener(any(ProfileListener.class));
+  profileManager.setProfileContainer(new ProfileContainer(){
+    @Override public Profile getProfile(){
+      return new Profile();
+    }
+  }
+);
+  Assert.assertNotNull(profileManager.getSerializedProfile());
+  profileManager.updateProfile();
+  Mockito.verify(transport).sync();
 }
