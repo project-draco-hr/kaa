@@ -2,13 +2,9 @@
   if (storage != null) {
     LOG.debug("Loading configuration data from storage {}",storage);
     configurationData=toByteArray(storage.loadConfiguration());
-    if (configurationData == null) {
-      LOG.debug("Loading configuration data from defaults {}",storage);
-      configurationData=getDefaultConfigurationData();
-    }
   }
- else {
-    LOG.debug("Loading configuration data from defaults");
+  if (configurationData == null) {
+    LOG.debug("Loading configuration data from defaults {}",storage);
     configurationData=getDefaultConfigurationData();
   }
   if (LOG.isTraceEnabled()) {
