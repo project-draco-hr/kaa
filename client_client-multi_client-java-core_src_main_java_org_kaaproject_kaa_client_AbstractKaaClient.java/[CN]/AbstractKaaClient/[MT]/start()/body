@@ -20,7 +20,7 @@
   }
  catch (  IOException|TransportException e) {
     if (stateListener != null) {
-      stateListener.onStartupFailure(new KaaClusterConnectionException(e));
+      stateListener.onStartFailure(new KaaClusterConnectionException(e));
     }
   }
 }

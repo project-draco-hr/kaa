@@ -7,19 +7,15 @@ synchronized (optionalListeners) {
         List<NotificationListener> listeners=optionalListeners.get(topic.getId());
         if (listeners != null && !listeners.isEmpty()) {
           hasOwner=true;
-          if (notification.getBody() != null) {
-            for (            NotificationListener listener : listeners) {
-              listener.onNotification(topic.getId(),deserializer.fromByteArray(notification.getBody().array()));
-            }
+          for (          NotificationListener listener : listeners) {
+            notifyListeners(listener,topic,notification);
           }
         }
       }
       if (!hasOwner) {
 synchronized (mandatoryListeners) {
-          if (notification.getBody() != null) {
-            for (            NotificationListener listener : mandatoryListeners) {
-              listener.onNotification(topic.getId(),deserializer.fromByteArray(notification.getBody().array()));
-            }
+          for (          NotificationListener listener : mandatoryListeners) {
+            notifyListeners(listener,topic,notification);
           }
         }
       }
