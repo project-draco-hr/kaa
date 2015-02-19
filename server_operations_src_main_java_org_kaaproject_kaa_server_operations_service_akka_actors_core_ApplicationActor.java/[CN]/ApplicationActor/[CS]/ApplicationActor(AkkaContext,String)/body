@@ -1,0 +1,11 @@
+{
+  this.context=context;
+  this.applicationToken=applicationToken;
+  this.endpointSessions=new HashMap<>();
+  this.endpointActorMap=new HashMap<>();
+  this.topicSessions=new HashMap<>();
+  this.logsSessions=new HashMap<>();
+  this.userVerifierSessions=new HashMap<>();
+  this.applicationLogActor=getOrCreateLogActor();
+  this.userVerifierActor=getOrCreateUserVerifierActor();
+}

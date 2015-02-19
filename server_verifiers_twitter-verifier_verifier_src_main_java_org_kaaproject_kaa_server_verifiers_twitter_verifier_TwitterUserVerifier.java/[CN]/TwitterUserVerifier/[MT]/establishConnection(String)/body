@@ -1,0 +1,7 @@
+{
+  HttpRequest request=null;
+  request=new BasicHttpEntityEnclosingRequest(REQUEST_METHOD,TWITTER_PATH);
+  String[] tokenThenSecret=tokenAndSecret.split(" ");
+  request.setHeader(REQUEST_HEADER_NAME,oAuthHeaderBuilder.generateHeader(tokenThenSecret[0],tokenThenSecret[1]));
+  return httpClient.execute(TWITTER_HOST,request);
+}

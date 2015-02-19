@@ -1,0 +1,8 @@
+{
+  StringBuilder parameters=new StringBuilder();
+  appendQueryPairs(parameters,OAuth.OAUTH_CONSUMER_KEY,consumerKey,OAuth.OAUTH_NONCE,nonce,OAuth.OAUTH_SIGNATURE_METHOD,SIGNATURE_METHOD,OAuth.OAUTH_TIMESTAMP,timestamp,OAuth.OAUTH_TOKEN,OAuth.percentEncode(accessToken),OAuth.OAUTH_VERSION,OAuth.VERSION_1_0);
+  String percentEncodedParams=OAuth.percentEncode(parameters.toString());
+  StringBuilder signatureBase=new StringBuilder();
+  appendAll(signatureBase,REQUEST_METHOD,"&",OAuth.percentEncode(URL),"&",percentEncodedParams);
+  return signatureBase.toString();
+}
