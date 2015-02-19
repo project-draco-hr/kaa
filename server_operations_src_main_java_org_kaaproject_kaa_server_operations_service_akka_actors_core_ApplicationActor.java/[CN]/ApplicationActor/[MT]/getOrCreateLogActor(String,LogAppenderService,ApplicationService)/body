@@ -1,7 +1,7 @@
 {
   ActorRef logActor=logsSessions.get(name);
   if (logActor == null) {
-    logActor=context().actorOf(Props.create(new ApplicationLogActor.ActorCreator(logAppenderService,applicationService,applicationToken)));
+    logActor=context().actorOf(Props.create(new ApplicationLogActor.ActorCreator(logAppenderService,applicationService,applicationToken)).withDispatcher(LOG_DISPATCHER_NAME));
     context().watch(logActor);
     logsSessions.put(logActor.path().name(),logActor);
   }

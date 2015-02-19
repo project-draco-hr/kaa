@@ -1,7 +1,7 @@
 {
   ActorRef userActor=users.get(userId);
   if (userActor == null && userId != null) {
-    userActor=context().actorOf(Props.create(new UserActor.ActorCreator(cacheService,eventService,userId,tenantId)),userId);
+    userActor=context().actorOf(Props.create(new UserActor.ActorCreator(cacheService,eventService,userId,tenantId)).withDispatcher(USER_DISPATCHER_NAME),userId);
     LOG.debug("Create user actor with id {}",userId);
     users.put(userId,userActor);
   }
