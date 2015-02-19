@@ -1,0 +1,37 @@
+{
+  LOG.trace("Started twitter token verification of [{}] tokenAndSecret",tokenAndSecret);
+  CloseableHttpResponse closeableHttpResponse=null;
+  try {
+    closeableHttpResponse=establishConnection(tokenAndSecret);
+    LOG.trace("Connection established [{}]",tokenAndSecret);
+    int responseCode=closeableHttpResponse.getStatusLine().getStatusCode();
+    if (responseCode == HTTP_BAD_REQUEST || responseCode == HTTP_UNATHORIZED) {
+      handleBadResponse(closeableHttpResponse,callback);
+    }
+ else     if (responseCode == HTTP_OK) {
+      handleResponse(closeableHttpResponse,userExternalId,callback,tokenAndSecret);
+    }
+ else {
+      LOG.warn("Server response code: {}, no data can be retrieved",responseCode);
+      callback.onVerificationFailure("Server response code:" + responseCode + ", no data can be retrieved");
+    }
+  }
+ catch (  IOException e) {
+    LOG.debug("Connection error",e);
+    callback.onConnectionError(e.getMessage());
+  }
+catch (  Exception e) {
+    LOG.debug("Unexpected error",e);
+    callback.onInternalError(e.getMessage());
+  }
+ finally {
+    if (closeableHttpResponse != null) {
+      try {
+        closeableHttpResponse.close();
+      }
+ catch (      IOException e) {
+        LOG.debug("Connection error: can't close CloseableHttpResponse");
+      }
+    }
+  }
+}
