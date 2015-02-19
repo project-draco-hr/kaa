@@ -1,0 +1,10 @@
+{
+  String invalidUserId="12456789123456";
+  verifier=new MyTwitterVerifier(200,"{" + "    \"contributors_enabled\": true," + "    \"geo_enabled\": true,"+ "    \"id\": 38895958,"+ "    \"id_str\": \"123456\","+ "    \"is_translator\": false,"+ "    \"lang\": \"en\","+ "    \"name\": \"Sean Cook\"}");
+  verifier.init(null,config);
+  verifier.start();
+  UserVerifierCallback callback=mock(UserVerifierCallback.class);
+  verifier.checkAccessToken(invalidUserId,"someToken someSecret",callback);
+  verify(callback,Mockito.timeout(1000).atLeastOnce()).onVerificationFailure(anyString());
+  verifier.stop();
+}
