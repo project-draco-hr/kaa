@@ -16,7 +16,9 @@
   Mockito.when(message.getSession()).thenReturn(new SessionInfo(channelId,Constants.KAA_PLATFORM_PROTOCOL_AVRO_ID,channelCtx,ChannelType.ASYNC,null,EndpointObjectHash.fromSHA1("key"),"APP_TOKEN",1000,true));
   Mockito.when(message.getCommand()).thenReturn(Mockito.mock(Message.class));
   Mockito.when(message.getOriginator()).thenReturn(Mockito.mock(ActorRef.class));
-  EndpointActorMessageProcessor processor=Mockito.spy(new EndpointActorMessageProcessor(osMock,"APP_TOKEN",EndpointObjectHash.fromSHA1("key"),"actorKey"));
+  AkkaContext context=Mockito.mock(AkkaContext.class);
+  Mockito.when(context.getOperationsService()).thenReturn(osMock);
+  EndpointActorMessageProcessor processor=Mockito.spy(new EndpointActorMessageProcessor(context,"APP_TOKEN",EndpointObjectHash.fromSHA1("key"),"actorKey"));
   Mockito.doNothing().when(processor).tellActor(Mockito.any(ActorContext.class),Mockito.any(ActorRef.class),Mockito.any(Object.class));
   processor.processEndpointSync(ctxMock,message);
   ChannelAware msg=new ChannelAware(){
