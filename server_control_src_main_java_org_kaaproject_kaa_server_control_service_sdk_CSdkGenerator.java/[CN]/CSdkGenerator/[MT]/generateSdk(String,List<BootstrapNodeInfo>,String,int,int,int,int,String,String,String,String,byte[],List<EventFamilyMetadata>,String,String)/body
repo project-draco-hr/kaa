@@ -17,7 +17,7 @@
     cSources.addAll(generateLogSources(logSchemaBody));
   }
   if (!StringUtils.isBlank(configurationBaseSchemaBody)) {
-    cSources.addAll(generateConfigurationSources(configurationProtocolSchemaBody));
+    cSources.addAll(generateConfigurationSources(configurationBaseSchemaBody));
   }
   if (eventFamilies != null && !eventFamilies.isEmpty()) {
     cSources.addAll(CEventSourcesGenerator.generateEventSources(eventFamilies));
