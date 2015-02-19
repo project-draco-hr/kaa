@@ -1,15 +1,15 @@
 {
   OperationsNodeInfo nodeInfo=extractOperationServerInfo(data);
-  String endpointAdress=constructEndpointAdress(nodeInfo);
+  String endpointAddress=constructEndpointAddress(nodeInfo);
   Long removeTime=nodeInfo.getTimeStarted();
-  Long updateTime=operationNodesStartTimes.get(endpointAdress);
+  Long updateTime=operationNodesStartTimes.get(endpointAddress);
   if (updateTime == null || removeTime >= updateTime) {
-    operationNodesStartTimes.remove(endpointAdress);
+    operationNodesStartTimes.remove(endpointAddress);
     for (    OperationsNodeListener listener : endpointListeners) {
       listener.onNodeRemoved(nodeInfo);
     }
   }
  else {
-    LOG.debug("Ignoring [{}] endpoint removal, as it was before add/update: ",endpointAdress);
+    LOG.debug("Ignoring [{}] endpoint removal, as it was before add/update",endpointAddress);
   }
 }
