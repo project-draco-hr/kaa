@@ -1,7 +1,7 @@
 {
   KaaClientState state=mock(KaaClientState.class);
   when(state.getEndpointAccessToken()).thenReturn("");
-  EndpointOperationCallback listener=mock(EndpointOperationCallback.class);
+  OnDetachEndpointOperationCallback listener=mock(OnDetachEndpointOperationCallback.class);
   UserTransport transport=mock(UserTransport.class);
   DefaultEndpointRegistrationManager manager=spy(new DefaultEndpointRegistrationManager(state,transport,null));
   manager.detachEndpoint(new EndpointKeyHash("keyHash1"),listener);

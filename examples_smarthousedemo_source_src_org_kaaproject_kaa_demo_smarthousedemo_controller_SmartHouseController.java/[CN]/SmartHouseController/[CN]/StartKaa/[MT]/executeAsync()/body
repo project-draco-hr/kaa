@@ -14,8 +14,8 @@
       soundSystems.addListener(SmartHouseController.this);
     }
     if (deviceType != null) {
-      client.getEndpointRegistrationManager().setAttachedListener(SmartHouseController.this);
-      client.getEndpointRegistrationManager().setDetachedListener(SmartHouseController.this);
+      client.setAttachedListener(SmartHouseController.this);
+      client.setDetachedListener(SmartHouseController.this);
     }
     client.start();
     Log.d("Kaa","Kaa client initialization completed.");
