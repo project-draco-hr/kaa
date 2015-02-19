@@ -1,0 +1,7 @@
+{
+  LOG.info("Create table {} in cassandra keyspace {}",tableName,keyspaceName);
+  String createTableQuery=CREATE_TABLE.replace(TABLE_NAME,tableName);
+  createTableQuery=createTableQuery.replace(KEYSPACE_NAME,keyspaceName);
+  LOG.debug("Execute query {}",createTableQuery);
+  getSession().execute(createTableQuery);
+}

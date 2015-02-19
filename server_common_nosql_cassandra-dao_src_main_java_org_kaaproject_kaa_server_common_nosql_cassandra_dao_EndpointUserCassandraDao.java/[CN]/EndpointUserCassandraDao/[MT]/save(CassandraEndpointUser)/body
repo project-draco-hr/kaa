@@ -1,0 +1,7 @@
+{
+  if (isBlank(user.getId())) {
+    user.generateId();
+  }
+  LOG.trace("Save endpoint user {}",user);
+  return super.save(user);
+}

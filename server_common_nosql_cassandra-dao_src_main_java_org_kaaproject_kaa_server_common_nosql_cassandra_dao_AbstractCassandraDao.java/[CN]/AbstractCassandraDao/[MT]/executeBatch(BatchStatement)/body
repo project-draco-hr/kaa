@@ -1,0 +1,6 @@
+{
+  LOG.debug("Execute cassandra batch {}",batch);
+  batch.setConsistencyLevel(getWriteConsistencyLevel());
+  ResultSet resultSet=getSession().execute(batch);
+  LOG.info("Executed batch {}",resultSet);
+}

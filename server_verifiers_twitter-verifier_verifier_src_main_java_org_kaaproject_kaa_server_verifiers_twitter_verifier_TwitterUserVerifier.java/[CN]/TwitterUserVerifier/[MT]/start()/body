@@ -1,0 +1,8 @@
+{
+  LOG.info("twitter user verifier started");
+  tokenVerifiersPool=new ThreadPoolExecutor(0,configuration.getMaxParallelConnections(),MAX_SEC_TWITTER_REQUEST_TIME,TimeUnit.SECONDS,new LinkedBlockingQueue<Runnable>());
+  PoolingHttpClientConnectionManager connectionManager=new PoolingHttpClientConnectionManager();
+  httpClient=HttpClients.custom().setConnectionManager(connectionManager).build();
+  connectionManager.setMaxTotal(configuration.getMaxParallelConnections());
+  oAuthHeaderBuilder=new OAuthHeaderBuilder(SIGNATURE_METHOD,REQUEST_METHOD,configuration.getTwitterVerifyUrl(),ENCRYPTION_ALGO,configuration.getConsumerKey(),configuration.getConsumerSecret());
+}

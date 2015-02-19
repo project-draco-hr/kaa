@@ -1,0 +1,18 @@
+{
+  List<NotificationDto> notifications=new ArrayList<>(count);
+  NotificationDto notification;
+  for (int i=0; i < count; i++) {
+    notification=new NotificationDto();
+    notification.setApplicationId(appId != null ? appId : UUID.randomUUID().toString());
+    notification.setSchemaId(schemaId != null ? schemaId : UUID.randomUUID().toString());
+    notification.setTopicId(topicId != null ? topicId : UUID.randomUUID().toString());
+    notification.setType(type != null ? type : NotificationTypeDto.USER);
+    notification.setSecNum(i);
+    notification.setBody(UUID.randomUUID().toString().getBytes());
+    notification.setLastTimeModify(new Date(System.currentTimeMillis()));
+    notification.setVersion(1);
+    notification.setExpiredAt(new Date(System.currentTimeMillis() + 7 * 24 * 3600* 1000));
+    notifications.add(notificationDao.save(notification).toDto());
+  }
+  return notifications;
+}

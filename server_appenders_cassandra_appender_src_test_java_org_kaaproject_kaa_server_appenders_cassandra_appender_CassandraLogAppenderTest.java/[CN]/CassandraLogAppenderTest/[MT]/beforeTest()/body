@@ -1,0 +1,29 @@
+{
+  endpointKeyHash=UUID.randomUUID().toString();
+  appToken=String.valueOf(RANDOM.nextInt(Integer.MAX_VALUE));
+  appenderDto=new LogAppenderDto();
+  appenderDto.setId("Test_id");
+  appenderDto.setApplicationToken(appToken);
+  appenderDto.setName("Test Name");
+  appenderDto.setTenantId(String.valueOf(RANDOM.nextInt()));
+  appenderDto.setHeaderStructure(Arrays.asList(LogHeaderStructureDto.values()));
+  header=new RecordHeader();
+  header.setApplicationToken(appToken);
+  header.setEndpointKeyHash(endpointKeyHash);
+  header.setHeaderVersion(1);
+  header.setTimestamp(System.currentTimeMillis());
+  logEventPack=new LogEventPack();
+  logEventPack.setDateCreated(System.currentTimeMillis());
+  logEventPack.setEndpointKey(endpointKeyHash);
+  CassandraServer server=new CassandraServer("127.0.0.1",9142);
+  configuration=new CassandraConfig();
+  configuration.setCassandraBatchType(CassandraBatchType.UNLOGGED);
+  configuration.setKeySpace(KEY_SPACE_NAME);
+  configuration.setCassandraExecuteRequestType(CassandraExecuteRequestType.ASYNC);
+  configuration.setCassandraServers(Arrays.asList(server));
+  AvroByteArrayConverter<CassandraConfig> converter=new AvroByteArrayConverter<>(CassandraConfig.class);
+  byte[] rawConfiguration=converter.toByteArray(configuration);
+  appenderDto.setRawConfiguration(rawConfiguration);
+  logAppender=new CassandraLogAppender();
+  logAppender.init(appenderDto);
+}

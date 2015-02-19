@@ -1,0 +1,13 @@
+{
+  Map<String,Object> responseMap=getResponseMap(connection.getEntity().getContent());
+  List<Map<String,Object>> errorList=(List<Map<String,Object>>)responseMap.get(ERRORS);
+  Map<String,Object> error=errorList.get(0);
+  if (INVALID_TOKEN_CODE.equals(String.valueOf(error.get(CODE)))) {
+    LOG.trace("Access Token is invalid or expired");
+    callback.onTokenInvalid();
+  }
+ else {
+    LOG.trace("Unable to verify token. Error code: [{}], message[{}]",error.get(CODE),error.get(MESSAGE));
+    callback.onVerificationFailure("Unable to verify token. Error code: " + error.get(CODE) + ", message: "+ error.get(MESSAGE));
+  }
+}

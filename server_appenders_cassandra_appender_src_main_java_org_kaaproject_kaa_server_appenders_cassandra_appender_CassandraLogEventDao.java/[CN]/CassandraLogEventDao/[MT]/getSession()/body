@@ -1,0 +1,6 @@
+{
+  if (session == null || session.isClosed()) {
+    session=cluster.newSession();
+  }
+  return session;
+}
