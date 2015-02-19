@@ -4,7 +4,7 @@
     UUID uuid=UUID.randomUUID();
     String endpointActorId=uuid.toString().replaceAll("-","");
     LOG.debug("[{}] Creating actor with endpointKey: {}",applicationToken,endpointActorId);
-    endpointMetaData=new ActorMetaData(context().actorOf(Props.create(new EndpointActor.ActorCreator(operationsService,endpointActorId,message.getAppToken(),message.getKey())),endpointActorId),endpointActorId);
+    endpointMetaData=new ActorMetaData(context().actorOf(Props.create(new EndpointActor.ActorCreator(operationsService,endpointActorId,message.getAppToken(),message.getKey())).withDispatcher(ENDPOINT_DISPATCHER_NAME),endpointActorId),endpointActorId);
     endpointSessions.put(message.getKey(),endpointMetaData);
     endpointActorMap.put(endpointActorId,message.getKey());
     context().watch(endpointMetaData.actorRef);
