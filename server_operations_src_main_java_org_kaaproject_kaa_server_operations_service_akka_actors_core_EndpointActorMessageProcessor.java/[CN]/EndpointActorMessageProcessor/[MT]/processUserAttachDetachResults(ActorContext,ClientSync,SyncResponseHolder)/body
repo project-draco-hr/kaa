@@ -8,7 +8,7 @@
           LOG.debug("[{}][{}] Skipped unsuccessful attach response [{}]",endpointKey,actorKey,response.getRequestId());
           continue;
         }
-        EndpointUserAttachMessage attachMessage=new EndpointUserAttachMessage(EndpointObjectHash.fromBytes(Base64Util.decode(response.getEndpointKeyHash())),userId,endpointKey);
+        EndpointUserAttachMessage attachMessage=new EndpointUserAttachMessage(EndpointObjectHash.fromBytes(Base64Util.decode(response.getEndpointKeyHash())),state.getUserId(),endpointKey);
         context.parent().tell(attachMessage,context.self());
         LOG.debug("[{}][{}] Notification to attached endpoint [{}] sent",endpointKey,actorKey,response.getEndpointKeyHash());
       }
@@ -23,7 +23,7 @@
               LOG.debug("[{}][{}] Skipped unsuccessful detach response [{}]",endpointKey,actorKey,detachResponse.getRequestId());
               continue;
             }
-            EndpointUserDetachMessage attachMessage=new EndpointUserDetachMessage(EndpointObjectHash.fromBytes(Base64Util.decode(detachRequest.getEndpointKeyHash())),userId,endpointKey);
+            EndpointUserDetachMessage attachMessage=new EndpointUserDetachMessage(EndpointObjectHash.fromBytes(Base64Util.decode(detachRequest.getEndpointKeyHash())),state.getUserId(),endpointKey);
             context.parent().tell(attachMessage,context.self());
             LOG.debug("[{}][{}] Notification to detached endpoint [{}] sent",endpointKey,actorKey,detachRequest.getEndpointKeyHash());
           }

@@ -1,5 +1,5 @@
 {
-  if (channelMap.isEmpty()) {
+  if (state.isNoChannels()) {
     scheduleTimeoutMessage(context,new ActorTimeoutMessage(lastActivityTime),inactivityTimeout);
   }
 }

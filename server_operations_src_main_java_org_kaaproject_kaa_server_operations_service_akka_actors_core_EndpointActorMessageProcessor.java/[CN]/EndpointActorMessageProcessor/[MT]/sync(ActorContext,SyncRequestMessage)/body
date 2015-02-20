@@ -18,9 +18,9 @@
     }
     ChannelType channelType=channel.getType();
     LOG.debug("[{}][{}] Processing sync request {} from {} channel [{}]",endpointKey,actorKey,request,channelType,requestMessage.getChannelUuid());
-    SyncResponseHolder responseHolder=operationsService.sync(request,endpointProfile);
-    endpointProfile=responseHolder.getEndpointProfile();
-    if (endpointProfile != null) {
+    SyncResponseHolder responseHolder=operationsService.sync(request,state.getProfile());
+    state.setProfile(responseHolder.getEndpointProfile());
+    if (state.getProfile() != null) {
       processLogUpload(context,request,responseHolder);
       processUserAttachRequest(context,request,responseHolder);
       processEvents(context,request,responseHolder);
@@ -45,7 +45,7 @@
       }
  else {
         sendReply(context,requestMessage,responseHolder.getResponse());
-        channelMap.removeChannel(channel);
+        state.removeChannel(channel);
       }
     }
   }

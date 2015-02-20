@@ -1,6 +1,6 @@
 {
   List<Event> events=request.getEvents();
-  if (userId != null && events != null && !events.isEmpty()) {
+  if (state.getUserId() != null && events != null && !events.isEmpty()) {
     LOG.debug("[{}][{}] Processing events {} with seq number > {}",endpointKey,actorKey,events,processedEventSeqNum);
     List<Event> eventsToSend=new ArrayList<>(events.size());
     int maxSentEventSeqNum=processedEventSeqNum;
@@ -16,7 +16,7 @@
     }
     processedEventSeqNum=maxSentEventSeqNum;
     if (!eventsToSend.isEmpty()) {
-      EndpointEventSendMessage message=new EndpointEventSendMessage(userId,eventsToSend,key,appToken,context.self());
+      EndpointEventSendMessage message=new EndpointEventSendMessage(state.getUserId(),eventsToSend,key,appToken,context.self());
       context.parent().tell(message,context.self());
     }
   }
