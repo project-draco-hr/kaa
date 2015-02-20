@@ -1,0 +1,11 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    ConfigurationSchemaDto configurationSchema=getConfigurationSchema(configurationSchemaId);
+    convertToSchemaForm(configurationSchema,configurationSchemaFormAvroConverter);
+    return configurationSchema;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

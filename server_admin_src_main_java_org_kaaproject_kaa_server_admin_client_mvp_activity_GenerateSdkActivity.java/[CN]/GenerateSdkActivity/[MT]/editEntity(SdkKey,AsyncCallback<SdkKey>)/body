@@ -1,12 +1,2 @@
 {
-  KaaAdmin.getDataSource().generateSdk(entity,new AsyncCallback<String>(){
-    @Override public void onFailure(    Throwable caught){
-      callback.onFailure(caught);
-    }
-    @Override public void onSuccess(    String key){
-      detailsView.clearError();
-      ServletHelper.downloadSdk(key);
-    }
-  }
-);
 }

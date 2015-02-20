@@ -1,5 +1,8 @@
 {
-synchronized (listeners) {
+  if (listener != null) {
     return listeners.remove(listener);
+  }
+ else {
+    throw new RuntimeException("Can't remove null listener");
   }
 }

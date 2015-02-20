@@ -1,10 +1,5 @@
 {
-  AddEcfSchemaDialog.showAddEcfSchemaDialog(entityId,new AddEcfSchemaDialog.Listener(){
-    @Override public void onClose(){
-    }
-    @Override public void onAdd(){
-      loadEntity();
-    }
-  }
-);
+  EcfSchemaPlace ecfSchemaPlace=new EcfSchemaPlace(entityId,-1);
+  ecfSchemaPlace.setPreviousPlace(place);
+  goTo(ecfSchemaPlace);
 }

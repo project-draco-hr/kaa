@@ -1,0 +1,6 @@
+{
+  Configuration configuration=fromByteArray(configurationData);
+  for (  ConfigurationListener listener : listeners) {
+    listener.onConfigurationUpdate(configuration);
+  }
+}

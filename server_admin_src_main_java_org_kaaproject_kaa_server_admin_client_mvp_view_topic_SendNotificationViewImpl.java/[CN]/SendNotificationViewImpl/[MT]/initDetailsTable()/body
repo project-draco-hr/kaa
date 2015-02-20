@@ -18,8 +18,8 @@
   detailsTable.setWidget(row,0,label);
   detailsTable.setWidget(row,1,expiredAt);
   getFooter().addStyleName(Utils.kaaAdminStyle.bAppContentDetailsTable());
-  notificationData=new RecordPanel(Utils.constants.notificationBody(),this,false,false);
+  notificationData=new RecordPanel(new AvroWidgetsConfig.Builder().recordPanelWidth(900).gridHeight(250).tableHeight(230).createConfig(),Utils.constants.notificationBody(),this,false,false);
   notificationData.addValueChangeHandler(this);
-  getFooter().setWidth("800px");
+  getFooter().setWidth("1000px");
   getFooter().add(notificationData);
 }

@@ -1,0 +1,5 @@
+{
+  if (notification.getBody() != null) {
+    deserializer.notify(Collections.unmodifiableCollection(listeners),topic,notification.getBody().array());
+  }
+}

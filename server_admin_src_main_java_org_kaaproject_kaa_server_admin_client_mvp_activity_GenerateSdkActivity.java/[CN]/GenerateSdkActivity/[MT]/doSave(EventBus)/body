@@ -1,0 +1,13 @@
+{
+  onSave();
+  KaaAdmin.getDataSource().generateSdk(entity,new BusyAsyncCallback<String>(){
+    @Override public void onFailureImpl(    Throwable caught){
+      Utils.handleException(caught,detailsView);
+    }
+    @Override public void onSuccessImpl(    String key){
+      detailsView.clearError();
+      ServletHelper.downloadSdk(key);
+    }
+  }
+);
+}

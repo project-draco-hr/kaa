@@ -11,9 +11,7 @@
           storage.saveConfiguration(ByteBuffer.wrap(configurationData));
           LOG.debug("Persisted configuration data from storage {}",storage);
         }
-        for (        ConfigurationListener listener : listeners) {
-          deserializer.notify(listener,configurationData);
-        }
+        deserializer.notify(Collections.unmodifiableCollection(listeners),configurationData);
       }
  else {
         LOG.warn("Only full resync delta is supported!");

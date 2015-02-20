@@ -1,8 +1,0 @@
-{
-  rpcService.editNotificationSchema(notificationSchema,fileItemName,new DataCallback<NotificationSchemaDto>(callback){
-    @Override protected void onResult(    NotificationSchemaDto result){
-      eventBus.fireEvent(new DataEvent(NotificationSchemaDto.class));
-    }
-  }
-);
-}

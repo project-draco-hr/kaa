@@ -32,11 +32,11 @@
     onRecordRetrieved();
   }
  else {
-    KaaAdmin.getDataSource().getEndpointGroup(endpointGroupId,new AsyncCallback<EndpointGroupDto>(){
-      @Override public void onFailure(      Throwable caught){
+    KaaAdmin.getDataSource().getEndpointGroup(endpointGroupId,new BusyAsyncCallback<EndpointGroupDto>(){
+      @Override public void onFailureImpl(      Throwable caught){
         Utils.handleException(caught,recordView);
       }
-      @Override public void onSuccess(      EndpointGroupDto result){
+      @Override public void onSuccessImpl(      EndpointGroupDto result){
         endpointGroup=result;
         getRecord(schemaId,endpointGroupId,new AsyncCallback<StructureRecordDto<T>>(){
           @Override public void onFailure(          Throwable caught){
