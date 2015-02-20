@@ -10,12 +10,6 @@
   sdkKey.setNotificationSchemaVersion(1);
   sdkKey.setLogSchemaVersion(1);
   sdkKey.setTargetPlatform(SdkPlatform.ANDROID);
-  NotificationSchemaDto notificationSchemaDto=new NotificationSchemaDto();
-  notificationSchemaDto.setApplicationId(notificationApplication.getId());
-  notificationSchemaDto.setName("Notification schema");
-  notificationSchemaDto.setDescription("Notification schema describing incoming notifications");
-  notificationSchemaDto=client.createNotificationSchema(notificationSchemaDto,"demo/notification/notificationSchema.json");
-  sdkKey.setNotificationSchemaVersion(notificationSchemaDto.getMajorVersion());
   loginTenantDeveloper(client);
   TrustfulVerifierConfig trustfulVerifierConfig=new TrustfulVerifierConfig();
   UserVerifierDto trustfulUserVerifier=new UserVerifierDto();
