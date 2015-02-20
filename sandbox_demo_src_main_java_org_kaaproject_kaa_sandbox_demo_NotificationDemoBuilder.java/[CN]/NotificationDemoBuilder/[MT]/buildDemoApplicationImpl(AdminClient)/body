@@ -1,4 +1,5 @@
 {
+  logger.info("Loading 'Android Notification Demo Application' data...");
   loginTenantAdmin(client);
   ApplicationDto notificationApplication=new ApplicationDto();
   notificationApplication.setName("Android notification");
@@ -28,4 +29,5 @@
   trustfulUserVerifier.setJsonConfiguration(rawData.getRawData());
   trustfulUserVerifier=client.editUserVerifierDto(trustfulUserVerifier);
   sdkKey.setDefaultVerifierToken(trustfulUserVerifier.getVerifierToken());
+  logger.info("Finished loading 'Android Notification Demo Application' data.");
 }
