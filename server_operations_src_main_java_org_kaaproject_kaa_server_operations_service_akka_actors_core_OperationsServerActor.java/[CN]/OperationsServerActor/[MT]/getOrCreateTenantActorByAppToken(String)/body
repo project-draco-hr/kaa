@@ -1,4 +1,4 @@
 {
-  String tenantId=cacheService.getTenantIdByAppToken(appToken);
+  String tenantId=context.getCacheService().getTenantIdByAppToken(appToken);
   return getOrCreateTenantActorByTokenId(tenantId);
 }
