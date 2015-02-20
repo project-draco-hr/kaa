@@ -1,6 +1,10 @@
 {
   try {
-    return clientProvider.getClient().getRecordStructureSchema(key.getApplicationId(),key.getLogSchemaVersion());
+    org.kaaproject.kaa.server.common.thrift.gen.control.FileData thriftFileData=clientProvider.getClient().getRecordStructureSchema(key.getApplicationId(),key.getLogSchemaVersion());
+    FileData fileData=new FileData();
+    fileData.setFileName(thriftFileData.getFileName());
+    fileData.setFileData(thriftFileData.getData());
+    return fileData;
   }
  catch (  TException e) {
     throw Utils.handleException(e);

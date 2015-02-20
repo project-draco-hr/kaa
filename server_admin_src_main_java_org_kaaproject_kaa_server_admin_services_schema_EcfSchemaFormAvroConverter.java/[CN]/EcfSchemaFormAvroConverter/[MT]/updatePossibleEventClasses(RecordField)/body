@@ -1,0 +1,9 @@
+{
+  if (row.getTypeFullname().equals(BASE_SCHEMA_FORM_NAMESPACE + "." + RECORD_FIELD_TYPE)) {
+    ArrayField arrayField=(ArrayField)row.getFieldByName(FIELDS);
+    for (    FormField valueRow : arrayField.getValue()) {
+      UnionField fieldType=(UnionField)((RecordField)valueRow).getFieldByName(FIELD_TYPE);
+      updatePossibleEventClasses(fieldType,false);
+    }
+  }
+}

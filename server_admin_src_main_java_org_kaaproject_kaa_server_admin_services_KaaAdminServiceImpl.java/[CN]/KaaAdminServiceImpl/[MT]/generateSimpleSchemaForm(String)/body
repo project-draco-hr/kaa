@@ -1,0 +1,12 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_ADMIN,KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    byte[] data=getFileContent(fileItemName);
+    String avroSchema=new String(data);
+    Schema schema=new Schema.Parser().parse(avroSchema);
+    return simpleSchemaFormAvroConverter.createSchemaFormFromSchema(schema);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

@@ -9,7 +9,7 @@
   registrations.add(detailsView.getEcfSchemasGrid().addRowActionHandler(new RowActionEventHandler<Integer>(){
     @Override public void onRowAction(    RowActionEvent<Integer> event){
       Integer id=event.getClickedId();
-      if (event.getAction() == RowAction.CLICK) {
+      if (event.getAction() == RowActionEvent.CLICK) {
         EcfSchemaPlace ecfSchemaPlace=new EcfSchemaPlace(entityId,id);
         ecfSchemaPlace.setPreviousPlace(place);
         goTo(ecfSchemaPlace);

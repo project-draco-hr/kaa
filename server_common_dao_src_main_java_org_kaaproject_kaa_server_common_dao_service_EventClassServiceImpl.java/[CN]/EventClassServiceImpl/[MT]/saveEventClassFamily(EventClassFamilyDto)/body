@@ -3,8 +3,8 @@
   if (isValidSqlObject(eventClassFamilyDto)) {
     if (eventClassFamilyDao.validateName(eventClassFamilyDto.getTenantId(),eventClassFamilyDto.getId(),eventClassFamilyDto.getName())) {
       if (StringUtils.isBlank(eventClassFamilyDto.getId())) {
-        if (validateIdentifier(eventClassFamilyDto.getNamespace(),NAME_SPACE_PATTERN)) {
-          if (validateIdentifier(eventClassFamilyDto.getClassName(),CLASS_NAME_PATTERN)) {
+        if (NamesValidator.validateNamespace(eventClassFamilyDto.getNamespace())) {
+          if (NamesValidator.validateClassName(eventClassFamilyDto.getClassName())) {
             if (eventClassFamilyDao.validateClassName(eventClassFamilyDto.getTenantId(),eventClassFamilyDto.getId(),eventClassFamilyDto.getClassName())) {
               eventClassFamilyDto.setCreatedTime(System.currentTimeMillis());
             }

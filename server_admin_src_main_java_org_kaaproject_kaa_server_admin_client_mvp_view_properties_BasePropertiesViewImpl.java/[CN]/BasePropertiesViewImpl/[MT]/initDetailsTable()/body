@@ -1,6 +1,6 @@
 {
   getFooter().addStyleName(Utils.kaaAdminStyle.bAppContentDetailsTable());
-  configuration=new RecordFieldWidget();
+  configuration=new RecordFieldWidget(new AvroWidgetsConfig.Builder().createConfig());
   configuration.addValueChangeHandler(this);
   getFooter().add(configuration);
 }

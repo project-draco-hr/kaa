@@ -1,3 +1,8 @@
 {
-  return clientFactory.getEcfSchemaView();
+  if (create) {
+    return clientFactory.getCreateEcfSchemaView();
+  }
+ else {
+    return clientFactory.getEcfSchemaView();
+  }
 }

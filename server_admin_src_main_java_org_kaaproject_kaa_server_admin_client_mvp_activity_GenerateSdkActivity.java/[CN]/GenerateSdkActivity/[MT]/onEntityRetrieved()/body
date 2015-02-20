@@ -1,19 +1,24 @@
 {
+  BusyPopup.showPopup();
   KaaAdmin.getDataSource().getSchemaVersionsByApplicationId(applicationId,new AsyncCallback<SchemaVersions>(){
     @Override public void onFailure(    Throwable caught){
+      BusyPopup.hidePopup();
       Utils.handleException(caught,detailsView);
     }
     @Override public void onSuccess(    final SchemaVersions schemaVersions){
       KaaAdmin.getDataSource().getAefMaps(applicationId,new AsyncCallback<List<AefMapInfoDto>>(){
         @Override public void onFailure(        Throwable caught){
+          BusyPopup.hidePopup();
           Utils.handleException(caught,detailsView);
         }
         @Override public void onSuccess(        final List<AefMapInfoDto> ecfs){
           KaaAdmin.getDataSource().loadUserVerifiers(applicationId,new AsyncCallback<List<UserVerifierDto>>(){
             @Override public void onFailure(            Throwable caught){
+              BusyPopup.hidePopup();
               Utils.handleException(caught,detailsView);
             }
             @Override public void onSuccess(            List<UserVerifierDto> userVerifiers){
+              BusyPopup.hidePopup();
               onInfoRetrieved(schemaVersions,ecfs,userVerifiers);
             }
           }

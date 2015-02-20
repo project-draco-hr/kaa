@@ -1,7 +1,7 @@
 {
   onSave();
-  editEntity(entity,new AsyncCallback<EndpointGroupDto>(){
-    public void onSuccess(    EndpointGroupDto result){
+  editEntity(entity,new BusyAsyncCallback<EndpointGroupDto>(){
+    public void onSuccessImpl(    EndpointGroupDto result){
       if (create) {
         goTo(new EndpointGroupPlace(applicationId,result.getId(),false,false));
       }
@@ -9,7 +9,7 @@
         goTo(place.getPreviousPlace());
       }
     }
-    public void onFailure(    Throwable caught){
+    public void onFailureImpl(    Throwable caught){
       Utils.handleException(caught,detailsView);
     }
   }
