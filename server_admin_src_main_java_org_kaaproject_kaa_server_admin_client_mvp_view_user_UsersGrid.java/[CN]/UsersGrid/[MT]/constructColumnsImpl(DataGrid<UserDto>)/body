@@ -14,7 +14,7 @@
 ,160);
   prefWidth+=constructStringColumn(table,Utils.constants.role(),new StringValueProvider<UserDto>(){
     @Override public String getValue(    UserDto item){
-      return Utils.constants.getString(item.getAuthority().name().toLowerCase());
+      return Utils.constants.getString(item.getAuthority().getResourceKey());
     }
   }
 ,160);
