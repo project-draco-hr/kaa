@@ -1,9 +1,9 @@
 {
-  AddTopicDialog.showAddTopicDialog(entityId,new AsyncCallback<AddTopicDialog>(){
-    @Override public void onFailure(    Throwable caught){
+  AddTopicDialog.showAddTopicDialog(entityId,new BusyAsyncCallback<AddTopicDialog>(){
+    @Override public void onFailureImpl(    Throwable caught){
       Utils.handleException(caught,detailsView);
     }
-    @Override public void onSuccess(    AddTopicDialog result){
+    @Override public void onSuccessImpl(    AddTopicDialog result){
     }
   }
 );

@@ -1,12 +1,12 @@
 {
   onSave();
-  editEntity(entity,new AsyncCallback<T>(){
-    public void onSuccess(    T result){
+  editEntity(entity,new BusyAsyncCallback<T>(){
+    public void onSuccessImpl(    T result){
       if (place.getPreviousPlace() != null) {
         goTo(place.getPreviousPlace());
       }
     }
-    public void onFailure(    Throwable caught){
+    public void onFailureImpl(    Throwable caught){
       Utils.handleException(caught,detailsView);
     }
   }

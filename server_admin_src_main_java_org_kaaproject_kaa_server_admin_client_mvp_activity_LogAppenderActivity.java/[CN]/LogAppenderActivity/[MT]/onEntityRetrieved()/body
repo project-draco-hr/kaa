@@ -1,10 +1,10 @@
 {
   super.onEntityRetrieved();
-  KaaAdmin.getDataSource().loadLogSchemasVersion(applicationId,new AsyncCallback<List<SchemaDto>>(){
-    @Override public void onFailure(    Throwable caught){
+  KaaAdmin.getDataSource().loadLogSchemasVersion(applicationId,new BusyAsyncCallback<List<SchemaDto>>(){
+    @Override public void onFailureImpl(    Throwable caught){
       Utils.handleException(caught,detailsView);
     }
-    @Override public void onSuccess(    List<SchemaDto> result){
+    @Override public void onSuccessImpl(    List<SchemaDto> result){
       onSchemaVersionsRetrieved(result);
     }
   }

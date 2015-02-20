@@ -1,7 +1,7 @@
 {
   onSave();
-  editEntity(entity,new AsyncCallback<EventClassFamilyDto>(){
-    public void onSuccess(    EventClassFamilyDto result){
+  editEntity(entity,new BusyAsyncCallback<EventClassFamilyDto>(){
+    public void onSuccessImpl(    EventClassFamilyDto result){
       if (create) {
         goTo(new EcfPlace(result.getId()));
       }
@@ -9,7 +9,7 @@
         goTo(place.getPreviousPlace());
       }
     }
-    public void onFailure(    Throwable caught){
+    public void onFailureImpl(    Throwable caught){
       Utils.handleException(caught,detailsView);
     }
   }

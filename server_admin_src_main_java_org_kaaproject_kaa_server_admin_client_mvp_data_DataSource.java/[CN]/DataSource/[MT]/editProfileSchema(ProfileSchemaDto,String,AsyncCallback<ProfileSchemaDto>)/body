@@ -1,8 +1,0 @@
-{
-  rpcService.editProfileSchema(profileSchema,fileItemName,new DataCallback<ProfileSchemaDto>(callback){
-    @Override protected void onResult(    ProfileSchemaDto result){
-      eventBus.fireEvent(new DataEvent(ProfileSchemaDto.class));
-    }
-  }
-);
-}
