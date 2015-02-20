@@ -1,0 +1,24 @@
+{
+  PersistentStorage storage=context.createPersistentStorage();
+  BufferedInputStream is=new BufferedInputStream(storage.openForRead(path));
+  List<byte[]> chunks=new ArrayList<byte[]>();
+  byte[] tmp=new byte[_8KB];
+  int size=0;
+  while (true) {
+    int result=is.read(tmp);
+    LOG.trace("Reading {} bytes from input stream",result);
+    size+=result;
+    if (result > 0) {
+      chunks.add(Arrays.copyOf(tmp,result));
+    }
+    if (result < tmp.length) {
+      break;
+    }
+  }
+  ByteBuffer data=ByteBuffer.wrap(new byte[size]);
+  for (  byte[] chunk : chunks) {
+    data.put(chunk);
+  }
+  is.close();
+  return data;
+}

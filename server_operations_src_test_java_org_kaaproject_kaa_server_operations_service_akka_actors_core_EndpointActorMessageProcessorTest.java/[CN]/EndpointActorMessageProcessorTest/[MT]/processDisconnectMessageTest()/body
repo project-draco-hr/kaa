@@ -3,7 +3,9 @@
   ActorContext ctxMock=Mockito.mock(ActorContext.class);
   ActorRef appActorMock=Mockito.mock(ActorRef.class);
   Mockito.when(ctxMock.parent()).thenReturn(appActorMock);
-  EndpointActorMessageProcessor processor=Mockito.spy(new EndpointActorMessageProcessor(osMock,"APP_TOKEN",EndpointObjectHash.fromSHA1("key"),"actorKey"));
+  AkkaContext context=Mockito.mock(AkkaContext.class);
+  Mockito.when(context.getOperationsService()).thenReturn(osMock);
+  EndpointActorMessageProcessor processor=Mockito.spy(new EndpointActorMessageProcessor(context,"APP_TOKEN",EndpointObjectHash.fromSHA1("key"),"actorKey"));
   ChannelAware msg=Mockito.mock(ChannelAware.class);
   Assert.assertFalse(processor.processDisconnectMessage(ctxMock,msg));
 }

@@ -1,0 +1,11 @@
+{
+  LOG.info("stopping twitter verifier");
+  tokenVerifiersPool.shutdown();
+  try {
+    httpClient.close();
+  }
+ catch (  IOException e) {
+    LOG.debug("Unable to close HttpClient");
+  }
+  LOG.info("twitter user verifier stopped");
+}
