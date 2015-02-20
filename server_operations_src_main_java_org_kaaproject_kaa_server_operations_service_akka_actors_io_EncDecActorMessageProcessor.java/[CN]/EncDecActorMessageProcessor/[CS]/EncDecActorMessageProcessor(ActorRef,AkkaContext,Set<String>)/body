@@ -1,0 +1,14 @@
+{
+  super();
+  this.opsActor=epsActor;
+  this.cacheService=context.getCacheService();
+  this.supportUnencryptedConnection=context.getSupportUnencryptedConnection();
+  this.crypt=new MessageEncoderDecoder(context.getKeyStoreService().getPrivateKey(),context.getKeyStoreService().getPublicKey());
+  this.platformEncDecMap=PlatformLookup.initPlatformProtocolMap(platformProtocols);
+  MetricsService metricsService=context.getMetricsService();
+  this.sessionInitMeter=metricsService.createMeter("sessionInitMeter",Thread.currentThread().getName());
+  this.sessionRequestMeter=metricsService.createMeter("sessionRequestMeter",Thread.currentThread().getName());
+  this.sessionResponseMeter=metricsService.createMeter("sessionResponseMeter",Thread.currentThread().getName());
+  this.redirectMeter=metricsService.createMeter("redirectMeter",Thread.currentThread().getName());
+  this.errorMeter=metricsService.createMeter("errorMeter",Thread.currentThread().getName());
+}

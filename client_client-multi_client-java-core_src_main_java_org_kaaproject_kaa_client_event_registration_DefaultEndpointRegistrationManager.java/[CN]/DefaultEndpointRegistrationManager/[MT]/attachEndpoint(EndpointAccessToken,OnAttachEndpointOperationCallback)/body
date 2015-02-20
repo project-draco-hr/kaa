@@ -1,0 +1,11 @@
+{
+  int requestId=getRandomInt();
+  LOG.info("Going to attach Endpoint by access token: {}",endpointAccessToken);
+  attachEndpointRequests.put(requestId,endpointAccessToken);
+  if (resultListener != null) {
+    endpointAttachListeners.put(requestId,resultListener);
+  }
+  if (userTransport != null) {
+    userTransport.sync();
+  }
+}
