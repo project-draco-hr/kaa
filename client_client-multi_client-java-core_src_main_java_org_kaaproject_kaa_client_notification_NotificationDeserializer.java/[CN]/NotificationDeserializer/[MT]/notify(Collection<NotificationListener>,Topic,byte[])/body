@@ -1,0 +1,6 @@
+{
+  Notification notification=fromByteArray(notificationData);
+  for (  NotificationListener listener : listeners) {
+    listener.onNotification(topic.getId(),notification);
+  }
+}

@@ -1,0 +1,12 @@
+{
+switch (code) {
+case NO_APPENDERS_CONFIGURED:
+case APPENDER_INTERNAL_ERROR:
+case REMOTE_CONNECTION_ERROR:
+case REMOTE_INTERNAL_ERROR:
+    controller.retryLogUpload(retryPeriod);
+  break;
+default :
+break;
+}
+}

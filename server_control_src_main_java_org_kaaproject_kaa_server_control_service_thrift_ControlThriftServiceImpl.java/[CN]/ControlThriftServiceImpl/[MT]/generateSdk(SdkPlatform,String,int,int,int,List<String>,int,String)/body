@@ -27,12 +27,10 @@
     DataSchema profileDataSchema=new DataSchema(profileSchema.getSchema());
     DataSchema notificationDataSchema=new DataSchema(notificationSchema.getSchema());
     ProtocolSchema protocolSchema=new ProtocolSchema(configurationShema.getProtocolSchema());
-    BaseSchema baseSchema=new BaseSchema(configurationShema.getBaseSchema());
     DataSchema logDataSchema=new DataSchema(logSchema.getSchema());
     String appToken=application.getApplicationToken();
     String profileSchemaBody=profileDataSchema.getRawSchema();
-    DeltaCalculationAlgorithm calculator=new DefaultDeltaCalculatorFactory().createDeltaCalculator(protocolSchema,baseSchema);
-    byte[] defaultConfigurationData=calculator.calculate(new BaseData(baseSchema,defaultConfiguration.getBody())).getData();
+    byte[] defaultConfigurationData=GenericAvroConverter.toRawData(defaultConfiguration.getBody(),configurationShema.getBaseSchema());
     List<EventFamilyMetadata> eventFamilies=new ArrayList<>();
     if (aefMapIds != null) {
       List<ApplicationEventFamilyMapDto> aefMaps=applicationEventMapService.findApplicationEventFamilyMapsByIds(aefMapIds);
@@ -55,7 +53,7 @@
       }
     }
     SdkGenerator generator=SdkGeneratorFactory.createSdkGenerator(sdkPlatform);
-    return generator.generateSdk(Version.PROJECT_VERSION,controlZKService.getCurrentBootstrapNodes(),appToken,profileSchemaVersion,configurationSchemaVersion,notificationSchemaVersion,logSchemaVersion,profileSchemaBody,notificationDataSchema.getRawSchema(),protocolSchema.getRawSchema(),defaultConfigurationData,eventFamilies,logDataSchema.getRawSchema(),defaultVerifierToken);
+    return generator.generateSdk(Version.PROJECT_VERSION,controlZKService.getCurrentBootstrapNodes(),appToken,profileSchemaVersion,configurationSchemaVersion,notificationSchemaVersion,logSchemaVersion,profileSchemaBody,notificationDataSchema.getRawSchema(),protocolSchema.getRawSchema(),configurationShema.getBaseSchema(),defaultConfigurationData,eventFamilies,logDataSchema.getRawSchema(),defaultVerifierToken);
   }
  catch (  Exception e) {
     LOG.error("Unable to generate SDK",e);

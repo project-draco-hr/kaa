@@ -2,28 +2,27 @@
   long timeout=2;
   KaaChannelManager channelManager=Mockito.mock(KaaChannelManager.class);
   LogTransport transport=Mockito.mock(LogTransport.class);
-  DefaultLogCollector logCollector=new DefaultLogCollector(transport,channelManager);
-  LogUploadFailoverStrategy failoverStrategy=Mockito.mock(LogUploadFailoverStrategy.class);
-  DefaultLogUploadConfiguration conf=new DefaultLogUploadConfiguration.Builder().setBatchVolume(15).setVolumeThreshold(25).setMaximumAllowedVolume(50).setLogUploadTimeout(timeout).build();
-  logCollector.setConfiguration(conf);
-  logCollector.setFailoverStrategy(failoverStrategy);
+  AbstractLogCollector logCollector=new DefaultLogCollector(transport,channelManager);
+  DefaultLogUploadStrategy tmp=new DefaultLogUploadStrategy();
+  tmp.setTimeout(1);
+  LogUploadStrategy strategy=Mockito.spy(tmp);
+  logCollector.setStrategy(strategy);
   try {
-    SuperRecord record=new SuperRecord();
-    record.setLogdata("test");
+    Log record=new Log();
     logCollector.addLogRecord(record);
     logCollector.addLogRecord(record);
     logCollector.addLogRecord(record);
     logCollector.addLogRecord(record);
     logCollector.addLogRecord(record);
     logCollector.addLogRecord(record);
-    Mockito.verify(failoverStrategy,Mockito.times(0)).onTimeout();
+    Mockito.verify(strategy,Mockito.times(0)).onTimeout(Mockito.any(LogFailoverCommand.class));
     LogSyncRequest request1=Mockito.mock(LogSyncRequest.class);
     logCollector.fillSyncRequest(request1);
     Thread.sleep(timeout / 2 * 1000);
-    Mockito.verify(failoverStrategy,Mockito.times(0)).onTimeout();
+    Mockito.verify(strategy,Mockito.times(0)).onTimeout(Mockito.any(LogFailoverCommand.class));
     Thread.sleep(timeout / 2 * 1000);
     logCollector.addLogRecord(record);
-    Mockito.verify(failoverStrategy,Mockito.times(1)).onTimeout();
+    Mockito.verify(strategy,Mockito.times(1)).onTimeout(Mockito.any(LogFailoverCommand.class));
   }
  catch (  Exception e) {
     Assert.assertTrue("Exception: " + e.toString(),false);

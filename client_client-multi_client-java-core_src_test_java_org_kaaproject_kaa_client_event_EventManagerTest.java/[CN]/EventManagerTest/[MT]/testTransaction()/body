@@ -6,23 +6,13 @@
   eventManager.registerEventFamily(eventFamily);
   TransactionId trxId=eventManager.beginTransaction();
   assertNotNull("Null transaction id",trxId);
-  try {
-    eventManager.produceEvent("kaa.test.event.PlayEvent",new byte[0],null,trxId);
-    eventManager.produceEvent("kaa.test.event.PlayEvent",new byte[0],null,trxId);
-  }
- catch (  IOException e) {
-    assertTrue("Unexpected exception",false);
-  }
+  eventManager.produceEvent("kaa.test.event.PlayEvent",new byte[0],null,trxId);
+  eventManager.produceEvent("kaa.test.event.PlayEvent",new byte[0],null,trxId);
   Mockito.verify(transport,times(0)).sync();
   eventManager.rollback(trxId);
   Mockito.verify(transport,times(0)).sync();
   trxId=eventManager.beginTransaction();
-  try {
-    eventManager.produceEvent("kaa.test.event.PlayEvent",new byte[0],null,trxId);
-  }
- catch (  IOException e) {
-    assertTrue("Unexpected exception",false);
-  }
+  eventManager.produceEvent("kaa.test.event.PlayEvent",new byte[0],null,trxId);
   Mockito.verify(transport,times(0)).sync();
   eventManager.commit(trxId);
   Mockito.verify(transport,times(1)).sync();

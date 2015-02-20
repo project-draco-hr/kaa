@@ -1,6 +1,0 @@
-{
-  KaaChannelManager channelManager=Mockito.mock(KaaChannelManager.class);
-  DefaultLogUploadFailoverStrategy strategy=new DefaultLogUploadFailoverStrategy(channelManager);
-  strategy.onTimeout();
-  Mockito.verify(channelManager,Mockito.times(0)).onServerFailed(Mockito.any(TransportConnectionInfo.class));
-}
