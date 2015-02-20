@@ -1,0 +1,9 @@
+{
+  try {
+    client.getNotificationManager().subscribeToTopic(topicId,true);
+    Log.i("KAA","SUBSCRIBING TO " + topicId);
+  }
+ catch (  UnavailableTopicException e) {
+    Log.e("KAA-ERR",e.getMessage());
+  }
+}
