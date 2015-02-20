@@ -1,0 +1,13 @@
+{
+  List<String> overrideStrategySymbols=Arrays.asList(OverrideStrategy.APPEND.name(),OverrideStrategy.REPLACE.name());
+  Schema overrideStrategyEnum=Schema.createEnum(OVERRIDE_STRATEGY_TYPE_NAME,null,BASE_SCHEMA_FORM_NAMESPACE,overrideStrategySymbols);
+  Field overrideStrategyField=new Field(OVERRIDE_STRATEGY,Schema.createUnion(Arrays.asList(overrideStrategyEnum,Schema.create(Type.NULL))),null,null);
+  overrideStrategyField.addProp(DISPLAY_NAME,"Override strategy");
+  JsonNodeFactory jsonFactory=JsonNodeFactory.instance;
+  ArrayNode displayNamesNode=jsonFactory.arrayNode();
+  displayNamesNode.add(TextNode.valueOf("Append"));
+  displayNamesNode.add(TextNode.valueOf("Replace"));
+  overrideStrategyField.addProp(DISPLAY_NAMES,displayNamesNode);
+  overrideStrategyField.addProp(DISPLAY_PROMPT,"Select array override strategy");
+  return overrideStrategyField;
+}

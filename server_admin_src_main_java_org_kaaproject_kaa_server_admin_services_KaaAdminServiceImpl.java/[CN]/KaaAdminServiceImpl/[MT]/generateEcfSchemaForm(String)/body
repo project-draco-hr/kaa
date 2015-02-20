@@ -1,0 +1,11 @@
+{
+  try {
+    byte[] data=getFileContent(fileItemName);
+    String avroSchema=new String(data);
+    Schema schema=new Schema.Parser().parse(avroSchema);
+    return ecfSchemaFormAvroConverter.createSchemaFormFromSchema(schema);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

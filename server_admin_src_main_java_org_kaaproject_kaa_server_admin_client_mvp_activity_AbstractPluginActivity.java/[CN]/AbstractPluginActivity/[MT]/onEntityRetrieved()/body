@@ -1,9 +1,9 @@
 {
-  loadPluginInfos(new AsyncCallback<List<PluginInfoDto>>(){
-    @Override public void onSuccess(    List<PluginInfoDto> result){
+  loadPluginInfos(new BusyAsyncCallback<List<PluginInfoDto>>(){
+    @Override public void onSuccessImpl(    List<PluginInfoDto> result){
       detailsView.getPluginInfo().setAcceptableValues(result);
     }
-    @Override public void onFailure(    Throwable caught){
+    @Override public void onFailureImpl(    Throwable caught){
       Utils.handleException(caught,detailsView);
     }
   }

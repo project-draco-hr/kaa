@@ -1,0 +1,14 @@
+{
+  List<String> classTypeSymbols=Arrays.asList(OBJECT,EVENT);
+  Schema classTypeEnum=Schema.createEnum(CLASS_TYPE_TYPE_NAME,null,BASE_SCHEMA_FORM_NAMESPACE,classTypeSymbols);
+  Field classTypeField=new Field(CLASS_TYPE,classTypeEnum,null,null);
+  classTypeField.addProp(DISPLAY_NAME,"Class type");
+  JsonNodeFactory jsonFactory=JsonNodeFactory.instance;
+  ArrayNode displayNamesNode=jsonFactory.arrayNode();
+  displayNamesNode.add(TextNode.valueOf("Object"));
+  displayNamesNode.add(TextNode.valueOf("Event"));
+  classTypeField.addProp(DISPLAY_NAMES,displayNamesNode);
+  classTypeField.addProp(DISPLAY_PROMPT,"Select class type");
+  classTypeField.addProp(BY_DEFAULT,OBJECT);
+  return classTypeField;
+}

@@ -1,0 +1,8 @@
+{
+  rpcService.editLogSchemaForm(logSchema,new DataCallback<LogSchemaDto>(callback){
+    @Override protected void onResult(    LogSchemaDto result){
+      eventBus.fireEvent(new DataEvent(LogSchemaDto.class));
+    }
+  }
+);
+}
