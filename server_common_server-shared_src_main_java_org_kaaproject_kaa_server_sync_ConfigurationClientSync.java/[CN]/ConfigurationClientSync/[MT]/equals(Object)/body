@@ -20,5 +20,8 @@
  else   if (!configurationHash.equals(other.configurationHash)) {
     return false;
   }
+  if (resyncOnly != other.resyncOnly) {
+    return false;
+  }
   return true;
 }

@@ -1,0 +1,11 @@
+{
+  int requestId=getRandomInt();
+  LOG.info("Going to detach Endpoint by endpoint key hash: {}",endpointKeyHash);
+  detachEndpointRequests.put(requestId,endpointKeyHash);
+  if (resultListener != null) {
+    endpointDetachListeners.put(requestId,resultListener);
+  }
+  if (userTransport != null) {
+    userTransport.sync();
+  }
+}

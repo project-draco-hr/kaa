@@ -1,10 +1,10 @@
 {
   T inactiveStruct=record.getInactiveStructureDto();
-  activateStruct(inactiveStruct.getId(),new AsyncCallback<T>(){
-    public void onSuccess(    T result){
+  activateStruct(inactiveStruct.getId(),new BusyAsyncCallback<T>(){
+    public void onSuccessImpl(    T result){
       goTo(getRecordPlace(applicationId,schemaId,endpointGroupId,false,true,Math.random()));
     }
-    public void onFailure(    Throwable caught){
+    public void onFailureImpl(    Throwable caught){
       Utils.handleException(caught,recordView);
     }
   }

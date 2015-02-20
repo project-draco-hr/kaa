@@ -14,6 +14,7 @@
       }
       logPack.setEvents(logEvents);
       logPack.setLogSchemaVersion(responseHolder.getEndpointProfile().getLogSchemaVersion());
+      logPack.setUserId(userId);
       context.parent().tell(new LogEventPackMessage(request.getRequestId(),context.self(),logPack),context.self());
     }
     if (logUploadResponseMap.size() > 0) {

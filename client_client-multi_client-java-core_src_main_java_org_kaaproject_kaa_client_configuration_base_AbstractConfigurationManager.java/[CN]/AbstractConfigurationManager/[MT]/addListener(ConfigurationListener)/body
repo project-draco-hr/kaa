@@ -1,0 +1,9 @@
+{
+  if (listener != null) {
+    LOG.trace("Adding listener {}",listener);
+    return listeners.add(listener);
+  }
+ else {
+    throw new RuntimeException("Can't add null as a listener");
+  }
+}

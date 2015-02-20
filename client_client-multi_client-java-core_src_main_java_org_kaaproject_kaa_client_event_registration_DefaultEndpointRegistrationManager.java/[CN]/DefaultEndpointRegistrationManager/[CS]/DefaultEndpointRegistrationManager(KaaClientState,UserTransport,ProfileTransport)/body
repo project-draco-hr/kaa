@@ -1,9 +1,9 @@
 {
-  this.state=state;
-  this.endpointAccessToken=state.getEndpointAccessToken();
-  if (endpointAccessToken.isEmpty()) {
-    regenerateEndpointAccessToken();
-  }
   this.userTransport=userTransport;
   this.profileTransport=profileTransport;
+  this.state=state;
+  String endpointAccessToken=state.getEndpointAccessToken();
+  if (endpointAccessToken == null || endpointAccessToken.length() == 0) {
+    regenerateEndpointAccessToken();
+  }
 }
