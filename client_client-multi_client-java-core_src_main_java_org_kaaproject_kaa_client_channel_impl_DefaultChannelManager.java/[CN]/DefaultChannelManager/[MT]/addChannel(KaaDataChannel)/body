@@ -4,6 +4,14 @@
     return;
   }
   if (channel != null) {
+    if (ServerType.BOOTSTRAP == channel.getServerType()) {
+      channel.setMultiplexer(bootstrapMultiplexer);
+      channel.setDemultiplexer(bootstrapDemultiplexer);
+    }
+ else {
+      channel.setMultiplexer(operationsMultiplexer);
+      channel.setDemultiplexer(operationsDemultiplexer);
+    }
     if (isPaused) {
       channel.pause();
     }

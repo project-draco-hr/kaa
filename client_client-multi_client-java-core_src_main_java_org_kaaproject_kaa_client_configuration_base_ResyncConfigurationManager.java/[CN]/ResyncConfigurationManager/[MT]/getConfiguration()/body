@@ -1,0 +1,15 @@
+{
+  try {
+    return deserializer.fromByteArray(getConfigurationData());
+  }
+ catch (  IOException e) {
+    LOG.error("Failed to decode configuration data {}",Arrays.toString(getConfigurationData()));
+    try {
+      return deserializer.fromByteArray(getDefaultConfigurationData());
+    }
+ catch (    IOException e1) {
+      LOG.error("Failed to decode default configuration data {}",Arrays.toString(getConfigurationData()));
+      return null;
+    }
+  }
+}

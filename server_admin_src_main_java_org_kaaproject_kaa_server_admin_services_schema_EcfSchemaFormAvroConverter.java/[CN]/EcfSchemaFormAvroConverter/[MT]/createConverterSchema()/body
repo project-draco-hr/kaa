@@ -1,0 +1,6 @@
+{
+  Schema initialSchema=getBaseSchemaFormSchema();
+  Map<String,Schema> recordSchemaMap=new HashMap<>();
+  copySchema(initialSchema,recordSchemaMap);
+  return recordSchemaMap.get(BASE_SCHEMA_FORM_NAMESPACE + "." + UNION_FIELD_TYPE);
+}

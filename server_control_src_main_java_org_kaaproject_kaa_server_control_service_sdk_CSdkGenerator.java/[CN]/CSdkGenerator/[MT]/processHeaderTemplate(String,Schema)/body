@@ -1,0 +1,5 @@
+{
+  VelocityContext context=new VelocityContext();
+  context.put("record_name",StyleUtils.toLowerUnderScore(schema.getName()));
+  return generateSourceFromTemplate(TEMPLATE_DIR + File.separator + templateName,context);
+}

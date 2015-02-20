@@ -1,9 +1,9 @@
 {
-  getEntity(entityId,new AsyncCallback<T>(){
-    @Override public void onFailure(    Throwable caught){
+  getEntity(entityId,new BusyAsyncCallback<T>(){
+    @Override public void onFailureImpl(    Throwable caught){
       Utils.handleException(caught,detailsView);
     }
-    @Override public void onSuccess(    T result){
+    @Override public void onSuccessImpl(    T result){
       entity=result;
       onEntityRetrieved();
     }

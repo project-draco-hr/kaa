@@ -11,17 +11,17 @@
   registrations.add(detailsView.getProfileFiltersGrid().addRowActionHandler(new RowActionEventHandler<StructureRecordKey>(){
     @Override public void onRowAction(    RowActionEvent<StructureRecordKey> event){
       StructureRecordKey id=event.getClickedId();
-      if (event.getAction() == RowAction.CLICK) {
+      if (event.getAction() == RowActionEvent.CLICK) {
         ProfileFilterPlace profileFilterPlace=new ProfileFilterPlace(applicationId,id.getSchemaId(),id.getEndpointGroupId(),false,true,0);
         profileFilterPlace.setPreviousPlace(place);
         goTo(profileFilterPlace);
       }
- else       if (event.getAction() == RowAction.DELETE) {
-        KaaAdmin.getDataSource().deleteProfileFilterRecord(id.getSchemaId(),id.getEndpointGroupId(),new AsyncCallback<Void>(){
-          @Override public void onFailure(          Throwable caught){
+ else       if (event.getAction() == RowActionEvent.DELETE) {
+        KaaAdmin.getDataSource().deleteProfileFilterRecord(id.getSchemaId(),id.getEndpointGroupId(),new BusyAsyncCallback<Void>(){
+          @Override public void onFailureImpl(          Throwable caught){
             Utils.handleException(caught,detailsView);
           }
-          @Override public void onSuccess(          Void result){
+          @Override public void onSuccessImpl(          Void result){
           }
         }
 );
@@ -49,17 +49,17 @@
   registrations.add(detailsView.getConfigurationsGrid().addRowActionHandler(new RowActionEventHandler<StructureRecordKey>(){
     @Override public void onRowAction(    RowActionEvent<StructureRecordKey> event){
       StructureRecordKey id=event.getClickedId();
-      if (event.getAction() == RowAction.CLICK) {
+      if (event.getAction() == RowActionEvent.CLICK) {
         ConfigurationPlace configurationPlace=new ConfigurationPlace(applicationId,id.getSchemaId(),id.getEndpointGroupId(),false,true,0);
         configurationPlace.setPreviousPlace(place);
         goTo(configurationPlace);
       }
- else       if (event.getAction() == RowAction.DELETE) {
-        KaaAdmin.getDataSource().deleteConfigurationRecord(id.getSchemaId(),id.getEndpointGroupId(),new AsyncCallback<Void>(){
-          @Override public void onFailure(          Throwable caught){
+ else       if (event.getAction() == RowActionEvent.DELETE) {
+        KaaAdmin.getDataSource().deleteConfigurationRecord(id.getSchemaId(),id.getEndpointGroupId(),new BusyAsyncCallback<Void>(){
+          @Override public void onFailureImpl(          Throwable caught){
             Utils.handleException(caught,detailsView);
           }
-          @Override public void onSuccess(          Void result){
+          @Override public void onSuccessImpl(          Void result){
           }
         }
 );
@@ -85,14 +85,14 @@
   registrations.add(detailsView.getTopicsGrid().addRowActionHandler(new RowActionEventHandler<String>(){
     @Override public void onRowAction(    RowActionEvent<String> event){
       String id=event.getClickedId();
-      if (event.getAction() == RowAction.CLICK) {
+      if (event.getAction() == RowActionEvent.CLICK) {
       }
- else       if (event.getAction() == RowAction.DELETE) {
-        KaaAdmin.getDataSource().removeTopicFromEndpointGroup(entityId,id,new AsyncCallback<Void>(){
-          @Override public void onFailure(          Throwable caught){
+ else       if (event.getAction() == RowActionEvent.DELETE) {
+        KaaAdmin.getDataSource().removeTopicFromEndpointGroup(entityId,id,new BusyAsyncCallback<Void>(){
+          @Override public void onFailureImpl(          Throwable caught){
             Utils.handleException(caught,detailsView);
           }
-          @Override public void onSuccess(          Void result){
+          @Override public void onSuccessImpl(          Void result){
           }
         }
 );

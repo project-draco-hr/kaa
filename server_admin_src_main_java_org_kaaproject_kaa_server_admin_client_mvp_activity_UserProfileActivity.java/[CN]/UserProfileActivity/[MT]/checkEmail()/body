@@ -1,10 +1,10 @@
 {
   final Long userId=Long.valueOf(entity.getExternalUid());
-  KaaAdmin.getAuthService().checkEmailOccupied(entity.getMail(),userId,new AsyncCallback<ResultCode>(){
-    @Override public void onFailure(    Throwable caught){
+  KaaAdmin.getAuthService().checkEmailOccupied(entity.getMail(),userId,new BusyAsyncCallback<ResultCode>(){
+    @Override public void onFailureImpl(    Throwable caught){
       Utils.handleException(caught,detailsView);
     }
-    @Override public void onSuccess(    ResultCode result){
+    @Override public void onSuccessImpl(    ResultCode result){
       if (result != ResultCode.OK) {
         detailsView.setErrorMessage(Utils.constants.getString(result.getResourceKey()));
       }

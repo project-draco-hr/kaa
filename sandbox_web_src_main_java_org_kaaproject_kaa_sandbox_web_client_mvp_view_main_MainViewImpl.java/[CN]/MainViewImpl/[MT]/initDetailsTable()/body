@@ -1,22 +1,22 @@
 {
   int row=-1;
-  goToKaaAdminWeb=new Anchor("Kaa Administrative Web Console");
+  goToKaaAdminWeb=new Anchor(Utils.constants.kaaAdminWeb());
   Widget gotoLink=constructGotoLink(goToKaaAdminWeb);
   detailsTable.setWidget(++row,0,gotoLink);
   detailsTable.getFlexCellFormatter().setColSpan(row,0,2);
-  goToAvroUiSandboxWeb=new Anchor("Avro UI Sandbox Web Console");
+  goToAvroUiSandboxWeb=new Anchor(Utils.constants.avroUiSandboxWeb());
   gotoLink=constructGotoLink(goToAvroUiSandboxWeb);
   detailsTable.setWidget(++row,0,gotoLink);
   detailsTable.getFlexCellFormatter().setColSpan(row,0,2);
-  changeKaaHostLabel=new HTML("To change kaa services host/ip enter new host<br>value in field below and click 'Change' button.");
+  changeKaaHostLabel=new HTML(Utils.constants.changeKaaHost());
   detailsTable.setWidget(++row,0,changeKaaHostLabel);
   detailsTable.getFlexCellFormatter().setColSpan(row,0,2);
   kaaHost=new TextBox();
   kaaHost.setWidth("200px");
   detailsTable.setWidget(++row,0,kaaHost);
-  changeKaaHostButton=new Button("Change");
+  changeKaaHostButton=new Button(Utils.constants.change());
   detailsTable.setWidget(row,1,changeKaaHostButton);
-  Label demoProjectsTitle=new Label("Demo projects");
+  Label demoProjectsTitle=new Label(Utils.constants.demoProjects());
   demoProjectsTitle.getElement().getStyle().setPaddingTop(40,Unit.PX);
   demoProjectsTitle.getElement().getStyle().setPaddingBottom(20,Unit.PX);
   demoProjectsTitle.addStyleName("b-app-content-title");

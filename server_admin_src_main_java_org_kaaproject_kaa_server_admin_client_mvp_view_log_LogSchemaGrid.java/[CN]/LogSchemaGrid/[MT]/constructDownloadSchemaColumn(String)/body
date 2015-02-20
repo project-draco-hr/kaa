@@ -2,7 +2,7 @@
   ActionButtonCell<LogSchemaDto> cell=new ActionButtonCell<LogSchemaDto>(Utils.resources.download(),text,embedded,new ActionListener<LogSchemaDto>(){
     @Override public void onItemAction(    LogSchemaDto value){
       Integer logSchemaVersion=value.getMajorVersion();
-      RowActionEvent<String> rowDownloadSchemaEvent=new RowActionEvent<>(String.valueOf(logSchemaVersion),RowAction.DOWNLOAD_SCHEMA);
+      RowActionEvent<String> rowDownloadSchemaEvent=new RowActionEvent<>(String.valueOf(logSchemaVersion),KaaRowAction.DOWNLOAD_LOG_SCHEMA);
       fireEvent(rowDownloadSchemaEvent);
     }
   }

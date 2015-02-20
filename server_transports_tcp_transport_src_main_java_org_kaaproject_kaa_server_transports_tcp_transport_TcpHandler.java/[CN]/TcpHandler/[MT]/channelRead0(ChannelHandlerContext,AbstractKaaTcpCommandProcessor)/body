@@ -6,9 +6,14 @@
     closeFuture.addListener(new GenericFutureListener<Future<? super Void>>(){
       @Override public void operationComplete(      Future<? super Void> future) throws Exception {
         if (!sessionDisconnected) {
-          handler.process(new NettyTcpDisconnectMessage(session));
+          if (session != null) {
+            handler.process(new NettyTcpDisconnectMessage(session));
+            LOG.trace("[{}] Channel is closed - sending disconnect",uuid);
+          }
+ else {
+            LOG.trace("[{}] Session is not yet established. Skip sending disconnect",uuid);
+          }
           sessionDisconnected=true;
-          LOG.trace("[{}] Channel is closed - sending disconnect",uuid);
         }
  else {
           LOG.trace("[{}] Channel is closed and disconnect is already sent",uuid);
@@ -44,6 +49,7 @@ break;
 }
  else {
 LOG.warn("[{}] Ignoring {} message due to incomplete CONNECT sequence",uuid,frame.getMessageType());
+ctx.writeAndFlush(new ConnAck(ReturnCode.REFUSE_BAD_PROTOCOL));
 }
 }
 }

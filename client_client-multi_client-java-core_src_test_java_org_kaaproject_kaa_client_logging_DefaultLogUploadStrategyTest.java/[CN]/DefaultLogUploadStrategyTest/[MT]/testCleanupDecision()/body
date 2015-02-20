@@ -1,8 +1,0 @@
-{
-  DefaultLogUploadStrategy strategy=new DefaultLogUploadStrategy();
-  DefaultLogUploadConfiguration conf=new DefaultLogUploadConfiguration.Builder().setBatchVolume(20).setVolumeThreshold(60).setMaximumAllowedVolume(150).setLogUploadTimeout(300).build();
-  TestLogStorageStatus status=new TestLogStorageStatus(150,3);
-  Assert.assertTrue(strategy.isUploadNeeded(conf,status) == LogUploadStrategyDecision.CLEANUP);
-  status=new TestLogStorageStatus(170,3);
-  Assert.assertTrue(strategy.isUploadNeeded(conf,status) == LogUploadStrategyDecision.CLEANUP);
-}

@@ -1,0 +1,9 @@
+{
+  PersistentStorage storage=context.createPersistentStorage();
+  BufferedOutputStream os=new BufferedOutputStream(storage.openForWrite(path));
+  byte[] data=new byte[buffer.remaining()];
+  buffer.get(data);
+  LOG.trace("Writing {} bytes to output stream",data.length);
+  os.write(data);
+  os.close();
+}

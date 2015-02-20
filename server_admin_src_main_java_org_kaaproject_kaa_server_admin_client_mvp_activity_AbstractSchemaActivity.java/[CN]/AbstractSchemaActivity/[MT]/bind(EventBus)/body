@@ -1,20 +1,3 @@
 {
-  if (create) {
-    fileItemName=detailsView.getSchemaFileUpload().getFileItemName();
-    registrations.add(detailsView.getSchemaFileUpload().addSubmitCompleteHandler(new SubmitCompleteHandler(){
-      @Override public void onSubmitComplete(      SubmitCompleteEvent event){
-        editEntity(entity,new AsyncCallback<T>(){
-          @Override public void onSuccess(          T result){
-            goTo(place.getPreviousPlace());
-          }
-          @Override public void onFailure(          Throwable caught){
-            Utils.handleException(caught,detailsView,AbstractSchemaActivity.this);
-          }
-        }
-);
-      }
-    }
-));
-  }
   super.bind(eventBus);
 }

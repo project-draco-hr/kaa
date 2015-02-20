@@ -1,0 +1,11 @@
+{
+  if (eventClassTypes.contains(fieldType.getSchema().getName())) {
+    GenericData.EnumSymbol classType=(GenericData.EnumSymbol)fieldType.get(CLASS_TYPE);
+    if (classType != null) {
+      fieldSchema.addProp(CLASS_TYPE,classType.toString().toLowerCase());
+    }
+ else {
+      fieldSchema.addProp(CLASS_TYPE,OBJECT.toLowerCase());
+    }
+  }
+}
