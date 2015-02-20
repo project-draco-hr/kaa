@@ -3,10 +3,10 @@
   boolean confSchemaPresent=configurationSync.getConfSchemaBody() != null;
   boolean confBodyPresent=configurationSync.getConfDeltaBody() != null;
   if (confSchemaPresent) {
-    option&=0x01;
+    option|=0x01;
   }
   if (confBodyPresent) {
-    option&=0x02;
+    option|=0x02;
   }
   buildExtensionHeader(buf,CONFIGURATION_EXTENSION_ID,NOTHING,NOTHING,(byte)option,0);
   int extPosition=buf.position();
