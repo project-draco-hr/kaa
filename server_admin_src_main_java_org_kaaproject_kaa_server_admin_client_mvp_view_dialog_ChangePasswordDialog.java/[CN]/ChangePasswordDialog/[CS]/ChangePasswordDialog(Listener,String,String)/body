@@ -3,7 +3,7 @@
   this.username=username;
   InputChangeHandler handler=new InputChangeHandler(listener);
   setWidth("500px");
-  setTitle(Utils.constants.change_password());
+  setTitle(Utils.constants.changePassword());
   VerticalPanel dialogContents=new VerticalPanel();
   dialogContents.setSpacing(4);
   setWidget(dialogContents);
@@ -45,7 +45,7 @@
   newPasswordAgain.addKeyDownHandler(handler);
   table.getCellFormatter().setHorizontalAlignment(row,0,HasHorizontalAlignment.ALIGN_RIGHT);
   dialogContents.add(table);
-  changePasswordButton=new Button(Utils.constants.change_password(),handler);
+  changePasswordButton=new Button(Utils.constants.changePassword(),handler);
   Button cancelButton=new Button(Utils.constants.cancel(),new ClickHandler(){
     @Override public void onClick(    ClickEvent event){
       hide();
