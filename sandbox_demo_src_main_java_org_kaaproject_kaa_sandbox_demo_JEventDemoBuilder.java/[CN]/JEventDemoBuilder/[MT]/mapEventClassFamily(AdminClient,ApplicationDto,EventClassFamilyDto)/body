@@ -1,0 +1,19 @@
+{
+  List<EventClassDto> eventClasses=client.getEventClassesByFamilyIdVersionAndType(eventClassFamily.getId(),1,EventClassType.EVENT);
+  ApplicationEventFamilyMapDto aefMap=new ApplicationEventFamilyMapDto();
+  aefMap.setApplicationId(application.getId());
+  aefMap.setEcfId(eventClassFamily.getId());
+  aefMap.setEcfName(eventClassFamily.getName());
+  aefMap.setVersion(1);
+  List<ApplicationEventMapDto> eventMaps=new ArrayList<>(eventClasses.size());
+  for (  EventClassDto eventClass : eventClasses) {
+    ApplicationEventMapDto eventMap=new ApplicationEventMapDto();
+    eventMap.setEventClassId(eventClass.getId());
+    eventMap.setFqn(eventClass.getFqn());
+    eventMap.setAction(ApplicationEventAction.BOTH);
+    eventMaps.add(eventMap);
+  }
+  aefMap.setEventMaps(eventMaps);
+  aefMap=client.editApplicationEventFamilyMap(aefMap);
+  return aefMap;
+}
