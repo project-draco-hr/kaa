@@ -1,0 +1,12 @@
+{
+switch (root.getType()) {
+case ARRAY:
+    return processArray(root);
+case RECORD:
+  return processRecord(root);
+case MAP:
+throw new SchemaCreationException("Map is not supported");
+default :
+return root;
+}
+}

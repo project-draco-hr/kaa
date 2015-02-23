@@ -1,0 +1,37 @@
+{
+  boolean hasAddressableItem=false;
+  Schema copySchema=null;
+  List<Schema> newItems=null;
+  if (root.getElementType().getType().equals(Type.UNION)) {
+    List<Schema> items=root.getElementType().getTypes();
+    newItems=new ArrayList<Schema>(items.size() + 1);
+    for (    Schema itemIter : items) {
+      Schema updatedItem=itemIter;
+      if (isComplexSchema(itemIter)) {
+        updatedItem=convert(itemIter);
+      }
+      newItems.add(updatedItem);
+      if (isAddressableValue(itemIter) && strategy.isArrayEditable()) {
+        hasAddressableItem=true;
+      }
+    }
+  }
+ else   if (strategy.isArrayEditable()) {
+    hasAddressableItem=isAddressableValue(root.getElementType());
+  }
+  if (hasAddressableItem) {
+    if (newItems == null) {
+      newItems=new ArrayList<Schema>();
+      newItems.add(convert(root.getElementType()));
+    }
+    newItems.add(getUuidType());
+  }
+  if (newItems != null) {
+    copySchema=Schema.createArray(Schema.createUnion(newItems));
+  }
+ else {
+    copySchema=Schema.createArray(convert(root.getElementType()));
+  }
+  copyProps(root,copySchema);
+  return copySchema;
+}
