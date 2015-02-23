@@ -1,0 +1,71 @@
+{
+  if (byDefault != null && !byDefault.isNull()) {
+    if (byDefault.isArray() && CommonUtils.getSchemaByType(schemaNode,Type.BYTES) != null) {
+      ByteBuffer byteBuffer=ByteBuffer.allocate(byDefault.size());
+      for (      JsonNode oneByte : byDefault) {
+        byteBuffer.put((byte)oneByte.asInt());
+      }
+      byteBuffer.flip();
+      return byteBuffer;
+    }
+    if (byDefault.isBoolean() && CommonUtils.getSchemaByType(schemaNode,Type.BOOLEAN) != null) {
+      return byDefault.asBoolean();
+    }
+    if (byDefault.isDouble()) {
+      if (CommonUtils.getSchemaByType(schemaNode,Type.DOUBLE) != null) {
+        return byDefault.asDouble();
+      }
+ else       if (CommonUtils.getSchemaByType(schemaNode,Type.FLOAT) != null) {
+        return (float)byDefault.asDouble();
+      }
+    }
+    if (byDefault.isInt() && CommonUtils.getSchemaByType(schemaNode,Type.INT) != null) {
+      return byDefault.asInt();
+    }
+    if (byDefault.isLong() && CommonUtils.getSchemaByType(schemaNode,Type.LONG) != null) {
+      return byDefault.asLong();
+    }
+    if (byDefault.isTextual() && CommonUtils.getSchemaByType(schemaNode,Type.STRING) != null) {
+      return byDefault.asText();
+    }
+    throw new ConfigurationGenerationException("Default value " + byDefault.toString() + " is not applicable for the field");
+  }
+  if (CommonUtils.getSchemaByType(schemaNode,Type.NULL) != null) {
+    return null;
+  }
+  Schema typeField=schemaNode;
+  if (typeField.getType().equals(Type.UNION)) {
+    typeField=typeField.getTypes().get(0);
+  }
+switch (typeField.getType()) {
+case ARRAY:
+    return processArray(typeField);
+case RECORD:
+  return processRecord(typeField);
+case FIXED:
+return processFixed(typeField);
+case ENUM:
+return processEnum(typeField);
+case BYTES:
+ByteBuffer byteBuffer=ByteBuffer.allocate(byDefault.size());
+byteBuffer.put((byte)0);
+byteBuffer.flip();
+return byteBuffer;
+case MAP:
+throw new ConfigurationGenerationException("Map is not supported.");
+case INT:
+return new Integer(0);
+case BOOLEAN:
+return Boolean.FALSE;
+case DOUBLE:
+return new Double(0.0);
+case LONG:
+return new Long(0);
+case STRING:
+return new String("");
+case FLOAT:
+return new Float(0.0);
+default :
+return null;
+}
+}

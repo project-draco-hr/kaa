@@ -1,0 +1,6 @@
+{
+  if (UUID_FIELD.equals(fieldDefinition.name())) {
+    return CommonUtils.generateUuidObject();
+  }
+  return processType(fieldDefinition.schema(),fieldDefinition.getJsonProp(BY_DEFAULT_FIELD));
+}

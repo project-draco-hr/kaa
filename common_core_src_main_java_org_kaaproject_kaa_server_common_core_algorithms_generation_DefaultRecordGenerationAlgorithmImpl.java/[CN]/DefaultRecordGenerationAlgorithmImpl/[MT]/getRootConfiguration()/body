@@ -1,4 +1,3 @@
 {
-  int dotIndex=rootSchemaName.lastIndexOf('.');
-  return getConfigurationByName(rootSchemaName.substring(dotIndex + 1),rootSchemaName.substring(0,dotIndex));
+  return getConfigurationByName(avroBaseSchema.getName(),avroBaseSchema.getNamespace());
 }

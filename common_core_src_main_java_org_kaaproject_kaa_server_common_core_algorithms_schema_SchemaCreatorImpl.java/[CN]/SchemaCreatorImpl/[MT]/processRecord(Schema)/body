@@ -11,7 +11,7 @@
       optional=fieldIter.getJsonProp(OPTIONAL_NAME).asBoolean();
     }
     List<Schema> newUnion=new ArrayList<Schema>();
-    if (isComplexSchema(fieldIter.schema())) {
+    if (CommonUtils.isComplexSchema(fieldIter.schema())) {
       addResetTypeIfArray(fieldIter.schema(),newUnion);
       newUnion.add(convert(fieldIter.schema()));
     }
@@ -19,7 +19,7 @@
       List<Schema> oldUnion=fieldIter.schema().getTypes();
       for (      Schema unionIter : oldUnion) {
         Schema newItem=unionIter;
-        if (isComplexSchema(unionIter)) {
+        if (CommonUtils.isComplexSchema(unionIter)) {
           addResetTypeIfArray(unionIter,newUnion);
           newItem=convert(unionIter);
         }
@@ -45,14 +45,14 @@
  else {
       newField=new Field(fieldIter.name(),newUnion.get(0),fieldIter.doc(),fieldIter.defaultValue());
     }
-    copyProps(fieldIter,newField);
+    CommonUtils.copyJsonProperties(fieldIter,newField);
     newFields.add(newField);
   }
   if (addressable) {
     newFields.add(getUuidField());
   }
   Schema copySchema=Schema.createRecord(root.getName(),root.getDoc(),root.getNamespace(),root.isError());
-  copyProps(root,copySchema);
+  CommonUtils.copyJsonProperties(root,copySchema);
   copySchema.setFields(newFields);
   if (addressable) {
     String fullName=root.getFullName();

@@ -7,7 +7,7 @@
     newItems=new ArrayList<Schema>(items.size() + 1);
     for (    Schema itemIter : items) {
       Schema updatedItem=itemIter;
-      if (isComplexSchema(itemIter)) {
+      if (CommonUtils.isComplexSchema(itemIter)) {
         updatedItem=convert(itemIter);
       }
       newItems.add(updatedItem);
@@ -32,6 +32,6 @@
  else {
     copySchema=Schema.createArray(convert(root.getElementType()));
   }
-  copyProps(root,copySchema);
+  CommonUtils.copyJsonProperties(root,copySchema);
   return copySchema;
 }

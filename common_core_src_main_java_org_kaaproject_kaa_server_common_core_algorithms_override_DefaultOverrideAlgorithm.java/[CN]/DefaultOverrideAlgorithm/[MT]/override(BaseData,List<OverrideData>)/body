@@ -22,7 +22,7 @@
   GenericAvroConverter<GenericRecord> overrideConverter=new GenericAvroConverter(overrideAvroSchema);
   GenericRecord mergedConfiguration=baseConverter.decodeJson(baseConfiguration.getRawData());
   try {
-    ArrayOverrideStrategyResolver arrayMergeStrategyResolver=new ArrayOverrideStrategyResolver(baseConfiguration.getSchema());
+    ArrayOverrideStrategyResolver arrayMergeStrategyResolver=new ArrayOverrideStrategyResolver(baseSchemaParser.getTypes());
     for (    OverrideData entry : overrideConfigurations) {
       String configurationToApply=entry.getRawData();
       LOG.debug("Override schema {}",entry.getSchema());
