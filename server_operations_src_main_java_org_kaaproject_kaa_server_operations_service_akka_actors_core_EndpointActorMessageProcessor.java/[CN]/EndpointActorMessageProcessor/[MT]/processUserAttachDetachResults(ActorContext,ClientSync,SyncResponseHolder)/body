@@ -2,7 +2,7 @@
   if (responseHolder.getResponse().getUserSync() != null) {
     List<EndpointAttachResponse> attachResponses=responseHolder.getResponse().getUserSync().getEndpointAttachResponses();
     if (attachResponses != null && !attachResponses.isEmpty()) {
-      resetEventSeqNumber();
+      state.resetEventSeqNumber();
       for (      EndpointAttachResponse response : attachResponses) {
         if (response.getResult() != SyncStatus.SUCCESS) {
           LOG.debug("[{}][{}] Skipped unsuccessful attach response [{}]",endpointKey,actorKey,response.getRequestId());
@@ -15,7 +15,7 @@
     }
     List<EndpointDetachRequest> detachRequests=request.getUserSync() == null ? null : request.getUserSync().getEndpointDetachRequests();
     if (detachRequests != null && !detachRequests.isEmpty()) {
-      resetEventSeqNumber();
+      state.resetEventSeqNumber();
       for (      EndpointDetachRequest detachRequest : detachRequests) {
         for (        EndpointDetachResponse detachResponse : responseHolder.getResponse().getUserSync().getEndpointDetachResponses()) {
           if (detachRequest.getRequestId() == detachResponse.getRequestId()) {

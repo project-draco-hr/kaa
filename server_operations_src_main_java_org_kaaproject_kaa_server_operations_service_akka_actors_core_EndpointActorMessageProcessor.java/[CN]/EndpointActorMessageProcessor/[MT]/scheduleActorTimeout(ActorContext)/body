@@ -1,5 +1,5 @@
 {
   if (state.isNoChannels()) {
-    scheduleTimeoutMessage(context,new ActorTimeoutMessage(lastActivityTime),inactivityTimeout);
+    scheduleTimeoutMessage(context,new ActorTimeoutMessage(state.getLastActivityTime()),inactivityTimeout);
   }
 }

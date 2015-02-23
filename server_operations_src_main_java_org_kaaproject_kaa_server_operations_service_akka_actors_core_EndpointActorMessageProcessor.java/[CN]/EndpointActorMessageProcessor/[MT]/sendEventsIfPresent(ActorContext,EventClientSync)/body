@@ -1,20 +1,20 @@
 {
   List<Event> events=request.getEvents();
   if (state.getUserId() != null && events != null && !events.isEmpty()) {
-    LOG.debug("[{}][{}] Processing events {} with seq number > {}",endpointKey,actorKey,events,processedEventSeqNum);
+    LOG.debug("[{}][{}] Processing events {} with seq number > {}",endpointKey,actorKey,events,state.getEventSeqNumber());
     List<Event> eventsToSend=new ArrayList<>(events.size());
-    int maxSentEventSeqNum=processedEventSeqNum;
+    int maxSentEventSeqNum=state.getEventSeqNumber();
     for (    Event event : events) {
-      if (event.getSeqNum() > processedEventSeqNum) {
+      if (event.getSeqNum() > state.getEventSeqNumber()) {
         event.setSource(endpointKey);
         eventsToSend.add(event);
         maxSentEventSeqNum=Math.max(event.getSeqNum(),maxSentEventSeqNum);
       }
  else {
-        LOG.debug("[{}][{}] Ignoring duplicate/old event {} due to seq number < {}",endpointKey,actorKey,events,processedEventSeqNum);
+        LOG.debug("[{}][{}] Ignoring duplicate/old event {} due to seq number < {}",endpointKey,actorKey,events,state.getEventSeqNumber());
       }
     }
-    processedEventSeqNum=maxSentEventSeqNum;
+    state.setEventSeqNumber(maxSentEventSeqNum);
     if (!eventsToSend.isEmpty()) {
       EndpointEventSendMessage message=new EndpointEventSendMessage(state.getUserId(),eventsToSend,key,appToken,context.self());
       context.parent().tell(message,context.self());

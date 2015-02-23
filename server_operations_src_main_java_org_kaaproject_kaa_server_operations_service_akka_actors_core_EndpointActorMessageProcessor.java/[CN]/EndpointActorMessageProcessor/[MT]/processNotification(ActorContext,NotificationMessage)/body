@@ -1,8 +1,19 @@
 {
-  LOG.debug("[{}][{}] Processing notification {}",endpointKey,actorKey,message);
-  for (  ChannelMetaData channel : state.getChannelsByType(TransportType.NOTIFICATION)) {
+  LOG.debug("[{}][{}] Processing notification message {}",endpointKey,actorKey,message);
+  List<ChannelMetaData> channels=state.getChannelsByType(TransportType.NOTIFICATION);
+  if (channels.isEmpty()) {
+    LOG.debug("[{}][{}] No channels to process notification message",endpointKey,actorKey);
+    return;
+  }
+  String unicastNotificationId=message.getUnicastNotificationId();
+  List<NotificationDto> validNfs=state.filter(message.getNotifications());
+  if (unicastNotificationId == null && validNfs.isEmpty()) {
+    LOG.debug("[{}][{}] message is no longer valid for current endpoint",endpointKey,actorKey);
+    return;
+  }
+  for (  ChannelMetaData channel : channels) {
     LOG.debug("[{}][{}] processing channel {} and response {}",endpointKey,actorKey,channel,channel.getResponseHolder().getResponse());
-    ServerSync syncResponse=operationsService.updateSyncResponse(channel.getResponseHolder().getResponse(),message.getNotifications(),message.getUnicastNotificationId());
+    ServerSync syncResponse=operationsService.updateSyncResponse(channel.getResponseHolder().getResponse(),validNfs,unicastNotificationId);
     if (syncResponse != null) {
       LOG.debug("[{}][{}] processed channel {} and response {}",endpointKey,actorKey,channel,syncResponse);
       sendReply(context,channel.getRequestMessage(),syncResponse);
