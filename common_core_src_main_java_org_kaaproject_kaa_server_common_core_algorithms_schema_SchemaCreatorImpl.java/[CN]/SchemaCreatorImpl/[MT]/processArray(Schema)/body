@@ -7,7 +7,7 @@
     newItems=new ArrayList<Schema>(items.size() + 1);
     for (    Schema itemIter : items) {
       Schema updatedItem=itemIter;
-      if (CommonUtils.isComplexSchema(itemIter)) {
+      if (AvroUtils.isComplexSchema(itemIter)) {
         updatedItem=convert(itemIter);
       }
       newItems.add(updatedItem);
@@ -32,6 +32,6 @@
  else {
     copySchema=Schema.createArray(convert(root.getElementType()));
   }
-  CommonUtils.copyJsonProperties(root,copySchema);
+  AvroUtils.copyJsonProperties(root,copySchema);
   return copySchema;
 }
