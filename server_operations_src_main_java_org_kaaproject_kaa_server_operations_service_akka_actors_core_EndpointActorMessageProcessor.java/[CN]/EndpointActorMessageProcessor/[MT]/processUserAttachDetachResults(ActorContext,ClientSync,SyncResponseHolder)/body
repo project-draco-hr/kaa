@@ -2,20 +2,20 @@
   if (responseHolder.getResponse().getUserSync() != null) {
     List<EndpointAttachResponse> attachResponses=responseHolder.getResponse().getUserSync().getEndpointAttachResponses();
     if (attachResponses != null && !attachResponses.isEmpty()) {
-      resetEventSeqNumber();
+      state.resetEventSeqNumber();
       for (      EndpointAttachResponse response : attachResponses) {
         if (response.getResult() != SyncStatus.SUCCESS) {
           LOG.debug("[{}][{}] Skipped unsuccessful attach response [{}]",endpointKey,actorKey,response.getRequestId());
           continue;
         }
-        EndpointUserAttachMessage attachMessage=new EndpointUserAttachMessage(EndpointObjectHash.fromBytes(Base64Util.decode(response.getEndpointKeyHash())),userId,endpointKey);
+        EndpointUserAttachMessage attachMessage=new EndpointUserAttachMessage(EndpointObjectHash.fromBytes(Base64Util.decode(response.getEndpointKeyHash())),state.getUserId(),endpointKey);
         context.parent().tell(attachMessage,context.self());
         LOG.debug("[{}][{}] Notification to attached endpoint [{}] sent",endpointKey,actorKey,response.getEndpointKeyHash());
       }
     }
     List<EndpointDetachRequest> detachRequests=request.getUserSync() == null ? null : request.getUserSync().getEndpointDetachRequests();
     if (detachRequests != null && !detachRequests.isEmpty()) {
-      resetEventSeqNumber();
+      state.resetEventSeqNumber();
       for (      EndpointDetachRequest detachRequest : detachRequests) {
         for (        EndpointDetachResponse detachResponse : responseHolder.getResponse().getUserSync().getEndpointDetachResponses()) {
           if (detachRequest.getRequestId() == detachResponse.getRequestId()) {
@@ -23,7 +23,7 @@
               LOG.debug("[{}][{}] Skipped unsuccessful detach response [{}]",endpointKey,actorKey,detachResponse.getRequestId());
               continue;
             }
-            EndpointUserDetachMessage attachMessage=new EndpointUserDetachMessage(EndpointObjectHash.fromBytes(Base64Util.decode(detachRequest.getEndpointKeyHash())),userId,endpointKey);
+            EndpointUserDetachMessage attachMessage=new EndpointUserDetachMessage(EndpointObjectHash.fromBytes(Base64Util.decode(detachRequest.getEndpointKeyHash())),state.getUserId(),endpointKey);
             context.parent().tell(attachMessage,context.self());
             LOG.debug("[{}][{}] Notification to detached endpoint [{}] sent",endpointKey,actorKey,detachRequest.getEndpointKeyHash());
           }

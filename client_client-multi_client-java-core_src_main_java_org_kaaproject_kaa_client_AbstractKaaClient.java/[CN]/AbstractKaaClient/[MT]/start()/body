@@ -1,12 +1,26 @@
 {
-  if (!isInitialized) {
-    LOG.warn("Client is not initialized!");
-    return;
+  try {
+    if (!isInitialized) {
+      isInitialized=true;
+    }
+ else {
+      LOG.warn("Client is already initialized!");
+      return;
+    }
+    configurationManager.init();
+    bootstrapManager.receiveOperationsServerList();
+    if (stateListener != null) {
+      stateListener.onStarted();
+    }
   }
-  if (schemaProcessor.getSchema() == null || configurationPersistenceManager.getConfigurationHash() == null) {
-    LOG.debug("Initializing client state with default configuration");
-    kaaClientState.setAppStateSeqNumber(0);
-    setDefaultConfiguration();
+ catch (  TransportException e) {
+    if (stateListener != null) {
+      stateListener.onStartFailure(new KaaClusterConnectionException(e));
+    }
   }
-  bootstrapManager.receiveOperationsServerList();
+catch (  KaaRuntimeException e) {
+    if (stateListener != null) {
+      stateListener.onStartFailure(new KaaException(e));
+    }
+  }
 }

@@ -1,10 +1,10 @@
 {
   if (create) {
-    KaaAdmin.getDataSource().getVacantEventClassFamilies(place.getApplicationId(),new AsyncCallback<List<EcfInfoDto>>(){
-      @Override public void onFailure(      Throwable caught){
+    KaaAdmin.getDataSource().getVacantEventClassFamilies(place.getApplicationId(),new BusyAsyncCallback<List<EcfInfoDto>>(){
+      @Override public void onFailureImpl(      Throwable caught){
         Utils.handleException(caught,detailsView);
       }
-      @Override public void onSuccess(      List<EcfInfoDto> result){
+      @Override public void onSuccessImpl(      List<EcfInfoDto> result){
         detailsView.updateEcfs(result);
       }
     }

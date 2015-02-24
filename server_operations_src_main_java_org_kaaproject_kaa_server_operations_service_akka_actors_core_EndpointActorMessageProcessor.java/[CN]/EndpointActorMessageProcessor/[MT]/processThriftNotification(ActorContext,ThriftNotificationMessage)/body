@@ -1,7 +1,5 @@
 {
-  Set<ChannelMetaData> channels=new HashSet<>();
-  channels.addAll(channelMap.getByTransportType(TransportType.CONFIGURATION));
-  channels.addAll(channelMap.getByTransportType(TransportType.NOTIFICATION));
+  Set<ChannelMetaData> channels=state.getChannelsByTypes(TransportType.CONFIGURATION,TransportType.NOTIFICATION);
   LOG.debug("[{}][{}] Processing thrift norification for {} channels",endpointKey,actorKey,channels.size());
   for (  ChannelMetaData channel : channels) {
     ClientSync originalRequest=channel.getRequestMessage().getRequest();

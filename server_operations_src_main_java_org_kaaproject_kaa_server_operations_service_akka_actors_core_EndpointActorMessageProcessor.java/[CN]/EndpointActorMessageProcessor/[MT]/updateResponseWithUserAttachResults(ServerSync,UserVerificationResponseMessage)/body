@@ -2,5 +2,5 @@
   if (response.getUserSync() == null) {
     response.setUserSync(new UserServerSync());
   }
-  response.getUserSync().setUserAttachResponse(toUserAttachResponse(message));
+  response.getUserSync().setUserAttachResponse(EntityConvertUtils.convert(message));
 }

@@ -1,0 +1,4 @@
+{
+  this.applicationId=context.getApplicationService().findAppByApplicationToken(applicationToken).getId();
+  this.messageProcessor=new ApplicationUserVerifierActorMessageProcessor(context.getEndpointUserService(),applicationId);
+}

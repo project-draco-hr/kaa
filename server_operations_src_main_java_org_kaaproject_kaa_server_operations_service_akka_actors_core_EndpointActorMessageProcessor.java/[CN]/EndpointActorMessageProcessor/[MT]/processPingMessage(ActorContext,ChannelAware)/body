@@ -1,6 +1,6 @@
 {
   LOG.debug("[{}][{}] Received ping message for channel [{}]",endpointKey,actorKey,message.getChannelUuid());
-  ChannelMetaData channel=channelMap.getById(message.getChannelUuid());
+  ChannelMetaData channel=state.getChannelById(message.getChannelUuid());
   if (channel != null) {
     long lastActivityTime=System.currentTimeMillis();
     LOG.debug("[{}][{}] Updating last activity time for channel [{}] to ",endpointKey,actorKey,message.getChannelUuid(),lastActivityTime);

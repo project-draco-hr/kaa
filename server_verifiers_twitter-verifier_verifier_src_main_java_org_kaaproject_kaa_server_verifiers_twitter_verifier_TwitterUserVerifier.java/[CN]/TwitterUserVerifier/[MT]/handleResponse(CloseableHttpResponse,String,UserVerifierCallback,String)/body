@@ -1,0 +1,12 @@
+{
+  Map<String,Object> responseMap=getResponseMap(connection.getEntity().getContent());
+  String receivedUserId=String.valueOf(responseMap.get(ID));
+  if (!receivedUserId.equals(userExternalId)) {
+    LOG.warn("Input token doesn't belong to the user with {} id",userExternalId);
+    callback.onVerificationFailure("User access token " + userAccessToken + " doesn't belong to the user");
+  }
+ else {
+    LOG.trace("Input token is confirmed and belongs to the user with {} id",userExternalId);
+    callback.onSuccess();
+  }
+}

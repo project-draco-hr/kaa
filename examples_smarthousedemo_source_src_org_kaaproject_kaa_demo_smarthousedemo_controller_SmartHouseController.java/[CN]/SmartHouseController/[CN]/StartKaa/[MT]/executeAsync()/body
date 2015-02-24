@@ -1,10 +1,8 @@
 {
   try {
     Log.d("Kaa","Initializing Kaa client...");
-    kaa=new KaaAndroid(context);
-    client=kaa.getClient();
-    client.getProfileManager().setProfileContainer(new SmartHouseProfileContainer());
-    EventFamilyFactory eventFamilyFactory=kaa.getClient().getEventFamilyFactory();
+    client=Kaa.newClient(new AndroidKaaPlatformContext(context),new SimpleKaaClientStateListener());
+    EventFamilyFactory eventFamilyFactory=client.getEventFamilyFactory();
     devices=eventFamilyFactory.getDeviceEventClassFamily();
     devices.addListener(SmartHouseController.this);
     if (deviceType == null || deviceType == DeviceType.THERMOSTAT) {
@@ -16,10 +14,10 @@
       soundSystems.addListener(SmartHouseController.this);
     }
     if (deviceType != null) {
-      client.getEndpointRegistrationManager().setAttachedListener(SmartHouseController.this);
-      client.getEndpointRegistrationManager().setDetachedListener(SmartHouseController.this);
+      client.setAttachedListener(SmartHouseController.this);
+      client.setDetachedListener(SmartHouseController.this);
     }
-    kaa.start();
+    client.start();
     Log.d("Kaa","Kaa client initialization completed.");
     onComplete(true);
   }

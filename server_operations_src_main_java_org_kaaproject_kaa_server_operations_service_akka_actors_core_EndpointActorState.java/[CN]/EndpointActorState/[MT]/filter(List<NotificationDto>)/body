@@ -1,0 +1,12 @@
+{
+  List<NotificationDto> list=new ArrayList<NotificationDto>(notifications.size());
+  for (  NotificationDto nf : notifications) {
+    if (subscriptionStates.containsKey(nf.getTopicId())) {
+      list.add(nf);
+    }
+ else {
+      LOG.trace("[{}][{}] Notification {} is no longer valid due to subscription state",endpointKey,actorKey,nf);
+    }
+  }
+  return list;
+}

@@ -1,0 +1,11 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    NotificationSchemaDto notificationSchema=getNotificationSchema(notificationSchemaId);
+    convertToSchemaForm(notificationSchema,commonSchemaFormAvroConverter);
+    return notificationSchema;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

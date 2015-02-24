@@ -1,5 +1,7 @@
 {
   OperationsNodeInfo nodeInfo=extractOperationServerInfo(data);
+  String endpointAddress=constructEndpointAddress(nodeInfo);
+  operationNodesStartTimes.put(endpointAddress,nodeInfo.getTimeStarted());
   for (  OperationsNodeListener listener : endpointListeners) {
     listener.onNodeUpdated(nodeInfo);
   }

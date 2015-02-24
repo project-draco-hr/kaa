@@ -1,8 +1,8 @@
 {
   Log.d("Kaa","Detaching endpoint from user account!");
   EndpointKeyHash endpointKey=new EndpointKeyHash(endpointKeyHash);
-  client.getEndpointRegistrationManager().detachEndpoint(endpointKey,new EndpointOperationResultListener(){
-    @Override public void sendResponse(    String operation,    SyncResponseResultType result,    Object context){
+  client.detachEndpoint(endpointKey,new OnDetachEndpointOperationCallback(){
+    @Override public void onDetach(    SyncResponseResultType result){
       if (result == SyncResponseResultType.SUCCESS) {
         Log.d("Kaa","Endpoint detached from user account!");
         onComplete(true);

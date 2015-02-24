@@ -1,0 +1,15 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_ADMIN);
+  try {
+    Schema schema=ecfSchemaFormAvroConverter.createSchemaFromSchemaForm(schemaForm);
+    String schemaString=SchemaFormAvroConverter.createSchemaString(schema,true);
+    EventClassFamilyDto storedEventClassFamily=toDto(clientProvider.getClient().getEventClassFamily(eventClassFamilyId));
+    Utils.checkNotNull(storedEventClassFamily);
+    checkTenantId(storedEventClassFamily.getTenantId());
+    String username=this.getCurrentUser().getUsername();
+    clientProvider.getClient().addEventClassFamilySchema(eventClassFamilyId,schemaString,username);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

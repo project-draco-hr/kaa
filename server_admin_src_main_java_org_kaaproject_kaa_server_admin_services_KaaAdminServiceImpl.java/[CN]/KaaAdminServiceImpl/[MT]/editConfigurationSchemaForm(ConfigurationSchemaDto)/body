@@ -1,0 +1,20 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    if (isEmpty(configurationSchema.getId())) {
+      configurationSchema.setCreatedUsername(getCurrentUser().getUsername());
+      checkApplicationId(configurationSchema.getApplicationId());
+      convertToStringSchema(configurationSchema,configurationSchemaFormAvroConverter);
+    }
+ else {
+      ConfigurationSchemaDto storedConfigurationSchema=toDto(clientProvider.getClient().getConfigurationSchema(configurationSchema.getId()));
+      Utils.checkNotNull(storedConfigurationSchema);
+      checkApplicationId(storedConfigurationSchema.getApplicationId());
+      configurationSchema.setSchema(storedConfigurationSchema.getSchema());
+    }
+    return toDto(clientProvider.getClient().editConfigurationSchema(toDataStruct(configurationSchema)));
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

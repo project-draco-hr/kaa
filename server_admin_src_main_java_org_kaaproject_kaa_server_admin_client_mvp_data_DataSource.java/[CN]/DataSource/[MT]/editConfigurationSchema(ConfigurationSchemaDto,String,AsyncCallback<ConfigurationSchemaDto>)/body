@@ -1,8 +1,0 @@
-{
-  rpcService.editConfigurationSchema(configurationSchema,fileItemName,new DataCallback<ConfigurationSchemaDto>(callback){
-    @Override protected void onResult(    ConfigurationSchemaDto result){
-      eventBus.fireEvent(new DataEvent(ConfigurationSchemaDto.class));
-    }
-  }
-);
-}

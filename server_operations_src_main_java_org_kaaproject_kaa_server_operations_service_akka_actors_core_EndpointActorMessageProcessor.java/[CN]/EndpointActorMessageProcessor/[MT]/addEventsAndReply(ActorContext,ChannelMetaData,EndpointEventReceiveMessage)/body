@@ -9,6 +9,6 @@
   eventResponse.setEvents(message.getEvents());
   sendReply(context,pendingRequest,pendingResponse.getResponse());
   if (!channel.getType().isAsync()) {
-    channelMap.removeChannel(channel);
+    state.removeChannel(channel);
   }
 }

@@ -1,0 +1,23 @@
+{
+  Map<String,Integer> newStates=response.getSubscriptionStates();
+  if (newStates == null) {
+    return;
+  }
+  Map<String,Integer> currentStates=state.getSubscriptionStates();
+  Iterator<String> currentSubscriptionsIterator=currentStates.keySet().iterator();
+  while (currentSubscriptionsIterator.hasNext()) {
+    String subscribedTopic=currentSubscriptionsIterator.next();
+    if (!newStates.containsKey(subscribedTopic)) {
+      currentSubscriptionsIterator.remove();
+      TopicUnsubscriptionMessage topicSubscriptionMessage=new TopicUnsubscriptionMessage(subscribedTopic,appToken,key,context.self());
+      context.parent().tell(topicSubscriptionMessage,context.self());
+    }
+  }
+  for (  Entry<String,Integer> entry : newStates.entrySet()) {
+    if (!currentStates.containsKey(entry.getKey())) {
+      TopicSubscriptionMessage topicSubscriptionMessage=new TopicSubscriptionMessage(entry.getKey(),entry.getValue(),response.getSystemNfVersion(),response.getUserNfVersion(),appToken,key,context.self());
+      context.parent().tell(topicSubscriptionMessage,context.self());
+    }
+  }
+  state.setSubscriptionStates(newStates);
+}

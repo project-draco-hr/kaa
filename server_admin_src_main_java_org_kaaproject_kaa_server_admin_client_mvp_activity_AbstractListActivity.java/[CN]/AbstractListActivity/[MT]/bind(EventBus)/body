@@ -9,15 +9,15 @@
   registrations.add(listView.getRowActionsSource().addRowActionHandler(new RowActionEventHandler<String>(){
     @Override public void onRowAction(    RowActionEvent<String> event){
       String id=event.getClickedId();
-      if (event.getAction() == RowAction.CLICK) {
+      if (event.getAction() == RowActionEvent.CLICK) {
         goTo(existingEntityPlace(id));
       }
- else       if (event.getAction() == RowAction.DELETE) {
-        deleteEntity(id,new AsyncCallback<Void>(){
-          @Override public void onFailure(          Throwable caught){
+ else       if (event.getAction() == RowActionEvent.DELETE) {
+        deleteEntity(id,new BusyAsyncCallback<Void>(){
+          @Override public void onFailureImpl(          Throwable caught){
             Utils.handleException(caught,listView);
           }
-          @Override public void onSuccess(          Void result){
+          @Override public void onSuccessImpl(          Void result){
           }
         }
 );
