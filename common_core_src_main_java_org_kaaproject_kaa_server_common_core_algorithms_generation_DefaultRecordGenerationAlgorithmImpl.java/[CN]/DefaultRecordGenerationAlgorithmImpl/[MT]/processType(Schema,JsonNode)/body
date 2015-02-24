@@ -1,34 +1,6 @@
 {
   if (byDefault != null && !byDefault.isNull()) {
-    if (byDefault.isArray() && AvroUtils.getSchemaByType(schemaNode,Type.BYTES) != null) {
-      ByteBuffer byteBuffer=ByteBuffer.allocate(byDefault.size());
-      for (      JsonNode oneByte : byDefault) {
-        byteBuffer.put((byte)oneByte.asInt());
-      }
-      byteBuffer.flip();
-      return byteBuffer;
-    }
-    if (byDefault.isBoolean() && AvroUtils.getSchemaByType(schemaNode,Type.BOOLEAN) != null) {
-      return byDefault.asBoolean();
-    }
-    if (byDefault.isDouble()) {
-      if (AvroUtils.getSchemaByType(schemaNode,Type.DOUBLE) != null) {
-        return byDefault.asDouble();
-      }
- else       if (AvroUtils.getSchemaByType(schemaNode,Type.FLOAT) != null) {
-        return (float)byDefault.asDouble();
-      }
-    }
-    if (byDefault.isInt() && AvroUtils.getSchemaByType(schemaNode,Type.INT) != null) {
-      return byDefault.asInt();
-    }
-    if (byDefault.isLong() && AvroUtils.getSchemaByType(schemaNode,Type.LONG) != null) {
-      return byDefault.asLong();
-    }
-    if (byDefault.isTextual() && AvroUtils.getSchemaByType(schemaNode,Type.STRING) != null) {
-      return byDefault.asText();
-    }
-    throw new ConfigurationGenerationException("Default value " + byDefault.toString() + " is not applicable for the field");
+    return applyDefaultValue(schemaNode,byDefault);
   }
   if (AvroUtils.getSchemaByType(schemaNode,Type.NULL) != null) {
     return null;
