@@ -1,16 +1,8 @@
 {
-  resetTriggers();
-  String schema;
-  try {
-    ObjectMapper mapper=new ObjectMapper();
-    Map<String,Object> rootSchema=mapper.readValue(configSchema.getRawSchema(),Map.class);
-    rootSchemaName=getFullName(rootSchema);
-    convert(rootSchema);
-    schema=mapper.writeValueAsString(strategy.onSchemaProcessed(rootSchema,addressableRecords));
-  }
- catch (  IOException ex) {
-    LOG.error("Can't generate schema.",ex);
-    throw new SchemaCreationException("Can't generate schema based on config schema.",ex);
-  }
-  return strategy.createSchema(schema);
+  addressableRecords.clear();
+  processedRecords.clear();
+  Schema avroSchema=new Schema.Parser().parse(configSchema.getRawSchema());
+  rootSchemaName=avroSchema.getFullName();
+  Schema resultSchema=convert(avroSchema);
+  return strategy.createSchema(strategy.onSchemaProcessed(resultSchema,addressableRecords));
 }

@@ -1,0 +1,16 @@
+{
+  if (root.getType() != Type.RECORD) {
+    return null;
+  }
+  List<Field> fields=root.getFields();
+  for (  Field field : fields) {
+    if (arrayFieldName.equals(field.name())) {
+      Schema arraySchema=AvroUtils.getSchemaByType(field.schema(),Type.ARRAY);
+      if (arraySchema != null) {
+        return arraySchema.getProp(FIELD_OVERRIDE_STRATEGY);
+      }
+      break;
+    }
+  }
+  return null;
+}

@@ -1,0 +1,16 @@
+{
+  if (schema.getType().equals(type)) {
+    return schema;
+  }
+  if (schema.getType().equals(Type.UNION)) {
+    List<Schema> types=schema.getTypes();
+    if (types != null) {
+      for (      Schema typeIter : types) {
+        if (typeIter.getType().equals(type)) {
+          return typeIter;
+        }
+      }
+    }
+  }
+  return null;
+}
