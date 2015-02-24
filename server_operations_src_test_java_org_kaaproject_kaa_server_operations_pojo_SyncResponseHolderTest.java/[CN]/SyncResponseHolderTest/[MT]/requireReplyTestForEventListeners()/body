@@ -1,9 +1,9 @@
 {
   ServerSync response=new ServerSync();
   response.setEventSync(new EventServerSync());
-  assertFalse(new SyncResponseHolder(response).requireImmediateReply());
+  assertFalse(new SyncContext(response).requireImmediateReply());
   response.getEventSync().setEventListenersResponses(new ArrayList<EventListenersResponse>());
-  assertFalse(new SyncResponseHolder(response).requireImmediateReply());
+  assertFalse(new SyncContext(response).requireImmediateReply());
   response.getEventSync().getEventListenersResponses().add(new EventListenersResponse());
-  assertTrue(new SyncResponseHolder(response).requireImmediateReply());
+  assertTrue(new SyncContext(response).requireImmediateReply());
 }

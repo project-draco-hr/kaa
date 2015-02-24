@@ -11,7 +11,10 @@
   confSyncRequest.setAppStateSeqNumber(APPLICATION_SEQ_NUMBER);
   confSyncRequest.setConfigurationHash(ByteBuffer.wrap(currentConfigurationHash));
   request.setConfigurationSync(confSyncRequest);
-  ServerSync response=operationsService.sync(request).getResponse();
+  SyncContext context=createContext(request);
+  operationsService.syncProfile(context,request.getProfileSync());
+  operationsService.syncConfiguration(context,request.getConfigurationSync());
+  ServerSync response=context.getResponse();
   Assert.assertNotNull(response);
   Assert.assertEquals(SyncStatus.SUCCESS,response.getStatus());
   Assert.assertNotNull(response.getConfigurationSync());

@@ -1,0 +1,30 @@
+{
+  EndpointProfileDto profile=context.getEndpointProfile();
+  ClientSyncMetaData metaData=context.getMetaData();
+  if (profileSyncRequest != null) {
+    ProfileServerSync profileSyncResponse;
+    if (profileSyncRequest.getEndpointPublicKey() != null) {
+      LOG.debug("[{}][{}] registration of endpoint started.",context.getEndpointKey(),context.getRequestHash());
+      profile=registerEndpoint(context.getEndpointKey(),context.getRequestHash(),metaData,profileSyncRequest);
+    }
+ else {
+      LOG.debug("[{}][{}] update of endpoint profile started.",context.getEndpointKey(),context.getRequestHash());
+      profile=updateEndpoint(context.getEndpointKey(),context.getRequestHash(),metaData,profileSyncRequest);
+    }
+    profileSyncResponse=new ProfileServerSync(SyncResponseStatus.DELTA);
+    metaData.setProfileHash(ByteBuffer.wrap(profile.getProfileHash()));
+    context.setProfileSyncResponse(profileSyncResponse);
+  }
+  if (profile == null) {
+    LOG.debug("[{}][{}] fetching profile.",context.getEndpointKey(),context.getRequestHash());
+    EndpointObjectHash endpointHash=EndpointObjectHash.fromBytes(metaData.getEndpointPublicKeyHash().array());
+    profile=profileService.getProfile(endpointHash);
+    LOG.trace("[{}][{}] fetched profile {}.",context.getEndpointKey(),context.getRequestHash(),profile);
+  }
+  context.setEndpointProfile(profile);
+  if (!Arrays.equals(profile.getProfileHash(),toByteArray(metaData.getProfileHash()))) {
+    LOG.debug("[{}] Profile hash mismatch. Profile resync needed");
+    context.setStatus(SyncStatus.PROFILE_RESYNC);
+  }
+  return context;
+}

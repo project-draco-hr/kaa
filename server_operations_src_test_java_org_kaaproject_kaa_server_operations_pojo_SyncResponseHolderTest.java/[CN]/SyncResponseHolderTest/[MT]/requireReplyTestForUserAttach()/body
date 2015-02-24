@@ -1,7 +1,7 @@
 {
   ServerSync response=new ServerSync();
   response.setUserSync(new UserServerSync());
-  assertFalse(new SyncResponseHolder(response).requireImmediateReply());
+  assertFalse(new SyncContext(response).requireImmediateReply());
   response.getUserSync().setUserAttachResponse(new UserAttachResponse());
-  assertTrue(new SyncResponseHolder(response).requireImmediateReply());
+  assertTrue(new SyncContext(response).requireImmediateReply());
 }

@@ -5,7 +5,7 @@
   EndpointProfileDto profileMock=mock(EndpointProfileDto.class);
   when(profileMock.getId()).thenReturn("A");
   when(profileMock.getEndpointUserId()).thenReturn(null);
-  EventListenersResponse response=endpointUserService.findListeners(profileMock,new AppSeqNumber(TEST_TENANT_ID,TEST_APP_ID,TEST_APP_TOKEN,TEST_APP_SEQ_NUM),request);
+  EventListenersResponse response=endpointUserService.findListeners(profileMock,TEST_APP_TOKEN,request);
   assertNotNull(response);
   assertEquals(SyncStatus.FAILURE,response.getResult());
   assertEquals(REQUEST_ID,response.getRequestId());

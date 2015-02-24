@@ -1,0 +1,28 @@
+{
+  if (request != null) {
+    EndpointProfileDto profile=context.getEndpointProfile();
+    ClientSyncMetaData md=context.getMetaData();
+    if (context.getAppSeqNumber() == null) {
+      context.setAppSeqNumber(cacheService.getAppSeqNumber(md.getApplicationToken()));
+    }
+    int curAppSeqNumber=context.getAppSeqNumber().getSeqNumber();
+    LOG.debug("[{}][{}] fetched app seq number {}",context.getEndpointKey(),context.getRequestHash(),curAppSeqNumber);
+    LOG.trace("[{}][{}] procesing configuration sync request {}.",context.getEndpointKey(),context.getRequestHash(),request);
+    LOG.debug("[{}][{}] fetching history for seq numbers {}-{}",context.getEndpointKey(),context.getRequestHash(),request.getAppStateSeqNumber(),curAppSeqNumber);
+    int startSeqNumber=Math.min(request.getAppStateSeqNumber(),profile.getCfSequenceNumber());
+    LOG.debug("[{}][{}] calculating configuration delta using seq number {}",context.getEndpointKey(),context.getRequestHash(),startSeqNumber);
+    request.setAppStateSeqNumber(startSeqNumber);
+    HistoryDelta historyDelta=fetchHistory(context.getEndpointKey(),context.getRequestHash(),md.getApplicationToken(),profile,HistorySubject.CONFIGURATION,startSeqNumber,curAppSeqNumber);
+    GetDeltaResponse confResponse=calculateConfigurationDelta(md,request,profile,historyDelta,curAppSeqNumber);
+    ConfigurationServerSync confSyncResponse=buildConfSyncResponse(confResponse,curAppSeqNumber);
+    context.setConfigurationSyncResponse(confSyncResponse);
+    if (historyDelta.isSmthChanged()) {
+      List<EndpointGroupStateDto> endpointGroups=historyDelta.getEndpointGroupStates();
+      LOG.debug("[{}][{}] Updating profile with endpoint groups.size {}, groups: {}",context.getEndpointKey(),context.getRequestHash(),endpointGroups.size(),endpointGroups);
+      profile.setCfGroupStates(endpointGroups);
+      profile.setCfSequenceNumber(curAppSeqNumber);
+      context.setUpdateProfileRequired(true);
+    }
+  }
+  return context;
+}

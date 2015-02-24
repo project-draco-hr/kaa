@@ -6,13 +6,13 @@
     ClientSync request=buildRequestForChannel(requestMessage,channel);
     ChannelType channelType=channel.getType();
     LOG.debug("[{}][{}] Processing sync request {} from {} channel [{}]",endpointKey,actorKey,request,channelType,requestMessage.getChannelUuid());
-    SyncResponseHolder responseHolder=operationsService.sync(request,state.getProfile());
+    SyncContext responseHolder=sync(request);
     state.setProfile(responseHolder.getEndpointProfile());
     if (state.getProfile() != null) {
       processLogUpload(context,request,responseHolder);
       processUserAttachRequest(context,request,responseHolder);
       processEvents(context,request,responseHolder);
-      processUserAttachDetachResults(context,request,responseHolder);
+      notifyAffectedEndpoints(context,request,responseHolder);
     }
  else {
       LOG.warn("[{}][{}] Endpoint profile is not set after request processing!",endpointKey,actorKey);

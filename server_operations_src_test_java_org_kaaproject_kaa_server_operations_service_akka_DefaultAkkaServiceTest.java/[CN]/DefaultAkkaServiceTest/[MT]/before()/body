@@ -44,10 +44,10 @@
   ConfigurationServerSync confSyncResponse=new ConfigurationServerSync();
   confSyncResponse.setResponseStatus(org.kaaproject.kaa.server.sync.SyncResponseStatus.NO_DELTA);
   response.setConfigurationSync(confSyncResponse);
-  noDeltaResponse=new SyncResponseHolder(response);
+  noDeltaResponse=new SyncContext(response);
   Map<String,Integer> subscriptionStates=new HashMap<>();
   subscriptionStates.put(TOPIC_ID,new Integer(0));
-  noDeltaResponseWithTopicState=new SyncResponseHolder(response);
+  noDeltaResponseWithTopicState=new SyncContext(response);
   noDeltaResponseWithTopicState.setSubscriptionStates(subscriptionStates);
   EndpointProfileDto epDto=new EndpointProfileDto();
   epDto.setSystemNfVersion(42);
@@ -59,11 +59,11 @@
   confSyncResponse=new ConfigurationServerSync();
   confSyncResponse.setResponseStatus(org.kaaproject.kaa.server.sync.SyncResponseStatus.DELTA);
   response.setConfigurationSync(confSyncResponse);
-  deltaResponse=new SyncResponseHolder(response);
+  deltaResponse=new SyncContext(response);
   response=new ServerSync();
   response.setRequestId(REQUEST_ID);
   response.setStatus(org.kaaproject.kaa.server.sync.SyncStatus.SUCCESS);
-  simpleResponse=new SyncResponseHolder(response);
+  simpleResponse=new SyncContext(response);
   topicNotification=new NotificationDto();
   topicNotification.setApplicationId(APP_ID);
   topicNotification.setTopicId(TOPIC_ID);
