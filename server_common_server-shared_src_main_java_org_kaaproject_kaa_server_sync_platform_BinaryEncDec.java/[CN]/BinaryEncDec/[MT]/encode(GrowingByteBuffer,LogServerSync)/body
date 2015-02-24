@@ -1,8 +1,15 @@
 {
-  for (  LogDeliveryStatus status : logSync.getDeliveryStatuses()) {
-    buildExtensionHeader(buf,LOGGING_EXTENSION_ID,NOTHING,NOTHING,NOTHING,4);
-    buf.putShort((short)Integer.valueOf(status.getRequestId()).intValue());
-    buf.put(status.getResult() == SyncStatus.SUCCESS ? SUCCESS : FAILURE);
-    buf.put(NOTHING);
+  buildExtensionHeader(buf,LOGGING_EXTENSION_ID,NOTHING,NOTHING,NOTHING,4);
+  List<LogDeliveryStatus> statusList=logSync.getDeliveryStatuses();
+  if (statusList != null && !statusList.isEmpty()) {
+    buf.putInt(statusList.size());
+    for (    LogDeliveryStatus status : statusList) {
+      buf.putShort((short)status.getRequestId());
+      buf.put(status.getResult() == SyncStatus.SUCCESS ? SUCCESS : FAILURE);
+      buf.put(status.getErrorCode() != null ? (byte)status.getErrorCode().ordinal() : NOTHING);
+    }
+  }
+ else {
+    buf.putInt(0);
   }
 }
