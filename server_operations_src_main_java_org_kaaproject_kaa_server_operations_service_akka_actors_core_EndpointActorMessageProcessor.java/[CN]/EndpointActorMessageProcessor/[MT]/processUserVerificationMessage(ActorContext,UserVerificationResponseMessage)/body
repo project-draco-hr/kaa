@@ -1,7 +1,7 @@
 {
   LOG.debug("[{}][{}] Received user verification message for request [{}] with status {}",endpointKey,actorKey,message.getRequestId(),message.isSuccess());
   userAttachResponseMap.put(message.getRequestId(),message);
-  List<ChannelMetaData> channels=channelMap.getByTransportType(TransportType.USER);
+  List<ChannelMetaData> channels=state.getChannelsByType(TransportType.USER);
   Entry<UUID,UserVerificationResponseMessage> entryToSend=userAttachResponseMap.entrySet().iterator().next();
   for (  ChannelMetaData channel : channels) {
     SyncRequestMessage pendingRequest=channel.getRequestMessage();
@@ -10,12 +10,12 @@
     LOG.debug("[{}][{}] sending reply to [{}] channel",endpointKey,actorKey,channel.getId());
     sendReply(context,pendingRequest,pendingResponse);
     if (!channel.getType().isAsync()) {
-      channelMap.removeChannel(channel);
+      state.removeChannel(channel);
     }
   }
   userAttachResponseMap.remove(entryToSend.getKey());
   if (message.isSuccess()) {
-    operationsService.attachEndpointToUser(endpointProfile,appToken,message.getUserId());
+    operationsService.attachEndpointToUser(state.getProfile(),appToken,message.getUserId());
     updateUserConnection(context);
   }
 }

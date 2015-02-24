@@ -1,0 +1,17 @@
+{
+  ClientSync request;
+  if (channel.getType().isAsync()) {
+    if (channel.isFirstRequest()) {
+      request=channel.getRequestMessage().getRequest();
+    }
+ else {
+      LOG.debug("[{}][{}] Updating request for async channel {}",endpointKey,actorKey,channel);
+      request=channel.mergeRequest(requestMessage);
+      LOG.trace("[{}][{}] Updated request for async channel {} : {}",endpointKey,actorKey,channel,request);
+    }
+  }
+ else {
+    request=channel.getRequestMessage().getRequest();
+  }
+  return request;
+}

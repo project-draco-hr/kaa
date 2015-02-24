@@ -1,0 +1,7 @@
+{
+  Set<ChannelMetaData> channels=new HashSet<>();
+  for (  TransportType type : types) {
+    channels.addAll(channelMap.getByTransportType(type));
+  }
+  return channels;
+}
