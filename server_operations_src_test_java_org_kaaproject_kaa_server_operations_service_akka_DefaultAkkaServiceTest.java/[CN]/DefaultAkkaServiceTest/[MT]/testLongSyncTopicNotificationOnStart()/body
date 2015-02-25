@@ -1,24 +1,26 @@
 {
   ChannelContext channelContextMock=Mockito.mock(ChannelContext.class);
+  Mockito.when(applicationService.findAppById(APP_ID)).thenReturn(applicationDto);
+  Notification thriftNotification=new Notification();
+  thriftNotification.setAppId(APP_ID);
+  thriftNotification.setTopicId(TOPIC_ID);
+  thriftNotification.setNotificationId(UNICAST_NOTIFICATION_ID);
+  thriftNotification.setKeyHash(clientPublicKeyHash);
+  akkaService.onNotification(thriftNotification);
+  Mockito.when(notificationDeltaService.findNotificationById(UNICAST_NOTIFICATION_ID)).thenReturn(topicNotification);
   SyncRequest request=new SyncRequest();
   request.setRequestId(REQUEST_ID);
   request.setSyncRequestMetaData(buildSyncRequestMetaData());
   NotificationSyncRequest nfRequest=new NotificationSyncRequest();
   request.setNotificationSyncRequest(nfRequest);
-  whenSync(noDeltaResponse);
   MessageBuilder responseBuilder=Mockito.mock(MessageBuilder.class);
   ErrorBuilder errorBuilder=Mockito.mock(ErrorBuilder.class);
+  whenSync(noDeltaResponseWithTopicState);
+  Mockito.when(operationsService.updateSyncResponse(noDeltaResponseWithTopicState.getResponse(),Collections.singletonList(topicNotification),null)).thenReturn(noDeltaResponseWithTopicState.getResponse());
   SessionInitMessage message=toSignedRequest(UUID.randomUUID(),ChannelType.SYNC_WITH_TIMEOUT,channelContextMock,request,responseBuilder,errorBuilder);
   Assert.assertNotNull(akkaService.getActorSystem());
   akkaService.process(message);
   Mockito.verify(operationsService,Mockito.timeout(TIMEOUT / 2).atLeastOnce()).syncProfile(Mockito.any(SyncContext.class),Mockito.any(ProfileClientSync.class));
-  Mockito.when(operationsService.updateSyncResponse(noDeltaResponse.getResponse(),new ArrayList<NotificationDto>(),UNICAST_NOTIFICATION_ID)).thenReturn(noDeltaResponse.getResponse());
-  Mockito.when(applicationService.findAppById(APP_ID)).thenReturn(applicationDto);
-  Notification thriftNotification=new Notification();
-  thriftNotification.setAppId(APP_ID);
-  thriftNotification.setUnicastNotificationId(UNICAST_NOTIFICATION_ID);
-  thriftNotification.setKeyHash(clientPublicKeyHash.array());
-  akkaService.onNotification(thriftNotification);
-  Mockito.verify(operationsService,Mockito.timeout(10 * TIMEOUT / 2).atLeastOnce()).updateSyncResponse(noDeltaResponse.getResponse(),new ArrayList<NotificationDto>(),UNICAST_NOTIFICATION_ID);
+  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT / 2).atLeastOnce()).updateSyncResponse(noDeltaResponseWithTopicState.getResponse(),Collections.singletonList(topicNotification),null);
   Mockito.verify(responseBuilder,Mockito.timeout(TIMEOUT).atLeastOnce()).build(Mockito.any(byte[].class),Mockito.any(boolean.class));
 }

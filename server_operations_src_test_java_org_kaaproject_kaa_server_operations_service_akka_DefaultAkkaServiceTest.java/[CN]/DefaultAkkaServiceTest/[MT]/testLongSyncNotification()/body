@@ -2,11 +2,7 @@
   ChannelContext channelContextMock=Mockito.mock(ChannelContext.class);
   SyncRequest request=new SyncRequest();
   request.setRequestId(REQUEST_ID);
-  SyncRequestMetaData md=new SyncRequestMetaData();
-  md.setApplicationToken(APP_TOKEN);
-  md.setEndpointPublicKeyHash(clientPublicKeyHash);
-  md.setProfileHash(clientPublicKeyHash);
-  md.setTimeout(2l * TIMEOUT);
+  SyncRequestMetaData md=buildSyncRequestMetaData();
   request.setSyncRequestMetaData(md);
   ConfigurationSyncRequest csRequest=new ConfigurationSyncRequest();
   request.setConfigurationSyncRequest(csRequest);
