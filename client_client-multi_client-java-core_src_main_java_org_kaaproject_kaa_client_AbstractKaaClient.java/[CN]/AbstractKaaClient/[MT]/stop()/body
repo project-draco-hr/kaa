@@ -2,6 +2,7 @@
   lifecycleTasksExecutor.submit(new Runnable(){
     @Override public void run(){
       try {
+        logCollector.stop();
         kaaClientState.persist();
         channelManager.shutdown();
         isInitialized=false;
@@ -18,4 +19,5 @@
     }
   }
 );
+  lifecycleTasksExecutor.shutdown();
 }
