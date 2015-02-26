@@ -1,0 +1,6 @@
+{
+  LOG.debug("[{}] Received: {}",userId,message);
+  if (message instanceof GlobalRouteInfoMessage) {
+    messageProcessor.process((GlobalRouteInfoMessage)message);
+  }
+}

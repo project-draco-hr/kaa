@@ -1,0 +1,6 @@
+{
+  for (int i=0; i < replicas; i++) {
+    LOG.trace("Adding node {} replica {} to the circle",node,i);
+    circle.remove(hash(node,i));
+  }
+}

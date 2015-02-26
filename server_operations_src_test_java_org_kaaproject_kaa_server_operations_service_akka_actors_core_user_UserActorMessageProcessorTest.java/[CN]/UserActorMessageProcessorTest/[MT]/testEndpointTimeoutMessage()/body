@@ -1,0 +1,21 @@
+{
+  EndpointUserConnectMessage message1=new EndpointUserConnectMessage(USER_ID,endpoint1Key,ecfVersions,1,APP_TOKEN,originatorRefMock);
+  messageProcessor.processEndpointConnectMessage(actorContextMock,message1);
+  when(cacheServiceMock.getEventClassFamilyIdByEventClassFqn(new EventClassFqnKey(TENANT_ID,"testClassFqn"))).thenReturn(ECF_ID1);
+  RouteTableKey routeKey=new RouteTableKey(APP_TOKEN,ecfVersion1);
+  when(cacheServiceMock.getRouteKeys(new EventClassFqnVersion(TENANT_ID,"testClassFqn",ECF_ID1_VERSION))).thenReturn(Collections.singleton(routeKey));
+  Event event=new Event(0,"testClassFqn",ByteBuffer.wrap(new byte[0]),null,null);
+  EndpointEventSendMessage eventMessage=new EndpointEventSendMessage(USER_ID,Collections.singletonList(event),endpoint1Key,APP_TOKEN,originatorRefMock);
+  messageProcessor.processEndpointEventSendMessage(actorContextMock,eventMessage);
+  EndpointUserConnectMessage message2=new EndpointUserConnectMessage(USER_ID,endpoint2Key,ecfVersions,1,APP_TOKEN,originatorRefMock);
+  messageProcessor.processEndpointConnectMessage(actorContextMock,message2);
+  verify(messageProcessor,Mockito.times(1)).sendEventToLocal(Mockito.any(ActorContext.class),Mockito.any(EndpointEventReceiveMessage.class));
+  Field field=LocalUserActorMessageProcessor.class.getDeclaredField("eventStorage");
+  field.setAccessible(true);
+  EventStorage storage=(EventStorage)ReflectionUtils.getField(field,messageProcessor);
+  EndpointEventTimeoutMessage message=new EndpointEventTimeoutMessage(storage.getEvents(routeKey).iterator().next());
+  messageProcessor.processEndpointEventTimeoutMessage(actorContextMock,message);
+  EndpointUserConnectMessage message3=new EndpointUserConnectMessage(USER_ID,endpoint3Key,ecfVersions,1,APP_TOKEN,originatorRefMock);
+  messageProcessor.processEndpointConnectMessage(actorContextMock,message3);
+  verify(messageProcessor,Mockito.times(1)).sendEventToLocal(Mockito.any(ActorContext.class),Mockito.any(EndpointEventReceiveMessage.class));
+}
