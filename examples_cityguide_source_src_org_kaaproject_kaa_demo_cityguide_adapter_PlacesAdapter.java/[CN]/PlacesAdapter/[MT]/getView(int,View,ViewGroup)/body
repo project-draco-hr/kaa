@@ -1,0 +1,15 @@
+{
+  View v=convertView;
+  if (v == null) {
+    LayoutInflater inflater=(LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    v=inflater.inflate(R.layout.place_list_item,null);
+  }
+  Place place=mPlaces.get(position);
+  LoadingImageView placePhotoView=(LoadingImageView)v.findViewById(R.id.placePhoto);
+  mImageLoader.loadImage(place.getPhotoUrl(),placePhotoView,ImageType.THUMBNAIL);
+  TextView placeNameView=(TextView)v.findViewById(R.id.placeName);
+  placeNameView.setText(place.getTitle());
+  TextView placeDescView=(TextView)v.findViewById(R.id.placeDesc);
+  placeDescView.setText(place.getDescription());
+  return v;
+}
