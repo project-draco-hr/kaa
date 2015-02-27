@@ -4,7 +4,7 @@
   if (null != list) {
     TopicModel model=list.get(position);
     if (null != model)     return model.getNotifications();
- else     return Collections.EMPTY_LIST;
+ else     return new LinkedList<Notification>();
   }
-  return Collections.EMPTY_LIST;
+  return new LinkedList<Notification>();
 }
