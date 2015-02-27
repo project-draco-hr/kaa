@@ -2,7 +2,7 @@
   String cType=new String();
 switch (schema.getType()) {
 case BOOLEAN:
-    cType="bool";
+    cType="int8_t";
   break;
 case INT:
 cType="int32_t";
@@ -10,24 +10,30 @@ break;
 case LONG:
 cType="int64_t";
 break;
+case FLOAT:
+cType="float";
+break;
+case DOUBLE:
+cType="double";
+break;
 case STRING:
-cType="kaa_string_t*";
+cType="kaa_string_t *";
 break;
 case BYTES:
 case FIXED:
-cType="kaa_bytes_t*";
+cType="kaa_bytes_t *";
 break;
 case ARRAY:
-cType="kaa_list_t*";
+cType="kaa_list_t *";
 break;
 case UNION:
-cType="kaa_union_t*";
+cType="kaa_union_t *";
 break;
 case ENUM:
 cType=namespace + "_" + StyleUtils.toLowerUnderScore(schema.getName())+ "_t";
 break;
 case RECORD:
-cType=namespace + "_" + StyleUtils.toLowerUnderScore(schema.getName())+ "_t*";
+cType=namespace + "_" + StyleUtils.toLowerUnderScore(schema.getName())+ "_t *";
 break;
 default :
 break;
