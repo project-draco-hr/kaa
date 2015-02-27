@@ -1,7 +1,0 @@
-{
-  super.onCreate(icicle);
-  app=(KaaNotificationApp)getApplicationContext();
-  this.setListAdapter(new NotificationArrayAdapter(this,getNotificationList()));
-  notificationListener=createNotificationListener();
-  app.getKaaClient().addNotificationListener(notificationListener);
-}

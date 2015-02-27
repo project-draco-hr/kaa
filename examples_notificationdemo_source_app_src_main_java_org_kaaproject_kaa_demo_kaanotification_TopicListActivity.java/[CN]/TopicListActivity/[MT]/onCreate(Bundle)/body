@@ -1,8 +1,0 @@
-{
-  super.onCreate(icicle);
-  StrictMode.ThreadPolicy policy=new StrictMode.ThreadPolicy.Builder().permitAll().build();
-  StrictMode.setThreadPolicy(policy);
-  setListAdapter(new TopicArrayAdapter(this,TopicInfoHolder.holder.getTopicModelList()));
-  Log.i("KAA","Starting KAA initialization");
-  KaaManager.getInstance(KaaNotificationApp.getContext());
-}
