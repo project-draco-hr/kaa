@@ -1,0 +1,19 @@
+{
+  struct.validate();
+  oprot.writeStructBegin(STRUCT_DESC);
+  if (struct.tenantId != null) {
+    oprot.writeFieldBegin(TENANT_ID_FIELD_DESC);
+    oprot.writeString(struct.tenantId);
+    oprot.writeFieldEnd();
+  }
+  if (struct.userId != null) {
+    oprot.writeFieldBegin(USER_ID_FIELD_DESC);
+    oprot.writeString(struct.userId);
+    oprot.writeFieldEnd();
+  }
+  oprot.writeFieldBegin(CF_SCHEMA_VERSION_FIELD_DESC);
+  oprot.writeI32(struct.cfSchemaVersion);
+  oprot.writeFieldEnd();
+  oprot.writeFieldStop();
+  oprot.writeStructEnd();
+}

@@ -1,0 +1,11 @@
+{
+switch (field) {
+case TENANT_ID:
+    return getTenantId();
+case USER_ID:
+  return getUserId();
+case CF_SCHEMA_VERSION:
+return Integer.valueOf(getCfSchemaVersion());
+}
+throw new IllegalStateException();
+}

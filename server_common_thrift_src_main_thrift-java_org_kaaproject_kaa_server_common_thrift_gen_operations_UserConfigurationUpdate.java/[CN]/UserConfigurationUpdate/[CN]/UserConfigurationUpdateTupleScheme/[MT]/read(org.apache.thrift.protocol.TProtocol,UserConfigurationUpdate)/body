@@ -1,0 +1,16 @@
+{
+  TTupleProtocol iprot=(TTupleProtocol)prot;
+  BitSet incoming=iprot.readBitSet(3);
+  if (incoming.get(0)) {
+    struct.tenantId=iprot.readString();
+    struct.setTenantIdIsSet(true);
+  }
+  if (incoming.get(1)) {
+    struct.userId=iprot.readString();
+    struct.setUserIdIsSet(true);
+  }
+  if (incoming.get(2)) {
+    struct.cfSchemaVersion=iprot.readI32();
+    struct.setCfSchemaVersionIsSet(true);
+  }
+}

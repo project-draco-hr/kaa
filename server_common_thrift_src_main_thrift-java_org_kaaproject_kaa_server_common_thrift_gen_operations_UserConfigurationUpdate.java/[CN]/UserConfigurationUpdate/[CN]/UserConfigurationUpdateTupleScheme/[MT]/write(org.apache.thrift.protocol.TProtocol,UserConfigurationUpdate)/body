@@ -1,0 +1,23 @@
+{
+  TTupleProtocol oprot=(TTupleProtocol)prot;
+  BitSet optionals=new BitSet();
+  if (struct.isSetTenantId()) {
+    optionals.set(0);
+  }
+  if (struct.isSetUserId()) {
+    optionals.set(1);
+  }
+  if (struct.isSetCfSchemaVersion()) {
+    optionals.set(2);
+  }
+  oprot.writeBitSet(optionals,3);
+  if (struct.isSetTenantId()) {
+    oprot.writeString(struct.tenantId);
+  }
+  if (struct.isSetUserId()) {
+    oprot.writeString(struct.userId);
+  }
+  if (struct.isSetCfSchemaVersion()) {
+    oprot.writeI32(struct.cfSchemaVersion);
+  }
+}
