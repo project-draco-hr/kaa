@@ -1,0 +1,14 @@
+{
+  Set<GlobalRouteInfo> keyRoutes=getRoutes(key);
+  Map<String,Set<GlobalRouteInfo>> result=new HashMap<String,Set<GlobalRouteInfo>>();
+  for (  GlobalRouteInfo route : keyRoutes) {
+    String serverId=route.getAddress().getServerId();
+    Set<GlobalRouteInfo> set=result.get(serverId);
+    if (set == null) {
+      set=new HashSet<GlobalRouteInfo>();
+      result.put(serverId,set);
+    }
+    set.add(route);
+  }
+  return result;
+}

@@ -1,0 +1,7 @@
+{
+  ConfigurationKey key=ConfigurationKey.fromUpdateMessage(update);
+  Map<String,Set<GlobalRouteInfo>> routes=map.getRoutesByServer(key);
+  for (  String serverId : routes.keySet()) {
+    LOG.debug("Sending notification to {} about configuration update",serverId);
+  }
+}

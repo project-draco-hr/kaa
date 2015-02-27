@@ -17,6 +17,10 @@
     }
     @Override public void onEvent(    RemoteEndpointEvent event){
     }
+    @Override public void onConfigurationUpdate(    UserConfigurationUpdate update){
+    }
+    @Override public void onRouteInfo(    GlobalRouteInfo routeInfo){
+    }
   }
 );
   long waitLimit=60000;
@@ -71,6 +75,10 @@
       test.setOnEvent(true);
     }
     @Override public void onServerError(    String serverId){
+    }
+    @Override public void onConfigurationUpdate(    UserConfigurationUpdate update){
+    }
+    @Override public void onRouteInfo(    GlobalRouteInfo routeInfo){
     }
   }
 );
