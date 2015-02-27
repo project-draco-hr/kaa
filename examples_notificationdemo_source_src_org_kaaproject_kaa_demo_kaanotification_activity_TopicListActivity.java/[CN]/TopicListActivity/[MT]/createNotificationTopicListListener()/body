@@ -1,0 +1,16 @@
+{
+  topicListListener=new NotificationTopicListListener(){
+    public void onListUpdated(    List<Topic> topicList){
+      Log.i("KAA","Topic list updated" + topicList.toString());
+      TopicInfoHolder.holder.updateTopics(topicList);
+      Log.i("KAA","listActivity");
+      TopicListActivity.this.runOnUiThread(new Runnable(){
+        @Override public void run(){
+          TopicListActivity.this.setListAdapter(new TopicArrayAdapter(TopicListActivity.this,TopicInfoHolder.holder.getTopicModelList()));
+        }
+      }
+);
+    }
+  }
+;
+}
