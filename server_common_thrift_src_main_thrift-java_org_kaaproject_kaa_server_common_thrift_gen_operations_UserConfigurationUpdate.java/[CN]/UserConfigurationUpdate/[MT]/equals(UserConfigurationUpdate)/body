@@ -12,11 +12,23 @@
     if (!(this_present_userId && that_present_userId))     return false;
     if (!this.userId.equals(that.userId))     return false;
   }
+  boolean this_present_applicationToken=true && this.isSetApplicationToken();
+  boolean that_present_applicationToken=true && that.isSetApplicationToken();
+  if (this_present_applicationToken || that_present_applicationToken) {
+    if (!(this_present_applicationToken && that_present_applicationToken))     return false;
+    if (!this.applicationToken.equals(that.applicationToken))     return false;
+  }
   boolean this_present_cfSchemaVersion=true;
   boolean that_present_cfSchemaVersion=true;
   if (this_present_cfSchemaVersion || that_present_cfSchemaVersion) {
     if (!(this_present_cfSchemaVersion && that_present_cfSchemaVersion))     return false;
     if (this.cfSchemaVersion != that.cfSchemaVersion)     return false;
+  }
+  boolean this_present_ucfHash=true && this.isSetUcfHash();
+  boolean that_present_ucfHash=true && that.isSetUcfHash();
+  if (this_present_ucfHash || that_present_ucfHash) {
+    if (!(this_present_ucfHash && that_present_ucfHash))     return false;
+    if (!this.ucfHash.equals(that.ucfHash))     return false;
   }
   return true;
 }

@@ -4,8 +4,12 @@ case TENANT_ID:
     return getTenantId();
 case USER_ID:
   return getUserId();
+case APPLICATION_TOKEN:
+return getApplicationToken();
 case CF_SCHEMA_VERSION:
 return Integer.valueOf(getCfSchemaVersion());
+case UCF_HASH:
+return getUcfHash();
 }
 throw new IllegalStateException();
 }

@@ -16,7 +16,10 @@
   if (struct.isSetCfSchemaVersion()) {
     optionals.set(4);
   }
-  oprot.writeBitSet(optionals,5);
+  if (struct.isSetUcfHash()) {
+    optionals.set(5);
+  }
+  oprot.writeBitSet(optionals,6);
   if (struct.isSetTenantId()) {
     oprot.writeString(struct.tenantId);
   }
@@ -31,5 +34,8 @@
   }
   if (struct.isSetCfSchemaVersion()) {
     oprot.writeI32(struct.cfSchemaVersion);
+  }
+  if (struct.isSetUcfHash()) {
+    oprot.writeBinary(struct.ucfHash);
   }
 }

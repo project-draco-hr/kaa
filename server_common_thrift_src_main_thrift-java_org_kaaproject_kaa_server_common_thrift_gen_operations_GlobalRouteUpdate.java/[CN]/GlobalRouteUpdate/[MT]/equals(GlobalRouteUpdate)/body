@@ -30,5 +30,11 @@
     if (!(this_present_cfSchemaVersion && that_present_cfSchemaVersion))     return false;
     if (this.cfSchemaVersion != that.cfSchemaVersion)     return false;
   }
+  boolean this_present_ucfHash=true && this.isSetUcfHash();
+  boolean that_present_ucfHash=true && that.isSetUcfHash();
+  if (this_present_ucfHash || that_present_ucfHash) {
+    if (!(this_present_ucfHash && that_present_ucfHash))     return false;
+    if (!this.ucfHash.equals(that.ucfHash))     return false;
+  }
   return true;
 }

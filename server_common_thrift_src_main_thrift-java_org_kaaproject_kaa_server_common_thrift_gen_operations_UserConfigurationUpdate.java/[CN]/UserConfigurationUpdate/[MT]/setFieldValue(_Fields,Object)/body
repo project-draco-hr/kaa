@@ -16,12 +16,28 @@ if (value == null) {
   setUserId((String)value);
 }
 break;
+case APPLICATION_TOKEN:
+if (value == null) {
+unsetApplicationToken();
+}
+ else {
+setApplicationToken((String)value);
+}
+break;
 case CF_SCHEMA_VERSION:
 if (value == null) {
 unsetCfSchemaVersion();
 }
  else {
 setCfSchemaVersion((Integer)value);
+}
+break;
+case UCF_HASH:
+if (value == null) {
+unsetUcfHash();
+}
+ else {
+setUcfHash((ByteBuffer)value);
 }
 break;
 }

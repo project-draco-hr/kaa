@@ -19,8 +19,26 @@
   }
   first=false;
   if (!first)   sb.append(", ");
+  sb.append("applicationToken:");
+  if (this.applicationToken == null) {
+    sb.append("null");
+  }
+ else {
+    sb.append(this.applicationToken);
+  }
+  first=false;
+  if (!first)   sb.append(", ");
   sb.append("cfSchemaVersion:");
   sb.append(this.cfSchemaVersion);
+  first=false;
+  if (!first)   sb.append(", ");
+  sb.append("ucfHash:");
+  if (this.ucfHash == null) {
+    sb.append("null");
+  }
+ else {
+    org.apache.thrift.TBaseHelper.toString(this.ucfHash,sb);
+  }
   first=false;
   sb.append(")");
   return sb.toString();

@@ -26,9 +26,27 @@ case 2:
   }
 break;
 case 3:
+if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+struct.applicationToken=iprot.readString();
+struct.setApplicationTokenIsSet(true);
+}
+ else {
+org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);
+}
+break;
+case 4:
 if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
 struct.cfSchemaVersion=iprot.readI32();
 struct.setCfSchemaVersionIsSet(true);
+}
+ else {
+org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);
+}
+break;
+case 5:
+if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+struct.ucfHash=iprot.readBinary();
+struct.setUcfHashIsSet(true);
 }
  else {
 org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);

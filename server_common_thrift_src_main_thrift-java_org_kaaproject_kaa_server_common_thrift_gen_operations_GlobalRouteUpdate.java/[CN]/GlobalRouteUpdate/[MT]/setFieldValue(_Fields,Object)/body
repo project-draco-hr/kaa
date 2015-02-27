@@ -40,5 +40,13 @@ unsetCfSchemaVersion();
 setCfSchemaVersion((Integer)value);
 }
 break;
+case UCF_HASH:
+if (value == null) {
+unsetUcfHash();
+}
+ else {
+setUcfHash((ByteBuffer)value);
+}
+break;
 }
 }

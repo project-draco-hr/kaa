@@ -15,5 +15,8 @@
   boolean present_cfSchemaVersion=true;
   builder.append(present_cfSchemaVersion);
   if (present_cfSchemaVersion)   builder.append(cfSchemaVersion);
+  boolean present_ucfHash=true && (isSetUcfHash());
+  builder.append(present_ucfHash);
+  if (present_ucfHash)   builder.append(ucfHash);
   return builder.toHashCode();
 }

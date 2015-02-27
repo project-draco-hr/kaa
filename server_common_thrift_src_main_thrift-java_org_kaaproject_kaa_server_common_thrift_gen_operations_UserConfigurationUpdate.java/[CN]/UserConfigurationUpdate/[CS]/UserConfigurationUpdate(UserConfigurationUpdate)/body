@@ -6,5 +6,12 @@
   if (other.isSetUserId()) {
     this.userId=other.userId;
   }
+  if (other.isSetApplicationToken()) {
+    this.applicationToken=other.applicationToken;
+  }
   this.cfSchemaVersion=other.cfSchemaVersion;
+  if (other.isSetUcfHash()) {
+    this.ucfHash=org.apache.thrift.TBaseHelper.copyBinary(other.ucfHash);
+    ;
+  }
 }

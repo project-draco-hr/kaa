@@ -6,8 +6,14 @@
   boolean present_userId=true && (isSetUserId());
   builder.append(present_userId);
   if (present_userId)   builder.append(userId);
+  boolean present_applicationToken=true && (isSetApplicationToken());
+  builder.append(present_applicationToken);
+  if (present_applicationToken)   builder.append(applicationToken);
   boolean present_cfSchemaVersion=true;
   builder.append(present_cfSchemaVersion);
   if (present_cfSchemaVersion)   builder.append(cfSchemaVersion);
+  boolean present_ucfHash=true && (isSetUcfHash());
+  builder.append(present_ucfHash);
+  if (present_ucfHash)   builder.append(ucfHash);
   return builder.toHashCode();
 }

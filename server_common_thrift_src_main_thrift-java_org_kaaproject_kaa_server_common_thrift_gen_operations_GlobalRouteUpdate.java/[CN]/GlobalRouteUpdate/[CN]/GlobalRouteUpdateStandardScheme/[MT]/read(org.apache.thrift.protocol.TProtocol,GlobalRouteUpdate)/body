@@ -53,6 +53,15 @@ struct.setCfSchemaVersionIsSet(true);
 org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);
 }
 break;
+case 6:
+if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+struct.ucfHash=iprot.readBinary();
+struct.setUcfHashIsSet(true);
+}
+ else {
+org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);
+}
+break;
 default :
 org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);
 }
