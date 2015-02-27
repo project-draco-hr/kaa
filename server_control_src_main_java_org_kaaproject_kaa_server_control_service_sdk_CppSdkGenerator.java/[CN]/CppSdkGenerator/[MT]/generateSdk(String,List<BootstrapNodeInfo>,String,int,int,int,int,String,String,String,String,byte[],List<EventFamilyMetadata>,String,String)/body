@@ -10,10 +10,15 @@
   ArchiveOutputStream sdkFile=asf.createArchiveOutputStream(ArchiveStreamFactory.TAR,cos);
   Map<String,TarEntryData> replacementData=new HashMap<String,TarEntryData>();
   List<TarEntryData> cppSources=new ArrayList<>();
-  TarArchiveEntry entry=new TarArchiveEntry(PROFILE_SCHEMA_AVRO_SRC);
-  byte[] data=profileSchemaBody.getBytes();
+  TarArchiveEntry entry=new TarArchiveEntry(SDK_DEFAULTS_PATH);
+  byte[] data=generateKaaDefaults(bootstrapNodes,appToken,configurationSchemaVersion,profileSchemaVersion,notificationSchemaVersion,logSchemaVersion,configurationProtocolSchemaBody,defaultConfigurationData,eventFamilies,defaultVerifierToken);
   entry.setSize(data.length);
   TarEntryData tarEntry=new TarEntryData(entry,data);
+  cppSources.add(tarEntry);
+  entry=new TarArchiveEntry(PROFILE_SCHEMA_AVRO_SRC);
+  data=profileSchemaBody.getBytes();
+  entry.setSize(data.length);
+  tarEntry=new TarEntryData(entry,data);
   cppSources.add(tarEntry);
   entry=new TarArchiveEntry(NOTIFICATION_SCHEMA_AVRO_SRC);
   data=notificationSchemaBody.getBytes();
@@ -55,17 +60,7 @@
   ArchiveEntry e=null;
   while ((e=templateArchive.getNextEntry()) != null) {
     if (!e.isDirectory()) {
-      if (e.getName().equals(KAA_DEFAULTS_CPP)) {
-        continue;
-      }
- else       if (e.getName().equals(KAA_DEFAULTS_TMPL)) {
-        TarArchiveEntry kaaDefaultsEntry=new TarArchiveEntry(KAA_DEFAULTS_CPP);
-        byte[] kaaDefaultsData=generateKaaDefaults(templateArchive,bootstrapNodes,appToken,configurationSchemaVersion,profileSchemaVersion,notificationSchemaVersion,logSchemaVersion,configurationProtocolSchemaBody,defaultConfigurationData,eventFamilies);
-        kaaDefaultsEntry.setSize(kaaDefaultsData.length);
-        sdkFile.putArchiveEntry(kaaDefaultsEntry);
-        sdkFile.write(kaaDefaultsData);
-      }
- else       if (replacementData.containsKey(e.getName())) {
+      if (replacementData.containsKey(e.getName())) {
         TarEntryData entryData=replacementData.remove(e.getName());
         sdkFile.putArchiveEntry(entryData.getEntry());
         sdkFile.write(entryData.getData());

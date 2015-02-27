@@ -1,7 +1,5 @@
 {
-  StringWriter writer=new StringWriter();
-  IOUtils.copy(kaaDefaultsStream,writer);
-  String kaaDefaultsString=writer.toString();
+  String kaaDefaultsString=SdkGenerator.readResource(SDK_DEFAULTS_TEMPLATE);
   LOG.debug("[sdk generateClientProperties] bootstrapNodes.size(): {}",bootstrapNodes.size());
   kaaDefaultsString=replaceVar(kaaDefaultsString,BUILD_VERSION,Version.PROJECT_VERSION);
   kaaDefaultsString=replaceVar(kaaDefaultsString,BUILD_COMMIT_HASH,Version.COMMIT_HASH);
@@ -15,6 +13,7 @@
   kaaDefaultsString=replaceVar(kaaDefaultsString,CLIENT_PUB_KEY_LOCATION_VAR,"key.public");
   kaaDefaultsString=replaceVar(kaaDefaultsString,CLIENT_PRIV_KEY_LOCATION_VAR,"key.private");
   kaaDefaultsString=replaceVar(kaaDefaultsString,CLIENT_STATUS_FILE_LOCATION_VAR,"kaa.status");
+  kaaDefaultsString=replaceVar(kaaDefaultsString,DEFAULT_USER_VERIFIER_TOKEN,defaultVerifierToken != null ? defaultVerifierToken : "");
   String bootstrapServers="";
   LOG.debug("[sdk generateClientProperties] bootstrapNodes.size(): {}",bootstrapNodes.size());
   int nodeCount=bootstrapNodes.size();
