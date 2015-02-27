@@ -1,0 +1,6 @@
+{
+  super.onResume();
+  app.getKaaClient().addTopicListListener(topicListListener);
+  app.getKaaClient().addNotificationListener(notificationListener);
+  setListAdapter(new TopicArrayAdapter(this,TopicInfoHolder.holder.getTopicModelList()));
+}

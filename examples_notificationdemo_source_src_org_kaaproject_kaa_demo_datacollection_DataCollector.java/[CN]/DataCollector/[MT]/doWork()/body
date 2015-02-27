@@ -1,0 +1,13 @@
+{
+  KaaClient client=Kaa.newClient(new DesktopKaaPlatformContext(),new SimpleKaaClientStateListener());
+  client.start();
+  client.addLogRecord(new Log());
+  client.setLogStorage(new MemoryLogStorage(4096));
+  try {
+    System.in.read();
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+  }
+  client.stop();
+}

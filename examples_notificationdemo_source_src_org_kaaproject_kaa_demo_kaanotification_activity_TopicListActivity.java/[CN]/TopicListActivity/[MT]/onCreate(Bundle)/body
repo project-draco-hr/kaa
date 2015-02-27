@@ -1,0 +1,11 @@
+{
+  super.onCreate(icicle);
+  app=(KaaNotificationApp)getApplicationContext();
+  StrictMode.ThreadPolicy policy=new StrictMode.ThreadPolicy.Builder().permitAll().build();
+  StrictMode.setThreadPolicy(policy);
+  setListAdapter(new TopicArrayAdapter(this,TopicInfoHolder.holder.getTopicModelList()));
+  topicListListener=createNotificationTopicListListener();
+  app.getKaaClient().addTopicListListener(topicListListener);
+  notificationListener=createNotificationListener();
+  app.getKaaClient().addNotificationListener(notificationListener);
+}

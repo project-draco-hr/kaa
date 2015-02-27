@@ -1,0 +1,17 @@
+{
+  return new NotificationListener(){
+    @Override public void onNotification(    final String topicId,    final Notification notification){
+      Log.i("KAA","NOTIFICATION RECEIVED: " + notification.toString());
+      TopicInfoHolder.holder.addNotification(topicId,notification);
+      TopicListActivity.this.runOnUiThread(new Runnable(){
+        @Override public void run(){
+          TopicListActivity activity=TopicListActivity.this;
+          activity.setListAdapter(new TopicArrayAdapter(activity,TopicInfoHolder.holder.getTopicModelList()));
+          app.showPopup(TopicListActivity.this,topicId,notification);
+        }
+      }
+);
+    }
+  }
+;
+}
