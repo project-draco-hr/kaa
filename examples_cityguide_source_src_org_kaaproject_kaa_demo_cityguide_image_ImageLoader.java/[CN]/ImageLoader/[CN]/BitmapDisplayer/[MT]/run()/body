@@ -1,0 +1,11 @@
+{
+  if (imageViewReused(photoToLoad)) {
+    return;
+  }
+  if (bitmap != null) {
+    photoToLoad.imageView.showBitmap(bitmap);
+  }
+ else {
+    photoToLoad.imageView.showFailedBitmap();
+  }
+}

@@ -1,0 +1,11 @@
+{
+  View v=convertView;
+  if (v == null) {
+    LayoutInflater inflater=(LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    v=inflater.inflate(R.layout.area_list_item,null);
+  }
+  TextView areaNameView=(TextView)v.findViewById(R.id.areaName);
+  Area area=mAreas.get(position);
+  areaNameView.setText(area.getName());
+  return v;
+}
