@@ -3,4 +3,7 @@
   if (message instanceof GlobalRouteInfoMessage) {
     messageProcessor.process(((GlobalRouteInfoMessage)message).getRoute());
   }
+ else   if (message instanceof UserConfigurationUpdateMessage) {
+    messageProcessor.process(((UserConfigurationUpdateMessage)message).getUpdate());
+  }
 }

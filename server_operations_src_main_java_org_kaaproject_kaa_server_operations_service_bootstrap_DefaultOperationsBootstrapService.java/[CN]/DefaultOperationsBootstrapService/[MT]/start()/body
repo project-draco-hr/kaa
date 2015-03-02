@@ -1,6 +1,5 @@
 {
   operationsService.setPublicKey(keyStoreService.getPublicKey());
-  operationsThriftService.setEventService(eventService);
   transportService.lookupAndInit();
   final CountDownLatch thriftStartupLatch=new CountDownLatch(1);
   final CountDownLatch thriftShutdownLatch=new CountDownLatch(1);

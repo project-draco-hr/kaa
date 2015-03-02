@@ -17,7 +17,7 @@
       eventService.sendRouteInfo(new RouteInfo(tenantId,userId,address,ecfVersions),serverId);
     }
   }
-  GlobalRouteInfo route=new GlobalRouteInfo(tenantId,userId,address,message.getCfVersion(),RouteOperation.ADD);
+  GlobalRouteInfo route=GlobalRouteInfo.add(tenantId,userId,address,message.getCfVersion(),new byte[0]);
   if (eventService.isMainUserNode(userId)) {
     context.parent().tell(new GlobalRouteInfoMessage(route),context.self());
   }

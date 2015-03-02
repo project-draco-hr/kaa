@@ -6,7 +6,7 @@
     LOG.debug("[{}] removing endpoint [{}] from remote route table on server {}",userId,endpoint,serverId);
     eventService.sendRouteInfo(RouteInfo.deleteRouteFromAddress(tenantId,userId,address),serverId);
   }
-  GlobalRouteInfo route=new GlobalRouteInfo(tenantId,userId,address,0,RouteOperation.DELETE);
+  GlobalRouteInfo route=GlobalRouteInfo.delete(tenantId,userId,address);
   if (eventService.isMainUserNode(userId)) {
     context.parent().tell(new GlobalRouteInfoMessage(route),context.self());
   }
