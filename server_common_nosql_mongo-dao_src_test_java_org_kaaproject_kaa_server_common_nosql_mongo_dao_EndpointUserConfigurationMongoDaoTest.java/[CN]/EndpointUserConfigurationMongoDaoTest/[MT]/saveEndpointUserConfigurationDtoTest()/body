@@ -1,3 +1,5 @@
 {
-  generateEndpointUserConfiguration(null,null,null);
+  EndpointUserConfigurationDto userConfigurationDto=generateEndpointUserConfiguration(null,null,null);
+  Assert.assertNotNull(userConfigurationDto);
+  Assert.assertEquals(userConfigurationDto,new MongoEndpointUserConfiguration(userConfigurationDto).toDto());
 }

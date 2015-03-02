@@ -3,4 +3,5 @@
   this.appToken=dto.getAppToken();
   this.schemaVersion=dto.getSchemaVersion();
   this.body=getArrayCopy(dto.getBody());
+  this.id=userId + ID_DELIMITER + appToken+ ID_DELIMITER+ schemaVersion;
 }
