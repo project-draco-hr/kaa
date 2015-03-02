@@ -13,10 +13,10 @@ case ROUTE:
 return isSetRoute();
 case USER_ROUTE:
 return isSetUserRoute();
-case GLOBAL_UPDATE:
-return isSetGlobalUpdate();
-case USER_UPDATE:
-return isSetUserUpdate();
+case ENDPOINT_ROUTE_UPDATE:
+return isSetEndpointRouteUpdate();
+case ENDPOINT_STATE_UPDATE:
+return isSetEndpointStateUpdate();
 }
 throw new IllegalStateException();
 }

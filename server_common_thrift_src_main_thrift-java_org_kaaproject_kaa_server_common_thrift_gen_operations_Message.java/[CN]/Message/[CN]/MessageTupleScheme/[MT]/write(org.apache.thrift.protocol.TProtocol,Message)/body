@@ -16,10 +16,10 @@
   if (struct.isSetUserRoute()) {
     optionals.set(4);
   }
-  if (struct.isSetGlobalUpdate()) {
+  if (struct.isSetEndpointRouteUpdate()) {
     optionals.set(5);
   }
-  if (struct.isSetUserUpdate()) {
+  if (struct.isSetEndpointStateUpdate()) {
     optionals.set(6);
   }
   oprot.writeBitSet(optionals,7);
@@ -38,10 +38,10 @@
   if (struct.isSetUserRoute()) {
     struct.userRoute.write(oprot);
   }
-  if (struct.isSetGlobalUpdate()) {
-    struct.globalUpdate.write(oprot);
+  if (struct.isSetEndpointRouteUpdate()) {
+    struct.endpointRouteUpdate.write(oprot);
   }
-  if (struct.isSetUserUpdate()) {
-    struct.userUpdate.write(oprot);
+  if (struct.isSetEndpointStateUpdate()) {
+    struct.endpointStateUpdate.write(oprot);
   }
 }

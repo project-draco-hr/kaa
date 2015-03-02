@@ -57,9 +57,9 @@ org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);
 break;
 case 6:
 if (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) {
-struct.globalUpdate=new GlobalRouteUpdate();
-struct.globalUpdate.read(iprot);
-struct.setGlobalUpdateIsSet(true);
+struct.endpointRouteUpdate=new EndpointRouteUpdate();
+struct.endpointRouteUpdate.read(iprot);
+struct.setEndpointRouteUpdateIsSet(true);
 }
  else {
 org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);
@@ -67,9 +67,9 @@ org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);
 break;
 case 7:
 if (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) {
-struct.userUpdate=new EndpointUserConfigurationUpdate();
-struct.userUpdate.read(iprot);
-struct.setUserUpdateIsSet(true);
+struct.endpointStateUpdate=new EndpointStateUpdate();
+struct.endpointStateUpdate.read(iprot);
+struct.setEndpointStateUpdateIsSet(true);
 }
  else {
 org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);

@@ -40,20 +40,20 @@ unsetUserRoute();
 setUserRoute((UserRouteInfo)value);
 }
 break;
-case GLOBAL_UPDATE:
+case ENDPOINT_ROUTE_UPDATE:
 if (value == null) {
-unsetGlobalUpdate();
+unsetEndpointRouteUpdate();
 }
  else {
-setGlobalUpdate((GlobalRouteUpdate)value);
+setEndpointRouteUpdate((EndpointRouteUpdate)value);
 }
 break;
-case USER_UPDATE:
+case ENDPOINT_STATE_UPDATE:
 if (value == null) {
-unsetUserUpdate();
+unsetEndpointStateUpdate();
 }
  else {
-setUserUpdate((EndpointUserConfigurationUpdate)value);
+setEndpointStateUpdate((EndpointStateUpdate)value);
 }
 break;
 }

@@ -10,10 +10,10 @@ case ROUTE:
 return getRoute();
 case USER_ROUTE:
 return getUserRoute();
-case GLOBAL_UPDATE:
-return getGlobalUpdate();
-case USER_UPDATE:
-return getUserUpdate();
+case ENDPOINT_ROUTE_UPDATE:
+return getEndpointRouteUpdate();
+case ENDPOINT_STATE_UPDATE:
+return getEndpointStateUpdate();
 }
 throw new IllegalStateException();
 }
