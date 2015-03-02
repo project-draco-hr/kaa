@@ -1,0 +1,10 @@
+{
+  EndpointUserConfigurationDto userConfigurationDto=null;
+  if (dto != null) {
+    userConfigurationDto=getDto(endpointUserConfigurationDao.save(dto));
+  }
+ else {
+    LOG.warn("Invalid user configuration object. Object is empty");
+  }
+  return userConfigurationDto;
+}

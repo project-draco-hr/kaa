@@ -1,4 +1,11 @@
 {
-  LOG.debug("Find user specific configuration by user id {}, application toke {} schema version {}",userId,appToken,schemaVersion);
-  return findOne(query(where(USER_CONF_USER_ID).is(userId).and(USER_CONF_APP_TOKEN).is(appToken).and(USER_CONF_SCHEMA_VERSION).is(schemaVersion)));
+  LOG.debug("Searching for user specific configuration by user id {}, application token {} and schema version {}",userId,appToken,schemaVersion);
+  MongoEndpointUserConfiguration userConfiguration=findOne(query(where(USER_CONF_USER_ID).is(userId).and(USER_CONF_APP_TOKEN).is(appToken).and(USER_CONF_SCHEMA_VERSION).is(schemaVersion)));
+  if (LOG.isTraceEnabled()) {
+    LOG.debug("[{},{},{}] Search result: {}.",userId,appToken,schemaVersion,userConfiguration);
+  }
+ else {
+    LOG.debug("[{},{},{}] Search result: {}.",userId,appToken,schemaVersion,userConfiguration != null);
+  }
+  return userConfiguration;
 }

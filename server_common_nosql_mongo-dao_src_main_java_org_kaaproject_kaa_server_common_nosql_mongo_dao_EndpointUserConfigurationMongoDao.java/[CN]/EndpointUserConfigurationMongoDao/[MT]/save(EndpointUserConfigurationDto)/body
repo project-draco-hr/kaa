@@ -1,4 +1,11 @@
 {
-  LOG.debug("Save user specific configuration {}",dto);
-  return save(new MongoEndpointUserConfiguration(dto));
+  LOG.debug("Saving user specific configuration {}",dto);
+  MongoEndpointUserConfiguration userConfiguration=save(new MongoEndpointUserConfiguration(dto));
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("Saving result: {}",userConfiguration);
+  }
+ else {
+    LOG.debug("Saving result: {}",userConfiguration != null);
+  }
+  return userConfiguration;
 }
