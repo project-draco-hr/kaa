@@ -1,0 +1,30 @@
+{
+  if (mKaaStarted) {
+    mSentLogCount++;
+    mLastLogTime=System.currentTimeMillis();
+    CellMonitorLog cellMonitorLog=new CellMonitorLog();
+    cellMonitorLog.setLogTime(mLastLogTime);
+    cellMonitorLog.setNetworkOperatorCode(Integer.valueOf(mTelephonyManager.getNetworkOperator()));
+    cellMonitorLog.setNetworkOperatorName(mTelephonyManager.getNetworkOperatorName());
+    int cid=-1;
+    int lac=-1;
+    if (mCellLocation != null && mCellLocation instanceof GsmCellLocation) {
+      GsmCellLocation gsmCellLocation=(GsmCellLocation)mCellLocation;
+      cid=gsmCellLocation.getCid();
+      lac=gsmCellLocation.getLac();
+    }
+    cellMonitorLog.setGsmCellId(cid);
+    cellMonitorLog.setGsmLac(lac);
+    int gsmSignalStrength=-1;
+    if (mSignalStrength != null) {
+      gsmSignalStrength=mSignalStrength.getGsmSignalStrength();
+    }
+    cellMonitorLog.setSignalStrength(gsmSignalStrength);
+    org.kaaproject.kaa.demo.cellmonitor.Location phoneLocation=new org.kaaproject.kaa.demo.cellmonitor.Location();
+    phoneLocation.setLatitude(mGpsLocation.getLatitude());
+    phoneLocation.setLongitude(mGpsLocation.getLongitude());
+    cellMonitorLog.setPhoneGpsLocation(phoneLocation);
+    mClient.addLogRecord(cellMonitorLog);
+    mEventBus.post(new LogSent());
+  }
+}

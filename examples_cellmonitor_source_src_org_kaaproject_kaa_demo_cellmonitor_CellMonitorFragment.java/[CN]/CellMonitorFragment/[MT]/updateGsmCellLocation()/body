@@ -1,0 +1,22 @@
+{
+  int cid=-1;
+  int lac=-1;
+  CellLocation cellLocation=mApplication.getCellLocation();
+  if (cellLocation != null && cellLocation instanceof GsmCellLocation) {
+    GsmCellLocation gsmCellLocation=(GsmCellLocation)cellLocation;
+    cid=gsmCellLocation.getCid();
+    lac=gsmCellLocation.getLac();
+  }
+  if (cid != -1) {
+    mGsmCellIdValue.setText("" + cid);
+  }
+ else {
+    mGsmCellIdValue.setText(R.string.unavailable);
+  }
+  if (lac != -1) {
+    mGsmLacValue.setText("" + lac);
+  }
+ else {
+    mGsmLacValue.setText(R.string.unavailable);
+  }
+}

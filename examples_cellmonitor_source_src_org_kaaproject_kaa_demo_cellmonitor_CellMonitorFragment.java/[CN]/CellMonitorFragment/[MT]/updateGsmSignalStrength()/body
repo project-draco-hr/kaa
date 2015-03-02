@@ -1,0 +1,13 @@
+{
+  int gsmSignalStrength=-1;
+  SignalStrength signalStrength=mApplication.getSignalStrength();
+  if (signalStrength != null) {
+    gsmSignalStrength=signalStrength.getGsmSignalStrength();
+  }
+  if (gsmSignalStrength != -1) {
+    mGsmSignalStrengthValue.setText("" + gsmSignalStrength);
+  }
+ else {
+    mGsmSignalStrengthValue.setText(R.string.unavailable);
+  }
+}
