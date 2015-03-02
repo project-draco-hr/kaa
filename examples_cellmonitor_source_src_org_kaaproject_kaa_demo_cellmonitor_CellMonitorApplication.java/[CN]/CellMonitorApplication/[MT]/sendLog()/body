@@ -6,8 +6,8 @@
     cellMonitorLog.setLogTime(mLastLogTime);
     cellMonitorLog.setNetworkOperatorCode(Integer.valueOf(mTelephonyManager.getNetworkOperator()));
     cellMonitorLog.setNetworkOperatorName(mTelephonyManager.getNetworkOperatorName());
-    int cid=-1;
-    int lac=-1;
+    int cid=UNDEFINED;
+    int lac=UNDEFINED;
     if (mCellLocation != null && mCellLocation instanceof GsmCellLocation) {
       GsmCellLocation gsmCellLocation=(GsmCellLocation)mCellLocation;
       cid=gsmCellLocation.getCid();
@@ -15,7 +15,7 @@
     }
     cellMonitorLog.setGsmCellId(cid);
     cellMonitorLog.setGsmLac(lac);
-    int gsmSignalStrength=-1;
+    int gsmSignalStrength=UNDEFINED;
     if (mSignalStrength != null) {
       gsmSignalStrength=mSignalStrength.getGsmSignalStrength();
     }
