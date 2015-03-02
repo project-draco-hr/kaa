@@ -1,4 +1,6 @@
 {
+  logger.info("Loading 'Java Data Collection Demo Application' data...");
+  loginTenantAdmin(client);
   ApplicationDto notificationApplication=new ApplicationDto();
   notificationApplication.setName("Java data collection");
   notificationApplication=client.editApplication(notificationApplication);
@@ -26,4 +28,5 @@
   trustfulUserVerifier.setJsonConfiguration(rawData.getRawData());
   trustfulUserVerifier=client.editUserVerifierDto(trustfulUserVerifier);
   sdkKey.setDefaultVerifierToken(trustfulUserVerifier.getVerifierToken());
+  logger.info("Finished loading 'Java Data Collection Demo Application' data.");
 }
