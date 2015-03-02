@@ -1,0 +1,18 @@
+{
+  KaaClient kaaClient=Kaa.newClient(new DesktopKaaPlatformContext());
+  kaaClient.setLogUploadStrategy(oneLogUploadStrategy);
+  kaaClient.start();
+  LogData logData1=new LogData(Level.INFO,"TAG","MESSAGE_1");
+  LogData logData2=new LogData(Level.INFO,"TAG","MESSAGE_2");
+  LogData logData3=new LogData(Level.INFO,"TAG","MESSAGE_3");
+  kaaClient.addLogRecord(logData1);
+  kaaClient.addLogRecord(logData2);
+  kaaClient.addLogRecord(logData3);
+  try {
+    System.in.read();
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+  }
+  kaaClient.stop();
+}
