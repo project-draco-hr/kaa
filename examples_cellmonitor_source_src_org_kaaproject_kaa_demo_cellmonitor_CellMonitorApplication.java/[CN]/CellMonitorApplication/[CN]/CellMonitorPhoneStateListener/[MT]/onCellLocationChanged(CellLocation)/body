@@ -1,0 +1,7 @@
+{
+  super.onCellLocationChanged(location);
+  mCellLocation=location;
+  sendLog();
+  mEventBus.post(new CellLocationChanged());
+  LOG.info("Cell location changed!");
+}
