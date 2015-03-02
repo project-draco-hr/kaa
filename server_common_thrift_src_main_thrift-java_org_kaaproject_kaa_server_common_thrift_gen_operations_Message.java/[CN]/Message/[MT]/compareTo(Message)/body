@@ -1,0 +1,77 @@
+{
+  if (!getClass().equals(other.getClass())) {
+    return getClass().getName().compareTo(other.getClass().getName());
+  }
+  int lastComparison=0;
+  lastComparison=Boolean.valueOf(isSetType()).compareTo(other.isSetType());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetType()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.type,other.type);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  lastComparison=Boolean.valueOf(isSetEventId()).compareTo(other.isSetEventId());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetEventId()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.eventId,other.eventId);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  lastComparison=Boolean.valueOf(isSetEvent()).compareTo(other.isSetEvent());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetEvent()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.event,other.event);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  lastComparison=Boolean.valueOf(isSetRoute()).compareTo(other.isSetRoute());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetRoute()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.route,other.route);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  lastComparison=Boolean.valueOf(isSetUserRoute()).compareTo(other.isSetUserRoute());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetUserRoute()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.userRoute,other.userRoute);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  lastComparison=Boolean.valueOf(isSetGlobalUpdate()).compareTo(other.isSetGlobalUpdate());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetGlobalUpdate()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.globalUpdate,other.globalUpdate);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  lastComparison=Boolean.valueOf(isSetUserUpdate()).compareTo(other.isSetUserUpdate());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetUserUpdate()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.userUpdate,other.userUpdate);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  return 0;
+}

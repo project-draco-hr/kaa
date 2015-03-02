@@ -1,0 +1,47 @@
+{
+  TTupleProtocol oprot=(TTupleProtocol)prot;
+  BitSet optionals=new BitSet();
+  if (struct.isSetType()) {
+    optionals.set(0);
+  }
+  if (struct.isSetEventId()) {
+    optionals.set(1);
+  }
+  if (struct.isSetEvent()) {
+    optionals.set(2);
+  }
+  if (struct.isSetRoute()) {
+    optionals.set(3);
+  }
+  if (struct.isSetUserRoute()) {
+    optionals.set(4);
+  }
+  if (struct.isSetGlobalUpdate()) {
+    optionals.set(5);
+  }
+  if (struct.isSetUserUpdate()) {
+    optionals.set(6);
+  }
+  oprot.writeBitSet(optionals,7);
+  if (struct.isSetType()) {
+    oprot.writeI32(struct.type.getValue());
+  }
+  if (struct.isSetEventId()) {
+    oprot.writeI64(struct.eventId);
+  }
+  if (struct.isSetEvent()) {
+    struct.event.write(oprot);
+  }
+  if (struct.isSetRoute()) {
+    struct.route.write(oprot);
+  }
+  if (struct.isSetUserRoute()) {
+    struct.userRoute.write(oprot);
+  }
+  if (struct.isSetGlobalUpdate()) {
+    struct.globalUpdate.write(oprot);
+  }
+  if (struct.isSetUserUpdate()) {
+    struct.userUpdate.write(oprot);
+  }
+}

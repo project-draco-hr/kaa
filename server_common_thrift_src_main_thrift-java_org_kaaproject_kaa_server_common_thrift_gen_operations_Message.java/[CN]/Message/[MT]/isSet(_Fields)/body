@@ -1,0 +1,22 @@
+{
+  if (field == null) {
+    throw new IllegalArgumentException();
+  }
+switch (field) {
+case TYPE:
+    return isSetType();
+case EVENT_ID:
+  return isSetEventId();
+case EVENT:
+return isSetEvent();
+case ROUTE:
+return isSetRoute();
+case USER_ROUTE:
+return isSetUserRoute();
+case GLOBAL_UPDATE:
+return isSetGlobalUpdate();
+case USER_UPDATE:
+return isSetUserUpdate();
+}
+throw new IllegalStateException();
+}
