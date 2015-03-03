@@ -12,10 +12,12 @@
         TopicModel element=(TopicModel)viewHolder.checkbox.getTag();
         element.setSelected(buttonView.isChecked());
         if (element.isSelected()) {
-          viewHolder.notificationCount.setText("" + element.getNotificationsCount());
-          if (!element.isMandatoryTopic())           if (!element.isSubscribedTo()) {
-            element.setSubscribedTo(true);
-            app.subscribeToTopic(element.getTopicId());
+          viewHolder.notificationCount.setText(String.valueOf(element.getNotificationsCount()));
+          if (!element.isMandatoryTopic()) {
+            if (!element.isSubscribedTo()) {
+              element.setSubscribedTo(true);
+              app.subscribeToTopic(element.getTopicId());
+            }
           }
         }
  else {

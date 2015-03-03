@@ -1,10 +1,14 @@
 {
   int position=getIntent().getExtras().getInt("position");
   List<TopicModel> list=TopicInfoHolder.holder.getTopicModelList();
-  if (null != list) {
+  if (list != null) {
     TopicModel model=list.get(position);
-    if (null != model)     return model.getNotifications();
- else     return new LinkedList<Notification>();
+    if (model != null) {
+      return model.getNotifications();
+    }
+ else {
+      return new LinkedList<Notification>();
+    }
   }
   return new LinkedList<Notification>();
 }
