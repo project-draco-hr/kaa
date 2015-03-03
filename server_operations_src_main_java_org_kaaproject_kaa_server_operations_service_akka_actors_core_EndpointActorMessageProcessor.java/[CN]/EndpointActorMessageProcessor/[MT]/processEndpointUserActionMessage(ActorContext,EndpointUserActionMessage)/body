@@ -1,18 +1,16 @@
 {
-  Set<ChannelMetaData> eventChannels=new HashSet<ChannelMetaData>();
-  eventChannels.addAll(channelMap.getByTransportType(TransportType.EVENT));
-  eventChannels.addAll(channelMap.getByTransportType(TransportType.USER));
+  Set<ChannelMetaData> eventChannels=state.getChannelsByTypes(TransportType.EVENT,TransportType.USER);
   LOG.debug("[{}][{}] Current Endpoint was attached/detached from user. Need to close all current event channels {}",endpointKey,actorKey,eventChannels.size());
-  userRegistrationRequestSent=false;
+  state.setUserRegistrationPending(false);
   if (message instanceof EndpointUserAttachMessage) {
-    if (endpointProfile != null) {
-      endpointProfile.setEndpointUserId(message.getUserId());
+    if (state.isProfileSet()) {
+      state.setProfileUserId(message.getUserId());
     }
     LOG.debug("[{}][{}] Updating endpoint user id to {} in profile",endpointKey,actorKey,message.getUserId());
   }
  else   if (message instanceof EndpointUserDetachMessage) {
-    if (endpointProfile != null && message.getUserId().equals(endpointProfile.getEndpointUserId())) {
-      endpointProfile.setEndpointUserId(null);
+    if (state.isProfileSet() && message.getUserId().equals(state.getProfileUserId())) {
+      state.setProfileUserId(null);
     }
     LOG.debug("[{}][{}] Clanup endpoint user id in profile",endpointKey,actorKey,message.getUserId());
   }
@@ -28,9 +26,6 @@
       }
       if (userSyncResponse != null) {
         if (message instanceof EndpointUserAttachMessage) {
-          if (endpointProfile != null) {
-            endpointProfile.setEndpointUserId(message.getUserId());
-          }
           userSyncResponse.setUserAttachNotification(new UserAttachNotification(message.getUserId(),message.getOriginator()));
           LOG.debug("[{}][{}] Adding user attach notification",endpointKey,actorKey);
         }
@@ -42,7 +37,7 @@
       LOG.debug("[{}][{}] sending reply to [{}] channel",endpointKey,actorKey,channel.getId());
       sendReply(context,pendingRequest,pendingResponse);
       if (!channel.getType().isAsync()) {
-        channelMap.removeChannel(channel);
+        state.removeChannel(channel);
       }
     }
   }

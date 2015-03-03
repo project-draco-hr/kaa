@@ -14,11 +14,11 @@
       }
       logPack.setEvents(logEvents);
       logPack.setLogSchemaVersion(responseHolder.getEndpointProfile().getLogSchemaVersion());
-      logPack.setUserId(userId);
+      logPack.setUserId(state.getUserId());
       context.parent().tell(new LogEventPackMessage(request.getRequestId(),context.self(),logPack),context.self());
     }
     if (logUploadResponseMap.size() > 0) {
-      responseHolder.getResponse().setLogSync(toLogDeliveryStatus());
+      responseHolder.getResponse().setLogSync(EntityConvertUtils.convert(logUploadResponseMap));
       logUploadResponseMap.clear();
     }
   }

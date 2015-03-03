@@ -43,7 +43,7 @@
  else {
         buf.put(NOTHING);
       }
-      buf.putShort((short)Integer.valueOf(response.getRequestId()).intValue());
+      buf.putShort((short)response.getRequestId());
       if (response.getEndpointKeyHash() != null) {
         putUTF(buf,response.getEndpointKeyHash());
       }
@@ -56,7 +56,7 @@
     for (    EndpointDetachResponse response : userSync.getEndpointDetachResponses()) {
       buf.put(response.getResult() == SyncStatus.SUCCESS ? SUCCESS : FAILURE);
       buf.put(NOTHING);
-      buf.putShort((short)Integer.valueOf(response.getRequestId()).intValue());
+      buf.putShort((short)response.getRequestId());
     }
   }
   buf.putInt(extPosition - SIZE_OF_INT,buf.position() - extPosition);

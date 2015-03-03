@@ -1,0 +1,13 @@
+{
+  mWaitView.setVisibility(View.GONE);
+  City city=Utils.getCity(mApplication.getCityGuideConfiguration(),mAreaName,mCityName);
+  if (city != null) {
+    mCityPagerAdapter=new CityPagerAdapter(mActivity,mAreaName,mCityName,mActivity.getSupportFragmentManager());
+    mCityPages.setVisibility(View.VISIBLE);
+    mCityPager.setAdapter(mCityPagerAdapter);
+    mCityPageIndicator.setViewPager(mCityPager);
+  }
+ else {
+    mActivity.popBackStack();
+  }
+}

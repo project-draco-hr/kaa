@@ -1,8 +1,0 @@
-{
-  List<LogDeliveryStatus> statusList=new ArrayList<>();
-  for (  Entry<Integer,LogDeliveryMessage> response : logUploadResponseMap.entrySet()) {
-    LogDeliveryMessage message=response.getValue();
-    statusList.add(new LogDeliveryStatus(response.getKey(),message.isSuccess() ? SyncStatus.SUCCESS : SyncStatus.FAILURE,toErrorCode(message.getErrorCode())));
-  }
-  return new LogServerSync(statusList);
-}
