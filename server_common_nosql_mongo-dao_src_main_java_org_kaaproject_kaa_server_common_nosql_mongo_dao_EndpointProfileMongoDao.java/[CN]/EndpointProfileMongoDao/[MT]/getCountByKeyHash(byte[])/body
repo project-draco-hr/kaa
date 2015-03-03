@@ -1,5 +1,5 @@
 {
   LOG.debug("Get count of endpoint profiles by endpoint key hash [{}] ",endpointKeyHash);
-  DBObject dbObject=query(where(ENDPOINT_KEY_HASH).is(endpointKeyHash)).getQueryObject();
-  return mongoTemplate.getDb().getCollection(MongoEndpointProfile.COLLECTION_NAME).count(dbObject);
+  DBObject dbObject=query(where(EP_ENDPOINT_KEY_HASH).is(endpointKeyHash)).getQueryObject();
+  return mongoTemplate.getDb().getCollection(getCollectionName()).count(dbObject);
 }

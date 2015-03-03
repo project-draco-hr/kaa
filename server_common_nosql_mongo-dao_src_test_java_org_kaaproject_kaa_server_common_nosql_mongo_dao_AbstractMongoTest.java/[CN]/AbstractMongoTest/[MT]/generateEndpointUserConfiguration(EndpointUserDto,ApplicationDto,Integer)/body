@@ -1,0 +1,18 @@
+{
+  EndpointUserConfigurationDto configurationDto=new EndpointUserConfigurationDto();
+  if (endpointUser == null) {
+    endpointUser=generateEndpointUser(null);
+  }
+  configurationDto.setUserId(endpointUser.getId());
+  if (schemaVersion == null) {
+    schemaVersion=1;
+  }
+  configurationDto.setSchemaVersion(schemaVersion);
+  configurationDto.setBody(UUID.randomUUID().toString().getBytes());
+  if (applicationDto == null) {
+    applicationDto=generateApplication();
+  }
+  configurationDto.setAppToken(applicationDto.getApplicationToken());
+  endpointUserConfigurationDao.save(new MongoEndpointUserConfiguration(configurationDto));
+  return configurationDto;
+}

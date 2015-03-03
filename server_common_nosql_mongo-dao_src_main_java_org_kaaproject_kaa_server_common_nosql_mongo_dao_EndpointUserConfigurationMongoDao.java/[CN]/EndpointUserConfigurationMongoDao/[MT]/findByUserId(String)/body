@@ -1,0 +1,11 @@
+{
+  LOG.debug("Searching for user specific configurations by user id {}",userId);
+  List<MongoEndpointUserConfiguration> configurationList=find(query(where(USER_CONF_USER_ID).is(userId)));
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{}] Search result: {}.",userId,Arrays.toString(configurationList.toArray()));
+  }
+ else {
+    LOG.debug("[{}] Search result: {}.",userId,configurationList.size());
+  }
+  return configurationList;
+}

@@ -1,4 +1,4 @@
 {
   LOG.debug("Find user by external uid [{}] and tenant id [{}] ",externalId,tenantId);
-  return findOne(query(where(EXTERNAL_ID).is(externalId).and(TENANT_ID).is(tenantId)));
+  return findOne(query(where(EP_USER_EXTERNAL_ID).is(externalId).and(EP_USER_TENANT_ID).is(tenantId)));
 }

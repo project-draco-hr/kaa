@@ -1,0 +1,10 @@
+{
+  if (this == o)   return true;
+  if (o == null || getClass() != o.getClass())   return false;
+  EndpointUserConfigurationDto that=(EndpointUserConfigurationDto)o;
+  if (appToken != null ? !appToken.equals(that.appToken) : that.appToken != null)   return false;
+  if (!Arrays.equals(body,that.body))   return false;
+  if (schemaVersion != null ? !schemaVersion.equals(that.schemaVersion) : that.schemaVersion != null)   return false;
+  if (userId != null ? !userId.equals(that.userId) : that.userId != null)   return false;
+  return true;
+}

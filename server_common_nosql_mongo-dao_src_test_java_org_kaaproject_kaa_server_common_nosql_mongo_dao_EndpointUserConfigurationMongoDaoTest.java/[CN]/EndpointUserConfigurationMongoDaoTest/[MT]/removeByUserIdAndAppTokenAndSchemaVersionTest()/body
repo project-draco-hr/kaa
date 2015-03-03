@@ -1,0 +1,13 @@
+{
+  EndpointUserDto userDto=generateEndpointUser(null);
+  ApplicationDto appDto=generateApplication();
+  int removedVersion=random.nextInt();
+  generateEndpointUserConfiguration(userDto,appDto,removedVersion);
+  generateEndpointUserConfiguration(userDto,appDto,random.nextInt());
+  generateEndpointUserConfiguration(userDto,appDto,random.nextInt());
+  endpointUserConfigurationDao.removeByUserIdAndAppTokenAndSchemaVersion(userDto.getId(),appDto.getApplicationToken(),removedVersion);
+  MongoEndpointUserConfiguration removed=endpointUserConfigurationDao.findByUserIdAndAppTokenAndSchemaVersion(userDto.getId(),appDto.getApplicationToken(),removedVersion);
+  Assert.assertNull(removed);
+  List<MongoEndpointUserConfiguration> foundList=endpointUserConfigurationDao.findByUserId(userDto.getId());
+  Assert.assertEquals(2,foundList.size());
+}

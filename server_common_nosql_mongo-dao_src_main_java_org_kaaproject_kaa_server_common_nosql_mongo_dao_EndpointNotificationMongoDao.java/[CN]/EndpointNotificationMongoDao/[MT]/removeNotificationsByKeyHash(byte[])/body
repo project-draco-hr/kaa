@@ -1,4 +1,4 @@
 {
   LOG.debug("Remove unicast notifications by endpoint key hash [{}] ",keyHash);
-  mongoTemplate.remove(query(where(ENDPOINT_KEY_HASH).is(keyHash)),getCollectionName());
+  mongoTemplate.remove(query(where(EP_ENDPOINT_KEY_HASH).is(keyHash)),getCollectionName());
 }
