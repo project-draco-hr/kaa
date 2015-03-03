@@ -1,0 +1,13 @@
+{
+  EndpointUserDto userDto=generateEndpointUser(null);
+  ApplicationDto appDto=generateApplication();
+  int removedVersion=random.nextInt();
+  generateEndpointUserConfiguration(userDto,appDto,removedVersion);
+  generateEndpointUserConfiguration(userDto,appDto,random.nextInt());
+  generateEndpointUserConfiguration(userDto,appDto,random.nextInt());
+  userConfigurationService.removeByUserIdAndAppTokenAndSchemaVersion(userDto.getId(),appDto.getApplicationToken(),removedVersion);
+  EndpointUserConfigurationDto removed=userConfigurationService.findUserConfigurationByUserIdAndAppTokenAndSchemaVersion(userDto.getId(),appDto.getApplicationToken(),removedVersion);
+  Assert.assertNull(removed);
+  List<EndpointUserConfigurationDto> foundList=userConfigurationService.findUserConfigurationByUserId(userDto.getId());
+  Assert.assertEquals(2,foundList.size());
+}

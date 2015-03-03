@@ -5,6 +5,6 @@
   EndpointUserConfigurationDto firstUserConfigurationDto=generateEndpointUserConfiguration(userDto,appDto,foundVersion);
   generateEndpointUserConfiguration(userDto,appDto,random.nextInt());
   generateEndpointUserConfiguration(null,null,null);
-  MongoEndpointUserConfiguration found=endpointUserConfigurationDao.findByUserIdAndAppTokenAndSchemaVersion(userDto.getId(),appDto.getApplicationToken(),foundVersion);
-  Assert.assertEquals(firstUserConfigurationDto,found.toDto());
+  EndpointUserConfigurationDto found=userConfigurationService.findUserConfigurationByUserIdAndAppTokenAndSchemaVersion(userDto.getId(),appDto.getApplicationToken(),foundVersion);
+  Assert.assertEquals(firstUserConfigurationDto,found);
 }
