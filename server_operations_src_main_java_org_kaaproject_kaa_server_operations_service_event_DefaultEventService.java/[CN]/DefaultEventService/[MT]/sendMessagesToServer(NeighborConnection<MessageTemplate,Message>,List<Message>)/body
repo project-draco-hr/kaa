@@ -1,0 +1,9 @@
+{
+  try {
+    server.sendMessages(messages);
+  }
+ catch (  InterruptedException e) {
+    LOG.error("Error sending events to server: ",e);
+    notifyListenersOnServerProblem(server.getId());
+  }
+}

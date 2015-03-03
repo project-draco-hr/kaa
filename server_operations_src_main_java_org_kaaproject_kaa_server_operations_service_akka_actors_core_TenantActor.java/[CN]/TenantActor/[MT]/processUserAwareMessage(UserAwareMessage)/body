@@ -2,7 +2,7 @@
   ActorRef userActor;
   if (message instanceof RouteInfoMessage || message instanceof UserRouteInfoMessage) {
     LOG.debug("Find user actor by id: {} for message {}",message.getUserId(),message);
-    userActor=users.get(message.getUserId());
+    userActor=localUsers.get(message.getUserId());
   }
  else {
     userActor=getOrCreateUserActor(message.getUserId());

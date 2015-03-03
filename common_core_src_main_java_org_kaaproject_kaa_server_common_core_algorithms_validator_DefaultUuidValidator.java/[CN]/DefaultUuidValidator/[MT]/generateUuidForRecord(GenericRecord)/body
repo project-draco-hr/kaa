@@ -1,5 +1,5 @@
 {
-  GenericData.Fixed newUuid=CommonUtils.generateUuidObject();
+  GenericData.Fixed newUuid=AvroUtils.generateUuidObject();
   LOG.trace("Generated new UUID {}",newUuid);
   record.put(UUID_FIELD,newUuid);
   processedUuids.add(newUuid);

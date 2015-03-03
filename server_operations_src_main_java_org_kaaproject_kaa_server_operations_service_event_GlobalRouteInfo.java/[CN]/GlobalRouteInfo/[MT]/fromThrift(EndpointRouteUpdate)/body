@@ -1,0 +1,5 @@
+{
+  RouteTableAddress address=new RouteTableAddress(EndpointObjectHash.fromBytes(message.getRouteAddress().getEndpointKey()),message.getRouteAddress().getApplicationToken());
+  RouteOperation operation=message.getUpdateType() == EventRouteUpdateType.ADD ? RouteOperation.ADD : RouteOperation.DELETE;
+  return new GlobalRouteInfo(message.getTenantId(),message.getUserId(),address,message.getCfSchemaVersion(),message.getUcfHash(),operation);
+}

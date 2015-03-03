@@ -1,0 +1,17 @@
+{
+  if (!started) {
+    executor=Executors.newFixedThreadPool(getMaxNumberConnection());
+    messageQueue=new LinkedBlockingQueue<>(messageQueueLingth);
+    workers=new LinkedList<>();
+    clientFactory=ThriftFactory.create(OperationsThriftService.Iface.class);
+    InetSocketAddress address=new InetSocketAddress(connectionInfo.getThriftHost().toString(),connectionInfo.getThriftPort());
+    Set<InetSocketAddress> backends=new HashSet<InetSocketAddress>();
+    backends.add(address);
+    thrift=clientFactory.withMaxConnectionsPerEndpoint(getMaxNumberConnection()).withSocketTimeout(Amount.of(socketTimeout,Time.SECONDS)).build(backends);
+    for (int i=0; i < getMaxNumberConnection(); i++) {
+      EventWorker worker=new EventWorker(template);
+      workers.add(executor.submit(worker));
+    }
+    started=true;
+  }
+}

@@ -1,0 +1,10 @@
+{
+  userId=toGlobal(userId);
+  ActorRef userActor=globalUsers.get(userId);
+  if (userActor == null && userId != null) {
+    userActor=context().actorOf(Props.create(new LocalUserActor.ActorCreator(context,userId,tenantId)).withDispatcher(USER_DISPATCHER_NAME),userId);
+    LOG.debug("Create global user actor with id {}",userId);
+    globalUsers.put(userId,userActor);
+  }
+  return userActor;
+}

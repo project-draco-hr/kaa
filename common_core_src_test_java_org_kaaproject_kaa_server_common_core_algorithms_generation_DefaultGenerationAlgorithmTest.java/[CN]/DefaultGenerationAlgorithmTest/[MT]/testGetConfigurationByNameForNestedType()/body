@@ -2,7 +2,8 @@
   Path schemaPath=Paths.get(Thread.currentThread().getContextClassLoader().getResource("generation/complexSchema.json").toURI());
   BaseSchema configuraionSchema=new BaseSchema(new String(Files.readAllBytes(schemaPath)));
   DefaultRecordGenerationAlgorithm configurationProcessor=new DefaultRecordGenerationAlgorithmImpl(configuraionSchema,new BaseDataFactory());
-  configurationProcessor.getConfigurationByName("testT","org.kaa.config");
-  GenericRecord generatedConfiguration=configurationProcessor.getConfigurationByName("testRecordT","org.kaa.config");
+  configurationProcessor.getConfigurationByName("testRecordItemT","org.kaa.config");
+  GenericRecord generatedConfiguration=configurationProcessor.getConfigurationByName("testRecordItemT","org.kaa.config");
   Assert.assertNotNull(generatedConfiguration);
+  Assert.assertEquals(4,generatedConfiguration.get("testField4"));
 }

@@ -1,9 +1,8 @@
 {
-  if (isUnchangedDeclared) {
-    return KAA_NAMESPACE + "." + UNCHANGED+ "T";
+  if (unchangedTSchema == null) {
+    List<String> unchangedStrings=new ArrayList<String>(1);
+    unchangedStrings.add(UNCHANGED);
+    unchangedTSchema=Schema.createEnum(UNCHANGED + "T",null,KAA_NAMESPACE,unchangedStrings);
   }
- else {
-    isUnchangedDeclared=true;
-    return getEnum(UNCHANGED);
-  }
+  return unchangedTSchema;
 }

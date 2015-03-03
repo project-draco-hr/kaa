@@ -1,0 +1,66 @@
+{
+  if (processedRecords.containsKey(root.getFullName())) {
+    return processedRecords.get(root.getFullName());
+  }
+  boolean addressable=isAddressableValue(root);
+  List<Field> fields=root.getFields();
+  List<Field> newFields=new ArrayList<Field>(fields.size() + 1);
+  for (  Field fieldIter : fields) {
+    boolean optional=false;
+    if (fieldIter.getJsonProp(OPTIONAL_NAME) != null) {
+      optional=fieldIter.getJsonProp(OPTIONAL_NAME).asBoolean();
+    }
+    List<Schema> newUnion=new ArrayList<Schema>();
+    if (AvroUtils.isComplexSchema(fieldIter.schema())) {
+      addResetTypeIfArray(fieldIter.schema(),newUnion);
+      newUnion.add(convert(fieldIter.schema()));
+    }
+ else     if (fieldIter.schema().getType().equals(Type.UNION)) {
+      List<Schema> oldUnion=fieldIter.schema().getTypes();
+      for (      Schema unionIter : oldUnion) {
+        Schema newItem=unionIter;
+        if (AvroUtils.isComplexSchema(unionIter)) {
+          addResetTypeIfArray(unionIter,newUnion);
+          newItem=convert(unionIter);
+        }
+        newUnion.add(newItem);
+      }
+    }
+ else {
+      newUnion.add(fieldIter.schema());
+    }
+    if (strategy.isUnchangedSupported()) {
+      newUnion.add(getUnchangedType());
+    }
+    if (optional) {
+      strategy.onOptionalField(newUnion);
+    }
+ else {
+      strategy.onMandatoryField(newUnion);
+    }
+    Field newField=null;
+    if (newUnion.size() > 1) {
+      newField=new Field(fieldIter.name(),Schema.createUnion(newUnion),fieldIter.doc(),fieldIter.defaultValue());
+    }
+ else {
+      newField=new Field(fieldIter.name(),newUnion.get(0),fieldIter.doc(),fieldIter.defaultValue());
+    }
+    AvroUtils.copyJsonProperties(fieldIter,newField);
+    newFields.add(newField);
+  }
+  if (addressable) {
+    newFields.add(getUuidField());
+  }
+  Schema copySchema=Schema.createRecord(root.getName(),root.getDoc(),root.getNamespace(),root.isError());
+  AvroUtils.copyJsonProperties(root,copySchema);
+  copySchema.setFields(newFields);
+  if (addressable) {
+    String fullName=root.getFullName();
+    ;
+    if (!fullName.equals(rootSchemaName)) {
+      addressableRecords.add(copySchema);
+    }
+  }
+  processedRecords.put(copySchema.getFullName(),copySchema);
+  return copySchema;
+}

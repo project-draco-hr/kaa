@@ -1,0 +1,30 @@
+{
+  if (firstConnectRequestToActor) {
+    firstConnectRequestToActor=false;
+    eventService.sendUserRouteInfo(new UserRouteInfo(tenantId,userId));
+  }
+  EndpointObjectHash endpointKey=message.getKey();
+  String appToken=message.getAppToken();
+  RouteTableAddress address=new RouteTableAddress(endpointKey,appToken);
+  List<EventClassFamilyVersion> ecfVersions=message.getEcfVersions();
+  for (  EventClassFamilyVersion ecfVersion : ecfVersions) {
+    RouteTableKey key=new RouteTableKey(appToken,ecfVersion);
+    updateRouteTable(context,key,address);
+  }
+  for (  String serverId : routeTable.getRemoteServers()) {
+    if (routeTable.isDeliveryRequired(serverId,address)) {
+      LOG.debug("[{}] Sending route info about address {} to server {}",userId,address,serverId);
+      eventService.sendRouteInfo(new RouteInfo(tenantId,userId,address,ecfVersions),serverId);
+    }
+  }
+  GlobalRouteInfo route=GlobalRouteInfo.add(tenantId,userId,address,message.getCfVersion(),new byte[0]);
+  if (eventService.isMainUserNode(userId)) {
+    context.parent().tell(new EndpointRouteUpdateMessage(route),context.self());
+  }
+ else {
+    LOG.debug("[{}] Sending connect message to global actor",userId);
+    eventService.sendEndpointRouteInfo(route);
+  }
+  versionMap.put(endpointKey,message.getEcfVersions());
+  endpoints.put(getActorPathName(message.getOriginator()),endpointKey);
+}

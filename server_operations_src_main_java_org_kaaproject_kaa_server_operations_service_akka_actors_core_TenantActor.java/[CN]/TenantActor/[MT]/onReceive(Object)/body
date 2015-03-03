@@ -8,6 +8,9 @@
   if (message instanceof EndpointAwareMessage) {
     processEndpointAwareMessage((EndpointAwareMessage)message);
   }
+ else   if (message instanceof GlobalUserAwareMessage) {
+    processGlobalUserAwareMessage((GlobalUserAwareMessage)message);
+  }
  else   if (message instanceof SessionControlMessage) {
     processSessionControlMessage((SessionControlMessage)message);
   }
