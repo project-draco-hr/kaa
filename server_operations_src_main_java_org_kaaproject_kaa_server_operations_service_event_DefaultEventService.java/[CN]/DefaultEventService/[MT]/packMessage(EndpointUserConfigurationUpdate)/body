@@ -1,0 +1,12 @@
+{
+  EventMessageType type=EventMessageType.ENDPOINT_STATE_UPDATE;
+  List<Message> messages=new LinkedList<>();
+  EndpointStateUpdate msg=new EndpointStateUpdate();
+  msg.setTenantId(update.getTenantId());
+  msg.setUserId(update.getUserId());
+  msg.setApplicationToken(update.getApplicationToken());
+  msg.setEndpointKey(update.getKey().getData());
+  msg.setUcfHash(update.getHash());
+  messages.add(new Message(type,getEventId(),null,null,null,null,msg));
+  return messages;
+}

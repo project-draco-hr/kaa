@@ -1,10 +1,6 @@
 {
   ConfigurationKey key=ConfigurationKey.fromUpdateMessage(update);
-  Map<String,Set<GlobalRouteInfo>> routes=map.getRoutesByServer(key);
-  for (  Entry<String,Set<GlobalRouteInfo>> entry : routes.entrySet()) {
-    LOG.debug("Sending notification to {} about configuration update",entry.getKey());
-    for (    GlobalRouteInfo route : entry.getValue()) {
-      LOG.debug("Sending notification to route {}",route);
-    }
-  }
+  LOG.debug("Processing notification {}",update);
+  sendStateUpdatesToLocalServers(key,update);
+  sendStateUpdatesToRemoteServers(key,update);
 }

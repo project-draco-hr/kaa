@@ -19,11 +19,11 @@
   }
   GlobalRouteInfo route=GlobalRouteInfo.add(tenantId,userId,address,message.getCfVersion(),new byte[0]);
   if (eventService.isMainUserNode(userId)) {
-    context.parent().tell(new GlobalRouteInfoMessage(route),context.self());
+    context.parent().tell(new EndpointRouteUpdateMessage(route),context.self());
   }
  else {
     LOG.debug("[{}] Sending connect message to global actor",userId);
-    eventService.sendEndpointInfo(route);
+    eventService.sendEndpointRouteInfo(route);
   }
   versionMap.put(endpointKey,message.getEcfVersions());
   endpoints.put(getActorPathName(message.getOriginator()),endpointKey);
