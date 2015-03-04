@@ -1,0 +1,37 @@
+{
+  TTupleProtocol iprot=(TTupleProtocol)prot;
+  BitSet incoming=iprot.readBitSet(7);
+  if (incoming.get(0)) {
+    struct.type=EventMessageType.findByValue(iprot.readI32());
+    struct.setTypeIsSet(true);
+  }
+  if (incoming.get(1)) {
+    struct.eventId=iprot.readI64();
+    struct.setEventIdIsSet(true);
+  }
+  if (incoming.get(2)) {
+    struct.event=new Event();
+    struct.event.read(iprot);
+    struct.setEventIsSet(true);
+  }
+  if (incoming.get(3)) {
+    struct.route=new EventRoute();
+    struct.route.read(iprot);
+    struct.setRouteIsSet(true);
+  }
+  if (incoming.get(4)) {
+    struct.userRoute=new UserRouteInfo();
+    struct.userRoute.read(iprot);
+    struct.setUserRouteIsSet(true);
+  }
+  if (incoming.get(5)) {
+    struct.endpointRouteUpdate=new EndpointRouteUpdate();
+    struct.endpointRouteUpdate.read(iprot);
+    struct.setEndpointRouteUpdateIsSet(true);
+  }
+  if (incoming.get(6)) {
+    struct.endpointStateUpdate=new EndpointStateUpdate();
+    struct.endpointStateUpdate.read(iprot);
+    struct.setEndpointStateUpdateIsSet(true);
+  }
+}

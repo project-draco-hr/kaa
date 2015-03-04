@@ -1,14 +1,20 @@
 {
-  try {
-    kaaClientState.persist();
-    channelManager.pause();
-    if (stateListener != null) {
-      stateListener.onPaused();
+  lifecycleTasksExecutor.submit(new Runnable(){
+    @Override public void run(){
+      try {
+        kaaClientState.persist();
+        channelManager.pause();
+        if (stateListener != null) {
+          stateListener.onPaused();
+        }
+      }
+ catch (      Exception e) {
+        LOG.error("Pause failed",e);
+        if (stateListener != null) {
+          stateListener.onPauseFailure(new KaaException(e));
+        }
+      }
     }
   }
- catch (  Exception e) {
-    if (stateListener != null) {
-      stateListener.onPauseFailure(new KaaException(e));
-    }
-  }
+);
 }

@@ -1,0 +1,7 @@
+{
+  prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("sendMessages",org.apache.thrift.protocol.TMessageType.CALL,0));
+  sendMessages_args args=new sendMessages_args();
+  args.setMessages(messages);
+  args.write(prot);
+  prot.writeMessageEnd();
+}

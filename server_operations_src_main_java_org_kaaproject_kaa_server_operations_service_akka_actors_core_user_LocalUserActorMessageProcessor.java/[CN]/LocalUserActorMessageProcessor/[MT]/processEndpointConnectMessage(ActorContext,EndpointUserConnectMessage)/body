@@ -1,0 +1,5 @@
+{
+  RouteTableAddress address=new RouteTableAddress(message.getKey(),message.getAppToken());
+  registerEndpointForEvents(context,message,address);
+  sendGlobalRouteUpdate(context,message,address);
+}

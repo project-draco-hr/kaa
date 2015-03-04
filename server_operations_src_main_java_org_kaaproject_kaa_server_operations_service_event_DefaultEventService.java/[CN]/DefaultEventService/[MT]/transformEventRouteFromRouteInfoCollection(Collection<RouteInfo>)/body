@@ -10,7 +10,7 @@
     routeInfosTh.get(key).add(riTh);
   }
   for (  UserTenantKey key : routeInfosTh.keySet()) {
-    EventRoute route=new EventRoute(key.getUserId(),key.getTenantId(),routeInfosTh.get(key),neighbors.getSelfId());
+    EventRoute route=new EventRoute(key.getUserId(),key.getTenantId(),routeInfosTh.get(key),id);
     routes.add(route);
   }
   return routes;

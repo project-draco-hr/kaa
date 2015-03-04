@@ -1,0 +1,21 @@
+{
+  for (  Message message : messages) {
+switch (message.getType()) {
+case ROUTE_UPDATE:
+      onRouteUpdate(message.getRoute());
+    break;
+case USER_ROUTE_INFO:
+  onUserRouteInfo(message.getUserRoute());
+break;
+case EVENT:
+onEvent(message.getEvent());
+break;
+case ENDPOINT_ROUTE_UPDATE:
+onEndpointRouteUpdate(message.getEndpointRouteUpdate());
+case ENDPOINT_STATE_UPDATE:
+onEndpointStateUpdate(message.getEndpointStateUpdate());
+default :
+break;
+}
+}
+}

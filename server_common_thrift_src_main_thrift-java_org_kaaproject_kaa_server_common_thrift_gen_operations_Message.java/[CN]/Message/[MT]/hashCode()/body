@@ -1,0 +1,25 @@
+{
+  HashCodeBuilder builder=new HashCodeBuilder();
+  boolean present_type=true && (isSetType());
+  builder.append(present_type);
+  if (present_type)   builder.append(type.getValue());
+  boolean present_eventId=true;
+  builder.append(present_eventId);
+  if (present_eventId)   builder.append(eventId);
+  boolean present_event=true && (isSetEvent());
+  builder.append(present_event);
+  if (present_event)   builder.append(event);
+  boolean present_route=true && (isSetRoute());
+  builder.append(present_route);
+  if (present_route)   builder.append(route);
+  boolean present_userRoute=true && (isSetUserRoute());
+  builder.append(present_userRoute);
+  if (present_userRoute)   builder.append(userRoute);
+  boolean present_endpointRouteUpdate=true && (isSetEndpointRouteUpdate());
+  builder.append(present_endpointRouteUpdate);
+  if (present_endpointRouteUpdate)   builder.append(endpointRouteUpdate);
+  boolean present_endpointStateUpdate=true && (isSetEndpointStateUpdate());
+  builder.append(present_endpointStateUpdate);
+  if (present_endpointStateUpdate)   builder.append(endpointStateUpdate);
+  return builder.toHashCode();
+}

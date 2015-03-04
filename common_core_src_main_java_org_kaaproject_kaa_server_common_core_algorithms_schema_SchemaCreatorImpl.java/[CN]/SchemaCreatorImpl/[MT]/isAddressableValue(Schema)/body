@@ -1,0 +1,9 @@
+{
+  if (value.getType().equals(Type.RECORD)) {
+    if (value.getJsonProp(ADDRESSABLE_NAME) != null && !value.getFullName().equals(rootSchemaName)) {
+      return value.getJsonProp(ADDRESSABLE_NAME).asBoolean();
+    }
+    return true;
+  }
+  return false;
+}

@@ -16,7 +16,7 @@
     NotificationServerSync nfSyncResponse=buildNotificationSyncResponse(notificationResponse,curAppSeqNumber);
     context.setNotificationSyncResponse(nfSyncResponse);
     context.setUpdateProfileRequired(context.isUpdateProfileRequired() || notificationResponse.isSubscriptionListChanged());
-    if (historyDelta.isSmthChanged()) {
+    if (historyDelta.isSmthChanged() || SyncResponseStatus.NO_DELTA != nfSyncResponse.getResponseStatus()) {
       List<EndpointGroupStateDto> endpointGroups=historyDelta.getEndpointGroupStates();
       LOG.debug("[{}][{}] Updating profile with endpoint groups.size {}, groups: {}",context.getEndpointKey(),context.getRequestHash(),endpointGroups.size(),endpointGroups);
       profile.setNfGroupStates(endpointGroups);

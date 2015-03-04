@@ -17,9 +17,13 @@
   }
   context=operationsService.processEndpointAttachDetachRequests(context,request.getUserSync());
   context=operationsService.processEventListenerRequests(context,request.getEventSync());
+  context.setUserConfigurationChanged(state.isUserConfigurationUpdatePending());
   context=operationsService.syncConfiguration(context,request.getConfigurationSync());
   context=operationsService.syncNotification(context,request.getNotificationSync());
   state.setProfile(operationsService.updateProfile(context));
+  if (context.getStatus() == SyncStatus.SUCCESS) {
+    context.setUserConfigurationChanged(false);
+  }
   LOG.debug("[{}][{}] processing sync. Response is {}",endpointKey,request.hashCode(),context.getResponse());
   return context;
 }

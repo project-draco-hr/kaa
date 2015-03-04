@@ -76,4 +76,5 @@
   when(applicationService.findAppByApplicationToken(APP_TOKEN)).thenReturn(applicationDto);
   when(applicationService.findAppById(APP_ID)).thenReturn(applicationDto);
   when(endpointUserService.findUserVerifiers(APP_ID)).thenReturn(new ArrayList<UserVerifierDto>());
+  when(eventService.isMainUserNode(Mockito.anyString())).thenReturn(true);
 }

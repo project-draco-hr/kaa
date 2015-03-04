@@ -8,34 +8,24 @@
   boolean hashMismatch=!request.isFirstRequest() && !request.getConfigurationHash().binaryEquals(profile.getConfigurationHash());
   AppVersionKey appConfigVersionKey=new AppVersionKey(request.getApplicationToken(),profile.getConfigurationVersion());
   List<EndpointGroupStateDto> endpointGroups=historyDelta.getEndpointGroupStates();
-  if (historyDelta.isConfigurationChanged() || hashMismatch) {
+  if (historyDelta.isConfigurationChanged() || request.isUserConfigurationChanged() || hashMismatch) {
     boolean resync=request.isFirstRequest() || request.isResyncOnly();
     if (hashMismatch) {
       resync=true;
-      if (profile.getConfigurationHash() != null && LOG.isWarnEnabled()) {
-        String serverHash="";
-        String clientHash="";
-        if (profile.getConfigurationHash() != null) {
-          serverHash=MessageEncoderDecoder.bytesToHex(profile.getConfigurationHash());
-        }
-        if (request.getConfigurationHash() != null) {
-          clientHash=MessageEncoderDecoder.bytesToHex(request.getConfigurationHash().getData());
-        }
-        LOG.warn("[{}] Configuration hash mismatch! server {}, client {}",endpointId,serverHash,clientHash);
-      }
+      logHashMismatch(request,profile,endpointId);
     }
     DeltaCacheKey deltaKey;
     if (resync) {
-      deltaKey=new DeltaCacheKey(appConfigVersionKey,endpointGroups,null,request.isResyncOnly());
+      deltaKey=new DeltaCacheKey(appConfigVersionKey,EndpointObjectHash.fromBytes(profile.getUserConfigurationHash()),endpointGroups,null,request.isResyncOnly());
       LOG.debug("[{}] Building resync delta key {}",endpointId,deltaKey);
     }
  else {
-      deltaKey=new DeltaCacheKey(appConfigVersionKey,endpointGroups,request.getConfigurationHash());
+      deltaKey=new DeltaCacheKey(appConfigVersionKey,EndpointObjectHash.fromBytes(profile.getUserConfigurationHash()),endpointGroups,request.getConfigurationHash());
       LOG.debug("[{}] Building regular delta key {}",endpointId,deltaKey);
     }
-    DeltaCacheEntry deltaCacheEntry=getDelta(endpointId,deltaKey);
+    DeltaCacheEntry deltaCacheEntry=getDelta(endpointId,profile.getEndpointUserId(),deltaKey);
     byte[] configurationHash=deltaCacheEntry.getHash().getData();
-    if (profile.getConfigurationHash() == null && request.getConfigurationHash() != null && request.getConfigurationHash().binaryEquals(configurationHash)) {
+    if (isFirstRequestWithUpToDateConfiguration(request,profile,configurationHash)) {
       response=new GetDeltaResponse(GetDeltaResponseType.NO_DELTA,curAppSeqNumber);
     }
  else {
@@ -53,6 +43,9 @@
       }
     }
     profile.setConfigurationHash(configurationHash);
+    if (deltaCacheEntry.getUserConfigurationHash() != null) {
+      profile.setUserConfigurationHash(deltaCacheEntry.getUserConfigurationHash().getData());
+    }
   }
  else {
     LOG.debug("[{}] No changes to current application group configurations was maid -> no delta",endpointId);

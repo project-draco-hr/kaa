@@ -1,0 +1,6 @@
+{
+  ConfigurationKey key=ConfigurationKey.fromUpdateMessage(update);
+  LOG.debug("Processing notification {}",update);
+  sendStateUpdatesToLocalServers(context,key,update);
+  sendStateUpdatesToRemoteServers(key,update);
+}

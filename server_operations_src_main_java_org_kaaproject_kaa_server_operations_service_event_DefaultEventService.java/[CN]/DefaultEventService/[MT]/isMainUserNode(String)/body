@@ -1,0 +1,8 @@
+{
+  OperationsNodeInfo info=resolver.getNode(userId);
+  if (info == null) {
+    return false;
+  }
+  LOG.trace("comparing {} to {} for user {}",id,info.getConnectionInfo(),userId);
+  return id.equals(Neighbors.getOperationsServerID(info.getConnectionInfo()));
+}

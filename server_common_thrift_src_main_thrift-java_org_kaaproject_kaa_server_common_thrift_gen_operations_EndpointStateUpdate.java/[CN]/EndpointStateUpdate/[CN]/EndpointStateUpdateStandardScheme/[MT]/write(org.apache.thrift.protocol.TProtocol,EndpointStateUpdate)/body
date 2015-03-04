@@ -1,0 +1,31 @@
+{
+  struct.validate();
+  oprot.writeStructBegin(STRUCT_DESC);
+  if (struct.tenantId != null) {
+    oprot.writeFieldBegin(TENANT_ID_FIELD_DESC);
+    oprot.writeString(struct.tenantId);
+    oprot.writeFieldEnd();
+  }
+  if (struct.userId != null) {
+    oprot.writeFieldBegin(USER_ID_FIELD_DESC);
+    oprot.writeString(struct.userId);
+    oprot.writeFieldEnd();
+  }
+  if (struct.applicationToken != null) {
+    oprot.writeFieldBegin(APPLICATION_TOKEN_FIELD_DESC);
+    oprot.writeString(struct.applicationToken);
+    oprot.writeFieldEnd();
+  }
+  if (struct.endpointKey != null) {
+    oprot.writeFieldBegin(ENDPOINT_KEY_FIELD_DESC);
+    oprot.writeBinary(struct.endpointKey);
+    oprot.writeFieldEnd();
+  }
+  if (struct.ucfHash != null) {
+    oprot.writeFieldBegin(UCF_HASH_FIELD_DESC);
+    oprot.writeBinary(struct.ucfHash);
+    oprot.writeFieldEnd();
+  }
+  oprot.writeFieldStop();
+  oprot.writeStructEnd();
+}

@@ -1,0 +1,21 @@
+{
+  List<EventClassFamilyVersion> ecfVersions=message.getEcfVersions();
+  if (!ecfVersions.isEmpty()) {
+    for (    EventClassFamilyVersion ecfVersion : ecfVersions) {
+      RouteTableKey key=new RouteTableKey(address.getApplicationToken(),ecfVersion);
+      updateRouteTable(context,key,address);
+    }
+    if (firstConnectRequestToActor) {
+      firstConnectRequestToActor=false;
+      eventService.sendUserRouteInfo(new UserRouteInfo(tenantId,userId));
+    }
+    for (    String serverId : routeTable.getRemoteServers()) {
+      if (routeTable.isDeliveryRequired(serverId,address)) {
+        LOG.debug("[{}] Sending route info about address {} to server {}",userId,address,serverId);
+        eventService.sendRouteInfo(new RouteInfo(tenantId,userId,address,ecfVersions),serverId);
+      }
+    }
+    versionMap.put(address.getEndpointKey(),message.getEcfVersions());
+    endpoints.put(getActorPathName(message.getOriginator()),address.getEndpointKey());
+  }
+}

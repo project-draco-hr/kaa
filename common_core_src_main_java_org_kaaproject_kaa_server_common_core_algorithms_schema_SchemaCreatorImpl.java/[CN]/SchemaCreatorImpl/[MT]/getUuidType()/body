@@ -1,14 +1,6 @@
 {
-  if (isUuidDeclared) {
-    return KAA_NAMESPACE + "." + UUID_TYPE;
+  if (uuidTSchema == null) {
+    uuidTSchema=Schema.createFixed(UUID_TYPE,null,KAA_NAMESPACE,UUID_SIZE);
   }
- else {
-    Map<String,Object> uuid=new HashMap<String,Object>();
-    uuid.put(NAME_FIELD,UUID_TYPE);
-    uuid.put(NAMESPACE_FIELD,KAA_NAMESPACE);
-    uuid.put(TYPE_FIELD,FIXED_FIELD_VALUE);
-    uuid.put(SIZE_FIELD,UUID_SIZE);
-    isUuidDeclared=true;
-    return uuid;
-  }
+  return uuidTSchema;
 }

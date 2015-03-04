@@ -1,0 +1,20 @@
+{
+  if (field == null) {
+    throw new IllegalArgumentException();
+  }
+switch (field) {
+case TENANT_ID:
+    return isSetTenantId();
+case USER_ID:
+  return isSetUserId();
+case ROUTE_ADDRESS:
+return isSetRouteAddress();
+case UPDATE_TYPE:
+return isSetUpdateType();
+case CF_SCHEMA_VERSION:
+return isSetCfSchemaVersion();
+case UCF_HASH:
+return isSetUcfHash();
+}
+throw new IllegalStateException();
+}

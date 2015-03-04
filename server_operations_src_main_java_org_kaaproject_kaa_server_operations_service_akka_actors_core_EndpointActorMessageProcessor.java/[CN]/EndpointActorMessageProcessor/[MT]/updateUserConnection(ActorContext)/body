@@ -1,4 +1,7 @@
 {
+  if (!state.isValidForUser()) {
+    return;
+  }
   if (state.userIdMismatch()) {
     sendDisconnectFromOldUser(context,state.getProfile());
     state.setUserRegistrationPending(false);

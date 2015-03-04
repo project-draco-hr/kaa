@@ -1,0 +1,6 @@
+{
+  if (message.getUpdate() != null) {
+    state.setUserConfigurationUpdatePending(true);
+    syncChannels(context,state.getChannelsByTypes(TransportType.CONFIGURATION),true,false);
+  }
+}

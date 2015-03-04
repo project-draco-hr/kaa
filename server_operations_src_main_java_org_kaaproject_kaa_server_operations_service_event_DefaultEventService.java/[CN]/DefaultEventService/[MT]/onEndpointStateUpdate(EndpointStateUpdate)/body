@@ -1,0 +1,7 @@
+{
+  LOG.debug("Updating {} listeners with {}",listeners.size(),update);
+  EndpointUserConfigurationUpdate msg=EndpointUserConfigurationUpdate.fromThrift(update);
+  for (  EventServiceListener listener : listeners) {
+    listener.onEndpointStateUpdate(msg);
+  }
+}

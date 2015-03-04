@@ -1,0 +1,19 @@
+{
+  HashCodeBuilder builder=new HashCodeBuilder();
+  boolean present_tenantId=true && (isSetTenantId());
+  builder.append(present_tenantId);
+  if (present_tenantId)   builder.append(tenantId);
+  boolean present_userId=true && (isSetUserId());
+  builder.append(present_userId);
+  if (present_userId)   builder.append(userId);
+  boolean present_applicationToken=true && (isSetApplicationToken());
+  builder.append(present_applicationToken);
+  if (present_applicationToken)   builder.append(applicationToken);
+  boolean present_endpointKey=true && (isSetEndpointKey());
+  builder.append(present_endpointKey);
+  if (present_endpointKey)   builder.append(endpointKey);
+  boolean present_ucfHash=true && (isSetUcfHash());
+  builder.append(present_ucfHash);
+  if (present_ucfHash)   builder.append(ucfHash);
+  return builder.toHashCode();
+}

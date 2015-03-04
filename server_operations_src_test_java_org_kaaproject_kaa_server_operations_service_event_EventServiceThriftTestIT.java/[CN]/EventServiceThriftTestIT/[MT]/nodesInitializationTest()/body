@@ -17,23 +17,14 @@
     }
     @Override public void onEvent(    RemoteEndpointEvent event){
     }
+    @Override public void onConfigurationUpdate(    UserConfigurationUpdate update){
+    }
+    @Override public void onEndpointRouteUpdate(    GlobalRouteInfo update){
+    }
+    @Override public void onEndpointStateUpdate(    EndpointUserConfigurationUpdate update){
+    }
   }
 );
-  long waitLimit=60000;
-  long start=System.currentTimeMillis();
-  while (eventService1.getNeighbors().size() < numberOfServers) {
-    try {
-      if ((System.currentTimeMillis() - start) >= waitLimit) {
-        fail("Event Service failed, servers init failed, timeout fired.");
-      }
-      Thread.sleep(1000);
-      LOG.info("Servers started {}",eventService1.getNeighbors().size());
-    }
- catch (    InterruptedException e) {
-      LOG.error("InterruptedException",e);
-      fail(e.toString());
-    }
-  }
   LOG.info("Servers started sucessfully...");
   String serverId1=thriftServers.get(1).getThriftHost() + ":" + thriftServers.get(0).getThriftPort();
   String serverId2=thriftServers.get(1).getThriftHost() + ":" + thriftServers.get(1).getThriftPort();
@@ -71,6 +62,12 @@
       test.setOnEvent(true);
     }
     @Override public void onServerError(    String serverId){
+    }
+    @Override public void onConfigurationUpdate(    UserConfigurationUpdate update){
+    }
+    @Override public void onEndpointRouteUpdate(    GlobalRouteInfo update){
+    }
+    @Override public void onEndpointStateUpdate(    EndpointUserConfigurationUpdate update){
     }
   }
 );

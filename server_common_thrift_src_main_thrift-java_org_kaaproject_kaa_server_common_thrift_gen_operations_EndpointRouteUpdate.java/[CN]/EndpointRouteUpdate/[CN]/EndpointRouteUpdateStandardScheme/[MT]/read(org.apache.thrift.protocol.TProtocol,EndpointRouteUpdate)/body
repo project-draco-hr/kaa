@@ -1,0 +1,72 @@
+{
+  org.apache.thrift.protocol.TField schemeField;
+  iprot.readStructBegin();
+  while (true) {
+    schemeField=iprot.readFieldBegin();
+    if (schemeField.type == org.apache.thrift.protocol.TType.STOP) {
+      break;
+    }
+switch (schemeField.id) {
+case 1:
+      if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+        struct.tenantId=iprot.readString();
+        struct.setTenantIdIsSet(true);
+      }
+ else {
+        org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);
+      }
+    break;
+case 2:
+  if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+    struct.userId=iprot.readString();
+    struct.setUserIdIsSet(true);
+  }
+ else {
+    org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);
+  }
+break;
+case 3:
+if (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) {
+struct.routeAddress=new RouteAddress();
+struct.routeAddress.read(iprot);
+struct.setRouteAddressIsSet(true);
+}
+ else {
+org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);
+}
+break;
+case 4:
+if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
+struct.updateType=EventRouteUpdateType.findByValue(iprot.readI32());
+struct.setUpdateTypeIsSet(true);
+}
+ else {
+org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);
+}
+break;
+case 5:
+if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
+struct.cfSchemaVersion=iprot.readI32();
+struct.setCfSchemaVersionIsSet(true);
+}
+ else {
+org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);
+}
+break;
+case 6:
+if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+struct.ucfHash=iprot.readBinary();
+struct.setUcfHashIsSet(true);
+}
+ else {
+org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);
+}
+break;
+default :
+org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);
+}
+iprot.readFieldEnd();
+}
+iprot.readStructEnd();
+struct.validate();
+}
