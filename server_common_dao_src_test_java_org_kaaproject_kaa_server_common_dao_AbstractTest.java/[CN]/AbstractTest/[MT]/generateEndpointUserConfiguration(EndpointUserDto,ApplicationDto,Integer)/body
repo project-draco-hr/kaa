@@ -13,6 +13,6 @@
     applicationDto=generateApplication();
   }
   configurationDto.setAppToken(applicationDto.getApplicationToken());
-  endpointUserConfigurationDao.save(new MongoEndpointUserConfiguration(configurationDto));
+  endpointUserConfigurationDao.save(configurationDto);
   return configurationDto;
 }
