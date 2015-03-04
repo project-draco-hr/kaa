@@ -25,7 +25,7 @@
   entry.setSize(data.length);
   tarEntry=new TarEntryData(entry,data);
   cppSources.add(tarEntry);
-  if (logSchemaBody != null) {
+  if (!StringUtils.isBlank(logSchemaBody)) {
     entry=new TarArchiveEntry(LOG_RECORD_SCHEMA_AVRO_SRC);
     data=logSchemaBody.getBytes();
     entry.setSize(data.length);
@@ -49,6 +49,20 @@
     byte[] logCollectorData=replaceVar(logCollectorHpp,LOG_RECORD_CLASS_NAME_VAR,logSchema.getName()).getBytes();
     entry.setSize(logCollectorData.length);
     tarEntry=new TarEntryData(entry,logCollectorData);
+    cppSources.add(tarEntry);
+  }
+  if (!StringUtils.isBlank(configurationBaseSchema)) {
+    entry=new TarArchiveEntry(CONFIGURATION_SCHEMA_AVRO_SRC);
+    data=configurationBaseSchema.getBytes();
+    entry.setSize(data.length);
+    tarEntry=new TarEntryData(entry,data);
+    cppSources.add(tarEntry);
+    Schema configurationSchema=new Schema.Parser().parse(configurationBaseSchema);
+    String configuratioDefinitionsHpp=SdkGenerator.readResource(CONFIGURATION_DEFINITIONS_TEMPLATE);
+    entry=new TarArchiveEntry(CONFIGURATION_DEFINITIONS_PATH);
+    byte[] configuratioDefinitionsData=replaceVar(configuratioDefinitionsHpp,CONFIGURATION_RECORD_CLASS_NAME_VAR,configurationSchema.getName()).getBytes();
+    entry.setSize(configuratioDefinitionsData.length);
+    tarEntry=new TarEntryData(entry,configuratioDefinitionsData);
     cppSources.add(tarEntry);
   }
   if (eventFamilies != null && !eventFamilies.isEmpty()) {

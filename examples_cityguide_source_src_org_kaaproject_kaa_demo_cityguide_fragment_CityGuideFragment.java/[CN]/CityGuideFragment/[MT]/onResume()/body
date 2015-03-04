@@ -1,0 +1,14 @@
+{
+  super.onResume();
+  if (updateActionBar() && mActionBar != null) {
+    int options=ActionBar.DISPLAY_SHOW_TITLE;
+    if (displayHomeAsUp())     options|=ActionBar.DISPLAY_HOME_AS_UP;
+    mActionBar.setDisplayOptions(options,ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE);
+    mActionBar.setTitle(getTitle());
+    mActionBar.setDisplayShowTitleEnabled(true);
+    mActionBar.setHomeButtonEnabled(displayHomeAsUp());
+  }
+  if (useEventBus() && !mApplication.getEventBus().isRegistered(this)) {
+    mApplication.getEventBus().register(this);
+  }
+}
