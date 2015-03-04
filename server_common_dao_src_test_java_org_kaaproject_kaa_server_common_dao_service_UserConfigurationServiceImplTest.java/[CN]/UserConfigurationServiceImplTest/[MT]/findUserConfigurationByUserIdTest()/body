@@ -1,13 +1,12 @@
 {
   EndpointUserDto userDto=generateEndpointUser(null);
   ApplicationDto appDto=generateApplication();
-  EndpointUserConfigurationDto firstUserConfigurationDto=generateEndpointUserConfiguration(userDto,appDto,random.nextInt());
-  EndpointUserConfigurationDto secondUserConfigurationDto=generateEndpointUserConfiguration(userDto,appDto,random.nextInt());
+  EndpointUserConfigurationDto firstUserConfigurationDto=generateEndpointUserConfiguration(userDto,appDto,random.nextInt(Integer.MAX_VALUE));
+  EndpointUserConfigurationDto secondUserConfigurationDto=generateEndpointUserConfiguration(userDto,appDto,random.nextInt(Integer.MAX_VALUE));
   List<EndpointUserConfigurationDto> expectedList=new ArrayList<>();
   expectedList.add(firstUserConfigurationDto);
   expectedList.add(secondUserConfigurationDto);
   generateEndpointUserConfiguration(null,null,null);
   List<EndpointUserConfigurationDto> foundList=userConfigurationService.findUserConfigurationByUserId(userDto.getId());
   Assert.assertEquals(expectedList.size(),foundList.size());
-  Assert.assertEquals(expectedList,foundList);
 }

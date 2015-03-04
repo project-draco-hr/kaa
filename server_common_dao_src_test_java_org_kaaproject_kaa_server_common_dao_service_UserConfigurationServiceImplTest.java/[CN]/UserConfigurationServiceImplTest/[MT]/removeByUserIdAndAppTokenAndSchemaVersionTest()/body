@@ -1,10 +1,10 @@
 {
   EndpointUserDto userDto=generateEndpointUser(null);
   ApplicationDto appDto=generateApplication();
-  int removedVersion=random.nextInt();
+  int removedVersion=random.nextInt(Integer.MAX_VALUE);
   generateEndpointUserConfiguration(userDto,appDto,removedVersion);
-  generateEndpointUserConfiguration(userDto,appDto,random.nextInt());
-  generateEndpointUserConfiguration(userDto,appDto,random.nextInt());
+  generateEndpointUserConfiguration(userDto,appDto,random.nextInt(Integer.MAX_VALUE));
+  generateEndpointUserConfiguration(userDto,appDto,random.nextInt(Integer.MAX_VALUE));
   userConfigurationService.removeByUserIdAndAppTokenAndSchemaVersion(userDto.getId(),appDto.getApplicationToken(),removedVersion);
   EndpointUserConfigurationDto removed=userConfigurationService.findUserConfigurationByUserIdAndAppTokenAndSchemaVersion(userDto.getId(),appDto.getApplicationToken(),removedVersion);
   Assert.assertNull(removed);

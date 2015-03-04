@@ -1,0 +1,4 @@
+{
+  Select.Where select=select().from(getColumnFamilyName()).where(eq(EP_USER_CONF_USER_ID_PROPERTY,userId));
+  return findListByStatement(select);
+}

@@ -1,9 +1,9 @@
 {
   EndpointUserDto userDto=generateEndpointUser(null);
   ApplicationDto appDto=generateApplication();
-  int foundVersion=random.nextInt();
+  int foundVersion=random.nextInt(Integer.MAX_VALUE);
   EndpointUserConfigurationDto firstUserConfigurationDto=generateEndpointUserConfiguration(userDto,appDto,foundVersion);
-  generateEndpointUserConfiguration(userDto,appDto,random.nextInt());
+  generateEndpointUserConfiguration(userDto,appDto,random.nextInt(Integer.MAX_VALUE));
   generateEndpointUserConfiguration(null,null,null);
   EndpointUserConfigurationDto found=userConfigurationService.findUserConfigurationByUserIdAndAppTokenAndSchemaVersion(userDto.getId(),appDto.getApplicationToken(),foundVersion);
   Assert.assertEquals(firstUserConfigurationDto,found);
