@@ -1,5 +1,5 @@
 {
-  EndpointUserConnectMessage message1=new EndpointUserConnectMessage(USER_ID,endpoint1Key,ecfVersions,1,APP_TOKEN,originatorRefMock);
+  EndpointUserConnectMessage message1=new EndpointUserConnectMessage(USER_ID,endpoint1Key,ecfVersions,1,null,APP_TOKEN,originatorRefMock);
   messageProcessor.processEndpointConnectMessage(actorContextMock,message1);
   verify(eventServiceMock).sendUserRouteInfo(new UserRouteInfo(TENANT_ID,USER_ID));
   verify(eventServiceMock,Mockito.times(0)).sendRouteInfo(any(RouteInfo.class),any(String.class));
@@ -8,7 +8,7 @@
   messageProcessor.processRouteInfoMessage(actorContextMock,message2);
   RouteInfo localRouteInfo=new RouteInfo(TENANT_ID,USER_ID,address1,ecfVersions);
   verify(eventServiceMock).sendRouteInfo(Collections.singletonList(localRouteInfo),SERVER2);
-  EndpointUserConnectMessage message3=new EndpointUserConnectMessage(USER_ID,endpoint3Key,ecfVersions,1,APP_TOKEN,originatorRefMock);
+  EndpointUserConnectMessage message3=new EndpointUserConnectMessage(USER_ID,endpoint3Key,ecfVersions,1,null,APP_TOKEN,originatorRefMock);
   messageProcessor.processEndpointConnectMessage(actorContextMock,message3);
   verify(eventServiceMock).sendRouteInfo(new RouteInfo(TENANT_ID,USER_ID,address3,ecfVersions),SERVER2);
 }

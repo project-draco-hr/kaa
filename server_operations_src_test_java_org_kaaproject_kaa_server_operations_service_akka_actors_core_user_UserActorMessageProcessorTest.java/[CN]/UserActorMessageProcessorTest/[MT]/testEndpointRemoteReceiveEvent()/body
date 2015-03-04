@@ -1,5 +1,5 @@
 {
-  EndpointUserConnectMessage message1=new EndpointUserConnectMessage(USER_ID,endpoint1Key,ecfVersions,1,APP_TOKEN,originatorRefMock);
+  EndpointUserConnectMessage message1=new EndpointUserConnectMessage(USER_ID,endpoint1Key,ecfVersions,1,null,APP_TOKEN,originatorRefMock);
   messageProcessor.processEndpointConnectMessage(actorContextMock,message1);
   RouteTableKey routeKey=new RouteTableKey(APP_TOKEN,ecfVersion1);
   when(cacheServiceMock.getRouteKeys(new EventClassFqnVersion(TENANT_ID,"testClassFqn",ECF_ID1_VERSION))).thenReturn(Collections.singleton(routeKey));
