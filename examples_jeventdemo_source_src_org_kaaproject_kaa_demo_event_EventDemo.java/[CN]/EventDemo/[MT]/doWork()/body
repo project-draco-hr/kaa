@@ -16,8 +16,12 @@
   EventListenersResolver eventListenersResolver=kaaClient.getEventListenerResolver();
   eventListenersResolver.findEventListeners(FQNs,new FetchEventListeners(){
     @Override public void onRequestFailed(){
+      LOG.info("Request failed");
     }
     @Override public void onEventListenersReceived(    List<String> eventListeners){
+      String output="Listeners received: ";
+      for (      String listener : eventListeners)       output+=listener + ", ";
+      LOG.info(output);
     }
   }
 );
