@@ -4,6 +4,7 @@
     LOG.debug("Sending notification to {} about configuration update",entry.getKey());
     for (    GlobalRouteInfo route : entry.getValue()) {
       LOG.debug("Sending notification to route {}",route);
+      eventService.sendEndpointStateInfo(route.getAddress().getServerId(),toUpdate(update,route));
     }
   }
 }

@@ -1,6 +1,6 @@
 {
   List<EventClassFamilyVersion> ecfVersions=EntityConvertUtils.convertToECFVersions(endpointProfile.getEcfVersionStates());
-  EndpointUserConnectMessage userRegistrationMessage=new EndpointUserConnectMessage(state.getUserId(),key,ecfVersions,endpointProfile.getConfigurationVersion(),appToken,context.self());
+  EndpointUserConnectMessage userRegistrationMessage=new EndpointUserConnectMessage(state.getUserId(),key,ecfVersions,endpointProfile.getConfigurationVersion(),endpointProfile.getUserConfigurationHash(),appToken,context.self());
   LOG.debug("[{}][{}] Sending user registration request {}",endpointKey,actorKey,userRegistrationMessage);
   context.parent().tell(userRegistrationMessage,context.self());
 }
