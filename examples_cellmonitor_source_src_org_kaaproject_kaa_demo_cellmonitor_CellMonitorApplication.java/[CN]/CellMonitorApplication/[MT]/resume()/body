@@ -1,0 +1,7 @@
+{
+  mTelephonyManager.listen(mCellMonitorPhoneStateListener,PhoneStateListener.LISTEN_CELL_LOCATION | PhoneStateListener.LISTEN_SIGNAL_STRENGTHS);
+  Criteria criteria=new Criteria();
+  String bestProvider=mLocationManager.getBestProvider(criteria,false);
+  mLocationManager.requestLocationUpdates(bestProvider,0,0,mGpsLocationListener);
+  mClient.resume();
+}

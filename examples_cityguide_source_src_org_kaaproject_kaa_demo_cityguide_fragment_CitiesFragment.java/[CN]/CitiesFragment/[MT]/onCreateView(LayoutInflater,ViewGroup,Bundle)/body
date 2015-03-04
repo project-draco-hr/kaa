@@ -1,0 +1,15 @@
+{
+  View rootView=inflater.inflate(R.layout.fragment_cities,container,false);
+  mWaitView=rootView.findViewById(R.id.waitProgress);
+  mCitiesListView=(ListView)rootView.findViewById(R.id.citiesList);
+  mCitiesListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+    @Override public void onItemClick(    AdapterView<?> parent,    View view,    int position,    long id){
+      onCityClicked(position);
+    }
+  }
+);
+  if (mApplication.isKaaStarted()) {
+    showCities();
+  }
+  return rootView;
+}

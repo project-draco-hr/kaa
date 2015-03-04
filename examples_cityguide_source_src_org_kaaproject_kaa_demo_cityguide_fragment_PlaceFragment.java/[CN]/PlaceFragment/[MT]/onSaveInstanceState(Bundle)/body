@@ -1,0 +1,9 @@
+{
+  super.onSaveInstanceState(outState);
+  if (mAreaName != null) {
+    outState.putString(AREA_NAME,mAreaName);
+    outState.putString(CITY_NAME,mCityName);
+    outState.putInt(PLACE_CATEGORY,mPlaceCategory.ordinal());
+    outState.putString(PLACE_TITLE,mPlaceTitle);
+  }
+}
