@@ -12,11 +12,11 @@ case 1:
 {
           org.apache.thrift.protocol.TList _list24=iprot.readListBegin();
           struct.updates=new ArrayList<UserConfigurationUpdate>(_list24.size);
-          for (int _i25=0; _i25 < _list24.size; ++_i25) {
-            UserConfigurationUpdate _elem26;
-            _elem26=new UserConfigurationUpdate();
-            _elem26.read(iprot);
-            struct.updates.add(_elem26);
+          UserConfigurationUpdate _elem25;
+          for (int _i26=0; _i26 < _list24.size; ++_i26) {
+            _elem25=new UserConfigurationUpdate();
+            _elem25.read(iprot);
+            struct.updates.add(_elem25);
           }
           iprot.readListEnd();
         }
