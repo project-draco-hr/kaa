@@ -2,12 +2,16 @@
   Set<String> newIds=new HashSet<>();
   for (  Topic topic : updatedTopics) {
     String topicId=topic.getId();
-    if (!topicModelMap.containsKey(topicId))     topicModelMap.put(topicId,new TopicModel(topic));
+    if (!topicModelMap.containsKey(topicId)) {
+      topicModelMap.put(topicId,new TopicModel(topic));
+    }
     newIds.add(topicId);
   }
   Iterator<Map.Entry<String,TopicModel>> iter=topicModelMap.entrySet().iterator();
   while (iter.hasNext()) {
     String id=iter.next().getKey();
-    if (!newIds.contains(id))     iter.remove();
+    if (!newIds.contains(id)) {
+      iter.remove();
+    }
   }
 }

@@ -1,6 +1,6 @@
 {
   KaaClient kaaClient=Kaa.newClient(new DesktopKaaPlatformContext());
-  kaaClient.setLogUploadStrategy(oneLogUploadStrategy);
+  kaaClient.setLogUploadStrategy(new OneLogUploadStrategy());
   kaaClient.start();
   LogData logData1=new LogData(Level.INFO,"TAG","MESSAGE_1");
   LogData logData2=new LogData(Level.INFO,"TAG","MESSAGE_2");

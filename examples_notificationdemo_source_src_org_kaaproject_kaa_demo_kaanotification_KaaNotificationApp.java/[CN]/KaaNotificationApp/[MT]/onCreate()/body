@@ -1,7 +1,7 @@
 {
   super.onCreate();
-  mContext=this;
   mClient=Kaa.newClient(new AndroidKaaPlatformContext(this));
-  initPopup();
   mClient.start();
+  mContext=this;
+  initPopup();
 }

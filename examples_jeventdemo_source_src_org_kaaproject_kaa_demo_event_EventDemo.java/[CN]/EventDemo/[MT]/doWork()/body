@@ -4,15 +4,15 @@
   EndpointRegistrationManager registrationManager=kaaClient.getEndpointRegistrationManager();
   registrationManager.attachUser("userExternalId","userAccessToken",new UserAttachCallback(){
     @Override public void onAttachResult(    UserAttachResponse response){
-      LOG.info("Attach response" + response.getResult());
+      LOG.info("Attach response {}",response.getResult());
     }
   }
 );
   EventFamilyFactory eventFamilyFactory=kaaClient.getEventFamilyFactory();
   CustomThermoEventClassFamily tecf=eventFamilyFactory.getCustomThermoEventClassFamily();
   List<String> FQNs=new LinkedList<>();
-  FQNs.add("org.kaaproject.kaa.schema.sample.event.thermo.ThermostatInfoRequest");
-  FQNs.add("org.kaaproject.kaa.schema.sample.event.thermo.ChangeDegreeRequest");
+  FQNs.add(ThermostatInfoRequest.class.getName());
+  FQNs.add(ChangeDegreeRequest.class.getName());
   EventListenersResolver eventListenersResolver=kaaClient.getEventListenerResolver();
   eventListenersResolver.findEventListeners(FQNs,new FetchEventListeners(){
     @Override public void onRequestFailed(){
@@ -20,7 +20,9 @@
     }
     @Override public void onEventListenersReceived(    List<String> eventListeners){
       String output="Listeners received: ";
-      for (      String listener : eventListeners)       output+=listener + ", ";
+      for (      String listener : eventListeners) {
+        output+=listener + ", ";
+      }
       LOG.info(output);
     }
   }
