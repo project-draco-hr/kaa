@@ -1,0 +1,8 @@
+{
+  super.onAttach(activity);
+  if (mActivity == null) {
+    mActivity=(CityGuideActivity)activity;
+    mActionBar=mActivity.getSupportActionBar();
+    mApplication=mActivity.getCityGuideApplication();
+  }
+}

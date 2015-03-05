@@ -4,7 +4,8 @@
   Mockito.when(clientState.getEventSeqNum()).thenReturn(restoredEventSN);
   List<Event> events1=Arrays.asList(new Event(restoredEventSN++,null,null,null,null),new Event(restoredEventSN++,null,null,null,null),new Event(restoredEventSN++,null,null,null,null));
   EventManager manager1=Mockito.mock(EventManager.class);
-  Mockito.when(manager1.getPendingEvents()).thenReturn(events1);
+  Mockito.when(manager1.pollPendingEvents()).thenReturn(events1);
+  Mockito.when(manager1.peekPendingEvents()).thenReturn(events1);
   EventTransport transport=new DefaultEventTransport(clientState);
   transport.setEventManager(manager1);
   int requestId=1;
@@ -17,12 +18,12 @@
   Assert.assertTrue(eventRequest2.getEvents().size() == events1.size());
   int synchronizedSN=lastReceivedSN + 1;
   for (  Event e : eventRequest2.getEvents()) {
-    Assert.assertTrue(e.getSeqNum() == synchronizedSN++);
+    Assert.assertEquals(synchronizedSN++,e.getSeqNum().intValue());
   }
   transport.onSyncResposeIdReceived(requestId++);
   List<Event> events2=Arrays.asList(new Event(synchronizedSN,null,null,null,null));
   EventManager manager2=Mockito.mock(EventManager.class);
-  Mockito.when(manager2.getPendingEvents()).thenReturn(events2);
+  Mockito.when(manager2.pollPendingEvents()).thenReturn(events2);
   transport.setEventManager(manager2);
   EventSyncRequest eventRequest4=transport.createEventRequest(requestId++);
   Assert.assertTrue(eventRequest4.getEvents().get(0).getSeqNum() == synchronizedSN);

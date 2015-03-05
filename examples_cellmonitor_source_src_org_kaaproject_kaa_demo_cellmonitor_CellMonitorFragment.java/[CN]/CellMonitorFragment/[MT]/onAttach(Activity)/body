@@ -1,0 +1,8 @@
+{
+  super.onAttach(activity);
+  if (mActivity == null) {
+    mActivity=(CellMonitorActivity)activity;
+    mActionBar=mActivity.getSupportActionBar();
+    mApplication=mActivity.getCellMonitorApplication();
+  }
+}

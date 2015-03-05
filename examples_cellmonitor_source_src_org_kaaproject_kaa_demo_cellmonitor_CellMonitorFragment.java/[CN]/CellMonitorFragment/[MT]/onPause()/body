@@ -1,0 +1,6 @@
+{
+  super.onPause();
+  if (mApplication.getEventBus().isRegistered(this)) {
+    mApplication.getEventBus().unregister(this);
+  }
+}
