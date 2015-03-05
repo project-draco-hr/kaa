@@ -1,0 +1,10 @@
+{
+  Fragment fragment=getTopFragment();
+  if (fragment != null && fragment instanceof SlideshowFragment) {
+    ((SlideshowFragment)fragment).updateBucketId(playAlbumEvent.getBucketId());
+  }
+ else {
+    SlideshowFragment slideshowFragment=new SlideshowFragment(playAlbumEvent.getBucketId());
+    addBackStackFragment(slideshowFragment,slideshowFragment.getFragmentTag());
+  }
+}

@@ -1,0 +1,15 @@
+{
+  super.onCreate(savedInstanceState);
+  setContentView(R.layout.activity_photo_frame);
+  if (savedInstanceState == null) {
+    if (!getPhotoFrameApplication().isKaaStarted()) {
+      showWait();
+    }
+ else     if (!getController().isUserAttached()) {
+      showLogin();
+    }
+ else {
+      showDevices();
+    }
+  }
+}
