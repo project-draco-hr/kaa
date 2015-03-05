@@ -1,0 +1,9 @@
+{
+  mContext=context;
+  mEventBus=eventBus;
+  mClient=client;
+  mPhotoFrameEventClassFamily=client.getEventFamilyFactory().getPhotoFrameEventClassFamily();
+  mPhotoFrameEventClassFamily.addListener(this);
+  mUserAttached=mClient.getEndpointRegistrationManager().isAttachedToUser();
+  initDeviceInfo();
+}

@@ -1,0 +1,15 @@
+{
+  if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+    if (enabled) {
+      getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
+      getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    }
+ else {
+      getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+      getWindow().addFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
+    }
+  }
+ else {
+    getWindow().getDecorView().setSystemUiVisibility(enabled ? View.SYSTEM_UI_FLAG_FULLSCREEN : 0);
+  }
+}
