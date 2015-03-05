@@ -1,0 +1,10 @@
+{
+  EndpointUserConfigurationDto ucfDto=ThriftDtoConverter.<EndpointUserConfigurationDto>toGenericDto(configuration);
+  ApplicationDto appDto=applicationService.findAppByApplicationToken(ucfDto.getAppToken());
+  EndpointUserDto userDto=endpointService.findEndpointUserByExternalIdAndTenantId(ucfDto.getUserId(),appDto.getTenantId());
+  ucfDto.setUserId(userDto.getId());
+  ucfDto=userConfigurationService.saveUserConfiguration(ucfDto);
+  EndpointObjectHash hash=EndpointObjectHash.fromBytes(ucfDto.getBody());
+  checkNeighbors();
+  neighbors.sendMessage(new UserConfigurationUpdate(appDto.getTenantId(),ucfDto.getUserId(),ucfDto.getAppToken(),ucfDto.getSchemaVersion(),hash.getDataBuf()));
+}

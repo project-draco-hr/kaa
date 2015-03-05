@@ -2,14 +2,14 @@
   this.zkId=id;
   zkNode.addListener(new OperationsNodeListener(){
     @Override public void onNodeUpdated(    OperationsNodeInfo nodeInfo){
-      String opId=getOperationsServerID(nodeInfo.getConnectionInfo());
+      String opId=getServerID(nodeInfo.getConnectionInfo());
       if (!zkId.equals(opId)) {
         neigbors.putIfAbsent(opId,new NeighborConnection<T,V>(nodeInfo.getConnectionInfo(),maxNumberNeighborConnections,template)).start();
         LOG.info("Operations server {} added to {} Neighbors list ({}). Now {} neighbors",opId,neigbors.size());
       }
     }
     @Override public void onNodeRemoved(    OperationsNodeInfo nodeInfo){
-      String opId=getOperationsServerID(nodeInfo.getConnectionInfo());
+      String opId=getServerID(nodeInfo.getConnectionInfo());
       if (!zkId.equals(opId)) {
         NeighborConnection<T,V> connection=neigbors.remove(opId);
         if (connection != null) {
@@ -19,7 +19,7 @@
       }
     }
     @Override public void onNodeAdded(    OperationsNodeInfo nodeInfo){
-      String opId=getOperationsServerID(nodeInfo.getConnectionInfo());
+      String opId=getServerID(nodeInfo.getConnectionInfo());
       if (!zkId.equals(opId)) {
         neigbors.putIfAbsent(opId,new NeighborConnection<T,V>(nodeInfo.getConnectionInfo(),maxNumberNeighborConnections,template)).start();
         LOG.info("Operations server {} added to {} Neighbors list ({}). Now {} neighbors",opId,neigbors.size());
@@ -29,7 +29,7 @@
 );
   List<OperationsNodeInfo> nodes=zkNode.getCurrentOperationServerNodes();
   for (  OperationsNodeInfo opServer : nodes) {
-    String opId=getOperationsServerID(opServer.getConnectionInfo());
+    String opId=getServerID(opServer.getConnectionInfo());
     if (!zkId.equals(opId)) {
       neigbors.putIfAbsent(opId,new NeighborConnection<T,V>(opServer.getConnectionInfo(),maxNumberNeighborConnections,template)).start();
       LOG.info("Operations server {} added to Neighbors list.",opId,zkId);

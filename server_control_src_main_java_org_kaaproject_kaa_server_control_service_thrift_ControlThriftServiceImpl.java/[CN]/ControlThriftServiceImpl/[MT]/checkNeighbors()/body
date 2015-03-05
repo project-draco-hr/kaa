@@ -1,0 +1,19 @@
+{
+  if (neighbors == null) {
+synchronized (neighborsLock) {
+      if (neighbors == null) {
+        neighbors=new Neighbors<NeighborTemplate<UserConfigurationUpdate>,UserConfigurationUpdate>(new NeighborTemplate<UserConfigurationUpdate>(){
+          @Override public void process(          Iface client,          List<UserConfigurationUpdate> messages) throws TException {
+            client.sendUserConfigurationUpdates(messages);
+          }
+          @Override public void onServerError(          String serverId,          Exception e){
+            LOG.error(MessageFormat.format("Can't send configuration update to {0}",serverId),e);
+          }
+        }
+,neighborConnectionsSize);
+        ControlNode zkNode=controlZKService.getControlZKNode();
+        neighbors.setZkNode(zkNode.getControlServerInfo().getConnectionInfo(),zkNode);
+      }
+    }
+  }
+}
