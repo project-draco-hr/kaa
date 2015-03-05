@@ -1,0 +1,17 @@
+{
+  kaaClient=Kaa.newClient(new DesktopKaaPlatformContext(),new ExampleSimpleKaaClientStateListener());
+  kaaClient.addConfigurationListener(new ExampleConfigurationListener());
+  kaaClient.start();
+  try (Scanner in=new Scanner(System.in)){
+    while (in.hasNextLine()) {
+      String command=extractCommand(in.nextLine());
+      if (closeCommand(command))       break;
+ else       if (command.isEmpty())       continue;
+ else       if (command.equals(HELP))       displayHelpMessage();
+ else       if (command.equals(EXIT) || command.equals(QUIT))       break;
+ else       if (command.equals(CONFIGURATION) || command.equals(SHOW))       displayConfiguration();
+ else       System.out.println("Error: Unknown command: '" + command + "'. Print 'help' to list available commands");
+    }
+  }
+   kaaClient.stop();
+}

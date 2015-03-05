@@ -1,0 +1,34 @@
+{
+  logger.info("Loading 'Java notification demo application' data...");
+  loginTenantAdmin(client);
+  ApplicationDto notificationApplication=new ApplicationDto();
+  notificationApplication.setName("Java notification");
+  notificationApplication=client.editApplication(notificationApplication);
+  sdkKey.setApplicationId(notificationApplication.getId());
+  sdkKey.setProfileSchemaVersion(1);
+  sdkKey.setConfigurationSchemaVersion(1);
+  sdkKey.setLogSchemaVersion(1);
+  sdkKey.setTargetPlatform(SdkPlatform.JAVA);
+  loginTenantDeveloper(client);
+  logger.info("Creating notification schema...");
+  NotificationSchemaDto notificationSchemaDto=new NotificationSchemaDto();
+  notificationSchemaDto.setApplicationId(notificationApplication.getId());
+  notificationSchemaDto.setName("Notification schema");
+  notificationSchemaDto.setDescription("Notification schema of a sample notification");
+  notificationSchemaDto=client.createNotificationSchema(notificationSchemaDto,"demo/jnotification/notification_schema.avsc");
+  sdkKey.setNotificationSchemaVersion(notificationSchemaDto.getMajorVersion());
+  logger.info("Notification schema was created.");
+  TrustfulVerifierConfig trustfulVerifierConfig=new TrustfulVerifierConfig();
+  UserVerifierDto trustfulUserVerifier=new UserVerifierDto();
+  trustfulUserVerifier.setApplicationId(notificationApplication.getId());
+  trustfulUserVerifier.setName("Trustful verifier");
+  trustfulUserVerifier.setPluginClassName(trustfulVerifierConfig.getPluginClassName());
+  trustfulUserVerifier.setPluginTypeName(trustfulVerifierConfig.getPluginTypeName());
+  RawSchema rawSchema=new RawSchema(trustfulVerifierConfig.getPluginConfigSchema().toString());
+  DefaultRecordGenerationAlgorithm<RawData> algotithm=new DefaultRecordGenerationAlgorithmImpl<>(rawSchema,new RawDataFactory());
+  RawData rawData=algotithm.getRootData();
+  trustfulUserVerifier.setJsonConfiguration(rawData.getRawData());
+  trustfulUserVerifier=client.editUserVerifierDto(trustfulUserVerifier);
+  sdkKey.setDefaultVerifierToken(trustfulUserVerifier.getVerifierToken());
+  logger.info("Finished loading 'Java notification demo application' data...");
+}
