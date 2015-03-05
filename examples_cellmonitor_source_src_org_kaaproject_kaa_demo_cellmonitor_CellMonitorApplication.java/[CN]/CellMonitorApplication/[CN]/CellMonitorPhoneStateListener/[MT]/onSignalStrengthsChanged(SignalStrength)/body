@@ -1,0 +1,7 @@
+{
+  super.onSignalStrengthsChanged(signalStrength);
+  mSignalStrength=signalStrength;
+  sendLog();
+  mEventBus.post(new SignalStrengthChanged());
+  LOG.info("Signal strength changed!");
+}
