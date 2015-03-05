@@ -1,0 +1,4 @@
+{
+  int initialSize=Math.max(1,(int)FloatMath.ceil(1 / scale));
+  return initialSize <= 8 ? nextPowerOf2(initialSize) : (initialSize + 7) / 8 * 8;
+}
