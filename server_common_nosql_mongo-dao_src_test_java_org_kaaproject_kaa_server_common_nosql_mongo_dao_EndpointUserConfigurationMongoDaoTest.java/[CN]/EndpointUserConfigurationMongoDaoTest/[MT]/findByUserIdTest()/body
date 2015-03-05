@@ -1,8 +1,8 @@
 {
   EndpointUserDto userDto=generateEndpointUser(null);
   ApplicationDto appDto=generateApplication();
-  EndpointUserConfigurationDto firstUserConfigurationDto=generateEndpointUserConfiguration(userDto,appDto,random.nextInt());
-  EndpointUserConfigurationDto secondUserConfigurationDto=generateEndpointUserConfiguration(userDto,appDto,random.nextInt());
+  EndpointUserConfigurationDto firstUserConfigurationDto=generateEndpointUserConfiguration(userDto,appDto,null);
+  EndpointUserConfigurationDto secondUserConfigurationDto=generateEndpointUserConfiguration(userDto,appDto,null);
   List<MongoEndpointUserConfiguration> expectedList=new ArrayList<>();
   expectedList.add(new MongoEndpointUserConfiguration(firstUserConfigurationDto));
   expectedList.add(new MongoEndpointUserConfiguration(secondUserConfigurationDto));

@@ -1,10 +1,10 @@
 {
   EndpointUserDto userDto=generateEndpointUser(null);
   ApplicationDto appDto=generateApplication();
-  int foundVersion=random.nextInt();
-  EndpointUserConfigurationDto firstUserConfigurationDto=generateEndpointUserConfiguration(userDto,appDto,foundVersion);
-  generateEndpointUserConfiguration(userDto,appDto,random.nextInt());
+  ConfigurationSchemaDto schema=generateConfSchema(appDto.getId(),1).get(0);
+  EndpointUserConfigurationDto firstUserConfigurationDto=generateEndpointUserConfiguration(userDto,appDto,schema);
+  generateEndpointUserConfiguration(userDto,appDto,null);
   generateEndpointUserConfiguration(null,null,null);
-  MongoEndpointUserConfiguration found=endpointUserConfigurationDao.findByUserIdAndAppTokenAndSchemaVersion(userDto.getId(),appDto.getApplicationToken(),foundVersion);
+  MongoEndpointUserConfiguration found=endpointUserConfigurationDao.findByUserIdAndAppTokenAndSchemaVersion(userDto.getId(),appDto.getApplicationToken(),schema.getMajorVersion());
   Assert.assertEquals(firstUserConfigurationDto,found.toDto());
 }
