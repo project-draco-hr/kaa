@@ -1,9 +1,9 @@
 {
   try {
-    if (isEmpty(applicationId)) {
+    if (isEmpty(applicationToken)) {
       throw new KaaAdminServiceException(ServiceErrorCode.INVALID_ARGUMENTS);
     }
-    ApplicationDto application=toDto(clientProvider.getClient().getApplication(applicationId));
+    ApplicationDto application=toDto(clientProvider.getClient().getApplicationByApplicationToken(applicationToken));
     checkApplication(application);
     return application;
   }
