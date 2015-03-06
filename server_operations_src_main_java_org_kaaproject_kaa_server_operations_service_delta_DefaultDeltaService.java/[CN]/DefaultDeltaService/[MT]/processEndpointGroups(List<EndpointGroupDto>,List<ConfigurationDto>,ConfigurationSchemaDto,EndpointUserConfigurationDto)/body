@@ -23,7 +23,7 @@
     }
   }
   if (userConfiguration != null) {
-    overrideConfigs.add(new OverrideData(overrideSchema,new String(userConfiguration.getBody(),UTF_8)));
+    overrideConfigs.add(new OverrideData(overrideSchema,userConfiguration.getBody()));
   }
   OverrideAlgorithm configurationMerger=configurationOverrideFactory.createConfigurationOverrideAlgorithm();
   return configurationMerger.override(baseConfig,overrideConfigs);

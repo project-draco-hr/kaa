@@ -1,8 +1,8 @@
 {
   EndpointUserDto userDto=generateEndpointUser(null);
   ApplicationDto appDto=generateApplication();
-  EndpointUserConfigurationDto firstUserConfigurationDto=generateEndpointUserConfiguration(userDto,appDto,random.nextInt(Integer.MAX_VALUE));
-  EndpointUserConfigurationDto secondUserConfigurationDto=generateEndpointUserConfiguration(userDto,appDto,random.nextInt(Integer.MAX_VALUE));
+  EndpointUserConfigurationDto firstUserConfigurationDto=generateEndpointUserConfiguration(userDto,appDto,null);
+  EndpointUserConfigurationDto secondUserConfigurationDto=generateEndpointUserConfiguration(userDto,appDto,null);
   List<EndpointUserConfigurationDto> expectedList=new ArrayList<>();
   expectedList.add(firstUserConfigurationDto);
   expectedList.add(secondUserConfigurationDto);
