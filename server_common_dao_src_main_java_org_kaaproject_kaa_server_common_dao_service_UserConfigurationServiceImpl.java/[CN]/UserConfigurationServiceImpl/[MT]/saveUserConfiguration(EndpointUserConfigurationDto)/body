@@ -11,11 +11,11 @@
         if (schemaDto != null) {
           OverrideSchema overrideSchema=new OverrideSchema(schemaDto.getOverrideSchema());
           LOG.debug("Create default UUID validator with override schema: {}",overrideSchema.getRawSchema());
-          UuidValidator uuidValidator=new DefaultUuidValidator(overrideSchema,new OverrideDataFactory());
+          UuidValidator<OverrideData> uuidValidator=new DefaultUuidValidator<>(overrideSchema,new OverrideDataFactory());
           GenericAvroConverter<GenericRecord> avroConverter=new GenericAvroConverter<>(overrideSchema.getRawSchema());
           try {
             GenericRecord configRecord=avroConverter.decodeJson(userConfigBody);
-            KaaData body=uuidValidator.validateUuidFields(configRecord,null);
+            KaaData<OverrideSchema> body=uuidValidator.validateUuidFields(configRecord,null);
             if (body != null) {
               userConfig.setBody(body.getRawData());
               userConfigurationDto=getDto(endpointUserConfigurationDao.save(userConfig));
