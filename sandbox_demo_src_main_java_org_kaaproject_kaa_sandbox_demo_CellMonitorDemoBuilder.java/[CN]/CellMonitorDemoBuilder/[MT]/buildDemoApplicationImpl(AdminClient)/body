@@ -14,7 +14,7 @@
   logSchema.setApplicationId(cellMonitorApplication.getId());
   logSchema.setName("Cell monitor configuration schema");
   logSchema.setDescription("Log schema describing cell monitor record with information about current cell location, signal strength and phone gps location.");
-  logSchema=client.createLogSchema(logSchema,"demo/cellmonitor/cell_monitor_log.avsc");
+  logSchema=client.createLogSchema(logSchema,getResourcePath("cell_monitor_log.avsc"));
   sdkKey.setLogSchemaVersion(logSchema.getMajorVersion());
   LogAppenderDto cellMonitorLogAppender=new LogAppenderDto();
   cellMonitorLogAppender.setName("Cell monitor log appender");
@@ -28,7 +28,7 @@
   cellMonitorLogAppender.setHeaderStructure(Arrays.asList(LogHeaderStructureDto.KEYHASH,LogHeaderStructureDto.TIMESTAMP,LogHeaderStructureDto.TOKEN,LogHeaderStructureDto.VERSION));
   cellMonitorLogAppender.setPluginTypeName("Mongo");
   cellMonitorLogAppender.setPluginClassName("org.kaaproject.kaa.server.appenders.mongo.appender.MongoDbLogAppender");
-  cellMonitorLogAppender.setJsonConfiguration(FileUtils.readResource("demo/cellmonitor/mongo_appender.json"));
+  cellMonitorLogAppender.setJsonConfiguration(FileUtils.readResource(getResourcePath("mongo_appender.json")));
   cellMonitorLogAppender=client.editLogAppenderDto(cellMonitorLogAppender);
   LOG.info("Finished loading 'Cell Monitor Demo Application' data.");
 }
