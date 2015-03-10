@@ -1,5 +1,54 @@
 {
-  LOG.info("Event demo has been started");
-  doWork();
-  LOG.info("Event demo has been stopped");
+  LOG.info("Event demo started");
+  KaaClient kaaClient=Kaa.newClient(new DesktopKaaPlatformContext(),new SimpleKaaClientStateListener());
+  kaaClient.start();
+  EndpointRegistrationManager registrationManager=kaaClient.getEndpointRegistrationManager();
+  registrationManager.attachUser("userExternalId","userAccessToken",new UserAttachCallback(){
+    @Override public void onAttachResult(    UserAttachResponse response){
+      LOG.info("Attach response {}",response.getResult());
+    }
+  }
+);
+  EventFamilyFactory eventFamilyFactory=kaaClient.getEventFamilyFactory();
+  CustomThermoEventClassFamily tecf=eventFamilyFactory.getCustomThermoEventClassFamily();
+  List<String> FQNs=new LinkedList<>();
+  FQNs.add(ThermostatInfoRequest.class.getName());
+  FQNs.add(ChangeDegreeRequest.class.getName());
+  EventListenersResolver eventListenersResolver=kaaClient.getEventListenerResolver();
+  eventListenersResolver.findEventListeners(FQNs,new FetchEventListeners(){
+    @Override public void onEventListenersReceived(    List<String> eventListeners){
+      LOG.info("{} event listeners received",eventListeners.size());
+      for (      String listener : eventListeners) {
+        LOG.info("listener: {}",listener);
+      }
+    }
+    @Override public void onRequestFailed(){
+      LOG.info("Request failed");
+    }
+  }
+);
+  TransactionId trxId=eventFamilyFactory.startEventsBlock();
+  tecf.addEventToBlock(trxId,new ThermostatInfoRequest());
+  tecf.addEventToBlock(trxId,new ChangeDegreeRequest(-30),"home_thermostat");
+  eventFamilyFactory.submitEventsBlock(trxId);
+  tecf.addListener(new DefaultEventFamilyListener(){
+    @Override public void onEvent(    ChangeDegreeRequest arg0,    String arg1){
+      LOG.info("ChangeDegreeRequest event fired!");
+    }
+    @Override public void onEvent(    ThermostatInfoResponse arg0,    String arg1){
+      LOG.info("ThermostatInfoResponse event fired!");
+    }
+    @Override public void onEvent(    ThermostatInfoRequest arg0,    String arg1){
+      LOG.info("ThermostatInfoRequest event fired!");
+    }
+  }
+);
+  try {
+    System.in.read();
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+  }
+  kaaClient.stop();
+  LOG.info("Event demo stopped");
 }
