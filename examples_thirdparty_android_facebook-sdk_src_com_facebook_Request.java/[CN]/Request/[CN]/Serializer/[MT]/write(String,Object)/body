@@ -1,0 +1,14 @@
+{
+  if (!useUrlEncode) {
+    if (firstWrite) {
+      this.outputStream.write("--".getBytes());
+      this.outputStream.write(MIME_BOUNDARY.getBytes());
+      this.outputStream.write("\r\n".getBytes());
+      firstWrite=false;
+    }
+    this.outputStream.write(String.format(format,args).getBytes());
+  }
+ else {
+    this.outputStream.write(URLEncoder.encode(String.format(format,args),"UTF-8").getBytes());
+  }
+}

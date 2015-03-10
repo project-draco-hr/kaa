@@ -1,0 +1,8 @@
+{
+  if (!useUrlEncode) {
+    writeLine("--%s",MIME_BOUNDARY);
+  }
+ else {
+    this.outputStream.write("&".getBytes());
+  }
+}

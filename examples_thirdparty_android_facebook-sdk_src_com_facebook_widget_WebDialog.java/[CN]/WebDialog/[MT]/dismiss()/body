@@ -1,0 +1,18 @@
+{
+  if (isDismissed) {
+    return;
+  }
+  isDismissed=true;
+  if (!listenerCalled) {
+    sendCancelToListener();
+  }
+  if (webView != null) {
+    webView.stopLoading();
+  }
+  if (!isDetached) {
+    if (spinner.isShowing()) {
+      spinner.dismiss();
+    }
+    super.dismiss();
+  }
+}

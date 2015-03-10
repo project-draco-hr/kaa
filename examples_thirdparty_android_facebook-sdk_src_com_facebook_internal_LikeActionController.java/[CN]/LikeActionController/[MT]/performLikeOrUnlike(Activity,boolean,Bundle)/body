@@ -1,0 +1,18 @@
+{
+  if (canUseOGPublish()) {
+    if (shouldLikeObject) {
+      publishLikeAsync(activity,analyticsParameters);
+    }
+ else {
+      if (!Utility.isNullOrEmpty(this.unlikeToken)) {
+        publishUnlikeAsync(activity,analyticsParameters);
+      }
+ else {
+        fallbackToDialog(activity,analyticsParameters,true);
+      }
+    }
+  }
+ else {
+    presentLikeDialog(activity,analyticsParameters);
+  }
+}

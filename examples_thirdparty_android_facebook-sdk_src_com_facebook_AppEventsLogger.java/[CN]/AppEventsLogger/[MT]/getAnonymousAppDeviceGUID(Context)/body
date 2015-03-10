@@ -1,0 +1,15 @@
+{
+  if (anonymousAppDeviceGUID == null) {
+synchronized (staticLock) {
+      if (anonymousAppDeviceGUID == null) {
+        SharedPreferences preferences=context.getSharedPreferences(APP_EVENT_PREFERENCES,Context.MODE_PRIVATE);
+        anonymousAppDeviceGUID=preferences.getString("anonymousAppDeviceGUID",null);
+        if (anonymousAppDeviceGUID == null) {
+          anonymousAppDeviceGUID="XZ" + UUID.randomUUID().toString();
+          context.getSharedPreferences(APP_EVENT_PREFERENCES,Context.MODE_PRIVATE).edit().putString("anonymousAppDeviceGUID",anonymousAppDeviceGUID).apply();
+        }
+      }
+    }
+  }
+  return anonymousAppDeviceGUID;
+}

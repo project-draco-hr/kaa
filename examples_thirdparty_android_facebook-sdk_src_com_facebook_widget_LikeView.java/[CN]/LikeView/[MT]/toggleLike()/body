@@ -1,0 +1,18 @@
+{
+  if (likeActionController != null) {
+    Context context=getContext();
+    Activity activity=null;
+    if (context instanceof Activity) {
+      activity=(Activity)context;
+    }
+ else     if (context instanceof ContextWrapper) {
+      Context baseContext=((ContextWrapper)context).getBaseContext();
+      if (baseContext instanceof Activity) {
+        activity=(Activity)baseContext;
+      }
+    }
+    if (activity != null) {
+      likeActionController.toggleLike(activity,getAnalyticsParameters());
+    }
+  }
+}

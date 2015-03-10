@@ -1,0 +1,45 @@
+{
+  Logger logger=new Logger(LoggingBehavior.REQUESTS,"Request");
+  int numRequests=requests.size();
+  boolean shouldUseGzip=isGzipCompressible(requests);
+  HttpMethod connectionHttpMethod=(numRequests == 1) ? requests.get(0).httpMethod : HttpMethod.POST;
+  connection.setRequestMethod(connectionHttpMethod.name());
+  setConnectionContentType(connection,shouldUseGzip);
+  URL url=connection.getURL();
+  logger.append("Request:\n");
+  logger.appendKeyValue("Id",requests.getId());
+  logger.appendKeyValue("URL",url);
+  logger.appendKeyValue("Method",connection.getRequestMethod());
+  logger.appendKeyValue("User-Agent",connection.getRequestProperty("User-Agent"));
+  logger.appendKeyValue("Content-Type",connection.getRequestProperty("Content-Type"));
+  connection.setConnectTimeout(requests.getTimeout());
+  connection.setReadTimeout(requests.getTimeout());
+  boolean isPost=(connectionHttpMethod == HttpMethod.POST);
+  if (!isPost) {
+    logger.log();
+    return;
+  }
+  connection.setDoOutput(true);
+  OutputStream outputStream=null;
+  try {
+    outputStream=new BufferedOutputStream(connection.getOutputStream());
+    if (shouldUseGzip) {
+      outputStream=new GZIPOutputStream(outputStream);
+    }
+    if (hasOnProgressCallbacks(requests)) {
+      ProgressNoopOutputStream countingStream=null;
+      countingStream=new ProgressNoopOutputStream(requests.getCallbackHandler());
+      processRequest(requests,null,numRequests,url,countingStream,shouldUseGzip);
+      int max=countingStream.getMaxProgress();
+      Map<Request,RequestProgress> progressMap=countingStream.getProgressMap();
+      outputStream=new ProgressOutputStream(outputStream,requests,progressMap,max);
+    }
+    processRequest(requests,logger,numRequests,url,outputStream,shouldUseGzip);
+  }
+  finally {
+    if (outputStream != null) {
+      outputStream.close();
+    }
+  }
+  logger.log();
+}
