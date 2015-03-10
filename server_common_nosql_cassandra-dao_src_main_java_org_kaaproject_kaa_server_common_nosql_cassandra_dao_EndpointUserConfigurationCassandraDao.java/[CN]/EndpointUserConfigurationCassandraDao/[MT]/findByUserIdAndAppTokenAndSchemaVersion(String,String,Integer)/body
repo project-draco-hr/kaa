@@ -1,4 +1,12 @@
 {
+  LOG.debug("Searching for user specific configuration by user id {}, application token {} and schema version {}",userId,appToken,schemaVersion);
   Select.Where select=select().from(getColumnFamilyName()).where(eq(EP_USER_CONF_USER_ID_PROPERTY,userId)).and(eq(EP_USER_CONF_APP_TOKEN_PROPERTY,appToken)).and(eq(EP_USER_CONF_VERSION_PROPERTY,schemaVersion));
-  return findOneByStatement(select);
+  CassandraEndpointUserConfiguration userConfiguration=findOneByStatement(select);
+  if (LOG.isTraceEnabled()) {
+    LOG.debug("[{},{},{}] Search result: {}.",userId,appToken,schemaVersion,userConfiguration);
+  }
+ else {
+    LOG.debug("[{},{},{}] Search result: {}.",userId,appToken,schemaVersion,userConfiguration != null);
+  }
+  return userConfiguration;
 }

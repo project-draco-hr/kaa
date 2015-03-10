@@ -1,4 +1,4 @@
 {
-  Delete.Where delete=delete().from(getColumnFamilyName()).where(eq(EP_USER_CONF_USER_ID_PROPERTY,userId)).and(eq(EP_USER_CONF_APP_TOKEN_PROPERTY,appToken)).and(eq(EP_USER_CONF_VERSION_PROPERTY,schemaVersion));
-  execute(delete);
+  execute(delete().from(getColumnFamilyName()).where(eq(EP_USER_CONF_USER_ID_PROPERTY,userId)).and(eq(EP_USER_CONF_APP_TOKEN_PROPERTY,appToken)).and(eq(EP_USER_CONF_VERSION_PROPERTY,schemaVersion)));
+  LOG.debug("Removed user specific configuration by user id {}, application token {} and schema version {}",userId,appToken,schemaVersion);
 }
