@@ -1,0 +1,12 @@
+{
+  if (profile.getEndpointUserId() == null || profile.getEndpointUserId().isEmpty()) {
+    return null;
+  }
+  EndpointUserConfigurationDto ucfDto=userConfigurationService.findUserConfigurationByUserIdAndAppTokenAndSchemaVersion(profile.getEndpointUserId(),appToken,profile.getConfigurationVersion());
+  if (ucfDto == null) {
+    return null;
+  }
+ else {
+    return EndpointObjectHash.fromString(ucfDto.getBody()).getData();
+  }
+}

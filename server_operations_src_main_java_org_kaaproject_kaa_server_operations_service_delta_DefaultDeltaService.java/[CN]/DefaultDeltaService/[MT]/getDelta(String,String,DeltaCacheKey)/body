@@ -2,7 +2,7 @@
   EndpointUserConfigurationDto userConfiguration=findLatestUserConfiguration(userId,deltaKey);
   final DeltaCacheKey newKey;
   if (userConfiguration != null) {
-    newKey=new DeltaCacheKey(deltaKey.getAppConfigVersionKey(),EndpointObjectHash.fromString(userConfiguration.getBody()),deltaKey.getEndpointGroups(),deltaKey.getEndpointConfHash());
+    newKey=new DeltaCacheKey(deltaKey.getAppConfigVersionKey(),deltaKey.getEndpointGroups(),EndpointObjectHash.fromString(userConfiguration.getBody()),deltaKey.getEndpointConfHash(),deltaKey.isResyncOnly());
   }
  else {
     newKey=deltaKey;
@@ -18,7 +18,7 @@
         if (userConfiguration != null) {
           userConfigurationHash=EndpointObjectHash.fromString(userConfiguration.getBody());
         }
-        BaseData mergedConfiguration=getMergedConfiguration(endpointId,userConfiguration,deltaKey);
+        BaseData mergedConfiguration=getMergedConfiguration(endpointId,userConfiguration,deltaKey,latestConfigurationSchema);
         LOG.trace("[{}] Merged configuration {}",endpointId,mergedConfiguration.getRawData());
         if (deltaKey.isResyncOnly()) {
           deltaCache=buildBaseResyncDelta(endpointId,mergedConfiguration,userConfigurationHash);

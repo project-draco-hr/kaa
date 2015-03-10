@@ -3,10 +3,10 @@
   if (userId != null) {
     userConfiguration=userConfigurationService.findUserConfigurationByUserIdAndAppTokenAndSchemaVersion(userId,deltaKey.getAppConfigVersionKey().getApplicationToken(),deltaKey.getAppConfigVersionKey().getVersion());
     if (userConfiguration != null) {
-      LOG.debug("User specific configuration found for user {}",userConfiguration.getUserId());
+      LOG.debug("[{}] User specific configuration found",userId);
     }
  else {
-      LOG.debug("No user configuration found for user");
+      LOG.debug("[{}] No user configuration found ",userId);
     }
   }
   return userConfiguration;

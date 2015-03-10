@@ -1,6 +1,6 @@
 {
   for (int i=0; i < replicas; i++) {
-    LOG.trace("Adding node {} replica {} to the circle",node,i);
+    LOG.trace("Adding node {} replica {} to the circle",node.getConnectionInfo(),i);
     circle.put(hash(node,i),node);
   }
 }

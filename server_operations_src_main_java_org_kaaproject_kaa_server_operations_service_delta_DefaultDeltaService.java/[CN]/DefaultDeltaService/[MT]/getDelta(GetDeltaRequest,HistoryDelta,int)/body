@@ -16,11 +16,11 @@
     }
     DeltaCacheKey deltaKey;
     if (resync) {
-      deltaKey=new DeltaCacheKey(appConfigVersionKey,EndpointObjectHash.fromBytes(profile.getUserConfigurationHash()),endpointGroups,null,request.isResyncOnly());
+      deltaKey=new DeltaCacheKey(appConfigVersionKey,endpointGroups,EndpointObjectHash.fromBytes(request.getUserConfigurationHash()),null,request.isResyncOnly());
       LOG.debug("[{}] Building resync delta key {}",endpointId,deltaKey);
     }
  else {
-      deltaKey=new DeltaCacheKey(appConfigVersionKey,EndpointObjectHash.fromBytes(profile.getUserConfigurationHash()),endpointGroups,request.getConfigurationHash());
+      deltaKey=new DeltaCacheKey(appConfigVersionKey,endpointGroups,EndpointObjectHash.fromBytes(request.getUserConfigurationHash()),request.getConfigurationHash());
       LOG.debug("[{}] Building regular delta key {}",endpointId,deltaKey);
     }
     DeltaCacheEntry deltaCacheEntry=getDelta(endpointId,profile.getEndpointUserId(),deltaKey);
@@ -45,6 +45,9 @@
     profile.setConfigurationHash(configurationHash);
     if (deltaCacheEntry.getUserConfigurationHash() != null) {
       profile.setUserConfigurationHash(deltaCacheEntry.getUserConfigurationHash().getData());
+    }
+ else {
+      profile.setUserConfigurationHash(null);
     }
   }
  else {

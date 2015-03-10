@@ -1,6 +1,7 @@
 {
   if (message.getUpdate() != null) {
-    state.setUserConfigurationUpdatePending(true);
+    byte[] ucfHash=message.getUpdate().getHash();
+    state.setUcfHash(ucfHash);
     syncChannels(context,state.getChannelsByTypes(TransportType.CONFIGURATION),true,false);
   }
 }

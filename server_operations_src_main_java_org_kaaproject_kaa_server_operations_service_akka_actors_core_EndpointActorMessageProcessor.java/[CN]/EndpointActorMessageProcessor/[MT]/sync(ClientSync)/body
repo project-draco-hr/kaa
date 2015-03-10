@@ -9,21 +9,27 @@
   context.setStatus(SyncStatus.SUCCESS);
   context.setEndpointKey(endpointKey);
   context.setRequestHash(request.hashCode());
+  context.setMetaData(request.getClientSyncMetaData());
   LOG.trace("[{}][{}] processing sync. Request: {}",endpointKey,context.getRequestHash(),request);
   context=operationsService.syncProfile(context,request.getProfileSync());
   state.setProfile(context.getEndpointProfile());
   if (context.getStatus() != SyncStatus.SUCCESS) {
     return context;
   }
+  if (state.isUcfHashRequiresIntialization()) {
+    byte[] hash=operationsService.fetchUcfHash(appToken,state.getProfile());
+    LOG.debug("[{}][{}] Initialized endpoint object hash {}",endpointKey,context.getRequestHash(),Arrays.toString(hash));
+    state.setUcfHash(hash);
+  }
   context=operationsService.processEndpointAttachDetachRequests(context,request.getUserSync());
   context=operationsService.processEventListenerRequests(context,request.getEventSync());
-  context.setUserConfigurationChanged(state.isUserConfigurationUpdatePending());
+  if (state.isUserConfigurationUpdatePending()) {
+    context.setUserConfigurationChanged(true);
+    context.setUserConfigurationHash(state.getUcfHash());
+  }
   context=operationsService.syncConfiguration(context,request.getConfigurationSync());
   context=operationsService.syncNotification(context,request.getNotificationSync());
   state.setProfile(operationsService.updateProfile(context));
-  if (context.getStatus() == SyncStatus.SUCCESS) {
-    context.setUserConfigurationChanged(false);
-  }
-  LOG.debug("[{}][{}] processing sync. Response is {}",endpointKey,request.hashCode(),context.getResponse());
+  LOG.trace("[{}][{}] processed sync. Response is {}",endpointKey,request.hashCode(),context.getResponse());
   return context;
 }
