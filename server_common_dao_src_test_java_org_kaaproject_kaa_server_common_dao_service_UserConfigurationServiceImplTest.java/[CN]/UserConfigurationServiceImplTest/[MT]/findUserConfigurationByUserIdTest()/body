@@ -1,12 +1,12 @@
 {
   EndpointUserDto userDto=generateEndpointUser(null);
   ApplicationDto appDto=generateApplication();
-  EndpointUserConfigurationDto firstUserConfigurationDto=generateEndpointUserConfiguration(userDto,appDto,null);
-  EndpointUserConfigurationDto secondUserConfigurationDto=generateEndpointUserConfiguration(userDto,appDto,null);
+  EndpointUserConfigurationDto firstUserConfigurationDto=generateEndpointUserConfiguration(userDto,appDto,null,readSchemaFileAsString("dao/user/overrideData.json"));
+  EndpointUserConfigurationDto secondUserConfigurationDto=generateEndpointUserConfiguration(userDto,appDto,null,readSchemaFileAsString("dao/user/overrideData.json"));
   List<EndpointUserConfigurationDto> expectedList=new ArrayList<>();
   expectedList.add(firstUserConfigurationDto);
   expectedList.add(secondUserConfigurationDto);
-  generateEndpointUserConfiguration(null,null,null);
+  generateEndpointUserConfiguration(null,null,null,readSchemaFileAsString("dao/user/overrideData.json"));
   List<EndpointUserConfigurationDto> foundList=userConfigurationService.findUserConfigurationByUserId(userDto.getId());
   Assert.assertEquals(expectedList.size(),foundList.size());
 }
