@@ -10,7 +10,7 @@
           eventsSet.addAll(pendingEntry.getValue());
         }
       }
-      eventsSet.addAll(eventManager.getPendingEvents());
+      eventsSet.addAll(eventManager.pollPendingEvents());
       List<Event> events=new ArrayList<Event>(eventsSet);
       if (!events.isEmpty()) {
         Collections.sort(events,eventSeqNumberComparator);

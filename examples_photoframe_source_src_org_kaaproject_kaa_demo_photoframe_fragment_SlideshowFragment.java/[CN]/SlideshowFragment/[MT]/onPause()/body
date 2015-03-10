@@ -1,0 +1,12 @@
+{
+  super.onPause();
+  if (mActionBar != null) {
+    mActionBar.show();
+  }
+  mActivity.setLightsOutMode(false);
+  if (mApplication.getEventBus().isRegistered(this)) {
+    mApplication.getEventBus().unregister(this);
+  }
+  mSlideshowHandler.removeCallbacks(mSlideshowAction);
+  mController.updateStatus(PlayStatus.STOPPED,null);
+}

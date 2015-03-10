@@ -1,0 +1,17 @@
+{
+  LOGGER.info("Data collection demo started");
+  KaaClient kaaClient=Kaa.newClient(new DesktopKaaPlatformContext());
+  kaaClient.setLogUploadStrategy(new OneLogUploadStrategy());
+  kaaClient.start();
+  for (  LogData log : getLogs(LOGS_TO_SEND_COUNT)) {
+    kaaClient.addLogRecord(log);
+  }
+  try {
+    System.in.read();
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+  }
+  kaaClient.stop();
+  LOGGER.info("Data collection demo stopped");
+}
