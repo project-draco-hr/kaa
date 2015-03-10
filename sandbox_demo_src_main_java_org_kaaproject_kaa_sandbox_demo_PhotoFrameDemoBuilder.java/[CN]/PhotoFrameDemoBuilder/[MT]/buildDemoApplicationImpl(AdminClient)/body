@@ -6,7 +6,7 @@
   photoFrameEventClassFamily.setNamespace("org.kaaproject.kaa.demo.photoframe");
   photoFrameEventClassFamily.setClassName("PhotoFrameEventClassFamily");
   photoFrameEventClassFamily=client.editEventClassFamily(photoFrameEventClassFamily);
-  client.addEventClassFamilySchema(photoFrameEventClassFamily.getId(),"demo/photoframe/photoFrameEventClassFamily.json");
+  client.addEventClassFamilySchema(photoFrameEventClassFamily.getId(),getResourcePath("photoFrameEventClassFamily.json"));
   ApplicationDto photoFrameApplication=new ApplicationDto();
   photoFrameApplication.setName("Photo frame");
   photoFrameApplication=client.editApplication(photoFrameApplication);
