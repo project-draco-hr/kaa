@@ -1,0 +1,12 @@
+{
+  if (mConnectionResult != null && mConnectionResult.hasResolution()) {
+    try {
+      mIntentInProgress=true;
+      parentActivity.startIntentSenderForResult(mConnectionResult.getResolution().getIntentSender(),RC_SIGN_IN,null,0,0,0);
+    }
+ catch (    IntentSender.SendIntentException e) {
+      mIntentInProgress=false;
+      client.connect();
+    }
+  }
+}

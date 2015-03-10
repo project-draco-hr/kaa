@@ -1,0 +1,44 @@
+{
+  super.onCreate(savedInstanceState);
+  Log.i(TAG,"onCreate()");
+  setContentView(R.layout.activity_logins);
+  greetingTextView=(TextView)findViewById(R.id.greeting);
+  idTextView=(TextView)findViewById(R.id.idText);
+  infoTextView=(TextView)findViewById(R.id.infoText);
+  sendEventButton=(Button)findViewById(R.id.sendEventButton);
+  sendEventButton.setEnabled(buttonEnabled);
+  msgEdit=(EditText)findViewById(R.id.msgBox);
+  eventMessagesEdit=(EditText)findViewById(R.id.eventMessages);
+  if (savedInstanceState != null) {
+    curUserName=savedInstanceState.getCharSequence(USER_NAME);
+    curUserId=savedInstanceState.getCharSequence(USER_ID);
+    curUserInfo=savedInstanceState.getCharSequence(USER_INFO);
+    eventMessagesText=savedInstanceState.getCharSequence(EVENT_MESSAGES);
+    updateViews();
+  }
+  TwitterAuthConfig authConfig=new TwitterAuthConfig(TWITTER_KEY,TWITTER_SECRET);
+  Fabric.with(this,new Twitter(authConfig));
+  twitterButton=(TwitterLoginButton)findViewById(R.id.twitter_sign_in_button);
+  twitterButton.setEnabled(true);
+  twitterSigninListeners=new TwitterSigninListeners(this);
+  twitterButton.setCallback(twitterSigninListeners);
+  twitterButton.setOnClickListener(twitterSigninListeners);
+  gplusSigninListeners=new GplusSigninListeners(this);
+  googleButton=(SignInButton)findViewById(R.id.gplus_sign_in_button);
+  googleButton.setSize(SignInButton.SIZE_WIDE);
+  googleButton.setOnClickListener(gplusSigninListeners);
+  mGoogleApiClient=new GoogleApiClient.Builder(this).addConnectionCallbacks(gplusSigninListeners).addOnConnectionFailedListener(gplusSigninListeners).addApi(Plus.API).addScope(Plus.SCOPE_PLUS_LOGIN).build();
+  gplusSigninListeners.setClient(mGoogleApiClient);
+  facebookSigninListeners=new FacebookSigninListeners(this);
+  facebookButton=(LoginButton)findViewById(R.id.facebook_sign_in_button);
+  facebookButton.setUserInfoChangedCallback(facebookSigninListeners);
+  uiHelper=new UiLifecycleHelper(this,facebookSigninListeners);
+  uiHelper.onCreate(savedInstanceState);
+  sendEventButton.setOnClickListener(new SendEventButtonClickListener());
+  KaaClientPlatformContext platformContext=new AndroidKaaPlatformContext(this);
+  kaaClient=Kaa.newClient(platformContext);
+  kaaClient.start();
+  verifiersTokens=kaaClient.getConfiguration();
+  Log.i(TAG,"Verifiers tokens: " + verifiersTokens.toString());
+  endpointRegistrationManager=kaaClient.getEndpointRegistrationManager();
+}
