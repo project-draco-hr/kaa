@@ -1,11 +1,5 @@
 {
   for (  GlobalRouteInfo route : map.getLocalRoutes(key)) {
-    if (!Arrays.equals(update.getHash(),route.getUcfHash())) {
-      LOG.debug("Sending notification to route {}",update,route);
-      context.parent().tell(new EndpointStateUpdateMessage(toUpdate(update,route)),context.self());
-    }
- else {
-      LOG.debug("Ignoring notification to route {} due to matching hashes",update,route);
-    }
+    checkHashAndSendNotification(context,update.getHash(),route);
   }
 }

@@ -1,6 +1,7 @@
 {
-  ConfigurationKey key=ConfigurationKey.fromUpdateMessage(update);
   LOG.debug("Processing notification {}",update);
+  ConfigurationKey key=ConfigurationKey.fromUpdateMessage(update);
+  ucfHashes.put(key,update.getHash());
   sendStateUpdatesToLocalServers(context,key,update);
-  sendStateUpdatesToRemoteServers(key,update);
+  sendStateUpdatesToRemoteServers(context,key,update);
 }

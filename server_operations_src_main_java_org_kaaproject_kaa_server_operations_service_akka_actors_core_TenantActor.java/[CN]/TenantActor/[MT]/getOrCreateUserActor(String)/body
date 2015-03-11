@@ -5,6 +5,7 @@
     userActor=context().actorOf(Props.create(new LocalUserActor.ActorCreator(context,userId,tenantId)).withDispatcher(USER_DISPATCHER_NAME),localUserId);
     LOG.debug("Create local user actor with id {}",userId);
     localUsers.put(localUserId,userActor);
+    context().watch(userActor);
   }
   return userActor;
 }

@@ -1,9 +1,12 @@
 {
   LOG.debug("[{}] Received: {}",userId,message);
   if (message instanceof EndpointRouteUpdateMessage) {
-    messageProcessor.process(((EndpointRouteUpdateMessage)message).getRoute());
+    messageProcessor.process(context(),((EndpointRouteUpdateMessage)message).getRoute());
   }
  else   if (message instanceof UserConfigurationUpdateMessage) {
     messageProcessor.process(context(),((UserConfigurationUpdateMessage)message).getUpdate());
+  }
+ else   if (message instanceof ClusterUpdateMessage) {
+    messageProcessor.processClusterUpdate(context());
   }
 }

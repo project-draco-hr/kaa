@@ -12,4 +12,7 @@
  else   if (message instanceof ThriftNotificationMessage) {
     processNotificationMessage((ThriftNotificationMessage)message);
   }
+ else   if (message instanceof ClusterUpdateMessage) {
+    processClusterUpdate((ClusterUpdateMessage)message);
+  }
 }

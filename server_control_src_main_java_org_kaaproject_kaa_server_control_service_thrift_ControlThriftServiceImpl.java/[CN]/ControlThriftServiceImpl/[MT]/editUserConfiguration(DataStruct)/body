@@ -6,5 +6,15 @@
   ucfDto=userConfigurationService.saveUserConfiguration(ucfDto);
   EndpointObjectHash hash=EndpointObjectHash.fromString(ucfDto.getBody());
   checkNeighbors();
-  neighbors.sendMessage(new UserConfigurationUpdate(appDto.getTenantId(),ucfDto.getUserId(),ucfDto.getAppToken(),ucfDto.getSchemaVersion(),hash.getDataBuf()));
+  OperationsNodeInfo server=resolve(ucfDto.getUserId());
+  if (server != null) {
+    UserConfigurationUpdate msg=new UserConfigurationUpdate(appDto.getTenantId(),ucfDto.getUserId(),ucfDto.getAppToken(),ucfDto.getSchemaVersion(),hash.getDataBuf());
+    if (LOG.isTraceEnabled()) {
+      LOG.trace("Sending message {} to [{}]",msg,Neighbors.getServerID(server.getConnectionInfo()));
+    }
+    neighbors.sendMessage(server.getConnectionInfo(),msg);
+  }
+ else {
+    LOG.warn("Can't find server for user [{}]",ucfDto.getUserId());
+  }
 }

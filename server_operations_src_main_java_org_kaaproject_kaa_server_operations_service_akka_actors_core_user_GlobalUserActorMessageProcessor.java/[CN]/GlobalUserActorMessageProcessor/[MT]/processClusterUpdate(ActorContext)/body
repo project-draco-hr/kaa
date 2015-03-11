@@ -1,0 +1,7 @@
+{
+  if (!eventService.isMainUserNode(userId)) {
+    LOG.trace("No longer a global user node for user {}",userId);
+    map.clear();
+    context.stop(context.self());
+  }
+}

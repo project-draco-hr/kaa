@@ -1,0 +1,10 @@
+{
+  String newNode=eventService.getUserNode(userId);
+  if (!mainUserNode.equals(newNode)) {
+    LOG.trace("User node changed from {} to {}",mainUserNode,newNode);
+    mainUserNode=newNode;
+    for (    GlobalRouteInfo route : localRoutes.values()) {
+      sendGlobalRouteUpdate(context,route);
+    }
+  }
+}

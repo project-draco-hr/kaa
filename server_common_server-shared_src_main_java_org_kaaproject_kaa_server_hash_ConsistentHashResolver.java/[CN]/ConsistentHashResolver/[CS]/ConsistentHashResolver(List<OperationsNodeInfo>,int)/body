@@ -1,4 +1,7 @@
 {
   this.replicas=replicas;
   this.circle=new ConcurrentSkipListMap<byte[],OperationsNodeInfo>(new ByteArrayComparator());
+  for (  OperationsNodeInfo node : nodes) {
+    addNode(node);
+  }
 }

@@ -1,5 +1,6 @@
 {
   RouteTableAddress address=new RouteTableAddress(message.getKey(),message.getAppToken());
   registerEndpointForEvents(context,message,address);
-  sendGlobalRouteUpdate(context,message,address);
+  addGlobalRoute(context,message,address);
+  endpoints.put(getActorPathName(message.getOriginator()),address.getEndpointKey());
 }

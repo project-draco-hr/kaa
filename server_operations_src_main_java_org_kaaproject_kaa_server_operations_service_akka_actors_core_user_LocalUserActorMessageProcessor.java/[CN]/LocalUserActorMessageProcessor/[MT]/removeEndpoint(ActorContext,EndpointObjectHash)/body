@@ -1,5 +1,5 @@
 {
-  LOG.debug("[{}] removing endpoint [{}] from local route table",userId,endpoint);
+  LOG.debug("[{}] removing endpoint [{}] from route tables",userId,endpoint);
   RouteTableAddress address=routeTable.removeLocal(endpoint);
   versionMap.remove(endpoint);
   for (  String serverId : routeTable.getRemoteServers()) {
@@ -11,7 +11,7 @@
     context.parent().tell(new EndpointRouteUpdateMessage(route),context.self());
   }
  else {
-    LOG.debug("[{}] Sending connect message to global actor",userId);
+    LOG.debug("[{}] Sending disconnect message to global actor",userId);
     eventService.sendEndpointRouteInfo(route);
   }
 }

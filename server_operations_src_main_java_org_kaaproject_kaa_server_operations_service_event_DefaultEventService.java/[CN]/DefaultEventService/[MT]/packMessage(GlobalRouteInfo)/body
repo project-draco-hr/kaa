@@ -7,7 +7,11 @@
   route.setUpdateType(transformUpdateType(routeInfo.getRouteOperation()));
   route.setCfSchemaVersion(routeInfo.getCfVersion());
   route.setUcfHash(routeInfo.getUcfHash());
-  RouteAddress routeAddress=new RouteAddress(ByteBuffer.wrap(routeInfo.getAddress().getEndpointKey().getData()),routeInfo.getAddress().getApplicationToken(),id);
+  String opsServerId=routeInfo.getAddress().getServerId();
+  if (opsServerId == null) {
+    opsServerId=id;
+  }
+  RouteAddress routeAddress=new RouteAddress(ByteBuffer.wrap(routeInfo.getAddress().getEndpointKey().getData()),routeInfo.getAddress().getApplicationToken(),opsServerId);
   route.setRouteAddress(routeAddress);
   messages.add(new Message(type,getEventId(),null,null,null,route,null));
   return messages;

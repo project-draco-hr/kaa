@@ -1,5 +1,5 @@
 {
   LOG.info("Init default event service.");
-  listeners=Collections.synchronizedSet(new HashSet<EventServiceListener>());
+  listeners=Collections.newSetFromMap(new ConcurrentHashMap<EventServiceListener,Boolean>());
   neighbors=new Neighbors<MessageTemplate,Message>(new MessageTemplate(this),operationsServerConfig.getMaxNumberNeighborConnections());
 }

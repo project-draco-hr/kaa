@@ -1,6 +1,6 @@
 {
   if (neighbors == null) {
-synchronized (neighborsLock) {
+synchronized (zkLock) {
       if (neighbors == null) {
         neighbors=new Neighbors<NeighborTemplate<UserConfigurationUpdate>,UserConfigurationUpdate>(new NeighborTemplate<UserConfigurationUpdate>(){
           @Override public void process(          Iface client,          List<UserConfigurationUpdate> messages) throws TException {

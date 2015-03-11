@@ -27,4 +27,7 @@
  else   if (message instanceof Terminated) {
     processTerminationMessage((Terminated)message);
   }
+ else   if (message instanceof ClusterUpdateMessage) {
+    messageProcessor.processClusterUpdate(context());
+  }
 }
