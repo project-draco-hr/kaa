@@ -1,4 +1,12 @@
 {
+  LOG.debug("Searching for user specific configurations by user id {}",userId);
   Select.Where select=select().from(getColumnFamilyName()).where(eq(EP_USER_CONF_USER_ID_PROPERTY,userId));
-  return findListByStatement(select);
+  List<CassandraEndpointUserConfiguration> configurationList=findListByStatement(select);
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{}] Search result: {}.",userId,Arrays.toString(configurationList.toArray()));
+  }
+ else {
+    LOG.debug("[{}] Search result: {}.",userId,configurationList.size());
+  }
+  return configurationList;
 }
