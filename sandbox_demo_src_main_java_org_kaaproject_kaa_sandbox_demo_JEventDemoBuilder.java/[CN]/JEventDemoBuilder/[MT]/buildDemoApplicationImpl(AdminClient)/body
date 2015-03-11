@@ -6,7 +6,7 @@
   thermoEventClassFamily.setNamespace("org.kaaproject.kaa.schema.sample.event.thermo");
   thermoEventClassFamily.setClassName("ThermostatEventClassFamily");
   thermoEventClassFamily=client.editEventClassFamily(thermoEventClassFamily);
-  client.addEventClassFamilySchema(thermoEventClassFamily.getId(),"demo/jevent/thermostatEventClassFamily.json");
+  client.addEventClassFamilySchema(thermoEventClassFamily.getId(),getResourcePath("thermostatEventClassFamily.json"));
   ApplicationDto jeventApplication=new ApplicationDto();
   jeventApplication.setName("Java Event Demo");
   jeventApplication=client.editApplication(jeventApplication);
