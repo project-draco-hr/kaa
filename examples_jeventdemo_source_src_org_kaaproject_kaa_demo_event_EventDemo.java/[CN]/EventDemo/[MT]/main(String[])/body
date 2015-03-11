@@ -8,8 +8,7 @@
   }
   kaaClient=Kaa.newClient(new DesktopKaaPlatformContext(),new SimpleKaaClientStateListener());
   kaaClient.start();
-  EndpointRegistrationManager registrationManager=kaaClient.getEndpointRegistrationManager();
-  registrationManager.attachUser(USER_EXTERNAL_ID,USER_ACCESS_TOKEN,new UserAttachCallback(){
+  kaaClient.attachUser(USER_EXTERNAL_ID,USER_ACCESS_TOKEN,new UserAttachCallback(){
     @Override public void onAttachResult(    UserAttachResponse response){
       LOG.info("Attach response {}",response.getResult());
       if (response.getResult() == SyncResponseResultType.SUCCESS) {

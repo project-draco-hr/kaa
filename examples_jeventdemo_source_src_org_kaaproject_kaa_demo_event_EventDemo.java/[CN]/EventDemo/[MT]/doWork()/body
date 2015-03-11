@@ -1,9 +1,9 @@
 {
-  List<String> FQNs=new LinkedList<>();
-  FQNs.add(ThermostatInfoRequest.class.getName());
-  FQNs.add(ChangeDegreeRequest.class.getName());
+  List<String> listenerFQNs=new LinkedList<>();
+  listenerFQNs.add(ThermostatInfoRequest.class.getName());
+  listenerFQNs.add(ChangeDegreeRequest.class.getName());
   EventListenersResolver eventListenersResolver=kaaClient.getEventListenerResolver();
-  eventListenersResolver.findEventListeners(FQNs,new FetchEventListeners(){
+  eventListenersResolver.findEventListeners(listenerFQNs,new FetchEventListeners(){
     @Override public void onEventListenersReceived(    List<String> eventListeners){
       LOG.info("{} event listeners received",eventListeners.size());
       for (      String listener : eventListeners) {
@@ -16,7 +16,7 @@
   }
 );
   EventFamilyFactory eventFamilyFactory=kaaClient.getEventFamilyFactory();
-  ThermostatEventClassFamily tecf=eventFamilyFactory.getThermostatEventClassFamily();
+  CustomThermoEventClassFamily tecf=eventFamilyFactory.getCustomThermoEventClassFamily();
   tecf.addListener(new DefaultEventFamilyListener(){
     @Override public void onEvent(    ChangeDegreeRequest arg0,    String arg1){
       LOG.info("ChangeDegreeRequest event fired!");

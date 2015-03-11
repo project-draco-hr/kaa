@@ -1,9 +1,14 @@
 {
-  LOGGER.info("Data collection demo started");
+  LOG.info("Data collection demo started");
   KaaClient kaaClient=Kaa.newClient(new DesktopKaaPlatformContext());
-  kaaClient.setLogUploadStrategy(new OneLogUploadStrategy());
+  kaaClient.setLogUploadStrategy(new DefaultLogUploadStrategy(){
+    @Override public LogUploadStrategyDecision isUploadNeeded(    LogStorageStatus status){
+      return status.getRecordCount() >= 1 ? UPLOAD : NOOP;
+    }
+  }
+);
   kaaClient.start();
-  for (  LogData log : getLogs(LOGS_TO_SEND_COUNT)) {
+  for (  LogData log : generateLogs(LOGS_TO_SEND_COUNT)) {
     kaaClient.addLogRecord(log);
   }
   try {
@@ -13,5 +18,5 @@
     e.printStackTrace();
   }
   kaaClient.stop();
-  LOGGER.info("Data collection demo stopped");
+  LOG.info("Data collection demo stopped");
 }
