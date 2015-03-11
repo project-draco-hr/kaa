@@ -1,9 +1,0 @@
-{
-  if (shouldUseGzip) {
-    connection.setRequestProperty(CONTENT_TYPE_HEADER,"application/x-www-form-urlencoded");
-    connection.setRequestProperty(CONTENT_ENCODING_HEADER,"gzip");
-  }
- else {
-    connection.setRequestProperty(CONTENT_TYPE_HEADER,getMimeContentType());
-  }
-}
