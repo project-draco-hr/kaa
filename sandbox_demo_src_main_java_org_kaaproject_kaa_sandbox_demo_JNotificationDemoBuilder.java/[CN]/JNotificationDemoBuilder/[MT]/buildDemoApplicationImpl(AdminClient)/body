@@ -15,7 +15,7 @@
   notificationSchemaDto.setApplicationId(notificationApplication.getId());
   notificationSchemaDto.setName("Notification schema");
   notificationSchemaDto.setDescription("Notification schema of a sample notification");
-  notificationSchemaDto=client.createNotificationSchema(notificationSchemaDto,"demo/jnotification/notification_schema.avsc");
+  notificationSchemaDto=client.createNotificationSchema(notificationSchemaDto,getResourcePath("notification_schema.avsc"));
   sdkKey.setNotificationSchemaVersion(notificationSchemaDto.getMajorVersion());
   logger.info("Notification schema was created.");
   TrustfulVerifierConfig trustfulVerifierConfig=new TrustfulVerifierConfig();

@@ -15,7 +15,7 @@
   configurationSchema.setApplicationId(configurationApplication.getId());
   configurationSchema.setName("JavaConfigurationDemo schema");
   configurationSchema.setDescription("Default configuration schema for the Java configuration demo application");
-  configurationSchema=client.createConfigurationSchema(configurationSchema,"demo/jconfiguration/config_schema.avsc");
+  configurationSchema=client.createConfigurationSchema(configurationSchema,getResourcePath("config_schema.avsc"));
   logger.info("Configuration schema version: {}",configurationSchema.getMajorVersion());
   sdkKey.setConfigurationSchemaVersion(configurationSchema.getMajorVersion());
   logger.info("Configuration schema was created.");
@@ -34,7 +34,7 @@
   baseConfiguration.setMajorVersion(configurationSchema.getMajorVersion());
   baseConfiguration.setMinorVersion(configurationSchema.getMinorVersion());
   baseConfiguration.setDescription("Base Java configuration demo configuration");
-  String body=FileUtils.readResource("demo/jconfiguration/config_data.json");
+  String body=FileUtils.readResource(getResourcePath("config_data.json"));
   logger.info("Configuration body: [{}]",body);
   baseConfiguration.setBody(body);
   baseConfiguration.setStatus(UpdateStatus.INACTIVE);

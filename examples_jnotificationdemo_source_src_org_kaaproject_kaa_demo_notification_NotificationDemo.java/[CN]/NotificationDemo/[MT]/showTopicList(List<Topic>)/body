@@ -1,0 +1,10 @@
+{
+  if (topics == null || topics.isEmpty()) {
+    LOG.info("Topic list is empty");
+  }
+ else {
+    for (    Topic topic : topics) {
+      LOG.info("Id: {}, name: {}, type: {}",topic.getId(),topic.getName(),topic.getSubscriptionType());
+    }
+  }
+}

@@ -1,51 +1,18 @@
 {
-  KaaClient kaaClient=Kaa.newClient(new DesktopKaaPlatformContext());
+  kaaClient=Kaa.newClient(new DesktopKaaPlatformContext());
   NotificationTopicListListener topicListListener=new BasicNotificationTopicListListener();
   kaaClient.addTopicListListener(topicListListener);
   NotificationListener notificationListener=new BasicNotificationListener();
   kaaClient.addNotificationListener(notificationListener);
   kaaClient.start();
-  topicList=kaaClient.getTopics();
-  showTopicList();
-  displayHelpMessage();
-  try (Scanner in=new Scanner(System.in)){
-    String line="";
-    while (in.hasNextLine()) {
-      line=in.nextLine();
-      String command=extractCommand(line);
-      if (command == null || command.isEmpty())       continue;
-      if (command.equals(EXIT) || command.equals(QUIT))       break;
-switch (command) {
-case LIST:
-        showTopicList();
-      break;
-case SUBSCRIBE:
-    String topicId=getTopicId(line);
+  List<Topic> topicList=kaaClient.getTopics();
+  showTopicList(topicList);
   try {
-    kaaClient.subscribeToTopic(topicId,true);
+    System.in.read();
   }
- catch (  UnavailableTopicException e) {
-    LOG.error("Subscription [{}]",e.getMessage());
+ catch (  IOException e) {
+    e.printStackTrace();
   }
-break;
-case UNSUBSCRIBE:
-topicId=getTopicId(line);
-try {
-kaaClient.unsubscribeFromTopic(topicId,true);
-}
- catch (UnavailableTopicException e) {
-LOG.error("Subscription [{}]",e.getMessage());
-}
-break;
-case HELP:
-displayHelpMessage();
-break;
-default :
-System.out.println("Unknown command '" + command + "'. Print 'help' to see usage explanation");
-break;
-}
-}
-}
- kaaClient.removeTopicListListener(topicListListener);
-kaaClient.stop();
+  kaaClient.removeTopicListListener(topicListListener);
+  kaaClient.stop();
 }
