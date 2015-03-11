@@ -2,7 +2,7 @@
   logger.info("Demo application build started...");
   createUsers(client);
   buildDemoApplicationImpl(client);
-  setupProjectConfigs();
+  projectConfigs=loadProjectConfigs();
   logger.info("Demo application build finished.");
   try {
     for (    Project projectConfig : projectConfigs) {

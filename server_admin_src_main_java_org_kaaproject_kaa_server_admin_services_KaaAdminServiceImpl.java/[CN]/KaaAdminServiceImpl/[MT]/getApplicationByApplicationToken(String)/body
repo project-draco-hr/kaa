@@ -1,0 +1,9 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_ADMIN,KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    return checkApplicationToken(applicationToken);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

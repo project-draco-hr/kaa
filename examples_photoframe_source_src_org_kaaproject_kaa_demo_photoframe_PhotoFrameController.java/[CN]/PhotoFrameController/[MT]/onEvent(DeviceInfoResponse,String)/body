@@ -1,0 +1,7 @@
+{
+  mRemoteDevicesMap.put(sourceEndpoint,deviceInfoResponse.getDeviceInfo());
+  if (!mRemoteAlbumsMap.containsKey(sourceEndpoint)) {
+    mRemoteAlbumsMap.put(sourceEndpoint,new ArrayList<AlbumInfo>());
+  }
+  mEventBus.post(new DeviceInfoEvent(sourceEndpoint));
+}

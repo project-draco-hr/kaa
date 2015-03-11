@@ -1,0 +1,13 @@
+{
+  int id=item.getItemId();
+  if (id == R.id.refresh) {
+    onRefresh();
+    notifyDataChanged();
+    return true;
+  }
+ else   if (id == R.id.logOut) {
+    mController.logout();
+    return true;
+  }
+  return super.onOptionsItemSelected(item);
+}

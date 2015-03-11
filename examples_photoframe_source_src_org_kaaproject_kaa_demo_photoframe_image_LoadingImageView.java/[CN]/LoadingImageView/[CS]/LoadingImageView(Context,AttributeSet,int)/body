@@ -1,0 +1,13 @@
+{
+  super(context,attrs,defStyleAttr);
+  loadingView=new ProgressBar(context,null,android.R.attr.progressBarStyleLargeInverse);
+  loadingView.setIndeterminate(true);
+  imageView=new ImageView(context,attrs,defStyleAttr);
+  final float scale=getContext().getResources().getDisplayMetrics().density;
+  RelativeLayout.LayoutParams lp=new RelativeLayout.LayoutParams((int)(30 * scale + 0.5f),(int)(30 * scale + 0.5f));
+  lp.addRule(RelativeLayout.CENTER_IN_PARENT);
+  addView(loadingView,lp);
+  addView(imageView,new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
+  imageView.setVisibility(View.GONE);
+  loadingView.setVisibility(View.GONE);
+}

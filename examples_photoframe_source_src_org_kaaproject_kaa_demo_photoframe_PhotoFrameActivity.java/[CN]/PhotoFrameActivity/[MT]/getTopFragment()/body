@@ -1,0 +1,7 @@
+{
+  if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+    BackStackEntry entry=getSupportFragmentManager().getBackStackEntryAt(getSupportFragmentManager().getBackStackEntryCount() - 1);
+    return getSupportFragmentManager().findFragmentByTag(entry.getName());
+  }
+  return null;
+}
