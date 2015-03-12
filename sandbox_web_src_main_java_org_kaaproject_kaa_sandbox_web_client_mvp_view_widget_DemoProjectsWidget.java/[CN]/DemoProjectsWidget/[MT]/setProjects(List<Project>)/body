@@ -1,0 +1,9 @@
+{
+  reset();
+  for (  Project project : projects) {
+    DemoProjectWidget demoProjectWidget=new DemoProjectWidget();
+    demoProjectWidget.setProject(project);
+    add(demoProjectWidget);
+    registrations.add(demoProjectWidget.addProjectActionHandler(this));
+  }
+}
