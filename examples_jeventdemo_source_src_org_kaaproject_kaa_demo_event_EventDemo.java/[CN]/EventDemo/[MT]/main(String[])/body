@@ -1,11 +1,5 @@
 {
   LOG.info("Event demo started");
-  try {
-    Thread.sleep(5000);
-  }
- catch (  InterruptedException e1) {
-    LOG.info("{}",e1);
-  }
   kaaClient=Kaa.newClient(new DesktopKaaPlatformContext(),new SimpleKaaClientStateListener());
   kaaClient.start();
   LOG.info("Kaa client started");
