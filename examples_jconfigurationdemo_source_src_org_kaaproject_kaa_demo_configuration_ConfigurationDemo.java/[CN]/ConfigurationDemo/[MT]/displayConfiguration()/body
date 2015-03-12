@@ -1,8 +1,8 @@
 {
-  if (configuration == null) {
-    LOG.info("Configuration isn't loaded");
-  }
- else {
-    LOG.info("Configuration body: [messageConf = {}, numberConf = {}]",configuration.getMessageConf(),configuration.getNumberConf());
+  SampleConfiguration configuration=kaaClient.getConfiguration();
+  List<Link> links=configuration.getAddressList();
+  LOG.info("Configuration body:");
+  for (  Link l : links) {
+    LOG.info("{} - {}",l.getLabel(),l.getUrl());
   }
 }

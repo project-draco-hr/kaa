@@ -1,7 +1,9 @@
 {
   List<String> topicIds=new ArrayList<>();
   for (  Topic t : list) {
-    if (t.getSubscriptionType() == SubscriptionType.OPTIONAL)     topicIds.add(t.getId());
+    if (t.getSubscriptionType() == SubscriptionType.OPTIONAL) {
+      topicIds.add(t.getId());
+    }
   }
   return topicIds;
 }
