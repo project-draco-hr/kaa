@@ -1,0 +1,9 @@
+{
+  try {
+    mClient.unsubscribeFromTopic(topicId,true);
+    Log.i(TAG,"Unsubscribing from topic with id: " + topicId);
+  }
+ catch (  UnavailableTopicException e) {
+    Log.e(TAG,e.getMessage());
+  }
+}

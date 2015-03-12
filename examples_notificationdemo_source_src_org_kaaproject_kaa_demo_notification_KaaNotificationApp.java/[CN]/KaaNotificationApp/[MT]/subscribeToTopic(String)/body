@@ -1,0 +1,9 @@
+{
+  try {
+    mClient.subscribeToTopic(topicId,true);
+    Log.i(TAG,"Subscribing to topic with id: " + topicId);
+  }
+ catch (  UnavailableTopicException e) {
+    Log.e(TAG,e.getMessage());
+  }
+}
