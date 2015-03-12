@@ -1,0 +1,15 @@
+{
+  LinearLayout layoutOfPopup=new LinearLayout(this);
+  LayoutInflater layoutInflater=(LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+  popup=layoutInflater.inflate(R.layout.popup_notification,layoutOfPopup);
+  popup.findViewById(R.id.popup_ok).setOnClickListener(new View.OnClickListener(){
+    @Override public void onClick(    View v){
+      if (v.getId() == R.id.popup_ok) {
+        popupWindow.dismiss();
+      }
+    }
+  }
+);
+  popupWindow=new PopupWindow(popup,ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+  popupWindow.setContentView(popup);
+}
