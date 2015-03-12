@@ -2,8 +2,16 @@
   Schema schema=null;
   String schemaString=null;
   if (schemaSourceType.equals(SCHEMA_SOURCE_REST)) {
-    LogSchemaDto logSchemaDto=adminClient.getLogSchemaByApplicationTokenAndSchemaVersion(key.getApplicationToken(),key.getSchemaVersion());
-    schemaString=logSchemaDto.getSchema();
+    HttpGet getRequest=new HttpGet("/kaaAdmin/rest/api/logSchema/" + key.getApplicationToken() + "/"+ key.getSchemaVersion());
+    HttpResponse httpResponse=httpClient.execute(restHost,getRequest,httpContext);
+    HttpEntity entity=httpResponse.getEntity();
+    if (httpResponse.getStatusLine().getStatusCode() == 200 && entity != null) {
+      String content=EntityUtils.toString(entity);
+      ObjectMapper mapper=new ObjectMapper();
+      LogSchemaDto logSchemaDto=mapper.readValue(content,LogSchemaDto.class);
+      schemaString=logSchemaDto.getSchema();
+      EntityUtils.consume(entity);
+    }
   }
  else {
     String applicationToken=key.getApplicationToken();

@@ -1,0 +1,17 @@
+{
+  changeHostPanel=new VerticalPanel();
+  HTML changeKaaHostLabel=new HTML(Utils.messages.changeKaaHostMessage());
+  changeKaaHostLabel.addStyleName(Utils.sandboxStyle.descriptionLabel());
+  changeHostPanel.add(changeKaaHostLabel);
+  HorizontalPanel changeHostInputPanel=new HorizontalPanel();
+  changeHostPanel.add(changeHostInputPanel);
+  changeHostInputPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+  changeHostInputPanel.getElement().getStyle().setPaddingTop(20,Unit.PX);
+  kaaHost=new TextBox();
+  kaaHost.setWidth("200px");
+  kaaHost.getElement().getStyle().setMarginRight(20,Unit.PX);
+  changeHostInputPanel.add(kaaHost);
+  changeKaaHostButton=new Button(Utils.constants.change());
+  changeHostInputPanel.add(changeKaaHostButton);
+  detailsPanel.add(changeHostPanel);
+}

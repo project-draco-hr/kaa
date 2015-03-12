@@ -12,6 +12,7 @@
   appHeader.setSize("100%","60px");
   appContent.setStyleName(avroUiStyle.bAppContent());
   navPanel.setStyleName(kaaAdminStyle.bNavPanel());
+  footerPanel.getElement().setInnerHTML(Utils.messages.footerMessage(Version.PROJECT_VERSION));
   back.addClickHandler(new ClickHandler(){
     @Override public void onClick(    ClickEvent event){
       if (clickCount == 1) {

@@ -1,0 +1,12 @@
+{
+  httpClient=new DefaultHttpClient();
+  restHost=new HttpHost(kaaRestHost,kaaRestPort,"http");
+  AuthCache authCache=new BasicAuthCache();
+  BasicScheme basicAuth=new BasicScheme();
+  authCache.put(restHost,basicAuth);
+  CredentialsProvider credsProvider=new BasicCredentialsProvider();
+  credsProvider.setCredentials(new AuthScope(kaaRestHost,kaaRestPort,AuthScope.ANY_REALM),new UsernamePasswordCredentials(kaaRestUser,kaaRestPassword));
+  httpContext=new BasicHttpContext();
+  httpContext.setAttribute(ClientContext.AUTH_CACHE,authCache);
+  httpContext.setAttribute(ClientContext.CREDS_PROVIDER,credsProvider);
+}

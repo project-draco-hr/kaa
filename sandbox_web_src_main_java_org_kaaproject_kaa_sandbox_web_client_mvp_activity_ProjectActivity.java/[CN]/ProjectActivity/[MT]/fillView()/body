@@ -1,0 +1,13 @@
+{
+  Sandbox.getSandboxService().getDemoProject(place.getProjectId(),new BusyAsyncCallback<Project>(){
+    @Override public void onFailureImpl(    Throwable caught){
+      view.setErrorMessage(Utils.getErrorMessage(caught));
+    }
+    @Override public void onSuccessImpl(    Project result){
+      view.setTitle(result.getName());
+      view.getTargetPlatform().setText(result.getPlatform().toString());
+      view.getDescription().setText(result.getDescription());
+    }
+  }
+);
+}

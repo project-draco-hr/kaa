@@ -1,0 +1,10 @@
+{
+  view.reset();
+  registrations.add(view.getBackButton().addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      clientFactory.getPlaceController().goTo(place.getPreviousPlace());
+    }
+  }
+));
+  fillView();
+}

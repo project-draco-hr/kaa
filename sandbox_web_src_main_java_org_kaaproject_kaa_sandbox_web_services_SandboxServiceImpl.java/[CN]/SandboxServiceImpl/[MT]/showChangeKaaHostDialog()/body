@@ -1,0 +1,9 @@
+{
+  if (guiChangeHostEnabled) {
+    Boolean result=(Boolean)cacheService.getProperty(CHANGE_KAA_HOST_DIALOG_SHOWN_PROPERTY);
+    return result == null || !result.booleanValue();
+  }
+ else {
+    return false;
+  }
+}

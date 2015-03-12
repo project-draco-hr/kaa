@@ -1,6 +1,5 @@
 {
-  injectThemeStyleSheet();
-  Utils.resources.css().ensureInjected();
+  Utils.injectSandboxStyles();
   ClientFactory clientFactory=GWT.create(ClientFactory.class);
   EventBus eventBus=clientFactory.getEventBus();
   PlaceController placeController=clientFactory.getPlaceController();
