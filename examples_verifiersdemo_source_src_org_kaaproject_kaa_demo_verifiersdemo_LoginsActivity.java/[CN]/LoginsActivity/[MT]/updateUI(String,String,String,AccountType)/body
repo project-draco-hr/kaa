@@ -51,8 +51,10 @@ Log.i(TAG,"Event listeners received: " + eventListeners);
 }
 }
 );
-if (listener != null) vdecf.removeListener(listener);
-listener=new EventListener();
+if (listener != null) {
+vdecf.removeListener(listener);
+}
+listener=new KaaEventListener();
 vdecf.addListener(listener);
 }
  else {
