@@ -22,22 +22,27 @@
             }
  else {
               LOG.warn("Validated endpoint user configuration body is empty");
+              throw new IncorrectParameterException("Validated endpoint user configuration body is empty");
             }
           }
  catch (          IOException e) {
             LOG.error("Invalid endpoint user configuration for override schema.",e);
+            throw new IncorrectParameterException("Invalid endpoint user configuration for override schema.");
           }
         }
  else {
           LOG.warn("Can't find configuration schema with version {} for endpoint user configuration.",schemaVersion);
+          throw new IncorrectParameterException("Can't find configuration schema for specified version.");
         }
       }
  else {
         LOG.warn("Can't find application with token {} for endpoint user configuration.",appToken);
+        throw new IncorrectParameterException("Can't find application for specified token.");
       }
     }
  else {
       LOG.warn("Invalid endpoint user configuration. Configuration body is empty");
+      throw new IncorrectParameterException("Configuration body is empty.");
     }
   }
   return userConfigurationDto;
