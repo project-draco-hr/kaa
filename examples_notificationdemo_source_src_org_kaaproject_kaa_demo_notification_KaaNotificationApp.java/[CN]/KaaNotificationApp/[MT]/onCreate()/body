@@ -1,0 +1,11 @@
+{
+  super.onCreate();
+  mContext=this;
+  mClient=Kaa.newClient(new AndroidKaaPlatformContext(this));
+  initPopup();
+  initNotificationListener();
+  initNotificationTopicListListener();
+  mClient.addNotificationListener(notificationListener);
+  mClient.addTopicListListener(topicListListener);
+  mClient.start();
+}
