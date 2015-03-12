@@ -4,8 +4,8 @@
   mClient=Kaa.newClient(new AndroidKaaPlatformContext(this));
   initPopup();
   initNotificationListener();
-  initNotificationTopicListListener();
   mClient.addNotificationListener(notificationListener);
+  initNotificationTopicListListener();
   mClient.addTopicListListener(topicListListener);
   mClient.start();
 }

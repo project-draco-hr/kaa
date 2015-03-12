@@ -8,8 +8,10 @@
   }
 );
   kaaClient.start();
+  LOG.info("Kaa client started");
   for (  LogData log : generateLogs(LOGS_TO_SEND_COUNT)) {
     kaaClient.addLogRecord(log);
+    LOG.info("Log record {} sent",log.toString());
   }
   try {
     System.in.read();
@@ -18,5 +20,6 @@
     e.printStackTrace();
   }
   kaaClient.stop();
+  LOG.info("Kaa client stopped");
   LOG.info("Data collection demo stopped");
 }

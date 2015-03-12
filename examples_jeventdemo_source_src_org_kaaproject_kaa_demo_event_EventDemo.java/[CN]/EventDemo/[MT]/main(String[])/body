@@ -8,6 +8,7 @@
   }
   kaaClient=Kaa.newClient(new DesktopKaaPlatformContext(),new SimpleKaaClientStateListener());
   kaaClient.start();
+  LOG.info("Kaa client started");
   kaaClient.attachUser(USER_EXTERNAL_ID,USER_ACCESS_TOKEN,new UserAttachCallback(){
     @Override public void onAttachResult(    UserAttachResponse response){
       LOG.info("Attach response {}",response.getResult());

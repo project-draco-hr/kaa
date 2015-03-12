@@ -16,7 +16,7 @@
   }
 );
   EventFamilyFactory eventFamilyFactory=kaaClient.getEventFamilyFactory();
-  CustomThermoEventClassFamily tecf=eventFamilyFactory.getCustomThermoEventClassFamily();
+  ThermostatEventClassFamily tecf=eventFamilyFactory.getThermostatEventClassFamily();
   tecf.addListener(new DefaultEventFamilyListener(){
     @Override public void onEvent(    ChangeDegreeRequest arg0,    String arg1){
       LOG.info("ChangeDegreeRequest event fired!");
@@ -35,6 +35,7 @@
   tecf.addEventToBlock(trxId,new ThermostatInfoRequest());
   tecf.addEventToBlock(trxId,new ChangeDegreeRequest(-30),"home_thermostat");
   eventFamilyFactory.submitEventsBlock(trxId);
+  LOG.info("Batch of events (ThermostatInfoRequest & ChangeDegreeRequest) sent");
   try {
     System.in.read();
   }
@@ -42,5 +43,6 @@
     e.printStackTrace();
   }
   kaaClient.stop();
+  LOG.info("Kaa client stopped");
   LOG.info("Event demo stopped");
 }
