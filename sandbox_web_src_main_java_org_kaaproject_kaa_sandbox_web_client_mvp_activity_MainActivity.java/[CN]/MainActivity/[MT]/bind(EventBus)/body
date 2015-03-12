@@ -20,10 +20,16 @@ case GET_SOURCE_CODE:
 case GET_BINARY:
     getProjectBinary(event.getProjectId());
   break;
+case OPEN_DETAILS:
+clientFactory.getPlaceController().goTo(new ProjectPlace(event.getProjectId()));
+break;
+default :
+break;
 }
 }
 }
 ));
 view.reset();
 fillView();
+showChangeKaaHostDialog();
 }

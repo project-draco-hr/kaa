@@ -1,0 +1,22 @@
+{
+  HorizontalPanel targetPlatformPanel=new HorizontalPanel();
+  Label targetPlatformLabel=new Label(Utils.constants.targetPlatform());
+  targetPlatformLabel.addStyleName(Utils.sandboxStyle.contentLabel());
+  targetPlatformPanel.add(targetPlatformLabel);
+  targetPlatform=new Label();
+  targetPlatformPanel.add(targetPlatform);
+  detailsPanel.add(targetPlatformPanel);
+  descriptionLabel=new Label();
+  descriptionLabel.addStyleName(Utils.sandboxStyle.descriptionLabel());
+  detailsPanel.add(descriptionLabel);
+  HorizontalPanel buttonsPanel=new HorizontalPanel();
+  buttonsPanel.getElement().getStyle().setPaddingTop(30,Unit.PX);
+  getSourceButton=new Button(Utils.constants.getSourceCode());
+  getBinaryButton=new Button(Utils.constants.getBinary());
+  buttonsPanel.add(getSourceButton);
+  SimplePanel spacingPanel=new SimplePanel();
+  spacingPanel.setWidth("50px");
+  buttonsPanel.add(spacingPanel);
+  buttonsPanel.add(getBinaryButton);
+  detailsPanel.add(buttonsPanel);
+}
