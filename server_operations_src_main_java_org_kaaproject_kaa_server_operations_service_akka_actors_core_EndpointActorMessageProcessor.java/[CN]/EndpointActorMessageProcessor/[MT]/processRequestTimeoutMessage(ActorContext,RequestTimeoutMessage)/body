@@ -1,10 +1,10 @@
 {
-  ChannelMetaData channel=channelMap.getByRequestId(message.getRequestId());
+  ChannelMetaData channel=state.getChannelByRequestId(message.getRequestId());
   if (channel != null) {
     SyncResponseHolder response=channel.getResponseHolder();
     sendReply(context,channel.getRequestMessage(),response.getResponse());
     if (!channel.getType().isAsync()) {
-      channelMap.removeChannel(channel);
+      state.removeChannel(channel);
     }
   }
  else {

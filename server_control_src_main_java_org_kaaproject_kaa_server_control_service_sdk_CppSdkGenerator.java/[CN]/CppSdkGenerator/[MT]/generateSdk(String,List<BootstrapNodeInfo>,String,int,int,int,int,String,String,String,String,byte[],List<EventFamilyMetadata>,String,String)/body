@@ -10,17 +10,22 @@
   ArchiveOutputStream sdkFile=asf.createArchiveOutputStream(ArchiveStreamFactory.TAR,cos);
   Map<String,TarEntryData> replacementData=new HashMap<String,TarEntryData>();
   List<TarEntryData> cppSources=new ArrayList<>();
-  TarArchiveEntry entry=new TarArchiveEntry(PROFILE_SCHEMA_AVRO_SRC);
-  byte[] data=profileSchemaBody.getBytes();
+  TarArchiveEntry entry=new TarArchiveEntry(SDK_DEFAULTS_PATH);
+  byte[] data=generateKaaDefaults(bootstrapNodes,appToken,configurationSchemaVersion,profileSchemaVersion,notificationSchemaVersion,logSchemaVersion,configurationProtocolSchemaBody,defaultConfigurationData,eventFamilies,defaultVerifierToken);
   entry.setSize(data.length);
   TarEntryData tarEntry=new TarEntryData(entry,data);
+  cppSources.add(tarEntry);
+  entry=new TarArchiveEntry(PROFILE_SCHEMA_AVRO_SRC);
+  data=profileSchemaBody.getBytes();
+  entry.setSize(data.length);
+  tarEntry=new TarEntryData(entry,data);
   cppSources.add(tarEntry);
   entry=new TarArchiveEntry(NOTIFICATION_SCHEMA_AVRO_SRC);
   data=notificationSchemaBody.getBytes();
   entry.setSize(data.length);
   tarEntry=new TarEntryData(entry,data);
   cppSources.add(tarEntry);
-  if (logSchemaBody != null) {
+  if (!StringUtils.isBlank(logSchemaBody)) {
     entry=new TarArchiveEntry(LOG_RECORD_SCHEMA_AVRO_SRC);
     data=logSchemaBody.getBytes();
     entry.setSize(data.length);
@@ -46,6 +51,20 @@
     tarEntry=new TarEntryData(entry,logCollectorData);
     cppSources.add(tarEntry);
   }
+  if (!StringUtils.isBlank(configurationBaseSchema)) {
+    entry=new TarArchiveEntry(CONFIGURATION_SCHEMA_AVRO_SRC);
+    data=configurationBaseSchema.getBytes();
+    entry.setSize(data.length);
+    tarEntry=new TarEntryData(entry,data);
+    cppSources.add(tarEntry);
+    Schema configurationSchema=new Schema.Parser().parse(configurationBaseSchema);
+    String configuratioDefinitionsHpp=SdkGenerator.readResource(CONFIGURATION_DEFINITIONS_TEMPLATE);
+    entry=new TarArchiveEntry(CONFIGURATION_DEFINITIONS_PATH);
+    byte[] configuratioDefinitionsData=replaceVar(configuratioDefinitionsHpp,CONFIGURATION_RECORD_CLASS_NAME_VAR,configurationSchema.getName()).getBytes();
+    entry.setSize(configuratioDefinitionsData.length);
+    tarEntry=new TarEntryData(entry,configuratioDefinitionsData);
+    cppSources.add(tarEntry);
+  }
   if (eventFamilies != null && !eventFamilies.isEmpty()) {
     cppSources.addAll(CppEventSourcesGenerator.generateEventSources(eventFamilies));
   }
@@ -55,17 +74,7 @@
   ArchiveEntry e=null;
   while ((e=templateArchive.getNextEntry()) != null) {
     if (!e.isDirectory()) {
-      if (e.getName().equals(KAA_DEFAULTS_CPP)) {
-        continue;
-      }
- else       if (e.getName().equals(KAA_DEFAULTS_TMPL)) {
-        TarArchiveEntry kaaDefaultsEntry=new TarArchiveEntry(KAA_DEFAULTS_CPP);
-        byte[] kaaDefaultsData=generateKaaDefaults(templateArchive,bootstrapNodes,appToken,configurationSchemaVersion,profileSchemaVersion,notificationSchemaVersion,logSchemaVersion,configurationProtocolSchemaBody,defaultConfigurationData,eventFamilies);
-        kaaDefaultsEntry.setSize(kaaDefaultsData.length);
-        sdkFile.putArchiveEntry(kaaDefaultsEntry);
-        sdkFile.write(kaaDefaultsData);
-      }
- else       if (replacementData.containsKey(e.getName())) {
+      if (replacementData.containsKey(e.getName())) {
         TarEntryData entryData=replacementData.remove(e.getName());
         sdkFile.putArchiveEntry(entryData.getEntry());
         sdkFile.write(entryData.getData());

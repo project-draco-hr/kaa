@@ -1,0 +1,35 @@
+{
+  Sandbox.getSandboxService().showChangeKaaHostDialog(new BusyAsyncCallback<Boolean>(){
+    @Override public void onSuccessImpl(    Boolean result){
+      if (result) {
+        ChangeHostDialog.showChangeHostDialog(new Listener(){
+          @Override public void onIgnore(){
+            Sandbox.getSandboxService().changeKaaHostDialogShown(new BusyAsyncCallback<Void>(){
+              @Override public void onSuccessImpl(              Void result){
+              }
+              @Override public void onFailureImpl(              Throwable caught){
+              }
+            }
+);
+          }
+          @Override public void onChangeHost(){
+            Sandbox.getSandboxService().changeKaaHostDialogShown(new BusyAsyncCallback<Void>(){
+              @Override public void onSuccessImpl(              Void result){
+                clientFactory.getPlaceController().goTo(new ChangeKaaHostPlace());
+              }
+              @Override public void onFailureImpl(              Throwable caught){
+                view.setErrorMessage(Utils.getErrorMessage(caught));
+              }
+            }
+);
+          }
+        }
+);
+      }
+    }
+    @Override public void onFailureImpl(    Throwable caught){
+      view.setErrorMessage(Utils.getErrorMessage(caught));
+    }
+  }
+);
+}

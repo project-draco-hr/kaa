@@ -1,26 +1,14 @@
 {
   try {
-    long start=lastActivityTime=System.currentTimeMillis();
+    state.setLastActivityTime(System.currentTimeMillis());
+    long start=state.getLastActivityTime();
     ChannelMetaData channel=initChannel(context,requestMessage);
-    ClientSync request;
-    if (channel.getType().isAsync()) {
-      if (channel.isFirstRequest()) {
-        request=channel.getRequestMessage().getRequest();
-      }
- else {
-        LOG.debug("[{}][{}] Updating request for async channel {}",endpointKey,actorKey,channel);
-        request=channel.mergeRequest(requestMessage);
-        LOG.trace("[{}][{}] Updated request for async channel {} : {}",endpointKey,actorKey,channel,request);
-      }
-    }
- else {
-      request=channel.getRequestMessage().getRequest();
-    }
+    ClientSync request=buildRequestForChannel(requestMessage,channel);
     ChannelType channelType=channel.getType();
     LOG.debug("[{}][{}] Processing sync request {} from {} channel [{}]",endpointKey,actorKey,request,channelType,requestMessage.getChannelUuid());
-    SyncResponseHolder responseHolder=operationsService.sync(request,endpointProfile);
-    endpointProfile=responseHolder.getEndpointProfile();
-    if (endpointProfile != null) {
+    SyncResponseHolder responseHolder=operationsService.sync(request,state.getProfile());
+    state.setProfile(responseHolder.getEndpointProfile());
+    if (state.getProfile() != null) {
       processLogUpload(context,request,responseHolder);
       processUserAttachRequest(context,request,responseHolder);
       processEvents(context,request,responseHolder);
@@ -33,19 +21,19 @@
     if (channelType.isAsync()) {
       LOG.debug("[{}][{}] Adding async request from channel [{}] to map ",endpointKey,actorKey,requestMessage.getChannelUuid());
       channel.update(responseHolder);
-      subscribeToTopics(context,responseHolder);
+      updateSubscriptionsToTopics(context,responseHolder);
       sendReply(context,requestMessage,responseHolder.getResponse());
     }
  else {
       if (channelType.isLongPoll() && !responseHolder.requireImmediateReply()) {
         LOG.debug("[{}][{}] Adding long poll request from channel [{}] to map ",endpointKey,actorKey,requestMessage.getChannelUuid());
         channel.update(responseHolder);
-        subscribeToTopics(context,responseHolder);
+        updateSubscriptionsToTopics(context,responseHolder);
         scheduleTimeoutMessage(context,requestMessage.getChannelUuid(),getDelay(requestMessage,start));
       }
  else {
         sendReply(context,requestMessage,responseHolder.getResponse());
-        channelMap.removeChannel(channel);
+        state.removeChannel(channel);
       }
     }
   }

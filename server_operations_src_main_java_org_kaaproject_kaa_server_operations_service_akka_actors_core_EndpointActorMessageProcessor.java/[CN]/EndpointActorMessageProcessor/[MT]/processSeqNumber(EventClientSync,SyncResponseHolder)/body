@@ -5,6 +5,6 @@
       response=new EventServerSync();
       responseHolder.getResponse().setEventSync(response);
     }
-    response.setEventSequenceNumberResponse(new EventSequenceNumberResponse(Math.max(processedEventSeqNum,0)));
+    response.setEventSequenceNumberResponse(new EventSequenceNumberResponse(Math.max(state.getEventSeqNumber(),0)));
   }
 }

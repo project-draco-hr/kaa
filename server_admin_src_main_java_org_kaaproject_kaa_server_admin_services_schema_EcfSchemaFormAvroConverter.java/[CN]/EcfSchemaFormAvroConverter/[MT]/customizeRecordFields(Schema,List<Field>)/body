@@ -1,0 +1,9 @@
+{
+  super.customizeRecordFields(recordSchema,fields);
+  if (eventClassTypes.contains(recordSchema.getName())) {
+    int index=getFieldIndex(fields,RECORD_NAMESPACE);
+    if (index > -1) {
+      fields.add(index + 1,createClassTypeField());
+    }
+  }
+}

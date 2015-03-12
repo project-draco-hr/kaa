@@ -17,8 +17,8 @@
       buf.putShort(response.getResult() == SyncStatus.SUCCESS ? SUCCESS : FAILURE);
       if (response.getListeners() != null) {
         buf.putInt(response.getListeners().size());
-        for (        String listner : response.getListeners()) {
-          buf.put(Base64Util.decode(listner));
+        for (        String listener : response.getListeners()) {
+          put(buf,Base64Util.decode(listener));
         }
       }
  else {

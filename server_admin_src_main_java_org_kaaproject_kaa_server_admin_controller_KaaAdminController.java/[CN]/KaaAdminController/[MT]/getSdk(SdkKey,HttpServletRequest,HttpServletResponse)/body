@@ -1,6 +1,6 @@
 {
   try {
-    org.kaaproject.kaa.server.admin.shared.file.FileData sdkData=kaaAdminService.getSdk(key);
+    FileData sdkData=kaaAdminService.getSdk(key);
     response.setContentType(sdkData.getContentType());
     ServletUtils.prepareDisposition(request,response,sdkData.getFileName());
     response.setContentLength(sdkData.getFileData().length);

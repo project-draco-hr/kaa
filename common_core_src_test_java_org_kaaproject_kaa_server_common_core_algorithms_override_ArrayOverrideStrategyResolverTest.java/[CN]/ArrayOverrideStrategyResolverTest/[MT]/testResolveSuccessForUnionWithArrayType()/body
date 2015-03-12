@@ -4,7 +4,9 @@
   SchemaGenerationAlgorithmFactory factory=new SchemaGenerationAlgorithmFactoryImpl();
   SchemaGenerationAlgorithm generator=factory.createSchemaGenerator(configurationSchema);
   KaaSchema baseSchemaString=generator.getBaseSchema();
-  ArrayOverrideStrategyResolver arrayMergeStrategyResolver=new ArrayOverrideStrategyResolver(baseSchemaString);
+  Schema.Parser baseParser=new Schema.Parser();
+  baseParser.parse(baseSchemaString.getRawSchema());
+  ArrayOverrideStrategyResolver arrayMergeStrategyResolver=new ArrayOverrideStrategyResolver(baseParser.getTypes());
   ArrayOverrideStrategy actualArrayMergeStrategy=arrayMergeStrategyResolver.resolve("testT","org.kaa.config","field1");
   Assert.assertTrue(ArrayOverrideStrategy.APPEND == actualArrayMergeStrategy);
 }

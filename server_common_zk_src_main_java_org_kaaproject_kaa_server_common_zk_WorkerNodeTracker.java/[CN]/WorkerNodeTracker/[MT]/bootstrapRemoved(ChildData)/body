@@ -1,6 +1,14 @@
 {
   BootstrapNodeInfo nodeInfo=extractBootstrapServerInfo(data);
-  for (  BootstrapNodeListener listener : bootstrapListeners) {
-    listener.onNodeRemoved(nodeInfo);
+  String bootstrapAddress=constructBootstrapAddress(nodeInfo);
+  Long removeTime=nodeInfo.getTimeStarted();
+  Long updateTime=bootstrapNodesStartTimes.get(bootstrapAddress);
+  if (updateTime == null || removeTime >= updateTime) {
+    for (    BootstrapNodeListener listener : bootstrapListeners) {
+      listener.onNodeRemoved(nodeInfo);
+    }
+  }
+ else {
+    LOG.debug("Ignoring [{}] bootstrap removal, as it was before add/update",bootstrapAddress);
   }
 }

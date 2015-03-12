@@ -1,0 +1,14 @@
+{
+  if (recordSchema.getName().equals(RECORD_FIELD_TYPE)) {
+    int index=getFieldIndex(fields,FIELDS);
+    if (index > -1) {
+      fields.add(index,createAddressableField());
+    }
+  }
+ else   if (recordSchema.getName().equals(ARRAY_FIELD_TYPE)) {
+    int index=getFieldIndex(fields,ARRAY_ITEM);
+    if (index > -1) {
+      fields.add(index,createOverrideStrategyField());
+    }
+  }
+}

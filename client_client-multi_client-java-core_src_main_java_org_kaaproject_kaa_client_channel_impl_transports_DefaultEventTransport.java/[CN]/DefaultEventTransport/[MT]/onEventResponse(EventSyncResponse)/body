@@ -10,7 +10,7 @@
         for (        Set<Event> events : pendingEvents.values()) {
           eventsSet.addAll(events);
         }
-        eventsSet.addAll(eventManager.getPendingEvents());
+        eventsSet.addAll(eventManager.peekPendingEvents());
         List<Event> events=new ArrayList<Event>(eventsSet);
         Collections.sort(events,eventSeqNumberComparator);
         clientState.setEventSeqNum(startEventSN.get() + events.size());

@@ -1,3 +1,8 @@
 {
-  return place.getEcfId();
+  if (place.getVersion() > -1) {
+    return place.getEcfId();
+  }
+ else {
+    return null;
+  }
 }

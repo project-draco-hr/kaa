@@ -1,6 +1,6 @@
 {
   LOG.debug("[{}] response: {}",actorKey,syncResponse);
-  ServerSync copy=deepCopy(syncResponse);
+  ServerSync copy=ServerSync.deepCopy(syncResponse);
   NettySessionResponseMessage response=new NettySessionResponseMessage(request.getSession(),copy,request.getCommand().getMessageBuilder(),request.getCommand().getErrorBuilder());
   tellActor(context,request.getOriginator(),response);
   scheduleActorTimeout(context);

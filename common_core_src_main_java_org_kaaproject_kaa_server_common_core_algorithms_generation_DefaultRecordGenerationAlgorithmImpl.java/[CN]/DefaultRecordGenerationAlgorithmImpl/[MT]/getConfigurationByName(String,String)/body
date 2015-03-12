@@ -3,17 +3,11 @@
     return null;
   }
   if (processedTypes.containsKey(namespace + "." + name)) {
-    return (GenericRecord)processedTypes.get(namespace + "." + name);
+    return processedTypes.get(namespace + "." + name);
   }
-  Map<String,Object> schema=CommonUtils.findRawSchemaByName(rawBaseSchema,name,namespace);
+  Schema schema=avroSchemaParser.getTypes().get(namespace + "." + name);
   if (schema != null) {
-    try {
-      return (GenericRecord)processType(schema,null);
-    }
- catch (    IOException ioe) {
-      LOG.error("Unexpected exception occurred while generating configuration.",ioe);
-      throw new ConfigurationGenerationException(ioe);
-    }
+    return (GenericRecord)processType(schema,null);
   }
   return null;
 }

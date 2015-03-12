@@ -1,0 +1,69 @@
+{
+  super();
+  addStyleName(Utils.sandboxStyle.demoProjectWidget());
+  VerticalPanel detailsPanel=new VerticalPanel();
+  detailsPanel.addStyleName(Utils.sandboxStyle.details());
+  detailsPanel.sinkEvents(Event.ONCLICK);
+  detailsPanel.setWidth("100%");
+  AbsolutePanel layoutPanel=new AbsolutePanel();
+  VerticalPanel platformImagePanel=new VerticalPanel();
+  platformImagePanel.addStyleName(Utils.sandboxStyle.detailsInnerTop());
+  platformImagePanel.setWidth("100%");
+  platformImage=new Image();
+  platformImagePanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+  platformImagePanel.add(platformImage);
+  layoutPanel.add(platformImagePanel);
+  SimplePanel platformImageHoverPanel=new SimplePanel();
+  platformImageHoverPanel.addStyleName(Utils.sandboxStyle.platformImageHover());
+  layoutPanel.add(platformImageHoverPanel);
+  platformImageHoverPanel.setSize("100%","100%");
+  layoutPanel.setSize("100%","100%");
+  detailsPanel.add(layoutPanel);
+  SimplePanel titlePanel=new SimplePanel();
+  titlePanel.addStyleName(Utils.sandboxStyle.detailsInnerCenter());
+  projectTitle=new Anchor();
+  projectTitle.addStyleName(Utils.sandboxStyle.title());
+  titlePanel.add(projectTitle);
+  detailsPanel.add(titlePanel);
+  add(detailsPanel);
+  HorizontalPanel buttonsPanel=new HorizontalPanel();
+  buttonsPanel.setWidth("100%");
+  buttonsPanel.addStyleName(Utils.sandboxStyle.detailsInnerBottom());
+  getSourceAnchor=new Anchor(Utils.constants.getSourceCode());
+  getSourceAnchor.addStyleName(Utils.sandboxStyle.action());
+  getSourceAnchor.getElement().getStyle().setMarginRight(20,Unit.PX);
+  getBinaryAnchor=new Anchor(Utils.constants.getBinary());
+  getBinaryAnchor.addStyleName(Utils.sandboxStyle.action());
+  buttonsPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+  buttonsPanel.add(getSourceAnchor);
+  buttonsPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
+  buttonsPanel.add(getBinaryAnchor);
+  add(buttonsPanel);
+  detailsPanel.addHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      if (project != null) {
+        ProjectActionEvent action=new ProjectActionEvent(project.getId(),ProjectAction.OPEN_DETAILS);
+        fireEvent(action);
+      }
+    }
+  }
+,ClickEvent.getType());
+  getSourceAnchor.addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      if (project != null) {
+        ProjectActionEvent action=new ProjectActionEvent(project.getId(),ProjectAction.GET_SOURCE_CODE);
+        fireEvent(action);
+      }
+    }
+  }
+);
+  getBinaryAnchor.addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      if (project != null) {
+        ProjectActionEvent action=new ProjectActionEvent(project.getId(),ProjectAction.GET_BINARY);
+        fireEvent(action);
+      }
+    }
+  }
+);
+}

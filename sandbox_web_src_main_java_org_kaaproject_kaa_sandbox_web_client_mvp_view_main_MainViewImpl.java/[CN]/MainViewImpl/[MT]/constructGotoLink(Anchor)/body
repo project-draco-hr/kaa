@@ -1,11 +1,8 @@
 {
-  HTML label=new HTML("Go to");
-  HorizontalPanel panel=new HorizontalPanel();
-  panel.add(label);
-  label.getElement().getStyle().setPaddingRight(15,Unit.PX);
-  label.getElement().getStyle().setFontSize(16,Unit.PX);
+  FlowPanel panel=new FlowPanel();
+  panel.getElement().getStyle().setDisplay(Display.BLOCK);
+  anchor.getElement().getStyle().setDisplay(Display.INLINE_BLOCK);
   anchor.getElement().getStyle().setFontSize(16,Unit.PX);
   panel.add(anchor);
-  panel.getElement().getStyle().setPaddingBottom(40,Unit.PX);
   return panel;
 }

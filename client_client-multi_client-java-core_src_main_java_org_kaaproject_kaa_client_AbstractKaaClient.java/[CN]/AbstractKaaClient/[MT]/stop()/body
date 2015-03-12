@@ -1,15 +1,23 @@
 {
-  try {
-    kaaClientState.persist();
-    channelManager.shutdown();
-    isInitialized=false;
-    if (stateListener != null) {
-      stateListener.onStopped();
+  lifecycleTasksExecutor.submit(new Runnable(){
+    @Override public void run(){
+      try {
+        logCollector.stop();
+        kaaClientState.persist();
+        channelManager.shutdown();
+        isInitialized=false;
+        if (stateListener != null) {
+          stateListener.onStopped();
+        }
+      }
+ catch (      Exception e) {
+        LOG.error("Stop failed",e);
+        if (stateListener != null) {
+          stateListener.onStopFailure(new KaaException(e));
+        }
+      }
     }
   }
- catch (  Exception e) {
-    if (stateListener != null) {
-      stateListener.onStopFailure(new KaaException(e));
-    }
-  }
+);
+  lifecycleTasksExecutor.shutdown();
 }

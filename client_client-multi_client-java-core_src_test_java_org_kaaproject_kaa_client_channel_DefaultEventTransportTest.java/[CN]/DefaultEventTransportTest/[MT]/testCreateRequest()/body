@@ -5,7 +5,7 @@
   event1.setSeqNum(1);
   Event event2=new Event();
   event2.setSeqNum(2);
-  Mockito.when(manager.getPendingEvents()).thenReturn(Arrays.asList(event1,event2));
+  Mockito.when(manager.pollPendingEvents()).thenReturn(Arrays.asList(event1,event2));
   EventTransport transport=new DefaultEventTransport(clientState);
   transport.createEventRequest(1);
   transport.setEventManager(manager);

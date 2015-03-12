@@ -1,4 +1,7 @@
 {
-  String storedKeyHash=state.getProperty(ENDPOINT_KEY_HASH);
-  return new EndpointKeyHash(storedKeyHash);
+  if (keyHash == null) {
+    EndpointObjectHash publicKeyHash=EndpointObjectHash.fromSHA1(getOrInitKeyPair().getPublic().getEncoded());
+    keyHash=new EndpointKeyHash(new String(base64.encodeBase64(publicKeyHash.getData())));
+  }
+  return keyHash;
 }
