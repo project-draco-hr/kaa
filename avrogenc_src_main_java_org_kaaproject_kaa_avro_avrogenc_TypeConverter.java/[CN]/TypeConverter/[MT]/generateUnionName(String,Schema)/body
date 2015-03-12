@@ -1,12 +1,6 @@
 {
   StringBuilder builder=new StringBuilder(prefix + "_UNION_");
   List<Schema> branches=schema.getTypes();
-  Collections.sort(branches,new Comparator<Schema>(){
-    @Override public int compare(    Schema o1,    Schema o2){
-      return o1.getName().compareTo(o2.getName());
-    }
-  }
-);
   int branchCounter=branches.size();
   for (  Schema branchSchema : branches) {
 switch (branchSchema.getType()) {
