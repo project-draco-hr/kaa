@@ -4,7 +4,9 @@
     String[] params=token.split(PARAMS_SEPARATOR);
     for (    String param : params) {
       String[] keyVal=param.split("=");
-      if (keyVal != null && keyVal.length == 2)       paramsMap.put(keyVal[0],keyVal[1]);
+      if (keyVal != null && keyVal.length == 2) {
+        paramsMap.put(keyVal[0],keyVal[1]);
+      }
     }
   }
 }
