@@ -5,6 +5,7 @@
     if (channel.getLastActivityTime() <= message.getLastActivityTime()) {
       LOG.debug("[{}][{}] Timeout message accepted for channel [{}]. Last activity time {} and timeout is {} ",endpointKey,actorKey,message.getChannelUuid(),channel.getLastActivityTime(),message.getLastActivityTime());
       state.removeChannel(channel);
+      scheduleActorTimeout(context);
       return true;
     }
  else {
@@ -15,6 +16,7 @@
   }
  else {
     LOG.debug("[{}][{}] Can't find channel by uuid [{}]",endpointKey,actorKey,message.getChannelUuid());
+    scheduleActorTimeout(context);
     return false;
   }
 }

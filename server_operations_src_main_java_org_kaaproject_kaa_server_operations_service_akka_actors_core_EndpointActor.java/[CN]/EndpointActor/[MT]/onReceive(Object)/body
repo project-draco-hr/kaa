@@ -14,6 +14,9 @@
  else   if (message instanceof LogDeliveryMessage) {
     processLogDeliveryMessage((LogDeliveryMessage)message);
   }
+ else   if (message instanceof EndpointStateUpdateMessage) {
+    processStateUpdateMessage((EndpointStateUpdateMessage)message);
+  }
  else   if (message instanceof UserVerificationResponseMessage) {
     processUserVerificationMessage((UserVerificationResponseMessage)message);
   }

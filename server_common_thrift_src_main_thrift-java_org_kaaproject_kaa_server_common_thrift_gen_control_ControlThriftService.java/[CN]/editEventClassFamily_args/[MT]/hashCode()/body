@@ -1,7 +1,7 @@
 {
-  HashCodeBuilder builder=new HashCodeBuilder();
+  List<Object> list=new ArrayList<Object>();
   boolean present_eventClassFamily=true && (isSetEventClassFamily());
-  builder.append(present_eventClassFamily);
-  if (present_eventClassFamily)   builder.append(eventClassFamily);
-  return builder.toHashCode();
+  list.add(present_eventClassFamily);
+  if (present_eventClassFamily)   list.add(eventClassFamily);
+  return list.hashCode();
 }

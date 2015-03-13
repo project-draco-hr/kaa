@@ -1,13 +1,13 @@
 {
-  HashCodeBuilder builder=new HashCodeBuilder();
+  List<Object> list=new ArrayList<Object>();
   boolean present_ecfId=true && (isSetEcfId());
-  builder.append(present_ecfId);
-  if (present_ecfId)   builder.append(ecfId);
+  list.add(present_ecfId);
+  if (present_ecfId)   list.add(ecfId);
   boolean present_version=true;
-  builder.append(present_version);
-  if (present_version)   builder.append(version);
+  list.add(present_version);
+  if (present_version)   list.add(version);
   boolean present_type=true && (isSetType());
-  builder.append(present_type);
-  if (present_type)   builder.append(type);
-  return builder.toHashCode();
+  list.add(present_type);
+  if (present_type)   list.add(type);
+  return list.hashCode();
 }

@@ -1,7 +1,7 @@
 {
-  HashCodeBuilder builder=new HashCodeBuilder();
+  List<Object> list=new ArrayList<Object>();
   boolean present_redirectionRule=true && (isSetRedirectionRule());
-  builder.append(present_redirectionRule);
-  if (present_redirectionRule)   builder.append(redirectionRule);
-  return builder.toHashCode();
+  list.add(present_redirectionRule);
+  if (present_redirectionRule)   list.add(redirectionRule);
+  return list.hashCode();
 }

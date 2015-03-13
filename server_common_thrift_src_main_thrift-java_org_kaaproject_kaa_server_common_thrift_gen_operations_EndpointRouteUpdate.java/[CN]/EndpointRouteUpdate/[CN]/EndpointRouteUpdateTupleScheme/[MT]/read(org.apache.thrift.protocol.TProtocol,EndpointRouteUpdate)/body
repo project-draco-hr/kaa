@@ -1,0 +1,29 @@
+{
+  TTupleProtocol iprot=(TTupleProtocol)prot;
+  BitSet incoming=iprot.readBitSet(6);
+  if (incoming.get(0)) {
+    struct.tenantId=iprot.readString();
+    struct.setTenantIdIsSet(true);
+  }
+  if (incoming.get(1)) {
+    struct.userId=iprot.readString();
+    struct.setUserIdIsSet(true);
+  }
+  if (incoming.get(2)) {
+    struct.routeAddress=new RouteAddress();
+    struct.routeAddress.read(iprot);
+    struct.setRouteAddressIsSet(true);
+  }
+  if (incoming.get(3)) {
+    struct.updateType=org.kaaproject.kaa.server.common.thrift.gen.operations.EventRouteUpdateType.findByValue(iprot.readI32());
+    struct.setUpdateTypeIsSet(true);
+  }
+  if (incoming.get(4)) {
+    struct.cfSchemaVersion=iprot.readI32();
+    struct.setCfSchemaVersionIsSet(true);
+  }
+  if (incoming.get(5)) {
+    struct.ucfHash=iprot.readBinary();
+    struct.setUcfHashIsSet(true);
+  }
+}

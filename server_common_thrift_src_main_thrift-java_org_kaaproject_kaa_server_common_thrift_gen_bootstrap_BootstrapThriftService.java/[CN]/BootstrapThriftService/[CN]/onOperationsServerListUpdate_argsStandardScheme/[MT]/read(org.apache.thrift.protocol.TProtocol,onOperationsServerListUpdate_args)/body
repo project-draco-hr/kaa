@@ -12,11 +12,11 @@ case 1:
 {
           org.apache.thrift.protocol.TList _list0=iprot.readListBegin();
           struct.operationsServersList=new ArrayList<ThriftOperationsServer>(_list0.size);
-          for (int _i1=0; _i1 < _list0.size; ++_i1) {
-            ThriftOperationsServer _elem2;
-            _elem2=new ThriftOperationsServer();
-            _elem2.read(iprot);
-            struct.operationsServersList.add(_elem2);
+          ThriftOperationsServer _elem1;
+          for (int _i2=0; _i2 < _list0.size; ++_i2) {
+            _elem1=new ThriftOperationsServer();
+            _elem1.read(iprot);
+            struct.operationsServersList.add(_elem1);
           }
           iprot.readListEnd();
         }

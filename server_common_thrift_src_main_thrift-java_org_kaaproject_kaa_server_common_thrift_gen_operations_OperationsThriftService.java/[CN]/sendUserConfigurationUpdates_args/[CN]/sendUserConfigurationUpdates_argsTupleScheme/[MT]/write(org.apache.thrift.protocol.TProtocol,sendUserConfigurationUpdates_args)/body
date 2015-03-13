@@ -1,0 +1,16 @@
+{
+  TTupleProtocol oprot=(TTupleProtocol)prot;
+  BitSet optionals=new BitSet();
+  if (struct.isSetUpdates()) {
+    optionals.set(0);
+  }
+  oprot.writeBitSet(optionals,1);
+  if (struct.isSetUpdates()) {
+{
+      oprot.writeI32(struct.updates.size());
+      for (      UserConfigurationUpdate _iter28 : struct.updates) {
+        _iter28.write(oprot);
+      }
+    }
+  }
+}

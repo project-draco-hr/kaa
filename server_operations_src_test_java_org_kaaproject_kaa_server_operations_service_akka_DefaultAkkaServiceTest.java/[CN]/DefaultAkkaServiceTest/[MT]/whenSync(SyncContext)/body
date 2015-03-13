@@ -1,0 +1,7 @@
+{
+  Mockito.when(operationsService.syncProfile(Mockito.any(SyncContext.class),Mockito.any(ProfileClientSync.class))).thenReturn(response);
+  Mockito.when(operationsService.processEndpointAttachDetachRequests(Mockito.any(SyncContext.class),Mockito.any(UserClientSync.class))).thenReturn(response);
+  Mockito.when(operationsService.processEventListenerRequests(Mockito.any(SyncContext.class),Mockito.any(EventClientSync.class))).thenReturn(response);
+  Mockito.when(operationsService.syncConfiguration(Mockito.any(SyncContext.class),Mockito.any(ConfigurationClientSync.class))).thenReturn(response);
+  Mockito.when(operationsService.syncNotification(Mockito.any(SyncContext.class),Mockito.any(NotificationClientSync.class))).thenReturn(response);
+}

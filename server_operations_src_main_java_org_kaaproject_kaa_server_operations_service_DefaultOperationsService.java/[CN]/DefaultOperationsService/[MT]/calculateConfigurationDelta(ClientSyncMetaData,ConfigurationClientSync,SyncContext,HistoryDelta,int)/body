@@ -1,0 +1,13 @@
+{
+  GetDeltaRequest deltaRequest;
+  if (request.getConfigurationHash() != null) {
+    deltaRequest=new GetDeltaRequest(metaData.getApplicationToken(),EndpointObjectHash.fromBytes(request.getConfigurationHash().array()),request.getAppStateSeqNumber(),request.isResyncOnly());
+  }
+ else {
+    deltaRequest=new GetDeltaRequest(metaData.getApplicationToken(),request.getAppStateSeqNumber());
+  }
+  deltaRequest.setEndpointProfile(context.getEndpointProfile());
+  deltaRequest.setUserConfigurationChanged(context.isUserConfigurationChanged());
+  deltaRequest.setUserConfigurationHash(context.getUserConfigurationHash());
+  return deltaService.getDelta(deltaRequest,historyDelta,curAppSeqNumber);
+}

@@ -1,0 +1,11 @@
+{
+  if (circle.isEmpty()) {
+    return null;
+  }
+  if (circle.size() == 1) {
+    return circle.get(circle.firstKey());
+  }
+  SortedMap<byte[],OperationsNodeInfo> tailMap=circle.tailMap(hash);
+  hash=tailMap.isEmpty() ? circle.firstKey() : tailMap.firstKey();
+  return circle.get(hash);
+}

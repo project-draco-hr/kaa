@@ -1,0 +1,40 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  ClusterRouteInfo other=(ClusterRouteInfo)obj;
+  if (address == null) {
+    if (other.address != null) {
+      return false;
+    }
+  }
+ else   if (!address.equals(other.address)) {
+    return false;
+  }
+  if (routeOperation != other.routeOperation) {
+    return false;
+  }
+  if (tenantId == null) {
+    if (other.tenantId != null) {
+      return false;
+    }
+  }
+ else   if (!tenantId.equals(other.tenantId)) {
+    return false;
+  }
+  if (userId == null) {
+    if (other.userId != null) {
+      return false;
+    }
+  }
+ else   if (!userId.equals(other.userId)) {
+    return false;
+  }
+  return true;
+}

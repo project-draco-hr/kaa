@@ -1,0 +1,9 @@
+{
+  NeighborConnection<MessageTemplate,Message> server=neighbors.getNeghborConnection(serverId);
+  if (server == null) {
+    LOG.info("specified server {} not found in neighbors list",serverId);
+    notifyListenersOnServerProblem(serverId);
+    return;
+  }
+  sendMessagesToServer(server,messages);
+}

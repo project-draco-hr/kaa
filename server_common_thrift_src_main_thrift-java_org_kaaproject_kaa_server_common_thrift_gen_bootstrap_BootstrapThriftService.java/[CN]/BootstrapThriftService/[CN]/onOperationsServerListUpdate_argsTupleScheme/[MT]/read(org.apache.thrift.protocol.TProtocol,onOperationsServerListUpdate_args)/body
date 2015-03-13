@@ -5,11 +5,11 @@
 {
       org.apache.thrift.protocol.TList _list5=new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT,iprot.readI32());
       struct.operationsServersList=new ArrayList<ThriftOperationsServer>(_list5.size);
-      for (int _i6=0; _i6 < _list5.size; ++_i6) {
-        ThriftOperationsServer _elem7;
-        _elem7=new ThriftOperationsServer();
-        _elem7.read(iprot);
-        struct.operationsServersList.add(_elem7);
+      ThriftOperationsServer _elem6;
+      for (int _i7=0; _i7 < _list5.size; ++_i7) {
+        _elem6=new ThriftOperationsServer();
+        _elem6.read(iprot);
+        struct.operationsServersList.add(_elem6);
       }
     }
     struct.setOperationsServersListIsSet(true);

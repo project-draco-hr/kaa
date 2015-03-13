@@ -1,10 +1,10 @@
 {
-  HashCodeBuilder builder=new HashCodeBuilder();
+  List<Object> list=new ArrayList<Object>();
   boolean present_applicationId=true && (isSetApplicationId());
-  builder.append(present_applicationId);
-  if (present_applicationId)   builder.append(applicationId);
+  list.add(present_applicationId);
+  if (present_applicationId)   list.add(applicationId);
   boolean present_type=true && (isSetType());
-  builder.append(present_type);
-  if (present_type)   builder.append(type);
-  return builder.toHashCode();
+  list.add(present_type);
+  if (present_type)   list.add(type);
+  return list.hashCode();
 }

@@ -1,4 +1,4 @@
 {
-  setKeyHash(keyHash == null ? (ByteBuffer)null : ByteBuffer.wrap(keyHash));
+  this.keyHash=keyHash == null ? (ByteBuffer)null : ByteBuffer.wrap(Arrays.copyOf(keyHash,keyHash.length));
   return this;
 }

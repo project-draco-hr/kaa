@@ -4,7 +4,6 @@
   cluster.start();
   try {
     OperationsNodeInfo endpointNodeInfo=buildOperationsNodeInfo();
-    Long removeTime=System.currentTimeMillis();
     BootstrapNodeInfo bootstrapNodeInfo=buildBootstrapNodeInfo();
     BootstrapNode bootstrapNode=new BootstrapNode(bootstrapNodeInfo,cluster.getConnectString(),buildDefaultRetryPolicy());
     OperationsNodeListener mockListener=mock(OperationsNodeListener.class);
@@ -14,10 +13,16 @@
     endpointNode.start();
     timing.sleepABit();
     verify(mockListener).onNodeAdded(endpointNodeInfo);
-    endpointNodeInfo.setTimeStarted(removeTime);
+    OperationsNodeInfo endpointNodeInfoWithGreaterTimeStarted=buildOperationsNodeInfo();
+    OperationsNode endpointNodeWithGreaterTimeStarted=new OperationsNode(endpointNodeInfoWithGreaterTimeStarted,cluster.getConnectString(),buildDefaultRetryPolicy());
+    endpointNodeWithGreaterTimeStarted.start();
+    timing.sleepABit();
     endpointNode.close();
     timing.sleepABit();
     verify(mockListener,never()).onNodeRemoved(endpointNodeInfo);
+    endpointNodeWithGreaterTimeStarted.close();
+    timing.sleepABit();
+    verify(mockListener).onNodeRemoved(endpointNodeInfoWithGreaterTimeStarted);
     bootstrapNode.close();
   }
   finally {

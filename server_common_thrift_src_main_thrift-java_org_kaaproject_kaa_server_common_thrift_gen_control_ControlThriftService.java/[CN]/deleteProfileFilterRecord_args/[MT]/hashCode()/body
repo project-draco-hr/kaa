@@ -1,13 +1,13 @@
 {
-  HashCodeBuilder builder=new HashCodeBuilder();
+  List<Object> list=new ArrayList<Object>();
   boolean present_schemaId=true && (isSetSchemaId());
-  builder.append(present_schemaId);
-  if (present_schemaId)   builder.append(schemaId);
+  list.add(present_schemaId);
+  if (present_schemaId)   list.add(schemaId);
   boolean present_endpointGroupId=true && (isSetEndpointGroupId());
-  builder.append(present_endpointGroupId);
-  if (present_endpointGroupId)   builder.append(endpointGroupId);
+  list.add(present_endpointGroupId);
+  if (present_endpointGroupId)   list.add(endpointGroupId);
   boolean present_deactivatedUsername=true && (isSetDeactivatedUsername());
-  builder.append(present_deactivatedUsername);
-  if (present_deactivatedUsername)   builder.append(deactivatedUsername);
-  return builder.toHashCode();
+  list.add(present_deactivatedUsername);
+  if (present_deactivatedUsername)   list.add(deactivatedUsername);
+  return list.hashCode();
 }

@@ -1,0 +1,57 @@
+{
+  final List<EndpointGroupStateDto> egsList=cacheKey.getEndpointGroups();
+  BaseData mergedConfiguration=cacheService.getMergedConfiguration(egsList,new Computable<List<EndpointGroupStateDto>,BaseData>(){
+    @Override public BaseData compute(    List<EndpointGroupStateDto> key){
+      LOG.trace("[{}] getMergedConfiguration.compute begin",endpointId);
+      try {
+        List<EndpointGroupDto> endpointGroups=new ArrayList<>();
+        List<ConfigurationDto> configurations=new ArrayList<>();
+        ConfigurationSchemaDto configurationSchema=null;
+        for (        EndpointGroupStateDto egs : egsList) {
+          EndpointGroupDto endpointGroup=null;
+          if (!StringUtils.isBlank(egs.getEndpointGroupId())) {
+            endpointGroup=endpointService.findEndpointGroupById(egs.getEndpointGroupId());
+            if (endpointGroup != null) {
+              endpointGroups.add(endpointGroup);
+            }
+          }
+          ConfigurationDto configuration=null;
+          if (!StringUtils.isBlank(egs.getConfigurationId())) {
+            configuration=configurationService.findConfigurationById(egs.getConfigurationId());
+            if (configuration != null) {
+              configurations.add(configuration);
+            }
+          }
+          if (configurationSchema == null && configuration != null) {
+            configurationSchema=configurationService.findConfSchemaById(configuration.getSchemaId());
+          }
+        }
+        return processEndpointGroups(endpointGroups,configurations,configurationSchema);
+      }
+ catch (      OverrideException|IOException oe) {
+        LOG.error("[{}] Unexpected exception occurred while merging configuration: ",endpointId,oe);
+        throw new RuntimeException(oe);
+      }
+ finally {
+        LOG.trace("[{}] getMergedGroupConfiguration.compute end",endpointId);
+      }
+    }
+  }
+);
+  if (userConfiguration != null) {
+    OverrideAlgorithm configurationMerger=configurationOverrideFactory.createConfigurationOverrideAlgorithm();
+    OverrideSchema overrideSchema=new OverrideSchema(latestConfigurationSchema.getOverrideSchema());
+    try {
+      LOG.trace("Merging group configuration with user configuration: {}",userConfiguration.getBody());
+      mergedConfiguration=configurationMerger.override(mergedConfiguration,Collections.singletonList(new OverrideData(overrideSchema,userConfiguration.getBody())));
+    }
+ catch (    OverrideException|IOException oe) {
+      LOG.error("[{}] Unexpected exception occurred while merging configuration: ",endpointId,oe);
+      throw new GetDeltaException(oe);
+    }
+ finally {
+      LOG.trace("[{}] getMergedConfiguration.compute end",endpointId);
+    }
+  }
+  return mergedConfiguration;
+}

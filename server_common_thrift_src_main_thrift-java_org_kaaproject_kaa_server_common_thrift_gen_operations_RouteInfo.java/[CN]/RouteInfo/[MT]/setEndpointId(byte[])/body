@@ -1,4 +1,4 @@
 {
-  setEndpointId(endpointId == null ? (ByteBuffer)null : ByteBuffer.wrap(endpointId));
+  this.endpointId=endpointId == null ? (ByteBuffer)null : ByteBuffer.wrap(Arrays.copyOf(endpointId,endpointId.length));
   return this;
 }

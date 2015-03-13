@@ -11,7 +11,7 @@
   when(profileMock.getEndpointKeyHash()).thenReturn(ENDPOINT_KEY_HASH);
   when(profileMock.getEcfVersionStates()).thenReturn(Arrays.asList(ecfVdto));
   when(endpointService.findEndpointProfilesByUserId(USER_ID)).thenReturn(Arrays.asList(profileMock));
-  EventListenersResponse response=endpointUserService.findListeners(profileMock,new AppSeqNumber(TEST_TENANT_ID,TEST_APP_ID,TEST_APP_TOKEN,TEST_APP_SEQ_NUM),request);
+  EventListenersResponse response=endpointUserService.findListeners(profileMock,TEST_APP_TOKEN,request);
   assertNotNull(response);
   assertEquals(SyncStatus.SUCCESS,response.getResult());
   assertEquals(REQUEST_ID,response.getRequestId());

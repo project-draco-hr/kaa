@@ -1,0 +1,10 @@
+{
+  LOG.trace("[{}] Building id for {}",zkId,opServer.getConnectionInfo());
+  String opId=getServerID(opServer.getConnectionInfo());
+  if (!zkId.equals(opId)) {
+    LOG.trace("Adding {} to {}",opId,neigbors);
+    neigbors.putIfAbsent(opId,new NeighborConnection<T,V>(opServer.getConnectionInfo(),maxNumberNeighborConnections,template));
+    neigbors.get(opId).start();
+    LOG.info("Operations server {} added to {} Neighbors list. Now {} neighbors",opId,zkId,neigbors.size());
+  }
+}

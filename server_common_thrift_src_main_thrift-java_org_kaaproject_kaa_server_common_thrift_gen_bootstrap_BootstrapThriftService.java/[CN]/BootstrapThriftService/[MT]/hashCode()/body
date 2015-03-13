@@ -1,7 +1,7 @@
 {
-  HashCodeBuilder builder=new HashCodeBuilder();
+  List<Object> list=new ArrayList<Object>();
   boolean present_operationsServersList=true && (isSetOperationsServersList());
-  builder.append(present_operationsServersList);
-  if (present_operationsServersList)   builder.append(operationsServersList);
-  return builder.toHashCode();
+  list.add(present_operationsServersList);
+  if (present_operationsServersList)   list.add(operationsServersList);
+  return list.hashCode();
 }

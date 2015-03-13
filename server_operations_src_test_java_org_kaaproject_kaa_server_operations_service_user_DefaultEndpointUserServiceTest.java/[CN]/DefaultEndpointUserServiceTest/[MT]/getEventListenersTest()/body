@@ -44,7 +44,7 @@
   fqn3Keys.add(key2);
   when(cacheService.getRouteKeys(new EventClassFqnVersion(TEST_TENANT_ID,"fqn2",ECF1_VERSION))).thenReturn(fqn2Keys);
   when(cacheService.getRouteKeys(new EventClassFqnVersion(TEST_TENANT_ID,"fqn3",ECF1_VERSION))).thenReturn(fqn3Keys);
-  EventListenersResponse response=endpointUserService.findListeners(profileMock,new AppSeqNumber(TEST_TENANT_ID,TEST_APP_ID,TEST_APP_TOKEN,TEST_APP_SEQ_NUM),request);
+  EventListenersResponse response=endpointUserService.findListeners(profileMock,TEST_APP_TOKEN,request);
   assertNotNull(response);
   assertEquals(SyncStatus.SUCCESS,response.getResult());
   assertEquals(REQUEST_ID,response.getRequestId());

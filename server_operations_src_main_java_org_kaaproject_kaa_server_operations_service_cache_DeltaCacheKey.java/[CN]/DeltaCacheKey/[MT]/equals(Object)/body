@@ -36,5 +36,13 @@
   if (resyncOnly != other.resyncOnly) {
     return false;
   }
+  if (userConfHash == null) {
+    if (other.userConfHash != null) {
+      return false;
+    }
+  }
+ else   if (!userConfHash.equals(other.userConfHash)) {
+    return false;
+  }
   return true;
 }

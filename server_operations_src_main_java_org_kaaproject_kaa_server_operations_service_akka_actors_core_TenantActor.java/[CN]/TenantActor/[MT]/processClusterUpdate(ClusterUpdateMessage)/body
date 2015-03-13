@@ -1,0 +1,8 @@
+{
+  for (  ActorRef userActor : globalUsers.values()) {
+    userActor.tell(message,ActorRef.noSender());
+  }
+  for (  ActorRef userActor : localUsers.values()) {
+    userActor.tell(message,ActorRef.noSender());
+  }
+}
