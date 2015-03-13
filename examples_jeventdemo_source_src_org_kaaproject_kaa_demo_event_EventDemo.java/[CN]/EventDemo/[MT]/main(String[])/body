@@ -20,4 +20,13 @@
     }
   }
 );
+  try {
+    System.in.read();
+  }
+ catch (  IOException e) {
+    LOG.error("IOException was caught",e);
+  }
+  kaaClient.stop();
+  LOG.info("Kaa client stopped");
+  LOG.info("Event demo stopped");
 }

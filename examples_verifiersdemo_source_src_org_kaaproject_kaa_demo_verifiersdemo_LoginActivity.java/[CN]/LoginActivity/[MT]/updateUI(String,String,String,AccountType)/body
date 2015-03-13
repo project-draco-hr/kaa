@@ -41,7 +41,7 @@ EventFamilyFactory eventFamilyFactory=kaaClient.getEventFamilyFactory();
 vdecf=eventFamilyFactory.getVerifiersDemoEventClassFamily();
 List<String> FQNs=new LinkedList<>();
 FQNs.add("org.kaaproject.kaa.demo.verifiersdemo.MessageEvent");
-kaaClient.findEventListeners(FQNs,new FetchEventListeners(){
+kaaClient.findEventListeners(FQNs,new FindEventListenersCallback(){
 @Override public void onRequestFailed(){
 Log.i(TAG,"Find event listeners request has failed");
 }

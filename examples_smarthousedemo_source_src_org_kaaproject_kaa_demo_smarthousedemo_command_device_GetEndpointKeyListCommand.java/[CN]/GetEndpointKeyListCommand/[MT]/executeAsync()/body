@@ -1,6 +1,6 @@
 {
   List<String> fqns=Arrays.asList(DeviceInfoRequest.class.getName());
-  client.findEventListeners(fqns,new FetchEventListeners(){
+  client.findEventListeners(fqns,new FindEventListenersCallback(){
     @Override public void onEventListenersReceived(    List<String> endpontKeys){
       Log.d("Kaa","Got list of attached enpoint keys, size " + endpontKeys.size());
       onComplete(endpontKeys);
