@@ -27,7 +27,7 @@ curUserId=userId;
 curUserInfo="Waiting for Kaa response...";
 updateViews();
 Log.i(TAG,"Attaching user...");
-endpointRegistrationManager.attachUser(kaaVerifierToken,userIdCopy,token,new UserAttachCallback(){
+kaaClient.attachUser(kaaVerifierToken,userIdCopy,token,new UserAttachCallback(){
 @Override public void onAttachResult(UserAttachResponse userAttachResponse){
 Log.i(TAG,"User was attached... " + userAttachResponse.toString());
 if (userAttachResponse.getResult() == SyncResponseResultType.SUCCESS) {
@@ -41,8 +41,7 @@ EventFamilyFactory eventFamilyFactory=kaaClient.getEventFamilyFactory();
 vdecf=eventFamilyFactory.getVerifiersDemoEventClassFamily();
 List<String> FQNs=new LinkedList<>();
 FQNs.add("org.kaaproject.kaa.demo.verifiersdemo.MessageEvent");
-EventListenersResolver eventListenersResolver=kaaClient.getEventListenerResolver();
-eventListenersResolver.findEventListeners(FQNs,new FetchEventListeners(){
+kaaClient.findEventListeners(FQNs,new FetchEventListeners(){
 @Override public void onRequestFailed(){
 Log.i(TAG,"Find event listeners request has failed");
 }
@@ -55,7 +54,6 @@ if (listener != null) {
 vdecf.removeListener(listener);
 }
 listener=new KaaEventListener();
-vdecf.addListener(listener);
 }
  else {
 String failureString=userAttachResponse.getErrorReason() == null ? userAttachResponse.getErrorCode().toString() : userAttachResponse.getErrorReason().toString();

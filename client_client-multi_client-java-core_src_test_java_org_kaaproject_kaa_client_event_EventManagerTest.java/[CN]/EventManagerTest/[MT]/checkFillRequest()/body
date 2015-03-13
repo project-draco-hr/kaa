@@ -14,14 +14,14 @@
   request=new EventSyncRequest();
   List<String> eventFQNs=new ArrayList<String>();
   eventFQNs.add("eventFQN1");
-  eventManager.findEventListeners(eventFQNs,new FetchEventListeners(){
+  eventManager.findEventListeners(eventFQNs,new FindEventListenersCallback(){
     @Override public void onRequestFailed(){
     }
     @Override public void onEventListenersReceived(    List<String> eventListeners){
     }
   }
 );
-  eventManager.findEventListeners(eventFQNs,new FetchEventListeners(){
+  eventManager.findEventListeners(eventFQNs,new FindEventListenersCallback(){
     @Override public void onRequestFailed(){
     }
     @Override public void onEventListenersReceived(    List<String> eventListeners){
