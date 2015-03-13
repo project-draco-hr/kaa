@@ -2,8 +2,7 @@
   List<String> listenerFQNs=new LinkedList<>();
   listenerFQNs.add(ThermostatInfoRequest.class.getName());
   listenerFQNs.add(ChangeDegreeRequest.class.getName());
-  EventListenersResolver eventListenersResolver=kaaClient.getEventListenerResolver();
-  eventListenersResolver.findEventListeners(listenerFQNs,new FetchEventListeners(){
+  kaaClient.findEventListeners(listenerFQNs,new FindEventListenersCallback(){
     @Override public void onEventListenersReceived(    List<String> eventListeners){
       LOG.info("{} event listeners received",eventListeners.size());
       for (      String listener : eventListeners) {
@@ -17,7 +16,7 @@
 );
   EventFamilyFactory eventFamilyFactory=kaaClient.getEventFamilyFactory();
   ThermostatEventClassFamily tecf=eventFamilyFactory.getThermostatEventClassFamily();
-  tecf.addListener(new DefaultEventFamilyListener(){
+  tecf.addListener(new ThermostatEventClassFamily.Listener(){
     @Override public void onEvent(    ChangeDegreeRequest changeDegreeRequest,    String senderId){
       LOG.info("ChangeDegreeRequest event fired! change temperature by {} degrees, sender: {}",changeDegreeRequest.getDegree(),senderId);
     }
@@ -36,13 +35,4 @@
   tecf.addEventToBlock(trxId,new ChangeDegreeRequest(-30),"thermostat_endpoint_id");
   eventFamilyFactory.submitEventsBlock(trxId);
   LOG.info("Batch of events (ThermostatInfoRequest & ChangeDegreeRequest) sent");
-  try {
-    System.in.read();
-  }
- catch (  IOException e) {
-    e.printStackTrace();
-  }
-  kaaClient.stop();
-  LOG.info("Kaa client stopped");
-  LOG.info("Event demo stopped");
 }
