@@ -1,6 +1,6 @@
 {
-  if (message instanceof TopicRegistrationRequestMessage) {
-    processEndpointTopicRegistration((TopicRegistrationRequestMessage)message);
+  if (message instanceof TopicSubscriptionMessage) {
+    processEndpointTopicRegistration((TopicSubscriptionMessage)message);
   }
  else   if (message instanceof EndpointUserConnectMessage) {
     processEndpointUserRegistration((EndpointUserConnectMessage)message);

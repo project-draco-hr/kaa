@@ -1,5 +1,5 @@
 {
-  Map<String,Object> schemaForParent=CommonUtils.findRawSchemaByName(schemaRoot,name,namespace);
+  Schema schemaForParent=schemaTypes.get(namespace + "." + name);
   if (schemaForParent == null) {
     throw new OverrideException(MessageFormat.format("Failed to find Schema with Name ''{0}'' and namespace ''{1}''",name,namespace));
   }

@@ -1,12 +1,4 @@
 {
-  SchemeRegistry schemeRegistry=new SchemeRegistry();
-  schemeRegistry.register(new Scheme("http",80,PlainSocketFactory.getSocketFactory()));
-  schemeRegistry.register(new Scheme("https",443,SSLSocketFactory.getSocketFactory()));
-  PoolingClientConnectionManager connectionManager=new PoolingClientConnectionManager(schemeRegistry);
-  connectionManager.setMaxTotal(DEFAULT_MAX_TOTAL_CONNECTIONS);
-  connectionManager.setDefaultMaxPerRoute(DEFAULT_MAX_CONNECTIONS_PER_ROUTE);
-  DefaultHttpClient defaultHttpClient=new DefaultHttpClient(connectionManager);
-  defaultHttpClient.setHttpRequestRetryHandler(new BasicHttpRequestRetryHandler(5,10000));
-  HttpClient httpClient=new AutoRetryHttpClient(defaultHttpClient,new BaseServiceUnavailableRetryStrategy(3,5000));
+  CloseableHttpClient httpClient=HttpClientBuilder.create().setMaxConnTotal(DEFAULT_MAX_TOTAL_CONNECTIONS).setMaxConnPerRoute(DEFAULT_MAX_CONNECTIONS_PER_ROUTE).setRetryHandler(new BasicHttpRequestRetryHandler(5,10000)).setServiceUnavailableRetryStrategy(new BaseServiceUnavailableRetryStrategy(3,5000)).build();
   return httpClient;
 }

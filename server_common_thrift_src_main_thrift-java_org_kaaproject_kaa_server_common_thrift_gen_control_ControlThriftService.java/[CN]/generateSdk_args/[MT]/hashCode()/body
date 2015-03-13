@@ -21,5 +21,8 @@
   boolean present_logSchemaVersion=true;
   builder.append(present_logSchemaVersion);
   if (present_logSchemaVersion)   builder.append(logSchemaVersion);
+  boolean present_defaultVerifierToken=true && (isSetDefaultVerifierToken());
+  builder.append(present_defaultVerifierToken);
+  if (present_defaultVerifierToken)   builder.append(defaultVerifierToken);
   return builder.toHashCode();
 }

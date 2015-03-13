@@ -14,7 +14,7 @@
   dateTimeCreatedLabel.setVisible(!create);
   createdDateTime.setVisible(!create);
   Label ecfLabel=new Label(Utils.constants.ecf());
-  ecfLabel.addStyleName("required");
+  ecfLabel.addStyleName(Utils.avroUiStyle.requiredField());
   ecf=new EcfListBox();
   ecf.setWidth("100%");
   detailsTable.setWidget(2,0,ecfLabel);
@@ -44,7 +44,7 @@
   eventMapGrid=new EventMapGrid(create);
   eventMapGrid.setSize("700px","400px");
   Label eventMapLabel=new Label(Utils.constants.eventMap());
-  eventMapLabel.addStyleName("b-app-content-title-label");
+  eventMapLabel.addStyleName(Utils.kaaAdminStyle.bAppContentTitleLabel());
   detailsTable.setWidget(5,0,eventMapLabel);
   eventMapLabel.getElement().getParentElement().getStyle().setPropertyPx("paddingBottom",10);
   detailsTable.setWidget(6,0,eventMapGrid);

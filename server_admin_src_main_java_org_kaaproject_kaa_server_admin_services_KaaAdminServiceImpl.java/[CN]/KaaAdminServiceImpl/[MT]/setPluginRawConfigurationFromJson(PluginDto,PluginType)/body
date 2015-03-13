@@ -1,0 +1,5 @@
+{
+  PluginInfoDto pluginInfo=pluginsInfo.get(type).get(plugin.getPluginClassName());
+  byte[] rawConfiguration=GenericAvroConverter.toRawData(plugin.getJsonConfiguration(),pluginInfo.getFieldConfiguration().getSchema());
+  plugin.setRawConfiguration(rawConfiguration);
+}

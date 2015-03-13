@@ -1,0 +1,20 @@
+{
+  if (verifierDto == null) {
+    throw new IllegalArgumentException("verifier dto can't be null");
+  }
+  try {
+    @SuppressWarnings("unchecked") Class<UserVerifier> verifierClass=(Class<UserVerifier>)Class.forName(verifierDto.getPluginClassName());
+    UserVerifier userVerifier=verifierClass.newInstance();
+    userVerifier.init(new UserVerifierContext(verifierDto));
+    userVerifier.start();
+    return userVerifier;
+  }
+ catch (  ClassNotFoundException e) {
+    LOG.error("Unable to find custom verifier class {}",verifierDto.getPluginClassName());
+    throw e;
+  }
+catch (  InstantiationException|IllegalAccessException|UserVerifierLifecycleException e) {
+    LOG.error("Unable to instantiate custom verifier from class {}",verifierDto.getPluginClassName());
+    throw e;
+  }
+}

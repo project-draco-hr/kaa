@@ -1,0 +1,22 @@
+{
+  return new ConfigurationProcessor(){
+    @Override public void processConfigurationData(    ByteBuffer buffer,    boolean fullResync) throws IOException {
+      if (fullResync) {
+        configurationData=toByteArray(buffer);
+        if (LOG.isTraceEnabled()) {
+          LOG.trace("Received configuration data {}",Arrays.toString(configurationData));
+        }
+        if (storage != null) {
+          LOG.debug("Persisting configuration data from storage {}",storage);
+          storage.saveConfiguration(ByteBuffer.wrap(configurationData));
+          LOG.debug("Persisted configuration data from storage {}",storage);
+        }
+        deserializer.notify(Collections.unmodifiableCollection(listeners),configurationData);
+      }
+ else {
+        LOG.warn("Only full resync delta is supported!");
+      }
+    }
+  }
+;
+}

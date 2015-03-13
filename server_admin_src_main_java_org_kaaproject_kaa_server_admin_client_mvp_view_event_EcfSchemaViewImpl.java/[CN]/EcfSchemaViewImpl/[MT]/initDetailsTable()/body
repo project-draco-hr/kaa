@@ -16,18 +16,11 @@
   detailsTable.setWidget(2,1,createdDateTime);
   Label schemaLabel=new Label(Utils.constants.schema());
   detailsTable.setWidget(3,0,schemaLabel);
-  schema=new KaaAdminSizedTextArea(524288);
-  schema.setWidth("500px");
-  schema.getTextArea().getElement().getStyle().setPropertyPx("minHeight",150);
-  schema.getTextArea().setReadOnly(true);
-  detailsTable.setWidget(3,1,schema);
-  detailsTable.getCellFormatter().setVerticalAlignment(1,0,HasVerticalAlignment.ALIGN_TOP);
-  eventClassesGrid=new EventClassesGrid(Unit.PX);
-  eventClassesGrid.setSize("700px","300px");
-  Label eventClassesLabel=new Label(Utils.constants.eventClasses());
-  eventClassesLabel.addStyleName("b-app-content-title-label");
-  detailsTable.setWidget(4,0,eventClassesLabel);
-  eventClassesLabel.getElement().getParentElement().getStyle().setPropertyPx("paddingBottom",10);
-  detailsTable.setWidget(5,0,eventClassesGrid);
-  detailsTable.getFlexCellFormatter().setColSpan(5,0,3);
+  getFooter().addStyleName(Utils.kaaAdminStyle.bAppContentDetailsTable());
+  ecfSchemaForm=new RecordPanel(new AvroWidgetsConfig.Builder().recordPanelWidth(900).createConfig(),Utils.constants.schema(),this,!create,!create);
+  if (create) {
+    ecfSchemaForm.addValueChangeHandler(this);
+  }
+  getFooter().setWidth("1000px");
+  getFooter().add(ecfSchemaForm);
 }

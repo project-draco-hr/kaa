@@ -25,5 +25,13 @@
  else   if (!userExternalId.equals(other.userExternalId)) {
     return false;
   }
+  if (userVerifierId == null) {
+    if (other.userVerifierId != null) {
+      return false;
+    }
+  }
+ else   if (!userVerifierId.equals(other.userVerifierId)) {
+    return false;
+  }
   return true;
 }

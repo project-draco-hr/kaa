@@ -1,14 +1,15 @@
 {
   LOG.debug("[{}][{}] Received channel timeout message for channel [{}]",endpointKey,actorKey,message.getChannelUuid());
-  ChannelMetaData channel=channelMap.getById(message.getChannelUuid());
+  ChannelMetaData channel=state.getChannelById(message.getChannelUuid());
   if (channel != null) {
     if (channel.getLastActivityTime() <= message.getLastActivityTime()) {
       LOG.debug("[{}][{}] Timeout message accepted for channel [{}]. Last activity time {} and timeout is {} ",endpointKey,actorKey,message.getChannelUuid(),channel.getLastActivityTime(),message.getLastActivityTime());
-      channelMap.removeChannel(channel);
+      state.removeChannel(channel);
       return true;
     }
  else {
       LOG.debug("[{}][{}] Timeout message ignored for channel [{}]. Last activity time {} and timeout is {} ",endpointKey,actorKey,message.getChannelUuid(),channel.getLastActivityTime(),message.getLastActivityTime());
+      scheduleKeepAliveCheck(context,channel);
       return false;
     }
   }

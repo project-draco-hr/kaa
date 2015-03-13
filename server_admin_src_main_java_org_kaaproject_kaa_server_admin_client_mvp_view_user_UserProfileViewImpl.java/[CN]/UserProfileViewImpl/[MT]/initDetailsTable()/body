@@ -20,10 +20,10 @@
   email.setWidth("100%");
   email.addInputHandler(this);
   Label emailLabel=new Label(Utils.constants.email());
-  emailLabel.addStyleName("required");
+  emailLabel.addStyleName(Utils.avroUiStyle.requiredField());
   detailsTable.setWidget(3,0,emailLabel);
   detailsTable.setWidget(3,1,email);
-  changePasswordButton=new Button(Utils.constants.change_password());
+  changePasswordButton=new Button(Utils.constants.changePassword());
   detailsTable.setWidget(4,0,changePasswordButton);
   firstName.setFocus(true);
 }

@@ -1,0 +1,21 @@
+{
+  KaaChannelManager channelManager=Mockito.mock(KaaChannelManager.class);
+  LogTransport transport=Mockito.mock(LogTransport.class);
+  AbstractLogCollector logCollector=new DefaultLogCollector(transport,channelManager);
+  DefaultLogUploadStrategy strategy=new DefaultLogUploadStrategy();
+  strategy.setCountThreshold(5);
+  logCollector.setStrategy(strategy);
+  try {
+    Log record=new Log();
+    logCollector.addLogRecord(record);
+    logCollector.addLogRecord(record);
+    logCollector.addLogRecord(record);
+    logCollector.addLogRecord(record);
+    verify(transport,times(0)).sync();
+    logCollector.addLogRecord(record);
+    verify(transport,times(1)).sync();
+  }
+ catch (  Exception e) {
+    Assert.assertTrue("Exception: " + e.toString(),false);
+  }
+}

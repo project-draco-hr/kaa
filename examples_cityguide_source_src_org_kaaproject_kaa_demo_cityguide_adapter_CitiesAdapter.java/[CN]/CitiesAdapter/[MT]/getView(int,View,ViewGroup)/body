@@ -1,0 +1,11 @@
+{
+  View v=convertView;
+  if (v == null) {
+    LayoutInflater inflater=(LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    v=inflater.inflate(R.layout.city_list_item,null);
+  }
+  TextView cityNameView=(TextView)v.findViewById(R.id.cityName);
+  City city=mCities.get(position);
+  cityNameView.setText(city.getName());
+  return v;
+}

@@ -1,6 +1,6 @@
 {
   LOG.debug("Get log appenders by application id [{}] and schema version [{}]",applicationId,schemaVersion);
-  List<LogAppenderDto> appenders=logAppendersService.findRegisteredLogAppendersByAppIdAndSchemaVersion(applicationId,schemaVersion);
+  List<LogAppenderDto> appenders=logAppendersService.findLogAppendersByAppIdAndSchemaVersion(applicationId,schemaVersion);
   LOG.debug("Found all appenders [{}] for application and schema version.",appenders);
   List<LogAppender> logAppenders=new ArrayList<>(appenders.size());
   for (  LogAppenderDto appender : appenders) {

@@ -1,0 +1,11 @@
+{
+  if (record != null && record.getSchema().getName().equals(RECORD_FIELD_TYPE)) {
+    JsonNode addressableNode=fieldTypeSchema.getJsonProp(ADDRESSABLE);
+    if (addressableNode != null && addressableNode.isBoolean()) {
+      record.put(ADDRESSABLE,addressableNode.asBoolean());
+    }
+ else {
+      record.put(ADDRESSABLE,true);
+    }
+  }
+}

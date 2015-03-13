@@ -1,0 +1,7 @@
+{
+  List<UserVerifierDto> userVerifiers=getUserVerifiersByApplicationId(appId);
+  for (  UserVerifierDto userVerifier : userVerifiers) {
+    setPluginJsonConfigurationFromRaw(userVerifier,PluginType.USER_VERIFIER);
+  }
+  return userVerifiers;
+}

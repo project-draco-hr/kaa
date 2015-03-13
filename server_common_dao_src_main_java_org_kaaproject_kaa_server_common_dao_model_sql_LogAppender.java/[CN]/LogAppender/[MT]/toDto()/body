@@ -1,19 +1,13 @@
 {
-  LogAppenderDto dto=createDto();
+  LogAppenderDto dto=super.toDto();
   dto.setId(getStringId());
-  dto.setApplicationId(application.getStringId());
-  dto.setApplicationToken(application.getApplicationToken());
-  dto.setTenantId(application.getTenant().getStringId());
-  dto.setName(name);
-  dto.setCreatedTime(createdTime);
-  dto.setCreatedUsername(createdUsername);
-  dto.setDescription(description);
+  if (application != null) {
+    dto.setApplicationToken(application.getApplicationToken());
+    dto.setTenantId(application.getTenant().getStringId());
+  }
   dto.setMinLogSchemaVersion(minLogSchemaVersion);
   dto.setMaxLogSchemaVersion(maxLogSchemaVersion);
-  dto.setStatus(status);
-  dto.setTypeName(typeName);
-  dto.setAppenderClassName(appenderClassName);
-  dto.setRawConfiguration(rawConfiguration);
+  dto.setConfirmDelivery(confirmDelivery);
   dto.setHeaderStructure(headerStructure != null ? new ArrayList<>(headerStructure) : new ArrayList<LogHeaderStructureDto>());
   return dto;
 }

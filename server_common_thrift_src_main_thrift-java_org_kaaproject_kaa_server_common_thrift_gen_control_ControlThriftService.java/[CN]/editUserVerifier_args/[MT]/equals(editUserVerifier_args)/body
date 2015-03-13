@@ -1,0 +1,10 @@
+{
+  if (that == null)   return false;
+  boolean this_present_userVerifier=true && this.isSetUserVerifier();
+  boolean that_present_userVerifier=true && that.isSetUserVerifier();
+  if (this_present_userVerifier || that_present_userVerifier) {
+    if (!(this_present_userVerifier && that_present_userVerifier))     return false;
+    if (!this.userVerifier.equals(that.userVerifier))     return false;
+  }
+  return true;
+}

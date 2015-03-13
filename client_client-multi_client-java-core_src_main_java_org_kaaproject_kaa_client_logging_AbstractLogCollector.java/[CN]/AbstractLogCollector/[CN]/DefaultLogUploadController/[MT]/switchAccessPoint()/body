@@ -1,0 +1,9 @@
+{
+  KaaDataChannel channel=channelManager.getChannelByTransportType(TransportType.LOGGING);
+  if (channel != null) {
+    channelManager.onServerFailed(channel.getServer());
+  }
+ else {
+    LOG.warn("Failed to switch Operation server. No channel is used for logging transport");
+  }
+}

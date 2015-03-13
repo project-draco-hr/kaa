@@ -1,18 +1,9 @@
 {
+  super(dto);
   if (dto != null) {
-    this.id=getLongId(dto.getId());
-    Long appId=getLongId(dto.getApplicationId());
-    this.application=appId != null ? new Application(appId) : null;
     this.minLogSchemaVersion=dto.getMinLogSchemaVersion();
     this.maxLogSchemaVersion=dto.getMaxLogSchemaVersion();
-    this.name=dto.getName();
-    this.status=dto.getStatus();
-    this.description=dto.getDescription();
-    this.createdUsername=dto.getCreatedUsername();
-    this.createdTime=dto.getCreatedTime();
-    this.typeName=dto.getTypeName();
-    this.appenderClassName=dto.getAppenderClassName();
-    this.rawConfiguration=dto.getRawConfiguration();
+    this.confirmDelivery=dto.isConfirmDelivery();
     this.headerStructure=dto.getHeaderStructure();
   }
 }

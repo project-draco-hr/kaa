@@ -1,0 +1,14 @@
+{
+  try {
+    if (isEmpty(applicationToken)) {
+      throw new KaaAdminServiceException(ServiceErrorCode.INVALID_ARGUMENTS);
+    }
+    ApplicationDto application=toDto(clientProvider.getClient().getApplicationByApplicationToken(applicationToken));
+    Utils.checkNotNull(application);
+    checkTenantId(application.getTenantId());
+    return application;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

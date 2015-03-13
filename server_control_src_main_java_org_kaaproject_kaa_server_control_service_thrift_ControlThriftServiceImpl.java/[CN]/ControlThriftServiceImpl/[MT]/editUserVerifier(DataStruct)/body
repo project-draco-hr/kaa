@@ -1,0 +1,24 @@
+{
+  UserVerifierDto userVerifierDto=ThriftDtoConverter.<UserVerifierDto>toDto(userVerifier);
+  DataStruct dataStruct=null;
+  if (userVerifierDto != null) {
+    UserVerifierDto saved=userVerifierService.saveUserVerifier(userVerifierDto);
+    if (saved != null) {
+      Notification thriftNotification=new Notification();
+      thriftNotification.setAppId(saved.getApplicationId());
+      thriftNotification.setUserVerifierToken(saved.getVerifierToken());
+      if (userVerifierDto.getId() == null) {
+        LOG.info("Add new user verifier ...");
+        thriftNotification.setOp(Operation.ADD_USER_VERIFIER);
+        LOG.info("Send notification to operation servers about new user verifier.");
+      }
+ else {
+        thriftNotification.setOp(Operation.UPDATE_USER_VERIFIER);
+        LOG.info("Send notification to operation servers about update user verifier configuration.");
+      }
+      dataStruct=toDataStruct(saved);
+      controlZKService.sendEndpointNotification(thriftNotification);
+    }
+  }
+  return dataStruct;
+}

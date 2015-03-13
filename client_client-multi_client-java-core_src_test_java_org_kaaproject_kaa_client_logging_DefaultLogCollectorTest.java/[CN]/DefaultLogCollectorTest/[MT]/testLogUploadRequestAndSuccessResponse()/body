@@ -1,31 +1,48 @@
 {
-  LogTransport transport=mock(LogTransport.class);
-  DefaultLogCollector logCollector=new DefaultLogCollector(transport);
-  DefaultLogUploadConfiguration conf=new DefaultLogUploadConfiguration(15,25,50);
-  logCollector.setConfiguration(conf);
+  KaaChannelManager channelManager=Mockito.mock(KaaChannelManager.class);
+  LogTransport transport=Mockito.mock(LogTransport.class);
+  AbstractLogCollector logCollector=new DefaultLogCollector(transport,channelManager);
+  DefaultLogUploadStrategy strategy=new DefaultLogUploadStrategy();
+  logCollector.setStrategy(strategy);
+  LogStorage storage=Mockito.mock(LogStorage.class);
+  logCollector.setStorage(storage);
   try {
-    SuperRecord record=new SuperRecord();
-    record.setLogdata("test");
+    Log record=new Log();
+    Mockito.when(storage.getStatus()).thenReturn(new LogStorageStatus(){
+      @Override public long getRecordCount(){
+        return 1;
+      }
+      @Override public long getConsumedVolume(){
+        return 1;
+      }
+    }
+);
     logCollector.addLogRecord(record);
     logCollector.addLogRecord(record);
     logCollector.addLogRecord(record);
     logCollector.addLogRecord(record);
     logCollector.addLogRecord(record);
+    Mockito.when(storage.getStatus()).thenReturn(new LogStorageStatus(){
+      @Override public long getRecordCount(){
+        return 1;
+      }
+      @Override public long getConsumedVolume(){
+        return 1024 * 1024;
+      }
+    }
+);
     logCollector.addLogRecord(record);
+    Mockito.when(storage.getRecordBlock(Mockito.anyLong())).thenReturn(new LogBlock(1,Arrays.asList(new LogRecord(record),new LogRecord(record),new LogRecord(record))));
     LogSyncRequest request1=new LogSyncRequest();
     logCollector.fillSyncRequest(request1);
-    Assert.assertTrue("Actual: " + request1.getLogEntries().size(),request1.getLogEntries().size() == 3);
+    Assert.assertEquals(3,request1.getLogEntries().size());
     LogSyncResponse uploadResponse=new LogSyncResponse();
-    uploadResponse.setRequestId(request1.getRequestId());
-    uploadResponse.setResult(SyncResponseResultType.SUCCESS);
-    try {
-      logCollector.onLogResponse(uploadResponse);
-    }
- catch (    Exception e) {
-    }
-    verify(transport,times(1)).sync();
+    LogDeliveryStatus status=new LogDeliveryStatus(request1.getRequestId(),SyncResponseResultType.SUCCESS,null);
+    uploadResponse.setDeliveryStatuses(Collections.singletonList(status));
+    logCollector.onLogResponse(uploadResponse);
+    verify(transport,times(2)).sync();
   }
  catch (  Exception e) {
-    Assert.assertTrue("Exception: " + e.toString(),false);
+    e.printStackTrace();
   }
 }

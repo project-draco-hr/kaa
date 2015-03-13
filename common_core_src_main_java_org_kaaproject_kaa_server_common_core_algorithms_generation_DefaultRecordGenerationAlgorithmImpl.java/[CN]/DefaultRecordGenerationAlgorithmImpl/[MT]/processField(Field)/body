@@ -1,0 +1,6 @@
+{
+  if (UUID_FIELD.equals(fieldDefinition.name())) {
+    return AvroUtils.generateUuidObject();
+  }
+  return processType(fieldDefinition.schema(),fieldDefinition.getJsonProp(BY_DEFAULT_FIELD));
+}

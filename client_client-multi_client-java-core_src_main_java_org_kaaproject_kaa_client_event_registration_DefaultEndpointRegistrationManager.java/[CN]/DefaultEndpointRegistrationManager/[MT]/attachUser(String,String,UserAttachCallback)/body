@@ -1,0 +1,8 @@
+{
+  if (UserVerifierConstants.DEFAULT_USER_VERIFIER_TOKEN != null) {
+    attachUser(UserVerifierConstants.DEFAULT_USER_VERIFIER_TOKEN,userExternalId,userAccessToken,callback);
+  }
+ else {
+    throw new IllegalStateException("Default user verifier was not defined during SDK generation process!");
+  }
+}

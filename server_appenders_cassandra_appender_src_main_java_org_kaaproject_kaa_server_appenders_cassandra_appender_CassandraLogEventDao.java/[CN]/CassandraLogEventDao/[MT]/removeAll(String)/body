@@ -1,0 +1,4 @@
+{
+  LOG.info("Truncate all data from table {}",tableName);
+  getSession().execute(QueryBuilder.truncate(keyspaceName,tableName));
+}

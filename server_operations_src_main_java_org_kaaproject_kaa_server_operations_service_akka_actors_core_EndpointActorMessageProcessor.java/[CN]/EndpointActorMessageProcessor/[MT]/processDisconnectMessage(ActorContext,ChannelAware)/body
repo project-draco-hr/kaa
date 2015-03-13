@@ -1,8 +1,8 @@
 {
   LOG.debug("[{}][{}] Received disconnect message for channel [{}]",endpointKey,actorKey,message.getChannelUuid());
-  ChannelMetaData channel=channelMap.getById(message.getChannelUuid());
+  ChannelMetaData channel=state.getChannelById(message.getChannelUuid());
   if (channel != null) {
-    channelMap.removeChannel(channel);
+    state.removeChannel(channel);
     return true;
   }
  else {

@@ -1,0 +1,9 @@
+{
+  activePanel=createStructView(hasErrorMessage);
+  inactivePanel=createStructView(hasErrorMessage);
+  activePanel.setBodyLabelText(bodyLabelText());
+  inactivePanel.setBodyLabelText(bodyLabelText());
+  add(activePanel,Utils.constants.active());
+  add(inactivePanel,Utils.constants.draft());
+  addSelectionHandler(this);
+}

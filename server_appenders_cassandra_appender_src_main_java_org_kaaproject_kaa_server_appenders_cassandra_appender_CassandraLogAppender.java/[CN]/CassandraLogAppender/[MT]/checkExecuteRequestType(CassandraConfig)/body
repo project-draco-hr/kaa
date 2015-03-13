@@ -1,0 +1,9 @@
+{
+  CassandraExecuteRequestType requestType=configuration.getCassandraExecuteRequestType();
+  if (CassandraExecuteRequestType.ASYNC.equals(requestType)) {
+    executeRequestType=CassandraExecuteRequestType.ASYNC;
+  }
+ else {
+    executeRequestType=CassandraExecuteRequestType.SYNC;
+  }
+}

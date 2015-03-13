@@ -4,6 +4,6 @@
   AbstractKaaTcpCommandProcessor msg=Mockito.mock(AbstractKaaTcpCommandProcessor.class);
   Mockito.when(msg.getRequest()).thenReturn(new Connect());
   TcpHandler handler=new TcpHandler(uuid,akkaService);
-  handler.channelRead0(null,msg);
+  handler.channelRead0(buildDummyCtxMock(),msg);
   Mockito.verify(akkaService).process(Mockito.any(NettyTcpConnectMessage.class));
 }

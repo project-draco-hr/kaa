@@ -4,7 +4,7 @@
   ConfigurationSchemaDto configSchema=createConfigurationSchema(application.getId());
   NotificationSchemaDto notificationSchema=createUserNotificationSchema(application.getId());
   LogSchemaDto logSchema=createLogSchema(application.getId());
-  Sdk sdk=client.generateSdk(SdkPlatform.CPP,application.getId(),profileSchema.getMajorVersion(),configSchema.getMajorVersion(),notificationSchema.getMajorVersion(),null,logSchema.getMajorVersion());
+  Sdk sdk=client.generateSdk(SdkPlatform.CPP,application.getId(),profileSchema.getMajorVersion(),configSchema.getMajorVersion(),notificationSchema.getMajorVersion(),null,logSchema.getMajorVersion(),null);
   Assert.assertNotNull(sdk);
   Assert.assertFalse(strIsEmpty(sdk.getFileName()));
   Assert.assertNotNull(sdk.getData());

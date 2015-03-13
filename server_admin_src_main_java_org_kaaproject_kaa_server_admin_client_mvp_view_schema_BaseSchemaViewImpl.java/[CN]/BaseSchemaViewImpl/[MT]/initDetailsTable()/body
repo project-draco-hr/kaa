@@ -30,38 +30,24 @@
   name=new KaaAdminSizedTextBox(DEFAULT_TEXTBOX_SIZE);
   name.setWidth("100%");
   Label nameLabel=new Label(Utils.constants.name());
-  nameLabel.addStyleName("required");
+  nameLabel.addStyleName(REQUIRED);
   detailsTable.setWidget(4,0,nameLabel);
   detailsTable.setWidget(4,1,name);
   name.addInputHandler(this);
-  description=new KaaAdminSizedTextArea(1024);
+  description=new SizedTextArea(1024);
   description.setWidth("100%");
-  description.getTextArea().getElement().getStyle().setPropertyPx("minHeight",100);
+  description.getTextArea().getElement().getStyle().setPropertyPx("minHeight",80);
   Label descriptionLabel=new Label(Utils.constants.description());
   detailsTable.setWidget(5,0,descriptionLabel);
   detailsTable.setWidget(5,1,description);
   description.addInputHandler(this);
   detailsTable.getCellFormatter().setVerticalAlignment(5,0,HasVerticalAlignment.ALIGN_TOP);
-  Label schemaLabel=new Label(create ? Utils.constants.selectSchemaFile() : Utils.constants.schema());
+  getFooter().addStyleName(Utils.kaaAdminStyle.bAppContentDetailsTable());
+  schemaForm=new RecordPanel(new AvroWidgetsConfig.Builder().recordPanelWidth(900).createConfig(),Utils.constants.schema(),this,!create,!create);
   if (create) {
-    schemaLabel.addStyleName("required");
+    schemaForm.addValueChangeHandler(this);
   }
-  detailsTable.setWidget(6,0,schemaLabel);
-  if (create) {
-    schemaFileUpload=new FileUploadForm();
-    schemaFileUpload.setWidth("500px");
-    detailsTable.setWidget(6,1,schemaFileUpload);
-  }
- else {
-    schema=new KaaAdminSizedTextArea(524288);
-    schema.setWidth("500px");
-    schema.getTextArea().getElement().getStyle().setPropertyPx("minHeight",300);
-    schema.getTextArea().setReadOnly(true);
-    detailsTable.setWidget(6,1,schema);
-    detailsTable.getCellFormatter().setVerticalAlignment(6,0,HasVerticalAlignment.ALIGN_TOP);
-  }
-  if (create) {
-    schemaFileUpload.addChangeHandler(this);
-  }
+  getFooter().setWidth("1000px");
+  getFooter().add(schemaForm);
   name.setFocus(true);
 }

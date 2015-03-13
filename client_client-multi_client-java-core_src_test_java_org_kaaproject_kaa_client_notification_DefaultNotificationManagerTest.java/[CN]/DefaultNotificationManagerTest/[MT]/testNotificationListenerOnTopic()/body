@@ -1,5 +1,5 @@
 {
-  KaaClientPropertiesState state=new KaaClientPropertiesState(new FilePersistentStorage(),KaaClientPropertiesStateTest.getProperties());
+  KaaClientPropertiesState state=new KaaClientPropertiesState(new FilePersistentStorage(),CommonsBase64.getInstance(),KaaClientPropertiesStateTest.getProperties());
   NotificationTransport transport=mock(NotificationTransport.class);
   DefaultNotificationManager notificationManager=new DefaultNotificationManager(state,transport);
   List<Topic> topicsUpdate=Arrays.asList(new Topic("id1","topic_name1",SubscriptionType.MANDATORY),new Topic("id2","topic_name1",SubscriptionType.MANDATORY));
@@ -13,6 +13,6 @@
   notificationManager.notificationReceived(notificationUpdate);
   notificationManager.removeNotificationListener("id2",topicListener);
   notificationManager.notificationReceived(notificationUpdate);
-  Mockito.verify(globalListener,Mockito.times(notificationUpdate.size() * 2 - 1)).onNotificationRaw(Mockito.anyString(),Mockito.any(ByteBuffer.class));
-  Mockito.verify(topicListener,Mockito.times(1)).onNotificationRaw(Mockito.anyString(),Mockito.any(ByteBuffer.class));
+  Mockito.verify(globalListener,Mockito.times(notificationUpdate.size() * 2 - 1)).onNotification(Mockito.anyString(),Mockito.any(org.kaaproject.kaa.schema.base.Notification.class));
+  Mockito.verify(topicListener,Mockito.times(1)).onNotification(Mockito.anyString(),Mockito.any(org.kaaproject.kaa.schema.base.Notification.class));
 }

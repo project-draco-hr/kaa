@@ -1,0 +1,5 @@
+{
+  PlayInfo playInfo=mController.getRemoteDeviceStatus(mEndpointKey);
+  menu.findItem(R.id.stopPlay).setVisible(playInfo != null && playInfo.getStatus() == PlayStatus.PLAYING);
+  super.onPrepareOptionsMenu(menu);
+}

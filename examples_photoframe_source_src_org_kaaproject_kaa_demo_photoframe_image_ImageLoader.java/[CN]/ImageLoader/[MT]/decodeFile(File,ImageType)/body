@@ -1,0 +1,33 @@
+{
+  FileInputStream fis=null;
+  try {
+    fis=new FileInputStream(f);
+    FileDescriptor fd=fis.getFD();
+    BitmapFactory.Options options=new BitmapFactory.Options();
+    options.inJustDecodeBounds=true;
+    BitmapFactory.decodeFileDescriptor(fd,null,options);
+    int w=options.outWidth;
+    int h=options.outHeight;
+    float scale=(float)type.targetSize / Math.max(w,h);
+    if (type == ImageType.SCREENAIL) {
+      options.inSampleSize=computeSampleSizeLarger(scale);
+    }
+ else {
+      options.inSampleSize=computeSampleSize(scale);
+    }
+    options.inJustDecodeBounds=false;
+    return BitmapFactory.decodeFileDescriptor(fd,null,options);
+  }
+ catch (  Exception e) {
+  }
+ finally {
+    if (fis != null) {
+      try {
+        fis.close();
+      }
+ catch (      IOException e) {
+      }
+    }
+  }
+  return null;
+}

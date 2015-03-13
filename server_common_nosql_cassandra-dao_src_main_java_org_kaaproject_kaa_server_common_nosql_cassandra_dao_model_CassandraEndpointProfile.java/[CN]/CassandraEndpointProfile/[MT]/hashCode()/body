@@ -1,0 +1,27 @@
+{
+  int result=endpointKeyHash != null ? endpointKeyHash.hashCode() : 0;
+  result=31 * result + (id != null ? id.hashCode() : 0);
+  result=31 * result + (endpointProfileKey != null ? endpointProfileKey.hashCode() : 0);
+  result=31 * result + (applicationId != null ? applicationId.hashCode() : 0);
+  result=31 * result + (endpointUserId != null ? endpointUserId.hashCode() : 0);
+  result=31 * result + (accessToken != null ? accessToken.hashCode() : 0);
+  result=31 * result + (profileSchemaId != null ? profileSchemaId.hashCode() : 0);
+  result=31 * result + (cfGroupState != null ? cfGroupState.hashCode() : 0);
+  result=31 * result + (nfGroupState != null ? nfGroupState.hashCode() : 0);
+  result=31 * result + cfSequenceNumber;
+  result=31 * result + nfSequenceNumber;
+  result=31 * result + (profile != null ? profile.hashCode() : 0);
+  result=31 * result + (profileHash != null ? profileHash.hashCode() : 0);
+  result=31 * result + profileVersion;
+  result=31 * result + (configurationHash != null ? configurationHash.hashCode() : 0);
+  result=31 * result + configurationVersion;
+  result=31 * result + notificationVersion;
+  result=31 * result + (subscriptions != null ? subscriptions.hashCode() : 0);
+  result=31 * result + (ntHash != null ? ntHash.hashCode() : 0);
+  result=31 * result + systemNfVersion;
+  result=31 * result + userNfVersion;
+  result=31 * result + logSchemaVersion;
+  result=31 * result + (ecfVersionStates != null ? ecfVersionStates.hashCode() : 0);
+  result=31 * result + (serverHash != null ? serverHash.hashCode() : 0);
+  return result;
+}

@@ -1,0 +1,13 @@
+{
+switch (decision) {
+case UPLOAD:
+    if (!isUploading) {
+      isUploading=true;
+      transport.sync();
+    }
+  break;
+case NOOP:
+default :
+break;
+}
+}

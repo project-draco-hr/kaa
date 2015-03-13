@@ -1,6 +1,0 @@
-{
-  LogAppenderDto appenderDto=createLogAppender(null,null);
-  client.unregisterLogAppender(appenderDto.getId());
-  LogAppenderDto found=toDto(client.registerLogAppender(appenderDto.getId()));
-  Assert.assertEquals(appenderDto,found);
-}

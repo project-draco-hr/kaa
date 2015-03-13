@@ -1,6 +1,7 @@
 {
   AtmosphereResource res=null;
   PrintStream outPrint=null;
+  ClientMessageOutputStream outStream=null;
   ByteArrayOutputStream byteOutStream=null;
   if (uuid != null) {
     res=AtmosphereResourceFactory.getDefault().find(uuid);
@@ -10,7 +11,7 @@
     outPrint=new PrintStream(byteOutStream);
   }
   try {
-    ClientMessageOutputStream outStream=new ClientMessageOutputStream(res,outPrint);
+    outStream=new ClientMessageOutputStream(res,outPrint);
     Project project=projectsMap.get(projectId);
     if (project != null) {
       String sdkKeyBase64=project.getSdkKeyBase64();
@@ -82,6 +83,9 @@
     }
   }
  catch (  Exception e) {
+    if (outStream != null) {
+      outStream.println("Unexpected error occurred: " + e.getMessage());
+    }
     throw Utils.handleException(e);
   }
  finally {

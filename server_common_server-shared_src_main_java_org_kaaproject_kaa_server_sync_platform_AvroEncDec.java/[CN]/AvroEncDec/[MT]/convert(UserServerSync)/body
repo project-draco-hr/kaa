@@ -10,7 +10,7 @@
     sync.setUserDetachNotification(new UserDetachNotification(source.getUserDetachNotification().getEndpointAccessToken()));
   }
   if (source.getUserAttachResponse() != null) {
-    sync.setUserAttachResponse(new UserAttachResponse(convert(source.getUserAttachResponse().getResult())));
+    sync.setUserAttachResponse(convert(source.getUserAttachResponse()));
   }
   if (source.getEndpointAttachResponses() != null) {
     List<EndpointAttachResponse> responses=new ArrayList<>(source.getEndpointAttachResponses().size());

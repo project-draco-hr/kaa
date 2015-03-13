@@ -1,32 +1,22 @@
 {
-  if (manager != null) {
+  if (eventManager != null) {
     EventSyncRequest request=new EventSyncRequest();
-    manager.fillEventListenersSyncRequest(request);
+    eventManager.fillEventListenersSyncRequest(request);
     if (isEventSNSynchronized) {
-      List<Event> events=new LinkedList<Event>();
-      if (!sentEvents.isEmpty()) {
-        for (        Map.Entry<Integer,List<Event>> pendingEvents : sentEvents.entrySet()) {
-          LOG.debug("Have not received response for {} events sent with request id {}",pendingEvents.getValue().size(),pendingEvents.getKey());
-          events.addAll(pendingEvents.getValue());
+      Set<Event> eventsSet=new HashSet<Event>();
+      if (!pendingEvents.isEmpty()) {
+        for (        Map.Entry<Integer,Set<Event>> pendingEntry : pendingEvents.entrySet()) {
+          LOG.debug("Have not received response for {} events sent with request id {}",pendingEntry.getValue().size(),pendingEntry.getKey());
+          eventsSet.addAll(pendingEntry.getValue());
         }
-        sentEvents.clear();
       }
-      events.addAll(manager.getPendingEvents());
+      eventsSet.addAll(eventManager.pollPendingEvents());
+      List<Event> events=new ArrayList<Event>(eventsSet);
       if (!events.isEmpty()) {
-        Collections.sort(events,eventComparator);
-        if (events.get(0).getSeqNum() != startEventSN) {
-          clientState.setEventSeqNum(startEventSN + events.size());
-          LOG.info("Put in order event sequence numbers (expected: {}, actual: {})",startEventSN,events.get(0).getSeqNum());
-          for (          Event e : events) {
-            e.setSeqNum(startEventSN++);
-          }
-        }
- else {
-          startEventSN+=events.size();
-        }
+        Collections.sort(events,eventSeqNumberComparator);
         LOG.debug("Going to send {} event{}",events.size(),(events.size() == 1 ? "" : "s"));
         request.setEvents(events);
-        sentEvents.put(requestId,events);
+        pendingEvents.put(requestId,eventsSet);
       }
       request.setEventSequenceNumberRequest(null);
     }

@@ -1,19 +1,23 @@
 {
-  LogAppender flumeAppender=mock(LogAppender.class);
-  when(flumeAppender.getName()).thenReturn("Flume");
-  when(flumeAppender.getAppenderId()).thenReturn(APPENDER_ID);
+  LogEventPackMessage logEventPackMessage=mock(LogEventPackMessage.class);
+  when(logEventPackMessage.getLogSchema()).thenReturn(logSchema);
+  when(logEventPackMessage.getLogEventPack()).thenReturn(new LogEventPack());
+  when(logEventPackMessage.getOriginator()).thenReturn(ActorRef.noSender());
+  when(logEventPackMessage.getRequestId()).thenReturn(REQUEST_ID);
+  LogAppender mockAppender=mock(LogAppender.class);
+  when(mockAppender.getName()).thenReturn("flume");
+  when(mockAppender.getAppenderId()).thenReturn(APPENDER_ID);
+  when(mockAppender.isSchemaVersionSupported(Mockito.anyInt())).thenReturn(Boolean.TRUE);
+  when(logAppender.isSchemaVersionSupported(Mockito.anyInt())).thenReturn(Boolean.FALSE);
+  applicationLogActorMessageProcessor=new ApplicationLogActorMessageProcessor(logAppenderService,applicationService,APP_TOKEN);
+  applicationLogActorMessageProcessor.processLogEventPack(Mockito.mock(ActorContext.class),logEventPackMessage);
+  verify(logAppender,Mockito.never()).doAppend(Mockito.any(LogEventPack.class),Mockito.any(LogDeliveryCallback.class));
   Notification notification=new Notification();
   notification.setAppenderId(APPENDER_ID);
   notification.setAppId(APPLICATION_ID);
   notification.setOp(Operation.UPDATE_LOG_APPENDER);
-  List<LogAppender> appenders=mock(List.class);
-  ReflectionTestUtils.setField(applicationLogActor,"logAppenders",appenders);
-  when(appenders.size()).thenReturn(1);
-  when(appenders.get(any(Integer.class))).thenReturn(flumeAppender);
-  when(logAppenderService.getApplicationAppender(APPENDER_ID)).thenReturn(flumeAppender);
-  ReflectionTestUtils.invokeMethod(applicationLogActor,"processLogAppenderNotification",notification);
-  verify(logAppenderService,times(1)).getApplicationAppender(APPENDER_ID);
-  verify(appenders,times(1)).remove(0);
-  verify(appenders,times(1)).add(any(LogAppender.class));
-  ReflectionTestUtils.setField(applicationLogActor,"logAppenders",logAppenders);
+  when(logAppenderService.getApplicationAppender(APPENDER_ID)).thenReturn(mockAppender);
+  applicationLogActorMessageProcessor.processLogAppenderNotification(notification);
+  applicationLogActorMessageProcessor.processLogEventPack(Mockito.mock(ActorContext.class),logEventPackMessage);
+  verify(mockAppender).doAppend(Mockito.any(LogEventPack.class),Mockito.any(LogDeliveryCallback.class));
 }

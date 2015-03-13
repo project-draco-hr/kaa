@@ -16,7 +16,12 @@
     }
  else     if (logsSessions.remove(name) != null) {
       LOG.debug("[{}] removed log: {}",applicationToken,localActor);
-      applicationLogActor=getOrCreateLogActor(name,logAppenderService,applicationService);
+      applicationLogActor=getOrCreateLogActor(name);
+      LOG.debug("[{}] created log: {}",applicationToken,applicationLogActor);
+    }
+ else     if (userVerifierSessions.remove(name) != null) {
+      LOG.debug("[{}] removed log: {}",applicationToken,localActor);
+      userVerifierActor=getOrCreateUserVerifierActor(name);
       LOG.debug("[{}] created log: {}",applicationToken,applicationLogActor);
     }
   }

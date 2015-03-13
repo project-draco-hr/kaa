@@ -1,0 +1,10 @@
+{
+  try {
+    setPluginRawConfigurationFromForm(userVerifier);
+    UserVerifierDto saved=editUserVerifier(userVerifier);
+    return saved;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

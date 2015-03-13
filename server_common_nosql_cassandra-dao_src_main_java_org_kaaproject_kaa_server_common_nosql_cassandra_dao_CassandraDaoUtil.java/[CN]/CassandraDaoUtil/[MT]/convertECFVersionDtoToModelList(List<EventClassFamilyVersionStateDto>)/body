@@ -1,0 +1,13 @@
+{
+  List<CassandraEventClassFamilyVersionState> states=null;
+  if (stateDtoList != null && !stateDtoList.isEmpty()) {
+    states=new ArrayList<>();
+    for (    EventClassFamilyVersionStateDto dto : stateDtoList) {
+      CassandraEventClassFamilyVersionState state=new CassandraEventClassFamilyVersionState();
+      state.setEcfId(dto.getEcfId());
+      state.setVersion(dto.getVersion());
+      states.add(state);
+    }
+  }
+  return states;
+}

@@ -1,5 +1,5 @@
 {
-  basicRegistrationTest();
+  EndpointProfileDto profileDto=registerEndpoint();
   createSecondEndpoint();
   byte[] profile=avroConverter.encode(ENDPOINT_PROFILE);
   ClientSync request=new ClientSync();
@@ -9,17 +9,16 @@
   md.setProfileHash(ByteBuffer.wrap(EndpointObjectHash.fromSHA1(profile).getData()));
   request.setClientSyncMetaData(md);
   UserClientSync userRequest=new UserClientSync();
-  userRequest.setUserAttachRequest(new UserAttachRequest(USER_EXTERNAL_ID,USER_ACCESS_TOKEN));
+  userRequest.setUserAttachRequest(new UserAttachRequest(USER_VERIFIER_ID,USER_EXTERNAL_ID,USER_ACCESS_TOKEN));
   userRequest.setEndpointDetachRequests(Collections.singletonList(new EndpointDetachRequest(REQUEST_ID1,Base64Util.encode(EndpointObjectHash.fromSHA1(ENDPOINT_KEY2).getData()))));
   request.setUserSync(userRequest);
-  ServerSync response=operationsService.sync(request).getResponse();
+  profileDto.setEndpointUserId(userDto.getId());
+  ServerSync response=operationsService.sync(request,profileDto).getResponse();
   Assert.assertNotNull(response);
   Assert.assertEquals(SyncStatus.SUCCESS,response.getStatus());
   Assert.assertNull(response.getConfigurationSync());
   Assert.assertNull(response.getNotificationSync());
   Assert.assertNotNull(response.getUserSync());
-  Assert.assertNotNull(response.getUserSync().getUserAttachResponse());
-  Assert.assertEquals(SyncStatus.SUCCESS,response.getUserSync().getUserAttachResponse().getResult());
   Assert.assertNotNull(response.getUserSync().getEndpointDetachResponses());
   Assert.assertEquals(1,response.getUserSync().getEndpointDetachResponses().size());
   Assert.assertEquals(SyncStatus.FAILURE,response.getUserSync().getEndpointDetachResponses().get(0).getResult());

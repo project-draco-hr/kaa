@@ -1,0 +1,13 @@
+{
+  LogAppenderFilterKey key=new LogAppenderFilterKey(schemaVersion,confirmDelivery);
+  List<LogAppender> result=logAppendersCache.get(key);
+  if (result == null) {
+    result=new ArrayList<LogAppender>();
+    for (    LogAppender appender : logAppenders.values()) {
+      if (appender.isSchemaVersionSupported(schemaVersion) && appender.isDeliveryConfirmationRequired() == confirmDelivery) {
+        result.add(appender);
+      }
+    }
+  }
+  return result;
+}

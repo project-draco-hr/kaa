@@ -1,15 +1,10 @@
 {
-  KaaClientPropertiesState state=new KaaClientPropertiesState(new FilePersistentStorage(),KaaClientPropertiesStateTest.getProperties());
+  KaaClientPropertiesState state=new KaaClientPropertiesState(new FilePersistentStorage(),CommonsBase64.getInstance(),KaaClientPropertiesStateTest.getProperties());
   EventTransport transport=Mockito.mock(EventTransport.class);
   EventFamily eventFamily=Mockito.mock(EventFamily.class);
   EventManager eventManager=new DefaultEventManager(state,transport);
   eventManager.registerEventFamily(eventFamily);
-  try {
-    eventManager.produceEvent("kaa.test.event.PlayEvent",new byte[0],null);
-  }
- catch (  IOException e) {
-    assertTrue("Unexpected exception",false);
-  }
+  eventManager.produceEvent("kaa.test.event.PlayEvent",new byte[0],null);
   Mockito.verify(transport,times(1)).sync();
   verify(eventFamily,times(0)).getSupportedEventFQNs();
   verify(eventFamily,times(0)).onGenericEvent(anyString(),any(byte[].class),anyString());

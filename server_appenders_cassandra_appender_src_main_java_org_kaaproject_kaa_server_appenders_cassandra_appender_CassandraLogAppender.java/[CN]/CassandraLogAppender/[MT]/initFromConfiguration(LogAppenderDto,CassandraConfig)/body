@@ -1,0 +1,20 @@
+{
+  LOG.info("Initializing new instance of Cassandra log appender");
+  try {
+    checkExecuteRequestType(configuration);
+    logEventDao=new CassandraLogEventDao(configuration);
+    createTable(appender.getApplicationToken());
+    Integer callbackPoolSize=configuration.getCallbackThreadPoolSize();
+    if (callbackPoolSize != null) {
+      callbackPoolSize=Math.min(callbackPoolSize,MAX_CALLBACK_THREAD_POOL_SIZE);
+    }
+ else {
+      callbackPoolSize=MAX_CALLBACK_THREAD_POOL_SIZE;
+    }
+    callbackExecutor=Executors.newFixedThreadPool(callbackPoolSize);
+    LOG.info("Cassandra log appender initialized");
+  }
+ catch (  Exception e) {
+    LOG.error("Failed to init cassandra log appender: ",e);
+  }
+}

@@ -1,12 +1,7 @@
 {
-  entity.setName(detailsView.getName().getValue());
+  super.onSave();
   entity.setMinLogSchemaVersion(detailsView.getMinSchemaVersion().getValue());
   entity.setMaxLogSchemaVersion(detailsView.getMaxSchemaVersion().getValue());
-  entity.setStatus(LogAppenderStatusDto.REGISTERED);
-  entity.setDescription(detailsView.getDescription().getValue());
+  entity.setConfirmDelivery(detailsView.getConfirmDelivery().getValue());
   entity.setHeaderStructure(detailsView.getHeader());
-  LogAppenderInfoDto appenderInfo=detailsView.getAppenderInfo().getValue();
-  entity.setTypeName(appenderInfo.getName());
-  entity.setAppenderClassName(appenderInfo.getAppenderClassName());
-  entity.setConfiguration(detailsView.getConfiguration().getValue());
 }

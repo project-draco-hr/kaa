@@ -1,7 +1,7 @@
 {
   KaaClientState clientState=Mockito.mock(KaaClientState.class);
   EventManager manager=Mockito.mock(EventManager.class);
-  Mockito.when(manager.getPendingEvents()).thenReturn(Arrays.asList(new Event(),new Event()));
+  Mockito.when(manager.pollPendingEvents()).thenReturn(Arrays.asList(new Event(),new Event()));
   EventTransport transport=new DefaultEventTransport(clientState);
   transport.createEventRequest(1);
   transport.setEventManager(manager);
@@ -10,5 +10,5 @@
   transport.createEventRequest(3);
   transport.onSyncResposeIdReceived(3);
   EventSyncRequest request=transport.createEventRequest(4);
-  Assert.assertTrue(request.getEvents().size() == 2);
+  Assert.assertTrue(request.getEvents().size() == 1);
 }

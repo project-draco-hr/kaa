@@ -1,0 +1,12 @@
+{
+  mWaitView.setVisibility(View.GONE);
+  List<City> cities=Utils.getCities(mApplication.getCityGuideConfiguration(),mAreaName);
+  if (cities != null) {
+    mCitiesAdapter=new CitiesAdapter(mActivity,cities);
+    mCitiesListView.setVisibility(View.VISIBLE);
+    mCitiesListView.setAdapter(mCitiesAdapter);
+  }
+ else {
+    mActivity.popBackStack();
+  }
+}

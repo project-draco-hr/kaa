@@ -1,0 +1,7 @@
+{
+  super.onCreate(savedInstanceState);
+  setContentView(R.layout.activity_cell_monitor);
+  if (savedInstanceState == null) {
+    getSupportFragmentManager().beginTransaction().add(R.id.container,new CellMonitorFragment()).commit();
+  }
+}

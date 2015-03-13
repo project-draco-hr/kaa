@@ -9,10 +9,10 @@
   textElement.setInnerText(text + " ");
   DOM.insertChild(getElement(),textElement,0);
   Element caretSpan=DOM.createElement("span");
-  caretSpan.setClassName("caret");
+  caretSpan.setClassName(Utils.kaaAdminStyle.caret());
   DOM.appendChild(getElement(),caretSpan);
   actionsPopup=new PopupPanel(true,false);
-  actionsPopup.addStyleName("actionPopup");
+  actionsPopup.addStyleName(Utils.kaaAdminStyle.actionPopup());
   actionsPopup.setWidget(menu);
   actionsPopup.addCloseHandler(new CloseHandler<PopupPanel>(){
     @Override public void onClose(    CloseEvent<PopupPanel> event){

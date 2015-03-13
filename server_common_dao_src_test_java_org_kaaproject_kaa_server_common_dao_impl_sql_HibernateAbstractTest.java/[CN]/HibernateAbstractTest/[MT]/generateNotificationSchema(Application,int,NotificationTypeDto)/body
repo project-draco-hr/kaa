@@ -1,0 +1,27 @@
+{
+  List<NotificationSchema> schemas=Collections.emptyList();
+  try {
+    if (app == null) {
+      app=generateApplication(null);
+    }
+    NotificationSchema notificationSchema;
+    schemas=new ArrayList<>(count);
+    for (int i=0; i < count; i++) {
+      notificationSchema=new NotificationSchema();
+      notificationSchema.setApplication(app);
+      notificationSchema.setSchema(readSchemaFileAsString("dao/schema/testDataSchema.json"));
+      notificationSchema.setCreatedUsername("Test User");
+      notificationSchema.setMajorVersion(i + 1);
+      notificationSchema.setName("Test Name");
+      notificationSchema.setType(type == null ? NotificationTypeDto.SYSTEM : type);
+      notificationSchema=notificationSchemaDao.save(notificationSchema);
+      Assert.assertNotNull(notificationSchema);
+      schemas.add(notificationSchema);
+    }
+  }
+ catch (  IOException e) {
+    LOG.error("Can't generate notification schema {}",e);
+    Assert.fail("Can't generate notification schema." + e.getMessage());
+  }
+  return schemas;
+}

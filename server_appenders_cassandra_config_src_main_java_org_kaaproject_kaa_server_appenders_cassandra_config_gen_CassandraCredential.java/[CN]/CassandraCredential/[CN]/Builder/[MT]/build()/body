@@ -1,0 +1,11 @@
+{
+  try {
+    CassandraCredential record=new CassandraCredential();
+    record.user=fieldSetFlags()[0] ? this.user : (java.lang.String)defaultValue(fields()[0]);
+    record.password=fieldSetFlags()[1] ? this.password : (java.lang.String)defaultValue(fields()[1]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

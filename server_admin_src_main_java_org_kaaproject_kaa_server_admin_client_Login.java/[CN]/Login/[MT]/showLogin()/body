@@ -1,6 +1,5 @@
 {
-  injectThemeStyleSheet();
-  resources.css().ensureInjected();
+  Utils.injectKaaStyles();
   checkPasswordReset(new AsyncCallback<Void>(){
     @Override public void onSuccess(    Void result){
       EnterKeyDownHandler loginHandler=new EnterKeyDownHandler();

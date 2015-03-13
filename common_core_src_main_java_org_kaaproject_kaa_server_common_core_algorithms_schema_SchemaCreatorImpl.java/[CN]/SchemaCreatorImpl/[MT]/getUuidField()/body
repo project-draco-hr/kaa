@@ -1,14 +1,22 @@
 {
-  Map<String,Object> uuidField=new HashMap<String,Object>();
-  uuidField.put(NAME_FIELD,UUID_FIELD);
-  if (strategy.isUuidOptional()) {
-    List<Object> union=new ArrayList<Object>(2);
-    union.add(getUuidType());
-    union.add(NULL_FIELD_VALUE);
-    uuidField.put(TYPE_FIELD,union);
-  }
+  if (uuidField == null) {
+    Schema uuidFieldSchema=null;
+    if (strategy.isUuidOptional()) {
+      List<Schema> union=new ArrayList<Schema>(2);
+      union.add(getUuidType());
+      union.add(Schema.create(Type.NULL));
+      uuidFieldSchema=Schema.createUnion(union);
+    }
  else {
-    uuidField.put(TYPE_FIELD,getUuidType());
+      uuidFieldSchema=getUuidType();
+    }
+    uuidField=new Field(UUID_FIELD,uuidFieldSchema,null,null);
+    ;
+    uuidField.addProp(DISPLAY_NAME_FIELD,UUID_FIELD_DISPLAY_NAME);
+    uuidField.addProp(FIELD_ACCESS_FIELD,FIELD_ACCESS_READ_ONLY);
+    return uuidField;
   }
-  return uuidField;
+  Field newUuidField=new Field(uuidField.name(),uuidField.schema(),null,null);
+  AvroUtils.copyJsonProperties(uuidField,newUuidField);
+  return newUuidField;
 }

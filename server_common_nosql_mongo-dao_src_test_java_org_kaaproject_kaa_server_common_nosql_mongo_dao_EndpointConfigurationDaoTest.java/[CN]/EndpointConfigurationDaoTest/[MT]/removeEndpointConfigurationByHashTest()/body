@@ -1,0 +1,8 @@
+{
+  EndpointConfigurationDto endpointConfiguration=generateEndpointConfiguration();
+  Assert.assertNotNull(endpointConfiguration);
+  byte[] bytes=endpointConfiguration.getConfigurationHash();
+  endpointConfigurationDao.removeByHash(bytes);
+  MongoEndpointConfiguration configurationDto=endpointConfigurationDao.findByHash(bytes);
+  Assert.assertNull(configurationDto);
+}

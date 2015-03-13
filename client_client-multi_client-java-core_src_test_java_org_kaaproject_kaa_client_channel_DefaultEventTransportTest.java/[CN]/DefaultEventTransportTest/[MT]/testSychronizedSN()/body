@@ -5,7 +5,7 @@
   Mockito.when(clientState.getEventSeqNum()).thenReturn(restoredEventSN);
   List<Event> events=Arrays.asList(new Event(restoredEventSN++,null,null,null,null),new Event(restoredEventSN++,null,null,null,null),new Event(restoredEventSN++,null,null,null,null));
   EventManager manager=Mockito.mock(EventManager.class);
-  Mockito.when(manager.getPendingEvents()).thenReturn(events);
+  Mockito.when(manager.pollPendingEvents()).thenReturn(events);
   EventTransport transport=new DefaultEventTransport(clientState);
   transport.setEventManager(manager);
   int requestId=1;

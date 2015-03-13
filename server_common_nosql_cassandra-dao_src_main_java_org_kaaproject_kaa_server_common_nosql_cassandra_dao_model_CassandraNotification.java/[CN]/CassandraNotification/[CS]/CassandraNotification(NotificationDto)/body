@@ -1,0 +1,16 @@
+{
+  this.applicationId=dto.getApplicationId();
+  this.schemaId=dto.getSchemaId();
+  this.topicId=dto.getTopicId();
+  this.type=dto.getType();
+  this.version=dto.getVersion();
+  this.seqNum=dto.getSecNum();
+  this.lastModifyTime=dto.getLastTimeModify();
+  this.body=getByteBuffer(dto.getBody());
+  this.expiredAt=dto.getExpiredAt();
+  this.seqNum=dto.getSecNum();
+  this.id=dto.getId();
+  if (isBlank(id)) {
+    generateId();
+  }
+}

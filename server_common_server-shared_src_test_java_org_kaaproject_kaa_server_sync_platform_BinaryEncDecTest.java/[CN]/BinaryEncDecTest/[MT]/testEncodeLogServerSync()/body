@@ -1,7 +1,7 @@
 {
   ServerSync sync=new ServerSync();
   sync.setRequestId(MAGIC_NUMBER);
-  LogServerSync lSync=new LogServerSync(MAGIC_NUMBER,SyncStatus.FAILURE);
+  LogServerSync lSync=new LogServerSync(Collections.singletonList(new LogDeliveryStatus(MAGIC_NUMBER,SyncStatus.FAILURE,null)));
   sync.setLogSync(lSync);
   ByteBuffer buf=ByteBuffer.wrap(encDec.encode(sync));
   int size=8 + 8 + 4+ 8+ 4;

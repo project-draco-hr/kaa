@@ -1,10 +1,5 @@
 {
-  SendNotificationDialog.showSendNotificationDialog(applicationId,entityId,new AsyncCallback<SendNotificationDialog>(){
-    @Override public void onFailure(    Throwable caught){
-      Utils.handleException(caught,detailsView);
-    }
-    @Override public void onSuccess(    SendNotificationDialog result){
-    }
-  }
-);
+  SendNotificationPlace sendNotificationPlace=new SendNotificationPlace(applicationId,entityId);
+  sendNotificationPlace.setPreviousPlace(place);
+  goTo(sendNotificationPlace);
 }

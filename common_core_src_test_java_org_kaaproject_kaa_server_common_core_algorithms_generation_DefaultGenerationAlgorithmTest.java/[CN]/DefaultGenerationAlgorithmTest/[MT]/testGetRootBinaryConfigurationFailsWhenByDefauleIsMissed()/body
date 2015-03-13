@@ -2,5 +2,6 @@
   Path schemaPath=Paths.get(Thread.currentThread().getContextClassLoader().getResource("generation/schemaWithMissedByDefault.json").toURI());
   BaseSchema configuraionSchema=new BaseSchema(new String(Files.readAllBytes(schemaPath)));
   DefaultRecordGenerationAlgorithm configurationProcessor=new DefaultRecordGenerationAlgorithmImpl(configuraionSchema,new BaseDataFactory());
-  KaaData generatedConfiguration=configurationProcessor.getRootData();
+  GenericRecord generatedConfiguration=configurationProcessor.getRootConfiguration();
+  Assert.assertEquals(0,generatedConfiguration.get("testField5"));
 }

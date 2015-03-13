@@ -1,0 +1,11 @@
+{
+  long lastLogTime=mApplication.getLastLogTime();
+  if (lastLogTime > 0) {
+    mCalendar.setTimeInMillis(lastLogTime);
+    mLastLogTimeValue.setText(mDateFormat.format(mCalendar.getTime()));
+  }
+ else {
+    mLastLogTimeValue.setText(R.string.unavailable);
+  }
+  mSentLogCountValue.setText(String.valueOf(mApplication.getSentLogCount()));
+}

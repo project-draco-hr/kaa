@@ -1,0 +1,10 @@
+{
+  try {
+    URI uri=new URI(GOOGLE_OAUTH + accessToken);
+    threadPool.submit(new RunnableVerifier(uri,callback,userExternalId));
+  }
+ catch (  URISyntaxException e) {
+    LOG.warn("Internal error",e);
+    callback.onInternalError();
+  }
+}

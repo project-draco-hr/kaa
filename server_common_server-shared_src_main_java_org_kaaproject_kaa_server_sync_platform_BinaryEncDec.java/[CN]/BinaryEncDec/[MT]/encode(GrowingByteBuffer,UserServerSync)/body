@@ -2,10 +2,22 @@
   buildExtensionHeader(buf,USER_EXTENSION_ID,NOTHING,NOTHING,NOTHING,0);
   int extPosition=buf.position();
   if (userSync.getUserAttachResponse() != null) {
+    UserAttachResponse uaResponse=userSync.getUserAttachResponse();
     buf.put(USER_ATTACH_RESPONSE_FIELD_ID);
     buf.put(NOTHING);
-    buf.put(userSync.getUserAttachResponse().getResult() == SyncStatus.SUCCESS ? SUCCESS : FAILURE);
+    buf.put(uaResponse.getResult() == SyncStatus.SUCCESS ? SUCCESS : FAILURE);
     buf.put(NOTHING);
+    if (uaResponse.getResult() != SyncStatus.SUCCESS) {
+      buf.putShort((short)(uaResponse.getErrorCode() != null ? uaResponse.getErrorCode().ordinal() : 0));
+      if (uaResponse.getErrorReason() != null) {
+        byte[] data=uaResponse.getErrorReason().getBytes(UTF8);
+        buf.putShort((short)data.length);
+        put(buf,data);
+      }
+ else {
+        buf.putShort((short)0);
+      }
+    }
   }
   if (userSync.getUserAttachNotification() != null) {
     UserAttachNotification nf=userSync.getUserAttachNotification();
@@ -33,7 +45,7 @@
  else {
         buf.put(NOTHING);
       }
-      buf.putShort((short)Integer.valueOf(response.getRequestId()).intValue());
+      buf.putShort((short)response.getRequestId());
       if (response.getEndpointKeyHash() != null) {
         putUTF(buf,response.getEndpointKeyHash());
       }
@@ -46,7 +58,7 @@
     for (    EndpointDetachResponse response : userSync.getEndpointDetachResponses()) {
       buf.put(response.getResult() == SyncStatus.SUCCESS ? SUCCESS : FAILURE);
       buf.put(NOTHING);
-      buf.putShort((short)Integer.valueOf(response.getRequestId()).intValue());
+      buf.putShort((short)response.getRequestId());
     }
   }
   buf.putInt(extPosition - SIZE_OF_INT,buf.position() - extPosition);

@@ -1,0 +1,15 @@
+{
+  String body=configuration.getBody();
+  RecordField configurationRecord;
+  if (!isEmpty(body)) {
+    GenericAvroConverter<GenericRecord> converter=new GenericAvroConverter<>(schema);
+    GenericRecord record=converter.decodeJson(body);
+    configurationRecord=FormAvroConverter.createRecordFieldFromGenericRecord(record);
+  }
+ else {
+    configurationRecord=FormAvroConverter.createRecordFieldFromSchema(schema);
+  }
+  ConfigurationRecordFormDto configurationRecordForm=new ConfigurationRecordFormDto(configuration);
+  configurationRecordForm.setConfigurationRecord(configurationRecord);
+  return configurationRecordForm;
+}

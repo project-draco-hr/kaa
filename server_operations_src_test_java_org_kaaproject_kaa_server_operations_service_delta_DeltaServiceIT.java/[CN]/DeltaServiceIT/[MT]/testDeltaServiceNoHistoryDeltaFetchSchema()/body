@@ -1,6 +1,6 @@
 {
   GetDeltaRequest request=new GetDeltaRequest(application.getApplicationToken(),EndpointObjectHash.fromSHA1(endpointConfiguration.getConfiguration()),OLD_ENDPOINT_SEQ_NUMBER);
-  request.setEndpointProfile(endpointProfile.toDto());
+  request.setEndpointProfile(endpointProfile);
   request.setFetchSchema(true);
   HistoryDelta historyDelta=new HistoryDelta(new ArrayList<EndpointGroupStateDto>(),false,false);
   GetDeltaResponse response=deltaService.getDelta(request,historyDelta,NEW_APPLICATION_SEQ_NUMBER);

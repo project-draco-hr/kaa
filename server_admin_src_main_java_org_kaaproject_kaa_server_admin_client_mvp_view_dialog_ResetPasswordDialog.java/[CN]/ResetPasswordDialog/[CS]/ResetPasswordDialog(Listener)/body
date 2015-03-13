@@ -2,7 +2,7 @@
   super(false,true);
   this.listener=listener;
   setWidth("500px");
-  setTitle(Utils.constants.reset_password());
+  setTitle(Utils.constants.resetPassword());
   VerticalPanel dialogContents=new VerticalPanel();
   dialogContents.setSpacing(4);
   setWidget(dialogContents);
@@ -16,7 +16,7 @@
   table.setCellSpacing(6);
   int row=0;
   Widget label=new Label(Utils.constants.usernameOrEmail());
-  label.addStyleName("required");
+  label.addStyleName(Utils.avroUiStyle.requiredField());
   usernameOrEmail=new KaaAdminSizedTextBox(255);
   table.setWidget(row,0,label);
   table.setWidget(row,1,usernameOrEmail);

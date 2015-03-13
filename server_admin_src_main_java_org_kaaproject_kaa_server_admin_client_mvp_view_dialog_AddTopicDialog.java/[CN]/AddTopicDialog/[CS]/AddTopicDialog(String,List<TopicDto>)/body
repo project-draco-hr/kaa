@@ -2,7 +2,7 @@
   super(false,true);
   this.endpointGroupId=endpointGroupId;
   setWidth("500px");
-  setTitle(Utils.constants.add_topic_to_ep());
+  setTitle(Utils.constants.addTopicToEp());
   VerticalPanel dialogContents=new VerticalPanel();
   dialogContents.setSpacing(4);
   setWidget(dialogContents);
@@ -13,7 +13,7 @@
   table.setCellSpacing(6);
   int row=0;
   Widget label=new Label(Utils.constants.selectNotificationTopics());
-  label.addStyleName("required");
+  label.addStyleName(Utils.avroUiStyle.requiredField());
   topic=new TopicListBox();
   topic.setWidth("200px");
   topic.setAcceptableValues(topics);

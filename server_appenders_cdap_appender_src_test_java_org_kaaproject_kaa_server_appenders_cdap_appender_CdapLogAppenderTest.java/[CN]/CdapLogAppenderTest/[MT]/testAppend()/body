@@ -1,0 +1,7 @@
+{
+  LogEventPack logEventPack=getLogEventPack();
+  Mockito.when(writer.write(Mockito.anyString(),Mockito.any(Charset.class))).thenReturn(new DummyFuture());
+  LogDeliveryCallback callback=Mockito.mock(LogDeliveryCallback.class);
+  appender.doAppend(logEventPack,callback);
+  Mockito.verify(callback,Mockito.timeout(_10SEC)).onSuccess();
+}

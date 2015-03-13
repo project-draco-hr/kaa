@@ -79,6 +79,15 @@ struct.setLogSchemaVersionIsSet(true);
 org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);
 }
 break;
+case 8:
+if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+struct.defaultVerifierToken=iprot.readString();
+struct.setDefaultVerifierTokenIsSet(true);
+}
+ else {
+org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);
+}
+break;
 default :
 org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);
 }

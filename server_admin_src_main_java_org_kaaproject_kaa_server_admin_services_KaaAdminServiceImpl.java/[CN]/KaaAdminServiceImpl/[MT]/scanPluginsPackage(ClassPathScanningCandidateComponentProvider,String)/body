@@ -1,0 +1,11 @@
+{
+  Set<BeanDefinition> beans=scanner.findCandidateComponents(packageName);
+  for (  BeanDefinition bean : beans) {
+    Class<?> clazz=Class.forName(bean.getBeanClassName());
+    KaaPluginConfig annotation=clazz.getAnnotation(KaaPluginConfig.class);
+    PluginConfig pluginConfig=(PluginConfig)clazz.newInstance();
+    RecordField fieldConfiguration=FormAvroConverter.createRecordFieldFromSchema(pluginConfig.getPluginConfigSchema());
+    PluginInfoDto pluginInfo=new PluginInfoDto(pluginConfig.getPluginTypeName(),fieldConfiguration,pluginConfig.getPluginClassName());
+    pluginsInfo.get(annotation.pluginType()).put(pluginInfo.getPluginClassName(),pluginInfo);
+  }
+}

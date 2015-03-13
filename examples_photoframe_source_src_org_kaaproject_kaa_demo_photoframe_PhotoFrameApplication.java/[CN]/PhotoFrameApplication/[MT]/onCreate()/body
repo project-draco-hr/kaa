@@ -1,0 +1,22 @@
+{
+  super.onCreate();
+  mEventBus=new EventBus();
+  mImageLoader=new ImageLoader(this);
+  KaaClientPlatformContext kaaClientContext=new AndroidKaaPlatformContext(this);
+  mClient=Kaa.newClient(kaaClientContext,new SimpleKaaClientStateListener(){
+    @Override public void onStarted(){
+      mKaaStarted=true;
+      mEventBus.post(new KaaStartedEvent());
+      LOG.info("Kaa client started");
+    }
+    @Override public void onResume(){
+      if (mController.isUserAttached()) {
+        mController.notifyRemoteDevices();
+      }
+      LOG.info("Kaa client resumed");
+    }
+  }
+);
+  mController=new PhotoFrameController(this,mEventBus,mClient);
+  mClient.start();
+}
