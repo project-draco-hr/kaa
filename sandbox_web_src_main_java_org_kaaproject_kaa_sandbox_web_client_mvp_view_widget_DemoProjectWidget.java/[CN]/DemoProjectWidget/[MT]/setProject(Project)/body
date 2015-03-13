@@ -1,15 +1,11 @@
 {
   this.project=project;
-switch (project.getPlatform()) {
-case ANDROID:
-    platformImage.setResource(Utils.resources.android());
-  break;
-case JAVA:
-platformImage.setResource(Utils.resources.java());
-break;
-default :
-break;
-}
-projectTitle.setText(project.getName());
-projectTitle.setTitle(project.getName());
+  platformImage.setResource(Utils.getPlatformIcon(project.getPlatform()));
+  projectTitle.setText(project.getName());
+  projectTitle.setTitle(project.getName());
+  for (  Feature feature : project.getFeatures()) {
+    Image image=new Image(Utils.getFeatureIcon(feature,false));
+    image.getElement().getStyle().setPaddingRight(8,Unit.PX);
+    featuresPanel.add(image);
+  }
 }
