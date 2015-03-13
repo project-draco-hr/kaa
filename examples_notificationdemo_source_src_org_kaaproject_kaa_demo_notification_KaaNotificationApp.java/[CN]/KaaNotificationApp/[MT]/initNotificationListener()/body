@@ -1,0 +1,30 @@
+{
+  this.notificationListener=new NotificationListener(){
+    public void onNotification(    final String topicId,    final Notification notification){
+      Log.i(TAG,"Notification received: " + notification.toString());
+      TopicInfoHolder.holder.addNotification(topicId,notification);
+      if (null != demoActivity) {
+        demoActivity.runOnUiThread(new Runnable(){
+          @Override public void run(){
+            Fragment fragment;
+            fragment=demoActivity.getSupportFragmentManager().findFragmentByTag(NotificationFragment.class.getSimpleName());
+            if (null != fragment && fragment.isVisible()) {
+              int pos=demoActivity.getFragmentData().getInt("position");
+              List<Notification> list=TopicInfoHolder.holder.getTopicModelList().get(pos).getNotifications();
+              ((ListFragment)fragment).setListAdapter(new NotificationArrayAdapter(demoActivity.getLayoutInflater(),list));
+            }
+ else {
+              fragment=demoActivity.getSupportFragmentManager().findFragmentByTag(TopicFragment.class.getSimpleName());
+              if (null != fragment && fragment.isVisible()) {
+                ((ListFragment)fragment).setListAdapter(new TopicArrayAdapter(demoActivity.getLayoutInflater(),TopicInfoHolder.holder.getTopicModelList()));
+              }
+            }
+            showPopup(demoActivity,topicId,notification);
+          }
+        }
+);
+      }
+    }
+  }
+;
+}

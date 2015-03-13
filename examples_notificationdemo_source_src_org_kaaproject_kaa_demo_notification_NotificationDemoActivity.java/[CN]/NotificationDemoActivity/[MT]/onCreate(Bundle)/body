@@ -1,0 +1,18 @@
+{
+  super.onCreate(savedInstance);
+  setContentView(R.layout.notification_demo);
+  StrictMode.ThreadPolicy policy=new StrictMode.ThreadPolicy.Builder().permitAll().build();
+  StrictMode.setThreadPolicy(policy);
+  if (null == savedInstance) {
+    showTopics();
+  }
+ else {
+    if (CurrentFragment.TOPIC == savedInstance.get("fragment")) {
+      showTopics();
+    }
+ else {
+      showNotifications();
+    }
+  }
+  ((KaaNotificationApp)getApplicationContext()).setDemoActivity(this);
+}
