@@ -2,9 +2,9 @@
   EndpointUserDto userDto=generateEndpointUser(null);
   ApplicationDto appDto=generateApplication();
   ConfigurationSchemaDto schema=generateConfSchema(appDto.getId(),1).get(0);
-  EndpointUserConfigurationDto firstUserConfigurationDto=generateEndpointUserConfiguration(userDto,appDto,schema,readSchemaFileAsString("dao/user/overrideData.json"));
-  generateEndpointUserConfiguration(userDto,appDto,null,readSchemaFileAsString("dao/user/overrideData.json"));
-  generateEndpointUserConfiguration(null,null,null,readSchemaFileAsString("dao/user/overrideData.json"));
+  EndpointUserConfigurationDto firstUserConfigurationDto=generateEndpointUserConfiguration(userDto,appDto,schema,readSchemaFileAsString(OVERRIDE_USER_DATA_JSON));
+  generateEndpointUserConfiguration(userDto,appDto,null,readSchemaFileAsString(OVERRIDE_USER_DATA_JSON));
+  generateEndpointUserConfiguration(null,null,null,readSchemaFileAsString(OVERRIDE_USER_DATA_JSON));
   EndpointUserConfigurationDto found=userConfigurationService.findUserConfigurationByUserIdAndAppTokenAndSchemaVersion(userDto.getId(),appDto.getApplicationToken(),schema.getMajorVersion());
   Assert.assertEquals(firstUserConfigurationDto,found);
 }

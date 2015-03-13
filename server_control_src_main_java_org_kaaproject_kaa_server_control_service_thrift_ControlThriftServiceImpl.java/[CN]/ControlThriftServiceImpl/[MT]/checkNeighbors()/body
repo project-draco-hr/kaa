@@ -7,7 +7,7 @@ synchronized (zkLock) {
             client.sendUserConfigurationUpdates(messages);
           }
           @Override public void onServerError(          String serverId,          Exception e){
-            LOG.error(MessageFormat.format("Can't send configuration update to {0}",serverId),e);
+            LOG.error("Can't send configuration update to {}",serverId,e);
           }
         }
 ,neighborConnectionsSize);

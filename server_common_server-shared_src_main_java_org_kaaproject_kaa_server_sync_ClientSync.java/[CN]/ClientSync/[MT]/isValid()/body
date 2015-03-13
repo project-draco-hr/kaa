@@ -2,14 +2,9 @@
   ClientSyncMetaData md=this.getClientSyncMetaData();
   if (md.getProfileHash() == null) {
     ProfileClientSync profileRequest=this.getProfileSync();
-    if (profileRequest != null && profileRequest.getEndpointPublicKey() != null) {
-      return true;
-    }
- else {
+    if (profileRequest == null || profileRequest.getEndpointPublicKey() == null) {
       return false;
     }
   }
- else {
-    return true;
-  }
+  return true;
 }

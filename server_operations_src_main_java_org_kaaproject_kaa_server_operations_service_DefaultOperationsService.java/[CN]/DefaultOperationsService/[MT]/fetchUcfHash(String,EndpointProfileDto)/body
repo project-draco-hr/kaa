@@ -3,10 +3,8 @@
     return null;
   }
   EndpointUserConfigurationDto ucfDto=userConfigurationService.findUserConfigurationByUserIdAndAppTokenAndSchemaVersion(profile.getEndpointUserId(),appToken,profile.getConfigurationVersion());
-  if (ucfDto == null) {
-    return null;
-  }
- else {
+  if (ucfDto != null) {
     return EndpointObjectHash.fromString(ucfDto.getBody()).getData();
   }
+  return null;
 }
