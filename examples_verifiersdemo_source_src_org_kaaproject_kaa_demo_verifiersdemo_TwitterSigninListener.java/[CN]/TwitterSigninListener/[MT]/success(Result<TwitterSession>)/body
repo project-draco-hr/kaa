@@ -1,0 +1,12 @@
+{
+  Log.i(TAG,twitterSessionResult.toString());
+  if (isClicked) {
+    String accessToken=twitterSessionResult.data.getAuthToken().token + " " + twitterSessionResult.data.getAuthToken().secret;
+    String userId=String.valueOf(twitterSessionResult.data.getUserId());
+    String userName=twitterSessionResult.data.getUserName();
+    Log.i(TAG,"Token: " + accessToken);
+    Log.i(TAG,"User id: " + userId);
+    Log.i(TAG,"User name: " + userName);
+    parentActivity.updateUI(userName,userId,accessToken,LoginActivity.AccountType.TWITTER);
+  }
+}
