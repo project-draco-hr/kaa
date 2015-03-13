@@ -4,7 +4,7 @@
   EventManager eventManager=new DefaultEventManager(state,transport);
   List<String> eventFQNs=new ArrayList<String>();
   eventFQNs.add("eventFQN1");
-  FetchEventListeners fetchListener=mock(FetchEventListeners.class);
+  FindEventListenersCallback fetchListener=mock(FindEventListenersCallback.class);
   int requestIdOk=eventManager.findEventListeners(eventFQNs,fetchListener);
   int requestIdBad=eventManager.findEventListeners(eventFQNs,fetchListener);
   verify(transport,atLeast(1)).sync();

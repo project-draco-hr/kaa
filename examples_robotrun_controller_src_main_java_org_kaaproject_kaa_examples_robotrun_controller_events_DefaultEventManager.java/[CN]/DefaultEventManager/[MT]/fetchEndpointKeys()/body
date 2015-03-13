@@ -1,5 +1,5 @@
 {
   LOG.info("Fetching endpoint keys...");
   List<String> fqns=Arrays.asList(StartRunRequest.class.getName(),EntityInfoRequest.class.getName(),MovementRequest.class.getName());
-  client.getEventListenerResolver().findEventListeners(fqns,this);
+  client.findEventListeners(fqns,this);
 }
