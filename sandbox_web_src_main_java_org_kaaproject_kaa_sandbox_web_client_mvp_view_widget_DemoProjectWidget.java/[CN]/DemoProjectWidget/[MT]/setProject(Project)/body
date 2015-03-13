@@ -1,0 +1,15 @@
+{
+  this.project=project;
+switch (project.getPlatform()) {
+case ANDROID:
+    platformImage.setResource(Utils.resources.android());
+  break;
+case JAVA:
+platformImage.setResource(Utils.resources.java());
+break;
+default :
+break;
+}
+projectTitle.setText(project.getName());
+projectTitle.setTitle(project.getName());
+}

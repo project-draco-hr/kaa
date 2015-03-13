@@ -7,8 +7,7 @@
     kaaRestPassword=context.getString(CONFIG_KAA_REST_PASSWORD);
     Preconditions.checkArgument(kaaRestUser != null && kaaRestUser.length() > 0,CONFIG_KAA_REST_USER + " must be specified for " + SCHEMA_SOURCE_REST+ " avro schema source");
     Preconditions.checkArgument(kaaRestPassword != null && kaaRestPassword.length() > 0,CONFIG_KAA_REST_PASSWORD + " must be specified for " + SCHEMA_SOURCE_REST+ " avro schema source");
-    adminClient=new AdminClient(kaaRestHost,kaaRestPort);
-    adminClient.login(kaaRestUser,kaaRestPassword);
+    initHttpRestClient();
   }
  else {
     schemaLocalRoot=context.getString(CONFIG_AVRO_EVENT_SERIALIZER_SCHEMA_LOCAL_ROOT);
