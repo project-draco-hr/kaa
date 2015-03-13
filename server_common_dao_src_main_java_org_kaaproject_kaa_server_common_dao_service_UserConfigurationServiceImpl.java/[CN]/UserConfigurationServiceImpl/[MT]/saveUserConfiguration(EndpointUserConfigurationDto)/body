@@ -1,0 +1,49 @@
+{
+  EndpointUserConfigurationDto userConfigurationDto=null;
+  if (userConfig != null) {
+    String userConfigBody=userConfig.getBody();
+    if (isNotBlank(userConfigBody)) {
+      String appToken=userConfig.getAppToken();
+      ApplicationDto applicationDto=applicationService.findAppByApplicationToken(appToken);
+      if (applicationDto != null) {
+        int schemaVersion=userConfig.getSchemaVersion();
+        ConfigurationSchemaDto schemaDto=configurationService.findConfSchemaByAppIdAndVersion(applicationDto.getId(),schemaVersion);
+        if (schemaDto != null) {
+          OverrideSchema overrideSchema=new OverrideSchema(schemaDto.getOverrideSchema());
+          LOG.debug("Create default UUID validator with override schema: {}",overrideSchema.getRawSchema());
+          UuidValidator<OverrideData> uuidValidator=new DefaultUuidValidator<>(overrideSchema,new OverrideDataFactory());
+          GenericAvroConverter<GenericRecord> avroConverter=new GenericAvroConverter<>(overrideSchema.getRawSchema());
+          try {
+            GenericRecord configRecord=avroConverter.decodeJson(userConfigBody);
+            KaaData<OverrideSchema> body=uuidValidator.validateUuidFields(configRecord,null);
+            if (body != null) {
+              userConfig.setBody(body.getRawData());
+              userConfigurationDto=getDto(endpointUserConfigurationDao.save(userConfig));
+            }
+ else {
+              LOG.warn("Validated endpoint user configuration body is empty");
+              throw new IncorrectParameterException("Validated endpoint user configuration body is empty");
+            }
+          }
+ catch (          IOException e) {
+            LOG.error("Invalid endpoint user configuration for override schema.",e);
+            throw new IncorrectParameterException("Invalid endpoint user configuration for override schema.");
+          }
+        }
+ else {
+          LOG.warn("Can't find configuration schema with version {} for endpoint user configuration.",schemaVersion);
+          throw new IncorrectParameterException("Can't find configuration schema for specified version.");
+        }
+      }
+ else {
+        LOG.warn("Can't find application with token {} for endpoint user configuration.",appToken);
+        throw new IncorrectParameterException("Can't find application for specified token.");
+      }
+    }
+ else {
+      LOG.warn("Invalid endpoint user configuration. Configuration body is empty");
+      throw new IncorrectParameterException("Configuration body is empty.");
+    }
+  }
+  return userConfigurationDto;
+}

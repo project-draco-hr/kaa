@@ -1,0 +1,63 @@
+{
+  StringBuilder sb=new StringBuilder("Message(");
+  boolean first=true;
+  sb.append("type:");
+  if (this.type == null) {
+    sb.append("null");
+  }
+ else {
+    sb.append(this.type);
+  }
+  first=false;
+  if (!first)   sb.append(", ");
+  sb.append("eventId:");
+  sb.append(this.eventId);
+  first=false;
+  if (!first)   sb.append(", ");
+  sb.append("event:");
+  if (this.event == null) {
+    sb.append("null");
+  }
+ else {
+    sb.append(this.event);
+  }
+  first=false;
+  if (!first)   sb.append(", ");
+  sb.append("route:");
+  if (this.route == null) {
+    sb.append("null");
+  }
+ else {
+    sb.append(this.route);
+  }
+  first=false;
+  if (!first)   sb.append(", ");
+  sb.append("userRoute:");
+  if (this.userRoute == null) {
+    sb.append("null");
+  }
+ else {
+    sb.append(this.userRoute);
+  }
+  first=false;
+  if (!first)   sb.append(", ");
+  sb.append("endpointRouteUpdate:");
+  if (this.endpointRouteUpdate == null) {
+    sb.append("null");
+  }
+ else {
+    sb.append(this.endpointRouteUpdate);
+  }
+  first=false;
+  if (!first)   sb.append(", ");
+  sb.append("endpointStateUpdate:");
+  if (this.endpointStateUpdate == null) {
+    sb.append("null");
+  }
+ else {
+    sb.append(this.endpointStateUpdate);
+  }
+  first=false;
+  sb.append(")");
+  return sb.toString();
+}

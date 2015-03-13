@@ -4,7 +4,7 @@
     retVal=pjp.proceed();
   }
  catch (  Exception t) {
-    LOG.error("Unhandled exception: " + t.getMessage());
+    LOG.error("Unhandled exception: {}",t.getMessage(),t);
     ByteArrayOutputStream outStream=new ByteArrayOutputStream();
     PrintWriter writer=new PrintWriter(outStream);
     t.printStackTrace(writer);

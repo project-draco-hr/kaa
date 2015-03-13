@@ -1,0 +1,57 @@
+{
+  if (!getClass().equals(other.getClass())) {
+    return getClass().getName().compareTo(other.getClass().getName());
+  }
+  int lastComparison=0;
+  lastComparison=Boolean.valueOf(isSetTenantId()).compareTo(other.isSetTenantId());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetTenantId()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.tenantId,other.tenantId);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  lastComparison=Boolean.valueOf(isSetUserId()).compareTo(other.isSetUserId());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetUserId()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.userId,other.userId);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  lastComparison=Boolean.valueOf(isSetApplicationToken()).compareTo(other.isSetApplicationToken());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetApplicationToken()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.applicationToken,other.applicationToken);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  lastComparison=Boolean.valueOf(isSetCfSchemaVersion()).compareTo(other.isSetCfSchemaVersion());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetCfSchemaVersion()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.cfSchemaVersion,other.cfSchemaVersion);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  lastComparison=Boolean.valueOf(isSetUcfHash()).compareTo(other.isSetUcfHash());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetUcfHash()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.ucfHash,other.ucfHash);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  return 0;
+}

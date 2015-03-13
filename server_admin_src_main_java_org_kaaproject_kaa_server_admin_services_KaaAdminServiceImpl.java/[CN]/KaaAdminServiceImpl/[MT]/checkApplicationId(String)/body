@@ -4,8 +4,7 @@
       throw new KaaAdminServiceException(ServiceErrorCode.INVALID_ARGUMENTS);
     }
     ApplicationDto application=toDto(clientProvider.getClient().getApplication(applicationId));
-    Utils.checkNotNull(application);
-    checkTenantId(application.getTenantId());
+    checkApplication(application);
     return application;
   }
  catch (  Exception e) {

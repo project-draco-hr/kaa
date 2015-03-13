@@ -1,0 +1,22 @@
+{
+  List<Object> list=new ArrayList<Object>();
+  boolean present_tenantId=true && (isSetTenantId());
+  list.add(present_tenantId);
+  if (present_tenantId)   list.add(tenantId);
+  boolean present_userId=true && (isSetUserId());
+  list.add(present_userId);
+  if (present_userId)   list.add(userId);
+  boolean present_routeAddress=true && (isSetRouteAddress());
+  list.add(present_routeAddress);
+  if (present_routeAddress)   list.add(routeAddress);
+  boolean present_updateType=true && (isSetUpdateType());
+  list.add(present_updateType);
+  if (present_updateType)   list.add(updateType.getValue());
+  boolean present_cfSchemaVersion=true;
+  list.add(present_cfSchemaVersion);
+  if (present_cfSchemaVersion)   list.add(cfSchemaVersion);
+  boolean present_ucfHash=true && (isSetUcfHash());
+  list.add(present_ucfHash);
+  if (present_ucfHash)   list.add(ucfHash);
+  return list.hashCode();
+}

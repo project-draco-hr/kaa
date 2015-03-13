@@ -1,0 +1,8 @@
+{
+  if (request != null) {
+    LOG.trace("[{}][{}] procesing user sync request {}.",context.getEndpointKey(),context.getRequestHash(),request);
+    UserServerSync userSyncResponse=processUserSyncRequest(context.getEndpointKey(),context.getRequestHash(),request,context.getEndpointProfile());
+    context.setUserSyncResponse(userSyncResponse);
+  }
+  return context;
+}

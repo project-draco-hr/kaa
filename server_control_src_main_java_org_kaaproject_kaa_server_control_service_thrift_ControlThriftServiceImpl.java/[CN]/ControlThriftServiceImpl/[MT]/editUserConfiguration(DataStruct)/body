@@ -1,0 +1,20 @@
+{
+  EndpointUserConfigurationDto ucfDto=ThriftDtoConverter.<EndpointUserConfigurationDto>toGenericDto(configuration);
+  ApplicationDto appDto=applicationService.findAppByApplicationToken(ucfDto.getAppToken());
+  EndpointUserDto userDto=endpointService.findEndpointUserByExternalIdAndTenantId(ucfDto.getUserId(),appDto.getTenantId());
+  ucfDto.setUserId(userDto.getId());
+  ucfDto=userConfigurationService.saveUserConfiguration(ucfDto);
+  EndpointObjectHash hash=EndpointObjectHash.fromString(ucfDto.getBody());
+  checkNeighbors();
+  OperationsNodeInfo server=resolve(ucfDto.getUserId());
+  if (server != null) {
+    UserConfigurationUpdate msg=new UserConfigurationUpdate(appDto.getTenantId(),ucfDto.getUserId(),ucfDto.getAppToken(),ucfDto.getSchemaVersion(),hash.getDataBuf());
+    if (LOG.isTraceEnabled()) {
+      LOG.trace("Sending message {} to [{}]",msg,Neighbors.getServerID(server.getConnectionInfo()));
+    }
+    neighbors.sendMessage(server.getConnectionInfo(),msg);
+  }
+ else {
+    LOG.warn("Can't find server for user [{}]",ucfDto.getUserId());
+  }
+}

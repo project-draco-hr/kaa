@@ -8,9 +8,11 @@
   ProfileClientSync profileSync=new ProfileClientSync(ByteBuffer.wrap(ENDPOINT_KEY),ByteBuffer.wrap(profile),new EndpointVersionInfo(CONF_SCHEMA_VERSION,PROFILE_SCHEMA_VERSION,1,1,null,1),null);
   request.setProfileSync(profileSync);
   request.setConfigurationSync(new ConfigurationClientSync());
-  SyncResponseHolder holder=operationsService.sync(request);
-  currentConfigurationHash=holder.getEndpointProfile().getConfigurationHash();
-  ServerSync response=holder.getResponse();
+  SyncContext context=createContext(request);
+  operationsService.syncProfile(context,request.getProfileSync());
+  operationsService.syncConfiguration(context,request.getConfigurationSync());
+  currentConfigurationHash=context.getEndpointProfile().getConfigurationHash();
+  ServerSync response=context.getResponse();
   Assert.assertNotNull(response);
   Assert.assertEquals(SyncStatus.SUCCESS,response.getStatus());
   Assert.assertNotNull(response.getConfigurationSync());
@@ -18,5 +20,5 @@
   Assert.assertEquals(APPLICATION_SEQ_NUMBER,(int)response.getConfigurationSync().getAppStateSeqNumber());
   Assert.assertNotNull(response.getConfigurationSync().getConfDeltaBody());
   Assert.assertNull(response.getConfigurationSync().getConfSchemaBody());
-  return holder.getEndpointProfile();
+  return context.getEndpointProfile();
 }

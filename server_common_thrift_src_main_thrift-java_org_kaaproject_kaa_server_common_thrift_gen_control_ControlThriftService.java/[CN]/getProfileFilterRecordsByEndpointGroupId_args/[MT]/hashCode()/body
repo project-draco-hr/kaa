@@ -1,10 +1,10 @@
 {
-  HashCodeBuilder builder=new HashCodeBuilder();
+  List<Object> list=new ArrayList<Object>();
   boolean present_endpointGroupId=true && (isSetEndpointGroupId());
-  builder.append(present_endpointGroupId);
-  if (present_endpointGroupId)   builder.append(endpointGroupId);
+  list.add(present_endpointGroupId);
+  if (present_endpointGroupId)   list.add(endpointGroupId);
   boolean present_includeDeprecated=true;
-  builder.append(present_includeDeprecated);
-  if (present_includeDeprecated)   builder.append(includeDeprecated);
-  return builder.toHashCode();
+  list.add(present_includeDeprecated);
+  if (present_includeDeprecated)   list.add(includeDeprecated);
+  return list.hashCode();
 }

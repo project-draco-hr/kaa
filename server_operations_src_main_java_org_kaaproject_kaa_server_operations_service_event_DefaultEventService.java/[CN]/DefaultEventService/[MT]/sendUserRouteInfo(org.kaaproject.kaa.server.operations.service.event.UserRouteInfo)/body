@@ -1,16 +1,10 @@
 {
   LOG.debug("EventService: sendUserRouteInfo().....");
-  List<NeighborConnection> servers=neighbors.getNeighbors();
-  for (  NeighborConnection server : servers) {
-    LOG.debug("EventService: sendUserRouteInfo() neighbor {}....",server.getId());
-    UserRouteInfo userRoute=new UserRouteInfo(routeInfo.getUserId(),routeInfo.getTenantId(),neighbors.getSelfId(),transformUpdateType(routeInfo.getRouteOperation()));
-    try {
-      server.sendEventMessage(packMessage(userRoute));
-      LOG.debug("EventService: sendUserRouteInfo() neighbor {}.... Done.",server.getId());
-    }
- catch (    InterruptedException e) {
-      LOG.error("Error sending sendUserRouteInfo()",e);
-      notifyListenersOnServerProblem(server.getId());
-    }
+  List<NeighborConnection<MessageTemplate,Message>> servers=neighbors.getNeighbors();
+  UserRouteInfo userRoute=new UserRouteInfo(routeInfo.getUserId(),routeInfo.getTenantId(),id,transformUpdateType(routeInfo.getRouteOperation()));
+  List<Message> messages=packMessage(userRoute);
+  for (  NeighborConnection<MessageTemplate,Message> server : servers) {
+    LOG.debug("Send UserRouteInfo {} to neighbor {}....",userRoute,server.getId());
+    sendMessagesToServer(server,messages);
   }
 }

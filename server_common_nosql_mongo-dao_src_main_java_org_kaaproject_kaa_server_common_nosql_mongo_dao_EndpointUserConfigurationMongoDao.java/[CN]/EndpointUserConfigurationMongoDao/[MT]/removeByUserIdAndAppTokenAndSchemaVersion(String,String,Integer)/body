@@ -1,0 +1,4 @@
+{
+  remove(query(where(USER_CONF_USER_ID).is(userId).and(USER_CONF_APP_TOKEN).is(appToken).and(USER_CONF_SCHEMA_VERSION).is(schemaVersion)));
+  LOG.debug("Removed user specific configuration by user id {}, application token {} and schema version {}",userId,appToken,schemaVersion);
+}

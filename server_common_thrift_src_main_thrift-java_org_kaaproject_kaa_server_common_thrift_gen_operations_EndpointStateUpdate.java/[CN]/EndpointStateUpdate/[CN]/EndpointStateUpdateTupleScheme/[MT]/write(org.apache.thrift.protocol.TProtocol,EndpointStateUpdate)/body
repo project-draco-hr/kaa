@@ -1,0 +1,35 @@
+{
+  TTupleProtocol oprot=(TTupleProtocol)prot;
+  BitSet optionals=new BitSet();
+  if (struct.isSetTenantId()) {
+    optionals.set(0);
+  }
+  if (struct.isSetUserId()) {
+    optionals.set(1);
+  }
+  if (struct.isSetApplicationToken()) {
+    optionals.set(2);
+  }
+  if (struct.isSetEndpointKey()) {
+    optionals.set(3);
+  }
+  if (struct.isSetUcfHash()) {
+    optionals.set(4);
+  }
+  oprot.writeBitSet(optionals,5);
+  if (struct.isSetTenantId()) {
+    oprot.writeString(struct.tenantId);
+  }
+  if (struct.isSetUserId()) {
+    oprot.writeString(struct.userId);
+  }
+  if (struct.isSetApplicationToken()) {
+    oprot.writeString(struct.applicationToken);
+  }
+  if (struct.isSetEndpointKey()) {
+    oprot.writeBinary(struct.endpointKey);
+  }
+  if (struct.isSetUcfHash()) {
+    oprot.writeBinary(struct.ucfHash);
+  }
+}

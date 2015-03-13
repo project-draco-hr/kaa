@@ -1,5 +1,5 @@
 {
   ServerSync response=new ServerSync();
   response.setLogSync(new LogServerSync());
-  assertTrue(new SyncResponseHolder(response).requireImmediateReply());
+  assertTrue(new SyncContext(response).requireImmediateReply());
 }

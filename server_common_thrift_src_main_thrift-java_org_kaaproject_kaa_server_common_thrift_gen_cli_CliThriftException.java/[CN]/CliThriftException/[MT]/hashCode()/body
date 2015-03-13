@@ -1,10 +1,10 @@
 {
-  HashCodeBuilder builder=new HashCodeBuilder();
+  List<Object> list=new ArrayList<Object>();
   boolean present_errorCode=true;
-  builder.append(present_errorCode);
-  if (present_errorCode)   builder.append(errorCode);
+  list.add(present_errorCode);
+  if (present_errorCode)   list.add(errorCode);
   boolean present_message=true && (isSetMessage());
-  builder.append(present_message);
-  if (present_message)   builder.append(message);
-  return builder.toHashCode();
+  list.add(present_message);
+  if (present_message)   list.add(message);
+  return list.hashCode();
 }

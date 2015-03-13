@@ -1,0 +1,4 @@
+{
+  LOG.trace("Detected cluster topology update");
+  opsActor.tell(new ClusterUpdateMessage(),ActorRef.noSender());
+}

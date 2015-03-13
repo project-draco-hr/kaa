@@ -1,0 +1,11 @@
+{
+  LOG.debug("Saving user specific configuration {}",dto);
+  CassandraEndpointUserConfiguration userConfiguration=save(new CassandraEndpointUserConfiguration(dto));
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("Saving result: {}",userConfiguration);
+  }
+ else {
+    LOG.debug("Saving result: {}",userConfiguration != null);
+  }
+  return userConfiguration;
+}

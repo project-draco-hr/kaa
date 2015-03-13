@@ -1,0 +1,9 @@
+{
+  if (request != null) {
+    ClientSyncMetaData metaData=context.getMetaData();
+    LOG.trace("[{}][{}] procesing event sync request {}.",context.getEndpointKey(),context.getRequestHash(),request);
+    EventServerSync eventSyncResponse=processEventSyncResponse(context.getEndpointKey(),context.getRequestHash(),metaData.getApplicationToken(),request,context.getEndpointProfile());
+    context.setEventSyncResponse(eventSyncResponse);
+  }
+  return context;
+}

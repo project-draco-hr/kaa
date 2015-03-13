@@ -3,6 +3,7 @@
   ChannelMetaData channel=state.getChannelById(message.getChannelUuid());
   if (channel != null) {
     state.removeChannel(channel);
+    scheduleActorTimeout(context);
     return true;
   }
  else {

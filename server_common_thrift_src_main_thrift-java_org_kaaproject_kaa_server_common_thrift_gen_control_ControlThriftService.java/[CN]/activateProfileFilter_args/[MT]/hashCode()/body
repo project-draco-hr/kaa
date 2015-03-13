@@ -1,10 +1,10 @@
 {
-  HashCodeBuilder builder=new HashCodeBuilder();
+  List<Object> list=new ArrayList<Object>();
   boolean present_profileFilterId=true && (isSetProfileFilterId());
-  builder.append(present_profileFilterId);
-  if (present_profileFilterId)   builder.append(profileFilterId);
+  list.add(present_profileFilterId);
+  if (present_profileFilterId)   list.add(profileFilterId);
   boolean present_activatedUsername=true && (isSetActivatedUsername());
-  builder.append(present_activatedUsername);
-  if (present_activatedUsername)   builder.append(activatedUsername);
-  return builder.toHashCode();
+  list.add(present_activatedUsername);
+  if (present_activatedUsername)   list.add(activatedUsername);
+  return list.hashCode();
 }

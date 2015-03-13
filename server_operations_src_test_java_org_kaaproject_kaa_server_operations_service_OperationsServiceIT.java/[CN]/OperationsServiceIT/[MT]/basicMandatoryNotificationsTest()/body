@@ -10,7 +10,10 @@
   NotificationClientSync nfSyncRequest=new NotificationClientSync();
   nfSyncRequest.setAppStateSeqNumber(APPLICATION_SEQ_NUMBER);
   request.setNotificationSync(nfSyncRequest);
-  ServerSync response=operationsService.sync(request).getResponse();
+  SyncContext context=createContext(request);
+  operationsService.syncProfile(context,request.getProfileSync());
+  operationsService.syncNotification(context,request.getNotificationSync());
+  ServerSync response=context.getResponse();
   Assert.assertNotNull(response);
   Assert.assertEquals(SyncStatus.SUCCESS,response.getStatus());
   Assert.assertNotNull(response.getNotificationSync());

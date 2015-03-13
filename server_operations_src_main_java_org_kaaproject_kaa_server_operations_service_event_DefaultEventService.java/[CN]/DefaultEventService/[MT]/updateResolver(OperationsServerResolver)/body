@@ -1,0 +1,27 @@
+{
+  operationsNode.addListener(new OperationsNodeListener(){
+    @Override public void onNodeUpdated(    OperationsNodeInfo node){
+      LOG.info("Update of node {} is pushed to resolver {}",node,resolver);
+      resolver.onNodeUpdated(node);
+    }
+    @Override public void onNodeRemoved(    OperationsNodeInfo node){
+      LOG.info("Remove of node {} is pushed to resolver {}",node,resolver);
+      resolver.onNodeRemoved(node);
+      notifyListeners();
+    }
+    @Override public void onNodeAdded(    OperationsNodeInfo node){
+      LOG.info("Add of node {} is pushed to resolver {}",node,resolver);
+      resolver.onNodeAdded(node);
+      notifyListeners();
+    }
+    private void notifyListeners(){
+      for (      EventServiceListener listener : listeners) {
+        listener.onClusterUpdated();
+      }
+    }
+  }
+);
+  for (  OperationsNodeInfo info : operationsNode.getCurrentOperationServerNodes()) {
+    resolver.onNodeUpdated(info);
+  }
+}

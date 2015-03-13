@@ -1,7 +1,7 @@
 {
-  HashCodeBuilder builder=new HashCodeBuilder();
+  List<Object> list=new ArrayList<Object>();
   boolean present_tenantAdmin=true && (isSetTenantAdmin());
-  builder.append(present_tenantAdmin);
-  if (present_tenantAdmin)   builder.append(tenantAdmin);
-  return builder.toHashCode();
+  list.add(present_tenantAdmin);
+  if (present_tenantAdmin)   list.add(tenantAdmin);
+  return list.hashCode();
 }

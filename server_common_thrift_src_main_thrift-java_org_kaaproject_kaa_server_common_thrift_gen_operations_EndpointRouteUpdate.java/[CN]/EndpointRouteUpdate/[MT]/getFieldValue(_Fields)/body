@@ -1,0 +1,17 @@
+{
+switch (field) {
+case TENANT_ID:
+    return getTenantId();
+case USER_ID:
+  return getUserId();
+case ROUTE_ADDRESS:
+return getRouteAddress();
+case UPDATE_TYPE:
+return getUpdateType();
+case CF_SCHEMA_VERSION:
+return Integer.valueOf(getCfSchemaVersion());
+case UCF_HASH:
+return getUcfHash();
+}
+throw new IllegalStateException();
+}

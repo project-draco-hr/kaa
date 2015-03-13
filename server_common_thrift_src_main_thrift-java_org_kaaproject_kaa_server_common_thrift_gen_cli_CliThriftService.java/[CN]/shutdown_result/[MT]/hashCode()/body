@@ -1,7 +1,7 @@
 {
-  HashCodeBuilder builder=new HashCodeBuilder();
+  List<Object> list=new ArrayList<Object>();
   boolean present_cliException=true && (isSetCliException());
-  builder.append(present_cliException);
-  if (present_cliException)   builder.append(cliException);
-  return builder.toHashCode();
+  list.add(present_cliException);
+  if (present_cliException)   list.add(cliException);
+  return list.hashCode();
 }

@@ -9,7 +9,7 @@
 switch (schemeField.id) {
 case 1:
       if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
-        struct.status=CommandStatus.findByValue(iprot.readI32());
+        struct.status=org.kaaproject.kaa.server.common.thrift.gen.cli.CommandStatus.findByValue(iprot.readI32());
         struct.setStatusIsSet(true);
       }
  else {

@@ -1,9 +1,11 @@
 {
-  ActorRef userActor=users.get(userId);
+  String localUserId=toLocal(userId);
+  ActorRef userActor=localUsers.get(localUserId);
   if (userActor == null && userId != null) {
-    userActor=context().actorOf(Props.create(new UserActor.ActorCreator(context,userId,tenantId)).withDispatcher(USER_DISPATCHER_NAME),userId);
-    LOG.debug("Create user actor with id {}",userId);
-    users.put(userId,userActor);
+    userActor=context().actorOf(Props.create(new LocalUserActor.ActorCreator(context,userId,tenantId)).withDispatcher(USER_DISPATCHER_NAME),localUserId);
+    LOG.debug("Create local user actor with id {}",userId);
+    localUsers.put(localUserId,userActor);
+    context().watch(userActor);
   }
   return userActor;
 }

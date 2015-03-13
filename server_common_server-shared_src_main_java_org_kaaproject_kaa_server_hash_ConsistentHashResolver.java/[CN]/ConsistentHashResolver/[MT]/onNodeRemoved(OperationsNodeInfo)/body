@@ -1,0 +1,6 @@
+{
+  for (int i=0; i < replicas; i++) {
+    LOG.trace("Removing node {} replica {} from the circle",node.getConnectionInfo(),i);
+    circle.remove(hash(node,i));
+  }
+}

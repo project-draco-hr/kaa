@@ -1,0 +1,5 @@
+{
+  EndpointUserConfigurationDto userConfigurationDto=generateEndpointUserConfiguration(null,null,null,readSchemaFileAsString("dao/user/overrideData.json"));
+  Assert.assertNotNull(userConfigurationDto);
+  Assert.assertEquals(userConfigurationDto,new MongoEndpointUserConfiguration(userConfigurationDto).toDto());
+}
