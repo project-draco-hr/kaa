@@ -1,0 +1,9 @@
+{
+  EndpointKeyHash endpointKey=new EndpointKeyHash(kaaClient.getEndpointKeyHash());
+  kaaClient.detachEndpoint(endpointKey,new OnDetachEndpointOperationCallback(){
+    @Override public void onDetach(    SyncResponseResultType arg0){
+      Log.i(TAG,"User was detached");
+    }
+  }
+);
+}
