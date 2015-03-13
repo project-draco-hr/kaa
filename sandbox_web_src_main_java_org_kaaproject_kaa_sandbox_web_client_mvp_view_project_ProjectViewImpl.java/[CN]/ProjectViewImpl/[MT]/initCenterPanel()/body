@@ -1,0 +1,29 @@
+{
+  FlexTable infoTable=new FlexTable();
+  infoTable.getColumnFormatter().setWidth(0,"150px");
+  infoTable.getColumnFormatter().setWidth(1,"300px");
+  Label targetPlatformLabel=new Label(Utils.constants.targetPlatform());
+  targetPlatformLabel.addStyleName(Utils.sandboxStyle.contentLabel());
+  infoTable.setWidget(0,0,targetPlatformLabel);
+  targetPlatform=new Label();
+  infoTable.setWidget(0,1,targetPlatform);
+  Label featuresLabel=new Label(Utils.constants.features());
+  featuresLabel.addStyleName(Utils.sandboxStyle.contentLabel());
+  infoTable.setWidget(1,0,featuresLabel);
+  featuresPanel=new HorizontalPanel();
+  infoTable.setWidget(1,1,featuresPanel);
+  detailsPanel.add(infoTable);
+  descriptionLabel=new Label();
+  descriptionLabel.addStyleName(Utils.sandboxStyle.descriptionLabel());
+  detailsPanel.add(descriptionLabel);
+  HorizontalPanel buttonsPanel=new HorizontalPanel();
+  buttonsPanel.getElement().getStyle().setPaddingTop(30,Unit.PX);
+  getSourceButton=new Button(Utils.constants.getSourceCode());
+  getBinaryButton=new Button(Utils.constants.getBinary());
+  buttonsPanel.add(getSourceButton);
+  SimplePanel spacingPanel=new SimplePanel();
+  spacingPanel.setWidth("50px");
+  buttonsPanel.add(spacingPanel);
+  buttonsPanel.add(getBinaryButton);
+  detailsPanel.add(buttonsPanel);
+}

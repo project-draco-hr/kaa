@@ -26,6 +26,10 @@
   titlePanel.add(projectTitle);
   detailsPanel.add(titlePanel);
   add(detailsPanel);
+  featuresPanel=new HorizontalPanel();
+  featuresPanel.addStyleName(Utils.sandboxStyle.detailsInnerCenter());
+  add(featuresPanel);
+  featuresPanel.getElement().getStyle().setPaddingTop(10,Unit.PX);
   HorizontalPanel buttonsPanel=new HorizontalPanel();
   buttonsPanel.setWidth("100%");
   buttonsPanel.addStyleName(Utils.sandboxStyle.detailsInnerBottom());
