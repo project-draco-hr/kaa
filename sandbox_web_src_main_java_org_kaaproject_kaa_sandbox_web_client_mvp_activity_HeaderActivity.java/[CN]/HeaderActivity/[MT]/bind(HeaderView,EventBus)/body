@@ -1,2 +1,20 @@
 {
+  headerView.getSettingsLabel().setVisible(false);
+  Sandbox.getSandboxService().changeKaaHostEnabled(new BusyAsyncCallback<Boolean>(){
+    @Override public void onFailureImpl(    Throwable caught){
+      headerView.getSettingsLabel().setVisible(false);
+    }
+    @Override public void onSuccessImpl(    Boolean enabled){
+      headerView.getSettingsLabel().setVisible(enabled);
+      if (enabled) {
+        headerView.getSettingsLabel().addMenuItem(Utils.constants.changeKaaHost(),new ActionMenuItemListener(){
+          @Override public void onMenuItemSelected(){
+            clientFactory.getPlaceController().goTo(new ChangeKaaHostPlace(place));
+          }
+        }
+);
+      }
+    }
+  }
+);
 }

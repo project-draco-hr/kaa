@@ -1,0 +1,19 @@
+{
+  View view;
+  if (convertView == null) {
+    view=inflater.inflate(R.layout.notifications,null);
+    final ViewHolder viewHolder=new ViewHolder();
+    viewHolder.message=(TextView)view.findViewById(R.id.notification_message);
+    viewHolder.image=(ImageView)view.findViewById(R.id.notification_image);
+    view.setTag(viewHolder);
+    viewHolder.message.setTag(list.get(position));
+  }
+ else {
+    view=convertView;
+  }
+  ViewHolder holder=(ViewHolder)view.getTag();
+  Notification notification=(Notification)holder.message.getTag();
+  holder.message.setText(notification.getMessage());
+  holder.image.setImageBitmap(ImageCache.cache.getImage(notification.getImage()));
+  return view;
+}
