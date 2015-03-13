@@ -32,23 +32,11 @@
     tarEntry=new TarEntryData(entry,data);
     cppSources.add(tarEntry);
     Schema logSchema=new Schema.Parser().parse(logSchemaBody);
-    String logRecordHpp=SdkGenerator.readResource(LOG_RECORD_TEMPLATE);
-    entry=new TarArchiveEntry(LOG_RECORD_PATH);
-    byte[] logRecordData=replaceVar(logRecordHpp,LOG_RECORD_CLASS_NAME_VAR,logSchema.getName()).getBytes();
-    entry.setSize(logRecordData.length);
-    tarEntry=new TarEntryData(entry,logRecordData);
-    cppSources.add(tarEntry);
     String iLogCollectorHpp=SdkGenerator.readResource(ILOG_COLLECTOR_TEMPLATE);
     entry=new TarArchiveEntry(ILOG_COLLECTOR_PATH);
     byte[] iLogCollectorData=replaceVar(iLogCollectorHpp,LOG_RECORD_CLASS_NAME_VAR,logSchema.getName()).getBytes();
     entry.setSize(iLogCollectorData.length);
     tarEntry=new TarEntryData(entry,iLogCollectorData);
-    cppSources.add(tarEntry);
-    String logCollectorHpp=SdkGenerator.readResource(LOG_COLLECTOR_TEMPLATE);
-    entry=new TarArchiveEntry(LOG_COLLECTOR_PATH);
-    byte[] logCollectorData=replaceVar(logCollectorHpp,LOG_RECORD_CLASS_NAME_VAR,logSchema.getName()).getBytes();
-    entry.setSize(logCollectorData.length);
-    tarEntry=new TarEntryData(entry,logCollectorData);
     cppSources.add(tarEntry);
   }
   if (!StringUtils.isBlank(configurationBaseSchema)) {

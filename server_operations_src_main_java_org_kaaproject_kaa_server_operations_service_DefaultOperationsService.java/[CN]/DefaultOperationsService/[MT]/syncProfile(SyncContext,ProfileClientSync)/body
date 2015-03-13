@@ -23,7 +23,7 @@
   }
   context.setEndpointProfile(profile);
   if (!Arrays.equals(profile.getProfileHash(),toByteArray(metaData.getProfileHash()))) {
-    LOG.debug("[{}] Profile hash mismatch. Profile resync needed");
+    LOG.debug("[{}] Profile hash mismatch. Profile resync needed",context.getEndpointKey());
     context.setStatus(SyncStatus.PROFILE_RESYNC);
   }
   return context;

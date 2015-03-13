@@ -11,16 +11,16 @@
           EndpointGroupDto endpointGroup=null;
           if (!StringUtils.isBlank(egs.getEndpointGroupId())) {
             endpointGroup=endpointService.findEndpointGroupById(egs.getEndpointGroupId());
-          }
-          if (endpointGroup != null) {
-            endpointGroups.add(endpointGroup);
+            if (endpointGroup != null) {
+              endpointGroups.add(endpointGroup);
+            }
           }
           ConfigurationDto configuration=null;
           if (!StringUtils.isBlank(egs.getConfigurationId())) {
             configuration=configurationService.findConfigurationById(egs.getConfigurationId());
-          }
-          if (configuration != null) {
-            configurations.add(configuration);
+            if (configuration != null) {
+              configurations.add(configuration);
+            }
           }
           if (configurationSchema == null && configuration != null) {
             configurationSchema=configurationService.findConfSchemaById(configuration.getSchemaId());

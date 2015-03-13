@@ -1,0 +1,21 @@
+{
+  mSignInClicked=false;
+  try {
+    String email=Plus.AccountApi.getAccountName(client);
+    String accessToken=GoogleAuthUtil.getToken(activity,email,SCOPE);
+    String userId=Plus.PeopleApi.getCurrentPerson(client).getId();
+    String userName=Plus.PeopleApi.getCurrentPerson(client).getName().getGivenName();
+    Log.i(TAG,"Token: " + accessToken);
+    Log.i(TAG,"User id: " + userId);
+    Log.i(TAG,"User name: " + userName);
+    parentActivity.updateUI(userName,userId,accessToken,LoginActivity.AccountType.GOOGLE);
+    return null;
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+  }
+catch (  GoogleAuthException e) {
+    e.printStackTrace();
+  }
+  return null;
+}

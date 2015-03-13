@@ -1,0 +1,10 @@
+{
+  mSignInClicked=true;
+  if (!client.isConnected() || !client.isConnecting()) {
+    resolveSignInError();
+    client.connect();
+  }
+  if (client.isConnected()) {
+    getTokenInBackground();
+  }
+}

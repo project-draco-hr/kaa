@@ -1,0 +1,14 @@
+{
+  this.runOnUiThread(new Runnable(){
+    @Override public void run(){
+      Calendar cal=Calendar.getInstance();
+      SimpleDateFormat sdf=new SimpleDateFormat("[HH:mm:ss] ");
+      if (message != null && message.length() > 0) {
+        eventMessagesEdit.setText(status + " " + sdf.format(cal.getTime())+ ": "+ message+ "\n"+ eventMessagesEdit.getText());
+        eventMessagesText=eventMessagesEdit.getText();
+        msgEdit.setText(null);
+      }
+    }
+  }
+);
+}
