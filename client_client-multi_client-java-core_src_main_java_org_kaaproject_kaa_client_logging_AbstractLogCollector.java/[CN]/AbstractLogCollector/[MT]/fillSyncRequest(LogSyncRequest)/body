@@ -1,8 +1,12 @@
 {
   LogBlock group=null;
 synchronized (storage) {
-    group=storage.getRecordBlock(strategy.getBatchSize());
     isUploading=false;
+    if (storage.getStatus().getConsumedVolume() == 0) {
+      LOG.debug("Log group is null: storage is empty");
+      return;
+    }
+    group=storage.getRecordBlock(strategy.getBatchSize());
   }
   if (group != null) {
     List<LogRecord> recordList=group.getRecords();
@@ -18,6 +22,6 @@ synchronized (storage) {
     }
   }
  else {
-    LOG.warn("Log group is null: storage is empty or log group size is too small");
+    LOG.warn("Log group is null: log group size is too small");
   }
 }
