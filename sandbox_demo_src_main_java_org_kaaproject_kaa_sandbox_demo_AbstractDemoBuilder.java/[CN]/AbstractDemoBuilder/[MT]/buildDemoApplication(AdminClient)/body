@@ -3,9 +3,11 @@
   createUsers(client);
   buildDemoApplicationImpl(client);
   projectConfigs=loadProjectConfigs();
+  String iconBase64=loadIconBase64();
   logger.info("Demo application build finished.");
   try {
     for (    Project projectConfig : projectConfigs) {
+      projectConfig.setIconBase64(iconBase64);
       if (projectConfig.getPlatform() == Platform.ANDROID) {
         sdkKey.setTargetPlatform(SdkPlatform.ANDROID);
       }
