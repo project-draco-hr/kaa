@@ -1,0 +1,11 @@
+{
+  for (  Feature feature : features) {
+    Image image=new Image(Utils.getFeatureIcon(feature,false));
+    Label label=new Label(Utils.getFeatureText(feature));
+    featuresPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+    featuresPanel.add(image);
+    featuresPanel.add(label);
+    label.getElement().getStyle().setPaddingRight(15,Unit.PX);
+    label.getElement().getStyle().setPaddingLeft(8,Unit.PX);
+  }
+}

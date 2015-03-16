@@ -1,4 +1,14 @@
 {
   super();
-  addStyleName(Utils.sandboxStyle.demoProjectsWidget());
+  sandboxStyle=Utils.sandboxStyle;
+  initWidget(uiBinder.createAndBindUi(this));
+  demoProjectPlatformSectionsMap=new HashMap<>();
+  for (  Platform platform : Platform.values()) {
+    DemoProjectsPlatformSection section=new DemoProjectsPlatformSection(platform);
+    demoProjectPlatformSectionsMap.put(platform,section);
+    demoProjectSectionsPanel.add(section);
+  }
+  filter=new DemoProjectsFeatureFilter();
+  filterPanel.add(filter);
+  filter.addValueChangeHandler(this);
 }

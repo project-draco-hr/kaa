@@ -1,0 +1,12 @@
+{
+  super();
+  setStyleName(Utils.sandboxStyle.featureButton());
+  setText(Utils.getFeatureText(feature));
+  getElement().removeAttribute("tabIndex");
+  upResource=Utils.getFeatureIcon(feature,false);
+  downResource=Utils.getFeatureIcon(feature,true);
+  image=new Image(upResource);
+  String definedStyles=image.getElement().getAttribute("style");
+  image.getElement().setAttribute("style",definedStyles + "; vertical-align:middle;");
+  DOM.insertBefore(getElement(),image.getElement(),DOM.getFirstChild(getElement()));
+}

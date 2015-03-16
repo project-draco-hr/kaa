@@ -3,5 +3,7 @@
     registration.removeHandler();
   }
   registrations.clear();
-  clear();
+  for (  DemoProjectsPlatformSection section : demoProjectPlatformSectionsMap.values()) {
+    section.reset();
+  }
 }
