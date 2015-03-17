@@ -1,17 +1,16 @@
 {
-  reset();
   for (  DemoProjectsPlatformSection section : demoProjectPlatformSectionsMap.values()) {
-    registrations.add(section.addProjectActionHandler(this));
+    section.setVisible(false);
   }
   Map<Feature,FeatureButton> filterMap=filter.getFilterMap();
   boolean useFilter=false;
   for (  ToggleButton b : filterMap.values()) {
     useFilter|=b.getValue();
   }
-  for (  Project project : projects) {
+  for (  DemoProjectWidget projectWidget : projectWidgets) {
     boolean hasFeature=!useFilter;
     if (useFilter) {
-      List<Feature> features=project.getFeatures();
+      List<Feature> features=projectWidget.getProject().getFeatures();
       for (      Feature feature : features) {
         if (filterMap.get(feature).getValue()) {
           hasFeature=true;
@@ -20,8 +19,13 @@
       }
     }
     if (hasFeature) {
-      DemoProjectsPlatformSection section=demoProjectPlatformSectionsMap.get(project.getPlatform());
-      section.addProject(project);
+      projectWidget.show(animate);
+    }
+ else {
+      projectWidget.hide(animate);
+    }
+    if (hasFeature) {
+      demoProjectPlatformSectionsMap.get(projectWidget.getProject().getPlatform()).setVisible(true);
     }
   }
 }
