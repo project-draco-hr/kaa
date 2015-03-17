@@ -1,0 +1,29 @@
+{
+  LOG.debug("Worker started");
+  while (!stop) {
+    try {
+      BlockingQueue<SyncTask> taskQueue=syncTaskQueueMap.get(channel.getId());
+      SyncTask task=taskQueue.take();
+      List<SyncTask> additionalTasks=new ArrayList<SyncTask>();
+      if (taskQueue.drainTo(additionalTasks) > 0) {
+        task=SyncTask.merge(task,additionalTasks);
+      }
+      if (task.isAll()) {
+        LOG.debug("Going to invoke syncAll method on channel {}",channel);
+        channel.syncAll();
+      }
+ else       if (task.isAckOnly()) {
+        LOG.debug("Going to invoke syncAck method on channel {}",channel);
+        channel.syncAck(task.getTypes());
+      }
+ else {
+        LOG.debug("Going to invoke sync method on channel {}",channel);
+        channel.sync(task.getTypes());
+      }
+    }
+ catch (    InterruptedException e) {
+      LOG.debug("Worker is interrupted",e);
+    }
+  }
+  LOG.debug("Worker stopped");
+}

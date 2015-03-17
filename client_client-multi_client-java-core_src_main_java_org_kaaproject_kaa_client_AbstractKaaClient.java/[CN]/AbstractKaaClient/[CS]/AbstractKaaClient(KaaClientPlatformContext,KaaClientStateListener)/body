@@ -39,6 +39,7 @@
   eventFamilyFactory=new EventFamilyFactory(this.eventManager);
   endpointRegistrationManager=new DefaultEndpointRegistrationManager(kaaClientState,userTransport,profileTransport);
   channelManager=new DefaultChannelManager(bootstrapManager,bootstrapServers);
+  channelManager.setConnectivityChecker(context.createConnectivityChecker());
   logCollector=new DefaultLogCollector(logTransport,channelManager);
   KaaDataChannel bootstrapChannel=new DefaultBootstrapChannel(this,kaaClientState);
   bootstrapChannel.setMultiplexer(bootstrapDataProcessor);
@@ -77,5 +78,4 @@
     transport.setChannelManager(channelManager);
     transport.setClientState(kaaClientState);
   }
-  channelManager.setConnectivityChecker(context.createConnectivityChecker());
 }

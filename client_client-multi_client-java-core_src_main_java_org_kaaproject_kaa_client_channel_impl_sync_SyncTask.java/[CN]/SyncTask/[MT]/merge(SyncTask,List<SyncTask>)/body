@@ -1,0 +1,12 @@
+{
+  Set<TransportType> types=new HashSet<TransportType>();
+  types.addAll(task.types);
+  boolean ack=task.ackOnly;
+  boolean all=task.all;
+  for (  SyncTask aTask : additionalTasks) {
+    types.addAll(aTask.types);
+    ack=ack && aTask.ackOnly;
+    all=all || aTask.all;
+  }
+  return new SyncTask(types,ack,all);
+}

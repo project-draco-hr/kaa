@@ -14,12 +14,7 @@
   Mockito.when(channel2.getSupportedTransportTypes()).thenReturn(types);
   Mockito.when(channel2.getId()).thenReturn("channel2");
   channelManager.addChannel(channel2);
-  assertEquals(channel2,channelManager.getChannelByTransportType(TransportType.LOGGING));
-  assertEquals(channel2,channelManager.getChannelByTransportType(TransportType.CONFIGURATION));
   channelManager.setChannel(TransportType.LOGGING,channel);
   channelManager.setChannel(TransportType.LOGGING,null);
-  assertEquals(channel,channelManager.getChannelByTransportType(TransportType.LOGGING));
-  assertEquals(channel2,channelManager.getChannelByTransportType(TransportType.CONFIGURATION));
   channelManager.removeChannel(channel2.getId());
-  assertEquals(channel,channelManager.getChannelByTransportType(TransportType.CONFIGURATION));
 }
