@@ -4,7 +4,7 @@
   listenerFQNs.add(ChangeDegreeRequest.class.getName());
   final EventFamilyFactory eventFamilyFactory=kaaClient.getEventFamilyFactory();
   final ThermostatEventClassFamily tecf=eventFamilyFactory.getThermostatEventClassFamily();
-  tecf.addListener(new DefaultEventFamilyListener(){
+  tecf.addListener(new ThermostatEventClassFamily.Listener(){
     @Override public void onEvent(    ChangeDegreeRequest changeDegreeRequest,    String senderId){
       LOG.info("ChangeDegreeRequest event received! change temperature by {} degrees, sender: {}",changeDegreeRequest.getDegree(),senderId);
     }
@@ -13,6 +13,7 @@
     }
     @Override public void onEvent(    ThermostatInfoRequest thermostatInfoRequest,    String senderId){
       LOG.info("ThermostatInfoRequest event received! sender: {}",senderId);
+      tecf.sendEvent(new ThermostatInfoResponse(),senderId);
     }
   }
 );
