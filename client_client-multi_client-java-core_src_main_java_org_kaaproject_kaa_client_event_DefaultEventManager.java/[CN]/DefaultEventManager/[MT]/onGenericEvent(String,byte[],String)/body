@@ -1,10 +1,15 @@
 {
   LOG.info("Received event [eventClassFQN: {}]",eventFqn);
-  for (  EventFamily family : registeredEventFamilies) {
+  for (  final EventFamily family : registeredEventFamilies) {
     LOG.info("Lookup event fqn {} in family {}",eventFqn,family);
     if (family.getSupportedEventFQNs().contains(eventFqn)) {
       LOG.info("Event fqn {} found in family {}",eventFqn,family);
-      family.onGenericEvent(eventFqn,data,source);
+      executorContext.getCallbackExecutor().submit(new Runnable(){
+        @Override public void run(){
+          family.onGenericEvent(eventFqn,data,source);
+        }
+      }
+);
     }
   }
 }

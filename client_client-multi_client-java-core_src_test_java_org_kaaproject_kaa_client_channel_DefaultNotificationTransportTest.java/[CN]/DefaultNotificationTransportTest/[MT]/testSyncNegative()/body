@@ -1,8 +1,6 @@
 {
-  KaaChannelManager channelManager=Mockito.mock(KaaChannelManager.class);
   KaaClientState clientState=Mockito.mock(KaaClientState.class);
   NotificationTransport transport=new DefaultNotificationTransport();
-  transport.setChannelManager(channelManager);
   transport.setClientState(clientState);
   transport.sync();
 }

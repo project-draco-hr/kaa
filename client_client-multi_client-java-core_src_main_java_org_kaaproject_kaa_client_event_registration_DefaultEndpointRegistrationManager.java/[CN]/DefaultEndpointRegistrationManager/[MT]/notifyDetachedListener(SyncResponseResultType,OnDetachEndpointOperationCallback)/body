@@ -1,5 +1,10 @@
 {
   if (operationCallback != null) {
-    operationCallback.onDetach(result);
+    executorContext.getCallbackExecutor().submit(new Runnable(){
+      @Override public void run(){
+        operationCallback.onDetach(result);
+      }
+    }
+);
   }
 }

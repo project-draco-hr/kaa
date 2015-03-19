@@ -1,9 +1,10 @@
 {
   KaaClientState state=mock(KaaClientState.class);
+  ExecutorContext executorContext=Mockito.mock(ExecutorContext.class);
   when(state.getEndpointAccessToken()).thenReturn("");
   OnDetachEndpointOperationCallback listener=mock(OnDetachEndpointOperationCallback.class);
   UserTransport transport=mock(UserTransport.class);
-  DefaultEndpointRegistrationManager manager=spy(new DefaultEndpointRegistrationManager(state,transport,null));
+  DefaultEndpointRegistrationManager manager=spy(new DefaultEndpointRegistrationManager(state,executorContext,transport,null));
   manager.detachEndpoint(new EndpointKeyHash("keyHash1"),listener);
   manager.detachEndpoint(new EndpointKeyHash("keyHash2"),listener);
   ReflectionTestUtils.setField(manager,"userTransport",null);
