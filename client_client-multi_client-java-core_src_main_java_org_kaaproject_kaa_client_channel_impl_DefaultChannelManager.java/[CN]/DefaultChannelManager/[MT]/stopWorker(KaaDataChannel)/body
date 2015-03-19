@@ -7,6 +7,7 @@
   }
   SyncWorker worker=syncWorkers.remove(channel);
   if (worker != null) {
+    LOG.debug("[{}] stopping worker",channel.getId());
     worker.shutdown();
   }
 }

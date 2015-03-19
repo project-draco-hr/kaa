@@ -6,6 +6,6 @@
     queue.offer(new SyncTask(type,ack,all));
   }
  else {
-    LOG.debug("Can't find queue for channel [{}]",channel.getId());
+    LOG.warn("Can't find queue for channel [{}]",channel.getId());
   }
 }
