@@ -4,7 +4,7 @@
   GenericAvroConverter<GenericRecord> converter=new GenericAvroConverter<>(schema.getRawSchema());
   validateRecord(configurationToValidate,previousConfiguration,previousConfiguration);
   if (configurationToValidate != null) {
-    config=converter.endcodeToJson(configurationToValidate);
+    config=converter.encodeToJson(configurationToValidate);
   }
   LOG.trace("Generated uuid fields for records {}",configurationToValidate);
   return dataFactory.createData(schema,config);

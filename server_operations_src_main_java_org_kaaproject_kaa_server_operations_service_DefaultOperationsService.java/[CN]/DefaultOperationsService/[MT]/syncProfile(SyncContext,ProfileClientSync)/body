@@ -24,6 +24,10 @@
   context.setEndpointProfile(profile);
   if (!Arrays.equals(profile.getProfileHash(),toByteArray(metaData.getProfileHash()))) {
     LOG.debug("[{}] Profile hash mismatch. Profile resync needed",context.getEndpointKey());
+    if (LOG.isTraceEnabled()) {
+      LOG.trace("[{}] persisted profile hash is {}",context.getEndpointKey(),MessageEncoderDecoder.bytesToHex(profile.getProfileHash()));
+      LOG.trace("[{}] client profile hash is {}",context.getEndpointKey(),MessageEncoderDecoder.bytesToHex(toByteArray(metaData.getProfileHash())));
+    }
     context.setStatus(SyncStatus.PROFILE_RESYNC);
   }
   return context;

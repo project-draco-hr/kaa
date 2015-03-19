@@ -11,8 +11,8 @@
   GenericFixed uuidOld=AvroUtils.generateUuidObject();
   recordOld.put(CommonConstants.UUID_FIELD,uuidOld);
   GenericAvroConverter<GenericRecord> converter=new GenericAvroConverter<>(avroSchema);
-  String configurationBodyNew=converter.endcodeToJson(recordNew);
-  String configurationBodyOld=converter.endcodeToJson(recordOld);
+  String configurationBodyNew=converter.encodeToJson(recordNew);
+  String configurationBodyOld=converter.encodeToJson(recordOld);
   DefaultUuidValidator uuidGenerator=new DefaultUuidValidator(configuraionSchema,new BaseDataFactory());
   KaaData processedConfigurationBody=uuidGenerator.validateUuidFields(recordNew,recordOld);
   GenericRecord processedConfiguration=converter.decodeJson(processedConfigurationBody.getRawData());

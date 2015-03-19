@@ -57,21 +57,15 @@
   metaDataTransport.setTimeout(LONG_POLL_TIMEOUT);
   bootstrapTransport.setBootstrapManager(bootstrapManager);
   configurationManager=new ResyncConfigurationManager(properties);
-  initTransport(bootstrapTransport);
   profileTransport.setProfileManager(profileManager);
   profileTransport.setClientProperties(this.properties);
-  initTransport(profileTransport);
   eventTransport.setEventManager(eventManager);
-  initTransport(eventTransport);
   notificationTransport.setNotificationProcessor(notificationManager);
-  initTransport(notificationTransport);
   configurationTransport.setConfigurationHashContainer(configurationManager.getConfigurationHashContainer());
   configurationTransport.setConfigurationProcessor(configurationManager.getConfigurationProcessor());
   configurationTransport.setResyncOnly(true);
-  initTransport(configurationTransport);
   userTransport.setEndpointRegistrationProcessor(endpointRegistrationManager);
-  initTransport(userTransport);
   redirectionTransport.setBootstrapManager(bootstrapManager);
-  initTransport(logTransport);
   logTransport.setLogProcessor(logCollector);
+  initTransports(Arrays.asList(bootstrapTransport,profileTransport,eventTransport,notificationTransport,configurationTransport,userTransport,logTransport));
 }

@@ -9,7 +9,6 @@
   }
   if (!isFirstResponseReceived) {
     LOG.info("Can't sync. Channel [{}] is waiting for CONNACK message + KAASYNC message",getId());
-    isPendingSyncRequest=true;
     return;
   }
   if (multiplexer == null) {
