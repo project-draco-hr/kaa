@@ -1,6 +1,11 @@
 {
   this.project=project;
-  platformImage.setResource(Utils.getPlatformIcon(project.getPlatform()));
+  if (project.getIconBase64() != null && project.getIconBase64().length() > 0) {
+    applicationImage.setUrl("data:image/png;base64," + project.getIconBase64());
+  }
+ else {
+    applicationImage.setResource(Utils.getPlatformIcon(project.getPlatform()));
+  }
   projectTitle.setText(project.getName());
   projectTitle.setTitle(project.getName());
   for (  Feature feature : project.getFeatures()) {
