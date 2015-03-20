@@ -1,4 +1,9 @@
 {
   SyncRequestMessage message=new SyncRequestMessage(session,request,requestMessage,context.self());
-  this.opsActor.tell(message,context.self());
+  if (isApplicationTokenValid(message.getAppToken())) {
+    this.opsActor.tell(message,context.self());
+  }
+ else {
+    sendFailureResponseMessage(message);
+  }
 }

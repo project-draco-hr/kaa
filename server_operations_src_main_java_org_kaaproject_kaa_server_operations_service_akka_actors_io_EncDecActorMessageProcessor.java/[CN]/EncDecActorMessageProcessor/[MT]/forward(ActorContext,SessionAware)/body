@@ -1,4 +1,9 @@
 {
   LOG.debug("Forwarding session aware message: {}",message);
-  this.opsActor.tell(message,context.self());
+  if (isApplicationTokenValid(message.getSessionInfo().getApplicationToken())) {
+    this.opsActor.tell(message,context.self());
+  }
+ else {
+    sendFailureResponseMessage(message);
+  }
 }
