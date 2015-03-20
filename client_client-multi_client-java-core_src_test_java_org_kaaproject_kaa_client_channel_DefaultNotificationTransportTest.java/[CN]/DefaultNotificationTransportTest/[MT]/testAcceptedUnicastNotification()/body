@@ -5,8 +5,6 @@
   response1.setAppStateSeqNumber(3);
   response1.setResponseStatus(SyncResponseStatus.DELTA);
   KaaChannelManager channelManagerMock=Mockito.mock(KaaChannelManager.class);
-  KaaDataChannel channelMock=Mockito.mock(KaaDataChannel.class);
-  Mockito.when(channelManagerMock.getChannelByTransportType(TransportType.NOTIFICATION)).thenReturn(channelMock);
   NotificationTransport transport=new DefaultNotificationTransport();
   transport.setChannelManager(channelManagerMock);
   transport.setNotificationProcessor(notificationProcessor);

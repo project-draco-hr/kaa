@@ -1,0 +1,15 @@
+{
+  if (channelManager == null) {
+    LOG.error("Channel manager is not set during sync for type {}",type);
+    throw new ChannelRuntimeException("Failed to find channel for transport " + type.toString());
+  }
+  if (ack) {
+    channelManager.syncAck(type);
+  }
+ else   if (all) {
+    channelManager.syncAll(type);
+  }
+ else {
+    channelManager.sync(type);
+  }
+}
