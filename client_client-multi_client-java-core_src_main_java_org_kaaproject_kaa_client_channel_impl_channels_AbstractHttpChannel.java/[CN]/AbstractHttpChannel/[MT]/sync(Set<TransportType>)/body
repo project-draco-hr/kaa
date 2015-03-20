@@ -1,0 +1,34 @@
+{
+  if (isShutdown) {
+    LOG.info("Can't sync. Channel {} is down",getId());
+    return;
+  }
+  if (isPaused) {
+    LOG.info("Can't sync. Channel {} is paused",getId());
+    return;
+  }
+  if (multiplexer == null) {
+    LOG.warn("Can't sync. Channel {} multiplexer is not set",getId());
+    return;
+  }
+  if (demultiplexer == null) {
+    LOG.warn("Can't sync. Channel {} demultiplexer is not set",getId());
+    return;
+  }
+  if (currentServer == null) {
+    lastConnectionFailed=true;
+    LOG.warn("Can't sync. Server is null");
+  }
+  Map<TransportType,ChannelDirection> typeMap=new HashMap<>(1);
+  for (  TransportType type : types) {
+    LOG.info("Processing sync {} for channel {}",type,getId());
+    ChannelDirection direction=getSupportedTransportTypes().get(type);
+    if (direction != null) {
+      typeMap.put(type,direction);
+    }
+ else {
+      LOG.error("Unsupported type {} for channel {}",type,getId());
+    }
+  }
+  executor.submit(createChannelRunnable(typeMap));
+}

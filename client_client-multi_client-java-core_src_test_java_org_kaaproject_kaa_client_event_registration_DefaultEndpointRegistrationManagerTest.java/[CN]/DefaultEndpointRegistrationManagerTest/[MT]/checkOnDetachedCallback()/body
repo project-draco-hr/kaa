@@ -2,11 +2,11 @@
   KaaClientState state=mock(KaaClientState.class);
   when(state.getEndpointAccessToken()).thenReturn("");
   DetachEndpointFromUserCallback listener=mock(DetachEndpointFromUserCallback.class);
-  DefaultEndpointRegistrationManager manager=new DefaultEndpointRegistrationManager(state,null,null);
+  DefaultEndpointRegistrationManager manager=new DefaultEndpointRegistrationManager(state,executorContext,null,null);
   manager.setDetachedCallback(null);
   manager.onUpdate(null,null,null,null,new UserDetachNotification("foo"));
   manager.setDetachedCallback(listener);
   manager.onUpdate(null,null,null,null,new UserDetachNotification("foo"));
-  verify(listener,times(1)).onDetachedFromUser("foo");
-  verify(state,times(2)).setAttachedToUser(false);
+  verify(listener,Mockito.timeout(1000).times(1)).onDetachedFromUser("foo");
+  verify(state,Mockito.timeout(1000).times(2)).setAttachedToUser(false);
 }

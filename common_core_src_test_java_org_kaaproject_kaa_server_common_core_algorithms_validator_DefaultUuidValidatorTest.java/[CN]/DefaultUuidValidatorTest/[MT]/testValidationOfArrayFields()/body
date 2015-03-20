@@ -30,8 +30,8 @@
   rootOld.put("complexArrayField",arrayOld);
   rootOld.put(CommonConstants.UUID_FIELD,AvroUtils.generateUuidObject());
   GenericAvroConverter<GenericRecord> converter=new GenericAvroConverter<>(avroSchema);
-  String configurationBodyNew=converter.endcodeToJson(rootNew);
-  String configurationBodyOld=converter.endcodeToJson(rootOld);
+  String configurationBodyNew=converter.encodeToJson(rootNew);
+  String configurationBodyOld=converter.encodeToJson(rootOld);
   DefaultUuidValidator uuidGenerator=new DefaultUuidValidator(configuraionSchema,new BaseDataFactory());
   KaaData processedConfigurationBody=uuidGenerator.validateUuidFields(rootNew,rootOld);
   GenericRecord processedConfiguration=converter.decodeJson(processedConfigurationBody.getRawData());

@@ -2,6 +2,7 @@
   if (!channels.contains(channel)) {
     channel.setConnectivityChecker(connectivityChecker);
     channels.add(channel);
+    startWorker(channel);
     TransportConnectionInfo server;
     if (channel.getServerType() == ServerType.BOOTSTRAP) {
       server=getCurrentBootstrapServer(channel.getTransportProtocolId());

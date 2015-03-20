@@ -10,7 +10,7 @@
   GenericRecord rootNew=new GenericData.Record(avroSchema);
   rootNew.put("recordField",recordNew1);
   GenericAvroConverter<GenericRecord> converter=new GenericAvroConverter<>(avroSchema);
-  String configurationBodyNew=converter.endcodeToJson(rootNew);
+  String configurationBodyNew=converter.encodeToJson(rootNew);
   DefaultUuidValidator uuidGenerator=new DefaultUuidValidator(configuraionSchema,new BaseDataFactory());
   KaaData processedConfigurationBody=uuidGenerator.validateUuidFields(rootNew,null);
   GenericRecord processedConfiguration=converter.decodeJson(processedConfigurationBody.getRawData());

@@ -1,0 +1,19 @@
+{
+synchronized (this) {
+    if (!isFirstResponseReceived) {
+      LOG.info("First KaaSync message received and processed for channel [{}]",getId());
+      isFirstResponseReceived=true;
+      LOG.debug("There are pending requests for channel [{}] -> starting sync",getId());
+      syncAll();
+    }
+ else {
+      LOG.debug("Acknowledgment is pending for channel [{}] -> starting sync",getId());
+      if (types.size() == 1) {
+        sync(types.iterator().next());
+      }
+ else {
+        syncAll();
+      }
+    }
+  }
+}

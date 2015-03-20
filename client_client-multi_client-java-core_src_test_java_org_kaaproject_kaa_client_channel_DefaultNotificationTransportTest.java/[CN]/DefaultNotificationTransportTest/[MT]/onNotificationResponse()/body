@@ -9,8 +9,6 @@
   String topicId1="topicId1";
   String topicId2="topicId2";
   KaaChannelManager channelManagerMock=Mockito.mock(KaaChannelManager.class);
-  KaaDataChannel channelMock=Mockito.mock(KaaDataChannel.class);
-  Mockito.when(channelManagerMock.getChannelByTransportType(TransportType.NOTIFICATION)).thenReturn(channelMock);
   NotificationTransport transport=new DefaultNotificationTransport();
   transport.setChannelManager(channelManagerMock);
   transport.onNotificationResponse(response);
