@@ -1,0 +1,14 @@
+{
+  super(Unit.PX);
+  setHeadTitle(Utils.constants.filter());
+  filterPanel=new VerticalPanel();
+  filterPanel.setWidth("100%");
+  featureFilter=new DemoProjectsFeatureFilter();
+  filterPanel.add(featureFilter);
+  featureFilter.addValueChangeHandler(this);
+  platformFilter=new DemoProjectsPlatformFilter();
+  platformFilter.getElement().getStyle().setPaddingTop(40,Unit.PX);
+  filterPanel.add(platformFilter);
+  platformFilter.addValueChangeHandler(this);
+  setContent(filterPanel);
+}
