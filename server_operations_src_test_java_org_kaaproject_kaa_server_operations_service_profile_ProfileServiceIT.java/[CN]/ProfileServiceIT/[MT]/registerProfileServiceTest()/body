@@ -6,6 +6,6 @@
   Assert.assertNotNull(dto.getId());
   Assert.assertTrue(Arrays.equals(ENDPOINT_KEY.getBytes(),dto.getEndpointKey()));
   Assert.assertTrue(Arrays.equals(EndpointObjectHash.fromSHA1(ENDPOINT_KEY.getBytes()).getData(),dto.getEndpointKeyHash()));
-  Assert.assertEquals(baseAvroConverter.endcodeToJson(ENDPOINT_PROFILE),dto.getProfile().replaceAll(" ",""));
+  Assert.assertEquals(baseAvroConverter.encodeToJson(ENDPOINT_PROFILE),dto.getProfile().replaceAll(" ",""));
   Assert.assertTrue(Arrays.equals(EndpointObjectHash.fromSHA1(profile).getData(),dto.getProfileHash()));
 }

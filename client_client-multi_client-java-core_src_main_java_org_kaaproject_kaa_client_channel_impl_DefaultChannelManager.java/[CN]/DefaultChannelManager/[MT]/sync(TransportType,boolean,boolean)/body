@@ -1,0 +1,11 @@
+{
+  LOG.debug("Lookup channel by type {}",type);
+  KaaDataChannel channel=getChannel(type);
+  BlockingQueue<SyncTask> queue=syncTaskQueueMap.get(channel.getId());
+  if (queue != null) {
+    queue.offer(new SyncTask(type,ack,all));
+  }
+ else {
+    LOG.warn("Can't find queue for channel [{}]",channel.getId());
+  }
+}
