@@ -11,7 +11,8 @@
     }
  else {
       if (!SchemaUtil.isEqualSchemas(schema,map.get(key))) {
-        throw new Exception("Some schemas describe classes with same package and name but different fields");
+        LOG.debug("classes {} are not the same: \n{}\n\n{}",key,schema.toString(),map.get(key).toString());
+        throw new IllegalArgumentException("multiple occurrences of " + key + " with different fields");
       }
     }
   }
