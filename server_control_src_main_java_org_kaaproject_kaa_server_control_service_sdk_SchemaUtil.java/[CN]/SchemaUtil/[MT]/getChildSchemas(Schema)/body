@@ -1,0 +1,25 @@
+{
+  List<Schema> childs=new LinkedList<Schema>();
+switch (parent.getType()) {
+case RECORD:
+    childs.add(parent);
+  for (  Schema.Field field : parent.getFields()) {
+    childs.addAll(getChildSchemas(field.schema()));
+  }
+break;
+case UNION:
+for (Schema schema : parent.getTypes()) {
+childs.addAll(getChildSchemas(schema));
+}
+break;
+case ARRAY:
+childs.addAll(getChildSchemas(parent.getElementType()));
+break;
+case MAP:
+childs.addAll(getChildSchemas(parent.getValueType()));
+break;
+default :
+break;
+}
+return childs;
+}

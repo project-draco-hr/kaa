@@ -1,0 +1,19 @@
+{
+  Map<String,Schema> map=new HashMap<String,Schema>();
+  List<Schema> allPossible=new LinkedList<Schema>();
+  for (  Schema schema : schemas) {
+    allPossible.addAll(getChildSchemas(schema));
+  }
+  for (  Schema schema : allPossible) {
+    String key=schema.getFullName();
+    if (!map.containsKey(key)) {
+      map.put(key,schema);
+    }
+ else {
+      if (!SchemaUtil.isEqualSchemas(schema,map.get(key))) {
+        throw new Exception("Some schemas describe classes with same package and name but different fields");
+      }
+    }
+  }
+  return map;
+}

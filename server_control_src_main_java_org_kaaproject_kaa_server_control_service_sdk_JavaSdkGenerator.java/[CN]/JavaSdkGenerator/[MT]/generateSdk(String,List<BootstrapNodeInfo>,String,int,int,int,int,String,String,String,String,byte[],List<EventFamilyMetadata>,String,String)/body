@@ -1,4 +1,22 @@
 {
+  Schema configurationSchema=new Schema.Parser().parse(configurationSchemaBody);
+  Schema profileSchema=new Schema.Parser().parse(profileSchemaBody);
+  Schema notificationSchema=new Schema.Parser().parse(notificationSchemaBody);
+  Schema logSchema=new Schema.Parser().parse(logSchemaBody);
+  List<Schema> eventFamilySchemas=new LinkedList<>();
+  if (eventFamilies != null && !eventFamilies.isEmpty()) {
+    for (    EventFamilyMetadata eventFamily : eventFamilies) {
+      Schema eventFamilySchema=new Schema.Parser().parse(eventFamily.getEcfSchema());
+      eventFamilySchemas.add(eventFamilySchema);
+    }
+  }
+  List<Schema> schemasToCheck=new LinkedList<>();
+  schemasToCheck.add(configurationSchema);
+  schemasToCheck.add(profileSchema);
+  schemasToCheck.add(notificationSchema);
+  schemasToCheck.add(logSchema);
+  schemasToCheck.addAll(eventFamilySchemas);
+  Map<String,Schema> uniqueSchemasMap=SchemaUtil.getUniqueSchemasMap(schemasToCheck);
   String sdkTemplateLocation;
   if (sdkPlatform == SdkPlatform.JAVA) {
     sdkTemplateLocation=System.getProperty("server_home_dir") + "/" + JAVA_SDK_DIR+ "/"+ JAVA_SDK_PREFIX+ buildVersion+ ".jar";
@@ -15,10 +33,9 @@
   byte[] clientPropertiesData=generateClientProperties(templateArhive.getInputStream(clientPropertiesEntry),bootstrapNodes,appToken,configurationSchemaVersion,profileSchemaVersion,notificationSchemaVersion,logSchemaVersion,configurationProtocolSchemaBody,defaultConfigurationData,eventFamilies);
   replacementData.put(CLIENT_PROPERTIES,new ZipEntryData(new ZipEntry(CLIENT_PROPERTIES),clientPropertiesData));
   List<JavaDynamicBean> javaSources=new ArrayList<JavaDynamicBean>();
-  Schema configurationSchema=new Schema.Parser().parse(configurationSchemaBody);
   String configurationClassName=configurationSchema.getName();
   String configurationClassPackage=configurationSchema.getNamespace();
-  javaSources.addAll(generateSchemaSources(configurationSchema));
+  javaSources.addAll(generateSchemaSources(configurationSchema,uniqueSchemasMap));
   String configurationManagerImplTemplate=readResource(CONFIGURATION_MANAGER_IMPL_SOURCE_TEMPLATE);
   String configurationManagerImplSource=configurationManagerImplTemplate.replaceAll(CONFIGURATION_CLASS_PACKAGE_VAR,configurationClassPackage).replaceAll(CONFIGURATION_CLASS_VAR,configurationClassName);
   JavaDynamicBean configurationManagerImplClassBean=new JavaDynamicBean(CONFIGURATION_MANAGER_IMPL,configurationManagerImplSource);
@@ -35,11 +52,10 @@
   String configurationDeserializerSource=configurationDeserializerSourceTemplate.replaceAll(CONFIGURATION_CLASS_PACKAGE_VAR,configurationClassPackage).replaceAll(CONFIGURATION_CLASS_VAR,configurationClassName);
   JavaDynamicBean configurationDeserializerClassBean=new JavaDynamicBean(CONFIGURATION_DESERIALIZER,configurationDeserializerSource);
   javaSources.add(configurationDeserializerClassBean);
-  Schema profileSchema=new Schema.Parser().parse(profileSchemaBody);
   String profileClassName=profileSchema.getName();
   String profileClassPackage=profileSchema.getNamespace();
   if (profileSchemaVersion != DEFAULT_SCHEMA_VERSION) {
-    javaSources.addAll(generateSchemaSources(profileSchema));
+    javaSources.addAll(generateSchemaSources(profileSchema,uniqueSchemasMap));
   }
   String profileContainerTemplate=readResource(PROFILE_CONTAINER_SOURCE_TEMPLATE);
   String profileContainerSource=profileContainerTemplate.replaceAll(PROFILE_CLASS_PACKAGE_VAR,profileClassPackage).replaceAll(PROFILE_CLASS_VAR,profileClassName);
@@ -55,11 +71,10 @@
   String profileSerializerSource=profileSerializerTemplate.replaceAll(PROFILE_CLASS_PACKAGE_VAR,profileClassPackage).replaceAll(PROFILE_CLASS_VAR,profileClassName);
   JavaDynamicBean profileSerializerClassBean=new JavaDynamicBean(PROFILE_SERIALIZER,profileSerializerSource);
   javaSources.add(profileSerializerClassBean);
-  Schema notificationSchema=new Schema.Parser().parse(notificationSchemaBody);
   String notificationClassName=notificationSchema.getName();
   String notificationClassPackage=notificationSchema.getNamespace();
   if (notificationSchemaVersion != DEFAULT_SCHEMA_VERSION) {
-    javaSources.addAll(generateSchemaSources(notificationSchema));
+    javaSources.addAll(generateSchemaSources(notificationSchema,uniqueSchemasMap));
   }
   String notificationListenerTemplate=readResource(NOTIFICATION_LISTENER_SOURCE_TEMPLATE);
   String notificationListenerSource=notificationListenerTemplate.replaceAll(NOTIFICATION_CLASS_PACKAGE_VAR,notificationClassPackage).replaceAll(NOTIFICATION_CLASS_VAR,notificationClassName);
@@ -69,9 +84,8 @@
   String notificationDeserializerSource=notificationDeserializerSourceTemplate.replaceAll(NOTIFICATION_CLASS_PACKAGE_VAR,notificationClassPackage).replaceAll(NOTIFICATION_CLASS_VAR,notificationClassName);
   JavaDynamicBean notificationDeserializerClassBean=new JavaDynamicBean(NOTIFICATION_DESERIALIZER,notificationDeserializerSource);
   javaSources.add(notificationDeserializerClassBean);
-  Schema logSchema=new Schema.Parser().parse(logSchemaBody);
   if (logSchemaVersion != DEFAULT_SCHEMA_VERSION) {
-    javaSources.addAll(generateSchemaSources(logSchema));
+    javaSources.addAll(generateSchemaSources(logSchema,uniqueSchemasMap));
   }
   String logRecordTemplate=readResource(LOG_RECORD_SOURCE_TEMPLATE);
   String logRecordSource=logRecordTemplate.replaceAll(LOG_RECORD_CLASS_PACKAGE_VAR,logSchema.getNamespace()).replaceAll(LOG_RECORD_CLASS_VAR,logSchema.getName());
@@ -85,13 +99,10 @@
   javaSources.add(logRecordClassBean);
   javaSources.add(logCollectorInterfaceClassBean);
   javaSources.add(logCollectorSourceClassBean);
-  if (eventFamilies != null && !eventFamilies.isEmpty()) {
-    for (    EventFamilyMetadata eventFamily : eventFamilies) {
-      Schema eventFamilySchema=new Schema.Parser().parse(eventFamily.getEcfSchema());
-      javaSources.addAll(generateSchemaSources(eventFamilySchema));
-    }
-    javaSources.addAll(JavaEventClassesGenerator.generateEventClasses(eventFamilies));
+  for (  Schema eventFamilySchema : eventFamilySchemas) {
+    javaSources.addAll(generateSchemaSources(eventFamilySchema,uniqueSchemasMap));
   }
+  javaSources.addAll(JavaEventClassesGenerator.generateEventClasses(eventFamilies));
   String userVerifierConstantsTemplate=readResource(USER_VERIFIER_CONSTANTS_SOURCE_TEMPLATE);
   if (defaultVerifierToken == null) {
     defaultVerifierToken="null";
