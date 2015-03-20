@@ -1,12 +1,13 @@
 {
   reset();
-  for (  DemoProjectsPlatformSection section : demoProjectPlatformSectionsMap.values()) {
-    registrations.add(section.addProjectActionHandler(this));
-  }
   projectWidgets=new ArrayList<>();
   for (  Project project : projects) {
-    DemoProjectsPlatformSection section=demoProjectPlatformSectionsMap.get(project.getPlatform());
-    projectWidgets.add(section.addProject(project));
+    DemoProjectWidget demoProjectWidget=new DemoProjectWidget();
+    demoProjectWidget.setProject(project);
+    add(demoProjectWidget);
+    registrations.add(demoProjectWidget.addProjectActionHandler(this));
+    setVisible(true);
+    projectWidgets.add(demoProjectWidget);
   }
-  updateProjects(false);
+  updateProjects(true);
 }

@@ -1,7 +1,16 @@
 {
-  settingsLabel=new ActionsLabel(Utils.constants.settings());
+  settingsLabel=new ActionsLabel(Utils.constants.settings(),true);
+  settingsLabel.setVisible(false);
   sandboxStyle=Utils.sandboxStyle;
-  settingsLabel.setStyleName(sandboxStyle.bAppHeaderMenu());
   initWidget(uiBinder.createAndBindUi(this));
-  headerTitlePanel.getElement().setInnerHTML(Utils.constants.sandboxHeaderTitle());
+  logoImage.setResource(Utils.resources.kaaLogo());
+  logoImage.getElement().getStyle().setPaddingLeft(20,Unit.PX);
+  InlineLabel headerTitle=new InlineLabel(Utils.constants.sandboxHeaderTitle());
+  headerTitlePanel.add(headerTitle);
+  goToKaaAdminWeb=new ActionsLabel(Utils.constants.kaaAdminWeb(),false);
+  addButton(goToKaaAdminWeb);
+  goToAvroUiSandboxWeb=new ActionsLabel(Utils.constants.avroUiSandboxWeb(),false);
+  addButton(goToAvroUiSandboxWeb);
+  addButton(settingsLabel);
+  settingsLabel.addStyleName(Utils.sandboxStyle.buttonLast());
 }

@@ -1,13 +1,25 @@
 {
-  headerView.getSettingsLabel().setVisible(false);
+  registrations.add(headerView.getGoToKaaAdminWeb().addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      gotoKaaAdminWeb();
+    }
+  }
+));
+  registrations.add(headerView.getGoToAvroUiSandboxWeb().addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      gotoAvroUiSandboxWeb();
+    }
+  }
+));
+  headerView.setSettingsVisible(false);
   Sandbox.getSandboxService().changeKaaHostEnabled(new BusyAsyncCallback<Boolean>(){
     @Override public void onFailureImpl(    Throwable caught){
-      headerView.getSettingsLabel().setVisible(false);
+      headerView.setSettingsVisible(false);
     }
     @Override public void onSuccessImpl(    Boolean enabled){
-      headerView.getSettingsLabel().setVisible(enabled);
+      headerView.setSettingsVisible(enabled);
       if (enabled) {
-        headerView.getSettingsLabel().addMenuItem(Utils.constants.changeKaaHost(),new ActionMenuItemListener(){
+        headerView.getSettings().addMenuItem(Utils.constants.changeKaaHost(),new ActionMenuItemListener(){
           @Override public void onMenuItemSelected(){
             clientFactory.getPlaceController().goTo(new ChangeKaaHostPlace(place));
           }

@@ -1,0 +1,17 @@
+{
+  boolean hasFeature=!useFeatureFilter;
+  boolean hasPlatform=!usePlatformFilter;
+  if (useFeatureFilter) {
+    List<Feature> features=project.getFeatures();
+    for (    Feature feature : features) {
+      if (enabledFeatures.contains(feature)) {
+        hasFeature=true;
+        break;
+      }
+    }
+  }
+  if (usePlatformFilter) {
+    hasPlatform=enabledPlatforms.contains(project.getPlatform());
+  }
+  return hasFeature && hasPlatform;
+}
