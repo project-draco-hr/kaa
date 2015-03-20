@@ -2,8 +2,8 @@
   Application app=findById(id);
   if (app != null) {
     app.incrementSequenceNumber();
-    LOG.debug("Increment application sequence number {}",app);
     save(app);
+    LOG.debug("Incremented application sequence number to {}",app.getSequenceNumber());
   }
   return app;
 }

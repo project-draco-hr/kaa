@@ -5,14 +5,17 @@
       List<LogEventDto> dtoList=generateLogEvent(logEventPack,header);
       LOG.debug("[{}] saving {} objects",tableName,dtoList.size());
       if (!dtoList.isEmpty()) {
+        int logCount=dtoList.size();
+        inputLogCount.getAndAdd(logCount);
 switch (executeRequestType) {
 case ASYNC:
           ListenableFuture<ResultSet> result=logEventDao.saveAsync(dtoList,tableName);
-        Futures.addCallback(result,new Callback(listener),callbackExecutor);
+        Futures.addCallback(result,new Callback(listener,cassandraLogCount,logCount),callbackExecutor);
       break;
 case SYNC:
     logEventDao.save(dtoList,tableName);
   listener.onSuccess();
+cassandraLogCount.getAndAdd(logCount);
 break;
 }
 LOG.debug("[{}] appended {} logs to cassandra collection",tableName,logEventPack.getEvents().size());
