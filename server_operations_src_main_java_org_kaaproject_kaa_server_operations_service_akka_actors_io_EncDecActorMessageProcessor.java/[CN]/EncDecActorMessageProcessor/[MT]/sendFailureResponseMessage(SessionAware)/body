@@ -1,3 +1,4 @@
 {
   LOG.debug("Sending failure response...");
+  message.getSessionInfo().getCtx().writeAndFlush(new ConnAck(ConnAck.ReturnCode.REFUSE_BAD_CREDENTIALS));
 }
