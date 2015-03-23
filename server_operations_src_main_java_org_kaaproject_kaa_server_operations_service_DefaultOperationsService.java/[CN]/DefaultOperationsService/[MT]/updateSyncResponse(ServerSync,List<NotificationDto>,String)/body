@@ -16,6 +16,7 @@
     for (    Notification oldNotification : notifications) {
       if (oldNotification.getSeqNumber() == newNotification.getSeqNumber()) {
         found=true;
+        break;
       }
     }
     if (!found) {
@@ -31,6 +32,7 @@
     for (    Notification oldNotification : notifications) {
       if (oldNotification.getUid() != null && oldNotification.getUid().equals(unicastNotificationId)) {
         found=true;
+        break;
       }
     }
     if (!found) {
@@ -48,8 +50,6 @@
     LOG.debug("Updated sync response {}",response);
     return response;
   }
- else {
-    LOG.debug("Sync response was not updated!");
-    return null;
-  }
+  LOG.debug("Sync response was not updated!");
+  return null;
 }

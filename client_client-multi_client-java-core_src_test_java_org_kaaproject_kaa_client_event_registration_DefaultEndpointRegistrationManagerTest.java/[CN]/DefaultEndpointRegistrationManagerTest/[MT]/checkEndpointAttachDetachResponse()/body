@@ -1,11 +1,11 @@
 {
   try {
     KaaClientState state=mock(KaaClientState.class);
+    ExecutorContext executorContext=Mockito.mock(ExecutorContext.class);
     when(state.getEndpointAccessToken()).thenReturn("");
     UserTransport transport=new DefaultUserTransport();
-    DefaultEndpointRegistrationManager manager=spy(new DefaultEndpointRegistrationManager(state,transport,null));
-    AttachedEndpointListChangedListener listListener=mock(AttachedEndpointListChangedListener.class);
-    manager.addAttachedEndpointListChangeListener(listListener);
+    DefaultEndpointRegistrationManager manager=spy(new DefaultEndpointRegistrationManager(state,executorContext,transport,null));
+    ChangedAttachedEndpointListCallback listListener=mock(ChangedAttachedEndpointListCallback.class);
     transport.setEndpointRegistrationProcessor(manager);
     UserSyncResponse sr=new UserSyncResponse();
     sr.setEndpointAttachResponses(null);
@@ -14,7 +14,6 @@
     attach.add(new EndpointAttachResponse(REQUEST_ID,"keyHash",SyncResponseResultType.SUCCESS));
     sr.setEndpointAttachResponses(attach);
     transport.onUserResponse(sr);
-    manager.removeAttachedEndpointListChangeListener(listListener);
     List<EndpointDetachResponse> detach=new LinkedList<EndpointDetachResponse>();
     detach.add(new EndpointDetachResponse(REQUEST_ID,SyncResponseResultType.SUCCESS));
     sr.setEndpointAttachResponses(null);

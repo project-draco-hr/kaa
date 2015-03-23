@@ -1,0 +1,12 @@
+{
+  if (state.isValidForEvents()) {
+    if (request.getEventSync() != null) {
+      EventClientSync eventRequest=request.getEventSync();
+      processSeqNumber(eventRequest,responseHolder);
+      sendEventsIfPresent(context,eventRequest);
+    }
+  }
+ else {
+    LOG.debug("[{}][{}] Endpoint profile is not valid for send/receive events. Either no assigned user or no event families in sdk",endpointKey,actorKey);
+  }
+}

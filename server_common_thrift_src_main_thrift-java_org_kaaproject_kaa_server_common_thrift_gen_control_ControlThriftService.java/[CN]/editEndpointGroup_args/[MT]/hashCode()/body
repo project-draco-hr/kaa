@@ -1,7 +1,7 @@
 {
-  HashCodeBuilder builder=new HashCodeBuilder();
+  List<Object> list=new ArrayList<Object>();
   boolean present_endpointGroup=true && (isSetEndpointGroup());
-  builder.append(present_endpointGroup);
-  if (present_endpointGroup)   builder.append(endpointGroup);
-  return builder.toHashCode();
+  list.add(present_endpointGroup);
+  if (present_endpointGroup)   list.add(endpointGroup);
+  return list.hashCode();
 }

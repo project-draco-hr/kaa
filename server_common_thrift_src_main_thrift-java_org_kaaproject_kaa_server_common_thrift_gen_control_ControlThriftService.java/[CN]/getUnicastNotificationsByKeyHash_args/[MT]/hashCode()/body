@@ -1,7 +1,7 @@
 {
-  HashCodeBuilder builder=new HashCodeBuilder();
+  List<Object> list=new ArrayList<Object>();
   boolean present_keyhash=true && (isSetKeyhash());
-  builder.append(present_keyhash);
-  if (present_keyhash)   builder.append(keyhash);
-  return builder.toHashCode();
+  list.add(present_keyhash);
+  if (present_keyhash)   list.add(keyhash);
+  return list.hashCode();
 }

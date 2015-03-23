@@ -1,0 +1,13 @@
+{
+  if (profile.getConfigurationHash() != null && LOG.isWarnEnabled()) {
+    String serverHash="";
+    String clientHash="";
+    if (profile.getConfigurationHash() != null) {
+      serverHash=MessageEncoderDecoder.bytesToHex(profile.getConfigurationHash());
+    }
+    if (request.getConfigurationHash() != null) {
+      clientHash=MessageEncoderDecoder.bytesToHex(request.getConfigurationHash().getData());
+    }
+    LOG.warn("[{}] Configuration hash mismatch! server {}, client {}",endpointId,serverHash,clientHash);
+  }
+}

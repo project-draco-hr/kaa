@@ -1,8 +1,8 @@
 {
   this();
   this.uuid=uuid;
-  this.sender=sender;
-  this.eventData=eventData;
+  this.sender=org.apache.thrift.TBaseHelper.copyBinary(sender);
+  this.eventData=org.apache.thrift.TBaseHelper.copyBinary(eventData);
   this.createTime=createTime;
   setCreateTimeIsSet(true);
   this.version=version;

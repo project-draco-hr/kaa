@@ -1,0 +1,11 @@
+{
+  List<City> cities=getCities(config,areaName);
+  if (cities != null) {
+    for (    City city : cities) {
+      if (city.getName().equals(cityName)) {
+        return city;
+      }
+    }
+  }
+  return null;
+}

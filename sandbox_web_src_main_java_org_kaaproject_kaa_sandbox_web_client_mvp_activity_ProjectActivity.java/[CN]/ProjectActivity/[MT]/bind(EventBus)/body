@@ -1,0 +1,22 @@
+{
+  view.reset();
+  registrations.add(view.getBackButton().addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      clientFactory.getPlaceController().goTo(new MainPlace());
+    }
+  }
+));
+  registrations.add(view.getSourceButton().addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      getProjectSourceCode(place.getProjectId());
+    }
+  }
+));
+  registrations.add(view.getBinaryButton().addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      getProjectBinary(place.getProjectId());
+    }
+  }
+));
+  fillView();
+}

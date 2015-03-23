@@ -1,0 +1,10 @@
+{
+  if (operationCallback != null) {
+    executorContext.getCallbackExecutor().submit(new Runnable(){
+      @Override public void run(){
+        operationCallback.onAttach(result,keyHash);
+      }
+    }
+);
+  }
+}

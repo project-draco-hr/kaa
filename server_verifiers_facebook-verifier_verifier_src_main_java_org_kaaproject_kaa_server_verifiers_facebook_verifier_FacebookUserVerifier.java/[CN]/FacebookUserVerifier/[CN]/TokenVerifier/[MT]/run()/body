@@ -1,45 +1,23 @@
 {
   String accessToken=config.getAppId() + "|" + config.getAppSecret();
   LOG.trace("Started token verification with accessToken [{}]",accessToken);
-  HttpURLConnection connection=null;
-  BufferedReader reader=null;
+  CloseableHttpResponse closeableHttpResponse=null;
   try {
-    connection=establishConnection(userAccessToken,accessToken);
+    closeableHttpResponse=establishConnection(userAccessToken,accessToken);
     LOG.trace("Connection established [{}]",accessToken);
-    responseMapper=new ObjectMapper();
-    if (connection.getResponseCode() == 400) {
-      LOG.trace("400: The request could not be understood by the verifier due to malformed syntax");
-      callback.onVerificationFailure("400: The request could not be understood by the verifier due" + " to malformed syntax");
+    int responseCode=closeableHttpResponse.getStatusLine().getStatusCode();
+    if (responseCode == HTTP_BAD_REQUEST) {
+      handleBadResponse(closeableHttpResponse,callback);
     }
- else     if (connection.getResponseCode() == 200) {
-      reader=new BufferedReader(new InputStreamReader(connection.getInputStream()));
-      Map<String,Object> responseMap=responseMapper.readValue(reader.readLine(),Map.class);
-      Map<String,Object> dataMap=(Map<String,Object>)responseMap.get("data");
-      String receivedUserId=String.valueOf(dataMap.get("user_id"));
-      if (receivedUserId == null) {
-        Map<String,Object> errorMap=(Map<String,Object>)dataMap.get("error");
-        LOG.trace("Bad input token: {}, errcode = {}",errorMap.get("message"),errorMap.get("code"));
-        callback.onVerificationFailure("Bad input token: " + errorMap.get("message") + ", errcode = "+ errorMap.get("code"));
-      }
- else       if (!receivedUserId.equals(userExternalId)) {
-        LOG.trace("Input token doesn't belong to the user with {} id",userExternalId);
-        callback.onVerificationFailure("User access token " + userAccessToken + " doesn't belong to the user");
-      }
- else {
-        LOG.trace("Input token is confirmed and belongs to the user with {} id",userExternalId);
-        callback.onSuccess();
-      }
+ else     if (responseCode == HTTP_OK) {
+      handleResponse(closeableHttpResponse,userExternalId,callback,userAccessToken);
     }
  else {
-      LOG.trace("Server response code: {}, no data can be retrieved",connection.getResponseCode());
-      callback.onVerificationFailure("Server response code:" + connection.getResponseCode() + ", no data can be retrieved");
+      LOG.warn("Server response code: {}, no data can be retrieved",responseCode);
+      callback.onVerificationFailure("Server response code:" + responseCode + ", no data can be retrieved");
     }
   }
- catch (  MalformedURLException e) {
-    LOG.debug("Internal error",e);
-    callback.onInternalError(e.getMessage());
-  }
-catch (  IOException e) {
+ catch (  IOException e) {
     LOG.debug("Connection error",e);
     callback.onConnectionError(e.getMessage());
   }
@@ -48,13 +26,12 @@ catch (  Exception e) {
     callback.onInternalError(e.getMessage());
   }
  finally {
-    if (connection != null)     connection.disconnect();
-    if (reader != null) {
+    if (closeableHttpResponse != null) {
       try {
-        reader.close();
+        closeableHttpResponse.close();
       }
  catch (      IOException e) {
-        LOG.debug("message",e);
+        LOG.debug("Connection error: can't close CloseableHttpResponse");
       }
     }
   }

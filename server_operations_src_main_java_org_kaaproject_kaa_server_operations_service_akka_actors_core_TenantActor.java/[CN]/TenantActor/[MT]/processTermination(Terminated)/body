@@ -6,8 +6,11 @@
     if (applications.remove(name) != null) {
       LOG.debug("[{}] removed application: {}",tenantId,localActor);
     }
- else     if (users.remove(name) != null) {
-      LOG.debug("[{}] removed user: {}",tenantId,localActor);
+ else     if (localUsers.remove(name) != null) {
+      LOG.debug("[{}] removed local user: {}",tenantId,localActor);
+    }
+ else     if (globalUsers.remove(name) != null) {
+      LOG.debug("[{}] removed global user: {}",tenantId,localActor);
     }
   }
  else {

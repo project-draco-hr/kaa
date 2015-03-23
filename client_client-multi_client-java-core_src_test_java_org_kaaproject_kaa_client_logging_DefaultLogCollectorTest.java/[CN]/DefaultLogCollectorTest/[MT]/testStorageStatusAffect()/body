@@ -1,0 +1,30 @@
+{
+  KaaChannelManager channelManager=Mockito.mock(KaaChannelManager.class);
+  LogTransport transport=Mockito.mock(LogTransport.class);
+  AbstractLogCollector logCollector=new DefaultLogCollector(transport,executorContext,channelManager);
+  LogStorage storage=Mockito.mock(LogStorage.class);
+  logCollector.setStorage(storage);
+  Log record=new Log();
+  Mockito.when(storage.getStatus()).thenReturn(new LogStorageStatus(){
+    @Override public long getRecordCount(){
+      return 1;
+    }
+    @Override public long getConsumedVolume(){
+      return 1;
+    }
+  }
+);
+  logCollector.addLogRecord(record);
+  verify(transport,times(0)).sync();
+  Mockito.when(storage.getStatus()).thenReturn(new LogStorageStatus(){
+    @Override public long getRecordCount(){
+      return 1;
+    }
+    @Override public long getConsumedVolume(){
+      return 1024 * 1024;
+    }
+  }
+);
+  logCollector.addLogRecord(record);
+  verify(transport,Mockito.timeout(1000).times(1)).sync();
+}

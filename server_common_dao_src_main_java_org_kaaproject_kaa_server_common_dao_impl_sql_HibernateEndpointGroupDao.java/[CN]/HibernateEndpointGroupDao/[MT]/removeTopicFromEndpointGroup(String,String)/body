@@ -6,6 +6,8 @@
     Topic topic=it.next();
     if (topic.getId() == Long.parseLong(topicId)) {
       it.remove();
+      topic.getEndpointGroups().remove(endpointGroup);
+      topicDao.save(topic);
       break;
     }
   }

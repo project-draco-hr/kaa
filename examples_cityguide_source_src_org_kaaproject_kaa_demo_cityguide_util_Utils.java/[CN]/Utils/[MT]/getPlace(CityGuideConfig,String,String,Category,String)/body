@@ -1,0 +1,11 @@
+{
+  List<Place> places=getPlaces(config,areaName,cityName,placeCategory);
+  if (places != null) {
+    for (    Place place : places) {
+      if (place.getTitle().equals(placeName)) {
+        return place;
+      }
+    }
+  }
+  return null;
+}

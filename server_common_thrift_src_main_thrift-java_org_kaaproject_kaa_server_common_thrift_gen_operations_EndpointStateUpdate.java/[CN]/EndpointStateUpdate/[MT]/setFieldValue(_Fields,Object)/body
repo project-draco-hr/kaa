@@ -1,0 +1,44 @@
+{
+switch (field) {
+case TENANT_ID:
+    if (value == null) {
+      unsetTenantId();
+    }
+ else {
+      setTenantId((String)value);
+    }
+  break;
+case USER_ID:
+if (value == null) {
+  unsetUserId();
+}
+ else {
+  setUserId((String)value);
+}
+break;
+case APPLICATION_TOKEN:
+if (value == null) {
+unsetApplicationToken();
+}
+ else {
+setApplicationToken((String)value);
+}
+break;
+case ENDPOINT_KEY:
+if (value == null) {
+unsetEndpointKey();
+}
+ else {
+setEndpointKey((ByteBuffer)value);
+}
+break;
+case UCF_HASH:
+if (value == null) {
+unsetUcfHash();
+}
+ else {
+setUcfHash((ByteBuffer)value);
+}
+break;
+}
+}

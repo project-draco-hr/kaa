@@ -1,5 +1,5 @@
 {
-  if (lastActivityTime <= message.getLastActivityTime()) {
+  if (state.getLastActivityTime() <= message.getLastActivityTime()) {
     LOG.debug("[{}][{}] Request stop of endpoint actor due to inactivity timeout",endpointKey,actorKey);
     tellParent(context,new EndpointStopMessage(key,actorKey,context.self()));
   }

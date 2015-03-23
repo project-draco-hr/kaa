@@ -1,0 +1,8 @@
+{
+  Insert[] insertArray=new Insert[logEventDtoList.size()];
+  for (int i=0; i < logEventDtoList.size(); i++) {
+    LogEventDto dto=logEventDtoList.get(i);
+    insertArray[i]=QueryBuilder.insertInto(keyspaceName,collectionName).value(ID_COLUMN,getId(dto.getId())).value(HEADER_COLUMN,dto.getHeader()).value(EVENT_COLUMN,dto.getEvent());
+  }
+  return insertArray;
+}

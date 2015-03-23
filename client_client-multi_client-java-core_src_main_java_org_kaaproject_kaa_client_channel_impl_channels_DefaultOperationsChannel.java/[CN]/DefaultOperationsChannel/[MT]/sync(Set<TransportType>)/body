@@ -1,0 +1,30 @@
+{
+  if (isShutdown) {
+    LOG.info("Can't sync. Channel [{}] is down",getId());
+    return;
+  }
+  if (isPaused) {
+    LOG.info("Can't sync. Channel [{}] is paused",getId());
+    return;
+  }
+  if (multiplexer == null) {
+    LOG.warn("Can't sync. Channel {} multiplexer is not set",getId());
+    return;
+  }
+  if (demultiplexer == null) {
+    LOG.warn("Can't sync. Channel {} demultiplexer is not set",getId());
+    return;
+  }
+  if (currentServer == null) {
+    LOG.warn("Can't sync. Server is null");
+  }
+  for (  TransportType type : types) {
+    LOG.info("Processing sync {} for channel [{}]",type,getId());
+    if (getSupportedTransportTypes().get(type) == null) {
+      LOG.error("Unsupported type {} for channel [{}]",type,getId());
+      return;
+    }
+  }
+  stopPoll();
+  startPoll();
+}

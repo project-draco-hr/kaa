@@ -1,0 +1,7 @@
+{
+  stopWorker(channel);
+  SyncWorker worker=new SyncWorker(channel);
+  syncTaskQueueMap.put(channel.getId(),new LinkedBlockingQueue<SyncTask>());
+  syncWorkers.put(channel.getId(),worker);
+  worker.start();
+}

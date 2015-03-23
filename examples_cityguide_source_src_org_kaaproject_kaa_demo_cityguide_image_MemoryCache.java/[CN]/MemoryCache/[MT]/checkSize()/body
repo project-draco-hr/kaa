@@ -1,0 +1,15 @@
+{
+  Log.i(TAG,"cache size=" + mSize + " length="+ cache.size());
+  if (mSize > mLimit) {
+    Iterator<Entry<ImageKey,Bitmap>> iter=cache.entrySet().iterator();
+    while (iter.hasNext()) {
+      Entry<ImageKey,Bitmap> entry=iter.next();
+      mSize-=getSizeInBytes(entry.getValue());
+      iter.remove();
+      if (mSize <= mLimit) {
+        break;
+      }
+    }
+    Log.i(TAG,"Clean cache. New size " + cache.size());
+  }
+}

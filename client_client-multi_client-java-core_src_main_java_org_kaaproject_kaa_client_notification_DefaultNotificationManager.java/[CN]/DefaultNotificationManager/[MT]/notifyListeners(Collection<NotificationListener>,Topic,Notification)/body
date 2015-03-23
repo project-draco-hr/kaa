@@ -1,0 +1,16 @@
+{
+  final Collection<NotificationListener> listenersCopy=new ArrayList<NotificationListener>(listeners);
+  if (notification.getBody() != null) {
+    executorContext.getCallbackExecutor().submit(new Runnable(){
+      @Override public void run(){
+        try {
+          deserializer.notify(Collections.unmodifiableCollection(listenersCopy),topic,notification.getBody().array());
+        }
+ catch (        IOException e) {
+          LOG.error("Failed to process notification for topic {}",topic.getId(),e);
+        }
+      }
+    }
+);
+  }
+}

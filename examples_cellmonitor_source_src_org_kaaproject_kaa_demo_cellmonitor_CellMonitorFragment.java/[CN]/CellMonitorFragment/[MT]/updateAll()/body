@@ -1,0 +1,20 @@
+{
+  String networkOperator=mApplication.getTelephonyManager().getNetworkOperator();
+  if (networkOperator != null) {
+    mNetworkOperatorValue.setText(networkOperator);
+  }
+ else {
+    mNetworkOperatorValue.setText(R.string.unavailable);
+  }
+  String networkOperatorName=mApplication.getTelephonyManager().getNetworkOperatorName();
+  if (networkOperatorName != null) {
+    mNetworkOperatorNameValue.setText(networkOperatorName);
+  }
+ else {
+    mNetworkOperatorNameValue.setText(R.string.unavailable);
+  }
+  updateGsmCellLocation();
+  updateGsmSignalStrength();
+  updateGpsLocation();
+  updateSentLogs();
+}

@@ -1,3 +1,5 @@
 {
-  topicService.removeTopicById(topicId);
+  for (  UpdateNotificationDto dto : topicService.removeTopicById(topicId)) {
+    notifyAndGetPayload(dto);
+  }
 }

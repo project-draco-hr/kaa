@@ -1,4 +1,4 @@
 {
-  clientState=state;
-  startEventSN=clientState.getEventSeqNum();
+  this.clientState=state;
+  this.startEventSN=new AtomicInteger(clientState.getEventSeqNum());
 }

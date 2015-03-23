@@ -7,16 +7,14 @@
   Mockito.when(channel.getTransportProtocolId()).thenReturn(TransportProtocolIdConstants.HTTP_TRANSPORT_ID);
   Mockito.when(channel.getServerType()).thenReturn(ServerType.OPERATIONS);
   Mockito.when(channel.getId()).thenReturn("mock_channel");
-  KaaChannelManager channelManager=new DefaultChannelManager(bootstrapManager,bootststrapServers);
+  KaaInternalChannelManager channelManager=new DefaultChannelManager(bootstrapManager,bootststrapServers);
   channelManager.addChannel(channel);
   channelManager.addChannel(channel);
   TransportConnectionInfo server=IPTransportInfoTest.createTestServerInfo(ServerType.OPERATIONS,TransportProtocolIdConstants.HTTP_TRANSPORT_ID,"localhost",9999,KeyUtil.generateKeyPair().getPublic());
   channelManager.onTransportConnectionInfoUpdated(server);
-  assertEquals(channel,channelManager.getChannelByTransportType(TransportType.PROFILE));
   assertEquals(channel,channelManager.getChannel("mock_channel"));
   assertEquals(channel,channelManager.getChannels().get(0));
   channelManager.removeChannel(channel);
-  assertNull(channelManager.getChannelByTransportType(TransportType.PROFILE));
   assertNull(channelManager.getChannel("mock_channel"));
   assertTrue(channelManager.getChannels().isEmpty());
   channelManager.addChannel(channel);

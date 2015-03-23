@@ -6,7 +6,7 @@
   Mockito.when(httpClient.getEncoderDecoder()).thenReturn(encDec);
   AbstractKaaClient client=Mockito.mock(AbstractKaaClient.class);
   Mockito.when(client.createHttpClient(Mockito.anyString(),Mockito.any(PrivateKey.class),Mockito.any(PublicKey.class),Mockito.any(PublicKey.class))).thenReturn(httpClient);
-  Mockito.when(client.getChannelMananager()).thenReturn(manager);
+  Mockito.when(client.getChannelManager()).thenReturn(manager);
   KaaClientState state=Mockito.mock(KaaClientState.class);
   KaaDataMultiplexer multiplexer=Mockito.mock(KaaDataMultiplexer.class);
   KaaDataDemultiplexer demultiplexer=Mockito.mock(KaaDataDemultiplexer.class);
@@ -21,6 +21,5 @@
   channel.setMultiplexer(null);
   channel.sync(TransportType.BOOTSTRAP);
   channel.sync(TransportType.EVENT);
-  channel.syncAll();
   channel.verify();
 }

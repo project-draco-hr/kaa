@@ -1,0 +1,23 @@
+{
+  LinkedList<V> messages=new LinkedList<>();
+  while (operate) {
+    try {
+      V event=messageQueue.poll(1,TimeUnit.HOURS);
+      if (event != null) {
+        messages.push(event);
+        messageQueue.drainTo(messages);
+        template.process(client,messages);
+        LOG.debug("EventWorker [{}:<{}>] {} messages sent",id,uniqueId,messages.size());
+        messages.clear();
+      }
+    }
+ catch (    TException te) {
+      LOG.error("EventWorker [{}:{}] error sending event messages pack. ",id,uniqueId,te);
+      template.onServerError(id,te);
+    }
+catch (    InterruptedException e) {
+      LOG.info("EventWorker [{}<{}>] terminated: ",id,uniqueId,e);
+      operate=false;
+    }
+  }
+}

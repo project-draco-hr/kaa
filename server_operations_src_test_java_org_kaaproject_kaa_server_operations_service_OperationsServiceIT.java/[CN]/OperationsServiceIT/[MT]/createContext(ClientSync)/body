@@ -1,0 +1,7 @@
+{
+  SyncContext context=new SyncContext(new ServerSync());
+  context.setRequestId(request.getRequestId());
+  context.setStatus(SyncStatus.SUCCESS);
+  context.setMetaData(request.getClientSyncMetaData());
+  return context;
+}

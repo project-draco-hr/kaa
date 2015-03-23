@@ -1,0 +1,16 @@
+{
+  KaaChannelManager channelManager=Mockito.mock(KaaChannelManager.class);
+  LogTransport transport=Mockito.mock(LogTransport.class);
+  AbstractLogCollector logCollector=new DefaultLogCollector(transport,executorContext,channelManager);
+  DefaultLogUploadStrategy strategy=new DefaultLogUploadStrategy();
+  strategy.setCountThreshold(5);
+  logCollector.setStrategy(strategy);
+  Log record=new Log();
+  logCollector.addLogRecord(record);
+  logCollector.addLogRecord(record);
+  logCollector.addLogRecord(record);
+  logCollector.addLogRecord(record);
+  verify(transport,times(0)).sync();
+  logCollector.addLogRecord(record);
+  verify(transport,Mockito.timeout(1000).times(1)).sync();
+}

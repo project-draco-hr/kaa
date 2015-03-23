@@ -1,0 +1,27 @@
+{
+  super(false,true);
+  setWidth("500px");
+  setTitle(Utils.constants.changeKaaHost());
+  VerticalPanel dialogContents=new VerticalPanel();
+  dialogContents.setSpacing(4);
+  add(dialogContents);
+  AlertPanel warningPanel=new AlertPanel(AlertPanel.Type.WARNING);
+  warningPanel.setMessage(Utils.messages.changeKaaHostDialogMessage());
+  dialogContents.add(warningPanel);
+  Button changeHostButton=new Button(Utils.constants.changeKaaHost(),new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      hide();
+      listener.onChangeHost();
+    }
+  }
+);
+  Button ignoreButton=new Button(Utils.constants.ignore(),new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      hide();
+      listener.onIgnore();
+    }
+  }
+);
+  addButton(changeHostButton);
+  addButton(ignoreButton);
+}

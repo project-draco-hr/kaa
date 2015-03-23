@@ -1,0 +1,10 @@
+{
+  List<Event> pendingEvents=new ArrayList<Event>();
+synchronized (eventsGuard) {
+    pendingEvents.addAll(currentEvents);
+    if (clear) {
+      currentEvents.clear();
+    }
+  }
+  return pendingEvents;
+}

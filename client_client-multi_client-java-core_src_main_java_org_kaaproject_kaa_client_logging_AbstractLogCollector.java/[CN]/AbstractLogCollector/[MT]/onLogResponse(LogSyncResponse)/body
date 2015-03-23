@@ -1,0 +1,22 @@
+{
+  if (logSyncResponse.getDeliveryStatuses() != null) {
+    for (    LogDeliveryStatus response : logSyncResponse.getDeliveryStatuses()) {
+      if (response.getResult() == SyncResponseResultType.SUCCESS) {
+        storage.removeRecordBlock(response.getRequestId());
+      }
+ else {
+        storage.notifyUploadFailed(response.getRequestId());
+        final LogDeliveryErrorCode errorCode=response.getErrorCode();
+        final LogFailoverCommand controller=this.controller;
+        executorContext.getCallbackExecutor().execute(new Runnable(){
+          @Override public void run(){
+            strategy.onFailure(controller,errorCode);
+          }
+        }
+);
+      }
+      timeoutMap.remove(response.getRequestId());
+    }
+    processUploadDecision(strategy.isUploadNeeded(storage.getStatus()));
+  }
+}

@@ -1,0 +1,10 @@
+{
+  registrations.add(filterView.addProjectFilterHandler(new ProjectFilterEventHandler(){
+    @Override public void onProjectFilter(    ProjectFilterEvent event){
+      clientFactory.getPlaceController().goTo(new MainPlace());
+      eventBus.fireEvent(event);
+    }
+  }
+));
+  containerWidget.setWidget(filterView.asWidget());
+}

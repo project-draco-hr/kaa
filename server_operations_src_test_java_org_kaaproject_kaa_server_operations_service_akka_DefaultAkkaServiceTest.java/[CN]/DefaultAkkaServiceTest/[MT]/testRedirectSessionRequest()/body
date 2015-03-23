@@ -5,11 +5,7 @@
   Thread.sleep(1000);
   SyncRequest request=new SyncRequest();
   request.setRequestId(32);
-  SyncRequestMetaData md=new SyncRequestMetaData();
-  md.setApplicationToken(APP_TOKEN);
-  md.setEndpointPublicKeyHash(clientPublicKeyHash);
-  md.setTimeout(2l * TIMEOUT);
-  request.setSyncRequestMetaData(md);
+  request.setSyncRequestMetaData(buildSyncRequestMetaData());
   final MessageBuilder responseBuilder=Mockito.mock(MessageBuilder.class);
   final ErrorBuilder errorBuilder=Mockito.mock(ErrorBuilder.class);
   AvroByteArrayConverter<SyncRequest> requestConverter=new AvroByteArrayConverter<>(SyncRequest.class);
@@ -50,7 +46,7 @@
   response.setRequestId(request.getRequestId());
   response.setStatus(SyncResponseResultType.REDIRECT);
   response.setRedirectSyncResponse(new RedirectSyncResponse("testDNS".hashCode()));
-  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT / 2).never()).sync(AvroEncDec.convert(request));
+  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT / 2).never()).syncProfile(Mockito.any(SyncContext.class),Mockito.any(ProfileClientSync.class));
   AvroByteArrayConverter<SyncResponse> responseConverter=new AvroByteArrayConverter<>(SyncResponse.class);
   byte[] encodedData=crypt.encodeData(responseConverter.toByteArray(response));
   Mockito.verify(responseBuilder,Mockito.timeout(TIMEOUT).atLeastOnce()).build(encodedData,true);

@@ -1,0 +1,12 @@
+{
+  if (record != null && eventClassTypes.contains(record.getSchema().getName())) {
+    JsonNode classTypeNode=fieldTypeSchema.getJsonProp(CLASS_TYPE);
+    Schema enumSchema=record.getSchema().getField(CLASS_TYPE).schema();
+    if (classTypeNode != null && classTypeNode.isTextual()) {
+      record.put(CLASS_TYPE,new GenericData.EnumSymbol(enumSchema,classTypeNode.asText().toUpperCase()));
+    }
+ else {
+      record.put(CLASS_TYPE,new GenericData.EnumSymbol(enumSchema,OBJECT));
+    }
+  }
+}

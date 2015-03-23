@@ -1,0 +1,7 @@
+{
+  byte[] key=node.getConnectionInfo().getPublicKey().array();
+  ByteBuffer data=ByteBuffer.wrap(new byte[key.length + SIZE_OF_INT]);
+  data.put(key);
+  data.putInt(replica);
+  return md5.get().digest(data.array());
+}

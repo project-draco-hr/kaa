@@ -1,9 +1,0 @@
-{
-  schemaProcessor.subscribeForSchemaUpdates(configurationProcessor);
-  schemaProcessor.subscribeForSchemaUpdates(schemaPersistenceManager);
-  schemaProcessor.subscribeForSchemaUpdates(configurationPersistenceManager);
-  configurationProcessor.subscribeForUpdates(configurationManager);
-  configurationProcessor.subscribeForUpdates(deltaManager);
-  configurationProcessor.addOnProcessedCallback(configurationManager);
-  configurationManager.subscribeForConfigurationUpdates(configurationPersistenceManager);
-}

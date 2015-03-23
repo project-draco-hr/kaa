@@ -1,9 +1,10 @@
 {
   KaaClientState state=mock(KaaClientState.class);
+  ExecutorContext executorContext=Mockito.mock(ExecutorContext.class);
   when(state.getEndpointAccessToken()).thenReturn("token1");
-  DefaultEndpointRegistrationManager manager=spy(new DefaultEndpointRegistrationManager(state,null,null));
-  String accessToken1=manager.getEndpointAccessToken();
-  manager.regenerateEndpointAccessToken();
-  String accessToken2=manager.getEndpointAccessToken();
+  DefaultEndpointRegistrationManager manager=spy(new DefaultEndpointRegistrationManager(state,executorContext,null,null));
+  String accessToken1=state.getEndpointAccessToken();
+  state.refreshEndpointAccessToken();
+  String accessToken2=state.getEndpointAccessToken();
   assertNotEquals("Endpoint access token is same after regeneration!",accessToken1,accessToken2);
 }

@@ -1,0 +1,6 @@
+{
+  try (BufferedReader reader=new BufferedReader(new InputStreamReader(inputStream))){
+    ObjectMapper responseMapper=new ObjectMapper();
+    return responseMapper.readValue(reader.readLine(),Map.class);
+  }
+ }

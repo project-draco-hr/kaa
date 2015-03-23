@@ -1,7 +1,0 @@
-{
-  ClientSync syncRequest=new ClientSync();
-  SyncResponseHolder syncResponseHolder=DefaultOperationsService.buildProfileResyncResponse(syncRequest);
-  assertNotNull(syncResponseHolder);
-  assertNotNull(syncResponseHolder.getResponse());
-  assertEquals(SyncStatus.PROFILE_RESYNC,syncResponseHolder.getResponse().getStatus());
-}

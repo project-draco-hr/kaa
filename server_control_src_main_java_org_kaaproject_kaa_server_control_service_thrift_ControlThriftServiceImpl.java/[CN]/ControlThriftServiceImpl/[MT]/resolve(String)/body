@@ -1,0 +1,26 @@
+{
+  if (resolver == null) {
+synchronized (zkLock) {
+      if (resolver == null) {
+        ControlNode zkNode=controlZKService.getControlZKNode();
+        resolver=new ConsistentHashResolver(zkNode.getCurrentOperationServerNodes(),userHashPartitions);
+        zkNode.addListener(new OperationsNodeListener(){
+          @Override public void onNodeUpdated(          OperationsNodeInfo node){
+            LOG.info("Update of node {} is pushed to resolver {}",node,resolver);
+            resolver.onNodeUpdated(node);
+          }
+          @Override public void onNodeRemoved(          OperationsNodeInfo node){
+            LOG.info("Remove of node {} is pushed to resolver {}",node,resolver);
+            resolver.onNodeRemoved(node);
+          }
+          @Override public void onNodeAdded(          OperationsNodeInfo node){
+            LOG.info("Add of node {} is pushed to resolver {}",node,resolver);
+            resolver.onNodeAdded(node);
+          }
+        }
+);
+      }
+    }
+  }
+  return resolver.getNode(userId);
+}

@@ -1,0 +1,24 @@
+{
+  LOG.info("Notification demo application has started");
+  kaaClient=Kaa.newClient(new DesktopKaaPlatformContext());
+  NotificationTopicListListener topicListListener=new BasicNotificationTopicListListener();
+  kaaClient.addTopicListListener(topicListListener);
+  kaaClient.addNotificationListener(new NotificationListener(){
+    @Override public void onNotification(    String id,    SampleNotification sampleNotification){
+      LOG.info("Notification of topic id [{}], received: {}",id,sampleNotification.getMessage());
+    }
+  }
+);
+  kaaClient.start();
+  List<Topic> topicList=kaaClient.getTopics();
+  showTopicList(topicList);
+  try {
+    System.in.read();
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+  }
+  kaaClient.removeTopicListListener(topicListListener);
+  kaaClient.stop();
+  LOG.info("Notification demo application has finished");
+}

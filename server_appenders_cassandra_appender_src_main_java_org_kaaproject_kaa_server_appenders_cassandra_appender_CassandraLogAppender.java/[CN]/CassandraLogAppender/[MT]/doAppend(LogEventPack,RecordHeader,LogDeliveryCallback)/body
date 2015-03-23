@@ -1,0 +1,33 @@
+{
+  if (!closed) {
+    try {
+      LOG.debug("[{}] appending {} logs to cassandra collection",tableName,logEventPack.getEvents().size());
+      List<LogEventDto> dtoList=generateLogEvent(logEventPack,header);
+      LOG.debug("[{}] saving {} objects",tableName,dtoList.size());
+      if (!dtoList.isEmpty()) {
+switch (executeRequestType) {
+case ASYNC:
+          ListenableFuture<ResultSet> result=logEventDao.saveAsync(dtoList,tableName);
+        Futures.addCallback(result,new Callback(listener),callbackExecutor);
+      break;
+case SYNC:
+    logEventDao.save(dtoList,tableName);
+  listener.onSuccess();
+break;
+}
+LOG.debug("[{}] appended {} logs to cassandra collection",tableName,logEventPack.getEvents().size());
+}
+ else {
+listener.onInternalError();
+}
+}
+ catch (IOException e) {
+LOG.warn("Got io exception. Can't generate log events",e);
+listener.onInternalError();
+}
+}
+ else {
+LOG.info("Attempted to append to closed appender named [{}].",getName());
+listener.onConnectionError();
+}
+}

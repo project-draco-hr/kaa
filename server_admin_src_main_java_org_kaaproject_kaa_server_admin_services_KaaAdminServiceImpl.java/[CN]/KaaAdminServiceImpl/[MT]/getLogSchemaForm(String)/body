@@ -1,0 +1,11 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    LogSchemaDto logSchema=getLogSchema(logSchemaId);
+    convertToSchemaForm(logSchema,simpleSchemaFormAvroConverter);
+    return logSchema;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

@@ -1,0 +1,43 @@
+{
+  if (byDefault != null && !byDefault.isNull()) {
+    return applyDefaultValue(schemaNode,byDefault);
+  }
+  if (AvroUtils.getSchemaByType(schemaNode,Type.NULL) != null) {
+    return null;
+  }
+  Schema schemaToProcess=schemaNode;
+  if (schemaToProcess.getType().equals(Type.UNION)) {
+    schemaToProcess=schemaToProcess.getTypes().get(0);
+  }
+switch (schemaToProcess.getType()) {
+case ARRAY:
+    return processArray(schemaToProcess);
+case RECORD:
+  return processRecord(schemaToProcess);
+case FIXED:
+return processFixed(schemaToProcess);
+case ENUM:
+return processEnum(schemaToProcess);
+case BYTES:
+ByteBuffer byteBuffer=ByteBuffer.allocate(byDefault.size());
+byteBuffer.put((byte)0);
+byteBuffer.flip();
+return byteBuffer;
+case MAP:
+throw new ConfigurationGenerationException("Map is not supported.");
+case INT:
+return new Integer(0);
+case BOOLEAN:
+return Boolean.FALSE;
+case DOUBLE:
+return new Double(0.0);
+case LONG:
+return new Long(0);
+case STRING:
+return new String("");
+case FLOAT:
+return new Float(0.0);
+default :
+return null;
+}
+}

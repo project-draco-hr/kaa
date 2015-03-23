@@ -1,0 +1,10 @@
+{
+  Log.i(TAG,"Connection failed");
+  if (!mIntentInProgress) {
+    mConnectionResult=result;
+    if (mSignInClicked) {
+      mSignInClicked=false;
+      resolveSignInError();
+    }
+  }
+}

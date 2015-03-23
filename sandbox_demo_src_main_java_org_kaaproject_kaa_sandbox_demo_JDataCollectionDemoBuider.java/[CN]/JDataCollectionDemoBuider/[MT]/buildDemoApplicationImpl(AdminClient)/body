@@ -1,0 +1,32 @@
+{
+  logger.info("Loading 'Java Data Collection Demo Application' data...");
+  loginTenantAdmin(client);
+  ApplicationDto notificationApplication=new ApplicationDto();
+  notificationApplication.setName("Java data collection");
+  notificationApplication=client.editApplication(notificationApplication);
+  sdkKey.setApplicationId(notificationApplication.getId());
+  sdkKey.setProfileSchemaVersion(1);
+  sdkKey.setConfigurationSchemaVersion(1);
+  sdkKey.setNotificationSchemaVersion(1);
+  sdkKey.setTargetPlatform(SdkPlatform.JAVA);
+  loginTenantDeveloper(client);
+  LogSchemaDto logSchemaDto=new LogSchemaDto();
+  logSchemaDto.setApplicationId(notificationApplication.getId());
+  logSchemaDto.setName("Log schema");
+  logSchemaDto.setDescription("Log schema describing incoming logs");
+  logSchemaDto=client.createLogSchema(logSchemaDto,getResourcePath("logSchema.json"));
+  sdkKey.setLogSchemaVersion(logSchemaDto.getMajorVersion());
+  TrustfulVerifierConfig trustfulVerifierConfig=new TrustfulVerifierConfig();
+  UserVerifierDto trustfulUserVerifier=new UserVerifierDto();
+  trustfulUserVerifier.setApplicationId(notificationApplication.getId());
+  trustfulUserVerifier.setName("Trustful verifier");
+  trustfulUserVerifier.setPluginClassName(trustfulVerifierConfig.getPluginClassName());
+  trustfulUserVerifier.setPluginTypeName(trustfulVerifierConfig.getPluginTypeName());
+  RawSchema rawSchema=new RawSchema(trustfulVerifierConfig.getPluginConfigSchema().toString());
+  DefaultRecordGenerationAlgorithm<RawData> algotithm=new DefaultRecordGenerationAlgorithmImpl<>(rawSchema,new RawDataFactory());
+  RawData rawData=algotithm.getRootData();
+  trustfulUserVerifier.setJsonConfiguration(rawData.getRawData());
+  trustfulUserVerifier=client.editUserVerifierDto(trustfulUserVerifier);
+  sdkKey.setDefaultVerifierToken(trustfulUserVerifier.getVerifierToken());
+  logger.info("Finished loading 'Java Data Collection Demo Application' data.");
+}

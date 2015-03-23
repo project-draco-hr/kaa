@@ -1,7 +1,7 @@
 {
-  if (manager != null) {
+  if (eventManager != null) {
     EventSyncRequest request=new EventSyncRequest();
-    manager.fillEventListenersSyncRequest(request);
+    eventManager.fillEventListenersSyncRequest(request);
     if (isEventSNSynchronized) {
       Set<Event> eventsSet=new HashSet<Event>();
       if (!pendingEvents.isEmpty()) {
@@ -10,7 +10,7 @@
           eventsSet.addAll(pendingEntry.getValue());
         }
       }
-      eventsSet.addAll(manager.getPendingEvents());
+      eventsSet.addAll(eventManager.pollPendingEvents());
       List<Event> events=new ArrayList<Event>(eventsSet);
       if (!events.isEmpty()) {
         Collections.sort(events,eventSeqNumberComparator);

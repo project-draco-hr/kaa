@@ -1,0 +1,7 @@
+{
+  if (!valueChangeHandlerInitialized) {
+    ensureDomEventHandlers();
+    valueChangeHandlerInitialized=true;
+  }
+  return addHandler(handler,ValueChangeEvent.getType());
+}

@@ -1,16 +1,4 @@
 {
-  registrations.add(view.getGoToKaaAdminWeb().addClickHandler(new ClickHandler(){
-    @Override public void onClick(    ClickEvent event){
-      gotoKaaAdminWeb();
-    }
-  }
-));
-  registrations.add(view.getGoToAvroUiSandboxWeb().addClickHandler(new ClickHandler(){
-    @Override public void onClick(    ClickEvent event){
-      gotoAvroUiSandboxWeb();
-    }
-  }
-));
   registrations.add(view.getProjectsActionSource().addProjectActionHandler(new ProjectActionEventHandler(){
     @Override public void onProjectAction(    ProjectActionEvent event){
 switch (event.getAction()) {
@@ -20,10 +8,22 @@ case GET_SOURCE_CODE:
 case GET_BINARY:
     getProjectBinary(event.getProjectId());
   break;
+case OPEN_DETAILS:
+clientFactory.getPlaceController().goTo(new ProjectPlace(event.getProjectId()));
+break;
+default :
+break;
 }
+}
+}
+));
+registrations.add(eventBus.addHandler(ProjectFilterEvent.getType(),new ProjectFilterEventHandler(){
+@Override public void onProjectFilter(ProjectFilterEvent event){
+view.updateProjectFilter(event.getProjectFilter());
 }
 }
 ));
 view.reset();
 fillView();
+showChangeKaaHostDialog();
 }

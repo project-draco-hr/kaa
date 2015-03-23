@@ -1,0 +1,15 @@
+{
+  NeighborConnection<T,V> neighbor=neigbors.get(getServerID(info));
+  if (neighbor != null) {
+    try {
+      neighbor.sendMessages(msg);
+    }
+ catch (    InterruptedException e) {
+      LOG.error("Failed to send message to {}",neighbor.getId());
+      throw new RuntimeException(e);
+    }
+  }
+ else {
+    LOG.warn("Can't find server for id {}",getServerID(info));
+  }
+}

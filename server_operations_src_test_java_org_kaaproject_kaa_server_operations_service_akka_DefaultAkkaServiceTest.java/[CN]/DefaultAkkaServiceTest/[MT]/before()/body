@@ -1,5 +1,6 @@
 {
   akkaService=new DefaultAkkaService();
+  AkkaContext context=new AkkaContext();
   cacheService=mock(CacheService.class);
   metricsService=mock(MetricsService.class);
   keyStoreService=mock(KeyStoreService.class);
@@ -9,21 +10,22 @@
   eventService=mock(EventService.class);
   logAppenderService=mock(LogAppenderService.class);
   endpointUserService=mock(EndpointUserService.class);
-  ReflectionTestUtils.setField(akkaService,"cacheService",cacheService);
-  ReflectionTestUtils.setField(akkaService,"metricsService",metricsService);
-  ReflectionTestUtils.setField(akkaService,"keyStoreService",keyStoreService);
-  ReflectionTestUtils.setField(akkaService,"operationsService",operationsService);
-  ReflectionTestUtils.setField(akkaService,"notificationDeltaService",notificationDeltaService);
-  ReflectionTestUtils.setField(akkaService,"applicationService",applicationService);
-  ReflectionTestUtils.setField(akkaService,"eventService",eventService);
-  ReflectionTestUtils.setField(akkaService,"logAppenderService",logAppenderService);
-  ReflectionTestUtils.setField(akkaService,"endpointUserService",endpointUserService);
+  ReflectionTestUtils.setField(context,"cacheService",cacheService);
+  ReflectionTestUtils.setField(context,"metricsService",metricsService);
+  ReflectionTestUtils.setField(context,"keyStoreService",keyStoreService);
+  ReflectionTestUtils.setField(context,"operationsService",operationsService);
+  ReflectionTestUtils.setField(context,"notificationDeltaService",notificationDeltaService);
+  ReflectionTestUtils.setField(context,"applicationService",applicationService);
+  ReflectionTestUtils.setField(context,"eventService",eventService);
+  ReflectionTestUtils.setField(context,"logAppenderService",logAppenderService);
+  ReflectionTestUtils.setField(context,"endpointUserService",endpointUserService);
   clientPair=KeyUtil.generateKeyPair();
   targetPair=KeyUtil.generateKeyPair();
   serverPair=KeyUtil.generateKeyPair();
   Mockito.when(keyStoreService.getPublicKey()).thenReturn(serverPair.getPublic());
   Mockito.when(keyStoreService.getPrivateKey()).thenReturn(serverPair.getPrivate());
   Mockito.when(metricsService.createMeter(Mockito.anyString(),Mockito.anyString())).thenReturn(Mockito.mock(MeterClient.class));
+  ReflectionTestUtils.setField(akkaService,"context",context);
   if (akkaService.getActorSystem() == null) {
     akkaService.initActorSystem();
   }
@@ -42,10 +44,10 @@
   ConfigurationServerSync confSyncResponse=new ConfigurationServerSync();
   confSyncResponse.setResponseStatus(org.kaaproject.kaa.server.sync.SyncResponseStatus.NO_DELTA);
   response.setConfigurationSync(confSyncResponse);
-  noDeltaResponse=new SyncResponseHolder(response);
+  noDeltaResponse=new SyncContext(response);
   Map<String,Integer> subscriptionStates=new HashMap<>();
   subscriptionStates.put(TOPIC_ID,new Integer(0));
-  noDeltaResponseWithTopicState=new SyncResponseHolder(response);
+  noDeltaResponseWithTopicState=new SyncContext(response);
   noDeltaResponseWithTopicState.setSubscriptionStates(subscriptionStates);
   EndpointProfileDto epDto=new EndpointProfileDto();
   epDto.setSystemNfVersion(42);
@@ -57,11 +59,11 @@
   confSyncResponse=new ConfigurationServerSync();
   confSyncResponse.setResponseStatus(org.kaaproject.kaa.server.sync.SyncResponseStatus.DELTA);
   response.setConfigurationSync(confSyncResponse);
-  deltaResponse=new SyncResponseHolder(response);
+  deltaResponse=new SyncContext(response);
   response=new ServerSync();
   response.setRequestId(REQUEST_ID);
   response.setStatus(org.kaaproject.kaa.server.sync.SyncStatus.SUCCESS);
-  simpleResponse=new SyncResponseHolder(response);
+  simpleResponse=new SyncContext(response);
   topicNotification=new NotificationDto();
   topicNotification.setApplicationId(APP_ID);
   topicNotification.setTopicId(TOPIC_ID);
@@ -74,4 +76,5 @@
   when(applicationService.findAppByApplicationToken(APP_TOKEN)).thenReturn(applicationDto);
   when(applicationService.findAppById(APP_ID)).thenReturn(applicationDto);
   when(endpointUserService.findUserVerifiers(APP_ID)).thenReturn(new ArrayList<UserVerifierDto>());
+  when(eventService.isMainUserNode(Mockito.anyString())).thenReturn(true);
 }

@@ -1,20 +1,20 @@
 {
   KaaClientPropertiesState state=new KaaClientPropertiesState(new FilePersistentStorage(),CommonsBase64.getInstance(),KaaClientPropertiesStateTest.getProperties());
   NotificationTransport transport=mock(NotificationTransport.class);
-  DefaultNotificationManager notificationManager=new DefaultNotificationManager(state,transport);
+  DefaultNotificationManager notificationManager=new DefaultNotificationManager(state,executorContext,transport);
   List<Topic> topicsUpdate=Arrays.asList(new Topic("id1","topic_name1",SubscriptionType.MANDATORY),new Topic("id2","topic_name1",SubscriptionType.MANDATORY));
-  ByteBuffer notificationBody=ByteBuffer.wrap(new AvroByteArrayConverter<>(Topic.class).toByteArray(new Topic("id","name",SubscriptionType.MANDATORY)));
+  ByteBuffer notificationBody=ByteBuffer.wrap(new AvroByteArrayConverter<>(org.kaaproject.kaa.schema.base.Notification.class).toByteArray(new org.kaaproject.kaa.schema.base.Notification()));
   notificationManager.topicsListUpdated(topicsUpdate);
   List<Notification> notificationUpdate=Arrays.asList(new Notification("id1",NotificationType.CUSTOM,null,1,notificationBody),new Notification("id2",NotificationType.CUSTOM,null,1,notificationBody));
   NotificationListener mandatoryListener=Mockito.mock(NotificationListener.class);
   NotificationListener globalListener=Mockito.mock(NotificationListener.class);
-  notificationManager.addMandatoryTopicsListener(mandatoryListener);
+  notificationManager.addNotificationListener(mandatoryListener);
+  notificationManager.notificationReceived(notificationUpdate);
+  Thread.sleep(500);
+  notificationManager.removeNotificationListener(mandatoryListener);
   notificationManager.addNotificationListener(globalListener);
   notificationManager.notificationReceived(notificationUpdate);
-  notificationManager.removeNotificationListener(mandatoryListener);
   notificationManager.notificationReceived(notificationUpdate);
-  notificationManager.removeMandatoryTopicsListener(globalListener);
-  notificationManager.notificationReceived(notificationUpdate);
-  Mockito.verify(mandatoryListener,Mockito.times(topicsUpdate.size())).onNotificationRaw(Mockito.anyString(),Mockito.any(ByteBuffer.class));
-  Mockito.verify(globalListener,Mockito.times(topicsUpdate.size() * 2)).onNotificationRaw(Mockito.anyString(),Mockito.any(ByteBuffer.class));
+  Mockito.verify(mandatoryListener,Mockito.timeout(1000).times(notificationUpdate.size())).onNotification(Mockito.anyString(),Mockito.any(org.kaaproject.kaa.schema.base.Notification.class));
+  Mockito.verify(globalListener,Mockito.timeout(1000).times(notificationUpdate.size() * 2)).onNotification(Mockito.anyString(),Mockito.any(org.kaaproject.kaa.schema.base.Notification.class));
 }

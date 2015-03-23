@@ -3,9 +3,9 @@
     FileData file=cacheService.getRecordLibrary(key);
     response.setContentType("application/java-archive");
     ServletUtils.prepareDisposition(request,response,file.getFileName());
-    response.setContentLength(file.getData().length);
+    response.setContentLength(file.getFileData().length);
     response.setBufferSize(BUFFER);
-    response.getOutputStream().write(file.getData());
+    response.getOutputStream().write(file.getFileData());
     response.flushBuffer();
   }
  catch (  Exception e) {

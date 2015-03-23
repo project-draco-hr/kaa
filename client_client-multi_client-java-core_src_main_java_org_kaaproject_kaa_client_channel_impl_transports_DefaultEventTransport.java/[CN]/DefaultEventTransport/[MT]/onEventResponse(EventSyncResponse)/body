@@ -1,27 +1,27 @@
 {
-  if (manager != null) {
+  if (eventManager != null) {
     if (!isEventSNSynchronized && response.getEventSequenceNumberResponse() != null) {
       int lastSN=response.getEventSequenceNumberResponse().getSeqNum();
       int expectedSN=(lastSN > 0 ? lastSN + 1 : lastSN);
-      if (startEventSN != expectedSN) {
-        startEventSN=expectedSN;
-        clientState.setEventSeqNum(startEventSN);
+      if (startEventSN.get() != expectedSN) {
+        startEventSN.set(expectedSN);
+        clientState.setEventSeqNum(startEventSN.get());
         Set<Event> eventsSet=new HashSet<Event>();
         for (        Set<Event> events : pendingEvents.values()) {
           eventsSet.addAll(events);
         }
-        eventsSet.addAll(manager.getPendingEvents());
+        eventsSet.addAll(eventManager.peekPendingEvents());
         List<Event> events=new ArrayList<Event>(eventsSet);
         Collections.sort(events,eventSeqNumberComparator);
-        clientState.setEventSeqNum(startEventSN + events.size());
-        if (!events.isEmpty() && events.get(0).getSeqNum() != startEventSN) {
+        clientState.setEventSeqNum(startEventSN.get() + events.size());
+        if (!events.isEmpty() && events.get(0).getSeqNum() != startEventSN.get()) {
           LOG.info("Put in order event sequence numbers (expected: {}, actual: {})",startEventSN,events.get(0).getSeqNum());
           for (          Event e : events) {
-            e.setSeqNum(startEventSN++);
+            e.setSeqNum(startEventSN.getAndIncrement());
           }
         }
  else {
-          startEventSN+=events.size();
+          startEventSN.getAndAdd(events.size());
         }
         LOG.info("Event sequence number is unsynchronized. Set to {}",startEventSN);
       }
@@ -34,11 +34,11 @@
       List<Event> events=new ArrayList<>(response.getEvents());
       Collections.sort(events,eventSeqNumberComparator);
       for (      Event event : events) {
-        manager.onGenericEvent(event.getEventClassFQN(),event.getEventData().array(),event.getSource());
+        eventManager.onGenericEvent(event.getEventClassFQN(),event.getEventData().array(),event.getSource());
       }
     }
     if (response.getEventListenersResponses() != null && !response.getEventListenersResponses().isEmpty()) {
-      manager.eventListenersResponseReceived(response.getEventListenersResponses());
+      eventManager.eventListenersResponseReceived(response.getEventListenersResponses());
     }
   }
   LOG.trace("Processed event response");

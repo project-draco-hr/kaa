@@ -1,10 +1,6 @@
 {
-  boolean isRegenerated=!endpointAccessToken.isEmpty();
-  String oldToken=endpointAccessToken;
-  endpointAccessToken=UUID.randomUUID().toString();
-  state.setEndpointAccessToken(endpointAccessToken);
-  LOG.info("New endpoint access token is generated: '{}'",endpointAccessToken);
-  if (isRegenerated) {
-    onEndpointAccessTokenChanged(oldToken);
-  }
+  String newEndpointAccessToken=state.refreshEndpointAccessToken();
+  LOG.info("New endpoint access token is generated: '{}'",newEndpointAccessToken);
+  onEndpointAccessTokenChanged();
+  return newEndpointAccessToken;
 }

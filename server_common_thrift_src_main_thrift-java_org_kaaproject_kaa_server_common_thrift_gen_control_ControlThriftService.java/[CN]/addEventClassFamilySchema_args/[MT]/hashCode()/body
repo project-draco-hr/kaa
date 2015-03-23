@@ -1,13 +1,13 @@
 {
-  HashCodeBuilder builder=new HashCodeBuilder();
+  List<Object> list=new ArrayList<Object>();
   boolean present_eventClassFamilyId=true && (isSetEventClassFamilyId());
-  builder.append(present_eventClassFamilyId);
-  if (present_eventClassFamilyId)   builder.append(eventClassFamilyId);
+  list.add(present_eventClassFamilyId);
+  if (present_eventClassFamilyId)   list.add(eventClassFamilyId);
   boolean present_eventClassFamilySchema=true && (isSetEventClassFamilySchema());
-  builder.append(present_eventClassFamilySchema);
-  if (present_eventClassFamilySchema)   builder.append(eventClassFamilySchema);
+  list.add(present_eventClassFamilySchema);
+  if (present_eventClassFamilySchema)   list.add(eventClassFamilySchema);
   boolean present_createdUsername=true && (isSetCreatedUsername());
-  builder.append(present_createdUsername);
-  if (present_createdUsername)   builder.append(createdUsername);
-  return builder.toHashCode();
+  list.add(present_createdUsername);
+  if (present_createdUsername)   list.add(createdUsername);
+  return list.hashCode();
 }

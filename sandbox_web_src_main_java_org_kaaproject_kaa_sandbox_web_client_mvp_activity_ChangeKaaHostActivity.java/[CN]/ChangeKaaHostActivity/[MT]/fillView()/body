@@ -1,0 +1,19 @@
+{
+  Sandbox.getSandboxService().changeKaaHostEnabled(new BusyAsyncCallback<Boolean>(){
+    @Override public void onFailureImpl(    Throwable caught){
+      view.setErrorMessage(Utils.getErrorMessage(caught));
+    }
+    @Override public void onSuccessImpl(    Boolean enabled){
+      view.setChangeKaaHostEnabled(enabled);
+      if (enabled) {
+        registrations.add(view.getChangeKaaHostButton().addClickHandler(new ClickHandler(){
+          @Override public void onClick(          ClickEvent event){
+            changeKaaHost();
+          }
+        }
+));
+      }
+    }
+  }
+);
+}

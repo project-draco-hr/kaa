@@ -1,0 +1,18 @@
+{
+  errorPanel=new AlertPanel(Type.ERROR);
+  sandboxStyle=Utils.sandboxStyle;
+  avroUiStyle=Utils.avroUiStyle;
+  initWidget(uiBinder.createAndBindUi(this));
+  setTitle(getViewTitle());
+  if (useDetailsPanel) {
+    detailsPanel=new VerticalPanel();
+    detailsPanel.setWidth("100%");
+    detailsPanel.addStyleName(sandboxStyle.contentPanel());
+    ScrollPanel scroll=new ScrollPanel();
+    scroll.setWidth("100%");
+    scroll.add(detailsPanel);
+    centerPanel.setWidget(scroll);
+  }
+  initCenterPanel();
+  clearError();
+}
