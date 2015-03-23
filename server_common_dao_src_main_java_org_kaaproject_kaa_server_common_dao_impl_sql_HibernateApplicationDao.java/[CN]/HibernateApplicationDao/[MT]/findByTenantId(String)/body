@@ -1,5 +1,5 @@
 {
-  LOG.debug("Searching applications by tenant id {}",tenantId);
+  LOG.debug("Searching applications by tenant id [{}]",tenantId);
   List<Application> applications=findListByCriterionWithAlias(TENANT_ENTITY_NAME,TENANT_ALIAS,Restrictions.eq(TENANT_REFERENCE,Long.valueOf(tenantId)));
   if (LOG.isTraceEnabled()) {
     LOG.trace("[{}] Search result: {}.",tenantId,Arrays.toString(applications.toArray()));

@@ -1,8 +1,14 @@
 {
   List<History> histories=Collections.emptyList();
-  LOG.debug("Find history by application id {}",appId);
+  LOG.debug("Searching history by application id [{}]",appId);
   if (isNotBlank(appId)) {
     histories=findListByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(appId)));
+  }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{}] Search result: {}.",appId,Arrays.toString(histories.toArray()));
+  }
+ else {
+    LOG.debug("[{}] Search result: {}.",appId,histories.size());
   }
   return histories;
 }

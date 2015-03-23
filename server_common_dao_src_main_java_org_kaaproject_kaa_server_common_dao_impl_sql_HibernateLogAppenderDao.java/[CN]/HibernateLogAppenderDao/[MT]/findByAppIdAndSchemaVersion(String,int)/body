@@ -1,7 +1,14 @@
 {
+  LOG.debug("Searching log appenders by application id [{}] and schema version [{}]",appId,schemaVersion);
   List<LogAppender> appenders=Collections.emptyList();
   if (isNotBlank(appId)) {
     appenders=findListByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.and(Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(appId)),Restrictions.le(LOG_APPENDER_MIN_LOG_SCHEMA_VERSION,schemaVersion),Restrictions.ge(LOG_APPENDER_MAX_LOG_SCHEMA_VERSION,schemaVersion)));
+  }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{},{}] Search result: {}.",appId,schemaVersion,Arrays.toString(appenders.toArray()));
+  }
+ else {
+    LOG.debug("[{},{}] Search result: {}.",appId,schemaVersion,appenders.size());
   }
   return appenders;
 }

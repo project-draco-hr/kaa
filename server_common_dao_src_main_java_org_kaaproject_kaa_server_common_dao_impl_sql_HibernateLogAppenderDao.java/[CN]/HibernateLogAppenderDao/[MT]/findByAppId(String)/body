@@ -1,8 +1,14 @@
 {
+  LOG.debug("Searching log appenders by application id [{}]",appId);
   List<LogAppender> appenders=Collections.emptyList();
-  LOG.debug("Find log appenders by application id {}",appId);
   if (isNotBlank(appId)) {
     appenders=findListByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(appId)));
+  }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{}] Search result: {}.",appId,Arrays.toString(appenders.toArray()));
+  }
+ else {
+    LOG.debug("[{}] Search result: {}.",appId,appenders.size());
   }
   return appenders;
 }
