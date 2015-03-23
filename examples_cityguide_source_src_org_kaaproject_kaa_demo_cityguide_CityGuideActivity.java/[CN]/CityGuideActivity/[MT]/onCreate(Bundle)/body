@@ -1,0 +1,7 @@
+{
+  super.onCreate(savedInstanceState);
+  setContentView(R.layout.activity_city_guide);
+  if (savedInstanceState == null) {
+    getSupportFragmentManager().beginTransaction().add(R.id.container,new AreasFragment()).commit();
+  }
+}

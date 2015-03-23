@@ -1,10 +1,10 @@
 {
-  HashCodeBuilder builder=new HashCodeBuilder();
+  List<Object> list=new ArrayList<Object>();
   boolean present_status=true && (isSetStatus());
-  builder.append(present_status);
-  if (present_status)   builder.append(status.getValue());
+  list.add(present_status);
+  if (present_status)   list.add(status.getValue());
   boolean present_message=true && (isSetMessage());
-  builder.append(present_message);
-  if (present_message)   builder.append(message);
-  return builder.toHashCode();
+  list.add(present_message);
+  if (present_message)   list.add(message);
+  return list.hashCode();
 }

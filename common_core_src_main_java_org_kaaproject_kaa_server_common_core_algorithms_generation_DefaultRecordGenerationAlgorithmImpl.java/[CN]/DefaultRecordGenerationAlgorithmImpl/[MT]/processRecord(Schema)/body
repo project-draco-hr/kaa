@@ -1,0 +1,12 @@
+{
+  GenericRecord result=new GenericData.Record(schemaNode);
+  processedTypes.put(schemaNode.getFullName(),result);
+  List<Field> fields=schemaNode.getFields();
+  for (  Field field : fields) {
+    Object processFieldResult=processField(field);
+    if (processFieldResult != null) {
+      result.put(field.name(),processFieldResult);
+    }
+  }
+  return result;
+}

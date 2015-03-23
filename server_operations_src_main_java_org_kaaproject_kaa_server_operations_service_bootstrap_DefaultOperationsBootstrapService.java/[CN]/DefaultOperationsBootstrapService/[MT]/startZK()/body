@@ -8,6 +8,7 @@
   try {
     operationsNode.start();
     eventService.setZkNode(operationsNode);
+    eventService.setResolver(new ConsistentHashResolver(operationsNode.getCurrentOperationServerNodes(),getConfig().getUserHashPartitions()));
   }
  catch (  Exception e) {
     if (getConfig().isZkIgnoreErrors()) {

@@ -1,0 +1,19 @@
+{
+switch (field) {
+case TYPE:
+    return getType();
+case EVENT_ID:
+  return Long.valueOf(getEventId());
+case EVENT:
+return getEvent();
+case ROUTE:
+return getRoute();
+case USER_ROUTE:
+return getUserRoute();
+case ENDPOINT_ROUTE_UPDATE:
+return getEndpointRouteUpdate();
+case ENDPOINT_STATE_UPDATE:
+return getEndpointStateUpdate();
+}
+throw new IllegalStateException();
+}

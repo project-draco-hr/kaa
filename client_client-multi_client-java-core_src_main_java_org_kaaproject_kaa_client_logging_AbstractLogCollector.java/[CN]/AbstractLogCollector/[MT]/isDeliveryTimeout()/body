@@ -13,7 +13,13 @@
       storage.notifyUploadFailed(logRequest.getKey());
     }
     timeoutMap.clear();
-    strategy.onTimeout(controller);
+    final LogFailoverCommand controller=this.controller;
+    executorContext.getCallbackExecutor().execute(new Runnable(){
+      @Override public void run(){
+        strategy.onTimeout(controller);
+      }
+    }
+);
   }
   return isTimeout;
 }

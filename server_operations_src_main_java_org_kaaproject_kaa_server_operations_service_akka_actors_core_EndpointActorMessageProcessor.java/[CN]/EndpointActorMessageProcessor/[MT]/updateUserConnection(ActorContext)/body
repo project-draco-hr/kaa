@@ -1,13 +1,16 @@
 {
-  if (userId != null && !userId.equals(endpointProfile.getEndpointUserId())) {
-    sendDisconnectFromOldUser(context,endpointProfile);
-    userRegistrationRequestSent=false;
+  if (!state.isValidForUser()) {
+    return;
   }
-  if (!userRegistrationRequestSent) {
-    userId=endpointProfile.getEndpointUserId();
-    if (userId != null) {
-      sendConnectToNewUser(context,endpointProfile);
-      userRegistrationRequestSent=true;
+  if (state.userIdMismatch()) {
+    sendDisconnectFromOldUser(context,state.getProfile());
+    state.setUserRegistrationPending(false);
+  }
+  if (!state.isUserRegistrationPending()) {
+    state.setUserId(state.getProfileUserId());
+    if (state.getUserId() != null) {
+      sendConnectToNewUser(context,state.getProfile());
+      state.setUserRegistrationPending(true);
     }
   }
  else {

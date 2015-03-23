@@ -1,35 +1,5 @@
 {
-  Set<ChannelMetaData> channels=new HashSet<>();
-  channels.addAll(channelMap.getByTransportType(TransportType.CONFIGURATION));
-  channels.addAll(channelMap.getByTransportType(TransportType.NOTIFICATION));
+  Set<ChannelMetaData> channels=state.getChannelsByTypes(TransportType.CONFIGURATION,TransportType.NOTIFICATION);
   LOG.debug("[{}][{}] Processing thrift norification for {} channels",endpointKey,actorKey,channels.size());
-  for (  ChannelMetaData channel : channels) {
-    ClientSync originalRequest=channel.getRequestMessage().getRequest();
-    ServerSync syncResponse=channel.getResponseHolder().getResponse();
-    ClientSync newRequest=new ClientSync();
-    newRequest.setRequestId(originalRequest.getRequestId());
-    newRequest.setClientSyncMetaData(originalRequest.getClientSyncMetaData());
-    if (originalRequest.getConfigurationSync() != null) {
-      ConfigurationClientSync configurationSyncRequest=originalRequest.getConfigurationSync();
-      if (syncResponse.getConfigurationSync() != null) {
-        int newSeqNumber=syncResponse.getConfigurationSync().getAppStateSeqNumber();
-        LOG.debug("[{}][{}] Change original configuration request {} appSeqNumber from {} to {}",endpointKey,actorKey,originalRequest,configurationSyncRequest.getAppStateSeqNumber(),newSeqNumber);
-        configurationSyncRequest.setAppStateSeqNumber(newSeqNumber);
-      }
-      newRequest.setConfigurationSync(configurationSyncRequest);
-      originalRequest.setConfigurationSync(null);
-    }
-    if (originalRequest.getNotificationSync() != null) {
-      NotificationClientSync notificationSyncRequest=originalRequest.getNotificationSync();
-      if (syncResponse.getNotificationSync() != null) {
-        int newSeqNumber=syncResponse.getNotificationSync().getAppStateSeqNumber();
-        LOG.debug("[{}][{}] Change original notification request {} appSeqNumber from {} to {}",endpointKey,actorKey,originalRequest,notificationSyncRequest.getAppStateSeqNumber(),newSeqNumber);
-        notificationSyncRequest.setAppStateSeqNumber(newSeqNumber);
-      }
-      newRequest.setNotificationSync(notificationSyncRequest);
-      originalRequest.setNotificationSync(null);
-    }
-    LOG.debug("[{}][{}] Processing request {}",endpointKey,actorKey,originalRequest);
-    sync(context,new SyncRequestMessage(channel.getRequestMessage().getSession(),newRequest,channel.getRequestMessage().getCommand(),channel.getRequestMessage().getOriginator()));
-  }
+  syncChannels(context,channels,true,true);
 }

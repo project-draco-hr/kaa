@@ -1,0 +1,10 @@
+{
+  if (kaaStarted.getErrorMessage() == null) {
+    if (!getController().isUserAttached()) {
+      showLogin();
+    }
+ else {
+      showDevices();
+    }
+  }
+}

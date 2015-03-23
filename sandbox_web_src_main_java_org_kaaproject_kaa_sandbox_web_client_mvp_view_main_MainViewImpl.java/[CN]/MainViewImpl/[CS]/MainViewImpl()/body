@@ -1,10 +1,4 @@
 {
-  errorPanel=new AlertPanel(Type.ERROR);
-  infoPanel=new AlertPanel(Type.INFO);
-  initWidget(uiBinder.createAndBindUi(this));
-  titleLabel.setText(Utils.constants.mainConsole());
-  detailsTable.getColumnFormatter().setWidth(0,"200px");
-  detailsTable.getColumnFormatter().setWidth(1,"300px");
-  initDetailsTable();
-  clearMessages();
+  super(false);
+  setBackEnabled(false);
 }

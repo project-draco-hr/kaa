@@ -1,0 +1,8 @@
+{
+  Set<GlobalRouteInfo> keyRoutes=routes.get(key);
+  if (keyRoutes == null) {
+    keyRoutes=new HashSet<>();
+    routes.put(key,keyRoutes);
+  }
+  return keyRoutes.add(route);
+}

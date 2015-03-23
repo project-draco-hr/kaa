@@ -1,7 +1,7 @@
 {
-  HashCodeBuilder builder=new HashCodeBuilder();
+  List<Object> list=new ArrayList<Object>();
   boolean present_configurationSchema=true && (isSetConfigurationSchema());
-  builder.append(present_configurationSchema);
-  if (present_configurationSchema)   builder.append(configurationSchema);
-  return builder.toHashCode();
+  list.add(present_configurationSchema);
+  if (present_configurationSchema)   list.add(configurationSchema);
+  return list.hashCode();
 }

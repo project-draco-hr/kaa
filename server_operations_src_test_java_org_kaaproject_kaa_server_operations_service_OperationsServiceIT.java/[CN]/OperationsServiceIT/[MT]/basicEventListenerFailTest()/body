@@ -10,7 +10,10 @@
   EventClientSync eventRequest=new EventClientSync();
   eventRequest.setEventListenersRequests(Collections.singletonList(new EventListenersRequest(REQUEST_ID1,Arrays.asList("fqn"))));
   request.setEventSync(eventRequest);
-  ServerSync response=operationsService.sync(request).getResponse();
+  SyncContext context=createContext(request);
+  operationsService.syncProfile(context,request.getProfileSync());
+  operationsService.processEventListenerRequests(context,request.getEventSync());
+  ServerSync response=context.getResponse();
   Assert.assertNotNull(response);
   Assert.assertEquals(SyncStatus.SUCCESS,response.getStatus());
   Assert.assertNull(response.getConfigurationSync());

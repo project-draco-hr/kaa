@@ -1,7 +1,3 @@
 {
-  EventMessageType type=EventMessageType.USER_ROUTE_INFO;
-  List<EventMessage> messages=new LinkedList<>();
-  EventMessage message=new EventMessage(type,getEventId(),null,null,userRoute);
-  messages.add(message);
-  return messages;
+  return Collections.singletonList(new Message(EventMessageType.USER_ROUTE_INFO,getEventId(),null,null,userRoute,null,null));
 }

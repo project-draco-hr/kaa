@@ -1,0 +1,6 @@
+{
+  boolean result=Utils.isNotBlank(userId.getValue());
+  result&=configurationSchemaInfo.getValue() != null;
+  result&=configurationData.validate();
+  return result;
+}

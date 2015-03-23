@@ -1,0 +1,7 @@
+{
+  for (  NeighborConnection<T,V> neigbor : neigbors.values()) {
+    LOG.info("Shuting down neighbor connection {}",neigbor.getId());
+    neigbor.shutdown();
+  }
+  neigbors.clear();
+}

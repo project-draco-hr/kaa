@@ -1,0 +1,7 @@
+{
+  LOG.debug("Updating {} listeners with {}",listeners.size(),update);
+  GlobalRouteInfo msg=GlobalRouteInfo.fromThrift(update);
+  for (  EventServiceListener listener : listeners) {
+    listener.onEndpointRouteUpdate(msg);
+  }
+}

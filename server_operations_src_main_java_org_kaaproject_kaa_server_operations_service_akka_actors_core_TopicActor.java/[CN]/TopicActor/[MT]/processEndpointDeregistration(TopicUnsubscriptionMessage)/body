@@ -1,0 +1,9 @@
+{
+  String endpointKey=message.getOriginator().path().name();
+  if (endpointSessions.remove(endpointKey) != null) {
+    LOG.debug("Removed subsctioption for endpoint {}",endpointKey);
+  }
+ else {
+    LOG.warn("Failed to remove subscription for endpoint {} from topic",endpointKey);
+  }
+}

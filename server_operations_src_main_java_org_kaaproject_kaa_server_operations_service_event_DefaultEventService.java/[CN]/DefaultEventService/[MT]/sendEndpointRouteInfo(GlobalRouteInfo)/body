@@ -1,0 +1,5 @@
+{
+  LOG.trace("calculating server for user {}",routeInfo.getUserId());
+  String serverId=Neighbors.getServerID(resolver.getNode(routeInfo.getUserId()).getConnectionInfo());
+  sendMessagesToServer(packMessage(routeInfo),serverId);
+}

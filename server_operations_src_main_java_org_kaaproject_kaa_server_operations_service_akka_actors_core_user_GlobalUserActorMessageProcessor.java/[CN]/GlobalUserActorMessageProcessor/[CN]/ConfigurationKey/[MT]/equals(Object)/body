@@ -1,0 +1,24 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  ConfigurationKey other=(ConfigurationKey)obj;
+  if (appToken == null) {
+    if (other.appToken != null) {
+      return false;
+    }
+  }
+ else   if (!appToken.equals(other.appToken)) {
+    return false;
+  }
+  if (schemaVersion != other.schemaVersion) {
+    return false;
+  }
+  return true;
+}

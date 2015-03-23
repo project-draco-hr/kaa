@@ -12,7 +12,10 @@
   UserClientSync userRequest=new UserClientSync();
   userRequest.setEndpointAttachRequests(Collections.singletonList(new EndpointAttachRequest(REQUEST_ID1,INVALID_ENDPOINT_ACCESS_TOKEN)));
   request.setUserSync(userRequest);
-  ServerSync response=operationsService.sync(request).getResponse();
+  SyncContext context=createContext(request);
+  operationsService.syncProfile(context,request.getProfileSync());
+  operationsService.processEndpointAttachDetachRequests(context,request.getUserSync());
+  ServerSync response=context.getResponse();
   Assert.assertNotNull(response);
   Assert.assertEquals(SyncStatus.SUCCESS,response.getStatus());
   Assert.assertNull(response.getConfigurationSync());

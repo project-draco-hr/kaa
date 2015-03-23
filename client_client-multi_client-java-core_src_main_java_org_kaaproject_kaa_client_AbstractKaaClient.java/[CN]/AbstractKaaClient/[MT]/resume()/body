@@ -1,13 +1,19 @@
 {
-  try {
-    channelManager.resume();
-    if (stateListener != null) {
-      stateListener.onResume();
+  getLifeCycleExecutor().submit(new Runnable(){
+    @Override public void run(){
+      try {
+        channelManager.resume();
+        if (stateListener != null) {
+          stateListener.onResume();
+        }
+      }
+ catch (      Exception e) {
+        LOG.error("Resume failed",e);
+        if (stateListener != null) {
+          stateListener.onResumeFailure(new KaaException(e));
+        }
+      }
     }
   }
- catch (  Exception e) {
-    if (stateListener != null) {
-      stateListener.onResumeFailure(new KaaException(e));
-    }
-  }
+);
 }

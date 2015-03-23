@@ -1,0 +1,48 @@
+{
+  if (isShutdown) {
+    LOG.info("Can't sync. Channel [{}] is down",getId());
+    return;
+  }
+  if (isPaused) {
+    LOG.info("Can't sync. Channel [{}] is paused",getId());
+    return;
+  }
+  if (!isFirstResponseReceived) {
+    LOG.info("Can't sync. Channel [{}] is waiting for CONNACK message + KAASYNC message",getId());
+    return;
+  }
+  if (multiplexer == null) {
+    LOG.warn("Can't sync. Channel {} multiplexer is not set",getId());
+    return;
+  }
+  if (demultiplexer == null) {
+    LOG.warn("Can't sync. Channel {} demultiplexer is not set",getId());
+    return;
+  }
+  if (currentServer == null || socket == null) {
+    LOG.warn("Can't sync. Server is {}, socket is \"{}\"",currentServer,socket);
+    return;
+  }
+  Map<TransportType,ChannelDirection> typeMap=new HashMap<>(getSupportedTransportTypes().size());
+  for (  TransportType type : types) {
+    LOG.info("Processing sync {} for channel [{}]",type,getId());
+    ChannelDirection direction=getSupportedTransportTypes().get(type);
+    if (direction != null) {
+      typeMap.put(type,direction);
+    }
+ else {
+      LOG.error("Unsupported type {} for channel [{}]",type,getId());
+    }
+    for (    Map.Entry<TransportType,ChannelDirection> typeIt : getSupportedTransportTypes().entrySet()) {
+      if (!typeIt.getKey().equals(type)) {
+        typeMap.put(typeIt.getKey(),ChannelDirection.DOWN);
+      }
+    }
+  }
+  try {
+    sendKaaSyncRequest(typeMap);
+  }
+ catch (  Exception e) {
+    LOG.error("Failed to sync channel [{}]",getId(),e);
+  }
+}

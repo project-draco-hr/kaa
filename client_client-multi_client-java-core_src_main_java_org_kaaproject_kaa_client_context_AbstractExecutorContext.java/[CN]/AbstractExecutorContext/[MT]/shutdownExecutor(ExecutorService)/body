@@ -1,0 +1,15 @@
+{
+  if (executor == null) {
+    LOG.warn("Can't shutdown empty executor");
+    return;
+  }
+  LOG.debug("Shutdown executor service");
+  executor.shutdown();
+  LOG.debug("Waiting for executor service to shutdown for {} {}",getTimeout(),getTimeunit());
+  try {
+    executor.awaitTermination(getTimeout(),getTimeunit());
+  }
+ catch (  InterruptedException e) {
+    LOG.warn("Interrupted while waiting for executor to shutdown",e);
+  }
+}

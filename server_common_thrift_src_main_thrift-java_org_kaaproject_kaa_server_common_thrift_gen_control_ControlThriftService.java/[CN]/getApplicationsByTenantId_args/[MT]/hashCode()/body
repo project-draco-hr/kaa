@@ -1,7 +1,7 @@
 {
-  HashCodeBuilder builder=new HashCodeBuilder();
+  List<Object> list=new ArrayList<Object>();
   boolean present_tenantId=true && (isSetTenantId());
-  builder.append(present_tenantId);
-  if (present_tenantId)   builder.append(tenantId);
-  return builder.toHashCode();
+  list.add(present_tenantId);
+  if (present_tenantId)   list.add(tenantId);
+  return list.hashCode();
 }

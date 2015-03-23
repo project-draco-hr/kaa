@@ -1,0 +1,18 @@
+{
+  cacheServiceMock=mock(CacheService.class);
+  eventServiceMock=mock(EventService.class);
+  originatorRefMock=mock(ActorRef.class);
+  actorContextMock=mock(ActorContext.class);
+  messageProcessor=spy(new LocalUserActorMessageProcessor(cacheServiceMock,eventServiceMock,USER_ID,TENANT_ID));
+  doReturn("dummyPathName").when(messageProcessor).getActorPathName(any(ActorRef.class));
+  Mockito.doNothing().when(messageProcessor).scheduleTimeoutMessage(Mockito.any(ActorContext.class),Mockito.any(EndpointEvent.class));
+  Mockito.doNothing().when(messageProcessor).sendEventToLocal(Mockito.any(ActorContext.class),Mockito.any(EndpointEventReceiveMessage.class));
+  ecfVersions=new ArrayList<>();
+  ecfVersion1=new EventClassFamilyVersion(ECF_ID1,ECF_ID1_VERSION);
+  ecfVersion2=new EventClassFamilyVersion(ECF_ID2,ECF_ID2_VERSION);
+  ecfVersions.add(ecfVersion1);
+  ecfVersions.add(ecfVersion2);
+  address1=new RouteTableAddress(endpoint1Key,APP_TOKEN);
+  address2=new RouteTableAddress(endpoint2Key,APP_TOKEN,SERVER2);
+  address3=new RouteTableAddress(endpoint3Key,APP_TOKEN);
+}

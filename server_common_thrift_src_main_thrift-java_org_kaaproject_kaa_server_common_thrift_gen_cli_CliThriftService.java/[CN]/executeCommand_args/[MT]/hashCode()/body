@@ -1,7 +1,7 @@
 {
-  HashCodeBuilder builder=new HashCodeBuilder();
+  List<Object> list=new ArrayList<Object>();
   boolean present_commandLine=true && (isSetCommandLine());
-  builder.append(present_commandLine);
-  if (present_commandLine)   builder.append(commandLine);
-  return builder.toHashCode();
+  list.add(present_commandLine);
+  if (present_commandLine)   list.add(commandLine);
+  return list.hashCode();
 }

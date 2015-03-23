@@ -1,0 +1,15 @@
+{
+  if (route.getRouteOperation() == RouteOperation.ADD) {
+    LOG.debug("[{}][{}] Adding route {} for cf version {}",tenantId,userId,route,route.getCfVersion());
+    ConfigurationKey key=ConfigurationKey.fromRouteInfo(route);
+    map.add(key,route);
+    checkHashAndSendNotification(context,key,route);
+  }
+ else   if (route.getRouteOperation() == RouteOperation.DELETE) {
+    LOG.debug("[{}][{}] Remove route {} for cf version {}",tenantId,userId,route,route.getCfVersion());
+    map.remove(route);
+  }
+ else {
+    LOG.warn("[{}][{}] unsupported route operations {}",tenantId,userId,route.getRouteOperation());
+  }
+}

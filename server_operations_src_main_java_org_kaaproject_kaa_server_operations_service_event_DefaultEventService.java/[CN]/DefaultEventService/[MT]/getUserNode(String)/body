@@ -1,0 +1,7 @@
+{
+  OperationsNodeInfo info=resolver.getNode(userId);
+  if (info != null) {
+    return Neighbors.getServerID(info.getConnectionInfo());
+  }
+  return null;
+}

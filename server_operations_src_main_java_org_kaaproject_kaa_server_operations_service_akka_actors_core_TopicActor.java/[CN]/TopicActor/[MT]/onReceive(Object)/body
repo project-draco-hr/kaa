@@ -1,8 +1,11 @@
 {
   LOG.debug("Received: {}",message);
   if (message instanceof EndpointAwareMessage) {
-    if (message instanceof TopicRegistrationRequestMessage) {
-      processEndpointRegistration((TopicRegistrationRequestMessage)message);
+    if (message instanceof TopicSubscriptionMessage) {
+      processEndpointRegistration((TopicSubscriptionMessage)message);
+    }
+ else     if (message instanceof TopicUnsubscriptionMessage) {
+      processEndpointDeregistration((TopicUnsubscriptionMessage)message);
     }
   }
  else   if (message instanceof Terminated) {

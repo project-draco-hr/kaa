@@ -1,0 +1,12 @@
+{
+  EndpointUserDto userDto=generateEndpointUser(null);
+  ApplicationDto appDto=generateApplication();
+  EndpointUserConfigurationDto firstUserConfigurationDto=generateEndpointUserConfiguration(userDto,appDto,null,readSchemaFileAsString(OVERRIDE_USER_DATA_JSON));
+  EndpointUserConfigurationDto secondUserConfigurationDto=generateEndpointUserConfiguration(userDto,appDto,null,readSchemaFileAsString(OVERRIDE_USER_DATA_JSON));
+  List<EndpointUserConfigurationDto> expectedList=new ArrayList<>();
+  expectedList.add(firstUserConfigurationDto);
+  expectedList.add(secondUserConfigurationDto);
+  generateEndpointUserConfiguration(null,null,null,readSchemaFileAsString(OVERRIDE_USER_DATA_JSON));
+  List<EndpointUserConfigurationDto> foundList=userConfigurationService.findUserConfigurationByUserId(userDto.getId());
+  Assert.assertEquals(expectedList.size(),foundList.size());
+}

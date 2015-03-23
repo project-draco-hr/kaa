@@ -1,6 +1,6 @@
 {
   String serverId=remoteEndpointEvent.getRecipient().getServerId();
-  NeighborConnection server=neighbors.getNeghborConnection(serverId);
+  NeighborConnection<MessageTemplate,Message> server=neighbors.getNeghborConnection(serverId);
   if (server == null) {
     LOG.info("sendRouteInfo() specified server {} not found in neighbors list",serverId);
     notifyListenersOnServerProblem(serverId);
@@ -13,7 +13,7 @@
     eventData=ByteBuffer.wrap(eventConverter.get().toByteArray(AvroEncDec.convert(eventSource)));
     org.kaaproject.kaa.server.common.thrift.gen.operations.EndpointEvent endpointEvent=new org.kaaproject.kaa.server.common.thrift.gen.operations.EndpointEvent(remoteEndpointEvent.getEvent().getId().toString(),ByteBuffer.wrap(remoteEndpointEvent.getEvent().getSender().getData()),eventData,remoteEndpointEvent.getEvent().getCreateTime(),remoteEndpointEvent.getEvent().getVersion());
     Event event=new Event(remoteEndpointEvent.getUserId(),remoteEndpointEvent.getTenantId(),endpointEvent,routeAddress);
-    server.sendEventMessage(packMessage(event));
+    server.sendMessages(packMessage(event));
   }
  catch (  IOException e1) {
     LOG.error("Error on converting Event to byte array: skiping this event message",e1);

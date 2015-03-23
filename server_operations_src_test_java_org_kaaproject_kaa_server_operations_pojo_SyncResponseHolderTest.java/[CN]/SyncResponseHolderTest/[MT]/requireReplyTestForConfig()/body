@@ -2,7 +2,7 @@
   ServerSync response=new ServerSync();
   response.setConfigurationSync(new ConfigurationServerSync());
   response.getConfigurationSync().setResponseStatus(SyncResponseStatus.NO_DELTA);
-  assertFalse(new SyncResponseHolder(response).requireImmediateReply());
+  assertFalse(new SyncContext(response).requireImmediateReply());
   response.getConfigurationSync().setResponseStatus(SyncResponseStatus.DELTA);
-  assertTrue(new SyncResponseHolder(response).requireImmediateReply());
+  assertTrue(new SyncContext(response).requireImmediateReply());
 }

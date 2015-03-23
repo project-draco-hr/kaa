@@ -1,5 +1,7 @@
 {
   BootstrapNodeInfo nodeInfo=extractBootstrapServerInfo(data);
+  String bootstrapAddress=constructBootstrapAddress(nodeInfo);
+  bootstrapNodesStartTimes.put(bootstrapAddress,nodeInfo.getTimeStarted());
   for (  BootstrapNodeListener listener : bootstrapListeners) {
     listener.onNodeUpdated(nodeInfo);
   }

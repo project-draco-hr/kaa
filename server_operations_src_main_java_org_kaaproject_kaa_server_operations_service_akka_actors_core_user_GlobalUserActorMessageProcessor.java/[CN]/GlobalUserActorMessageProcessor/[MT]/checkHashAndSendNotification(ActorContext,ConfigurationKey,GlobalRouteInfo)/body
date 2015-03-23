@@ -1,0 +1,9 @@
+{
+  byte[] currentUcfHash=ucfHashes.get(key);
+  if (currentUcfHash != null) {
+    checkHashAndSendNotification(context,currentUcfHash,route);
+  }
+ else {
+    LOG.trace("No updates for key {} yet",key);
+  }
+}

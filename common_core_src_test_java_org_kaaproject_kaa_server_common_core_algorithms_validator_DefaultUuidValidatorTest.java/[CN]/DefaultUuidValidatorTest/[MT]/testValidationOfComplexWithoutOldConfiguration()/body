@@ -5,12 +5,12 @@
   Schema avroSchema=schemaParser.parse(configuraionSchema.getRawSchema());
   GenericRecord recordNew1=new GenericData.Record(schemaParser.getTypes().get("org.kaaproject.recordT"));
   recordNew1.put("intField",4);
-  GenericFixed uuidNew1=CommonUtils.generateUuidObject();
+  GenericFixed uuidNew1=AvroUtils.generateUuidObject();
   recordNew1.put(CommonConstants.UUID_FIELD,uuidNew1);
   GenericRecord rootNew=new GenericData.Record(avroSchema);
   rootNew.put("recordField",recordNew1);
   GenericAvroConverter<GenericRecord> converter=new GenericAvroConverter<>(avroSchema);
-  String configurationBodyNew=converter.endcodeToJson(rootNew);
+  String configurationBodyNew=converter.encodeToJson(rootNew);
   DefaultUuidValidator uuidGenerator=new DefaultUuidValidator(configuraionSchema,new BaseDataFactory());
   KaaData processedConfigurationBody=uuidGenerator.validateUuidFields(rootNew,null);
   GenericRecord processedConfiguration=converter.decodeJson(processedConfigurationBody.getRawData());

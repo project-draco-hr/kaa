@@ -1,13 +1,25 @@
 {
   if (userResponse != null) {
     if (userAttachCallback != null) {
-      userAttachCallback.onAttachResult(userResponse);
+      final UserAttachCallback callback=userAttachCallback;
+      executorContext.getCallbackExecutor().submit(new Runnable(){
+        @Override public void run(){
+          callback.onAttachResult(userResponse);
+        }
+      }
+);
       userAttachCallback=null;
     }
     if (userResponse.getResult() == SyncResponseResultType.SUCCESS) {
       state.setAttachedToUser(true);
       if (attachEndpointToUserCallback != null) {
-        attachEndpointToUserCallback.onAttachedToUser(userAttachRequest.getUserExternalId(),state.getEndpointAccessToken());
+        final AttachEndpointToUserCallback callback=attachEndpointToUserCallback;
+        executorContext.getCallbackExecutor().submit(new Runnable(){
+          @Override public void run(){
+            callback.onAttachedToUser(userAttachRequest.getUserExternalId(),state.getEndpointAccessToken());
+          }
+        }
+);
       }
     }
     userAttachRequest=null;
@@ -32,13 +44,25 @@
   if (userAttachNotification != null) {
     state.setAttachedToUser(true);
     if (attachEndpointToUserCallback != null) {
-      attachEndpointToUserCallback.onAttachedToUser(userAttachNotification.getUserExternalId(),userAttachNotification.getEndpointAccessToken());
+      final AttachEndpointToUserCallback callback=attachEndpointToUserCallback;
+      executorContext.getCallbackExecutor().submit(new Runnable(){
+        @Override public void run(){
+          callback.onAttachedToUser(userAttachNotification.getUserExternalId(),userAttachNotification.getEndpointAccessToken());
+        }
+      }
+);
     }
   }
   if (userDetachNotification != null) {
     state.setAttachedToUser(false);
     if (detachEndpointFromUserCallback != null) {
-      detachEndpointFromUserCallback.onDetachedFromUser(userDetachNotification.getEndpointAccessToken());
+      final DetachEndpointFromUserCallback callback=detachEndpointFromUserCallback;
+      executorContext.getCallbackExecutor().submit(new Runnable(){
+        @Override public void run(){
+          callback.onDetachedFromUser(userDetachNotification.getEndpointAccessToken());
+        }
+      }
+);
     }
   }
 }

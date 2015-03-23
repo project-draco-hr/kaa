@@ -1,0 +1,13 @@
+{
+  EndpointUserConnectMessage message1=new EndpointUserConnectMessage(USER_ID,endpoint1Key,ecfVersions,1,null,APP_TOKEN,originatorRefMock);
+  messageProcessor.processEndpointConnectMessage(actorContextMock,message1);
+  RouteTableKey routeKey=new RouteTableKey(APP_TOKEN,ecfVersion1);
+  when(cacheServiceMock.getRouteKeys(new EventClassFqnVersion(TENANT_ID,"testClassFqn",ECF_ID1_VERSION))).thenReturn(Collections.singleton(routeKey));
+  Event event=new Event(0,"testClassFqn",ByteBuffer.wrap(new byte[0]),null,Base64Util.encode(endpoint1Key.getData()));
+  EndpointEvent endpointEvent=new EndpointEvent(endpoint2Key,event,UUID.randomUUID(),System.currentTimeMillis(),ECF_ID1_VERSION);
+  RemoteEndpointEvent remoteEvent=new RemoteEndpointEvent(TENANT_ID,USER_ID,endpointEvent,new RouteTableAddress(endpoint1Key,APP_TOKEN,"SERVER1"));
+  RemoteEndpointEventMessage message2=new RemoteEndpointEventMessage(remoteEvent);
+  messageProcessor.processRemoteEndpointEventMessage(actorContextMock,message2);
+  verify(cacheServiceMock,Mockito.never()).getEventClassFamilyIdByEventClassFqn(new EventClassFqnKey(TENANT_ID,"testClassFqn"));
+  verify(messageProcessor).sendEventToLocal(Mockito.any(ActorContext.class),Mockito.any(EndpointEventReceiveMessage.class));
+}

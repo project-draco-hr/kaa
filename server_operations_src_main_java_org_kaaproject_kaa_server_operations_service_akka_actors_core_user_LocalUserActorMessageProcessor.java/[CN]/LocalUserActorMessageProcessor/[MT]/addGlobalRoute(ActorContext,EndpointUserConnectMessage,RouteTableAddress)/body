@@ -1,0 +1,5 @@
+{
+  GlobalRouteInfo route=GlobalRouteInfo.add(tenantId,userId,address,message.getCfVersion(),message.getUcfHash());
+  localRoutes.put(address,route);
+  sendGlobalRouteUpdate(context,route);
+}

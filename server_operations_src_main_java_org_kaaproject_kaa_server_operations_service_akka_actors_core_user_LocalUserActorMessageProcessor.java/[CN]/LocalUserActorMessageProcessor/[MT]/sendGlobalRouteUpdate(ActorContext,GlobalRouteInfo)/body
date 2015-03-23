@@ -1,0 +1,9 @@
+{
+  if (eventService.isMainUserNode(userId)) {
+    context.parent().tell(new EndpointRouteUpdateMessage(route),context.self());
+  }
+ else {
+    LOG.debug("[{}] Sending connect message to global actor",userId);
+    eventService.sendEndpointRouteInfo(route);
+  }
+}

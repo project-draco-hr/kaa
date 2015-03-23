@@ -1,0 +1,27 @@
+{
+  int row=0;
+  Label label=new Label(Utils.constants.userId());
+  label.addStyleName(Utils.avroUiStyle.requiredField());
+  userId=new KaaAdminSizedTextBox(DEFAULT_TEXTBOX_SIZE);
+  userId.setWidth(FULL_WIDTH);
+  userId.addInputHandler(this);
+  detailsTable.setWidget(row,0,label);
+  detailsTable.setWidget(row,1,userId);
+  row++;
+  label=new Label(Utils.constants.configurationSchema());
+  label.addStyleName(Utils.avroUiStyle.requiredField());
+  configurationSchemaInfo=new SchemaInfoListBox();
+  detailsTable.setWidget(row,0,label);
+  detailsTable.setWidget(row,1,configurationSchemaInfo);
+  configurationSchemaInfo.addValueChangeHandler(new ValueChangeHandler<SchemaInfoDto>(){
+    @Override public void onValueChange(    ValueChangeEvent<SchemaInfoDto> event){
+      updateConfigurationData(event.getValue());
+    }
+  }
+);
+  getFooter().addStyleName(Utils.kaaAdminStyle.bAppContentDetailsTable());
+  configurationData=new RecordPanel(new AvroWidgetsConfig.Builder().recordPanelWidth(900).gridHeight(250).tableHeight(230).createConfig(),Utils.constants.configurationBody(),this,false,false);
+  configurationData.addValueChangeHandler(this);
+  getFooter().setWidth("1000px");
+  getFooter().add(configurationData);
+}

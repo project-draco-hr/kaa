@@ -1,5 +1,9 @@
 {
   PersistentStorage storage=context.createPersistentStorage();
+  if (!storage.exists(path)) {
+    LOG.trace("There is no configuration in storage yet");
+    return null;
+  }
   BufferedInputStream is=new BufferedInputStream(storage.openForRead(path));
   List<byte[]> chunks=new ArrayList<byte[]>();
   byte[] tmp=new byte[_8KB];

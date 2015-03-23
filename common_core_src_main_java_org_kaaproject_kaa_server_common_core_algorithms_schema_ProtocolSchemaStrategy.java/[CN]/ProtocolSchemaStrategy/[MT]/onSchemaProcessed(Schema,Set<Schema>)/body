@@ -1,0 +1,11 @@
+{
+  List<Schema> deltaTypes=new ArrayList<Schema>(addressableRecords.size() + 1);
+  deltaTypes.add(rootSchema);
+  deltaTypes.addAll(addressableRecords);
+  Field deltaTypesField=new Field(DELTA,Schema.createUnion(deltaTypes),null,null);
+  List<Field> deltaFields=new ArrayList<Field>();
+  deltaFields.add(deltaTypesField);
+  Schema delta=Schema.createRecord(DELTA + "T",null,KAA_NAMESPACE,false);
+  delta.setFields(deltaFields);
+  return Schema.createArray(delta);
+}

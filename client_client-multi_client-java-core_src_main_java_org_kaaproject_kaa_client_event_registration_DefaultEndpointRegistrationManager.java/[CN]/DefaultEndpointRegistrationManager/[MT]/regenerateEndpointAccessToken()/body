@@ -1,9 +1,6 @@
 {
-  String oldToken=state.getEndpointAccessToken();
   String newEndpointAccessToken=state.refreshEndpointAccessToken();
   LOG.info("New endpoint access token is generated: '{}'",newEndpointAccessToken);
-  if (oldToken != null && oldToken.length() > 0) {
-    onEndpointAccessTokenChanged(oldToken);
-  }
+  onEndpointAccessTokenChanged();
   return newEndpointAccessToken;
 }

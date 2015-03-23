@@ -16,8 +16,13 @@ synchronized (optionalListeners) {
     topics=newTopics;
   }
 synchronized (topicsListeners) {
-    for (    NotificationTopicListListener listener : topicsListeners) {
-      listener.onListUpdated(list);
+    for (    final NotificationTopicListListener listener : topicsListeners) {
+      executorContext.getCallbackExecutor().submit(new Runnable(){
+        @Override public void run(){
+          listener.onListUpdated(list);
+        }
+      }
+);
     }
   }
 }

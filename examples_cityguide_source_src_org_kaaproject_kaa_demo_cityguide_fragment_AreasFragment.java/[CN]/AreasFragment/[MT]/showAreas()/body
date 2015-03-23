@@ -1,0 +1,7 @@
+{
+  mWaitView.setVisibility(View.GONE);
+  List<Area> areas=mApplication.getCityGuideConfiguration().getAreas();
+  mAreasAdapter=new AreasAdapter(mActivity,areas);
+  mAreasListView.setVisibility(View.VISIBLE);
+  mAreasListView.setAdapter(mAreasAdapter);
+}

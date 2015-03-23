@@ -1,11 +1,12 @@
 {
   KaaClientPropertiesState state=new KaaClientPropertiesState(new FilePersistentStorage(),CommonsBase64.getInstance(),KaaClientPropertiesStateTest.getProperties());
   EventTransport transport=Mockito.mock(EventTransport.class);
-  EventManager eventManager=new DefaultEventManager(state,transport);
+  ExecutorContext executorContext=Mockito.mock(ExecutorContext.class);
+  EventManager eventManager=new DefaultEventManager(state,executorContext,transport);
   EventSyncRequest request=new EventSyncRequest();
   eventManager.produceEvent("kaa.test.event.SomeEvent",new byte[0],"theTarget");
   eventManager.fillEventListenersSyncRequest(request);
-  request.setEvents(eventManager.getPendingEvents());
+  request.setEvents(eventManager.pollPendingEvents());
   assertNotNull(request.getEvents());
   assertEquals(1,request.getEvents().size());
   assertEquals("kaa.test.event.SomeEvent",request.getEvents().get(0).getEventClassFQN());
@@ -14,14 +15,14 @@
   request=new EventSyncRequest();
   List<String> eventFQNs=new ArrayList<String>();
   eventFQNs.add("eventFQN1");
-  eventManager.findEventListeners(eventFQNs,new FetchEventListeners(){
+  eventManager.findEventListeners(eventFQNs,new FindEventListenersCallback(){
     @Override public void onRequestFailed(){
     }
     @Override public void onEventListenersReceived(    List<String> eventListeners){
     }
   }
 );
-  eventManager.findEventListeners(eventFQNs,new FetchEventListeners(){
+  eventManager.findEventListeners(eventFQNs,new FindEventListenersCallback(){
     @Override public void onRequestFailed(){
     }
     @Override public void onEventListenersReceived(    List<String> eventListeners){

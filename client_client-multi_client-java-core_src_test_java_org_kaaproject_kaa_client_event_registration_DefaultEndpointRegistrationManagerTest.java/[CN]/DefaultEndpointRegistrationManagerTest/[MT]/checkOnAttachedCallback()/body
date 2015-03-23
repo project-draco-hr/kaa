@@ -2,19 +2,19 @@
   KaaClientState state=mock(KaaClientState.class);
   when(state.getEndpointAccessToken()).thenReturn("");
   AttachEndpointToUserCallback listener=mock(AttachEndpointToUserCallback.class);
-  DefaultEndpointRegistrationManager manager=new DefaultEndpointRegistrationManager(state,null,null);
+  DefaultEndpointRegistrationManager manager=new DefaultEndpointRegistrationManager(state,executorContext,null,null);
   manager.setAttachedCallback(null);
   manager.onUpdate(null,null,null,new UserAttachNotification("foo","bar"),null);
   manager.setAttachedCallback(listener);
   manager.onUpdate(null,null,null,new UserAttachNotification("foo","bar"),null);
-  verify(listener,times(1)).onAttachedToUser("foo","bar");
-  verify(state,times(2)).setAttachedToUser(true);
+  verify(listener,Mockito.timeout(1000).times(1)).onAttachedToUser("foo","bar");
+  verify(state,Mockito.timeout(1000).times(2)).setAttachedToUser(true);
   manager.setAttachedCallback(null);
   manager.attachUser("externalId","foo","bar",null);
   manager.onUpdate(null,null,new UserAttachResponse(SyncResponseResultType.SUCCESS,null,null),null,null);
   manager.setAttachedCallback(listener);
   manager.attachUser("externalId","foo","bar",null);
   manager.onUpdate(null,null,new UserAttachResponse(SyncResponseResultType.SUCCESS,null,null),null,null);
-  verify(listener,times(2)).onAttachedToUser(anyString(),anyString());
-  verify(state,times(4)).setAttachedToUser(true);
+  verify(listener,Mockito.timeout(1000).times(1)).onAttachedToUser(anyString(),anyString());
+  verify(state,Mockito.timeout(1000).times(4)).setAttachedToUser(true);
 }

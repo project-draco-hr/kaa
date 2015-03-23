@@ -13,7 +13,11 @@
   userRequest.setEndpointDetachRequests(Collections.singletonList(new EndpointDetachRequest(REQUEST_ID1,Base64Util.encode(EndpointObjectHash.fromSHA1(ENDPOINT_KEY2).getData()))));
   request.setUserSync(userRequest);
   profileDto.setEndpointUserId(userDto.getId());
-  ServerSync response=operationsService.sync(request,profileDto).getResponse();
+  SyncContext context=createContext(request);
+  context.setEndpointProfile(profileDto);
+  operationsService.syncProfile(context,request.getProfileSync());
+  operationsService.processEndpointAttachDetachRequests(context,request.getUserSync());
+  ServerSync response=context.getResponse();
   Assert.assertNotNull(response);
   Assert.assertEquals(SyncStatus.SUCCESS,response.getStatus());
   Assert.assertNull(response.getConfigurationSync());
