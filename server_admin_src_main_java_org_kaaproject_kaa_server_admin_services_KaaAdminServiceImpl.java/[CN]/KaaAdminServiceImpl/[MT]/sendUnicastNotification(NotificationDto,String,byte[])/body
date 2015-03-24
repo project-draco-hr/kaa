@@ -6,7 +6,10 @@
     TopicDto topic=toDto(clientProvider.getClient().getTopic(notification.getTopicId()));
     Utils.checkNotNull(topic);
     checkApplicationId(topic.getApplicationId());
-    return toDto(clientProvider.getClient().editNotification(toDataStruct(notification)));
+    EndpointNotificationDto unicastNotification=new EndpointNotificationDto();
+    unicastNotification.setEndpointKeyHash(Base64.decode(clientKeyHash.getBytes(Charsets.UTF_8)));
+    unicastNotification.setNotificationDto(notification);
+    return toDto(clientProvider.getClient().editUnicastNotification(toDataStruct(unicastNotification)));
   }
  catch (  Exception e) {
     throw Utils.handleException(e);
