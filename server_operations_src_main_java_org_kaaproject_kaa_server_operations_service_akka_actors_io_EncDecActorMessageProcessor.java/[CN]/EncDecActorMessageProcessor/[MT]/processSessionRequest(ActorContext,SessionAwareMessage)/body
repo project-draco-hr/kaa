@@ -1,4 +1,10 @@
 {
   ClientSync request=decodeRequest(message);
-  forwardToOpsActor(context,message.getSessionInfo(),request,message);
+  if (isApplicationTokenValid(message.getSessionInfo().getApplicationToken())) {
+    forwardToOpsActor(context,message.getSessionInfo(),request,message);
+  }
+ else {
+    LOG.info("Invalid application token received");
+    throw new InvalidApplicationTokenException("Invalid application token received");
+  }
 }
