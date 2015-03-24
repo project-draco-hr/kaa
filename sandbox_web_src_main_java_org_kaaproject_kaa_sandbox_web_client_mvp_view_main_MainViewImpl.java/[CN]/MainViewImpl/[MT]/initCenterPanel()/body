@@ -1,23 +1,9 @@
 {
-  DockLayoutPanel dockPanel=new DockLayoutPanel(Unit.PX);
-  centerPanel.setWidget(dockPanel);
-  centerPanel.setWidgetTopBottom(dockPanel,15,Unit.PX,0,Unit.PX);
-  centerPanel.setWidgetLeftRight(dockPanel,30,Unit.PX,30,Unit.PX);
-  HorizontalPanel linksPanel=new HorizontalPanel();
-  linksPanel.setSpacing(6);
-  goToKaaAdminWeb=new Anchor(Utils.constants.kaaAdminWeb());
-  Widget gotoLink=constructGotoLink(goToKaaAdminWeb);
-  gotoLink.addStyleName(Utils.sandboxStyle.shadowPanel());
-  linksPanel.add(gotoLink);
-  SimplePanel spacing=new SimplePanel();
-  spacing.setWidth("10px");
-  linksPanel.add(spacing);
-  goToAvroUiSandboxWeb=new Anchor(Utils.constants.avroUiSandboxWeb());
-  gotoLink=constructGotoLink(goToAvroUiSandboxWeb);
-  gotoLink.addStyleName(Utils.sandboxStyle.shadowPanel());
-  linksPanel.add(gotoLink);
-  dockPanel.addNorth(linksPanel,60);
+  ScrollPanel centerScroll=new ScrollPanel();
+  centerScroll.setWidth("100%");
+  centerPanel.setWidget(centerScroll);
+  centerPanel.setWidgetTopBottom(centerScroll,15,Unit.PX,0,Unit.PX);
+  centerPanel.setWidgetLeftRight(centerScroll,30,Unit.PX,30,Unit.PX);
   demoProjectsView=new DemoProjectsWidget();
-  demoProjectsView.setTitle(Utils.constants.sampleApplications());
-  dockPanel.add(demoProjectsView);
+  centerScroll.add(demoProjectsView);
 }

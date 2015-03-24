@@ -6,6 +6,9 @@
   ActivityMapper headerActivityMapper=new HeaderActivityMapper(clientFactory);
   ActivityManager headerActivityManager=new ActivityManager(headerActivityMapper,eventBus);
   headerActivityManager.setDisplay(appWidget.getAppHeaderHolder());
+  ActivityMapper leftPanelActivityMapper=new LeftPanelActivityMapper(clientFactory);
+  ActivityManager leftPanelActivityManager=new ActivityManager(leftPanelActivityMapper,eventBus);
+  leftPanelActivityManager.setDisplay(appWidget.getLeftPanel());
   ActivityMapper appActivityMapper=new SandboxActivityMapper(clientFactory);
   ActivityManager appActivityManager=new ActivityManager(appActivityMapper,eventBus);
   appActivityManager.setDisplay(appWidget.getAppContentHolder());

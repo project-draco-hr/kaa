@@ -1,8 +1,9 @@
 {
   KaaClientState state=mock(KaaClientState.class);
+  ExecutorContext executorContext=Mockito.mock(ExecutorContext.class);
   when(state.getEndpointAccessToken()).thenReturn("");
   UserTransport transport=mock(UserTransport.class);
-  DefaultEndpointRegistrationManager manager=spy(new DefaultEndpointRegistrationManager(state,transport,null));
+  DefaultEndpointRegistrationManager manager=spy(new DefaultEndpointRegistrationManager(state,executorContext,transport,null));
   manager.attachUser("verifierToken","externalId","token",null);
   verify(transport,times(1)).sync();
 }

@@ -1,0 +1,11 @@
+{
+  FilterItem item=new FilterItem(imageRes,bgClass,text);
+  ul.add(item);
+  item.addValueChangeHandler(new ValueChangeHandler<Boolean>(){
+    @Override public void onValueChange(    ValueChangeEvent<Boolean> event){
+      fireEvent(event);
+    }
+  }
+);
+  items.add(item);
+}

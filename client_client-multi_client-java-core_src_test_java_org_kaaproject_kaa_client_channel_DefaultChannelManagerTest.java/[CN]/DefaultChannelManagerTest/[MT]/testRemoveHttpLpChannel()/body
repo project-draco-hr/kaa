@@ -27,12 +27,9 @@
   channelManager.onTransportConnectionInfoUpdated(opServer2);
   Mockito.verify(channel1,Mockito.times(1)).setServer(opServer);
   Mockito.verify(channel2,Mockito.times(1)).setServer(opServer2);
-  assertEquals(channel2,channelManager.getChannelByTransportType(TransportType.PROFILE));
   channelManager.removeChannel(channel2);
   TransportConnectionInfo opServer3=IPTransportInfoTest.createTestServerInfo(ServerType.OPERATIONS,TransportProtocolIdConstants.TCP_TRANSPORT_ID,"localhost",9009,KeyUtil.generateKeyPair().getPublic());
   channelManager.addChannel(channel3);
   channelManager.onTransportConnectionInfoUpdated(opServer3);
   Mockito.verify(channel3,Mockito.times(1)).setServer(opServer3);
-  assertEquals(channel3,channelManager.getChannelByTransportType(TransportType.PROFILE));
-  assertNull(channelManager.getChannelByTransportType(TransportType.USER));
 }

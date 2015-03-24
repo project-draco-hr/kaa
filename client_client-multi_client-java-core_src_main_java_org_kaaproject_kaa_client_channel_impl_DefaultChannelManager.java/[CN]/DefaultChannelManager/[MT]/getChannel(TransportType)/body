@@ -1,0 +1,8 @@
+{
+  KaaDataChannel result=upChannels.get(type);
+  if (result == null) {
+    LOG.error("Failed to find channel for transport {}",type);
+    throw new ChannelRuntimeException("Failed to find channel for transport " + type.toString());
+  }
+  return result;
+}

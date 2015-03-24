@@ -1,0 +1,11 @@
+{
+  for (  DemoProjectWidget projectWidget : projectWidgets) {
+    boolean show=projectFilter.filter(projectWidget.getProject());
+    if (show) {
+      projectWidget.show(animate);
+    }
+ else {
+      projectWidget.hide(animate);
+    }
+  }
+}

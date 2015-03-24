@@ -1,0 +1,32 @@
+{
+  super(unit);
+  addStyleName(Utils.sandboxStyle.leftPanel());
+  HorizontalPanel titlePanel=new HorizontalPanel();
+  titlePanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+  titlePanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+  titleLabel=new Label();
+  titleLabel.addStyleName(Utils.sandboxStyle.title());
+  titlePanel.add(titleLabel);
+  titlePanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
+  Anchor anchor=new Anchor();
+  anchor.addStyleName(Utils.sandboxStyle.toggle());
+  titlePanel.add(anchor);
+  titlePanel.setSize("100%","100%");
+  addNorth(titlePanel,40);
+  contentScroll=new ScrollPanel();
+  contentScroll.setHeight("100%");
+  add(contentScroll);
+  addStyleName(Utils.sandboxStyle.isOpen());
+  anchor.addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      isOpen=!isOpen;
+      if (isOpen) {
+        addStyleName(Utils.sandboxStyle.isOpen());
+      }
+ else {
+        removeStyleName(Utils.sandboxStyle.isOpen());
+      }
+    }
+  }
+);
+}

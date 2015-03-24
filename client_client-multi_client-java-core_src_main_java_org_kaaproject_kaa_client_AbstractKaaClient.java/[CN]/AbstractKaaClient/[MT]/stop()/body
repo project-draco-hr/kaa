@@ -1,5 +1,5 @@
 {
-  lifecycleTasksExecutor.submit(new Runnable(){
+  getLifeCycleExecutor().submit(new Runnable(){
     @Override public void run(){
       try {
         logCollector.stop();
@@ -19,5 +19,5 @@
     }
   }
 );
-  lifecycleTasksExecutor.shutdown();
+  context.getExecutorContext().stop();
 }
