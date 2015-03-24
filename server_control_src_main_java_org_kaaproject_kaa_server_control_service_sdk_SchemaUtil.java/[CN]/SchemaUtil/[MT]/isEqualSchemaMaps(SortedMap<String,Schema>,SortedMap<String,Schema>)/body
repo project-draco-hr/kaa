@@ -1,0 +1,11 @@
+{
+  if (!map1.keySet().equals(map2.keySet())) {
+    return false;
+  }
+  for (  String fieldKey : map1.keySet()) {
+    if (!isEqualSchemas(map1.get(fieldKey),map2.get(fieldKey))) {
+      return false;
+    }
+  }
+  return true;
+}
