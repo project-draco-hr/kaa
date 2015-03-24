@@ -2,6 +2,6 @@
   if (isNotBlank(id)) {
     Session session=getSession();
     session.delete(findById(id,true));
-    LOG.debug("Remove {} entity by id [{}]",getSimpleClassName(),id);
+    LOG.debug("Removed {} entity by id [{}]",getSimpleClassName(),id);
   }
 }

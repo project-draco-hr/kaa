@@ -4,7 +4,7 @@
   if (ids != null && !ids.isEmpty()) {
     List<Long> lids=toLongIds(ids);
     if (!lids.isEmpty()) {
-      topics=findListByCriterion(Restrictions.in(ID_PROPERTY,lids));
+      topics=findListByCriterion(in(ID_PROPERTY,lids));
     }
   }
   if (LOG.isTraceEnabled()) {
