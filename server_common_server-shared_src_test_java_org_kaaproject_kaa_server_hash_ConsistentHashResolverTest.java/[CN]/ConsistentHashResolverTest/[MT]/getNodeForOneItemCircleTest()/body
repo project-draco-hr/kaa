@@ -1,8 +1,6 @@
 {
-  ConnectionInfo connectionInfo=new ConnectionInfo("thrift1",4234,ByteBuffer.allocate(16));
-  OperationsNodeInfo operationsNodeInfo=new OperationsNodeInfo(connectionInfo,null,523634L,null);
-  List<OperationsNodeInfo> nodes=Arrays.asList(operationsNodeInfo);
-  ConsistentHashResolver consistentHashResolver=new ConsistentHashResolver(nodes,2);
+  List<OperationsNodeInfo> nodes=createNodeList();
+  ConsistentHashResolver consistentHashResolver=new ConsistentHashResolver(nodes,1);
   OperationsNodeInfo returnedNode=consistentHashResolver.getNode("userId");
-  Assert.assertEquals(operationsNodeInfo,returnedNode);
+  Assert.assertEquals(nodes.get(0),returnedNode);
 }
