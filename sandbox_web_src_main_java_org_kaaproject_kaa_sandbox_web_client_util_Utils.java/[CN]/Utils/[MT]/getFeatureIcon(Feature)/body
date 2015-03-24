@@ -1,0 +1,17 @@
+{
+switch (feature) {
+case CONFIGURATION:
+    return resources.configFeature();
+case DATA_COLLECTION:
+  return resources.dataCollectionFeature();
+case EVENT:
+return resources.eventFeature();
+case NOTIFICATION:
+return resources.notificationFeature();
+case PROFILING:
+return resources.profilingFeature();
+case USER_VERIFIER:
+return resources.userVerifierFeature();
+}
+return null;
+}

@@ -1,0 +1,17 @@
+{
+switch (feature) {
+case CONFIGURATION:
+    return sandboxStyle.bgFeatureConfig();
+case DATA_COLLECTION:
+  return sandboxStyle.bgFeatureDataCollection();
+case EVENT:
+return sandboxStyle.bgFeatureEvent();
+case NOTIFICATION:
+return sandboxStyle.bgFeatureNotification();
+case PROFILING:
+return sandboxStyle.bgFeatureProfiling();
+case USER_VERIFIER:
+return sandboxStyle.bgFeatureUserVerifier();
+}
+return null;
+}
