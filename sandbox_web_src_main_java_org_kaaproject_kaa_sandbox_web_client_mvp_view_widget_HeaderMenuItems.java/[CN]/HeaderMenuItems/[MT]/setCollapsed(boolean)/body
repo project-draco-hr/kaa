@@ -1,0 +1,9 @@
+{
+  if (isCollapsed != collapsed) {
+    isCollapsed=collapsed;
+    collapsedMenu.setVisible(isCollapsed);
+    for (    ActionsLabel item : items) {
+      item.setVisible(!isCollapsed);
+    }
+  }
+}
