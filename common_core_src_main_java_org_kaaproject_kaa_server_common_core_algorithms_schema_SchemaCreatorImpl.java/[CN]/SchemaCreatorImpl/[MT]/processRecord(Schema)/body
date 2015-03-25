@@ -2,6 +2,8 @@
   if (processedRecords.containsKey(root.getFullName())) {
     return processedRecords.get(root.getFullName());
   }
+  Schema copySchema=Schema.createRecord(root.getName(),root.getDoc(),root.getNamespace(),root.isError());
+  processedRecords.put(copySchema.getFullName(),copySchema);
   boolean addressable=isAddressableValue(root);
   List<Field> fields=root.getFields();
   List<Field> newFields=new ArrayList<Field>(fields.size() + 1);
@@ -51,7 +53,6 @@
   if (addressable) {
     newFields.add(getUuidField());
   }
-  Schema copySchema=Schema.createRecord(root.getName(),root.getDoc(),root.getNamespace(),root.isError());
   AvroUtils.copyJsonProperties(root,copySchema);
   copySchema.setFields(newFields);
   if (addressable) {
@@ -61,6 +62,5 @@
       addressableRecords.add(copySchema);
     }
   }
-  processedRecords.put(copySchema.getFullName(),copySchema);
   return copySchema;
 }
