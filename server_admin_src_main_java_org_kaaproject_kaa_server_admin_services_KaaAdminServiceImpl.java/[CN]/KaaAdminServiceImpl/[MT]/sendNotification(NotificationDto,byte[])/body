@@ -9,7 +9,7 @@
     TopicDto topic=toDto(clientProvider.getClient().getTopic(notification.getTopicId()));
     Utils.checkNotNull(topic);
     checkApplicationId(topic.getApplicationId());
-    clientProvider.getClient().editNotification(toDataStruct(notification));
+    return toDto(clientProvider.getClient().editNotification(toDataStruct(notification)));
   }
  catch (  Exception e) {
     throw Utils.handleException(e);
