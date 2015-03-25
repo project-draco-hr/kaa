@@ -1,0 +1,14 @@
+{
+  if (s1.getFields().size() != s2.getFields().size()) {
+    return false;
+  }
+  SortedMap<String,Schema> fields1=new TreeMap<String,Schema>();
+  SortedMap<String,Schema> fields2=new TreeMap<String,Schema>();
+  for (  Schema.Field field : s1.getFields()) {
+    fields1.put(field.name(),field.schema());
+  }
+  for (  Schema.Field field : s2.getFields()) {
+    fields2.put(field.name(),field.schema());
+  }
+  return isEqualSchemaMaps(fields1,fields2);
+}
