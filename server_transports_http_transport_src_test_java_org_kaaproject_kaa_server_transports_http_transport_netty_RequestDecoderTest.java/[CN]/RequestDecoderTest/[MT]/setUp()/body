@@ -1,0 +1,9 @@
+{
+  channelHandlerContext=mock(ChannelHandlerContext.class);
+  Channel channel=mock(Channel.class);
+  Attribute attribute=mock(Attribute.class);
+  UUID uuid=new UUID(234L,1234L);
+  when(attribute.get()).thenReturn(uuid);
+  when(channel.attr(AbstractNettyServer.UUID_KEY)).thenReturn(attribute);
+  when(channelHandlerContext.channel()).thenReturn(channel);
+}
