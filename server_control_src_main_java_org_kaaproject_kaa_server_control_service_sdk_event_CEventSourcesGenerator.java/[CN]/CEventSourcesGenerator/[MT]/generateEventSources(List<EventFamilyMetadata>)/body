@@ -55,7 +55,7 @@
     entry.setSize(data.length);
     tarEntry=new TarEntryData(entry,data);
     eventSources.add(tarEntry);
-    entry=new TarArchiveEntry(KAA_SRC_FOLDER + "/" + EVENT_FQN_H_FILE);
+    entry=new TarArchiveEntry(EVENT_SOURCE_OUTPUT + EVENT_FQN_H_FILE);
     data=commonWriter.toString().getBytes();
     entry.setSize(data.length);
     tarEntry=new TarEntryData(entry,data);
