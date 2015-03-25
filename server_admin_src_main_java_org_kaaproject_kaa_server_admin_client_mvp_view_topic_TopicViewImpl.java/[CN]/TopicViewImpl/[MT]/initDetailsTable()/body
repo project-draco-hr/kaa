@@ -37,5 +37,11 @@
   sendNotification=new Button(Utils.constants.sendNotification());
   detailsTable.setWidget(5,0,sendNotification);
   sendNotification.setVisible(!create);
+  if (!create) {
+    saveButton.setVisible(false);
+    name.setEnabled(false);
+    mandatory.setEnabled(false);
+    description.getTextArea().setEnabled(false);
+  }
   name.setFocus(true);
 }

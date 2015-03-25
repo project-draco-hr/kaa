@@ -1,0 +1,12 @@
+{
+  List<String> symbols1=s1.getEnumSymbols();
+  List<String> symbols2=s2.getEnumSymbols();
+  if (symbols1.size() != symbols2.size()) {
+    return false;
+  }
+ else {
+    Collections.sort(symbols1);
+    Collections.sort(symbols2);
+    return symbols1.equals(symbols2);
+  }
+}
