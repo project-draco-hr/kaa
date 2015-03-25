@@ -1,0 +1,20 @@
+{
+  if (state.getProperty(NF_SUBSCRIPTIONS) != null) {
+    BinaryDecoder decoder=DecoderFactory.get().binaryDecoder(state.getProperty(NF_SUBSCRIPTIONS).getBytes(),null);
+    SpecificDatumReader<TopicSubscriptionInfo> avroReader=new SpecificDatumReader<TopicSubscriptionInfo>(TopicSubscriptionInfo.class);
+    try {
+      TopicSubscriptionInfo decodedInfo=null;
+      while (!decoder.isEnd()) {
+        decodedInfo=avroReader.read(null,decoder);
+        LOG.debug("Loaded {}",decodedInfo);
+        nfSubscriptions.put(decodedInfo.getTopicInfo().getId(),decodedInfo);
+      }
+    }
+ catch (    Exception e) {
+      LOG.error("Unexpected exception occurred while reading information from decoder");
+    }
+  }
+ else {
+    LOG.info("No subscription info found in state");
+  }
+}
