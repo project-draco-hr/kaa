@@ -4,7 +4,7 @@
   VelocityContext context=new VelocityContext();
   context.put("eventFamilies",eventFamilies);
   StringWriter commonWriter=new StringWriter();
-  velocityEngine.getTemplate(EVENT_C_PATTERN).merge(context,commonWriter);
+  velocityEngine.getTemplate(EVENT_FQN_PATTERN).merge(context,commonWriter);
   for (  EventFamilyMetadata eventFamily : eventFamilies) {
     context.put("StyleUtils",StyleUtils.class);
     String name=StyleUtils.toLowerUnderScore(eventFamily.getEcfClassName());
@@ -55,7 +55,7 @@
     entry.setSize(data.length);
     tarEntry=new TarEntryData(entry,data);
     eventSources.add(tarEntry);
-    entry=new TarArchiveEntry(KAA_SRC_FOLDER + "/" + EVENT_C_FILE);
+    entry=new TarArchiveEntry(EVENT_SOURCE_OUTPUT + EVENT_FQN_H_FILE);
     data=commonWriter.toString().getBytes();
     entry.setSize(data.length);
     tarEntry=new TarEntryData(entry,data);
