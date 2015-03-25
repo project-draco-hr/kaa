@@ -4,6 +4,9 @@
     @Override public void onStarted(){
       LOG.info("Kaa client started");
     }
+    @Override public void onStopped(){
+      LOG.info("Kaa client stopped");
+    }
   }
 );
   kaaClient.start();
@@ -27,6 +30,5 @@
     LOG.error("IOException was caught",e);
   }
   kaaClient.stop();
-  LOG.info("Kaa client stopped");
   LOG.info("Event demo stopped");
 }

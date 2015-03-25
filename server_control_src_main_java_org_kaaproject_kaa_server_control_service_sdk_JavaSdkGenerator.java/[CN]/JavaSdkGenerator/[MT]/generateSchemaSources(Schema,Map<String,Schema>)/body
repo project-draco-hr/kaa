@@ -13,7 +13,7 @@
   File tmpOutputDir=new File(tmpdir,"tmp-gen-" + Long.toString(n));
   tmpOutputDir.mkdirs();
   compiler.compileToDestination(null,tmpOutputDir);
-  List<JavaDynamicBean> sources=getJavaSources(tmpOutputDir);
+  List<JavaDynamicBean> sources=getJavaSources(tmpOutputDir,uniqueSchemas);
   tmpOutputDir.delete();
   return sources;
 }

@@ -1,0 +1,28 @@
+{
+  List<JavaDynamicBean> result=new ArrayList<JavaDynamicBean>();
+  File[] files=srcDir.listFiles();
+  for (  File f : files) {
+    if (f.isDirectory()) {
+      result.addAll(getJavaSources(f,uniqueSchemas));
+    }
+ else     if (f.getName().endsWith(Kind.SOURCE.extension)) {
+      int index=f.getName().indexOf('.');
+      String className=f.getName().substring(0,index);
+      String sourceCode=readFile(f);
+      String classPackageAndName="";
+      String[] sourceLines=sourceCode.split("\n");
+      for (      String ss : sourceLines) {
+        if (ss.startsWith("package ")) {
+          classPackageAndName=ss.replace("package ","").trim().replaceAll(";",".") + className;
+          break;
+        }
+      }
+      if (uniqueSchemas.containsKey(classPackageAndName)) {
+        uniqueSchemas.remove(classPackageAndName);
+        JavaDynamicBean sourceObject=new JavaDynamicBean(className,sourceCode);
+        result.add(sourceObject);
+      }
+    }
+  }
+  return result;
+}

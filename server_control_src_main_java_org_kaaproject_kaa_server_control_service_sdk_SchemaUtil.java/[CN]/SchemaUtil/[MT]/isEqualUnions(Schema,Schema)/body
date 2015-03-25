@@ -1,0 +1,11 @@
+{
+  SortedMap<String,Schema> types1=new TreeMap<String,Schema>();
+  SortedMap<String,Schema> types2=new TreeMap<String,Schema>();
+  for (  Schema schema : s1.getTypes()) {
+    types1.put(schema.getName(),schema);
+  }
+  for (  Schema schema : s2.getTypes()) {
+    types2.put(schema.getName(),schema);
+  }
+  return isEqualSchemaMaps(types1,types2);
+}

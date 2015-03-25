@@ -1,5 +1,10 @@
 {
+  LOG.trace("Updating plugin {} configuration using info {}",plugin,pluginsInfo.get(type));
   PluginInfoDto pluginInfo=pluginsInfo.get(type).get(plugin.getPluginClassName());
+  if (pluginInfo == null) {
+    LOG.error("Plugin configuration for class name {} is not found",plugin.getPluginClassName());
+    throw new InvalidParameterException("Plugin configuration for class name " + plugin.getPluginClassName() + " is not found");
+  }
   byte[] rawConfiguration=GenericAvroConverter.toRawData(plugin.getJsonConfiguration(),pluginInfo.getFieldConfiguration().getSchema());
   plugin.setRawConfiguration(rawConfiguration);
 }
