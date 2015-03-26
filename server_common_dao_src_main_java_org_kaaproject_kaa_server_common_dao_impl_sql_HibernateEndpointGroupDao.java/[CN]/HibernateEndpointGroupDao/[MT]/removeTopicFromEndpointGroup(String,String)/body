@@ -1,4 +1,5 @@
 {
+  LOG.debug("Removing topic [{}] from endpoint group [{}]",topicId,id);
   EndpointGroup endpointGroup=findById(id);
   Set<Topic> topics=endpointGroup.getTopics();
   Iterator<Topic> it=topics.iterator();

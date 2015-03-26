@@ -1,12 +1,19 @@
 {
-  LOG.debug("Validate FQNs by tenant id [{}], ecf id [{}] and FQNs [{}]",tenantId,ecfId,fqns);
   List<EventClass> eventClasses=Collections.emptyList();
   if (isNotBlank(tenantId) && isNotBlank(ecfId) && fqns != null && !fqns.isEmpty()) {
+    if (LOG.isTraceEnabled()) {
+      LOG.trace("Validating FQNs by tenant id [{}], ecf id [{}] and FQNs [{}]",tenantId,ecfId,Arrays.toString(fqns.toArray()));
+    }
+ else {
+      LOG.debug("Validating FQNs by tenant id [{}], ecf id [{}] and FQNs [{}]",tenantId,ecfId,fqns.size());
+    }
     Criteria criteria=getCriteria();
     criteria.createAlias(TENANT_PROPERTY,TENANT_ALIAS);
     criteria.createAlias(ECF_PROPERTY,ECF_ALIAS);
     criteria.add(Restrictions.and(Restrictions.eq(TENANT_REFERENCE,Long.valueOf(tenantId)),Restrictions.ne(ECF_REFERENCE,Long.valueOf(ecfId)),Restrictions.in(FQN_PROPERTY,fqns)));
     eventClasses=findListByCriteria(criteria);
   }
-  return eventClasses == null || eventClasses.isEmpty();
+  boolean result=eventClasses == null || eventClasses.isEmpty();
+  LOG.debug("[{},{}] Validating result: {}.",tenantId,ecfId,result);
+  return result;
 }

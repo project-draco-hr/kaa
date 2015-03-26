@@ -1,8 +1,14 @@
 {
+  LOG.debug("Searching user verifier by application id [{}] and verifier token [{}]",appId,verifierToken);
   UserVerifier verifier=null;
   if (isNotBlank(appId)) {
     verifier=findOneByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.and(Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(appId)),Restrictions.eq(USER_VERIFIER_TOKEN,verifierToken)));
-    LOG.debug("Found log appender by application id {} and verifier token {}",appId,verifierToken);
+  }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{},{}] Search result: {}.",appId,verifierToken,verifier);
+  }
+ else {
+    LOG.debug("[{},{}] Search result: {}.",appId,verifierToken,verifier != null);
   }
   return verifier;
 }

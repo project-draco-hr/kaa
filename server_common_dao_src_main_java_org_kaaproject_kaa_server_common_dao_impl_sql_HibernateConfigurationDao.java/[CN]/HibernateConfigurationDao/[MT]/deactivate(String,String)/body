@@ -1,11 +1,12 @@
 {
-  LOG.debug("Deactivate configuration with id [{}].",id);
+  LOG.debug("Deactivating configuration with id [{}] by user [{}]",id,username);
   Configuration configuration=findById(id);
   if (configuration != null) {
     configuration.setStatus(UpdateStatus.DEPRECATED);
-    configuration.setDeactivatedUsername(deactivatedUsername);
+    configuration.setDeactivatedUsername(username);
     configuration.setDeactivatedTime(System.currentTimeMillis());
     save(configuration);
   }
+  LOG.debug("[{},{}] Configuration deactivated.",id,username);
   return configuration;
 }

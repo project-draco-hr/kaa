@@ -1,7 +1,7 @@
 {
-  LOG.debug("Remove configurations by configuration schema id [{}]",schemaId);
   if (isNotBlank(schemaId)) {
     List<Configuration> configurations=findListByCriterionWithAlias(CONFIGURATION_SCHEMA_PROPERTY,CONFIGURATION_SCHEMA_ALIAS,Restrictions.eq(CONFIGURATION_SCHEMA_REFERENCE,Long.valueOf(schemaId)));
     removeList(configurations);
   }
+  LOG.debug("Removed configurations by configuration schema id [{}]",schemaId);
 }
