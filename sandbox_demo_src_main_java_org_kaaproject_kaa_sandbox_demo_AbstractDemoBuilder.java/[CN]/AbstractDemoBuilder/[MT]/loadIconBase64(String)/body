@@ -1,0 +1,12 @@
+{
+  String base64=null;
+  InputStream is=getClass().getClassLoader().getResourceAsStream(getResourcePath(projectId + "/" + ICON_PNG));
+  if (is == null) {
+    is=getClass().getClassLoader().getResourceAsStream(getResourcePath(ICON_PNG));
+  }
+  if (is != null) {
+    byte[] data=IOUtils.toByteArray(is);
+    base64=Base64.encodeBytes(data);
+  }
+  return base64;
+}

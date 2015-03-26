@@ -1,0 +1,15 @@
+{
+  ActionsLabel item=new ActionsLabel(text,false);
+  item.addStyleName(Utils.sandboxStyle.button());
+  items.add(item);
+  registrations.add(item.addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      listener.onMenuItemSelected();
+    }
+  }
+));
+  item.setVisible(!isCollapsed);
+  add(item);
+  collapsedMenu.addMenuItem(text,listener);
+  updateStyles();
+}
