@@ -1,3 +1,11 @@
 {
-  EqualsVerifier.forClass(ClientSyncMetaData.class).suppress(Warning.NONFINAL_FIELDS).verify();
+  ClientSyncMetaData clientSyncMetaData1=new ClientSyncMetaData("token1",null,null,10L);
+  ClientSyncMetaData clientSyncMetaData2=new ClientSyncMetaData("token1",null,null,10L);
+  ClientSyncMetaData clientSyncMetaData3=new ClientSyncMetaData("token3",null,null,12L);
+  Assert.assertEquals(clientSyncMetaData1,clientSyncMetaData1);
+  Assert.assertNotEquals(clientSyncMetaData1,clientSyncMetaData3);
+  Assert.assertNotEquals(clientSyncMetaData1,null);
+  Assert.assertNotEquals(null,clientSyncMetaData1);
+  Assert.assertEquals(clientSyncMetaData1,clientSyncMetaData2);
+  Assert.assertNotEquals(clientSyncMetaData1,new Object());
 }
