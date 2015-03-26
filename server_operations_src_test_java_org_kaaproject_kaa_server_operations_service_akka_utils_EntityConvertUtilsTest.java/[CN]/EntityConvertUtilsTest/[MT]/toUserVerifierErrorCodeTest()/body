@@ -1,0 +1,10 @@
+{
+  Assert.assertEquals(EntityConvertUtils.toErrorCode((UserVerifierErrorCode)null),null);
+  Assert.assertEquals(EntityConvertUtils.toErrorCode(UserVerifierErrorCode.NO_VERIFIER_CONFIGURED),org.kaaproject.kaa.server.sync.UserVerifierErrorCode.NO_VERIFIER_CONFIGURED);
+  Assert.assertEquals(EntityConvertUtils.toErrorCode(UserVerifierErrorCode.TOKEN_INVALID),org.kaaproject.kaa.server.sync.UserVerifierErrorCode.TOKEN_INVALID);
+  Assert.assertEquals(EntityConvertUtils.toErrorCode(UserVerifierErrorCode.TOKEN_EXPIRED),org.kaaproject.kaa.server.sync.UserVerifierErrorCode.TOKEN_EXPIRED);
+  Assert.assertEquals(EntityConvertUtils.toErrorCode(UserVerifierErrorCode.INTERNAL_ERROR),org.kaaproject.kaa.server.sync.UserVerifierErrorCode.INTERNAL_ERROR);
+  Assert.assertEquals(EntityConvertUtils.toErrorCode(UserVerifierErrorCode.CONNECTION_ERROR),org.kaaproject.kaa.server.sync.UserVerifierErrorCode.CONNECTION_ERROR);
+  Assert.assertEquals(EntityConvertUtils.toErrorCode(UserVerifierErrorCode.REMOTE_ERROR),org.kaaproject.kaa.server.sync.UserVerifierErrorCode.REMOTE_ERROR);
+  Assert.assertEquals(EntityConvertUtils.toErrorCode(UserVerifierErrorCode.OTHER),org.kaaproject.kaa.server.sync.UserVerifierErrorCode.OTHER);
+}

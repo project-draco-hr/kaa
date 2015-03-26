@@ -1,0 +1,7 @@
+{
+  Assert.assertEquals(EntityConvertUtils.toErrorCode((LogDeliveryErrorCode)null),null);
+  Assert.assertEquals(EntityConvertUtils.toErrorCode(LogDeliveryErrorCode.APPENDER_INTERNAL_ERROR),org.kaaproject.kaa.server.sync.LogDeliveryErrorCode.APPENDER_INTERNAL_ERROR);
+  Assert.assertEquals(EntityConvertUtils.toErrorCode(LogDeliveryErrorCode.NO_APPENDERS_CONFIGURED),org.kaaproject.kaa.server.sync.LogDeliveryErrorCode.NO_APPENDERS_CONFIGURED);
+  Assert.assertEquals(EntityConvertUtils.toErrorCode(LogDeliveryErrorCode.REMOTE_CONNECTION_ERROR),org.kaaproject.kaa.server.sync.LogDeliveryErrorCode.REMOTE_CONNECTION_ERROR);
+  Assert.assertEquals(EntityConvertUtils.toErrorCode(LogDeliveryErrorCode.REMOTE_INTERNAL_ERROR),org.kaaproject.kaa.server.sync.LogDeliveryErrorCode.REMOTE_INTERNAL_ERROR);
+}
