@@ -1,8 +1,0 @@
-{
-  List<Topic> topics=Collections.emptyList();
-  LOG.debug("Find vacant topics for endpoint group with id {}",groupId);
-  if (isNotBlank(groupId)) {
-    topics=findListByCriterionWithAlias(ENDPOINT_GROUPS_PROPERTY,ENDPOINT_GROUP_ALIAS,JoinType.LEFT_OUTER_JOIN,Restrictions.or(Restrictions.ne(ENDPOINT_GROUP_REFERENCE,Long.valueOf(groupId)),Restrictions.isNull(ENDPOINT_GROUP_REFERENCE)));
-  }
-  return topics;
-}

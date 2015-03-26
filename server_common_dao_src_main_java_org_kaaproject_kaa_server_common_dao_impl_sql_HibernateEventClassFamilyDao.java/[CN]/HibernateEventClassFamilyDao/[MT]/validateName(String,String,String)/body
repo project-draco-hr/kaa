@@ -1,5 +1,5 @@
 {
-  LOG.debug("Validate name, tenant id [{}], ecf id [{}], name [{}]",tenantId,ecfId,name);
+  LOG.debug("Validating by tenant id [{}], ecf id [{}], name [{}]",tenantId,ecfId,name);
   Criteria criteria=getCriteria();
   criteria.createAlias(TENANT_PROPERTY,TENANT_ALIAS);
   criteria.add(Restrictions.and(Restrictions.eq(TENANT_REFERENCE,Long.valueOf(tenantId)),Restrictions.eq(NAME_PROPERTY,name)));
@@ -7,5 +7,7 @@
     criteria=criteria.add(Restrictions.ne(ID_PROPERTY,Long.valueOf(ecfId)));
   }
   List<EventClassFamily> eventClassFamilies=findListByCriteria(criteria);
-  return eventClassFamilies == null || eventClassFamilies.isEmpty();
+  boolean result=eventClassFamilies == null || eventClassFamilies.isEmpty();
+  LOG.debug("[{},{},{}] Validating result: {}",tenantId,ecfId,name,result);
+  return result;
 }
