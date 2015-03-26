@@ -1,7 +1,14 @@
 {
-  LOG.debug("Find applicationEventFamilyMap by eventClassFamilyId id [{}] and version {} ",ecfId,version);
+  LOG.debug("Searching application event family maps by event class family id [{}] and version [{}] ",ecfId,version);
   Criteria criteria=getCriteria();
   criteria.createAlias(ECF_PROPERTY,ECF_ALIAS);
   criteria.add(Restrictions.and(Restrictions.eq(ECF_REFERENCE,Long.valueOf(ecfId)),Restrictions.eq(VERSION_PROPERTY,version)));
-  return findListByCriteria(criteria);
+  List<ApplicationEventFamilyMap> maps=findListByCriteria(criteria);
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{},{}] Search result: {}.",ecfId,version,Arrays.toString(maps.toArray()));
+  }
+ else {
+    LOG.debug("[{},{}] Search result: {}.",ecfId,version,maps.size());
+  }
+  return maps;
 }

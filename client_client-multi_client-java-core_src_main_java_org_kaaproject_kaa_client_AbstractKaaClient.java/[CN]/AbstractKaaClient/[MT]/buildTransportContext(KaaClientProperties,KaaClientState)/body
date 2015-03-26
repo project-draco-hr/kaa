@@ -1,0 +1,18 @@
+{
+  BootstrapTransport bootstrapTransport=buildBootstrapTransport(properties,kaaClientState);
+  ProfileTransport profileTransport=buildProfileTransport(properties,kaaClientState);
+  EventTransport eventTransport=buildEventTransport(properties,kaaClientState);
+  NotificationTransport notificationTransport=buildNotificationTransport(properties,kaaClientState);
+  ConfigurationTransport configurationTransport=buildConfigurationTransport(properties,kaaClientState);
+  UserTransport userTransport=buildUserTransport(properties,kaaClientState);
+  RedirectionTransport redirectionTransport=buildRedirectionTransport(properties,kaaClientState);
+  LogTransport logTransport=buildLogTransport(properties,kaaClientState);
+  MetaDataTransport mdTransport=new DefaultMetaDataTransport();
+  EndpointObjectHash publicKeyHash=EndpointObjectHash.fromSHA1(kaaClientState.getPublicKey().getEncoded());
+  mdTransport=new DefaultMetaDataTransport();
+  mdTransport.setClientProperties(properties);
+  mdTransport.setClientState(kaaClientState);
+  mdTransport.setEndpointPublicKeyhash(publicKeyHash);
+  mdTransport.setTimeout(LONG_POLL_TIMEOUT);
+  return new TransportContext(mdTransport,bootstrapTransport,profileTransport,eventTransport,notificationTransport,configurationTransport,userTransport,redirectionTransport,logTransport);
+}

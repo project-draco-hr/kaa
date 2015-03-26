@@ -1,0 +1,8 @@
+{
+  kaaTcpExceptionHandler.exceptionCaught(ctx,new Exception("Internal error occurred"));
+  verify(ctx).writeAndFlush(any(Object.class));
+  ArgumentCaptor<byte[]> argumentCaptor=ArgumentCaptor.forClass(byte[].class);
+  verify(ctx).writeAndFlush(argumentCaptor.capture());
+  Assert.assertTrue(Arrays.equals(argumentCaptor.getValue(),getMessageByteArrayForReason(DisconnectReason.INTERNAL_ERROR)));
+  verify(ctx).close();
+}

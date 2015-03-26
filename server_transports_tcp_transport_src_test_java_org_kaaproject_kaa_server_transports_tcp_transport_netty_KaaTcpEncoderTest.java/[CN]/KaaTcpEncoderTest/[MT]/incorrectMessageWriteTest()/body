@@ -1,0 +1,5 @@
+{
+  Object msg=new Object();
+  encoder.write(ctx,msg,promise);
+  verify(ctx,never()).writeAndFlush(any(Object.class),any(ChannelPromise.class));
+}

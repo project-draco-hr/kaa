@@ -1,12 +1,14 @@
 {
-  LOG.debug("Find event class families by tenant id [{}] ",tenantId);
+  LOG.debug("Searching event class families by tenant id [{}] ",tenantId);
   List<EventClassFamily> eventClassFamilies=Collections.emptyList();
   if (isNotBlank(tenantId)) {
     eventClassFamilies=findListByCriterionWithAlias(TENANT_PROPERTY,TENANT_ALIAS,Restrictions.eq(TENANT_REFERENCE,Long.valueOf(tenantId)));
   }
-  LOG.info("Found event class families {} by tenant id {} ",eventClassFamilies.size(),tenantId);
-  if (LOG.isDebugEnabled()) {
-    LOG.debug("Found event class families {} by tenant id {} ",Arrays.toString(eventClassFamilies.toArray()),tenantId);
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{}] Search result: {}.",tenantId,Arrays.toString(eventClassFamilies.toArray()));
+  }
+ else {
+    LOG.debug("[{}] Search result: {}.",tenantId,eventClassFamilies.size());
   }
   return eventClassFamilies;
 }

@@ -1,9 +1,14 @@
 {
   Configuration configuration=null;
-  LOG.debug("Find configuration by endpoint group id {} and major version {}",groupId,version);
+  LOG.debug("Searching configuration by endpoint group id [{}] and major version [{}]",groupId,version);
   if (isNotBlank(groupId)) {
     configuration=findOneByCriterionWithAlias(ENDPOINT_GROUP_PROPERTY,ENDPOINT_GROUP_ALIAS,Restrictions.and(Restrictions.eq(ENDPOINT_GROUP_REFERENCE,Long.valueOf(groupId)),Restrictions.eq(MAJOR_VERSION_PROPERTY,version),Restrictions.eq(STATUS_PROPERTY,UpdateStatus.ACTIVE)));
   }
-  LOG.debug("Found configuration {} by endpoint group id {} and major version {}",configuration,groupId,version);
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{},{}] Search result: {}.",groupId,version,configuration);
+  }
+ else {
+    LOG.debug("[{},{}] Search result: {}.",groupId,version,configuration != null);
+  }
   return configuration;
 }

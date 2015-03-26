@@ -1,29 +1,31 @@
 {
   LOG.info("Resizing storage. CurBlockSize: {}, newBlockSize: {}",maxBucketSize,newBucketSize);
-  Iterator<Bucket> bucketIt=buckets.iterator();
-  List<Bucket> resizedBuckets=new LinkedList<>();
-  Bucket resizedBucket=new Bucket(newBucketSize);
-  while (bucketIt.hasNext()) {
-    Bucket bucket=bucketIt.next();
-    if (!bucket.isUsed()) {
-      Iterator<LogRecord> recordIt=bucket.getRecords().iterator();
-      while (recordIt.hasNext()) {
-        LogRecord record=recordIt.next();
-        boolean isPushed=resizedBucket.tryPushRecord(record);
-        if (!isPushed) {
-          resizedBuckets.add(resizedBucket);
-          resizedBucket=new Bucket(newBucketSize);
-          resizedBucket.tryPushRecord(record);
+synchronized (buckets) {
+    Iterator<Bucket> bucketIt=buckets.iterator();
+    List<Bucket> resizedBuckets=new LinkedList<>();
+    Bucket resizedBucket=new Bucket(newBucketSize);
+    while (bucketIt.hasNext()) {
+      Bucket bucket=bucketIt.next();
+      if (!bucket.isUsed()) {
+        Iterator<LogRecord> recordIt=bucket.getRecords().iterator();
+        while (recordIt.hasNext()) {
+          LogRecord record=recordIt.next();
+          boolean isPushed=resizedBucket.tryPushRecord(record);
+          if (!isPushed) {
+            resizedBuckets.add(resizedBucket);
+            resizedBucket=new Bucket(newBucketSize);
+            resizedBucket.tryPushRecord(record);
+          }
         }
+        bucketIt.remove();
       }
-      bucketIt.remove();
     }
-  }
-  if (resizedBucket.getConsumedSize() > 0) {
-    resizedBuckets.add(resizedBucket);
-  }
-  if (!resizedBuckets.isEmpty()) {
-    buckets.addAll(resizedBuckets);
+    if (resizedBucket.getConsumedSize() > 0) {
+      resizedBuckets.add(resizedBucket);
+    }
+    if (!resizedBuckets.isEmpty()) {
+      buckets.addAll(resizedBuckets);
+    }
   }
   maxBucketSize=newBucketSize;
 }

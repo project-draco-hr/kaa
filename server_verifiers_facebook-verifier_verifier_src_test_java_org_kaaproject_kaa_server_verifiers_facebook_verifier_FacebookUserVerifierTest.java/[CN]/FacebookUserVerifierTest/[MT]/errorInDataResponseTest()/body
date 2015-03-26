@@ -1,0 +1,10 @@
+{
+  String userId="12456789123456";
+  verifier=new MyFacebookVerifier(200,"{" + "\"data\":{" + "\"app_id\":\"1557997434440423\","+ "\"application\":\"testApp\","+ "\"expires_at\":1422990000,"+ "\"is_valid\":true,"+ "\"scopes\":["+ "\"public_profile\""+ "],"+ "\"user_id\":134,"+ "\"error\":{"+ "\"message\":\"Message describing the error\","+ "\"code\":111}}}");
+  verifier.init(null,config);
+  verifier.start();
+  UserVerifierCallback callback=mock(UserVerifierCallback.class);
+  verifier.checkAccessToken(userId,"someToken",callback);
+  verify(callback,Mockito.timeout(1000)).onTokenInvalid();
+  verifier.stop();
+}

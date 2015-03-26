@@ -9,7 +9,6 @@
   }
   if (!isFirstResponseReceived) {
     LOG.info("Can't sync. Channel [{}] is waiting for CONNACK + KAASYNC message",getId());
-    isPendingSyncRequest=true;
     return;
   }
   LOG.info("Processing sync all for channel [{}]",getId());

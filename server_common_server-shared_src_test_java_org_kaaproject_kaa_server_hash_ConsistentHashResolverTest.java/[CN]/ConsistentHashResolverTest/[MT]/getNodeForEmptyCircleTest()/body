@@ -1,0 +1,5 @@
+{
+  ConsistentHashResolver consistentHashResolver=new ConsistentHashResolver(new ArrayList<OperationsNodeInfo>(),5);
+  OperationsNodeInfo info=consistentHashResolver.getNode("userId");
+  Assert.assertNull(info);
+}

@@ -1,7 +1,8 @@
 {
   KaaClientPropertiesState state=new KaaClientPropertiesState(new FilePersistentStorage(),CommonsBase64.getInstance(),KaaClientPropertiesStateTest.getProperties());
   EventTransport transport=Mockito.mock(EventTransport.class);
-  EventManager eventManager=new DefaultEventManager(state,transport);
+  ExecutorContext executorContext=Mockito.mock(ExecutorContext.class);
+  EventManager eventManager=new DefaultEventManager(state,executorContext,transport);
   List<String> eventFQNs=new ArrayList<String>();
   eventFQNs.add("eventFQN1");
   FindEventListenersCallback fetchListener=mock(FindEventListenersCallback.class);

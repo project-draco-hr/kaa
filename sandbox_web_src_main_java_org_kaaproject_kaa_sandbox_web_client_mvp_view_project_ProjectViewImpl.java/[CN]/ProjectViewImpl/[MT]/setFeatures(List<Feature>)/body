@@ -1,11 +1,19 @@
 {
-  for (  Feature feature : features) {
-    Image image=new Image(Utils.getFeatureIcon(feature,false));
+  for (int i=0; i < features.size(); i++) {
+    Feature feature=features.get(i);
+    Image image=new Image(Utils.getFeatureIcon(feature));
+    image.setTitle(Utils.getFeatureText(feature));
+    image.getElement().getStyle().setVerticalAlign(VerticalAlign.MIDDLE);
     Label label=new Label(Utils.getFeatureText(feature));
     featuresPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+    featuresPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
     featuresPanel.add(image);
+    featuresPanel.setCellWidth(image,"32px");
+    featuresPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
     featuresPanel.add(label);
-    label.getElement().getStyle().setPaddingRight(15,Unit.PX);
+    if (i < features.size() - 1) {
+      label.getElement().getStyle().setPaddingRight(10,Unit.PX);
+    }
     label.getElement().getStyle().setPaddingLeft(8,Unit.PX);
   }
 }

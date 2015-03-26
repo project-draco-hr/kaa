@@ -1,3 +1,3 @@
 {
-  restTemplate.postForLocation(url + "activateConfiguration",configurationId);
+  return restTemplate.postForObject(url + "activateConfiguration",configurationId,ConfigurationDto.class);
 }

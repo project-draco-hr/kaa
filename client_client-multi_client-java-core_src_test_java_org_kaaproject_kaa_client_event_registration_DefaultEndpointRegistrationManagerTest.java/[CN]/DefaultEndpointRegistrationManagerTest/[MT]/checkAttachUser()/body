@@ -1,8 +1,9 @@
 {
+  ExecutorContext executorContext=Mockito.mock(ExecutorContext.class);
   KaaClientState state=mock(KaaClientState.class);
   when(state.getEndpointAccessToken()).thenReturn("");
   UserTransport transport=mock(UserTransport.class);
-  EndpointRegistrationManager manager=new DefaultEndpointRegistrationManager(state,transport,null);
+  EndpointRegistrationManager manager=new DefaultEndpointRegistrationManager(state,executorContext,transport,null);
   manager.attachUser("externalId","userExternalId","userAccessToken",new UserAttachCallback(){
     @Override public void onAttachResult(    UserAttachResponse response){
     }

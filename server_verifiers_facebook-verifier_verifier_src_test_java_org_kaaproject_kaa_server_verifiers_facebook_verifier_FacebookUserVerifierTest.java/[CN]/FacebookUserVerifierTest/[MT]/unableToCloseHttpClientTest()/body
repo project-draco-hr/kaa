@@ -1,0 +1,15 @@
+{
+  verifier=new FacebookUserVerifier();
+  verifier.init(null,config);
+  verifier.start();
+  CloseableHttpClient httpClientMock=mock(CloseableHttpClient.class);
+  doThrow(new IOException()).when(httpClientMock).close();
+  ReflectionTestUtils.setField(verifier,"httpClient",httpClientMock);
+  Logger LOG=mock(Logger.class);
+  Field logField=FacebookUserVerifier.class.getDeclaredField("LOG");
+  setFinalStatic(logField,LOG);
+  UserVerifierCallback callback=mock(UserVerifierCallback.class);
+  verifier.checkAccessToken("id","token",callback);
+  verifier.stop();
+  Mockito.verify(callback,Mockito.timeout(1000)).onInternalError(any(String.class));
+}

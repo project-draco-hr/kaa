@@ -4,7 +4,7 @@
   if (configurationRecord != null) {
     GenericRecord record=FormAvroConverter.createGenericRecordFromRecordField(configurationRecord);
     GenericAvroConverter<GenericRecord> converter=new GenericAvroConverter<>(record.getSchema());
-    body=converter.endcodeToJson(record);
+    body=converter.encodeToJson(record);
   }
   ConfigurationDto result=new ConfigurationDto(configuration);
   result.setBody(body);

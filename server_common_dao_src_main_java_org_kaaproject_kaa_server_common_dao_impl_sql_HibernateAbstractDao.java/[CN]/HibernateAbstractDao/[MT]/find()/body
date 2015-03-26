@@ -1,7 +1,13 @@
 {
   List<T> resultList=getCriteria().list();
-  if (LOG.isDebugEnabled() && resultList != null) {
-    LOG.debug("Found {} entities: [{}] ",getSimpleClassName(),Arrays.toString(resultList.toArray()));
+  if (resultList == null) {
+    resultList=Collections.emptyList();
+  }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("Search result: {}.",Arrays.toString(resultList.toArray()));
+  }
+ else {
+    LOG.debug("Search result: {}.",resultList.size());
   }
   return resultList;
 }

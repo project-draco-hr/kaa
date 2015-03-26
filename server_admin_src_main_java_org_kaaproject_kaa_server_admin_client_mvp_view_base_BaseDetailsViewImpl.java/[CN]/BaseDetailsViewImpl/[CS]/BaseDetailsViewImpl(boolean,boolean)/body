@@ -24,7 +24,6 @@
   if (!create) {
     detailsTable.getColumnFormatter().setWidth(2,"300px");
   }
-  initDetailsTable();
   saveButton.addClickHandler(new ClickHandler(){
     @Override public void onClick(    ClickEvent event){
       updateSaveButton(false,false);
@@ -34,5 +33,6 @@
 );
   saveButton.setVisible(editable);
   requiredFieldsNoteLabel.setVisible(editable);
+  initDetailsTable();
   clearError();
 }

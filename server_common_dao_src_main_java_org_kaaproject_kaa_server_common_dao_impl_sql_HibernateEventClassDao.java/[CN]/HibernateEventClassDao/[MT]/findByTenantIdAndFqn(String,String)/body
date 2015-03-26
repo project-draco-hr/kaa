@@ -1,8 +1,14 @@
 {
-  LOG.debug("Find event classes by tenant id [{}] and fqn [{}]",tenantId,fqn);
-  List<EventClass> eventClass=null;
+  LOG.debug("Searching event classes by tenant id [{}] and fqn [{}]",tenantId,fqn);
+  List<EventClass> eventClasses=Collections.emptyList();
   if (isNotBlank(tenantId)) {
-    eventClass=findListByCriterionWithAlias(TENANT_PROPERTY,TENANT_ALIAS,Restrictions.and(Restrictions.eq(TENANT_REFERENCE,Long.valueOf(tenantId)),Restrictions.eq(FQN_PROPERTY,fqn)));
+    eventClasses=findListByCriterionWithAlias(TENANT_PROPERTY,TENANT_ALIAS,Restrictions.and(Restrictions.eq(TENANT_REFERENCE,Long.valueOf(tenantId)),Restrictions.eq(FQN_PROPERTY,fqn)));
   }
-  return eventClass;
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{},{}] Search result: {}.",tenantId,fqn,Arrays.toString(eventClasses.toArray()));
+  }
+ else {
+    LOG.debug("[{},{}] Search result: {}.",tenantId,fqn,eventClasses.size());
+  }
+  return eventClasses;
 }

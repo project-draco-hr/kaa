@@ -1,0 +1,11 @@
+{
+  KaaClientProperties properties=Mockito.mock(KaaClientProperties.class);
+  ConfigurationStorage storage=Mockito.mock(ConfigurationStorage.class);
+  ResyncConfigurationManager manager=new ResyncConfigurationManager(properties);
+  manager.setConfigurationStorage(storage);
+  Mockito.when(properties.getDefaultConfigData()).thenReturn(configurationData);
+  Mockito.when(storage.loadConfiguration()).thenReturn(ByteBuffer.wrap(configurationData));
+  Assert.assertNotNull(manager.getConfiguration());
+  Mockito.verify(storage).loadConfiguration();
+  Mockito.verify(properties,Mockito.never()).getDefaultConfigData();
+}
