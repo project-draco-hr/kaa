@@ -1,0 +1,6 @@
+{
+  MqttFrame msg=mock(MqttFrame.class);
+  when(msg.getFrame()).thenReturn(ByteBuffer.allocate(10));
+  when(msg.isNeedCloseConnection()).thenReturn(closeConnection);
+  return msg;
+}

@@ -1,0 +1,6 @@
+{
+  defaultExceptionHandler.exceptionCaught(ctx,new Exception("Non-bad request"));
+  ArgumentCaptor<FullHttpResponse> response=ArgumentCaptor.forClass(FullHttpResponse.class);
+  verify(ctx).writeAndFlush(response.capture());
+  Assert.assertEquals(response.getValue().getStatus(),HttpResponseStatus.INTERNAL_SERVER_ERROR);
+}
