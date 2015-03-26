@@ -1,0 +1,8 @@
+{
+  Topic topic=null;
+  LOG.debug("Find topics by application id {} and name",appId,topicName);
+  if (isNotBlank(appId) && isNotBlank(topicName)) {
+    topic=findOneByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.and(Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(appId)),Restrictions.eq(TOPIC_NAME,topicName)));
+  }
+  return topic;
+}
