@@ -2,7 +2,7 @@
   logger.info("Loading 'Configuration demo application' data...");
   loginTenantAdmin(client);
   ApplicationDto configurationApplication=new ApplicationDto();
-  configurationApplication.setName("Configuration");
+  configurationApplication.setName("Configuration demo");
   configurationApplication=client.editApplication(configurationApplication);
   sdkKey.setApplicationId(configurationApplication.getId());
   sdkKey.setProfileSchemaVersion(1);
@@ -43,17 +43,5 @@
   logger.info("Activating the configuration");
   client.activateConfiguration(baseConfiguration.getId());
   logger.info("Configuration was activated");
-  TrustfulVerifierConfig trustfulVerifierConfig=new TrustfulVerifierConfig();
-  UserVerifierDto trustfulUserVerifier=new UserVerifierDto();
-  trustfulUserVerifier.setApplicationId(configurationApplication.getId());
-  trustfulUserVerifier.setName("Trustful verifier");
-  trustfulUserVerifier.setPluginClassName(trustfulVerifierConfig.getPluginClassName());
-  trustfulUserVerifier.setPluginTypeName(trustfulVerifierConfig.getPluginTypeName());
-  RawSchema rawSchema=new RawSchema(trustfulVerifierConfig.getPluginConfigSchema().toString());
-  DefaultRecordGenerationAlgorithm<RawData> algotithm=new DefaultRecordGenerationAlgorithmImpl<>(rawSchema,new RawDataFactory());
-  RawData rawData=algotithm.getRootData();
-  trustfulUserVerifier.setJsonConfiguration(rawData.getRawData());
-  trustfulUserVerifier=client.editUserVerifierDto(trustfulUserVerifier);
-  sdkKey.setDefaultVerifierToken(trustfulUserVerifier.getVerifierToken());
   logger.info("Finished loading 'Configuration demo application' data...");
 }
