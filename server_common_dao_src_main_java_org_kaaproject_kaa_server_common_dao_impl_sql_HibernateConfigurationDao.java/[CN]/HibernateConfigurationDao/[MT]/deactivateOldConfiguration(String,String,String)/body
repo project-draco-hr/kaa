@@ -1,19 +1,20 @@
 {
-  LOG.debug("Deactivate old configuration, by configuration schema id [{}] and endpoint group id [{}] ",schemaId,groupId);
+  LOG.debug("Deactivating old configurations by configuration schema id [{}] and endpoint group id [{}] ",schemaId,groupId);
   Configuration configuration=null;
   if (isNotBlank(schemaId) && isNotBlank(groupId)) {
-    Criteria cr=getCriteria();
-    cr.createAlias(CONFIGURATION_SCHEMA_PROPERTY,CONFIGURATION_SCHEMA_ALIAS);
-    cr.createAlias(ENDPOINT_GROUP_PROPERTY,ENDPOINT_GROUP_ALIAS);
-    Criterion crit=Restrictions.and(Restrictions.eq(ENDPOINT_GROUP_REFERENCE,Long.valueOf(groupId)),Restrictions.eq(CONFIGURATION_SCHEMA_REFERENCE,Long.valueOf(schemaId)),Restrictions.eq(STATUS_PROPERTY,UpdateStatus.ACTIVE));
-    configuration=(Configuration)cr.add(crit).uniqueResult();
+    Criteria criteria=getCriteria();
+    criteria.createAlias(CONFIGURATION_SCHEMA_PROPERTY,CONFIGURATION_SCHEMA_ALIAS);
+    criteria.createAlias(ENDPOINT_GROUP_PROPERTY,ENDPOINT_GROUP_ALIAS);
+    Criterion criterion=Restrictions.and(Restrictions.eq(ENDPOINT_GROUP_REFERENCE,Long.valueOf(groupId)),Restrictions.eq(CONFIGURATION_SCHEMA_REFERENCE,Long.valueOf(schemaId)),Restrictions.eq(STATUS_PROPERTY,UpdateStatus.ACTIVE));
+    criteria.add(criterion);
+    configuration=findOneByCriteria(criteria);
     if (configuration != null) {
-      configuration.setDeactivatedUsername(deactivatedUsername);
+      configuration.setDeactivatedUsername(username);
       configuration.setDeactivatedTime(System.currentTimeMillis());
       configuration.setStatus(UpdateStatus.DEPRECATED);
       save(configuration);
     }
   }
-  LOG.debug("Deactivated old configuration {} by configuration schema id {} and group id {} ",configuration,schemaId,groupId);
+  LOG.debug("[{},{},{}] Configuration deactivated.",schemaId,groupId,username);
   return configuration;
 }

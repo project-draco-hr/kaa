@@ -1,5 +1,7 @@
 {
-  LOG.debug("Remove application by application token [{}] ",token);
-  Application app=findOneByCriterion(Restrictions.eq(APPLICATION_TOKEN_PROPERTY,token));
-  remove(app);
+  Application app=findByApplicationToken(token);
+  if (app != null) {
+    remove(app);
+  }
+  LOG.debug("Removed application by application token [{}] ",token);
 }

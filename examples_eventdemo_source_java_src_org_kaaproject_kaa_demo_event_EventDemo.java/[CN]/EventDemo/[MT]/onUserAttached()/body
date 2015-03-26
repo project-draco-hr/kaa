@@ -1,0 +1,38 @@
+{
+  List<String> listenerFQNs=new LinkedList<>();
+  listenerFQNs.add(ThermostatInfoRequest.class.getName());
+  listenerFQNs.add(ChangeDegreeRequest.class.getName());
+  final EventFamilyFactory eventFamilyFactory=kaaClient.getEventFamilyFactory();
+  final ThermostatEventClassFamily tecf=eventFamilyFactory.getThermostatEventClassFamily();
+  tecf.sendEventToAll(new ChangeDegreeRequest(10));
+  LOG.info("Broadcast ChangeDegreeRequest sent");
+  tecf.addListener(new ThermostatEventClassFamily.Listener(){
+    @Override public void onEvent(    ChangeDegreeRequest changeDegreeRequest,    String senderId){
+      LOG.info("ChangeDegreeRequest event received! change temperature by {} degrees, sender: {}",changeDegreeRequest.getDegree(),senderId);
+    }
+    @Override public void onEvent(    ThermostatInfoResponse thermostatInfoResponse,    String senderId){
+      LOG.info("ThermostatInfoResponse event received! thermostat info: {}, sender: {}",thermostatInfoResponse.getThermostatInfo(),senderId);
+    }
+    @Override public void onEvent(    ThermostatInfoRequest thermostatInfoRequest,    String senderId){
+      LOG.info("ThermostatInfoRequest event received! sender: {}",senderId);
+      tecf.sendEvent(new ThermostatInfoResponse(new ThermostatInfo(20,10,true)),senderId);
+    }
+  }
+);
+  kaaClient.findEventListeners(listenerFQNs,new FindEventListenersCallback(){
+    @Override public void onEventListenersReceived(    List<String> eventListeners){
+      LOG.info("{} event listeners received",eventListeners.size());
+      for (      String listener : eventListeners) {
+        TransactionId trxId=eventFamilyFactory.startEventsBlock();
+        tecf.addEventToBlock(trxId,new ThermostatInfoRequest(),listener);
+        tecf.addEventToBlock(trxId,new ChangeDegreeRequest(-30),listener);
+        eventFamilyFactory.submitEventsBlock(trxId);
+        LOG.info("ThermostatInfoRequest & ChangeDegreeRequest sent to endpoint with id {}",listener);
+      }
+    }
+    @Override public void onRequestFailed(){
+      LOG.info("Request failed");
+    }
+  }
+);
+}

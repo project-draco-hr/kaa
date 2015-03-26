@@ -1,11 +1,17 @@
 {
-  LOG.debug("Deactivate profile filter, found by id [{}] ",id);
+  LOG.debug("Deactivating profile filter with id [{}] ",id);
   ProfileFilter filter=findById(id);
   if (filter != null) {
     filter.setStatus(UpdateStatus.DEPRECATED);
     filter.setDeactivatedTime(System.currentTimeMillis());
-    filter.setDeactivatedUsername(deactivatedUsername);
-    save(filter);
+    filter.setDeactivatedUsername(username);
+    filter=save(filter);
+  }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{},{}] Deactivating result: {}.",id,username,filter);
+  }
+ else {
+    LOG.debug("[{},{}] Deactivating result: {}.",id,username,filter != null);
   }
   return filter;
 }

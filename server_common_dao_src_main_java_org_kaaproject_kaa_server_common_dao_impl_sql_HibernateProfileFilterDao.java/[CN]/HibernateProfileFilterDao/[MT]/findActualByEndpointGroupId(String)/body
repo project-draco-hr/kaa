@@ -1,8 +1,14 @@
 {
-  LOG.debug("Find actual profile filters by endpoint group id [{}] ",groupId);
+  LOG.debug("Searching actual profile filters by endpoint group id [{}] ",groupId);
   List<ProfileFilter> filters=Collections.emptyList();
   if (isNotBlank(groupId)) {
     filters=findListByCriterionWithAlias(ENDPOINT_GROUP_PROPERTY,ENDPOINT_GROUP_ALIAS,Restrictions.and(Restrictions.eq(ENDPOINT_GROUP_REFERENCE,Long.valueOf(groupId)),Restrictions.ne(STATUS_PROPERTY,UpdateStatus.DEPRECATED)));
+  }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{}] Search result: {}.",groupId,Arrays.toString(filters.toArray()));
+  }
+ else {
+    LOG.debug("[{}] Search result: {}.",groupId,filters.size());
   }
   return filters;
 }
