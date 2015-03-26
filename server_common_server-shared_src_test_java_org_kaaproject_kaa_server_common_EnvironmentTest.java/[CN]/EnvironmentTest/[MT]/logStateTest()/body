@@ -1,0 +1,7 @@
+{
+  Logger LOG=mock(Logger.class);
+  Field logField=Environment.class.getDeclaredField("LOG");
+  setFinalStatic(logField,LOG);
+  Environment.logState();
+  verify(LOG,atLeastOnce()).info(any(String.class),any(Version.class),any(Version.class));
+}

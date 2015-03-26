@@ -1,0 +1,10 @@
+{
+  EndpointProfileDto endpointProfileDto=new EndpointProfileDto();
+  byte[] data=new byte[256];
+  for (int i=0; i < data.length; i++) {
+    data[i]=(byte)i;
+  }
+  endpointProfileDto.setEndpointKeyHash(data);
+  String encoded=Base64Util.encode(endpointProfileDto);
+  Assert.assertEquals(encoded,Base64.encodeBase64String(data));
+}

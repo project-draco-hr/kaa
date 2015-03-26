@@ -1,0 +1,8 @@
+{
+  int result=userAttachResponse != null ? userAttachResponse.hashCode() : 0;
+  result=31 * result + (userAttachNotification != null ? userAttachNotification.hashCode() : 0);
+  result=31 * result + (userDetachNotification != null ? userDetachNotification.hashCode() : 0);
+  result=31 * result + (endpointAttachResponses != null ? endpointAttachResponses.hashCode() : 0);
+  result=31 * result + (endpointDetachResponses != null ? endpointDetachResponses.hashCode() : 0);
+  return result;
+}

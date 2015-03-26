@@ -38,7 +38,7 @@
       }
     }
   }
- catch (  GetDeltaException e) {
+ catch (  Exception e) {
     LOG.error("[{}][{}] processEndpointRequest",endpointKey,actorKey,e);
     sendReply(context,requestMessage,e);
   }

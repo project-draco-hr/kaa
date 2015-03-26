@@ -1,0 +1,6 @@
+{
+  ServerSync serverSync=new ServerSync(1,SyncStatus.SUCCESS,profileServerSync,configurationServerSync,notificationServerSync,userServerSync,eventServerSync,redirectServerSync,logServerSync);
+  ServerSync serverSyncCopy=ServerSync.deepCopy(serverSync);
+  Assert.assertEquals(serverSync,serverSyncCopy);
+  Assert.assertFalse(serverSync == serverSyncCopy);
+}

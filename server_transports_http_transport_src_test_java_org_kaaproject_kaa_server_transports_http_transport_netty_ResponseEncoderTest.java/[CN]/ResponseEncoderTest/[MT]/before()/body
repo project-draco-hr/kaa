@@ -1,0 +1,11 @@
+{
+  Channel channel=mock(Channel.class);
+  Attribute attribute=mock(Attribute.class);
+  HttpHeaders headers=mock(HttpHeaders.class);
+  when(response.headers()).thenReturn(headers);
+  when(response.getProtocolVersion()).thenReturn(new HttpVersion("HTTP/1.1",true));
+  when(channelHandlerContext.channel()).thenReturn(channel);
+  when(headers.get(any(CharSequence.class))).thenReturn(null);
+  when(channel.attr(AbstractNettyServer.UUID_KEY)).thenReturn(attribute);
+  when(abstractCommand.getResponse()).thenReturn(response);
+}

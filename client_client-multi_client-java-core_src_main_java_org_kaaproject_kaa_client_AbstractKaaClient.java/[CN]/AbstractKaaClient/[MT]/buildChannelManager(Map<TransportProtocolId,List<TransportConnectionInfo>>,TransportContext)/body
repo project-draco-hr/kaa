@@ -1,0 +1,24 @@
+{
+  KaaInternalChannelManager channelManager=new DefaultChannelManager(bootstrapManager,bootstrapServers);
+  channelManager.setConnectivityChecker(context.createConnectivityChecker());
+  DefaultBootstrapDataProcessor bootstrapDataProcessor=new DefaultBootstrapDataProcessor();
+  bootstrapDataProcessor.setBootstrapTransport(transportContext.getBootstrapTransport());
+  DefaultOperationDataProcessor operationsDataProcessor=new DefaultOperationDataProcessor();
+  operationsDataProcessor.setConfigurationTransport(transportContext.getConfigurationTransport());
+  operationsDataProcessor.setEventTransport(transportContext.getEventTransport());
+  operationsDataProcessor.setMetaDataTransport(transportContext.getMdTransport());
+  operationsDataProcessor.setNotificationTransport(transportContext.getNotificationTransport());
+  operationsDataProcessor.setProfileTransport(transportContext.getProfileTransport());
+  operationsDataProcessor.setRedirectionTransport(transportContext.getRedirectionTransport());
+  operationsDataProcessor.setUserTransport(transportContext.getUserTransport());
+  operationsDataProcessor.setLogTransport(transportContext.getLogTransport());
+  KaaDataChannel bootstrapChannel=new DefaultBootstrapChannel(this,kaaClientState);
+  bootstrapChannel.setMultiplexer(bootstrapDataProcessor);
+  bootstrapChannel.setDemultiplexer(bootstrapDataProcessor);
+  channelManager.addChannel(bootstrapChannel);
+  KaaDataChannel operationsChannel=new DefaultOperationTcpChannel(kaaClientState,channelManager);
+  operationsChannel.setMultiplexer(operationsDataProcessor);
+  operationsChannel.setDemultiplexer(operationsDataProcessor);
+  channelManager.addChannel(operationsChannel);
+  return channelManager;
+}
