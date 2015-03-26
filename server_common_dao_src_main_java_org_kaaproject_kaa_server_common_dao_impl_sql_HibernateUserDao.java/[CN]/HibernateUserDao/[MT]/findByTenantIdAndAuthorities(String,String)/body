@@ -1,13 +1,18 @@
 {
-  if (LOG.isDebugEnabled()) {
-    String authoritiesString="";
-    for (int i=0; i < authorities.length; i++) {
-      if (i > 0) {
-        authoritiesString+=", ";
-      }
-      authoritiesString+=authorities[i];
+  if (authorities != null) {
+    if (LOG.isTraceEnabled()) {
+      LOG.trace("Searching user by tenant id [{}] and authorities [{}]",id,Arrays.toString(authorities));
     }
-    LOG.debug("Find user by tenant id [{}] and authorities [{}]",id,authoritiesString);
+ else {
+      LOG.debug("Searching user by tenant id [{}] and authorities [{}]",id,authorities.length);
+    }
   }
-  return findListByCriterionWithAlias(TENANT_PROPERTY,TENANT_ALIAS,Restrictions.and(Restrictions.eq(TENANT_REFERENCE,Long.valueOf(id)),Restrictions.in(AUTHORITY_PROPERTY,KaaAuthorityDto.parseList(authorities))));
+  List<User> users=findListByCriterionWithAlias(TENANT_PROPERTY,TENANT_ALIAS,Restrictions.and(Restrictions.eq(TENANT_REFERENCE,Long.valueOf(id)),Restrictions.in(AUTHORITY_PROPERTY,KaaAuthorityDto.parseList(authorities))));
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{}] Search result: {}.",id,Arrays.toString(users.toArray()));
+  }
+ else {
+    LOG.debug("[{}] Search result: {}.",id,users.size());
+  }
+  return users;
 }

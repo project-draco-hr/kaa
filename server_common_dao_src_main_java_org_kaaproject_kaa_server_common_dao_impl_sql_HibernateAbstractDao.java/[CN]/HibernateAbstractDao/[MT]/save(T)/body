@@ -1,6 +1,11 @@
 {
-  Session session=getSession();
-  o=(T)session.merge(o);
-  LOG.debug("Saved {} entity: [{}] ",getSimpleClassName(),o);
+  LOG.debug("Saving {} entity {}",getEntityClass(),o);
+  o=(T)getSession().merge(o);
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("Saving result: {}",o);
+  }
+ else {
+    LOG.debug("Saving result: {}",o != null);
+  }
   return o;
 }

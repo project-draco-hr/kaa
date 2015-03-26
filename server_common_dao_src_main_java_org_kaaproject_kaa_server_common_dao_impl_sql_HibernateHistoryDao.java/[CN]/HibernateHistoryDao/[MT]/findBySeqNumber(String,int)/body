@@ -1,8 +1,14 @@
 {
   History history=null;
-  LOG.debug("Find history by application id {} and sequence number {}",appId,seqNum);
+  LOG.debug("Searching history by application id [{}] and sequence number [{}]",appId,seqNum);
   if (isNotBlank(appId)) {
     history=findOneByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.and(Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(appId)),Restrictions.eq(SEQUENCE_NUMBER_PROPERTY,seqNum)));
+  }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{},{}] Search result: {}.",appId,seqNum,history);
+  }
+ else {
+    LOG.debug("[{},{}] Search result: {}.",appId,seqNum,history != null);
   }
   return history;
 }

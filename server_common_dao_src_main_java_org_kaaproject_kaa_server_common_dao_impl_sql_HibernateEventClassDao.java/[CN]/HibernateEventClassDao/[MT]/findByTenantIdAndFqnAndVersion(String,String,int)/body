@@ -1,8 +1,14 @@
 {
-  LOG.debug("Find event classes by tenant id [{}] and fqn [{}]",tenantId,fqn);
+  LOG.debug("Searching event classes by tenant id [{}], fqn [{}] and version [{}]",tenantId,fqn,version);
   EventClass eventClass=null;
   if (isNotBlank(tenantId)) {
     eventClass=findOneByCriterionWithAlias(TENANT_PROPERTY,TENANT_ALIAS,Restrictions.and(Restrictions.eq(TENANT_REFERENCE,Long.valueOf(tenantId)),Restrictions.eq(FQN_PROPERTY,fqn),Restrictions.eq(VERSION_PROPERTY,version)));
+  }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{},{},{}] Search result: {}.",tenantId,fqn,version,eventClass);
+  }
+ else {
+    LOG.debug("[{},{},{}] Search result: {}.",tenantId,fqn,version,eventClass != null);
   }
   return eventClass;
 }

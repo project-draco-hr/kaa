@@ -1,10 +1,8 @@
 {
   String className=getSimpleClassName();
-  LOG.debug("Find {} entity by criterion [{}] ",className,criterion);
+  LOG.trace("Searching {} entity by criterion [{}] ",className,criterion);
   Criteria criteria=getCriteria();
   criteria.createAlias(path,alias);
   criteria.add(criterion);
-  T result=(T)criteria.uniqueResult();
-  LOG.debug("Found {} entity: [{}] ",className,result);
-  return result;
+  return (T)criteria.uniqueResult();
 }

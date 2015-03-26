@@ -1,6 +1,12 @@
 {
+  LOG.debug("Persisting {} entity {}",getEntityClass(),o);
   Session session=getSession();
   session.persist(o);
-  LOG.debug("Saved {} entity: [{}] ",getSimpleClassName(),o);
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("Persisting result: {}",o);
+  }
+ else {
+    LOG.debug("Persisting result: {}",o != null);
+  }
   return o;
 }

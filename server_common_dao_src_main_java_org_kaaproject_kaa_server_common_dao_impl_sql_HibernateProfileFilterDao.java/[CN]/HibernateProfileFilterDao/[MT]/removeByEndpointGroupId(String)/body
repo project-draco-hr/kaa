@@ -1,8 +1,8 @@
 {
-  LOG.debug("Remove profile filters by endpoint group id [{}] ",groupId);
   List<ProfileFilter> filters=Collections.emptyList();
   if (isNotBlank(groupId)) {
     filters=findListByCriterionWithAlias(ENDPOINT_GROUP_PROPERTY,ENDPOINT_GROUP_ALIAS,Restrictions.eq(ENDPOINT_GROUP_REFERENCE,Long.valueOf(groupId)));
   }
   removeList(filters);
+  LOG.debug("Removed profile filters by endpoint group id [{}] ",groupId);
 }
