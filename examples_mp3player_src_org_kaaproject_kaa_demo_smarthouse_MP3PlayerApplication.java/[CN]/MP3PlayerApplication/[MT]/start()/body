@@ -1,0 +1,13 @@
+{
+  LOG.info("Going to scan folder {}",rootPath);
+  library.scan();
+  LOG.info("Scan folder {} complete: {} mp3 files found",rootPath,library.getSize());
+  client.setEndpointAccessToken(accessCode);
+  EventFamilyFactory factory=client.getEventFamilyFactory();
+  factory.getDeviceEventClassFamily().addListener(this);
+  factory.getMusicEventClassFamily().addListener(this);
+  LOG.info("Going to start kaa client");
+  client.start();
+  statusUpdateThread=new StatusUpdateThread();
+  statusUpdateThread.start();
+}

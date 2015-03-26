@@ -1,6 +1,6 @@
 {
   long count=0;
-  LOG.debug("Find count of active profile filters by profile schema id {} and group id {} ",schemaId,groupId);
+  LOG.debug("Searching active profile filters by profile schema id [{}] and group id [{}]",schemaId,groupId);
   if (isNotBlank(schemaId) && isNotBlank(groupId)) {
     Criteria criteria=getCriteria();
     criteria.createAlias(PROFILE_SCHEMA_PROPERTY,PROFILE_SCHEMA_ALIAS);
@@ -8,5 +8,6 @@
     criteria.add(Restrictions.and(Restrictions.eq(ENDPOINT_GROUP_REFERENCE,Long.valueOf(groupId)),Restrictions.eq(PROFILE_SCHEMA_REFERENCE,Long.valueOf(schemaId)),Restrictions.eq(STATUS_PROPERTY,UpdateStatus.ACTIVE)));
     count=(Long)criteria.setProjection(Projections.rowCount()).uniqueResult();
   }
+  LOG.debug("[{},{},{}] Search result: {}.",schemaId,groupId,count);
   return count;
 }

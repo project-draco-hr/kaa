@@ -1,7 +1,5 @@
 {
   String className=getSimpleClassName();
-  LOG.debug("Find {} entity by criteria [{}] ",className,criteria);
-  T result=(T)criteria.uniqueResult();
-  LOG.debug("Found {} entity: [{}] ",className,result);
-  return result;
+  LOG.trace("Searching {} entity by criteria [{}] ",className,criteria);
+  return (T)criteria.uniqueResult();
 }

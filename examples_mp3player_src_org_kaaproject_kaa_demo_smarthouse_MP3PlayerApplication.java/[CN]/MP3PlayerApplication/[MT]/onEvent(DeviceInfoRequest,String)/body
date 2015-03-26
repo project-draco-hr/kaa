@@ -1,0 +1,5 @@
+{
+  LOG.info("Receieved info request {}",event);
+  DeviceEventClassFamily family=client.getEventFamilyFactory().getDeviceEventClassFamily();
+  family.sendEvent(new DeviceInfoResponse(new DeviceInfo(DeviceType.SOUND_SYSTEM,"Raspbery pi","UK")),originator);
+}

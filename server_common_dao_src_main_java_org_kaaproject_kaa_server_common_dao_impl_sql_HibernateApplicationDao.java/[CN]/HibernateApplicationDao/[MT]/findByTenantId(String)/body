@@ -1,12 +1,11 @@
 {
-  LOG.debug("Find applications by tenant id {}",tenantId);
-  List<Application> applications=Collections.emptyList();
-  if (isNotBlank(tenantId)) {
-    applications=findListByCriterionWithAlias(TENANT_PROPERTY,TENANT_ALIAS,Restrictions.eq(TENANT_REFERENCE,Long.valueOf(tenantId)));
+  LOG.debug("Searching applications by tenant id [{}]",tenantId);
+  List<Application> applications=findListByCriterionWithAlias(TENANT_ENTITY_NAME,TENANT_ALIAS,Restrictions.eq(TENANT_REFERENCE,Long.valueOf(tenantId)));
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{}] Search result: {}.",tenantId,Arrays.toString(applications.toArray()));
   }
-  LOG.info("Found applications {} by tenant id {} ",applications.size(),tenantId);
-  if (LOG.isDebugEnabled()) {
-    LOG.debug("Found applications {} by tenant id {} ",Arrays.toString(applications.toArray()),tenantId);
+ else {
+    LOG.debug("[{}] Search result: {}.",tenantId,applications.size());
   }
   return applications;
 }

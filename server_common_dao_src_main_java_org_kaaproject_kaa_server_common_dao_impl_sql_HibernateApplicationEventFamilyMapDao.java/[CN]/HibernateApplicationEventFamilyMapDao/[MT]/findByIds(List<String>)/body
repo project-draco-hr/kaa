@@ -1,8 +1,16 @@
 {
-  LOG.debug("Find applicationEventFamilyMaps by ids [{}] ",ids);
   List<ApplicationEventFamilyMap> applicationEventFamilyMaps=Collections.emptyList();
+  String idsArray="";
   if (ids != null && !ids.isEmpty()) {
+    idsArray=Arrays.toString(ids.toArray());
+    LOG.debug("Searching application event family maps by ids {} ",idsArray);
     applicationEventFamilyMaps=findListByCriterion(Restrictions.in(ID_PROPERTY,toLongIds(ids)));
+  }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("{} Search result: {}.",idsArray,Arrays.toString(applicationEventFamilyMaps.toArray()));
+  }
+ else {
+    LOG.debug("{} Search result: {}.",idsArray,applicationEventFamilyMaps.size());
   }
   return applicationEventFamilyMaps;
 }

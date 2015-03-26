@@ -1,9 +1,9 @@
 {
   String className=getSimpleClassName();
-  LOG.debug("Find {} entities by criteria [{}] ",className,criteria);
+  LOG.trace("Searching {} entities by criteria [{}] ",className,criteria);
   List<T> resultList=criteria.list();
-  if (LOG.isDebugEnabled() && resultList != null) {
-    LOG.debug("Found {} entities: [{}] ",className,Arrays.toString(resultList.toArray()));
+  if (resultList == null) {
+    resultList=Collections.emptyList();
   }
   return resultList;
 }

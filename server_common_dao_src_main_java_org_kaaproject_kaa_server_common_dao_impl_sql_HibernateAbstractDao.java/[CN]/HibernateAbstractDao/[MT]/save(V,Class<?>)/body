@@ -1,6 +1,12 @@
 {
+  LOG.debug("Saving {} entity {}",clazz,o);
   Session session=getSession();
   session.saveOrUpdate(o);
-  LOG.debug("Saved {} entity: [{}] ",getSimpleClassName(),o);
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{}] Saving result: {}",clazz,o);
+  }
+ else {
+    LOG.debug("[{}] Saving result: {}",clazz,o != null);
+  }
   return o;
 }

@@ -1,0 +1,7 @@
+{
+  LOG.info("Receieved play event {}",event);
+  String songId=event.getUrl();
+  player=resetPlayer(songId);
+  player.play();
+  sendPlaybackResponse(originator);
+}

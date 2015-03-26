@@ -12,10 +12,10 @@
   secondTopics.add(fourth);
   EndpointGroup firstGroup=generateEndpointGroup(app,firstTopics);
   EndpointGroup secondGroup=generateEndpointGroup(app,secondTopics);
-  List<Topic> foundOne=topicDao.findVacantTopicsByGroupId(firstGroup.getId().toString());
+  List<Topic> foundOne=topicDao.findVacantTopicsByGroupId(firstGroup.getApplicationId(),firstGroup.getId().toString());
   Set<Topic> firstGroupSet=new HashSet<>();
   firstGroupSet.addAll(foundOne);
-  List<Topic> foundTwo=topicDao.findVacantTopicsByGroupId(secondGroup.getId().toString());
+  List<Topic> foundTwo=topicDao.findVacantTopicsByGroupId(secondGroup.getApplicationId(),secondGroup.getId().toString());
   Set<Topic> secondGroupSet=new HashSet<>();
   secondGroupSet.addAll(foundTwo);
   Assert.assertEquals(secondTopics,firstGroupSet);

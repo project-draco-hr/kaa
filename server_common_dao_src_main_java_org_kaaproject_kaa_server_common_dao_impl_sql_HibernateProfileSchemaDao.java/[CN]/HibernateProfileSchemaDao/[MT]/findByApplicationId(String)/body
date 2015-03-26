@@ -1,8 +1,14 @@
 {
-  List<ProfileSchema> schemas=null;
-  LOG.debug("Find profile schemas by application id {} ",applicationId);
-  if (isNotBlank(applicationId)) {
-    schemas=findListByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(applicationId)));
+  List<ProfileSchema> schemas=Collections.emptyList();
+  LOG.debug("Searching profile schemas by application id [{}] ",appId);
+  if (isNotBlank(appId)) {
+    schemas=findListByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(appId)));
+  }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{}] Search result: {}.",appId,Arrays.toString(schemas.toArray()));
+  }
+ else {
+    LOG.debug("[{}] Search result: {}.",appId,schemas.size());
   }
   return schemas;
 }

@@ -1,0 +1,16 @@
+{
+  if (player == null) {
+    return;
+  }
+  KaaMp3File song=library.getSong(player.getFilePath());
+  PlaybackInfo response=new PlaybackInfo();
+  response.setSong(song.getSongInfo());
+  response.setStatus(player.getStatus());
+  response.setTime(player.getTime());
+  response.setVolume(player.getVolume());
+  response.setMaxVolume(player.getMaxVolume());
+  response.setTimeSetOnDevice(true);
+  response.setVolumeSetOnDevice(true);
+  MusicEventClassFamily family=client.getEventFamilyFactory().getMusicEventClassFamily();
+  family.sendEvent(new PlaybackInfoResponse(response),originator);
+}

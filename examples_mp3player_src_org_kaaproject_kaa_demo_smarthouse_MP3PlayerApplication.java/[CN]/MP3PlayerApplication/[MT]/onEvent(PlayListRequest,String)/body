@@ -1,0 +1,5 @@
+{
+  LOG.info("Receieved play list request {}",event);
+  MusicEventClassFamily family=client.getEventFamilyFactory().getMusicEventClassFamily();
+  family.sendEvent(new PlayListResponse(library.getPlayList()),originator);
+}

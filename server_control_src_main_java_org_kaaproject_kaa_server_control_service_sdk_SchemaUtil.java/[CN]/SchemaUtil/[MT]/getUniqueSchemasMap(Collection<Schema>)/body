@@ -1,0 +1,20 @@
+{
+  Map<String,Schema> map=new HashMap<String,Schema>();
+  List<Schema> allPossible=new LinkedList<Schema>();
+  for (  Schema schema : schemas) {
+    allPossible.addAll(getChildSchemas(schema));
+  }
+  for (  Schema schema : allPossible) {
+    String key=schema.getFullName();
+    if (!map.containsKey(key)) {
+      map.put(key,schema);
+    }
+ else {
+      if (!SchemaUtil.isEqualSchemas(schema,map.get(key))) {
+        LOG.debug("classes {} are not the same: \n{}\n\n{}",key,schema.toString(),map.get(key).toString());
+        throw new IllegalArgumentException("multiple occurrences of " + key + " with different fields");
+      }
+    }
+  }
+  return map;
+}

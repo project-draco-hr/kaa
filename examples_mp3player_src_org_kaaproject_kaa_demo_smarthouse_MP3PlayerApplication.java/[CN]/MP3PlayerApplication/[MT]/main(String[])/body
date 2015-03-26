@@ -1,0 +1,13 @@
+{
+  Path rootPath=getRootPath(args);
+  String accessCode=getAccessCode(args);
+  MP3PlayerApplication application=new MP3PlayerApplication(rootPath,accessCode);
+  application.start();
+  try {
+    System.in.read();
+    application.stop();
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+  }
+}
