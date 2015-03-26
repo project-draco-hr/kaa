@@ -1,5 +1,5 @@
 {
-  HttpRequest request=createHttpRequestMock(HttpMethod.POST,true);
+  HttpObject request=createHttpRequestMock(HttpMethod.POST,true,HttpRequest.class);
   requestDecoder.channelRead0(channelHandlerContext,request);
   verify(channelHandlerContext).fireChannelRead(any(Object.class));
 }
