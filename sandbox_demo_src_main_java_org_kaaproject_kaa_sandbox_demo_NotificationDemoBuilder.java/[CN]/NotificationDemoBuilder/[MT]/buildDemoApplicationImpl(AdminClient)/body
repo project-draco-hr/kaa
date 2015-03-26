@@ -1,22 +1,20 @@
 {
-  logger.info("Loading 'Android Notification Demo Application' data...");
+  logger.info("Loading 'Notification demo application' data...");
   loginTenantAdmin(client);
   ApplicationDto notificationApplication=new ApplicationDto();
-  notificationApplication.setName("Android notification");
+  notificationApplication.setName("Notification");
   notificationApplication=client.editApplication(notificationApplication);
   sdkKey.setApplicationId(notificationApplication.getId());
   sdkKey.setProfileSchemaVersion(1);
   sdkKey.setConfigurationSchemaVersion(1);
   sdkKey.setLogSchemaVersion(1);
-  sdkKey.setNotificationSchemaVersion(1);
-  sdkKey.setTargetPlatform(SdkPlatform.ANDROID);
   loginTenantDeveloper(client);
   logger.info("Creating notification schema...");
   NotificationSchemaDto notificationSchemaDto=new NotificationSchemaDto();
   notificationSchemaDto.setApplicationId(notificationApplication.getId());
   notificationSchemaDto.setName("Notification schema");
-  notificationSchemaDto.setDescription("Notification schema describing incoming notifications");
-  notificationSchemaDto=client.createNotificationSchema(notificationSchemaDto,getResourcePath("notificationSchema.json"));
+  notificationSchemaDto.setDescription("Notification schema of a sample notification");
+  notificationSchemaDto=client.createNotificationSchema(notificationSchemaDto,getResourcePath("notification_schema.avsc"));
   sdkKey.setNotificationSchemaVersion(notificationSchemaDto.getMajorVersion());
   logger.info("Notification schema was created.");
   TopicDto optionalTopic=new TopicDto();
@@ -44,7 +42,7 @@
     baseEndpointGroup=endpointGroups.get(0);
   }
   if (baseEndpointGroup == null) {
-    throw new RuntimeException("Can't get default endpoint group for Java configuration demo application!");
+    throw new RuntimeException("Can't get default endpoint group for notification demo application!");
   }
   logger.info("Base endpoint group was successfully gotten");
   TopicDto mandatoryTopic=new TopicDto();
@@ -74,5 +72,5 @@
   trustfulUserVerifier.setJsonConfiguration(rawData.getRawData());
   trustfulUserVerifier=client.editUserVerifierDto(trustfulUserVerifier);
   sdkKey.setDefaultVerifierToken(trustfulUserVerifier.getVerifierToken());
-  logger.info("Finished loading 'Android Notification Demo Application' data.");
+  logger.info("Finished loading 'Notification demo application' data...");
 }
