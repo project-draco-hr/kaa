@@ -1,7 +1,7 @@
 {
   KaaClientPropertiesState state=new KaaClientPropertiesState(new FilePersistentStorage(),CommonsBase64.getInstance(),KaaClientPropertiesStateTest.getProperties());
   NotificationTransport transport=mock(NotificationTransport.class);
-  DefaultNotificationManager notificationManager=new DefaultNotificationManager(state,transport);
+  DefaultNotificationManager notificationManager=new DefaultNotificationManager(state,executorContext,transport);
   List<Topic> topicsUpdate=Arrays.asList(new Topic("id1","topic_name1",SubscriptionType.MANDATORY),new Topic("id2","topic_name1",SubscriptionType.MANDATORY));
   ByteBuffer notificationBody=ByteBuffer.wrap(new AvroByteArrayConverter<>(org.kaaproject.kaa.schema.base.Notification.class).toByteArray(new org.kaaproject.kaa.schema.base.Notification()));
   notificationManager.topicsListUpdated(topicsUpdate);
@@ -10,10 +10,11 @@
   NotificationListener globalListener=Mockito.mock(NotificationListener.class);
   notificationManager.addNotificationListener(mandatoryListener);
   notificationManager.notificationReceived(notificationUpdate);
+  Thread.sleep(500);
   notificationManager.removeNotificationListener(mandatoryListener);
   notificationManager.addNotificationListener(globalListener);
   notificationManager.notificationReceived(notificationUpdate);
   notificationManager.notificationReceived(notificationUpdate);
-  Mockito.verify(mandatoryListener,Mockito.times(notificationUpdate.size())).onNotification(Mockito.anyString(),Mockito.any(org.kaaproject.kaa.schema.base.Notification.class));
-  Mockito.verify(globalListener,Mockito.times(notificationUpdate.size() * 2)).onNotification(Mockito.anyString(),Mockito.any(org.kaaproject.kaa.schema.base.Notification.class));
+  Mockito.verify(mandatoryListener,Mockito.timeout(1000).times(notificationUpdate.size())).onNotification(Mockito.anyString(),Mockito.any(org.kaaproject.kaa.schema.base.Notification.class));
+  Mockito.verify(globalListener,Mockito.timeout(1000).times(notificationUpdate.size() * 2)).onNotification(Mockito.anyString(),Mockito.any(org.kaaproject.kaa.schema.base.Notification.class));
 }

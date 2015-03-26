@@ -1,0 +1,21 @@
+{
+  if (!(s1.getType().equals(s2.getType()) && s1.getFullName().equals(s2.getFullName()))) {
+    return false;
+  }
+switch (s1.getType()) {
+case RECORD:
+    return isEqualRecords(s1,s2);
+case UNION:
+  return isEqualUnions(s1,s2);
+case ARRAY:
+return isEqualSchemas(s1.getElementType(),s2.getElementType());
+case MAP:
+return isEqualSchemas(s1.getValueType(),s2.getValueType());
+case ENUM:
+return isEqualEnums(s1,s2);
+case FIXED:
+return s1.getFixedSize() == s2.getFixedSize();
+default :
+return true;
+}
+}

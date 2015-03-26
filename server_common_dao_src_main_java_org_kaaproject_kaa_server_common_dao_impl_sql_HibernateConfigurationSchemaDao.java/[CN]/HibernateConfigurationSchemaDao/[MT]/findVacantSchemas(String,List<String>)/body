@@ -1,5 +1,5 @@
 {
-  LOG.debug("Find vacant schemas, application id [{}] ",appId);
+  LOG.debug("Searching vacant schemas by application id [{}] ",appId);
   List<ConfigurationSchema> schemas=Collections.emptyList();
   if (isNotBlank(appId)) {
     List<Long> lids=toLongIds(usedSchemaIds);
@@ -9,6 +9,12 @@
  else {
       schemas=findListByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.and(Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(appId)),Restrictions.not(Restrictions.in(ID_PROPERTY,lids))));
     }
+  }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{}] Search result: {}.",appId,Arrays.toString(schemas.toArray()));
+  }
+ else {
+    LOG.debug("[{}] Search result: {}.",appId,schemas.size());
   }
   return schemas;
 }

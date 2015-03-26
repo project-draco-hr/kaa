@@ -1,13 +1,18 @@
 {
   Configuration configuration=null;
-  LOG.debug("Find inactive configuration by configuration schema id {} and group id {} ",schemaId,groupId);
+  LOG.debug("Searching inactive configuration by configuration schema id [{}] and group id [{}] ",schemaId,groupId);
   if (isNotBlank(schemaId) && isNotBlank(groupId)) {
-    Criteria cr=getCriteria();
-    cr.createAlias(CONFIGURATION_SCHEMA_PROPERTY,CONFIGURATION_SCHEMA_ALIAS);
-    cr.createAlias(ENDPOINT_GROUP_PROPERTY,ENDPOINT_GROUP_ALIAS);
-    Criterion crit=Restrictions.and(Restrictions.eq(ENDPOINT_GROUP_REFERENCE,Long.valueOf(groupId)),Restrictions.eq(CONFIGURATION_SCHEMA_REFERENCE,Long.valueOf(schemaId)),Restrictions.eq(STATUS_PROPERTY,UpdateStatus.INACTIVE));
-    configuration=(Configuration)cr.add(crit).uniqueResult();
+    Criteria criteria=getCriteria();
+    criteria.createAlias(CONFIGURATION_SCHEMA_PROPERTY,CONFIGURATION_SCHEMA_ALIAS);
+    criteria.createAlias(ENDPOINT_GROUP_PROPERTY,ENDPOINT_GROUP_ALIAS);
+    criteria.add(Restrictions.and(Restrictions.eq(ENDPOINT_GROUP_REFERENCE,Long.valueOf(groupId)),Restrictions.eq(CONFIGURATION_SCHEMA_REFERENCE,Long.valueOf(schemaId)),Restrictions.eq(STATUS_PROPERTY,UpdateStatus.INACTIVE)));
+    configuration=findOneByCriteria(criteria);
   }
-  LOG.debug("Find inactive configuration {} by configuration schema id {} and group id {} ",configuration,schemaId,groupId);
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{},{}] Search result: {}.",schemaId,groupId,configuration);
+  }
+ else {
+    LOG.debug("[{},{}] Search result: {}.",schemaId,groupId,configuration != null);
+  }
   return configuration;
 }

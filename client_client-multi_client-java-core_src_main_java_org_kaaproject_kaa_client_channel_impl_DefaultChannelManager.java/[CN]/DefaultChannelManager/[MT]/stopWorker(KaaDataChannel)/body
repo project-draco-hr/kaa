@@ -1,0 +1,13 @@
+{
+  BlockingQueue<SyncTask> skippedTasks=syncTaskQueueMap.remove(channel.getId());
+  if (skippedTasks != null) {
+    for (    SyncTask task : skippedTasks) {
+      LOG.info("Task skipped due to worker shutdown: {}",task);
+    }
+  }
+  SyncWorker worker=syncWorkers.remove(channel);
+  if (worker != null) {
+    LOG.debug("[{}] stopping worker",channel.getId());
+    worker.shutdown();
+  }
+}

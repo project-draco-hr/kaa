@@ -1,7 +1,10 @@
 {
-  settingsLabel=new ActionsLabel(Utils.constants.settings());
   sandboxStyle=Utils.sandboxStyle;
-  settingsLabel.setStyleName(sandboxStyle.bAppHeaderMenu());
   initWidget(uiBinder.createAndBindUi(this));
-  headerTitlePanel.getElement().setInnerHTML(Utils.constants.sandboxHeaderTitle());
+  logoImage.setResource(Utils.resources.kaaLogo());
+  logoImage.getElement().getStyle().setPaddingLeft(20,Unit.PX);
+  InlineLabel headerTitle=new InlineLabel(Utils.constants.sandboxHeaderTitle());
+  headerTitlePanel.add(headerTitle);
+  headerMenuItems.setCollapsed(false);
+  centerResizePanel.addResizeHandler(this);
 }

@@ -1,0 +1,17 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    notification.setBody(body);
+    checkApplicationId(notification.getApplicationId());
+    TopicDto topic=toDto(clientProvider.getClient().getTopic(notification.getTopicId()));
+    Utils.checkNotNull(topic);
+    checkApplicationId(topic.getApplicationId());
+    EndpointNotificationDto unicastNotification=new EndpointNotificationDto();
+    unicastNotification.setEndpointKeyHash(Base64.decode(clientKeyHash.getBytes(Charsets.UTF_8)));
+    unicastNotification.setNotificationDto(notification);
+    return toDto(clientProvider.getClient().editUnicastNotification(toDataStruct(unicastNotification)));
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

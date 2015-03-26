@@ -1,0 +1,6 @@
+{
+  LOG.trace("Updated {} entity: {} ",getSimpleClassName(),o);
+  getSession().update(o);
+  LOG.trace("[{}] Update result: {}",getSimpleClassName(),o != null);
+  return o;
+}

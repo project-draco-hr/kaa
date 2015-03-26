@@ -1,11 +1,21 @@
 {
   this.project=project;
-  platformImage.setResource(Utils.getPlatformIcon(project.getPlatform()));
+  if (project.getIconBase64() != null && project.getIconBase64().length() > 0) {
+    applicationImage.setUrl("data:image/png;base64," + project.getIconBase64());
+  }
+ else {
+    applicationImage.setResource(Utils.getPlatformIconBig(project.getPlatform()));
+  }
   projectTitle.setText(project.getName());
   projectTitle.setTitle(project.getName());
+  Image platformImage=new Image(Utils.getPlatformIcon(project.getPlatform()));
+  platformImage.setTitle(Utils.getPlatformText(project.getPlatform()));
+  platformPanel.add(platformImage);
   for (  Feature feature : project.getFeatures()) {
-    Image image=new Image(Utils.getFeatureIcon(feature,false));
-    image.getElement().getStyle().setPaddingRight(8,Unit.PX);
+    Image image=new Image(Utils.getFeatureIcon(feature));
+    image.setTitle(Utils.getFeatureText(feature));
+    image.getElement().getStyle().setPaddingRight(4,Unit.PX);
     featuresPanel.add(image);
   }
+  getBinaryButton.setVisible(project.getDestBinaryFile() != null && project.getDestBinaryFile().length() > 0);
 }

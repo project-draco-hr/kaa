@@ -1,0 +1,6 @@
+{
+  executorContext=Mockito.mock(ExecutorContext.class);
+  executor=Executors.newSingleThreadExecutor();
+  Mockito.when(executorContext.getApiExecutor()).thenReturn(executor);
+  Mockito.when(executorContext.getCallbackExecutor()).thenReturn(executor);
+}

@@ -1,5 +1,6 @@
 {
-  lifecycleTasksExecutor.submit(new Runnable(){
+  context.getExecutorContext().init();
+  getLifeCycleExecutor().submit(new Runnable(){
     @Override public void run(){
       LOG.debug("Client startup initiated");
       try {

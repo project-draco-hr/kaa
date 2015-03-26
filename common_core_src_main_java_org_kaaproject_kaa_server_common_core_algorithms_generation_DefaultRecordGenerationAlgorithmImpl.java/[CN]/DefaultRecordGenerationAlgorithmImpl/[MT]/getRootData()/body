@@ -2,7 +2,7 @@
   GenericRecord root=getRootConfiguration();
   GenericAvroConverter<GenericRecord> converter=new GenericAvroConverter<>(root.getSchema());
   try {
-    return dataFactory.createData(rootSchema,converter.endcodeToJson(root));
+    return dataFactory.createData(rootSchema,converter.encodeToJson(root));
   }
  catch (  RuntimeException e) {
     LOG.error("Unexpected exception occurred while generating configuration.",e);

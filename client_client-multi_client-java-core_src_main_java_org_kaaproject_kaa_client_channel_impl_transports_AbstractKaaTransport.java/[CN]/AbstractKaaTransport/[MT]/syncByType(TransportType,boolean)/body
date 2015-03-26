@@ -1,13 +1,3 @@
 {
-  LOG.debug("Lookup channel by type {}",type);
-  KaaDataChannel channel=getChannel(type);
-  LOG.debug("Going to invoke sync method on channel {}",channel);
-  if (channel != null) {
-    if (ack) {
-      channel.syncAck(type);
-    }
- else {
-      channel.sync(type);
-    }
-  }
+  syncByType(type,ack,false);
 }

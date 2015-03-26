@@ -1,5 +1,5 @@
 {
-  LOG.debug("Find actual profile filters by schema id and group id [{}] ",schemaId,groupId);
+  LOG.debug("Searching actual profile filters by schema id [{}] and group id [{}] ",schemaId,groupId);
   List<ProfileFilter> filters=Collections.emptyList();
   if (isNotBlank(groupId) && isNotBlank(schemaId)) {
     Criteria criteria=getCriteria();
@@ -7,6 +7,12 @@
     criteria.createAlias(PROFILE_SCHEMA_PROPERTY,PROFILE_SCHEMA_ALIAS);
     criteria.add(Restrictions.and(Restrictions.eq(ENDPOINT_GROUP_REFERENCE,Long.valueOf(groupId)),Restrictions.eq(PROFILE_SCHEMA_REFERENCE,Long.valueOf(schemaId)),Restrictions.ne(STATUS_PROPERTY,UpdateStatus.DEPRECATED)));
     filters=findListByCriteria(criteria);
+  }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{},{}] Search result: {}.",schemaId,groupId,Arrays.toString(filters.toArray()));
+  }
+ else {
+    LOG.debug("[{},{}] Search result: {}.",schemaId,groupId,filters.size());
   }
   return filters;
 }

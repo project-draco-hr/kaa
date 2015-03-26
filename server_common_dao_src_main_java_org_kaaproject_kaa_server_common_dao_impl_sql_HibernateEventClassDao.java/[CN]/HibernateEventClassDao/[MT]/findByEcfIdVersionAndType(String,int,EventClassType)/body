@@ -1,5 +1,5 @@
 {
-  LOG.debug("Find event class by ecf id [{}] version [{}] and type [{}]",ecfId,version,type);
+  LOG.debug("Searching event class by ecf id [{}] version [{}] and type [{}]",ecfId,version,type);
   List<EventClass> eventClasses=Collections.emptyList();
   if (isNotBlank(ecfId)) {
     List<Criterion> predicates=new ArrayList<>();
@@ -10,6 +10,11 @@
     }
     eventClasses=findListByCriterionWithAlias(ECF_PROPERTY,ECF_ALIAS,Restrictions.and(predicates.toArray(new Criterion[]{})));
   }
-  LOG.debug("Found event classes {} by ecf id {}, version {} and type {}",eventClasses,ecfId,version,type);
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{},{},{}] Search result: {}.",ecfId,version,type,Arrays.toString(eventClasses.toArray()));
+  }
+ else {
+    LOG.debug("[{},{},{}] Search result: {}.",ecfId,version,type,eventClasses.size());
+  }
   return eventClasses;
 }
