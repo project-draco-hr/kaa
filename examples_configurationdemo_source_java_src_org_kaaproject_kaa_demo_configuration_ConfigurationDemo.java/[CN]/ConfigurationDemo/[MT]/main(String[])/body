@@ -1,5 +1,6 @@
 {
-  LOG.info("Configuration demo application has started");
+  LOG.info("Configuration demo started");
+  LOG.info("--= Press any key to exit =--");
   DesktopKaaPlatformContext desktopKaaPlatformContext=new DesktopKaaPlatformContext();
   kaaClient=Kaa.newClient(desktopKaaPlatformContext,new SimpleKaaClientStateListener(){
     @Override public void onStarted(){
@@ -24,5 +25,5 @@
     LOG.error("IOException was caught",e);
   }
   kaaClient.stop();
-  LOG.info("Configuration demo application has finished");
+  LOG.info("Configuration demo stopped");
 }

@@ -4,5 +4,8 @@
     for (    KaaDataChannel channel : channels) {
       channel.shutdown();
     }
+    for (    SyncWorker worker : syncWorkers.values()) {
+      worker.shutdown();
+    }
   }
 }

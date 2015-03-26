@@ -1,8 +1,14 @@
 {
-  LOG.debug("Find event class family by tenant id [{}] and name {}",tenantId,name);
+  LOG.debug("Searching event class family by tenant id [{}] and name [{}]",tenantId,name);
   EventClassFamily eventClassFamily=null;
   if (isNotBlank(tenantId)) {
     eventClassFamily=findOneByCriterionWithAlias(TENANT_PROPERTY,TENANT_ALIAS,Restrictions.and(Restrictions.eq(TENANT_REFERENCE,Long.valueOf(tenantId)),Restrictions.eq(NAME_PROPERTY,name)));
+  }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{},{}] Search result: {}.",tenantId,name,eventClassFamily);
+  }
+ else {
+    LOG.debug("[{},{}] Search result: {}.",tenantId,name,eventClassFamily != null);
   }
   return eventClassFamily;
 }

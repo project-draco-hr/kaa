@@ -1,10 +1,17 @@
 {
+  LOG.debug("Saving endpoint group {}",endpointGroup);
   Set<Topic> topics=endpointGroup.getTopics();
   endpointGroup=super.save(endpointGroup);
   if (topics != null && !topics.isEmpty()) {
     for (    Topic topic : topics) {
       addTopicToEndpointGroup(endpointGroup,topic.getStringId());
     }
+  }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("Saving result: {}.",endpointGroup);
+  }
+ else {
+    LOG.debug("Saving result: {}.",endpointGroup != null);
   }
   return endpointGroup;
 }

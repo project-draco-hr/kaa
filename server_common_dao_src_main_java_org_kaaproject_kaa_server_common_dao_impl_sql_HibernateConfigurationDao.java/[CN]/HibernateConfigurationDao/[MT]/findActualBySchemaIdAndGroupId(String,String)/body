@@ -1,12 +1,18 @@
 {
   List<Configuration> configurations=Collections.emptyList();
+  LOG.debug("Searching actual configurations by configuration schema id [{}] and group id [{}] ",schemaId,groupId);
   if (isNotBlank(schemaId) && isNotBlank(groupId)) {
-    Criteria cr=getCriteria();
-    cr.createAlias(CONFIGURATION_SCHEMA_PROPERTY,CONFIGURATION_SCHEMA_ALIAS);
-    cr.createAlias(ENDPOINT_GROUP_PROPERTY,ENDPOINT_GROUP_ALIAS);
-    Criterion crit=Restrictions.and(Restrictions.eq(ENDPOINT_GROUP_REFERENCE,Long.valueOf(groupId)),Restrictions.eq(CONFIGURATION_SCHEMA_REFERENCE,Long.valueOf(schemaId)),Restrictions.ne(STATUS_PROPERTY,UpdateStatus.DEPRECATED));
-    configurations=cr.add(crit).list();
+    Criteria criteria=getCriteria();
+    criteria.createAlias(CONFIGURATION_SCHEMA_PROPERTY,CONFIGURATION_SCHEMA_ALIAS);
+    criteria.createAlias(ENDPOINT_GROUP_PROPERTY,ENDPOINT_GROUP_ALIAS);
+    criteria.add(Restrictions.and(Restrictions.eq(ENDPOINT_GROUP_REFERENCE,Long.valueOf(groupId)),Restrictions.eq(CONFIGURATION_SCHEMA_REFERENCE,Long.valueOf(schemaId)),Restrictions.ne(STATUS_PROPERTY,UpdateStatus.DEPRECATED)));
+    configurations=findListByCriteria(criteria);
   }
-  LOG.debug("Find {} actual configurations {} by configuration schema id {} and group id {} ",configurations.size(),schemaId,groupId);
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{},{}] Search result: {}.",schemaId,groupId,Arrays.toString(configurations.toArray()));
+  }
+ else {
+    LOG.debug("[{},{}] Search result: {}.",schemaId,groupId,configurations.size());
+  }
   return configurations;
 }

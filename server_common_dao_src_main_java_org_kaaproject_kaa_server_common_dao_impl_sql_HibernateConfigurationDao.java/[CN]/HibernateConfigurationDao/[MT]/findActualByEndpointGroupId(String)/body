@@ -1,8 +1,14 @@
 {
   List<Configuration> configurations=null;
-  LOG.debug("Find actual configurations by endpoint group id {} ",groupId);
+  LOG.debug("Searching actual configurations by endpoint group id [{}] ",groupId);
   if (isNotBlank(groupId)) {
     configurations=findListByCriterionWithAlias(ENDPOINT_GROUP_PROPERTY,ENDPOINT_GROUP_ALIAS,Restrictions.and(Restrictions.eq(ENDPOINT_GROUP_REFERENCE,Long.valueOf(groupId)),Restrictions.ne(STATUS_PROPERTY,UpdateStatus.DEPRECATED)));
+  }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{}] Search result: {}.",groupId,Arrays.toString(configurations.toArray()));
+  }
+ else {
+    LOG.debug("[{}] Search result: {}.",groupId,configurations.size());
   }
   return configurations;
 }

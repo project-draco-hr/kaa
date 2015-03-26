@@ -1,12 +1,14 @@
 {
-  LOG.debug("Find application event family maps by application id [{}] ",applicationId);
+  LOG.debug("Searching application event family maps by application id [{}] ",appId);
   List<ApplicationEventFamilyMap> applicationEventFamilyMaps=Collections.emptyList();
-  if (isNotBlank(applicationId)) {
-    applicationEventFamilyMaps=findListByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(applicationId)));
+  if (isNotBlank(appId)) {
+    applicationEventFamilyMaps=findListByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(appId)));
   }
-  LOG.info("Found application event family maps {} by tenant id {} ",applicationEventFamilyMaps.size(),applicationId);
-  if (LOG.isDebugEnabled()) {
-    LOG.debug("Found application event family maps {} by tenant id {} ",Arrays.toString(applicationEventFamilyMaps.toArray()),applicationId);
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{}] Search result: {}.",appId,applicationEventFamilyMaps);
+  }
+ else {
+    LOG.debug("[{}] Search result: {}.",appId,applicationEventFamilyMaps.size());
   }
   return applicationEventFamilyMaps;
 }

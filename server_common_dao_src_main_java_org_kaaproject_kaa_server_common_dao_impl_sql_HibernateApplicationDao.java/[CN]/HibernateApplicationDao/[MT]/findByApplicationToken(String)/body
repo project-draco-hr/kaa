@@ -1,6 +1,11 @@
 {
-  LOG.debug("Find application by token {}",token);
+  LOG.debug("Searching for application by token {}",token);
   Application app=findOneByCriterion(Restrictions.eq(APPLICATION_TOKEN_PROPERTY,token));
-  LOG.debug("Found application {} by token {}",app,token);
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{}] Search result: {}.",token,app);
+  }
+ else {
+    LOG.debug("[{}] Search result: {}.",token,app != null);
+  }
   return app;
 }
