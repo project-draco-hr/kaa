@@ -1,0 +1,8 @@
+{
+  int result=topicId != null ? topicId.hashCode() : 0;
+  result=31 * result + (type != null ? type.hashCode() : 0);
+  result=31 * result + (uid != null ? uid.hashCode() : 0);
+  result=31 * result + (seqNumber != null ? seqNumber.hashCode() : 0);
+  result=31 * result + (body != null ? body.hashCode() : 0);
+  return result;
+}

@@ -1,0 +1,13 @@
+{
+  DecoderResult result=mock(DecoderResult.class);
+  when(result.isSuccess()).thenReturn(isSuccessfulResult);
+  HttpObject httpRequest=(HttpObject)mock(requestClazz);
+  when(httpRequest.getDecoderResult()).thenReturn(result);
+  HttpHeaders headers=mock(HttpHeaders.class);
+  when(headers.toString()).thenReturn("Some header");
+  if (requestClazz.equals(HttpRequest.class)) {
+    when(((HttpRequest)httpRequest).getMethod()).thenReturn(httpMethod);
+    when(((HttpRequest)httpRequest).headers()).thenReturn(headers);
+  }
+  return httpRequest;
+}

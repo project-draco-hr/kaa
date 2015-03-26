@@ -1,0 +1,6 @@
+{
+  List<OperationsNodeInfo> nodes=createNodeListWithThreeItems();
+  ConsistentHashResolver consistentHashResolver=new ConsistentHashResolver(nodes,2);
+  OperationsNodeInfo returnedNode=consistentHashResolver.getNode("aaaa");
+  Assert.assertEquals(nodes.get(2),returnedNode);
+}

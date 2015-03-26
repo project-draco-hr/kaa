@@ -1,6 +1,6 @@
 {
-  if (System.getProperty("user.home") != null && new File(System.getProperty("user.home")).exists()) {
-    String tempDir=System.getProperty("user.home") + "/temp_dir_" + System.currentTimeMillis();
+  if (System.getProperty(USER_HOME) != null && new File(System.getProperty(USER_HOME)).exists()) {
+    String tempDir=System.getProperty(USER_HOME) + "/temp_dir_" + System.currentTimeMillis();
     File file=new File(tempDir);
     Assert.assertFalse(file.exists());
     fileSystemLogEventService.createDirectory(tempDir);

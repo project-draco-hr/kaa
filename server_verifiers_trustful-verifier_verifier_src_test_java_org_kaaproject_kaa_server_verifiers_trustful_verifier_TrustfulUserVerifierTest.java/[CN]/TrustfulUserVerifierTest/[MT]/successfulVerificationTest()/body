@@ -1,0 +1,9 @@
+{
+  verifier=new TrustfulUserVerifier();
+  verifier.start();
+  verifier.init(null,new TrustfulAvroConfig());
+  UserVerifierCallback callback=Mockito.mock(UserVerifierCallback.class);
+  verifier.checkAccessToken("dummyId","dummyToken",callback);
+  Mockito.verify(callback,Mockito.timeout(1000)).onSuccess();
+  verifier.stop();
+}

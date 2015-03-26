@@ -1,0 +1,9 @@
+{
+  SyncTask task1=new SyncTask(TransportType.CONFIGURATION,true,false);
+  SyncTask task2=new SyncTask(TransportType.NOTIFICATION,false,false);
+  SyncTask merged=SyncTask.merge(task1,Collections.singletonList(task2));
+  LOG.info(merged.toString());
+  Assert.assertEquals(2,merged.getTypes().size());
+  Assert.assertFalse(merged.isAckOnly());
+  Assert.assertFalse(merged.isAll());
+}

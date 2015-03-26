@@ -8,4 +8,5 @@
   UserVerifierCallback callback=mock(UserVerifierCallback.class);
   verifier.checkAccessToken("id","token",callback);
   Mockito.verify(callback,Mockito.timeout(1000)).onInternalError(any(String.class));
+  verifier.stop();
 }
