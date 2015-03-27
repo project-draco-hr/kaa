@@ -1,0 +1,8 @@
+{
+  Mockito.doThrow(new TransportException("mock")).when(bsManagerMock).receiveOperationsServerList();
+  client.start();
+  Mockito.verify(stateListener,Mockito.timeout(1000)).onStartFailure(Mockito.any(KaaException.class));
+  Mockito.verify(bsManagerMock).receiveOperationsServerList();
+  client.stop();
+  Mockito.verify(stateListener,Mockito.timeout(1000)).onStopped();
+}
