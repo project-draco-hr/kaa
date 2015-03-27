@@ -1,7 +1,7 @@
 {
   try {
     sessionResponseMeter.mark();
-    if (message.getError() != null) {
+    if (message.getError() == null) {
       processSessionResponse(message);
     }
  else {
