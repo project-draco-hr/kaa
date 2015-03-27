@@ -1,0 +1,6 @@
+{
+  for (  KaaTransport transport : Arrays.asList(bootstrapTransport,profileTransport,eventTransport,notificationTransport,configurationTransport,userTransport,logTransport)) {
+    transport.setChannelManager(channelManager);
+    transport.setClientState(clientState);
+  }
+}

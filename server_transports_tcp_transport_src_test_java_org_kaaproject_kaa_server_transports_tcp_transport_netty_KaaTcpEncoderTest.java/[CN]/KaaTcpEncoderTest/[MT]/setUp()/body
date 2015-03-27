@@ -1,0 +1,6 @@
+{
+  ctx=mock(ChannelHandlerContext.class);
+  future=mock(ChannelFuture.class);
+  when(ctx.writeAndFlush(any(Object.class),any(ChannelPromise.class))).thenReturn(future);
+  promise=mock(ChannelPromise.class);
+}
