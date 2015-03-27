@@ -1,0 +1,6 @@
+{
+  ClientSyncMetaData clientSyncMetaData=mock(ClientSyncMetaData.class);
+  when(clientSyncMetaData.getProfileHash()).thenReturn(null);
+  ClientSync clientSync=new ClientSync(0,clientSyncMetaData,null,null,null,null,null,null);
+  Assert.assertEquals(clientSync.isValid(),false);
+}

@@ -1,0 +1,5 @@
+{
+  MqttFrame msg=createMqttFrameMock(false);
+  encoder.write(ctx,msg,promise);
+  verify(future,never()).addListener(ChannelFutureListener.CLOSE);
+}

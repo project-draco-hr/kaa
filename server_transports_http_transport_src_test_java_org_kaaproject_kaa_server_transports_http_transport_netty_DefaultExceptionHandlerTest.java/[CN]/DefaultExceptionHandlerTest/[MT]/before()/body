@@ -1,0 +1,6 @@
+{
+  ctx=mock(ChannelHandlerContext.class);
+  ChannelFuture channelFuture=mock(ChannelFuture.class);
+  when(ctx.writeAndFlush(any(FullHttpResponse.class))).thenReturn(channelFuture);
+  defaultExceptionHandler=new DefaultExceptionHandler();
+}

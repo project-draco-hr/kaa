@@ -1,0 +1,9 @@
+{
+  verifier=new MyFacebookVerifier(300,"");
+  verifier.init(null,config);
+  verifier.start();
+  UserVerifierCallback callback=mock(UserVerifierCallback.class);
+  verifier.checkAccessToken("id","token",callback);
+  Mockito.verify(callback,Mockito.timeout(1000)).onVerificationFailure(any(String.class));
+  verifier.stop();
+}

@@ -1,0 +1,12 @@
+{
+  verifier=new GplusUserVerifier();
+  verifier.init(null,config);
+  verifier.start();
+  Field uriPart=GplusUserVerifier.class.getDeclaredField("GOOGLE_OAUTH");
+  setFinalStatic(uriPart,"\\\\\\\\\\");
+  UserVerifierCallback callback=mock(UserVerifierCallback.class);
+  verifier.checkAccessToken("id","token",callback);
+  verifier.stop();
+  verify(callback,Mockito.timeout(1000).atLeastOnce()).onInternalError();
+  setFinalStatic(uriPart,"https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=");
+}

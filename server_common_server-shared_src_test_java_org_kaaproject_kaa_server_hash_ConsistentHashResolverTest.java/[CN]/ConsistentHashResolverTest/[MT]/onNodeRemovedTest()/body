@@ -1,0 +1,9 @@
+{
+  int t=10;
+  List<OperationsNodeInfo> nodes=createNodeListWithOneNode();
+  ConsistentHashResolver consistentHashResolver=new ConsistentHashResolver(nodes,t);
+  SortedMap circle=mock(SortedMap.class);
+  ReflectionTestUtils.setField(consistentHashResolver,"circle",circle);
+  consistentHashResolver.onNodeUpdated(nodes.get(0));
+  verify(circle,Mockito.times(t)).remove(any());
+}
