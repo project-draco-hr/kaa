@@ -1,7 +1,7 @@
 {
-  if (System.getProperty("user.home") != null && new File(System.getProperty("user.home")).exists()) {
+  if (System.getProperty(USER_HOME) != null && new File(System.getProperty(USER_HOME)).exists()) {
     FileSystemLogEventService logEventService=new FileSystemLogEventServiceImpl();
-    String tempDir=System.getProperty("user.home") + "/temp_dir_" + System.currentTimeMillis();
+    String tempDir=System.getProperty(USER_HOME) + "/temp_dir_" + System.currentTimeMillis();
     File file=new File(tempDir);
     logEventService.createDirectory(tempDir);
     Logger testLogger=Mockito.mock(Logger.class);

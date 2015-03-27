@@ -1,0 +1,11 @@
+{
+  client.start();
+  Mockito.verify(stateListener,Mockito.timeout(1000)).onStarted();
+  Mockito.verify(bsManagerMock).receiveOperationsServerList();
+  client.pause();
+  Mockito.verify(stateListener,Mockito.timeout(1000)).onPaused();
+  client.resume();
+  Mockito.verify(stateListener,Mockito.timeout(1000)).onResume();
+  client.stop();
+  Mockito.verify(stateListener,Mockito.timeout(1000)).onStopped();
+}

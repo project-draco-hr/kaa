@@ -1,3 +1,6 @@
 {
+  if (user == null) {
+    throw new RuntimeException("user id is null");
+  }
   return getNearest(hash(user));
 }

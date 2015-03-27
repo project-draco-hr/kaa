@@ -1,0 +1,6 @@
+{
+  CommandFactory commandFactory=mock(CommandFactory.class);
+  AbstractCommand abstractCommand=mock(AbstractCommand.class);
+  when(commandFactory.getCommandProcessor(any(String.class))).thenReturn(abstractCommand);
+  requestDecoder=new RequestDecoder(commandFactory);
+}
