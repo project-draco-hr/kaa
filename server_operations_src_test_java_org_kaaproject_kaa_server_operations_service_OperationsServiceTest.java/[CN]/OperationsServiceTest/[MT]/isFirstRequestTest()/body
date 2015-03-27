@@ -1,6 +1,12 @@
 {
   EndpointProfileDto profile=new EndpointProfileDto();
-  assertTrue(DefaultOperationsService.isFirstRequest(profile));
+  assertTrue(DefaultOperationsService.isFirstRequest(profile,HistorySubject.CONFIGURATION));
   profile.setConfigurationHash(new byte[0]);
-  assertTrue(DefaultOperationsService.isFirstRequest(profile));
+  assertTrue(DefaultOperationsService.isFirstRequest(profile,HistorySubject.CONFIGURATION));
+  profile.setCfGroupStates(Collections.singletonList(new EndpointGroupStateDto()));
+  assertFalse(DefaultOperationsService.isFirstRequest(profile,HistorySubject.CONFIGURATION));
+  assertTrue(DefaultOperationsService.isFirstRequest(profile,HistorySubject.NOTIFICATION));
+  profile.setNfGroupStates(Collections.singletonList(new EndpointGroupStateDto()));
+  assertFalse(DefaultOperationsService.isFirstRequest(profile,HistorySubject.CONFIGURATION));
+  assertFalse(DefaultOperationsService.isFirstRequest(profile,HistorySubject.NOTIFICATION));
 }

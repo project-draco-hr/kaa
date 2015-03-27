@@ -1,9 +1,11 @@
 {
-  LOG.debug("Validate application event family map, application id [{}], ecf id [{}], version [{}]",applicationId,ecfId,version);
+  LOG.debug("Validating application event family map by application id [{}], ecf id [{}], version [{}]",appId,ecfId,version);
   Criteria criteria=getCriteria();
   criteria.createAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS);
   criteria.createAlias(ECF_PROPERTY,ECF_ALIAS);
-  criteria.add(Restrictions.and(Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(applicationId)),Restrictions.eq(ECF_REFERENCE,Long.valueOf(ecfId)),Restrictions.eq(VERSION_PROPERTY,version)));
+  criteria.add(Restrictions.and(Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(appId)),Restrictions.eq(ECF_REFERENCE,Long.valueOf(ecfId)),Restrictions.eq(VERSION_PROPERTY,version)));
   Long count=(Long)criteria.setProjection(Projections.rowCount()).uniqueResult();
-  return count == 0;
+  boolean result=count != null ? count == 0 : false;
+  LOG.debug("[{},{},{}] Validation result: {}.",appId,ecfId,version,result);
+  return result;
 }

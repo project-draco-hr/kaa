@@ -1,4 +1,5 @@
 {
+  LOG.debug("Deactivating old profile filter with profile schema id [{}], group id [{}] by username [{}]",schemaId,groupId,username);
   ProfileFilter filter=null;
   if (isNotBlank(schemaId) && isNotBlank(groupId)) {
     Criteria criteria=getCriteria();
@@ -10,8 +11,14 @@
   if (filter != null) {
     filter.setStatus(UpdateStatus.DEPRECATED);
     filter.setDeactivatedTime(System.currentTimeMillis());
-    filter.setDeactivatedUsername(deactivatedUsername);
-    save(filter);
+    filter.setDeactivatedUsername(username);
+    filter=save(filter);
+  }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{},{},{}] Deactivating result: {}.",schemaId,groupId,username,filter);
+  }
+ else {
+    LOG.debug("[{},{},{}] Deactivating result: {}.",schemaId,groupId,username,filter != null);
   }
   return filter;
 }

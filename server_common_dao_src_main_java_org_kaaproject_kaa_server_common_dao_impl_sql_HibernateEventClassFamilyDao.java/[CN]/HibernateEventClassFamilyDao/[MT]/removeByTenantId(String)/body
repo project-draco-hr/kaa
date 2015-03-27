@@ -1,7 +1,7 @@
 {
-  LOG.debug("Remove event class families by tenant id [{}] ",tenantId);
   if (isNotBlank(tenantId)) {
     List<EventClassFamily> eventClassFamilies=findListByCriterionWithAlias(TENANT_PROPERTY,TENANT_ALIAS,Restrictions.eq(TENANT_REFERENCE,Long.valueOf(tenantId)));
     removeList(eventClassFamilies);
   }
+  LOG.debug("Removed event class families by tenant id [{}] ",tenantId);
 }

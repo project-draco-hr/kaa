@@ -30,6 +30,7 @@ List<TopicState> states=new ArrayList<TopicState>(source.getTopicStates().size()
 for (org.kaaproject.kaa.common.endpoint.gen.TopicState state : source.getTopicStates()) {
 states.add(new TopicState(state.getTopicId(),state.getSeqNumber()));
 }
+sync.setTopicStates(states);
 }
 return sync;
 }

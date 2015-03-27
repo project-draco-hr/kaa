@@ -1,7 +1,7 @@
 {
-  LOG.debug("remove applicationEventFamilyMap by application id [{}] ",applicationId);
-  if (isNotBlank(applicationId)) {
-    List<ApplicationEventFamilyMap> eventClassFamilies=findListByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(applicationId)));
+  if (isNotBlank(appId)) {
+    List<ApplicationEventFamilyMap> eventClassFamilies=findListByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(appId)));
     removeList(eventClassFamilies);
   }
+  LOG.debug("Removed application event family map by application id [{}] ",appId);
 }

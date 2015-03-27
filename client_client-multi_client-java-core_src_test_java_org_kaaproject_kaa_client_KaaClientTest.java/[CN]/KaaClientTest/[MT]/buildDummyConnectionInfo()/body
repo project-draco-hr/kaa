@@ -1,0 +1,7 @@
+{
+  Map<TransportProtocolId,List<TransportConnectionInfo>> connectionInfo=new HashMap<>();
+  List<TransportConnectionInfo> connectionInfoList=new ArrayList<TransportConnectionInfo>();
+  connectionInfoList.add(new GenericTransportInfo(ServerType.BOOTSTRAP,new ProtocolMetaData(1,new ProtocolVersionPair(1,1),null)));
+  connectionInfo.put(new TransportProtocolId(1,1),connectionInfoList);
+  return connectionInfo;
+}

@@ -1,10 +1,14 @@
 {
-  LOG.info("Topic list was updated:");
+  LOG.info("Topic list was updated");
   showTopicList(list);
   try {
-    kaaClient.subscribeToTopics(extractOptionalTopicIds(list),true);
+    List<String> optionalTopics=extractOptionalTopicIds(list);
+    for (    String optionalTopicId : optionalTopics) {
+      LOG.info("Subscribing to optional topic {}",optionalTopicId);
+    }
+    kaaClient.subscribeToTopics(optionalTopics,true);
   }
  catch (  UnavailableTopicException e) {
-    LOG.debug("Topic is unavailable, can't subscribe: {}",e.getMessage());
+    LOG.error("Topic is unavailable, can't subscribe: {}",e.getMessage());
   }
 }

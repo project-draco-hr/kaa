@@ -1,8 +1,14 @@
 {
-  LOG.debug("Find notification schema by application id {} type {}",appId,type);
+  LOG.debug("Searching notification schema by application id {} type {}",appId,type);
   List<NotificationSchema> schemas=Collections.emptyList();
   if (isNotBlank(appId)) {
     schemas=findListByCriterion(Restrictions.and(Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(appId)),Restrictions.eq(NOTIFICATION_SCHEMA_TYPE_PROPERTY,type)));
+  }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{},{}] Search result: {}.",appId,type,Arrays.toString(schemas.toArray()));
+  }
+ else {
+    LOG.debug("[{},{}] Search result: {}.",appId,type,schemas.size());
   }
   return schemas;
 }

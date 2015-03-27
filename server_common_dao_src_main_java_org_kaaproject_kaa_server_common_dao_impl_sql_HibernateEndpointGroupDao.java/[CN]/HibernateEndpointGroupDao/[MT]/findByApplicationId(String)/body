@@ -1,8 +1,14 @@
 {
-  List<EndpointGroup> groups=null;
-  LOG.debug("Find endpoint group by application id {} ",appId);
+  List<EndpointGroup> groups=Collections.emptyList();
+  LOG.debug("Searching endpoint group by application id [{}] ",appId);
   if (isNotBlank(appId)) {
     groups=findListByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(appId)));
+  }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{}] Search result: {}.",appId,Arrays.toString(groups.toArray()));
+  }
+ else {
+    LOG.debug("[{}] Search result: {}.",appId,groups.size());
   }
   return groups;
 }

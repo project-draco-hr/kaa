@@ -1,8 +1,14 @@
 {
   List<History> histories=Collections.emptyList();
-  LOG.debug("Find history by application id {} start sequence number {} and end {}",appId,startSeqNum,endSeqNum);
+  LOG.debug("Searching history by application id {} start sequence number {} and end {}",appId,startSeqNum,endSeqNum);
   if (isNotBlank(appId)) {
     histories=findListByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.and(Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(appId)),Restrictions.gt(SEQUENCE_NUMBER_PROPERTY,startSeqNum),Restrictions.le(SEQUENCE_NUMBER_PROPERTY,endSeqNum)));
+  }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{},{},{}] Search result: {}.",appId,startSeqNum,endSeqNum,Arrays.toString(histories.toArray()));
+  }
+ else {
+    LOG.debug("[{},{},{}] Search result: {}.",appId,startSeqNum,endSeqNum,histories.size());
   }
   return histories;
 }

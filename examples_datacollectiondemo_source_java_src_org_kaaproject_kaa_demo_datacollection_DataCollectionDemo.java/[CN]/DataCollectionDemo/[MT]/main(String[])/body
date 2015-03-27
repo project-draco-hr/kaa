@@ -1,5 +1,6 @@
 {
   LOG.info("Data collection demo started");
+  LOG.info("--= Press any key to exit =--");
   KaaClient kaaClient=Kaa.newClient(new DesktopKaaPlatformContext(),new SimpleKaaClientStateListener(){
     @Override public void onStarted(){
       LOG.info("Kaa client started");
@@ -24,7 +25,7 @@
     System.in.read();
   }
  catch (  IOException e) {
-    e.printStackTrace();
+    LOG.error("IOException was caught",e);
   }
   kaaClient.stop();
   LOG.info("Data collection demo stopped");

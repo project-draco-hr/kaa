@@ -14,9 +14,6 @@
     }
     String appToken=RandomStringUtils.randomNumeric(Constants.APP_TOKEN_SIZE);
     applicationDto.setApplicationToken(appToken);
-    if (applicationDto.getLogAppendersNames() == null || applicationDto.getLogAppendersNames().isEmpty()) {
-      applicationDto.setLogAppendersNames(MONGODB_ENDPOINT_LOG_APPENDER + "," + FILESYSTEM_ENDPOINT_LOG_APPENDER);
-    }
     Application application=new Application(applicationDto);
     appDto=getDto(applicationDao.save(application));
     if (appDto != null) {

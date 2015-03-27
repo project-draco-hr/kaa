@@ -1,0 +1,6 @@
+{
+  LogEntry entry1=getLogEntry(10);
+  LogEntry entry2=getLogEntry(9);
+  Object[] entries=new Object[]{getLogEntry(8)};
+  EqualsVerifier.forExamples(entry1,entry2,entries).verify();
+}
