@@ -1,5 +1,5 @@
 {
-  Topic topic=generateTopic(null,null);
+  Topic topic=generateTopic(null,null,null);
   Application app=topic.getApplication();
   topicDao.removeTopicsByAppId(app.getId().toString());
   Topic found=topicDao.findById(topic.getId().toString());
