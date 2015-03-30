@@ -5,7 +5,7 @@
       processSessionResponse(message);
     }
  else {
-      processErrors(message.getChannelContext(),message.getErrorConverter(),message.getError());
+      processErrors(message.getChannelContext(),message.getErrorBuilder(),message.getError());
     }
   }
  catch (  Exception e) {
