@@ -1,12 +1,12 @@
 {
-  if (state.isValidForEvents()) {
-    if (request.getEventSync() != null) {
-      EventClientSync eventRequest=request.getEventSync();
-      processSeqNumber(eventRequest,responseHolder);
+  if (request.getEventSync() != null) {
+    EventClientSync eventRequest=request.getEventSync();
+    processSeqNumber(eventRequest,responseHolder);
+    if (state.isValidForEvents()) {
       sendEventsIfPresent(context,eventRequest);
     }
-  }
  else {
-    LOG.debug("[{}][{}] Endpoint profile is not valid for send/receive events. Either no assigned user or no event families in sdk",endpointKey,actorKey);
+      LOG.debug("[{}][{}] Endpoint profile is not valid for send/receive events. Either no assigned user or no event families in sdk",endpointKey,actorKey);
+    }
   }
 }
