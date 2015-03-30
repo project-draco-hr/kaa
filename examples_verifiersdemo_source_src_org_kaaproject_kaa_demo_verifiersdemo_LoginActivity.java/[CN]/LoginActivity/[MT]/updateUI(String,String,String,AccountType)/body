@@ -54,6 +54,7 @@ if (listener != null) {
 vdecf.removeListener(listener);
 }
 listener=new KaaEventListener();
+vdecf.addListener(listener);
 }
  else {
 String failureString=userAttachResponse.getErrorReason() == null ? userAttachResponse.getErrorCode().toString() : userAttachResponse.getErrorReason().toString();
