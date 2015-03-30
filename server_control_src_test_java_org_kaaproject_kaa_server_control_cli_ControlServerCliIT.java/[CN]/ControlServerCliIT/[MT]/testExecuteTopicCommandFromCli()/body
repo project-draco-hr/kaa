@@ -2,8 +2,8 @@
   controlClientConnect();
   ControlApiCliThriftClient cli=new ControlApiCliThriftClient();
   String applicationId=editApplicationCli(cli,null,"testApplication",null,"testTenant",false);
-  String topicId=editTopicCli(cli,null,applicationId,null,null,SubscriptionType.MANDATORY,true);
-  topicId=editTopicCli(cli,null,applicationId,null,null,SubscriptionType.MANDATORY,false);
+  String topicId=editTopicCli(cli,null,applicationId,"topic1",null,null,SubscriptionType.MANDATORY,true);
+  topicId=editTopicCli(cli,null,applicationId,"topic2",null,null,SubscriptionType.MANDATORY,false);
   Assert.assertFalse(strIsEmpty(topicId));
   editTopicCli(cli,topicId,applicationId,null,null,SubscriptionType.MANDATORY,false);
   editTopicCli(cli,FAKE_SQL_ID,applicationId,null,null,SubscriptionType.MANDATORY,false);
