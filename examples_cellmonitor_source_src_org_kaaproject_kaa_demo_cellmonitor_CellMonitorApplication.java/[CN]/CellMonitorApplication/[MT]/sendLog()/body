@@ -4,7 +4,13 @@
     mLastLogTime=System.currentTimeMillis();
     CellMonitorLog cellMonitorLog=new CellMonitorLog();
     cellMonitorLog.setLogTime(mLastLogTime);
-    cellMonitorLog.setNetworkOperatorCode(Integer.valueOf(mTelephonyManager.getNetworkOperator()));
+    String networkOperator=mTelephonyManager.getNetworkOperator();
+    if (networkOperator == null || networkOperator.isEmpty()) {
+      cellMonitorLog.setNetworkOperatorCode(UNDEFINED);
+    }
+ else {
+      cellMonitorLog.setNetworkOperatorCode(Integer.valueOf(mTelephonyManager.getNetworkOperator()));
+    }
     cellMonitorLog.setNetworkOperatorName(mTelephonyManager.getNetworkOperatorName());
     int cid=UNDEFINED;
     int lac=UNDEFINED;
@@ -21,8 +27,10 @@
     }
     cellMonitorLog.setSignalStrength(gsmSignalStrength);
     org.kaaproject.kaa.demo.cellmonitor.Location phoneLocation=new org.kaaproject.kaa.demo.cellmonitor.Location();
-    phoneLocation.setLatitude(mGpsLocation.getLatitude());
-    phoneLocation.setLongitude(mGpsLocation.getLongitude());
+    if (mGpsLocation != null) {
+      phoneLocation.setLatitude(mGpsLocation.getLatitude());
+      phoneLocation.setLongitude(mGpsLocation.getLongitude());
+    }
     cellMonitorLog.setPhoneGpsLocation(phoneLocation);
     mClient.addLogRecord(cellMonitorLog);
     mEventBus.post(new LogSent());
