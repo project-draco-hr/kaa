@@ -1,4 +1,9 @@
 {
-  LOG.debug("Forwarding session aware message: {}",message);
-  this.opsActor.tell(message,context.self());
+  if (isApplicationTokenValid(message.getSessionInfo().getApplicationToken())) {
+    LOG.debug("Forwarding session aware message: {}",message);
+    this.opsActor.tell(message,context.self());
+  }
+ else {
+    LOG.debug("Session aware message won't be forwarded. Reason: message {}" + " has invalid application token",message);
+  }
 }
