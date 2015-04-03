@@ -1,0 +1,7 @@
+{
+  Schema schema=new Schema.Parser().parse(notificationSchemaBody);
+  List<TarEntryData> tarEntries=new LinkedList<>();
+  tarEntries.add(createTarEntry(NOTIFICATION_HEADER,processHeaderTemplate("kaa_notification_definitions.vm",schema,NOTIFICATION_NAMESPACE)));
+  tarEntries.addAll(generateSourcesFromSchema(schema,NOTIFICATION_SOURCE_NAME_PATTERN,NOTIFICATION_NAMESPACE));
+  return tarEntries;
+}
