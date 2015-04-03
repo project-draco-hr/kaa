@@ -1,0 +1,10 @@
+{
+  SdkKeyDto dto=createDto();
+  dto.setId(getStringId());
+  dto.setToken(token);
+  dto.setData(data);
+  if (application != null) {
+    dto.setApplicationId(application.getStringId());
+  }
+  return dto;
+}

@@ -1,0 +1,6 @@
+{
+  int result=applicationId != null ? applicationId.hashCode() : 0;
+  result=31 * result + (token != null ? token.hashCode() : 0);
+  result=31 * result + (data != null ? Arrays.hashCode(data) : 0);
+  return result;
+}

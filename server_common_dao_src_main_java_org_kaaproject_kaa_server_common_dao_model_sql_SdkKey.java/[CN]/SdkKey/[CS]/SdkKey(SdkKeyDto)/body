@@ -1,0 +1,9 @@
+{
+  if (dto != null) {
+    this.id=getLong(dto.getId());
+    this.token=dto.getToken();
+    this.data=dto.getData();
+    Long appId=getLongId(dto.getApplicationId());
+    this.application=appId != null ? new Application(appId) : null;
+  }
+}

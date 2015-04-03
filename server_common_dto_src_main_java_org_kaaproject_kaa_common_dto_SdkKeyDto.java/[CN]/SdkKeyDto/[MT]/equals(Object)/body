@@ -1,0 +1,19 @@
+{
+  if (this == o) {
+    return true;
+  }
+  if (o == null || getClass() != o.getClass()) {
+    return false;
+  }
+  SdkKeyDto that=(SdkKeyDto)o;
+  if (applicationId != null ? !applicationId.equals(that.applicationId) : that.applicationId != null) {
+    return false;
+  }
+  if (!Arrays.equals(data,that.data)) {
+    return false;
+  }
+  if (token != null ? !token.equals(that.token) : that.token != null) {
+    return false;
+  }
+  return true;
+}
