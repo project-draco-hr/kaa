@@ -10,21 +10,21 @@
       projectConfig.setIconBase64(iconBase64);
 switch (projectConfig.getPlatform()) {
 case ANDROID:
-        sdkKey.setTargetPlatform(SdkPlatform.ANDROID);
+        sdkPropertiesDto.setTargetPlatform(SdkPlatform.ANDROID);
       break;
 case C:
-    sdkKey.setTargetPlatform(SdkPlatform.C);
+    sdkPropertiesDto.setTargetPlatform(SdkPlatform.C);
   break;
 case CPP:
-sdkKey.setTargetPlatform(SdkPlatform.CPP);
+sdkPropertiesDto.setTargetPlatform(SdkPlatform.CPP);
 break;
 case JAVA:
-sdkKey.setTargetPlatform(SdkPlatform.JAVA);
+sdkPropertiesDto.setTargetPlatform(SdkPlatform.JAVA);
 break;
 default :
 break;
 }
-projectConfig.setSdkKeyBase64(Base64.encodeObject(sdkKey,Base64.URL_SAFE));
+projectConfig.setSdkKeyBase64(Base64.encodeObject(sdkPropertiesDto,Base64.URL_SAFE));
 }
 }
  catch (IOException e) {

@@ -4,12 +4,12 @@
   ApplicationDto notificationApplication=new ApplicationDto();
   notificationApplication.setName("Android notification demo");
   notificationApplication=client.editApplication(notificationApplication);
-  sdkKey.setApplicationId(notificationApplication.getId());
-  sdkKey.setProfileSchemaVersion(1);
-  sdkKey.setConfigurationSchemaVersion(1);
-  sdkKey.setLogSchemaVersion(1);
-  sdkKey.setNotificationSchemaVersion(1);
-  sdkKey.setTargetPlatform(SdkPlatform.ANDROID);
+  sdkPropertiesDto.setApplicationId(notificationApplication.getId());
+  sdkPropertiesDto.setProfileSchemaVersion(1);
+  sdkPropertiesDto.setConfigurationSchemaVersion(1);
+  sdkPropertiesDto.setLogSchemaVersion(1);
+  sdkPropertiesDto.setNotificationSchemaVersion(1);
+  sdkPropertiesDto.setTargetPlatform(SdkPlatform.ANDROID);
   loginTenantDeveloper(client);
   logger.info("Creating notification schema...");
   NotificationSchemaDto notificationSchemaDto=new NotificationSchemaDto();
@@ -17,7 +17,7 @@
   notificationSchemaDto.setName("Notification schema");
   notificationSchemaDto.setDescription("Notification schema describing incoming notifications");
   notificationSchemaDto=client.createNotificationSchema(notificationSchemaDto,getResourcePath("notificationSchema.json"));
-  sdkKey.setNotificationSchemaVersion(notificationSchemaDto.getMajorVersion());
+  sdkPropertiesDto.setNotificationSchemaVersion(notificationSchemaDto.getMajorVersion());
   logger.info("Notification schema was created.");
   TopicDto optionalTopic=new TopicDto();
   optionalTopic.setApplicationId(notificationApplication.getId());
