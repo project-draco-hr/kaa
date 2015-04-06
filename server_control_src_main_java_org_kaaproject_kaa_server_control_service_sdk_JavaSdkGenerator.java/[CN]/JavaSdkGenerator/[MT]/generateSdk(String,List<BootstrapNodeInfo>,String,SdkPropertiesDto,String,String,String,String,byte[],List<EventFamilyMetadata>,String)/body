@@ -1,4 +1,9 @@
 {
+  Integer configurationSchemaVersion=sdkProperties.getConfigurationSchemaVersion();
+  Integer profileSchemaVersion=sdkProperties.getProfileSchemaVersion();
+  Integer notificationSchemaVersion=sdkProperties.getNotificationSchemaVersion();
+  Integer logSchemaVersion=sdkProperties.getLogSchemaVersion();
+  String defaultVerifierToken=sdkProperties.getDefaultVerifierToken();
   Schema configurationSchema=new Schema.Parser().parse(configurationSchemaBody);
   Schema profileSchema=new Schema.Parser().parse(profileSchemaBody);
   Schema notificationSchema=new Schema.Parser().parse(notificationSchemaBody);
@@ -30,7 +35,7 @@
   ZipFile templateArhive=new ZipFile(sdkTemplateFile);
   Map<String,ZipEntryData> replacementData=new HashMap<String,ZipEntryData>();
   ZipEntry clientPropertiesEntry=templateArhive.getEntry(CLIENT_PROPERTIES);
-  byte[] clientPropertiesData=generateClientProperties(templateArhive.getInputStream(clientPropertiesEntry),bootstrapNodes,appToken,configurationSchemaVersion,profileSchemaVersion,notificationSchemaVersion,logSchemaVersion,configurationProtocolSchemaBody,defaultConfigurationData,eventFamilies);
+  byte[] clientPropertiesData=generateClientProperties(templateArhive.getInputStream(clientPropertiesEntry),bootstrapNodes,sdkToken,configurationProtocolSchemaBody,defaultConfigurationData,eventFamilies);
   replacementData.put(CLIENT_PROPERTIES,new ZipEntryData(new ZipEntry(CLIENT_PROPERTIES),clientPropertiesData));
   List<JavaDynamicBean> javaSources=new ArrayList<JavaDynamicBean>();
   String configurationClassName=configurationSchema.getName();

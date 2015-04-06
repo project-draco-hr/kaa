@@ -1,4 +1,10 @@
 {
+  String appToken=sdkProperties.getApplicationToken();
+  Integer configurationSchemaVersion=sdkProperties.getConfigurationSchemaVersion();
+  Integer profileSchemaVersion=sdkProperties.getProfileSchemaVersion();
+  Integer notificationSchemaVersion=sdkProperties.getNotificationSchemaVersion();
+  Integer logSchemaVersion=sdkProperties.getLogSchemaVersion();
+  String defaultVerifierToken=sdkProperties.getDefaultVerifierToken();
   String sdkTemplateLocation=System.getProperty("server_home_dir") + "/" + C_SDK_DIR+ "/"+ C_SDK_PREFIX+ buildVersion+ ".tar.gz";
   LOG.debug("Lookup C SDK template: {}",sdkTemplateLocation);
   CompressorStreamFactory csf=new CompressorStreamFactory();
