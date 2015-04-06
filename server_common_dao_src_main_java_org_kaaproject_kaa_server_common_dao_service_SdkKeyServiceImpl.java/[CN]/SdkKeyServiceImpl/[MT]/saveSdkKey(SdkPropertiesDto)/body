@@ -1,0 +1,19 @@
+{
+  SdkPropertiesDto savedSdkPropertiesDto=null;
+  if (isValidSqlObject(sdkPropertiesDto)) {
+    if (isNotBlank(sdkPropertiesDto.getId())) {
+      SdkKey sdkKeyToSave=new SdkKey(sdkPropertiesDto);
+      LOG.debug("Update application with id [{}] for token [{}]",sdkPropertiesDto.getApplicationId(),sdkKeyToSave.getToken());
+      SdkKey checkSdkKey=sdkKeyDao.findSdkKeyByToken(sdkKeyToSave.getToken());
+      if (checkSdkKey == null || String.valueOf(sdkKeyToSave.getId()).equals(String.valueOf(checkSdkKey.getId()))) {
+        savedSdkPropertiesDto=getDto(sdkKeyDao.save(sdkKeyToSave));
+      }
+ else {
+        throw new IncorrectParameterException("Can't add two sdk keys with the same token values: " + sdkKeyToSave.getToken());
+      }
+      return savedSdkPropertiesDto;
+    }
+    savedSdkPropertiesDto=getDto(sdkKeyDao.save(new SdkKey(sdkPropertiesDto)));
+  }
+  return savedSdkPropertiesDto;
+}

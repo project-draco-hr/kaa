@@ -1,0 +1,16 @@
+{
+  if (dto != null) {
+    try {
+      this.id=getLongId(dto.getId());
+      this.data=DtoByteMarshaller.toBytes(dto);
+      MessageDigest digest=MessageDigest.getInstance(HASH_ALGORITHM);
+      digest.update(this.data);
+      this.token=Base64.encodeBase64String(digest.digest());
+      Long appId=getLongId(dto.getApplicationId());
+      this.application=appId != null ? new Application(appId) : null;
+    }
+ catch (    NoSuchAlgorithmException e) {
+      throw new RuntimeException(e);
+    }
+  }
+}

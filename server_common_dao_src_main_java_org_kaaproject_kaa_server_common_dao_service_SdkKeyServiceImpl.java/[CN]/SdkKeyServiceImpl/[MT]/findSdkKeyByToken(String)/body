@@ -1,7 +1,7 @@
 {
-  SdkKeyDto sdkKeyDto=null;
+  SdkPropertiesDto sdkPropertiesDto=null;
   if (isValidId(token)) {
-    sdkKeyDto=getDto(sdkKeyDao.findSdkKeyByToken(token));
+    sdkPropertiesDto=getDto(sdkKeyDao.findSdkKeyByToken(token));
   }
-  return sdkKeyDto;
+  return sdkPropertiesDto;
 }
