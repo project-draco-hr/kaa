@@ -9,7 +9,7 @@
   SyncRequest sourceRequest=new SyncRequest();
   sourceRequest.setRequestId(REQUEST_ID);
   SyncRequestMetaData md=new SyncRequestMetaData();
-  md.setApplicationToken(APP_TOKEN);
+  md.setSdkToken(APP_TOKEN);
   md.setEndpointPublicKeyHash(clientPublicKeyHash);
   md.setProfileHash(clientPublicKeyHash);
   md.setTimeout(TIMEOUT * 1L);
@@ -24,7 +24,7 @@
   SyncRequest targetRequest=new SyncRequest();
   targetRequest.setRequestId(REQUEST_ID);
   md=new SyncRequestMetaData();
-  md.setApplicationToken(APP_TOKEN);
+  md.setSdkToken(APP_TOKEN);
   md.setEndpointPublicKeyHash(targetPublicKeyHash);
   md.setProfileHash(targetPublicKeyHash);
   md.setTimeout(TIMEOUT * 1L);
