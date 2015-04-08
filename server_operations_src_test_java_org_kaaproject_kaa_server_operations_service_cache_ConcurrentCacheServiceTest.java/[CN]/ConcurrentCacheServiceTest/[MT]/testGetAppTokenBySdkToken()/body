@@ -1,0 +1,7 @@
+{
+  assertEquals(TEST_APP_TOKEN,cacheService.getAppTokenBySdkToken(TEST_SDK_TOKEN));
+  verify(sdkKeyService,times(1)).findSdkKeyByToken(TEST_SDK_TOKEN);
+  reset(sdkKeyService);
+  assertEquals(TEST_APP_TOKEN,cacheService.getAppTokenBySdkToken(TEST_SDK_TOKEN));
+  verify(sdkKeyService,never()).findSdkKeyByToken(TEST_SDK_TOKEN);
+}

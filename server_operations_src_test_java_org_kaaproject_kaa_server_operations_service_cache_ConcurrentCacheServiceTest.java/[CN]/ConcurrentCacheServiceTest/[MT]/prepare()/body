@@ -11,6 +11,16 @@
     }
   }
 );
+  final SdkPropertiesDto sdkProperties=new SdkPropertiesDto();
+  sdkProperties.setApplicationToken(TEST_APP_TOKEN);
+  sdkProperties.setApplicationId(APP_ID);
+  when(sdkKeyService.findSdkKeyByToken(TEST_SDK_TOKEN)).then(new Answer<SdkPropertiesDto>(){
+    @Override public SdkPropertiesDto answer(    InvocationOnMock invocationOnMock) throws Throwable {
+      sleepABit();
+      return sdkProperties;
+    }
+  }
+);
   final List<ConfigurationDto> configurations=new ArrayList<ConfigurationDto>();
   ConfigurationDto theConf=new ConfigurationDto();
   theConf.setId(CF1_ID);
