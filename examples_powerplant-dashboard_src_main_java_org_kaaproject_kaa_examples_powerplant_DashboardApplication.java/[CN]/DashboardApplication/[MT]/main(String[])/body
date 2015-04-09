@@ -1,0 +1,11 @@
+{
+  LOG.info("Starting service");
+  final ResourceConfig rc=new ResourceConfig().packages("org.kaaproject.kaa.examples.powerplant.resources");
+  rc.register(JacksonFeature.class);
+  rc.register(SimpleMapperProvider.class);
+  HttpServer server=GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI),rc,false);
+  server.getServerConfiguration().addHttpHandler(new CLStaticHttpHandler(DashboardApplication.class.getClassLoader(),"/"),"/");
+  server.start();
+  System.in.read();
+  server.shutdownNow();
+}
