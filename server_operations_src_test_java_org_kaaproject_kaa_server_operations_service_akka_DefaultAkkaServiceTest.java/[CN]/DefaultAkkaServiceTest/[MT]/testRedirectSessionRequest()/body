@@ -10,7 +10,7 @@
   final ErrorBuilder errorBuilder=Mockito.mock(ErrorBuilder.class);
   AvroByteArrayConverter<SyncRequest> requestConverter=new AvroByteArrayConverter<>(SyncRequest.class);
   final org.kaaproject.kaa.common.channels.protocols.kaatcp.messages.SyncRequest kaaSync=new org.kaaproject.kaa.common.channels.protocols.kaatcp.messages.SyncRequest(crypt.encodeData(requestConverter.toByteArray(request)),false,true);
-  final SessionInfo session=new SessionInfo(UUID.randomUUID(),Constants.KAA_PLATFORM_PROTOCOL_AVRO_ID,channelContextMock,ChannelType.ASYNC,crypt.getSessionCipherPair(),EndpointObjectHash.fromBytes(clientPublicKey.array()),APP_TOKEN,100,true);
+  final SessionInfo session=new SessionInfo(UUID.randomUUID(),Constants.KAA_PLATFORM_PROTOCOL_AVRO_ID,channelContextMock,ChannelType.ASYNC,crypt.getSessionCipherPair(),EndpointObjectHash.fromBytes(clientPublicKey.array()),APP_TOKEN,SDK_TOKEN,100,true);
   SessionAwareMessage message=new SessionAwareMessage(){
     @Override public SessionInfo getSessionInfo(){
       return session;
