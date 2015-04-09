@@ -13,7 +13,16 @@
       }
       return savedSdkPropertiesDto;
     }
-    savedSdkPropertiesDto=getDto(sdkKeyDao.save(new SdkKey(sdkPropertiesDto)));
+ else {
+      SdkKey sdkKeyToSave=new SdkKey(sdkPropertiesDto);
+      SdkKey checkSdkKey=sdkKeyDao.findSdkKeyByToken(sdkKeyToSave.getToken());
+      if (checkSdkKey == null) {
+        savedSdkPropertiesDto=getDto(sdkKeyDao.save(new SdkKey(sdkPropertiesDto)));
+      }
+ else {
+        savedSdkPropertiesDto=getDto(checkSdkKey);
+      }
+    }
   }
   return savedSdkPropertiesDto;
 }
