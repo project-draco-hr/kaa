@@ -1,0 +1,11 @@
+{
+  closed=true;
+  try {
+    client.close();
+    executor.shutdown();
+    executor.awaitTermination(5,TimeUnit.SECONDS);
+  }
+ catch (  IOException|InterruptedException e) {
+    LOG.error("Failed to close appender: {}",e.getMessage(),e);
+  }
+}
