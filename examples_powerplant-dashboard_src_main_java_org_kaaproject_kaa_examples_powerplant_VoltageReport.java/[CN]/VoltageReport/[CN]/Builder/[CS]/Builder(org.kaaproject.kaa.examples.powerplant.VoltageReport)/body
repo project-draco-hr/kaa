@@ -1,0 +1,7 @@
+{
+  super(org.kaaproject.kaa.examples.powerplant.VoltageReport.SCHEMA$);
+  if (isValidValue(fields()[0],other.samples)) {
+    this.samples=data().deepCopy(fields()[0].schema(),other.samples);
+    fieldSetFlags()[0]=true;
+  }
+}
