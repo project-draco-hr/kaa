@@ -25,6 +25,7 @@ default :
 break;
 }
 projectConfig.setSdkKeyBase64(Base64.encodeObject(sdkPropertiesDto,Base64.URL_SAFE));
+logger.info("Resulting sdk properties: {}",sdkPropertiesDto);
 }
 }
  catch (IOException e) {
