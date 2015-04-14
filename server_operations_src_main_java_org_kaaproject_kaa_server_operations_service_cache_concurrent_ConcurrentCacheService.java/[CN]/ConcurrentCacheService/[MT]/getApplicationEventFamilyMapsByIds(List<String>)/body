@@ -1,0 +1,11 @@
+{
+  return aefmMemorizer.compute(key,new Computable<List<String>,List<ApplicationEventFamilyMapDto>>(){
+    @Override public List<ApplicationEventFamilyMapDto> compute(    List<String> key){
+      LOG.debug("Fetching result for getApplicationEventFamilyMapsByIds");
+      List<ApplicationEventFamilyMapDto> value=applicationEventMapService.findApplicationEventFamilyMapsByIds(key);
+      putApplicationEventFamilyMaps(key,value);
+      return value;
+    }
+  }
+);
+}
