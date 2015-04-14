@@ -10,6 +10,5 @@
     LOG.warn("Received unencrypted init message, but unencrypted connection forbidden by configuration.");
     throw new GeneralSecurityException("Unencrypted connection forbidden by configuration.");
   }
-  addAppTokenToClientSyncMetaData(syncRequest.getClientSyncMetaData());
   return syncRequest;
 }
