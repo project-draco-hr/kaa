@@ -1,6 +1,6 @@
 {
   byte[] profile=baseAvroConverter.encode(ENDPOINT_PROFILE);
-  RegisterProfileRequest request=new RegisterProfileRequest(APP_TOKEN,ENDPOINT_KEY.getBytes(),new EndpointVersionInfo(CONFIGURATION_SCHEMA_VERSION,PROFILE_SCHEMA_VERSION,1,1,null,1),profile);
+  RegisterProfileRequest request=new RegisterProfileRequest(APP_TOKEN,ENDPOINT_KEY.getBytes(),"SDK_TOKEN",profile);
   EndpointProfileDto dto=profileService.registerProfile(request);
   Assert.assertNotNull(dto);
   Assert.assertNotNull(dto.getId());

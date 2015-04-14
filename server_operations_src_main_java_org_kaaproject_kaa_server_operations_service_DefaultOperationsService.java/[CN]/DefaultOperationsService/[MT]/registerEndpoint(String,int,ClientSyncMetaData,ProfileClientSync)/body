@@ -2,7 +2,7 @@
   LOG.debug("[{}][{}] register endpoint. request: {}",endpointId,requestHash,request);
   byte[] endpointKey=toByteArray(request.getEndpointPublicKey());
   byte[] profileBody=toByteArray(request.getProfileBody());
-  RegisterProfileRequest registerProfileRequest=new RegisterProfileRequest(metaData.getApplicationToken(),endpointKey,request.getVersionInfo(),profileBody,request.getEndpointAccessToken());
+  RegisterProfileRequest registerProfileRequest=new RegisterProfileRequest(metaData.getApplicationToken(),endpointKey,request.getSdkToken(),profileBody,request.getEndpointAccessToken());
   EndpointProfileDto endpointProfile=profileService.registerProfile(registerProfileRequest);
   LOG.debug("profile registered. id: {}, endpointKeyHash: {}",endpointProfile.getId(),endpointProfile.getEndpointKeyHash());
   return endpointProfile;
