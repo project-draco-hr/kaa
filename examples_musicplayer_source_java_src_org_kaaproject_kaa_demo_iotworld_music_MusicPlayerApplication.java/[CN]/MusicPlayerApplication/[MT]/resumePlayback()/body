@@ -1,0 +1,11 @@
+{
+  if (player == null) {
+    if (state.getSongId() == null || library.getSong(state.getSongId()) == null) {
+      state.setSongId(library.getNext(state.getSongId()));
+    }
+    player=resetPlayer(state.getSongId());
+  }
+  if (player != null && player.getStatus() != PlaybackStatus.PLAYING) {
+    player.play();
+  }
+}

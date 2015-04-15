@@ -1,0 +1,6 @@
+{
+  LOG.info("Receieved stop event {} from {}",event,originator);
+  player.stop();
+  state.setSongId(null);
+  sendPlaybackResponse(originator);
+}
