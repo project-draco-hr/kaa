@@ -1,33 +1,3 @@
 {
-  cliOut.reset();
-  boolean create=strIsEmpty(topicId);
-  int result=-1;
-  if (create) {
-    if (strIsEmpty(applicationId)) {
-      applicationId=editApplicationCli(cli,null,applicationName,null,tenantName,false);
-      cliOut.reset();
-    }
-    String cmdLine="createTopic -n testTopic -a " + applicationId + " -t "+ subscriptionType.name();
-    if (createOut) {
-      cmdLine+=" -o dummy.out";
-    }
-    result=cli.processLine(cmdLine);
-  }
- else {
-    result=cli.processLine("editTopic -n testTopic2 -i " + topicId);
-  }
-  Assert.assertEquals(result,0);
-  String output=cliOut.toString("UTF-8");
-  if (create) {
-    String id=output.trim().substring("Created new Topic with id: ".length()).trim();
-    return id;
-  }
- else   if (topicId.equals(FAKE_SQL_ID)) {
-    Assert.assertTrue(output.trim().startsWith("Topic with id " + FAKE_SQL_ID + " not found!"));
-    return topicId;
-  }
- else {
-    Assert.assertTrue(output.trim().startsWith("Topic updated."));
-    return topicId;
-  }
+  return editTopicCli(cli,topicId,applicationId,null,applicationName,tenantName,subscriptionType,createOut);
 }

@@ -1,0 +1,10 @@
+{
+  KaaClientPlatformContext context=Mockito.mock(KaaClientPlatformContext.class);
+  PersistentStorage persistentStorage=Mockito.mock(PersistentStorage.class);
+  Mockito.when(context.createPersistentStorage()).thenReturn(persistentStorage);
+  Mockito.when(persistentStorage.exists(TEST_PATH)).thenReturn(true);
+  Mockito.when(persistentStorage.openForRead(TEST_PATH)).thenReturn(new ByteArrayInputStream(createTestData()));
+  SimpleConfigurationStorage storage=new SimpleConfigurationStorage(context,TEST_PATH);
+  ByteBuffer result=storage.loadConfiguration();
+  Assert.assertTrue(Arrays.equals(result.array(),createTestData()));
+}

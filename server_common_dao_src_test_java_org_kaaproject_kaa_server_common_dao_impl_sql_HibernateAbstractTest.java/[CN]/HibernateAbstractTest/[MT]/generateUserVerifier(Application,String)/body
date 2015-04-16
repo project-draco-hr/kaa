@@ -1,0 +1,13 @@
+{
+  UserVerifier verifier=new UserVerifier();
+  verifier.setName("GENERATED test Verifier" + UUID.randomUUID().toString());
+  if (app == null) {
+    app=generateApplication(null);
+  }
+  verifier.setApplication(app);
+  if (verifierToken == null) {
+    verifierToken="token";
+  }
+  verifier.setVerifierToken(verifierToken);
+  return verifierDao.save(verifier);
+}

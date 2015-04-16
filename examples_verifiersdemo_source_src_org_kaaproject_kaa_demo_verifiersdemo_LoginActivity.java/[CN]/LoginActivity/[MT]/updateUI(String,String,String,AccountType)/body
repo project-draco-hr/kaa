@@ -32,7 +32,6 @@ kaaClient.attachUser(kaaVerifierToken,userIdCopy,token,new UserAttachCallback(){
 Log.i(TAG,"User was attached... " + userAttachResponse.toString());
 if (userAttachResponse.getResult() == SyncResponseResultType.SUCCESS) {
 Log.i(TAG,"Successful Kaa verification");
-logout();
 Log.i(TAG,userAttachResponse.toString());
 curUserInfo="Successful Kaa verification";
 buttonEnabled=true;
@@ -54,6 +53,7 @@ if (listener != null) {
 vdecf.removeListener(listener);
 }
 listener=new KaaEventListener();
+vdecf.addListener(listener);
 }
  else {
 String failureString=userAttachResponse.getErrorReason() == null ? userAttachResponse.getErrorCode().toString() : userAttachResponse.getErrorReason().toString();

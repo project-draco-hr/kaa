@@ -16,8 +16,8 @@
   }
   kaaClientState=new KaaClientPropertiesState(context.createPersistentStorage(),context.getBase64(),this.properties);
   TransportContext transportContext=buildTransportContext(properties,kaaClientState);
-  channelManager=buildChannelManager(bootstrapServers,transportContext);
   bootstrapManager=buildBootstrapManager(properties,kaaClientState,transportContext);
+  channelManager=buildChannelManager(bootstrapManager,bootstrapServers,transportContext);
   bootstrapManager.setChannelManager(channelManager);
   profileManager=buildProfileManager(properties,kaaClientState,transportContext);
   notificationManager=buildNotificationManager(properties,kaaClientState,transportContext);
