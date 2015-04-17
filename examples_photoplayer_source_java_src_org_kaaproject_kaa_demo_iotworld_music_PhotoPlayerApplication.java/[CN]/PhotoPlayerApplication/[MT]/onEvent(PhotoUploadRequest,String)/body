@@ -1,0 +1,5 @@
+{
+  LOG.info("Receieved upload request {} from {}",event,originator);
+  library.upload(event);
+  photoECF.sendEvent(new PhotoAlbumsResponse(library.buildAlbumInfoList()),originator);
+}

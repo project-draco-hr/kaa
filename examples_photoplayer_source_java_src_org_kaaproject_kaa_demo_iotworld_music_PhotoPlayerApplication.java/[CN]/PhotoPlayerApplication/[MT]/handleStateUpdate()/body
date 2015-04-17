@@ -1,0 +1,9 @@
+{
+  LOG.info("Processing state update. Operation mode {} and geo fencing position {}",state.getOperationMode(),state.getGeoFencingPosition());
+  if (state.getOperationMode() == OperationMode.OFF) {
+    stopPlayback();
+  }
+ else   if (isPlaybackAllowed()) {
+    resumePlayback();
+  }
+}
