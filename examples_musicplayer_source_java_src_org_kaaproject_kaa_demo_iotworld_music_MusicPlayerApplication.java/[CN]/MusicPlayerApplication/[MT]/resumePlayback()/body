@@ -1,7 +1,7 @@
 {
   if (player == null) {
     if (state.getSongId() == null || library.getSong(state.getSongId()) == null) {
-      state.setSongId(library.getNext(state.getSongId()));
+      state.setSongId(library.getNext(null));
     }
     player=resetPlayer(state.getSongId());
   }
