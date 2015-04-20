@@ -1,0 +1,10 @@
+{
+  ContentType contentType;
+  if (configuration.getMimeType() == RequestType.TEXT) {
+    contentType=ContentType.create("text/plain","UTF-8");
+  }
+ else {
+    contentType=ContentType.create("application/json","UTF-8");
+  }
+  return contentType;
+}

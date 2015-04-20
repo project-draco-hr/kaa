@@ -1,0 +1,14 @@
+{
+  String body=buildRequestBody(configuration,dto);
+  ContentType contentType=buildContentType(configuration);
+  StringEntity entity=new StringEntity(body,contentType);
+  final HttpEntityEnclosingRequestBase request;
+  if (configuration.getMethod() == MethodType.POST) {
+    request=new HttpPost(configuration.getPath());
+  }
+ else {
+    request=new HttpPut(configuration.getPath());
+  }
+  request.setEntity(entity);
+  return request;
+}
