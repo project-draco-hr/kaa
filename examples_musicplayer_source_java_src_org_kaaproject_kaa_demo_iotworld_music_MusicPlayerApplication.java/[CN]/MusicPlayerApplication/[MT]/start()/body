@@ -5,13 +5,10 @@
   LOG.info("Loading music player state from file: {}",state.getFileName());
   state.load();
   LOG.info("Loaded music player state from file: {}",state.getFileName());
-  state.setOperationMode(OperationMode.ON);
-  handleStateUpdate();
   client.setEndpointAccessToken(accessCode);
   deviceECF.addListener(this);
   musicECF.addListener(this);
   geoECF.addListener(this);
   LOG.info("Going to start kaa client");
   client.start();
-  library.getPlayList();
 }

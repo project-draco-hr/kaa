@@ -1,0 +1,32 @@
+{
+  if (player == null) {
+    return;
+  }
+  if (originator != null) {
+    state.addStatusListener(originator);
+  }
+  KaaMp3File song=library.getSong(player.getFilePath());
+  PlaybackInfo response=new PlaybackInfo();
+  response.setSong(song.getSongInfo());
+  if (isPlaybackAllowed()) {
+    ;
+    response.setStatus(player.getStatus());
+  }
+ else {
+    response.setStatus(pendingStatus);
+  }
+  response.setTime(player.getTime());
+  response.setVolume(player.getVolume());
+  response.setMaxVolume(player.getMaxVolume());
+  for (  String listener : state.getListeners()) {
+    if (listener.equals(originator)) {
+      response.setIgnoreTimeUpdate(ignoreOriginatorTimeUpdate);
+      response.setIgnoreVolumeUpdate(ignoreOriginatorVolumeUpdate);
+    }
+ else {
+      response.setIgnoreTimeUpdate(false);
+      response.setIgnoreVolumeUpdate(false);
+    }
+    musicECF.sendEvent(new PlaybackStatusUpdate(response),listener);
+  }
+}

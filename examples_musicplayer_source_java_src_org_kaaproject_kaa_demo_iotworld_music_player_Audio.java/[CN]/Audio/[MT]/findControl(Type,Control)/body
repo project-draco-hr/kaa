@@ -1,0 +1,12 @@
+{
+  if (controls == null || controls.length == 0)   return null;
+  for (  Control control : controls) {
+    if (control.getType().equals(type))     return control;
+    if (control instanceof CompoundControl) {
+      CompoundControl compoundControl=(CompoundControl)control;
+      Control member=findControl(type,compoundControl.getMemberControls());
+      if (member != null)       return member;
+    }
+  }
+  return null;
+}
