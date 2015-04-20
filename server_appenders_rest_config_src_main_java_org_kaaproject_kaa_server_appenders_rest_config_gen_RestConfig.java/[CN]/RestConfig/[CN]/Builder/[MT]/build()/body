@@ -1,0 +1,20 @@
+{
+  try {
+    RestConfig record=new RestConfig();
+    record.host=fieldSetFlags()[0] ? this.host : (java.lang.String)defaultValue(fields()[0]);
+    record.port=fieldSetFlags()[1] ? this.port : (java.lang.Integer)defaultValue(fields()[1]);
+    record.ssl=fieldSetFlags()[2] ? this.ssl : (java.lang.Boolean)defaultValue(fields()[2]);
+    record.verifySslCert=fieldSetFlags()[3] ? this.verifySslCert : (java.lang.Boolean)defaultValue(fields()[3]);
+    record.username=fieldSetFlags()[4] ? this.username : (java.lang.String)defaultValue(fields()[4]);
+    record.password=fieldSetFlags()[5] ? this.password : (java.lang.String)defaultValue(fields()[5]);
+    record.connectionPoolSize=fieldSetFlags()[6] ? this.connectionPoolSize : (java.lang.Integer)defaultValue(fields()[6]);
+    record.header=fieldSetFlags()[7] ? this.header : (java.lang.Boolean)defaultValue(fields()[7]);
+    record.path=fieldSetFlags()[8] ? this.path : (java.lang.String)defaultValue(fields()[8]);
+    record.method=fieldSetFlags()[9] ? this.method : (org.kaaproject.kaa.server.appenders.rest.config.gen.MethodType)defaultValue(fields()[9]);
+    record.mimeType=fieldSetFlags()[10] ? this.mimeType : (org.kaaproject.kaa.server.appenders.rest.config.gen.RequestType)defaultValue(fields()[10]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

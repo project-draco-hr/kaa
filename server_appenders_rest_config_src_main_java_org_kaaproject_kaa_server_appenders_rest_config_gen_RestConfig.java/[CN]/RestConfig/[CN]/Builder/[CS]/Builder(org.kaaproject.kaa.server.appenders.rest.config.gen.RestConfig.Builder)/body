@@ -1,0 +1,47 @@
+{
+  super(other);
+  if (isValidValue(fields()[0],other.host)) {
+    this.host=data().deepCopy(fields()[0].schema(),other.host);
+    fieldSetFlags()[0]=true;
+  }
+  if (isValidValue(fields()[1],other.port)) {
+    this.port=data().deepCopy(fields()[1].schema(),other.port);
+    fieldSetFlags()[1]=true;
+  }
+  if (isValidValue(fields()[2],other.ssl)) {
+    this.ssl=data().deepCopy(fields()[2].schema(),other.ssl);
+    fieldSetFlags()[2]=true;
+  }
+  if (isValidValue(fields()[3],other.verifySslCert)) {
+    this.verifySslCert=data().deepCopy(fields()[3].schema(),other.verifySslCert);
+    fieldSetFlags()[3]=true;
+  }
+  if (isValidValue(fields()[4],other.username)) {
+    this.username=data().deepCopy(fields()[4].schema(),other.username);
+    fieldSetFlags()[4]=true;
+  }
+  if (isValidValue(fields()[5],other.password)) {
+    this.password=data().deepCopy(fields()[5].schema(),other.password);
+    fieldSetFlags()[5]=true;
+  }
+  if (isValidValue(fields()[6],other.connectionPoolSize)) {
+    this.connectionPoolSize=data().deepCopy(fields()[6].schema(),other.connectionPoolSize);
+    fieldSetFlags()[6]=true;
+  }
+  if (isValidValue(fields()[7],other.header)) {
+    this.header=data().deepCopy(fields()[7].schema(),other.header);
+    fieldSetFlags()[7]=true;
+  }
+  if (isValidValue(fields()[8],other.path)) {
+    this.path=data().deepCopy(fields()[8].schema(),other.path);
+    fieldSetFlags()[8]=true;
+  }
+  if (isValidValue(fields()[9],other.method)) {
+    this.method=data().deepCopy(fields()[9].schema(),other.method);
+    fieldSetFlags()[9]=true;
+  }
+  if (isValidValue(fields()[10],other.mimeType)) {
+    this.mimeType=data().deepCopy(fields()[10].schema(),other.mimeType);
+    fieldSetFlags()[10]=true;
+  }
+}

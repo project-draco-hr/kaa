@@ -1,0 +1,29 @@
+{
+  this.configuration=configuration;
+  this.executor=Executors.newFixedThreadPool(configuration.getConnectionPoolSize());
+  target=new HttpHost(configuration.getHost(),configuration.getPort(),configuration.getSsl() ? "https" : "http");
+  HttpClientBuilder builder=HttpClients.custom();
+  if (configuration.getUsername() != null && configuration.getPassword() != null) {
+    LOG.info("Adding basic auth credentials provider");
+    CredentialsProvider credsProvider=new BasicCredentialsProvider();
+    credsProvider.setCredentials(new AuthScope(target.getHostName(),target.getPort()),new UsernamePasswordCredentials(configuration.getUsername(),configuration.getPassword()));
+    builder.setDefaultCredentialsProvider(credsProvider);
+  }
+  if (!configuration.getVerifySslCert()) {
+    LOG.info("Adding trustful ssl context");
+    SSLContextBuilder sslBuilder=new SSLContextBuilder();
+    try {
+      sslBuilder.loadTrustMaterial(null,new TrustSelfSignedStrategy());
+      SSLConnectionSocketFactory sslsf=new SSLConnectionSocketFactory(sslBuilder.build());
+      builder.setSSLSocketFactory(sslsf);
+    }
+ catch (    NoSuchAlgorithmException|KeyStoreException|KeyManagementException e) {
+      LOG.error("Failed to init socket factory {}",e.getMessage(),e);
+    }
+  }
+  PoolingHttpClientConnectionManager cm=new PoolingHttpClientConnectionManager();
+  cm.setDefaultMaxPerRoute(configuration.getConnectionPoolSize());
+  cm.setMaxTotal(configuration.getConnectionPoolSize());
+  builder.setConnectionManager(cm);
+  this.client=builder.build();
+}
