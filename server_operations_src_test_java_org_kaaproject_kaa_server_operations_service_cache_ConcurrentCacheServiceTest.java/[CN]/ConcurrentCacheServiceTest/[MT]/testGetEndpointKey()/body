@@ -5,4 +5,23 @@
   assertEquals(publicKey,cacheService.getEndpointKey(publicKeyHash));
   verify(endpointService,times(0)).findEndpointProfileByKeyHash(publicKeyHash.getData());
   reset(endpointService);
+  assertNull(cacheService.getEndpointKey(publicKeyHash2));
+  verify(endpointService,times(1)).findEndpointProfileByKeyHash(publicKeyHash2.getData());
+  reset(endpointService);
+  final EndpointProfileDto ep2=new EndpointProfileDto();
+  ep2.setEndpointKey(publicKey2.getEncoded());
+  when(endpointService.findEndpointProfileByKeyHash(publicKeyHash2.getData())).then(new Answer<EndpointProfileDto>(){
+    @Override public EndpointProfileDto answer(    InvocationOnMock invocation) throws Throwable {
+      sleepABit();
+      return ep2;
+    }
+  }
+);
+  assertNull(cacheService.getEndpointKey(publicKeyHash2));
+  verify(endpointService,times(0)).findEndpointProfileByKeyHash(publicKeyHash2.getData());
+  reset(endpointService);
+  cacheService.putEndpointKey(publicKeyHash2,publicKey2);
+  assertEquals(publicKey2,cacheService.getEndpointKey(publicKeyHash2));
+  verify(endpointService,times(0)).findEndpointProfileByKeyHash(publicKeyHash2.getData());
+  reset(endpointService);
 }

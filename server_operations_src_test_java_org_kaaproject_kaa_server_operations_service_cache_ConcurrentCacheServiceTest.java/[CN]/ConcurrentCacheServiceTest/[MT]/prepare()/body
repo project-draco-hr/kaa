@@ -83,6 +83,9 @@
   publicKey=keyGen.genKeyPair().getPublic();
   byte[] key=publicKey.getEncoded();
   publicKeyHash=EndpointObjectHash.fromSHA1(key);
+  publicKey2=keyGen.genKeyPair().getPublic();
+  byte[] key2=publicKey2.getEncoded();
+  publicKeyHash2=EndpointObjectHash.fromSHA1(key2);
   final EndpointProfileDto ep=new EndpointProfileDto();
   ep.setEndpointKey(key);
   when(endpointService.findEndpointProfileByKeyHash(publicKeyHash.getData())).then(new Answer<EndpointProfileDto>(){
