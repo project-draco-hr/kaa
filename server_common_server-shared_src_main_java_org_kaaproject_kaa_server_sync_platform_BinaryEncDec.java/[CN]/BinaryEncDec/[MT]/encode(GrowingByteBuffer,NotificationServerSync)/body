@@ -8,9 +8,9 @@
     buf.putShort((short)notificationSync.getAvailableTopics().size());
     for (    Topic t : notificationSync.getAvailableTopics()) {
       buf.putLong(Long.parseLong(t.getId()));
-      buf.putShort(t.getSubscriptionType() == SubscriptionType.MANDATORY ? MANDATORY : OPTIONAL);
+      buf.put(t.getSubscriptionType() == SubscriptionType.MANDATORY ? MANDATORY : OPTIONAL);
       buf.put(NOTHING);
-      buf.put((byte)t.getName().getBytes(UTF8).length);
+      buf.putShort((short)t.getName().getBytes(UTF8).length);
       putUTF(buf,t.getName());
     }
   }
