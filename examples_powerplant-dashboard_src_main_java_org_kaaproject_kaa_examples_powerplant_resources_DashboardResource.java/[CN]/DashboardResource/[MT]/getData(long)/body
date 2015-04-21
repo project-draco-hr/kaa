@@ -4,7 +4,7 @@
   List<DataPoint> result=new ArrayList<DataPoint>();
   for (  Integer key : keyList) {
     LOG.trace("Filtering {} samples using ts {}",key,time);
-    SortedSet<DataPoint> samples=voltageSamplesMap.get(key).tailSet(new DataPoint(key,0.0,time));
+    SortedSet<DataPoint> samples=voltageSamplesMap.get(key).tailSet(new DataPoint(key,0.0f,time));
     result.addAll(samples);
   }
   return result;

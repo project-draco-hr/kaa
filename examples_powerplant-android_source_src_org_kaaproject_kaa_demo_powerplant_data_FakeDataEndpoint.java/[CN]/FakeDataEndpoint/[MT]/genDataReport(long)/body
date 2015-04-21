@@ -1,0 +1,7 @@
+{
+  List<DataPoint> dataPoints=new ArrayList<DataPoint>();
+  for (int i=0; i < DashboardFragment.NUM_PANELS; i++) {
+    dataPoints.add(new DataPoint(i,genRandomVoltage()));
+  }
+  return new DataReport(time,dataPoints,getConsumption());
+}
