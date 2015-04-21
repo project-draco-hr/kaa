@@ -27,6 +27,15 @@
       response.setIgnoreTimeUpdate(false);
       response.setIgnoreVolumeUpdate(false);
     }
-    musicECF.sendEvent(new PlaybackStatusUpdate(response),listener);
+    PlaybackStatusUpdate newUpdate=new PlaybackStatusUpdate(response);
+    PlaybackStatusUpdate lastUpdate=lastUpdates.get(listener);
+    if (lastUpdate == null || !lastUpdate.equals(newUpdate)) {
+      LOG.debug("[{}] Sending new update {}",listener,newUpdate);
+      musicECF.sendEvent(newUpdate,listener);
+    }
+ else {
+      LOG.debug("[{}] Skipping update {}",listener,newUpdate);
+    }
+    lastUpdates.put(listener,newUpdate);
   }
 }

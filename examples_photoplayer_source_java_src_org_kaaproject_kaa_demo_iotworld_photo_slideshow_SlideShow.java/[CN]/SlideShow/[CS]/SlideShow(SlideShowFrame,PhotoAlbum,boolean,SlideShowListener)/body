@@ -1,0 +1,10 @@
+{
+  super();
+  this.frame=frame;
+  this.album=album;
+  this.listener=listener;
+  this.thread=new SlideShowThread();
+  if (lastOne) {
+    currentIndex=album.getPhotos().size() - 1;
+  }
+}
