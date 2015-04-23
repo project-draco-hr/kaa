@@ -1,0 +1,31 @@
+{
+  while (!stopped) {
+    try {
+      if (queue.size() == 0) {
+        startDefaultMessage();
+      }
+      TwitterBoardNotification notification=queue.take();
+      while (queue.size() > MAX_MESSAGES_IN_QUEUE) {
+        LOG.info("Queue size is to big ({}). Skipping message {} ",queue.size(),notification);
+        notification=queue.take();
+      }
+      int timeout=DEFAULT_TIMEOUT;
+      if (notification != null) {
+        LOG.info("Going to display {}",notification);
+        timeout=startMessage(notification);
+        LOG.info("Time required to display this message {} and repeat count is {}",timeout,configuration.getRepeatCount());
+        timeout*=(Math.max(MIN_REPEAT_COUNT,configuration.getRepeatCount()));
+      }
+      try {
+        LOG.info("Will sleep for {} ms",timeout);
+        Thread.sleep(timeout);
+      }
+ catch (      InterruptedException e) {
+        LOG.warn("Interrupted: {}",e.getMessage(),e);
+      }
+    }
+ catch (    Exception e) {
+      LOG.error("Failed to display message: {}",e.getMessage(),e);
+    }
+  }
+}

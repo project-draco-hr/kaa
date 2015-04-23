@@ -1,0 +1,10 @@
+{
+  LOG.info("Notification for topic id [{}] received.",id);
+  LOG.info("Notification body: {}",notification.getMessage());
+  try {
+    this.queue.put(notification);
+  }
+ catch (  InterruptedException e) {
+    LOG.info("Failed to put notification to queue {}",notification.getMessage(),e);
+  }
+}

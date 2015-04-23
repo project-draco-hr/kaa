@@ -19,7 +19,12 @@
         String body=null;
         try {
           JSONObject object=new JSONObject();
+          JSONArray keywords=new JSONArray();
+          for (          String keyword : config.getTwitterClientConfiguration().getFilters()) {
+            keywords.put(keyword);
+          }
           object.put("message",status.getText());
+          object.put("keywords",keywords);
           object.put("author",status.getUser().getName());
           body=object.toString();
           adminClient.sendNotification(notification,"notification",body);

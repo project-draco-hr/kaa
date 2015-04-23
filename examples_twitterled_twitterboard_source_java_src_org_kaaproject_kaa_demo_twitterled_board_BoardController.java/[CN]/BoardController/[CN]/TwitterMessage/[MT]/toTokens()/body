@@ -1,0 +1,29 @@
+{
+  List<TwitterMessageToken> result=new ArrayList<BoardController.TwitterMessageToken>();
+  if (author != null) {
+    result.add(new TwitterMessageToken("@" + author,toRGB(configuration.getAtTagsColor())));
+  }
+  String[] tokens=message.split("\\s+");
+  for (  String token : tokens) {
+    boolean isKeyword=false;
+    for (    String keyword : keywords) {
+      if (token.equals(keyword)) {
+        isKeyword=true;
+        break;
+      }
+    }
+    if (isKeyword) {
+      result.add(new TwitterMessageToken(token,toRGB(configuration.getKeywordsColor())));
+    }
+ else     if (token.startsWith("#")) {
+      result.add(new TwitterMessageToken(token,toRGB(configuration.getHashTagsColor())));
+    }
+ else     if (token.startsWith("@")) {
+      result.add(new TwitterMessageToken(token,toRGB(configuration.getAtTagsColor())));
+    }
+ else {
+      result.add(new TwitterMessageToken(token,toRGB(configuration.getTextColor())));
+    }
+  }
+  return result;
+}
