@@ -1,6 +1,3 @@
 {
-  MultiValueMap<String,Object> params=new LinkedMultiValueMap<>();
-  params.add("notification",notification);
-  params.add("file",getFileResource(notificationResource));
-  return restTemplate.postForObject(url + "sendNotification",params,NotificationDto.class);
+  return sendNotification(notification,getFileResource(notificationResource));
 }
