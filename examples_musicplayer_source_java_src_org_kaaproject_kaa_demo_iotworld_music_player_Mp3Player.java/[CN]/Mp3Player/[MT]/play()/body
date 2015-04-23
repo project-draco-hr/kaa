@@ -1,0 +1,10 @@
+{
+  if (player.getState() != PlayerState.PLAYING) {
+    try {
+      player.playSync();
+    }
+ catch (    InterruptedException e) {
+      LOG.error("Failed to modify player state",e);
+    }
+  }
+}

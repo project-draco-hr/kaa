@@ -1,0 +1,7 @@
+{
+  LOG.info("Receieved stop slideshow request {} from {}",event,originator);
+  pendingStatus=SlideShowStatus.PAUSED;
+  if (player != null && player.getStatus() != SlideShowStatus.PAUSED) {
+    player.pause();
+  }
+}

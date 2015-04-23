@@ -1,0 +1,8 @@
+{
+  Path rootPath=Paths.get(getRootDir(args));
+  File rootDir=rootPath.toFile();
+  if (!rootDir.exists() || !rootDir.isDirectory()) {
+    throw new IllegalArgumentException("Path " + rootPath.toString() + " is not a valid directory");
+  }
+  return rootPath;
+}
