@@ -1,7 +1,7 @@
 {
   List<TwitterMessageToken> result=new ArrayList<BoardController.TwitterMessageToken>();
   if (author != null) {
-    result.add(new TwitterMessageToken("@" + author,toRGB(configuration.getAtTagsColor())));
+    result.add(new TwitterMessageToken(author,toRGB(configuration.getAtTagsColor())));
   }
   String[] tokens=message.split("\\s+");
   for (  String token : tokens) {

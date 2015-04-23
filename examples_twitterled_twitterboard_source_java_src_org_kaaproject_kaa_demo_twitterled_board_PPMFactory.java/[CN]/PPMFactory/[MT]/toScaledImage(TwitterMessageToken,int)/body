@@ -1,18 +1,11 @@
 {
-  InputStream is=PPMFactory.class.getClassLoader().getResourceAsStream(FONT_FILE_NAME);
-  Font font=Font.createFont(Font.TRUETYPE_FONT,is);
-  font=font.deriveFont(FONT_SIZE);
-  BufferedImage img=new BufferedImage(1,1,BufferedImage.TYPE_INT_ARGB);
-  Graphics2D g2d=img.createGraphics();
-  g2d.setFont(font);
-  FontMetrics fm=g2d.getFontMetrics();
+  FontMetrics fm=getFontMetrics();
   int width=fm.stringWidth(token.getToken());
   int height=fm.getHeight();
-  g2d.dispose();
-  img=new BufferedImage(width,(int)(height * 0.80f),BufferedImage.TYPE_INT_ARGB);
-  g2d=img.createGraphics();
+  BufferedImage img=new BufferedImage(width,(int)(height * 0.80f),BufferedImage.TYPE_INT_ARGB);
+  Graphics2D g2d=img.createGraphics();
   applyHints(g2d);
-  g2d.setFont(font);
+  g2d.setFont(fm.getFont());
   fm=g2d.getFontMetrics();
   g2d.setBackground(new Color(background));
   g2d.setColor(new Color(token.getColor()));

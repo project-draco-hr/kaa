@@ -1,16 +1,4 @@
 {
-  TwitterMessage message=new TwitterMessage(messageSrc,author,keywords);
-  List<TwitterMessageToken> tokens=message.toTokens();
-  int width;
-  if (DEFAULT_FILE_NAME.equals(fileName)) {
-    if (defaultMessageWidth == 0) {
-      defaultMessageWidth=PPMFactory.createAndSave(fileName,tokens,toRGB(configuration.getBackgroundColor()));
-    }
-    width=defaultMessageWidth;
-  }
- else {
-    width=PPMFactory.createAndSave(fileName,tokens,toRGB(configuration.getBackgroundColor()));
-  }
   if (displayProcess != null) {
     displayProcess.destroy();
   }
@@ -37,5 +25,4 @@
   }
 );
   loggintThread.start();
-  return width * configuration.getScrollSpeed();
 }

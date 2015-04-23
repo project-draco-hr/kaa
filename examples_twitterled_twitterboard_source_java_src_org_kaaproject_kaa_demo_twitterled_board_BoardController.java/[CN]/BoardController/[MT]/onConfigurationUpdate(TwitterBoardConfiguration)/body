@@ -1,4 +1,15 @@
 {
-  LOG.info("Configuration body: {}",configuration);
-  this.configuration=configuration;
+  LOG.info("New configuration body: {}",newConfiguration);
+  TwitterBoardConfiguration oldConfiguration=configuration;
+  configuration=newConfiguration;
+  boolean visualUpdate=false;
+  visualUpdate=visualUpdate || !configuration.getBackgroundColor().equals(oldConfiguration.getBackgroundColor());
+  visualUpdate=visualUpdate || !configuration.getAtTagsColor().equals(oldConfiguration.getAtTagsColor());
+  visualUpdate=visualUpdate || !configuration.getHashTagsColor().equals(oldConfiguration.getHashTagsColor());
+  visualUpdate=visualUpdate || !configuration.getKeywordsColor().equals(oldConfiguration.getKeywordsColor());
+  visualUpdate=visualUpdate || !configuration.getTextColor().equals(oldConfiguration.getTextColor());
+  if (visualUpdate || !configuration.getDefaultMessage().equals(oldConfiguration.getDefaultMessage())) {
+    generateDefaultMessageImage();
+  }
+  updates.add(TwitterBoardUpdate.newConfiguration(visualUpdate));
 }
