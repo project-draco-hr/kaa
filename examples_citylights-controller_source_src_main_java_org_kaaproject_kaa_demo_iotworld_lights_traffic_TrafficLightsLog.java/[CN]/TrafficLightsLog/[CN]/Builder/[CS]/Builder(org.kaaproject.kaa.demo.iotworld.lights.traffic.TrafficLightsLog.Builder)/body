@@ -1,0 +1,7 @@
+{
+  super(other);
+  if (isValidValue(fields()[0],other.eventType)) {
+    this.eventType=data().deepCopy(fields()[0].schema(),other.eventType);
+    fieldSetFlags()[0]=true;
+  }
+}

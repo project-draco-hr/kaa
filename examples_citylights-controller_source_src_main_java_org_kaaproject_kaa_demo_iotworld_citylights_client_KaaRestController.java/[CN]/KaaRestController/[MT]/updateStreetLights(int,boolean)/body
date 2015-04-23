@@ -1,0 +1,16 @@
+{
+  AdminClient client=new AdminClient(configuration.getHost(),configuration.getPort());
+  client.login(configuration.getLogin(),configuration.getPassword());
+  ApplicationDto application=getApplication(client,configuration.getStreetLightsAppToken());
+  EndpointGroupDto group=getGroupByName(client,application.getId(),"Zone " + zoneId);
+  ConfigurationRecordDto currentConfiguration=getConfiguration(client,group.getId(),configuration.getStreetLightsCfSchemaVersion());
+  ConfigurationDto activeConfiguration=currentConfiguration.getActiveConfiguration();
+  ConfigurationDto newConfiguration=new ConfigurationDto();
+  newConfiguration.setApplicationId(activeConfiguration.getApplicationId());
+  newConfiguration.setEndpointGroupId(activeConfiguration.getEndpointGroupId());
+  newConfiguration.setSchemaId(activeConfiguration.getSchemaId());
+  newConfiguration.setMajorVersion(activeConfiguration.getMajorVersion());
+  newConfiguration.setBody("{\"lightZones\": { \"array\": [{\"zoneId\": { \"int\": " + zoneId + " }, \"zoneStatus\": { \"org.kaaproject.kaa.demo.iotworld.lights.street.ZoneStatus\" :\""+ (on ? "ENABLE" : "DISABLE")+ "\"}, \"__uuid\": null}] }, \"__uuid\": null}");
+  newConfiguration=client.editConfiguration(newConfiguration);
+  client.activateConfiguration(newConfiguration.getId());
+}

@@ -1,0 +1,12 @@
+{
+  try {
+    JsonDecoder decoder=DecoderFactory.get().jsonDecoder(TrafficLightsLog.SCHEMA$,reportBody);
+    TrafficLightsLog report=null;
+    report=trafficReader.read(report,decoder);
+    return report;
+  }
+ catch (  Exception e) {
+    LOG.warn("Failed to decode report source {}",reportBody,e);
+    return null;
+  }
+}
