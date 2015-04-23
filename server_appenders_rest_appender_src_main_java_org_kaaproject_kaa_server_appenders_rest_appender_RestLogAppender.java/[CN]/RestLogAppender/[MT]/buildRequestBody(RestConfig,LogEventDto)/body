@@ -1,0 +1,13 @@
+{
+  String body;
+  if (configuration.getHeader()) {
+    StringBuilder sb=new StringBuilder();
+    sb.append("{\"header\":").append(dto.getHeader()).append(",");
+    sb.append("\"event\":").append(dto.getEvent()).append("}");
+    body=sb.toString();
+  }
+ else {
+    body=dto.getEvent();
+  }
+  return body;
+}

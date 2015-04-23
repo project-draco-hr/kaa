@@ -1,0 +1,11 @@
+{
+  List<Integer> keyList=sortKeyList();
+  LOG.trace("Sorted list {}",keyList);
+  List<DataPoint> result=new ArrayList<DataPoint>();
+  for (  Integer key : keyList) {
+    LOG.trace("Filtering {} samples using ts {}",key,time);
+    SortedSet<DataPoint> samples=voltageSamplesMap.get(key).tailSet(new DataPoint(key,0.0,time));
+    result.addAll(samples);
+  }
+  return result;
+}
