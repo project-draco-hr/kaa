@@ -1,0 +1,24 @@
+{
+  mMainLayout.closeDrawers();
+  AbstractDeviceListFragment<?> deviceListFragment=null;
+switch (deviceType) {
+case CLIMATE:
+    deviceListFragment=new ClimateDeviceListFragment();
+  break;
+case LIGHTNING:
+deviceListFragment=new LightningDeviceListFragment();
+break;
+case MUSIC:
+deviceListFragment=new MusicDeviceListFragment();
+break;
+case PHOTO:
+deviceListFragment=new PhotoDeviceListFragment();
+break;
+case IRRIGATION:
+deviceListFragment=new IrrigationDeviceListFragment();
+break;
+default :
+break;
+}
+replaceFragment(deviceListFragment,deviceListFragment.getFragmentTag());
+}

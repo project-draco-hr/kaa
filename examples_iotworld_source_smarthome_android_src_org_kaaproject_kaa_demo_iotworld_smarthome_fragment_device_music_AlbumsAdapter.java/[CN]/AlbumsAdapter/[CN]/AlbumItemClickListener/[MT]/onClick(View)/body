@@ -1,0 +1,5 @@
+{
+  int itemPosition=mRecyclerView.getChildPosition(view);
+  AlbumInfo album=mMusicDevice.getSortedAlbums().get(itemPosition);
+  mAlbumSelectionListener.onAlbumSelected(album);
+}

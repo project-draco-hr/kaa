@@ -1,0 +1,5 @@
+{
+  releaseListeners();
+  mDeviceStore.deviceRemoved(mEndpointKey);
+  mEventBus.post(new DeviceRemovedEvent(mEndpointKey,getDeviceType()));
+}

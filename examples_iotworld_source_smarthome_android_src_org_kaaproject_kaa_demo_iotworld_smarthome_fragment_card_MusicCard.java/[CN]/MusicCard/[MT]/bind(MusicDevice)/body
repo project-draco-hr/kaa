@@ -1,0 +1,38 @@
+{
+  super.bind(device);
+  PlaybackInfo playbackInfo=device.getPlaybackInfo();
+  if (playbackInfo != null) {
+    setDetailsVisible(true);
+    SongInfo song=playbackInfo.getSong();
+    AlbumInfo album=null;
+    if (song != null) {
+      album=device.getAlbum(song.getAlbumId());
+    }
+    if (song != null && album != null) {
+      mNoTrackSelectedView.setVisibility(View.GONE);
+      mMusicDetailsView.setVisibility(View.VISIBLE);
+      ByteBuffer buffer=album.getCover();
+      byte[] coverData=buffer.array();
+      Bitmap prevBitmap=mAlbumCoverBitmap;
+      mAlbumCoverBitmap=BitmapFactory.decodeByteArray(coverData,0,coverData.length);
+      mAlbumCoverView.setImageBitmap(mAlbumCoverBitmap);
+      if (prevBitmap != null) {
+        prevBitmap.recycle();
+      }
+      mAlbumTitleView.setText(album.getTitle());
+      mArtistTitleView.setText(album.getArtist());
+      mTrackTitleView.setText(song.getTitle());
+      mTrackProgressView.setMax(song.getDuration());
+      mTrackProgressView.setProgress(playbackInfo.getTime());
+      String timeText=TimeUtils.milliSecondsToTimer(playbackInfo.getTime()) + "/" + TimeUtils.milliSecondsToTimer(song.getDuration());
+      mTrackProgressTextView.setText(timeText);
+    }
+ else {
+      mNoTrackSelectedView.setVisibility(View.VISIBLE);
+      mMusicDetailsView.setVisibility(View.GONE);
+    }
+  }
+ else {
+    setDetailsVisible(false);
+  }
+}

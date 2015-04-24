@@ -1,0 +1,40 @@
+{
+  final TypedArray typedArray=context.obtainStyledAttributes(attrs,R.styleable.IrrigationWidget);
+  ColorStateList colorStateList=typedArray.getColorStateList(R.styleable.IrrigationWidget_fillColor);
+  if (colorStateList != null) {
+    mFillColor=colorStateList.getDefaultColor();
+  }
+ else {
+    mFillColor=DEFAULT_FILL_COLOR;
+  }
+  colorStateList=typedArray.getColorStateList(R.styleable.IrrigationWidget_strokeColor);
+  if (colorStateList != null) {
+    mStrokeColor=colorStateList.getDefaultColor();
+  }
+ else {
+    mStrokeColor=DEFAULT_STROKE_COLOR;
+  }
+  int textColor=DEFAULT_TEXT_COLOR;
+  colorStateList=typedArray.getColorStateList(R.styleable.IrrigationWidget_textColor);
+  if (colorStateList != null) {
+    textColor=colorStateList.getDefaultColor();
+  }
+  mStrokeWidth=TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,DEFAULT_STROKE_WIDTH_DP,getResources().getDisplayMetrics());
+  mStrokeWidth=typedArray.getDimension(R.styleable.IrrigationWidget_strokeWidth,mStrokeWidth);
+  mValue=typedArray.getFloat(R.styleable.IrrigationWidget_value,DEFAULT_VALUE);
+  typedArray.recycle();
+  mPaint.setAntiAlias(true);
+  mPaint.setStyle(Paint.Style.FILL);
+  mPaint.setStrokeWidth(mStrokeWidth);
+  mTextPaint.setColor(textColor);
+  mTextPaint.setAntiAlias(true);
+  Typeface tf=null;
+  if (isInEditMode()) {
+    tf=Typeface.create(Typeface.SANS_SERIF,Typeface.BOLD);
+  }
+ else {
+    tf=FontUtils.getTypeface(context,FontType.ROBOTO_BOLD,false);
+  }
+  mTextPaint.setTypeface(tf);
+  mTextPaint.setTextAlign(Align.CENTER);
+}

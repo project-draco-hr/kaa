@@ -1,0 +1,9 @@
+{
+  if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+    view.setTypeface(getRobotoTypeface(view.getContext(),style));
+  }
+ else {
+    Typeface currentTypeface=view.getTypeface();
+    view.setTypeface(Typeface.create(currentTypeface,style));
+  }
+}

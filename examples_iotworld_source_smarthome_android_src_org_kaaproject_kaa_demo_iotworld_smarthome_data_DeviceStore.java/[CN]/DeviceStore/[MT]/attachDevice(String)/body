@@ -1,0 +1,15 @@
+{
+  EndpointAccessToken accessToken=new EndpointAccessToken(endpointAccessToken);
+  mClient.attachEndpoint(accessToken,new OnAttachEndpointOperationCallback(){
+    @Override public void onAttach(    SyncResponseResultType syncResponseResultType,    EndpointKeyHash endpointKeyHash){
+      if (syncResponseResultType == SyncResponseResultType.SUCCESS) {
+        Log.d("Kaa","Endpoint attached to user account! EndpointKeyHash = " + endpointKeyHash.getKeyHash());
+        discoverDevices(true,null);
+      }
+ else {
+        Log.e("Kaa","Unable to attach endpoint to user account!");
+      }
+    }
+  }
+);
+}
