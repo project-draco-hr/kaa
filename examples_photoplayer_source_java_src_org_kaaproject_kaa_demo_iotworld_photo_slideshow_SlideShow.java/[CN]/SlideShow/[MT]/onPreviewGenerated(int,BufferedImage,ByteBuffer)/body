@@ -1,0 +1,14 @@
+{
+  if (currentIndex == index) {
+    currentImage=preview;
+    currentImageThumbnail=thumbnail;
+  }
+ else {
+    nextImage=preview;
+    nextImageThumbnail=thumbnail;
+  }
+  if (index == currentIndex && !initialized) {
+    initialized=true;
+    listener.onInitCompleted();
+  }
+}

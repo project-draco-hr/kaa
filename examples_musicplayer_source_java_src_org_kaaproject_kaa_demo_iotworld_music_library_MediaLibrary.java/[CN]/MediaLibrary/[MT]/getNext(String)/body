@@ -1,0 +1,17 @@
+{
+  if (songId != null && songs.containsKey(songId)) {
+    List<String> keys=new ArrayList<String>(songs.keySet());
+    for (int i=0; i < keys.size(); i++) {
+      if (keys.get(i).equals(songId)) {
+        int pos=i + 1;
+        if (pos < keys.size()) {
+          return keys.get(pos);
+        }
+      }
+    }
+    return keys.get(0);
+  }
+ else {
+    return songs.keySet().iterator().next();
+  }
+}

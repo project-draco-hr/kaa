@@ -1,0 +1,28 @@
+{
+  VoltageReport report=decode(reportBody);
+  if (report == null) {
+    return Response.status(Status.BAD_REQUEST).build();
+  }
+  long ts=new Date().getTime();
+  for (  VoltageSample sample : report.getSamples()) {
+    LOG.trace("processing {}",sample);
+    sample.setTimestamp(ts);
+    Integer panelId=sample.getPanelId();
+    SortedSet<DataPoint> sampleSet=voltageSamplesMap.get(panelId);
+    if (sampleSet == null) {
+      LOG.trace("[{}] no samples for this panel yet",panelId);
+      sampleSet=Collections.synchronizedSortedSet(new TreeSet<DataPoint>(DataPoint.TS_COMPARATOR));
+      SortedSet<DataPoint> curSet=voltageSamplesMap.putIfAbsent(panelId,sampleSet);
+      if (curSet != null) {
+        sampleSet=curSet;
+      }
+    }
+    sampleSet.add(convert(sample));
+    if (sampleSet.size() == MAX_SAMPLES) {
+      DataPoint old=sampleSet.first();
+      sampleSet.remove(old);
+      LOG.trace("[{}] removing old data {}",panelId,old);
+    }
+  }
+  return Response.noContent().build();
+}
