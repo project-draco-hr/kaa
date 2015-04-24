@@ -1,0 +1,20 @@
+{
+  qrcodeRoute=new Route(QRCODE_URL){
+    @Override public Object handle(    Request request,    Response response){
+      response.type(RESPONSE_TYPE);
+      HttpServletResponse rawResponse=response.raw();
+      try (OutputStream out=rawResponse.getOutputStream()){
+        qrCodeManager.writeQRCodeImageBuffer(acesstoken,out);
+        out.flush();
+        out.close();
+      }
+ catch (      IOException e) {
+        LOG.error("Got error during get request",e);
+      }
+      response.status(HttpServletResponse.SC_OK);
+      return response;
+    }
+  }
+;
+  Spark.get(qrcodeRoute);
+}

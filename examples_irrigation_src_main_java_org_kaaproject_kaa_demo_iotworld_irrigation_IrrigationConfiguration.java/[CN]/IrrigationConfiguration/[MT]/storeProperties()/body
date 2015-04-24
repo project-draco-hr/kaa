@@ -1,0 +1,9 @@
+{
+  try {
+    persistedProperties.store(getPropertyOutputStream(),"Store property for irrigation system");
+  }
+ catch (  IOException e) {
+    LOG.error("Got error during property persistence.",e);
+    throw new RuntimeException(e);
+  }
+}
