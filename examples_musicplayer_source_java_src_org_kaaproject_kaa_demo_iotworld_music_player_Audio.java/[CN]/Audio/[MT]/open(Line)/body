@@ -1,0 +1,10 @@
+{
+  if (line.isOpen())   return false;
+  try {
+    line.open();
+  }
+ catch (  LineUnavailableException ex) {
+    return false;
+  }
+  return true;
+}

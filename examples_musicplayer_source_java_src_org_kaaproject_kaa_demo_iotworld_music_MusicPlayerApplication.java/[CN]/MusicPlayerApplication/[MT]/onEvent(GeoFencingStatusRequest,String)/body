@@ -1,0 +1,5 @@
+{
+  LOG.info("Receieved geo fencing status request {} from {}",event,originator);
+  GeoFencingStatusResponse response=new GeoFencingStatusResponse(state.getOperationMode(),state.getGeoFencingPosition());
+  geoECF.sendEvent(response,originator);
+}
