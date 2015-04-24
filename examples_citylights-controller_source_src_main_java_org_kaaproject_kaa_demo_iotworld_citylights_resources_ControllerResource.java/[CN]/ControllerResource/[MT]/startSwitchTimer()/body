@@ -1,0 +1,14 @@
+{
+  LOG.info("Starting switch timer!");
+  if (trafficState.isCarPending() || trafficState.isPedestrianPending()) {
+    LOG.warn("Can't start switch timer! Car pending {}, pedestrian pending {}",trafficState.isCarPending(),trafficState.isPedestrianPending());
+    return;
+  }
+  CityLightsConfiguration configuration=kaaClient.getConfiguration();
+  if (trafficState.isMainRoad()) {
+    ControllerApplication.getExecutor().schedule(createTimerRunnable(DISALLOW),configuration.getTrafficLightsConfiguration().getAllowStateDuration(),TimeUnit.SECONDS);
+  }
+ else {
+    ControllerApplication.getExecutor().schedule(createTimerRunnable(ALLOW),configuration.getTrafficLightsConfiguration().getDisallowStateDuration(),TimeUnit.SECONDS);
+  }
+}

@@ -1,0 +1,13 @@
+{
+  Line line=getMasterOutputLine();
+  if (line == null)   return null;
+  boolean opened=open(line);
+  try {
+    FloatControl control=getVolumeControl(line);
+    if (control == null)     return null;
+    return control.getValue();
+  }
+  finally {
+    if (opened)     line.close();
+  }
+}

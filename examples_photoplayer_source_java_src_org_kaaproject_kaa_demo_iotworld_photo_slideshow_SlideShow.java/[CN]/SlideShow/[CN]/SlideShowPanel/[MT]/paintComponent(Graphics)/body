@@ -1,0 +1,19 @@
+{
+  super.paintComponent(g);
+  float alphaCopy=alpha;
+  BufferedImage currentCopy=current;
+  BufferedImage nextCopy=next;
+  if (currentCopy == null) {
+    return;
+  }
+  LOG.info("PAINT: {}, {}, {}, {}",alphaCopy,currentIndex,currentCopy.hashCode(),nextCopy != null ? nextCopy.hashCode() : "null");
+  Graphics2D g2d=(Graphics2D)g.create();
+  g2d.setBackground(Color.BLACK);
+  g2d.setComposite(AlphaComposite.SrcOver.derive(alphaCopy));
+  g2d.drawImage(currentCopy,0,0,this);
+  if (alphaCopy != 1.0f && nextCopy != null) {
+    g2d.setComposite(AlphaComposite.SrcOver.derive(1f - alphaCopy));
+    g2d.drawImage(nextCopy,0,0,this);
+  }
+  g2d.dispose();
+}

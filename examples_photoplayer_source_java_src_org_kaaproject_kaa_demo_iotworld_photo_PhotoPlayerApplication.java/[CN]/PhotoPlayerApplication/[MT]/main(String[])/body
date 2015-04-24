@@ -1,0 +1,13 @@
+{
+  Path rootPath=getRootPath(args);
+  String accessCode=getAccessCode(args);
+  PhotoPlayerApplication application=new PhotoPlayerApplication(rootPath,accessCode);
+  application.start();
+  try {
+    System.in.read();
+    application.stop();
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+  }
+}

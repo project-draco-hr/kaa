@@ -1,0 +1,25 @@
+{
+  String uploadAlbumPath=rootPath + File.separator + UPLOADS_ALBUM_NAME;
+  File uploadAlbumFile=new File(uploadAlbumPath);
+  if (!uploadAlbumFile.exists()) {
+    LOG.info("Creating upload album");
+    uploadAlbumFile.mkdirs();
+  }
+  File photoFile=new File(uploadAlbumFile,event.getName());
+  if (photoFile.exists()) {
+    LOG.info("Photo with such name already exists. Will overwrite it!");
+    photoFile.delete();
+  }
+  try (FileOutputStream os=new FileOutputStream(photoFile)){
+    os.write(toByteArray(event.getBody()));
+  }
+ catch (  IOException e) {
+    LOG.error("Failed to write new file",e);
+    throw new RuntimeException(e);
+  }
+  PhotoAlbum album=scanFile(Paths.get(photoFile.toURI()));
+  if (album.getPhotos().size() <= MAX_PHOTOS_IN_THUMBNAIL) {
+    generateThumbnail(album);
+  }
+  return album.getAlbumId();
+}

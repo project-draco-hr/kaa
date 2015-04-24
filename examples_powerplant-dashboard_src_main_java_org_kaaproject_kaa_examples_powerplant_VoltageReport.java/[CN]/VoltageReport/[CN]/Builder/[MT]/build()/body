@@ -1,0 +1,10 @@
+{
+  try {
+    VoltageReport record=new VoltageReport();
+    record.samples=fieldSetFlags()[0] ? this.samples : (java.util.List<org.kaaproject.kaa.examples.powerplant.VoltageSample>)defaultValue(fields()[0]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

@@ -1,0 +1,10 @@
+{
+  byte[] data=resourceBody.getBytes("UTF-8");
+  ByteArrayResource bar=new ByteArrayResource(data){
+    @Override public String getFilename(){
+      return resourceName;
+    }
+  }
+;
+  return bar;
+}
