@@ -1,0 +1,23 @@
+{
+  LOG.info("Board controller started");
+  LOG.info("--= Press any key to exit =--");
+  kaaClient=Kaa.newClient(new DesktopKaaPlatformContext(),new SimpleKaaClientStateListener(){
+    @Override public void onStarted(){
+      controller.start();
+    }
+  }
+);
+  controller=new BoardController(kaaClient.getConfiguration());
+  kaaClient.addNotificationListener(controller);
+  kaaClient.addConfigurationListener(controller);
+  kaaClient.start();
+  try {
+    System.in.read();
+  }
+ catch (  IOException e) {
+    LOG.error("IOException was caught",e);
+  }
+  kaaClient.stop();
+  controller.shutdown();
+  LOG.info("Notification demo stopped");
+}

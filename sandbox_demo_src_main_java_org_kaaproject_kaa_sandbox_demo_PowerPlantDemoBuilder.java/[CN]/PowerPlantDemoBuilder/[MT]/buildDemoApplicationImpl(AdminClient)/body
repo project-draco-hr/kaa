@@ -1,8 +1,8 @@
 {
-  logger.info("Loading 'Power Plant Demo Application' data...");
+  logger.info("Loading 'Power plant demo application' data...");
   loginTenantAdmin(client);
   ApplicationDto powerPlantApplication=new ApplicationDto();
-  powerPlantApplication.setName("Power plant demo");
+  powerPlantApplication.setName("Power plant");
   powerPlantApplication=client.editApplication(powerPlantApplication);
   sdkKey.setApplicationId(powerPlantApplication.getId());
   sdkKey.setProfileSchemaVersion(1);
@@ -31,7 +31,7 @@
   logger.info("Creating configuration schema...");
   ConfigurationSchemaDto configurationSchema=new ConfigurationSchemaDto();
   configurationSchema.setApplicationId(powerPlantApplication.getId());
-  configurationSchema.setName("ConfigurationDemo schema");
+  configurationSchema.setName("PowerPlantConfigSchema");
   configurationSchema.setDescription("Default configuration schema for the power plant application");
   configurationSchema=client.createConfigurationSchema(configurationSchema,getResourcePath("configSchema.json"));
   logger.info("Configuration schema version: {}",configurationSchema.getMajorVersion());
@@ -51,7 +51,7 @@
   baseConfiguration.setSchemaId(configurationSchema.getId());
   baseConfiguration.setMajorVersion(configurationSchema.getMajorVersion());
   baseConfiguration.setMinorVersion(configurationSchema.getMinorVersion());
-  baseConfiguration.setDescription("Base power plant demo configuration");
+  baseConfiguration.setDescription("Base power plant configuration");
   String body=FileUtils.readResource(getResourcePath("configData.json"));
   logger.info("Configuration body: [{}]",body);
   baseConfiguration.setBody(body);
@@ -61,5 +61,5 @@
   logger.info("Activating the configuration");
   client.activateConfiguration(baseConfiguration.getId());
   logger.info("Configuration was activated");
-  logger.info("Finished loading 'Power plant Demo Application' data.");
+  logger.info("Finished loading 'Power plant application' data.");
 }

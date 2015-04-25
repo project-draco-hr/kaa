@@ -1,0 +1,8 @@
+{
+  if (mEndpointKey != null && mEndpointKey.equals(irrigationStatusUpdatedEvent.getEndpointKey())) {
+    IrrigationStatus irrigationStatus=mDevice.getIrrigationStatus();
+    if (irrigationStatus != null) {
+      mLeftTillNextIrrigationView.setValue(irrigationStatus.getTimeToNextIrrigationMs() / 1000);
+    }
+  }
+}

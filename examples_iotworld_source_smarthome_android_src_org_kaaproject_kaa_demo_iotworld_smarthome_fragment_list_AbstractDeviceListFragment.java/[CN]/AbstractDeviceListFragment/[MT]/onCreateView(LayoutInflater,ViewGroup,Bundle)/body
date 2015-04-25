@@ -1,0 +1,10 @@
+{
+  View rootView=inflater.inflate(R.layout.fragment_device_list,container,false);
+  setupView(rootView);
+  mNoDataText=(TextView)rootView.findViewById(R.id.noDataText);
+  mNoDataText.setText(R.string.no_devices);
+  mList=(ListView)rootView.findViewById(R.id.list);
+  showContent();
+  notifyDataChanged();
+  return rootView;
+}

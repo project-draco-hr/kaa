@@ -1,0 +1,10 @@
+{
+  if (mDeviceStore.getDevices(getDeviceType()).size() > 0) {
+    mNoDataText.setVisibility(View.GONE);
+    mList.setVisibility(View.VISIBLE);
+  }
+ else {
+    mList.setVisibility(View.GONE);
+    mNoDataText.setVisibility(View.VISIBLE);
+  }
+}

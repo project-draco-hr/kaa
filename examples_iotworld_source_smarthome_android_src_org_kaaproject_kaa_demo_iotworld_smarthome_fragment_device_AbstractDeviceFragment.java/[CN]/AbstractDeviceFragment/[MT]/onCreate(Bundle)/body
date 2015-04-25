@@ -1,0 +1,7 @@
+{
+  super.onCreate(savedInstanceState);
+  if (mEndpointKey == null) {
+    mEndpointKey=savedInstanceState.getString(ENDPOINT_KEY);
+  }
+  mDevice=(D)mDeviceStore.getDevicesMap().get(mEndpointKey);
+}

@@ -1,0 +1,18 @@
+{
+  final SlideShowPanel panel=this.panel;
+  if (to == from) {
+    return;
+  }
+  long tick=duration / ((to - from) / step);
+  for (int alpha=from; alpha != to; alpha+=step) {
+    long time=System.currentTimeMillis();
+    setAlpha(panel,alpha,current,next);
+    long spent=System.currentTimeMillis() - time;
+    time=tick - spent;
+    if (time > 0) {
+      LOG.info("Going to sleep for {} ms",time);
+      Thread.sleep(time);
+    }
+  }
+  setAlpha(panel,to,current,next);
+}

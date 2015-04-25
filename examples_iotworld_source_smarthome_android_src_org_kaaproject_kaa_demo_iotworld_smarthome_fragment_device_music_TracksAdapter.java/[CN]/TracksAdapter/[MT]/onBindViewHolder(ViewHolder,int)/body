@@ -1,0 +1,11 @@
+{
+  SongInfo song=mAlbum.getSongs().get(position);
+  int selectedSongPosition=-1;
+  if (mDevice.getPlaybackInfo() != null && mDevice.getPlaybackInfo().getSong() != null && mDevice.getPlaybackInfo().getSong().getAlbumId().equals(mAlbum.getAlbumId())) {
+    selectedSongPosition=mAlbum.getSongs().indexOf(mDevice.getPlaybackInfo().getSong());
+  }
+  holder.trackNumberView.setText("" + (position + 1));
+  holder.trackTitleView.setText(song.getTitle());
+  holder.trackDurationView.setText(TimeUtils.milliSecondsToTimer(song.getDuration()));
+  holder.setSelected(position == selectedSongPosition);
+}

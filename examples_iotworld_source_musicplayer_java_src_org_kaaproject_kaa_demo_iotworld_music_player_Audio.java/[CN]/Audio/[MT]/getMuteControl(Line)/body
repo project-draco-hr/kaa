@@ -1,0 +1,4 @@
+{
+  if (!line.isOpen())   throw new RuntimeException("Line is closed: " + toString(line));
+  return (BooleanControl)findControl(BooleanControl.Type.MUTE,line.getControls());
+}
