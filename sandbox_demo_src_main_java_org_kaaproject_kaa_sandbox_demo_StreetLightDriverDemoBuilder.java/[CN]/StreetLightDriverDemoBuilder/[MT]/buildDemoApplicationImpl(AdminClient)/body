@@ -53,12 +53,10 @@
     baseGroupConfiguration.setEndpointGroupId(group.getId());
     baseGroupConfiguration.setSchemaId(configurationSchema.getId());
     baseGroupConfiguration.setMajorVersion(configurationSchema.getMajorVersion());
-    baseGroupConfiguration.setMinorVersion(configurationSchema.getMinorVersion());
     baseGroupConfiguration.setDescription("Base street light driver configuration");
     String body=getConfigurationBodyForEndpointGroup(i);
     logger.info("Configuration body: [{}]",body);
     baseGroupConfiguration.setBody(body);
-    baseGroupConfiguration.setStatus(UpdateStatus.INACTIVE);
     logger.info("Editing the configuration...");
     baseGroupConfiguration=client.editConfiguration(baseGroupConfiguration);
     logger.info("Configuration was successfully edited");
