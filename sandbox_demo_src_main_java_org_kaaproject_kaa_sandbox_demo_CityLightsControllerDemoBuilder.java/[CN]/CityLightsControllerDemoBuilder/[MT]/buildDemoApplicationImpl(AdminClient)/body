@@ -1,5 +1,5 @@
 {
-  logger.info("Loading 'Configuration demo application' data...");
+  logger.info("Loading 'City lights controller application' data...");
   loginTenantAdmin(client);
   ApplicationDto cityLightsDemoApplication=new ApplicationDto();
   cityLightsDemoApplication.setName("City lights controller demo");
@@ -12,8 +12,8 @@
   logger.info("Creating configuration schema...");
   ConfigurationSchemaDto configurationSchema=new ConfigurationSchemaDto();
   configurationSchema.setApplicationId(cityLightsDemoApplication.getId());
-  configurationSchema.setName("City lights controller demo schema");
-  configurationSchema.setDescription("Default configuration schema for the city lights controller demo application");
+  configurationSchema.setName("City lights controller schema");
+  configurationSchema.setDescription("Default configuration schema for the city lights controller application");
   configurationSchema=client.createConfigurationSchema(configurationSchema,getResourcePath("config_schema.avsc"));
   logger.info("Configuration schema version: {}",configurationSchema.getMajorVersion());
   sdkKey.setConfigurationSchemaVersion(configurationSchema.getMajorVersion());
@@ -24,7 +24,7 @@
     baseEndpointGroup=endpointGroups.get(0);
   }
   if (baseEndpointGroup == null) {
-    throw new RuntimeException("Can't get default endpoint group for the city lights controller demo application!");
+    throw new RuntimeException("Can't get default endpoint group for the city lights controller application!");
   }
   ConfigurationDto baseConfiguration=new ConfigurationDto();
   baseConfiguration.setApplicationId(cityLightsDemoApplication.getId());
@@ -32,9 +32,33 @@
   baseConfiguration.setSchemaId(configurationSchema.getId());
   baseConfiguration.setMajorVersion(configurationSchema.getMajorVersion());
   baseConfiguration.setMinorVersion(configurationSchema.getMinorVersion());
-  baseConfiguration.setDescription("Base city lights controller demo configuration");
+  baseConfiguration.setDescription("Base city lights controller configuration");
   String body=FileUtils.readResource(getResourcePath("config_data.json"));
   logger.info("Configuration body: [{}]",body);
+  ObjectMapper objectMapper=new ObjectMapper();
+  Map<String,Object> configBody=objectMapper.readValue(body,Map.class);
+  logger.info("Getting config body: [{}]",configBody);
+  Map<String,Object> kaaClientConfig=(Map<String,Object>)configBody.get(KAA_CLIENT_CONFIG);
+  logger.info("Getting kaaClientConfig: [{}]",kaaClientConfig);
+  logger.info("Getting traffic lights and traffic lights app tokens...");
+  List<ApplicationDto> applications=client.getApplications();
+  logger.info("All available applications: [{}]",applications);
+  ApplicationDto trafficLightsApplication=getApplicationWithName(applications,TRAFFIC_LIGHTS_APPLICATION_NAME);
+  if (trafficLightsApplication == null) {
+    logger.error(formErrorLogMessage(TRAFFIC_LIGHTS_APPLICATION_NAME));
+    throw new RuntimeException("Can't get '" + TRAFFIC_LIGHTS_APPLICATION_NAME + "' application!");
+  }
+  logger.info(TRAFFIC_LIGHTS_APPLICATION_NAME + " application was found: {}",trafficLightsApplication);
+  ApplicationDto streetLightApplication=getApplicationWithName(applications,STREET_LIGHT_APPLICATION_NAME);
+  if (streetLightApplication == null) {
+    logger.error(formErrorLogMessage(STREET_LIGHT_APPLICATION_NAME));
+    throw new RuntimeException("Can't get '" + STREET_LIGHT_APPLICATION_NAME + "' application!");
+  }
+  logger.info(STREET_LIGHT_APPLICATION_NAME + " application was found: {}",streetLightApplication);
+  kaaClientConfig.put(TRAFFIC_LIGHTS_APP_TOKEN_PROPERTY,trafficLightsApplication.getApplicationToken());
+  kaaClientConfig.put(STREET_LIGHT_APP_TOKEN_PROPERTY,streetLightApplication.getApplicationToken());
+  body=objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(configBody);
+  logger.info("Configuration body after altering: [{}]",body);
   baseConfiguration.setBody(body);
   baseConfiguration.setStatus(UpdateStatus.INACTIVE);
   logger.info("Editing the configuration...");
@@ -43,5 +67,5 @@
   logger.info("Activating the configuration");
   client.activateConfiguration(baseConfiguration.getId());
   logger.info("Configuration was activated");
-  logger.info("Finished loading 'City lights controller demo application' data...");
+  logger.info("Finished loading 'City lights controller application' data...");
 }
