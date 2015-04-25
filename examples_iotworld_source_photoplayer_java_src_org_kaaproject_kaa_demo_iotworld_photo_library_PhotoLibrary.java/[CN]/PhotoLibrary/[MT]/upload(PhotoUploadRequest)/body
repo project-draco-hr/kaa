@@ -1,5 +1,5 @@
 {
-  String uploadAlbumPath=rootPath + File.separator + UPLOADS_ALBUM_NAME;
+  String uploadAlbumPath=getUploadsAlbumId();
   File uploadAlbumFile=new File(uploadAlbumPath);
   if (!uploadAlbumFile.exists()) {
     LOG.info("Creating upload album");
