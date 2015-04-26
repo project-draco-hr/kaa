@@ -1,0 +1,8 @@
+{
+  Image thumbnail=bufferedImage.getScaledInstance(THUMBNAIL_WIDTH,THUMBNAIL_HEIGHT,Image.SCALE_SMOOTH);
+  BufferedImage bufferedThumbnail=new BufferedImage(thumbnail.getWidth(null),thumbnail.getHeight(null),BufferedImage.TYPE_INT_RGB);
+  bufferedThumbnail.getGraphics().drawImage(thumbnail,0,0,null);
+  ByteArrayOutputStream byteArrayOut=new ByteArrayOutputStream();
+  ImageIO.write(bufferedThumbnail,"png",byteArrayOut);
+  return ByteBuffer.wrap(byteArrayOut.toByteArray());
+}
