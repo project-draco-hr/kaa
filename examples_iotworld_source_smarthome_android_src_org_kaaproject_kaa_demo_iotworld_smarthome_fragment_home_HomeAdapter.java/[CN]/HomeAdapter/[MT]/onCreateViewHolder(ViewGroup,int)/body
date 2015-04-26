@@ -1,0 +1,31 @@
+{
+  View card=null;
+  if (viewType == DeviceType.values().length) {
+    card=new AddDeviceCard(parent.getContext());
+  }
+ else {
+    DeviceType deviceType=DeviceType.values()[viewType];
+switch (deviceType) {
+case CLIMATE:
+      card=new ClimateCard(parent.getContext());
+    break;
+case LIGHTNING:
+  card=new LightningCard(parent.getContext());
+break;
+case MUSIC:
+card=new MusicCard(parent.getContext());
+break;
+case PHOTO:
+card=new PhotoCard(parent.getContext());
+break;
+case IRRIGATION:
+card=new IrrigationCard(parent.getContext());
+break;
+default :
+break;
+}
+}
+FontUtils.setRobotoFont(card);
+ViewHolder vhCard=new ViewHolder(card,viewType);
+return vhCard;
+}

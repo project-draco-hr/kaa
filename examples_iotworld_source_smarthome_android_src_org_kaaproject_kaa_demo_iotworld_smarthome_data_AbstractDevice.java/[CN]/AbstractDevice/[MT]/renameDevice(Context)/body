@@ -1,0 +1,27 @@
+{
+  if (mDeviceInfo != null) {
+    final String prevDeviceName=mDeviceInfo.getName();
+    AlertDialog.Builder builder=new AlertDialog.Builder(context);
+    builder.setTitle(R.string.rename_device);
+    final EditText input=new EditText(context);
+    input.setInputType(InputType.TYPE_CLASS_TEXT);
+    input.setText(prevDeviceName);
+    builder.setView(input);
+    builder.setPositiveButton(R.string.rename,new DialogInterface.OnClickListener(){
+      @Override public void onClick(      DialogInterface dialog,      int which){
+        String newDeviceName=input.getText().toString();
+        if (!TextUtils.isEmpty(newDeviceName) && !newDeviceName.equals(prevDeviceName)) {
+          changeName(newDeviceName);
+        }
+      }
+    }
+);
+    builder.setNegativeButton(R.string.cancel,new DialogInterface.OnClickListener(){
+      @Override public void onClick(      DialogInterface dialog,      int which){
+        dialog.cancel();
+      }
+    }
+);
+    builder.show();
+  }
+}

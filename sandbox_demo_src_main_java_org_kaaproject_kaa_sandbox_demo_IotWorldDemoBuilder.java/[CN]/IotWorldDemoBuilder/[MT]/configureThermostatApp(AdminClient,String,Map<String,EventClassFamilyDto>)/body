@@ -1,0 +1,16 @@
+{
+  SdkKey sdkKey=createSdkKey(client,applicationId,true);
+  List<String> aefMapIds=new ArrayList<>();
+  aefMapIds.add(createAefMap(client,applicationId,ecfMap.get(DEVICE_EVENT_CLASS_FAMILY),defaultDeviceAefMap));
+  aefMapIds.add(createAefMap(client,applicationId,ecfMap.get(GEO_FENCING_EVENT_CLASS_FAMILY),defaultGeoFencingDeviceAefMap));
+  Map<String,ApplicationEventAction> actionsMap=new HashMap<>();
+  actionsMap.put("org.kaaproject.kaa.demo.iotworld.thermo.ThermostatStatusUpdate",ApplicationEventAction.SOURCE);
+  actionsMap.put("org.kaaproject.kaa.demo.iotworld.thermo.ChangeDegreeRequest",ApplicationEventAction.SINK);
+  aefMapIds.add(createAefMap(client,applicationId,ecfMap.get(THERMO_EVENT_CLASS_FAMILY),actionsMap));
+  actionsMap=new HashMap<>();
+  actionsMap.put("org.kaaproject.kaa.demo.iotworld.fan.SwitchRequest",ApplicationEventAction.SOURCE);
+  actionsMap.put("org.kaaproject.kaa.demo.iotworld.fan.FanStatusUpdate",ApplicationEventAction.SINK);
+  aefMapIds.add(createAefMap(client,applicationId,ecfMap.get(FAN_EVENT_CLASS_FAMILY),actionsMap));
+  sdkKey.setAefMapIds(aefMapIds);
+  projectsSdkMap.put(THERMOSTAT_ANDROID_ID,sdkKey);
+}

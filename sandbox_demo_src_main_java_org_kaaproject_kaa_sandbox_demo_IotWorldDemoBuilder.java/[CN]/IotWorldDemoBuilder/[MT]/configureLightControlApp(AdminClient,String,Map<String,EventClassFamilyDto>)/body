@@ -1,0 +1,13 @@
+{
+  SdkKey sdkKey=createSdkKey(client,applicationId,true);
+  List<String> aefMapIds=new ArrayList<>();
+  aefMapIds.add(createAefMap(client,applicationId,ecfMap.get(DEVICE_EVENT_CLASS_FAMILY),defaultDeviceAefMap));
+  aefMapIds.add(createAefMap(client,applicationId,ecfMap.get(GEO_FENCING_EVENT_CLASS_FAMILY),defaultGeoFencingDeviceAefMap));
+  Map<String,ApplicationEventAction> actionsMap=new HashMap<>();
+  actionsMap.put("org.kaaproject.kaa.demo.iotworld.light.BulbListRequest",ApplicationEventAction.SINK);
+  actionsMap.put("org.kaaproject.kaa.demo.iotworld.light.BulbListStatusUpdate",ApplicationEventAction.SOURCE);
+  actionsMap.put("org.kaaproject.kaa.demo.iotworld.light.BulbControlRequest",ApplicationEventAction.SINK);
+  aefMapIds.add(createAefMap(client,applicationId,ecfMap.get(LIGHT_EVENT_CLASS_FAMILY),actionsMap));
+  sdkKey.setAefMapIds(aefMapIds);
+  projectsSdkMap.put(LIGHT_CONTROL_C_ID,sdkKey);
+}

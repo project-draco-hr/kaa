@@ -1,0 +1,33 @@
+{
+  super.onResume();
+  if (showNavigationDrawer()) {
+    mActionBar.setDisplayHomeAsUpEnabled(false);
+    mActionBar.setHomeButtonEnabled(false);
+    mActivity.showNavigationDrawer(true);
+  }
+ else {
+    mActivity.showNavigationDrawer(false);
+    if (mActionBar != null) {
+      mActionBar.setDisplayHomeAsUpEnabled(displayHomeAsUp());
+      mActionBar.setHomeButtonEnabled(displayHomeAsUp());
+      if (!displayHomeAsUp()) {
+        mActionBar.setHomeAsUpIndicator(null);
+      }
+    }
+  }
+  if (mActionBar != null) {
+    int options=0;
+    if (displayHomeAsUp()) {
+      options|=ActionBar.DISPLAY_HOME_AS_UP;
+    }
+    mActionBar.setDisplayOptions(options,ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_SHOW_CUSTOM);
+    mToolbar.setTitle(getTitle());
+    mToolbar.setSubtitle(getSubTitle());
+    mToolbar.setCustomToolbarContentEnabled(false);
+  }
+  mToolbar.setBackgroundColor(getBarsBackgroundColor());
+  if (useEventBus() && !mApplication.getEventBus().isRegistered(this)) {
+    mApplication.getEventBus().register(this);
+  }
+  FontUtils.setRobotoFont(mActivity);
+}

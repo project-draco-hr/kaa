@@ -1,0 +1,9 @@
+{
+  List<T> devices=new ArrayList<>();
+  for (  AbstractDevice device : devicesMap.values()) {
+    if (device.getDeviceType() == deviceType) {
+      devices.add((T)device);
+    }
+  }
+  return devices;
+}

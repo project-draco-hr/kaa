@@ -1,0 +1,11 @@
+{
+  if (requestCode == DEVICE_QR_CODE_REQUEST) {
+    if (resultCode == Activity.RESULT_OK) {
+      String result=data.getStringExtra(Intents.Scan.RESULT);
+      mDeviceStore.attachDevice(result);
+    }
+  }
+ else {
+    super.onActivityResult(requestCode,resultCode,data);
+  }
+}

@@ -1,0 +1,24 @@
+{
+  FontType robotoFontType=null;
+  if (originalTypeface == null) {
+    robotoFontType=FontType.ROBOTO_NORMAL;
+  }
+ else {
+    int style=originalTypeface.getStyle();
+switch (style) {
+case Typeface.BOLD:
+      robotoFontType=FontType.ROBOTO_BOLD;
+    break;
+case Typeface.BOLD_ITALIC:
+  robotoFontType=FontType.ROBOTO_BOLD_ITALIC;
+break;
+case Typeface.ITALIC:
+robotoFontType=FontType.ROBOTO_ITALIC;
+break;
+case Typeface.NORMAL:
+robotoFontType=FontType.ROBOTO_NORMAL;
+break;
+}
+}
+return (robotoFontType == null) ? originalTypeface : getTypeface(context,robotoFontType,false);
+}

@@ -1,8 +1,8 @@
 {
-  logger.info("Loading 'Vehicle Telemetry Demo Application' data...");
+  logger.info("Loading 'Vehicle telemetry application' data...");
   loginTenantAdmin(client);
   ApplicationDto vehicleTelemetryApplication=new ApplicationDto();
-  vehicleTelemetryApplication.setName("Vehicle telemetry demo");
+  vehicleTelemetryApplication.setName("Vehicle telemetry");
   vehicleTelemetryApplication=client.editApplication(vehicleTelemetryApplication);
   sdkKey.setApplicationId(vehicleTelemetryApplication.getId());
   sdkKey.setConfigurationSchemaVersion(1);
@@ -34,5 +34,5 @@
   vehicleTelemetryLogAppender.setPluginClassName("org.kaaproject.kaa.server.appenders.mongo.appender.MongoDbLogAppender");
   vehicleTelemetryLogAppender.setJsonConfiguration(FileUtils.readResource(getResourcePath("mongoAppender.json")));
   vehicleTelemetryLogAppender=client.editLogAppenderDto(vehicleTelemetryLogAppender);
-  logger.info("Finished loading 'Data Collection Demo Application' data.");
+  logger.info("Finished loading 'Vehicle telemetry application' data.");
 }

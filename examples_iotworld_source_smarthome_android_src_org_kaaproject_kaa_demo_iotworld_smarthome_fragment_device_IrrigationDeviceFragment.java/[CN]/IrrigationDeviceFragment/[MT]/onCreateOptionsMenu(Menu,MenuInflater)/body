@@ -1,0 +1,15 @@
+{
+  inflater.inflate(R.menu.irrigation,menu);
+  super.onCreateOptionsMenu(menu,inflater);
+  MenuItem item=menu.findItem(R.id.action_irrigate);
+  View actionView=MenuItemCompat.getActionView(item);
+  if (actionView != null) {
+    Button button=(Button)actionView.findViewById(R.id.irrigateButton);
+    button.setOnClickListener(new OnClickListener(){
+      @Override public void onClick(      View v){
+        irrigate();
+      }
+    }
+);
+  }
+}
