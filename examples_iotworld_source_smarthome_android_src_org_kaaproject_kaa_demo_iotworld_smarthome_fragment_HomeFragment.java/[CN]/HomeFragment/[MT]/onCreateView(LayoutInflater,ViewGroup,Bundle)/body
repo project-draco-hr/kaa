@@ -5,9 +5,8 @@
   mNoDataText.setText(R.string.no_devices);
   mRecyclerView=(AutoSpanRecyclerView)rootView.findViewById(R.id.recycler_view);
   mRecyclerView.setHasFixedSize(true);
-  int cardsWidth=getResources().getDimensionPixelSize(R.dimen.card_width);
   int cardsSpacing=getResources().getDimensionPixelSize(R.dimen.card_spacing);
-  mRecyclerView.setGridLayoutManager(GridLayoutManager.VERTICAL,1,cardsWidth,cardsSpacing);
+  mRecyclerView.setGridLayoutManager(GridLayoutManager.VERTICAL,1,R.dimen.card_width,cardsSpacing);
   mHomeAdapter=new HomeAdapter(mRecyclerView,mDeviceStore,this);
   showContent();
   notifyDataChanged();

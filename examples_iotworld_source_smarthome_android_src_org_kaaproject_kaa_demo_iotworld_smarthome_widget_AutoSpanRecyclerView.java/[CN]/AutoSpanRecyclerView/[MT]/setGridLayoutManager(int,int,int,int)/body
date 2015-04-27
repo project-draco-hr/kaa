@@ -2,7 +2,8 @@
   GridLayoutManager layoutManager=new GridLayoutManager(getContext(),minSpans,orientation,false);
   mOrientation=orientation;
   mGridMinSpans=minSpans;
-  mItemWidth=itemWidth;
+  mItemWidthResId=itemWidthResId;
+  updateDimensions();
   setLayoutManager(layoutManager);
   mItemDecoration=new SpacesItemDecoration(spacing);
   addItemDecoration(mItemDecoration);
