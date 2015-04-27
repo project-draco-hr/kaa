@@ -1,0 +1,7 @@
+{
+  IrrigationStatus irrigationStatus=device.getIrrigationStatus();
+  irrigationStatusTextView.setText(irrigationStatusTextView.getResources().getStringArray(R.array.irrigation_status)[irrigationStatus.getIsIrrigation() ? 1 : 0]);
+  scheduleTimeTextView.setText(scheduleTimeTextView.getResources().getString(R.string.irrigation_scheduled_text,TimeUtils.secondsToTimer(irrigationStatus.getIrrigationIntervalSec(),true)));
+  float mounthlySpent=(float)irrigationStatus.getMonthlySpentWater() / 1000f;
+  spentThisMonthTextView.setText(spentThisMonthTextView.getResources().getString(R.string.water_spent_this_month_text,mounthlySpent));
+}

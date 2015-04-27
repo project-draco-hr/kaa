@@ -1,4 +1,7 @@
 {
+  if (!isEnabled()) {
+    return true;
+  }
 switch (event.getAction()) {
 case MotionEvent.ACTION_DOWN:
     if (!onControlDown(event)) {

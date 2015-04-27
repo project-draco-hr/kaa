@@ -1,0 +1,23 @@
+{
+  PhotoFrameStatusUpdate photoFrameStatus=device.getPhotoFrameStatus();
+  PhotoAlbumInfo album=null;
+  if (photoFrameStatus.getAlbumId() != null) {
+    album=device.getAlbum(photoFrameStatus.getAlbumId());
+  }
+  if (album != null) {
+    noAlbumSelectedView.setVisibility(View.GONE);
+    photoDetailsView.setVisibility(View.VISIBLE);
+    if (photoFrameStatus.getStatus() == SlideShowStatus.PLAYING) {
+      slideshowStatusImage.setImageResource(R.drawable.playing);
+    }
+ else {
+      slideshowStatusImage.setImageResource(R.drawable.idle);
+    }
+    albumTitleTextView.setText(album.getTitle());
+    photoNumberTextView.setText(photoNumberTextView.getResources().getString(R.string.photo_number_text,photoFrameStatus.getPhotoNumber(),album.getSize()));
+  }
+ else {
+    noAlbumSelectedView.setVisibility(View.VISIBLE);
+    photoDetailsView.setVisibility(View.GONE);
+  }
+}

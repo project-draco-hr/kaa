@@ -1,10 +1,11 @@
 {
-  if (mDeviceStore.getDevices(getDeviceType()).size() > 0) {
+  mDeviceListAdapter.notifyDataSetChanged();
+  if (mDeviceListAdapter.getItemCount() > 0) {
     mNoDataText.setVisibility(View.GONE);
-    mList.setVisibility(View.VISIBLE);
+    mRecyclerView.setVisibility(View.VISIBLE);
   }
  else {
-    mList.setVisibility(View.GONE);
+    mRecyclerView.setVisibility(View.GONE);
     mNoDataText.setVisibility(View.VISIBLE);
   }
 }
