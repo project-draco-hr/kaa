@@ -1,9 +1,0 @@
-{
-  if (mixer == null)   return null;
-  StringBuilder sb=new StringBuilder();
-  Info info=mixer.getMixerInfo();
-  sb.append(info.getName());
-  sb.append(" (").append(info.getDescription()).append(")");
-  sb.append(mixer.isOpen() ? " [open]" : " [closed]");
-  return sb.toString();
-}

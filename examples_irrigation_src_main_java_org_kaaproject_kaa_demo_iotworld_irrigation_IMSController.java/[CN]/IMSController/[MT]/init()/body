@@ -1,8 +1,0 @@
-{
-  miniWebServer.start(getAccessToken());
-  if (configuration.isAttachedToUser()) {
-    LOG.info("Endpoint already attached to user.");
-    scheduleTimeTaskNow(stateHolder.getIrrigationIntervalMs(),new IrrigationCallbackImpl());
-    irrigation.sendEventToAll(stateHolder.getIrrigationStatusUpdate(scheduledFuture.getDelay(TimeUnit.MILLISECONDS)));
-  }
-}
