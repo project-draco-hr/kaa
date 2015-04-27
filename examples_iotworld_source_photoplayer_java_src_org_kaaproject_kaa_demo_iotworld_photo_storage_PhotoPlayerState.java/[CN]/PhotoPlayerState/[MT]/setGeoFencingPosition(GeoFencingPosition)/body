@@ -1,0 +1,8 @@
+{
+  if (position == null) {
+    LOG.warn("Geofencing position is null");
+    return;
+  }
+  properties.setProperty(GEO_FENCING_PROP_NAME,position.name());
+  persist();
+}

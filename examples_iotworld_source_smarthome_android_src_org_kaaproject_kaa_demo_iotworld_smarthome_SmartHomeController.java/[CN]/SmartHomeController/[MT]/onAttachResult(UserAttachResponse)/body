@@ -1,0 +1,13 @@
+{
+  SyncResponseResultType result=response.getResult();
+  if (result == SyncResponseResultType.SUCCESS) {
+    mUserAttached=true;
+    commitUsername();
+    mEventBus.post(new UserAttachEvent());
+  }
+ else {
+    mUserAttached=false;
+    String error=response.getErrorReason();
+    mEventBus.post(new UserAttachEvent(error));
+  }
+}

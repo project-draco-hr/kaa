@@ -1,0 +1,53 @@
+{
+  generateDefaultMessageImage();
+  while (!stopped) {
+    try {
+      if (queue.size() == 0) {
+        display(DEFAULT_FILE_NAME);
+        LOG.info("Waiting for updates");
+        updates.take();
+        continue;
+      }
+      TwitterBoardNotification notification=queue.take();
+      while (queue.size() >= MAX_MESSAGES_IN_QUEUE) {
+        LOG.info("Queue size is to big ({}). Skipping message {} ",queue.size(),notification);
+        notification=queue.take();
+      }
+      long drawFinishTime=0l;
+      boolean redraw=true;
+      boolean completed=false;
+      while (!completed) {
+        if (redraw) {
+          LOG.info("Going to display {}",notification);
+          int width=generateMessageImage(notification);
+          LOG.info("Width of this message {} and repeat count is {}",width,configuration.getRepeatCount());
+          display(CUSTOM_FILE_NAME);
+          drawFinishTime=System.currentTimeMillis() + width * configuration.getScrollSpeed() * (Math.max(MIN_REPEAT_COUNT,configuration.getRepeatCount()));
+        }
+        long timeout=drawFinishTime - System.currentTimeMillis();
+        if (timeout < 0) {
+          completed=true;
+          continue;
+        }
+        LOG.info("Will sleep for {} ms",timeout);
+        TwitterBoardUpdate update=updates.poll(timeout,TimeUnit.MILLISECONDS);
+        if (update != null) {
+          LOG.info("Update detected: {}",update);
+          if (update.isNewNotification()) {
+            completed=configuration.getQueueSize() == 0;
+          }
+ else           if (update.isNewConfiguration()) {
+            LOG.info("Restarting message due to configuration update");
+            redraw=update.isRedraw();
+          }
+        }
+ else {
+          completed=true;
+        }
+      }
+    }
+ catch (    Exception e) {
+      LOG.error("Failed to display message: {}",e.getMessage(),e);
+    }
+  }
+}

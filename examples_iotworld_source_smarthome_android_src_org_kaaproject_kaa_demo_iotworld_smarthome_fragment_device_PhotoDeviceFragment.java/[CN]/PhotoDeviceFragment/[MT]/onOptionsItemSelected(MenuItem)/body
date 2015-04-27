@@ -1,0 +1,12 @@
+{
+switch (item.getItemId()) {
+case R.id.action_upload_photo:
+    uploadPhoto();
+  return true;
+case R.id.delete_uploaded_photos:
+mDevice.deleteUploadedPhotos();
+return true;
+default :
+return super.onOptionsItemSelected(item);
+}
+}

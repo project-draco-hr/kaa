@@ -1,0 +1,21 @@
+{
+  LOG.info("Scanning path: {}",rootPath.toString());
+  songs.clear();
+  try {
+    Files.walkFileTree(rootPath,new SimpleFileVisitor<Path>(){
+      @Override public FileVisitResult visitFile(      Path aFile,      BasicFileAttributes aAttrs) throws IOException {
+        LOG.info("Processing file: {}",aFile);
+        scanFile(aFile);
+        return FileVisitResult.CONTINUE;
+      }
+      @Override public FileVisitResult preVisitDirectory(      Path aDir,      BasicFileAttributes aAttrs) throws IOException {
+        LOG.info("Processing directory: {}",aDir);
+        return FileVisitResult.CONTINUE;
+      }
+    }
+);
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+  }
+}

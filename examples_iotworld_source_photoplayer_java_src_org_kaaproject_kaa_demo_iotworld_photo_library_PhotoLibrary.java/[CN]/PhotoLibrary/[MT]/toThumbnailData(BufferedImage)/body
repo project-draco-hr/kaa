@@ -1,0 +1,14 @@
+{
+  float size=Math.min(image.getWidth(),image.getHeight());
+  float scale=size / THUMBNAIL_SIZE;
+  int thumbnailWidth=(int)(image.getWidth() / scale);
+  int thumbnailHeight=(int)(image.getHeight() / scale);
+  BufferedImage bufferedThumbnail=new BufferedImage(thumbnailWidth,thumbnailHeight,Image.SCALE_SMOOTH);
+  Graphics2D g2=bufferedThumbnail.createGraphics();
+  g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+  g2.drawImage(image,0,0,thumbnailWidth,thumbnailHeight,null);
+  g2.dispose();
+  ByteArrayOutputStream byteArrayOut=new ByteArrayOutputStream();
+  ImageIO.write(bufferedThumbnail,"jpeg",byteArrayOut);
+  return ByteBuffer.wrap(byteArrayOut.toByteArray());
+}

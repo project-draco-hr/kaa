@@ -1,0 +1,9 @@
+{
+  LOG.info("Receieved playback info request {} from {}",event,originator);
+  state.addStatusListener(originator);
+  lastUpdates.remove(originator);
+  if (player == null) {
+    return;
+  }
+  sendPlaybackResponse(originator);
+}

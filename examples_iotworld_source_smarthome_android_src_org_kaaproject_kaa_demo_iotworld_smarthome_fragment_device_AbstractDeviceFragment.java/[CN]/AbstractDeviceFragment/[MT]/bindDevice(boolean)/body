@@ -1,0 +1,12 @@
+{
+  mDeviceTitle=null;
+  if (mDevice.getDeviceInfo() != null && mDevice.getDeviceInfo().getName() != null) {
+    mDeviceTitle=mDevice.getDeviceInfo().getName();
+  }
+ else {
+    mDeviceTitle=getResources().getString(R.string.unknown);
+  }
+  if (mActionBar != null) {
+    mActionBar.setTitle(getTitle());
+  }
+}

@@ -1,0 +1,32 @@
+{
+  super.draw(canvas);
+  if (mAnimationRunning) {
+    if (mDuration <= mTimer * mFrameRate) {
+      mAnimationRunning=false;
+      mTimer=0;
+      mDurationEmpty=-1;
+      mTimerEmpty=0;
+      canvas.restore();
+      invalidate();
+      return;
+    }
+ else     mCanvasHandler.postDelayed(mRunnable,mFrameRate);
+    if (mTimer == 0)     canvas.save();
+    canvas.drawCircle(mX,mY,(mRadiusMax * (((float)mTimer * mFrameRate) / mDuration)),mPaint);
+    mPaint.setColor(Color.parseColor("#ffff4444"));
+    if (mRippleType == DOUBLE_RIPPLE && mOriginBitmap != null && (((float)mTimer * mFrameRate) / mDuration) > 0.4f) {
+      if (mDurationEmpty == -1)       mDurationEmpty=mDuration - mTimer * mFrameRate;
+      mTimerEmpty++;
+      final Bitmap tmpBitmap=getCircleBitmap((int)((mRadiusMax) * (((float)mTimerEmpty * mFrameRate) / (mDurationEmpty))));
+      canvas.drawBitmap(tmpBitmap,0,0,mPaint);
+      tmpBitmap.recycle();
+    }
+    mPaint.setColor(mRippleColor);
+    if (mRippleType == DOUBLE_RIPPLE) {
+      if ((((float)mTimer * mFrameRate) / mDuration) > 0.6f)       mPaint.setAlpha((int)(mPaintAlpha - ((mPaintAlpha) * (((float)mTimerEmpty * mFrameRate) / (mDurationEmpty)))));
+ else       mPaint.setAlpha(mPaintAlpha);
+    }
+ else     mPaint.setAlpha((int)(mPaintAlpha - ((mPaintAlpha) * (((float)mTimer * mFrameRate) / mDuration))));
+    mTimer++;
+  }
+}

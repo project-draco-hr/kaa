@@ -1,0 +1,28 @@
+{
+  List<StreetLightsConfiguration> streetLightsConfigList=configuration.getStreetLightsConfiguration();
+  if (streetState.getZoneId() == null) {
+    for (    StreetLightsConfiguration streetLightsConfig : streetLightsConfigList) {
+      updateStreetLightsState(configuration.getKaaClientConfiguration(),streetLightsConfig.getZoneId(),false);
+    }
+  }
+  boolean found=false;
+  for (  StreetLightsConfiguration streetLightsConfig : streetLightsConfigList) {
+    int zoneId=streetLightsConfig.getZoneId();
+    LOG.info("processing zone {}",zoneId);
+    Set<String> zoneTags=toTags(streetLightsConfig.getTags());
+    if (zoneTags.contains(tag)) {
+      LOG.info("car is in zone {}",zoneId);
+      found=true;
+      if (streetState.getZoneId() != null) {
+        updateStreetLightsState(configuration.getKaaClientConfiguration(),streetState.getZoneId(),false);
+      }
+      updateStreetLightsState(configuration.getKaaClientConfiguration(),streetLightsConfig.getZoneId(),true);
+    }
+  }
+  if (!found) {
+    if (streetState.getZoneId() != null) {
+      LOG.info("car left zone {}.",streetState.getZoneId());
+      updateStreetLightsState(configuration.getKaaClientConfiguration(),streetState.getZoneId(),false);
+    }
+  }
+}

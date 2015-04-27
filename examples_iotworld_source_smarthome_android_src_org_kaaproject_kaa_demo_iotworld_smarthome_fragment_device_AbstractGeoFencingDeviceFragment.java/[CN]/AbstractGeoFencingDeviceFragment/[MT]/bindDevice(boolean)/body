@@ -1,0 +1,9 @@
+{
+  super.bindDevice(firstLoad);
+  OperationMode mode=mDevice.getOperationMode();
+  if (mode == null) {
+    mode=OperationMode.OFF;
+  }
+  mGeoFencingStatusSpinner.setTag(mode.ordinal());
+  mGeoFencingStatusSpinner.setSelection(mode.ordinal());
+}

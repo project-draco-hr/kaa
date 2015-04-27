@@ -1,0 +1,15 @@
+{
+  View rootView=inflater.inflate(R.layout.fragment_home,container,false);
+  setupView(rootView);
+  mNoDataText=(TextView)rootView.findViewById(R.id.noDataText);
+  mNoDataText.setText(R.string.no_devices);
+  mRecyclerView=(AutoSpanRecyclerView)rootView.findViewById(R.id.recycler_view);
+  mRecyclerView.setHasFixedSize(true);
+  int cardsWidth=getResources().getDimensionPixelSize(R.dimen.card_width);
+  int cardsSpacing=getResources().getDimensionPixelSize(R.dimen.card_spacing);
+  mRecyclerView.setGridLayoutManager(GridLayoutManager.VERTICAL,1,cardsWidth,cardsSpacing);
+  mHomeAdapter=new HomeAdapter(mRecyclerView,mDeviceStore,this);
+  showContent();
+  notifyDataChanged();
+  return rootView;
+}

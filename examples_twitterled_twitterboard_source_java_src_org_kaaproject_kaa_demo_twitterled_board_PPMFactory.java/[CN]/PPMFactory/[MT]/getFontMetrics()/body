@@ -1,0 +1,12 @@
+{
+  if (fontMetrics == null) {
+    InputStream is=PPMFactory.class.getClassLoader().getResourceAsStream(FONT_FILE_NAME);
+    Font font=Font.createFont(Font.TRUETYPE_FONT,is);
+    font=font.deriveFont(FONT_SIZE);
+    BufferedImage img=new BufferedImage(1,1,BufferedImage.TYPE_INT_ARGB);
+    Graphics2D g2d=img.createGraphics();
+    g2d.setFont(font);
+    fontMetrics=g2d.getFontMetrics();
+  }
+  return fontMetrics;
+}
