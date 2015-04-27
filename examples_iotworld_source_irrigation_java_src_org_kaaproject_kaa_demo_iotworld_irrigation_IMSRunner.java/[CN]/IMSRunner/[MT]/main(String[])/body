@@ -5,7 +5,12 @@
     @Override public void onStarted(){
       LOG.info("Kaa client started");
       try {
-        new IMSController(kaaClient).init();
+        kaaClient.attachUser(DEFAULT_USER_NAME,"",new UserAttachCallback(){
+          @Override public void onAttachResult(          UserAttachResponse arg0){
+            new IMSController(kaaClient).init();
+          }
+        }
+);
       }
  catch (      Exception e) {
         LOG.error("Got error during running IMS controller",e);
@@ -17,6 +22,7 @@
   }
 );
   try {
+    kaaClient.setEndpointAccessToken(DEFAULT_ACCESS_CODE);
     kaaClient.start();
     System.in.read();
   }
