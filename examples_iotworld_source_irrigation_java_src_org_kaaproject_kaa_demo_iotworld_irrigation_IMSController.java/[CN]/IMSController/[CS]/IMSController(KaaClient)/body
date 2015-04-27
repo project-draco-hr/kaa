@@ -1,0 +1,7 @@
+{
+  this.kaaClient=client;
+  this.stateHolder=new IrrigationStateHolder();
+  this.gpioManager=new GpioManagerImpl(stateHolder);
+  this.miniWebServer=new MiniWebServer(configuration.getWebPort());
+  initEventConfigurations(kaaClient);
+}

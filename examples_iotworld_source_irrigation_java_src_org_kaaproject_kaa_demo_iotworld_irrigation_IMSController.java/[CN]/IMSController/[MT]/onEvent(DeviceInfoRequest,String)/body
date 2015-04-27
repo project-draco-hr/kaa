@@ -1,0 +1,6 @@
+{
+  LOG.debug("Received DeviceInfoRequest event from {}",source);
+  DeviceInfoResponse deviceInfoResponse=new DeviceInfoResponse(stateHolder.getDeviceInfo());
+  LOG.debug("Sending device info response {}",deviceInfoResponse);
+  devices.sendEvent(deviceInfoResponse,source);
+}
