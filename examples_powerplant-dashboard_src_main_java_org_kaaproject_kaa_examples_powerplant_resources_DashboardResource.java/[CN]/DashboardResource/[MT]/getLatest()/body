@@ -1,8 +1,10 @@
 {
   List<Integer> keyList=sortKeyList();
   List<DataPoint> result=new ArrayList<DataPoint>();
-  for (  Integer key : keyList) {
-    result.add(voltageSamplesMap.get(key).last());
+synchronized (updateLock) {
+    for (    Integer key : keyList) {
+      result.add(voltageSamplesMap.get(key).last());
+    }
   }
   return result;
 }
