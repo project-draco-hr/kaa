@@ -1,0 +1,10 @@
+{
+  if (isHandInitialized) {
+    float handAngle=degreeToAngle(handPosition);
+    canvas.save(Canvas.MATRIX_SAVE_FLAG);
+    canvas.rotate(handAngle,0.5f,0.5f);
+    canvas.drawPath(handPath,handPaint);
+    canvas.restore();
+    canvas.drawCircle(0.5f,0.5f,0.01f,handScrewPaint);
+  }
+}

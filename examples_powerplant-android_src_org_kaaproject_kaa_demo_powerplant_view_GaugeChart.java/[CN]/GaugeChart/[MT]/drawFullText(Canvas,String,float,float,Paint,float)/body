@@ -1,0 +1,8 @@
+{
+  float currentLeft=left;
+  for (int i=0; i < text.length(); i++) {
+    String c=String.valueOf(text.charAt(i));
+    canvas.drawText(c,currentLeft,top,paint);
+    currentLeft+=(paint.measureText(c) / getWidth() / magicCoef);
+  }
+}

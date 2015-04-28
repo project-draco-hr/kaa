@@ -1,0 +1,32 @@
+{
+  if (!handNeedsToMove()) {
+    return;
+  }
+  if (lastHandMoveTime != -1L) {
+    long currentTime=System.currentTimeMillis();
+    float delta=(currentTime - lastHandMoveTime) / 1000.0f;
+    float direction=Math.signum(handVelocity);
+    if (Math.abs(handVelocity) < 90.0f) {
+      handAcceleration=HANDLE_ACCELERATION_COEFF * (handTarget - handPosition);
+    }
+ else {
+      handAcceleration=0.0f;
+    }
+    handPosition+=handVelocity * delta;
+    handVelocity+=handAcceleration * delta;
+    if ((handTarget - handPosition) * direction < 0.01f * direction) {
+      handPosition=handTarget;
+      handVelocity=0.0f;
+      handAcceleration=0.0f;
+      lastHandMoveTime=-1L;
+    }
+ else {
+      lastHandMoveTime=System.currentTimeMillis();
+    }
+    invalidate();
+  }
+ else {
+    lastHandMoveTime=System.currentTimeMillis();
+    moveHand();
+  }
+}

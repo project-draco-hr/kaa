@@ -1,0 +1,21 @@
+{
+  canvas.drawArc(scaleLineRect,174,188,false,scaleLinePaint);
+  canvas.save(Canvas.MATRIX_SAVE_FLAG);
+  canvas.rotate(-90,CENTER_X,CENTER_Y);
+  for (int i=0; i < TOTAL_NICKS * 2 - 1; ++i) {
+    float y1=scaleRect.top;
+    float y2=scaleRect.top + SCALE_LINE_WIDTH / 2;
+    float dSize=SCALE_LINE_WIDTH / 4;
+    if (i % 2 == 0) {
+      canvas.drawLine(CENTER_X,y1 - dSize,CENTER_X,y2,scalePaint);
+      String valueString=String.valueOf(i / 2);
+      canvas.drawText(valueString,CENTER_X - 0.02f,y1 - SCALE_LINE_WIDTH * 0.6f,textPaint);
+    }
+ else {
+      canvas.drawLine(CENTER_X,y1,CENTER_X,y2,scalePaint);
+    }
+    canvas.rotate(DEGREES_PER_NICK / 2,CENTER_X,CENTER_Y);
+  }
+  canvas.restore();
+  canvas.drawArc(scaleLineRect,174,5,false,redPaint);
+}

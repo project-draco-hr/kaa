@@ -1,6 +1,12 @@
 {
   final View rootView=inflater.inflate(R.layout.fragment_dashboard,container,false);
   endpoint=new FakeDataEndpoint();
+  gaugeCharts.add((GaugeChart)rootView.findViewById(R.id.gaugeChart11));
+  gaugeCharts.add((GaugeChart)rootView.findViewById(R.id.gaugeChart12));
+  gaugeCharts.add((GaugeChart)rootView.findViewById(R.id.gaugeChart13));
+  gaugeCharts.add((GaugeChart)rootView.findViewById(R.id.gaugeChart21));
+  gaugeCharts.add((GaugeChart)rootView.findViewById(R.id.gaugeChart22));
+  gaugeCharts.add((GaugeChart)rootView.findViewById(R.id.gaugeChart23));
   Thread updateThread=new Thread(new Runnable(){
     @Override public void run(){
       Log.i(TAG,"generating history data ");
@@ -49,10 +55,12 @@
             float minValue=Float.MAX_VALUE;
             PieChartData data=pieChart.getPieChartData();
             float plantVoltage=0.0f;
+            int counter=0;
             for (            DataPoint dp : latestData.getDataPoints()) {
               plantVoltage+=dp.getVoltage();
               SliceValue sliceValue=data.getValues().get(dp.getPanelId());
               sliceValue.setTarget(dp.getVoltage());
+              gaugeCharts.get(counter++).setValue(dp.getVoltage());
             }
             float gridVoltage=latestData.getPowerConsumption() - plantVoltage;
             SliceValue gridValue=data.getValues().get(NUM_PANELS).setTarget(gridVoltage);

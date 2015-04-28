@@ -1,0 +1,13 @@
+{
+  if (background != null) {
+    background.recycle();
+  }
+  background=Bitmap.createBitmap(getWidth(),getHeight(),Bitmap.Config.ARGB_8888);
+  Canvas backgroundCanvas=new Canvas(background);
+  float scale=(float)getWidth();
+  backgroundCanvas.scale(scale,scale);
+  drawRim(backgroundCanvas);
+  drawFace(backgroundCanvas);
+  drawScale(backgroundCanvas);
+  drawLabels(backgroundCanvas);
+}

@@ -1,0 +1,11 @@
+{
+  Bundle bundle=(Bundle)state;
+  Parcelable superState=bundle.getParcelable("superState");
+  super.onRestoreInstanceState(superState);
+  isHandInitialized=bundle.getBoolean("isHandInitialized");
+  handPosition=bundle.getFloat("handPosition");
+  handTarget=bundle.getFloat("handTarget");
+  handVelocity=bundle.getFloat("handVelocity");
+  handAcceleration=bundle.getFloat("handAcceleration");
+  lastHandMoveTime=bundle.getLong("lastHandMoveTime");
+}
