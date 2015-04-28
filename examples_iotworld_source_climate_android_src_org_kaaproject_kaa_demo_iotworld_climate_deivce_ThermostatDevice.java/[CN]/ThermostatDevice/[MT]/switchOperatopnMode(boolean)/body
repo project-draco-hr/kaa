@@ -1,0 +1,13 @@
+{
+  if (mThermostatInfo.getIsOperating() != isOperating) {
+    mThermostatInfo.setIsOperating(isOperating);
+    if (isOperating) {
+      startFanControls();
+    }
+ else {
+      stopFanControls();
+    }
+    mEventBus.post(mThermostatUpdatedEvent);
+    sendThermostatInfo(null);
+  }
+}

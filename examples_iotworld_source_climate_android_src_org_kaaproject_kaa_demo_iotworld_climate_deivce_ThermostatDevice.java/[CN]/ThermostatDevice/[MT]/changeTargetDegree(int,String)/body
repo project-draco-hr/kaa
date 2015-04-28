@@ -1,0 +1,9 @@
+{
+  mThermostatInfo.setTargetDegree(newTargetDegree);
+  commitThermostatInfo();
+  manageThermostatState();
+  if (sourceEndpoint != null) {
+    mEventBus.post(mThermostatUpdatedEvent);
+  }
+  sendThermostatInfo(sourceEndpoint);
+}

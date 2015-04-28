@@ -1,0 +1,30 @@
+{
+  int height=getDefaultSize(getSuggestedMinimumHeight(),heightMeasureSpec);
+  int width=getDefaultSize(getSuggestedMinimumWidth(),widthMeasureSpec);
+  final int min=Math.min(width,height);
+  width=min;
+  height=min;
+  float top=0;
+  float left=0;
+  int arcDiameter=0;
+  mTranslateX=(int)(width * 0.5f);
+  mTranslateY=(int)(height * 0.5f);
+  arcDiameter=min - getPaddingLeft() - mArcWidth;
+  mArcRadius=arcDiameter / 2;
+  top=height / 2 - (arcDiameter / 2);
+  left=width / 2 - (arcDiameter / 2);
+  mArcRect.set(left,top,left + arcDiameter,top + arcDiameter);
+  mTargetThumbArcRect.set(left + mProgressWidth * 0.2f,top + mProgressWidth * 0.2f,left + arcDiameter - mProgressWidth * 0.2f,top + arcDiameter - mProgressWidth * 0.2f);
+  float controlWidth=arcDiameter / 14f;
+  float controlHeight=arcDiameter / 28f;
+  float controlDistance=arcDiameter / 3.5f;
+  mControlUpRect.set(mArcRect.centerX() - controlWidth / 2f,mArcRect.centerY() - controlDistance - controlHeight / 2,mArcRect.centerX() + controlWidth / 2f,mArcRect.centerY() - controlDistance + controlHeight / 2);
+  mControlUpTouchRect.set(mControlUpRect.left - mControlUpRect.width(),mControlUpRect.top - mControlUpRect.height(),mControlUpRect.right + mControlUpRect.width(),mControlUpRect.bottom + mControlUpRect.height());
+  mControlDownRect.set(mArcRect.centerX() - controlWidth / 2f,mArcRect.centerY() + controlDistance - controlHeight / 2,mArcRect.centerX() + controlWidth / 2f,mArcRect.centerY() + controlDistance + controlHeight / 2);
+  mControlDownTouchRect.set(mControlDownRect.left - mControlDownRect.width(),mControlDownRect.top - mControlDownRect.height(),mControlDownRect.right + mControlDownRect.width(),mControlDownRect.bottom + mControlDownRect.height());
+  int arcStart=(int)mProgressSweep + mStartAngle + mRotation+ 90;
+  mTextXPos=(int)(mArcRadius * Math.cos(Math.toRadians(arcStart + 10)));
+  mTextYPos=(int)(mArcRadius * Math.sin(Math.toRadians(arcStart + 10)));
+  setTouchInSide(mTouchInside);
+  setMeasuredDimension(width,height);
+}

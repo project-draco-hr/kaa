@@ -1,0 +1,35 @@
+{
+  if (!isEnabled()) {
+    return true;
+  }
+switch (event.getAction()) {
+case MotionEvent.ACTION_DOWN:
+    if (!onControlDown(event)) {
+      onStartTrackingTouch();
+      updateOnTouch(event,false);
+    }
+  break;
+case MotionEvent.ACTION_MOVE:
+if (!mControlUpPressed && !mControlDownPressed) {
+  updateOnTouch(event,false);
+}
+break;
+case MotionEvent.ACTION_UP:
+if (!mControlUpPressed && !mControlDownPressed) {
+updateOnTouch(event,true);
+onStopTrackingTouch();
+setPressed(false);
+}
+ else if (onControlUp(event)) {
+updateOnControl();
+}
+mControlUpPressed=false;
+mControlDownPressed=false;
+break;
+case MotionEvent.ACTION_CANCEL:
+onStopTrackingTouch();
+setPressed(false);
+break;
+}
+return true;
+}

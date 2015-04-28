@@ -1,0 +1,10 @@
+{
+  SyncResponseResultType result=response.getResult();
+  if (result == SyncResponseResultType.SUCCESS) {
+    mEventBus.post(new UserAttachEvent());
+  }
+ else {
+    String error=response.getErrorReason();
+    mEventBus.post(new UserAttachEvent(error));
+  }
+}
