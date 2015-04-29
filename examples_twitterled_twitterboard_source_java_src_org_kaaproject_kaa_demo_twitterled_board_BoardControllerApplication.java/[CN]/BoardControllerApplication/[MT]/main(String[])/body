@@ -11,13 +11,34 @@
   kaaClient.addNotificationListener(controller);
   kaaClient.addConfigurationListener(controller);
   kaaClient.start();
-  try {
-    System.in.read();
+  final Thread mainThread=Thread.currentThread();
+  Runtime.getRuntime().addShutdownHook(new Thread(){
+    public void run(){
+      running=false;
+      mainThread.interrupt();
+      try {
+        mainThread.join();
+      }
+ catch (      InterruptedException e) {
+        LOG.error("Interrupted during await termination!",e);
+      }
+    }
   }
- catch (  IOException e) {
-    LOG.error("IOException was caught",e);
+);
+  while (running) {
+    try {
+      Thread.sleep(60 * 1000L);
+    }
+ catch (    Exception e) {
+      if (running) {
+        LOG.error("Interrupted during execution!",e);
+      }
+ else {
+        LOG.info("Received shutdown request!");
+      }
+    }
   }
   kaaClient.stop();
   controller.shutdown();
-  LOG.info("Notification demo stopped");
+  LOG.info("Board controller stopped");
 }
