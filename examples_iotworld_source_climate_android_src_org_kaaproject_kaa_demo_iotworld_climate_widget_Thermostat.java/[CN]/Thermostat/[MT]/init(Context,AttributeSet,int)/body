@@ -11,6 +11,7 @@
   mBackgroundColorCold=getResources().getColor(R.color.transparent);
   mBackgroundColor=getResources().getColor(R.color.transparent);
   mBackgroundColorHeat=getResources().getColor(R.color.transparent);
+  mIdleText=getResources().getText(R.string.idle);
   mCoolingText=getResources().getText(R.string.cooling);
   mHeatingText=getResources().getText(R.string.heating);
   int thumbsColor=res.getColor(R.color.thermostat_thumbs_color);
@@ -47,7 +48,11 @@
     mEnableBlur=a.getBoolean(R.styleable.Thermostat_enableBlur,mEnableBlur);
     mTempMin=a.getInteger(R.styleable.Thermostat_tempMin,mTempMin);
     mTempMax=a.getInteger(R.styleable.Thermostat_tempMax,mTempMax);
-    CharSequence text=a.getText(R.styleable.Thermostat_coolingText);
+    CharSequence text=a.getText(R.styleable.Thermostat_idleText);
+    if (text != null) {
+      mIdleText=text;
+    }
+    text=a.getText(R.styleable.Thermostat_coolingText);
     if (text != null) {
       mCoolingText=text;
     }
@@ -71,13 +76,13 @@
   float text_blur=TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,3.33f,getResources().getDisplayMetrics());
   float text_size=TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,20f,getResources().getDisplayMetrics());
   float text_size_blur=TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,22f,getResources().getDisplayMetrics());
-  float temp_text_size=TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,24f,getResources().getDisplayMetrics());
+  float temp_text_size=TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,20f,getResources().getDisplayMetrics());
   mTempDist=TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,4f,getResources().getDisplayMetrics());
-  float target_text_size=TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,80f,getResources().getDisplayMetrics());
-  float target_text_size_blur=TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,84f,getResources().getDisplayMetrics());
+  float target_text_size=TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,50f,getResources().getDisplayMetrics());
+  float target_text_size_blur=TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,54f,getResources().getDisplayMetrics());
   float target_text_inner_blur=TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,1.5f,getResources().getDisplayMetrics());
-  float target_text_blur=TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,5f,getResources().getDisplayMetrics());
-  float control_size=TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,6f,getResources().getDisplayMetrics());
+  float target_text_blur=TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,4f,getResources().getDisplayMetrics());
+  float control_size=TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,3f,getResources().getDisplayMetrics());
   float control_size_blur=TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,2f,getResources().getDisplayMetrics());
   PathEffect arcEffect=new DashPathEffect(new float[]{mOnInterval,mOffInterval},0);
   Typeface tf=FontUtils.getTypeface(context,FontType.RAJDHANI_BOLD,false);

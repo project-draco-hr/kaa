@@ -41,16 +41,17 @@
  else {
     mTempY=mTranslateY + mTargetTextPaint.descent() + mTargetTextPaint.ascent() - mTempDist;
   }
+  String text=mIdleText.toString();
   if (mIsOperating && mProgress != mTargetProgress) {
-    String text=mProgress < mTargetProgress ? mHeatingText.toString() : mCoolingText.toString();
-    text=text.toUpperCase();
-    if (mEnableBlur) {
-      yPos=(int)(mTempY - ((mTempTextPaintGlow.descent() + mTempTextPaintGlow.ascent()) / 2));
-      canvas.drawText(text,mTranslateX,yPos,mTempTextPaintGlow);
-    }
-    yPos=(int)(mTempY - ((mTempTextPaint.descent() + mTempTextPaint.ascent()) / 2));
-    canvas.drawText(text,mTranslateX,yPos,mTempTextPaint);
+    text=mProgress < mTargetProgress ? mHeatingText.toString() : mCoolingText.toString();
   }
+  text=text.toUpperCase();
+  if (mEnableBlur) {
+    yPos=(int)(mTempY - ((mTempTextPaintGlow.descent() + mTempTextPaintGlow.ascent()) / 2));
+    canvas.drawText(text,mTranslateX,yPos,mTempTextPaintGlow);
+  }
+  yPos=(int)(mTempY - ((mTempTextPaint.descent() + mTempTextPaint.ascent()) / 2));
+  canvas.drawText(text,mTranslateX,yPos,mTempTextPaint);
   if (mEnableBlur) {
     canvas.drawLine(mControlUpRect.left,mControlUpRect.bottom,mControlUpRect.left + mControlUpRect.width() / 2f,mControlUpRect.top,mControlPaintGlow);
     canvas.drawLine(mControlUpRect.left + mControlUpRect.width() / 2f,mControlUpRect.top,mControlUpRect.right,mControlUpRect.bottom,mControlPaintGlow);
