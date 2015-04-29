@@ -1,9 +1,5 @@
 {
   View rootView=inflater.inflate(R.layout.fragment_thermostat,container,false);
   mThermostat=(Thermostat)rootView.findViewById(R.id.thermostat);
-  ThermostatInfo thermostatInfo=mThermostatDevice.getThermostatInfo();
-  mThermostat.setTemp(thermostatInfo.getDegree());
-  mThermostat.setTargetTemp(thermostatInfo.getTargetDegree(),false);
-  mThermostat.setOnThermostatChangeListener(this);
   return rootView;
 }

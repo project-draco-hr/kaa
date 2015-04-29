@@ -1,11 +1,4 @@
 {
   super.onAttach(activity);
-  if (mActivity == null) {
-    mActivity=(SmartHomeActivity)activity;
-    mActionBar=mActivity.getSupportActionBar();
-    mToolbar=mActivity.getSmartHomeToolbar();
-    mApplication=mActivity.getSmartHomeApplication();
-    mController=mApplication.getController();
-    mDeviceStore=mApplication.getDeviceStore();
-  }
+  mActivity=(SmartHomeActivity)activity;
 }

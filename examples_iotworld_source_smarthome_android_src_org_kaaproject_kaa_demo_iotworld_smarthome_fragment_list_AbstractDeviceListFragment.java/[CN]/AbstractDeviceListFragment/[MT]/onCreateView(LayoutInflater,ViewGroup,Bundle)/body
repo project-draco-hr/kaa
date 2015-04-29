@@ -5,10 +5,5 @@
   mNoDataText.setText(R.string.no_devices);
   mRecyclerView=(PressableRecyclerView)rootView.findViewById(R.id.recycler_view);
   mRecyclerView.setHasFixedSize(true);
-  mDeviceListAdapter=createListAdapter(mRecyclerView);
-  RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(getActivity());
-  mRecyclerView.setLayoutManager(layoutManager);
-  showContent();
-  notifyDataChanged();
   return rootView;
 }

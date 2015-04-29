@@ -1,9 +1,4 @@
 {
   super.onAttach(activity);
-  if (mActivity == null) {
-    mActivity=(ClimateControlActivity)activity;
-    mApplication=mActivity.getClimateControlApplication();
-    mController=mApplication.getController();
-    mThermostatDevice=mController.getThermostatDevice();
-  }
+  mActivity=(ClimateControlActivity)activity;
 }

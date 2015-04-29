@@ -1,5 +1,6 @@
 {
   super.setupView(inflater,rootView);
+  mAlbum=mDevice.getAlbum(mAlbumId);
   mNoDataText.setText(R.string.no_tracks);
   mTrackListLayout=rootView.findViewById(R.id.track_list_layout);
   mRecyclerView=(RecyclerView)rootView.findViewById(R.id.recycler_view);
