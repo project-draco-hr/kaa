@@ -1,0 +1,7 @@
+{
+  mIsPressed=isPressed;
+  if (!mIsPressed && mNotifyDataSetChangedScheduled) {
+    notifyDataSetChanged();
+    mNotifyDataSetChangedScheduled=false;
+  }
+}

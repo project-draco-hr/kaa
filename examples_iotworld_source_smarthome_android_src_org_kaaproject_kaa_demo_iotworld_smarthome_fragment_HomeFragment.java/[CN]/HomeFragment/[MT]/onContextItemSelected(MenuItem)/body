@@ -8,6 +8,11 @@ case R.id.ctx_menu_refresh_device:
 case R.id.ctx_menu_rename_device:
   contextMenuDevice.renameDevice(mActivity);
 break;
+case R.id.ctx_menu_change_mode:
+if (contextMenuDevice instanceof AbstractGeoFencingDevice) {
+((AbstractGeoFencingDevice)contextMenuDevice).changeDeviceMode(mActivity);
+}
+break;
 case R.id.ctx_menu_detach_device:
 contextMenuDevice.detach();
 break;

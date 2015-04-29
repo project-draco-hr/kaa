@@ -9,7 +9,7 @@
   mIrrigationIntervalControlView.setOnSeekBarChangeListener(new OnSeekBarChangeListener(){
     @Override public void onProgressChanged(    SeekBar seekBar,    int progress,    boolean fromUser){
       int irrigationInterval=MIN_IRRIGATION_INTERVAL_SEC + progress;
-      String intervalText=getResources().getString(R.string.irrigation_interval_text,TimeUtils.secondsToTimer(irrigationInterval,true));
+      String intervalText=getResources().getString(R.string.irrigation_interval_text,TimeUtils.secondsToTimer(irrigationInterval,false));
       mIrrigationIntervalText.setText(intervalText);
       if (fromUser) {
         mDevice.changeIrrigationInterval(irrigationInterval);

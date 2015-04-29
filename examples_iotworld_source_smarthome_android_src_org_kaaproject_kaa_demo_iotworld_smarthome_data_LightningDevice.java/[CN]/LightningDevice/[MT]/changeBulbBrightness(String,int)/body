@@ -1,6 +1,3 @@
 {
-  BulbInfo bulb=getBulbById(bulbId);
-  if (bulb != null) {
-    controlBulb(bulbId,bulb.getStatus(),brightness);
-  }
+  mLightEventClassFamily.sendEvent(new ChangeBulbBrightnessRequest(bulbId,brightness),mEndpointKey);
 }

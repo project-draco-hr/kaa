@@ -1,0 +1,9 @@
+{
+  List<T> devices=mDeviceStore.getDevices(getDeviceType());
+  if (devices != null) {
+    T device=devices.get(position);
+    if (device != null) {
+      holder.bind(device);
+    }
+  }
+}

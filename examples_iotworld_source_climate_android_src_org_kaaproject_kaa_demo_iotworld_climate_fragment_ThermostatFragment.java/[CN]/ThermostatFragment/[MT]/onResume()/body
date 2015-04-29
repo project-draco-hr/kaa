@@ -1,0 +1,6 @@
+{
+  super.onResume();
+  if (!mApplication.getEventBus().isRegistered(this)) {
+    mApplication.getEventBus().register(this);
+  }
+}
