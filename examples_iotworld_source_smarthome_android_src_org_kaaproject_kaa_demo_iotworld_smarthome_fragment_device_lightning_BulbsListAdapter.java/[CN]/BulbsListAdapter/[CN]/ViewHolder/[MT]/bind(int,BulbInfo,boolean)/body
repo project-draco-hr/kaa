@@ -12,8 +12,10 @@
     brightnessControlDisabledView.setProgress(bulb.getBrightness());
   }
   bulbSwitchView.setTag(bulb.getBulbId());
-  bulbSwitchView.setChecked(enabled);
   bulbSwitchView.setClickable(controlsEnabled);
+  bulbSwitchView.setOnCheckedChangeListener(null);
+  bulbSwitchView.setChecked(enabled);
+  bulbSwitchView.setOnCheckedChangeListener(mBulbItemStateListener);
   brightnessControlView.setEnabled(!enabled);
   brightnessControlView.setEnabled(enabled);
   if (controlsEnabled || !enabled) {
