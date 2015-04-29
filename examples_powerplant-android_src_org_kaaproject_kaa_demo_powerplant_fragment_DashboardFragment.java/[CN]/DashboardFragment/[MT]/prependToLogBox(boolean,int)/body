@@ -1,0 +1,21 @@
+{
+  mActivity.runOnUiThread(new Runnable(){
+    @Override public void run(){
+      Calendar cal=Calendar.getInstance();
+      SimpleDateFormat sdf=new SimpleDateFormat("hh:mm:ss a ");
+      String log;
+      if (isOutage) {
+        log="<font color=\"red\">" + sdf.format(cal.getTime()) + " [WARN] Panel "+ (panelIndex + 1)+ " voltage outage detected</font>";
+      }
+ else {
+        log="<font color=\"#009d5d\">" + sdf.format(cal.getTime()) + " [INFO] Panel "+ (panelIndex + 1)+ " voltage is back to normal</font>";
+      }
+      if (savedLogs.size() > 30) {
+        savedLogs.removeLast();
+      }
+      savedLogs.addFirst(log);
+      logBox.setText(Html.fromHtml(getLogString()));
+    }
+  }
+);
+}

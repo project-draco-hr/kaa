@@ -1,0 +1,10 @@
+{
+  boolean isOutage=false;
+  if (curVoltage < NORMAL_VOLTAGE) {
+    isOutage=true;
+  }
+  if ((!isPanelsOutage[panelIndex] || !isOutage) && (isPanelsOutage[panelIndex] || isOutage)) {
+    prependToLogBox(isOutage,panelIndex);
+    isPanelsOutage[panelIndex]=isOutage;
+  }
+}

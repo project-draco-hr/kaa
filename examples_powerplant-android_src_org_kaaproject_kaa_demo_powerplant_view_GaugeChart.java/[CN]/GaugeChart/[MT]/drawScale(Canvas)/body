@@ -1,5 +1,8 @@
 {
-  canvas.drawArc(scaleLineRect,174,188,false,scaleLinePaint);
+  canvas.save(Canvas.MATRIX_SAVE_FLAG);
+  canvas.rotate(180,CENTER_X,CENTER_Y);
+  canvas.drawArc(scaleRect,-6,188,false,scaleLinePaint);
+  canvas.restore();
   canvas.save(Canvas.MATRIX_SAVE_FLAG);
   canvas.rotate(-90,CENTER_X,CENTER_Y);
   for (int i=0; i < TOTAL_NICKS * 2 - 1; ++i) {

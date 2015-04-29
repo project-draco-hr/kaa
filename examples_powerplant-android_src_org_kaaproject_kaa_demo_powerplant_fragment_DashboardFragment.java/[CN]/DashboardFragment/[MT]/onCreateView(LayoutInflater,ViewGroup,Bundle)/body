@@ -7,6 +7,7 @@
   gaugeCharts.add((GaugeChart)rootView.findViewById(R.id.gaugeChart21));
   gaugeCharts.add((GaugeChart)rootView.findViewById(R.id.gaugeChart22));
   gaugeCharts.add((GaugeChart)rootView.findViewById(R.id.gaugeChart23));
+  logBox=(TextView)rootView.findViewById(R.id.logBox);
   Thread updateThread=new Thread(new Runnable(){
     @Override public void run(){
       Log.i(TAG,"generating history data ");
@@ -55,13 +56,18 @@
             float minValue=Float.MAX_VALUE;
             PieChartData data=pieChart.getPieChartData();
             float plantVoltage=0.0f;
+            Log.d(TAG,"Now it's " + (times + 1) + "th repetition");
             int counter=0;
             for (            DataPoint dp : latestData.getDataPoints()) {
               plantVoltage+=dp.getVoltage();
               SliceValue sliceValue=data.getValues().get(dp.getPanelId());
               sliceValue.setTarget(dp.getVoltage());
-              gaugeCharts.get(counter++).setValue(dp.getVoltage());
+              gaugeCharts.get(counter).setValue(dp.getVoltage());
+              showLogIfNeeded(counter,dp.getVoltage());
+              Log.d(TAG,"Panel #" + (counter + 1) + ", voltage: "+ dp.getVoltage());
+              counter++;
             }
+            times++;
             float gridVoltage=latestData.getPowerConsumption() - plantVoltage;
             SliceValue gridValue=data.getValues().get(NUM_PANELS).setTarget(gridVoltage);
             pieChart.startDataAnimation(UPDATE_PERIOD / 2);
