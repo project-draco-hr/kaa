@@ -4,11 +4,12 @@
   try {
     panelName=a.getString(R.styleable.GaugeChart_panel_name);
     handleAccelerationCoef=a.getFloat(R.styleable.GaugeChart_update_time_s,1.0f);
-    handleAccelerationCoef*=0.9;
+    handleAccelerationCoef*=1.2;
   }
   finally {
     a.recycle();
   }
+  setLayerType(View.LAYER_TYPE_SOFTWARE,null);
   init();
   Log.d(TAG,panelName + " has initialized");
 }

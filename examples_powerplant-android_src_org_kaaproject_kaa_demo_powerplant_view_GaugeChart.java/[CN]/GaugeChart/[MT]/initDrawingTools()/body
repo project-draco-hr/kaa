@@ -55,6 +55,7 @@
   handPaint.setAntiAlias(true);
   handPaint.setColor(HAND_COLOR);
   handPaint.setStyle(Paint.Style.FILL);
+  handPaint.setPathEffect(null);
   handPath=new Path();
   handPath.moveTo(CENTER_X,CENTER_Y + 0.05f);
   handPath.lineTo(CENTER_X - 0.010f,CENTER_Y + 0.05f - 0.007f);
@@ -63,22 +64,24 @@
   handPath.lineTo(CENTER_X + 0.010f,CENTER_Y + 0.05f - 0.007f);
   handPath.lineTo(CENTER_X,CENTER_Y + 0.05f);
   handPath.addCircle(CENTER_X,CENTER_Y,0.02f,Path.Direction.CW);
+  handPath.close();
   handScrewPaint=new Paint();
   handScrewPaint.setAntiAlias(true);
   handScrewPaint.setColor(0xff493f3c);
   handScrewPaint.setStyle(Paint.Style.FILL);
-  labelPaint=new Paint();
+  labelPaint=new TextPaint();
   labelPaint.setAntiAlias(true);
   labelPaint.setColor(TEXT_COLOR);
   labelPaint.setTextSize(TEXT_FONT_SIZE);
   labelPaint.setTypeface(Typeface.SANS_SERIF);
-  labelPaint.setTextAlign(Paint.Align.LEFT);
+  labelPaint.setTextAlign(Paint.Align.CENTER);
   labelPaint.setLinearText(true);
-  measuresPaint=new Paint();
-  measuresPaint.setAntiAlias(true);
+  measuresPaint=new TextPaint();
   measuresPaint.setColor(TEXT_COLOR);
+  measuresPaint.setAntiAlias(true);
+  measuresPaint.setStyle(Style.FILL);
   measuresPaint.setTextSize(TEXT_MEASURE_FONT_SIZE);
   measuresPaint.setTypeface(Typeface.SANS_SERIF);
-  measuresPaint.setTextAlign(Paint.Align.LEFT);
+  measuresPaint.setTextAlign(Paint.Align.CENTER);
   measuresPaint.setLinearText(true);
 }

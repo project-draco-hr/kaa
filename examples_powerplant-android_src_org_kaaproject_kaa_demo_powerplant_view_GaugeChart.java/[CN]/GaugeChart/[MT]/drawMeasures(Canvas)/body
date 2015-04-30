@@ -1,6 +1,6 @@
 {
   if (isHandInitialized) {
     String measures=String.format("%2.1f kW",handPosition);
-    drawFullText(canvas,measures,CENTER_X - getSpacedTextWidth(measuresPaint,measures,MAGIC_MEASURE_ALIGN_COEFF) / 2,MEASURES_LABEL_POS_Y,measuresPaint,MAGIC_MEASURE_ALIGN_COEFF);
+    canvas.drawText(measures,CENTER_X,MEASURES_LABEL_POS_Y,measuresPaint);
   }
 }
