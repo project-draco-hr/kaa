@@ -1,6 +1,9 @@
 {
   AbstractDevice device=discoveredDevicesMap.remove(endpointKey);
   if (device != null) {
-    devicesMap.put(endpointKey,device);
+    AbstractDevice oldOne=devicesMap.put(endpointKey,device);
+    if (oldOne != null) {
+      oldOne.releaseDevice(false);
+    }
   }
 }

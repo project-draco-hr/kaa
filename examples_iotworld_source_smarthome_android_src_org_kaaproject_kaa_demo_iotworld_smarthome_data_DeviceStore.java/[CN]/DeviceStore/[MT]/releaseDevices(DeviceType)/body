@@ -2,14 +2,14 @@
   List<AbstractDevice> toReleaseList=new ArrayList<>(discoveredDevicesMap.values());
   for (  AbstractDevice device : toReleaseList) {
     if (type == null || type == device.getDeviceType()) {
-      device.releaseDevice();
+      device.releaseDevice(true);
     }
   }
   toReleaseList.clear();
   toReleaseList=new ArrayList<>(devicesMap.values());
   for (  AbstractDevice device : toReleaseList) {
     if (type == null || type == device.getDeviceType()) {
-      device.releaseDevice();
+      device.releaseDevice(true);
     }
   }
   toReleaseList.clear();

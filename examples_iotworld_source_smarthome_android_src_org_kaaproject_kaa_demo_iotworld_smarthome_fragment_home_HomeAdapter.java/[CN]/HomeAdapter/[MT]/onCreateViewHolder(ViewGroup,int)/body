@@ -3,7 +3,7 @@
   if (viewType == DeviceType.values().length) {
     card=new AddDeviceCard(parent.getContext());
   }
- else {
+ else   if (viewType != INVALID_TYPE) {
     DeviceType deviceType=DeviceType.values()[viewType];
 switch (deviceType) {
 case CLIMATE:
@@ -24,6 +24,9 @@ break;
 default :
 break;
 }
+}
+ else {
+card=new View(parent.getContext());
 }
 FontUtils.setRobotoFont(card);
 ViewHolder vhCard=new ViewHolder(card,viewType);

@@ -1,5 +1,6 @@
 {
   super.onActivityCreated(savedInstanceState);
+  mHandler=new Handler();
   int cardsSpacing=getResources().getDimensionPixelSize(R.dimen.card_spacing);
   mRecyclerView.setGridLayoutManager(GridLayoutManager.VERTICAL,1,R.dimen.card_width,cardsSpacing);
   mHomeAdapter=new HomeAdapter(mRecyclerView,mDeviceStore,this);

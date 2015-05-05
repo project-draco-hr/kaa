@@ -1,8 +1,13 @@
 {
   if (requestCode == DEVICE_QR_CODE_REQUEST) {
     if (resultCode == Activity.RESULT_OK) {
-      String result=data.getStringExtra(Intents.Scan.RESULT);
-      mDeviceStore.attachDevice(result);
+      final String result=data.getStringExtra(Intents.Scan.RESULT);
+      mHandler.postDelayed(new Runnable(){
+        @Override public void run(){
+          mDeviceStore.attachDevice(result);
+        }
+      }
+,100);
     }
   }
  else {
