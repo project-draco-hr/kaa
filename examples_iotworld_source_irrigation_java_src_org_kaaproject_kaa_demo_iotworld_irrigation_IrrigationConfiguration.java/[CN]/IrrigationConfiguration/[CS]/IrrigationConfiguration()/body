@@ -1,0 +1,13 @@
+{
+  LOG.debug("Init irrigation configuration.");
+  persistedProperties=new Properties();
+  if (Files.exists(PROPERTY_PATH)) {
+    try {
+      persistedProperties.load(new FileInputStream(PROPERTY_PATH.toFile()));
+    }
+ catch (    IOException e) {
+      LOG.error("Can't init state holder. Can't load property file.",e);
+      throw new RuntimeException(e);
+    }
+  }
+}

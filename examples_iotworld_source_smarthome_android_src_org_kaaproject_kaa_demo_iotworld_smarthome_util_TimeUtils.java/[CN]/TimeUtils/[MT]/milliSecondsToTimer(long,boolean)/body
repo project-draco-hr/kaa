@@ -28,6 +28,9 @@
     timerStringBuilder.append(" m");
   }
  else {
+    if (hours > 0 && minutes < 10) {
+      timerStringBuilder.append("0");
+    }
     timerStringBuilder.append(minutes);
     timerStringBuilder.append(":");
   }

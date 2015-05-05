@@ -1,0 +1,10 @@
+{
+  mEndpointKey=endpointKey;
+  mClient=client;
+  mEventBus=eventBus;
+  mDeviceEventClassFamily=mClient.getEventFamilyFactory().getDeviceEventClassFamily();
+  mFanEventClassFamily=mClient.getEventFamilyFactory().getFanEventClassFamily();
+  mDeviceEventClassFamily.addListener(this);
+  mFanEventClassFamily.addListener(this);
+  requestDeviceInfo();
+}

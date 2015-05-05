@@ -11,6 +11,7 @@
   mBackgroundColorCold=getResources().getColor(R.color.transparent);
   mBackgroundColor=getResources().getColor(R.color.transparent);
   mBackgroundColorHeat=getResources().getColor(R.color.transparent);
+  mIdleText=getResources().getText(R.string.idle);
   mCoolingText=getResources().getText(R.string.cooling);
   mHeatingText=getResources().getText(R.string.heating);
   int thumbsColor=res.getColor(R.color.thermostat_thumbs_color);
@@ -47,7 +48,11 @@
     mEnableBlur=a.getBoolean(R.styleable.Thermostat_enableBlur,mEnableBlur);
     mTempMin=a.getInteger(R.styleable.Thermostat_tempMin,mTempMin);
     mTempMax=a.getInteger(R.styleable.Thermostat_tempMax,mTempMax);
-    CharSequence text=a.getText(R.styleable.Thermostat_coolingText);
+    CharSequence text=a.getText(R.styleable.Thermostat_idleText);
+    if (text != null) {
+      mIdleText=text;
+    }
+    text=a.getText(R.styleable.Thermostat_coolingText);
     if (text != null) {
       mCoolingText=text;
     }
