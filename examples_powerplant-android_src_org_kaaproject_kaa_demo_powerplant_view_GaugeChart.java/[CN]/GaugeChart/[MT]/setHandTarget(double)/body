@@ -1,0 +1,13 @@
+{
+  if (power < MIN_POWER) {
+    power=MIN_POWER;
+  }
+ else   if (power > MAX_POWER) {
+    power=MAX_POWER;
+  }
+  handTarget=(float)power;
+  prevDistance=1000f;
+  isHandInitialized=true;
+  handAcceleration=2 * (handTarget - handPosition) / (handleAccelerationCoef * handleAccelerationCoef);
+  invalidate();
+}
