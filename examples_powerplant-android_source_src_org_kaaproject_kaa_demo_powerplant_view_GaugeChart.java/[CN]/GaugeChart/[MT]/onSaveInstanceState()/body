@@ -1,0 +1,15 @@
+{
+  Parcelable superState=super.onSaveInstanceState();
+  Bundle state=new Bundle();
+  state.putParcelable("superState",superState);
+  state.putBoolean("isHandInitialized",isHandInitialized);
+  state.putFloat("handPosition",handPosition);
+  state.putFloat("handTarget",handTarget);
+  state.putFloat("prevHandTarget",prevHandTarget);
+  state.putFloat("handVelocity",handVelocity);
+  state.putFloat("handAcceleration",handAcceleration);
+  state.putLong("lastHandMoveTime",lastHandMoveTime);
+  state.putString("panelName",panelName);
+  state.putFloat("handleAccelerationCoef",handleAccelerationCoef);
+  return state;
+}

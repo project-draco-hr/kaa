@@ -1,0 +1,14 @@
+{
+  logger.info("Loading 'Power plant android application' data...");
+  loginTenantAdmin(client);
+  ApplicationDto powerPlantAndroidApplciation=new ApplicationDto();
+  powerPlantAndroidApplciation.setName("Power plant demo android");
+  powerPlantAndroidApplciation=client.editApplication(powerPlantAndroidApplciation);
+  sdkKey.setApplicationId(powerPlantAndroidApplciation.getId());
+  sdkKey.setNotificationSchemaVersion(1);
+  sdkKey.setConfigurationSchemaVersion(1);
+  sdkKey.setProfileSchemaVersion(1);
+  sdkKey.setTargetPlatform(SdkPlatform.ANDROID);
+  sdkKey.setLogSchemaVersion(1);
+  logger.info("Finished loading 'Power plant android application' data.");
+}
