@@ -1,12 +1,12 @@
 {
   LOG.info("Received irrigation control request from {}",source);
   long newInterval=TimeUnit.SECONDS.toMillis(request.getIrrigationIntervalSec());
-  long timeToIrregation=0;
-  if (scheduledFuture != null && !scheduledFuture.isCancelled() || scheduledFuture.isDone()) {
-    timeToIrregation=scheduledFuture.getDelay(TimeUnit.MILLISECONDS);
+  long timeToIrrigation=0;
+  if (scheduledFuture != null && (!scheduledFuture.isCancelled() || scheduledFuture.isDone())) {
+    timeToIrrigation=scheduledFuture.getDelay(TimeUnit.MILLISECONDS);
   }
   long newWateringTime=stateHolder.getLastWateringTime() + newInterval;
-  if (newWateringTime > timeToIrregation) {
+  if (newWateringTime > timeToIrrigation) {
     stateHolder.setTimeToNextIrrigationMs(newWateringTime - System.currentTimeMillis());
   }
  else {
