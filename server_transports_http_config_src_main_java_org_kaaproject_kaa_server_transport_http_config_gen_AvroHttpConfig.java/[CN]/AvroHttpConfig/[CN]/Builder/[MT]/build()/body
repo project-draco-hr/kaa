@@ -3,7 +3,9 @@
     AvroHttpConfig record=new AvroHttpConfig();
     record.bindInterface=fieldSetFlags()[0] ? this.bindInterface : (java.lang.String)defaultValue(fields()[0]);
     record.bindPort=fieldSetFlags()[1] ? this.bindPort : (java.lang.Integer)defaultValue(fields()[1]);
-    record.maxBodySize=fieldSetFlags()[2] ? this.maxBodySize : (java.lang.Integer)defaultValue(fields()[2]);
+    record.publicInterface=fieldSetFlags()[2] ? this.publicInterface : (java.lang.String)defaultValue(fields()[2]);
+    record.publicPort=fieldSetFlags()[3] ? this.publicPort : (java.lang.Integer)defaultValue(fields()[3]);
+    record.maxBodySize=fieldSetFlags()[4] ? this.maxBodySize : (java.lang.Integer)defaultValue(fields()[4]);
     return record;
   }
  catch (  Exception e) {
