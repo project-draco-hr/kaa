@@ -36,8 +36,12 @@
         while (!updated) {
           try {
             Thread.sleep(UPDATE_CHECK_PERIOD);
-            if (System.currentTimeMillis() - previousUpdate < UPDATE_PERIOD) {
+            long updateDelta=System.currentTimeMillis() - previousUpdate;
+            if (updateDelta < UPDATE_PERIOD) {
               continue;
+            }
+ else {
+              Log.i(TAG,"Updating since -" + (updateDelta / 1000.) + " s.");
             }
             DataReport latestDataCandidate=endpoint.getLatestData();
             if (latestDataCandidate.getTime() > previousReport.getTime()) {
@@ -59,11 +63,12 @@
             float plantVoltage=0.0f;
             int counter=0;
             for (            DataPoint dp : latestData.getDataPoints()) {
-              plantVoltage+=dp.getVoltage();
+              float curVoltage=convertVoltage(dp.getVoltage());
+              plantVoltage+=curVoltage;
               SliceValue sliceValue=data.getValues().get(dp.getPanelId());
-              sliceValue.setTarget(dp.getVoltage());
-              gaugeCharts.get(counter).setValue(dp.getVoltage());
-              showLogIfNeeded(counter,dp.getVoltage());
+              sliceValue.setTarget(curVoltage);
+              gaugeCharts.get(counter).setValue(curVoltage);
+              showLogIfNeeded(counter,curVoltage);
               counter++;
             }
             float gridVoltage=latestData.getPowerConsumption() - plantVoltage;

@@ -7,7 +7,7 @@
   List<SliceValue> sliceValues=new ArrayList<SliceValue>(NUM_PANELS + 1);
   float plantVoltage=0.0f;
   for (  DataPoint dp : latestData.getDataPoints()) {
-    float value=dp.getVoltage();
+    float value=convertVoltage(dp.getVoltage());
     plantVoltage+=value;
     SliceValue sliceValue=new SliceValue(value,Color.parseColor(PIE_CHART_PLANT_VALUE_COLOR));
     sliceValue.setLabel(EMPTY_STRING);

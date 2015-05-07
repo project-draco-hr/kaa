@@ -1,6 +1,7 @@
 {
   AvroHttpConfig configuration=context.getConfiguration();
   configuration.setBindInterface(replaceProperty(configuration.getBindInterface(),BIND_INTERFACE_PROP_NAME,context.getCommonProperties().getProperty(BIND_INTERFACE_PROP_NAME,LOCALHOST)));
+  configuration.setPublicInterface(replaceProperty(configuration.getPublicInterface(),PUBLIC_INTERFACE_PROP_NAME,context.getCommonProperties().getProperty(PUBLIC_INTERFACE_PROP_NAME,LOCALHOST)));
   List<KaaCommandProcessorFactory<HttpRequest,HttpResponse>> processors=new ArrayList<KaaCommandProcessorFactory<HttpRequest,HttpResponse>>();
   processors.add(new SyncCommandFactory());
   processors.add(new LongSyncCommandFactory());
