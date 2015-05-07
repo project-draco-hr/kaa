@@ -22,7 +22,7 @@
     int pos=startPos + i;
     float value=0.0f;
     for (    DataPoint dp : data.get(i).getDataPoints()) {
-      value+=dp.getVoltage();
+      value+=convertVoltage(dp.getVoltage());
     }
     values.add(new PointValue(pos,value));
     minValue=Math.min(minValue,value);

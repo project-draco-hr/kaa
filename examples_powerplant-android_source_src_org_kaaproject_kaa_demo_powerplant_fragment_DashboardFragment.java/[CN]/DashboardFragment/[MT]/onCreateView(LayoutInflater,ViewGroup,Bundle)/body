@@ -59,11 +59,12 @@
             float plantVoltage=0.0f;
             int counter=0;
             for (            DataPoint dp : latestData.getDataPoints()) {
-              plantVoltage+=dp.getVoltage();
+              float curVoltage=convertVoltage(dp.getVoltage());
+              plantVoltage+=curVoltage;
               SliceValue sliceValue=data.getValues().get(dp.getPanelId());
-              sliceValue.setTarget(dp.getVoltage());
-              gaugeCharts.get(counter).setValue(dp.getVoltage());
-              showLogIfNeeded(counter,dp.getVoltage());
+              sliceValue.setTarget(curVoltage);
+              gaugeCharts.get(counter).setValue(curVoltage);
+              showLogIfNeeded(counter,curVoltage);
               counter++;
             }
             float gridVoltage=latestData.getPowerConsumption() - plantVoltage;

@@ -12,16 +12,21 @@
     handPosition+=handVelocity * delta + handAcceleration * delta * delta / 2;
     handVelocity+=handAcceleration * delta;
     float curDistance=Math.abs(handTarget - handPosition);
-    if (curDistance >= prevDistance) {
-      handPosition=handTarget;
-      handVelocity=ZERO;
-      handAcceleration=ZERO;
-      lastHandMoveTime=MINUS_ONE;
+    if (curDistance >= prevDistance || curDistance < EPS) {
+      resetHand();
     }
  else {
       lastHandMoveTime=System.currentTimeMillis();
     }
     prevDistance=curDistance;
+    if (handPosition < MIN_POWER) {
+      handPosition=MIN_POWER;
+      resetHand();
+    }
+ else     if (handPosition > MAX_POWER) {
+      handPosition=MAX_POWER;
+      resetHand();
+    }
     invalidate();
   }
  else {
