@@ -3,6 +3,8 @@
     AvroTcpConfig record=new AvroTcpConfig();
     record.bindInterface=fieldSetFlags()[0] ? this.bindInterface : (java.lang.String)defaultValue(fields()[0]);
     record.bindPort=fieldSetFlags()[1] ? this.bindPort : (java.lang.Integer)defaultValue(fields()[1]);
+    record.publicInterface=fieldSetFlags()[2] ? this.publicInterface : (java.lang.String)defaultValue(fields()[2]);
+    record.publicPort=fieldSetFlags()[3] ? this.publicPort : (java.lang.Integer)defaultValue(fields()[3]);
     return record;
   }
  catch (  Exception e) {

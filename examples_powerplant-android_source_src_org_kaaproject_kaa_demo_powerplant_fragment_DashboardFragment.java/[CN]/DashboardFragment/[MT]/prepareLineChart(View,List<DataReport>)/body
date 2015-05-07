@@ -64,11 +64,8 @@
       }
  else {
         int delta=POINTS_COUNT - (int)value;
-        if (delta == 135) {
-          System.out.println("WTF?");
-        }
         if (delta % INTERVAL_FOR_HORIZONTAL_AXIS == 0 && delta > INTERVAL_FOR_HORIZONTAL_AXIS) {
-          formatedValue="- " + delta;
+          formatedValue="- " + (delta / 2);
         }
       }
       if (formatedValue == null) {

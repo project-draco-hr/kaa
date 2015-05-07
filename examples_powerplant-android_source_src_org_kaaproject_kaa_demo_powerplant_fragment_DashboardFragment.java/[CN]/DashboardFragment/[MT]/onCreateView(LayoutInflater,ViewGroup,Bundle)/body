@@ -36,8 +36,12 @@
         while (!updated) {
           try {
             Thread.sleep(UPDATE_CHECK_PERIOD);
-            if (System.currentTimeMillis() - previousUpdate < UPDATE_PERIOD) {
+            long updateDelta=System.currentTimeMillis() - previousUpdate;
+            if (updateDelta < UPDATE_PERIOD) {
               continue;
+            }
+ else {
+              Log.i(TAG,"Updating since -" + (updateDelta / 1000.) + " s.");
             }
             DataReport latestDataCandidate=endpoint.getLatestData();
             if (latestDataCandidate.getTime() > previousReport.getTime()) {
