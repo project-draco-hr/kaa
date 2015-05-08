@@ -6,4 +6,5 @@
   if (savedInstanceState == null) {
     getSupportFragmentManager().beginTransaction().add(R.id.container,new DashboardFragment()).commit();
   }
+  getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 }
