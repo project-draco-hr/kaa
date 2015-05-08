@@ -3,9 +3,14 @@
   if (state.getOperationMode() == OperationMode.OFF) {
     pausePlayback();
   }
- else   if (isPlaybackAllowed()) {
-    if (pendingStatus == PlaybackStatus.PLAYING) {
-      resumePlayback();
+ else {
+    if (isPlaybackAllowed()) {
+      if (pendingStatus == PlaybackStatus.PLAYING) {
+        resumePlayback();
+      }
+    }
+ else {
+      pausePlayback();
     }
   }
 }
