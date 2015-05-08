@@ -1,9 +1,0 @@
-{
-  Info[] infos=AudioSystem.getMixerInfo();
-  List<Mixer> mixers=new ArrayList<Mixer>(infos.length);
-  for (  Info info : infos) {
-    Mixer mixer=AudioSystem.getMixer(info);
-    mixers.add(mixer);
-  }
-  return mixers;
-}
