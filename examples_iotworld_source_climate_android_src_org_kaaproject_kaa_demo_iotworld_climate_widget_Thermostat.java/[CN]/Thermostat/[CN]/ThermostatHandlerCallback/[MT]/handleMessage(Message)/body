@@ -1,0 +1,17 @@
+{
+switch (msg.what) {
+case CHECK_PRESSED_MESSAGE:
+    if (!mControlUpPressed && !mControlDownPressed) {
+      setPressed(false);
+    }
+  return true;
+case UPDATE_ON_CONTROL_MESSAGE:
+if (mControlUpPressed || mControlDownPressed) {
+  updateOnControl();
+  mHandler.sendEmptyMessageDelayed(UPDATE_ON_CONTROL_MESSAGE,100);
+}
+return true;
+default :
+return false;
+}
+}

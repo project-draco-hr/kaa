@@ -3,7 +3,6 @@
   if (ignoreTouch) {
     return;
   }
-  setPressed(true);
   mTouchAngle=getTouchDegrees(event.getX(),event.getY());
   int targetProgress=getProgressForAngle(mTouchAngle);
   onTargetProgressRefresh(targetProgress,true,notifyListeners);

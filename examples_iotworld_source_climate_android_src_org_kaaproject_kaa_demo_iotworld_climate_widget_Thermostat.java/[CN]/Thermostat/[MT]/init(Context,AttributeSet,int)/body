@@ -18,6 +18,7 @@
   int thumbsGlowColor=res.getColor(R.color.thermostat_thumbs_glow_color);
   int controlsColor=res.getColor(R.color.thermostat_controls_color);
   mProgressWidth=(int)(mProgressWidth * density);
+  mHandler=new Handler(new ThermostatHandlerCallback());
   if (attrs != null) {
     final TypedArray a=context.obtainStyledAttributes(attrs,R.styleable.Thermostat,defStyle,0);
     mMinSize=a.getDimensionPixelSize(R.styleable.Thermostat_minSize,mMinSize);

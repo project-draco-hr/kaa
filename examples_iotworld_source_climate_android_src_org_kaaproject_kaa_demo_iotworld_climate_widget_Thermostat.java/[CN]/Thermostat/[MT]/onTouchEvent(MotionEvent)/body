@@ -4,25 +4,31 @@
   }
 switch (event.getAction()) {
 case MotionEvent.ACTION_DOWN:
-    if (!onControlDown(event)) {
-      onStartTrackingTouch();
-      updateOnTouch(event,false);
-    }
-  break;
+    mHandler.removeMessages(CHECK_PRESSED_MESSAGE);
+  setPressed(true);
+if (!onControlDown(event)) {
+  onStartTrackingTouch();
+  updateOnTouch(event,false);
+}
+ else {
+  mHandler.sendEmptyMessageDelayed(UPDATE_ON_CONTROL_MESSAGE,500);
+}
+break;
 case MotionEvent.ACTION_MOVE:
 if (!mControlUpPressed && !mControlDownPressed) {
-  updateOnTouch(event,false);
+updateOnTouch(event,false);
 }
 break;
 case MotionEvent.ACTION_UP:
 if (!mControlUpPressed && !mControlDownPressed) {
 updateOnTouch(event,true);
 onStopTrackingTouch();
-setPressed(false);
 }
  else if (onControlUp(event)) {
 updateOnControl();
 }
+mHandler.sendEmptyMessageDelayed(CHECK_PRESSED_MESSAGE,1000);
+mHandler.removeMessages(UPDATE_ON_CONTROL_MESSAGE);
 mControlUpPressed=false;
 mControlDownPressed=false;
 break;

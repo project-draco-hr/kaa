@@ -19,12 +19,12 @@
   float controlHeight=arcDiameter / 28f;
   float controlDistance=arcDiameter / 3.5f;
   mControlUpRect.set(mArcRect.centerX() - controlWidth / 2f,mArcRect.centerY() - controlDistance - controlHeight / 2,mArcRect.centerX() + controlWidth / 2f,mArcRect.centerY() - controlDistance + controlHeight / 2);
-  mControlUpTouchRect.set(mControlUpRect.left - mControlUpRect.width(),mControlUpRect.top - mControlUpRect.height(),mControlUpRect.right + mControlUpRect.width(),mControlUpRect.bottom + mControlUpRect.height());
+  mControlUpTouchRect.set(mControlUpRect.left - mControlUpRect.width() * 2,mControlUpRect.top - mControlUpRect.height() * 2,mControlUpRect.right + mControlUpRect.width() * 2,mControlUpRect.bottom + mControlUpRect.height() * 2);
   mControlDownRect.set(mArcRect.centerX() - controlWidth / 2f,mArcRect.centerY() + controlDistance - controlHeight / 2,mArcRect.centerX() + controlWidth / 2f,mArcRect.centerY() + controlDistance + controlHeight / 2);
-  mControlDownTouchRect.set(mControlDownRect.left - mControlDownRect.width(),mControlDownRect.top - mControlDownRect.height(),mControlDownRect.right + mControlDownRect.width(),mControlDownRect.bottom + mControlDownRect.height());
-  int arcStart=(int)mProgressSweep + mStartAngle + mRotation+ 90;
-  mTextXPos=(int)(mArcRadius * Math.cos(Math.toRadians(arcStart + 10)));
-  mTextYPos=(int)(mArcRadius * Math.sin(Math.toRadians(arcStart + 10)));
+  mControlDownTouchRect.set(mControlDownRect.left - mControlDownRect.width() * 2,mControlDownRect.top - mControlDownRect.height() * 2,mControlDownRect.right + mControlDownRect.width() * 2,mControlDownRect.bottom + mControlDownRect.height() * 2);
+  int arcStart=(int)mTargetProgressSweep + mStartAngle + mRotation+ 90;
+  mTextXPos=(int)(mArcRadius * Math.cos(Math.toRadians(arcStart - 10)));
+  mTextYPos=(int)(mArcRadius * Math.sin(Math.toRadians(arcStart - 10)));
   setTouchInSide(mTouchInside);
   setMeasuredDimension(width,height);
 }

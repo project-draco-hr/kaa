@@ -24,18 +24,18 @@
   int xPos=mTranslateX - mTextXPos;
   if (mEnableBlur) {
     int yPos=(int)(mTranslateY - mTextYPos - ((mTextPaintGlow.descent() + mTextPaintGlow.ascent()) / 2));
-    canvas.drawText(getTemp() + "",xPos,yPos,mTextPaintGlow);
+    canvas.drawText(getTargetTemp() + "",xPos,yPos,mTextPaintGlow);
   }
   int yPos=(int)(mTranslateY - mTextYPos - ((mTextPaint.descent() + mTextPaint.ascent()) / 2));
-  canvas.drawText(getTemp() + "",xPos,yPos,mTextPaint);
+  canvas.drawText(getTargetTemp() + "",xPos,yPos,mTextPaint);
   float innerTextHeight=mTargetTextPaintGlow.descent() + Math.abs(mTargetTextPaintGlow.ascent()) + mTempDist+ mTempTextPaintGlow.descent()+ Math.abs(mTempTextPaintGlow.ascent());
   float innerTextTranslateY=mTranslateY + innerTextHeight / 2 - (mTargetTextPaintGlow.descent() + Math.abs(mTargetTextPaintGlow.ascent())) / 2;
   if (mEnableBlur) {
     yPos=(int)(innerTextTranslateY - ((mTargetTextPaintGlow.descent() + mTargetTextPaintGlow.ascent()) / 2));
-    canvas.drawText(getTargetTemp() + "",mTranslateX,yPos,mTargetTextPaintGlow);
+    canvas.drawText(getDisplayTemp() + "",mTranslateX,yPos,mTargetTextPaintGlow);
   }
   yPos=(int)(innerTextTranslateY - ((mTargetTextPaint.descent() + mTargetTextPaint.ascent()) / 2));
-  canvas.drawText(getTargetTemp() + "",mTranslateX,yPos,mTargetTextPaint);
+  canvas.drawText(getDisplayTemp() + "",mTranslateX,yPos,mTargetTextPaint);
   float mTempY;
   if (mEnableBlur) {
     mTempY=innerTextTranslateY + mTargetTextPaintGlow.descent() + mTargetTextPaintGlow.ascent() - mTempDist;
