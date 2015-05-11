@@ -24,22 +24,24 @@
   int xPos=mTranslateX - mTextXPos;
   if (mEnableBlur) {
     int yPos=(int)(mTranslateY - mTextYPos - ((mTextPaintGlow.descent() + mTextPaintGlow.ascent()) / 2));
-    canvas.drawText(getTemp() + "",xPos,yPos,mTextPaintGlow);
+    canvas.drawText(getTargetTemp() + "",xPos,yPos,mTextPaintGlow);
   }
   int yPos=(int)(mTranslateY - mTextYPos - ((mTextPaint.descent() + mTextPaint.ascent()) / 2));
-  canvas.drawText(getTemp() + "",xPos,yPos,mTextPaint);
+  canvas.drawText(getTargetTemp() + "",xPos,yPos,mTextPaint);
+  float innerTextHeight=mTargetTextPaint.descent() + Math.abs(mTargetTextPaint.ascent()) + mTempDist+ mTempTextPaint.descent()+ Math.abs(mTempTextPaint.ascent());
+  float innerTextTranslateY=mTranslateY + innerTextHeight / 2 - (mTargetTextPaint.descent() + Math.abs(mTargetTextPaint.ascent())) / 2;
   if (mEnableBlur) {
-    yPos=(int)(mTranslateY - ((mTargetTextPaintGlow.descent() + mTargetTextPaintGlow.ascent()) / 2));
-    canvas.drawText(getTargetTemp() + "",mTranslateX,yPos,mTargetTextPaintGlow);
+    yPos=(int)(innerTextTranslateY - ((mTargetTextPaintGlow.descent() + mTargetTextPaintGlow.ascent()) / 2));
+    canvas.drawText(getDisplayTemp() + "",mTranslateX,yPos,mTargetTextPaintGlow);
   }
-  yPos=(int)(mTranslateY - ((mTargetTextPaint.descent() + mTargetTextPaint.ascent()) / 2));
-  canvas.drawText(getTargetTemp() + "",mTranslateX,yPos,mTargetTextPaint);
+  yPos=(int)(innerTextTranslateY - ((mTargetTextPaint.descent() + mTargetTextPaint.ascent()) / 2));
+  canvas.drawText(getDisplayTemp() + "",mTranslateX,yPos,mTargetTextPaint);
   float mTempY;
   if (mEnableBlur) {
-    mTempY=mTranslateY + mTargetTextPaintGlow.descent() + mTargetTextPaintGlow.ascent() - mTempDist;
+    mTempY=innerTextTranslateY + mTargetTextPaintGlow.descent() + mTargetTextPaintGlow.ascent() - mTempDist;
   }
  else {
-    mTempY=mTranslateY + mTargetTextPaint.descent() + mTargetTextPaint.ascent() - mTempDist;
+    mTempY=innerTextTranslateY + mTargetTextPaint.descent() + mTargetTextPaint.ascent() - mTempDist;
   }
   String text=mIdleText.toString();
   if (mIsOperating && mProgress != mTargetProgress) {
