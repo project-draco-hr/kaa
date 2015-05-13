@@ -1,5 +1,8 @@
 {
-  int payloadLimitPosition=buf.position() + payloadLength - TOPIC_LIST_HASH_SIZE;
+  int payloadLimitPosition=buf.position() + payloadLength;
+  if (hasOption(options,CLIENT_METASYNC_NOTIFICATION_HAS_TOPIC_LIST_HASH)) {
+    payloadLimitPosition-=TOPIC_LIST_HASH_SIZE;
+  }
   NotificationClientSync nfSync=new NotificationClientSync();
   nfSync.setAppStateSeqNumber(buf.getInt());
   while (buf.position() < payloadLimitPosition) {
@@ -20,6 +23,8 @@ parseSubscriptionCommands(nfSync,buf,false);
 break;
 }
 }
+if (hasOption(options,CLIENT_METASYNC_NOTIFICATION_HAS_TOPIC_LIST_HASH)) {
 nfSync.setTopicListHash(getNewByteBuffer(buf,TOPIC_LIST_HASH_SIZE));
+}
 sync.setNotificationSync(nfSync);
 }

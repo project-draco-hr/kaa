@@ -2,6 +2,18 @@
   buildExtensionHeader(buf,NOTIFICATION_EXTENSION_ID,NOTHING,NOTHING,NOTHING,0);
   int extPosition=buf.position();
   buf.putInt(notificationSync.getAppStateSeqNumber());
+  if (notificationSync.getAvailableTopics() != null) {
+    buf.put(NF_TOPICS_FIELD_ID);
+    buf.put(NOTHING);
+    buf.putShort((short)notificationSync.getAvailableTopics().size());
+    for (    Topic t : notificationSync.getAvailableTopics()) {
+      buf.putLong(Long.parseLong(t.getId()));
+      buf.put(t.getSubscriptionType() == SubscriptionType.MANDATORY ? MANDATORY : OPTIONAL);
+      buf.put(NOTHING);
+      buf.putShort((short)t.getName().getBytes(UTF8).length);
+      putUTF(buf,t.getName());
+    }
+  }
   if (notificationSync.getNotifications() != null) {
     buf.put(NF_NOTIFICATIONS_FIELD_ID);
     buf.put(NOTHING);
@@ -16,18 +28,6 @@
       buf.putLong(topicId);
       putUTF(buf,nf.getUid());
       put(buf,nf.getBody().array());
-    }
-  }
-  if (notificationSync.getAvailableTopics() != null) {
-    buf.put(NF_TOPICS_FIELD_ID);
-    buf.put(NOTHING);
-    buf.putShort((short)notificationSync.getAvailableTopics().size());
-    for (    Topic t : notificationSync.getAvailableTopics()) {
-      buf.putLong(Long.parseLong(t.getId()));
-      buf.putShort(t.getSubscriptionType() == SubscriptionType.MANDATORY ? MANDATORY : OPTIONAL);
-      buf.put(NOTHING);
-      buf.put((byte)t.getName().getBytes(UTF8).length);
-      putUTF(buf,t.getName());
     }
   }
   buf.putInt(extPosition - SIZE_OF_INT,buf.position() - extPosition);
