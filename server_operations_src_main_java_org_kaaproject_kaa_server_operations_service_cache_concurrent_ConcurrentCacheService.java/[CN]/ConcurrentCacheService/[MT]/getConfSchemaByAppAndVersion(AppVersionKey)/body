@@ -4,7 +4,6 @@
       LOG.debug("Fetching result for getConfSchemaByAppAndVersion");
       ApplicationDto appDto=applicationService.findAppByApplicationToken(key.getApplicationToken());
       ConfigurationSchemaDto value=configurationService.findConfSchemaByAppIdAndVersion(appDto.getId(),key.getVersion());
-      putConfigurationSchema(key,value);
       return value;
     }
   }
