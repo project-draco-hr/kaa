@@ -20,7 +20,13 @@
     dto.setCfSequenceNumber(0);
     dto.setNfSequenceNumber(0);
     dto.setChangedFlag(Boolean.FALSE);
-    cacheService.putEndpointKey(keyHash,generateEndpointKey(dto.getEndpointKey()));
+    try {
+      cacheService.putEndpointKey(keyHash,KeyUtil.getPublic(dto.getEndpointKey()));
+    }
+ catch (    NoSuchAlgorithmException|InvalidKeySpecException e) {
+      LOG.error("Can't generate public key for endpoint key: {}. Reason: {}",dto.getEndpointKey(),e);
+      throw new RuntimeException(e);
+    }
     return endpointService.saveEndpointProfile(dto);
   }
  else {
