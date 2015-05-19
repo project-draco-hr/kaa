@@ -3,7 +3,6 @@
     @Override public DeltaCacheEntry compute(    DeltaCacheKey key){
       LOG.debug("Fetching result for getMergedConfiguration");
       DeltaCacheEntry result=worker.compute(key);
-      setDelta(key,result);
       return result;
     }
   }
