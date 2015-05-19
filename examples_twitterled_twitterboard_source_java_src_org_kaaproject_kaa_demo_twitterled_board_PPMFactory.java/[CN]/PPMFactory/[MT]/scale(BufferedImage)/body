@@ -1,0 +1,11 @@
+{
+  float scale=((float)MATRIX_HEIGHT) / image.getHeight();
+  int w=(int)(image.getWidth() * scale);
+  int h=(int)(image.getHeight() * scale);
+  BufferedImage resized=new BufferedImage(w,h,image.getType());
+  Graphics2D g2d=resized.createGraphics();
+  applyHints(g2d);
+  g2d.drawImage(image,0,0,w,h,0,0,image.getWidth(),image.getHeight(),null);
+  g2d.dispose();
+  return resized;
+}

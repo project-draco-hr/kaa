@@ -1,0 +1,27 @@
+{
+  int arcColor;
+  int progressColor;
+  int backgroundColor;
+  if (mProgress == mTargetProgress || !mIsOperating) {
+    arcColor=mArcColor;
+    progressColor=mProgressColor;
+    backgroundColor=mBackgroundColor;
+  }
+ else   if (mProgress < mTargetProgress) {
+    arcColor=mArcColorHeat;
+    progressColor=mProgressColorHeat;
+    backgroundColor=mBackgroundColorHeat;
+  }
+ else {
+    arcColor=mArcColorCold;
+    progressColor=mProgressColorCold;
+    backgroundColor=mBackgroundColorCold;
+  }
+  mArcPaint.setColor(arcColor);
+  mProgressPaint.setColor(progressColor);
+  mBackgroundPaint.setColor(backgroundColor);
+  if (mEnableBlur) {
+    mArcPaintGlow.setColor(arcColor);
+    mProgressPaintGlow.setColor(progressColor);
+  }
+}

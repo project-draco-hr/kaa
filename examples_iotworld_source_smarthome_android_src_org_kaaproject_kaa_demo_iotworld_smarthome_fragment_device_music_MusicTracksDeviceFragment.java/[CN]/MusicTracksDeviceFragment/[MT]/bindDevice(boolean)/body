@@ -1,0 +1,18 @@
+{
+  super.bindDevice(firstLoad);
+  mTracksAdapter.notifyDataSetChanged();
+  if (mTracksAdapter.getItemCount() > 0) {
+    mNoDataText.setVisibility(View.GONE);
+    mTrackListLayout.setVisibility(View.VISIBLE);
+  }
+ else {
+    mTrackListLayout.setVisibility(View.GONE);
+    mNoDataText.setVisibility(View.VISIBLE);
+  }
+  if (firstLoad) {
+    if (mDevice.getPlaybackInfo() != null && mDevice.getPlaybackInfo().getSong() != null && mDevice.getPlaybackInfo().getSong().getAlbumId().equals(mAlbum.getAlbumId())) {
+      int position=mAlbum.getSongs().indexOf(mDevice.getPlaybackInfo().getSong());
+      mRecyclerView.scrollToPosition(position);
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  try {
+    File file=new File(song.getFilename());
+    File coverFile=new File(file.getParentFile(),"cover.jpg");
+    if (coverFile.exists()) {
+      BufferedImage bufferedImage=ImageIO.read(coverFile);
+      return toThumbnailData(bufferedImage);
+    }
+ else {
+      LOG.warn("Cover file for album {} not found.",albumId);
+    }
+  }
+ catch (  IOException e) {
+    LOG.warn("Failed to read album cover of album {}",albumId,e);
+  }
+  return getDefaultAlbumCover();
+}

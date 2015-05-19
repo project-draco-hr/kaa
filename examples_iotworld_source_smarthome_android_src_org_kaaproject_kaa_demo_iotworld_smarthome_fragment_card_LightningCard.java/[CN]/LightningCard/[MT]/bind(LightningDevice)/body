@@ -1,0 +1,11 @@
+{
+  super.bind(device);
+  List<BulbInfo> bulbs=device.getBulbs();
+  if (bulbs != null) {
+    setDetailsVisible(true);
+    mBulbsAdapter.setDevice(device);
+  }
+ else {
+    setDetailsVisible(false);
+  }
+}

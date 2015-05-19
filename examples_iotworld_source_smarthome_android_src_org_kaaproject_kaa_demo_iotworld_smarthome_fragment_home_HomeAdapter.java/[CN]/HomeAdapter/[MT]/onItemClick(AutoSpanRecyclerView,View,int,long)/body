@@ -1,0 +1,9 @@
+{
+  if (itemPosition == mDeviceStore.getSize()) {
+    mDeviceSelectionListener.onAddDeviceSelected();
+  }
+ else {
+    AbstractDevice device=mDeviceStore.getDevice(itemPosition);
+    mDeviceSelectionListener.onDeviceSelected(device.getDeviceType(),device.getEndpointKey());
+  }
+}

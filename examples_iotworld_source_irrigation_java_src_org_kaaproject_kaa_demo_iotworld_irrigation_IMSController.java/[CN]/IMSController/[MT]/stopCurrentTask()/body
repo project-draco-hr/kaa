@@ -1,0 +1,6 @@
+{
+  if (scheduledFuture != null && (!scheduledFuture.isCancelled() || !scheduledFuture.isDone())) {
+    LOG.info("Stopping current task {}",scheduledFuture);
+    scheduledFuture.cancel(FORCE_STOP_PREVIOUS);
+  }
+}

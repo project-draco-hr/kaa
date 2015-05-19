@@ -1,11 +1,11 @@
 {
-  byte[] interfaceData=toUTF8Bytes(context.getConfiguration().getBindInterface());
+  byte[] interfaceData=toUTF8Bytes(context.getConfiguration().getPublicInterface());
   byte[] publicKeyData=context.getServerKey().getEncoded();
   ByteBuffer buf=ByteBuffer.wrap(new byte[SIZE_OF_INT * 3 + interfaceData.length + publicKeyData.length]);
   buf.putInt(publicKeyData.length);
   buf.put(publicKeyData);
   buf.putInt(interfaceData.length);
   buf.put(interfaceData);
-  buf.putInt(context.getConfiguration().getBindPort());
+  buf.putInt(context.getConfiguration().getPublicPort());
   return buf;
 }

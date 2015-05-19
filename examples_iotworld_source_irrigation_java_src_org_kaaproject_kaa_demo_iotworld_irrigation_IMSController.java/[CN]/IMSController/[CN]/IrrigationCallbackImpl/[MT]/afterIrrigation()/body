@@ -1,0 +1,5 @@
+{
+  IrrigationStatusUpdate update=stateHolder.getAfterIrrigationStatusUpdate();
+  LOG.debug("Sending irrigation status update {} to all",update);
+  irrigation.sendEventToAll(update);
+}

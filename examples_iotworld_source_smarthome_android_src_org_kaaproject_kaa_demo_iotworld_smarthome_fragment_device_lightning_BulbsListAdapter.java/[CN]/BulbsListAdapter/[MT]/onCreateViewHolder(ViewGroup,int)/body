@@ -1,0 +1,8 @@
+{
+  View v=LayoutInflater.from(parent.getContext()).inflate(R.layout.bulb_list_item,parent,false);
+  FontUtils.setRobotoFont(v);
+  ViewHolder vhItem=new ViewHolder(v);
+  vhItem.brightnessControlView.setOnSeekBarChangeListener(mBulbItemBrightnessListener);
+  vhItem.bulbSwitchView.setOnCheckedChangeListener(mBulbItemStateListener);
+  return vhItem;
+}

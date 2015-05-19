@@ -1,0 +1,8 @@
+{
+  if (holder.mHolderId != INVALID_TYPE && holder.mHolderId < DeviceType.values().length) {
+    AbstractDevice device=mDeviceStore.getDevice(position);
+    if (device != null) {
+      holder.bind(device);
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  mGeoFencingStatusSpinner=new Spinner(mActivity);
+  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+    int color=ColorUtils.darkerColor(getResources().getColor(mDevice.getDeviceType().getBaseColorResId()));
+    mGeoFencingStatusSpinner.getPopupBackground().setColorFilter(new PorterDuffColorFilter(color,Mode.MULTIPLY));
+  }
+  ArrayAdapter<String> spinnerArrayAdapter=new ArrayAdapter<String>(mActivity,R.layout.toolbar_spinner_item,getResources().getStringArray(R.array.geofencing_status));
+  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+    spinnerArrayAdapter.setDropDownViewResource(R.layout.toolbar_spinner_dropdown_item);
+  }
+ else {
+    spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+  }
+  mGeoFencingStatusSpinner.setAdapter(spinnerArrayAdapter);
+  updateGeoFencingSpinnerWidth();
+  mGeoFencingStatusSpinner.setOnItemSelectedListener(this);
+}

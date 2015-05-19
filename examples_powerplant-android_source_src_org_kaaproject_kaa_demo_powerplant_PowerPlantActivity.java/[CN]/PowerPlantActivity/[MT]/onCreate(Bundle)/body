@@ -1,0 +1,10 @@
+{
+  super.onCreate(savedInstanceState);
+  requestWindowFeature(Window.FEATURE_NO_TITLE);
+  getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+  setContentView(R.layout.activity_power_plant);
+  if (savedInstanceState == null) {
+    getSupportFragmentManager().beginTransaction().add(R.id.container,new DashboardFragment()).commit();
+  }
+  getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+}

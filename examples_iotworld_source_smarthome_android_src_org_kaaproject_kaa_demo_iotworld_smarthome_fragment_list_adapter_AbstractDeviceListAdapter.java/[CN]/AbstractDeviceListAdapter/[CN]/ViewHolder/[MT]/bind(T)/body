@@ -1,0 +1,12 @@
+{
+  deviceTitleView.setText(device.getDeviceInfo().getName());
+  if (showContent(device)) {
+    deviceListItemNoInfoLayout.setVisibility(View.GONE);
+    deviceDetailsLayout.setVisibility(View.VISIBLE);
+    bindDeviceDetails(device);
+  }
+ else {
+    deviceListItemNoInfoLayout.setVisibility(View.VISIBLE);
+    deviceDetailsLayout.setVisibility(View.GONE);
+  }
+}

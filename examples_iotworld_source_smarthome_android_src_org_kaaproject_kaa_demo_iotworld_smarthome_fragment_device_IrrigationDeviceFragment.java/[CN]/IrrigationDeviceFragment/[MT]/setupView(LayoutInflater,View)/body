@@ -1,0 +1,24 @@
+{
+  mIrrigationStatusText=(TextView)rootView.findViewById(R.id.irrigationStatusText);
+  mIrrigationIntervalControlView=(SeekBar)rootView.findViewById(R.id.irrigationIntervalControlView);
+  mIrrigationIntervalText=(TextView)rootView.findViewById(R.id.irrigationIntervalText);
+  mLeftTillNextIrrigationView=(IrrigationTimerWidget)rootView.findViewById(R.id.leftTillNextIrrigationView);
+  mLeftInTankView=(IrrigationTankWidget)rootView.findViewById(R.id.leftInTankView);
+  mSpentThisMonthView=(IrrigationMonthUsageWidget)rootView.findViewById(R.id.spentThisMonthView);
+  mIrrigationIntervalControlView.setMax(MAX_IRRIGATION_INTERVAL_SEC - MIN_IRRIGATION_INTERVAL_SEC);
+  mIrrigationIntervalControlView.setOnSeekBarChangeListener(new OnSeekBarChangeListener(){
+    @Override public void onProgressChanged(    SeekBar seekBar,    int progress,    boolean fromUser){
+      int irrigationInterval=MIN_IRRIGATION_INTERVAL_SEC + progress;
+      String intervalText=getResources().getString(R.string.irrigation_interval_text,TimeUtils.secondsToTimer(irrigationInterval,false));
+      mIrrigationIntervalText.setText(intervalText);
+      if (fromUser) {
+        mDevice.changeIrrigationInterval(irrigationInterval);
+      }
+    }
+    @Override public void onStopTrackingTouch(    SeekBar seekBar){
+    }
+    @Override public void onStartTrackingTouch(    SeekBar seekBar){
+    }
+  }
+);
+}

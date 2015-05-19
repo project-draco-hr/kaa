@@ -1,0 +1,11 @@
+{
+  mDeviceListAdapter.tryNotifyDataSetChanged();
+  if (mDeviceListAdapter.getItemCount() > 0) {
+    mNoDataText.setVisibility(View.GONE);
+    mRecyclerView.setVisibility(View.VISIBLE);
+  }
+ else {
+    mRecyclerView.setVisibility(View.GONE);
+    mNoDataText.setVisibility(View.VISIBLE);
+  }
+}

@@ -1,0 +1,8 @@
+{
+  if (mEndpointKey.equals(sourceEndpoint)) {
+    mAlbums=photoAlbumsResponse.getAlbums();
+    mSortedAlbums=new ArrayList<PhotoAlbumInfo>(mAlbums);
+    Collections.sort(mSortedAlbums,mAlbumsComparator);
+    fireDeviceUpdated();
+  }
+}
