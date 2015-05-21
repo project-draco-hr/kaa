@@ -40,5 +40,5 @@
   validateUuids(configurationDto,oldActiveConfigurationDto,configurationSchemaDto);
   configurationDto.setStatus(UpdateStatus.INACTIVE);
   configurationDto.setLastModifyTime(System.currentTimeMillis());
-  return getDto(configurationDao.save(new Configuration(configurationDto)));
+  return getDto(configurationDao.save(new Configuration(configurationDto),Configuration.class));
 }
