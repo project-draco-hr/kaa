@@ -2,11 +2,17 @@
   if (logException) {
     logger.error("Unexpected exception catched!",exceptionWithCause);
   }
-  Throwable cause=exceptionWithCause.getCause();
+  String cause="";
+  if (exceptionWithCause.getClass().equals(ControlThriftException.class)) {
+    cause=((ControlThriftException)exceptionWithCause).getCauseExceptionClass();
+  }
+ else   if (exceptionWithCause.getCause() != null) {
+    cause=exceptionWithCause.getClass().getCanonicalName();
+  }
   if (exceptionWithCause instanceof KaaAdminServiceException) {
     return (KaaAdminServiceException)exceptionWithCause;
   }
- else   if (cause != null && cause.getClass().equals(expectedCauseClass)) {
+ else   if (StringUtils.isNotBlank(cause) && cause.equals(expectedCauseClass.getCanonicalName())) {
     return new KaaAdminServiceException(errorMessage,ServiceErrorCode.GENERAL_ERROR);
   }
  else {
