@@ -1,0 +1,20 @@
+{
+  super.setupView(inflater,rootView);
+  mMusicTrackWidget=(MusicTrackWidget)rootView.findViewById(R.id.music_track_view);
+  mNoDataText=(TextView)rootView.findViewById(R.id.noDataText);
+  mVolumeControlView=inflater.inflate(R.layout.volume_control,null);
+  mVolumeControls=(SeekBar)mVolumeControlView.findViewById(R.id.volumeSeekView);
+  mVolumeControls.setOnSeekBarChangeListener(new OnSeekBarChangeListener(){
+    @Override public void onProgressChanged(    SeekBar seekBar,    int progress,    boolean fromUser){
+      if (fromUser) {
+        mDevice.changeVolume(progress);
+      }
+    }
+    @Override public void onStartTrackingTouch(    SeekBar seekBar){
+    }
+    @Override public void onStopTrackingTouch(    SeekBar seekBar){
+    }
+  }
+);
+  mToolbar.setCustomToolbarContent(mVolumeControlView);
+}

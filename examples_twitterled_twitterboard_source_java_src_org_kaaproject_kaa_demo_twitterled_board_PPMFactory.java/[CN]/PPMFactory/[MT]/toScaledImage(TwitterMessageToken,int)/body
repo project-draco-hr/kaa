@@ -1,0 +1,15 @@
+{
+  FontMetrics fm=getFontMetrics();
+  int width=fm.stringWidth(token.getToken());
+  int height=fm.getHeight();
+  BufferedImage img=new BufferedImage(width,(int)(height * 0.80f),BufferedImage.TYPE_INT_ARGB);
+  Graphics2D g2d=img.createGraphics();
+  applyHints(g2d);
+  g2d.setFont(fm.getFont());
+  fm=g2d.getFontMetrics();
+  g2d.setBackground(new Color(background));
+  g2d.setColor(new Color(token.getColor()));
+  g2d.drawString(token.getToken(),0,fm.getAscent() - (int)(height * 0.20f));
+  g2d.dispose();
+  return scale(img);
+}

@@ -1,0 +1,34 @@
+{
+  Path rootPath=getRootPath(args);
+  String accessCode=getAccessCode(args);
+  MusicPlayerApplication application=new MusicPlayerApplication(rootPath,accessCode);
+  application.start();
+  final Thread mainThread=Thread.currentThread();
+  Runtime.getRuntime().addShutdownHook(new Thread(){
+    public void run(){
+      running=false;
+      mainThread.interrupt();
+      try {
+        mainThread.join();
+      }
+ catch (      InterruptedException e) {
+        LOG.error("Interrupted during await termination!",e);
+      }
+    }
+  }
+);
+  while (running) {
+    try {
+      Thread.sleep(60 * 1000L);
+    }
+ catch (    InterruptedException e) {
+      if (running) {
+        LOG.error("Interrupted during execution!",e);
+      }
+ else {
+        LOG.info("Received shutdown request!");
+      }
+    }
+  }
+  application.stop();
+}

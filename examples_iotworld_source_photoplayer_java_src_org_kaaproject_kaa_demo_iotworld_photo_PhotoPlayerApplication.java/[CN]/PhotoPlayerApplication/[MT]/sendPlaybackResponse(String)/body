@@ -1,0 +1,20 @@
+{
+  if (originator != null) {
+    state.addStatusListener(originator);
+  }
+  PhotoFrameStatusUpdate update=new PhotoFrameStatusUpdate();
+  if (player != null) {
+    update.setAlbumId(player.getAlbumId());
+    if (isPlaybackAllowed()) {
+      update.setStatus(player.getStatus());
+    }
+ else {
+      update.setStatus(pendingStatus);
+    }
+    update.setPhotoNumber(player.getPhotoNumber());
+    update.setThumbnail(player.getThumbnail());
+  }
+  for (  String listener : state.getListeners()) {
+    photoECF.sendEvent(update,listener);
+  }
+}

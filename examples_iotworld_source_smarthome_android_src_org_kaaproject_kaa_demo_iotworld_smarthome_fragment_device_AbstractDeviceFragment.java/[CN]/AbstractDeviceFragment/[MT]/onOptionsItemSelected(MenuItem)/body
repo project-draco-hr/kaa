@@ -1,0 +1,15 @@
+{
+switch (item.getItemId()) {
+case R.id.refresh:
+    mDevice.requestDeviceInfo();
+  return true;
+case R.id.rename:
+mDevice.renameDevice(mActivity);
+return true;
+case R.id.detach:
+mDevice.detach();
+return true;
+default :
+return super.onOptionsItemSelected(item);
+}
+}

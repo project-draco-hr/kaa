@@ -1,0 +1,10 @@
+{
+  LayoutManager layoutManager=getLayoutManager();
+  if (layoutManager instanceof GridLayoutManager) {
+    final GridLayoutManager gridLayoutManager=(GridLayoutManager)layoutManager;
+    int recyclerViewWidth=getMeasuredWidth();
+    int spanCount=Math.max(mGridMinSpans,(int)((float)(recyclerViewWidth) / (float)(mItemWidth)));
+    gridLayoutManager.setSpanCount(spanCount);
+    post(mLayoutRequester);
+  }
+}

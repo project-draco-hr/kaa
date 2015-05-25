@@ -1,0 +1,13 @@
+{
+  if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+    if (view instanceof ViewGroup) {
+      for (int i=0; i < ((ViewGroup)view).getChildCount(); i++) {
+        setRobotoFont(((ViewGroup)view).getChildAt(i));
+      }
+    }
+ else     if (view instanceof TextView && !(view instanceof RobotoTextView)) {
+      Typeface currentTypeface=((TextView)view).getTypeface();
+      ((TextView)view).setTypeface(getRobotoTypeface(view.getContext(),currentTypeface));
+    }
+  }
+}

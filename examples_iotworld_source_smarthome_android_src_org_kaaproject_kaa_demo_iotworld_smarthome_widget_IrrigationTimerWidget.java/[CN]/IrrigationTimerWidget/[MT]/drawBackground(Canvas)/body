@@ -1,0 +1,7 @@
+{
+  mPaint.setColor(mStrokeColor);
+  canvas.drawCircle(mCircleRect.centerX(),mCircleRect.centerY(),Math.min(getWidth(),getHeight()) / 2,mPaint);
+  mPaint.setColor(mFillColor);
+  int angleSweep=(int)(((float)(mMaxTimeSec - mValue)) / ((float)mMaxTimeSec) * 360f);
+  canvas.drawArc(mCircleRect,START_ANGLE,angleSweep,true,mPaint);
+}

@@ -1,0 +1,14 @@
+{
+  final RfidLog report=decodeRfidLog(reportBody);
+  if (report == null) {
+    return Response.status(Status.BAD_REQUEST).build();
+  }
+  Thread t=new Thread(new Runnable(){
+    @Override public void run(){
+      processRfidLog(report);
+    }
+  }
+);
+  t.start();
+  return Response.noContent().build();
+}

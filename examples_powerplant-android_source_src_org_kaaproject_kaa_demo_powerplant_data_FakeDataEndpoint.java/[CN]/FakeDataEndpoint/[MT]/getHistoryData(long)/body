@@ -1,0 +1,10 @@
+{
+  sleepABit();
+  List<DataReport> reports=new ArrayList<DataReport>(MAX_POINTS_COUNT);
+  long time=(System.currentTimeMillis() / 1000) * 1000;
+  for (int i=0; i < MAX_POINTS_COUNT; i++) {
+    long pointTime=time - (i * 1000);
+    reports.add(genDataReport(pointTime));
+  }
+  return reports;
+}

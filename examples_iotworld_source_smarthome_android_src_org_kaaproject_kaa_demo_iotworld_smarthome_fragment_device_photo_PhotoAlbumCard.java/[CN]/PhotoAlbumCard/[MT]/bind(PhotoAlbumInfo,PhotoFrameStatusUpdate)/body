@@ -1,0 +1,23 @@
+{
+  byte[] thumbnailData=null;
+  if (status != null && status.getAlbumId() != null && status.getAlbumId().equals(album.getId())) {
+    mAlbumInfoView.setVisibility(View.GONE);
+    mCurrentPhotoView.setVisibility(View.VISIBLE);
+    mSlideshowStatusImageView.setImageResource(status.getStatus() == SlideShowStatus.PLAYING ? R.drawable.ic_slideshow_status_playing : R.drawable.ic_slideshow_status_paused);
+    mPhotoNumberView.setText(getResources().getString(R.string.photo_number_text,status.getPhotoNumber(),album.getSize()));
+    thumbnailData=status.getThumbnail().array();
+  }
+ else {
+    mAlbumInfoView.setVisibility(View.VISIBLE);
+    mCurrentPhotoView.setVisibility(View.GONE);
+    mPhotoCountView.setText(getResources().getString(R.string.photos_count_text,album.getSize()));
+    thumbnailData=album.getThumbnail().array();
+  }
+  Bitmap prevBitmap=mThumbnailBitmap;
+  mThumbnailBitmap=BitmapFactory.decodeByteArray(thumbnailData,0,thumbnailData.length);
+  mThumbnailView.setImageBitmap(mThumbnailBitmap);
+  if (prevBitmap != null) {
+    prevBitmap.recycle();
+  }
+  mAlbumTitleView.setText(album.getTitle());
+}

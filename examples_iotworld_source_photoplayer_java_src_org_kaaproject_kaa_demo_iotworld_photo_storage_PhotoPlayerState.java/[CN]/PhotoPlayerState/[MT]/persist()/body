@@ -1,0 +1,13 @@
+{
+  StringBuilder sb=new StringBuilder();
+  for (  String listener : listeners) {
+    sb.append(listener).append(LISTENERS_PROP_DELIMITER);
+  }
+  properties.put(LISTENERS_PROP_NAME,sb.toString());
+  try (OutputStream os=new FileOutputStream(fileName)){
+    properties.store(os,null);
+  }
+ catch (  IOException e) {
+    LOG.error("Failed to persist state file. Fallback to default values",e);
+  }
+}

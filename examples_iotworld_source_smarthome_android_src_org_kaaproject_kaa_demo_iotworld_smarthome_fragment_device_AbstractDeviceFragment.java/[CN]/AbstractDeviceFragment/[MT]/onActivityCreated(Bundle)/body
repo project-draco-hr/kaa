@@ -1,0 +1,7 @@
+{
+  super.onActivityCreated(savedInstanceState);
+  mDevice=(D)mDeviceStore.getDevicesMap().get(mEndpointKey);
+  LayoutInflater inflater=(LayoutInflater)mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+  setupView(inflater,getView());
+  bindDevice(true);
+}

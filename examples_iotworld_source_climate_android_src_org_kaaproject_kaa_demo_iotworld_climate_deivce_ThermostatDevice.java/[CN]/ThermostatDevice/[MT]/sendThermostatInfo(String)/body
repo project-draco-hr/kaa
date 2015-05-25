@@ -1,0 +1,6 @@
+{
+  for (  String endpointKey : mSubscribedEndpoints) {
+    mThermostatInfo.setIgnoreDegreeUpdate(ignoreEndpointKey != null && ignoreEndpointKey.equals(endpointKey));
+    mThermoEventClassFamily.sendEvent(new ThermostatStatusUpdate(mThermostatInfo),endpointKey);
+  }
+}

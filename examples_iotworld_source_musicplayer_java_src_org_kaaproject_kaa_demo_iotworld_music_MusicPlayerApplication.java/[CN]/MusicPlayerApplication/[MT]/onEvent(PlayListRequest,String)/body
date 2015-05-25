@@ -1,0 +1,4 @@
+{
+  LOG.info("Receieved play list request {} from {}",event,originator);
+  musicECF.sendEvent(new PlayListResponse(library.getPlayList()),originator);
+}
