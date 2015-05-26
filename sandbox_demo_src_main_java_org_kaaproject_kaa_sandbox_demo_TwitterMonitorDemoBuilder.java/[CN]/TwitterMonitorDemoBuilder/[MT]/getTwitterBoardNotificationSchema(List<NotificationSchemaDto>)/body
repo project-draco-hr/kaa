@@ -1,0 +1,8 @@
+{
+  for (  NotificationSchemaDto notificationSchema : notificationSchemas) {
+    if (TWITTER_BOARD_NOTIFICATION_SCHEMA.equalsIgnoreCase(notificationSchema.getName())) {
+      return notificationSchema;
+    }
+  }
+  return null;
+}

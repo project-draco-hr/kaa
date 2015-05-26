@@ -1,0 +1,12 @@
+{
+  drawBackground(canvas);
+  float scale=(float)getWidth();
+  canvas.save(Canvas.MATRIX_SAVE_FLAG);
+  canvas.scale(scale,scale);
+  drawHand(canvas);
+  drawMeasures(canvas);
+  canvas.restore();
+  if (handNeedsToMove()) {
+    moveHand();
+  }
+}

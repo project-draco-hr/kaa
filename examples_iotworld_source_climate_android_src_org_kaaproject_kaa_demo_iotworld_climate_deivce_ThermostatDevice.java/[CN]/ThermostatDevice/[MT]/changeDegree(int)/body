@@ -1,0 +1,6 @@
+{
+  mThermostatInfo.setDegree(newDegree);
+  commitThermostatInfo();
+  mEventBus.post(mThermostatUpdatedEvent);
+  sendThermostatInfo(null);
+}

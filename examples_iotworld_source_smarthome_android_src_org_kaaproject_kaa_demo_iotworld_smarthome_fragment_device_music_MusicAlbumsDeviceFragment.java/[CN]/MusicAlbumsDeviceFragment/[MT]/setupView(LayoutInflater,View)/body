@@ -1,0 +1,9 @@
+{
+  super.setupView(inflater,rootView);
+  mNoDataText.setText(R.string.no_albums);
+  mRecyclerView=(AutoSpanRecyclerView)rootView.findViewById(R.id.recycler_view);
+  mRecyclerView.setHasFixedSize(true);
+  int cardsSpacing=getResources().getDimensionPixelSize(R.dimen.card_spacing);
+  mRecyclerView.setGridLayoutManager(GridLayoutManager.VERTICAL,1,R.dimen.card_width,cardsSpacing);
+  mAlbumsAdapter=new AlbumsAdapter(mRecyclerView,mDevice,this);
+}

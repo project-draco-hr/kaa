@@ -1,0 +1,7 @@
+{
+  LOG.info("Receieved stop event {} from {}",event,originator);
+  pendingStatus=PlaybackStatus.STOPPED;
+  player.stop();
+  state.setSongId(null);
+  sendPlaybackResponse(originator);
+}

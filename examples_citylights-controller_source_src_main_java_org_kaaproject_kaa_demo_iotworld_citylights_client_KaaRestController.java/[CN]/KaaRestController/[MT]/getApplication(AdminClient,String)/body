@@ -1,0 +1,9 @@
+{
+  List<ApplicationDto> applications=client.getApplications();
+  for (  ApplicationDto dto : applications) {
+    if (dto.getApplicationToken().equals(trafficLightsAppToken)) {
+      return dto;
+    }
+  }
+  throw new IllegalStateException("Application with token " + trafficLightsAppToken + " not found!");
+}

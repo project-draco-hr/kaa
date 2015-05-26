@@ -1,0 +1,13 @@
+{
+  if (mToggle.onOptionsItemSelected(item)) {
+    return true;
+  }
+ else {
+    int id=item.getItemId();
+    if (id == android.R.id.home) {
+      popBackStack();
+      return true;
+    }
+  }
+  return super.onOptionsItemSelected(item);
+}

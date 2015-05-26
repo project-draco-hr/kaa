@@ -1,0 +1,8 @@
+{
+  if (getParent() instanceof AutoSpanRecyclerView) {
+    AutoSpanRecyclerView reyclerView=(AutoSpanRecyclerView)getParent();
+    final int position=reyclerView.getChildPosition(this);
+    final long id=reyclerView.getChildItemId(this);
+    reyclerView.onCreateContextMenu(this,menu,position,id);
+  }
+}

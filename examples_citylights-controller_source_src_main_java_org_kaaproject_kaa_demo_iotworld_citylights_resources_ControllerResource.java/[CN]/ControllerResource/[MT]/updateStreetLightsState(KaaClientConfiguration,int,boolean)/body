@@ -1,0 +1,12 @@
+{
+  try {
+    new KaaRestController(configuration).updateStreetLights(zoneId,on);
+    if (on) {
+      streetState.setZoneId(zoneId);
+    }
+    LOG.info("Updated street state to {} for zone {}",on ? "ON" : "OFF",zoneId);
+  }
+ catch (  Exception e) {
+    LOG.error("Failed to update street lights state for zone {}",zoneId,e);
+  }
+}

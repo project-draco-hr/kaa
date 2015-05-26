@@ -1,0 +1,9 @@
+{
+  LOG.debug("Received event from {} for immediately irrigation.",source);
+  if (!stateHolder.isIrrigation()) {
+    scheduleTimeTaskNow(stateHolder.getIrrigationIntervalMs(),new IrrigationCallbackImpl());
+  }
+ else {
+    LOG.warn("Received event from {} for immediately irrigation, but irrigation already in progress",source);
+  }
+}

@@ -1,0 +1,7 @@
+{
+  super.onResume();
+  if (!getSmartHomeApplication().getEventBus().isRegistered(this)) {
+    getSmartHomeApplication().getEventBus().register(this);
+  }
+  getSmartHomeApplication().resume();
+}

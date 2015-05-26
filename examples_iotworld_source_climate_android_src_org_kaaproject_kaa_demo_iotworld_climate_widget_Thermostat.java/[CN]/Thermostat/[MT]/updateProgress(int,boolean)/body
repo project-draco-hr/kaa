@@ -1,0 +1,15 @@
+{
+  if (progress == INVALID_PROGRESS_VALUE) {
+    return;
+  }
+  progress=(progress > mMax) ? mMax : progress;
+  progress=(mProgress < 0) ? 0 : progress;
+  mProgress=progress;
+  if (mOnThermostatChangeListener != null) {
+    mOnThermostatChangeListener.onProgressChanged(this,progress,fromUser);
+  }
+  mProgressSweep=(float)progress / (float)mMax * mSweepAngle;
+  updateThumbPosition();
+  updateColors();
+  invalidate();
+}

@@ -1,0 +1,15 @@
+{
+  LOG.debug("Received DeviceStatusSubscriptionRequest event from {}",source);
+  if (irrigation != null) {
+    subscriptedDevices.add(source);
+    IrrigationStatusUpdate update;
+    if (scheduledFuture != null && (!scheduledFuture.isCancelled() || !scheduledFuture.isDone())) {
+      update=stateHolder.getIrrigationStatusUpdate(scheduledFuture.getDelay(TimeUnit.MILLISECONDS));
+    }
+ else {
+      update=stateHolder.getIrrigationStatusUpdate();
+    }
+    LOG.debug("Sending irrigation status update {}",update);
+    irrigation.sendEvent(update,source);
+  }
+}
