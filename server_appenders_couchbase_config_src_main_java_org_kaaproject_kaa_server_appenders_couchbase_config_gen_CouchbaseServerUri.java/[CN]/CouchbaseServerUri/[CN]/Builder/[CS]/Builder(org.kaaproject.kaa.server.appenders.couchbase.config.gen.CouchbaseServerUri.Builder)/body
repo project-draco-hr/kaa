@@ -1,0 +1,7 @@
+{
+  super(other);
+  if (isValidValue(fields()[0],other.serverUri)) {
+    this.serverUri=data().deepCopy(fields()[0].schema(),other.serverUri);
+    fieldSetFlags()[0]=true;
+  }
+}

@@ -1,0 +1,12 @@
+{
+  try {
+    CouchbaseConfig record=new CouchbaseConfig();
+    record.couchbaseServerUris=fieldSetFlags()[0] ? this.couchbaseServerUris : (java.util.List<org.kaaproject.kaa.server.appenders.couchbase.config.gen.CouchbaseServerUri>)defaultValue(fields()[0]);
+    record.bucket=fieldSetFlags()[1] ? this.bucket : (java.lang.String)defaultValue(fields()[1]);
+    record.password=fieldSetFlags()[2] ? this.password : (java.lang.String)defaultValue(fields()[2]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

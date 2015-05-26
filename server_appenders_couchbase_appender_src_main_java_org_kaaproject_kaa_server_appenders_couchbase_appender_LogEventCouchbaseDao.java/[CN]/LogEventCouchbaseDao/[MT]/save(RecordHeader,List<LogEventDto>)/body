@@ -1,0 +1,11 @@
+{
+  List<LogEvent> logEvents=new ArrayList<>(logEventDtos.size());
+  for (  LogEventDto logEventDto : logEventDtos) {
+    LogEvent logEvent=new LogEvent(recordHeader,logEventDto);
+    logEvent.setId(getId(logEventDto.getId()));
+    logEvents.add(logEvent);
+  }
+  LOG.debug("Saving {} log events",logEvents.size());
+  couchbaseTemplate.insert(logEvents);
+  return logEvents;
+}
