@@ -1,6 +1,6 @@
 {
   final View rootView=inflater.inflate(R.layout.fragment_dashboard,container,false);
-  endpoint=new RestDataEndpoint();
+  endpoint=new CouchBaseDataEndpoint(getActivity());
   gaugeCharts.add((GaugeChart)rootView.findViewById(R.id.gaugeChart11));
   gaugeCharts.add((GaugeChart)rootView.findViewById(R.id.gaugeChart12));
   gaugeCharts.add((GaugeChart)rootView.findViewById(R.id.gaugeChart13));
@@ -33,7 +33,12 @@
             Log.i(TAG,"populating charts with data " + reports.size());
             prepareLineChart(rootView,reports);
             Log.i(TAG,"populated line chart with data ");
-            preparePieChart(rootView,reports.get(reports.size() - 1));
+            if (!reports.isEmpty()) {
+              preparePieChart(rootView,reports.get(reports.size() - 1));
+            }
+ else {
+              preparePieChart(rootView,INITIAL_REPORT);
+            }
             Log.i(TAG,"populated pie chart with data ");
           }
         }
@@ -44,7 +49,10 @@
  catch (        InterruptedException e1) {
           e1.printStackTrace();
         }
-        DataReport previousReport=reports.get(reports.size() - 1);
+        DataReport previousReport=INITIAL_REPORT;
+        if (!reports.isEmpty()) {
+          previousReport=reports.get(reports.size() - 1);
+        }
         long previousUpdate=0l;
         while (true) {
           boolean updated=false;
@@ -59,7 +67,8 @@
                 Log.i(TAG,"Updating since -" + (updateDelta / 1000.) + " s.");
               }
               DataReport latestDataCandidate=endpoint.getLatestData();
-              if (latestDataCandidate.getTime() > previousReport.getTime()) {
+              latestDataCandidate=(latestDataCandidate == null ? previousReport : latestDataCandidate);
+              if (latestDataCandidate.getTime() >= previousReport.getTime()) {
                 previousReport=latestDataCandidate;
                 updated=true;
                 previousUpdate=System.currentTimeMillis();
