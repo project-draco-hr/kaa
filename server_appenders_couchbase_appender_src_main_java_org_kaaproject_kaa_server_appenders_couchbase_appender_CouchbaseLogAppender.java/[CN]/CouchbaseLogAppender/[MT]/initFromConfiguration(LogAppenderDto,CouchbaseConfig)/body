@@ -1,0 +1,9 @@
+{
+  LOG.debug("Initializing new instance of Couchbase log appender");
+  try {
+    logEventDao=new LogEventCouchbaseDao(configuration);
+  }
+ catch (  Exception e) {
+    LOG.error("Failed to init Couchbase log appender: ",e);
+  }
+}
