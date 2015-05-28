@@ -1,5 +1,10 @@
 {
-  console.setText(console.getText() + text);
+  String consoleText=console.getText() + text;
+  if (consoleText.length() > MAX_CONSOLE_BUFFER) {
+    int start=consoleText.length() - MAX_CONSOLE_BUFFER;
+    consoleText=consoleText.substring(start);
+  }
+  console.setText(consoleText);
   if (console.getText().length() > 0) {
     console.setCursorPos(console.getText().length() - 1);
     console.getElement().setScrollTop(console.getElement().getScrollHeight());
