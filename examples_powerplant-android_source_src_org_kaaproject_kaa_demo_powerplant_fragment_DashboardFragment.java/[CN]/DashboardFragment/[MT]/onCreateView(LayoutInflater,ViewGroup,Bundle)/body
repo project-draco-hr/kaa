@@ -1,6 +1,26 @@
 {
   final View rootView=inflater.inflate(R.layout.fragment_dashboard,container,false);
-  endpoint=new CouchBaseDataEndpoint(getActivity());
+  androidKaaPlatformContext=new AndroidKaaPlatformContext(getActivity());
+  kaaClient=Kaa.newClient(androidKaaPlatformContext);
+  endpoint=DataEndpointFactory.createEndpoint(kaaClient.getConfiguration(),getActivity());
+  Log.i(TAG,"Default configuration: " + kaaClient.getConfiguration().toString());
+  kaaClient.addConfigurationListener(new ConfigurationListener(){
+    @Override public void onConfigurationUpdate(    PowerPlantEndpointConfiguration config){
+      endpoint.stop();
+      endpoint=DataEndpointFactory.createEndpoint(config,getActivity());
+      noEndpointUpdate=false;
+      Log.i(TAG,"Updating configuration: " + config.toString());
+      try {
+        updateChartsExecutor.awaitTermination(5,TimeUnit.SECONDS);
+      }
+ catch (      InterruptedException e) {
+        Log.i(TAG,"Interrupted while waiting for update thread to be killed",e);
+      }
+      updateChartsExecutor.execute(updateThread);
+    }
+  }
+);
+  kaaClient.start();
   gaugeCharts.add((GaugeChart)rootView.findViewById(R.id.gaugeChart11));
   gaugeCharts.add((GaugeChart)rootView.findViewById(R.id.gaugeChart12));
   gaugeCharts.add((GaugeChart)rootView.findViewById(R.id.gaugeChart13));
@@ -9,9 +29,10 @@
   gaugeCharts.add((GaugeChart)rootView.findViewById(R.id.gaugeChart23));
   logBox=(TextView)rootView.findViewById(R.id.logBox);
   logBox.setMovementMethod(new ScrollingMovementMethod());
-  Thread updateThread=new Thread(new Runnable(){
+  updateThread=new Thread(new Runnable(){
     @Override public void run(){
       Log.i(TAG,"generating history data ");
+      noEndpointUpdate=true;
       final List<DataReport> reports=endpoint.getHistoryData(0);
       if (reports == null) {
         mActivity.runOnUiThread(new Runnable(){
@@ -123,6 +144,6 @@
     }
   }
 );
-  updateThread.start();
+  updateChartsExecutor.execute(updateThread);
   return rootView;
 }

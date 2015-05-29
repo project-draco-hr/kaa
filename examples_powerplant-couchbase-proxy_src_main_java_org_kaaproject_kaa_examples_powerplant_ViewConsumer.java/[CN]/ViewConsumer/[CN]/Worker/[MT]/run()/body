@@ -1,0 +1,22 @@
+{
+  try {
+    while (!Thread.currentThread().isInterrupted()) {
+      Thread.sleep(UPDATE_CHECK_TIME);
+      JsonArray startKey=JsonArray.create().add(latestTs);
+      ViewResult latestData=bucket.query(ViewQuery.from(DEFAULT_DESIGN,DEFAULT_VIEW).stale(Stale.FALSE).groupLevel(2).descending().limit(1));
+      Iterator<ViewRow> iterator=latestData.iterator();
+      if (!iterator.hasNext()) {
+        continue;
+      }
+      JsonArray latestRow=(JsonArray)iterator.next().key();
+      int curLatestTs=latestRow.getInt(0);
+      if (curLatestTs >= latestTs) {
+        latestTs=curLatestTs;
+        uploadData();
+      }
+    }
+  }
+ catch (  InterruptedException e) {
+    e.printStackTrace();
+  }
+}
