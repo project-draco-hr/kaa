@@ -1,0 +1,14 @@
+{
+  if (album.getPhotos().isEmpty()) {
+    throw new IllegalArgumentException("Can't generate thumbnail for empty album!");
+  }
+  String photo=album.getPhotos().get(0);
+  try {
+    long time=System.currentTimeMillis();
+    album.getInfo().setThumbnail(toThumbnailData(photo));
+    LOG.info("Thumbnail generation time = {}",System.currentTimeMillis() - time);
+  }
+ catch (  IOException e) {
+    LOG.error("Faield to create thumbnail for {}",photo,e);
+  }
+}

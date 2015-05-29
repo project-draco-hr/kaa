@@ -17,7 +17,7 @@
     @Override public void onClick(    ClickEvent event){
       hide();
       if (ConsoleDialog.this.listener != null) {
-        ConsoleDialog.this.listener.onOk(success);
+        ConsoleDialog.this.listener.onOk(rpcCallSucceded && consoleSessionSucceded);
       }
     }
   }

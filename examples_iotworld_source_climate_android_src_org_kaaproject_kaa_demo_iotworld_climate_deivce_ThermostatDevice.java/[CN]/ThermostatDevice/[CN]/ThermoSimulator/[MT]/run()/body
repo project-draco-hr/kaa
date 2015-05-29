@@ -1,0 +1,39 @@
+{
+  while (!mFinished) {
+    int target;
+    int defaultDegreeDelta=DEFAULT_DEGREE - mThermostatInfo.getTargetDegree();
+    int defaultDegreeDeltaAbs=Math.abs(defaultDegreeDelta);
+    int deviation=Math.min(MAX_DEGREE_DEVIATION,defaultDegreeDeltaAbs);
+    if (mEnabled) {
+      if (mWorking) {
+        target=mThermostatInfo.getTargetDegree();
+      }
+ else {
+        int sign=(int)Math.signum(defaultDegreeDelta);
+        target=mThermostatInfo.getTargetDegree() + sign * deviation;
+      }
+    }
+ else {
+      target=DEFAULT_DEGREE;
+    }
+    inc=(int)Math.signum(target - mThermostatInfo.getDegree());
+    if (inc != 0) {
+      changeDegree(mThermostatInfo.getDegree() + inc);
+    }
+    if (mEnabled) {
+      int delta=Math.abs(mThermostatInfo.getTargetDegree() - mThermostatInfo.getDegree());
+      if (mWorking && delta == 0) {
+        mWorking=false;
+      }
+ else       if (!mWorking && delta == deviation && deviation != 0) {
+        mWorking=true;
+      }
+    }
+    switchOperatopnMode(mWorking);
+    try {
+      Thread.sleep(DEGREE_CHANGE_SPEED_MS);
+    }
+ catch (    InterruptedException e) {
+    }
+  }
+}

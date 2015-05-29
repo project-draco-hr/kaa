@@ -1,0 +1,9 @@
+{
+  int schemaVersion=kaaClientConfiguration.getNfSchemaVersion();
+  for (  NotificationSchemaDto schemaDto : adminClient.getNotificationSchemas(appDto.getId())) {
+    if (schemaDto.getMajorVersion() == schemaVersion) {
+      return schemaDto;
+    }
+  }
+  throw new IllegalArgumentException("Notification schema with version " + schemaVersion + " not found");
+}

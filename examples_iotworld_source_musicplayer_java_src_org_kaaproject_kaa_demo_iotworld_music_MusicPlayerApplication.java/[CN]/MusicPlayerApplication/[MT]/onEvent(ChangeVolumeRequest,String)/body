@@ -1,0 +1,8 @@
+{
+  LOG.info("Receieved change volume request {} from {}",event,originator);
+  if (player == null) {
+    return;
+  }
+  player.setVolume(event.getVolume());
+  sendPlaybackResponse(originator,false,true);
+}

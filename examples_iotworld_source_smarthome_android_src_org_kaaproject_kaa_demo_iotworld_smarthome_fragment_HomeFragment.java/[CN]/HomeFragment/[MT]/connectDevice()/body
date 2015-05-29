@@ -1,0 +1,8 @@
+{
+  Intent intent=new Intent(mActivity,QrCodeCaptureActivity.class);
+  intent.setAction(Intents.Scan.ACTION);
+  intent.putExtra(Intents.Scan.FORMATS,BarcodeFormat.QR_CODE.name());
+  intent.putExtra(Intents.Scan.PROMPT_MESSAGE,getString(R.string.msg_device_qr_code_status));
+  intent.putExtra(Intents.Scan.RESULT_DISPLAY_DURATION_MS,-1l);
+  startActivityForResult(intent,DEVICE_QR_CODE_REQUEST);
+}

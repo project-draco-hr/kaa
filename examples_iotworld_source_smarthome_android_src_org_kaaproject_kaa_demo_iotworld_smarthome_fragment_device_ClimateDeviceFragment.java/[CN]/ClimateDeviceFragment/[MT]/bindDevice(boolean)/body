@@ -1,0 +1,15 @@
+{
+  super.bindDevice(firstLoad);
+  ThermostatInfo thermostatInfo=mDevice.getThermostatInfo();
+  if (thermostatInfo != null) {
+    mTemperatureText.setText(getResources().getString(R.string.climate_device_temperature_text,thermostatInfo.getDegree(),thermostatInfo.getTargetDegree()));
+    mThermostat.setTemp(thermostatInfo.getDegree());
+    if (!thermostatInfo.getIgnoreDegreeUpdate() || firstLoad) {
+      mThermostat.setTargetTemp(thermostatInfo.getTargetDegree(),false);
+    }
+    mThermostat.setOperating(thermostatInfo.getIsOperating());
+  }
+  if (firstLoad) {
+    mThermostat.setOnThermostatChangeListener(this);
+  }
+}

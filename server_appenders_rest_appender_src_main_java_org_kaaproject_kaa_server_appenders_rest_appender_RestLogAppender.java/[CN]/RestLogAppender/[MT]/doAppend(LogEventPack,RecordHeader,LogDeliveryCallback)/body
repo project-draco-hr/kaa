@@ -3,6 +3,15 @@
     LOG.warn("Attempt to append data to already stopped appender");
     listener.onInternalError();
   }
+  if (targetURI == null) {
+    try {
+      targetURI=new URIBuilder().setHost(target.getHostName()).setPort(target.getPort()).setScheme(target.getSchemeName()).setPath(configuration.getPath()).build();
+    }
+ catch (    URISyntaxException e) {
+      LOG.warn("[{}] failed to build request URI",this.getApplicationToken(),e);
+      listener.onInternalError();
+    }
+  }
   LOG.trace("[{}] appending {} logs to rest endpoint",this.getApplicationToken(),logEventPack.getEvents().size());
   final RestConfig configuration=this.configuration;
   try {
@@ -12,6 +21,7 @@
           try {
             LOG.trace("[{}] appending {} to rest endpoint",RestLogAppender.this.getApplicationToken(),dto);
             final HttpRequest request=createRequest(configuration,dto);
+            LOG.trace("[{}] executing {}",RestLogAppender.this.getApplicationToken(),request.getRequestLine());
             CloseableHttpResponse response=client.execute(target,request);
             try {
               int responseCode=response.getStatusLine().getStatusCode();

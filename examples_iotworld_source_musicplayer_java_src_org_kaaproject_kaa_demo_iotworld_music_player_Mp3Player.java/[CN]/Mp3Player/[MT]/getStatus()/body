@@ -1,0 +1,13 @@
+{
+switch (player.getState()) {
+case PLAYING:
+    return PlaybackStatus.PLAYING;
+case STOPPED:
+  return PlaybackStatus.STOPPED;
+case PAUSED:
+return PlaybackStatus.PAUSED;
+case PAUSED_BUFFERING:
+return PlaybackStatus.PLAYING;
+}
+return PlaybackStatus.STOPPED;
+}

@@ -1,0 +1,31 @@
+{
+  ByteArrayOutputStream os=new ByteArrayOutputStream();
+  byte[] ppmMagicBytes={0x50,0x36};
+  os.write(ppmMagicBytes);
+  os.write(PPM_NEWLINE);
+  os.write(Integer.toString(width).getBytes(ASCII));
+  os.write(PPM_SEPARATOR);
+  os.write(Integer.toString(MATRIX_HEIGHT).getBytes(ASCII));
+  os.write(PPM_NEWLINE);
+  os.write(Integer.toString(255).getBytes(ASCII));
+  os.write(PPM_NEWLINE);
+  Color color=new Color(background);
+  for (int y=0; y < MATRIX_HEIGHT; y++) {
+    for (    BufferedImage image : images) {
+      for (int x=0; x < image.getWidth(); x++) {
+        final int argb=image.getRGB(x,y);
+        float alpha=((0xff & (argb >> 24)) / 255.0f);
+        int red=0xff & (argb >> 16);
+        int green=0xff & (argb >> 8);
+        int blue=0xff & (argb >> 0);
+        red=(int)((1.0f - alpha) * color.getRed() + (red * alpha));
+        green=(int)((1.0f - alpha) * color.getGreen() + (green * alpha));
+        blue=(int)((1.0f - alpha) * color.getBlue() + (blue * alpha));
+        os.write((byte)red);
+        os.write((byte)green);
+        os.write((byte)blue);
+      }
+    }
+  }
+  return os.toByteArray();
+}

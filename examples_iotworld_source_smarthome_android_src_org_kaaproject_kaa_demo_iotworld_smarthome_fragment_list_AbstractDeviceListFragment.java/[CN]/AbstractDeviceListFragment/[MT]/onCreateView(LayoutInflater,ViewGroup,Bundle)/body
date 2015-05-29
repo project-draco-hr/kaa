@@ -1,0 +1,9 @@
+{
+  View rootView=inflater.inflate(R.layout.fragment_device_list,container,false);
+  setupView(rootView);
+  mNoDataText=(TextView)rootView.findViewById(R.id.noDataText);
+  mNoDataText.setText(R.string.no_devices);
+  mRecyclerView=(PressableRecyclerView)rootView.findViewById(R.id.recycler_view);
+  mRecyclerView.setHasFixedSize(true);
+  return rootView;
+}

@@ -10,11 +10,11 @@
       }
       listener.onSuccess();
     }
- catch (    Network e) {
+ catch (    MongoSocketException e) {
       LOG.error(MessageFormat.format("[{0}] Attempted to append logs failed due to network error",getName()),e);
       listener.onConnectionError();
     }
-catch (    MongoInternalException e) {
+catch (    MongoInternalException|MongoServerException e) {
       LOG.error(MessageFormat.format("[{0}] Attempted to append logs failed due to remote error",getName()),e);
       listener.onRemoteError();
     }

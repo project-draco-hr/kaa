@@ -1,0 +1,7 @@
+{
+  super.onPause();
+  if (getSmartHomeApplication().getEventBus().isRegistered(this)) {
+    getSmartHomeApplication().getEventBus().unregister(this);
+  }
+  getSmartHomeApplication().pause();
+}

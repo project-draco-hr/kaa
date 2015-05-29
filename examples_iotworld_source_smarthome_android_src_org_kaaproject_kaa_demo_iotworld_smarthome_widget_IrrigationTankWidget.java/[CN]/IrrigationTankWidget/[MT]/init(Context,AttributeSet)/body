@@ -1,0 +1,6 @@
+{
+  super.init(context,attrs);
+  final TypedArray typedArray=context.obtainStyledAttributes(attrs,R.styleable.IrrigationTankWidget);
+  mWavesCount=typedArray.getInteger(R.styleable.IrrigationTankWidget_wavesCount,DEFAULT_WAVES_COUNT);
+  typedArray.recycle();
+}

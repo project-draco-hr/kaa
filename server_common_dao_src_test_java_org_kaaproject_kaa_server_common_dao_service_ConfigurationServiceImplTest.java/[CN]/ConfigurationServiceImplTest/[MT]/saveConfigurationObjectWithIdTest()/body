@@ -2,6 +2,7 @@
   List<ConfigurationDto> configs=generateConfiguration(null,null,1,false,false);
   ConfigurationDto saved=configurationService.findConfigurationById(configs.get(0).getId());
   ConfigurationDto updated=configurationService.saveConfiguration(saved);
+  updated=configurationService.saveConfiguration(updated);
   Assert.assertNotNull(saved);
   Assert.assertEquals(updated.getStatus(),UpdateStatus.INACTIVE);
 }

@@ -1,0 +1,13 @@
+{
+  if (position <= mDeviceStore.getSize()) {
+    if (position == mDeviceStore.getSize()) {
+      return DeviceType.values().length;
+    }
+ else {
+      return mDeviceStore.getDevice(position).getDeviceType().ordinal();
+    }
+  }
+ else {
+    return INVALID_TYPE;
+  }
+}

@@ -1,0 +1,8 @@
+{
+  FanControlDevice device=discoveredFanControlsMap.remove(fanControlUpdatedEvent.getEndpointKey());
+  if (device != null) {
+    stopFanConstrolsDiscoveryTask();
+    device.switchFunStatus(mThermostatInfo.getIsOperating() ? FanStatus.ON : FanStatus.OFF);
+    fanControlsMap.put(fanControlUpdatedEvent.getEndpointKey(),device);
+  }
+}

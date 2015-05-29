@@ -2,7 +2,7 @@
   List<SubscriptionCommand> subscriptionUpdate=new LinkedList<>();
   for (  String id : topicIds) {
     Topic topic=findTopicById(id);
-    if (topic.getSubscriptionType() != SubscriptionType.OPTIONAL) {
+    if (topic.getSubscriptionType() != SubscriptionType.OPTIONAL_SUBSCRIPTION) {
       LOG.warn("Failed to subscribe: topic '{}' isn't optional",id);
       throw new UnavailableTopicException(String.format("Topic '%s' isn't optional",id));
     }

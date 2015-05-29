@@ -1,0 +1,30 @@
+{
+  Map<Long,DataReport> resultMap=new HashMap<>();
+  for (int i=0; i < jsonArray.length(); i++) {
+    JSONObject dataPoint=jsonArray.getJSONObject(i);
+    long time=dataPoint.getLong("time");
+    DataReport report=resultMap.get(time);
+    if (report == null) {
+      List<DataPoint> dataPoints=new ArrayList<DataPoint>();
+      report=new DataReport(time,dataPoints,getConsumption());
+      resultMap.put(time,report);
+    }
+    report.getDataPoints().add(new DataPoint(dataPoint.getInt("panelId"),(float)dataPoint.getDouble("voltage")));
+  }
+  List<DataReport> result=new ArrayList<DataReport>(resultMap.values());
+  Collections.sort(result,new Comparator<DataReport>(){
+    @Override public int compare(    DataReport lhs,    DataReport rhs){
+      return (int)(lhs.getTime() - rhs.getTime());
+    }
+  }
+);
+  for (  DataReport dr : result) {
+    Collections.sort(dr.getDataPoints(),new Comparator<DataPoint>(){
+      @Override public int compare(      DataPoint lhs,      DataPoint rhs){
+        return lhs.getPanelId() - rhs.getPanelId();
+      }
+    }
+);
+  }
+  return result;
+}
