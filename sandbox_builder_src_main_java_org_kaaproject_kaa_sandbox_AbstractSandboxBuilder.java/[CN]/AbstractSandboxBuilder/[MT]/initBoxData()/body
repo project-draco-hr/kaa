@@ -19,8 +19,6 @@
       }
     }
   }
-  LOG.info("Executing Cassandra cql script...");
-  executeSudoSsh("cqlsh -f " + CASSANDRA_INIT_SCRIPT);
   String changeKaaHostFileSource=changeKaaHostFileTemplate.replaceAll(STOP_SERVICES_VAR,stopServices).replaceAll(SET_NEW_HOSTS,setNewHosts).replaceAll(START_SERVICES_VAR,startServices);
   File changeKaaHostFile=new File(distroPath,CHANGE_KAA_HOST);
   FileOutputStream fos=new FileOutputStream(changeKaaHostFile);
