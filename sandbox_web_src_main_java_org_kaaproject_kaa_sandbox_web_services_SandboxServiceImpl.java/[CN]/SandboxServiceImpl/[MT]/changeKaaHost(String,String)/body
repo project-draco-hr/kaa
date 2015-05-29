@@ -1,7 +1,6 @@
 {
-  AtmosphereResource res=AtmosphereResourceFactory.getDefault().find(uuid);
   try {
-    ClientMessageOutputStream outStream=new ClientMessageOutputStream(res,null);
+    ClientMessageOutputStream outStream=new ClientMessageOutputStream(uuid,null);
     if (guiChangeHostEnabled) {
       executeCommand(outStream,new String[]{"sudo",sandboxHome + "/change_kaa_host.sh",host},null);
       cacheService.flushAllCaches();
@@ -11,6 +10,8 @@
     }
   }
   finally {
-    res.getBroadcaster().broadcast(uuid + " finished",res);
+    if (uuid != null) {
+      broadcastMessage(uuid,uuid + " finished");
+    }
   }
 }

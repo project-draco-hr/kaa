@@ -3,13 +3,13 @@
     @Override public void onProjectAction(    ProjectActionEvent event){
 switch (event.getAction()) {
 case GET_SOURCE_CODE:
-        getProjectSourceCode(event.getProjectId());
+        getProjectSourceCode(event.getProject());
       break;
 case GET_BINARY:
-    getProjectBinary(event.getProjectId());
+    getProjectBinary(event.getProject());
   break;
 case OPEN_DETAILS:
-clientFactory.getPlaceController().goTo(new ProjectPlace(event.getProjectId()));
+clientFactory.getPlaceController().goTo(new ProjectPlace(event.getProject().getId()));
 break;
 default :
 break;
