@@ -1,0 +1,18 @@
+{
+  List<ClusteringElement> mapping=configuration.getClusteringMapping();
+  if (mapping != null && mapping.size() > 0) {
+    StringBuilder columnList=new StringBuilder();
+    for (    ClusteringElement element : mapping) {
+      if (columnList.length() > 0) {
+        columnList.append(" , ");
+      }
+      columnList.append(element.getColumnName());
+      columnList.append(" ");
+      columnList.append(element.getOrder());
+    }
+    return "WITH CLUSTERING ORDER BY (" + columnList.toString() + ")";
+  }
+ else {
+    return "";
+  }
+}
