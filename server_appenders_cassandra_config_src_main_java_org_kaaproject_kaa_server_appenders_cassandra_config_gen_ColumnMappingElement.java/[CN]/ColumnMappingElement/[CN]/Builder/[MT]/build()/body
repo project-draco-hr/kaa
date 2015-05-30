@@ -1,0 +1,15 @@
+{
+  try {
+    ColumnMappingElement record=new ColumnMappingElement();
+    record.type=fieldSetFlags()[0] ? this.type : (org.kaaproject.kaa.server.appenders.cassandra.config.gen.ColumnMappingElementType)defaultValue(fields()[0]);
+    record.value=fieldSetFlags()[1] ? this.value : (java.lang.String)defaultValue(fields()[1]);
+    record.columnName=fieldSetFlags()[2] ? this.columnName : (java.lang.String)defaultValue(fields()[2]);
+    record.columnType=fieldSetFlags()[3] ? this.columnType : (org.kaaproject.kaa.server.appenders.cassandra.config.gen.ColumnType)defaultValue(fields()[3]);
+    record.partitionKey=fieldSetFlags()[4] ? this.partitionKey : (java.lang.Boolean)defaultValue(fields()[4]);
+    record.clusteringKey=fieldSetFlags()[5] ? this.clusteringKey : (java.lang.Boolean)defaultValue(fields()[5]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

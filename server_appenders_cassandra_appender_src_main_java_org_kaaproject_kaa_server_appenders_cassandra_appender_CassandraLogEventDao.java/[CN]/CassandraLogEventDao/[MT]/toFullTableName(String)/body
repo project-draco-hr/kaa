@@ -1,0 +1,6 @@
+{
+  String tableName=configuration.getTableNamePattern();
+  tableName=tableName.replace($APP_TOKEN,appToken);
+  tableName=tableName.replace($CONFIG_HASH,Integer.toString(Math.abs(configuration.hashCode())));
+  return tableName;
+}

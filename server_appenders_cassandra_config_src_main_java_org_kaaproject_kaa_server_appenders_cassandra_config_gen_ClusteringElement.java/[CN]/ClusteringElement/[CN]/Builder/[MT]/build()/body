@@ -1,0 +1,11 @@
+{
+  try {
+    ClusteringElement record=new ClusteringElement();
+    record.columnName=fieldSetFlags()[0] ? this.columnName : (java.lang.String)defaultValue(fields()[0]);
+    record.order=fieldSetFlags()[1] ? this.order : (org.kaaproject.kaa.server.appenders.cassandra.config.gen.OrderType)defaultValue(fields()[1]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

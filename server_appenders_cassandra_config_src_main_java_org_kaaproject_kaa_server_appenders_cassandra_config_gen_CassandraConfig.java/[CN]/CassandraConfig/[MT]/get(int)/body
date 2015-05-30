@@ -3,20 +3,26 @@ switch (field$) {
 case 0:
     return cassandraServers;
 case 1:
-  return keySpace;
+  return cassandraCredential;
 case 2:
-return cassandraCredential;
+return keySpace;
 case 3:
-return cassandraBatchType;
+return tableNamePattern;
 case 4:
-return cassandraSocketOption;
+return columnMapping;
 case 5:
-return callbackThreadPoolSize;
+return clusteringMapping;
 case 6:
-return cassandraWriteConsistencyLevel;
+return cassandraBatchType;
 case 7:
-return cassandraCompression;
+return cassandraSocketOption;
 case 8:
+return callbackThreadPoolSize;
+case 9:
+return cassandraWriteConsistencyLevel;
+case 10:
+return cassandraCompression;
+case 11:
 return cassandraExecuteRequestType;
 default :
 throw new org.apache.avro.AvroRuntimeException("Bad index");
