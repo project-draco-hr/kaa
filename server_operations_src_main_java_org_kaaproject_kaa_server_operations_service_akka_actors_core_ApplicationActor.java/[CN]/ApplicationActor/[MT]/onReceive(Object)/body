@@ -35,4 +35,7 @@
  else   if (message instanceof EndpointUserActionRouteMessage) {
     processEndpointUserActionMessage(((EndpointUserActionRouteMessage)message).getMessage(),false);
   }
+ else   if (message instanceof StatusRequestMessage) {
+    processStatusRequest((StatusRequestMessage)message);
+  }
 }

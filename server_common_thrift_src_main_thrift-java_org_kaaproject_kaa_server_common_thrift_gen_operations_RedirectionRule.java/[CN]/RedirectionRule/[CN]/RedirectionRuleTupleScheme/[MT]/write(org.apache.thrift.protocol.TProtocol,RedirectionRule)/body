@@ -7,21 +7,27 @@
   if (struct.isSetRuleId()) {
     optionals.set(1);
   }
-  if (struct.isSetRedirectionProbability()) {
+  if (struct.isSetInitRedirectProbability()) {
     optionals.set(2);
   }
-  if (struct.isSetRuleTTL()) {
+  if (struct.isSetSessionRedirectProbability()) {
     optionals.set(3);
   }
-  oprot.writeBitSet(optionals,4);
+  if (struct.isSetRuleTTL()) {
+    optionals.set(4);
+  }
+  oprot.writeBitSet(optionals,5);
   if (struct.isSetAccessPointId()) {
     oprot.writeI32(struct.accessPointId);
   }
   if (struct.isSetRuleId()) {
     oprot.writeI64(struct.ruleId);
   }
-  if (struct.isSetRedirectionProbability()) {
-    oprot.writeDouble(struct.redirectionProbability);
+  if (struct.isSetInitRedirectProbability()) {
+    oprot.writeDouble(struct.initRedirectProbability);
+  }
+  if (struct.isSetSessionRedirectProbability()) {
+    oprot.writeDouble(struct.sessionRedirectProbability);
   }
   if (struct.isSetRuleTTL()) {
     oprot.writeI64(struct.ruleTTL);

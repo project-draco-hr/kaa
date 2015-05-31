@@ -1,0 +1,19 @@
+{
+  StatusRequestState state=statusRequestStatesMap.get(message.getRequestId());
+  if (state != null) {
+    if (state.processResponse(message)) {
+      int endpointCount=state.getEndpontCount();
+      AkkaStatusListener listener=state.getOriginator().getListener();
+      if (listener != null) {
+        listener.onStatusUpdate(new AkkaServiceStatus(System.currentTimeMillis(),endpointCount));
+      }
+ else {
+        LOG.warn("[{}] Calculated state for empty listener",message.getRequestId());
+      }
+      statusRequestStatesMap.remove(message.getRequestId());
+    }
+  }
+ else {
+    LOG.warn("[{}] State for status request is not found",message.getRequestId());
+  }
+}

@@ -15,4 +15,10 @@
  else   if (message instanceof ClusterUpdateMessage) {
     processClusterUpdate((ClusterUpdateMessage)message);
   }
+ else   if (message instanceof StatusRequestMessage) {
+    processStatusRequest((StatusRequestMessage)message);
+  }
+ else   if (message instanceof TenantActorStatusResponse) {
+    processStatusResponse((TenantActorStatusResponse)message);
+  }
 }

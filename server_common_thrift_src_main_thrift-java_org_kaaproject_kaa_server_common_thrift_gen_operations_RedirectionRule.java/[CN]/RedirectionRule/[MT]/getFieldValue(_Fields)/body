@@ -4,8 +4,10 @@ case ACCESS_POINT_ID:
     return Integer.valueOf(getAccessPointId());
 case RULE_ID:
   return Long.valueOf(getRuleId());
-case REDIRECTION_PROBABILITY:
-return Double.valueOf(getRedirectionProbability());
+case INIT_REDIRECT_PROBABILITY:
+return Double.valueOf(getInitRedirectProbability());
+case SESSION_REDIRECT_PROBABILITY:
+return Double.valueOf(getSessionRedirectProbability());
 case RULE_TTL:
 return Long.valueOf(getRuleTTL());
 }
