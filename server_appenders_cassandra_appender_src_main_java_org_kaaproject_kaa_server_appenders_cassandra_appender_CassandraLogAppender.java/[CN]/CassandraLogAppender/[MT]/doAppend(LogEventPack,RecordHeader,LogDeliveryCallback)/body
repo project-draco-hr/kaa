@@ -27,6 +27,10 @@ listener.onInternalError();
 LOG.warn("Got io exception. Can't generate log events",e);
 listener.onInternalError();
 }
+catch (RuntimeException e) {
+LOG.warn("Appender got runtime exception:",e);
+listener.onInternalError();
+}
 }
  else {
 LOG.info("Attempted to append to closed appender named [{}].",getName());
