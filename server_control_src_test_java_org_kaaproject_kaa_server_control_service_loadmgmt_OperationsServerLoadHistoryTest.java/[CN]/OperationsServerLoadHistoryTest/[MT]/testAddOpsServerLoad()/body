@@ -1,6 +1,6 @@
 {
   OperationsServerLoadHistory hist=new OperationsServerLoadHistory(MAX_HISTORY_TIME_LIVE);
-  hist.addOpsServerLoad(new LoadInfo(2));
+  hist.addOpsServerLoad(new LoadInfo(2,1.0));
   fillOutHistory(hist,1000,5);
   assertNotNull(hist.getHistory());
   if (hist.getHistory().size() >= 5) {

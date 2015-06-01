@@ -1,0 +1,12 @@
+{
+  int result=0;
+  int minCount=Integer.MAX_VALUE;
+  for (  Entry<Integer,OperationsServerLoadHistory> entry : opsServerLoadHistory.entrySet()) {
+    int endpointCount=getLastEndpointCount(entry.getValue());
+    if (endpointCount < minCount) {
+      result=entry.getKey();
+      minCount=endpointCount;
+    }
+  }
+  return result;
+}

@@ -1,0 +1,14 @@
+{
+  RedirectionRule result=null;
+  for (  RedirectionRule rule : redirectionRules.values()) {
+    double redirectionProbability=initSession ? rule.initRedirectProbability : rule.sessionRedirectProbability;
+    if (random <= redirectionProbability) {
+      result=rule;
+      break;
+    }
+ else {
+      random-=redirectionProbability;
+    }
+  }
+  return result;
+}

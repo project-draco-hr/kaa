@@ -2,7 +2,7 @@
   OperationsNodeInfo nodeInfo=new OperationsNodeInfo();
   nodeInfo.setTimeStarted(System.currentTimeMillis());
   nodeInfo.setTransports(new ArrayList<TransportMetaData>());
-  nodeInfo.setLoadInfo(new LoadInfo(loadInfo));
+  nodeInfo.setLoadInfo(new LoadInfo(loadInfo,1.0));
   nodeInfo.setConnectionInfo(new ConnectionInfo(thriftHost,thriftPort,publicKey));
   return nodeInfo;
 }

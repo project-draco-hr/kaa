@@ -3,17 +3,4 @@
   opsServersMap=new Hashtable<Integer,OperationsServerMeta>();
   bootstrapsMap=new Hashtable<String,BootstrapNodeInfo>();
   opsLoadHistoryTTL=loadDistributionService.getOpsServerHistoryTTL() * 1000;
-  try {
-    Class<?> dynamicMgmtClass=Class.forName(getLoadDistributionService().getDynamicMgmtClass());
-    Object obj=dynamicMgmtClass.newInstance();
-    if (obj instanceof Rebalancer) {
-      dynamicMgmt=(Rebalancer)obj;
-    }
- else {
-      LOG.error("Error initializing dynamic load management class instance (not a instance of rebalance)");
-    }
-  }
- catch (  ClassNotFoundException|InstantiationException|IllegalAccessException e) {
-    LOG.error("Error initializing dynamic management class!",e);
-  }
 }
