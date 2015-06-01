@@ -1,6 +1,7 @@
 {
   LOG.info("Initializing new appender instance using {}",configuration);
   try {
+    trimConfigurationFields(configuration);
     setExecuteRequestType(configuration);
     logEventDao=new CassandraLogEventDao(configuration);
     createTable(appender.getApplicationToken());
