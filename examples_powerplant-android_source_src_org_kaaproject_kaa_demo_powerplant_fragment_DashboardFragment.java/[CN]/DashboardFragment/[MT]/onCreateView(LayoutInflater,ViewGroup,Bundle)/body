@@ -89,6 +89,8 @@
               }
               DataReport latestDataCandidate=endpoint.getLatestData();
               latestDataCandidate=(latestDataCandidate == null ? previousReport : latestDataCandidate);
+              Log.i(TAG,"Latest data: " + latestDataCandidate.toString());
+              Log.i(TAG,"Previous data: " + previousReport.toString());
               if (latestDataCandidate.getTime() >= previousReport.getTime()) {
                 previousReport=latestDataCandidate;
                 updated=true;
