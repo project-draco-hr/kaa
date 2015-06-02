@@ -11,6 +11,9 @@
     if (callbackExecutor != null) {
       callbackExecutor.shutdownNow();
     }
+    if (scheduler != null) {
+      scheduler.shutdownNow();
+    }
   }
   LOG.info("Cassandra log appender stoped.");
 }
