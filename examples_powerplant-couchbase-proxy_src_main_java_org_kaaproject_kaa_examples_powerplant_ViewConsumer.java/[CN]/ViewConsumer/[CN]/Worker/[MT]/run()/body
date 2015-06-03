@@ -9,7 +9,11 @@
       }
       JsonArray latestRow=(JsonArray)iterator.next().key();
       int curLatestTs=latestRow.getInt(0);
-      if (curLatestTs >= latestTs) {
+      if (curLatestTs > TIMESTAMP_MAX || curLatestTs < TIMESTAMP_MIN) {
+        System.out.println("Error in data, incorrect timestamp for row: " + latestRow);
+        throw new RuntimeException("Incorrect timestamp for row: " + latestRow);
+      }
+ else       if (curLatestTs >= latestTs) {
         latestTs=curLatestTs;
         uploadData();
       }
