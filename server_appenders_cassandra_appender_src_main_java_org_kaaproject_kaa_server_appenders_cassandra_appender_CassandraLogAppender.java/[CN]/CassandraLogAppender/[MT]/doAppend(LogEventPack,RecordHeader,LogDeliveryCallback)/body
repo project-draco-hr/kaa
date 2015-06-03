@@ -14,12 +14,12 @@
 switch (executeRequestType) {
 case ASYNC:
               ListenableFuture<ResultSet> result=logEventDao.saveAsync(dtoList,tableName,eventConverter,headerConverter);
-            Futures.addCallback(result,new Callback(listener,cassandraLogCount,logCount),callbackExecutor);
+            Futures.addCallback(result,new Callback(listener,cassandraSuccessLogCount,cassandraFailureLogCount,logCount),callbackExecutor);
           break;
 case SYNC:
         logEventDao.save(dtoList,tableName,eventConverter,headerConverter);
       listener.onSuccess();
-    cassandraLogCount.getAndAdd(logCount);
+    cassandraSuccessLogCount.getAndAdd(logCount);
   break;
 }
 LOG.debug("[{}] appended {} logs to cassandra collection",tableName,logEventPack.getEvents().size());
