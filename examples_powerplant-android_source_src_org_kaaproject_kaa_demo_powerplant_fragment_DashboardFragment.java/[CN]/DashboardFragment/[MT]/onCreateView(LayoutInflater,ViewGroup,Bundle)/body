@@ -9,12 +9,6 @@
       endpoint.stop();
       endpoint=DataEndpointFactory.createEndpoint(config,getActivity());
       Log.i(TAG,"Updating configuration: " + config.toString());
-      try {
-        Thread.sleep(1000L);
-      }
- catch (      InterruptedException e) {
-        Log.i(TAG,"Interrupted while waiting for update thread to be killed",e);
-      }
     }
   }
 );
