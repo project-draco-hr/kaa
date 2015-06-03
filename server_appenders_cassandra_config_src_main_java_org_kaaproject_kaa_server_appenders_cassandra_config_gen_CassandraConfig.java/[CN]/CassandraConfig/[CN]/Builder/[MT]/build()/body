@@ -2,14 +2,17 @@
   try {
     CassandraConfig record=new CassandraConfig();
     record.cassandraServers=fieldSetFlags()[0] ? this.cassandraServers : (java.util.List<org.kaaproject.kaa.server.appenders.cassandra.config.gen.CassandraServer>)defaultValue(fields()[0]);
-    record.keySpace=fieldSetFlags()[1] ? this.keySpace : (java.lang.String)defaultValue(fields()[1]);
-    record.cassandraCredential=fieldSetFlags()[2] ? this.cassandraCredential : (org.kaaproject.kaa.server.appenders.cassandra.config.gen.CassandraCredential)defaultValue(fields()[2]);
-    record.cassandraBatchType=fieldSetFlags()[3] ? this.cassandraBatchType : (org.kaaproject.kaa.server.appenders.cassandra.config.gen.CassandraBatchType)defaultValue(fields()[3]);
-    record.cassandraSocketOption=fieldSetFlags()[4] ? this.cassandraSocketOption : (org.kaaproject.kaa.server.appenders.cassandra.config.gen.CassandraSocketOption)defaultValue(fields()[4]);
-    record.callbackThreadPoolSize=fieldSetFlags()[5] ? this.callbackThreadPoolSize : (java.lang.Integer)defaultValue(fields()[5]);
-    record.cassandraWriteConsistencyLevel=fieldSetFlags()[6] ? this.cassandraWriteConsistencyLevel : (org.kaaproject.kaa.server.appenders.cassandra.config.gen.CassandraWriteConsistencyLevel)defaultValue(fields()[6]);
-    record.cassandraCompression=fieldSetFlags()[7] ? this.cassandraCompression : (org.kaaproject.kaa.server.appenders.cassandra.config.gen.CassandraCompression)defaultValue(fields()[7]);
-    record.cassandraExecuteRequestType=fieldSetFlags()[8] ? this.cassandraExecuteRequestType : (org.kaaproject.kaa.server.appenders.cassandra.config.gen.CassandraExecuteRequestType)defaultValue(fields()[8]);
+    record.cassandraCredential=fieldSetFlags()[1] ? this.cassandraCredential : (org.kaaproject.kaa.server.appenders.cassandra.config.gen.CassandraCredential)defaultValue(fields()[1]);
+    record.keySpace=fieldSetFlags()[2] ? this.keySpace : (java.lang.String)defaultValue(fields()[2]);
+    record.tableNamePattern=fieldSetFlags()[3] ? this.tableNamePattern : (java.lang.String)defaultValue(fields()[3]);
+    record.columnMapping=fieldSetFlags()[4] ? this.columnMapping : (java.util.List<org.kaaproject.kaa.server.appenders.cassandra.config.gen.ColumnMappingElement>)defaultValue(fields()[4]);
+    record.clusteringMapping=fieldSetFlags()[5] ? this.clusteringMapping : (java.util.List<org.kaaproject.kaa.server.appenders.cassandra.config.gen.ClusteringElement>)defaultValue(fields()[5]);
+    record.cassandraBatchType=fieldSetFlags()[6] ? this.cassandraBatchType : (org.kaaproject.kaa.server.appenders.cassandra.config.gen.CassandraBatchType)defaultValue(fields()[6]);
+    record.cassandraSocketOption=fieldSetFlags()[7] ? this.cassandraSocketOption : (org.kaaproject.kaa.server.appenders.cassandra.config.gen.CassandraSocketOption)defaultValue(fields()[7]);
+    record.callbackThreadPoolSize=fieldSetFlags()[8] ? this.callbackThreadPoolSize : (java.lang.Integer)defaultValue(fields()[8]);
+    record.cassandraWriteConsistencyLevel=fieldSetFlags()[9] ? this.cassandraWriteConsistencyLevel : (org.kaaproject.kaa.server.appenders.cassandra.config.gen.CassandraWriteConsistencyLevel)defaultValue(fields()[9]);
+    record.cassandraCompression=fieldSetFlags()[10] ? this.cassandraCompression : (org.kaaproject.kaa.server.appenders.cassandra.config.gen.CassandraCompression)defaultValue(fields()[10]);
+    record.cassandraExecuteRequestType=fieldSetFlags()[11] ? this.cassandraExecuteRequestType : (org.kaaproject.kaa.server.appenders.cassandra.config.gen.CassandraExecuteRequestType)defaultValue(fields()[11]);
     return record;
   }
  catch (  Exception e) {

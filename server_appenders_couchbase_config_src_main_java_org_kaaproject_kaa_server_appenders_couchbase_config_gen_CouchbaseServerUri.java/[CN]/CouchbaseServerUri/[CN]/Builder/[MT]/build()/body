@@ -1,0 +1,10 @@
+{
+  try {
+    CouchbaseServerUri record=new CouchbaseServerUri();
+    record.serverUri=fieldSetFlags()[0] ? this.serverUri : (java.lang.String)defaultValue(fields()[0]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

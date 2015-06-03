@@ -1,0 +1,17 @@
+{
+  for (  ColumnMappingElement element : configuration.getColumnMapping()) {
+    if (element.getColumnName() != null) {
+      element.setColumnName(element.getColumnName().trim());
+    }
+    if (element.getValue() != null) {
+      element.setValue(element.getValue().trim());
+    }
+  }
+  if (configuration.getClusteringMapping() != null) {
+    for (    ClusteringElement element : configuration.getClusteringMapping()) {
+      if (element.getColumnName() != null) {
+        element.setColumnName(element.getColumnName().trim());
+      }
+    }
+  }
+}

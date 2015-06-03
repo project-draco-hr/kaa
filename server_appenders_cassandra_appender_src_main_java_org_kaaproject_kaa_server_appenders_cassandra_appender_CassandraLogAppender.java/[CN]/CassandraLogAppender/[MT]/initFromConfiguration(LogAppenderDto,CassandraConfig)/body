@@ -1,7 +1,8 @@
 {
-  LOG.info("Initializing new instance of Cassandra log appender");
+  LOG.info("Initializing new appender instance using {}",configuration);
   try {
-    checkExecuteRequestType(configuration);
+    trimConfigurationFields(configuration);
+    setExecuteRequestType(configuration);
     logEventDao=new CassandraLogEventDao(configuration);
     createTable(appender.getApplicationToken());
     Integer callbackPoolSize=configuration.getCallbackThreadPoolSize();

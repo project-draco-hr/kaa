@@ -1,6 +1,7 @@
 {
-  LOG.info("Init cassandra log event dao...");
   if (configuration != null) {
+    LOG.info("Init cassandra log event dao...");
+    this.configuration=configuration;
     keyspaceName=configuration.getKeySpace();
     List<InetSocketAddress> clusterNodes=new ArrayList<>();
     List<CassandraServer> nodes=configuration.getCassandraServers();

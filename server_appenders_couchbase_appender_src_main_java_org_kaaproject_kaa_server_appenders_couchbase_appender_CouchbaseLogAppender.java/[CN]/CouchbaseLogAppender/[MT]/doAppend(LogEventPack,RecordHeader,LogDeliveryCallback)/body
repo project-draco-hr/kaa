@@ -1,0 +1,22 @@
+{
+  if (!closed) {
+    try {
+      LOG.debug("[{}] appending {} logs to couchbase bucket",getApplicationToken(),logEventPack.getEvents().size());
+      List<LogEventDto> dtos=generateLogEvent(logEventPack,header);
+      LOG.debug("[{}] saving {} objects",getApplicationToken(),dtos.size());
+      if (!dtos.isEmpty()) {
+        logEventDao.save(header,dtos);
+        LOG.debug("[{}] appended {} logs to couchbase bucket",getApplicationToken(),logEventPack.getEvents().size());
+      }
+      listener.onSuccess();
+    }
+ catch (    Exception e) {
+      LOG.error(MessageFormat.format("[{0}] Attempted to append logs failed due to internal error",getName()),e);
+      listener.onInternalError();
+    }
+  }
+ else {
+    LOG.info("Attempted to append to closed appender named [{}].",getName());
+    listener.onInternalError();
+  }
+}

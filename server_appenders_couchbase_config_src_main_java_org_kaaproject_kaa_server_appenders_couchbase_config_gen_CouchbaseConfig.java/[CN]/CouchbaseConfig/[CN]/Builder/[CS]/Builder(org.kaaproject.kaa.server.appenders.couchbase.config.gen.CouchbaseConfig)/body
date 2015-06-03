@@ -1,0 +1,15 @@
+{
+  super(org.kaaproject.kaa.server.appenders.couchbase.config.gen.CouchbaseConfig.SCHEMA$);
+  if (isValidValue(fields()[0],other.couchbaseServerUris)) {
+    this.couchbaseServerUris=data().deepCopy(fields()[0].schema(),other.couchbaseServerUris);
+    fieldSetFlags()[0]=true;
+  }
+  if (isValidValue(fields()[1],other.bucket)) {
+    this.bucket=data().deepCopy(fields()[1].schema(),other.bucket);
+    fieldSetFlags()[1]=true;
+  }
+  if (isValidValue(fields()[2],other.password)) {
+    this.password=data().deepCopy(fields()[2].schema(),other.password);
+    fieldSetFlags()[2]=true;
+  }
+}

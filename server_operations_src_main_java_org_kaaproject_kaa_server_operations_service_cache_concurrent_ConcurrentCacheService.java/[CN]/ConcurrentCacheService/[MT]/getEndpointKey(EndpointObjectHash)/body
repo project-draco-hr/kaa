@@ -9,7 +9,6 @@
           X509EncodedKeySpec x509KeySpec=new X509EncodedKeySpec(endpointProfile.getEndpointKey());
           KeyFactory keyFact=KeyFactory.getInstance(ALGORITHM);
           result=keyFact.generatePublic(x509KeySpec);
-          setEndpointKey(key,result);
         }
  catch (        NoSuchAlgorithmException|InvalidKeySpecException e) {
           LOG.error("failed to decode key",e);

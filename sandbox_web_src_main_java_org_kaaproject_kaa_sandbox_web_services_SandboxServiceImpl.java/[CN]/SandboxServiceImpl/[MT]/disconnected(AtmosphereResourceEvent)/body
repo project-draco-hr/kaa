@@ -1,0 +1,8 @@
+{
+  if (event.isCancelled()) {
+    LOG.debug("User:" + event.getResource().uuid() + " unexpectedly disconnected");
+  }
+ else   if (event.isClosedByClient()) {
+    LOG.debug("User:" + event.getResource().uuid() + " closed the connection");
+  }
+}

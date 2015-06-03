@@ -1,0 +1,50 @@
+{
+  view.clearError();
+  if (project != null) {
+    Sandbox.getSandboxService().checkProjectDataExists(project.getId(),type,new BusyAsyncCallback<Boolean>(){
+      @Override public void onFailureImpl(      Throwable caught){
+        view.setErrorMessage(Utils.getErrorMessage(caught));
+      }
+      @Override public void onSuccessImpl(      Boolean result){
+        if (result) {
+          ServletHelper.downloadProjectFile(project.getId(),type);
+        }
+ else {
+          String initialMessage="Assembling ";
+          if (type == ProjectDataType.SOURCE) {
+            initialMessage+="sources";
+          }
+ else {
+            initialMessage+="binary";
+          }
+          initialMessage+=" for '" + project.getName() + "' project...\n";
+          ConsoleDialog.startConsoleDialog(initialMessage,new ConsoleDialogListener(){
+            @Override public void onOk(            boolean success){
+              if (success) {
+                ServletHelper.downloadProjectFile(project.getId(),type);
+              }
+            }
+            @Override public void onStart(            String uuid,            final ConsoleDialog dialog,            final AsyncCallback<Void> callback){
+              Sandbox.getSandboxService().buildProjectData(uuid,null,project.getId(),type,new AsyncCallback<Void>(){
+                @Override public void onFailure(                Throwable caught){
+                  callback.onFailure(caught);
+                }
+                @Override public void onSuccess(                Void result){
+                  dialog.appendToConsoleAtFinish("Succesfully prepared project data!\n");
+                  dialog.appendToConsoleAtFinish("\n\n\n-------- CLICK OK TO START DOWNLOAD " + (type == ProjectDataType.SOURCE ? "PROJECT SOURCES" : "BINARY FILE") + " --------\n\n\n");
+                  callback.onSuccess(result);
+                }
+              }
+);
+            }
+          }
+);
+        }
+      }
+    }
+);
+  }
+ else {
+    view.setErrorMessage("Unable to retrieve project data!");
+  }
+}
