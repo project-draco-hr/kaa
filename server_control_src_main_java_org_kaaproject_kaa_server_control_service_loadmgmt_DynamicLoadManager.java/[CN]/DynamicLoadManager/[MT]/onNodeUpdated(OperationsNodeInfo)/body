@@ -1,10 +1,11 @@
 {
   String dnsName=getNameFromConnectionInfo(nodeInfo.getConnectionInfo());
-  LOG.info("Operations server {} update",dnsName);
-  if (opsServersMap.containsKey(dnsName)) {
-    opsServersMap.get(dnsName).history.addOpsServerLoad(nodeInfo.getLoadInfo());
+  int accessPointId=ServerNameUtil.crc32(nodeInfo.getConnectionInfo());
+  LOG.info("Operations server [{}][{}] updated",accessPointId,dnsName);
+  if (opsServersMap.containsKey(accessPointId)) {
+    opsServersMap.get(accessPointId).history.addOpsServerLoad(nodeInfo.getLoadInfo());
   }
  else {
-    addNewOperationsServer(dnsName,nodeInfo);
+    addNewOperationsServer(accessPointId,dnsName,nodeInfo);
   }
 }

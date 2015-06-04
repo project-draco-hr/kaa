@@ -1,7 +1,7 @@
 {
   OperationsServerLoadHistory hist=new OperationsServerLoadHistory(MAX_HISTORY_TIME_LIVE);
-  hist.addOpsServerLoad(new LoadInfo(2));
+  hist.addOpsServerLoad(new LoadInfo(2,1.0));
   assertNotNull(hist.getHistory());
   assertEquals(1,hist.getHistory().size());
-  assertEquals(2,hist.getHistory().get(0).getLoadInfo().getLoadIndex().intValue());
+  assertEquals(2,hist.getHistory().get(0).getLoadInfo().getEndpointCount().intValue());
 }
