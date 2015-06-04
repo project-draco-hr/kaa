@@ -7,8 +7,11 @@
   oprot.writeFieldBegin(RULE_ID_FIELD_DESC);
   oprot.writeI64(struct.ruleId);
   oprot.writeFieldEnd();
-  oprot.writeFieldBegin(REDIRECTION_PROBABILITY_FIELD_DESC);
-  oprot.writeDouble(struct.redirectionProbability);
+  oprot.writeFieldBegin(INIT_REDIRECT_PROBABILITY_FIELD_DESC);
+  oprot.writeDouble(struct.initRedirectProbability);
+  oprot.writeFieldEnd();
+  oprot.writeFieldBegin(SESSION_REDIRECT_PROBABILITY_FIELD_DESC);
+  oprot.writeDouble(struct.sessionRedirectProbability);
   oprot.writeFieldEnd();
   oprot.writeFieldBegin(RULE_TTL_FIELD_DESC);
   oprot.writeI64(struct.ruleTTL);

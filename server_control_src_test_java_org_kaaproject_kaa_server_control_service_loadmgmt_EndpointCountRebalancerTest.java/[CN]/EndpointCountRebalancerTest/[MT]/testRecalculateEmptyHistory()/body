@@ -1,0 +1,14 @@
+{
+  Rebalancer rebalancer=new EndpointCountRebalancer();
+  assertNotNull(rebalancer);
+  Integer server1="dns1".hashCode();
+  OperationsServerLoadHistory server1History=new OperationsServerLoadHistory(MAX_HISTORY_TIME_LIVE);
+  Integer server2="dns2".hashCode();
+  OperationsServerLoadHistory server2History=new OperationsServerLoadHistory(MAX_HISTORY_TIME_LIVE);
+  Map<Integer,OperationsServerLoadHistory> serversHistory=new HashMap<>();
+  serversHistory.put(server1,server1History);
+  serversHistory.put(server2,server2History);
+  Map<Integer,List<RedirectionRule>> rules=rebalancer.recalculate(serversHistory);
+  assertNotNull(rules);
+  assertEquals(0,rules.size());
+}

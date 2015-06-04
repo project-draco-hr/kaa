@@ -1,8 +1,10 @@
 {
 switch (field$) {
 case 0:
-    return loadIndex;
+    return endpointCount;
+case 1:
+  return loadAverage;
 default :
-  throw new org.apache.avro.AvroRuntimeException("Bad index");
+throw new org.apache.avro.AvroRuntimeException("Bad index");
 }
 }
