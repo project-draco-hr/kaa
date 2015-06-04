@@ -1,7 +1,7 @@
 {
   setLoadDistributionService(loadDistributionService);
-  opsServersMap=new Hashtable<Integer,OperationsServerMeta>();
-  bootstrapsMap=new Hashtable<String,BootstrapNodeInfo>();
+  opsServersMap=new ConcurrentHashMap<Integer,OperationsServerMeta>();
+  bootstrapsMap=new ConcurrentHashMap<String,BootstrapNodeInfo>();
   opsLoadHistoryTTL=loadDistributionService.getOpsServerHistoryTTL() * 1000;
   try {
     Class<?> dynamicMgmtClass=Class.forName(getLoadDistributionService().getDynamicMgmtClass());
