@@ -1,7 +1,7 @@
 {
   final ChannelPipeline p=ch.pipeline();
   final UUID uuid=UUID.randomUUID();
-  LOG.info("KaaTcpServerInitializer Initializing Channel {} connection from {}:{}",uuid,ch.remoteAddress().getAddress().toString(),ch.remoteAddress().getPort());
+  LOG.debug("KaaTcpServerInitializer Initializing Channel {} connection from {}:{}",uuid,ch.remoteAddress().getAddress().toString(),ch.remoteAddress().getPort());
   Attribute<UUID> uuidAttr=ch.attr(AbstractNettyServer.UUID_KEY);
   uuidAttr.set(uuid);
   p.addLast("binaryDecoder",new ByteArrayDecoder());
