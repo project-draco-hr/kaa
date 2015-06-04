@@ -1,5 +1,5 @@
 {
-  plantValueView.setText(String.format(PIE_CHART_VALUE_FORMAT,plantVoltage) + " kW");
-  gridValueView.setText(String.format(PIE_CHART_VALUE_FORMAT,gridVoltage) + " kW");
-  totalValueView.setText(String.format(PIE_CHART_VALUE_FORMAT,plantVoltage + gridVoltage) + " kW");
+  plantValueView.setText(String.format(PIE_CHART_VALUE_FORMAT,plantVoltage / 1000) + " MW");
+  gridValueView.setText(String.format(PIE_CHART_VALUE_FORMAT,gridVoltage / 1000) + " MW");
+  totalValueView.setText(String.format(PIE_CHART_VALUE_FORMAT,(plantVoltage + gridVoltage) / 1000) + " MW");
 }

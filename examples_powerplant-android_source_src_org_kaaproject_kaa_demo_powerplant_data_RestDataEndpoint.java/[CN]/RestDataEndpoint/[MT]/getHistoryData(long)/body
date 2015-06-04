@@ -1,6 +1,6 @@
 {
   try {
-    HttpGet getRequest=new HttpGet(BASE_URL + "?from=" + fromTime);
+    HttpGet getRequest=new HttpGet(baseURL + "?from=" + fromTime);
     getRequest.addHeader("accept","application/json");
     JSONArray jsonArray=fetchJson(getRequest);
     return toDataReport(jsonArray);
