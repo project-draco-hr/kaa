@@ -1,10 +1,7 @@
 {
 switch (decision) {
 case UPLOAD:
-    if (!isUploading) {
-      isUploading=true;
-      transport.sync();
-    }
+    transport.sync();
   break;
 case NOOP:
 default :

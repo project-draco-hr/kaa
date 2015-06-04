@@ -1,7 +1,6 @@
 {
   LogBlock group=null;
 synchronized (storage) {
-    isUploading=false;
     if (storage.getStatus().getRecordCount() == 0) {
       LOG.debug("Log storage is empty");
       return;
