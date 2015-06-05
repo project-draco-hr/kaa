@@ -1,0 +1,7 @@
+{
+  SQLiteDBLogStorage storage=new SQLiteDBLogStorage();
+  storage.addLogRecord(new LogRecord());
+  storage.addLogRecord(new LogRecord());
+  Assert.assertEquals(2,storage.getRecordCount());
+  storage.close();
+}
