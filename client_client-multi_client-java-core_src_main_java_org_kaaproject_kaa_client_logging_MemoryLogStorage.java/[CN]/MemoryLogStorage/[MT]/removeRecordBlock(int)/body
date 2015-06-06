@@ -1,8 +1,8 @@
 {
 synchronized (buckets) {
     LOG.trace("Removing log group by id: {}",id);
+    boolean isFound=false;
     if (!buckets.isEmpty()) {
-      boolean isFound=false;
       Iterator<Bucket> it=buckets.iterator();
       while (it.hasNext()) {
         Bucket bucket=it.next();
@@ -15,9 +15,9 @@ synchronized (buckets) {
           break;
         }
       }
-      if (!isFound) {
-        LOG.warn("Failed to remove log group: unknown id {}, records: {}",id);
-      }
+    }
+    if (!isFound) {
+      LOG.warn("Failed to remove log group: unknown id {}, records: {}",id);
     }
   }
 }

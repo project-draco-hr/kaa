@@ -1,0 +1,11 @@
+{
+  long count=0;
+  LOG.trace("Calculating record count");
+synchronized (buckets) {
+    for (    MemBucket value : buckets.values()) {
+      count+=value.getCount();
+    }
+  }
+  LOG.trace("Calculated record count {}",count);
+  return count;
+}

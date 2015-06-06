@@ -1,0 +1,12 @@
+{
+  LOG.trace("Adding new log record with size {}",record.getSize());
+  if (record.getSize() > maxBucketSize) {
+    throw new IllegalArgumentException("Record size(" + record.getSize() + ") is bigger then max bucket size ("+ maxBucketSize+ ")!");
+  }
+synchronized (buckets) {
+    if (currentBucket == null) {
+      currentBucket=new MemBucket(bucketIdSeq.getAndIncrement());
+      buckets.put(currentBucket.getId(),currentBucket);
+    }
+  }
+}

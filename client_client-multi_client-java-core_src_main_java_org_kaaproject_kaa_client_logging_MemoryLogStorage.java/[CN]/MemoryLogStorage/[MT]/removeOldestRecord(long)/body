@@ -22,7 +22,7 @@ synchronized (buckets) {
         }
       }
       LOG.info("{} log records was forcibly removed",(currentRecordCount - recordCount));
-      resize(maxBucketSize);
+      resize(maxBucketSize,maxRecordCount);
     }
   }
 }

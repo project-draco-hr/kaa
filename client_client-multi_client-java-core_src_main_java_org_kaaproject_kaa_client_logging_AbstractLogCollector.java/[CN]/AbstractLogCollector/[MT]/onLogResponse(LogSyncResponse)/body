@@ -17,6 +17,7 @@
 );
         isAlreadyScheduled=true;
       }
+      LOG.info("Removing key from timeoutMap: {}",response.getRequestId());
       timeoutMap.remove(response.getRequestId());
     }
     if (!isAlreadyScheduled) {

@@ -7,7 +7,7 @@ synchronized (buckets) {
       initBucketList();
     }
     if (currentBucket.isUsed() || !currentBucket.tryPushRecord(record)) {
-      Bucket newBucket=new Bucket(maxBucketSize);
+      Bucket newBucket=new Bucket(maxBucketSize,maxRecordCount);
       buckets.add(newBucket);
       currentBucket=newBucket;
       currentBucket.tryPushRecord(record);

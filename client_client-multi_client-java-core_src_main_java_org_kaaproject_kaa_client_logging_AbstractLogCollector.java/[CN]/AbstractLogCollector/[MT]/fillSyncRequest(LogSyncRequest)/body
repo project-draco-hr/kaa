@@ -5,7 +5,7 @@ synchronized (storage) {
       LOG.debug("Log storage is empty");
       return;
     }
-    group=storage.getRecordBlock(strategy.getBatchSize());
+    group=storage.getRecordBlock(strategy.getBatchSize(),strategy.getBatchCount());
   }
   if (group != null) {
     List<LogRecord> recordList=group.getRecords();
@@ -17,7 +17,15 @@ synchronized (storage) {
       }
       request.setRequestId(group.getBlockId());
       request.setLogEntries(logs);
-      timeoutMap.put(group.getBlockId(),System.currentTimeMillis() + strategy.getTimeout() * 1000);
+      long timeout=System.currentTimeMillis() + strategy.getTimeout() * 1000;
+      LOG.info("Adding following pair to timeoutMap: {}, {}",group.getBlockId(),timeout);
+      timeoutMap.put(group.getBlockId(),timeout);
+      executorContext.getScheduledExecutor().schedule(new Runnable(){
+        @Override public void run(){
+          checkDeliveryTimeout();
+        }
+      }
+,strategy.getTimeout(),TimeUnit.SECONDS);
     }
   }
  else {
