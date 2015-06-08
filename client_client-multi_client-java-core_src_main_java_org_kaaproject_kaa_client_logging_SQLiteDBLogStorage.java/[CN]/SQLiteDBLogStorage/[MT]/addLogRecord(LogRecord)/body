@@ -16,7 +16,7 @@ synchronized (connection) {
       if (affectedRows == 1) {
         consumedSize+=record.getSize();
         recordCount++;
-        LOG.trace("Added a new log record, records count: [{}], data: {}",recordCount,record.getData());
+        LOG.trace("Added a new log record, records count: {}, data: {}",recordCount,record.getData());
       }
  else {
         LOG.warn("No log record was added");

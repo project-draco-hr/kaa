@@ -1,6 +1,6 @@
 {
 synchronized (connection) {
-    LOG.trace("Removing record block [{}] from storage",recordBlockId);
+    LOG.trace("Removing record block with id [{}] from storage",recordBlockId);
     if (deleteByBucketIdStatement == null) {
       try {
         deleteByBucketIdStatement=connection.prepareStatement(KAA_DELETE_BY_BUCKET_ID);
@@ -15,7 +15,7 @@ synchronized (connection) {
       int removedRecordsCount=deleteByBucketIdStatement.executeUpdate();
       if (removedRecordsCount > 0) {
         recordCount-=removedRecordsCount;
-        LOG.info("Removed [{}] records from storage",recordCount);
+        LOG.info("Removed {} records from storage. Total log record count: {}",removedRecordsCount,recordCount);
       }
  else {
         LOG.info("No records were removed from storage");

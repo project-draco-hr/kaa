@@ -1,6 +1,7 @@
 {
 synchronized (connection) {
     LOG.trace("Updating bucket id [{}] for records with ids: {}",bucketId,recordIds);
+    PreparedStatement setBucketIdStatement=null;
     try {
       setBucketIdStatement=connection.prepareStatement(getUpdateBucketIdStatement(recordIds));
     }
@@ -20,6 +21,11 @@ synchronized (connection) {
     }
  catch (    SQLException e) {
       LOG.error("Failed to update bucket id [{}] for records with ids: {}",bucketId,recordIds,e);
+    }
+ finally {
+      if (setBucketIdStatement != null) {
+        tryCloseStatement(setBucketIdStatement);
+      }
     }
   }
 }
