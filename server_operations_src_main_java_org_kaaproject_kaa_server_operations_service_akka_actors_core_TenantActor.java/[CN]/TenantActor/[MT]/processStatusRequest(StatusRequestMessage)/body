@@ -1,0 +1,7 @@
+{
+  LOG.debug("[{}] Processing status request",message.getId());
+  statusRequestStatesMap.put(message.getId(),new StatusRequestState(message,applications.size()));
+  for (  ActorRef tenant : applications.values()) {
+    tenant.tell(new StatusRequestMessage(message.getId()),this.getSelf());
+  }
+}

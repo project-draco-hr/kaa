@@ -1,6 +1,18 @@
 {
   final View rootView=inflater.inflate(R.layout.fragment_dashboard,container,false);
-  endpoint=new RestDataEndpoint();
+  androidKaaPlatformContext=new AndroidKaaPlatformContext(getActivity());
+  kaaClient=Kaa.newClient(androidKaaPlatformContext);
+  endpoint=DataEndpointFactory.createEndpoint(kaaClient.getConfiguration(),getActivity());
+  Log.i(TAG,"Default configuration: " + kaaClient.getConfiguration().toString());
+  kaaClient.addConfigurationListener(new ConfigurationListener(){
+    @Override public void onConfigurationUpdate(    PowerPlantEndpointConfiguration config){
+      endpoint.stop();
+      endpoint=DataEndpointFactory.createEndpoint(config,getActivity());
+      Log.i(TAG,"Updating configuration: " + config.toString());
+    }
+  }
+);
+  kaaClient.start();
   gaugeCharts.add((GaugeChart)rootView.findViewById(R.id.gaugeChart11));
   gaugeCharts.add((GaugeChart)rootView.findViewById(R.id.gaugeChart12));
   gaugeCharts.add((GaugeChart)rootView.findViewById(R.id.gaugeChart13));
@@ -9,7 +21,7 @@
   gaugeCharts.add((GaugeChart)rootView.findViewById(R.id.gaugeChart23));
   logBox=(TextView)rootView.findViewById(R.id.logBox);
   logBox.setMovementMethod(new ScrollingMovementMethod());
-  Thread updateThread=new Thread(new Runnable(){
+  updateThread=new Thread(new Runnable(){
     @Override public void run(){
       Log.i(TAG,"generating history data ");
       final List<DataReport> reports=endpoint.getHistoryData(0);
@@ -33,7 +45,12 @@
             Log.i(TAG,"populating charts with data " + reports.size());
             prepareLineChart(rootView,reports);
             Log.i(TAG,"populated line chart with data ");
-            preparePieChart(rootView,reports.get(reports.size() - 1));
+            if (!reports.isEmpty()) {
+              preparePieChart(rootView,reports.get(reports.size() - 1));
+            }
+ else {
+              preparePieChart(rootView,INITIAL_REPORT);
+            }
             Log.i(TAG,"populated pie chart with data ");
           }
         }
@@ -44,32 +61,30 @@
  catch (        InterruptedException e1) {
           e1.printStackTrace();
         }
-        DataReport previousReport=reports.get(reports.size() - 1);
+        DataReport previousReport=INITIAL_REPORT;
         long previousUpdate=0l;
         while (true) {
-          boolean updated=false;
-          while (!updated) {
-            try {
-              Thread.sleep(UPDATE_CHECK_PERIOD);
-              long updateDelta=System.currentTimeMillis() - previousUpdate;
-              if (updateDelta < UPDATE_PERIOD) {
-                continue;
-              }
+          try {
+            Thread.sleep(UPDATE_CHECK_PERIOD);
+            long updateDelta=System.currentTimeMillis() - previousUpdate;
+            if (updateDelta < UPDATE_PERIOD) {
+              continue;
+            }
  else {
-                Log.i(TAG,"Updating since -" + (updateDelta / 1000.) + " s.");
-              }
-              DataReport latestDataCandidate=endpoint.getLatestData();
-              if (latestDataCandidate.getTime() > previousReport.getTime()) {
-                previousReport=latestDataCandidate;
-                updated=true;
-                previousUpdate=System.currentTimeMillis();
-              }
+              Log.i(TAG,"Updating since -" + (updateDelta / 1000.) + " s.");
             }
- catch (            InterruptedException e) {
-              Log.e(TAG,"Failed to fetch data",e);
-            }
+            DataReport latestDataCandidate=endpoint.getLatestData();
+            latestDataCandidate=(latestDataCandidate == null ? previousReport : latestDataCandidate);
+            Log.i(TAG,"Latest data: " + latestDataCandidate.toString());
+            Log.i(TAG,"Previous data: " + previousReport.toString());
+            previousReport=latestDataCandidate;
+            previousUpdate=System.currentTimeMillis();
+          }
+ catch (          InterruptedException e) {
+            Log.e(TAG,"Failed to fetch data",e);
           }
           final DataReport latestData=previousReport;
+          Log.i(TAG,"latest data: " + latestData.toString());
           mActivity.runOnUiThread(new Runnable(){
             @Override public void run(){
               float maxValue=Float.MIN_VALUE;
@@ -82,13 +97,14 @@
                 plantVoltage+=curVoltage;
                 SliceValue sliceValue=data.getValues().get(dp.getPanelId());
                 sliceValue.setTarget(curVoltage);
-                gaugeCharts.get(counter).setValue(curVoltage);
-                showLogIfNeeded(counter,curVoltage);
+                gaugeCharts.get(counter).setValue(dp.getAverageVoltage());
+                showLogIfNeeded(counter,curVoltage * 1000);
                 counter++;
+                Log.i(TAG,dp.toString());
               }
-              float gridVoltage=latestData.getPowerConsumption() - plantVoltage;
+              float gridVoltage=(latestData.getPowerConsumption() - plantVoltage * 1000) / 1000;
               pieChart.startDataAnimation(UPDATE_PERIOD / 2);
-              updateLabels(plantVoltage,gridVoltage);
+              updateLabels(plantVoltage * 1000,gridVoltage);
               int curPointIndex=line.getValues().size() - FUTURE_POINTS_COUNT;
               PointValue curPoint=line.getValues().get(curPointIndex);
               curPoint.set(curPoint.getX(),plantVoltage);
@@ -102,8 +118,8 @@
               }
               line.getValues().add(new PointValue(POINTS_COUNT + FUTURE_POINTS_COUNT,plantVoltage));
               lineChart.startDataAnimation(UPDATE_PERIOD / 2);
-              lineChart.getChartRenderer().setMinViewportYValue(minValue - Y_AXIS_MIN_MAX_DIV);
-              lineChart.getChartRenderer().setMaxViewportYValue(maxValue + Y_AXIS_MIN_MAX_DIV);
+              lineChart.getChartRenderer().setMinViewportYValue(MIN_VOLTAGE);
+              lineChart.getChartRenderer().setMaxViewportYValue((MAX_VOLTAGE * MAX_PANEL_PER_ZONE * NUM_ZONES) / 1000);
             }
           }
 );

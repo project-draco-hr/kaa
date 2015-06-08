@@ -1,4 +1,6 @@
 {
+  cassandraFailureLogCount.getAndAdd(size);
+  LOG.warn("Failed to store record",t);
   if (t instanceof UnsupportedFeatureException) {
     callback.onRemoteError();
   }

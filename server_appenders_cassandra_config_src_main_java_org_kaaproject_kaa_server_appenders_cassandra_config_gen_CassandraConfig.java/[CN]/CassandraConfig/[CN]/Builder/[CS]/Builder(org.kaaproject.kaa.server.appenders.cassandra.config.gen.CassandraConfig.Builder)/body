@@ -4,36 +4,52 @@
     this.cassandraServers=data().deepCopy(fields()[0].schema(),other.cassandraServers);
     fieldSetFlags()[0]=true;
   }
-  if (isValidValue(fields()[1],other.keySpace)) {
-    this.keySpace=data().deepCopy(fields()[1].schema(),other.keySpace);
+  if (isValidValue(fields()[1],other.cassandraCredential)) {
+    this.cassandraCredential=data().deepCopy(fields()[1].schema(),other.cassandraCredential);
     fieldSetFlags()[1]=true;
   }
-  if (isValidValue(fields()[2],other.cassandraCredential)) {
-    this.cassandraCredential=data().deepCopy(fields()[2].schema(),other.cassandraCredential);
+  if (isValidValue(fields()[2],other.keySpace)) {
+    this.keySpace=data().deepCopy(fields()[2].schema(),other.keySpace);
     fieldSetFlags()[2]=true;
   }
-  if (isValidValue(fields()[3],other.cassandraBatchType)) {
-    this.cassandraBatchType=data().deepCopy(fields()[3].schema(),other.cassandraBatchType);
+  if (isValidValue(fields()[3],other.tableNamePattern)) {
+    this.tableNamePattern=data().deepCopy(fields()[3].schema(),other.tableNamePattern);
     fieldSetFlags()[3]=true;
   }
-  if (isValidValue(fields()[4],other.cassandraSocketOption)) {
-    this.cassandraSocketOption=data().deepCopy(fields()[4].schema(),other.cassandraSocketOption);
+  if (isValidValue(fields()[4],other.columnMapping)) {
+    this.columnMapping=data().deepCopy(fields()[4].schema(),other.columnMapping);
     fieldSetFlags()[4]=true;
   }
-  if (isValidValue(fields()[5],other.callbackThreadPoolSize)) {
-    this.callbackThreadPoolSize=data().deepCopy(fields()[5].schema(),other.callbackThreadPoolSize);
+  if (isValidValue(fields()[5],other.clusteringMapping)) {
+    this.clusteringMapping=data().deepCopy(fields()[5].schema(),other.clusteringMapping);
     fieldSetFlags()[5]=true;
   }
-  if (isValidValue(fields()[6],other.cassandraWriteConsistencyLevel)) {
-    this.cassandraWriteConsistencyLevel=data().deepCopy(fields()[6].schema(),other.cassandraWriteConsistencyLevel);
+  if (isValidValue(fields()[6],other.cassandraBatchType)) {
+    this.cassandraBatchType=data().deepCopy(fields()[6].schema(),other.cassandraBatchType);
     fieldSetFlags()[6]=true;
   }
-  if (isValidValue(fields()[7],other.cassandraCompression)) {
-    this.cassandraCompression=data().deepCopy(fields()[7].schema(),other.cassandraCompression);
+  if (isValidValue(fields()[7],other.cassandraSocketOption)) {
+    this.cassandraSocketOption=data().deepCopy(fields()[7].schema(),other.cassandraSocketOption);
     fieldSetFlags()[7]=true;
   }
-  if (isValidValue(fields()[8],other.cassandraExecuteRequestType)) {
-    this.cassandraExecuteRequestType=data().deepCopy(fields()[8].schema(),other.cassandraExecuteRequestType);
+  if (isValidValue(fields()[8],other.executorThreadPoolSize)) {
+    this.executorThreadPoolSize=data().deepCopy(fields()[8].schema(),other.executorThreadPoolSize);
     fieldSetFlags()[8]=true;
+  }
+  if (isValidValue(fields()[9],other.callbackThreadPoolSize)) {
+    this.callbackThreadPoolSize=data().deepCopy(fields()[9].schema(),other.callbackThreadPoolSize);
+    fieldSetFlags()[9]=true;
+  }
+  if (isValidValue(fields()[10],other.cassandraWriteConsistencyLevel)) {
+    this.cassandraWriteConsistencyLevel=data().deepCopy(fields()[10].schema(),other.cassandraWriteConsistencyLevel);
+    fieldSetFlags()[10]=true;
+  }
+  if (isValidValue(fields()[11],other.cassandraCompression)) {
+    this.cassandraCompression=data().deepCopy(fields()[11].schema(),other.cassandraCompression);
+    fieldSetFlags()[11]=true;
+  }
+  if (isValidValue(fields()[12],other.cassandraExecuteRequestType)) {
+    this.cassandraExecuteRequestType=data().deepCopy(fields()[12].schema(),other.cassandraExecuteRequestType);
+    fieldSetFlags()[12]=true;
   }
 }

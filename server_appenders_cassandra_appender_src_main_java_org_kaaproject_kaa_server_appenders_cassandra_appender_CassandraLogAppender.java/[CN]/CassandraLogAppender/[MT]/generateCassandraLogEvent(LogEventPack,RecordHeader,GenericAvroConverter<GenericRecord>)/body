@@ -1,0 +1,20 @@
+{
+  LOG.debug("Generate LogEventDto objects from LogEventPack [{}] and header [{}]",logEventPack,header);
+  List<CassandraLogEventDto> events=new ArrayList<>(logEventPack.getEvents().size());
+  try {
+    for (    LogEvent logEvent : logEventPack.getEvents()) {
+      LOG.debug("Convert log events [{}] to dto objects.",logEvent);
+      if (logEvent == null | logEvent.getLogData() == null) {
+        continue;
+      }
+      LOG.trace("Avro record converter [{}] with log data [{}]",eventConverter,logEvent.getLogData());
+      GenericRecord decodedLog=eventConverter.decodeBinary(logEvent.getLogData());
+      events.add(new CassandraLogEventDto(header,decodedLog));
+    }
+  }
+ catch (  IOException e) {
+    LOG.error("Unexpected IOException while decoding LogEvents",e);
+    throw e;
+  }
+  return events;
+}

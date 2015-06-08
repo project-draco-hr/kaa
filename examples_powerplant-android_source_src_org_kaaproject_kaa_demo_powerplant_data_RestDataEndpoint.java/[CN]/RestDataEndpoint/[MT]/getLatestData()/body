@@ -1,7 +1,7 @@
 {
   try {
     long time=System.currentTimeMillis();
-    HttpGet getRequest=new HttpGet(LATEST_URL);
+    HttpGet getRequest=new HttpGet(latestURL);
     getRequest.addHeader("accept","application/json");
     JSONArray jsonArray=fetchJson(getRequest);
     List<DataReport> reports=toDataReport(jsonArray);

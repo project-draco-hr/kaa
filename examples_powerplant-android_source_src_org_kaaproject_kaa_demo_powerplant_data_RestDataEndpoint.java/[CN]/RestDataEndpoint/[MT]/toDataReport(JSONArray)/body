@@ -6,10 +6,10 @@
     DataReport report=resultMap.get(time);
     if (report == null) {
       List<DataPoint> dataPoints=new ArrayList<DataPoint>();
-      report=new DataReport(time,dataPoints,getConsumption());
+      report=new DataReport(time,dataPoints,getConsumption(PANNELS_PER_ZONE * DashboardFragment.NUM_ZONES));
       resultMap.put(time,report);
     }
-    report.getDataPoints().add(new DataPoint(dataPoint.getInt("panelId"),(float)dataPoint.getDouble("voltage")));
+    report.getDataPoints().add(new DataPoint(dataPoint.getInt("zoneId"),PANNELS_PER_ZONE,(float)dataPoint.getDouble("voltage")));
   }
   List<DataReport> result=new ArrayList<DataReport>(resultMap.values());
   Collections.sort(result,new Comparator<DataReport>(){
