@@ -1,2 +1,28 @@
 {
+synchronized (connection) {
+    LOG.trace("Removing record block [{}] from storage",recordBlockId);
+    if (deleteByBucketIdStatement == null) {
+      try {
+        deleteByBucketIdStatement=connection.prepareStatement(KAA_DELETE_BY_BUCKET_ID);
+      }
+ catch (      SQLException e) {
+        LOG.error("Can't create record block deletion statement",e);
+        throw new RuntimeException(e);
+      }
+    }
+    try {
+      deleteByBucketIdStatement.setInt(1,recordBlockId);
+      int removedRecordsCount=deleteByBucketIdStatement.executeUpdate();
+      if (removedRecordsCount > 0) {
+        recordCount-=removedRecordsCount;
+        LOG.info("Removed [{}] records from storage",recordCount);
+      }
+ else {
+        LOG.info("No records were removed from storage");
+      }
+    }
+ catch (    SQLException e) {
+      LOG.error("Failed to remove record block with id [{}]",recordBlockId);
+    }
+  }
 }

@@ -1,13 +1,13 @@
 {
 synchronized (connection) {
-    LOG.trace("Adding new log record...");
+    LOG.trace("Adding a new log record...");
     if (insertStatement == null) {
       try {
         insertStatement=connection.prepareStatement(KAA_INSERT_NEW_RECORD);
       }
  catch (      SQLException e) {
-        LOG.error("Can't create an insert statement: {}",KAA_INSERT_NEW_RECORD,e);
-        return;
+        LOG.error("Can't create row insert statement: {}",KAA_INSERT_NEW_RECORD,e);
+        throw new RuntimeException(e);
       }
     }
     try {
@@ -16,12 +16,14 @@ synchronized (connection) {
       if (affectedRows == 1) {
         consumedSize+=record.getSize();
         recordCount++;
-        LOG.trace("Added new log record, records: {}",recordCount);
+        LOG.trace("Added a new log record, records count: [{}], data: {}",recordCount,record.getData());
+      }
+ else {
+        LOG.warn("No log record was added");
       }
     }
  catch (    SQLException e) {
       LOG.error("Can't add a new record",e);
-      return;
     }
   }
 }

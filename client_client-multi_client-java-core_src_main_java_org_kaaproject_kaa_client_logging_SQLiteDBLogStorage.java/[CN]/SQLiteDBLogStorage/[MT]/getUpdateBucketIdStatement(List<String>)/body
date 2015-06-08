@@ -1,0 +1,7 @@
+{
+  String queryString=StringUtils.join(recordIds,",");
+  StringBuilder builder=new StringBuilder(KAA_UPDATE_BUCKET_ID);
+  int indexOf=builder.lastIndexOf(SUBSTITUTE_SYMBOL);
+  builder.replace(indexOf,indexOf + SUBSTITUTE_SYMBOL.length(),queryString);
+  return builder.toString();
+}

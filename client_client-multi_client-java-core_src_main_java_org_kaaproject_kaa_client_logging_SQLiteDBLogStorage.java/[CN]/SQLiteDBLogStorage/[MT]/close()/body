@@ -1,5 +1,20 @@
 {
   try {
+    if (insertStatement != null) {
+      insertStatement.close();
+    }
+    if (deleteByRecordIdStatement != null) {
+      deleteByRecordIdStatement.close();
+    }
+    if (deleteByBucketIdStatement != null) {
+      deleteByBucketIdStatement.close();
+    }
+    if (setBucketIdStatement != null) {
+      setBucketIdStatement.close();
+    }
+    if (resetBucketIdStatement != null) {
+      resetBucketIdStatement.close();
+    }
     if (connection != null) {
       connection.close();
     }

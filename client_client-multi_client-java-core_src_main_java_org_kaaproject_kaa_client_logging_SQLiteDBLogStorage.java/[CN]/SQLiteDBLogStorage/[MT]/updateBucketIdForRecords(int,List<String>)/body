@@ -1,0 +1,25 @@
+{
+synchronized (connection) {
+    LOG.trace("Updating bucket id [{}] for records with ids: {}",bucketId,recordIds);
+    try {
+      setBucketIdStatement=connection.prepareStatement(getUpdateBucketIdStatement(recordIds));
+    }
+ catch (    SQLException e) {
+      LOG.error("Can't create bucket id update statement",e);
+      throw new RuntimeException(e);
+    }
+    try {
+      setBucketIdStatement.setInt(1,bucketId);
+      int affectedRows=setBucketIdStatement.executeUpdate();
+      if (affectedRows > 0) {
+        LOG.trace("Successfully updated id [{}] for log records: {}",bucketId,affectedRows);
+      }
+ else {
+        LOG.info("No log records were updated");
+      }
+    }
+ catch (    SQLException e) {
+      LOG.error("Failed to update bucket id [{}] for records with ids: {}",bucketId,recordIds,e);
+    }
+  }
+}

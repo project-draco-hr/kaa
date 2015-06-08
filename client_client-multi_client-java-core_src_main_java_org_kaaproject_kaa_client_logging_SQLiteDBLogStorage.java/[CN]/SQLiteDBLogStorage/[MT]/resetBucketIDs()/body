@@ -1,0 +1,16 @@
+{
+  LOG.debug("Resetting bucket ids on application start");
+  Statement statement=null;
+  try {
+    statement=connection.createStatement();
+    int updatedRows=statement.executeUpdate(KAA_RESET_BUCKET_ID_ON_START);
+    LOG.trace("Number of rows affected: {}",updatedRows);
+  }
+ catch (  SQLException e) {
+    LOG.error("Can't reset bucket IDs",e);
+    throw new RuntimeException(e);
+  }
+ finally {
+    tryCloseStatement(statement);
+  }
+}
