@@ -5,8 +5,14 @@
     if (logEventDao != null) {
       logEventDao.close();
     }
+    if (executor != null) {
+      executor.shutdownNow();
+    }
     if (callbackExecutor != null) {
       callbackExecutor.shutdownNow();
+    }
+    if (scheduler != null) {
+      scheduler.shutdownNow();
     }
   }
   LOG.info("Cassandra log appender stoped.");

@@ -5,13 +5,9 @@
     setExecuteRequestType(configuration);
     logEventDao=new CassandraLogEventDao(configuration);
     createTable(appender.getApplicationToken());
-    Integer callbackPoolSize=configuration.getCallbackThreadPoolSize();
-    if (callbackPoolSize != null) {
-      callbackPoolSize=Math.min(callbackPoolSize,MAX_CALLBACK_THREAD_POOL_SIZE);
-    }
- else {
-      callbackPoolSize=MAX_CALLBACK_THREAD_POOL_SIZE;
-    }
+    int executorPoolSize=Math.min(configuration.getExecutorThreadPoolSize(),MAX_CALLBACK_THREAD_POOL_SIZE);
+    int callbackPoolSize=Math.min(configuration.getCallbackThreadPoolSize(),MAX_CALLBACK_THREAD_POOL_SIZE);
+    executor=Executors.newFixedThreadPool(executorPoolSize);
     callbackExecutor=Executors.newFixedThreadPool(callbackPoolSize);
     LOG.info("Cassandra log appender initialized");
   }
