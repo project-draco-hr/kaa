@@ -1,0 +1,26 @@
+{
+synchronized (connection) {
+    LOG.trace("Removing record block with id [{}] from storage",recordBlockId);
+    if (deleteByBucketIdStatement == null) {
+      try {
+        deleteByBucketIdStatement=connection.prepareStatement(PersistentLogStorageStorageInfo.KAA_DELETE_BY_BUCKET_ID);
+      }
+ catch (      SQLException e) {
+      }
+    }
+    try {
+      deleteByBucketIdStatement.setInt(1,recordBlockId);
+      int removedRecordsCount=deleteByBucketIdStatement.executeUpdate();
+      if (removedRecordsCount > 0) {
+        recordCount-=removedRecordsCount;
+        LOG.info("Removed {} records from storage. Total log record count: {}",removedRecordsCount,recordCount);
+      }
+ else {
+        LOG.info("No records were removed from storage");
+      }
+    }
+ catch (    SQLException e) {
+      LOG.error("Failed to remove record block with id [{}]",recordBlockId,e);
+    }
+  }
+}

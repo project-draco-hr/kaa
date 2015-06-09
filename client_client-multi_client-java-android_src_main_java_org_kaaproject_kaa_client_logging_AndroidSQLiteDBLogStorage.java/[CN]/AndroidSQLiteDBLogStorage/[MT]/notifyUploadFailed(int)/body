@@ -1,0 +1,24 @@
+{
+synchronized (database) {
+    Log.v(TAG,"Notifying upload fail for bucket id: " + bucketId);
+    if (resetBucketIdStatement == null) {
+      try {
+        resetBucketIdStatement=database.compileStatement(PersistentLogStorageStorageInfo.KAA_RESET_BY_BUCKET_ID);
+      }
+ catch (      SQLiteException e) {
+        Log.e(TAG,"Can't create bucket id reset statement",e);
+        throw new RuntimeException(e);
+      }
+    }
+    try {
+      resetBucketIdStatement.bindLong(0,bucketId);
+      resetBucketIdStatement.execute();
+      long previouslyConsumedSize=consumedMemoryStorage.get(bucketId);
+      consumedMemoryStorage.remove(bucketId);
+      consumedSize+=previouslyConsumedSize;
+    }
+ catch (    SQLiteException e) {
+      Log.e(TAG,"Failed to reset bucket with id [" + bucketId + "]",e);
+    }
+  }
+}

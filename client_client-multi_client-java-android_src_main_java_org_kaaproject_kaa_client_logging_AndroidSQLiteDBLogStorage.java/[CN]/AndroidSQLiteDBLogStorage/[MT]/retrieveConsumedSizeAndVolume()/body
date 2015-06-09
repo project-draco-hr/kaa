@@ -1,0 +1,15 @@
+{
+synchronized (database) {
+    Cursor cursor=null;
+    try {
+      cursor=database.rawQuery(PersistentLogStorageStorageInfo.KAA_HOW_MANY_LOGS_IN_DB,null);
+      cursor.moveToNext();
+      recordCount=cursor.getLong(0);
+      consumedSize=cursor.getLong(1);
+      Log.v(TAG,"Retrieved record count: " + recordCount + ", consumed size: "+ consumedSize);
+    }
+  finally {
+      tryCloseCursor(cursor);
+    }
+  }
+}

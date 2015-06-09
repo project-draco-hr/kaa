@@ -1,0 +1,29 @@
+{
+synchronized (database) {
+    Log.v(TAG,"Adding a new log record...");
+    if (insertStatement == null) {
+      try {
+        insertStatement=database.compileStatement(PersistentLogStorageStorageInfo.KAA_INSERT_NEW_RECORD);
+      }
+ catch (      SQLiteException e) {
+        Log.e(TAG,"Can't create row insert statement");
+        throw new RuntimeException(e);
+      }
+    }
+    try {
+      insertStatement.bindBlob(0,record.getData());
+      long affectedRows=insertStatement.executeInsert();
+      if (affectedRows == 1) {
+        consumedSize+=record.getSize();
+        recordCount++;
+        Log.v(TAG,"Added a new log record, records count: " + recordCount + ", data: "+ Arrays.toString(record.getData()));
+      }
+ else {
+        Log.w(TAG,"No log record was added");
+      }
+    }
+ catch (    SQLiteException e) {
+      Log.e(TAG,"Can't add a new record");
+    }
+  }
+}

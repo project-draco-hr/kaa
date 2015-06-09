@@ -1,0 +1,30 @@
+{
+synchronized (connection) {
+    LOG.trace("Notifying upload fail for bucket id: {}",bucketId);
+    if (resetBucketIdStatement == null) {
+      try {
+        resetBucketIdStatement=connection.prepareStatement(PersistentLogStorageStorageInfo.KAA_RESET_BY_BUCKET_ID);
+      }
+ catch (      SQLException e) {
+        LOG.error("Can't create bucket id reset statement",e);
+        throw new RuntimeException(e);
+      }
+    }
+    try {
+      resetBucketIdStatement.setInt(1,bucketId);
+      int affectedRows=resetBucketIdStatement.executeUpdate();
+      if (affectedRows > 0) {
+        LOG.trace("Total [{}] log records reset for bucket id: [{}]",affectedRows,bucketId);
+      }
+ else {
+        LOG.warn("No log records for bucket with id: [{}]",bucketId);
+      }
+      long previouslyConsumedSize=consumedMemoryStorage.get(bucketId);
+      consumedMemoryStorage.remove(bucketId);
+      consumedSize+=previouslyConsumedSize;
+    }
+ catch (    SQLException e) {
+      LOG.error("Failed to reset bucket with id [{}]",bucketId,e);
+    }
+  }
+}
