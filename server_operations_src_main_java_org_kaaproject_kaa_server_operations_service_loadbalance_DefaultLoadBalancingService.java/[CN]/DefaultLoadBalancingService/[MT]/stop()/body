@@ -1,4 +1,11 @@
 {
   LOG.info("Stopping service");
-  this.akkaService.removeStatusListener();
+  akkaService.removeStatusListener();
+  pool.shutdown();
+  try {
+    pool.awaitTermination(3,TimeUnit.SECONDS);
+  }
+ catch (  InterruptedException e) {
+    LOG.error("Failed to terminate service",e);
+  }
 }

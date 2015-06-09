@@ -1,7 +1,7 @@
 {
   LOG.info("Starting service using {} update frequency",loadStatsUpdateFrequency);
   this.operationsNode=operationsNode;
-  this.akkaService.setStatusListener(new AkkaStatusListener(){
+  akkaService.setStatusListener(new AkkaStatusListener(){
     @Override public void onStatusUpdate(    final AkkaServiceStatus status){
       pool.submit(new Runnable(){
         @Override public void run(){
