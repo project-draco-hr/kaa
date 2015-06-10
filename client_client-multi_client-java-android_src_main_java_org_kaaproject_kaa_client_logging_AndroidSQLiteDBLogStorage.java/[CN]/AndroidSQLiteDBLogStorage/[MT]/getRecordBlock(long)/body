@@ -1,6 +1,6 @@
 {
 synchronized (database) {
-    Log.v(TAG,"Creating a new record block, needed size: " + blockSize);
+    Log.d(TAG,"Creating a new record block, needed size: " + blockSize);
     LogBlock logBlock=null;
     Cursor cursor=null;
     List<String> unmarkedRecordIds=new LinkedList<>();
@@ -30,7 +30,7 @@ synchronized (database) {
         long logBlockSize=blockSize - leftBlockSize;
         consumedSize-=logBlockSize;
         consumedMemoryStorage.put(logBlock.getBlockId(),logBlockSize);
-        Log.i(TAG,"Created log block: id [" + logBlock.getBlockId() + "], size: "+ logBlockSize+ ". Log block record count:"+ logBlock.getRecords().size()+ ", Total record count: "+ recordCount);
+        Log.i(TAG,"Created log block: id [" + logBlock.getBlockId() + "], size: "+ logBlockSize+ ". Log block record count: "+ logBlock.getRecords().size()+ ", Total record count: "+ recordCount);
       }
  else {
         Log.i(TAG,"No unmarked log records found");

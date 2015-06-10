@@ -1,14 +1,8 @@
 {
 synchronized (database) {
     Log.d(TAG,"Resetting bucket ids on application start");
-    Cursor cursor=null;
-    try {
-      cursor=database.rawQuery(PersistentLogStorageStorageInfo.KAA_RESET_BUCKET_ID_ON_START,null);
-      long updatedRows=cursor.getLong(0);
-      Log.v(TAG,"Number of rows affected: " + updatedRows);
-    }
-  finally {
-      tryCloseCursor(cursor);
-    }
+    database.execSQL(PersistentLogStorageStorageInfo.KAA_RESET_BUCKET_ID_ON_START);
+    long updatedRows=getAffectedRowCount();
+    Log.v(TAG,"Number of rows affected: " + updatedRows);
   }
 }

@@ -1,6 +1,6 @@
 {
 synchronized (database) {
-    Log.v(TAG,"Removing record block with id [" + recordBlockId + "] from storage");
+    Log.d(TAG,"Removing record block with id [" + recordBlockId + "] from storage");
     if (deleteByBucketIdStatement == null) {
       try {
         deleteByBucketIdStatement=database.compileStatement(PersistentLogStorageStorageInfo.KAA_DELETE_BY_BUCKET_ID);
@@ -11,13 +11,12 @@ synchronized (database) {
       }
     }
     try {
-      deleteByBucketIdStatement.bindLong(0,recordBlockId);
+      deleteByBucketIdStatement.bindLong(1,recordBlockId);
       deleteByBucketIdStatement.execute();
-      database.rawQuery("GET_CHANGES_QUERY",null);
       long removedRecordsCount=getAffectedRowCount();
       if (removedRecordsCount > 0) {
         recordCount-=removedRecordsCount;
-        Log.i(TAG,"Removed " + removedRecordsCount + "records from storage. Total log record count: "+ recordCount);
+        Log.i(TAG,"Removed " + removedRecordsCount + " records from storage. Total log record count: "+ recordCount);
       }
  else {
         Log.i(TAG,"No records were removed from storage");

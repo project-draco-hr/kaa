@@ -1,6 +1,6 @@
 {
 synchronized (database) {
-    Log.v(TAG,"Notifying upload fail for bucket id: " + bucketId);
+    Log.d(TAG,"Notifying upload fail for bucket id: " + bucketId);
     if (resetBucketIdStatement == null) {
       try {
         resetBucketIdStatement=database.compileStatement(PersistentLogStorageStorageInfo.KAA_RESET_BY_BUCKET_ID);
@@ -11,8 +11,15 @@ synchronized (database) {
       }
     }
     try {
-      resetBucketIdStatement.bindLong(0,bucketId);
+      resetBucketIdStatement.bindLong(1,bucketId);
       resetBucketIdStatement.execute();
+      long affectedRows=getAffectedRowCount();
+      if (affectedRows > 0) {
+        Log.i(TAG,"Total " + affectedRows + " log records reset for bucket id: ["+ bucketId+ "]");
+      }
+ else {
+        Log.w(TAG,"No log records for bucket with id: [" + bucketId + "]");
+      }
       long previouslyConsumedSize=consumedMemoryStorage.get(bucketId);
       consumedMemoryStorage.remove(bucketId);
       consumedSize+=previouslyConsumedSize;

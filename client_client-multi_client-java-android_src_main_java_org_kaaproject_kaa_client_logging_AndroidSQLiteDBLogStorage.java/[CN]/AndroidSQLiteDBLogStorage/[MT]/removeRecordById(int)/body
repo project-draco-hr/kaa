@@ -11,7 +11,7 @@ synchronized (database) {
       }
     }
     try {
-      deleteByRecordIdStatement.bindLong(0,recordId);
+      deleteByRecordIdStatement.bindLong(1,recordId);
       deleteByRecordIdStatement.execute();
       long affectedRows=getAffectedRowCount();
       if (affectedRows > 0) {

@@ -1,6 +1,6 @@
 {
 synchronized (database) {
-    Log.v(TAG,"Adding a new log record...");
+    Log.d(TAG,"Adding a new log record...");
     if (insertStatement == null) {
       try {
         insertStatement=database.compileStatement(PersistentLogStorageStorageInfo.KAA_INSERT_NEW_RECORD);
@@ -11,12 +11,12 @@ synchronized (database) {
       }
     }
     try {
-      insertStatement.bindBlob(0,record.getData());
-      long affectedRows=insertStatement.executeInsert();
-      if (affectedRows == 1) {
+      insertStatement.bindBlob(1,record.getData());
+      long insertedId=insertStatement.executeInsert();
+      if (insertedId >= 0) {
         consumedSize+=record.getSize();
         recordCount++;
-        Log.v(TAG,"Added a new log record, records count: " + recordCount + ", data: "+ Arrays.toString(record.getData()));
+        Log.i(TAG,"Added a new log record, records count: " + recordCount + ", data: "+ Arrays.toString(record.getData()));
       }
  else {
         Log.w(TAG,"No log record was added");
