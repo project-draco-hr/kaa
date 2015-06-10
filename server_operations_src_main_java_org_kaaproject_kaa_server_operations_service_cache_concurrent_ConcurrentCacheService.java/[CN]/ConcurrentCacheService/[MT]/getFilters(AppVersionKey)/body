@@ -4,7 +4,6 @@
       LOG.debug("Fetching result for getFilters");
       ApplicationDto appDto=applicationService.findAppByApplicationToken(key.getApplicationToken());
       List<ProfileFilterDto> value=profileService.findProfileFilterByAppIdAndVersion(appDto.getId(),key.getVersion());
-      putFilterList(key,value);
       return value;
     }
   }

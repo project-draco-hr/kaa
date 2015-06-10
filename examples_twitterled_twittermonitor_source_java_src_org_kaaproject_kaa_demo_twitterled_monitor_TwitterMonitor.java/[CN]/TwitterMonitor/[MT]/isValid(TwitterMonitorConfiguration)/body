@@ -1,0 +1,5 @@
+{
+  TwitterClientConfiguration twitterConf=configuration.getTwitterClientConfiguration();
+  KaaClientConfiguration kaaConf=configuration.getKaaClientConfiguration();
+  return !twitterConf.getToken().isEmpty() && !twitterConf.getTokenSecret().isEmpty() && !twitterConf.getConsumerKey().isEmpty()&& !twitterConf.getConsumerSecret().isEmpty()&& !twitterConf.getFilters().isEmpty()&& !kaaConf.getHost().isEmpty()&& kaaConf.getPort() > 0 && !kaaConf.getLogin().isEmpty() && !kaaConf.getPassword().isEmpty() && !kaaConf.getAppToken().isEmpty() && !kaaConf.getTopicName().isEmpty() && kaaConf.getNfSchemaVersion() > 1;
+}

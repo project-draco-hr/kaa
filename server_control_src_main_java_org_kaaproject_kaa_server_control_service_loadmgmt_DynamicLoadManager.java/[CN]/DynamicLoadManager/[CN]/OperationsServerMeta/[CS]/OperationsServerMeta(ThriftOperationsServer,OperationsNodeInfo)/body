@@ -2,4 +2,5 @@
   this.opsServer=opsServer;
   this.nodeInfo=nodeInfo;
   history=new OperationsServerLoadHistory(opsLoadHistoryTTL);
+  history.addOpsServerLoad(nodeInfo.getLoadInfo());
 }

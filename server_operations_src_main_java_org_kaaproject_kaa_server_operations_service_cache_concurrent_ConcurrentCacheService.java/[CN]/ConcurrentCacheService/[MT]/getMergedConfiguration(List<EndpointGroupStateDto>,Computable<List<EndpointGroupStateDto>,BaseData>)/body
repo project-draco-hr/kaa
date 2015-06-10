@@ -3,7 +3,6 @@
     @Override public BaseData compute(    List<EndpointGroupStateDto> key){
       LOG.debug("Fetching result for getMergedConfiguration");
       BaseData result=worker.compute(key);
-      setMergedConfiguration(key,result);
       return result;
     }
   }

@@ -25,9 +25,6 @@
   if (configuration.getSocketKeepalive() != null) {
     optionsBuilder.socketKeepAlive(configuration.getSocketKeepalive());
   }
-  if (configuration.getAutoConnectRetry() != null) {
-    optionsBuilder.autoConnectRetry(configuration.getAutoConnectRetry());
-  }
   MongoClientOptions options=optionsBuilder.build();
   mongoClient=new MongoClient(seeds,credentials,options);
   MongoDbFactory dbFactory=new SimpleMongoDbFactory(mongoClient,configuration.getDbName());

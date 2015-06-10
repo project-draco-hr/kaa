@@ -1,0 +1,10 @@
+{
+  BufferedImage image=imageCache.get(authToken);
+  if (image == null) {
+    image=generateQRCodeImageBuffer(authToken);
+  }
+ else {
+    LOG.debug("Got qrcode from cache.");
+  }
+  writeBufferedImageToOutputStream(image,out);
+}

@@ -1,0 +1,14 @@
+{
+  List<CouchbaseServerUri> couchbaseUris=configuration.getCouchbaseServerUris();
+  List<URI> baseList=new ArrayList<URI>(couchbaseUris.size());
+  for (  CouchbaseServerUri couchbaseServerUri : couchbaseUris) {
+    baseList.add(new URI(couchbaseServerUri.getServerUri()));
+  }
+  String pass=configuration.getPassword();
+  if (pass == null) {
+    pass="";
+  }
+  couchbaseClient=new CouchbaseClient(baseList,configuration.getBucket(),pass);
+  couchbaseTemplate=new CouchbaseTemplate(couchbaseClient);
+  couchbaseTemplate.setWriteResultChecking(WriteResultChecking.EXCEPTION);
+}

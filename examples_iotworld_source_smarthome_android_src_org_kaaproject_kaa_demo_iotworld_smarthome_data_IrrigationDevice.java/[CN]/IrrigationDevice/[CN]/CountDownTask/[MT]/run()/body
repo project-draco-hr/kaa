@@ -1,0 +1,11 @@
+{
+  if (mIrrigationStatus != null && mIrrigationStatus.getTimeToNextIrrigationMs() > 0) {
+    long nextIrrigationMs=mIrrigationStatus.getTimeToNextIrrigationMs();
+    nextIrrigationMs-=1000;
+    mIrrigationStatus.setTimeToNextIrrigationMs(nextIrrigationMs);
+    fireIrrigationStatusUpdated();
+    if (nextIrrigationMs > 0) {
+      mHandler.postDelayed(mCountDownTask,1000);
+    }
+  }
+}

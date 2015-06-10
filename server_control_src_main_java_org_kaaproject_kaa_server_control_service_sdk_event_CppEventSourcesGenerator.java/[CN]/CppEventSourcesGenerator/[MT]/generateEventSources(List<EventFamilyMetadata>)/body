@@ -69,5 +69,11 @@
   entry.setSize(data.length);
   tarEntry=new TarEntryData(entry,data);
   eventSources.add(tarEntry);
+  String avrogenBatSource=avrogenBat.replaceAll(EVENT_FAMILY_CLASS_LIST_VAR,eventFamilyClassList);
+  entry=new TarArchiveEntry(AVROGEN_BAT_PATH);
+  data=avrogenBatSource.getBytes();
+  entry.setSize(data.length);
+  tarEntry=new TarEntryData(entry,data);
+  eventSources.add(tarEntry);
   return eventSources;
 }

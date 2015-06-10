@@ -1,0 +1,23 @@
+{
+  Fragment fragment=null;
+switch (deviceType) {
+case CLIMATE:
+    fragment=new ClimateDeviceFragment(endpointKey);
+  break;
+case LIGHTNING:
+fragment=new LightningDeviceFragment(endpointKey);
+break;
+case MUSIC:
+fragment=new MusicAlbumsDeviceFragment(endpointKey);
+break;
+case PHOTO:
+fragment=new PhotoDeviceFragment(endpointKey);
+break;
+case IRRIGATION:
+fragment=new IrrigationDeviceFragment(endpointKey);
+break;
+default :
+break;
+}
+mActivity.addBackStackFragment(fragment,fragment.getTag());
+}

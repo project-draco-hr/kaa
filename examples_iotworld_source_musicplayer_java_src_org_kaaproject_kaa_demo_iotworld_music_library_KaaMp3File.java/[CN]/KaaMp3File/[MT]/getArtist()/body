@@ -1,0 +1,9 @@
+{
+  if (hasId3v1Tag()) {
+    return getId3v1Tag().getArtist();
+  }
+ else   if (hasId3v2Tag()) {
+    return getId3v2Tag().getArtist();
+  }
+  return UNKNOWN;
+}

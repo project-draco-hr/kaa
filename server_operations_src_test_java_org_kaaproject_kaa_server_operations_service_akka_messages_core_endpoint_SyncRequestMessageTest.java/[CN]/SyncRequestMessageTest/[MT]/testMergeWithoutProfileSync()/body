@@ -1,0 +1,10 @@
+{
+  ClientSync request=new ClientSync();
+  SyncRequestMessage message=createSyncRequestMessage(request);
+  ClientSync other=new ClientSync();
+  SyncRequestMessage otherMessage=createSyncRequestMessage(other);
+  request.setNotificationSync(NOTIFICATION_CLIENT_SYNC);
+  other.setNotificationSync(NOTIFICATION_CLIENT_SYNC);
+  Assert.assertNull(message.merge(otherMessage).getConfigurationSync());
+  Assert.assertNull(message.merge(otherMessage).getNotificationSync());
+}

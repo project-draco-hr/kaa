@@ -1,0 +1,8 @@
+{
+  LOG.info("processing traffic lights log: {}",log);
+  if (log.getEventType() != EventType.BUTTON) {
+    LOG.warn("unsupported event type {}",log.getEventType());
+    return;
+  }
+  processPedestrianWalkRequest();
+}

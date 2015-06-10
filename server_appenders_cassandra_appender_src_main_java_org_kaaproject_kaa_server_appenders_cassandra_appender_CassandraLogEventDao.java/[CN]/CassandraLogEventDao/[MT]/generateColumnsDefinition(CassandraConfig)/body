@@ -1,0 +1,11 @@
+{
+  List<ColumnMappingElement> mappings=configuration.getColumnMapping();
+  StringBuilder sb=new StringBuilder();
+  for (  ColumnMappingElement element : mappings) {
+    sb.append(element.getColumnName());
+    sb.append(" ");
+    sb.append(element.getColumnType().name().toLowerCase());
+    sb.append(" , ");
+  }
+  return sb.toString();
+}

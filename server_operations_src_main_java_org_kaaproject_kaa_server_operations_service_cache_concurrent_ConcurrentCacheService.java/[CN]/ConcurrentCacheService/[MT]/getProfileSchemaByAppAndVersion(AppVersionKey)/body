@@ -4,7 +4,6 @@
       LOG.debug("Fetching result for getProfileSchemaByAppAndVersion");
       ApplicationDto appDto=applicationService.findAppByApplicationToken(key.getApplicationToken());
       ProfileSchemaDto value=profileService.findProfileSchemaByAppIdAndVersion(appDto.getId(),key.getVersion());
-      putProfileSchema(key,value);
       return value;
     }
   }

@@ -27,14 +27,23 @@ case 2:
 break;
 case 3:
 if (schemeField.type == org.apache.thrift.protocol.TType.DOUBLE) {
-struct.redirectionProbability=iprot.readDouble();
-struct.setRedirectionProbabilityIsSet(true);
+struct.initRedirectProbability=iprot.readDouble();
+struct.setInitRedirectProbabilityIsSet(true);
 }
  else {
 org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);
 }
 break;
 case 4:
+if (schemeField.type == org.apache.thrift.protocol.TType.DOUBLE) {
+struct.sessionRedirectProbability=iprot.readDouble();
+struct.setSessionRedirectProbabilityIsSet(true);
+}
+ else {
+org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);
+}
+break;
+case 5:
 if (schemeField.type == org.apache.thrift.protocol.TType.I64) {
 struct.ruleTTL=iprot.readI64();
 struct.setRuleTTLIsSet(true);

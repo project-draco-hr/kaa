@@ -1,0 +1,19 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  DataPoint other=(DataPoint)obj;
+  if (zoneId != other.zoneId) {
+    return false;
+  }
+  if (time != other.time) {
+    return false;
+  }
+  return true;
+}

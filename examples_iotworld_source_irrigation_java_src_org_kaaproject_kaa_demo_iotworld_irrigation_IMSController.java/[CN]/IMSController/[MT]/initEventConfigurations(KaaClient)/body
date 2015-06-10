@@ -1,0 +1,10 @@
+{
+  LOG.debug("Init event configurations.");
+  EventFamilyFactory eventFamilyFactory=kaaClient.getEventFamilyFactory();
+  devices=eventFamilyFactory.getDeviceEventClassFamily();
+  devices.addListener(this);
+  irrigation=eventFamilyFactory.getIrrigationEventClassFamily();
+  irrigation.addListener(this);
+  kaaClient.setDetachedListener(this);
+  kaaClient.setAttachedListener(this);
+}

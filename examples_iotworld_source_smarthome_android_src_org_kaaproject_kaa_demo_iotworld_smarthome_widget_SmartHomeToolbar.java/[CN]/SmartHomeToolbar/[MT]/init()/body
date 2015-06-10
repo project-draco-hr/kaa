@@ -1,0 +1,18 @@
+{
+  setOrientation(VERTICAL);
+  LayoutInflater inflater=(LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+  inflater.inflate(R.layout.toolbar,this);
+  mToolbar=(Toolbar)findViewById(R.id.toolbar);
+  mToolbarTitleView=(TextView)findViewById(R.id.toolbar_title);
+  mToolbarSubtitleView=(TextView)findViewById(R.id.toolbar_subtitle);
+  mToolbarCustomContentView=(LinearLayout)findViewById(R.id.toolbar_custom_content);
+  mPopupContainer=new CardView(getContext());
+  int cardContentPadding=getResources().getDimensionPixelSize(R.dimen.card_content_padding);
+  mPopupContainer.setContentPadding(cardContentPadding,cardContentPadding,cardContentPadding,cardContentPadding);
+  mPopupContainer.setUseCompatPadding(true);
+  mPopupContainer.setRadius(0);
+  mPopupContainer.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
+  super.setBackgroundColor(mBackgroundColor);
+  mCustomContentMinWidth=getResources().getDimensionPixelSize(R.dimen.custom_toolbar_content_min_width);
+  mCustomContentHeight=getResources().getDimensionPixelSize(R.dimen.custom_toolbar_content_height);
+}

@@ -1,0 +1,15 @@
+{
+  return new Runnable(){
+    @Override public void run(){
+      LOG.info("processing switch timer");
+      if (trafficState.isCarPending() || trafficState.isPedestrianPending()) {
+        LOG.warn("Can't process switch timer! Car pending {}, pedestrian pending {}",trafficState.isCarPending(),trafficState.isPedestrianPending());
+        return;
+      }
+      CityLightsConfiguration configuration=kaaClient.getConfiguration();
+      updateTrafficLightsState(configuration.getKaaClientConfiguration(),allow);
+      startSwitchTimer();
+    }
+  }
+;
+}

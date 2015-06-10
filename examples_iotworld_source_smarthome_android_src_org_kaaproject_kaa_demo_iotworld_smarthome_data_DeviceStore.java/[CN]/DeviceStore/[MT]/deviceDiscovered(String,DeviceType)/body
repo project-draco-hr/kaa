@@ -1,0 +1,8 @@
+{
+  AbstractDevice device=createDevice(endpointKey,deviceType);
+  AbstractDevice oldOne=discoveredDevicesMap.put(endpointKey,device);
+  if (oldOne != null) {
+    oldOne.releaseDevice(false);
+  }
+  device.initDevice();
+}

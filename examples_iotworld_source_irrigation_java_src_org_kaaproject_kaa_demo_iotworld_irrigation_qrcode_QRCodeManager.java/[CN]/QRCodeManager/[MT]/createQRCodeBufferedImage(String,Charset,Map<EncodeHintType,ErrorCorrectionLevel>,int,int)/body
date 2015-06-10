@@ -1,0 +1,5 @@
+{
+  BitMatrix matrix=formatWriter.encode(new String(qrCodeData.getBytes(charset),charset),BarcodeFormat.QR_CODE,qrCodewidth,qrCodeheight,hintMap);
+  MatrixToImageConfig matrixToImageConfig=new MatrixToImageConfig();
+  return MatrixToImageWriter.toBufferedImage(matrix,matrixToImageConfig);
+}

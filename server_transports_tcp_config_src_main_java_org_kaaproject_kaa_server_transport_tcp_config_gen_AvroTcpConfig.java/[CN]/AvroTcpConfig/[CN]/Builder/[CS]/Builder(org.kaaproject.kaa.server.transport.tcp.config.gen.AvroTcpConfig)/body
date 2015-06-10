@@ -8,4 +8,12 @@
     this.bindPort=data().deepCopy(fields()[1].schema(),other.bindPort);
     fieldSetFlags()[1]=true;
   }
+  if (isValidValue(fields()[2],other.publicInterface)) {
+    this.publicInterface=data().deepCopy(fields()[2].schema(),other.publicInterface);
+    fieldSetFlags()[2]=true;
+  }
+  if (isValidValue(fields()[3],other.publicPort)) {
+    this.publicPort=data().deepCopy(fields()[3].schema(),other.publicPort);
+    fieldSetFlags()[3]=true;
+  }
 }

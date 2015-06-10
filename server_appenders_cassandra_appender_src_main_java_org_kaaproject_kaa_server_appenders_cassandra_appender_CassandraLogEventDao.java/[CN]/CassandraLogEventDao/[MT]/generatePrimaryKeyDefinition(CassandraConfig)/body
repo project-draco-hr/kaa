@@ -1,0 +1,27 @@
+{
+  List<ColumnMappingElement> mappings=configuration.getColumnMapping();
+  StringBuilder partitionKey=new StringBuilder();
+  StringBuilder clusteringKey=new StringBuilder();
+  for (  ColumnMappingElement element : mappings) {
+    if (element.getPartitionKey()) {
+      if (partitionKey.length() > 0) {
+        partitionKey.append(",");
+      }
+      partitionKey.append(element.getColumnName());
+    }
+    if (element.getClusteringKey()) {
+      if (clusteringKey.length() > 0) {
+        clusteringKey.append(" , ");
+      }
+      clusteringKey.append(element.getColumnName());
+    }
+  }
+  String primaryKey="";
+  if (partitionKey.length() > 0) {
+    primaryKey+="(" + partitionKey + ")";
+  }
+  if (clusteringKey.length() > 0) {
+    primaryKey+=" , " + clusteringKey;
+  }
+  return primaryKey;
+}

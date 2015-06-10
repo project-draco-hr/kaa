@@ -1,0 +1,15 @@
+{
+  if (!isDeviceDiscoveryPerformed || refresh) {
+    isDeviceDiscoveryPerformed=true;
+    releaseDevices(discoveryDeviceType);
+    mEventBus.post(new DeviceDiscoveryStarted());
+    if (discoveryDeviceType == null) {
+      for (      final DeviceType deviceType : DeviceType.values()) {
+        discoverDeviceType(deviceType);
+      }
+    }
+ else {
+      discoverDeviceType(discoveryDeviceType);
+    }
+  }
+}

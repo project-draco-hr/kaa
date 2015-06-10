@@ -4,7 +4,7 @@
   zkServiceMock=mock(ControlZkService.class);
   pNodeMock=mock(ControlNode.class);
   when(ldServiceMock.getOpsServerHistoryTTL()).thenReturn(300);
-  when(ldServiceMock.getDynamicMgmtClass()).thenReturn("org.kaaproject.kaa.server.control.service.loadmgmt.dynamicmgmt.DefaultRebalancer");
+  when(ldServiceMock.getRebalancer()).thenReturn(new EndpointCountRebalancer());
   when(ldServiceMock.getZkService()).thenReturn(zkServiceMock);
   when(zkServiceMock.getControlZKNode()).thenReturn(pNodeMock);
 }

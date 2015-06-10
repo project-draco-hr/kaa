@@ -1,0 +1,10 @@
+{
+  String path;
+  if (profilePath != null && profilePath.length() > 0) {
+    path=profilePath;
+  }
+ else {
+    path=DEFAULT_PROFILE_PATH;
+  }
+  return Paths.get(path,DEFAULT_PROFILE_FILE_NAME);
+}

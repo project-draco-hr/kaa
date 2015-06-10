@@ -1,0 +1,12 @@
+{
+  try {
+    VoltageSample record=new VoltageSample();
+    record.zoneId=fieldSetFlags()[0] ? this.zoneId : (java.lang.Integer)defaultValue(fields()[0]);
+    record.panelId=fieldSetFlags()[1] ? this.panelId : (java.lang.Integer)defaultValue(fields()[1]);
+    record.voltage=fieldSetFlags()[2] ? this.voltage : (java.lang.Double)defaultValue(fields()[2]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

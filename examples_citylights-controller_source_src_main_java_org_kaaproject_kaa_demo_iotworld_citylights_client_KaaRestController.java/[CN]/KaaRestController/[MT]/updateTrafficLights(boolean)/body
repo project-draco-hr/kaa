@@ -1,0 +1,16 @@
+{
+  AdminClient client=new AdminClient(configuration.getHost(),configuration.getPort());
+  client.login(configuration.getLogin(),configuration.getPassword());
+  ApplicationDto application=getApplication(client,configuration.getTrafficLightsAppToken());
+  EndpointGroupDto groupAll=getGroupAll(client,application.getId());
+  ConfigurationRecordDto currentConfiguration=getConfiguration(client,groupAll.getId(),configuration.getTrafficLightsCfSchemaVersion());
+  ConfigurationDto activeConfiguration=currentConfiguration.getActiveConfiguration();
+  ConfigurationDto newConfiguration=new ConfigurationDto();
+  newConfiguration.setApplicationId(activeConfiguration.getApplicationId());
+  newConfiguration.setEndpointGroupId(activeConfiguration.getEndpointGroupId());
+  newConfiguration.setSchemaId(activeConfiguration.getSchemaId());
+  newConfiguration.setMajorVersion(activeConfiguration.getMajorVersion());
+  newConfiguration.setBody("{\"mainRoadState\" : \"" + (allow ? "ALLOW" : "DISALLOW") + "\", \"__uuid\":null}");
+  newConfiguration=client.editConfiguration(newConfiguration);
+  client.activateConfiguration(newConfiguration.getId());
+}

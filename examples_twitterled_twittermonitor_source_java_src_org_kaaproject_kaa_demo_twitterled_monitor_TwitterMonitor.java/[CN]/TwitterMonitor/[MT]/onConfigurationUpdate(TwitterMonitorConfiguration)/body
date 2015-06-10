@@ -1,0 +1,12 @@
+{
+  if (isValid(config)) {
+    if (worker != null) {
+      worker.shutdown();
+    }
+    worker=new TwitterMonitorWorker(config);
+    worker.start();
+  }
+ else {
+    LOG.info("Client have not received valid configuration yet!");
+  }
+}

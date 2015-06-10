@@ -1,0 +1,14 @@
+{
+  super(itemView);
+  if (viewType == TYPE_ITEM) {
+    rowLayout=itemView.findViewById(R.id.rowLayout);
+    imageView=(ImageView)itemView.findViewById(R.id.rowIcon);
+    textView=(TextView)itemView.findViewById(R.id.rowText);
+    holderId=1;
+  }
+ else {
+    usermameView=(TextView)itemView.findViewById(R.id.username);
+    navToggleIcon=(ImageView)itemView.findViewById(R.id.navToggleIcon);
+    holderId=0;
+  }
+}

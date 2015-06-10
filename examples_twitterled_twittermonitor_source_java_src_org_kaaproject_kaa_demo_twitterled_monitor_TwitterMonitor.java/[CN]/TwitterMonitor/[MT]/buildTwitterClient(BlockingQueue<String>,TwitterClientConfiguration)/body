@@ -1,0 +1,10 @@
+{
+  BlockingQueue<Event> eventQueue=new LinkedBlockingQueue<Event>(EVENT_QUEUE_SIZE);
+  Hosts hosebirdHosts=new HttpHosts(Constants.STREAM_HOST);
+  StatusesFilterEndpoint hosebirdEndpoint=new StatusesFilterEndpoint();
+  hosebirdEndpoint.trackTerms(configuration.getFilters());
+  Authentication hosebirdAuth=new OAuth1(configuration.getConsumerKey(),configuration.getConsumerSecret(),configuration.getToken(),configuration.getTokenSecret());
+  ClientBuilder builder=new ClientBuilder().name("Kaa-Twitter-Monitor-Client").hosts(hosebirdHosts).authentication(hosebirdAuth).endpoint(hosebirdEndpoint).processor(new StringDelimitedProcessor(msgQueue)).eventMessageQueue(eventQueue);
+  Client hosebirdClient=builder.build();
+  return hosebirdClient;
+}

@@ -19,6 +19,9 @@
   if (!StringUtils.isBlank(configurationBaseSchemaBody)) {
     cSources.addAll(generateConfigurationSources(configurationBaseSchemaBody));
   }
+  if (!StringUtils.isBlank(notificationSchemaBody)) {
+    cSources.addAll(generateNotificationSources(notificationSchemaBody));
+  }
   if (eventFamilies != null && !eventFamilies.isEmpty()) {
     cSources.addAll(CEventSourcesGenerator.generateEventSources(eventFamilies));
   }
