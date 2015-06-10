@@ -1,0 +1,13 @@
+{
+switch (status) {
+case UNATHORIZED_HTTP_STATUS:
+    state.clean();
+  break;
+default :
+break;
+}
+lastConnectionFailed=failed;
+if (failed) {
+client.getChannelManager().onServerFailed(currentServer);
+}
+}
