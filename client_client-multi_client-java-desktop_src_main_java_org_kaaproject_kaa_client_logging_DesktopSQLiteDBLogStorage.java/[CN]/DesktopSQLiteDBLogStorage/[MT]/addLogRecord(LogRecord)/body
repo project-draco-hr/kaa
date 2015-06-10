@@ -3,7 +3,7 @@ synchronized (connection) {
     LOG.trace("Adding a new log record...");
     if (insertStatement == null) {
       try {
-        insertStatement=connection.prepareStatement(PersistentLogStorageStorageInfo.KAA_INSERT_NEW_RECORD);
+        insertStatement=connection.prepareStatement(PersistentLogStorageConstants.KAA_INSERT_NEW_RECORD);
       }
  catch (      SQLException e) {
         LOG.error("Can't create row insert statement",e);

@@ -4,7 +4,7 @@ synchronized (connection) {
     ResultSet rs=null;
     try {
       statement=connection.createStatement();
-      rs=statement.executeQuery(PersistentLogStorageStorageInfo.KAA_HOW_MANY_LOGS_IN_DB);
+      rs=statement.executeQuery(PersistentLogStorageConstants.KAA_HOW_MANY_LOGS_IN_DB);
       if (rs.next()) {
         recordCount=rs.getLong(1);
         consumedSize=rs.getLong(2);

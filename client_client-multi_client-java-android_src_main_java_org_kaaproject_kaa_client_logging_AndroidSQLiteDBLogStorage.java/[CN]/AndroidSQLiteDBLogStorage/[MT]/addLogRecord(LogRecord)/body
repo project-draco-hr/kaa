@@ -3,7 +3,7 @@ synchronized (database) {
     Log.d(TAG,"Adding a new log record...");
     if (insertStatement == null) {
       try {
-        insertStatement=database.compileStatement(PersistentLogStorageStorageInfo.KAA_INSERT_NEW_RECORD);
+        insertStatement=database.compileStatement(PersistentLogStorageConstants.KAA_INSERT_NEW_RECORD);
       }
  catch (      SQLiteException e) {
         Log.e(TAG,"Can't create row insert statement",e);

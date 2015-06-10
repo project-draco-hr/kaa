@@ -3,7 +3,7 @@ synchronized (connection) {
     LOG.trace("Removing log record with id [{}]",recordId);
     if (deleteByRecordIdStatement == null) {
       try {
-        deleteByRecordIdStatement=connection.prepareStatement(PersistentLogStorageStorageInfo.KAA_DELETE_BY_RECORD_ID);
+        deleteByRecordIdStatement=connection.prepareStatement(PersistentLogStorageConstants.KAA_DELETE_BY_RECORD_ID);
       }
  catch (      SQLException e) {
         LOG.error("Can't create log remove statement",e);

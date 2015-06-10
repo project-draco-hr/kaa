@@ -7,7 +7,7 @@ synchronized (database) {
     List<LogRecord> logRecords=new LinkedList<>();
     long leftBlockSize=blockSize;
     try {
-      cursor=database.rawQuery(PersistentLogStorageStorageInfo.KAA_SELECT_UNMARKED_RECORDS,null);
+      cursor=database.rawQuery(PersistentLogStorageConstants.KAA_SELECT_UNMARKED_RECORDS,null);
       while (cursor.moveToNext()) {
         int recordId=cursor.getInt(0);
         byte[] recordData=cursor.getBlob(1);

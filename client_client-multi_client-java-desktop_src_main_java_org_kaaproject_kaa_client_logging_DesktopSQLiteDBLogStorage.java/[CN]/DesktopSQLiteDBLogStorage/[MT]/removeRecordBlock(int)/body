@@ -3,7 +3,7 @@ synchronized (connection) {
     LOG.trace("Removing record block with id [{}] from storage",recordBlockId);
     if (deleteByBucketIdStatement == null) {
       try {
-        deleteByBucketIdStatement=connection.prepareStatement(PersistentLogStorageStorageInfo.KAA_DELETE_BY_BUCKET_ID);
+        deleteByBucketIdStatement=connection.prepareStatement(PersistentLogStorageConstants.KAA_DELETE_BY_BUCKET_ID);
       }
  catch (      SQLException e) {
         LOG.error("Can't create record block deletion statement",e);

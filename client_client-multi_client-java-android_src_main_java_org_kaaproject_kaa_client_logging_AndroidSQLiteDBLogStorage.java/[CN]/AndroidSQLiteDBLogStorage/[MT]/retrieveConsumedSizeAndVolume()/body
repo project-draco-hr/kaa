@@ -2,7 +2,7 @@
 synchronized (database) {
     Cursor cursor=null;
     try {
-      cursor=database.rawQuery(PersistentLogStorageStorageInfo.KAA_HOW_MANY_LOGS_IN_DB,null);
+      cursor=database.rawQuery(PersistentLogStorageConstants.KAA_HOW_MANY_LOGS_IN_DB,null);
       if (cursor.moveToFirst()) {
         recordCount=cursor.getLong(0);
         consumedSize=cursor.getLong(1);

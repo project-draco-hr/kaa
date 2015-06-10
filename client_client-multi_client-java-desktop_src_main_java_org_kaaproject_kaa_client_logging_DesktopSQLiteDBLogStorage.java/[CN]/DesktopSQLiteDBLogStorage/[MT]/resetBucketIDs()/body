@@ -4,7 +4,7 @@ synchronized (connection) {
     Statement statement=null;
     try {
       statement=connection.createStatement();
-      int updatedRows=statement.executeUpdate(PersistentLogStorageStorageInfo.KAA_RESET_BUCKET_ID_ON_START);
+      int updatedRows=statement.executeUpdate(PersistentLogStorageConstants.KAA_RESET_BUCKET_ID_ON_START);
       LOG.trace("Number of rows affected: {}",updatedRows);
     }
  catch (    SQLException e) {
