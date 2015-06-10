@@ -44,6 +44,7 @@ synchronized (connection) {
  finally {
       try {
         tryCloseResultSet(rs);
+        tryCloseStatement(statement);
       }
  catch (      SQLException e) {
         LOG.error("Can't close result set",e);

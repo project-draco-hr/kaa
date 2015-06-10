@@ -14,7 +14,7 @@ synchronized (connection) {
       resetBucketIdStatement.setInt(1,bucketId);
       int affectedRows=resetBucketIdStatement.executeUpdate();
       if (affectedRows > 0) {
-        LOG.trace("Total [{}] log records reset for bucket id: [{}]",affectedRows,bucketId);
+        LOG.info("Total {} log records reset for bucket id: [{}]",affectedRows,bucketId);
       }
  else {
         LOG.warn("No log records for bucket with id: [{}]",bucketId);

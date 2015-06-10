@@ -6,6 +6,8 @@ synchronized (connection) {
         deleteByBucketIdStatement=connection.prepareStatement(PersistentLogStorageStorageInfo.KAA_DELETE_BY_BUCKET_ID);
       }
  catch (      SQLException e) {
+        LOG.error("Can't create record block deletion statement",e);
+        throw new RuntimeException(e);
       }
     }
     try {
@@ -16,7 +18,7 @@ synchronized (connection) {
         LOG.info("Removed {} records from storage. Total log record count: {}",removedRecordsCount,recordCount);
       }
  else {
-        LOG.info("No records were removed from storage");
+        LOG.warn("No records were removed from storage");
       }
     }
  catch (    SQLException e) {

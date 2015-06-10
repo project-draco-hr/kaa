@@ -13,10 +13,10 @@ synchronized (connection) {
       setBucketIdStatement.setInt(1,bucketId);
       int affectedRows=setBucketIdStatement.executeUpdate();
       if (affectedRows > 0) {
-        LOG.trace("Successfully updated id [{}] for log records: {}",bucketId,affectedRows);
+        LOG.info("Successfully updated id [{}] for log records: {}",bucketId,affectedRows);
       }
  else {
-        LOG.info("No log records were updated");
+        LOG.warn("No log records were updated");
       }
     }
  catch (    SQLException e) {
