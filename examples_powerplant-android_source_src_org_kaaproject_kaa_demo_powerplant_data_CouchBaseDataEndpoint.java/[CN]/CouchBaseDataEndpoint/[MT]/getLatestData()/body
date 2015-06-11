@@ -1,0 +1,11 @@
+{
+  List<DataReport> reports=getHistoryDataWithLimit(0,1);
+  DataReport report=null;
+  if (reports != null && !reports.isEmpty()) {
+    report=reports.get(0);
+  }
+ else {
+    Log.i(TAG,"no data");
+  }
+  return report;
+}

@@ -1,0 +1,31 @@
+{
+  JsonArray startKey=JsonArray.create().add(latestTs);
+  ViewResult result=bucket.query(ViewQuery.from(design,view).stale(Stale.FALSE).groupLevel(2).startKey(startKey));
+  Map<Integer,JsonObject> updatesMap=new HashMap<>();
+  for (  ViewRow row : result) {
+    JsonArray key=(JsonArray)row.key();
+    JsonObject value=(JsonObject)row.value();
+    int tsInSeconds=key.getInt(0);
+    JsonObject update=updatesMap.get(tsInSeconds);
+    if (update == null) {
+      update=JsonObject.empty();
+      update.put("zones",JsonArray.empty());
+      update.put("ts",tsInSeconds);
+      updatesMap.put(tsInSeconds,update);
+    }
+    JsonObject zoneUpdate=JsonObject.empty();
+    zoneUpdate.put("zoneId",key.getInt(1));
+    zoneUpdate.put("sum",value.getDouble("sum"));
+    zoneUpdate.put("count",value.getInt("count"));
+    update.getArray("zones").add(zoneUpdate);
+  }
+  for (  Map.Entry<Integer,JsonObject> entry : updatesMap.entrySet()) {
+    JsonDocument doc=JsonDocument.create("totals_" + entry.getKey(),entry.getValue());
+    System.out.println("Updating for totals_" + entry.getKey());
+    bucket.upsert(doc);
+    if (documentCache.getIfPresent(doc.id()) == null) {
+      System.out.println("Putting into cache: " + doc.id());
+      documentCache.put(doc.id(),doc);
+    }
+  }
+}

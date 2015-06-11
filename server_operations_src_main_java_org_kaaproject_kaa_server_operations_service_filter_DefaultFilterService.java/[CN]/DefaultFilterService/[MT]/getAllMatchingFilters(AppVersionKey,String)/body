@@ -12,9 +12,17 @@
       filter.updateFilterBody(filterBody.getBody());
     }
     LOG.trace("matching profile body with filter {}",filter);
-    if (filter.matches(profileBody)) {
-      matchingFilters.add(filterBody);
-      LOG.trace("profile body matched");
+    try {
+      if (filter.matches(profileBody)) {
+        matchingFilters.add(filterBody);
+        LOG.trace("profile body matched");
+      }
+    }
+ catch (    EvaluationException ee) {
+      LOG.warn("Failed to process filter {} due to evaluate exception. Please check your filter body",filterBody.getBody(),ee);
+    }
+catch (    Exception e) {
+      LOG.error("Failed to process filter {} due to exception",filterBody.getBody(),e);
     }
   }
   return matchingFilters;
