@@ -1,0 +1,21 @@
+{
+  LOG.trace("Attempt to execute upload check: {}",uploadCheckInProgress);
+synchronized (uploadCheckLock) {
+    if (!uploadCheckInProgress) {
+      LOG.trace("Scheduling upload check with timeout: {}" + strategy.getUploadCheckPeriod());
+      uploadCheckInProgress=true;
+      executorContext.getScheduledExecutor().schedule(new Runnable(){
+        @Override public void run(){
+synchronized (uploadCheckLock) {
+            uploadCheckInProgress=false;
+          }
+          uploadIfNeeded();
+        }
+      }
+,strategy.getUploadCheckPeriod(),TimeUnit.SECONDS);
+    }
+ else {
+      LOG.trace("Upload check is already scheduled!");
+    }
+  }
+}

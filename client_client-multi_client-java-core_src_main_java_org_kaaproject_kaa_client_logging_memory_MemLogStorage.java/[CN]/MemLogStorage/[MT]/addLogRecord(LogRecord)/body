@@ -3,10 +3,21 @@
   if (record.getSize() > maxBucketSize) {
     throw new IllegalArgumentException("Record size(" + record.getSize() + ") is bigger then max bucket size ("+ maxBucketSize+ ")!");
   }
+  if (getConsumedVolume() + record.getSize() > maxStorageSize) {
+    throw new IllegalStateException("Storage is full!");
+  }
 synchronized (buckets) {
     if (currentBucket == null) {
-      currentBucket=new MemBucket(bucketIdSeq.getAndIncrement());
+      currentBucket=new MemBucket(bucketIdSeq.getAndIncrement(),maxBucketSize,maxBucketRecordCount);
       buckets.put(currentBucket.getId(),currentBucket);
     }
+    if (!currentBucket.addRecord(record)) {
+      LOG.trace("Current bucket is full. Creating new one.");
+      currentBucket.setState(MemBucketState.FULL);
+      currentBucket=new MemBucket(bucketIdSeq.getAndIncrement(),maxBucketSize,maxBucketRecordCount);
+      buckets.put(currentBucket.getId(),currentBucket);
+      currentBucket.addRecord(record);
+    }
   }
+  LOG.trace("Added new log record to bucket [{}]",currentBucket.getId());
 }

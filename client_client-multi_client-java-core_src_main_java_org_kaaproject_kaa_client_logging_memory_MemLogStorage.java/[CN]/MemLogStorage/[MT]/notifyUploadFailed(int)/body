@@ -1,2 +1,6 @@
 {
+  LOG.trace("Upload of record block [{}] failed",id);
+synchronized (buckets) {
+    buckets.get(id).setState(MemBucketState.FULL);
+  }
 }

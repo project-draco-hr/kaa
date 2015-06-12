@@ -2,10 +2,12 @@
   long volume=0;
   LOG.trace("Calculating consumed volume");
 synchronized (buckets) {
-    for (    MemBucket value : buckets.values()) {
-      volume+=value.getSize();
+    for (    MemBucket bucket : buckets.values()) {
+      if (bucket.getState() != MemBucketState.PENDING) {
+        volume+=bucket.getSize();
+      }
     }
   }
-  LOG.trace("Calculated consumed volume {}",volume);
+  LOG.debug("Calculated consumed volume {}",volume);
   return volume;
 }

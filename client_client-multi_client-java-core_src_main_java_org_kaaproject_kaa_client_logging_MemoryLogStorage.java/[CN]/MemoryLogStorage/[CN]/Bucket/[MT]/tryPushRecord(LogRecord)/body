@@ -1,9 +1,0 @@
-{
-  long newConsumedSize=consumedSize + rec.getSize();
-  if (maxBucketSize >= newConsumedSize && (maxRecordCount == 0 || records.size() < maxBatchCount)) {
-    records.add(rec);
-    consumedSize=newConsumedSize;
-    return true;
-  }
-  return false;
-}

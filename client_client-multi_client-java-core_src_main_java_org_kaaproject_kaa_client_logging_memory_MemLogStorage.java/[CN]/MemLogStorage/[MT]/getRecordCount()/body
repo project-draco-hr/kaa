@@ -2,10 +2,12 @@
   long count=0;
   LOG.trace("Calculating record count");
 synchronized (buckets) {
-    for (    MemBucket value : buckets.values()) {
-      count+=value.getCount();
+    for (    MemBucket bucket : buckets.values()) {
+      if (bucket.getState() != MemBucketState.PENDING) {
+        count+=bucket.getCount();
+      }
     }
   }
-  LOG.trace("Calculated record count {}",count);
+  LOG.debug("Calculated record count {}",count);
   return count;
 }
