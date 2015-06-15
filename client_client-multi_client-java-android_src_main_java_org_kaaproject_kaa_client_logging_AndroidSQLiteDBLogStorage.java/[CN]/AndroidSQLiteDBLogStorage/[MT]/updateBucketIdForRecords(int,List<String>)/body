@@ -1,0 +1,24 @@
+{
+synchronized (database) {
+    Log.v(TAG,"Updating bucket id [" + bucketId + "] for records with ids: "+ recordIds);
+    SQLiteStatement setBucketIdStatement=null;
+    try {
+      setBucketIdStatement=database.compileStatement(getUpdateBucketIdStatement(recordIds));
+      setBucketIdStatement.bindLong(1,bucketId);
+      setBucketIdStatement.execute();
+      long affectedRows=getAffectedRowCount();
+      if (affectedRows > 0) {
+        Log.i(TAG,"Successfully updated id [" + bucketId + "] for log records: "+ affectedRows);
+      }
+ else {
+        Log.w(TAG,"No log records were updated");
+      }
+    }
+ catch (    SQLiteException e) {
+      Log.e(TAG,"Failed to update bucket id [" + bucketId + "] for records with ids: "+ recordIds,e);
+    }
+ finally {
+      tryCloseStatement(setBucketIdStatement);
+    }
+  }
+}

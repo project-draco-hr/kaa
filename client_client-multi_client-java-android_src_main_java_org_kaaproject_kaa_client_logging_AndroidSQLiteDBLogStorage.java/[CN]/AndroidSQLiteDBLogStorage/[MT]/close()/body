@@ -1,0 +1,12 @@
+{
+  tryCloseStatement(insertStatement);
+  tryCloseStatement(deleteByBucketIdStatement);
+  tryCloseStatement(deleteByRecordIdStatement);
+  tryCloseStatement(resetBucketIdStatement);
+  if (database != null) {
+    database.close();
+  }
+  if (dbHelper != null) {
+    dbHelper.close();
+  }
+}

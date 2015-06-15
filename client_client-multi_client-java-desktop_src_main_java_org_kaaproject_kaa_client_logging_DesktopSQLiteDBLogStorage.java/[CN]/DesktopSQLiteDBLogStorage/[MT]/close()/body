@@ -1,0 +1,14 @@
+{
+  try {
+    tryCloseStatement(insertStatement);
+    tryCloseStatement(deleteByRecordIdStatement);
+    tryCloseStatement(deleteByBucketIdStatement);
+    tryCloseStatement(resetBucketIdStatement);
+    if (connection != null) {
+      connection.close();
+    }
+  }
+ catch (  SQLException e) {
+    LOG.error("Can't close SQLite db connection",e);
+  }
+}
