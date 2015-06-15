@@ -8,6 +8,7 @@
     if (currentTime >= logRequest.getValue()) {
       storage.notifyUploadFailed(logRequest.getKey());
       toRemove.add(logRequest.getKey());
+      isTimeout=true;
     }
   }
   timeoutMap.entrySet().removeAll(toRemove);
