@@ -1,0 +1,17 @@
+{
+synchronized (database) {
+    Cursor cursor=null;
+    try {
+      cursor=database.rawQuery(GET_CHANGES_QUERY,null);
+      if (cursor != null && cursor.getCount() > 0 && cursor.moveToFirst()) {
+        return cursor.getLong(cursor.getColumnIndex(CHANGES_QUERY_RESULT));
+      }
+ else {
+        return 0;
+      }
+    }
+  finally {
+      tryCloseCursor(cursor);
+    }
+  }
+}
