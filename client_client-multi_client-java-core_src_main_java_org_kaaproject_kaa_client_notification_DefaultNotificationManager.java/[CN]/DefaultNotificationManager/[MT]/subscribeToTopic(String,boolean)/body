@@ -1,6 +1,6 @@
 {
   Topic topic=findTopicById(topicId);
-  if (topic.getSubscriptionType() != SubscriptionType.OPTIONAL) {
+  if (topic.getSubscriptionType() != SubscriptionType.OPTIONAL_SUBSCRIPTION) {
     LOG.warn("Failed to subscribe: topic '{}' isn't optional",topicId);
     throw new UnavailableTopicException(String.format("Topic '%s' isn't optional",topicId));
   }

@@ -1,0 +1,8 @@
+{
+  if (mEndpointKey.equals(sourceEndpoint)) {
+    mAlbums=playListResponse.getAlbums();
+    mSortedAlbums=new ArrayList<AlbumInfo>(mAlbums);
+    Collections.sort(mSortedAlbums,mAlbumsComparator);
+    fireDeviceUpdated();
+  }
+}

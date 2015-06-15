@@ -1,0 +1,36 @@
+{
+  this.parentContext=parentContext;
+  Log.i(TAG,"Creating new CouchBaseDataEndpoint");
+  try {
+    this.manager=new Manager(new AndroidContext(parentContext),Manager.DEFAULT_OPTIONS);
+    Log.d(TAG,"Manager created");
+    database=manager.getDatabase(localDBName);
+    URL dbURL=new URL(dbURLStr + gatewayName);
+    pull=database.createPullReplication(dbURL);
+    List<String> channels=Arrays.asList(channelName);
+    Authenticator auth=new BasicAuthenticator(username,password);
+    pull.setAuthenticator(auth);
+    pull.setChannels(channels);
+    pull.setContinuous(true);
+    pull.start();
+  }
+ catch (  IOException e) {
+    Log.e(TAG,"Can't start communication with db",e);
+    throw new RuntimeException(e);
+  }
+catch (  CouchbaseLiteException e) {
+    Log.e(TAG,"Can't get database with name: " + localDBName,e);
+    throw new RuntimeException(e);
+  }
+  View reportView=database.getView(VIEW_NAME);
+  reportView.setMap(new Mapper(){
+    @SuppressWarnings("unchecked") @Override public void map(    Map<String,Object> document,    Emitter emitter){
+      Object timeValue=document.get(TIMESTAMP_FIELD);
+      Long timestamp=timeValue instanceof Number ? (Long)((Number)timeValue).longValue() : (timeValue instanceof String ? Long.parseLong((String)timeValue) : null);
+      if (timestamp != null) {
+        emitter.emit(timestamp,document);
+      }
+    }
+  }
+,"4");
+}

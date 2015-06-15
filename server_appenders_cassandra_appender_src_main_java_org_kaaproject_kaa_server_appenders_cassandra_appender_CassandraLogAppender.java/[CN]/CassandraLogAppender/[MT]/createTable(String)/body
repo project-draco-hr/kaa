@@ -1,9 +1,3 @@
 {
-  if (tableName == null) {
-    tableName=LOG_TABLE_PREFIX + applicationToken;
-    logEventDao.createTable(tableName);
-  }
- else {
-    LOG.warn("Appender is already initialized..");
-  }
+  tableName=logEventDao.createTable(applicationToken);
 }

@@ -1,0 +1,13 @@
+{
+  mClient.findEventListeners(discoveryDeviceType.getListenerFqns(),new FindEventListenersCallback(){
+    @Override public void onEventListenersReceived(    List<String> endpointKeys){
+      for (      String endpointKey : endpointKeys) {
+        deviceDiscovered(endpointKey,discoveryDeviceType);
+      }
+    }
+    @Override public void onRequestFailed(){
+      Log.e(TAG,"Unable to discover " + discoveryDeviceType + " devices!");
+    }
+  }
+);
+}

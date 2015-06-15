@@ -1,0 +1,14 @@
+{
+  super.bindDevice(firstLoad);
+  IrrigationStatus irrigationStatus=mDevice.getIrrigationStatus();
+  if (irrigationStatus != null) {
+    mIrrigationStatusText.setText(getResources().getStringArray(R.array.irrigation_status)[irrigationStatus.getIsIrrigation() ? 1 : 0]);
+    if (!irrigationStatus.getIgnoreIrrigationIntervalUpdate() || firstLoad) {
+      mIrrigationIntervalControlView.setProgress(irrigationStatus.getIrrigationIntervalSec() - MIN_IRRIGATION_INTERVAL_SEC);
+    }
+    mLeftTillNextIrrigationView.setMaxTimeSec(irrigationStatus.getIrrigationIntervalSec());
+    mLeftTillNextIrrigationView.setValue(irrigationStatus.getTimeToNextIrrigationMs() / 1000);
+    mLeftInTankView.setValue(((float)irrigationStatus.getRemainingWater()) / 1000f);
+    mSpentThisMonthView.setValue(((float)irrigationStatus.getMonthlySpentWater()) / 1000f);
+  }
+}

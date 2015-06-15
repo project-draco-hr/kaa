@@ -1,0 +1,12 @@
+{
+  StatusRequestState state=statusRequestStatesMap.get(message.getRequestId());
+  if (state != null) {
+    if (state.processResponse(message)) {
+      int endpointCount=state.getEndpontCount();
+      context().parent().tell(new TenantActorStatusResponse(message.getRequestId(),endpointCount),ActorRef.noSender());
+    }
+  }
+ else {
+    LOG.warn("[{}] State for status request is not found",message.getRequestId());
+  }
+}

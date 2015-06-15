@@ -16,12 +16,20 @@ if (value == null) {
   setRuleId((Long)value);
 }
 break;
-case REDIRECTION_PROBABILITY:
+case INIT_REDIRECT_PROBABILITY:
 if (value == null) {
-unsetRedirectionProbability();
+unsetInitRedirectProbability();
 }
  else {
-setRedirectionProbability((Double)value);
+setInitRedirectProbability((Double)value);
+}
+break;
+case SESSION_REDIRECT_PROBABILITY:
+if (value == null) {
+unsetSessionRedirectProbability();
+}
+ else {
+setSessionRedirectProbability((Double)value);
 }
 break;
 case RULE_TTL:

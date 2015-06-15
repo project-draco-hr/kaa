@@ -1,0 +1,15 @@
+{
+  String filePath=aFile.toFile().getAbsolutePath();
+  if (validate(filePath)) {
+    String albumId=aFile.getParent().toFile().getAbsolutePath();
+    PhotoAlbum album=albums.get(albumId);
+    if (album == null) {
+      album=new PhotoAlbum(albumId);
+      album.getInfo().setTitle(aFile.getParent().toFile().getName());
+      albums.put(albumId,album);
+    }
+    album.addPhoto(filePath);
+    return album;
+  }
+  return null;
+}

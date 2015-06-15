@@ -1,7 +1,7 @@
 {
   ChannelContext channelContextMock=Mockito.mock(ChannelContext.class);
   MessageEncoderDecoder crypt=new MessageEncoderDecoder(clientPair.getPrivate(),clientPair.getPublic(),serverPair.getPublic());
-  akkaService.onRedirectionRule(new RedirectionRule("testDNS".hashCode(),123,1.0,60000));
+  akkaService.onRedirectionRule(new RedirectionRule("testDNS".hashCode(),123,0.0,1.0,60000));
   Thread.sleep(1000);
   SyncRequest request=new SyncRequest();
   request.setRequestId(32);

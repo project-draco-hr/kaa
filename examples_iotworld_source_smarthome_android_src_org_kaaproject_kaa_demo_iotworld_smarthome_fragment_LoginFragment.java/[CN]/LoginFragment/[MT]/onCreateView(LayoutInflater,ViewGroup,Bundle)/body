@@ -1,0 +1,11 @@
+{
+  View rootView=inflater.inflate(R.layout.fragment_login,container,false);
+  setupView(rootView);
+  mUsernameInput=(EditText)rootView.findViewById(R.id.usernameInput);
+  mPasswordInput=(EditText)rootView.findViewById(R.id.passwordInput);
+  mLoginButton=(Button)rootView.findViewById(R.id.loginButton);
+  mUsernameInput.addTextChangedListener(this);
+  mPasswordInput.addTextChangedListener(this);
+  mLoginButton.setOnClickListener(this);
+  return rootView;
+}

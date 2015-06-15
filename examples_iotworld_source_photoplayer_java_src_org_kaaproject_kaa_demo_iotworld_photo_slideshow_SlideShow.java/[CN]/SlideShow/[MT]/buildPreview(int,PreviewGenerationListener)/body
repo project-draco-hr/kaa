@@ -1,0 +1,27 @@
+{
+  pool.execute(new Runnable(){
+    @Override public void run(){
+      try {
+        String photo=album.getPhotos().get(pos);
+        LOG.info("Generating preview for photo: {}",photo);
+        File photoFile=new File(photo);
+        BufferedImage image=ImageIO.read(photoFile);
+        final BufferedImage preview=scale(image,frame.getWidth(),frame.getHeight());
+        listener.onPreviewGenerated(pos,preview,PhotoLibrary.toThumbnailData(image));
+        LOG.info("Generated preview for photo: {}",photo);
+      }
+ catch (      Exception e) {
+        listener.onPreviewGenerationFailed(e);
+      }
+    }
+    private BufferedImage scale(    BufferedImage image,    int width,    int height){
+      final BufferedImage preview=new BufferedImage(width,height,Image.SCALE_SMOOTH);
+      Graphics2D g2=preview.createGraphics();
+      g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+      g2.drawImage(image,0,0,width,height,null);
+      g2.dispose();
+      return preview;
+    }
+  }
+);
+}

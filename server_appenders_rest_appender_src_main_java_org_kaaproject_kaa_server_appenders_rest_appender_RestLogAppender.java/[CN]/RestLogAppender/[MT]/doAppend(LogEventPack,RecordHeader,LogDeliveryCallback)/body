@@ -1,0 +1,59 @@
+{
+  if (closed) {
+    LOG.warn("Attempt to append data to already stopped appender");
+    listener.onInternalError();
+  }
+  if (targetURI == null) {
+    try {
+      targetURI=new URIBuilder().setHost(target.getHostName()).setPort(target.getPort()).setScheme(target.getSchemeName()).setPath(configuration.getPath()).build();
+    }
+ catch (    URISyntaxException e) {
+      LOG.warn("[{}] failed to build request URI",this.getApplicationToken(),e);
+      listener.onInternalError();
+    }
+  }
+  LOG.trace("[{}] appending {} logs to rest endpoint",this.getApplicationToken(),logEventPack.getEvents().size());
+  final RestConfig configuration=this.configuration;
+  try {
+    for (    final LogEventDto dto : generateLogEvent(logEventPack,header)) {
+      executor.submit(new Runnable(){
+        @Override public void run(){
+          try {
+            LOG.trace("[{}] appending {} to rest endpoint",RestLogAppender.this.getApplicationToken(),dto);
+            final HttpRequest request=createRequest(configuration,dto);
+            LOG.trace("[{}] executing {}",RestLogAppender.this.getApplicationToken(),request.getRequestLine());
+            CloseableHttpResponse response=client.execute(target,request);
+            try {
+              int responseCode=response.getStatusLine().getStatusCode();
+              LOG.trace("[{}] received {} response code",RestLogAppender.this.getApplicationToken(),response);
+              if (responseCode >= 200 && responseCode < 400) {
+                LOG.trace("[{}] logs appended successfully",getName());
+                listener.onSuccess();
+              }
+ else {
+                LOG.warn("[{}] bad response code {}",getName(),responseCode);
+                listener.onRemoteError();
+              }
+            }
+  finally {
+              response.close();
+            }
+          }
+ catch (          IOException e) {
+            LOG.error("[{}] Failed to send log event.",getName(),e);
+            listener.onConnectionError();
+          }
+catch (          Exception e) {
+            LOG.error("[{}] Failed to send log event.",getName(),e);
+            listener.onInternalError();
+          }
+        }
+      }
+);
+    }
+  }
+ catch (  IOException e) {
+    LOG.error("[{}] Failed to send log events.",getName(),e);
+    listener.onInternalError();
+  }
+}

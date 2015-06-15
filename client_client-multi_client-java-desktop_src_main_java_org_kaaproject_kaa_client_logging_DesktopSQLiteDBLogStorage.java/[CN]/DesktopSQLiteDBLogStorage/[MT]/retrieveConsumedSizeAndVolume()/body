@@ -1,0 +1,23 @@
+{
+synchronized (connection) {
+    Statement statement=null;
+    ResultSet rs=null;
+    try {
+      statement=connection.createStatement();
+      rs=statement.executeQuery(PersistentLogStorageConstants.KAA_HOW_MANY_LOGS_IN_DB);
+      if (rs.next()) {
+        recordCount=rs.getLong(1);
+        consumedSize=rs.getLong(2);
+        LOG.trace("Retrieved record count: {}, consumed size: {}",recordCount,consumedSize);
+      }
+ else {
+        LOG.error("Unable to retrieve consumed size and volume");
+        throw new RuntimeException("Unable to retrieve consumed size and volume");
+      }
+    }
+  finally {
+      tryCloseResultSet(rs);
+      tryCloseStatement(statement);
+    }
+  }
+}

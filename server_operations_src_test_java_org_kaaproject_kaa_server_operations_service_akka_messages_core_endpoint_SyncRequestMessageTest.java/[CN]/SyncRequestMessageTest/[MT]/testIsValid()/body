@@ -1,22 +1,19 @@
 {
-  SessionInfo session=new SessionInfo(UUID.randomUUID(),Constants.KAA_PLATFORM_PROTOCOL_AVRO_ID,null,ChannelType.SYNC,null,null,"applicationToken","sdkToken",0,true);
   ClientSync request=new ClientSync();
-  request.setClientSyncMetaData(new ClientSyncMetaData());
-  SyncRequestMessage message=new SyncRequestMessage(session,request,null,null);
+  SyncRequestMessage message=createSyncRequestMessage(request);
   ClientSync other=new ClientSync();
-  other.setClientSyncMetaData(new ClientSyncMetaData());
-  SyncRequestMessage otherMessage=new SyncRequestMessage(session,other,null,null);
+  SyncRequestMessage otherMessage=createSyncRequestMessage(other);
   Assert.assertFalse(message.isValid(TransportType.BOOTSTRAP));
   Assert.assertFalse(message.isValid(TransportType.PROFILE));
   other.setProfileSync(new ProfileClientSync());
   message.merge(otherMessage);
   Assert.assertTrue(message.isValid(TransportType.PROFILE));
   Assert.assertFalse(message.isValid(TransportType.CONFIGURATION));
-  other.setConfigurationSync(new ConfigurationClientSync(10,ByteBuffer.wrap("String".getBytes()),false));
+  other.setConfigurationSync(CONFIGURATION_CLIENT_SYNC);
   message.merge(otherMessage);
   Assert.assertTrue(message.isValid(TransportType.CONFIGURATION));
   Assert.assertFalse(message.isValid(TransportType.NOTIFICATION));
-  other.setNotificationSync(new NotificationClientSync());
+  other.setNotificationSync(NOTIFICATION_CLIENT_SYNC);
   message.merge(otherMessage);
   Assert.assertTrue(message.isValid(TransportType.NOTIFICATION));
   Assert.assertFalse(message.isValid(TransportType.USER));

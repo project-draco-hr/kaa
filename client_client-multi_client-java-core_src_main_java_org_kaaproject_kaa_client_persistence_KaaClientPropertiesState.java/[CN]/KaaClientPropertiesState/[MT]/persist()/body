@@ -8,7 +8,8 @@
       LOG.info("Persisted {}",cursor.getValue());
     }
     encoder.flush();
-    state.setProperty(NF_SUBSCRIPTIONS,baos.toString());
+    String base64Str=new String(base64.encodeBase64(baos.toByteArray()),Charset.forName("UTF-8"));
+    state.setProperty(NF_SUBSCRIPTIONS,base64Str);
   }
  catch (  IOException e) {
     LOG.error("Can't persist notification subscription info",e);

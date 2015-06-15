@@ -1,0 +1,11 @@
+{
+  if (mIsVisible != visible) {
+    mIsVisible=visible;
+    if (mIsVisible) {
+      mExpandAnimation.startAnimation(animate ? ANIMATION_DURATION : 0);
+    }
+ else {
+      mCollapseAnimation.startAnimation(animate ? ANIMATION_DURATION : 0);
+    }
+  }
+}

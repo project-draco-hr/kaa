@@ -1,0 +1,9 @@
+{
+  boolean ignoreTouch=ignoreTouch(event.getX(),event.getY());
+  if (ignoreTouch) {
+    return;
+  }
+  mTouchAngle=getTouchDegrees(event.getX(),event.getY());
+  int targetProgress=getProgressForAngle(mTouchAngle);
+  onTargetProgressRefresh(targetProgress,true,notifyListeners);
+}

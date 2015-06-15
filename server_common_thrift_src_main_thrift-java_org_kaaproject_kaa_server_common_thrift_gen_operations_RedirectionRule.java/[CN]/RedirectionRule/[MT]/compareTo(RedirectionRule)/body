@@ -23,12 +23,22 @@
       return lastComparison;
     }
   }
-  lastComparison=Boolean.valueOf(isSetRedirectionProbability()).compareTo(other.isSetRedirectionProbability());
+  lastComparison=Boolean.valueOf(isSetInitRedirectProbability()).compareTo(other.isSetInitRedirectProbability());
   if (lastComparison != 0) {
     return lastComparison;
   }
-  if (isSetRedirectionProbability()) {
-    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.redirectionProbability,other.redirectionProbability);
+  if (isSetInitRedirectProbability()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.initRedirectProbability,other.initRedirectProbability);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  lastComparison=Boolean.valueOf(isSetSessionRedirectProbability()).compareTo(other.isSetSessionRedirectProbability());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetSessionRedirectProbability()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.sessionRedirectProbability,other.sessionRedirectProbability);
     if (lastComparison != 0) {
       return lastComparison;
     }

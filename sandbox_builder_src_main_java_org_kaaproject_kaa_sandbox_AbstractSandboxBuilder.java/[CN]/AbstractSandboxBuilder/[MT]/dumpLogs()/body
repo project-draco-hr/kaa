@@ -1,0 +1,10 @@
+{
+  File dumpedLogsFolder=new File(LOG_DUMP_LOCATION);
+  if (!dumpedLogsFolder.exists()) {
+    dumpedLogsFolder.mkdirs();
+  }
+  Scp scp=createScp();
+  scp.setLocalTodir(LOG_DUMP_LOCATION);
+  scp.setFile(SSH_USERNAME + "@" + DEFAULT_HOST+ ":/var/log/kaa/*");
+  scp.execute();
+}

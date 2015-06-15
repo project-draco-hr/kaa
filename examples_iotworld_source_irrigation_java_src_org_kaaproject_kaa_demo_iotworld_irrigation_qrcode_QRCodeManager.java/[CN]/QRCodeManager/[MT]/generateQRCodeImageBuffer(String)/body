@@ -1,0 +1,22 @@
+{
+  BufferedImage image=null;
+  if (authToken != null && authToken.length() > 0) {
+    image=imageCache.get(authToken);
+    if (image == null) {
+      Map<EncodeHintType,ErrorCorrectionLevel> hintMap=new HashMap<EncodeHintType,ErrorCorrectionLevel>();
+      hintMap.put(EncodeHintType.ERROR_CORRECTION,ErrorCorrectionLevel.L);
+      try {
+        image=createQRCodeBufferedImage(authToken,DEFAULT_CHARSET,hintMap,400,400);
+        if (imageCache.size() > MAX_CACHE_MAP_SIZE) {
+          clean();
+        }
+        imageCache.put(authToken,image);
+        LOG.info("QR Code image generated successfully!");
+      }
+ catch (      WriterException|IOException e) {
+        LOG.error("Got exception during generating QRCode ",e);
+      }
+    }
+  }
+  return image;
+}
