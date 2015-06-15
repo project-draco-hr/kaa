@@ -7,13 +7,13 @@
   while (iter-- > 0) {
     storage.addLogRecord(record);
   }
-  LogBlock removingBlock=storage.getRecordBlock(7);
+  LogBlock removingBlock=storage.getRecordBlock(7,2);
   insertionCount-=removingBlock.getRecords().size();
   storage.removeRecordBlock(removingBlock.getBlockId());
-  removingBlock=storage.getRecordBlock(9);
+  removingBlock=storage.getRecordBlock(9,3);
   insertionCount-=removingBlock.getRecords().size();
   storage.removeRecordBlock(removingBlock.getBlockId());
-  LogBlock leftBlock=storage.getRecordBlock(50);
+  LogBlock leftBlock=storage.getRecordBlock(50,50);
   Assert.assertTrue(leftBlock.getRecords().size() == insertionCount);
   storage.close();
 }

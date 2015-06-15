@@ -6,7 +6,7 @@
   while (iter-- > 0) {
     storage.addLogRecord(record);
   }
-  LogBlock logBlock=storage.getRecordBlock(8192);
+  LogBlock logBlock=storage.getRecordBlock(8192,1000);
   Assert.assertEquals(insertionCount,logBlock.getRecords().size());
   storage.close();
 }
