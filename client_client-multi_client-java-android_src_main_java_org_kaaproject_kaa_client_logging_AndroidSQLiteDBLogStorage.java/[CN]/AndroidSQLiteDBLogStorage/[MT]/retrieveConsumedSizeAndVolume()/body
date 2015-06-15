@@ -1,0 +1,20 @@
+{
+synchronized (database) {
+    Cursor cursor=null;
+    try {
+      cursor=database.rawQuery(PersistentLogStorageConstants.KAA_HOW_MANY_LOGS_IN_DB,null);
+      if (cursor.moveToFirst()) {
+        recordCount=cursor.getLong(0);
+        consumedSize=cursor.getLong(1);
+        Log.i(TAG,"Retrieved record count: " + recordCount + ", consumed size: "+ consumedSize);
+      }
+ else {
+        Log.e(TAG,"Unable to retrieve consumed size and volume");
+        throw new RuntimeException("Unable to retrieve consumed size and volume");
+      }
+    }
+  finally {
+      tryCloseCursor(cursor);
+    }
+  }
+}
