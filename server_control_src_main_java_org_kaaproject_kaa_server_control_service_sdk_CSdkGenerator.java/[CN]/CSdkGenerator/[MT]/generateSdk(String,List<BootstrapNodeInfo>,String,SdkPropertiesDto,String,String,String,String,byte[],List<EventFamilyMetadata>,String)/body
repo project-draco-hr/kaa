@@ -1,10 +1,8 @@
 {
-  String appToken=sdkProperties.getApplicationToken();
   Integer configurationSchemaVersion=sdkProperties.getConfigurationSchemaVersion();
   Integer profileSchemaVersion=sdkProperties.getProfileSchemaVersion();
   Integer notificationSchemaVersion=sdkProperties.getNotificationSchemaVersion();
   Integer logSchemaVersion=sdkProperties.getLogSchemaVersion();
-  String defaultVerifierToken=sdkProperties.getDefaultVerifierToken();
   String sdkTemplateLocation=System.getProperty("server_home_dir") + "/" + C_SDK_DIR+ "/"+ C_SDK_PREFIX+ buildVersion+ ".tar.gz";
   LOG.debug("Lookup C SDK template: {}",sdkTemplateLocation);
   CompressorStreamFactory csf=new CompressorStreamFactory();
@@ -38,7 +36,7 @@
   while ((e=templateArchive.getNextEntry()) != null) {
     if (!e.isDirectory()) {
       if (e.getName().equals(KAA_DEFAULTS_HEADER)) {
-        byte[] kaaDefaultsData=generateKaaDefaults(bootstrapNodes,appToken,configurationSchemaVersion,profileSchemaVersion,notificationSchemaVersion,logSchemaVersion,configurationProtocolSchemaBody,defaultConfigurationData,eventFamilies,defaultVerifierToken);
+        byte[] kaaDefaultsData=generateKaaDefaults(bootstrapNodes,sdkToken,profileSchemaVersion,configurationProtocolSchemaBody,defaultConfigurationData,eventFamilies);
         TarArchiveEntry kaaDefaultsEntry=new TarArchiveEntry(KAA_DEFAULTS_HEADER);
         kaaDefaultsEntry.setSize(kaaDefaultsData.length);
         sdkFile.putArchiveEntry(kaaDefaultsEntry);
