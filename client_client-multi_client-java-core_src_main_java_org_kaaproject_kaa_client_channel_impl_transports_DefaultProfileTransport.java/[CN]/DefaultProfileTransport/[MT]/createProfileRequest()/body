@@ -10,7 +10,6 @@
         request.setEndpointPublicKey(ByteBuffer.wrap(clientState.getPublicKey().getEncoded()));
       }
       request.setProfileBody(ByteBuffer.wrap(serializedProfile));
-      request.setSdkToken(properties.getSdkToken());
       return request;
     }
  else {

@@ -10,7 +10,6 @@
   ProfileSyncRequest profileSync=new ProfileSyncRequest();
   profileSync.setEndpointPublicKey(clientPublicKey);
   profileSync.setProfileBody(ByteBuffer.wrap(PROFILE_BODY.getBytes()));
-  profileSync.setSdkToken(SDK_TOKEN);
   request.setProfileSyncRequest(profileSync);
   whenSync(simpleResponse);
   MessageBuilder responseBuilder=Mockito.mock(MessageBuilder.class);
