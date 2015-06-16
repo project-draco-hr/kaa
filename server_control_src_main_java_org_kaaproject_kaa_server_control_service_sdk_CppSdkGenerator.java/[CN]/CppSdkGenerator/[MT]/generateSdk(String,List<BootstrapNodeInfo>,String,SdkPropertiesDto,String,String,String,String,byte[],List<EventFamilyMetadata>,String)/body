@@ -1,5 +1,4 @@
 {
-  String appToken=sdkProperties.getApplicationToken();
   Integer configurationSchemaVersion=sdkProperties.getConfigurationSchemaVersion();
   Integer profileSchemaVersion=sdkProperties.getProfileSchemaVersion();
   Integer notificationSchemaVersion=sdkProperties.getNotificationSchemaVersion();
@@ -17,7 +16,7 @@
   Map<String,TarEntryData> replacementData=new HashMap<String,TarEntryData>();
   List<TarEntryData> cppSources=new ArrayList<>();
   TarArchiveEntry entry=new TarArchiveEntry(SDK_DEFAULTS_PATH);
-  byte[] data=generateKaaDefaults(bootstrapNodes,appToken,configurationSchemaVersion,profileSchemaVersion,notificationSchemaVersion,logSchemaVersion,configurationProtocolSchemaBody,defaultConfigurationData,eventFamilies,defaultVerifierToken);
+  byte[] data=generateKaaDefaults(bootstrapNodes,sdkToken,configurationSchemaVersion,profileSchemaVersion,notificationSchemaVersion,logSchemaVersion,configurationProtocolSchemaBody,defaultConfigurationData,eventFamilies,defaultVerifierToken);
   entry.setSize(data.length);
   TarEntryData tarEntry=new TarEntryData(entry,data);
   cppSources.add(tarEntry);
