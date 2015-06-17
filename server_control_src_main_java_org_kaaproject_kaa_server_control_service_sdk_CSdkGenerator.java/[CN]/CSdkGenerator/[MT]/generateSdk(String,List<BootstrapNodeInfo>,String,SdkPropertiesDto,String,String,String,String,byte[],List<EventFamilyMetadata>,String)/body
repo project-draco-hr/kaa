@@ -37,7 +37,7 @@
   while ((e=templateArchive.getNextEntry()) != null) {
     if (!e.isDirectory()) {
       if (e.getName().equals(KAA_DEFAULTS_HEADER)) {
-        byte[] kaaDefaultsData=generateKaaDefaults(bootstrapNodes,sdkToken,profileSchemaVersion,configurationProtocolSchemaBody,defaultConfigurationData,defaultVerifierToken,eventFamilies);
+        byte[] kaaDefaultsData=generateKaaDefaults(bootstrapNodes,sdkToken,profileSchemaVersion,configurationProtocolSchemaBody,defaultConfigurationData,defaultVerifierToken);
         TarArchiveEntry kaaDefaultsEntry=new TarArchiveEntry(KAA_DEFAULTS_HEADER);
         kaaDefaultsEntry.setSize(kaaDefaultsData.length);
         sdkFile.putArchiveEntry(kaaDefaultsEntry);
