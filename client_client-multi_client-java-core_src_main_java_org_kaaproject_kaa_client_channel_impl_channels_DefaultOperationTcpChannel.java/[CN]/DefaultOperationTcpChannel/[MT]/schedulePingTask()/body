@@ -1,6 +1,6 @@
 {
   if (executor != null) {
     LOG.debug("Scheduling a ping task ({} seconds) for channel [{}]",PING_TIMEOUT,getId());
-    pingTaskFuture=executor.schedule(pingTask,PING_TIMEOUT,TimeUnit.SECONDS);
+    executor.scheduleWithFixedDelay(pingTask,PING_TIMEOUT,PING_TIMEOUT,TimeUnit.SECONDS);
   }
 }

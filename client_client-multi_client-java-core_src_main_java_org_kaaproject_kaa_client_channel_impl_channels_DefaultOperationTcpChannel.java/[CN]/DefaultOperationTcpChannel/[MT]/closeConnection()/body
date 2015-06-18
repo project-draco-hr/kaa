@@ -1,14 +1,6 @@
 {
   if (socket != null) {
     LOG.info("Channel \"{}\": closing current connection",getId());
-    if (pingTaskFuture != null) {
-      pingTaskFuture.cancel(true);
-      pingTaskFuture=null;
-    }
-    if (readTaskFuture != null) {
-      readTaskFuture.cancel(true);
-      readTaskFuture=null;
-    }
     try {
       sendDisconnect();
     }
