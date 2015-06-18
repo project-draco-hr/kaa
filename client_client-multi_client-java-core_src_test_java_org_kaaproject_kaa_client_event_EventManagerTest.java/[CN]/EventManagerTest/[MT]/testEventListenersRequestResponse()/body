@@ -1,8 +1,7 @@
 {
   KaaClientPropertiesState state=new KaaClientPropertiesState(new FilePersistentStorage(),CommonsBase64.getInstance(),KaaClientPropertiesStateTest.getProperties());
   EventTransport transport=Mockito.mock(EventTransport.class);
-  SimpleExecutorContext executorContext=new SimpleExecutorContext();
-  executorContext.init();
+  ExecutorContext executorContext=Mockito.mock(ExecutorContext.class);
   EventManager eventManager=new DefaultEventManager(state,executorContext,transport);
   List<String> eventFQNs=new ArrayList<String>();
   eventFQNs.add("eventFQN1");
@@ -14,7 +13,6 @@
   response.add(new EventListenersResponse(requestIdOk,new ArrayList<String>(),SyncResponseResultType.SUCCESS));
   response.add(new EventListenersResponse(requestIdBad,new ArrayList<String>(),SyncResponseResultType.FAILURE));
   eventManager.eventListenersResponseReceived(response);
-  verify(fetchListener,Mockito.timeout(1000).times(1)).onEventListenersReceived(anyListOf(String.class));
-  verify(fetchListener,Mockito.timeout(1000).times(1)).onRequestFailed();
-  executorContext.stop();
+  verify(fetchListener,times(1)).onEventListenersReceived(anyListOf(String.class));
+  verify(fetchListener,times(1)).onRequestFailed();
 }

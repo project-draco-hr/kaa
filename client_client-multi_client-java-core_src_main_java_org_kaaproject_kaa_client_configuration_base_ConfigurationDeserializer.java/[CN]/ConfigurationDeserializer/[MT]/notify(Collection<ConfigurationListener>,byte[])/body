@@ -1,11 +1,6 @@
 {
-  final Configuration configuration=fromByteArray(configurationData);
-  for (  final ConfigurationListener listener : listeners) {
-    executorContext.getCallbackExecutor().submit(new Runnable(){
-      @Override public void run(){
-        listener.onConfigurationUpdate(configuration);
-      }
-    }
-);
+  Configuration configuration=fromByteArray(configurationData);
+  for (  ConfigurationListener listener : listeners) {
+    listener.onConfigurationUpdate(configuration);
   }
 }
