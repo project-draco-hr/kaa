@@ -2,8 +2,8 @@
   KaaClientState clientState=Mockito.mock(KaaClientState.class);
   Mockito.when(clientState.getPrivateKey()).thenReturn(clientKeys.getPrivate());
   Mockito.when(clientState.getPublicKey()).thenReturn(clientKeys.getPublic());
-  KaaChannelManager channelManager=Mockito.mock(KaaChannelManager.class);
-  TestOperationTcpChannel tcpChannel=new TestOperationTcpChannel(clientState,channelManager);
+  FailoverManager failoverManager=Mockito.mock(FailoverManager.class);
+  TestOperationTcpChannel tcpChannel=new TestOperationTcpChannel(clientState,failoverManager);
   AvroByteArrayConverter<SyncResponse> responseCreator=new AvroByteArrayConverter<SyncResponse>(SyncResponse.class);
   AvroByteArrayConverter<SyncRequest> requestCreator=new AvroByteArrayConverter<SyncRequest>(SyncRequest.class);
   KaaDataMultiplexer multiplexer=Mockito.mock(KaaDataMultiplexer.class);

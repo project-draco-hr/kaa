@@ -5,5 +5,5 @@
     executor.schedule(openConnectionTask,RECONNECT_TIMEOUT,TimeUnit.SECONDS);
     return;
   }
-  channelManager.onServerFailed(currentServer);
+  failoverManager.onServerFailed(currentServer);
 }

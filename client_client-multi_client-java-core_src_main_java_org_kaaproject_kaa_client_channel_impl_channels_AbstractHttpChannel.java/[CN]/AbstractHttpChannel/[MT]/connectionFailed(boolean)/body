@@ -1,6 +1,9 @@
 {
   lastConnectionFailed=failed;
   if (failed) {
-    client.getChannelManager().onServerFailed(currentServer);
+    failoverManager.onServerFailed(currentServer);
+  }
+ else {
+    failoverManager.onServerConnected(currentServer);
   }
 }

@@ -1,0 +1,6 @@
+{
+  channelManager=Mockito.mock(KaaChannelManager.class);
+  failoverManager=new DefaultFailoverManager(channelManager,RESOLUTION_TIMEOUT_MS);
+  resolutionProgressMap=Mockito.spy(new HashMap<ServerType,DefaultFailoverManager.AccessPointIdResolution>());
+  ReflectionTestUtils.setField(failoverManager,"resolutionProgressMap",resolutionProgressMap);
+}

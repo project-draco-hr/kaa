@@ -9,7 +9,10 @@
   Mockito.when(channel.getServerType()).thenReturn(ServerType.BOOTSTRAP);
   Mockito.when(channel.getId()).thenReturn("mock_channel");
   KaaChannelManager channelManager=new DefaultChannelManager(bootstrapManager,bootststrapServers);
+  FailoverManager failoverManager=Mockito.spy(new DefaultFailoverManager(channelManager));
+  channelManager.setFailoverManager(failoverManager);
   channelManager.addChannel(channel);
+  Mockito.verify(failoverManager,Mockito.times(1)).onServerChanged(Mockito.any(TransportConnectionInfo.class));
   assertEquals(channel,channelManager.getChannel("mock_channel"));
   assertEquals(channel,channelManager.getChannels().get(0));
   channelManager.removeChannel(channel);

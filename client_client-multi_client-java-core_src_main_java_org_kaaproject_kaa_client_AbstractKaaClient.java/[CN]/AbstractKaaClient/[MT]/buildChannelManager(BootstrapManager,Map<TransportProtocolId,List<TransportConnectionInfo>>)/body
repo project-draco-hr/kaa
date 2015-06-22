@@ -1,0 +1,5 @@
+{
+  KaaInternalChannelManager channelManager=new DefaultChannelManager(bootstrapManager,bootstrapServers);
+  channelManager.setConnectivityChecker(context.createConnectivityChecker());
+  return channelManager;
+}
