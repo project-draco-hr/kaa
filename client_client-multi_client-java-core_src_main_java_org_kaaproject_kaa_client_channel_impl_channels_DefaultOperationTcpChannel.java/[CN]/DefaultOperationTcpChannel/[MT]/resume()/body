@@ -4,6 +4,9 @@
     if (executor == null) {
       executor=createExecutor();
     }
-    executor.submit(openConnectionTask);
+    if (!isOpenConnectionScheduled) {
+      executor.submit(openConnectionTask);
+      isOpenConnectionScheduled=true;
+    }
   }
 }
