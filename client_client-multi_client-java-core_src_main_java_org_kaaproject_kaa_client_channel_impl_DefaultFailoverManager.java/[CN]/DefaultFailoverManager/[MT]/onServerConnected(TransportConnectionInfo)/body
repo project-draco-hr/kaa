@@ -12,4 +12,10 @@
     LOG.trace("Cancelling fail resolution: {}",accessPointIdResolution);
     cancelCurrentFailResolution(accessPointIdResolution);
   }
+ else   if (accessPointIdResolution.getCurResolution() != null) {
+    LOG.debug("Connection for outdated accessPointId: {} was received, ignoring. The new accessPointId is: {}",connectionInfo.getAccessPointId(),accessPointIdResolution.getAccessPointId());
+  }
+ else {
+    LOG.trace("There is no current resolution in progress, connected to the same server: {}",connectionInfo);
+  }
 }
