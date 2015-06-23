@@ -1,5 +1,5 @@
 {
-  LogStorage storage=(LogStorage)getStorage(blockSize);
+  LogStorage storage=(LogStorage)getStorage(blockSize,batchSize);
   List<LogRecord> expectedList=new LinkedList<>();
   LogRecord record=new LogRecord();
   while (addedN-- > 0) {

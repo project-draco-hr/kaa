@@ -1,5 +1,5 @@
 {
-  LogStorage storage=(LogStorage)getStorage(BUCKET_SIZE);
+  LogStorage storage=(LogStorage)getStorage(BUCKET_SIZE,RECORD_COUNT);
   LogRecord record=new LogRecord();
   int insertionCount=7;
   int iter=insertionCount;
@@ -8,7 +8,7 @@
   }
   LogBlock beforePersist=storage.getRecordBlock(15,2);
   storage.close();
-  storage=(LogStorage)getStorage(BUCKET_SIZE);
+  storage=(LogStorage)getStorage(BUCKET_SIZE,RECORD_COUNT);
   LogStorageStatus storageStatus=(LogStorageStatus)storage;
   Assert.assertEquals(insertionCount,storageStatus.getRecordCount());
   Assert.assertEquals(insertionCount * 3,storageStatus.getConsumedVolume());

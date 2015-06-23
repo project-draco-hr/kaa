@@ -1,0 +1,17 @@
+{
+  long bucketSize=10;
+  int recordCount=4;
+  LogStorage storage=(LogStorage)getStorage(bucketSize,recordCount);
+  LogRecord record=new LogRecord();
+  int insertionCount=12;
+  int iter=insertionCount;
+  while (iter-- > 0) {
+    storage.addLogRecord(record);
+  }
+  long maxSize=6;
+  int maxCount=3;
+  LogBlock logBlock=storage.getRecordBlock(maxSize,maxCount);
+  Assert.assertTrue(logBlock.getRecords().size() <= maxCount);
+  Assert.assertTrue(getLogBlockSize(logBlock) <= maxSize);
+  Assert.assertEquals(insertionCount - logBlock.getRecords().size(),((LogStorageStatus)storage).getRecordCount());
+}
