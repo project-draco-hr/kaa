@@ -15,12 +15,12 @@
       }
       request.setRequestId(group.getBlockId());
       request.setLogEntries(logs);
-      long timeout=System.currentTimeMillis() + strategy.getTimeout() * 1000;
-      LOG.info("Adding following pair to timeoutMap: {}, {}",group.getBlockId(),timeout);
-      timeoutMap.put(group.getBlockId(),timeout);
+      LOG.info("Adding following bucket id [{}] for timeout tracking",group.getBlockId());
+      timeouts.add(group.getBlockId());
+      final LogBlock timeoutGroup=group;
       executorContext.getScheduledExecutor().schedule(new Runnable(){
         @Override public void run(){
-          checkDeliveryTimeout();
+          checkDeliveryTimeout(timeoutGroup.getBlockId());
         }
       }
 ,strategy.getTimeout(),TimeUnit.SECONDS);

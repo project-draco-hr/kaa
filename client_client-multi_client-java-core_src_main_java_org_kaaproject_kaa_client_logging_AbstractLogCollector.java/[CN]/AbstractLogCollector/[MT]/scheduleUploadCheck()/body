@@ -2,7 +2,7 @@
   LOG.trace("Attempt to execute upload check: {}",uploadCheckInProgress);
 synchronized (uploadCheckLock) {
     if (!uploadCheckInProgress) {
-      LOG.trace("Scheduling upload check with timeout: {}" + strategy.getUploadCheckPeriod());
+      LOG.trace("Scheduling upload check with timeout: {}",strategy.getUploadCheckPeriod());
       uploadCheckInProgress=true;
       executorContext.getScheduledExecutor().schedule(new Runnable(){
         @Override public void run(){
