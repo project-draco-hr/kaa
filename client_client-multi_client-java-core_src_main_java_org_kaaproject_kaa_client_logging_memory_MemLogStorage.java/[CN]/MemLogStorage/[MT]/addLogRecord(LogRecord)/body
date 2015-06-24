@@ -7,7 +7,7 @@
     throw new IllegalStateException("Storage is full!");
   }
 synchronized (buckets) {
-    if (currentBucket == null) {
+    if (currentBucket == null || currentBucket.getState() != MemBucketState.FREE) {
       currentBucket=new MemBucket(bucketIdSeq.getAndIncrement(),maxBucketSize,maxBucketRecordCount);
       buckets.put(currentBucket.getId(),currentBucket);
     }

@@ -18,9 +18,13 @@ synchronized (buckets) {
   }
   LogBlock result=null;
   if (bucketCandidate != null) {
+    if (bucketCandidate.getState() == MemBucketState.FREE) {
+      LOG.trace("Only a bucket with state FREE found");
+      bucketCandidate.setState(MemBucketState.PENDING);
+    }
     if (bucketCandidate.getSize() <= blockSize && bucketCandidate.getCount() <= batchCount) {
       result=new LogBlock(bucketCandidate.getId(),bucketCandidate.getRecords());
-      LOG.debug("Return record block [{}]",result);
+      LOG.debug("Return record block with records count: [{}]",bucketCandidate.getCount());
     }
  else {
       LOG.debug("Shrinking bucket {} to new size: [{}] and count: [{}]",bucketCandidate,blockSize,batchCount);
