@@ -14,9 +14,10 @@ synchronized (connection) {
       insertStatement.setBytes(1,record.getData());
       int affectedRows=insertStatement.executeUpdate();
       if (affectedRows == 1) {
-        consumedSize+=record.getSize();
-        recordCount++;
-        LOG.trace("Added a new log record, records count: {}, data: {}",recordCount,record.getData());
+        unmarkedConsumedSize+=record.getSize();
+        unmarkedRecordCount++;
+        totalRecordCount++;
+        LOG.trace("Added a new log record, total record count: {}, data: {}, unmarked record count: {}",totalRecordCount,record.getData(),unmarkedRecordCount);
       }
  else {
         LOG.warn("No log record was added");
