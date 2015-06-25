@@ -1,0 +1,11 @@
+{
+  try {
+    FileUtils.forceDelete(new File(fileName));
+  }
+ catch (  FileNotFoundException e) {
+    LOG.trace("File {} wasn't deleted, as it hadn't existed :",fileName,e);
+  }
+catch (  IOException e) {
+    LOG.debug("An error occurred during deletion of the file [{}] :",fileName,e);
+  }
+}
