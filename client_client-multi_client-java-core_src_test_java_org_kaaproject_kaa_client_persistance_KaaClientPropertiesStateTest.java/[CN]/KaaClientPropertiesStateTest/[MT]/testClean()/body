@@ -1,0 +1,12 @@
+{
+  KaaClientState state=new KaaClientPropertiesState(new FilePersistentStorage(),CommonsBase64.getInstance(),getProperties());
+  File stateProps=new File("state.properties");
+  File statePropsBckp=new File("state.properties_bckp");
+  state.persist();
+  state.persist();
+  assertTrue(stateProps.exists());
+  assertTrue(statePropsBckp.exists());
+  state.clean();
+  assertFalse(stateProps.exists());
+  assertFalse(statePropsBckp.exists());
+}

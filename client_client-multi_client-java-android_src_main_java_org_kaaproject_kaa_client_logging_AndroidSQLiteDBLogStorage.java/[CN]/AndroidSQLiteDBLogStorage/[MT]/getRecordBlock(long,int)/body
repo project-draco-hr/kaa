@@ -1,0 +1,52 @@
+{
+synchronized (database) {
+    Log.d(TAG,"Creating a new record block, needed size: " + blockSize + ", batchSize: "+ batchSize);
+    LogBlock logBlock=null;
+    Cursor cursor=null;
+    List<String> unmarkedRecordIds=new LinkedList<>();
+    List<LogRecord> logRecords=new LinkedList<>();
+    long leftBlockSize=blockSize;
+    try {
+      cursor=database.rawQuery(PersistentLogStorageConstants.KAA_SELECT_UNMARKED_RECORDS,new String[]{String.valueOf(batchSize)});
+      while (cursor.moveToNext()) {
+        int recordId=cursor.getInt(0);
+        byte[] recordData=cursor.getBlob(1);
+        if (recordData != null && recordData.length > 0) {
+          if (leftBlockSize < recordData.length) {
+            break;
+          }
+          logRecords.add(new LogRecord(recordData));
+          unmarkedRecordIds.add(String.valueOf(recordId));
+          leftBlockSize-=recordData.length;
+        }
+ else {
+          Log.w(TAG,"Found unmarked record with no data. Deleting it...");
+          removeRecordById(recordId);
+        }
+      }
+      if (!logRecords.isEmpty()) {
+        updateBucketIdForRecords(currentBucketId,unmarkedRecordIds);
+        logBlock=new LogBlock(currentBucketId++,logRecords);
+        long logBlockSize=blockSize - leftBlockSize;
+        consumedSize-=logBlockSize;
+        consumedMemoryStorage.put(logBlock.getBlockId(),logBlockSize);
+        Log.i(TAG,"Created log block: id [" + logBlock.getBlockId() + "], size: "+ logBlockSize+ ". Log block record count: "+ logBlock.getRecords().size()+ ", Total record count: "+ recordCount);
+      }
+ else {
+        Log.i(TAG,"No unmarked log records found");
+      }
+    }
+ catch (    SQLiteException e) {
+      Log.e(TAG,"Can't retrieve unmarked records from storage",e);
+    }
+ finally {
+      try {
+        tryCloseCursor(cursor);
+      }
+ catch (      SQLiteException e) {
+        Log.e(TAG,"Unable to close cursor",e);
+      }
+    }
+    return logBlock;
+  }
+}

@@ -1,0 +1,11 @@
+{
+  LOG.trace("Removing record block with id [{}]",id);
+synchronized (buckets) {
+    if (buckets.remove(id) != null) {
+      LOG.debug("Record block [{}] removed",id);
+    }
+ else {
+      LOG.debug("Failed to remove record block [{}]",id);
+    }
+  }
+}

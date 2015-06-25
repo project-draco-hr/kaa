@@ -1,0 +1,16 @@
+{
+switch (status) {
+case UNATHORIZED_HTTP_STATUS:
+    state.clean();
+  break;
+default :
+break;
+}
+lastConnectionFailed=failed;
+if (failed) {
+failoverManager.onServerFailed(currentServer);
+}
+ else {
+failoverManager.onServerConnected(currentServer);
+}
+}

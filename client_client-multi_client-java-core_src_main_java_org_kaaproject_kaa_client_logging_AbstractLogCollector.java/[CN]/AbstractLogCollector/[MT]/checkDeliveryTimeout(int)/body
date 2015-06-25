@@ -1,0 +1,19 @@
+{
+  LOG.debug("Checking for a delivery timeout of the bucket with id: [{}] ",bucketId);
+  boolean isTimeout=timeouts.remove(bucketId);
+  if (isTimeout) {
+    LOG.info("Log delivery timeout detected for the bucket with id: [{}]",bucketId);
+    storage.notifyUploadFailed(bucketId);
+    final LogFailoverCommand controller=this.controller;
+    executorContext.getCallbackExecutor().execute(new Runnable(){
+      @Override public void run(){
+        strategy.onTimeout(controller);
+      }
+    }
+);
+  }
+ else {
+    LOG.trace("No log delivery timeout for the bucket with id [{}] was detected",bucketId);
+  }
+  return isTimeout;
+}

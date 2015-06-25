@@ -3,7 +3,11 @@
     processTypes(typesToProcess);
     connectionFailed(false);
   }
- catch (  Exception e) {
+ catch (  TransportException e) {
+    LOG.error("Failed to receive response from the operation {}",e);
+    connectionFailed(true,e.getStatus());
+  }
+catch (  Exception e) {
     LOG.error("Failed to receive response from the operation {}",e);
     connectionFailed(true);
   }

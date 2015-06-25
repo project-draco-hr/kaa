@@ -14,7 +14,10 @@
       executor=createExecutor();
     }
     closeConnection();
-    executor.submit(openConnectionTask);
+    if (!isOpenConnectionScheduled) {
+      executor.submit(openConnectionTask);
+      isOpenConnectionScheduled=true;
+    }
   }
  else {
     LOG.info("Can't start new session. Channel [{}] is paused",getId());

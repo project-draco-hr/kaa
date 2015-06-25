@@ -1,0 +1,12 @@
+{
+  MemBucket bucket=new MemBucket(1,maxSize,maxRecordCount);
+  int curSize=0;
+  int curRecordCount=0;
+  LogRecord record=new LogRecord();
+  while (curSize + record.getSize() <= maxSize && curRecordCount < maxRecordCount) {
+    Assert.assertTrue(bucket.addRecord(record));
+    curRecordCount++;
+    curSize+=3;
+  }
+  Assert.assertFalse(bucket.addRecord(record));
+}
