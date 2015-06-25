@@ -8,7 +8,7 @@
   Mockito.when(channel.getServerType()).thenReturn(ServerType.OPERATIONS);
   Mockito.when(channel.getId()).thenReturn("mock_channel");
   KaaInternalChannelManager channelManager=new DefaultChannelManager(bootstrapManager,bootststrapServers);
-  FailoverManager failoverManager=Mockito.spy(new DefaultFailoverManager(channelManager));
+  FailoverManager failoverManager=Mockito.spy(new DefaultFailoverManager(channelManager,CONTEXT));
   channelManager.setFailoverManager(failoverManager);
   channelManager.addChannel(channel);
   channelManager.addChannel(channel);

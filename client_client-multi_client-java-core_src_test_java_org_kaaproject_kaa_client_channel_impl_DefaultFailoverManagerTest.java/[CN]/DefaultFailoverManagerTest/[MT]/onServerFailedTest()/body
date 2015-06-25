@@ -4,6 +4,7 @@
   Mockito.verify(resolutionProgressMap,Mockito.never()).put(Mockito.any(ServerType.class),Mockito.any(DefaultFailoverManager.AccessPointIdResolution.class));
   failoverManager.onServerFailed(info);
   Mockito.verify(channelManager,Mockito.times(1)).onServerFailed(info);
+  Mockito.verify(context,Mockito.times(1)).getScheduledExecutor();
   ArgumentCaptor<DefaultFailoverManager.AccessPointIdResolution> argument=ArgumentCaptor.forClass(DefaultFailoverManager.AccessPointIdResolution.class);
   Mockito.verify(resolutionProgressMap,Mockito.times(1)).put(Mockito.eq(info.getServerType()),argument.capture());
   assertEquals(argument.getValue().getAccessPointId(),info.getAccessPointId());

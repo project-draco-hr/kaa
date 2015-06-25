@@ -18,7 +18,7 @@
     }
   }
   LOG.trace("Next fail resolution will be available in {} ms",resolutionTimeout);
-  Future<?> currentResolution=executor.schedule(new Runnable(){
+  Future<?> currentResolution=context.getScheduledExecutor().schedule(new Runnable(){
     @Override public void run(){
       LOG.debug("Removing server {} from resolution map for type: {}",connectionInfo,connectionInfo.getServerType());
       resolutionProgressMap.remove(connectionInfo.getServerType());
