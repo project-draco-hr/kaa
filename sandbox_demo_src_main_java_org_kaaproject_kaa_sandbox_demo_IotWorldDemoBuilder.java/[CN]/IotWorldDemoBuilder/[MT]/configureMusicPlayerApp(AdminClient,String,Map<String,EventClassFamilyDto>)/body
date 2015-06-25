@@ -1,5 +1,5 @@
 {
-  SdkKey sdkKey=createSdkKey(client,applicationId,true);
+  SdkPropertiesDto sdkProperties=createSdkProperties(client,applicationId,true);
   List<String> aefMapIds=new ArrayList<>();
   aefMapIds.add(createAefMap(client,applicationId,ecfMap.get(DEVICE_EVENT_CLASS_FAMILY),defaultDeviceAefMap));
   aefMapIds.add(createAefMap(client,applicationId,ecfMap.get(GEO_FENCING_EVENT_CLASS_FAMILY),defaultGeoFencingDeviceAefMap));
@@ -13,6 +13,6 @@
   actionsMap.put("org.kaaproject.kaa.demo.iotworld.music.SeekRequest",ApplicationEventAction.SINK);
   actionsMap.put("org.kaaproject.kaa.demo.iotworld.music.PlaybackStatusUpdate",ApplicationEventAction.SOURCE);
   aefMapIds.add(createAefMap(client,applicationId,ecfMap.get(MUSIC_EVENT_CLASS_FAMILY),actionsMap));
-  sdkKey.setAefMapIds(aefMapIds);
-  projectsSdkMap.put(MUSICPLAYER_JAVA_ID,sdkKey);
+  sdkProperties.setAefMapIds(aefMapIds);
+  projectsSdkMap.put(MUSICPLAYER_JAVA_ID,sdkProperties);
 }

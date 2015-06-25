@@ -1,58 +1,11 @@
 {
   TTupleProtocol oprot=(TTupleProtocol)prot;
   BitSet optionals=new BitSet();
-  if (struct.isSetSdkPlatform()) {
+  if (struct.isSetSdkProperties()) {
     optionals.set(0);
   }
-  if (struct.isSetApplicationId()) {
-    optionals.set(1);
-  }
-  if (struct.isSetProfileSchemaVersion()) {
-    optionals.set(2);
-  }
-  if (struct.isSetConfigurationSchemaVersion()) {
-    optionals.set(3);
-  }
-  if (struct.isSetNotificationSchemaVersion()) {
-    optionals.set(4);
-  }
-  if (struct.isSetAefMapIds()) {
-    optionals.set(5);
-  }
-  if (struct.isSetLogSchemaVersion()) {
-    optionals.set(6);
-  }
-  if (struct.isSetDefaultVerifierToken()) {
-    optionals.set(7);
-  }
-  oprot.writeBitSet(optionals,8);
-  if (struct.isSetSdkPlatform()) {
-    oprot.writeI32(struct.sdkPlatform.getValue());
-  }
-  if (struct.isSetApplicationId()) {
-    oprot.writeString(struct.applicationId);
-  }
-  if (struct.isSetProfileSchemaVersion()) {
-    oprot.writeI32(struct.profileSchemaVersion);
-  }
-  if (struct.isSetConfigurationSchemaVersion()) {
-    oprot.writeI32(struct.configurationSchemaVersion);
-  }
-  if (struct.isSetNotificationSchemaVersion()) {
-    oprot.writeI32(struct.notificationSchemaVersion);
-  }
-  if (struct.isSetAefMapIds()) {
-{
-      oprot.writeI32(struct.aefMapIds.size());
-      for (      String _iter204 : struct.aefMapIds) {
-        oprot.writeString(_iter204);
-      }
-    }
-  }
-  if (struct.isSetLogSchemaVersion()) {
-    oprot.writeI32(struct.logSchemaVersion);
-  }
-  if (struct.isSetDefaultVerifierToken()) {
-    oprot.writeString(struct.defaultVerifierToken);
+  oprot.writeBitSet(optionals,1);
+  if (struct.isSetSdkProperties()) {
+    struct.sdkProperties.write(oprot);
   }
 }

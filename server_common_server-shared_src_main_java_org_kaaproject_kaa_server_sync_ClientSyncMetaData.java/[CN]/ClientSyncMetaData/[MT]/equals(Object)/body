@@ -1,39 +1,22 @@
 {
-  if (this == obj) {
-    return true;
-  }
-  if (obj == null) {
+  if (this == o)   return true;
+  if (o == null || getClass() != o.getClass()) {
     return false;
   }
-  if (getClass() != obj.getClass()) {
+  ClientSyncMetaData that=(ClientSyncMetaData)o;
+  if (timeout != that.timeout) {
     return false;
   }
-  ClientSyncMetaData other=(ClientSyncMetaData)obj;
-  if (applicationToken == null) {
-    if (other.applicationToken != null) {
-      return false;
-    }
-  }
- else   if (!applicationToken.equals(other.applicationToken)) {
+  if (applicationToken != null ? !applicationToken.equals(that.applicationToken) : that.applicationToken != null) {
     return false;
   }
-  if (endpointPublicKeyHash == null) {
-    if (other.endpointPublicKeyHash != null) {
-      return false;
-    }
-  }
- else   if (!endpointPublicKeyHash.equals(other.endpointPublicKeyHash)) {
+  if (endpointPublicKeyHash != null ? !endpointPublicKeyHash.equals(that.endpointPublicKeyHash) : that.endpointPublicKeyHash != null) {
     return false;
   }
-  if (profileHash == null) {
-    if (other.profileHash != null) {
-      return false;
-    }
-  }
- else   if (!profileHash.equals(other.profileHash)) {
+  if (profileHash != null ? !profileHash.equals(that.profileHash) : that.profileHash != null) {
     return false;
   }
-  if (timeout != other.timeout) {
+  if (sdkToken != null ? !sdkToken.equals(that.sdkToken) : that.sdkToken != null) {
     return false;
   }
   return true;

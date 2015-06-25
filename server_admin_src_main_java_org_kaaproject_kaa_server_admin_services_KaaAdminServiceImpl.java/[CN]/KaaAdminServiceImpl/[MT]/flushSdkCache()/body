@@ -3,7 +3,7 @@
   try {
     List<ApplicationDto> applications=getApplications();
     for (    ApplicationDto application : applications) {
-      for (      SdkKey key : cacheService.getCachedSdkKeys(application.getId())) {
+      for (      SdkPropertiesDto key : cacheService.getCachedSdkKeys(application.getId())) {
         cacheService.flushSdk(key);
       }
     }
