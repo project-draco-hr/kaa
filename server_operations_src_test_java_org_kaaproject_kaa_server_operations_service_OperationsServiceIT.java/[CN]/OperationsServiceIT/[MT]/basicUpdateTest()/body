@@ -8,7 +8,7 @@
   md.setEndpointPublicKeyHash(ByteBuffer.wrap(EndpointObjectHash.fromSHA1(ENDPOINT_KEY).getData()));
   md.setProfileHash(ByteBuffer.wrap(EndpointObjectHash.fromSHA1(oldProfile).getData()));
   request.setClientSyncMetaData(md);
-  ProfileClientSync profileSync=new ProfileClientSync(null,ByteBuffer.wrap(profile),new EndpointVersionInfo(CONF_SCHEMA_VERSION,PROFILE_SCHEMA_VERSION,1,1,null,1),null);
+  ProfileClientSync profileSync=new ProfileClientSync(null,ByteBuffer.wrap(profile),SDK_TOKEN,null);
   request.setProfileSync(profileSync);
   ConfigurationClientSync confSyncRequest=new ConfigurationClientSync();
   confSyncRequest.setAppStateSeqNumber(APPLICATION_SEQ_NUMBER);

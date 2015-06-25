@@ -1,42 +1,9 @@
 {
   struct.validate();
   oprot.writeStructBegin(STRUCT_DESC);
-  if (struct.sdkPlatform != null) {
-    oprot.writeFieldBegin(SDK_PLATFORM_FIELD_DESC);
-    oprot.writeI32(struct.sdkPlatform.getValue());
-    oprot.writeFieldEnd();
-  }
-  if (struct.applicationId != null) {
-    oprot.writeFieldBegin(APPLICATION_ID_FIELD_DESC);
-    oprot.writeString(struct.applicationId);
-    oprot.writeFieldEnd();
-  }
-  oprot.writeFieldBegin(PROFILE_SCHEMA_VERSION_FIELD_DESC);
-  oprot.writeI32(struct.profileSchemaVersion);
-  oprot.writeFieldEnd();
-  oprot.writeFieldBegin(CONFIGURATION_SCHEMA_VERSION_FIELD_DESC);
-  oprot.writeI32(struct.configurationSchemaVersion);
-  oprot.writeFieldEnd();
-  oprot.writeFieldBegin(NOTIFICATION_SCHEMA_VERSION_FIELD_DESC);
-  oprot.writeI32(struct.notificationSchemaVersion);
-  oprot.writeFieldEnd();
-  if (struct.aefMapIds != null) {
-    oprot.writeFieldBegin(AEF_MAP_IDS_FIELD_DESC);
-{
-      oprot.writeListBegin(new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRING,struct.aefMapIds.size()));
-      for (      String _iter203 : struct.aefMapIds) {
-        oprot.writeString(_iter203);
-      }
-      oprot.writeListEnd();
-    }
-    oprot.writeFieldEnd();
-  }
-  oprot.writeFieldBegin(LOG_SCHEMA_VERSION_FIELD_DESC);
-  oprot.writeI32(struct.logSchemaVersion);
-  oprot.writeFieldEnd();
-  if (struct.defaultVerifierToken != null) {
-    oprot.writeFieldBegin(DEFAULT_VERIFIER_TOKEN_FIELD_DESC);
-    oprot.writeString(struct.defaultVerifierToken);
+  if (struct.sdkProperties != null) {
+    oprot.writeFieldBegin(SDK_PROPERTIES_FIELD_DESC);
+    struct.sdkProperties.write(oprot);
     oprot.writeFieldEnd();
   }
   oprot.writeFieldStop();

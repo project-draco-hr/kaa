@@ -1,5 +1,6 @@
 {
   try {
+    LOG.trace("Redirecting {} SessionAwareMessage",message);
     redirectMeter.mark();
     ClientSync request=decodeRequest(message);
     ServerSync response=buildRedirectionResponse(redirection,request);

@@ -5,8 +5,9 @@
   CipherPair sessionKey=Mockito.mock(CipherPair.class);
   EndpointObjectHash key=EndpointObjectHash.fromSHA1("key");
   String applicationToken="AppToken";
+  String sdkToken="SdkToken";
   int keepAlive=100;
-  SessionInfo session=new SessionInfo(channelId,Constants.KAA_PLATFORM_PROTOCOL_AVRO_ID,ctx,channelType,sessionKey,key,applicationToken,keepAlive,true);
+  SessionInfo session=new SessionInfo(channelId,Constants.KAA_PLATFORM_PROTOCOL_AVRO_ID,ctx,channelType,sessionKey,key,applicationToken,sdkToken,keepAlive,true);
   SyncRequest command=new SyncRequest("avroObject".getBytes(),false,false);
   NettyTcpSyncMessage message=new NettyTcpSyncMessage(command,session,null,null);
   Assert.assertArrayEquals("avroObject".getBytes(),message.getEncodedMessageData());

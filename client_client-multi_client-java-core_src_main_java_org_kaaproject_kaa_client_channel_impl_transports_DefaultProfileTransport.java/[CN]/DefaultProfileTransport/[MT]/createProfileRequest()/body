@@ -10,7 +10,6 @@
         request.setEndpointPublicKey(ByteBuffer.wrap(clientState.getPublicKey().getEncoded()));
       }
       request.setProfileBody(ByteBuffer.wrap(serializedProfile));
-      request.setVersionInfo(properties.getVersionInfo());
       return request;
     }
  else {
