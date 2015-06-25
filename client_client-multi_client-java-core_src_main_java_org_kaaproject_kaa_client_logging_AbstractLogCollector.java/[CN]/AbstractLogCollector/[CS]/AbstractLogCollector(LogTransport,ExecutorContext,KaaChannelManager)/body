@@ -1,6 +1,6 @@
 {
   this.strategy=new DefaultLogUploadStrategy();
-  this.storage=new MemoryLogStorage(strategy.getBatchSize());
+  this.storage=new MemLogStorage(strategy.getBatchSize(),strategy.getBatchCount());
   this.controller=new DefaultLogUploadController();
   this.channelManager=manager;
   this.transport=transport;

@@ -2,7 +2,12 @@
   closeConnection();
   if (connectivityChecker != null && !connectivityChecker.checkConnectivity()) {
     LOG.warn("Loss of connectivity. Attempt to reconnect will be made in {} sec",RECONNECT_TIMEOUT);
-    executor.schedule(openConnectionTask,RECONNECT_TIMEOUT,TimeUnit.SECONDS);
+synchronized (this) {
+      if (!isOpenConnectionScheduled) {
+        executor.schedule(openConnectionTask,RECONNECT_TIMEOUT,TimeUnit.SECONDS);
+        isOpenConnectionScheduled=true;
+      }
+    }
     return;
   }
   channelManager.onServerFailed(currentServer);

@@ -31,7 +31,7 @@
   }
 );
   logCollector.addLogRecord(record);
-  Mockito.when(storage.getRecordBlock(Mockito.anyLong())).thenReturn(new LogBlock(1,Arrays.asList(new LogRecord(record),new LogRecord(record),new LogRecord(record))));
+  Mockito.when(storage.getRecordBlock(Mockito.anyLong(),Mockito.anyInt())).thenReturn(new LogBlock(1,Arrays.asList(new LogRecord(record),new LogRecord(record),new LogRecord(record))));
   LogSyncRequest request1=new LogSyncRequest();
   logCollector.fillSyncRequest(request1);
   Assert.assertEquals(3,request1.getLogEntries().size());
