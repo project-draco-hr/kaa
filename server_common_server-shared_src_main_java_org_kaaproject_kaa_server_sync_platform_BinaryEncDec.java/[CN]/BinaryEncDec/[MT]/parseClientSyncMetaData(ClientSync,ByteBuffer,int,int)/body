@@ -10,8 +10,8 @@
   if (hasOption(options,CLIENT_META_SYNC_PROFILE_HASH_OPTION)) {
     md.setProfileHash(getNewByteBuffer(buf,PROFILE_HASH_SIZE));
   }
-  if (hasOption(options,CLIENT_META_SYNC_APP_TOKEN_OPTION)) {
-    md.setApplicationToken(getUTF8String(buf,Constants.APP_TOKEN_SIZE));
+  if (hasOption(options,CLIENT_META_SYNC_SDK_TOKEN_OPTION)) {
+    md.setSdkToken(getUTF8String(buf,Constants.SDK_TOKEN_SIZE));
   }
   sync.setClientSyncMetaData(md);
 }

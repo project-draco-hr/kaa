@@ -3,7 +3,9 @@
   LOG.trace("Lookup application by token: {}",request.getAppToken());
   AppSeqNumber appSeqNumber=cacheService.getAppSeqNumber(request.getAppToken());
   LOG.trace("Application by token: {} found: {}",request.getAppToken(),appSeqNumber);
-  String profileJson=decodeProfile(request.getProfile(),appSeqNumber.getAppToken(),request.getVersionInfo().getProfileVersion());
+  SdkPropertiesDto sdkProperties=cacheService.getSdkPropertiesBySdkToken(request.getSdkToken());
+  LOG.trace("Sdk properties by sdk token: {} found: {}",request.getSdkToken(),sdkProperties);
+  String profileJson=decodeProfile(request.getProfile(),appSeqNumber.getAppToken(),sdkProperties.getProfileSchemaVersion());
   EndpointObjectHash keyHash=EndpointObjectHash.fromSHA1(request.getEndpointKey());
   EndpointProfileDto dto=endpointService.findEndpointProfileByKeyHash(keyHash.getData());
   if (dto == null) {
@@ -13,7 +15,7 @@
     dto.setEndpointKeyHash(keyHash.getData());
     dto.setProfile(profileJson);
     dto.setProfileHash(EndpointObjectHash.fromSHA1(request.getProfile()).getData());
-    populateVersionStates(appSeqNumber.getTenantId(),dto,request.getVersionInfo());
+    populateVersionStates(appSeqNumber.getTenantId(),dto,sdkProperties);
     if (request.getAccessToken() != null) {
       dto.setAccessToken(request.getAccessToken());
     }
@@ -30,6 +32,6 @@
     return endpointService.saveEndpointProfile(dto);
   }
  else {
-    return updateProfile(new UpdateProfileRequest(request.getAppToken(),keyHash,request.getAccessToken(),request.getProfile(),request.getVersionInfo()));
+    return updateProfile(new UpdateProfileRequest(request.getAppToken(),keyHash,request.getAccessToken(),request.getProfile(),request.getSdkToken()));
   }
 }

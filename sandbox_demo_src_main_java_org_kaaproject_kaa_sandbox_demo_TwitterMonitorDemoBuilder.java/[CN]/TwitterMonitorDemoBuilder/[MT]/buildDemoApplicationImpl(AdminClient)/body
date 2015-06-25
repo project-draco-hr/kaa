@@ -4,10 +4,10 @@
   ApplicationDto twitterMonitorApplication=new ApplicationDto();
   twitterMonitorApplication.setName("Twitter monitor");
   twitterMonitorApplication=client.editApplication(twitterMonitorApplication);
-  sdkKey.setApplicationId(twitterMonitorApplication.getId());
-  sdkKey.setProfileSchemaVersion(1);
-  sdkKey.setNotificationSchemaVersion(1);
-  sdkKey.setLogSchemaVersion(1);
+  sdkPropertiesDto.setApplicationId(twitterMonitorApplication.getId());
+  sdkPropertiesDto.setProfileSchemaVersion(1);
+  sdkPropertiesDto.setNotificationSchemaVersion(1);
+  sdkPropertiesDto.setLogSchemaVersion(1);
   loginTenantDeveloper(client);
   logger.info("Creating configuration schema...");
   ConfigurationSchemaDto configurationSchema=new ConfigurationSchemaDto();
@@ -16,7 +16,7 @@
   configurationSchema.setDescription("Default configuration schema for the twitter monitor application");
   configurationSchema=client.createConfigurationSchema(configurationSchema,getResourcePath("config_schema.avsc"));
   logger.info("Configuration schema version: {}",configurationSchema.getMajorVersion());
-  sdkKey.setConfigurationSchemaVersion(configurationSchema.getMajorVersion());
+  sdkPropertiesDto.setConfigurationSchemaVersion(configurationSchema.getMajorVersion());
   logger.info("Configuration schema was created.");
   EndpointGroupDto baseEndpointGroup=null;
   List<EndpointGroupDto> endpointGroups=client.getEndpointGroups(twitterMonitorApplication.getId());

@@ -1,0 +1,29 @@
+{
+switch (parent.getType()) {
+case RECORD:
+case ENUM:
+case FIXED:
+    if (!namedSchemaMap.containsKey(parent.getFullName())) {
+      namedSchemaMap.put(parent.getFullName(),parent);
+      if (parent.getType() == Type.RECORD) {
+        for (        Schema.Field field : parent.getFields()) {
+          parseChildSchemas(field.schema(),namedSchemaMap);
+        }
+      }
+    }
+  break;
+case UNION:
+for (Schema schema : parent.getTypes()) {
+  parseChildSchemas(schema,namedSchemaMap);
+}
+break;
+case ARRAY:
+parseChildSchemas(parent.getElementType(),namedSchemaMap);
+break;
+case MAP:
+parseChildSchemas(parent.getValueType(),namedSchemaMap);
+break;
+default :
+break;
+}
+}

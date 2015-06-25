@@ -1,0 +1,29 @@
+{
+synchronized (database) {
+    Log.d(TAG,"Removing record block with id [" + recordBlockId + "] from storage");
+    if (deleteByBucketIdStatement == null) {
+      try {
+        deleteByBucketIdStatement=database.compileStatement(PersistentLogStorageConstants.KAA_DELETE_BY_BUCKET_ID);
+      }
+ catch (      SQLiteException e) {
+        Log.e(TAG,"Can't create record block deletion statement",e);
+        throw new RuntimeException(e);
+      }
+    }
+    try {
+      deleteByBucketIdStatement.bindLong(1,recordBlockId);
+      deleteByBucketIdStatement.execute();
+      long removedRecordsCount=getAffectedRowCount();
+      if (removedRecordsCount > 0) {
+        recordCount-=removedRecordsCount;
+        Log.i(TAG,"Removed " + removedRecordsCount + " records from storage. Total log record count: "+ recordCount);
+      }
+ else {
+        Log.i(TAG,"No records were removed from storage");
+      }
+    }
+ catch (    SQLiteException e) {
+      Log.e(TAG,"Failed to remove record block with id [" + recordBlockId + "]",e);
+    }
+  }
+}

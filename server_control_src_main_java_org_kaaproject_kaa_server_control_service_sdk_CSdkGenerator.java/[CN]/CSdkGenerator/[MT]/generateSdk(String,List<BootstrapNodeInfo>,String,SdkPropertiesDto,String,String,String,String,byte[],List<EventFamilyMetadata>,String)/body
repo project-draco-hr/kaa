@@ -1,0 +1,91 @@
+{
+  Integer configurationSchemaVersion=sdkProperties.getConfigurationSchemaVersion();
+  Integer profileSchemaVersion=sdkProperties.getProfileSchemaVersion();
+  Integer notificationSchemaVersion=sdkProperties.getNotificationSchemaVersion();
+  Integer logSchemaVersion=sdkProperties.getLogSchemaVersion();
+  String defaultVerifierToken=sdkProperties.getDefaultVerifierToken();
+  String sdkTemplateLocation=System.getProperty("server_home_dir") + "/" + C_SDK_DIR+ "/"+ C_SDK_PREFIX+ buildVersion+ ".tar.gz";
+  LOG.debug("Lookup C SDK template: {}",sdkTemplateLocation);
+  CompressorStreamFactory csf=new CompressorStreamFactory();
+  ArchiveStreamFactory asf=new ArchiveStreamFactory();
+  CompressorInputStream cis=csf.createCompressorInputStream(CompressorStreamFactory.GZIP,new FileInputStream(sdkTemplateLocation));
+  ArchiveInputStream templateArchive=asf.createArchiveInputStream(ArchiveStreamFactory.TAR,cis);
+  ByteArrayOutputStream sdkOutput=new ByteArrayOutputStream();
+  CompressorOutputStream cos=csf.createCompressorOutputStream(CompressorStreamFactory.GZIP,sdkOutput);
+  ArchiveOutputStream sdkFile=asf.createArchiveOutputStream(ArchiveStreamFactory.TAR,cos);
+  Map<String,TarEntryData> replacementData=new HashMap<String,TarEntryData>();
+  List<TarEntryData> cSources=new ArrayList<>();
+  if (!StringUtils.isBlank(profileSchemaBody)) {
+    cSources.addAll(generateProfileSources(profileSchemaBody));
+  }
+  if (!StringUtils.isBlank(logSchemaBody)) {
+    cSources.addAll(generateLogSources(logSchemaBody));
+  }
+  if (!StringUtils.isBlank(configurationBaseSchemaBody)) {
+    cSources.addAll(generateConfigurationSources(configurationBaseSchemaBody));
+  }
+  if (!StringUtils.isBlank(notificationSchemaBody)) {
+    cSources.addAll(generateNotificationSources(notificationSchemaBody));
+  }
+  if (eventFamilies != null && !eventFamilies.isEmpty()) {
+    cSources.addAll(CEventSourcesGenerator.generateEventSources(eventFamilies));
+  }
+  for (  TarEntryData entryData : cSources) {
+    replacementData.put(entryData.getEntry().getName(),entryData);
+  }
+  ArchiveEntry e=null;
+  while ((e=templateArchive.getNextEntry()) != null) {
+    if (!e.isDirectory()) {
+      if (e.getName().equals(KAA_DEFAULTS_HEADER)) {
+        byte[] kaaDefaultsData=generateKaaDefaults(bootstrapNodes,sdkToken,profileSchemaVersion,configurationProtocolSchemaBody,defaultConfigurationData,defaultVerifierToken);
+        TarArchiveEntry kaaDefaultsEntry=new TarArchiveEntry(KAA_DEFAULTS_HEADER);
+        kaaDefaultsEntry.setSize(kaaDefaultsData.length);
+        sdkFile.putArchiveEntry(kaaDefaultsEntry);
+        sdkFile.write(kaaDefaultsData);
+      }
+ else       if (e.getName().equals(KAA_CMAKEGEN)) {
+        List<String> sourceNames=new LinkedList<>();
+        for (        TarEntryData sourceEntry : cSources) {
+          String fileName=sourceEntry.getEntry().getName();
+          if (fileName.endsWith(C_SOURCE_SUFFIX) && !sourceNames.contains(fileName)) {
+            sourceNames.add(fileName);
+          }
+        }
+        VelocityContext context=new VelocityContext();
+        context.put("sourceNames",sourceNames);
+        String cSourceData=generateSourceFromTemplate(TEMPLATE_DIR + File.separator + "CMakeGen.vm",context);
+        TarArchiveEntry kaaCMakeEntry=new TarArchiveEntry(KAA_CMAKEGEN);
+        kaaCMakeEntry.setSize(cSourceData.length());
+        sdkFile.putArchiveEntry(kaaCMakeEntry);
+        sdkFile.write(cSourceData.getBytes());
+      }
+ else       if (replacementData.containsKey(e.getName())) {
+        TarEntryData entryData=replacementData.remove(e.getName());
+        sdkFile.putArchiveEntry(entryData.getEntry());
+        sdkFile.write(entryData.getData());
+      }
+ else {
+        sdkFile.putArchiveEntry(e);
+        IOUtils.copy(templateArchive,sdkFile);
+      }
+    }
+ else {
+      sdkFile.putArchiveEntry(e);
+    }
+    sdkFile.closeArchiveEntry();
+  }
+  templateArchive.close();
+  for (  String entryName : replacementData.keySet()) {
+    TarEntryData entryData=replacementData.get(entryName);
+    sdkFile.putArchiveEntry(entryData.getEntry());
+    sdkFile.write(entryData.getData());
+    sdkFile.closeArchiveEntry();
+  }
+  sdkFile.finish();
+  sdkFile.close();
+  String sdkFileName=MessageFormatter.arrayFormat(C_SDK_NAME_PATTERN,new Object[]{profileSchemaVersion,configurationSchemaVersion,notificationSchemaVersion,logSchemaVersion}).getMessage();
+  Sdk sdk=new Sdk();
+  sdk.setFileName(sdkFileName);
+  sdk.setData(sdkOutput.toByteArray());
+  return sdk;
+}
