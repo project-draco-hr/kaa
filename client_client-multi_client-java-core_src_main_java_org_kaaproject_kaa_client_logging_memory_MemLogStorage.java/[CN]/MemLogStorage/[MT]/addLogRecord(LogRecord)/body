@@ -18,6 +18,8 @@ synchronized (buckets) {
       buckets.put(currentBucket.getId(),currentBucket);
       currentBucket.addRecord(record);
     }
+    recordCount++;
+    consumedVolume+=record.getSize();
   }
-  LOG.trace("Added new log record to bucket [{}]",currentBucket.getId());
+  LOG.trace("Added a new log record to bucket [{}]",currentBucket.getId());
 }

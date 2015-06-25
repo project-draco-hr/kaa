@@ -3,6 +3,7 @@
   if (blockSize > maxBucketSize || batchCount > maxBucketRecordCount) {
     LOG.warn("Resize of record block is not supported yet");
   }
+  LogBlock result=null;
   MemBucket bucketCandidate=null;
 synchronized (buckets) {
     for (    MemBucket bucket : buckets.values()) {
@@ -15,23 +16,24 @@ synchronized (buckets) {
         break;
       }
     }
-  }
-  LogBlock result=null;
-  if (bucketCandidate != null) {
-    if (bucketCandidate.getState() == MemBucketState.FREE) {
-      LOG.trace("Only a bucket with state FREE found");
-      bucketCandidate.setState(MemBucketState.PENDING);
-    }
-    if (bucketCandidate.getSize() <= blockSize && bucketCandidate.getCount() <= batchCount) {
-      result=new LogBlock(bucketCandidate.getId(),bucketCandidate.getRecords());
-      LOG.debug("Return record block with records count: [{}]",bucketCandidate.getCount());
-    }
+    if (bucketCandidate != null) {
+      consumedVolume-=bucketCandidate.getSize();
+      recordCount-=bucketCandidate.getCount();
+      if (bucketCandidate.getState() == MemBucketState.FREE) {
+        LOG.trace("Only a bucket with state FREE found: [{}]. Changing its state to PENDING",bucketCandidate.getId());
+        bucketCandidate.setState(MemBucketState.PENDING);
+      }
+      if (bucketCandidate.getSize() <= blockSize && bucketCandidate.getCount() <= batchCount) {
+        result=new LogBlock(bucketCandidate.getId(),bucketCandidate.getRecords());
+        LOG.debug("Return record block with records count: [{}]",bucketCandidate.getCount());
+      }
  else {
-      LOG.debug("Shrinking bucket {} to new size: [{}] and count: [{}]",bucketCandidate,blockSize,batchCount);
-      List<LogRecord> overSized=bucketCandidate.shrinkToSize(blockSize,batchCount);
-      result=new LogBlock(bucketCandidate.getId(),bucketCandidate.getRecords());
-      for (      LogRecord record : overSized) {
-        addLogRecord(record);
+        LOG.debug("Shrinking bucket {} to new size: [{}] and count: [{}]",bucketCandidate,blockSize,batchCount);
+        List<LogRecord> overSized=bucketCandidate.shrinkToSize(blockSize,batchCount);
+        result=new LogBlock(bucketCandidate.getId(),bucketCandidate.getRecords());
+        for (        LogRecord record : overSized) {
+          addLogRecord(record);
+        }
       }
     }
   }

@@ -2,5 +2,7 @@
   LOG.trace("Upload of record block [{}] failed",id);
 synchronized (buckets) {
     buckets.get(id).setState(MemBucketState.FULL);
+    consumedVolume+=buckets.get(id).getSize();
+    recordCount+=buckets.get(id).getCount();
   }
 }
