@@ -20,4 +20,20 @@
   profileSchema2.setSchema(BasicEndpointProfile.SCHEMA$.toString());
   profileSchema2.setApplication(application);
   profileSchema2=profileSchemaDao.save(profileSchema2);
+  SdkPropertiesDto sdkPropertiesDto=new SdkPropertiesDto();
+  sdkPropertiesDto.setApplicationId(application.getStringId());
+  sdkPropertiesDto.setProfileSchemaVersion(profileSchema.getMajorVersion());
+  sdkPropertiesDto.setConfigurationSchemaVersion(1);
+  sdkPropertiesDto.setNotificationSchemaVersion(1);
+  sdkPropertiesDto.setLogSchemaVersion(1);
+  sdkPropertiesDto=sdkKeyService.saveSdkKey(sdkPropertiesDto);
+  sdkToken=new SdkKey(sdkPropertiesDto).getToken();
+  SdkPropertiesDto newSdkPropertiesDto=new SdkPropertiesDto();
+  newSdkPropertiesDto.setApplicationId(application.getStringId());
+  newSdkPropertiesDto.setProfileSchemaVersion(profileSchema2.getMajorVersion());
+  newSdkPropertiesDto.setConfigurationSchemaVersion(1);
+  newSdkPropertiesDto.setNotificationSchemaVersion(1);
+  newSdkPropertiesDto.setLogSchemaVersion(1);
+  newSdkPropertiesDto=sdkKeyService.saveSdkKey(newSdkPropertiesDto);
+  newSdkToken=new SdkKey(newSdkPropertiesDto).getToken();
 }

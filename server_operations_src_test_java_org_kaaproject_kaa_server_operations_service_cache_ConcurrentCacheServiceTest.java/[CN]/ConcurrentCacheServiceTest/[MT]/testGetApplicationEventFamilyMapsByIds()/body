@@ -1,0 +1,8 @@
+{
+  assertEquals(AEFM_LIST,cacheService.getApplicationEventFamilyMapsByIds(AEFMAP_IDS));
+  verify(applicationEventMapService,times(1)).findApplicationEventFamilyMapsByIds(AEFMAP_IDS);
+  reset(applicationEventMapService);
+  assertEquals(AEFM_LIST,cacheService.getApplicationEventFamilyMapsByIds(AEFMAP_IDS));
+  verify(applicationEventMapService,times(0)).findApplicationEventFamilyMapsByIds(AEFMAP_IDS);
+  reset(applicationEventMapService);
+}

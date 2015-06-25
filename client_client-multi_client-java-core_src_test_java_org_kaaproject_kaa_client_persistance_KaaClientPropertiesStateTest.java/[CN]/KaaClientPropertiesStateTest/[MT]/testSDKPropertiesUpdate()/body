@@ -6,7 +6,7 @@
   state.persist();
   Assert.assertTrue(state.isRegistered());
   KaaClientProperties newProps=getProperties();
-  newProps.setProperty(KaaClientProperties.LOG_SCHEMA_VERSION,Integer.toString(100500));
+  newProps.setProperty(KaaClientProperties.SDK_TOKEN,"SDK_TOKEN_100500");
   KaaClientState newState=new KaaClientPropertiesState(new FilePersistentStorage(),CommonsBase64.getInstance(),newProps);
   Assert.assertFalse(newState.isRegistered());
 }

@@ -1,0 +1,66 @@
+{
+  Integer configurationSchemaVersion=sdkProperties.getConfigurationSchemaVersion();
+  Integer profileSchemaVersion=sdkProperties.getProfileSchemaVersion();
+  Integer notificationSchemaVersion=sdkProperties.getNotificationSchemaVersion();
+  Integer logSchemaVersion=sdkProperties.getLogSchemaVersion();
+  String defaultVerifierToken=sdkProperties.getDefaultVerifierToken();
+  String sdkTemplateLocation=System.getProperty("server_home_dir") + "/" + CPP_SDK_DIR+ "/"+ CPP_SDK_PREFIX+ buildVersion+ ".tar.gz";
+  LOG.debug("Lookup Java SDK template: {}",sdkTemplateLocation);
+  CompressorStreamFactory csf=new CompressorStreamFactory();
+  ArchiveStreamFactory asf=new ArchiveStreamFactory();
+  CompressorInputStream cis=csf.createCompressorInputStream(CompressorStreamFactory.GZIP,new FileInputStream(sdkTemplateLocation));
+  ArchiveInputStream templateArchive=asf.createArchiveInputStream(ArchiveStreamFactory.TAR,cis);
+  ByteArrayOutputStream sdkOutput=new ByteArrayOutputStream();
+  CompressorOutputStream cos=csf.createCompressorOutputStream(CompressorStreamFactory.GZIP,sdkOutput);
+  ArchiveOutputStream sdkFile=asf.createArchiveOutputStream(ArchiveStreamFactory.TAR,cos);
+  Map<String,TarEntryData> replacementData=new HashMap<String,TarEntryData>();
+  List<TarEntryData> cppSources=new ArrayList<>();
+  TarArchiveEntry entry=new TarArchiveEntry(SDK_DEFAULTS_PATH);
+  byte[] data=generateKaaDefaults(bootstrapNodes,sdkToken,configurationSchemaVersion,profileSchemaVersion,notificationSchemaVersion,logSchemaVersion,configurationProtocolSchemaBody,defaultConfigurationData,eventFamilies,defaultVerifierToken);
+  entry.setSize(data.length);
+  TarEntryData tarEntry=new TarEntryData(entry,data);
+  cppSources.add(tarEntry);
+  cppSources.addAll(processFeatureSchema(profileSchemaBody,PROFILE_SCHEMA_AVRO_SRC,PROFILE_DEFINITIONS_TEMPLATE,PROFILE_DEFINITIONS_PATH));
+  cppSources.addAll(processFeatureSchema(notificationSchemaBody,NOTIFICATION_SCHEMA_AVRO_SRC,NOTIFICATION_DEFINITIONS_TEMPLATE,NOTIFICATION_DEFINITIONS_PATH));
+  cppSources.addAll(processFeatureSchema(logSchemaBody,LOG_SCHEMA_AVRO_SRC,LOG_DEFINITIONS_TEMPLATE,LOG_DEFINITIONS_PATH));
+  cppSources.addAll(processFeatureSchema(configurationBaseSchema,CONFIGURATION_SCHEMA_AVRO_SRC,CONFIGURATION_DEFINITIONS_TEMPLATE,CONFIGURATION_DEFINITIONS_PATH));
+  if (eventFamilies != null && !eventFamilies.isEmpty()) {
+    cppSources.addAll(CppEventSourcesGenerator.generateEventSources(eventFamilies));
+  }
+  for (  TarEntryData entryData : cppSources) {
+    replacementData.put(entryData.getEntry().getName(),entryData);
+  }
+  ArchiveEntry e=null;
+  while ((e=templateArchive.getNextEntry()) != null) {
+    if (!e.isDirectory()) {
+      if (replacementData.containsKey(e.getName())) {
+        TarEntryData entryData=replacementData.remove(e.getName());
+        sdkFile.putArchiveEntry(entryData.getEntry());
+        sdkFile.write(entryData.getData());
+      }
+ else {
+        sdkFile.putArchiveEntry(e);
+        IOUtils.copy(templateArchive,sdkFile);
+      }
+    }
+ else {
+      sdkFile.putArchiveEntry(e);
+    }
+    sdkFile.closeArchiveEntry();
+  }
+  templateArchive.close();
+  for (  String entryName : replacementData.keySet()) {
+    TarEntryData entryData=replacementData.get(entryName);
+    sdkFile.putArchiveEntry(entryData.getEntry());
+    sdkFile.write(entryData.getData());
+    sdkFile.closeArchiveEntry();
+  }
+  sdkFile.finish();
+  sdkFile.close();
+  String sdkFileName=MessageFormatter.arrayFormat(CPP_SDK_NAME_PATTERN,new Object[]{profileSchemaVersion,configurationSchemaVersion,notificationSchemaVersion,logSchemaVersion}).getMessage();
+  byte[] sdkData=sdkOutput.toByteArray();
+  Sdk sdk=new Sdk();
+  sdk.setFileName(sdkFileName);
+  sdk.setData(sdkData);
+  return sdk;
+}

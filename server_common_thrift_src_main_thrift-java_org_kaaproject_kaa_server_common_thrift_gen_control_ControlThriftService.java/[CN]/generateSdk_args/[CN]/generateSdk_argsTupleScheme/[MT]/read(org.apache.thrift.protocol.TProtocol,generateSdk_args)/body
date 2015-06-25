@@ -1,44 +1,9 @@
 {
   TTupleProtocol iprot=(TTupleProtocol)prot;
-  BitSet incoming=iprot.readBitSet(8);
+  BitSet incoming=iprot.readBitSet(1);
   if (incoming.get(0)) {
-    struct.sdkPlatform=org.kaaproject.kaa.server.common.thrift.gen.control.SdkPlatform.findByValue(iprot.readI32());
-    struct.setSdkPlatformIsSet(true);
-  }
-  if (incoming.get(1)) {
-    struct.applicationId=iprot.readString();
-    struct.setApplicationIdIsSet(true);
-  }
-  if (incoming.get(2)) {
-    struct.profileSchemaVersion=iprot.readI32();
-    struct.setProfileSchemaVersionIsSet(true);
-  }
-  if (incoming.get(3)) {
-    struct.configurationSchemaVersion=iprot.readI32();
-    struct.setConfigurationSchemaVersionIsSet(true);
-  }
-  if (incoming.get(4)) {
-    struct.notificationSchemaVersion=iprot.readI32();
-    struct.setNotificationSchemaVersionIsSet(true);
-  }
-  if (incoming.get(5)) {
-{
-      org.apache.thrift.protocol.TList _list205=new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRING,iprot.readI32());
-      struct.aefMapIds=new ArrayList<String>(_list205.size);
-      String _elem206;
-      for (int _i207=0; _i207 < _list205.size; ++_i207) {
-        _elem206=iprot.readString();
-        struct.aefMapIds.add(_elem206);
-      }
-    }
-    struct.setAefMapIdsIsSet(true);
-  }
-  if (incoming.get(6)) {
-    struct.logSchemaVersion=iprot.readI32();
-    struct.setLogSchemaVersionIsSet(true);
-  }
-  if (incoming.get(7)) {
-    struct.defaultVerifierToken=iprot.readString();
-    struct.setDefaultVerifierTokenIsSet(true);
+    struct.sdkProperties=new org.kaaproject.kaa.server.common.thrift.gen.shared.DataStruct();
+    struct.sdkProperties.read(iprot);
+    struct.setSdkPropertiesIsSet(true);
   }
 }
