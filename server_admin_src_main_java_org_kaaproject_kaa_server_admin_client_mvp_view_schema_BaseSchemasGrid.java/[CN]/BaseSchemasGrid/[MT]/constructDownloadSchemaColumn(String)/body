@@ -1,0 +1,22 @@
+{
+  ActionButtonCell<T> cell=new ActionButtonCell<T>(Utils.resources.download(),text,embedded,new ActionButtonCell.ActionListener<T>(){
+    @Override public void onItemAction(    T value){
+      Integer logSchemaVersion=value.getMajorVersion();
+      RowActionEvent<String> rowDownloadSchemaEvent=new RowActionEvent<>(String.valueOf(logSchemaVersion),KaaRowAction.DOWNLOAD_LOG_SCHEMA);
+      fireEvent(rowDownloadSchemaEvent);
+    }
+  }
+,new ActionButtonCell.ActionValidator<T>(){
+    @Override public boolean canPerformAction(    T value){
+      return !embedded;
+    }
+  }
+);
+  Column<T,T> column=new Column<T,T>(cell){
+    @Override public T getValue(    T item){
+      return item;
+    }
+  }
+;
+  return column;
+}
