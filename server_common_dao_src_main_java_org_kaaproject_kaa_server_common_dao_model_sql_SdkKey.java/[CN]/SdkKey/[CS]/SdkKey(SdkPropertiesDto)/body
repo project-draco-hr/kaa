@@ -1,0 +1,23 @@
+{
+  if (dto != null) {
+    try {
+      this.id=getLongId(dto.getId());
+      dto.setId(null);
+      List<String> aefMapIds=dto.getAefMapIds();
+      if (aefMapIds != null && aefMapIds.isEmpty()) {
+        dto.setAefMapIds(null);
+      }
+      this.data=DtoByteMarshaller.toBytes(dto);
+      dto.setAefMapIds(aefMapIds);
+      dto.setId(this.id == null ? null : String.valueOf(this.id));
+      MessageDigest digest=MessageDigest.getInstance(HASH_ALGORITHM);
+      digest.update(this.data);
+      this.token=Base64.encodeBase64String(digest.digest());
+      Long appId=getLongId(dto.getApplicationId());
+      this.application=appId != null ? new Application(appId) : null;
+    }
+ catch (    NoSuchAlgorithmException e) {
+      throw new RuntimeException(e);
+    }
+  }
+}

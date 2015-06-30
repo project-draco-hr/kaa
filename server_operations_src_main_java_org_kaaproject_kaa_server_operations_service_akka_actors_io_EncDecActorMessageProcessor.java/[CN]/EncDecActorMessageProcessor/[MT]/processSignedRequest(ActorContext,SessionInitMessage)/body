@@ -1,7 +1,9 @@
 {
   ClientSync request=decodeRequest(message);
   EndpointObjectHash key=getEndpointObjectHash(request);
-  SessionInfo session=new SessionInfo(message.getChannelUuid(),message.getPlatformId(),message.getChannelContext(),message.getChannelType(),crypt.getSessionCipherPair(),key,request.getClientSyncMetaData().getApplicationToken(),message.getKeepAlive(),message.isEncrypted());
+  String sdkToken=getSdkToken(request);
+  String appToken=getAppToken(sdkToken);
+  SessionInfo session=new SessionInfo(message.getChannelUuid(),message.getPlatformId(),message.getChannelContext(),message.getChannelType(),crypt.getSessionCipherPair(),key,appToken,sdkToken,message.getKeepAlive(),message.isEncrypted());
   message.onSessionCreated(session);
   if (isApplicationTokenValid(session.getApplicationToken())) {
     forwardToOpsActor(context,session,request,message);

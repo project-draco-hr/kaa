@@ -1,6 +1,7 @@
 {
   KaaChannelManager manager=Mockito.mock(KaaChannelManager.class);
   AbstractHttpClient httpClient=Mockito.mock(AbstractHttpClient.class);
+  FailoverManager failoverManager=Mockito.mock(FailoverManager.class);
   Mockito.when(httpClient.executeHttpRequest(Mockito.anyString(),Mockito.any(LinkedHashMap.class),Mockito.anyBoolean())).thenReturn(new byte[]{5,5,5});
   MessageEncoderDecoder encDec=Mockito.mock(MessageEncoderDecoder.class);
   Mockito.when(httpClient.getEncoderDecoder()).thenReturn(encDec);
@@ -11,7 +12,7 @@
   KaaDataMultiplexer multiplexer=Mockito.mock(KaaDataMultiplexer.class);
   Mockito.when(multiplexer.compileRequest(Mockito.anyMap())).thenReturn(new byte[]{1,1,1});
   KaaDataDemultiplexer demultiplexer=Mockito.mock(KaaDataDemultiplexer.class);
-  DefaultOperationsChannelFake channel=new DefaultOperationsChannelFake(client,state,3);
+  DefaultOperationsChannelFake channel=new DefaultOperationsChannelFake(client,state,failoverManager,3);
   TransportConnectionInfo server=IPTransportInfoTest.createTestServerInfo(ServerType.OPERATIONS,TransportProtocolIdConstants.HTTP_TRANSPORT_ID,"localhost",9889,KeyUtil.generateKeyPair().getPublic());
   channel.setDemultiplexer(null);
   channel.setDemultiplexer(demultiplexer);

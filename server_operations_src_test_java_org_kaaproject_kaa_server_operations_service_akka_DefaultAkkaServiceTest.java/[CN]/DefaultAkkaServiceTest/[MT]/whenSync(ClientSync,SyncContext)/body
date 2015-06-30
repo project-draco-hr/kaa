@@ -1,5 +1,8 @@
 {
   SyncContext context=new SyncContext(new ServerSync());
+  if (request.getClientSyncMetaData() != null) {
+    request.getClientSyncMetaData().setApplicationToken(APP_TOKEN);
+  }
   context.setRequestHash(request.hashCode());
   Mockito.when(operationsService.syncProfile(context,request.getProfileSync())).thenReturn(response);
   Mockito.when(operationsService.processEndpointAttachDetachRequests(response,request.getUserSync())).thenReturn(response);

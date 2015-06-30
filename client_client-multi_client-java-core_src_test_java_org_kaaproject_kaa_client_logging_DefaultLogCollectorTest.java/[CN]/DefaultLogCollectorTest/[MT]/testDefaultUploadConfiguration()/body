@@ -1,7 +1,8 @@
 {
   KaaChannelManager channelManager=Mockito.mock(KaaChannelManager.class);
+  FailoverManager failoverManager=Mockito.mock(FailoverManager.class);
   LogTransport transport=Mockito.mock(LogTransport.class);
-  AbstractLogCollector logCollector=new DefaultLogCollector(transport,executorContext,channelManager);
+  AbstractLogCollector logCollector=new DefaultLogCollector(transport,executorContext,channelManager,failoverManager);
   DefaultLogUploadStrategy strategy=new DefaultLogUploadStrategy();
   strategy.setCountThreshold(5);
   logCollector.setStrategy(strategy);

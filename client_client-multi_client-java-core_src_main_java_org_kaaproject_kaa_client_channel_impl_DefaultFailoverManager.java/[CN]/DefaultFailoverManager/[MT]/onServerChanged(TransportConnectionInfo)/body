@@ -1,0 +1,23 @@
+{
+  LOG.trace("Server {} has changed",connectionInfo);
+  if (connectionInfo == null) {
+    LOG.warn("Server connection info is null, can't resolve");
+    return;
+  }
+  AccessPointIdResolution currentAccessPointIdResolution=resolutionProgressMap.get(connectionInfo.getServerType());
+  if (currentAccessPointIdResolution == null) {
+    AccessPointIdResolution newResolution=new AccessPointIdResolution(connectionInfo.getAccessPointId(),null);
+    resolutionProgressMap.put(connectionInfo.getServerType(),newResolution);
+  }
+ else   if (currentAccessPointIdResolution.getAccessPointId() != connectionInfo.getAccessPointId()) {
+    if (currentAccessPointIdResolution.getCurResolution() != null) {
+      LOG.trace("Cancelling fail resolution: {}",currentAccessPointIdResolution);
+      cancelCurrentFailResolution(currentAccessPointIdResolution);
+    }
+    AccessPointIdResolution newResolution=new AccessPointIdResolution(connectionInfo.getAccessPointId(),null);
+    resolutionProgressMap.put(connectionInfo.getServerType(),newResolution);
+  }
+ else {
+    LOG.debug("Same server [{}] is used, nothing has changed",connectionInfo);
+  }
+}

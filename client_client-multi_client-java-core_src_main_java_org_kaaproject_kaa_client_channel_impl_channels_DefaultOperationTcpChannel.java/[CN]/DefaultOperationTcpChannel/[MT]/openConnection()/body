@@ -1,9 +1,15 @@
 {
   try {
-    LOG.info("Channel [{}]: openning connection to server {}",getId(),currentServer);
+    LOG.info("Channel [{}]: opening connection to server {}",getId(),currentServer);
     this.socket=createSocket(currentServer.getHost(),currentServer.getPort());
-    readTaskFuture=executor.submit(readTask);
     sendConnect();
+    if (!isReadTaskScheduled) {
+      executor.execute(readTask);
+      isReadTaskScheduled=true;
+    }
+    if (pingTaskFuture != null && !pingTaskFuture.isCancelled()) {
+      pingTaskFuture.cancel(true);
+    }
     schedulePingTask();
   }
  catch (  Exception e) {
@@ -11,5 +17,8 @@
     LOG.error("Stack trace: ",e);
     onServerFailed();
     socket=null;
+  }
+ finally {
+    isOpenConnectionScheduled=false;
   }
 }
