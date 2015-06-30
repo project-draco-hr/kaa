@@ -1,0 +1,16 @@
+{
+  if (this == o) {
+    return true;
+  }
+  if (o == null || getClass() != o.getClass()) {
+    return false;
+  }
+  AccessPointIdResolution that=(AccessPointIdResolution)o;
+  if (accessPointId != that.accessPointId) {
+    return false;
+  }
+  if (curResolution != null ? !curResolution.equals(that.curResolution) : that.curResolution != null) {
+    return false;
+  }
+  return true;
+}

@@ -13,6 +13,12 @@
     if (server != null) {
       LOG.debug("Applying server {} for channel [{}] type {}",server,channel.getId(),channel.getTransportProtocolId());
       channel.setServer(server);
+      if (failoverManager != null) {
+        failoverManager.onServerChanged(server);
+      }
+ else {
+        LOG.warn("Failover manager isn't set: null");
+      }
     }
  else {
       if (lastServers != null && lastServers.isEmpty()) {
