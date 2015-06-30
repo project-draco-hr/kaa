@@ -1,3 +1,14 @@
 {
-  return null;
+switch (failoverStatus) {
+case NO_BOOTSTRAP_SERVERS:
+    return new FailoverDecision(FailoverAction.RETRY,bootstrapServersRetryPeriod,timeUnit);
+case NO_OPERATION_SERVERS:
+  return new FailoverDecision(FailoverAction.RETRY,noOperationServersRetryPeriod,timeUnit);
+case ALL_OPERATION_SERVERS_NA:
+return new FailoverDecision(FailoverAction.RETRY,operationsServersRetryPeriod,timeUnit);
+case NO_CONNECTIVITY:
+return new FailoverDecision(FailoverAction.RETRY,noConnectivityRetryPeriod,timeUnit);
+default :
+return new FailoverDecision(FailoverAction.NOOP);
+}
 }

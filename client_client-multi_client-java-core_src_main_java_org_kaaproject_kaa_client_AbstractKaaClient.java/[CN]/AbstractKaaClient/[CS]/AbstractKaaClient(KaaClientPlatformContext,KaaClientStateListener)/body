@@ -22,6 +22,7 @@
   channelManager.setFailoverManager(failoverManager);
   initializeChannels(channelManager,transportContext);
   bootstrapManager.setChannelManager(channelManager);
+  bootstrapManager.setFailoverManager(failoverManager);
   profileManager=buildProfileManager(properties,kaaClientState,transportContext);
   notificationManager=buildNotificationManager(properties,kaaClientState,transportContext);
   eventManager=buildEventManager(properties,kaaClientState,transportContext);

@@ -1,6 +1,6 @@
 {
   BootstrapTransport transport=mock(BootstrapTransport.class);
-  DefaultBootstrapManager manager=new DefaultBootstrapManager(transport);
+  DefaultBootstrapManager manager=new DefaultBootstrapManager(transport,null);
   boolean exception=false;
   try {
     manager.receiveOperationsServerList();

@@ -2,11 +2,8 @@
   TransportConnectionInfo bsi=null;
   List<TransportConnectionInfo> serverList=bootststrapServers.get(currentServer.getTransportId());
   int serverIndex=serverList.indexOf(currentServer);
-  if (serverIndex >= 0) {
-    if (++serverIndex == serverList.size()) {
-      serverIndex=0;
-    }
-    bsi=serverList.get(serverIndex);
+  if ((serverIndex != -1) && (serverIndex < serverList.size() - 1)) {
+    bsi=serverList.get(++serverIndex);
     lastBSServers.put(currentServer.getTransportId(),bsi);
   }
   return bsi;

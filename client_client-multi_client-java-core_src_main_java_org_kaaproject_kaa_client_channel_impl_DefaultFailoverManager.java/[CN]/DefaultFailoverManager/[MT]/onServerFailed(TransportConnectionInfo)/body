@@ -17,14 +17,14 @@
       }
     }
   }
-  LOG.trace("Next fail resolution will be available in {} ms",resolutionTimeout);
+  LOG.trace("Next fail resolution will be available in {} s",TimeUnit.SECONDS.convert(failureResolutionTimeout,timeUnit));
   Future<?> currentResolution=context.getScheduledExecutor().schedule(new Runnable(){
     @Override public void run(){
       LOG.debug("Removing server {} from resolution map for type: {}",connectionInfo,connectionInfo.getServerType());
       resolutionProgressMap.remove(connectionInfo.getServerType());
     }
   }
-,resolutionTimeout,TimeUnit.MILLISECONDS);
+,failureResolutionTimeout,timeUnit);
   channelManager.onServerFailed(connectionInfo);
   AccessPointIdResolution newAccessPointIdResolution=new AccessPointIdResolution(connectionInfo.getAccessPointId(),currentResolution);
   resolutionProgressMap.put(connectionInfo.getServerType(),newAccessPointIdResolution);

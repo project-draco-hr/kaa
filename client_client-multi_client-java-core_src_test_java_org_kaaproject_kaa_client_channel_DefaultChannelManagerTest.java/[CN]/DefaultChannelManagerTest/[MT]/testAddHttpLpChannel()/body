@@ -7,7 +7,7 @@
   Mockito.when(channel.getTransportProtocolId()).thenReturn(TransportProtocolIdConstants.HTTP_TRANSPORT_ID);
   Mockito.when(channel.getServerType()).thenReturn(ServerType.OPERATIONS);
   Mockito.when(channel.getId()).thenReturn("mock_channel");
-  KaaInternalChannelManager channelManager=new DefaultChannelManager(bootstrapManager,bootststrapServers);
+  KaaInternalChannelManager channelManager=new DefaultChannelManager(bootstrapManager,bootststrapServers,null);
   FailoverManager failoverManager=Mockito.spy(new DefaultFailoverManager(channelManager,CONTEXT));
   channelManager.setFailoverManager(failoverManager);
   channelManager.addChannel(channel);

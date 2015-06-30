@@ -1,5 +1,6 @@
 {
-  DefaultBootstrapManager manager=new DefaultBootstrapManager(null);
+  ExecutorContext executorContext=mock(ExecutorContext.class);
+  DefaultBootstrapManager manager=new DefaultBootstrapManager(null,executorContext);
   boolean exception=false;
   try {
     manager.useNextOperationsServer(TransportProtocolIdConstants.HTTP_TRANSPORT_ID);
@@ -16,12 +17,15 @@
   ProtocolMetaData md=IPTransportInfoTest.buildMetaData(TransportProtocolIdConstants.HTTP_TRANSPORT_ID,"localhost",9889,keyPair.getPublic());
   list.add(md);
   ChanelManagerMock channelManager=spy(new ChanelManagerMock());
+  when(executorContext.getScheduledExecutor()).thenReturn(Executors.newScheduledThreadPool(1));
+  FailoverManager failoverManager=spy(new DefaultFailoverManager(channelManager,executorContext,1,1,1,1,1,TimeUnit.MILLISECONDS));
   manager.setChannelManager(channelManager);
+  manager.setFailoverManager(failoverManager);
   manager.setTransport(transport);
   manager.onProtocolListUpdated(list);
   manager.useNextOperationsServer(TransportProtocolIdConstants.HTTP_TRANSPORT_ID);
   assertTrue(channelManager.isServerUpdated());
   assertEquals("http://localhost:9889",channelManager.getReceivedUrl());
   manager.useNextOperationsServerByAccessPointId("some.name".hashCode());
-  verify(channelManager,times(1)).onTransportConnectionInfoUpdated(Mockito.any(TransportConnectionInfo.class));
+  verify(channelManager,times(1)).onTransportConnectionInfoUpdated(any(TransportConnectionInfo.class));
 }
