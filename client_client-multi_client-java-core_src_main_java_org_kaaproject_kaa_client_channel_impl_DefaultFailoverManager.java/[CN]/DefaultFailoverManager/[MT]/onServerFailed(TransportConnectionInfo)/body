@@ -4,9 +4,11 @@
     LOG.warn("Server connection info is null, can't resolve");
     return;
   }
+  long currentResolutionTime=-1;
   AccessPointIdResolution currentAccessPointIdResolution=resolutionProgressMap.get(connectionInfo.getServerType());
   if (currentAccessPointIdResolution != null) {
-    if (currentAccessPointIdResolution.getAccessPointId() == connectionInfo.getAccessPointId() && currentAccessPointIdResolution.getCurResolution() != null) {
+    currentResolutionTime=currentAccessPointIdResolution.getResolutionTime();
+    if (currentAccessPointIdResolution.getAccessPointId() == connectionInfo.getAccessPointId() && currentAccessPointIdResolution.getCurResolution() != null && System.currentTimeMillis() < currentAccessPointIdResolution.getResolutionTime()) {
       LOG.debug("Resolution is in progress for {} server",connectionInfo);
       return;
     }
@@ -17,7 +19,7 @@
       }
     }
   }
-  LOG.trace("Next fail resolution will be available in {} s",TimeUnit.SECONDS.convert(failureResolutionTimeout,timeUnit));
+  LOG.trace("Next fail resolution will be available in {} {}",failureResolutionTimeout,timeUnit.toString());
   Future<?> currentResolution=context.getScheduledExecutor().schedule(new Runnable(){
     @Override public void run(){
       LOG.debug("Removing server {} from resolution map for type: {}",connectionInfo,connectionInfo.getServerType());
@@ -26,6 +28,10 @@
   }
 ,failureResolutionTimeout,timeUnit);
   channelManager.onServerFailed(connectionInfo);
+  long updatedResolutionTime=currentAccessPointIdResolution != null ? currentAccessPointIdResolution.getResolutionTime() : currentResolutionTime;
   AccessPointIdResolution newAccessPointIdResolution=new AccessPointIdResolution(connectionInfo.getAccessPointId(),currentResolution);
+  if (updatedResolutionTime != currentResolutionTime) {
+    newAccessPointIdResolution.setResolutionTime(updatedResolutionTime);
+  }
   resolutionProgressMap.put(connectionInfo.getServerType(),newAccessPointIdResolution);
 }

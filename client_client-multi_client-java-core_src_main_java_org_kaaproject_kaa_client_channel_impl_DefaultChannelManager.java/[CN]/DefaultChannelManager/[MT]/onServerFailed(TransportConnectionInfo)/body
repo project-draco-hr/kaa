@@ -16,7 +16,7 @@ case NOOP:
       break;
 case RETRY:
     long retryPeriod=decision.getRetryPeriod();
-  LOG.warn("Attempt to reconnect to first bootstrap server will be made in {} ms ","according to failover strategy decision",retryPeriod);
+  LOG.warn("Attempt to reconnect to first bootstrap server will be made in {} ms, " + "according to failover strategy decision",retryPeriod);
 executorContext.getScheduledExecutor().schedule(new Runnable(){
   @Override public void run(){
     onTransportConnectionInfoUpdated(server);

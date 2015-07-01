@@ -12,10 +12,22 @@
   Mockito.verify(resolutionProgressMap,Mockito.timeout(RESOLUTION_TIMEOUT_MS * 2).times(1)).remove(info.getServerType());
   TransportConnectionInfo info2=mockForTransportConnectionInfo(2,ServerType.BOOTSTRAP);
   failoverManager.onServerFailed(info2);
-  DefaultFailoverManager.AccessPointIdResolution accessPointIdResolutionSpy=spyForResolutionMap(info2);
+  final DefaultFailoverManager.AccessPointIdResolution accessPointIdResolutionSpy=spyForResolutionMap(info2);
   failoverManager.onServerFailed(info2);
   Mockito.verify(accessPointIdResolutionSpy,Mockito.never()).setCurResolution(null);
   info2=mockForTransportConnectionInfo(3,ServerType.BOOTSTRAP);
   failoverManager.onServerFailed(info2);
   Mockito.verify(channelManager,Mockito.times(1)).onServerFailed(info2);
+  Mockito.reset(accessPointIdResolutionSpy);
+  failoverManager.onFailover(FailoverStatus.NO_BOOTSTRAP_SERVERS);
+  failoverManager.onServerFailed(info2);
+  Mockito.verify(accessPointIdResolutionSpy,Mockito.never()).setCurResolution(null);
+  Thread.sleep(BOOTSTRAP_RETRY_PERIOD * 2);
+  failoverManager.onServerFailed(info2);
+  new Thread(new Runnable(){
+    @Override public void run(){
+      Mockito.verify(accessPointIdResolutionSpy,Mockito.timeout(BOOTSTRAP_RETRY_PERIOD * 2).times(1)).setCurResolution(null);
+    }
+  }
+).start();
 }
