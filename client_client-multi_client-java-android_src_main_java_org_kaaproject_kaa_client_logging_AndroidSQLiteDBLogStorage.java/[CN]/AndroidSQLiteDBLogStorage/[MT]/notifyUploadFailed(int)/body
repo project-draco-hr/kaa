@@ -17,7 +17,8 @@ synchronized (database) {
       if (affectedRows > 0) {
         Log.i(TAG,"Total " + affectedRows + " log records reset for bucket id: ["+ bucketId+ "]");
         long previouslyConsumedSize=consumedMemoryStorage.remove(bucketId);
-        consumedSize+=previouslyConsumedSize;
+        unmarkedConsumedSize+=previouslyConsumedSize;
+        unmarkedRecordCount+=affectedRows;
       }
  else {
         Log.i(TAG,"No log records for bucket with id: [" + bucketId + "]");

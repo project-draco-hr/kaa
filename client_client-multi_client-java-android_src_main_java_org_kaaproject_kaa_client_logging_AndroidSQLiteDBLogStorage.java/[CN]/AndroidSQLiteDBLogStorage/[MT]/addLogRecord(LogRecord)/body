@@ -14,9 +14,10 @@ synchronized (database) {
       insertStatement.bindBlob(1,record.getData());
       long insertedId=insertStatement.executeInsert();
       if (insertedId >= 0) {
-        consumedSize+=record.getSize();
-        recordCount++;
-        Log.i(TAG,"Added a new log record, records count: " + recordCount + ", data: "+ Arrays.toString(record.getData()));
+        unmarkedConsumedSize+=record.getSize();
+        totalRecordCount++;
+        unmarkedRecordCount++;
+        Log.i(TAG,"Added a new log record, total record count: " + totalRecordCount + ", data: "+ Arrays.toString(record.getData())+ "unmarked record count: "+ unmarkedRecordCount);
       }
  else {
         Log.w(TAG,"No log record was added");

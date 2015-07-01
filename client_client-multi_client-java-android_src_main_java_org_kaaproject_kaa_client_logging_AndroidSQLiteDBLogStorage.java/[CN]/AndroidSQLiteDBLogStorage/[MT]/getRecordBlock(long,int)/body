@@ -28,9 +28,10 @@ synchronized (database) {
         updateBucketIdForRecords(currentBucketId,unmarkedRecordIds);
         logBlock=new LogBlock(currentBucketId++,logRecords);
         long logBlockSize=blockSize - leftBlockSize;
-        consumedSize-=logBlockSize;
+        unmarkedConsumedSize-=logBlockSize;
+        unmarkedRecordCount-=logRecords.size();
         consumedMemoryStorage.put(logBlock.getBlockId(),logBlockSize);
-        Log.i(TAG,"Created log block: id [" + logBlock.getBlockId() + "], size: "+ logBlockSize+ ". Log block record count: "+ logBlock.getRecords().size()+ ", Total record count: "+ recordCount);
+        Log.i(TAG,"Created log block: id [" + logBlock.getBlockId() + "], size: "+ logBlockSize+ ". Log block record count: "+ logBlock.getRecords().size()+ ", total record count: "+ totalRecordCount+ ", unmarked record count: "+ unmarkedRecordCount);
       }
  else {
         Log.i(TAG,"No unmarked log records found");
