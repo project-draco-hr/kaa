@@ -24,7 +24,8 @@ case STOP_APP:
 LOG.warn("Stopping application according to failover strategy decision!");
 System.exit(EXIT_FAILURE);
 }
-return;
 }
+ else {
 failoverManager.onServerFailed(currentServer);
+}
 }
