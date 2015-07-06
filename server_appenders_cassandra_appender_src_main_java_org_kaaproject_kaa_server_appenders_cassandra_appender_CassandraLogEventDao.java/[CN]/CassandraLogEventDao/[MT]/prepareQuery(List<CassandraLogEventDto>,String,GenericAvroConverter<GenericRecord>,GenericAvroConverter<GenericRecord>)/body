@@ -1,4 +1,5 @@
 {
+  String reuseTsValue=null;
   Insert[] insertArray=new Insert[logEventDtoList.size()];
   for (int i=0; i < logEventDtoList.size(); i++) {
     CassandraLogEventDto dto=logEventDtoList.get(i);
@@ -25,6 +26,10 @@ insert.value(element.getColumnName(),ByteBuffer.wrap(eventConverter.encode(dto.g
 break;
 case UUID:
 insert.value(element.getColumnName(),UUID.randomUUID());
+break;
+case TS:
+reuseTsValue=formatTs(reuseTsValue,element);
+insert.value(element.getColumnName(),reuseTsValue);
 break;
 }
 }
