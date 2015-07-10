@@ -12,7 +12,7 @@
     }
  else {
       LOG.warn("Failed to find server for channel [{}]",transportId);
-      FailoverDecision decision=failoverManager.onFailover(FailoverStatus.ALL_OPERATION_SERVERS_NA);
+      FailoverDecision decision=failoverManager.onFailover(FailoverStatus.OPERATION_SERVERS_NA);
       applyDecision(decision);
     }
   }

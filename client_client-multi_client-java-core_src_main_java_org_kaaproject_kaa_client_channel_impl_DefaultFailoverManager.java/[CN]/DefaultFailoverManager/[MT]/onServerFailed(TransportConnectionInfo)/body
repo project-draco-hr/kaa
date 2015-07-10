@@ -8,7 +8,7 @@
   AccessPointIdResolution currentAccessPointIdResolution=resolutionProgressMap.get(connectionInfo.getServerType());
   if (currentAccessPointIdResolution != null) {
     currentResolutionTime=currentAccessPointIdResolution.getResolutionTime();
-    if (currentAccessPointIdResolution.getAccessPointId() == connectionInfo.getAccessPointId() && currentAccessPointIdResolution.getCurResolution() != null && System.currentTimeMillis() < currentAccessPointIdResolution.getResolutionTime()) {
+    if (currentAccessPointIdResolution.getAccessPointId() == connectionInfo.getAccessPointId() && currentAccessPointIdResolution.getCurResolution() != null && System.currentTimeMillis() < currentResolutionTime) {
       LOG.debug("Resolution is in progress for {} server",connectionInfo);
       return;
     }
