@@ -18,8 +18,25 @@ try {
 }
 ,retryPeriod,TimeUnit.MILLISECONDS);
 break;
+case USE_NEXT_BOOTSTRAP:
+LOG.warn("Trying to switch to the next bootstrap server according to failover strategy decision");
+retryPeriod=decision.getRetryPeriod();
+failoverManager.onServerFailed(channelManager.getActiveServer(TransportType.BOOTSTRAP));
+executorContext.getScheduledExecutor().schedule(new Runnable(){
+@Override public void run(){
+try {
+receiveOperationsServerList();
+}
+ catch (TransportException e) {
+LOG.error("Error while receiving operations server list",e);
+}
+}
+}
+,retryPeriod,TimeUnit.MILLISECONDS);
+break;
 case STOP_APP:
 LOG.warn("Stopping application according to failover strategy decision!");
 System.exit(EXIT_FAILURE);
+break;
 }
 }
