@@ -21,10 +21,12 @@ return executorThreadPoolSize;
 case 9:
 return callbackThreadPoolSize;
 case 10:
-return cassandraWriteConsistencyLevel;
+return dataTTL;
 case 11:
-return cassandraCompression;
+return cassandraWriteConsistencyLevel;
 case 12:
+return cassandraCompression;
+case 13:
 return cassandraExecuteRequestType;
 default :
 throw new org.apache.avro.AvroRuntimeException("Bad index");

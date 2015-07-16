@@ -33,6 +33,7 @@ insert.value(element.getColumnName(),reuseTsValue);
 break;
 }
 }
+insert.using(QueryBuilder.ttl(configuration.getDataTTL()));
 insertArray[i]=insert;
 }
 return insertArray;
