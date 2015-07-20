@@ -1,6 +1,6 @@
 {
   executorContext=Mockito.mock(ExecutorContext.class);
-  executor=Executors.newSingleThreadExecutor();
+  executor=Executors.newSingleThreadScheduledExecutor();
   Mockito.when(executorContext.getApiExecutor()).thenReturn(new AbstractExecutorService(){
     @Override public void execute(    Runnable command){
       command.run();
@@ -22,4 +22,5 @@
   }
 );
   Mockito.when(executorContext.getCallbackExecutor()).thenReturn(executor);
+  Mockito.when(executorContext.getScheduledExecutor()).thenReturn(executor);
 }

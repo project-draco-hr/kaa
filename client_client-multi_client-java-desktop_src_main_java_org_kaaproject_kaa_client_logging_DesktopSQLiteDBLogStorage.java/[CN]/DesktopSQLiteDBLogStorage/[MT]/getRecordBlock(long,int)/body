@@ -1,0 +1,63 @@
+{
+synchronized (connection) {
+    LOG.trace("Creating a new record block, needed size: {}, batch count: {}",blockSize,batchCount);
+    if (selectUnmarkedStatement == null) {
+      try {
+        selectUnmarkedStatement=connection.prepareStatement(PersistentLogStorageConstants.KAA_SELECT_UNMARKED_RECORDS);
+      }
+ catch (      SQLException e) {
+        LOG.error("Can't create select unmarked statement",e);
+        throw new RuntimeException(e);
+      }
+    }
+    ResultSet rs=null;
+    LogBlock logBlock=null;
+    List<String> unmarkedRecordIds=new LinkedList<>();
+    List<LogRecord> logRecords=new LinkedList<>();
+    try {
+      long leftBlockSize=blockSize;
+      selectUnmarkedStatement.setInt(1,batchCount);
+      rs=selectUnmarkedStatement.executeQuery();
+      while (rs.next()) {
+        int recordId=rs.getInt(1);
+        byte[] recordData=rs.getBytes(2);
+        if (recordData != null && recordData.length > 0) {
+          if (leftBlockSize < recordData.length) {
+            break;
+          }
+          logRecords.add(new LogRecord(recordData));
+          unmarkedRecordIds.add(String.valueOf(recordId));
+          leftBlockSize-=recordData.length;
+        }
+ else {
+          LOG.warn("Found unmarked record with no data. Deleting it...");
+          removeRecordById(recordId);
+        }
+      }
+      if (!logRecords.isEmpty()) {
+        updateBucketIdForRecords(currentBucketId,unmarkedRecordIds);
+        logBlock=new LogBlock(currentBucketId++,logRecords);
+        long logBlockSize=blockSize - leftBlockSize;
+        unmarkedConsumedSize-=logBlockSize;
+        unmarkedRecordCount-=logRecords.size();
+        consumedMemoryStorage.put(logBlock.getBlockId(),logBlockSize);
+        LOG.info("Created log block: id [{}], size {}. Log block record count: {}, total record count: {}," + " unmarked record count: {}",logBlock.getBlockId(),logBlockSize,logBlock.getRecords().size(),totalRecordCount,unmarkedRecordCount);
+      }
+ else {
+        LOG.info("No unmarked log records found");
+      }
+    }
+ catch (    SQLException e) {
+      LOG.error("Can't retrieve unmarked records from storage",e);
+    }
+ finally {
+      try {
+        tryCloseResultSet(rs);
+      }
+ catch (      SQLException e) {
+        LOG.error("Can't close result set",e);
+      }
+    }
+    return logBlock;
+  }
+}

@@ -1,13 +1,10 @@
 {
   LogBlock group=null;
-synchronized (storage) {
-    isUploading=false;
-    if (storage.getStatus().getRecordCount() == 0) {
-      LOG.debug("Log storage is empty");
-      return;
-    }
-    group=storage.getRecordBlock(strategy.getBatchSize());
+  if (storage.getStatus().getRecordCount() == 0) {
+    LOG.debug("Log storage is empty");
+    return;
   }
+  group=storage.getRecordBlock(strategy.getBatchSize(),strategy.getBatchCount());
   if (group != null) {
     List<LogRecord> recordList=group.getRecords();
     if (!recordList.isEmpty()) {
@@ -18,7 +15,15 @@ synchronized (storage) {
       }
       request.setRequestId(group.getBlockId());
       request.setLogEntries(logs);
-      timeoutMap.put(group.getBlockId(),System.currentTimeMillis() + strategy.getTimeout() * 1000);
+      LOG.info("Adding following bucket id [{}] for timeout tracking",group.getBlockId());
+      timeouts.add(group.getBlockId());
+      final LogBlock timeoutGroup=group;
+      executorContext.getScheduledExecutor().schedule(new Runnable(){
+        @Override public void run(){
+          checkDeliveryTimeout(timeoutGroup.getBlockId());
+        }
+      }
+,strategy.getTimeout(),TimeUnit.SECONDS);
     }
   }
  else {

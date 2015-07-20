@@ -1,0 +1,10 @@
+{
+  TransportConnectionInfo[] transportConnections=new TransportConnectionInfo[accessPointIds.length];
+  for (int i=0; i < accessPointIds.length; i++) {
+    TransportConnectionInfo connectionInfo=Mockito.mock(TransportConnectionInfo.class);
+    Mockito.when(connectionInfo.getAccessPointId()).thenReturn(accessPointIds[i]);
+    Mockito.when(connectionInfo.getServerType()).thenReturn(serverType);
+    transportConnections[i]=connectionInfo;
+  }
+  return transportConnections;
+}

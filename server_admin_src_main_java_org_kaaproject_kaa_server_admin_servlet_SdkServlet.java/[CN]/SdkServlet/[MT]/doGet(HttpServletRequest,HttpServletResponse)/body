@@ -1,7 +1,7 @@
 {
-  String sdkKeyBase64=request.getParameter(SdkKey.SDK_KEY_PARAMETER);
+  String sdkKeyBase64=request.getParameter(SdkPropertiesDto.SDK_KEY_PARAMETER);
   try {
-    SdkKey key=(SdkKey)Base64.decodeToObject(sdkKeyBase64,Base64.URL_SAFE,null);
+    SdkPropertiesDto key=(SdkPropertiesDto)Base64.decodeToObject(sdkKeyBase64,Base64.URL_SAFE,null);
     FileData sdkFile=cacheService.getSdk(key);
     response.setContentType(sdkFile.getContentType());
     ServletUtils.prepareDisposition(request,response,sdkFile.getFileName());

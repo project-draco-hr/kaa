@@ -1,12 +1,12 @@
 {
-  LogStorage storage=(LogStorage)getStorage(BUCKET_SIZE);
+  LogStorage storage=(LogStorage)getStorage(BUCKET_SIZE,RECORD_COUNT);
   LogRecord record=new LogRecord();
   int insertionCount=7;
   int iter=insertionCount;
   while (iter-- > 0) {
     storage.addLogRecord(record);
   }
-  LogBlock logBlock=storage.getRecordBlock(8192);
+  LogBlock logBlock=storage.getRecordBlock(8192,1000);
   Assert.assertEquals(insertionCount,logBlock.getRecords().size());
   storage.close();
 }

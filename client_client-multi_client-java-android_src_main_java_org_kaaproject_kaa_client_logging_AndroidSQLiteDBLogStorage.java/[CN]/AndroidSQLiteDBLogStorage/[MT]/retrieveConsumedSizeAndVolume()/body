@@ -4,9 +4,9 @@ synchronized (database) {
     try {
       cursor=database.rawQuery(PersistentLogStorageConstants.KAA_HOW_MANY_LOGS_IN_DB,null);
       if (cursor.moveToFirst()) {
-        recordCount=cursor.getLong(0);
-        consumedSize=cursor.getLong(1);
-        Log.i(TAG,"Retrieved record count: " + recordCount + ", consumed size: "+ consumedSize);
+        unmarkedRecordCount=totalRecordCount=cursor.getLong(0);
+        unmarkedConsumedSize=cursor.getLong(1);
+        Log.i(TAG,"Retrieved record count: " + totalRecordCount + ", consumed size: "+ unmarkedConsumedSize);
       }
  else {
         Log.e(TAG,"Unable to retrieve consumed size and volume");

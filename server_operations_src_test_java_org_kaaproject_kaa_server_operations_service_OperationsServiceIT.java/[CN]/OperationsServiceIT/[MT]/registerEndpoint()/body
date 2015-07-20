@@ -4,8 +4,9 @@
   ClientSyncMetaData md=new ClientSyncMetaData();
   md.setApplicationToken(application.getApplicationToken());
   md.setEndpointPublicKeyHash(ByteBuffer.wrap(EndpointObjectHash.fromSHA1(ENDPOINT_KEY).getData()));
+  md.setSdkToken(SDK_TOKEN);
   request.setClientSyncMetaData(md);
-  ProfileClientSync profileSync=new ProfileClientSync(ByteBuffer.wrap(ENDPOINT_KEY),ByteBuffer.wrap(profile),new EndpointVersionInfo(CONF_SCHEMA_VERSION,PROFILE_SCHEMA_VERSION,1,1,null,1),null);
+  ProfileClientSync profileSync=new ProfileClientSync(ByteBuffer.wrap(ENDPOINT_KEY),ByteBuffer.wrap(profile),SDK_TOKEN,null);
   request.setProfileSync(profileSync);
   request.setConfigurationSync(new ConfigurationClientSync());
   SyncContext context=createContext(request);

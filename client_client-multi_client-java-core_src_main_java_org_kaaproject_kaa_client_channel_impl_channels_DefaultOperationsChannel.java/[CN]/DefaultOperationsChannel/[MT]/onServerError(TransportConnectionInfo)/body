@@ -4,7 +4,7 @@
 synchronized (this) {
       stopPollScheduler(false);
     }
-    client.getChannelManager().onServerFailed(info);
+    failoverManager.onServerFailed(info);
   }
  else {
     LOG.debug("Channel [{}] connection aborted",getId());

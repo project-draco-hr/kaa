@@ -17,6 +17,9 @@
   Assert.assertNotNull(applicationDto);
   Assert.assertNotNull(applicationDto.getId());
   application=applicationDao.findById(applicationDto.getId());
+  SDK_PROPERTIES.setApplicationId(applicationDto.getId());
+  SDK_TOKEN=new SdkKey(SDK_PROPERTIES).getToken();
+  sdkKeyService.saveSdkKey(SDK_PROPERTIES);
   EndpointGroup groupAll=endpointGroupDao.findByAppIdAndWeight(application.getStringId(),0);
   ProfileSchema profileSchemaObj=new ProfileSchema();
   profileSchemaObj.setMajorVersion(PROFILE_SCHEMA_VERSION);

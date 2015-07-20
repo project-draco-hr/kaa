@@ -16,7 +16,8 @@ synchronized (connection) {
       if (affectedRows > 0) {
         LOG.info("Total {} log records reset for bucket id: [{}]",affectedRows,bucketId);
         long previouslyConsumedSize=consumedMemoryStorage.remove(bucketId);
-        consumedSize+=previouslyConsumedSize;
+        unmarkedConsumedSize+=previouslyConsumedSize;
+        unmarkedRecordCount+=affectedRows;
       }
  else {
         LOG.info("No log records for bucket with id: [{}]",bucketId);

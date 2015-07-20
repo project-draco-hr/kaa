@@ -7,8 +7,11 @@
   Mockito.when(channel.getTransportProtocolId()).thenReturn(TransportProtocolIdConstants.HTTP_TRANSPORT_ID);
   Mockito.when(channel.getServerType()).thenReturn(ServerType.BOOTSTRAP);
   Mockito.when(channel.getId()).thenReturn("mock_channel");
-  KaaChannelManager channelManager=new DefaultChannelManager(bootstrapManager,bootststrapServers);
+  KaaChannelManager channelManager=new DefaultChannelManager(bootstrapManager,bootststrapServers,null);
+  FailoverManager failoverManager=Mockito.spy(new DefaultFailoverManager(channelManager,CONTEXT));
+  channelManager.setFailoverManager(failoverManager);
   channelManager.addChannel(channel);
+  Mockito.verify(failoverManager,Mockito.times(1)).onServerChanged(Mockito.any(TransportConnectionInfo.class));
   channelManager.onServerFailed(bootststrapServers.get(TransportProtocolIdConstants.HTTP_TRANSPORT_ID).get(0));
   Mockito.verify(channel,Mockito.times(1)).setServer(bootststrapServers.get(TransportProtocolIdConstants.HTTP_TRANSPORT_ID).get(1));
 }

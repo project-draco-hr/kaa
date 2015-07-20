@@ -4,7 +4,7 @@
   appStateSeqNumber=getId();
   SyncRequest request=new SyncRequest();
   request.setSyncRequestMetaData(new SyncRequestMetaData());
-  request.getSyncRequestMetaData().setApplicationToken(APPLICATION_TOKEN);
+  request.getSyncRequestMetaData().setSdkToken(SDK_TOKEN);
   request.getSyncRequestMetaData().setEndpointPublicKeyHash(ByteBuffer.wrap(getClientPublicKeyHash().getData()));
   request.getSyncRequestMetaData().setProfileHash(ByteBuffer.wrap(profileHash));
   ConfigurationSyncRequest csRequest=new ConfigurationSyncRequest();

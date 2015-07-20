@@ -6,9 +6,9 @@ synchronized (connection) {
       statement=connection.createStatement();
       rs=statement.executeQuery(PersistentLogStorageConstants.KAA_HOW_MANY_LOGS_IN_DB);
       if (rs.next()) {
-        recordCount=rs.getLong(1);
-        consumedSize=rs.getLong(2);
-        LOG.trace("Retrieved record count: {}, consumed size: {}",recordCount,consumedSize);
+        unmarkedRecordCount=totalRecordCount=rs.getLong(1);
+        unmarkedConsumedSize=rs.getLong(2);
+        LOG.trace("Retrieved record count: {}, consumed size: {}",totalRecordCount,unmarkedConsumedSize);
       }
  else {
         LOG.error("Unable to retrieve consumed size and volume");

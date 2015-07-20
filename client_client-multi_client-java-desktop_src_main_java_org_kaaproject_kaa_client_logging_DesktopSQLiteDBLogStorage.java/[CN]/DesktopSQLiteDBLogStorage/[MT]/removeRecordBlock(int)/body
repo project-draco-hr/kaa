@@ -14,8 +14,8 @@ synchronized (connection) {
       deleteByBucketIdStatement.setInt(1,recordBlockId);
       int removedRecordsCount=deleteByBucketIdStatement.executeUpdate();
       if (removedRecordsCount > 0) {
-        recordCount-=removedRecordsCount;
-        LOG.info("Removed {} records from storage. Total log record count: {}",removedRecordsCount,recordCount);
+        totalRecordCount-=removedRecordsCount;
+        LOG.info("Removed {} records from storage. Total log record count: {}",removedRecordsCount,totalRecordCount);
       }
  else {
         LOG.warn("No records were removed from storage");
