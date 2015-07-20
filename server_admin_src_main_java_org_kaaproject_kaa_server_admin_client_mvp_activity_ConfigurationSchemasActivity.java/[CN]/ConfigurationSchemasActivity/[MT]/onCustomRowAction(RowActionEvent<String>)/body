@@ -1,5 +1,6 @@
 {
   Integer schemaVersion=Integer.valueOf(event.getClickedId());
+  final int action=event.getAction();
   AsyncCallback<String> callback=new AsyncCallback<String>(){
     @Override public void onFailure(    Throwable caught){
       Utils.handleException(caught,listView);
@@ -9,5 +10,17 @@
     }
   }
 ;
-  KaaAdmin.getDataSource().getRecordLibrary(applicationId,schemaVersion,RecordFiles.CONFIGURATION_SCHEMA,callback);
+switch (action) {
+case KaaRowAction.DOWNLOAD_SCHEMA:
+    KaaAdmin.getDataSource().getRecordData(applicationId,schemaVersion,RecordFiles.CONFIGURATION_SCHEMA,callback);
+  break;
+case KaaRowAction.DOWNLOAD_BASE_SCHEMA:
+KaaAdmin.getDataSource().getRecordData(applicationId,schemaVersion,RecordFiles.CONFIGURATION_BASE_SCHEMA,callback);
+break;
+case KaaRowAction.DOWNLOAD_OVERRIDE_SCHEMA:
+KaaAdmin.getDataSource().getRecordData(applicationId,schemaVersion,RecordFiles.CONFIGURATION_OVERRIDE_SCHEMA,callback);
+break;
+default :
+break;
+}
 }
