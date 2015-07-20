@@ -1,0 +1,22 @@
+{
+  if (that == null)   return false;
+  boolean this_present_applicationId=true && this.isSetApplicationId();
+  boolean that_present_applicationId=true && that.isSetApplicationId();
+  if (this_present_applicationId || that_present_applicationId) {
+    if (!(this_present_applicationId && that_present_applicationId))     return false;
+    if (!this.applicationId.equals(that.applicationId))     return false;
+  }
+  boolean this_present_schemaVersion=true;
+  boolean that_present_schemaVersion=true;
+  if (this_present_schemaVersion || that_present_schemaVersion) {
+    if (!(this_present_schemaVersion && that_present_schemaVersion))     return false;
+    if (this.schemaVersion != that.schemaVersion)     return false;
+  }
+  boolean this_present_recordFile=true && this.isSetRecordFile();
+  boolean that_present_recordFile=true && that.isSetRecordFile();
+  if (this_present_recordFile || that_present_recordFile) {
+    if (!(this_present_recordFile && that_present_recordFile))     return false;
+    if (!this.recordFile.equals(that.recordFile))     return false;
+  }
+  return true;
+}

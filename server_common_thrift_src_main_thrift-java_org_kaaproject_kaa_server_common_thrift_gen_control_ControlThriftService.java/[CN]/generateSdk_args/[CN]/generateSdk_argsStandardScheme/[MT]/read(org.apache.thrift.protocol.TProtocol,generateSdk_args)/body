@@ -9,7 +9,7 @@
 switch (schemeField.id) {
 case 1:
       if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
-        struct.sdkPlatform=org.kaaproject.kaa.server.common.thrift.gen.control.SdkPlatform.findByValue(iprot.readI32());
+        struct.sdkPlatform=SdkPlatform.findByValue(iprot.readI32());
         struct.setSdkPlatformIsSet(true);
       }
  else {
@@ -57,10 +57,10 @@ if (schemeField.type == org.apache.thrift.protocol.TType.LIST) {
 {
 org.apache.thrift.protocol.TList _list200=iprot.readListBegin();
 struct.aefMapIds=new ArrayList<String>(_list200.size);
-String _elem201;
-for (int _i202=0; _i202 < _list200.size; ++_i202) {
-_elem201=iprot.readString();
-struct.aefMapIds.add(_elem201);
+for (int _i201=0; _i201 < _list200.size; ++_i201) {
+String _elem202;
+_elem202=iprot.readString();
+struct.aefMapIds.add(_elem202);
 }
 iprot.readListEnd();
 }

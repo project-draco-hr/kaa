@@ -1,6 +1,6 @@
 {
   try {
-    org.kaaproject.kaa.server.common.thrift.gen.control.FileData thriftFileData=clientProvider.getClient().getRecordStructureSchema(key.getApplicationId(),key.getLogSchemaVersion());
+    org.kaaproject.kaa.server.common.thrift.gen.control.FileData thriftFileData=clientProvider.getClient().getRecordStructureSchema(key.getApplicationId(),key.getSchemaVersion());
     FileData fileData=new FileData();
     fileData.setFileName(thriftFileData.getFileName());
     fileData.setFileData(thriftFileData.getData());

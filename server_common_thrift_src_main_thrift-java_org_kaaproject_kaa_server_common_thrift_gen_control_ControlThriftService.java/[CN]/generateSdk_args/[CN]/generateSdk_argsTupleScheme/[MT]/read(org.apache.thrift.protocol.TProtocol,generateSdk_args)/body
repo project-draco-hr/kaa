@@ -2,7 +2,7 @@
   TTupleProtocol iprot=(TTupleProtocol)prot;
   BitSet incoming=iprot.readBitSet(8);
   if (incoming.get(0)) {
-    struct.sdkPlatform=org.kaaproject.kaa.server.common.thrift.gen.control.SdkPlatform.findByValue(iprot.readI32());
+    struct.sdkPlatform=SdkPlatform.findByValue(iprot.readI32());
     struct.setSdkPlatformIsSet(true);
   }
   if (incoming.get(1)) {
@@ -25,10 +25,10 @@
 {
       org.apache.thrift.protocol.TList _list205=new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRING,iprot.readI32());
       struct.aefMapIds=new ArrayList<String>(_list205.size);
-      String _elem206;
-      for (int _i207=0; _i207 < _list205.size; ++_i207) {
-        _elem206=iprot.readString();
-        struct.aefMapIds.add(_elem206);
+      for (int _i206=0; _i206 < _list205.size; ++_i206) {
+        String _elem207;
+        _elem207=iprot.readString();
+        struct.aefMapIds.add(_elem207);
       }
     }
     struct.setAefMapIdsIsSet(true);

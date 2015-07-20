@@ -1,0 +1,19 @@
+{
+  struct.validate();
+  oprot.writeStructBegin(STRUCT_DESC);
+  if (struct.applicationId != null) {
+    oprot.writeFieldBegin(APPLICATION_ID_FIELD_DESC);
+    oprot.writeString(struct.applicationId);
+    oprot.writeFieldEnd();
+  }
+  oprot.writeFieldBegin(SCHEMA_VERSION_FIELD_DESC);
+  oprot.writeI32(struct.schemaVersion);
+  oprot.writeFieldEnd();
+  if (struct.recordFile != null) {
+    oprot.writeFieldBegin(RECORD_FILE_FIELD_DESC);
+    oprot.writeI32(struct.recordFile.getValue());
+    oprot.writeFieldEnd();
+  }
+  oprot.writeFieldStop();
+  oprot.writeStructEnd();
+}

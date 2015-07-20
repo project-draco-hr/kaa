@@ -1,10 +1,10 @@
 {
-  List<Object> list=new ArrayList<Object>();
+  HashCodeBuilder builder=new HashCodeBuilder();
   boolean present_key=true && (isSetKey());
-  list.add(present_key);
-  if (present_key)   list.add(key);
+  builder.append(present_key);
+  if (present_key)   builder.append(key);
   boolean present_data=true && (isSetData());
-  list.add(present_data);
-  if (present_data)   list.add(data);
-  return list.hashCode();
+  builder.append(present_data);
+  if (present_data)   builder.append(data);
+  return builder.toHashCode();
 }

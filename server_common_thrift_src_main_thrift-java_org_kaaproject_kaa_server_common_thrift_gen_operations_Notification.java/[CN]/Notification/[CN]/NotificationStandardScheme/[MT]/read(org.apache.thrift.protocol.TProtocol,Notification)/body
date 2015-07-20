@@ -117,7 +117,7 @@ org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);
 break;
 case 13:
 if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
-struct.op=org.kaaproject.kaa.server.common.thrift.gen.operations.Operation.findByValue(iprot.readI32());
+struct.op=Operation.findByValue(iprot.readI32());
 struct.setOpIsSet(true);
 }
  else {

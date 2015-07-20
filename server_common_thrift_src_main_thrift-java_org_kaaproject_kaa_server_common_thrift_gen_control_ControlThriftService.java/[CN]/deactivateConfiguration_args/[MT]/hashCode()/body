@@ -1,10 +1,10 @@
 {
-  List<Object> list=new ArrayList<Object>();
+  HashCodeBuilder builder=new HashCodeBuilder();
   boolean present_configurationId=true && (isSetConfigurationId());
-  list.add(present_configurationId);
-  if (present_configurationId)   list.add(configurationId);
+  builder.append(present_configurationId);
+  if (present_configurationId)   builder.append(configurationId);
   boolean present_deactivatedUsername=true && (isSetDeactivatedUsername());
-  list.add(present_deactivatedUsername);
-  if (present_deactivatedUsername)   list.add(deactivatedUsername);
-  return list.hashCode();
+  builder.append(present_deactivatedUsername);
+  if (present_deactivatedUsername)   builder.append(deactivatedUsername);
+  return builder.toHashCode();
 }

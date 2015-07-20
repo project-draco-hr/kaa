@@ -1,16 +1,16 @@
 {
-  List<Object> list=new ArrayList<Object>();
+  HashCodeBuilder builder=new HashCodeBuilder();
   boolean present_updateType=true && (isSetUpdateType());
-  list.add(present_updateType);
-  if (present_updateType)   list.add(updateType.getValue());
+  builder.append(present_updateType);
+  if (present_updateType)   builder.append(updateType.getValue());
   boolean present_eventClassFamilyVersion=true && (isSetEventClassFamilyVersion());
-  list.add(present_eventClassFamilyVersion);
-  if (present_eventClassFamilyVersion)   list.add(eventClassFamilyVersion);
+  builder.append(present_eventClassFamilyVersion);
+  if (present_eventClassFamilyVersion)   builder.append(eventClassFamilyVersion);
   boolean present_applicationToken=true && (isSetApplicationToken());
-  list.add(present_applicationToken);
-  if (present_applicationToken)   list.add(applicationToken);
+  builder.append(present_applicationToken);
+  if (present_applicationToken)   builder.append(applicationToken);
   boolean present_endpointId=true && (isSetEndpointId());
-  list.add(present_endpointId);
-  if (present_endpointId)   list.add(endpointId);
-  return list.hashCode();
+  builder.append(present_endpointId);
+  if (present_endpointId)   builder.append(endpointId);
+  return builder.toHashCode();
 }
