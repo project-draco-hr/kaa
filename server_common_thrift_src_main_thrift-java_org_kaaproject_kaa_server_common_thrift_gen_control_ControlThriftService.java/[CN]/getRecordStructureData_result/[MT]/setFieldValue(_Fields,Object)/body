@@ -1,0 +1,20 @@
+{
+switch (field) {
+case SUCCESS:
+    if (value == null) {
+      unsetSuccess();
+    }
+ else {
+      setSuccess((FileData)value);
+    }
+  break;
+case CONTROL_EXCEPTION:
+if (value == null) {
+  unsetControlException();
+}
+ else {
+  setControlException((ControlThriftException)value);
+}
+break;
+}
+}
