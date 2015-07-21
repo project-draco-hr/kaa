@@ -1,17 +1,25 @@
 {
-  Map<TransportProtocolId,List<TransportConnectionInfo>> bootststrapServers=new HashMap<>();
+  final Map<TransportProtocolId,List<TransportConnectionInfo>> bootststrapServers=new HashMap<>();
   bootststrapServers.put(TransportProtocolIdConstants.HTTP_TRANSPORT_ID,Arrays.asList(IPTransportInfoTest.createTestServerInfo(ServerType.BOOTSTRAP,TransportProtocolIdConstants.HTTP_TRANSPORT_ID,"localhost",9889,KeyUtil.generateKeyPair().getPublic()),IPTransportInfoTest.createTestServerInfo(ServerType.BOOTSTRAP,TransportProtocolIdConstants.HTTP_TRANSPORT_ID,"localhost2",9889,KeyUtil.generateKeyPair().getPublic())));
   BootstrapManager bootstrapManager=Mockito.mock(BootstrapManager.class);
-  KaaDataChannel channel=Mockito.mock(KaaDataChannel.class);
+  final KaaDataChannel channel=Mockito.mock(KaaDataChannel.class);
   Mockito.when(channel.getSupportedTransportTypes()).thenReturn(SUPPORTED_TYPES);
   Mockito.when(channel.getTransportProtocolId()).thenReturn(TransportProtocolIdConstants.HTTP_TRANSPORT_ID);
   Mockito.when(channel.getServerType()).thenReturn(ServerType.BOOTSTRAP);
   Mockito.when(channel.getId()).thenReturn("mock_channel");
-  KaaChannelManager channelManager=new DefaultChannelManager(bootstrapManager,bootststrapServers,null);
-  FailoverManager failoverManager=Mockito.spy(new DefaultFailoverManager(channelManager,CONTEXT));
+  ExecutorContext context=Mockito.mock(ExecutorContext.class);
+  Mockito.when(context.getScheduledExecutor()).thenReturn(Executors.newScheduledThreadPool(1));
+  KaaChannelManager channelManager=new DefaultChannelManager(bootstrapManager,bootststrapServers,context);
+  FailoverManager failoverManager=Mockito.spy(new DefaultFailoverManager(channelManager,CONTEXT,1,1,1,1,TimeUnit.MILLISECONDS));
   channelManager.setFailoverManager(failoverManager);
   channelManager.addChannel(channel);
   Mockito.verify(failoverManager,Mockito.times(1)).onServerChanged(Mockito.any(TransportConnectionInfo.class));
   channelManager.onServerFailed(bootststrapServers.get(TransportProtocolIdConstants.HTTP_TRANSPORT_ID).get(0));
-  Mockito.verify(channel,Mockito.times(1)).setServer(bootststrapServers.get(TransportProtocolIdConstants.HTTP_TRANSPORT_ID).get(1));
+  new Thread(new Runnable(){
+    @Override public void run(){
+      Mockito.verify(channel,Mockito.timeout(100).times(1)).setServer(bootststrapServers.get(TransportProtocolIdConstants.HTTP_TRANSPORT_ID).get(1));
+    }
+  }
+);
+  Mockito.verify(failoverManager,Mockito.times(1)).onFailover(FailoverStatus.CURRENT_BOOTSTRAP_SERVER_NA);
 }
