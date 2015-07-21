@@ -3,13 +3,13 @@
   BitSet incoming=iprot.readBitSet(2);
   if (incoming.get(0)) {
 {
-      org.apache.thrift.protocol.TList _list253=new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT,iprot.readI32());
-      struct.success=new ArrayList<org.kaaproject.kaa.server.common.thrift.gen.shared.DataStruct>(_list253.size);
-      for (int _i254=0; _i254 < _list253.size; ++_i254) {
-        org.kaaproject.kaa.server.common.thrift.gen.shared.DataStruct _elem255;
-        _elem255=new org.kaaproject.kaa.server.common.thrift.gen.shared.DataStruct();
-        _elem255.read(iprot);
-        struct.success.add(_elem255);
+      org.apache.thrift.protocol.TList _list245=new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT,iprot.readI32());
+      struct.success=new ArrayList<org.kaaproject.kaa.server.common.thrift.gen.shared.DataStruct>(_list245.size);
+      org.kaaproject.kaa.server.common.thrift.gen.shared.DataStruct _elem246;
+      for (int _i247=0; _i247 < _list245.size; ++_i247) {
+        _elem246=new org.kaaproject.kaa.server.common.thrift.gen.shared.DataStruct();
+        _elem246.read(iprot);
+        struct.success.add(_elem246);
       }
     }
     struct.setSuccessIsSet(true);

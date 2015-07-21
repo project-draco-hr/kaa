@@ -1,28 +1,7 @@
 {
-  HashCodeBuilder builder=new HashCodeBuilder();
-  boolean present_sdkPlatform=true && (isSetSdkPlatform());
-  builder.append(present_sdkPlatform);
-  if (present_sdkPlatform)   builder.append(sdkPlatform.getValue());
-  boolean present_applicationId=true && (isSetApplicationId());
-  builder.append(present_applicationId);
-  if (present_applicationId)   builder.append(applicationId);
-  boolean present_profileSchemaVersion=true;
-  builder.append(present_profileSchemaVersion);
-  if (present_profileSchemaVersion)   builder.append(profileSchemaVersion);
-  boolean present_configurationSchemaVersion=true;
-  builder.append(present_configurationSchemaVersion);
-  if (present_configurationSchemaVersion)   builder.append(configurationSchemaVersion);
-  boolean present_notificationSchemaVersion=true;
-  builder.append(present_notificationSchemaVersion);
-  if (present_notificationSchemaVersion)   builder.append(notificationSchemaVersion);
-  boolean present_aefMapIds=true && (isSetAefMapIds());
-  builder.append(present_aefMapIds);
-  if (present_aefMapIds)   builder.append(aefMapIds);
-  boolean present_logSchemaVersion=true;
-  builder.append(present_logSchemaVersion);
-  if (present_logSchemaVersion)   builder.append(logSchemaVersion);
-  boolean present_defaultVerifierToken=true && (isSetDefaultVerifierToken());
-  builder.append(present_defaultVerifierToken);
-  if (present_defaultVerifierToken)   builder.append(defaultVerifierToken);
-  return builder.toHashCode();
+  List<Object> list=new ArrayList<Object>();
+  boolean present_sdkProperties=true && (isSetSdkProperties());
+  list.add(present_sdkProperties);
+  if (present_sdkProperties)   list.add(sdkProperties);
+  return list.hashCode();
 }

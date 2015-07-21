@@ -5,11 +5,11 @@
 {
       org.apache.thrift.protocol.TList _list133=new org.apache.thrift.protocol.TList(org.apache.thrift.protocol.TType.STRUCT,iprot.readI32());
       struct.success=new ArrayList<org.kaaproject.kaa.server.common.thrift.gen.shared.DataStruct>(_list133.size);
-      for (int _i134=0; _i134 < _list133.size; ++_i134) {
-        org.kaaproject.kaa.server.common.thrift.gen.shared.DataStruct _elem135;
-        _elem135=new org.kaaproject.kaa.server.common.thrift.gen.shared.DataStruct();
-        _elem135.read(iprot);
-        struct.success.add(_elem135);
+      org.kaaproject.kaa.server.common.thrift.gen.shared.DataStruct _elem134;
+      for (int _i135=0; _i135 < _list133.size; ++_i135) {
+        _elem134=new org.kaaproject.kaa.server.common.thrift.gen.shared.DataStruct();
+        _elem134.read(iprot);
+        struct.success.add(_elem134);
       }
     }
     struct.setSuccessIsSet(true);

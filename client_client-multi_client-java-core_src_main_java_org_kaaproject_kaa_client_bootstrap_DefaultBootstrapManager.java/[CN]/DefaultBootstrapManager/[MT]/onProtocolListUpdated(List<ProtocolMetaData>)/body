@@ -1,36 +1,38 @@
 {
+  LOG.trace("Protocol list was updated");
   operationsServerList=list;
   mappedOperationServerList.clear();
   mappedIterators.clear();
-  if (operationsServerList != null && !operationsServerList.isEmpty()) {
-    for (    ProtocolMetaData server : operationsServerList) {
-      TransportProtocolId transportId=new TransportProtocolId(server.getProtocolVersionInfo().getId(),server.getProtocolVersionInfo().getVersion());
-      List<ProtocolMetaData> servers=mappedOperationServerList.get(transportId);
-      if (servers == null) {
-        servers=new LinkedList<>();
-        mappedOperationServerList.put(transportId,servers);
-      }
-      servers.add(server);
+  if (operationsServerList == null || operationsServerList.isEmpty()) {
+    LOG.trace("Received empty operations server list");
+    FailoverDecision decision=failoverManager.onFailover(FailoverStatus.NO_OPERATION_SERVERS_RECEIVED);
+    applyDecision(decision);
+    return;
+  }
+  for (  ProtocolMetaData server : operationsServerList) {
+    TransportProtocolId transportId=new TransportProtocolId(server.getProtocolVersionInfo().getId(),server.getProtocolVersionInfo().getVersion());
+    List<ProtocolMetaData> servers=mappedOperationServerList.get(transportId);
+    if (servers == null) {
+      servers=new LinkedList<>();
+      mappedOperationServerList.put(transportId,servers);
     }
-    for (    Map.Entry<TransportProtocolId,List<ProtocolMetaData>> entry : mappedOperationServerList.entrySet()) {
-      Collections.shuffle(entry.getValue());
-      mappedIterators.put(entry.getKey(),entry.getValue().iterator());
-    }
-    if (serverToApply != null) {
-      List<ProtocolMetaData> servers=getTransportsByAccessPointId(serverToApply);
-      if (servers != null && servers.size() > 0) {
-        notifyChannelManangerAboutServer(servers);
-        serverToApply=null;
-      }
-    }
- else {
-      for (      Map.Entry<TransportProtocolId,Iterator<ProtocolMetaData>> entry : mappedIterators.entrySet()) {
-        TransportConnectionInfo info=new GenericTransportInfo(ServerType.OPERATIONS,entry.getValue().next());
-        channelManager.onTransportConnectionInfoUpdated(info);
-      }
+    servers.add(server);
+  }
+  for (  Map.Entry<TransportProtocolId,List<ProtocolMetaData>> entry : mappedOperationServerList.entrySet()) {
+    Collections.shuffle(entry.getValue());
+    mappedIterators.put(entry.getKey(),entry.getValue().iterator());
+  }
+  if (serverToApply != null) {
+    List<ProtocolMetaData> servers=getTransportsByAccessPointId(serverToApply);
+    if (servers != null && servers.size() > 0) {
+      notifyChannelManagerAboutServer(servers);
+      serverToApply=null;
     }
   }
  else {
-    throw new BootstrapRuntimeException("Operations Server list is empty");
+    for (    Map.Entry<TransportProtocolId,Iterator<ProtocolMetaData>> entry : mappedIterators.entrySet()) {
+      TransportConnectionInfo info=new GenericTransportInfo(ServerType.OPERATIONS,entry.getValue().next());
+      channelManager.onTransportConnectionInfoUpdated(info);
+    }
   }
 }

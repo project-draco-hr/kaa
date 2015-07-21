@@ -15,7 +15,7 @@ synchronized (database) {
       deleteByRecordIdStatement.execute();
       long affectedRows=getAffectedRowCount();
       if (affectedRows > 0) {
-        recordCount--;
+        totalRecordCount--;
         Log.i(TAG,"Removed log record with id [" + recordId + "]");
       }
  else {

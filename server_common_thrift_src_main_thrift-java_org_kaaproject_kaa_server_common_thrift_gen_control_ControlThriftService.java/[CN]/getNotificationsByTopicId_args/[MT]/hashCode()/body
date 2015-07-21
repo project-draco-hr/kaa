@@ -1,7 +1,7 @@
 {
-  HashCodeBuilder builder=new HashCodeBuilder();
+  List<Object> list=new ArrayList<Object>();
   boolean present_topicId=true && (isSetTopicId());
-  builder.append(present_topicId);
-  if (present_topicId)   builder.append(topicId);
-  return builder.toHashCode();
+  list.add(present_topicId);
+  if (present_topicId)   list.add(topicId);
+  return list.hashCode();
 }

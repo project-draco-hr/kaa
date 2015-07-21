@@ -10,13 +10,13 @@ switch (schemeField.id) {
 case 0:
       if (schemeField.type == org.apache.thrift.protocol.TType.LIST) {
 {
-          org.apache.thrift.protocol.TList _list232=iprot.readListBegin();
-          struct.success=new ArrayList<org.kaaproject.kaa.server.common.thrift.gen.shared.DataStruct>(_list232.size);
-          for (int _i233=0; _i233 < _list232.size; ++_i233) {
-            org.kaaproject.kaa.server.common.thrift.gen.shared.DataStruct _elem234;
-            _elem234=new org.kaaproject.kaa.server.common.thrift.gen.shared.DataStruct();
-            _elem234.read(iprot);
-            struct.success.add(_elem234);
+          org.apache.thrift.protocol.TList _list224=iprot.readListBegin();
+          struct.success=new ArrayList<org.kaaproject.kaa.server.common.thrift.gen.shared.DataStruct>(_list224.size);
+          org.kaaproject.kaa.server.common.thrift.gen.shared.DataStruct _elem225;
+          for (int _i226=0; _i226 < _list224.size; ++_i226) {
+            _elem225=new org.kaaproject.kaa.server.common.thrift.gen.shared.DataStruct();
+            _elem225.read(iprot);
+            struct.success.add(_elem225);
           }
           iprot.readListEnd();
         }

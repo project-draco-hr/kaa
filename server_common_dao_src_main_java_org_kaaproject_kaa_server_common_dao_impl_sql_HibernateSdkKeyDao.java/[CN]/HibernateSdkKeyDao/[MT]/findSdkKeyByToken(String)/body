@@ -1,0 +1,14 @@
+{
+  SdkKey sdkKey=null;
+  LOG.debug("Searching SDK token object by SDK token [{}]",token);
+  if (isNotBlank(token)) {
+    sdkKey=findOneByCriterion(Restrictions.eq(SDK_TOKEN_PROPERTY,token));
+  }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{}] Search result: {}.",token,sdkKey);
+  }
+ else {
+    LOG.debug("[{}] Search result: {}.",token,sdkKey != null);
+  }
+  return sdkKey;
+}

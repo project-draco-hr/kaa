@@ -8,6 +8,7 @@ synchronized (httpClientLock) {
     }
     demultiplexer.processResponse(decodedResponse);
     processingResponse=false;
+    failoverManager.onServerConnected(currentServer);
   }
  catch (  Exception e) {
     LOG.error("Failed to process response {}",Arrays.toString(response));
