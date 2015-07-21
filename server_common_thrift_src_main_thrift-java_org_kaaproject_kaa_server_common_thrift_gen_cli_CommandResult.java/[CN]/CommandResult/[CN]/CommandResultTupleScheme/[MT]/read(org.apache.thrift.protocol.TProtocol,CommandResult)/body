@@ -2,7 +2,7 @@
   TTupleProtocol iprot=(TTupleProtocol)prot;
   BitSet incoming=iprot.readBitSet(2);
   if (incoming.get(0)) {
-    struct.status=org.kaaproject.kaa.server.common.thrift.gen.cli.CommandStatus.findByValue(iprot.readI32());
+    struct.status=CommandStatus.findByValue(iprot.readI32());
     struct.setStatusIsSet(true);
   }
   if (incoming.get(1)) {

@@ -1,7 +1,7 @@
 {
-  List<Object> list=new ArrayList<Object>();
+  HashCodeBuilder builder=new HashCodeBuilder();
   boolean present_endpointUserId=true && (isSetEndpointUserId());
-  list.add(present_endpointUserId);
-  if (present_endpointUserId)   list.add(endpointUserId);
-  return list.hashCode();
+  builder.append(present_endpointUserId);
+  if (present_endpointUserId)   builder.append(endpointUserId);
+  return builder.toHashCode();
 }

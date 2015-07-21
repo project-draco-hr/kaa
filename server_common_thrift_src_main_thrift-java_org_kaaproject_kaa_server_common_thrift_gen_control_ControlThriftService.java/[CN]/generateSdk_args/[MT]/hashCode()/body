@@ -1,7 +1,7 @@
 {
-  List<Object> list=new ArrayList<Object>();
+  HashCodeBuilder builder=new HashCodeBuilder();
   boolean present_sdkProperties=true && (isSetSdkProperties());
-  list.add(present_sdkProperties);
-  if (present_sdkProperties)   list.add(sdkProperties);
-  return list.hashCode();
+  builder.append(present_sdkProperties);
+  if (present_sdkProperties)   builder.append(sdkProperties);
+  return builder.toHashCode();
 }
