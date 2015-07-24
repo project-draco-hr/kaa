@@ -1,0 +1,12 @@
+{
+  int size=in.readInt();
+  byte[] data=new byte[size];
+  in.read(data);
+  @SuppressWarnings("unchecked") AvroReader<T> reader=(AvroReader<T>)recordReaderMap.get().get(className);
+  if (reader == null) {
+    reader=new AvroReader<T>(new SpecificDatumReader<T>(clazz),DecoderFactory.get().binaryDecoder(data,null));
+    recordReaderMap.get().put(className,reader);
+  }
+  BinaryDecoder recordDataDecoder=DecoderFactory.get().binaryDecoder(data,reader.getDecoder());
+  avroObject=reader.getReader().read(null,recordDataDecoder);
+}

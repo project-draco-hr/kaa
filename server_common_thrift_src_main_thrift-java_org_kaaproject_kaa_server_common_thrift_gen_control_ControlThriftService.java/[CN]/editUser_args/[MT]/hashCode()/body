@@ -1,7 +1,7 @@
 {
-  List<Object> list=new ArrayList<Object>();
+  HashCodeBuilder builder=new HashCodeBuilder();
   boolean present_user=true && (isSetUser());
-  list.add(present_user);
-  if (present_user)   list.add(user);
-  return list.hashCode();
+  builder.append(present_user);
+  if (present_user)   builder.append(user);
+  return builder.toHashCode();
 }

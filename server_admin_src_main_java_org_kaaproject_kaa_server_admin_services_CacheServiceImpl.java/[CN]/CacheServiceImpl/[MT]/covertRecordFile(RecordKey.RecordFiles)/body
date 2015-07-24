@@ -1,0 +1,29 @@
+{
+  RecordFile recordFile=null;
+switch (recordFiles) {
+case LOG_SCHEMA:
+    recordFile=RecordFile.LOG_SCHEMA;
+  break;
+case LOG_LIBRARY:
+recordFile=RecordFile.LOG_LIBRARY;
+break;
+case CONFIGURATION_SCHEMA:
+recordFile=RecordFile.CONFIGURATION_SCHEMA;
+break;
+case CONFIGURATION_BASE_SCHEMA:
+recordFile=RecordFile.CONFIGURATION_BASE_SCHEMA;
+break;
+case CONFIGURATION_OVERRIDE_SCHEMA:
+recordFile=RecordFile.CONFIGURATION_OVERRIDE_SCHEMA;
+break;
+case NOTIFICATION_SCHEMA:
+recordFile=RecordFile.NOTIFICATION_SCHEMA;
+break;
+case PROFILE_SCHEMA:
+recordFile=RecordFile.PROFILE_SCHEMA;
+break;
+default :
+break;
+}
+return recordFile;
+}

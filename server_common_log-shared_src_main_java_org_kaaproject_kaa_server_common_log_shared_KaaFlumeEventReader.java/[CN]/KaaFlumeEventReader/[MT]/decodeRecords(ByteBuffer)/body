@@ -1,0 +1,17 @@
+{
+  byte[] recordDataBody=toByteArray(bb);
+  BinaryDecoder recordDataDecoder=DecoderFactory.get().binaryDecoder(recordDataBody,null);
+  RecordData recordData=recordDataReader.read(null,recordDataDecoder);
+  LOG.debug("Avro event header: {}",recordData.getRecordHeader());
+  LOG.debug("Avro event data.size: {}",recordData.getEventRecords().size());
+  List<T> results=new ArrayList<T>();
+  BinaryDecoder recordDecoder=null;
+  for (  ByteBuffer eventBuf : recordData.getEventRecords()) {
+    byte[] recordBody=toByteArray(eventBuf);
+    recordDecoder=DecoderFactory.get().binaryDecoder(recordBody,recordDecoder);
+    T record=recordReader.read(null,recordDecoder);
+    results.add(record);
+    LOG.trace("Parsed record: {}",record);
+  }
+  return results;
+}

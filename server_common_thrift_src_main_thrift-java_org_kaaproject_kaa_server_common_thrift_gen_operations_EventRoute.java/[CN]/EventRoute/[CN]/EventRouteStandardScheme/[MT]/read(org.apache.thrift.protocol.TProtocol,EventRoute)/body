@@ -30,11 +30,11 @@ if (schemeField.type == org.apache.thrift.protocol.TType.LIST) {
 {
   org.apache.thrift.protocol.TList _list8=iprot.readListBegin();
   struct.routeInfo=new ArrayList<RouteInfo>(_list8.size);
-  RouteInfo _elem9;
-  for (int _i10=0; _i10 < _list8.size; ++_i10) {
-    _elem9=new RouteInfo();
-    _elem9.read(iprot);
-    struct.routeInfo.add(_elem9);
+  for (int _i9=0; _i9 < _list8.size; ++_i9) {
+    RouteInfo _elem10;
+    _elem10=new RouteInfo();
+    _elem10.read(iprot);
+    struct.routeInfo.add(_elem10);
   }
   iprot.readListEnd();
 }

@@ -1,5 +1,5 @@
 {
-  DefaultBootstrapManager manager=new DefaultBootstrapManager(null);
+  DefaultBootstrapManager manager=new DefaultBootstrapManager(null,null);
   ChanelManagerMock channelManager=spy(new ChanelManagerMock());
   manager.setChannelManager(channelManager);
   BootstrapTransport transport=mock(BootstrapTransport.class);
@@ -13,7 +13,7 @@
   manager.onProtocolListUpdated(list);
   assertEquals("http://localhost:9889",channelManager.getReceivedUrl());
   manager.useNextOperationsServerByAccessPointId("localhost2:9889".hashCode());
-  Mockito.verify(transport,Mockito.times(1)).sync();
+  verify(transport,times(1)).sync();
   list=new ArrayList<ProtocolMetaData>();
   md=IPTransportInfoTest.buildMetaData(TransportProtocolIdConstants.HTTP_TRANSPORT_ID,"localhost2",9889,keyPair.getPublic());
   list.add(md);

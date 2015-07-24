@@ -1,13 +1,13 @@
 {
-  List<Object> list=new ArrayList<Object>();
+  HashCodeBuilder builder=new HashCodeBuilder();
   boolean present_message=true && (isSetMessage());
-  list.add(present_message);
-  if (present_message)   list.add(message);
+  builder.append(present_message);
+  if (present_message)   builder.append(message);
   boolean present_causeExceptionClass=true && (isSetCauseExceptionClass());
-  list.add(present_causeExceptionClass);
-  if (present_causeExceptionClass)   list.add(causeExceptionClass);
+  builder.append(present_causeExceptionClass);
+  if (present_causeExceptionClass)   builder.append(causeExceptionClass);
   boolean present_causeStackStrace=true && (isSetCauseStackStrace());
-  list.add(present_causeStackStrace);
-  if (present_causeStackStrace)   list.add(causeStackStrace);
-  return list.hashCode();
+  builder.append(present_causeStackStrace);
+  if (present_causeStackStrace)   builder.append(causeStackStrace);
+  return builder.toHashCode();
 }

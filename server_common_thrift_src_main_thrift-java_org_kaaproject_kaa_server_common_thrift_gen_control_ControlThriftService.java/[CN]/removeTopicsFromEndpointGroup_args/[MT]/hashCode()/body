@@ -1,10 +1,10 @@
 {
-  List<Object> list=new ArrayList<Object>();
+  HashCodeBuilder builder=new HashCodeBuilder();
   boolean present_endpointGroupId=true && (isSetEndpointGroupId());
-  list.add(present_endpointGroupId);
-  if (present_endpointGroupId)   list.add(endpointGroupId);
+  builder.append(present_endpointGroupId);
+  if (present_endpointGroupId)   builder.append(endpointGroupId);
   boolean present_topicId=true && (isSetTopicId());
-  list.add(present_topicId);
-  if (present_topicId)   list.add(topicId);
-  return list.hashCode();
+  builder.append(present_topicId);
+  if (present_topicId)   builder.append(topicId);
+  return builder.toHashCode();
 }

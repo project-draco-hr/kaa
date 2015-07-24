@@ -1,0 +1,18 @@
+{
+  float result=super.constructActions(table,prefWidth);
+  if (!embedded && (downloadBaseSchemaColumn == null || table.getColumnIndex(downloadBaseSchemaColumn) == -1)) {
+    Header<SafeHtml> downloadBaseSchemaHeader=new SafeHtmlHeader(SafeHtmlUtils.fromSafeConstant(Utils.constants.downloadBaseSchema()));
+    downloadBaseSchemaColumn=constructDownloadBaseSchemaColumnColumn("");
+    table.addColumn(downloadBaseSchemaColumn,downloadBaseSchemaHeader);
+    table.setColumnWidth(downloadBaseSchemaColumn,ACTION_COLUMN_WIDTH,Style.Unit.PX);
+    result+=ACTION_COLUMN_WIDTH;
+  }
+  if (!embedded && (downloadOverrideSchemaColumn == null || table.getColumnIndex(downloadOverrideSchemaColumn) == -1)) {
+    Header<SafeHtml> downloadOverrideSchemaHeader=new SafeHtmlHeader(SafeHtmlUtils.fromSafeConstant(Utils.constants.downloadOverrideSchema()));
+    downloadOverrideSchemaColumn=constructDownloadOverrideSchemaColumnColumn("");
+    table.addColumn(downloadOverrideSchemaColumn,downloadOverrideSchemaHeader);
+    table.setColumnWidth(downloadOverrideSchemaColumn,ACTION_COLUMN_WIDTH,Style.Unit.PX);
+    result+=ACTION_COLUMN_WIDTH;
+  }
+  return result;
+}

@@ -1,19 +1,19 @@
 {
-  List<Object> list=new ArrayList<Object>();
+  HashCodeBuilder builder=new HashCodeBuilder();
   boolean present_accessPointId=true;
-  list.add(present_accessPointId);
-  if (present_accessPointId)   list.add(accessPointId);
+  builder.append(present_accessPointId);
+  if (present_accessPointId)   builder.append(accessPointId);
   boolean present_ruleId=true;
-  list.add(present_ruleId);
-  if (present_ruleId)   list.add(ruleId);
+  builder.append(present_ruleId);
+  if (present_ruleId)   builder.append(ruleId);
   boolean present_initRedirectProbability=true;
-  list.add(present_initRedirectProbability);
-  if (present_initRedirectProbability)   list.add(initRedirectProbability);
+  builder.append(present_initRedirectProbability);
+  if (present_initRedirectProbability)   builder.append(initRedirectProbability);
   boolean present_sessionRedirectProbability=true;
-  list.add(present_sessionRedirectProbability);
-  if (present_sessionRedirectProbability)   list.add(sessionRedirectProbability);
+  builder.append(present_sessionRedirectProbability);
+  if (present_sessionRedirectProbability)   builder.append(sessionRedirectProbability);
   boolean present_ruleTTL=true;
-  list.add(present_ruleTTL);
-  if (present_ruleTTL)   list.add(ruleTTL);
-  return list.hashCode();
+  builder.append(present_ruleTTL);
+  if (present_ruleTTL)   builder.append(ruleTTL);
+  return builder.toHashCode();
 }

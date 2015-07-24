@@ -1,7 +1,7 @@
 {
-  List<Object> list=new ArrayList<Object>();
+  HashCodeBuilder builder=new HashCodeBuilder();
   boolean present_logSchema=true && (isSetLogSchema());
-  list.add(present_logSchema);
-  if (present_logSchema)   list.add(logSchema);
-  return list.hashCode();
+  builder.append(present_logSchema);
+  if (present_logSchema)   builder.append(logSchema);
+  return builder.toHashCode();
 }

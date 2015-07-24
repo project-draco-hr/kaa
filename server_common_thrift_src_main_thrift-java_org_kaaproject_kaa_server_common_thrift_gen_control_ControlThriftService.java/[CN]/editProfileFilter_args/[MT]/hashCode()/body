@@ -1,7 +1,7 @@
 {
-  List<Object> list=new ArrayList<Object>();
+  HashCodeBuilder builder=new HashCodeBuilder();
   boolean present_profileFilter=true && (isSetProfileFilter());
-  list.add(present_profileFilter);
-  if (present_profileFilter)   list.add(profileFilter);
-  return list.hashCode();
+  builder.append(present_profileFilter);
+  if (present_profileFilter)   builder.append(profileFilter);
+  return builder.toHashCode();
 }
