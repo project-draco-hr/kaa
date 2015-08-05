@@ -1,0 +1,16 @@
+{
+  if (e == null) {
+    kafkaSuccessLogCount.getAndAdd(size);
+    callback.onSuccess();
+  }
+ else {
+    kafkaFailureLogCount.getAndAdd(size);
+    LOG.warn("Failed to store record",e);
+    if (e instanceof IOException) {
+      callback.onConnectionError();
+    }
+ else {
+      callback.onInternalError();
+    }
+  }
+}

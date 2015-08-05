@@ -1,0 +1,24 @@
+{
+switch (field$) {
+case 0:
+    return kafkaServers;
+case 1:
+  return topic;
+case 2:
+return partitionCount;
+case 3:
+return executorThreadPoolSize;
+case 4:
+return bufferMemorySize;
+case 5:
+return kafkaCompression;
+case 6:
+return kafkaAcknowledgement;
+case 7:
+return retries;
+case 8:
+return useDefaultPartitioner;
+default :
+throw new org.apache.avro.AvroRuntimeException("Bad index");
+}
+}
