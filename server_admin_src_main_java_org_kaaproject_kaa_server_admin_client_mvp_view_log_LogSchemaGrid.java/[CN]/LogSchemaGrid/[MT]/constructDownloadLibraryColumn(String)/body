@@ -1,5 +1,5 @@
 {
-  ActionButtonCell<LogSchemaDto> cell=new ActionButtonCell<LogSchemaDto>(Utils.resources.download(),text,embedded,new ActionListener<LogSchemaDto>(){
+  ActionButtonCell<LogSchemaDto> cell=new ActionButtonCell<>(Utils.resources.download(),text,embedded,new ActionListener<LogSchemaDto>(){
     @Override public void onItemAction(    LogSchemaDto value){
       Integer logSchemaVersion=value.getMajorVersion();
       RowActionEvent<String> rowDownloadLibraryEvent=new RowActionEvent<>(String.valueOf(logSchemaVersion),KaaRowAction.DOWNLOAD_LOG_SCHEMA_LIBRARY);

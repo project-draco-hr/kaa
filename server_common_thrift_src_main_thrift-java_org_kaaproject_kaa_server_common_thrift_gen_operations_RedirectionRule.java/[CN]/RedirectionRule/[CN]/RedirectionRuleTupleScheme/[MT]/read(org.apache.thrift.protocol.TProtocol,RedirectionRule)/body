@@ -1,6 +1,6 @@
 {
   TTupleProtocol iprot=(TTupleProtocol)prot;
-  BitSet incoming=iprot.readBitSet(4);
+  BitSet incoming=iprot.readBitSet(5);
   if (incoming.get(0)) {
     struct.accessPointId=iprot.readI32();
     struct.setAccessPointIdIsSet(true);
@@ -10,10 +10,14 @@
     struct.setRuleIdIsSet(true);
   }
   if (incoming.get(2)) {
-    struct.redirectionProbability=iprot.readDouble();
-    struct.setRedirectionProbabilityIsSet(true);
+    struct.initRedirectProbability=iprot.readDouble();
+    struct.setInitRedirectProbabilityIsSet(true);
   }
   if (incoming.get(3)) {
+    struct.sessionRedirectProbability=iprot.readDouble();
+    struct.setSessionRedirectProbabilityIsSet(true);
+  }
+  if (incoming.get(4)) {
     struct.ruleTTL=iprot.readI64();
     struct.setRuleTTLIsSet(true);
   }

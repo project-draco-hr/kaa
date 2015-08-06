@@ -1,0 +1,13 @@
+{
+  File outputfile=null;
+  if (bufferedImage != null) {
+    if (filePath != null && filePath.length() > 0) {
+      outputfile=new File(filePath);
+    }
+ else {
+      outputfile=new File(DEFAULT_FILE_PATH);
+    }
+    ImageIO.write(bufferedImage,IMAGE_EXT,outputfile);
+  }
+  return outputfile;
+}

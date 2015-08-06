@@ -1,7 +1,7 @@
 {
-  List<Object> list=new ArrayList<Object>();
+  HashCodeBuilder builder=new HashCodeBuilder();
   boolean present_notification=true && (isSetNotification());
-  list.add(present_notification);
-  if (present_notification)   list.add(notification);
-  return list.hashCode();
+  builder.append(present_notification);
+  if (present_notification)   builder.append(notification);
+  return builder.toHashCode();
 }

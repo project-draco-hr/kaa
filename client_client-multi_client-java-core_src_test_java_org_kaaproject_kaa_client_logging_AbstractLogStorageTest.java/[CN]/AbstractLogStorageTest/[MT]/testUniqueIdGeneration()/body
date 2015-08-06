@@ -1,0 +1,15 @@
+{
+  long bucketSize=3;
+  int recordCount=3;
+  LogStorage storage=(LogStorage)getStorage(bucketSize,recordCount);
+  LogRecord record=new LogRecord();
+  int insertionCount=3;
+  int iter=insertionCount;
+  while (iter-- > 0) {
+    storage.addLogRecord(record);
+  }
+  LogBlock group1=storage.getRecordBlock(6,2);
+  LogBlock group2=storage.getRecordBlock(6,2);
+  Assert.assertNotEquals(group1.getBlockId(),group2.getBlockId());
+  storage.close();
+}

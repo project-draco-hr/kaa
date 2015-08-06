@@ -1,0 +1,12 @@
+{
+  try {
+    JsonDecoder decoder=DecoderFactory.get().jsonDecoder(VoltageReport.SCHEMA$,reportBody);
+    VoltageReport report=null;
+    report=datumReader.read(report,decoder);
+    return report;
+  }
+ catch (  Exception e) {
+    LOG.warn("Failed to decode report source {}",reportBody,e);
+    return null;
+  }
+}

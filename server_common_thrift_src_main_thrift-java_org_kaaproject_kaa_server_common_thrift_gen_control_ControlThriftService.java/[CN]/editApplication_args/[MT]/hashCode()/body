@@ -1,7 +1,7 @@
 {
-  List<Object> list=new ArrayList<Object>();
+  HashCodeBuilder builder=new HashCodeBuilder();
   boolean present_application=true && (isSetApplication());
-  list.add(present_application);
-  if (present_application)   list.add(application);
-  return list.hashCode();
+  builder.append(present_application);
+  if (present_application)   builder.append(application);
+  return builder.toHashCode();
 }

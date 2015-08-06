@@ -1,0 +1,22 @@
+{
+  try {
+    Class.forName("org.sqlite.JDBC");
+    String dbURL=SQLITE_URL_PREFIX + dbName;
+    LOG.info("Connecting to db by url: {}",dbURL);
+    connection=DriverManager.getConnection(dbURL);
+    LOG.debug("SQLite connection was successfully established");
+    initTable();
+    retrieveConsumedSizeAndVolume();
+    if (totalRecordCount > 0) {
+      resetBucketIDs();
+    }
+  }
+ catch (  ClassNotFoundException e) {
+    LOG.error("Can't find SQLite classes in classpath",e);
+    throw new RuntimeException(e);
+  }
+catch (  SQLException e) {
+    LOG.error("Error while initializing SQLite DB and its tables",e);
+    throw new RuntimeException(e);
+  }
+}

@@ -1,0 +1,12 @@
+{
+  irrigationStatus.setIsIrrigation(isIrrigation);
+  if (resetTimeToIrrigation) {
+    irrigationStatus.setTimeToNextIrrigationMs(0L);
+  }
+ else {
+    irrigationStatus.setTimeToNextIrrigationMs(getIrrigationIntervalMs());
+  }
+  irrigationStatus.setMonthlySpentWater(irrigationStatus.getMonthlySpentWater() + currentCount);
+  irrigationStatus.setRemainingWater(irrigationStatus.getRemainingWater() - currentCount);
+  LOG.trace("Updated irrigation status {}",irrigationStatus);
+}

@@ -1,0 +1,8 @@
+{
+  if (nThreads == 1) {
+    return Executors.newSingleThreadScheduledExecutor();
+  }
+ else {
+    return Executors.newScheduledThreadPool(nThreads);
+  }
+}

@@ -12,6 +12,8 @@
     startBox();
     provisionBox();
     schedulePackagesInstall();
+    LOG.info("Executing Cassandra cql script...");
+    scheduleSudoSshCommand("cqlsh -f " + CASSANDRA_INIT_SCRIPT);
     scheduleServicesStart();
     LOG.info("Executing remote ssh commands...");
     executeScheduledSshCommands();
@@ -28,6 +30,8 @@
   }
  catch (  Exception e) {
     LOG.error("Failed to build sandbox image!",e);
+    dumpLogs();
+    LOG.error("Look for sandbox build logs at: " + LOG_DUMP_LOCATION);
     throw e;
   }
  finally {
@@ -35,7 +39,6 @@
       if (boxRunning()) {
         stopBox();
       }
-      unloadBox();
     }
   }
 }

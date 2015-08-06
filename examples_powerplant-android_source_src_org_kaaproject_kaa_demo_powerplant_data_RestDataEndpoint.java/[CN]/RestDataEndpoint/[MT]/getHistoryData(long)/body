@@ -1,0 +1,12 @@
+{
+  try {
+    HttpGet getRequest=new HttpGet(baseURL + "?from=" + fromTime);
+    getRequest.addHeader("accept","application/json");
+    JSONArray jsonArray=fetchJson(getRequest);
+    return toDataReport(jsonArray);
+  }
+ catch (  Exception e) {
+    Log.e(TAG,"Failed to fetch data",e);
+  }
+  return null;
+}

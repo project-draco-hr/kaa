@@ -1,55 +1,12 @@
 {
   StringBuilder sb=new StringBuilder("generateSdk_args(");
   boolean first=true;
-  sb.append("sdkPlatform:");
-  if (this.sdkPlatform == null) {
+  sb.append("sdkProperties:");
+  if (this.sdkProperties == null) {
     sb.append("null");
   }
  else {
-    sb.append(this.sdkPlatform);
-  }
-  first=false;
-  if (!first)   sb.append(", ");
-  sb.append("applicationId:");
-  if (this.applicationId == null) {
-    sb.append("null");
-  }
- else {
-    sb.append(this.applicationId);
-  }
-  first=false;
-  if (!first)   sb.append(", ");
-  sb.append("profileSchemaVersion:");
-  sb.append(this.profileSchemaVersion);
-  first=false;
-  if (!first)   sb.append(", ");
-  sb.append("configurationSchemaVersion:");
-  sb.append(this.configurationSchemaVersion);
-  first=false;
-  if (!first)   sb.append(", ");
-  sb.append("notificationSchemaVersion:");
-  sb.append(this.notificationSchemaVersion);
-  first=false;
-  if (!first)   sb.append(", ");
-  sb.append("aefMapIds:");
-  if (this.aefMapIds == null) {
-    sb.append("null");
-  }
- else {
-    sb.append(this.aefMapIds);
-  }
-  first=false;
-  if (!first)   sb.append(", ");
-  sb.append("logSchemaVersion:");
-  sb.append(this.logSchemaVersion);
-  first=false;
-  if (!first)   sb.append(", ");
-  sb.append("defaultVerifierToken:");
-  if (this.defaultVerifierToken == null) {
-    sb.append("null");
-  }
- else {
-    sb.append(this.defaultVerifierToken);
+    sb.append(this.sdkProperties);
   }
   first=false;
   sb.append(")");

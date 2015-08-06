@@ -1,0 +1,29 @@
+{
+synchronized (database) {
+    Log.v(TAG,"Removing log record with id [" + recordId + "]");
+    if (deleteByRecordIdStatement == null) {
+      try {
+        deleteByRecordIdStatement=database.compileStatement(PersistentLogStorageConstants.KAA_DELETE_BY_RECORD_ID);
+      }
+ catch (      SQLiteException e) {
+        Log.e(TAG,"Can't create log remove statement",e);
+        throw new RuntimeException(e);
+      }
+    }
+    try {
+      deleteByRecordIdStatement.bindLong(1,recordId);
+      deleteByRecordIdStatement.execute();
+      long affectedRows=getAffectedRowCount();
+      if (affectedRows > 0) {
+        totalRecordCount--;
+        Log.i(TAG,"Removed log record with id [" + recordId + "]");
+      }
+ else {
+        Log.w(TAG,"No log record was removed");
+      }
+    }
+ catch (    SQLiteException e) {
+      Log.e(TAG,"Failed to remove a log record by recordId [" + recordId + "]",e);
+    }
+  }
+}

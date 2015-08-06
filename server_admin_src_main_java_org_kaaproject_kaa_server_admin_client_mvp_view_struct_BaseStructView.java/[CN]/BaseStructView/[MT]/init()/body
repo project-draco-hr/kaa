@@ -1,7 +1,7 @@
 {
   getColumnFormatter().setWidth(0,"400px");
   getColumnFormatter().setWidth(1,"400px");
-  getColumnFormatter().setWidth(2,"0px");
+  getColumnFormatter().getElement(2).setAttribute("width","0px");
   FlexTable dateTable=new FlexTable();
   FlexTable userTable=new FlexTable();
   dateTable.getColumnFormatter().setWidth(0,"200px");
@@ -63,7 +63,7 @@
   getFlexCellFormatter().setColSpan(1,0,3);
   detailsTable.getColumnFormatter().setWidth(0,"200px");
   detailsTable.getColumnFormatter().setWidth(1,"600px");
-  detailsTable.getColumnFormatter().setWidth(2,"0px");
+  detailsTable.getColumnFormatter().getElement(2).setAttribute("width","0px");
   description=new SizedTextArea(1024);
   description.setWidth("600px");
   description.getTextArea().getElement().getStyle().setPropertyPx("minHeight",100);

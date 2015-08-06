@@ -1,6 +1,7 @@
 {
   if (state.getProperty(NF_SUBSCRIPTIONS) != null) {
-    BinaryDecoder decoder=DecoderFactory.get().binaryDecoder(state.getProperty(NF_SUBSCRIPTIONS).getBytes(),null);
+    byte[] data=base64.decodeBase64(state.getProperty(NF_SUBSCRIPTIONS));
+    BinaryDecoder decoder=DecoderFactory.get().binaryDecoder(data,null);
     SpecificDatumReader<TopicSubscriptionInfo> avroReader=new SpecificDatumReader<TopicSubscriptionInfo>(TopicSubscriptionInfo.class);
     try {
       TopicSubscriptionInfo decodedInfo=null;
@@ -11,7 +12,7 @@
       }
     }
  catch (    Exception e) {
-      LOG.error("Unexpected exception occurred while reading information from decoder");
+      LOG.error("Unexpected exception occurred while reading information from decoder",e);
     }
   }
  else {

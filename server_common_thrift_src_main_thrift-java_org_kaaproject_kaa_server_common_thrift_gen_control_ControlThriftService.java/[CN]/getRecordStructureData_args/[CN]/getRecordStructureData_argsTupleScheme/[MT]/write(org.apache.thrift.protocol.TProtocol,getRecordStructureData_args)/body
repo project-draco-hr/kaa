@@ -1,0 +1,23 @@
+{
+  TTupleProtocol oprot=(TTupleProtocol)prot;
+  BitSet optionals=new BitSet();
+  if (struct.isSetApplicationId()) {
+    optionals.set(0);
+  }
+  if (struct.isSetSchemaVersion()) {
+    optionals.set(1);
+  }
+  if (struct.isSetRecordFile()) {
+    optionals.set(2);
+  }
+  oprot.writeBitSet(optionals,3);
+  if (struct.isSetApplicationId()) {
+    oprot.writeString(struct.applicationId);
+  }
+  if (struct.isSetSchemaVersion()) {
+    oprot.writeI32(struct.schemaVersion);
+  }
+  if (struct.isSetRecordFile()) {
+    oprot.writeI32(struct.recordFile.getValue());
+  }
+}

@@ -1,0 +1,32 @@
+{
+  if (targetProgress == INVALID_PROGRESS_VALUE) {
+    return;
+  }
+  targetProgress=(targetProgress > mMax) ? mMax : targetProgress;
+  targetProgress=(mTargetProgress < 0) ? 0 : targetProgress;
+  mTargetProgress=targetProgress;
+  if (mOnThermostatChangeListener != null && notifyListeners) {
+    mOnThermostatChangeListener.onTargetProgressChanged(this,targetProgress,fromUser);
+  }
+  mTargetProgressSweep=(float)targetProgress / (float)mMax * mSweepAngle;
+  float angleSweep=0;
+  float fullPhase=0;
+  if (mTargetProgressSweep < mProgressSweep) {
+    angleSweep=mTargetProgressSweep;
+  }
+ else {
+    angleSweep=mSweepAngle - mTargetProgressSweep;
+    float fullLength=(float)(Math.toRadians(mSweepAngle)) * (float)(mArcRadius);
+    fullPhase=fullLength % (mOnInterval + mOffInterval);
+  }
+  float length=(float)(Math.toRadians(angleSweep)) * (float)(mArcRadius);
+  float phaseValue=length % (mOnInterval + mOffInterval) + fullPhase;
+  PathEffect arcEffect=new DashPathEffect(new float[]{mOnInterval,mOffInterval},phaseValue);
+  if (mEnableBlur) {
+    mProgressPaintGlow.setPathEffect(arcEffect);
+  }
+  mProgressPaint.setPathEffect(arcEffect);
+  updateThumbPosition();
+  updateColors();
+  invalidate();
+}

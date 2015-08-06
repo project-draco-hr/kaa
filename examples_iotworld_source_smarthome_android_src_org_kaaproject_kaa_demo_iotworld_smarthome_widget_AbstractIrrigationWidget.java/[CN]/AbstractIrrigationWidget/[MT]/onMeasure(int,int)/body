@@ -1,0 +1,27 @@
+{
+  int height=getDefaultSize(getSuggestedMinimumHeight(),heightMeasureSpec);
+  int width=getDefaultSize(getSuggestedMinimumWidth(),widthMeasureSpec);
+  final int min=Math.min(width,height);
+  width=min;
+  height=min;
+  mTranslateX=(int)(width * 0.5f);
+  mTranslateY=(int)(height * 0.5f);
+  if (width > 0) {
+    float textWidthMax=width * 0.7f;
+    float textWidthMin=width * 0.6f;
+    String text=getValueText();
+    float textWidth=mTextPaint.measureText(text);
+    while (textWidth > textWidthMax) {
+      float textSize=mTextPaint.getTextSize() - 1f;
+      mTextPaint.setTextSize(textSize);
+      textWidth=mTextPaint.measureText(text);
+    }
+    while (textWidth < textWidthMin) {
+      float textSize=mTextPaint.getTextSize() + 1f;
+      mTextPaint.setTextSize(textSize);
+      textWidth=mTextPaint.measureText(text);
+    }
+  }
+  onMeasureImpl(width,height);
+  setMeasuredDimension(width,height);
+}

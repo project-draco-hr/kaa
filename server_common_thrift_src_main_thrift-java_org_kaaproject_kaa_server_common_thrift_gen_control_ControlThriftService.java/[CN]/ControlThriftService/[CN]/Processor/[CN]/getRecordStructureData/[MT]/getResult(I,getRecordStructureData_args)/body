@@ -1,0 +1,10 @@
+{
+  getRecordStructureData_result result=new getRecordStructureData_result();
+  try {
+    result.success=iface.getRecordStructureData(args.applicationId,args.schemaVersion,args.recordFile);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

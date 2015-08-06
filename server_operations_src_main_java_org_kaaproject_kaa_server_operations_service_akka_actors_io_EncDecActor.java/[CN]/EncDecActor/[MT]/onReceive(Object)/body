@@ -1,7 +1,7 @@
 {
   LOG.debug("Received: {}",message.getClass().getName());
   if (message instanceof SessionInitMessage) {
-    RedirectionRule redirection=checkRedirection(redirectionRules,random.nextDouble());
+    RedirectionRule redirection=checkInitRedirection(redirectionRules,random.nextDouble());
     if (redirection == null) {
       messageProcessor.decodeAndForward(context(),(SessionInitMessage)message);
     }
@@ -11,7 +11,7 @@
   }
  else   if (message instanceof SessionAware) {
     if (message instanceof SessionAwareMessage) {
-      RedirectionRule redirection=checkRedirection(redirectionRules,random.nextDouble());
+      RedirectionRule redirection=checkSessionRedirection(redirectionRules,random.nextDouble());
       if (redirection == null) {
         messageProcessor.decodeAndForward(context(),(SessionAwareMessage)message);
       }

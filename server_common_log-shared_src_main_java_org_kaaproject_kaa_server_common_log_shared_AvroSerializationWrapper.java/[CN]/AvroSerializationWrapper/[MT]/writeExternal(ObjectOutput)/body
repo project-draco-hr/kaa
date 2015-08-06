@@ -1,0 +1,13 @@
+{
+  @SuppressWarnings("unchecked") AvroWriter<T> writer=(AvroWriter<T>)recordWriterMap.get().get(className);
+  if (writer == null) {
+    ByteArrayOutputStream os=new ByteArrayOutputStream();
+    writer=new AvroWriter<T>(new SpecificDatumWriter<T>(clazz),EncoderFactory.get().binaryEncoder(os,null));
+    recordWriterMap.get().put(className,writer);
+  }
+  ByteArrayOutputStream os=new ByteArrayOutputStream();
+  BinaryEncoder encoder=EncoderFactory.get().binaryEncoder(os,writer.getEncoder());
+  writer.getWriter().write(avroObject,encoder);
+  out.write(os.size());
+  out.write(os.toByteArray());
+}

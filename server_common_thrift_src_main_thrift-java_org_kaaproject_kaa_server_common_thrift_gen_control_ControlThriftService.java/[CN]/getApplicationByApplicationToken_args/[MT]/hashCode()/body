@@ -1,7 +1,7 @@
 {
-  List<Object> list=new ArrayList<Object>();
+  HashCodeBuilder builder=new HashCodeBuilder();
   boolean present_applicationToken=true && (isSetApplicationToken());
-  list.add(present_applicationToken);
-  if (present_applicationToken)   list.add(applicationToken);
-  return list.hashCode();
+  builder.append(present_applicationToken);
+  if (present_applicationToken)   builder.append(applicationToken);
+  return builder.toHashCode();
 }

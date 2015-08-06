@@ -1,0 +1,13 @@
+{
+  Integer schemaVersion=Integer.valueOf(event.getClickedId());
+  AsyncCallback<String> callback=new AsyncCallback<String>(){
+    @Override public void onFailure(    Throwable caught){
+      Utils.handleException(caught,listView);
+    }
+    @Override public void onSuccess(    String key){
+      ServletHelper.downloadRecordLibrary(key);
+    }
+  }
+;
+  KaaAdmin.getDataSource().getRecordData(applicationId,schemaVersion,RecordFiles.PROFILE_SCHEMA,callback);
+}

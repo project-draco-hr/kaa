@@ -1,0 +1,8 @@
+{
+  LOG.info("Init gpio manager with relay pin {} and water flow sensor pin {}",RELAY_IN_PIN_OUT,WATER_FLOW_SENSOR_PIN_IN);
+  this.stateHolder=stateHolder;
+  gpioController=GpioFactory.getInstance();
+  relayPin=gpioController.provisionDigitalOutputPin(RELAY_IN_PIN_OUT,"Relay control pin",PinState.LOW);
+  flowSensorCountPin=gpioController.provisionDigitalInputPin(WATER_FLOW_SENSOR_PIN_IN,"Water flow sensor pin",PinPullResistance.PULL_DOWN);
+  flowSensorCountPin.addListener(this);
+}

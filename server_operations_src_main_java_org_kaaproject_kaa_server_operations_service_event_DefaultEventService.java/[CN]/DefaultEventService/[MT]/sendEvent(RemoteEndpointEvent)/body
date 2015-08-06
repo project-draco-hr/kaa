@@ -2,7 +2,7 @@
   String serverId=remoteEndpointEvent.getRecipient().getServerId();
   NeighborConnection<MessageTemplate,Message> server=neighbors.getNeghborConnection(serverId);
   if (server == null) {
-    LOG.info("sendRouteInfo() specified server {} not found in neighbors list",serverId);
+    LOG.debug("sendRouteInfo() specified server {} not found in neighbors list",serverId);
     notifyListenersOnServerProblem(serverId);
     return;
   }

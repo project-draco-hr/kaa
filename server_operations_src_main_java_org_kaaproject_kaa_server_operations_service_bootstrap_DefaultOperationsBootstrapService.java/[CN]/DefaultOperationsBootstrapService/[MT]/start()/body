@@ -29,6 +29,7 @@
   }
 );
   transportService.start();
+  loadBalancingService.start(operationsNode);
   try {
     thriftShutdownLatch.await();
   }

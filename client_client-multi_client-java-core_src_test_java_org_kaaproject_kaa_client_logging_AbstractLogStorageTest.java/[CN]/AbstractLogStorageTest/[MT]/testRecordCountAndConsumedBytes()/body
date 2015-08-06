@@ -1,0 +1,14 @@
+{
+  long bucketSize=3;
+  int recordCount=3;
+  LogStorage storage=(LogStorage)getStorage(bucketSize,recordCount);
+  LogRecord record=new LogRecord();
+  int insertionCount=3;
+  int iter=insertionCount;
+  while (iter-- > 0) {
+    storage.addLogRecord(record);
+  }
+  Assert.assertTrue(storage.getStatus().getRecordCount() == insertionCount);
+  Assert.assertTrue(storage.getStatus().getConsumedVolume() == (insertionCount * record.getSize()));
+  storage.close();
+}

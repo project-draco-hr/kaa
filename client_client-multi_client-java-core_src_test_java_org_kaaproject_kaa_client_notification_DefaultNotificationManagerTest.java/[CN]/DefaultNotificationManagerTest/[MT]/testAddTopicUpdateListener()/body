@@ -3,9 +3,9 @@
   NotificationTransport transport=mock(NotificationTransport.class);
   DefaultNotificationManager notificationManager=new DefaultNotificationManager(state,executorContext,transport);
   final List<Topic> topicUpdates=new LinkedList<>();
-  topicUpdates.add(new Topic("id1","topic_name1",SubscriptionType.MANDATORY));
-  topicUpdates.add(new Topic("id2","topic_name1",SubscriptionType.MANDATORY));
-  topicUpdates.add(new Topic("id3","topic_name1",SubscriptionType.MANDATORY));
+  topicUpdates.add(new Topic("id1","topic_name1",SubscriptionType.MANDATORY_SUBSCRIPTION));
+  topicUpdates.add(new Topic("id2","topic_name1",SubscriptionType.MANDATORY_SUBSCRIPTION));
+  topicUpdates.add(new Topic("id3","topic_name1",SubscriptionType.MANDATORY_SUBSCRIPTION));
   notificationManager.addTopicListListener(new NotificationTopicListListener(){
     @Override public void onListUpdated(    List<Topic> list){
       Assert.assertArrayEquals(topicUpdates.toArray(),list.toArray());

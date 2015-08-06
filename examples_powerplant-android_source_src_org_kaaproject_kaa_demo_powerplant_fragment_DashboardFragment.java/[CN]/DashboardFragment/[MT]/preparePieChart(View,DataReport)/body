@@ -1,0 +1,28 @@
+{
+  pieChart=(PieChartView)rootView.findViewById(R.id.pieChart);
+  plantValueView=(TextView)rootView.findViewById(R.id.solarPlantVoltageValueText);
+  gridValueView=(TextView)rootView.findViewById(R.id.gridVoltageValueText);
+  totalValueView=(TextView)rootView.findViewById(R.id.totalVoltageValueText);
+  rootView.findViewById(R.id.gaugeChart11);
+  List<SliceValue> sliceValues=new ArrayList<SliceValue>(NUM_ZONES + 1);
+  float plantVoltage=0.0f;
+  for (  DataPoint dp : latestData.getDataPoints()) {
+    float value=convertVoltage(dp.getVoltage());
+    plantVoltage+=value;
+    SliceValue sliceValue=new SliceValue(value,Color.parseColor(PIE_CHART_PLANT_VALUE_COLOR));
+    sliceValue.setLabel(EMPTY_STRING);
+    sliceValues.add(sliceValue);
+  }
+  float gridVoltage=MAX_VOLTAGE * NUM_ZONES / 1000 - plantVoltage;
+  SliceValue gridSlice=new SliceValue(gridVoltage,Color.parseColor(PIE_CHART_GRID_VALUE_COLOR));
+  gridSlice.setLabel(EMPTY_STRING);
+  sliceValues.add(gridSlice);
+  PieChartData pieChartData=new PieChartData(sliceValues);
+  pieChartData.setHasLabels(true);
+  pieChartData.setSlicesSpacing(2);
+  pieChartData.setHasCenterCircle(true);
+  pieChart.setBackgroundColor(CHART_BACKROUND_COLOR);
+  pieChart.setChartRotation(-90,true);
+  pieChart.setPieChartData(pieChartData);
+  updateLabels(plantVoltage * 1000,gridVoltage * 1000);
+}

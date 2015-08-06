@@ -1,7 +1,12 @@
 {
+  String tableName=toFullTableName(appToken);
   LOG.info("Create table {} in cassandra keyspace {}",tableName,keyspaceName);
-  String createTableQuery=CREATE_TABLE.replace(TABLE_NAME,tableName);
-  createTableQuery=createTableQuery.replace(KEYSPACE_NAME,keyspaceName);
-  LOG.debug("Execute query {}",createTableQuery);
-  getSession().execute(createTableQuery);
+  String createTableStmt=CREATE_TABLE.replace(TABLE_NAME,tableName);
+  createTableStmt=createTableStmt.replace(KEYSPACE_NAME,keyspaceName);
+  createTableStmt=createTableStmt.replace(COLUMNS_DEFINITION,generateColumnsDefinition(configuration));
+  createTableStmt=createTableStmt.replace(PRIMARY_KEY_DEFINITION,generatePrimaryKeyDefinition(configuration));
+  createTableStmt=createTableStmt.replace(CLUSTERING_DEFINITION,generateClusteringDefinition(configuration));
+  LOG.info("Executing table creation stmt {}",createTableStmt);
+  getSession().execute(createTableStmt);
+  return tableName;
 }

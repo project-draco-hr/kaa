@@ -2,6 +2,10 @@
   KaaChannelManager manager=Mockito.mock(KaaChannelManager.class);
   MessageEncoderDecoder encDec=Mockito.mock(MessageEncoderDecoder.class);
   AbstractHttpClient httpClient=Mockito.mock(AbstractHttpClient.class);
+  ExecutorContext context=Mockito.mock(ExecutorContext.class);
+  Mockito.when(context.getScheduledExecutor()).thenReturn(Executors.newScheduledThreadPool(1));
+  FailoverManager flManager=new DefaultFailoverManager(manager,context,100,1,1,1,TimeUnit.MILLISECONDS);
+  FailoverManager failoverManager=Mockito.spy(flManager);
   Mockito.when(httpClient.executeHttpRequest(Mockito.anyString(),Mockito.any(LinkedHashMap.class),Mockito.anyBoolean())).thenThrow(new Exception());
   Mockito.when(httpClient.getEncoderDecoder()).thenReturn(encDec);
   AbstractKaaClient client=Mockito.mock(AbstractKaaClient.class);
@@ -10,10 +14,10 @@
   KaaClientState state=Mockito.mock(KaaClientState.class);
   KaaDataMultiplexer multiplexer=Mockito.mock(KaaDataMultiplexer.class);
   KaaDataDemultiplexer demultiplexer=Mockito.mock(KaaDataDemultiplexer.class);
-  DefaultOperationsChannelFake channel=new DefaultOperationsChannelFake(client,state,1);
+  DefaultOperationsChannelFake channel=new DefaultOperationsChannelFake(client,state,failoverManager,1);
   channel.setDemultiplexer(demultiplexer);
   channel.setMultiplexer(multiplexer);
   TransportConnectionInfo server=IPTransportInfoTest.createTestServerInfo(ServerType.OPERATIONS,TransportProtocolIdConstants.HTTP_TRANSPORT_ID,"localhost",9889,KeyUtil.generateKeyPair().getPublic());
   channel.setServer(server);
-  Mockito.verify(manager,Mockito.times(1)).onServerFailed(Mockito.any(TransportConnectionInfo.class));
+  Mockito.verify(failoverManager,Mockito.times(1)).onServerFailed(Mockito.any(TransportConnectionInfo.class));
 }

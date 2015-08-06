@@ -1,0 +1,40 @@
+{
+  String reuseTsValue=null;
+  Insert[] insertArray=new Insert[logEventDtoList.size()];
+  for (int i=0; i < logEventDtoList.size(); i++) {
+    CassandraLogEventDto dto=logEventDtoList.get(i);
+    Insert insert=QueryBuilder.insertInto(keyspaceName,collectionName);
+    for (    ColumnMappingElement element : configuration.getColumnMapping()) {
+switch (element.getType()) {
+case HEADER_FIELD:
+        insert.value(element.getColumnName(),dto.getHeader().get(element.getValue()));
+      break;
+case EVENT_FIELD:
+    insert.value(element.getColumnName(),dto.getEvent().get(element.getValue()));
+  break;
+case HEADER_JSON:
+insert.value(element.getColumnName(),headerConverter.encodeToJson(dto.getHeader()));
+break;
+case HEADER_BINARY:
+insert.value(element.getColumnName(),ByteBuffer.wrap(headerConverter.encode(dto.getHeader())));
+break;
+case EVENT_JSON:
+insert.value(element.getColumnName(),eventConverter.encodeToJson(dto.getEvent()));
+break;
+case EVENT_BINARY:
+insert.value(element.getColumnName(),ByteBuffer.wrap(eventConverter.encode(dto.getEvent())));
+break;
+case UUID:
+insert.value(element.getColumnName(),UUID.randomUUID());
+break;
+case TS:
+reuseTsValue=formatTs(reuseTsValue,element);
+insert.value(element.getColumnName(),reuseTsValue);
+break;
+}
+}
+insert.using(QueryBuilder.ttl(configuration.getDataTTL()));
+insertArray[i]=insert;
+}
+return insertArray;
+}

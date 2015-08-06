@@ -1,0 +1,7 @@
+{
+  final int prime=31;
+  int result=1;
+  result=prime * result + zoneId;
+  result=prime * result + (int)(time ^ (time >>> 32));
+  return result;
+}

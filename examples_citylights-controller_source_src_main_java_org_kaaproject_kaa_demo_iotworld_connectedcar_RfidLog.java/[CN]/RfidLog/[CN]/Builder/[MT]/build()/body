@@ -1,0 +1,10 @@
+{
+  try {
+    RfidLog record=new RfidLog();
+    record.tag=fieldSetFlags()[0] ? this.tag : (java.lang.Long)defaultValue(fields()[0]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

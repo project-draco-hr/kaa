@@ -1,7 +1,8 @@
 {
   String dnsName=getNameFromConnectionInfo(nodeInfo.getConnectionInfo());
-  addNewOperationsServer(dnsName,nodeInfo);
-  LOG.info("Operations server {} added. Updating {} Bootstrap servers",dnsName,bootstrapsMap.size());
+  int accessPointId=ServerNameUtil.crc32(nodeInfo.getConnectionInfo());
+  addNewOperationsServer(accessPointId,dnsName,nodeInfo);
+  LOG.info("Operations server [{}][{}] added. Updating {} Bootstrap servers",accessPointId,dnsName,bootstrapsMap.size());
   for (  BootstrapNodeInfo bootstrapNodeInfo : bootstrapsMap.values()) {
     updateBootstrap(bootstrapNodeInfo);
   }

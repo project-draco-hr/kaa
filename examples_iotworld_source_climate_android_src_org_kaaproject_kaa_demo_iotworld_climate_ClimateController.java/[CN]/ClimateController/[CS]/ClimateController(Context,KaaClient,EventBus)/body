@@ -1,0 +1,10 @@
+{
+  mPreferences=PreferenceManager.getDefaultSharedPreferences(context);
+  mClient=client;
+  mEventBus=eventBus;
+  mThermostatDevice=new ThermostatDevice(mPreferences,client,eventBus);
+  mEventBus.register(this);
+  mClient.setAttachedListener(this);
+  mClient.setDetachedListener(this);
+  mClient.setEndpointAccessToken(DEFAULT_CLIMATE_CONTROL_ACCESS_TOKEN);
+}

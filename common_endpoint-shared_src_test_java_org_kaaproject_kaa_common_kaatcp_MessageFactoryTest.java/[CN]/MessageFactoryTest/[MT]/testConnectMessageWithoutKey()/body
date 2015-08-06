@@ -4,7 +4,7 @@
   org.kaaproject.kaa.common.endpoint.gen.SyncRequest request=new org.kaaproject.kaa.common.endpoint.gen.SyncRequest();
   request.setRequestId(42);
   SyncRequestMetaData md=new SyncRequestMetaData();
-  md.setApplicationToken("AppToken");
+  md.setSdkToken("sdkToken");
   md.setEndpointPublicKeyHash(ByteBuffer.wrap(SHA1HashUtils.hashToBytes(clientPair.getPublic().getEncoded())));
   request.setSyncRequestMetaData(md);
   final byte[] rawData=requestConverter.toByteArray(request);

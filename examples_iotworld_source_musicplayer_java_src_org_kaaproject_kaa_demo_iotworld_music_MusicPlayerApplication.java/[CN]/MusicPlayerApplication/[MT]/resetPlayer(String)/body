@@ -1,0 +1,19 @@
+{
+  KaaMp3File song=library.getSong(songId);
+  if (song == null) {
+    LOG.error("Can't find song {} in music library",songId);
+    throw new IllegalStateException("Can't find song " + songId + " in music library");
+  }
+  Integer volume=null;
+  if (player != null) {
+    volume=player.getVolume();
+    player.clearEndOfMediaListener();
+    player.stop();
+  }
+  player=new Mp3Player(song.getFilename());
+  if (volume != null) {
+    player.setVolume(volume);
+  }
+  player.setEndOfMediaListener(this);
+  return player;
+}

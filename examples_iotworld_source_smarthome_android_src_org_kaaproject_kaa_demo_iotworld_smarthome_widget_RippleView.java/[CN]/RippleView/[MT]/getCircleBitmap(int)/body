@@ -1,0 +1,12 @@
+{
+  final Bitmap output=Bitmap.createBitmap(mOriginBitmap.getWidth(),mOriginBitmap.getHeight(),Bitmap.Config.ARGB_8888);
+  final Canvas canvas=new Canvas(output);
+  final Paint paint=new Paint();
+  final Rect rect=new Rect((int)(mX - radius),(int)(mY - radius),(int)(mX + radius),(int)(mY + radius));
+  paint.setAntiAlias(true);
+  canvas.drawARGB(0,0,0,0);
+  canvas.drawCircle(mX,mY,radius,paint);
+  paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+  canvas.drawBitmap(mOriginBitmap,rect,rect,paint);
+  return output;
+}

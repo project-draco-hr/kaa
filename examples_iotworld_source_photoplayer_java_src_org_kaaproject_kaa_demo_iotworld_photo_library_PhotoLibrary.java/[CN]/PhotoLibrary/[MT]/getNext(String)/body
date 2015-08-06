@@ -1,0 +1,17 @@
+{
+  if (albumId != null && albums.containsKey(albumId)) {
+    List<String> keys=new ArrayList<String>(albums.keySet());
+    for (int i=0; i < keys.size(); i++) {
+      if (keys.get(i).equals(albumId)) {
+        int pos=i + 1;
+        if (pos < keys.size()) {
+          return keys.get(pos);
+        }
+      }
+    }
+    return keys.get(0);
+  }
+ else {
+    return albums.keySet().iterator().next();
+  }
+}

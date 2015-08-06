@@ -5,7 +5,7 @@
     final MessageHandler handler=Mockito.mock(MessageHandler.class);
     GenericTransportContext context=new GenericTransportContext(new TransportContext(new TransportProperties(new Properties()),null,new MessageHandler(){
       @Override public void process(      SessionInitMessage message){
-        message.onSessionCreated(new SessionInfo(UUID.randomUUID(),1,Mockito.mock(ChannelContext.class),ChannelType.ASYNC,null,null,null,100,false));
+        message.onSessionCreated(new SessionInfo(UUID.randomUUID(),1,Mockito.mock(ChannelContext.class),ChannelType.ASYNC,null,null,null,null,100,false));
         handler.process(message);
       }
       @Override public void process(      SessionAware message){

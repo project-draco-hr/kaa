@@ -1,0 +1,12 @@
+{
+  int result=0;
+  int maxCount=Integer.MIN_VALUE;
+  for (  Entry<Integer,OperationsServerLoadHistory> entry : opsServerLoadHistory.entrySet()) {
+    int endpointCount=getLastEndpointCount(entry.getValue());
+    if (endpointCount > maxCount) {
+      result=entry.getKey();
+      maxCount=endpointCount;
+    }
+  }
+  return result;
+}

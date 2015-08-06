@@ -1,0 +1,18 @@
+{
+  Calendar cal=Calendar.getInstance();
+  SimpleDateFormat sdf=new SimpleDateFormat("hh:mm:ss a ");
+  String logColor;
+  String logTag;
+  String logText;
+  if (isOutage) {
+    logColor=OUTAGE_LOG_COLOR;
+    logTag=OUTAGE_LOG_TAG;
+    logText=OUTAGE_LOG_TEXT;
+  }
+ else {
+    logColor=BACK_TO_NORMAL_LOG_COLOR;
+    logTag=BACK_TO_NORMAL_LOG_TAG;
+    logText=BACK_TO_NORMAL_LOG_TEXT;
+  }
+  return String.format("<font color=\"%s\"> %s %s Zone %d %s</font><br>",logColor,sdf.format(cal.getTime()),logTag,panelIndex + 1,logText);
+}

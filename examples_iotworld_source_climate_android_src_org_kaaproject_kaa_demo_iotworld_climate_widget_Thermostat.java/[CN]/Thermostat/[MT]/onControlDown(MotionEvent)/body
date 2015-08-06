@@ -1,0 +1,9 @@
+{
+  if (mControlUpTouchRect.contains(event.getX(),event.getY())) {
+    mControlUpPressed=true;
+  }
+ else   if (mControlDownTouchRect.contains(event.getX(),event.getY())) {
+    mControlDownPressed=true;
+  }
+  return mControlUpPressed || mControlDownPressed;
+}

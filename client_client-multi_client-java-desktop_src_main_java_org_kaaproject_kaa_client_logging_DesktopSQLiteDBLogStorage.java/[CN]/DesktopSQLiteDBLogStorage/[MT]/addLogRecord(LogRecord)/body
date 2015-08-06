@@ -1,0 +1,30 @@
+{
+synchronized (connection) {
+    LOG.trace("Adding a new log record...");
+    if (insertStatement == null) {
+      try {
+        insertStatement=connection.prepareStatement(PersistentLogStorageConstants.KAA_INSERT_NEW_RECORD);
+      }
+ catch (      SQLException e) {
+        LOG.error("Can't create row insert statement",e);
+        throw new RuntimeException(e);
+      }
+    }
+    try {
+      insertStatement.setBytes(1,record.getData());
+      int affectedRows=insertStatement.executeUpdate();
+      if (affectedRows == 1) {
+        unmarkedConsumedSize+=record.getSize();
+        unmarkedRecordCount++;
+        totalRecordCount++;
+        LOG.trace("Added a new log record, total record count: {}, data: {}, unmarked record count: {}",totalRecordCount,record.getData(),unmarkedRecordCount);
+      }
+ else {
+        LOG.warn("No log record was added");
+      }
+    }
+ catch (    SQLException e) {
+      LOG.error("Can't add a new record",e);
+    }
+  }
+}

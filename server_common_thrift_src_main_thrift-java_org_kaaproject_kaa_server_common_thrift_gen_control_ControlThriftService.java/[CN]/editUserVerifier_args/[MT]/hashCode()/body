@@ -1,7 +1,7 @@
 {
-  List<Object> list=new ArrayList<Object>();
+  HashCodeBuilder builder=new HashCodeBuilder();
   boolean present_userVerifier=true && (isSetUserVerifier());
-  list.add(present_userVerifier);
-  if (present_userVerifier)   list.add(userVerifier);
-  return list.hashCode();
+  builder.append(present_userVerifier);
+  if (present_userVerifier)   builder.append(userVerifier);
+  return builder.toHashCode();
 }
