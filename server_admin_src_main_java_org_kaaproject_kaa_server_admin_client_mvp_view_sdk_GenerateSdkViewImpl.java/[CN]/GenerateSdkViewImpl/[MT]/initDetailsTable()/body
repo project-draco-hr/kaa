@@ -60,16 +60,6 @@
   detailsTable.setWidget(row,0,label);
   detailsTable.setWidget(row,1,targetPlatform);
   row++;
-  label=new Label(Utils.constants.generateReducedSdk());
-  label.addStyleName(REQUIRED);
-  genReducedSdk=new CheckBox(Utils.constants.generateReducedSdk());
-  genReducedSdk.addValueChangeHandler(new ValueChangeHandler<Boolean>(){
-    @Override public void onValueChange(    ValueChangeEvent evt){
-      fireChanged();
-    }
-  }
-);
-  row++;
   FlexTable ecfsTable=new FlexTable();
   ecfsTable.setCellSpacing(6);
   availableAefMaps=new MultiAefMapListBox();
