@@ -1,0 +1,10 @@
+{
+  flumeFailureLogCount.getAndAdd(size);
+  LOG.warn("Failed to store record",t);
+  if (t instanceof IOException) {
+    callback.onConnectionError();
+  }
+ else {
+    callback.onInternalError();
+  }
+}

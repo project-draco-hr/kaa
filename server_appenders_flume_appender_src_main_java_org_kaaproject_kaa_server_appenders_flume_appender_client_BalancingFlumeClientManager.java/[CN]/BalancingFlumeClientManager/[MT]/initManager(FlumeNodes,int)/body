@@ -1,0 +1,7 @@
+{
+  LOG.debug("Init manager...");
+  this.maxClientThreads=maxClientThreads;
+  Properties properties=generateProperties(parameters);
+  properties.put(AvroAsyncRpcClient.ASYNC_MAX_THREADS,maxClientThreads);
+  return new AvroAsyncRpcClient(properties);
+}

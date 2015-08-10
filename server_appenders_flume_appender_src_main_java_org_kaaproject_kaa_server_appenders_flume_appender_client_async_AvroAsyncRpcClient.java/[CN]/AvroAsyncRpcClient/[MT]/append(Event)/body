@@ -1,0 +1,8 @@
+{
+  try {
+    this.appendAsync(event).get();
+  }
+ catch (  Exception e) {
+    throw new EventDeliveryException(e);
+  }
+}

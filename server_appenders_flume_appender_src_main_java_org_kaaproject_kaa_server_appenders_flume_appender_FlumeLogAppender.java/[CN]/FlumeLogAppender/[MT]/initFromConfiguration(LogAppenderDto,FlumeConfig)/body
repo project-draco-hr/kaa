@@ -3,6 +3,10 @@
   try {
     flumeEventBuilder=new FlumeAvroEventBuilder();
     flumeEventBuilder.init(configuration);
+    int executorPoolSize=Math.min(configuration.getExecutorThreadPoolSize(),MAX_CALLBACK_THREAD_POOL_SIZE);
+    int callbackPoolSize=Math.min(configuration.getCallbackThreadPoolSize(),MAX_CALLBACK_THREAD_POOL_SIZE);
+    executor=Executors.newFixedThreadPool(executorPoolSize);
+    callbackExecutor=Executors.newFixedThreadPool(callbackPoolSize);
     flumeClientManger=FlumeClientManager.getInstance(configuration);
   }
  catch (  Exception e) {

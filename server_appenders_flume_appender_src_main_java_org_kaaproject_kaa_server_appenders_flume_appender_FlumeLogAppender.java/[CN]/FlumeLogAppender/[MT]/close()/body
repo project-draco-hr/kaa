@@ -4,6 +4,15 @@
     if (flumeClientManger != null) {
       flumeClientManger.cleanUp();
     }
+    if (executor != null) {
+      executor.shutdownNow();
+    }
+    if (callbackExecutor != null) {
+      callbackExecutor.shutdownNow();
+    }
+    if (scheduler != null) {
+      scheduler.shutdownNow();
+    }
     flumeClientManger=null;
   }
   LOG.debug("Stoped Flume log appender.");

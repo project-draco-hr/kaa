@@ -1,26 +1,40 @@
 {
   if (!closed) {
-    List<Event> events=flumeEventBuilder.generateEvents(logEventPack,header,getApplicationToken());
-    try {
-      if (events != null && !events.isEmpty()) {
-        if (flumeClientManger != null) {
-          flumeClientManger.sendEventsToFlume(events);
-          listener.onSuccess();
-        }
+    executor.submit(new Runnable(){
+      @Override public void run(){
+        try {
+          List<Event> events=flumeEventBuilder.generateEvents(logEventPack,header,getApplicationToken());
+          try {
+            if (events != null && !events.isEmpty()) {
+              if (flumeClientManger != null) {
+                int logCount=events.size();
+                inputLogCount.getAndAdd(logCount);
+                ListenableFuture<AppendBatchAsyncResultPojo> result=flumeClientManger.sendEventsToFlumeAsync(events);
+                Futures.addCallback(result,new Callback(listener,flumeSuccessLogCount,flumeFailureLogCount,logCount),callbackExecutor);
+                LOG.debug("Appended {} logs to flume",logEventPack.getEvents().size());
+              }
  else {
-          LOG.warn("Flume client wasn't initialized. Invoke method init before.");
+                LOG.warn("Flume client wasn't initialized. Invoke method init before.");
+                listener.onInternalError();
+              }
+            }
+ else {
+              LOG.warn("Unable to generate Flume events from log event pack!");
+              listener.onInternalError();
+            }
+          }
+ catch (          EventDeliveryException e) {
+            LOG.warn("Can't send flume event.");
+            listener.onConnectionError();
+          }
+        }
+ catch (        Exception e) {
+          LOG.warn("Got exception. Can't process log events",e);
           listener.onInternalError();
         }
       }
- else {
-        LOG.warn("Unable to generate Flume events from log event pack!");
-        listener.onInternalError();
-      }
     }
- catch (    EventDeliveryException e) {
-      LOG.warn("Can't send flume event.");
-      listener.onConnectionError();
-    }
+);
   }
  else {
     LOG.info("Attempted to append to closed appender named [{}].",getName());

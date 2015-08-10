@@ -1,9 +1,15 @@
 {
 switch (field$) {
 case 0:
-    return flumeEventFormat;
+    return executorThreadPoolSize;
 case 1:
-  return hostsBalancing;
+  return callbackThreadPoolSize;
+case 2:
+return clientsThreadPoolSize;
+case 3:
+return flumeEventFormat;
+case 4:
+return hostsBalancing;
 default :
 throw new org.apache.avro.AvroRuntimeException("Bad index");
 }
