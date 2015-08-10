@@ -1,5 +1,4 @@
 {
-  int numberOfClientThreads=Integer.parseInt(starterProp.getProperty(ASYNC_MAX_THREADS));
   clientQueue=new ArrayBlockingQueue<RpcClient>(numberOfClientThreads);
   for (int i=0; i < numberOfClientThreads; i++) {
     RpcClient client=RpcClientFactory.getInstance(starterProp);
