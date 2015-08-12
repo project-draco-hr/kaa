@@ -1,5 +1,5 @@
 {
-  LOG.info("Try to stop cassandra log appender...");
+  LOG.info("Try to stop kafka log appender...");
   if (!closed) {
     closed=true;
     if (logEventDao != null) {
@@ -12,5 +12,5 @@
       scheduler.shutdownNow();
     }
   }
-  LOG.info("Cassandra log appender stoped.");
+  LOG.info("Kafka log appender stoped.");
 }

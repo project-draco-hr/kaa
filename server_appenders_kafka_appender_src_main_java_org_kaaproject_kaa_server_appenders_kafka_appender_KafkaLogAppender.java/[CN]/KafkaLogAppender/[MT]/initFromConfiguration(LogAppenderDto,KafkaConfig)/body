@@ -5,9 +5,9 @@
     int executorPoolSize=Math.min(configuration.getExecutorThreadPoolSize(),MAX_CALLBACK_THREAD_POOL_SIZE);
     executor=Executors.newFixedThreadPool(executorPoolSize);
     topicName=configuration.getTopic();
-    LOG.info("Cassandra log appender initialized");
+    LOG.info("Kafka log appender initialized");
   }
  catch (  Exception e) {
-    LOG.error("Failed to init cassandra log appender: ",e);
+    LOG.error("Failed to init kafka log appender: ",e);
   }
 }
