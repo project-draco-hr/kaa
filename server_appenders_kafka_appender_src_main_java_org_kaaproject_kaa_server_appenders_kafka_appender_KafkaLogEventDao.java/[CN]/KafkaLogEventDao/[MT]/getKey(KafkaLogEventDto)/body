@@ -1,11 +1,12 @@
 {
 switch (configuration.getKafkaKeyType()) {
-case APPTOKEN:
-    return appToken;
+case ENDPOINTHASHKEY:
+    return dto.getHeader().getEndpointKeyHash();
 case UUID:
   return new UUID(System.currentTimeMillis(),RANDOM.nextLong()).toString();
 case HASH:
 return "" + dto.hashCode();
-}
+default :
 return null;
+}
 }

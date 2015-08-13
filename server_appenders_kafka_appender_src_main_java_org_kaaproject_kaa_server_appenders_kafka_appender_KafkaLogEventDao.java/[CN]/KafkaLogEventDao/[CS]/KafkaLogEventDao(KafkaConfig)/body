@@ -4,7 +4,6 @@
     this.configuration=configuration;
     this.topicName=configuration.getTopic();
     this.partitionCount=configuration.getPartitionCount();
-    this.appToken=appToken;
     Properties kafkaProperties=new Properties();
     StringBuilder serverList=new StringBuilder();
     for (    KafkaServer server : configuration.getKafkaServers()) {
