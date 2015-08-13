@@ -1,0 +1,11 @@
+{
+switch (configuration.getKafkaKeyType()) {
+case APPTOKEN:
+    return appToken;
+case UUID:
+  return new UUID(System.currentTimeMillis(),RANDOM.nextLong()).toString();
+case HASH:
+return "" + dto.hashCode();
+}
+return null;
+}

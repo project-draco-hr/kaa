@@ -8,32 +8,36 @@
     this.topic=data().deepCopy(fields()[1].schema(),other.topic);
     fieldSetFlags()[1]=true;
   }
-  if (isValidValue(fields()[2],other.partitionCount)) {
-    this.partitionCount=data().deepCopy(fields()[2].schema(),other.partitionCount);
+  if (isValidValue(fields()[2],other.useDefaultPartitioner)) {
+    this.useDefaultPartitioner=data().deepCopy(fields()[2].schema(),other.useDefaultPartitioner);
     fieldSetFlags()[2]=true;
   }
-  if (isValidValue(fields()[3],other.executorThreadPoolSize)) {
-    this.executorThreadPoolSize=data().deepCopy(fields()[3].schema(),other.executorThreadPoolSize);
+  if (isValidValue(fields()[3],other.partitionCount)) {
+    this.partitionCount=data().deepCopy(fields()[3].schema(),other.partitionCount);
     fieldSetFlags()[3]=true;
   }
-  if (isValidValue(fields()[4],other.bufferMemorySize)) {
-    this.bufferMemorySize=data().deepCopy(fields()[4].schema(),other.bufferMemorySize);
+  if (isValidValue(fields()[4],other.kafkaKeyType)) {
+    this.kafkaKeyType=data().deepCopy(fields()[4].schema(),other.kafkaKeyType);
     fieldSetFlags()[4]=true;
   }
-  if (isValidValue(fields()[5],other.kafkaCompression)) {
-    this.kafkaCompression=data().deepCopy(fields()[5].schema(),other.kafkaCompression);
+  if (isValidValue(fields()[5],other.executorThreadPoolSize)) {
+    this.executorThreadPoolSize=data().deepCopy(fields()[5].schema(),other.executorThreadPoolSize);
     fieldSetFlags()[5]=true;
   }
-  if (isValidValue(fields()[6],other.kafkaAcknowledgement)) {
-    this.kafkaAcknowledgement=data().deepCopy(fields()[6].schema(),other.kafkaAcknowledgement);
+  if (isValidValue(fields()[6],other.bufferMemorySize)) {
+    this.bufferMemorySize=data().deepCopy(fields()[6].schema(),other.bufferMemorySize);
     fieldSetFlags()[6]=true;
   }
-  if (isValidValue(fields()[7],other.retries)) {
-    this.retries=data().deepCopy(fields()[7].schema(),other.retries);
+  if (isValidValue(fields()[7],other.kafkaCompression)) {
+    this.kafkaCompression=data().deepCopy(fields()[7].schema(),other.kafkaCompression);
     fieldSetFlags()[7]=true;
   }
-  if (isValidValue(fields()[8],other.useDefaultPartitioner)) {
-    this.useDefaultPartitioner=data().deepCopy(fields()[8].schema(),other.useDefaultPartitioner);
+  if (isValidValue(fields()[8],other.kafkaAcknowledgement)) {
+    this.kafkaAcknowledgement=data().deepCopy(fields()[8].schema(),other.kafkaAcknowledgement);
     fieldSetFlags()[8]=true;
+  }
+  if (isValidValue(fields()[9],other.retries)) {
+    this.retries=data().deepCopy(fields()[9].schema(),other.retries);
+    fieldSetFlags()[9]=true;
   }
 }
