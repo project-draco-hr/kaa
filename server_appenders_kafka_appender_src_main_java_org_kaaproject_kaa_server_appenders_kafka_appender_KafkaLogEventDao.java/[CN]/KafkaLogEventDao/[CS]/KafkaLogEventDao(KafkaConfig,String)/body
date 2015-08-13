@@ -24,6 +24,6 @@
     kafkaProperties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,KEY_SERIALIZER);
     LOG.info("Init kafka cluster with property {}={}",ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,VALUE_SERIALIZER);
     kafkaProperties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,VALUE_SERIALIZER);
-    producer=new KafkaProducer<String,byte[]>(kafkaProperties);
+    producer=new KafkaProducer<String,String>(kafkaProperties);
   }
 }

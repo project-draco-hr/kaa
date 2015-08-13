@@ -1,0 +1,10 @@
+{
+  String eventJSON=eventConverter.encodeToJson(dto.getEvent());
+  String headerJSON=headerConverter.encodeToJson(dto.getHeader());
+  StringBuilder result=new StringBuilder("{");
+  if (headerJSON != null && !headerJSON.isEmpty()) {
+    result.append("\"header\":" + headerJSON + ",");
+  }
+  result.append("\"event\":" + eventJSON + "}");
+  return result.toString();
+}

@@ -2,12 +2,12 @@
   List<Future<RecordMetadata>> results=new ArrayList<Future<RecordMetadata>>();
   for (int i=0; i < logEventDtoList.size(); i++) {
     KafkaLogEventDto dto=logEventDtoList.get(i);
-    ProducerRecord<String,byte[]> recordToWrite;
+    ProducerRecord<String,String> recordToWrite;
     if (configuration.getUseDefaultPartitioner()) {
-      recordToWrite=new ProducerRecord<String,byte[]>(topicName,appToken,eventConverter.encodeToJsonBytes(dto.getEvent()));
+      recordToWrite=new ProducerRecord<String,String>(topicName,appToken,formKafkaJSON(dto,eventConverter,headerConverter));
     }
  else {
-      recordToWrite=new ProducerRecord<String,byte[]>(topicName,calculatePartitionID(dto),appToken,eventConverter.encodeToJsonBytes(dto.getEvent()));
+      recordToWrite=new ProducerRecord<String,String>(topicName,calculatePartitionID(dto),appToken,formKafkaJSON(dto,eventConverter,headerConverter));
     }
     results.add(producer.send(recordToWrite,callback));
   }
