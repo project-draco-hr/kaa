@@ -1,8 +1,7 @@
 {
   List<Future<RecordMetadata>> results=new ArrayList<Future<RecordMetadata>>();
   LOG.info("[{}] Sending events to Kafka using {} key defining strategy",topicName,configuration.getKafkaKeyType().toString());
-  for (int i=0; i < logEventDtoList.size(); i++) {
-    KafkaLogEventDto dto=logEventDtoList.get(i);
+  for (  KafkaLogEventDto dto : logEventDtoList) {
     ProducerRecord<String,String> recordToWrite;
     if (configuration.getUseDefaultPartitioner()) {
       recordToWrite=new ProducerRecord<String,String>(topicName,getKey(dto),formKafkaJSON(dto,eventConverter,headerConverter));
