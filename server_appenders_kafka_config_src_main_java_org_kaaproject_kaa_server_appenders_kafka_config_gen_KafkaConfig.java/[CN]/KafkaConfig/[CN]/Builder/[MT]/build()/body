@@ -1,0 +1,19 @@
+{
+  try {
+    KafkaConfig record=new KafkaConfig();
+    record.kafkaServers=fieldSetFlags()[0] ? this.kafkaServers : (java.util.List<org.kaaproject.kaa.server.appenders.kafka.config.gen.KafkaServer>)defaultValue(fields()[0]);
+    record.topic=fieldSetFlags()[1] ? this.topic : (java.lang.String)defaultValue(fields()[1]);
+    record.useDefaultPartitioner=fieldSetFlags()[2] ? this.useDefaultPartitioner : (java.lang.Boolean)defaultValue(fields()[2]);
+    record.partitionCount=fieldSetFlags()[3] ? this.partitionCount : (java.lang.Integer)defaultValue(fields()[3]);
+    record.kafkaKeyType=fieldSetFlags()[4] ? this.kafkaKeyType : (org.kaaproject.kaa.server.appenders.kafka.config.gen.KafkaKeyType)defaultValue(fields()[4]);
+    record.executorThreadPoolSize=fieldSetFlags()[5] ? this.executorThreadPoolSize : (java.lang.Integer)defaultValue(fields()[5]);
+    record.bufferMemorySize=fieldSetFlags()[6] ? this.bufferMemorySize : (java.lang.Long)defaultValue(fields()[6]);
+    record.kafkaCompression=fieldSetFlags()[7] ? this.kafkaCompression : (org.kaaproject.kaa.server.appenders.kafka.config.gen.KafkaCompression)defaultValue(fields()[7]);
+    record.kafkaAcknowledgement=fieldSetFlags()[8] ? this.kafkaAcknowledgement : (org.kaaproject.kaa.server.appenders.kafka.config.gen.KafkaAcknowledgement)defaultValue(fields()[8]);
+    record.retries=fieldSetFlags()[9] ? this.retries : (java.lang.Integer)defaultValue(fields()[9]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}
