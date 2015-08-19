@@ -1,0 +1,29 @@
+{
+  Integer verifierId=Integer.valueOf(event.getClickedId());
+  final int action=event.getAction();
+  AsyncCallback<UserVerifierDto> callback=new AsyncCallback<UserVerifierDto>(){
+    @Override public void onFailure(    Throwable caught){
+      Utils.handleException(caught,listView);
+    }
+    @Override public void onSuccess(    UserVerifierDto key){
+      String jsonConfig=key.getJsonConfiguration();
+      JSONObject json;
+      if (jsonConfig != null && !jsonConfig.isEmpty()) {
+        json=(JSONObject)JSONParser.parseLenient(jsonConfig);
+      }
+ else {
+        json=new JSONObject();
+      }
+      json.put("pluginTypeName",new JSONString(key.getPluginTypeName()));
+      json.put("pluginClassName",new JSONString(key.getPluginClassName()));
+      ServletHelper.downloadJsonFile(json.toString(),key.getPluginTypeName() + ".json");
+    }
+  }
+;
+switch (action) {
+case KaaRowAction.DOWNLOAD_SCHEMA:
+    KaaAdmin.getDataSource().getUserVerifier(String.valueOf(verifierId),callback);
+default :
+  break;
+}
+}

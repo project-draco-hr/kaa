@@ -1,0 +1,29 @@
+{
+  Integer appenderId=Integer.valueOf(event.getClickedId());
+  final int action=event.getAction();
+  AsyncCallback<LogAppenderDto> callback=new AsyncCallback<LogAppenderDto>(){
+    @Override public void onFailure(    Throwable caught){
+      Utils.handleException(caught,listView);
+    }
+    @Override public void onSuccess(    LogAppenderDto key){
+      JSONObject json=(JSONObject)JSONParser.parseLenient(key.getJsonConfiguration());
+      json.put("minLogSchemaVersion",new JSONNumber(key.getMinLogSchemaVersion()));
+      json.put("maxLogSchemaVersion",new JSONNumber(key.getMaxLogSchemaVersion()));
+      json.put("pluginTypeName",new JSONString(key.getPluginTypeName()));
+      json.put("pluginClassName",new JSONString(key.getPluginClassName()));
+      JSONArray headersStructure=new JSONArray();
+      for (      LogHeaderStructureDto header : key.getHeaderStructure()) {
+        headersStructure.set(headersStructure.size(),new JSONString(header.getValue()));
+      }
+      json.put("headerStructure",headersStructure);
+      ServletHelper.downloadJsonFile(json.toString(),key.getPluginTypeName() + ".json");
+    }
+  }
+;
+switch (action) {
+case KaaRowAction.DOWNLOAD_SCHEMA:
+    KaaAdmin.getDataSource().getLogAppender(String.valueOf(appenderId),callback);
+default :
+  break;
+}
+}

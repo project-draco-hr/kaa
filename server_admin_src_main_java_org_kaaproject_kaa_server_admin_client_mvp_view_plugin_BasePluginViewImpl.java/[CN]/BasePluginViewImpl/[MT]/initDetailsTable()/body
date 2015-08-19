@@ -46,8 +46,8 @@
   detailsTable.setWidget(idx,0,typeLabel);
   detailsTable.setWidget(idx,1,pluginInfo);
   getFooter().addStyleName(Utils.kaaAdminStyle.bAppContentDetailsTable());
-  getFooter().setWidth("700px");
-  configuration=new RecordFieldWidget(new AvroWidgetsConfig.Builder().createConfig());
+  getFooter().setWidth("1000px");
+  configuration=new RecordPanel(new AvroWidgetsConfig.Builder().recordPanelWidth(900).createConfig(),Utils.constants.configuration(),this,!create,false);
   configuration.addValueChangeHandler(this);
   getFooter().add(configuration);
   name.setFocus(true);
