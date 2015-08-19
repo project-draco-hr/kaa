@@ -1,9 +1,0 @@
-{
-  super.onCreate(savedInstanceState);
-  Window window=getWindow();
-  window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-  setContentView(R.layout.robotrun_activity);
-  FragmentManager fragmentManager=getSupportFragmentManager();
-  mRobotRunFragment=RobotRunFragment.newInstance();
-  fragmentManager.beginTransaction().replace(R.id.container,mRobotRunFragment).commit();
-}

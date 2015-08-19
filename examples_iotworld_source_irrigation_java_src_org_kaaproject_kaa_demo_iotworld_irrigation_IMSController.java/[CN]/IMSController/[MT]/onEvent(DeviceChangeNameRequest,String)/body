@@ -1,6 +1,0 @@
-{
-  String name=request.getName();
-  LOG.info("Received request from {} for changing name {}",source,name);
-  stateHolder.updateDeviceName(name);
-  devices.sendEvent(new DeviceInfoResponse(stateHolder.getDeviceInfo()),source);
-}

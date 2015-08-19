@@ -1,7 +1,0 @@
-{
-  super.onCreate(savedInstanceState);
-  mActivity=(SmartHouseActivity)this.getActivity();
-  if (!mActivity.getDeviceStore().getEventBus().isRegistered(this)) {
-    mActivity.getDeviceStore().getEventBus().register(this);
-  }
-}

@@ -1,8 +1,0 @@
-{
-  LOG.debug("After irrigation callback");
-  int currentCount=flowSensorCount.getAndSet(0);
-  totalFlowSensorCount.addAndGet(currentCount);
-  updateIrrigationStatus(IRRIGATION_IDLE,UPDATE_TIME_TO_IRRIGATION,currentCount);
-  lastIrrigationTime=System.currentTimeMillis();
-  return new IrrigationStatusUpdate(irrigationStatus);
-}

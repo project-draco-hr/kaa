@@ -1,9 +1,0 @@
-{
-  EventClassFamilyDto eventClassFamily=new EventClassFamilyDto();
-  eventClassFamily.setName(name);
-  eventClassFamily.setNamespace(namespace);
-  eventClassFamily.setClassName(className);
-  eventClassFamily=client.editEventClassFamily(eventClassFamily);
-  client.addEventClassFamilySchema(eventClassFamily.getId(),getResourcePath(resource));
-  return eventClassFamily;
-}

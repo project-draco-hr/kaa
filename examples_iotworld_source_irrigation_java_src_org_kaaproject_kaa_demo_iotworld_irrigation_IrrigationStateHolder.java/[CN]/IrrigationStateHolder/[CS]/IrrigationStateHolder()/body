@@ -1,8 +1,0 @@
-{
-  irrigationStatus=new IrrigationStatus();
-  irrigationStatus.setMonthlySpentWater(configuration.getDefaultMonthlySpentWater());
-  irrigationStatus.setRemainingWater(configuration.getDefaultRemainingWater());
-  this.deviceInfo=new DeviceInfo(configuration.getDeviceName(),configuration.getDeviceModelName());
-  this.lastIrrigationTime=System.currentTimeMillis();
-  setIrrigationIntervalSec(TimeUnit.MILLISECONDS.toSeconds(configuration.getIrrigationIntervalMs()));
-}
