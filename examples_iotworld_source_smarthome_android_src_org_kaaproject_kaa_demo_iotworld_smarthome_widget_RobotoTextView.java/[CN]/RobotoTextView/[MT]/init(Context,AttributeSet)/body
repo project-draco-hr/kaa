@@ -1,7 +1,0 @@
-{
-  final TypedArray typedArray=context.obtainStyledAttributes(attrs,R.styleable.RobotoTextView);
-  mRobotoFontType=FontType.values()[typedArray.getInt(R.styleable.RobotoTextView_robotoFontFamily,DEFAULT_ROBOTO_FONT.ordinal())];
-  Typeface robotoTypeface=FontUtils.getTypeface(context,mRobotoFontType,isInEditMode());
-  setTypeface(robotoTypeface);
-  typedArray.recycle();
-}

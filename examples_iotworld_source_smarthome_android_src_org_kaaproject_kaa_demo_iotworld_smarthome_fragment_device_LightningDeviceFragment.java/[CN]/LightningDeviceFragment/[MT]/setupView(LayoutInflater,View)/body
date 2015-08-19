@@ -1,9 +1,0 @@
-{
-  super.setupView(inflater,rootView);
-  mNoDataText=(TextView)rootView.findViewById(R.id.noDataText);
-  mRecyclerView=(RecyclerView)rootView.findViewById(R.id.recycler_view);
-  mRecyclerView.setHasFixedSize(true);
-  mBulbsListAdapter=new BulbsListAdapter(mRecyclerView,mDevice,this);
-  RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(getActivity());
-  mRecyclerView.setLayoutManager(layoutManager);
-}

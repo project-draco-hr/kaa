@@ -1,7 +1,0 @@
-{
-  super.onPause();
-  if (getPhotoFrameApplication().getEventBus().isRegistered(this)) {
-    getPhotoFrameApplication().getEventBus().unregister(this);
-  }
-  getPhotoFrameApplication().pause();
-}

@@ -1,9 +1,0 @@
-{
-  String accessToken=kaaClient.getEndpointAccessToken();
-  if (accessToken.isEmpty()) {
-    LOG.debug("Refresh access token, because current is empty");
-    accessToken=kaaClient.refreshEndpointAccessToken();
-  }
-  LOG.trace("Access token {}",accessToken);
-  return accessToken;
-}

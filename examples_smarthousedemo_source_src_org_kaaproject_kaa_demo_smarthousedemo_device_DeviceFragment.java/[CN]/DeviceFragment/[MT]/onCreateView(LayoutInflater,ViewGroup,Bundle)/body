@@ -1,8 +1,0 @@
-{
-  View rootView=inflater.inflate(R.layout.fragment_device,container,false);
-  TextView deviceText=(TextView)rootView.findViewById(R.id.deviceText);
-  Bundle args=this.getArguments();
-  DeviceType deviceType=(DeviceType)args.getSerializable(DEVICE_TYPE);
-  deviceText.setText(deviceType.getNameRes());
-  return rootView;
-}

@@ -1,9 +1,0 @@
-{
-  LOG.info("Move Forward run... ");
-  String sc=SEND_COMMAND_MOVE_FORWARD;
-  if (withCalibration) {
-    sc=SEND_COMMAND_MOVE_FORWARD_CLBR;
-  }
-  Runner run=new Runner(sc,COMMAND_MOVE_FORWARD,mfCallback);
-  executor.execute(run);
-}

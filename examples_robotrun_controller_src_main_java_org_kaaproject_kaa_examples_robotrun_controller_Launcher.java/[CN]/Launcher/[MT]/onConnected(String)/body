@@ -1,9 +1,0 @@
-{
-  LOG.info("onConnected, deviceName [{}], startPending [{}], controller.isStarted [{}]",deviceName,startPending,controller.isStarted());
-  this.connected=true;
-  this.entityName=deviceName;
-  if (startPending && controller.isStarted()) {
-    startPending=false;
-    callback.onLauncherStarted(this.entityName);
-  }
-}

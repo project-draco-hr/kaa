@@ -1,8 +1,0 @@
-{
-  if (client == null) {
-    LOG.error("Failed to init log manager: null Kaa client");
-    throw new IllegalArgumentException("Null Kaa client");
-  }
-  kaaClient=client;
-  kaaClient.getLogCollector().setUploadStrategy(new ReportUploadStrategy());
-}
