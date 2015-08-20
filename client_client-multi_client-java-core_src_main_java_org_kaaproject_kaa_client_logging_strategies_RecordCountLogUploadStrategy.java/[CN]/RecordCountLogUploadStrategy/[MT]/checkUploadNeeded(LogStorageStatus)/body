@@ -1,0 +1,8 @@
+{
+  LogUploadStrategyDecision decision=LogUploadStrategyDecision.NOOP;
+  if (status.getRecordCount() == countThreshold) {
+    LOG.info("Need to upload logs - current count: {}, threshold: {}",status.getRecordCount(),countThreshold);
+    decision=LogUploadStrategyDecision.UPLOAD;
+  }
+  return decision;
+}
