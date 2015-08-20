@@ -1,0 +1,8 @@
+{
+  LogUploadStrategyDecision decision=LogUploadStrategyDecision.NOOP;
+  if (status.getConsumedVolume() >= volumeThreshold) {
+    LOG.info("Need to upload logs - current size: {}, threshold: {}",status.getConsumedVolume(),volumeThreshold);
+    decision=LogUploadStrategyDecision.UPLOAD;
+  }
+  return decision;
+}
