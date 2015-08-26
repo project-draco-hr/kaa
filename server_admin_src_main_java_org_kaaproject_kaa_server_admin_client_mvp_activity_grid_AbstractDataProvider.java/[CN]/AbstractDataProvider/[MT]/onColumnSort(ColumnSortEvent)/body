@@ -1,0 +1,8 @@
+{
+  Column<?,?> column=event.getColumn();
+  boolean isSortAscending=event.isSortAscending();
+  if (column != null) {
+    dataGrid.sort(data,column,isSortAscending);
+  }
+  updateRowData(0,data);
+}

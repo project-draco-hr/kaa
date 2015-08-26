@@ -1,0 +1,9 @@
+{
+  ColumnSortList sortList=dataGrid.getDataGrid().getColumnSortList();
+  Column<?,?> column=(sortList == null || sortList.size() == 0) ? null : sortList.get(0).getColumn();
+  boolean isSortAscending=(sortList == null || sortList.size() == 0) ? false : sortList.get(0).isAscending();
+  if (column != null) {
+    dataGrid.sort(data,column,isSortAscending);
+  }
+  updateRowData(0,data);
+}

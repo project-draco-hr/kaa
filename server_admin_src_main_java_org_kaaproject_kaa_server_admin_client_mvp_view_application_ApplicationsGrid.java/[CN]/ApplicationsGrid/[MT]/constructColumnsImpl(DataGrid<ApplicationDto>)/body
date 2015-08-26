@@ -5,6 +5,11 @@
       return item.getName();
     }
   }
-,160);
+,new Comparator<ApplicationDto>(){
+    @Override public int compare(    ApplicationDto o1,    ApplicationDto o2){
+      return o1.getName().compareToIgnoreCase(o2.getName());
+    }
+  }
+,Boolean.TRUE,160);
   return prefWidth;
 }

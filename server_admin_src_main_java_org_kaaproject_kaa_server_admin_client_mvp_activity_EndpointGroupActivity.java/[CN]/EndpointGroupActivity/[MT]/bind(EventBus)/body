@@ -34,7 +34,7 @@
     @Override public void onValueChange(    ValueChangeEvent<Boolean> event){
       place.setIncludeDeprecatedProfileFilters(detailsView.getIncludeDeprecatedProfileFilters().getValue());
       profileFiltersDataProvider.setIncludeDeprecated(detailsView.getIncludeDeprecatedProfileFilters().getValue());
-      profileFiltersDataProvider.reload(detailsView.getProfileFiltersGrid().getDisplay());
+      profileFiltersDataProvider.reload();
     }
   }
 ));
@@ -72,7 +72,7 @@
     @Override public void onValueChange(    ValueChangeEvent<Boolean> event){
       place.setIncludeDeprecatedConfigurations(detailsView.getIncludeDeprecatedConfigurations().getValue());
       configurationsDataProvider.setIncludeDeprecated(detailsView.getIncludeDeprecatedConfigurations().getValue());
-      configurationsDataProvider.reload(detailsView.getConfigurationsGrid().getDisplay());
+      configurationsDataProvider.reload();
     }
   }
 ));
@@ -104,13 +104,13 @@
     @Override public void onDataChanged(    DataEvent event){
       if (detailsView != null) {
         if (event.checkClass(ProfileFilterDto.class) && profileFiltersDataProvider != null) {
-          profileFiltersDataProvider.reload(detailsView.getProfileFiltersGrid().getDisplay());
+          profileFiltersDataProvider.reload();
         }
  else         if (event.checkClass(ConfigurationDto.class) && configurationsDataProvider != null) {
-          configurationsDataProvider.reload(detailsView.getConfigurationsGrid().getDisplay());
+          configurationsDataProvider.reload();
         }
  else         if (event.checkClass(TopicDto.class) && topicsDataProvider != null) {
-          topicsDataProvider.reload(detailsView.getTopicsGrid().getDisplay());
+          topicsDataProvider.reload();
         }
       }
     }
