@@ -1,5 +1,5 @@
 {
-  if (fieldType.getSchema().getName().equals(RECORD_FIELD_TYPE)) {
+  if (fieldType != null && fieldType.getSchema().getName().equals(RECORD_FIELD_TYPE)) {
     Boolean addressable=(Boolean)fieldType.get(ADDRESSABLE);
     if (addressable != null && !addressable) {
       fieldSchema.addProp(ADDRESSABLE,BooleanNode.getFalse());
