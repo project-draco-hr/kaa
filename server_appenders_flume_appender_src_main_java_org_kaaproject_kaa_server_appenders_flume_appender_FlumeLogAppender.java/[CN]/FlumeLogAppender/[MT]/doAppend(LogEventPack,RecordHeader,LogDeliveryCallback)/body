@@ -1,15 +1,9 @@
 {
   if (!closed) {
     if (executor == null || callbackExecutor == null || flumeClientManager == null) {
-      try {
-        reinit();
-      }
- catch (      NullPointerException e) {
-        LOG.warn("Flume configuration wasn't initialized. Invoke method init with configuration before.");
-        listener.onInternalError();
-        return;
-      }
+      reinit();
     }
+    if (executor == null)     return;
     executor.submit(new Runnable(){
       @Override public void run(){
         try {

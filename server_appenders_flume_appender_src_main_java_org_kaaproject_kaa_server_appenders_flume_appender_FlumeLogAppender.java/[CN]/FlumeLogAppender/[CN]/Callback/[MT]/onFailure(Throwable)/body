@@ -4,6 +4,9 @@
   if (t instanceof IOException) {
     callback.onConnectionError();
   }
+ else   if (t instanceof EventDeliveryException) {
+    callback.onRemoteError();
+  }
  else {
     callback.onInternalError();
   }
