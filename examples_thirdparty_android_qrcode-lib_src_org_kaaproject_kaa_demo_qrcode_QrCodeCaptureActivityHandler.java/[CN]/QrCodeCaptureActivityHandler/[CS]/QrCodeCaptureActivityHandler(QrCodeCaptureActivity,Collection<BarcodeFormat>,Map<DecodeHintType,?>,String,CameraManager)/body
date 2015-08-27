@@ -1,9 +1,0 @@
-{
-  this.activity=activity;
-  decodeThread=new DecodeThread(activity,decodeFormats,baseHints,characterSet,new ViewfinderResultPointCallback(activity.getViewfinderView()));
-  decodeThread.start();
-  state=State.SUCCESS;
-  this.cameraManager=cameraManager;
-  cameraManager.startPreview();
-  restartPreviewAndDecode();
-}

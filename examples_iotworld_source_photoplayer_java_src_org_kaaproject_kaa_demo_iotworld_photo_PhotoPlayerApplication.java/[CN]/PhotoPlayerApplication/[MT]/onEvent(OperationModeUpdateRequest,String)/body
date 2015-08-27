@@ -1,9 +1,0 @@
-{
-  LOG.info("Receieved operation mode update {} from {}",event,originator);
-  state.setOperationMode(event.getMode());
-  handleStateUpdate();
-  GeoFencingStatusResponse response=new GeoFencingStatusResponse(state.getOperationMode(),state.getGeoFencingPosition());
-  for (  String listener : state.getListeners()) {
-    geoECF.sendEvent(response,listener);
-  }
-}

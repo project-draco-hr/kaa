@@ -1,9 +1,0 @@
-{
-  Object tag=mGeoFencingStatusSpinner.getTag();
-  if (tag == null || ((Integer)tag).intValue() != position) {
-    OperationMode newOperationMode=OperationMode.values()[position];
-    if (mDevice.getOperationMode() == null || mDevice.getOperationMode() != newOperationMode) {
-      mDevice.changeOperationMode(newOperationMode);
-    }
-  }
-}

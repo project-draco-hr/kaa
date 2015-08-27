@@ -1,9 +1,0 @@
-{
-  View itemView=mLayoutInflater.inflate(R.layout.image_item,container,false);
-  LoadingImageView imageView=(LoadingImageView)itemView.findViewById(R.id.imageView);
-  mCursor.moveToPosition(position);
-  String imagePath=mCursor.getString(mDataIndex);
-  mImageLoader.loadImage(imagePath,imageView,ImageType.SCREENAIL);
-  container.addView(itemView);
-  return itemView;
-}

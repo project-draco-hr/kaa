@@ -1,9 +1,0 @@
-{
-  super.setupView(inflater,rootView);
-  mNoDataText=(TextView)rootView.findViewById(R.id.noDataText);
-  mRecyclerView=(AutoSpanRecyclerView)rootView.findViewById(R.id.recycler_view);
-  mRecyclerView.setHasFixedSize(true);
-  int cardsSpacing=getResources().getDimensionPixelSize(R.dimen.card_spacing);
-  mRecyclerView.setGridLayoutManager(GridLayoutManager.VERTICAL,1,R.dimen.photo_album_card_width,cardsSpacing);
-  mPhotoAlbumsAdapter=new PhotoAlbumsAdapter(mRecyclerView,mDevice,this);
-}

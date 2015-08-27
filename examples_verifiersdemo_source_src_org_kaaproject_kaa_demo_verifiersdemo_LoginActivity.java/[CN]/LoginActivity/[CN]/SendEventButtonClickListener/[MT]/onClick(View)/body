@@ -1,8 +1,0 @@
-{
-  String message=msgEdit.getText().toString();
-  prependToChatBox(EventStatus.SENT,message);
-  if (message != null && message.length() > 0) {
-    Log.i(TAG,"Sending event: " + message);
-    vdecf.sendEventToAll(new MessageEvent(message));
-  }
-}

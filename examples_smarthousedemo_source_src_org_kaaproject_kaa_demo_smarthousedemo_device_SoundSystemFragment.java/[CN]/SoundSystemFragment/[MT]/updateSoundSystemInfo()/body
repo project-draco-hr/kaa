@@ -1,6 +1,0 @@
-{
-  playbackInfo.setStatus(player != null && player.isPlaying() ? PlaybackStatus.PLAYING : PlaybackStatus.PAUSED);
-  playbackInfo.setTime(player != null ? player.getCurrentPosition() : 0);
-  updateSoundSystemUI();
-  mActivity.getSmartHouseController().updatePlaybackInfo(copyPlaybackInfo());
-}

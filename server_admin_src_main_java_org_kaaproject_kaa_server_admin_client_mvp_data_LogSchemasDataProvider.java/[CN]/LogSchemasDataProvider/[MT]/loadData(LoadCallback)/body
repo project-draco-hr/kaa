@@ -1,0 +1,11 @@
+{
+  KaaAdmin.getDataSource().loadLogSchemas(applicationId,new AsyncCallback<List<LogSchemaDto>>(){
+    @Override public void onFailure(    Throwable caught){
+      callback.onFailure(caught);
+    }
+    @Override public void onSuccess(    List<LogSchemaDto> result){
+      callback.onSuccess(result);
+    }
+  }
+);
+}

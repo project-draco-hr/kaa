@@ -1,8 +1,0 @@
-{
-  if (mPhotoFrameStatus != null && mPhotoFrameStatus.getAlbumId() != null && mPhotoFrameStatus.getAlbumId().equals(albumId) && mPhotoFrameStatus.getStatus() == SlideShowStatus.PLAYING) {
-    mPhotoEventClassFamily.sendEvent(new PauseSlideShowRequest(),mEndpointKey);
-  }
- else {
-    mPhotoEventClassFamily.sendEvent(new StartSlideShowRequest(albumId),mEndpointKey);
-  }
-}

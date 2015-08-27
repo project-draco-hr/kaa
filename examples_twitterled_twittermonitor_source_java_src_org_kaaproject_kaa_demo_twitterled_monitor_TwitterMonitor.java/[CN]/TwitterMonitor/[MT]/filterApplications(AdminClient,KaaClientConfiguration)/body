@@ -1,9 +1,0 @@
-{
-  String appToken=config.getAppToken();
-  for (  ApplicationDto appDto : adminClient.getApplications()) {
-    if (appDto.getApplicationToken().equalsIgnoreCase(appToken)) {
-      return appDto;
-    }
-  }
-  throw new IllegalArgumentException("App with token " + appToken + " not found");
-}

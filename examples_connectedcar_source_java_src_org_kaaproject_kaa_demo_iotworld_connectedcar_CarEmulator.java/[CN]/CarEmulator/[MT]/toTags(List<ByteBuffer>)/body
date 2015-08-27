@@ -1,8 +1,0 @@
-{
-  List<String> result=new ArrayList<String>(buffers.size());
-  for (  ByteBuffer buf : buffers) {
-    byte[] data=CommonsBase64.getInstance().encodeBase64(toByteArray(buf));
-    result.add(new String(data,UTF8));
-  }
-  return result;
-}

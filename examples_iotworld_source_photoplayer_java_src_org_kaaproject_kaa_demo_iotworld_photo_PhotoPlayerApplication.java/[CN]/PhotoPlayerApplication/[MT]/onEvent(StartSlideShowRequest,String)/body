@@ -1,8 +1,0 @@
-{
-  LOG.info("Receieved start slideshow request {} from {}",event,originator);
-  pendingStatus=SlideShowStatus.PLAYING;
-  resetSlideshow(event.getAlbumId());
-  if (isPlaybackAllowed()) {
-    player.init();
-  }
-}

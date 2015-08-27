@@ -1,8 +1,0 @@
-{
-  if (mEndpointKey.equals(sourceEndpoint)) {
-    mDeviceInfo=deviceInfoResponse.getDeviceInfo();
-    mDeviceStore.deviceInfoReceived(mEndpointKey);
-    fireDeviceUpdated();
-    mDeviceEventClassFamily.sendEvent(new DeviceStatusSubscriptionRequest(),mEndpointKey);
-  }
-}

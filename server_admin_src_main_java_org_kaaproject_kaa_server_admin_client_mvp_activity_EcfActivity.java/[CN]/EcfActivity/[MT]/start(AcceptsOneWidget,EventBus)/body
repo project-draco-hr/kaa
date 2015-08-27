@@ -2,7 +2,6 @@
   super.start(containerWidget,eventBus);
   if (!create) {
     AbstractGrid<EventSchemaVersionDto,Integer> ecfSchemasGrid=detailsView.getEcfSchemasGrid();
-    ecfSchemasDataProvider=new EcfSchemasDataProvider(ecfSchemasGrid.getSelectionModel(),detailsView);
-    ecfSchemasDataProvider.addDataDisplay(ecfSchemasGrid.getDisplay());
+    ecfSchemasDataProvider=new EcfSchemasDataProvider(ecfSchemasGrid,detailsView);
   }
 }

@@ -1,9 +1,0 @@
-{
-  playbackInfo.setStatus(PlaybackStatus.PAUSED);
-  playbackInfo.setTime(player.getCurrentPosition());
-  player.release();
-  player=null;
-  mActivity.getSmartHouseController().updatePlaybackInfo(playbackInfo);
-  mActivity.getApplicationContext().getContentResolver().unregisterContentObserver(mSettingsContentObserver);
-  super.onPause();
-}

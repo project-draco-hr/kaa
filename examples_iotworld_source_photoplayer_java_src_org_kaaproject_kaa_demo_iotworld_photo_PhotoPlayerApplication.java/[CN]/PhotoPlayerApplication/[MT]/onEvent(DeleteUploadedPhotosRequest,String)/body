@@ -1,8 +1,0 @@
-{
-  LOG.info("Receieved delete uploaded photos request {} from {}",event,originator);
-  if (player != null && player.getAlbumId().equals(library.getUploadsAlbumId())) {
-    player.stop();
-  }
-  library.deleteUploadsAlbum();
-  photoECF.sendEventToAll(new PhotoAlbumsResponse(library.buildAlbumInfoList()));
-}

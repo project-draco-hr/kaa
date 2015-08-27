@@ -5,7 +5,7 @@
       @Override public void onValueChange(      ValueChangeEvent<EcfInfoDto> event){
         EcfInfoDto ecf=detailsView.getEcf().getValue();
         eventMapDataProvider.setEcf(ecf);
-        eventMapDataProvider.reload(detailsView.getEventMapGrid().getDisplay());
+        eventMapDataProvider.reload();
       }
     }
 ));

@@ -1,9 +1,0 @@
-{
-  final ExitFoundNotice exitFoundNotice=new ExitFoundNotice(cellToLocation(cell));
-  eventExecutor.submit(new Runnable(){
-    @Override public void run(){
-      family.sendEventToAll(exitFoundNotice);
-    }
-  }
-);
-}
