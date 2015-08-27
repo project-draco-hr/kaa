@@ -1,15 +1,25 @@
 {
   if (!closed) {
+    if (executor == null || callbackExecutor == null || flumeClientManager == null) {
+      try {
+        reinit();
+      }
+ catch (      NullPointerException e) {
+        LOG.warn("Flume configuration wasn't initialized. Invoke method init with configuration before.");
+        listener.onInternalError();
+        return;
+      }
+    }
     executor.submit(new Runnable(){
       @Override public void run(){
         try {
           List<Event> events=flumeEventBuilder.generateEvents(logEventPack,header,getApplicationToken());
           try {
             if (events != null && !events.isEmpty()) {
-              if (flumeClientManger != null) {
+              if (flumeClientManager != null) {
                 int logCount=events.size();
                 inputLogCount.getAndAdd(logCount);
-                ListenableFuture<AppendBatchAsyncResultPojo> result=flumeClientManger.sendEventsToFlumeAsync(events);
+                ListenableFuture<AppendBatchAsyncResultPojo> result=flumeClientManager.sendEventsToFlumeAsync(events);
                 Futures.addCallback(result,new Callback(listener,flumeSuccessLogCount,flumeFailureLogCount,logCount),callbackExecutor);
                 LOG.debug("Appended {} logs to flume",logEventPack.getEvents().size());
               }
