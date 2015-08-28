@@ -7,10 +7,26 @@
     for (    ColumnMappingElement element : configuration.getColumnMapping()) {
 switch (element.getType()) {
 case HEADER_FIELD:
-        insert.value(element.getColumnName(),dto.getHeader().get(element.getValue()));
+{
+          Object elementValue=dto.getHeader().get(element.getValue());
+          if (element.getColumnType() == ColumnType.TEXT && elementValue != null) {
+            insert.value(element.getColumnName(),elementValue.toString());
+          }
+ else {
+            insert.value(element.getColumnName(),elementValue);
+          }
+        }
       break;
 case EVENT_FIELD:
-    insert.value(element.getColumnName(),dto.getEvent().get(element.getValue()));
+{
+      Object elementValue=dto.getEvent().get(element.getValue());
+      if (element.getColumnType() == ColumnType.TEXT && elementValue != null) {
+        insert.value(element.getColumnName(),elementValue.toString());
+      }
+ else {
+        insert.value(element.getColumnName(),elementValue);
+      }
+    }
   break;
 case HEADER_JSON:
 insert.value(element.getColumnName(),headerConverter.encodeToJson(dto.getHeader()));
