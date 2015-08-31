@@ -1,8 +1,8 @@
 {
   LogUploadStrategyDecision decision=LogUploadStrategyDecision.NOOP;
   long currentTime=System.currentTimeMillis();
-  if (lastUploadTime != 0 && (currentTime - lastUploadTime) >= timeUnit.toMillis(timeLimit)) {
-    LOG.info("Need to upload logs - current count: {}, lastUploadedTime: {}, timeLimit: {}",status.getRecordCount(),lastUploadTime,timeLimit);
+  if (((currentTime - lastUploadTime) / 1000) >= uploadCheckPeriod) {
+    LOG.info("Need to upload logs - current count: {}, lastUploadedTime: {}, timeLimit: {} sec",status.getRecordCount(),lastUploadTime,uploadCheckPeriod);
     decision=LogUploadStrategyDecision.UPLOAD;
     lastUploadTime=currentTime;
   }
