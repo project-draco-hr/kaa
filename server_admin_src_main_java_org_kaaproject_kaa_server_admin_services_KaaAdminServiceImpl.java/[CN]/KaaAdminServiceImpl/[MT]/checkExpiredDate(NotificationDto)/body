@@ -1,0 +1,5 @@
+{
+  if (null != notification.getExpiredAt() && notification.getExpiredAt().before(new Date())) {
+    throw new IllegalArgumentException("Overdue expiry time for notification!");
+  }
+}
