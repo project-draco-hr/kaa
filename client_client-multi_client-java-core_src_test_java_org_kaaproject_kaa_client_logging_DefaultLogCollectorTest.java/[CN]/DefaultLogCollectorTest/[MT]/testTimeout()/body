@@ -1,11 +1,11 @@
 {
-  long timeout=2;
+  int timeout=2;
   KaaChannelManager channelManager=Mockito.mock(KaaChannelManager.class);
   FailoverManager failoverManager=Mockito.mock(FailoverManager.class);
   LogTransport transport=Mockito.mock(LogTransport.class);
   AbstractLogCollector logCollector=new DefaultLogCollector(transport,executorContext,channelManager,failoverManager);
   DefaultLogUploadStrategy tmp=new DefaultLogUploadStrategy();
-  tmp.setTimeout(1);
+  tmp.setTimeout(timeout);
   LogUploadStrategy strategy=Mockito.spy(tmp);
   logCollector.setStrategy(strategy);
   Log record=new Log();

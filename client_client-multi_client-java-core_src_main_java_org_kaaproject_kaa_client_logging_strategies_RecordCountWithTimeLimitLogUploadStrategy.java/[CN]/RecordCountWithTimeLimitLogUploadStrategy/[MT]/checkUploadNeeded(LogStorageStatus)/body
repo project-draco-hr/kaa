@@ -1,15 +1,16 @@
 {
   LogUploadStrategyDecision decision=LogUploadStrategyDecision.NOOP;
   long currentTime=System.currentTimeMillis();
-  if (status.getRecordCount() == countThreshold) {
-    LOG.info("Need to upload logs - current count: {}, threshold: {}",status.getRecordCount(),countThreshold);
+  long currentRecordCount=status.getRecordCount();
+  if (currentRecordCount >= countThreshold) {
+    LOG.info("Need to upload logs - current count: {}, threshold: {}",currentRecordCount,countThreshold);
     decision=LogUploadStrategyDecision.UPLOAD;
     lastUploadTime=currentTime;
   }
- else   if (lastUploadTime != 0 && (currentTime - lastUploadTime) >= timeUnit.toMillis(timeLimit)) {
-    LOG.info("Need to upload logs - current count: {}, lastUploadedTime: {}, timeLimit: {}",status.getRecordCount(),lastUploadTime,timeLimit);
+ else   if (((currentTime - lastUploadTime) / 1000) >= uploadCheckPeriod) {
+    LOG.info("Need to upload logs - current count: {}, lastUploadedTime: {}, timeLimit: {}",currentRecordCount,lastUploadTime,uploadCheckPeriod);
     decision=LogUploadStrategyDecision.UPLOAD;
-    lastUploadTime=TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
+    lastUploadTime=currentTime;
   }
   return decision;
 }
