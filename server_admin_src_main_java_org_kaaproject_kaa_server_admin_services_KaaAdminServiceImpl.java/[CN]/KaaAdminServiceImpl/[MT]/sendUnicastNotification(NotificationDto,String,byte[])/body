@@ -1,6 +1,7 @@
 {
   checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
+    checkExpiredDate(notification);
     notification.setBody(body);
     checkApplicationId(notification.getApplicationId());
     TopicDto topic=toDto(clientProvider.getClient().getTopic(notification.getTopicId()));
