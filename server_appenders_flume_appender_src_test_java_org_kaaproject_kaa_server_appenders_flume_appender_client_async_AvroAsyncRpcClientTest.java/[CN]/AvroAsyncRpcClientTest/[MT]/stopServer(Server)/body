@@ -1,0 +1,10 @@
+{
+  try {
+    server.close();
+    server.join();
+  }
+ catch (  InterruptedException ex) {
+    logger.error("Thread interrupted. Exception follows.",ex);
+    Thread.currentThread().interrupt();
+  }
+}

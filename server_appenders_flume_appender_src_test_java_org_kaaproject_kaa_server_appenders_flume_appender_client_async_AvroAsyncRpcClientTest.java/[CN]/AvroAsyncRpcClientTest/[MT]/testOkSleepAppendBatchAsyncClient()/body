@@ -1,0 +1,11 @@
+{
+  long startTime=System.currentTimeMillis();
+  handlerBatchAppendAsyncTest(new OKSleepAvroHandler(50),1000,1,100,false,false,0);
+  System.out.println("Test 1: " + (System.currentTimeMillis() - startTime));
+  startTime=System.currentTimeMillis();
+  handlerBatchAppendAsyncTest(new OKSleepAvroHandler(50),1000,5,100,false,false,0);
+  System.out.println("Test 2: " + (System.currentTimeMillis() - startTime));
+  startTime=System.currentTimeMillis();
+  handlerBatchAppendAsyncTest(new OKSleepAvroHandler(50),1000,10,100,false,false,0);
+  System.out.println("Test 3: " + (System.currentTimeMillis() - startTime));
+}

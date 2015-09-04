@@ -1,0 +1,10 @@
+{
+  logger.info("OK Sleep: Received {} events from appendBatch()",events.size());
+  try {
+    Thread.sleep(sleepTime);
+  }
+ catch (  InterruptedException e) {
+    e.printStackTrace();
+  }
+  return Status.OK;
+}

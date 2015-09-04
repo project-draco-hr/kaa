@@ -1,0 +1,7 @@
+{
+  ChannelPipeline pipeline=Channels.pipeline();
+  ZlibEncoder encoder=new ZlibEncoder(6);
+  pipeline.addFirst("deflater",encoder);
+  pipeline.addFirst("inflater",new ZlibDecoder());
+  return pipeline;
+}

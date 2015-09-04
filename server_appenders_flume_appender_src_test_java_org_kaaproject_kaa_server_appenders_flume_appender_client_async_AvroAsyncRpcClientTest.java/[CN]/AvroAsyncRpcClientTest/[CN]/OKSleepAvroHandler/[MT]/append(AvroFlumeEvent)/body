@@ -1,0 +1,10 @@
+{
+  logger.info("OK Sleep: Received event from append(): {}",new String(event.getBody().array(),Charset.forName("UTF8")));
+  try {
+    Thread.sleep(sleepTime);
+  }
+ catch (  InterruptedException e) {
+    e.printStackTrace();
+  }
+  return Status.OK;
+}
