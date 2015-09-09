@@ -4,6 +4,6 @@
     return (AuthUserDto)authentication.getPrincipal();
   }
  else {
-    throw new KaaAdminServiceException(ServiceErrorCode.NOT_AUTHORIZED);
+    throw new KaaAdminServiceException("You are not authorized to perform this operation!",ServiceErrorCode.NOT_AUTHORIZED);
   }
 }

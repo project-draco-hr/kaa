@@ -1,6 +1,7 @@
 {
   checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
+    checkSchemaId(schemaId);
     StructureRecordDto<ConfigurationDto> record=getConfigurationRecord(schemaId,endpointGroupId);
     return toConfigurationRecordFormStructure(record);
   }

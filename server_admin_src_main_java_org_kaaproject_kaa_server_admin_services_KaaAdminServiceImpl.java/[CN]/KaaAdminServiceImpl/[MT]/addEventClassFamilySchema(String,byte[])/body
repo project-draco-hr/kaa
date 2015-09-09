@@ -1,6 +1,7 @@
 {
   checkAuthority(KaaAuthorityDto.TENANT_ADMIN);
   try {
+    checkEventClassFamilyId(eventClassFamilyId);
     String schema=new String(data);
     validateSchema(schema);
     EventClassFamilyDto storedEventClassFamily=toDto(clientProvider.getClient().getEventClassFamily(eventClassFamilyId));
