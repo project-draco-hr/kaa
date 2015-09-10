@@ -1,6 +1,7 @@
 {
   checkAuthority(KaaAuthorityDto.KAA_ADMIN);
   try {
+    checkTenantName(tenantUser);
     Long userId=saveUser(tenantUser);
     tenantUser.setExternalUid(userId.toString());
     TenantAdminDto tenantAdmin=new TenantAdminDto();

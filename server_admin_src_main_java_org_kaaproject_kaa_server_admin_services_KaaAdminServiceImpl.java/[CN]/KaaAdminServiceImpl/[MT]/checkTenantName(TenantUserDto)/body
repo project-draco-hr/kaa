@@ -1,0 +1,16 @@
+{
+  String name=tenantUser.getTenantName();
+  if (isEmpty(name)) {
+    throw new IllegalArgumentException("Parameter tenantName is empty.");
+  }
+  List<TenantUserDto> tenants=new ArrayList<>();
+  tenants.addAll(getTenants());
+  for (  TenantUserDto t : tenants) {
+    if (t.getTenantName().equals(name)) {
+      if (t.getId().equals(tenantUser.getId())) {
+        break;
+      }
+ else       throw new IllegalArgumentException("Parameter tenantName is already exist.");
+    }
+  }
+}
