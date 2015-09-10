@@ -1,8 +1,0 @@
-{
-  boolean empty=false;
-  for (  FormField field : recordFieldWidget.getValue().getValue()) {
-    GWT.log("display string: " + field.getDisplayString());
-    if (field.getDisplayString().contains("(0 rows)"))     empty=true;
-  }
-  return empty;
-}
