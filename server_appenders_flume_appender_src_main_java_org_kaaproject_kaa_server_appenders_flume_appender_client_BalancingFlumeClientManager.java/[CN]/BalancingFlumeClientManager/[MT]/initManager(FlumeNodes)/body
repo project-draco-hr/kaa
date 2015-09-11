@@ -1,5 +1,5 @@
 {
   LOG.debug("Init manager...");
   Properties properties=generateProperties(parameters);
-  return RpcClientFactory.getInstance(properties);
+  return new AvroAsyncRpcClient(properties,maxClientThreads);
 }

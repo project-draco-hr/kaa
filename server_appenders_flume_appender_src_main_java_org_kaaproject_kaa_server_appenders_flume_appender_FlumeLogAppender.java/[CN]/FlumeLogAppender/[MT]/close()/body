@@ -1,10 +1,19 @@
 {
   if (!closed) {
     closed=true;
-    if (flumeClientManger != null) {
-      flumeClientManger.cleanUp();
+    if (flumeClientManager != null) {
+      flumeClientManager.cleanUp();
     }
-    flumeClientManger=null;
+    if (executor != null) {
+      executor.shutdownNow();
+    }
+    if (callbackExecutor != null) {
+      callbackExecutor.shutdownNow();
+    }
+    if (scheduler != null) {
+      scheduler.shutdownNow();
+    }
+    flumeClientManager=null;
   }
   LOG.debug("Stoped Flume log appender.");
 }

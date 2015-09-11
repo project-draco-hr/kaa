@@ -1,0 +1,6 @@
+{
+  starterProp.setProperty(RpcClientConfigurationConstants.CONFIG_HOSTS,"h1");
+  starterProp.setProperty(RpcClientConfigurationConstants.CONFIG_HOSTS_PREFIX + "h1","127.0.0.1" + ":" + port);
+  AvroAsyncRpcClient client=new AvroAsyncRpcClient(starterProp,2);
+  return client;
+}

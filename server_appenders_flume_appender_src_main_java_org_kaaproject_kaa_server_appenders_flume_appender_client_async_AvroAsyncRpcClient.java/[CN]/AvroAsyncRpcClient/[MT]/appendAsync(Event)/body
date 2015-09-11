@@ -1,0 +1,12 @@
+{
+  ListenableFuture<AppendAsyncResultPojo> future=executorService.submit(new Callable<AppendAsyncResultPojo>(){
+    public AppendAsyncResultPojo call() throws Exception {
+      RpcClient client=clientQueue.poll();
+      client.append(event);
+      clientQueue.add(client);
+      return new AppendAsyncResultPojo(true,event);
+    }
+  }
+);
+  return future;
+}
