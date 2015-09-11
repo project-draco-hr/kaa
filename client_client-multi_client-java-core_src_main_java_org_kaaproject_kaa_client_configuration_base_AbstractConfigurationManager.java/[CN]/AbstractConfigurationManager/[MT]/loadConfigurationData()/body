@@ -1,7 +1,7 @@
 {
   if (storage != null) {
     if (state.isConfigurationVersionUpdated()) {
-      LOG.debug("Clearing old configuration data from storage {}",storage);
+      LOG.info("Clearing old configuration data from storage {}",storage);
       try {
         storage.clearConfiguration();
       }
