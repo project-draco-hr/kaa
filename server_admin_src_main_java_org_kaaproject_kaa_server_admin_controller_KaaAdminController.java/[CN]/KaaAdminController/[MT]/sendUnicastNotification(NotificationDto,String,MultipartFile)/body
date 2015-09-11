@@ -1,5 +1,4 @@
 {
-  notification.setExpiredAt(getExpiredDate(ttl));
   byte[] data=getFileContent(file);
   return kaaAdminService.sendUnicastNotification(notification,clientKeyHash,data);
 }

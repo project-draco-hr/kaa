@@ -1,9 +1,0 @@
-{
-  List<EndpointGroupDto> endpointGroupDtoList=new ArrayList<>();
-  endpointGroupDtoList.addAll(getEndpointGroupsByApplicationId(endpointGroup.getApplicationId()));
-  for (  EndpointGroupDto eg : endpointGroupDtoList) {
-    if (eg.getName().equals(endpointGroup.getName()) || eg.getWeight() == endpointGroup.getWeight()) {
-      throw new IllegalArgumentException("Parameter name or weight is already exist for this application.");
-    }
-  }
-}

@@ -1,7 +1,6 @@
 {
   checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
-    checkEndpointGroupParams(endpointGroup);
     if (isEmpty(endpointGroup.getId())) {
       endpointGroup.setCreatedUsername(getCurrentUser().getUsername());
       checkApplicationId(endpointGroup.getApplicationId());
