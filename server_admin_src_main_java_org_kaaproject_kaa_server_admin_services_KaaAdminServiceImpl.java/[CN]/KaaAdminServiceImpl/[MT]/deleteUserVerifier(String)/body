@@ -1,6 +1,9 @@
 {
   checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
+    if (isEmpty(userVerifierId)) {
+      throw new IllegalArgumentException("The userVerifierId parameter is empty.");
+    }
     UserVerifierDto userVerifier=toDto(clientProvider.getClient().getUserVerifier(userVerifierId));
     Utils.checkNotNull(userVerifier);
     checkApplicationId(userVerifier.getApplicationId());

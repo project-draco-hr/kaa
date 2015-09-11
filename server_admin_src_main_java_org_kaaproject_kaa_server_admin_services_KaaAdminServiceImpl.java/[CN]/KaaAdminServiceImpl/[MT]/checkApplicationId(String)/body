@@ -1,7 +1,7 @@
 {
   try {
     if (isEmpty(applicationId)) {
-      throw new KaaAdminServiceException(ServiceErrorCode.INVALID_ARGUMENTS);
+      throw new IllegalArgumentException("The applicationId parameter is empty.");
     }
     ApplicationDto application=toDto(clientProvider.getClient().getApplication(applicationId));
     checkApplication(application);

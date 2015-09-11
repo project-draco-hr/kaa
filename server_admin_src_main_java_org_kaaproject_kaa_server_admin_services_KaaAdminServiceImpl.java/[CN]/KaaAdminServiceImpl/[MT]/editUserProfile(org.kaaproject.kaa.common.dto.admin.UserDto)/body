@@ -1,5 +1,6 @@
 {
   try {
+    checkUserProfile(userDto);
     userDto.setExternalUid(getCurrentUser().getExternalUid());
     Long userId=saveUser(userDto);
     User user=userFacade.findById(userId);

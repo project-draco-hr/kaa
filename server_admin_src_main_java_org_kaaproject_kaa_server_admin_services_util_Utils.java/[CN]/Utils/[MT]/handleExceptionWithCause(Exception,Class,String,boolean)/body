@@ -12,7 +12,7 @@
   if (exceptionWithCause instanceof KaaAdminServiceException) {
     return (KaaAdminServiceException)exceptionWithCause;
   }
- else   if (exceptionWithCause instanceof IllegalArgumentException) {
+ else   if (exceptionWithCause instanceof IllegalArgumentException || cause.contains("IncorrectParameterException")) {
     return new KaaAdminServiceException(exceptionWithCause.getMessage(),ServiceErrorCode.BAD_REQUEST_PARAMS);
   }
  else   if (StringUtils.isNotBlank(cause) && cause.equals(expectedCauseClass.getCanonicalName())) {
