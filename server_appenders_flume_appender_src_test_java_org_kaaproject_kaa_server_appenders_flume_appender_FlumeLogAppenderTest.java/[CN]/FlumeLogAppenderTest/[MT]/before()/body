@@ -3,7 +3,11 @@
   appender.setName(APPENDER_NAME);
   appender.setAppenderId(APPENDER_ID);
   flumeEventBuilder=mock(FlumeEventBuilder.class);
-  flumeClientManger=mock(FlumeClientManager.class);
+  flumeClientManager=mock(FlumeClientManager.class);
+  executor=Executors.newFixedThreadPool(1);
+  callbackExecutor=Executors.newFixedThreadPool(1);
   ReflectionTestUtils.setField(appender,"flumeEventBuilder",flumeEventBuilder);
-  ReflectionTestUtils.setField(appender,"flumeClientManger",flumeClientManger);
+  ReflectionTestUtils.setField(appender,"flumeClientManager",flumeClientManager);
+  ReflectionTestUtils.setField(appender,"executor",executor);
+  ReflectionTestUtils.setField(appender,"callbackExecutor",callbackExecutor);
 }

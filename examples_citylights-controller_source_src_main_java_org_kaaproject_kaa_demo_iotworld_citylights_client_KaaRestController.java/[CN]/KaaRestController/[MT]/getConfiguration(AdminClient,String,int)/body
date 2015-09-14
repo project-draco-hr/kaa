@@ -1,9 +1,0 @@
-{
-  List<ConfigurationRecordDto> records=client.getConfigurationRecords(endpointGroupId,false);
-  for (  ConfigurationRecordDto dto : records) {
-    if (dto.getActiveConfiguration().getMajorVersion() == cfSchemaVersion) {
-      return dto;
-    }
-  }
-  throw new IllegalStateException("Configuraton for schema version " + cfSchemaVersion + " not found!");
-}

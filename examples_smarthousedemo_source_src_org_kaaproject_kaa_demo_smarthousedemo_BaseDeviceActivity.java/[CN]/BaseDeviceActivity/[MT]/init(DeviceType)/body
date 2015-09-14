@@ -1,8 +1,0 @@
-{
-  this.deviceType=deviceType;
-  mSmartHouseController=new SmartHouseController(this,deviceType,null,null);
-  mProgessFragment=ProgressFragment.newInstance(false);
-  FragmentManager fragmentManager=getSupportFragmentManager();
-  fragmentManager.beginTransaction().replace(R.id.container,mProgessFragment).commit();
-  mSmartHouseController.init(new InitCallback());
-}

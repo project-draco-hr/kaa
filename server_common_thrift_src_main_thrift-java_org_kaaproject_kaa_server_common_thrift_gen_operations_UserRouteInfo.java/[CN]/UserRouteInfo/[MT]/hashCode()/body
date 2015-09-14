@@ -1,16 +1,16 @@
 {
-  List<Object> list=new ArrayList<Object>();
+  HashCodeBuilder builder=new HashCodeBuilder();
   boolean present_userId=true && (isSetUserId());
-  list.add(present_userId);
-  if (present_userId)   list.add(userId);
+  builder.append(present_userId);
+  if (present_userId)   builder.append(userId);
   boolean present_tenantId=true && (isSetTenantId());
-  list.add(present_tenantId);
-  if (present_tenantId)   list.add(tenantId);
+  builder.append(present_tenantId);
+  if (present_tenantId)   builder.append(tenantId);
   boolean present_operationsServerId=true && (isSetOperationsServerId());
-  list.add(present_operationsServerId);
-  if (present_operationsServerId)   list.add(operationsServerId);
+  builder.append(present_operationsServerId);
+  if (present_operationsServerId)   builder.append(operationsServerId);
   boolean present_updateType=true && (isSetUpdateType());
-  list.add(present_updateType);
-  if (present_updateType)   list.add(updateType.getValue());
-  return list.hashCode();
+  builder.append(present_updateType);
+  if (present_updateType)   builder.append(updateType.getValue());
+  return builder.toHashCode();
 }

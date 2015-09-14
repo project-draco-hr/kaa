@@ -1,9 +1,0 @@
-{
-  DefaultConfigurationManager manager=createConfigManager();
-  manager.onConfigurationUpdated(createSampleLabyrinthConfig());
-  manager.setStartPosition(0,1,Direction.EAST);
-  Cell startCell=manager.getStartPosition();
-  assertEquals(0,startCell.getX());
-  assertEquals(1,startCell.getY());
-  assertEquals(Direction.EAST,manager.getStartDirection());
-}

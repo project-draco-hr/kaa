@@ -1,6 +1,7 @@
 {
   checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
+    checkSchemaId(schemaId);
     StructureRecordDto<ProfileFilterDto> record=toGenericDto(clientProvider.getClient().getProfileFilterRecord(schemaId,endpointGroupId));
     Utils.checkNotNull(record);
     checkEndpointGroupId(record.getEndpointGroupId());

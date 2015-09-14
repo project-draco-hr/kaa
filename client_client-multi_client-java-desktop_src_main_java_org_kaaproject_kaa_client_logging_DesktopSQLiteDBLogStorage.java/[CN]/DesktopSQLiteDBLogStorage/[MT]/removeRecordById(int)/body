@@ -13,7 +13,7 @@ synchronized (connection) {
     try {
       deleteByRecordIdStatement.setInt(1,recordId);
       if (deleteByRecordIdStatement.executeUpdate() > 0) {
-        recordCount--;
+        totalRecordCount--;
         LOG.info("Removed log record with id [{}]",recordId);
       }
  else {

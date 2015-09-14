@@ -5,14 +5,14 @@
     LOG.debug("Init priority client manager");
     PrioritizedFlumeNodes flumeNodesConfig=(PrioritizedFlumeNodes)hostsBalancing;
     PriorityFlumeClientManager priorityClientManager=new PriorityFlumeClientManager();
-    priorityClientManager.init(flumeNodesConfig);
+    priorityClientManager.init(flumeNodesConfig,configuration.getClientsThreadPoolSize());
     clientManager=priorityClientManager;
   }
  else   if (hostsBalancing instanceof FlumeNodes) {
     LOG.debug("Init round robin client manager");
     FlumeNodes flumeNodesConfig=(FlumeNodes)hostsBalancing;
     BalancingFlumeClientManager balancingClientManager=new BalancingFlumeClientManager();
-    balancingClientManager.init(flumeNodesConfig);
+    balancingClientManager.init(flumeNodesConfig,configuration.getClientsThreadPoolSize());
     clientManager=balancingClientManager;
   }
  else {

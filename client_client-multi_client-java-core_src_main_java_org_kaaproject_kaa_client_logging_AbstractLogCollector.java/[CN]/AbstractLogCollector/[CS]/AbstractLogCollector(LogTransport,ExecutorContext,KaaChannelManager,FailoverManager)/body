@@ -1,0 +1,9 @@
+{
+  this.strategy=new DefaultLogUploadStrategy();
+  this.storage=new MemLogStorage(strategy.getBatchSize(),strategy.getBatchCount());
+  this.controller=new DefaultLogUploadController();
+  this.channelManager=channelManager;
+  this.transport=transport;
+  this.executorContext=executorContext;
+  this.failoverManager=failoverManager;
+}

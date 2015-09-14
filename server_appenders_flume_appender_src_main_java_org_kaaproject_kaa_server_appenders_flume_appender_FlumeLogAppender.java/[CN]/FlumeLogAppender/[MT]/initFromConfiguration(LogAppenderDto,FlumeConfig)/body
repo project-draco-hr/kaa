@@ -1,9 +1,14 @@
 {
   LOG.debug("Initializing new instance of Flume log appender");
   try {
+    this.configuration=configuration;
     flumeEventBuilder=new FlumeAvroEventBuilder();
     flumeEventBuilder.init(configuration);
-    flumeClientManger=FlumeClientManager.getInstance(configuration);
+    int executorPoolSize=Math.min(configuration.getExecutorThreadPoolSize(),MAX_CALLBACK_THREAD_POOL_SIZE);
+    int callbackPoolSize=Math.min(configuration.getCallbackThreadPoolSize(),MAX_CALLBACK_THREAD_POOL_SIZE);
+    executor=Executors.newFixedThreadPool(executorPoolSize);
+    callbackExecutor=Executors.newFixedThreadPool(callbackPoolSize);
+    flumeClientManager=FlumeClientManager.getInstance(configuration);
   }
  catch (  Exception e) {
     LOG.error("Failed to init Flume log appender: ",e);

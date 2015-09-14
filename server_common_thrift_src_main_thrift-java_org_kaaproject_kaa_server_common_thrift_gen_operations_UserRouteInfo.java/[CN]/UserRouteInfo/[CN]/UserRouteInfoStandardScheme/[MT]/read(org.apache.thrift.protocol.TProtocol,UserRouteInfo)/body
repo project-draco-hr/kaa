@@ -36,7 +36,7 @@ org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);
 break;
 case 4:
 if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
-struct.updateType=org.kaaproject.kaa.server.common.thrift.gen.operations.EventRouteUpdateType.findByValue(iprot.readI32());
+struct.updateType=EventRouteUpdateType.findByValue(iprot.readI32());
 struct.setUpdateTypeIsSet(true);
 }
  else {

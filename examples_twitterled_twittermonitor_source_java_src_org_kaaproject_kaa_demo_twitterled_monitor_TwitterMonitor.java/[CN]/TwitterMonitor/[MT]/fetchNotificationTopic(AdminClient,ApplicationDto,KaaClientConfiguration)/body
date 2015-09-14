@@ -1,9 +1,0 @@
-{
-  String topicName=kaaClientConfiguration.getTopicName();
-  for (  TopicDto topicDto : adminClient.getTopics(appDto.getId())) {
-    if (topicDto.getName().equalsIgnoreCase(topicName)) {
-      return topicDto;
-    }
-  }
-  throw new IllegalArgumentException("Topic with name" + topicName + " not found");
-}

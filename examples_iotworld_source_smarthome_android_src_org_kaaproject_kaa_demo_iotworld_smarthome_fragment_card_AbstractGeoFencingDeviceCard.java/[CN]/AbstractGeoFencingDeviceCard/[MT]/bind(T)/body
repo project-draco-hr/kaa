@@ -1,8 +1,0 @@
-{
-  super.bind(device);
-  OperationMode mode=device.getOperationMode();
-  if (mode == null) {
-    mode=OperationMode.OFF;
-  }
-  mGeofencingStatusView.setText(getResources().getStringArray(R.array.geofencing_status)[mode.ordinal()]);
-}

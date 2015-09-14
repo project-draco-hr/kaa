@@ -1,0 +1,8 @@
+{
+  int thresholdCount=5;
+  int uploadCheckPeriod=2000;
+  LogStorageStatus logStorageStatus=Mockito.mock(LogStorageStatus.class);
+  Mockito.when(logStorageStatus.getRecordCount()).thenReturn((long)thresholdCount);
+  RecordCountWithTimeLimitLogUploadStrategy strategy=new RecordCountWithTimeLimitLogUploadStrategy(thresholdCount,uploadCheckPeriod,TimeUnit.MILLISECONDS);
+  Assert.assertEquals(strategy.checkUploadNeeded(logStorageStatus),LogUploadStrategyDecision.UPLOAD);
+}

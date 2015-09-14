@@ -11,6 +11,16 @@
     }
   }
 );
+  SDK_PROPERTIES.setApplicationToken(TEST_APP_TOKEN);
+  SDK_PROPERTIES.setApplicationId(APP_ID);
+  SDK_PROPERTIES.setDefaultVerifierToken(DEFAULT_VERIFIER_TOKEN);
+  when(sdkKeyService.findSdkKeyByToken(TEST_SDK_TOKEN)).then(new Answer<SdkPropertiesDto>(){
+    @Override public SdkPropertiesDto answer(    InvocationOnMock invocationOnMock) throws Throwable {
+      sleepABit();
+      return SDK_PROPERTIES;
+    }
+  }
+);
   final List<ConfigurationDto> configurations=new ArrayList<ConfigurationDto>();
   ConfigurationDto theConf=new ConfigurationDto();
   theConf.setId(CF1_ID);
@@ -83,6 +93,9 @@
   publicKey=keyGen.genKeyPair().getPublic();
   byte[] key=publicKey.getEncoded();
   publicKeyHash=EndpointObjectHash.fromSHA1(key);
+  publicKey2=keyGen.genKeyPair().getPublic();
+  byte[] key2=publicKey2.getEncoded();
+  publicKeyHash2=EndpointObjectHash.fromSHA1(key2);
   final EndpointProfileDto ep=new EndpointProfileDto();
   ep.setEndpointKey(key);
   when(endpointService.findEndpointProfileByKeyHash(publicKeyHash.getData())).then(new Answer<EndpointProfileDto>(){
@@ -141,5 +154,7 @@
     }
   }
 );
+  APPLICATION_EVENT_FAMILY_MAP_DTO.setEcfName("someName");
+  when(applicationEventMapService.findApplicationEventFamilyMapsByIds(AEFMAP_IDS)).thenReturn(AEFM_LIST);
   when(appService.findAppById(APP_ID)).thenReturn(appDto);
 }

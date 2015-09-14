@@ -1,7 +1,7 @@
 {
-  List<Object> list=new ArrayList<Object>();
+  HashCodeBuilder builder=new HashCodeBuilder();
   boolean present_logAppenderId=true && (isSetLogAppenderId());
-  list.add(present_logAppenderId);
-  if (present_logAppenderId)   list.add(logAppenderId);
-  return list.hashCode();
+  builder.append(present_logAppenderId);
+  if (present_logAppenderId)   builder.append(logAppenderId);
+  return builder.toHashCode();
 }

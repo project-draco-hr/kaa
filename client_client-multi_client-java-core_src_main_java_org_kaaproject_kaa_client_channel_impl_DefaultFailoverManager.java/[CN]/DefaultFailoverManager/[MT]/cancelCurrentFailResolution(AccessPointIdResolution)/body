@@ -1,0 +1,9 @@
+{
+  if (accessPointIdResolution.getCurResolution() != null) {
+    accessPointIdResolution.getCurResolution().cancel(true);
+    accessPointIdResolution.setCurResolution(null);
+  }
+ else {
+    LOG.trace("Current resolution is null, can't cancel");
+  }
+}

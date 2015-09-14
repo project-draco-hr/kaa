@@ -1,0 +1,13 @@
+{
+  if (size + record.getSize() > maxSize) {
+    LOG.trace("No space left in bucket. Current size: {}, record size: {}, max size: {}",size,record.getSize(),maxSize);
+    return false;
+  }
+  if (getCount() + 1 > maxRecordCount) {
+    LOG.trace("No space left in bucket. Current count: {}, max count: {}",getCount(),maxRecordCount);
+    return false;
+  }
+  records.add(record);
+  size+=record.getSize();
+  return true;
+}

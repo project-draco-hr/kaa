@@ -1,0 +1,16 @@
+{
+  TTupleProtocol iprot=(TTupleProtocol)prot;
+  BitSet incoming=iprot.readBitSet(3);
+  if (incoming.get(0)) {
+    struct.applicationId=iprot.readString();
+    struct.setApplicationIdIsSet(true);
+  }
+  if (incoming.get(1)) {
+    struct.schemaVersion=iprot.readI32();
+    struct.setSchemaVersionIsSet(true);
+  }
+  if (incoming.get(2)) {
+    struct.recordFile=RecordFile.findByValue(iprot.readI32());
+    struct.setRecordFileIsSet(true);
+  }
+}

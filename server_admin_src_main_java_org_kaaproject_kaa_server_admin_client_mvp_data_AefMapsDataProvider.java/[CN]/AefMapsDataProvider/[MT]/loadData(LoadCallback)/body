@@ -1,0 +1,11 @@
+{
+  KaaAdmin.getDataSource().loadApplicationEventFamilyMaps(applicationId,new AsyncCallback<List<ApplicationEventFamilyMapDto>>(){
+    @Override public void onFailure(    Throwable caught){
+      callback.onFailure(caught);
+    }
+    @Override public void onSuccess(    List<ApplicationEventFamilyMapDto> result){
+      callback.onSuccess(result);
+    }
+  }
+);
+}

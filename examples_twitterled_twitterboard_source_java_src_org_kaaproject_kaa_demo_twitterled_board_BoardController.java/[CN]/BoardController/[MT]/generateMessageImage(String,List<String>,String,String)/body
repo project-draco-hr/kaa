@@ -1,8 +1,0 @@
-{
-  long time=System.currentTimeMillis();
-  TwitterMessage message=new TwitterMessage(messageSrc,author,keywords);
-  List<TwitterMessageToken> tokens=message.toTokens();
-  int width=PPMFactory.createAndSave(fileName,tokens,toRGB(configuration.getBackgroundColor()));
-  LOG.info("Prepared ppm for {} in {} ms",fileName,(System.currentTimeMillis() - time));
-  return width;
-}

@@ -1,0 +1,14 @@
+{
+  int uploadCheckPeriod=2000;
+  LogStorageStatus logStorageStatus=Mockito.mock(LogStorageStatus.class);
+  PeriodicLogUploadStrategy strategy=new PeriodicLogUploadStrategy(uploadCheckPeriod,TimeUnit.MILLISECONDS);
+  Assert.assertEquals(strategy.checkUploadNeeded(logStorageStatus),LogUploadStrategyDecision.NOOP);
+  Thread.sleep(uploadCheckPeriod / 2);
+  Assert.assertEquals(strategy.checkUploadNeeded(logStorageStatus),LogUploadStrategyDecision.NOOP);
+  Thread.sleep(uploadCheckPeriod / 2);
+  Assert.assertEquals(strategy.checkUploadNeeded(logStorageStatus),LogUploadStrategyDecision.UPLOAD);
+  Thread.sleep(uploadCheckPeriod / 2);
+  Assert.assertEquals(strategy.checkUploadNeeded(logStorageStatus),LogUploadStrategyDecision.NOOP);
+  Thread.sleep(uploadCheckPeriod / 2);
+  Assert.assertEquals(strategy.checkUploadNeeded(logStorageStatus),LogUploadStrategyDecision.UPLOAD);
+}

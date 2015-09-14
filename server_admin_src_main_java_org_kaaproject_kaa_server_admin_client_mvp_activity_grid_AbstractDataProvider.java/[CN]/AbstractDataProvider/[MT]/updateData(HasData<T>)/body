@@ -1,8 +1,0 @@
-{
-  selectionModel.clear();
-  int start=display.getVisibleRange().getStart();
-  int end=start + display.getVisibleRange().getLength();
-  end=end >= data.size() ? data.size() : end;
-  List<T> sub=data.subList(start,end);
-  updateRowData(start,sub);
-}

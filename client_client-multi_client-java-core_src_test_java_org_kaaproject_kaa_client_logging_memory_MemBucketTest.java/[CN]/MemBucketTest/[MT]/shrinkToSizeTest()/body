@@ -1,0 +1,16 @@
+{
+  MemBucket bucket=new MemBucket(1,100,100);
+  addNRecordsToBucket(bucket,10);
+  List<LogRecord> overSize=bucket.shrinkToSize(10,4);
+  Assert.assertEquals(3,bucket.getCount());
+  Assert.assertEquals(9,bucket.getSize());
+  Assert.assertEquals(7,overSize.size());
+  bucket=new MemBucket(1,100,100);
+  addNRecordsToBucket(bucket,10);
+  overSize=bucket.shrinkToSize(10,2);
+  Assert.assertEquals(2,bucket.getCount());
+  Assert.assertEquals(6,bucket.getSize());
+  Assert.assertEquals(8,overSize.size());
+  overSize=bucket.shrinkToSize(400,400);
+  Assert.assertEquals(0,overSize.size());
+}

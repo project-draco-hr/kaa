@@ -1,8 +1,9 @@
 {
   LogEventPack eventPack=new LogEventPack();
   Mockito.when(flumeEventBuilder.generateEvents(Mockito.any(LogEventPack.class),Mockito.any(RecordHeader.class),Mockito.anyString())).thenReturn(Collections.singletonList(Mockito.mock(Event.class)));
-  doThrow(new EventDeliveryException()).when(flumeClientManger).sendEventsToFlume(Mockito.anyList());
+  doThrow(new EventDeliveryException()).when(flumeClientManager).sendEventsToFlumeAsync(Mockito.anyList());
   TestLogDeliveryCallback callback=new TestLogDeliveryCallback();
   appender.doAppend(eventPack,callback);
+  Thread.sleep(3000);
   Assert.assertTrue(callback.connectionError);
 }

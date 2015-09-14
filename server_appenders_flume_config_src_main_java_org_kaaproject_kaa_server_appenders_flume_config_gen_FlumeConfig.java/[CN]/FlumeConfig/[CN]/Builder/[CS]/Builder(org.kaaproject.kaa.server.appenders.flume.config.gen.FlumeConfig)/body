@@ -1,11 +1,23 @@
 {
   super(org.kaaproject.kaa.server.appenders.flume.config.gen.FlumeConfig.SCHEMA$);
-  if (isValidValue(fields()[0],other.flumeEventFormat)) {
-    this.flumeEventFormat=data().deepCopy(fields()[0].schema(),other.flumeEventFormat);
+  if (isValidValue(fields()[0],other.executorThreadPoolSize)) {
+    this.executorThreadPoolSize=data().deepCopy(fields()[0].schema(),other.executorThreadPoolSize);
     fieldSetFlags()[0]=true;
   }
-  if (isValidValue(fields()[1],other.hostsBalancing)) {
-    this.hostsBalancing=data().deepCopy(fields()[1].schema(),other.hostsBalancing);
+  if (isValidValue(fields()[1],other.callbackThreadPoolSize)) {
+    this.callbackThreadPoolSize=data().deepCopy(fields()[1].schema(),other.callbackThreadPoolSize);
     fieldSetFlags()[1]=true;
+  }
+  if (isValidValue(fields()[2],other.clientsThreadPoolSize)) {
+    this.clientsThreadPoolSize=data().deepCopy(fields()[2].schema(),other.clientsThreadPoolSize);
+    fieldSetFlags()[2]=true;
+  }
+  if (isValidValue(fields()[3],other.flumeEventFormat)) {
+    this.flumeEventFormat=data().deepCopy(fields()[3].schema(),other.flumeEventFormat);
+    fieldSetFlags()[3]=true;
+  }
+  if (isValidValue(fields()[4],other.hostsBalancing)) {
+    this.hostsBalancing=data().deepCopy(fields()[4].schema(),other.hostsBalancing);
+    fieldSetFlags()[4]=true;
   }
 }

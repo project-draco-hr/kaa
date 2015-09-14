@@ -1,0 +1,6 @@
+{
+  DefaultFailoverManager.AccessPointIdResolution simplePointIdResolution=resolutionProgressMap.get(info.getServerType());
+  DefaultFailoverManager.AccessPointIdResolution spyPointIdResolution=Mockito.spy(simplePointIdResolution);
+  resolutionProgressMap.put(info.getServerType(),spyPointIdResolution);
+  return spyPointIdResolution;
+}

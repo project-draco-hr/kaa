@@ -1,0 +1,28 @@
+{
+  if (tsValue == null) {
+    long ts=System.currentTimeMillis();
+    final String pattern=element.getValue();
+    if (pattern == null || pattern.isEmpty()) {
+      tsValue=ts + "";
+    }
+ else {
+      ThreadLocal<SimpleDateFormat> formatterTL=dateFormatMap.get(pattern);
+      if (formatterTL == null) {
+        formatterTL=new ThreadLocal<SimpleDateFormat>(){
+          @Override protected SimpleDateFormat initialValue(){
+            return new SimpleDateFormat(pattern);
+          }
+        }
+;
+        dateFormatMap.putIfAbsent(pattern,formatterTL);
+      }
+      SimpleDateFormat formatter=formatterTL.get();
+      if (formatter == null) {
+        formatter=new SimpleDateFormat(pattern);
+        formatterTL.set(formatter);
+      }
+      tsValue=formatter.format(new Date(ts));
+    }
+  }
+  return tsValue;
+}

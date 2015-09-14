@@ -1,0 +1,9 @@
+{
+  clientQueue=new ArrayBlockingQueue<RpcClient>(numberOfClientThreads);
+  for (int i=0; i < numberOfClientThreads; i++) {
+    RpcClient client=RpcClientFactory.getInstance(starterProp);
+    clientQueue.add(client);
+  }
+  LOG.info("Number of Threads:" + numberOfClientThreads);
+  executorService=MoreExecutors.listeningDecorator(Executors.newFixedThreadPool(numberOfClientThreads));
+}

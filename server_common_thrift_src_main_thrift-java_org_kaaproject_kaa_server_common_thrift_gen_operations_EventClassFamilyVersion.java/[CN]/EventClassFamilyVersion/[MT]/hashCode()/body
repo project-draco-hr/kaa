@@ -1,10 +1,10 @@
 {
-  List<Object> list=new ArrayList<Object>();
+  HashCodeBuilder builder=new HashCodeBuilder();
   boolean present_endpointClassFamilyId=true && (isSetEndpointClassFamilyId());
-  list.add(present_endpointClassFamilyId);
-  if (present_endpointClassFamilyId)   list.add(endpointClassFamilyId);
+  builder.append(present_endpointClassFamilyId);
+  if (present_endpointClassFamilyId)   builder.append(endpointClassFamilyId);
   boolean present_endpointClassFamilyVersion=true;
-  list.add(present_endpointClassFamilyVersion);
-  if (present_endpointClassFamilyVersion)   list.add(endpointClassFamilyVersion);
-  return list.hashCode();
+  builder.append(present_endpointClassFamilyVersion);
+  if (present_endpointClassFamilyVersion)   builder.append(endpointClassFamilyVersion);
+  return builder.toHashCode();
 }

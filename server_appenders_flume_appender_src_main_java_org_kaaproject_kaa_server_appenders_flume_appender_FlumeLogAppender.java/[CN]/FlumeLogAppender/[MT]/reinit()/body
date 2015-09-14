@@ -1,0 +1,21 @@
+{
+  if (configuration == null) {
+    LOG.warn("Flume configuration wasn't initialized. Invoke method init with configuration before.");
+    return;
+  }
+  if (flumeEventBuilder == null) {
+    flumeEventBuilder=new FlumeAvroEventBuilder();
+    flumeEventBuilder.init(configuration);
+  }
+  if (executor == null) {
+    int executorPoolSize=Math.min(configuration.getExecutorThreadPoolSize(),MAX_CALLBACK_THREAD_POOL_SIZE);
+    executor=Executors.newFixedThreadPool(executorPoolSize);
+  }
+  if (callbackExecutor == null) {
+    int callbackPoolSize=Math.min(configuration.getCallbackThreadPoolSize(),MAX_CALLBACK_THREAD_POOL_SIZE);
+    callbackExecutor=Executors.newFixedThreadPool(callbackPoolSize);
+  }
+  if (flumeClientManager == null) {
+    flumeClientManager=FlumeClientManager.getInstance(configuration);
+  }
+}

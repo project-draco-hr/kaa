@@ -1,0 +1,7 @@
+{
+  int thresholdCount=5;
+  LogStorageStatus logStorageStatus=Mockito.mock(LogStorageStatus.class);
+  Mockito.when(logStorageStatus.getRecordCount()).thenReturn((long)(thresholdCount - 1));
+  RecordCountLogUploadStrategy strategy=new RecordCountLogUploadStrategy(thresholdCount);
+  Assert.assertEquals(strategy.checkUploadNeeded(logStorageStatus),LogUploadStrategyDecision.NOOP);
+}

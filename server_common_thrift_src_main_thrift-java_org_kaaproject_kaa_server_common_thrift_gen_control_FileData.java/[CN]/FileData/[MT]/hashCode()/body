@@ -1,10 +1,10 @@
 {
-  List<Object> list=new ArrayList<Object>();
+  HashCodeBuilder builder=new HashCodeBuilder();
   boolean present_fileName=true && (isSetFileName());
-  list.add(present_fileName);
-  if (present_fileName)   list.add(fileName);
+  builder.append(present_fileName);
+  if (present_fileName)   builder.append(fileName);
   boolean present_data=true && (isSetData());
-  list.add(present_data);
-  if (present_data)   list.add(data);
-  return list.hashCode();
+  builder.append(present_data);
+  if (present_data)   builder.append(data);
+  return builder.toHashCode();
 }
