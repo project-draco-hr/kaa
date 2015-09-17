@@ -4,7 +4,7 @@
     throw new IllegalArgumentException("New size and count values must be non-negative");
   }
   if (newSize >= size && newCount >= getCount()) {
-    return getRecords();
+    return Collections.emptyList();
   }
   List<LogRecord> overSize=new ArrayList<>();
   int lastIndex=records.size() - 1;

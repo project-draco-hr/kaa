@@ -1,0 +1,8 @@
+{
+  try {
+    this.appendBatchAsync(events).get();
+  }
+ catch (  Exception e) {
+    throw new EventDeliveryException(e);
+  }
+}

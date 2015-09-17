@@ -1,0 +1,24 @@
+{
+  parameters.getFlumeNodes();
+  flumeNodes=parameters.getFlumeNodes();
+  this.maxClientThreads=maxClientThreads;
+  if (!flumeNodes.isEmpty()) {
+    Collections.sort(flumeNodes,new Comparator<PrioritizedFlumeNode>(){
+      @Override public int compare(      PrioritizedFlumeNode o1,      PrioritizedFlumeNode o2){
+        int result;
+        if (o2 != null) {
+          result=o1.getPriority() - o2.getPriority();
+        }
+ else {
+          result=-1;
+        }
+        return result;
+      }
+    }
+);
+  }
+ else {
+    LOG.warn("Can't initialize flume Rpc client. No required hosts paraneters.");
+  }
+  return getNextClient(true);
+}

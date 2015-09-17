@@ -1,6 +1,22 @@
 {
   if (create) {
-    return ecfSchemaForm.validate();
+    if (!ecfSchemaForm.validate()) {
+      return false;
+    }
+    RecordField value=ecfSchemaForm.getValue();
+    if (value == null) {
+      return false;
+    }
+    if (value.getValue().isEmpty()) {
+      return false;
+    }
+    FormField field=value.getValue().get(0);
+    if (field instanceof ArrayField) {
+      return !((ArrayField)field).getValue().isEmpty();
+    }
+ else {
+      return false;
+    }
   }
  else {
     return true;

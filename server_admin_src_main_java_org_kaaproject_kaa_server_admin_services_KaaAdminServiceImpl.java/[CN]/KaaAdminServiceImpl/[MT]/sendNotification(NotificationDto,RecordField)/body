@@ -1,9 +1,7 @@
 {
   checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
-    if (null != notification.getExpiredAt() && notification.getExpiredAt().before(new Date())) {
-      throw new IllegalArgumentException("Overdue expiry time for notification");
-    }
+    checkExpiredDate(notification);
     GenericRecord record=FormAvroConverter.createGenericRecordFromRecordField(notificationData);
     GenericAvroConverter<GenericRecord> converter=new GenericAvroConverter<>(record.getSchema());
     byte[] body=converter.encodeToJsonBytes(record);

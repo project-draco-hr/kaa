@@ -1,6 +1,6 @@
 {
   LOG.debug("Get next flume rpc client");
-  RpcClient client=null;
+  AsyncRpcClient client=null;
   PrioritizedFlumeNode node=null;
   if (isInit) {
     node=flumeNodes.get(DEFAULT_POSITION);
@@ -16,7 +16,7 @@
   }
   try {
     LOG.warn("Initialize new flume client.");
-    client=RpcClientFactory.getDefaultInstance(node.getHost(),node.getPort());
+    client=new AvroAsyncRpcClient(node.getHost(),node.getPort(),maxClientThreads);
   }
  catch (  FlumeException e) {
     LOG.warn("Can't initialize flume client.",e);

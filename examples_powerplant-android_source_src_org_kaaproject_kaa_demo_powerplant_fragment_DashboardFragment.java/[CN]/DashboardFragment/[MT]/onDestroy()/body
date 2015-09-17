@@ -1,8 +1,0 @@
-{
-  super.onDestroy();
-  if (endpoint != null) {
-    endpoint.stop();
-    kaaClient.setConfigurationStorage(new SimpleConfigurationStorage(androidKaaPlatformContext,"saved_config.cfg"));
-    kaaClient.stop();
-  }
-}

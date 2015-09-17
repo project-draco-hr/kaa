@@ -1,9 +1,0 @@
-{
-  checkInited();
-  new CommandAsyncTask<String,PlayListResponse>(callback){
-    @Override protected PlayListResponse executeCommand(    String... endpontKey) throws Throwable {
-      return new GetPlayListCommand(commandMap,soundSystems,endpontKey[0]).execute(executor,DEFAULT_TASK_TIMEOUT);
-    }
-  }
-.execute(endpontKey);
-}

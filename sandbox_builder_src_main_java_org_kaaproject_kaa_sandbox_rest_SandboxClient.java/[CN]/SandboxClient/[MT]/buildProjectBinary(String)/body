@@ -1,7 +1,0 @@
-{
-  MultiValueMap<String,String> request=new LinkedMultiValueMap<>();
-  request.add("projectId",projectId);
-  request.add("dataType","BINARY");
-  byte[] result=restTemplate.postForObject(url + "buildProjectData",request,byte[].class);
-  return new String(result);
-}

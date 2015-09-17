@@ -1,7 +1,0 @@
-{
-  LOG.debug("Received RPC GET, uuid: {}",r.uuid());
-  if (atmosphereResourceFactory == null) {
-    atmosphereResourceFactory=r.getAtmosphereConfig().resourcesFactory();
-  }
-  r.getBroadcaster().broadcast(r.uuid(),r);
-}

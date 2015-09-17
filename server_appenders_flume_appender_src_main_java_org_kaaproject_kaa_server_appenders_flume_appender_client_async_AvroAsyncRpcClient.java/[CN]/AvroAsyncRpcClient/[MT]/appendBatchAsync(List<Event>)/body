@@ -1,0 +1,12 @@
+{
+  ListenableFuture<AppendBatchAsyncResultPojo> future=executorService.submit(new Callable<AppendBatchAsyncResultPojo>(){
+    public AppendBatchAsyncResultPojo call() throws Exception {
+      RpcClient client=clientQueue.poll();
+      client.appendBatch(events);
+      clientQueue.add(client);
+      return new AppendBatchAsyncResultPojo(true,events);
+    }
+  }
+);
+  return future;
+}

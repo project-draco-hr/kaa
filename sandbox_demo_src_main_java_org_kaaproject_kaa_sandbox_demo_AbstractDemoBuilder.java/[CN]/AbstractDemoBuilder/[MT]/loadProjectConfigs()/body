@@ -1,7 +1,0 @@
-{
-  JAXBContext jc=JAXBContext.newInstance("org.kaaproject.kaa.sandbox.demo.projects");
-  Unmarshaller unmarshaller=jc.createUnmarshaller();
-  InputStream is=getClass().getClassLoader().getResourceAsStream(getResourcePath(PROJECTS_XML));
-  ProjectsConfig projectsConfig=(ProjectsConfig)unmarshaller.unmarshal(is);
-  return projectsConfig.getProjects();
-}

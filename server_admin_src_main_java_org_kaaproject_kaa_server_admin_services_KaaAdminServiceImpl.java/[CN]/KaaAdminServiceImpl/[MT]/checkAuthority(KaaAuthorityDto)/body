@@ -8,6 +8,6 @@
     }
   }
   if (!matched) {
-    throw new KaaAdminServiceException(ServiceErrorCode.PERMISSION_DENIED);
+    throw new KaaAdminServiceException("You do not have permission to perform this operation!",ServiceErrorCode.PERMISSION_DENIED);
   }
 }

@@ -1,3 +1,13 @@
 {
-  return kaaAuthService.changePassword(username,oldPassword,newPassword);
+  ResultCode resultCode=kaaAuthService.changePassword(username,oldPassword,newPassword);
+  if (resultCode == ResultCode.USER_NOT_FOUND) {
+    throw Utils.handleException(new IllegalArgumentException("User with specified username was not found."));
+  }
+ else   if (resultCode == ResultCode.OLD_PASSWORD_MISMATCH) {
+    throw Utils.handleException(new IllegalArgumentException("Current password is invalid."));
+  }
+ else   if (resultCode == ResultCode.BAD_PASSWORD_STRENGTH) {
+    throw Utils.handleException(new IllegalArgumentException("Password strength is insufficient."));
+  }
+  return resultCode;
 }

@@ -1,7 +1,0 @@
-{
-  Resources res=getResources();
-  String desc=String.format(res.getString(R.string.msg_device_scan_qr_code),getString(deviceType.getNameRes()));
-  FragmentManager fragmentManager=getSupportFragmentManager();
-  fragmentManager.beginTransaction().replace(R.id.container,QrcodeFragment.newInstance(code,desc)).commit();
-  mQrcodeIsShowing=true;
-}

@@ -29,7 +29,7 @@
   registrations.add(eventBus.addHandler(DataEvent.getType(),new DataEventHandler(){
     @Override public void onDataChanged(    DataEvent event){
       if (event.checkClass(dataClass)) {
-        dataProvider.reload(listView.getDisplay());
+        dataProvider.reload();
         onCustomDataChangedEvent(event);
       }
     }

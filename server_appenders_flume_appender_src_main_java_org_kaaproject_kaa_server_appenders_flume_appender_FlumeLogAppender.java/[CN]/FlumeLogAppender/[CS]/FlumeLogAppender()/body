@@ -1,3 +1,10 @@
 {
   super(FlumeConfig.class);
+  scheduler.scheduleWithFixedDelay(new Runnable(){
+    @Override public void run(){
+      long second=System.currentTimeMillis() / 1000;
+      LOG.info("[{}] Received {} log record count, {} success flume callbacks, {}  failure flume callbacks / second.",second,inputLogCount.getAndSet(0),flumeSuccessLogCount.getAndSet(0),flumeFailureLogCount.getAndSet(0));
+    }
+  }
+,0L,1L,TimeUnit.SECONDS);
 }

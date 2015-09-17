@@ -1,9 +1,0 @@
-{
-  List<EndpointGroupDto> groups=client.getEndpointGroups(applicationId);
-  for (  EndpointGroupDto dto : groups) {
-    if (dto.getWeight() == 0) {
-      return dto;
-    }
-  }
-  throw new IllegalStateException("Endpoint group with weight 0 not found!");
-}

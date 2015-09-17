@@ -1,0 +1,7 @@
+{
+  int thresholdVolume=5;
+  LogStorageStatus logStorageStatus=Mockito.mock(LogStorageStatus.class);
+  Mockito.when(logStorageStatus.getConsumedVolume()).thenReturn((long)(thresholdVolume + 1));
+  StorageSizeLogUploadStrategy strategy=new StorageSizeLogUploadStrategy(thresholdVolume);
+  Assert.assertEquals(strategy.checkUploadNeeded(logStorageStatus),LogUploadStrategyDecision.UPLOAD);
+}

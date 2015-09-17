@@ -1,7 +1,7 @@
 {
   try {
     if (isEmpty(endpointGroupId)) {
-      throw new KaaAdminServiceException(ServiceErrorCode.INVALID_ARGUMENTS);
+      throw new IllegalArgumentException("The endpointGroupId parameter is empty.");
     }
     EndpointGroupDto endpointGroup=toDto(clientProvider.getClient().getEndpointGroup(endpointGroupId));
     Utils.checkNotNull(endpointGroup);
