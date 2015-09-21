@@ -1,0 +1,15 @@
+{
+  LOG.debug("Searching for SDK profiles by application ID: [{}]",applicationId);
+  List<SdkKey> sdkProfiles=Collections.emptyList();
+  if (StringUtils.isNotBlank(applicationId)) {
+    Criterion criterion=Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(applicationId));
+    sdkProfiles=this.findListByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,criterion);
+  }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{}] Search result: {}.",applicationId,Arrays.toString(sdkProfiles.toArray()));
+  }
+ else {
+    LOG.debug("[{}] Search result: {}.",applicationId,sdkProfiles.size());
+  }
+  return sdkProfiles;
+}
