@@ -2,5 +2,16 @@
   int result=token != null ? token.hashCode() : 0;
   result=31 * result + (data != null ? Arrays.hashCode(data) : 0);
   result=31 * result + (application != null ? application.hashCode() : 0);
+  result=31 * result + (name != null ? name.hashCode() : 0);
+  result=31 * result + (configurationSchemaVersion != null ? configurationSchemaVersion.hashCode() : 0);
+  result=31 * result + (profileSchemaVersion != null ? profileSchemaVersion.hashCode() : 0);
+  result=31 * result + (notificationSchemaVersion != null ? notificationSchemaVersion.hashCode() : 0);
+  result=31 * result + (logSchemaVersion != null ? logSchemaVersion.hashCode() : 0);
+  result=31 * result + (targetPlatform != null ? targetPlatform.hashCode() : 0);
+  result=31 * result + (aefMapIds != null ? Arrays.hashCode(aefMapIds.toArray()) : 0);
+  result=31 * result + (defaultVerifierToken != null ? defaultVerifierToken.hashCode() : 0);
+  result=31 * result + (createdUsername != null ? createdUsername.hashCode() : 0);
+  result=31 * result + (createdTime != null ? createdTime.hashCode() : 0);
+  result=31 * result + (endpointCount != null ? endpointCount.hashCode() : 0);
   return result;
 }

@@ -15,5 +15,38 @@
   if (token != null ? !token.equals(sdkKey.token) : sdkKey.token != null) {
     return false;
   }
+  if (name != null ? !name.equals(sdkKey.name) : sdkKey.name != null) {
+    return false;
+  }
+  if (configurationSchemaVersion != null ? !configurationSchemaVersion.equals(sdkKey.configurationSchemaVersion) : sdkKey.configurationSchemaVersion != null) {
+    return false;
+  }
+  if (profileSchemaVersion != null ? !profileSchemaVersion.equals(sdkKey.profileSchemaVersion) : sdkKey.profileSchemaVersion != null) {
+    return false;
+  }
+  if (notificationSchemaVersion != null ? !notificationSchemaVersion.equals(sdkKey.notificationSchemaVersion) : sdkKey.notificationSchemaVersion != null) {
+    return false;
+  }
+  if (logSchemaVersion != null ? !logSchemaVersion.equals(sdkKey.logSchemaVersion) : sdkKey.logSchemaVersion != null) {
+    return false;
+  }
+  if (targetPlatform != null ? !targetPlatform.equals(sdkKey.targetPlatform) : sdkKey.targetPlatform != null) {
+    return false;
+  }
+  if (!Arrays.equals(aefMapIds.toArray(),sdkKey.aefMapIds.toArray())) {
+    return false;
+  }
+  if (defaultVerifierToken != null ? !defaultVerifierToken.equals(sdkKey.defaultVerifierToken) : sdkKey.defaultVerifierToken != null) {
+    return false;
+  }
+  if (createdUsername != null ? !createdUsername.equals(sdkKey.createdUsername) : sdkKey.createdUsername != null) {
+    return false;
+  }
+  if (createdTime != null ? !createdTime.equals(sdkKey.createdTime) : sdkKey.createdTime != null) {
+    return false;
+  }
+  if (endpointCount != null ? !endpointCount.equals(sdkKey.endpointCount) : sdkKey.endpointCount != null) {
+    return false;
+  }
   return true;
 }

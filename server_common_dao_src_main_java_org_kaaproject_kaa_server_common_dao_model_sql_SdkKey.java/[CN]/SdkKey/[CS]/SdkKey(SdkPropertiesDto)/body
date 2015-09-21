@@ -7,6 +7,17 @@
       if (aefMapIds != null && aefMapIds.isEmpty()) {
         dto.setAefMapIds(null);
       }
+      this.name=dto.getName();
+      this.configurationSchemaVersion=dto.getConfigurationSchemaVersion();
+      this.profileSchemaVersion=dto.getProfileSchemaVersion();
+      this.notificationSchemaVersion=dto.getProfileSchemaVersion();
+      this.logSchemaVersion=dto.getNotificationSchemaVersion();
+      this.targetPlatform=dto.getTargetPlatform();
+      this.aefMapIds=aefMapIds;
+      this.defaultVerifierToken=dto.getDefaultVerifierToken();
+      this.createdUsername=dto.getCreatedUsername();
+      this.createdTime=dto.getCreatedTime();
+      this.endpointCount=dto.getEndpointCount();
       this.data=DtoByteMarshaller.toBytes(dto);
       dto.setAefMapIds(aefMapIds);
       dto.setId(this.id == null ? null : String.valueOf(this.id));
