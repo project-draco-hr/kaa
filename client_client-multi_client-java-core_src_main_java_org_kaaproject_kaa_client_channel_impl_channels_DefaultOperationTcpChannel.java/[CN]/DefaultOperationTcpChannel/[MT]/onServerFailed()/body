@@ -1,4 +1,5 @@
 {
+  LOG.debug("[{}] has failed",getId());
   closeConnection();
   if (connectivityChecker != null && !connectivityChecker.checkConnectivity()) {
     LOG.warn("Loss of connectivity detected");

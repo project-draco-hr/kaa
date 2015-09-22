@@ -1,4 +1,5 @@
 {
+  LOG.trace("Processing types for [{}]",getId());
   byte[] requestBodyRaw=getMultiplexer().compileRequest(types);
   byte[] decodedResponse=null;
 synchronized (this) {
