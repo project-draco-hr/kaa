@@ -1,0 +1,12 @@
+{
+  SdkKey entity=new SdkKey();
+  if (application == null) {
+    application=this.generateApplication(null);
+  }
+  entity.setApplication(application);
+  if (token == null) {
+    token="token";
+  }
+  entity.setToken(token);
+  return sdkKeyDao.save(entity);
+}

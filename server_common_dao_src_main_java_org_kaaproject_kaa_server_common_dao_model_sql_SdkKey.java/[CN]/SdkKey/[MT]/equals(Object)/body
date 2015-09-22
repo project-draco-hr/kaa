@@ -5,47 +5,44 @@
   if (o == null || getClass() != o.getClass()) {
     return false;
   }
-  SdkKey sdkKey=(SdkKey)o;
-  if (application != null ? !application.equals(sdkKey.application) : sdkKey.application != null) {
+  SdkKey entity=(SdkKey)o;
+  if (application != null ? !application.equals(entity.application) : entity.application != null) {
     return false;
   }
-  if (!Arrays.equals(data,sdkKey.data)) {
+  if (token != null ? !token.equals(entity.token) : entity.token != null) {
     return false;
   }
-  if (token != null ? !token.equals(sdkKey.token) : sdkKey.token != null) {
+  if (name != null ? !name.equals(entity.name) : entity.name != null) {
     return false;
   }
-  if (name != null ? !name.equals(sdkKey.name) : sdkKey.name != null) {
+  if (configurationSchemaVersion != null ? !configurationSchemaVersion.equals(entity.configurationSchemaVersion) : entity.configurationSchemaVersion != null) {
     return false;
   }
-  if (configurationSchemaVersion != null ? !configurationSchemaVersion.equals(sdkKey.configurationSchemaVersion) : sdkKey.configurationSchemaVersion != null) {
+  if (profileSchemaVersion != null ? !profileSchemaVersion.equals(entity.profileSchemaVersion) : entity.profileSchemaVersion != null) {
     return false;
   }
-  if (profileSchemaVersion != null ? !profileSchemaVersion.equals(sdkKey.profileSchemaVersion) : sdkKey.profileSchemaVersion != null) {
+  if (notificationSchemaVersion != null ? !notificationSchemaVersion.equals(entity.notificationSchemaVersion) : entity.notificationSchemaVersion != null) {
     return false;
   }
-  if (notificationSchemaVersion != null ? !notificationSchemaVersion.equals(sdkKey.notificationSchemaVersion) : sdkKey.notificationSchemaVersion != null) {
+  if (logSchemaVersion != null ? !logSchemaVersion.equals(entity.logSchemaVersion) : entity.logSchemaVersion != null) {
     return false;
   }
-  if (logSchemaVersion != null ? !logSchemaVersion.equals(sdkKey.logSchemaVersion) : sdkKey.logSchemaVersion != null) {
+  if (targetPlatform != null ? !targetPlatform.equals(entity.targetPlatform) : entity.targetPlatform != null) {
     return false;
   }
-  if (targetPlatform != null ? !targetPlatform.equals(sdkKey.targetPlatform) : sdkKey.targetPlatform != null) {
+  if (!Arrays.equals(aefMapIds.toArray(),entity.aefMapIds.toArray())) {
     return false;
   }
-  if (!Arrays.equals(aefMapIds.toArray(),sdkKey.aefMapIds.toArray())) {
+  if (defaultVerifierToken != null ? !defaultVerifierToken.equals(entity.defaultVerifierToken) : entity.defaultVerifierToken != null) {
     return false;
   }
-  if (defaultVerifierToken != null ? !defaultVerifierToken.equals(sdkKey.defaultVerifierToken) : sdkKey.defaultVerifierToken != null) {
+  if (createdUsername != null ? !createdUsername.equals(entity.createdUsername) : entity.createdUsername != null) {
     return false;
   }
-  if (createdUsername != null ? !createdUsername.equals(sdkKey.createdUsername) : sdkKey.createdUsername != null) {
+  if (createdTime != null ? !createdTime.equals(entity.createdTime) : entity.createdTime != null) {
     return false;
   }
-  if (createdTime != null ? !createdTime.equals(sdkKey.createdTime) : sdkKey.createdTime != null) {
-    return false;
-  }
-  if (endpointCount != null ? !endpointCount.equals(sdkKey.endpointCount) : sdkKey.endpointCount != null) {
+  if (endpointCount != null ? !endpointCount.equals(entity.endpointCount) : entity.endpointCount != null) {
     return false;
   }
   return true;

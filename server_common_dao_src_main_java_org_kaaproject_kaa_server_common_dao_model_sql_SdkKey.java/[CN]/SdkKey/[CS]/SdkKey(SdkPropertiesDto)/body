@@ -1,31 +1,37 @@
 {
   if (dto != null) {
     try {
-      this.id=getLongId(dto.getId());
-      dto.setId(null);
-      List<String> aefMapIds=dto.getAefMapIds();
-      if (aefMapIds != null && aefMapIds.isEmpty()) {
-        dto.setAefMapIds(null);
+      this.id=ModelUtils.getLongId(dto.getId());
+      String token=dto.getToken();
+      if (token == null || token.isEmpty()) {
+        if (this.aefMapIds != null && this.aefMapIds.isEmpty()) {
+          dto.setAefMapIds(null);
+        }
+        dto.setId(null);
+        dto.setEndpointCount(null);
+        MessageDigest messageDigest=MessageDigest.getInstance(HASH_ALGORITHM);
+        messageDigest.update(DtoByteMarshaller.toBytes(dto));
+        this.token=Base64.encodeBase64String(messageDigest.digest());
+        dto.setId(this.getStringId());
+        dto.setEndpointCount(this.endpointCount);
+        dto.setAefMapIds(this.aefMapIds);
       }
+ else {
+        this.token=token;
+      }
+      Long applicationId=ModelUtils.getLongId(dto.getApplicationId());
+      this.application=(applicationId != null) ? new Application(applicationId) : null;
       this.name=dto.getName();
       this.configurationSchemaVersion=dto.getConfigurationSchemaVersion();
       this.profileSchemaVersion=dto.getProfileSchemaVersion();
       this.notificationSchemaVersion=dto.getProfileSchemaVersion();
       this.logSchemaVersion=dto.getNotificationSchemaVersion();
       this.targetPlatform=dto.getTargetPlatform();
-      this.aefMapIds=aefMapIds;
+      this.aefMapIds=dto.getAefMapIds();
       this.defaultVerifierToken=dto.getDefaultVerifierToken();
       this.createdUsername=dto.getCreatedUsername();
       this.createdTime=dto.getCreatedTime();
       this.endpointCount=dto.getEndpointCount();
-      this.data=DtoByteMarshaller.toBytes(dto);
-      dto.setAefMapIds(aefMapIds);
-      dto.setId(this.id == null ? null : String.valueOf(this.id));
-      MessageDigest digest=MessageDigest.getInstance(HASH_ALGORITHM);
-      digest.update(this.data);
-      this.token=Base64.encodeBase64String(digest.digest());
-      Long appId=getLongId(dto.getApplicationId());
-      this.application=appId != null ? new Application(appId) : null;
     }
  catch (    NoSuchAlgorithmException e) {
       throw new RuntimeException(e);

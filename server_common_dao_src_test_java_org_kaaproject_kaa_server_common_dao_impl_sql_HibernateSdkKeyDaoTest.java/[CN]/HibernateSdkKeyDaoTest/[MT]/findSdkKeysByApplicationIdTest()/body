@@ -1,5 +1,5 @@
 {
-  SdkKey saved=generateSdkKey(null,"token",new byte[]{35,16,94,60,11,52,22,78,81,97});
+  SdkKey saved=this.generateSdkKey(null,null);
   List<SdkKey> loaded=sdkKeyDao.findSdkKeysByApplicationId(saved.getApplication().getId().toString());
   Assert.assertEquals(1,loaded.size());
   Assert.assertEquals(saved,loaded.get(0));

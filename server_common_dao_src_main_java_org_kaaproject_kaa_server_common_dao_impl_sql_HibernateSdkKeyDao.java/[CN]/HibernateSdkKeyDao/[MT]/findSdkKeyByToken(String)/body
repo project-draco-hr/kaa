@@ -1,14 +1,14 @@
 {
-  SdkKey sdkKey=null;
-  LOG.debug("Searching SDK token object by SDK token [{}]",token);
-  if (isNotBlank(token)) {
-    sdkKey=findOneByCriterion(Restrictions.eq(SDK_TOKEN_PROPERTY,token));
+  LOG.debug("Searching for an SDK profile by token: [{}]",token);
+  SdkKey found=null;
+  if (StringUtils.isNotBlank(token)) {
+    found=this.findOneByCriterion(Restrictions.eq(SDK_TOKEN_PROPERTY,token));
   }
   if (LOG.isTraceEnabled()) {
-    LOG.trace("[{}] Search result: {}.",token,sdkKey);
+    LOG.trace("[{}] Search result: {}.",token,found);
   }
  else {
-    LOG.debug("[{}] Search result: {}.",token,sdkKey != null);
+    LOG.debug("[{}] Search result: {}.",token,found != null);
   }
-  return sdkKey;
+  return found;
 }
