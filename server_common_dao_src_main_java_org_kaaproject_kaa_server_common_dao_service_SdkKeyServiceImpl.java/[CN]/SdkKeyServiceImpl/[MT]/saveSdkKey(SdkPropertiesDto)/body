@@ -1,28 +1,27 @@
 {
-  SdkPropertiesDto savedSdkPropertiesDto=null;
-  if (isValidSqlObject(sdkPropertiesDto)) {
-    if (isNotBlank(sdkPropertiesDto.getId())) {
-      SdkKey sdkKeyToSave=new SdkKey(sdkPropertiesDto);
-      LOG.debug("Update application with id [{}] for token [{}]",sdkPropertiesDto.getApplicationId(),sdkKeyToSave.getToken());
-      SdkKey checkSdkKey=sdkKeyDao.findSdkKeyByToken(sdkKeyToSave.getToken());
-      if (checkSdkKey == null || String.valueOf(sdkKeyToSave.getId()).equals(String.valueOf(checkSdkKey.getId()))) {
-        savedSdkPropertiesDto=getDto(sdkKeyDao.save(sdkKeyToSave));
+  SdkPropertiesDto saved=null;
+  if (Validator.isValidSqlObject(sdkPropertiesDto)) {
+    if (StringUtils.isNotBlank(sdkPropertiesDto.getId())) {
+      SdkKey entity=new SdkKey(sdkPropertiesDto);
+      SdkKey loaded=sdkKeyDao.findSdkKeyByToken(entity.getToken());
+      LOG.debug("Saving SDK profile [{}] for application [{}]",entity.getToken(),sdkPropertiesDto.getApplicationId());
+      if (loaded == null || loaded.getStringId().equals(entity.getStringId())) {
+        saved=DaoUtil.getDto(sdkKeyDao.save(entity));
       }
  else {
-        throw new IncorrectParameterException("Can't add two sdk keys with the same token values: " + sdkKeyToSave.getToken());
+        throw new IncorrectParameterException("An SDK profile with token [" + entity.getToken() + "] already exists.");
       }
-      return savedSdkPropertiesDto;
     }
  else {
-      SdkKey sdkKeyToSave=new SdkKey(sdkPropertiesDto);
-      SdkKey checkSdkKey=sdkKeyDao.findSdkKeyByToken(sdkKeyToSave.getToken());
-      if (checkSdkKey == null) {
-        savedSdkPropertiesDto=getDto(sdkKeyDao.save(new SdkKey(sdkPropertiesDto)));
+      SdkKey entity=new SdkKey(sdkPropertiesDto);
+      SdkKey loaded=sdkKeyDao.findSdkKeyByToken(entity.getToken());
+      if (loaded == null) {
+        saved=DaoUtil.getDto(sdkKeyDao.save(entity));
       }
  else {
-        savedSdkPropertiesDto=getDto(checkSdkKey);
+        saved=DaoUtil.getDto(loaded);
       }
     }
   }
-  return savedSdkPropertiesDto;
+  return saved;
 }

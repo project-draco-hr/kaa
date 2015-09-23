@@ -1,7 +1,7 @@
 {
   SdkPropertiesDto sdkPropertiesDto=null;
-  if (isValidId(token)) {
-    sdkPropertiesDto=getDto(sdkKeyDao.findSdkKeyByToken(token));
+  if (Validator.isValidId(token)) {
+    sdkPropertiesDto=DaoUtil.getDto(sdkKeyDao.findSdkKeyByToken(token));
   }
   return sdkPropertiesDto;
 }
