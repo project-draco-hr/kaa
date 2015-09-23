@@ -6,8 +6,12 @@
       executor=createExecutor();
     }
     if (!isOpenConnectionScheduled) {
+      LOG.info("Opening a new connection after resume");
       executor.submit(openConnectionTask);
       isOpenConnectionScheduled=true;
+    }
+ else {
+      LOG.info("Don't need to open a new connection after resume, as connection opening was already scheduled");
     }
   }
 }

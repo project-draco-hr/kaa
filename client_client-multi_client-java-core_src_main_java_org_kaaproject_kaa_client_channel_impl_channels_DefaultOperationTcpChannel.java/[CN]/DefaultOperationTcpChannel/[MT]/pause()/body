@@ -6,6 +6,7 @@
     if (executor != null) {
       executor.shutdownNow();
       isReadTaskScheduled=false;
+      isOpenConnectionScheduled=false;
       executor=null;
     }
   }

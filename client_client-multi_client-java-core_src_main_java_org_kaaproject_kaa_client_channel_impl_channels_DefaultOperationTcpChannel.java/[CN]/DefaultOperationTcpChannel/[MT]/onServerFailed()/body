@@ -1,5 +1,5 @@
 {
-  LOG.debug("[{}] has failed",getId());
+  LOG.info("[{}] has failed",getId());
   closeConnection();
   if (connectivityChecker != null && !connectivityChecker.checkConnectivity()) {
     LOG.warn("Loss of connectivity detected");
@@ -10,7 +10,7 @@ case NOOP:
     break;
 case RETRY:
   long retryPeriod=decision.getRetryPeriod();
-synchronized (this) {
+synchronized (DefaultOperationTcpChannel.this) {
   if (!isOpenConnectionScheduled) {
     LOG.warn("Attempt to reconnect will be made in {} ms " + "according to failover strategy decision",retryPeriod);
     executor.schedule(openConnectionTask,retryPeriod,TimeUnit.MILLISECONDS);
