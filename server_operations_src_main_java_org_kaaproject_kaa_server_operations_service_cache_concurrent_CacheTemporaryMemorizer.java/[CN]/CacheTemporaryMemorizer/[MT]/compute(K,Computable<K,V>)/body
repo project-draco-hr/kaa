@@ -1,4 +1,7 @@
 {
+  if (key == null) {
+    throw new InvalidParameterException("Cache key can't be null");
+  }
   while (true) {
     Future<V> f=cache.get(key);
     if (f == null) {

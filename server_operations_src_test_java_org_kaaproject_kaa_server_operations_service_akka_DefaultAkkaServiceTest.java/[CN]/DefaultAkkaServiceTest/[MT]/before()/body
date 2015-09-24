@@ -34,6 +34,7 @@
   targetPublicKeyHash=ByteBuffer.wrap(SHA1HashUtils.hashToBytes(targetPair.getPublic().getEncoded()));
   Mockito.when(cacheService.getTenantIdByAppToken(APP_TOKEN)).thenReturn(TENANT_ID);
   Mockito.when(cacheService.getAppTokenBySdkToken(SDK_TOKEN)).thenReturn(APP_TOKEN);
+  Mockito.when(cacheService.getAppTokenBySdkToken(INVALID_SDK_TOKEN)).thenReturn(null);
   Mockito.when(cacheService.getEndpointKey(EndpointObjectHash.fromBytes(clientPublicKeyHash.array()))).thenReturn(clientPair.getPublic());
   Mockito.when(cacheService.getEndpointKey(EndpointObjectHash.fromBytes(targetPublicKeyHash.array()))).thenReturn(targetPair.getPublic());
   applicationDto=new ApplicationDto();
