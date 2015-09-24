@@ -1,8 +1,6 @@
 {
   LOG.info("Shutting down...");
-  isShutdown=true;
+  channelState=State.SHUTDOWN;
   closeConnection();
-  if (executor != null) {
-    executor.shutdownNow();
-  }
+  destroyExecutor();
 }

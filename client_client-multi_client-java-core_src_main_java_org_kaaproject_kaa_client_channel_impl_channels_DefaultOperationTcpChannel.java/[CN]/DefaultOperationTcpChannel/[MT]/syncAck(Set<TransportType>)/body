@@ -1,8 +1,8 @@
 {
 synchronized (this) {
-    if (!isFirstResponseReceived) {
+    if (channelState != State.READY_TO_SYNC) {
       LOG.info("First KaaSync message received and processed for channel [{}]",getId());
-      isFirstResponseReceived=true;
+      channelState=State.READY_TO_SYNC;
       failoverManager.onServerConnected(currentServer);
       LOG.debug("There are pending requests for channel [{}] -> starting sync",getId());
       syncAll();
