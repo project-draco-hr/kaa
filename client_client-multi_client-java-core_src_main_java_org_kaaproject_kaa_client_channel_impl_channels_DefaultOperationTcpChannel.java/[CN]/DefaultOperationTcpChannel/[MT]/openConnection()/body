@@ -1,4 +1,8 @@
 {
+  if (channelState == State.PAUSE || channelState == State.SHUTDOWN) {
+    LOG.info("Can't open connection, as channel is in the {} state",channelState);
+    return;
+  }
   try {
     LOG.info("Channel [{}]: opening connection to server {}",getId(),currentServer);
     isOpenConnectionScheduled=false;

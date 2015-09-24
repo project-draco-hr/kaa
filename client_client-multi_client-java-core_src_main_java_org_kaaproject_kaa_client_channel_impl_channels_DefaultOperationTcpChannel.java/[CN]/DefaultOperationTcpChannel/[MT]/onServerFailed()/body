@@ -13,7 +13,7 @@ case RETRY:
 synchronized (DefaultOperationTcpChannel.this) {
   if (!isOpenConnectionScheduled) {
     LOG.warn("Attempt to reconnect will be made in {} ms " + "according to failover strategy decision",retryPeriod);
-    executor.schedule(openConnectionTask,retryPeriod,TimeUnit.MILLISECONDS);
+    scheduleOpenConnectionTask(retryPeriod,TimeUnit.MILLISECONDS);
     isOpenConnectionScheduled=true;
   }
  else {
