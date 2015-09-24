@@ -18,10 +18,7 @@
     if (oldServer == null || socket == null || !oldServer.getHost().equals(currentServer.getHost()) || oldServer.getPort() != currentServer.getPort()) {
       LOG.info("New server's: {} host or ip is different from the old {}, reconnecting",oldServer,oldServer);
       closeConnection();
-      if (!isOpenConnectionScheduled) {
-        executor.submit(openConnectionTask);
-        isOpenConnectionScheduled=true;
-      }
+      scheduleOpenConnectionTask(0);
     }
   }
  else {

@@ -7,7 +7,7 @@
     LOG.info("Can't sync. Channel [{}] is paused",getId());
     return;
   }
-  if (channelState != State.READY_TO_SYNC) {
+  if (channelState != State.OPENED) {
     LOG.info("Can't sync. Channel [{}] is waiting for CONNACK message + KAASYNC message",getId());
     return;
   }

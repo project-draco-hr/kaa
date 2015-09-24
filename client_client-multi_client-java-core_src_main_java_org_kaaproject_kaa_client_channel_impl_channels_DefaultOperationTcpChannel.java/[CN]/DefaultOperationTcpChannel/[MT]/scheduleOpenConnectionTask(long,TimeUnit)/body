@@ -1,8 +1,0 @@
-{
-  if (executor != null) {
-    executor.schedule(openConnectionTask,retryPeriod,TimeUnit.MILLISECONDS);
-  }
- else {
-    LOG.warn("Executor is null, can't schedule open connection task");
-  }
-}

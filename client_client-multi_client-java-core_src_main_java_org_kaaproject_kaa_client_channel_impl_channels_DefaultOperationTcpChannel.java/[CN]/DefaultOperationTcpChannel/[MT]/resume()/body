@@ -1,17 +1,10 @@
 {
   if (channelState == State.PAUSE) {
     LOG.info("Resuming...");
-    channelState=State.CONNACK_WAIT;
+    channelState=State.CLOSED;
     if (executor == null) {
       executor=createExecutor();
     }
-    if (!isOpenConnectionScheduled) {
-      LOG.info("Scheduling a new connection opening after resume");
-      executor.submit(openConnectionTask);
-      isOpenConnectionScheduled=true;
-    }
- else {
-      LOG.info("Don't need to open a new connection after resume, as the connection opening has already been scheduled");
-    }
+    scheduleOpenConnectionTask(0);
   }
 }
