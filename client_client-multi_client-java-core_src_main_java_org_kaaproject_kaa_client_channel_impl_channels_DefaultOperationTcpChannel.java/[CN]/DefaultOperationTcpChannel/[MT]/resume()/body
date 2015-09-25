@@ -1,12 +1,10 @@
 {
-  if (isPaused) {
-    isPaused=false;
+  if (channelState == State.PAUSE) {
+    LOG.info("Resuming...");
+    channelState=State.CLOSED;
     if (executor == null) {
       executor=createExecutor();
     }
-    if (!isOpenConnectionScheduled) {
-      executor.submit(openConnectionTask);
-      isOpenConnectionScheduled=true;
-    }
+    scheduleOpenConnectionTask(0);
   }
 }

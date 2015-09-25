@@ -1,11 +1,8 @@
 {
-  if (!isPaused) {
-    isPaused=true;
+  if (channelState != State.PAUSE) {
+    LOG.info("Pausing...");
+    channelState=State.PAUSE;
     closeConnection();
-    if (executor != null) {
-      executor.shutdownNow();
-      isReadTaskScheduled=false;
-      executor=null;
-    }
+    destroyExecutor();
   }
 }

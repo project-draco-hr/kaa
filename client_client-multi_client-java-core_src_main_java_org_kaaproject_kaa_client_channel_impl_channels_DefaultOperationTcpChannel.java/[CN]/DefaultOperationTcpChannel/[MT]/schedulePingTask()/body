@@ -3,4 +3,7 @@
     LOG.debug("Scheduling a ping task ({} seconds) for channel [{}]",PING_TIMEOUT,getId());
     pingTaskFuture=executor.schedule(pingTask,PING_TIMEOUT,TimeUnit.SECONDS);
   }
+ else {
+    LOG.warn("Executor is null, can't schedule ping task");
+  }
 }
