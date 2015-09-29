@@ -1,0 +1,10 @@
+{
+  getSdkProfilesByApplicationId_result result=new getSdkProfilesByApplicationId_result();
+  try {
+    result.success=iface.getSdkProfilesByApplicationId(args.applicationId);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

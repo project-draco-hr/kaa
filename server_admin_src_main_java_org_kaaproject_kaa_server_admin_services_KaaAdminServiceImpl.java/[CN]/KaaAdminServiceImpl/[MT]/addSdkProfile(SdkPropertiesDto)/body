@@ -1,0 +1,9 @@
+{
+  this.checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    clientProvider.getClient().addSdkProfile(ThriftDtoConverter.toDataStruct(sdkProfile));
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+}

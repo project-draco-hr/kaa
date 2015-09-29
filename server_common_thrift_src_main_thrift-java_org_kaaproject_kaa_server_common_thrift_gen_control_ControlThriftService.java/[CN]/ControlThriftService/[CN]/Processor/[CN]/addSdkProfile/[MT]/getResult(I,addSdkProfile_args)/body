@@ -1,0 +1,10 @@
+{
+  addSdkProfile_result result=new addSdkProfile_result();
+  try {
+    iface.addSdkProfile(args.sdkProfile);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

@@ -1,0 +1,9 @@
+{
+  try {
+    sdkKeyService.removeSdkProfileById(sdkProfileId);
+  }
+ catch (  Exception cause) {
+    LOG.error("Unable to delete SDK profile",cause);
+    throw new TException(cause);
+  }
+}

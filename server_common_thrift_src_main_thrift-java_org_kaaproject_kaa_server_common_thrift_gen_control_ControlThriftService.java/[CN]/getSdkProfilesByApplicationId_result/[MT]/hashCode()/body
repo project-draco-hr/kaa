@@ -1,0 +1,10 @@
+{
+  HashCodeBuilder builder=new HashCodeBuilder();
+  boolean present_success=true && (isSetSuccess());
+  builder.append(present_success);
+  if (present_success)   builder.append(success);
+  boolean present_ControlException=true && (isSetControlException());
+  builder.append(present_ControlException);
+  if (present_ControlException)   builder.append(ControlException);
+  return builder.toHashCode();
+}

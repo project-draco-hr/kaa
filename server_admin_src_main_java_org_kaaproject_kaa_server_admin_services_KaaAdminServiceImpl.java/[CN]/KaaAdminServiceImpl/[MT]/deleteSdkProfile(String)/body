@@ -1,0 +1,12 @@
+{
+  this.checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    if (isEmpty(sdkProfileId)) {
+      throw new IllegalArgumentException("SDK profile ID is empty!");
+    }
+    clientProvider.getClient().deleteSdkProfile(sdkProfileId);
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+}
