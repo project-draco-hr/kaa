@@ -5,44 +5,41 @@
   if (o == null || getClass() != o.getClass()) {
     return false;
   }
-  SdkKey entity=(SdkKey)o;
-  if (application != null ? !application.equals(entity.application) : entity.application != null) {
+  SdkKey other=(SdkKey)o;
+  if (application != null ? !application.equals(other.application) : other.application != null) {
     return false;
   }
-  if (token != null ? !token.equals(entity.token) : entity.token != null) {
+  if (token != null ? !token.equals(other.token) : other.token != null) {
     return false;
   }
-  if (name != null ? !name.equals(entity.name) : entity.name != null) {
+  if (name != null ? !name.equals(other.name) : other.name != null) {
     return false;
   }
-  if (configurationSchemaVersion != null ? !configurationSchemaVersion.equals(entity.configurationSchemaVersion) : entity.configurationSchemaVersion != null) {
+  if (configurationSchemaVersion != null ? !configurationSchemaVersion.equals(other.configurationSchemaVersion) : other.configurationSchemaVersion != null) {
     return false;
   }
-  if (profileSchemaVersion != null ? !profileSchemaVersion.equals(entity.profileSchemaVersion) : entity.profileSchemaVersion != null) {
+  if (profileSchemaVersion != null ? !profileSchemaVersion.equals(other.profileSchemaVersion) : other.profileSchemaVersion != null) {
     return false;
   }
-  if (notificationSchemaVersion != null ? !notificationSchemaVersion.equals(entity.notificationSchemaVersion) : entity.notificationSchemaVersion != null) {
+  if (notificationSchemaVersion != null ? !notificationSchemaVersion.equals(other.notificationSchemaVersion) : other.notificationSchemaVersion != null) {
     return false;
   }
-  if (logSchemaVersion != null ? !logSchemaVersion.equals(entity.logSchemaVersion) : entity.logSchemaVersion != null) {
+  if (logSchemaVersion != null ? !logSchemaVersion.equals(other.logSchemaVersion) : other.logSchemaVersion != null) {
     return false;
   }
-  if (targetPlatform != null ? !targetPlatform.equals(entity.targetPlatform) : entity.targetPlatform != null) {
+  if (targetPlatform != null ? !targetPlatform.equals(other.targetPlatform) : other.targetPlatform != null) {
     return false;
   }
-  if (!Arrays.equals(aefMapIds.toArray(),entity.aefMapIds.toArray())) {
+  if (aefMapIds != null ? !aefMapIds.equals(other.aefMapIds) : other.aefMapIds != null) {
     return false;
   }
-  if (defaultVerifierToken != null ? !defaultVerifierToken.equals(entity.defaultVerifierToken) : entity.defaultVerifierToken != null) {
+  if (defaultVerifierToken != null ? !defaultVerifierToken.equals(other.defaultVerifierToken) : other.defaultVerifierToken != null) {
     return false;
   }
-  if (createdUsername != null ? !createdUsername.equals(entity.createdUsername) : entity.createdUsername != null) {
+  if (createdUsername != null ? !createdUsername.equals(other.createdUsername) : other.createdUsername != null) {
     return false;
   }
-  if (createdTime != null ? !createdTime.equals(entity.createdTime) : entity.createdTime != null) {
-    return false;
-  }
-  if (endpointCount != null ? !endpointCount.equals(entity.endpointCount) : entity.endpointCount != null) {
+  if (createdTime != null ? !createdTime.equals(other.createdTime) : other.createdTime != null) {
     return false;
   }
   return true;

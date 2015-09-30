@@ -2,36 +2,42 @@
   if (dto != null) {
     try {
       this.id=ModelUtils.getLongId(dto.getId());
-      String token=dto.getToken();
-      if (token == null || token.isEmpty()) {
-        if (this.aefMapIds != null && this.aefMapIds.isEmpty()) {
-          dto.setAefMapIds(null);
-        }
-        dto.setId(null);
-        dto.setEndpointCount(null);
-        MessageDigest messageDigest=MessageDigest.getInstance(HASH_ALGORITHM);
-        messageDigest.update(DtoByteMarshaller.toBytes(dto));
-        this.token=Base64.encodeBase64String(messageDigest.digest());
-        dto.setId(this.getStringId());
-        dto.setEndpointCount(this.endpointCount);
-        dto.setAefMapIds(this.aefMapIds);
-      }
- else {
-        this.token=token;
-      }
-      Long applicationId=ModelUtils.getLongId(dto.getApplicationId());
-      this.application=(applicationId != null) ? new Application(applicationId) : null;
       this.name=dto.getName();
       this.configurationSchemaVersion=dto.getConfigurationSchemaVersion();
       this.profileSchemaVersion=dto.getProfileSchemaVersion();
       this.notificationSchemaVersion=dto.getProfileSchemaVersion();
       this.logSchemaVersion=dto.getNotificationSchemaVersion();
       this.targetPlatform=dto.getTargetPlatform();
-      this.aefMapIds=dto.getAefMapIds();
+      if (dto.getAefMapIds() != null) {
+        this.aefMapIds=new ArrayList<>(dto.getAefMapIds().size());
+        for (        String id : dto.getAefMapIds()) {
+          this.aefMapIds.add(id);
+        }
+      }
       this.defaultVerifierToken=dto.getDefaultVerifierToken();
       this.createdUsername=dto.getCreatedUsername();
       this.createdTime=dto.getCreatedTime();
       this.endpointCount=dto.getEndpointCount();
+      Long applicationId=ModelUtils.getLongId(dto.getApplicationId());
+      this.application=(applicationId != null) ? new Application(applicationId) : null;
+      if (this.aefMapIds != null && this.aefMapIds.isEmpty()) {
+        dto.setAefMapIds(null);
+      }
+      dto.setId(null);
+      dto.setCreatedTime(null);
+      dto.setEndpointCount(null);
+      MessageDigest messageDigest=MessageDigest.getInstance(HASH_ALGORITHM);
+      messageDigest.update(DtoByteMarshaller.toBytes(dto));
+      this.token=Base64.encodeBase64String(messageDigest.digest());
+      dto.setId(this.getStringId());
+      dto.setCreatedTime(this.createdTime);
+      dto.setEndpointCount(this.endpointCount);
+      if (this.aefMapIds != null) {
+        dto.setAefMapIds(new ArrayList<String>(this.aefMapIds.size()));
+        for (        String id : this.aefMapIds) {
+          dto.getAefMapIds().add(id);
+        }
+      }
     }
  catch (    NoSuchAlgorithmException e) {
       throw new RuntimeException(e);

@@ -12,7 +12,12 @@
   dto.setNotificationSchemaVersion(this.notificationSchemaVersion);
   dto.setLogSchemaVersion(this.logSchemaVersion);
   dto.setTargetPlatform(this.targetPlatform);
-  dto.setAefMapIds(this.aefMapIds);
+  if (this.aefMapIds != null) {
+    dto.setAefMapIds(new ArrayList<String>(this.aefMapIds.size()));
+    for (    String id : this.aefMapIds) {
+      dto.getAefMapIds().add(id);
+    }
+  }
   dto.setDefaultVerifierToken(this.defaultVerifierToken);
   dto.setCreatedUsername(this.createdUsername);
   dto.setCreatedTime(this.createdTime);
