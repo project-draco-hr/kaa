@@ -1,0 +1,13 @@
+{
+  if (!Utils.isEmpty(applicationId)) {
+    KaaAdmin.getDataSource().loadSdkProfiles(applicationId,new AsyncCallback<List<SdkPropertiesDto>>(){
+      @Override public void onSuccess(      List<SdkPropertiesDto> result){
+        callback.onSuccess(result);
+      }
+      @Override public void onFailure(      Throwable cause){
+        callback.onFailure(cause);
+      }
+    }
+);
+  }
+}

@@ -1,0 +1,21 @@
+{
+  ActionListener<SdkPropertiesDto> actionListener=new ActionListener<SdkPropertiesDto>(){
+    @Override public void onItemAction(    SdkPropertiesDto value){
+    }
+  }
+;
+  ActionValidator<SdkPropertiesDto> actionValidator=new ActionValidator<SdkPropertiesDto>(){
+    @Override public boolean canPerformAction(    SdkPropertiesDto value){
+      return !embedded;
+    }
+  }
+;
+  ActionButtonCell<SdkPropertiesDto> cell;
+  cell=new ActionButtonCell<SdkPropertiesDto>(Utils.resources.download(),label,embedded,actionListener,actionValidator);
+  return new Column<SdkPropertiesDto,SdkPropertiesDto>(cell){
+    @Override public SdkPropertiesDto getValue(    SdkPropertiesDto item){
+      return item;
+    }
+  }
+;
+}
