@@ -1,0 +1,17 @@
+{
+  if (event.getAction() == KaaRowAction.GENERATE_SDK) {
+    BusyPopup.showPopup();
+    KaaAdmin.getDataSource().retrieveSdk(event.getClickedId(),new AsyncCallback<String>(){
+      @Override public void onFailure(      Throwable caught){
+        BusyPopup.hidePopup();
+        Utils.handleException(caught,SdkProfilesActivity.this.getView());
+      }
+      @Override public void onSuccess(      String key){
+        BusyPopup.hidePopup();
+        SdkProfilesActivity.this.getView().clearError();
+        ServletHelper.downloadSdk(key);
+      }
+    }
+);
+  }
+}

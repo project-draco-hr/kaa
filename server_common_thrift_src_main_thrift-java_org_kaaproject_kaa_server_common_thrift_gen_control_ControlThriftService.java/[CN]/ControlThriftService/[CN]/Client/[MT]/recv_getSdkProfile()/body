@@ -1,0 +1,11 @@
+{
+  getSdkProfile_result result=new getSdkProfile_result();
+  receiveBase(result,"getSdkProfile");
+  if (result.isSetSuccess()) {
+    return result.success;
+  }
+  if (result.ControlException != null) {
+    throw result.ControlException;
+  }
+  throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT,"getSdkProfile failed: unknown result");
+}

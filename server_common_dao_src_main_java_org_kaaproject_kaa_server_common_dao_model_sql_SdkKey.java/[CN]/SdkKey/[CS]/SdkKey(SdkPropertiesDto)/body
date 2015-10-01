@@ -24,12 +24,14 @@
         dto.setAefMapIds(null);
       }
       dto.setId(null);
+      dto.setCreatedUsername(null);
       dto.setCreatedTime(null);
       dto.setEndpointCount(null);
       MessageDigest messageDigest=MessageDigest.getInstance(HASH_ALGORITHM);
       messageDigest.update(DtoByteMarshaller.toBytes(dto));
       this.token=Base64.encodeBase64String(messageDigest.digest());
       dto.setId(this.getStringId());
+      dto.setCreatedUsername(this.createdUsername);
       dto.setCreatedTime(this.createdTime);
       dto.setEndpointCount(this.endpointCount);
       if (this.aefMapIds != null) {

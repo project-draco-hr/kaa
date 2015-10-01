@@ -1,0 +1,17 @@
+{
+  if (!getClass().equals(other.getClass())) {
+    return getClass().getName().compareTo(other.getClass().getName());
+  }
+  int lastComparison=0;
+  lastComparison=Boolean.valueOf(isSetSdkProfileId()).compareTo(other.isSetSdkProfileId());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetSdkProfileId()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.sdkProfileId,other.sdkProfileId);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  return 0;
+}
