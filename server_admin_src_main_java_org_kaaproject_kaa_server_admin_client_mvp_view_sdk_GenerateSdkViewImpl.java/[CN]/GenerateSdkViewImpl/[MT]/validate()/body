@@ -4,5 +4,6 @@
   result&=notificationSchemaVersion.getValue() != null;
   result&=logSchemaVersion.getValue() != null;
   result&=targetPlatform.getValue() != null;
+  result&=name.getValue().length() > 0;
   return result;
 }

@@ -2,7 +2,14 @@
   detailsTable.getColumnFormatter().setWidth(0,"250px");
   detailsTable.getColumnFormatter().setWidth(1,"500px");
   int row=0;
-  Widget label=new Label(Utils.constants.configurationSchemaVersion());
+  Widget label=new Label(Utils.constants.name());
+  label.addStyleName(REQUIRED);
+  name=new KaaAdminSizedTextBox(15);
+  name.addInputHandler(this);
+  detailsTable.setWidget(row,0,label);
+  detailsTable.setWidget(row,1,name);
+  row++;
+  label=new Label(Utils.constants.configurationSchemaVersion());
   label.addStyleName(REQUIRED);
   configurationSchemaVersion=new SchemaListBox();
   configurationSchemaVersion.setWidth("80px");

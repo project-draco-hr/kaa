@@ -4,13 +4,13 @@
     detailsView.setErrorMessage(Utils.constants.specifyVerifier());
   }
  else {
-    KaaAdmin.getDataSource().generateSdk(entity,new BusyAsyncCallback<String>(){
+    KaaAdmin.getDataSource().addSdkProfile(entity,new BusyAsyncCallback<Void>(){
+      @Override public void onSuccessImpl(      Void result){
+        detailsView.reset();
+        GenerateSdkActivity.this.goTo(new SdkProfilesPlace(applicationId));
+      }
       @Override public void onFailureImpl(      Throwable caught){
         Utils.handleException(caught,detailsView);
-      }
-      @Override public void onSuccessImpl(      String key){
-        detailsView.clearError();
-        ServletHelper.downloadSdk(key);
       }
     }
 );

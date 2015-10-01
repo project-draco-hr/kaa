@@ -44,7 +44,7 @@
 ,40);
   prefWidth+=this.constructStringColumn(table,Utils.constants.sdkToken(),new StringValueProvider<SdkPropertiesDto>(){
     @Override public String getValue(    SdkPropertiesDto item){
-      return item.getToken();
+      return item.getToken().substring(0,6) + "\u2026";
     }
   }
 ,40);
