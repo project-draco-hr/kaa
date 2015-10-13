@@ -1,0 +1,55 @@
+{
+  super(false,true);
+  this.listener=listener;
+  this.setText(Utils.constants.generateSdk());
+  VerticalPanel root=new VerticalPanel();
+  this.setWidget(root);
+  FlexTable grid=new FlexTable();
+  grid.setCellSpacing(15);
+  grid.getColumnFormatter().setWidth(0,"115px");
+  grid.getColumnFormatter().setWidth(1,"115px");
+  Label label=new Label(Utils.constants.targetPlatform());
+  this.targetPlatform=new ValueListBox<>(new Renderer<SdkPlatform>(){
+    @Override public String render(    SdkPlatform object){
+      if (object != null) {
+        return Utils.constants.getString(object.getResourceKey());
+      }
+ else {
+        return null;
+      }
+    }
+    @Override public void render(    SdkPlatform object,    Appendable appendable) throws IOException {
+      appendable.append(this.render(object));
+    }
+  }
+);
+  targetPlatform.setWidth("100%");
+  for (  SdkPlatform value : SdkPlatform.values()) {
+    targetPlatform.setValue(value);
+  }
+  targetPlatform.setValue(SdkPlatform.ANDROID);
+  grid.setWidget(0,0,label);
+  grid.setWidget(0,1,targetPlatform);
+  root.add(grid);
+  Button generateSdk=new Button(Utils.constants.generateSdk(),new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      GenerateSdkDialog.this.hide();
+      if (GenerateSdkDialog.this.listener != null) {
+        SdkPlatform targetPlatform=GenerateSdkDialog.this.targetPlatform.getValue();
+        GenerateSdkDialog.this.listener.onGenerateSdk(targetPlatform);
+      }
+    }
+  }
+);
+  Button cancel=new Button(Utils.constants.cancel(),new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      GenerateSdkDialog.this.hide();
+      if (GenerateSdkDialog.this.listener != null) {
+        GenerateSdkDialog.this.listener.onCancel();
+      }
+    }
+  }
+);
+  this.addButton(generateSdk);
+  this.addButton(cancel);
+}

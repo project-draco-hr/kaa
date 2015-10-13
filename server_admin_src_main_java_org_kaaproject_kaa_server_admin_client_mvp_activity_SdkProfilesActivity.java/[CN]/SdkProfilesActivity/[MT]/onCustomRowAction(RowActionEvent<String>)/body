@@ -4,9 +4,28 @@
       @Override public void onFailure(      Throwable caught){
         Utils.handleException(caught,SdkProfilesActivity.this.getView());
       }
-      @Override public void onSuccess(      SdkPropertiesDto loaded){
-        SdkProfilesActivity.this.loaded=loaded;
-        SdkProfilesActivity.this.targetPlatformPopup.show();
+      @Override public void onSuccess(      final SdkPropertiesDto sdkProfile){
+        GenerateSdkDialog.show(new GenerateSdkDialog.Listener(){
+          @Override public void onGenerateSdk(          SdkPlatform targetPlatform){
+            sdkProfile.setTargetPlatform(targetPlatform);
+            BusyPopup.showPopup();
+            KaaAdmin.getDataSource().generateSdk(sdkProfile,new AsyncCallback<String>(){
+              @Override public void onFailure(              Throwable caught){
+                BusyPopup.hidePopup();
+                Utils.handleException(caught,SdkProfilesActivity.this.getView());
+              }
+              @Override public void onSuccess(              String key){
+                BusyPopup.hidePopup();
+                SdkProfilesActivity.this.getView().clearError();
+                ServletHelper.downloadSdk(key);
+              }
+            }
+);
+          }
+          @Override public void onCancel(){
+          }
+        }
+);
       }
     }
 );
