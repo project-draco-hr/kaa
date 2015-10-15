@@ -1,3 +1,6 @@
 {
-  endpointService.removeEndpointGroupById(endpointGroupId);
+  ChangeNotificationDto notification=endpointService.removeEndpointGroupById(endpointGroupId);
+  if (notification != null) {
+    notifyEndpoints(notification,null,null);
+  }
 }
