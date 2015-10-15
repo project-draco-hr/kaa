@@ -1,7 +1,8 @@
 {
   super();
-  this.cacheService=cacheService;
-  this.eventService=eventService;
+  this.cacheService=context.getCacheService();
+  this.eventService=context.getEventService();
+  this.eventTimeout=context.getEventTimeout();
   this.userId=userId;
   this.tenantId=tenantId;
   this.endpoints=new HashMap<>();
