@@ -10,12 +10,13 @@
   if (accessToken != null) {
     saveByAccessToken=cassandraEPByAccessTokenDao.getSaveQuery(new CassandraEPByAccessToken(accessToken,epKeyHash));
   }
+  Statement saveBySdkTokenId=cassandraEPBySdkTokenDao.getSaveQuery(new CassandraEPBySdkToken(profile.getSdkToken(),epKeyHash));
   Statement saveProfile=getSaveQuery(profile);
   if (saveByAccessToken != null) {
-    executeBatch(saveProfile,saveByAppId,saveByAccessToken);
+    executeBatch(saveProfile,saveByAppId,saveByAccessToken,saveBySdkTokenId);
   }
  else {
-    executeBatch(saveProfile,saveByAppId);
+    executeBatch(saveProfile,saveByAppId,saveBySdkTokenId);
   }
   LOG.debug("[{}] Endpoint profile saved",profile.getId());
   return profile;

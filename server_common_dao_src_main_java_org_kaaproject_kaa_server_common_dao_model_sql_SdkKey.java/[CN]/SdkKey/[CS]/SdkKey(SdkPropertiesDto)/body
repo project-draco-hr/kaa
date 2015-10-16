@@ -26,9 +26,12 @@
       dto.setCreatedUsername(null);
       dto.setCreatedTime(null);
       dto.setEndpointCount(null);
+      SdkPlatform targetPlatform=dto.getTargetPlatform();
+      dto.setTargetPlatform(null);
       MessageDigest messageDigest=MessageDigest.getInstance(HASH_ALGORITHM);
       messageDigest.update(DtoByteMarshaller.toBytes(dto));
       this.token=Base64.encodeBase64String(messageDigest.digest());
+      dto.setTargetPlatform(targetPlatform);
       dto.setId(this.getStringId());
       dto.setCreatedUsername(this.createdUsername);
       dto.setCreatedTime(this.createdTime);

@@ -10,6 +10,7 @@
   EndpointProfileDto dto=endpointService.findEndpointProfileByKeyHash(keyHash.getData());
   if (dto == null) {
     dto=new EndpointProfileDto();
+    dto.setSdkToken(sdkProperties.getToken());
     dto.setApplicationId(appSeqNumber.getAppId());
     dto.setEndpointKey(request.getEndpointKey());
     dto.setEndpointKeyHash(keyHash.getData());

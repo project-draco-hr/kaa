@@ -1,0 +1,12 @@
+{
+  this.checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    if (isEmpty(sdkToken)) {
+      throw new IllegalArgumentException("SDK token is empty!");
+    }
+    return clientProvider.getClient().isSdkProfileUsed(sdkToken);
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+}
