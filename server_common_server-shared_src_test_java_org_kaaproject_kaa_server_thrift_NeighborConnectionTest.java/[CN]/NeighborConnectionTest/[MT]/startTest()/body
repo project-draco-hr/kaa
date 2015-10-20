@@ -1,0 +1,8 @@
+{
+  neighborConnection.start();
+  ExecutorService executorSpy=getSpyOnExecutorAndInjectIt();
+  neighborConnection.sendMessages(Collections.singleton(new Event()));
+  verify(template,timeout(1000)).process(any(OperationsThriftService.Iface.class),anyList());
+  neighborConnection.shutdown();
+  verify(executorSpy,timeout(1000)).shutdown();
+}

@@ -1,0 +1,8 @@
+{
+  client.start();
+  AbstractLogCollector logCollector=Mockito.mock(AbstractLogCollector.class);
+  Mockito.doThrow(new RuntimeException()).when(logCollector).stop();
+  ReflectionTestUtils.setField(client,"logCollector",logCollector);
+  client.stop();
+  Mockito.verify(stateListener,Mockito.timeout(1000)).onStopFailure(Mockito.any(KaaException.class));
+}

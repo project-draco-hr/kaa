@@ -1,0 +1,5 @@
+{
+  EndpointProfileDto expected=generateEndpointProfile(null,null,null);
+  EndpointProfile found=endpointProfileDao.findById(ByteBuffer.wrap(expected.getEndpointKeyHash()));
+  Assert.assertEquals(expected,found.toDto());
+}

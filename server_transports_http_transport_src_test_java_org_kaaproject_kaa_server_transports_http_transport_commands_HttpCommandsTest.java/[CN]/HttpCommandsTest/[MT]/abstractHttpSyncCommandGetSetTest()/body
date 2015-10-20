@@ -1,0 +1,9 @@
+{
+  AbstractHttpSyncCommand abstractHttpSyncCommand=mock(AbstractHttpSyncCommand.class,Mockito.CALLS_REAL_METHODS);
+  byte[] responseBody=new byte[]{1,2,3,4,5};
+  byte[] responseSignature=new byte[]{5,6,8,9,10};
+  abstractHttpSyncCommand.setResponseBody(responseBody);
+  Assert.assertArrayEquals(responseBody,abstractHttpSyncCommand.getResponseBody());
+  abstractHttpSyncCommand.setResponseSignature(responseSignature);
+  Assert.assertArrayEquals(responseSignature,abstractHttpSyncCommand.getResponseSignature());
+}

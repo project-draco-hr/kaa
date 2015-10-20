@@ -8,4 +8,7 @@
   Assert.assertNotEquals(null,clientSyncMetaData1);
   Assert.assertEquals(clientSyncMetaData1,clientSyncMetaData2);
   Assert.assertNotEquals(clientSyncMetaData1,new Object());
+  Assert.assertEquals(clientSyncMetaData1.hashCode(),clientSyncMetaData2.hashCode());
+  Assert.assertEquals(clientSyncMetaData1.hashCode(),clientSyncMetaData1.hashCode());
+  Assert.assertNotEquals(clientSyncMetaData1.hashCode(),clientSyncMetaData3.hashCode());
 }

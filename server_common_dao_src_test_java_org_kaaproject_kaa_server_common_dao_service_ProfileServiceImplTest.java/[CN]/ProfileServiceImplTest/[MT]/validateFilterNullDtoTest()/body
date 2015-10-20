@@ -1,0 +1,11 @@
+{
+  ProfileServiceImpl profileServiceImpl=new ProfileServiceImpl();
+  Method validateMethod=profileServiceImpl.getClass().getDeclaredMethod("validateFilter",ProfileFilterDto.class);
+  validateMethod.setAccessible(true);
+  try {
+    validateMethod.invoke(profileServiceImpl,new ProfileFilterDto[]{null});
+  }
+ catch (  InvocationTargetException e) {
+    throw e.getCause();
+  }
+}

@@ -1,0 +1,8 @@
+{
+  DesktopHttpClient client=new DesktopHttpClient(URL,privateKey,publicKey,remotePublicKey);
+  HttpPost method=mock(HttpPost.class);
+  when(method.isAborted()).thenReturn(false);
+  ReflectionTestUtils.setField(client,HTTP_METHOD_FIELD_NAME,method);
+  client.abort();
+  verify(method).abort();
+}
