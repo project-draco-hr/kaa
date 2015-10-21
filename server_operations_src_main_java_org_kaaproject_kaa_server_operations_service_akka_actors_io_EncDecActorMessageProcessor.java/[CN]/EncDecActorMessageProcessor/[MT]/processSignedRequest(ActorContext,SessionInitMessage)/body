@@ -2,14 +2,14 @@
   ClientSync request=decodeRequest(message);
   EndpointObjectHash key=getEndpointObjectHash(request);
   String sdkToken=getSdkToken(request);
-  String appToken=getAppToken(sdkToken);
-  SessionInfo session=new SessionInfo(message.getChannelUuid(),message.getPlatformId(),message.getChannelContext(),message.getChannelType(),crypt.getSessionCipherPair(),key,appToken,sdkToken,message.getKeepAlive(),message.isEncrypted());
-  message.onSessionCreated(session);
-  if (isApplicationTokenValid(session.getApplicationToken())) {
+  if (isSDKTokenValid(sdkToken)) {
+    String appToken=getAppToken(sdkToken);
+    SessionInfo session=new SessionInfo(message.getChannelUuid(),message.getPlatformId(),message.getChannelContext(),message.getChannelType(),crypt.getSessionCipherPair(),key,appToken,sdkToken,message.getKeepAlive(),message.isEncrypted());
+    message.onSessionCreated(session);
     forwardToOpsActor(context,session,request,message);
   }
  else {
-    LOG.info("Invalid application token received: {}",session.getApplicationToken());
-    throw new InvalidApplicationTokenException("Invalid application token received");
+    LOG.info("Invalid sdk token received: {}",sdkToken);
+    throw new InvalidSDKTokenException();
   }
 }

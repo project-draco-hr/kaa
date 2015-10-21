@@ -1,13 +1,21 @@
 {
   EndpointGroup endpointGroup=endpointGroupDao.findById(id);
+  ChangeNotificationDto changeDto=null;
   if (endpointGroup != null) {
     if (endpointGroup.getWeight() != 0 || forceRemove) {
       LOG.debug("Cascade delete endpoint group with profile filter and configurations.");
       endpointGroupDao.removeById(id);
-      addHistory(endpointGroup.toDto(),ChangeType.REMOVE_GROUP);
+      EndpointGroupDto groupDto=endpointGroup.toDto();
+      HistoryDto historyDto=addHistory(groupDto,ChangeType.REMOVE_GROUP);
+      changeDto=new ChangeNotificationDto();
+      changeDto.setAppId(endpointGroup.getApplicationId());
+      changeDto.setAppSeqNumber(historyDto.getSequenceNumber());
+      changeDto.setGroupId(groupDto.getId());
+      changeDto.setGroupSeqNumber(groupDto.getSequenceNumber());
     }
  else {
       LOG.warn("Can't remove default endpoint group by id [{}]",id);
     }
   }
+  return changeDto;
 }
