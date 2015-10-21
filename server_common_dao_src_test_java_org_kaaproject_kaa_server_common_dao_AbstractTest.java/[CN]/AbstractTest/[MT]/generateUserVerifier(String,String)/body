@@ -1,0 +1,13 @@
+{
+  UserVerifierDto verifier=new UserVerifierDto();
+  verifier.setName("GENERATED test Verifier");
+  if (isBlank(appId)) {
+    appId=generateApplication().getId();
+  }
+  verifier.setApplicationId(appId);
+  if (verifierToken == null) {
+    verifierToken="token";
+  }
+  verifier.setVerifierToken(verifierToken);
+  return verifierService.saveUserVerifier(verifier);
+}

@@ -1,0 +1,5 @@
+{
+  RedirectionRule redirectionRule=new RedirectionRule();
+  operationsThriftService.setRedirectionRule(redirectionRule);
+  Mockito.verify(akkaService,atLeastOnce()).onRedirectionRule(redirectionRule);
+}

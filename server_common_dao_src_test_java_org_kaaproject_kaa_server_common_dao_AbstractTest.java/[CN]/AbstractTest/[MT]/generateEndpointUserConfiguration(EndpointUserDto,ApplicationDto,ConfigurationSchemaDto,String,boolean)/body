@@ -1,0 +1,22 @@
+{
+  EndpointUserConfigurationDto configurationDto=new EndpointUserConfigurationDto();
+  configurationDto.setBody(body);
+  if (endpointUser == null) {
+    endpointUser=generateEndpointUser(null);
+  }
+  if (!isNullAppDto) {
+    if (applicationDto == null) {
+      applicationDto=generateApplication();
+    }
+    configurationDto.setAppToken(applicationDto.getApplicationToken());
+  }
+ else {
+    return userConfigurationService.saveUserConfiguration(configurationDto);
+  }
+  configurationDto.setUserId(endpointUser.getId());
+  if (configurationSchema == null) {
+    configurationSchema=generateConfSchema(applicationDto.getId(),1).get(0);
+  }
+  configurationDto.setSchemaVersion(configurationSchema.getMajorVersion());
+  return userConfigurationService.saveUserConfiguration(configurationDto);
+}

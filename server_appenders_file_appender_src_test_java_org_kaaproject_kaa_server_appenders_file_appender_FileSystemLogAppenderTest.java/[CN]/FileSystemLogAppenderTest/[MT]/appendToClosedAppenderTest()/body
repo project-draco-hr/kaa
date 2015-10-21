@@ -1,0 +1,7 @@
+{
+  FileSystemLogAppender appender=new FileSystemLogAppender();
+  LogDeliveryCallback listener=mock(LogDeliveryCallback.class);
+  ReflectionTestUtils.setField(appender,"closed",true);
+  appender.doAppend(null,null,listener);
+  verify(listener).onInternalError();
+}

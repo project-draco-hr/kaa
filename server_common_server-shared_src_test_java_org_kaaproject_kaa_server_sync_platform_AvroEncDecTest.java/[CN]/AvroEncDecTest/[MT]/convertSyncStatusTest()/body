@@ -1,0 +1,11 @@
+{
+  AvroEncDec avroEncDec=new AvroEncDec();
+  Method method=AvroEncDec.class.getDeclaredMethod(CONVER_METHOD,SyncStatus.class);
+  method.setAccessible(true);
+  SyncStatus syncStatus=null;
+  Assert.assertNull(method.invoke(avroEncDec,syncStatus));
+  Assert.assertEquals(SyncResponseResultType.SUCCESS,method.invoke(avroEncDec,SyncStatus.SUCCESS));
+  Assert.assertEquals(SyncResponseResultType.FAILURE,method.invoke(avroEncDec,SyncStatus.FAILURE));
+  Assert.assertEquals(SyncResponseResultType.PROFILE_RESYNC,method.invoke(avroEncDec,SyncStatus.PROFILE_RESYNC));
+  Assert.assertEquals(SyncResponseResultType.REDIRECT,method.invoke(avroEncDec,SyncStatus.REDIRECT));
+}

@@ -1,0 +1,9 @@
+{
+  AvroEncDec avroEncDec=new AvroEncDec();
+  Method method=AvroEncDec.class.getDeclaredMethod(CONVER_METHOD,org.kaaproject.kaa.server.sync.NotificationType.class);
+  method.setAccessible(true);
+  org.kaaproject.kaa.server.sync.NotificationType notificationType=null;
+  Assert.assertNull(method.invoke(avroEncDec,notificationType));
+  Assert.assertEquals(NotificationType.CUSTOM,method.invoke(avroEncDec,org.kaaproject.kaa.server.sync.NotificationType.CUSTOM));
+  Assert.assertEquals(NotificationType.SYSTEM,method.invoke(avroEncDec,org.kaaproject.kaa.server.sync.NotificationType.SYSTEM));
+}

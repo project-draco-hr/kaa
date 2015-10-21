@@ -1,0 +1,15 @@
+{
+  MultiLogDeliveryCallback callback;
+  ActorSystem system=ActorSystem.create("actorSystem");
+  ActorRef actorRef=system.actorOf(Props.create(TestActor.class));
+  callback=new MultiLogDeliveryCallback(actorRef,1,1);
+  Assert.assertNotNull(callback);
+  callback.onSuccess();
+  callback=new MultiLogDeliveryCallback(actorRef,1,3);
+  callback.onSuccess();
+  callback.sendSuccessToEndpoint();
+  callback.sendFailureToEndpoint(LogDeliveryErrorCode.APPENDER_INTERNAL_ERROR);
+  callback.onInternalError();
+  callback.onRemoteError();
+  callback.onConnectionError();
+}

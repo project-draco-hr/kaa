@@ -1,0 +1,13 @@
+{
+  ProfileServiceImpl profileServiceImpl=new ProfileServiceImpl();
+  Method validateMethod=profileServiceImpl.getClass().getDeclaredMethod("validateFilter",ProfileFilterDto.class);
+  validateMethod.setAccessible(true);
+  ProfileFilterDto filterDto=new ProfileFilterDto();
+  filterDto.setEndpointGroupId("");
+  try {
+    validateMethod.invoke(profileServiceImpl,filterDto);
+  }
+ catch (  InvocationTargetException e) {
+    throw e.getCause();
+  }
+}

@@ -1,0 +1,9 @@
+{
+  AvroEncDec avroEncDec=new AvroEncDec();
+  Method method=AvroEncDec.class.getDeclaredMethod(CONVER_METHOD,BootstrapServerSync.class);
+  method.setAccessible(true);
+  BootstrapServerSync serverSync=null;
+  Assert.assertNull(method.invoke(avroEncDec,serverSync));
+  BootstrapServerSync bootstrapServerSync=new BootstrapServerSync(1,Collections.EMPTY_SET);
+  method.invoke(avroEncDec,bootstrapServerSync);
+}

@@ -1,0 +1,5 @@
+{
+  UserVerifierDto verifierDto=generateUserVerifier(null,null);
+  UserVerifierDto found=verifierService.findUserVerifiersByAppIdAndVerifierToken(verifierDto.getApplicationId(),verifierDto.getVerifierToken());
+  Assert.assertEquals(verifierDto,found);
+}

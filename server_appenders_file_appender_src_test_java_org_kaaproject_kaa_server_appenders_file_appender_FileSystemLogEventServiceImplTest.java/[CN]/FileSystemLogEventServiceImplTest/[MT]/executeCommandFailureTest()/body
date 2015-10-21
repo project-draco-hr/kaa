@@ -1,0 +1,13 @@
+{
+  String testDir="testdir";
+  File rootDir=FileSystemView.getFileSystemView().getRoots()[0];
+  FileSystemLogEventServiceImpl service=new FileSystemLogEventServiceImpl();
+  Method executeCommand=FileSystemLogEventServiceImpl.class.getDeclaredMethod("executeCommand",File.class,String[].class);
+  executeCommand.setAccessible(true);
+  try {
+    executeCommand.invoke(service,rootDir,new String[]{"mkdir",testDir});
+  }
+ catch (  InvocationTargetException e) {
+    throw e.getCause();
+  }
+}

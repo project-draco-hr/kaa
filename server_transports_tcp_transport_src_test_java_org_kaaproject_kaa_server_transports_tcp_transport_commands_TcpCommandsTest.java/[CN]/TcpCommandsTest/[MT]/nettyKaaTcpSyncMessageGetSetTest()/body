@@ -1,0 +1,6 @@
+{
+  Connect connect=new Connect(10,10,new byte[10],null,null);
+  NettyTcpConnectMessage nettyTcpConnectMessage=new NettyTcpConnectMessage(null,null,connect,null,null,null,null);
+  Assert.assertEquals(connect.isEncrypted(),nettyTcpConnectMessage.isEncrypted());
+  Assert.assertEquals(connect.getKeepAlive(),nettyTcpConnectMessage.getKeepAlive());
+}

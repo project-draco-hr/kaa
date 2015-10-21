@@ -1,0 +1,7 @@
+{
+  SingleLogDeliveryCallback callback;
+  ActorSystem system=ActorSystem.create("actorSystem");
+  ActorRef actorRef=system.actorOf(Props.create(TestActor.class));
+  callback=new SingleLogDeliveryCallback(actorRef,1);
+  Assert.assertNotNull(callback);
+}
