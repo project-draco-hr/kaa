@@ -1,0 +1,6 @@
+{
+  if (profileManager == null || !profileManager.isInitialized()) {
+    LOG.error("Profile manager isn't initialized: maybe profile container isn't set");
+    throw new KaaException("Profile manager isn't initialized: maybe profile container isn't set");
+  }
+}
