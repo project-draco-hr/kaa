@@ -54,12 +54,10 @@
       }
     }
     sdkPropertiesDto.setApplicationToken(appToken);
-    String sdkToken=null;
-    if (sdkPropertiesDto.getToken() != null) {
-      sdkToken=sdkPropertiesDto.getToken();
-    }
- else {
-      throw new TException("Undefined SDK token");
+    String sdkToken=sdkPropertiesDto.getToken();
+    if (sdkToken == null) {
+      LOG.warn("No SDK profile is used for SDK generation.");
+      sdkToken=new SdkKey(sdkPropertiesDto).getToken();
     }
     LOG.debug("Sdk properties for sdk generation: {}",sdkPropertiesDto);
     SdkGenerator generator=SdkGeneratorFactory.createSdkGenerator(sdkPropertiesDto.getTargetPlatform());
