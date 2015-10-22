@@ -1,4 +1,6 @@
 {
+  checkClientStateNot(State.STARTED,"Kaa client is already run");
+  checkClientStateNot(State.PAUSED,"Kaa client is paused, need to be resumed");
   context.getExecutorContext().init();
   getLifeCycleExecutor().submit(new Runnable(){
     @Override public void run(){
@@ -32,4 +34,5 @@ catch (      KaaRuntimeException e) {
     }
   }
 );
+  setClientState(State.STARTED);
 }
