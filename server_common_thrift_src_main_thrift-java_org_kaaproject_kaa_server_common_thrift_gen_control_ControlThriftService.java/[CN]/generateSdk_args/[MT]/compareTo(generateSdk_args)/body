@@ -3,12 +3,22 @@
     return getClass().getName().compareTo(other.getClass().getName());
   }
   int lastComparison=0;
-  lastComparison=Boolean.valueOf(isSetSdkProperties()).compareTo(other.isSetSdkProperties());
+  lastComparison=Boolean.valueOf(isSetSdkProfile()).compareTo(other.isSetSdkProfile());
   if (lastComparison != 0) {
     return lastComparison;
   }
-  if (isSetSdkProperties()) {
-    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.sdkProperties,other.sdkProperties);
+  if (isSetSdkProfile()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.sdkProfile,other.sdkProfile);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  lastComparison=Boolean.valueOf(isSetTargetPlatform()).compareTo(other.isSetTargetPlatform());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetTargetPlatform()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.targetPlatform,other.targetPlatform);
     if (lastComparison != 0) {
       return lastComparison;
     }

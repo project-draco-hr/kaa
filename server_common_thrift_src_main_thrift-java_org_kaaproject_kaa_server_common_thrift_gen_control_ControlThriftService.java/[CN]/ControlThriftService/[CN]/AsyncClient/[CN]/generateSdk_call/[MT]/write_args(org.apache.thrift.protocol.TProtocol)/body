@@ -1,7 +1,8 @@
 {
   prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("generateSdk",org.apache.thrift.protocol.TMessageType.CALL,0));
   generateSdk_args args=new generateSdk_args();
-  args.setSdkProperties(sdkProperties);
+  args.setSdkProfile(sdkProfile);
+  args.setTargetPlatform(targetPlatform);
   args.write(prot);
   prot.writeMessageEnd();
 }

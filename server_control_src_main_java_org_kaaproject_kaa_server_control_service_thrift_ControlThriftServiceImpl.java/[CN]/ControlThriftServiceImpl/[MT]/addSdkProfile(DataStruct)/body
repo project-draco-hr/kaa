@@ -1,6 +1,6 @@
 {
   try {
-    sdkKeyService.saveSdkKey((SdkPropertiesDto)ThriftDtoConverter.toDto(sdkProfile));
+    sdkProfileService.saveSdkProfile((SdkProfileDto)ThriftDtoConverter.toDto(sdkProfile));
   }
  catch (  Exception cause) {
     LOG.error("Unable to save SDK profile",cause);

@@ -1,9 +1,0 @@
-{
-  return sdkPropsMemorizer.compute(key,new Computable<String,SdkPropertiesDto>(){
-    @Override public SdkPropertiesDto compute(    String key){
-      LOG.debug("Fetching result for getSdkPropertiesBySdkToken");
-      return sdkKeyService.findSdkKeyByToken(key);
-    }
-  }
-);
-}

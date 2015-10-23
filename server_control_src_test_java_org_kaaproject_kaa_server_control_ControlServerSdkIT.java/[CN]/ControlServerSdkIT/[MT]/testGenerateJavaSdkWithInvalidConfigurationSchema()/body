@@ -1,5 +1,5 @@
 {
   ApplicationDto application=createApplication();
   ProfileSchemaDto profileSchema=createProfileSchema(application.getId());
-  client.generateSdk(getSdkProperties(SdkPlatform.JAVA,application.getId(),profileSchema.getMajorVersion(),2,2,null,0,null));
+  client.generateSdk(getSdkProfile(application.getId(),profileSchema.getMajorVersion(),2,2,null,0,null),org.kaaproject.kaa.server.common.thrift.gen.control.SdkPlatform.JAVA);
 }

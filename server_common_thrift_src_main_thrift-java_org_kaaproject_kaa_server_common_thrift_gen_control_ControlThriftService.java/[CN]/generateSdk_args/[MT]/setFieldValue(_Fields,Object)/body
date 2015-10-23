@@ -1,12 +1,20 @@
 {
 switch (field) {
-case SDK_PROPERTIES:
+case SDK_PROFILE:
     if (value == null) {
-      unsetSdkProperties();
+      unsetSdkProfile();
     }
  else {
-      setSdkProperties((org.kaaproject.kaa.server.common.thrift.gen.shared.DataStruct)value);
+      setSdkProfile((org.kaaproject.kaa.server.common.thrift.gen.shared.DataStruct)value);
     }
   break;
+case TARGET_PLATFORM:
+if (value == null) {
+  unsetTargetPlatform();
+}
+ else {
+  setTargetPlatform((SdkPlatform)value);
+}
+break;
 }
 }

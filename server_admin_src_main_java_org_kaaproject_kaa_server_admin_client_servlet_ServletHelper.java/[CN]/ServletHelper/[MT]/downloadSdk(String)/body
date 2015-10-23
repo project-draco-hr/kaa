@@ -1,5 +1,5 @@
 {
-  String getUrl=composeURL(KAA_SDK_SERVLET_PATH,SdkPropertiesDto.SDK_KEY_PARAMETER + "=" + key);
+  String getUrl=composeURL(KAA_SDK_SERVLET_PATH,CacheService.SdkKey.SDK_KEY_PARAMETER + "=" + key);
   String url=GWT.getModuleBaseURL() + getUrl;
   Window.open(url,"_self","enabled");
 }

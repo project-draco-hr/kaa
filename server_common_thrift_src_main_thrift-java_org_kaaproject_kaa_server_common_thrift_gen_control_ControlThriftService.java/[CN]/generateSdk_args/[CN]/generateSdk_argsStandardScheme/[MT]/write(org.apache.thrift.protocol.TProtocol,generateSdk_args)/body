@@ -1,9 +1,14 @@
 {
   struct.validate();
   oprot.writeStructBegin(STRUCT_DESC);
-  if (struct.sdkProperties != null) {
-    oprot.writeFieldBegin(SDK_PROPERTIES_FIELD_DESC);
-    struct.sdkProperties.write(oprot);
+  if (struct.sdkProfile != null) {
+    oprot.writeFieldBegin(SDK_PROFILE_FIELD_DESC);
+    struct.sdkProfile.write(oprot);
+    oprot.writeFieldEnd();
+  }
+  if (struct.targetPlatform != null) {
+    oprot.writeFieldBegin(TARGET_PLATFORM_FIELD_DESC);
+    oprot.writeI32(struct.targetPlatform.getValue());
     oprot.writeFieldEnd();
   }
   oprot.writeFieldStop();

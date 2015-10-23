@@ -1,9 +1,13 @@
 {
   TTupleProtocol iprot=(TTupleProtocol)prot;
-  BitSet incoming=iprot.readBitSet(1);
+  BitSet incoming=iprot.readBitSet(2);
   if (incoming.get(0)) {
-    struct.sdkProperties=new org.kaaproject.kaa.server.common.thrift.gen.shared.DataStruct();
-    struct.sdkProperties.read(iprot);
-    struct.setSdkPropertiesIsSet(true);
+    struct.sdkProfile=new org.kaaproject.kaa.server.common.thrift.gen.shared.DataStruct();
+    struct.sdkProfile.read(iprot);
+    struct.setSdkProfileIsSet(true);
+  }
+  if (incoming.get(1)) {
+    struct.targetPlatform=SdkPlatform.findByValue(iprot.readI32());
+    struct.setTargetPlatformIsSet(true);
   }
 }

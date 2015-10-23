@@ -6,7 +6,7 @@
   LogSchemaDto logSchema=createLogSchema(application.getId());
   ApplicationEventFamilyMapDto aefMap=createApplicationEventFamilyMap(application.getId(),null,1);
   List<String> aefMapIds=Collections.singletonList(aefMap.getId());
-  Sdk sdk=client.generateSdk(getSdkProperties(SdkPlatform.C,application.getId(),profileSchema.getMajorVersion(),configSchema.getMajorVersion(),notificationSchema.getMajorVersion(),aefMapIds,logSchema.getMajorVersion(),null));
+  Sdk sdk=client.generateSdk(getSdkProfile(application.getId(),profileSchema.getMajorVersion(),configSchema.getMajorVersion(),notificationSchema.getMajorVersion(),aefMapIds,logSchema.getMajorVersion(),null),org.kaaproject.kaa.server.common.thrift.gen.control.SdkPlatform.C);
   Assert.assertNotNull(sdk);
   Assert.assertFalse(strIsEmpty(sdk.getFileName()));
   Assert.assertNotNull(sdk.getData());

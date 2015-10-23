@@ -1,7 +1,7 @@
 {
   generateSdk_result result=new generateSdk_result();
   try {
-    result.success=iface.generateSdk(args.sdkProperties);
+    result.success=iface.generateSdk(args.sdkProfile,args.targetPlatform);
   }
  catch (  ControlThriftException ControlException) {
     result.ControlException=ControlException;

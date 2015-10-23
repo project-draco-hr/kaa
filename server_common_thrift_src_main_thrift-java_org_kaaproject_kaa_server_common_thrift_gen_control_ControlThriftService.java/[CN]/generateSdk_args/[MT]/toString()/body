@@ -1,12 +1,21 @@
 {
   StringBuilder sb=new StringBuilder("generateSdk_args(");
   boolean first=true;
-  sb.append("sdkProperties:");
-  if (this.sdkProperties == null) {
+  sb.append("sdkProfile:");
+  if (this.sdkProfile == null) {
     sb.append("null");
   }
  else {
-    sb.append(this.sdkProperties);
+    sb.append(this.sdkProfile);
+  }
+  first=false;
+  if (!first)   sb.append(", ");
+  sb.append("targetPlatform:");
+  if (this.targetPlatform == null) {
+    sb.append("null");
+  }
+ else {
+    sb.append(this.targetPlatform);
   }
   first=false;
   sb.append(")");

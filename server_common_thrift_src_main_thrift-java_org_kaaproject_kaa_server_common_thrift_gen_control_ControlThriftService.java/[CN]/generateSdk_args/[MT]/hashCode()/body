@@ -1,7 +1,10 @@
 {
   HashCodeBuilder builder=new HashCodeBuilder();
-  boolean present_sdkProperties=true && (isSetSdkProperties());
-  builder.append(present_sdkProperties);
-  if (present_sdkProperties)   builder.append(sdkProperties);
+  boolean present_sdkProfile=true && (isSetSdkProfile());
+  builder.append(present_sdkProfile);
+  if (present_sdkProfile)   builder.append(sdkProfile);
+  boolean present_targetPlatform=true && (isSetTargetPlatform());
+  builder.append(present_targetPlatform);
+  if (present_targetPlatform)   builder.append(targetPlatform.getValue());
   return builder.toHashCode();
 }

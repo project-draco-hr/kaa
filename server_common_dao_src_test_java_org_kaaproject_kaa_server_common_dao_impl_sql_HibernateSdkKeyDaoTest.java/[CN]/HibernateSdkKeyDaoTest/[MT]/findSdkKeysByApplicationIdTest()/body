@@ -1,6 +1,0 @@
-{
-  SdkKey saved=this.generateSdkKey(null,null);
-  List<SdkKey> loaded=sdkKeyDao.findSdkKeysByApplicationId(saved.getApplication().getId().toString());
-  Assert.assertEquals(1,loaded.size());
-  Assert.assertEquals(saved,loaded.get(0));
-}

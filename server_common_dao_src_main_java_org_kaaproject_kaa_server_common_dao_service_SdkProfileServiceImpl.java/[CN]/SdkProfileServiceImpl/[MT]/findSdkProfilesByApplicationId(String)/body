@@ -1,0 +1,4 @@
+{
+  Validator.validateId(applicationId,"Unable to find SDK profiles. Invalid application ID: " + applicationId);
+  return DaoUtil.convertDtoList(sdkProfileDao.findSdkProfileByApplicationId(applicationId));
+}

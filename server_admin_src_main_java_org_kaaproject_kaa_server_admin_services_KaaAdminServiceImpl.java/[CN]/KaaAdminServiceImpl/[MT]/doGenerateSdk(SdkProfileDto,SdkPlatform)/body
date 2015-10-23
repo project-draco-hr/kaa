@@ -1,0 +1,33 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    checkApplicationId(sdkProfile.getApplicationId());
+    FileData sdkFile=cacheService.getSdk(new CacheService.SdkKey(sdkProfile,targetPlatform));
+    if (sdkFile == null) {
+      Sdk sdk=null;
+switch (targetPlatform) {
+case JAVA:
+        sdk=clientProvider.getClient().generateSdk(toDataStruct(sdkProfile),org.kaaproject.kaa.server.common.thrift.gen.control.SdkPlatform.JAVA);
+      break;
+case ANDROID:
+    sdk=clientProvider.getClient().generateSdk(toDataStruct(sdkProfile),org.kaaproject.kaa.server.common.thrift.gen.control.SdkPlatform.ANDROID);
+  break;
+case CPP:
+sdk=clientProvider.getClient().generateSdk(toDataStruct(sdkProfile),org.kaaproject.kaa.server.common.thrift.gen.control.SdkPlatform.CPP);
+break;
+case C:
+sdk=clientProvider.getClient().generateSdk(toDataStruct(sdkProfile),org.kaaproject.kaa.server.common.thrift.gen.control.SdkPlatform.C);
+break;
+}
+sdkFile=new FileData();
+sdkFile.setFileName(sdk.getFileName());
+sdkFile.setContentType(targetPlatform.getContentType());
+sdkFile.setFileData(sdk.getData());
+cacheService.putSdk(new CacheService.SdkKey(sdkProfile,targetPlatform),sdkFile);
+}
+return sdkFile;
+}
+ catch (Exception e) {
+throw Utils.handleException(e);
+}
+}

@@ -1,11 +1,17 @@
 {
   TTupleProtocol oprot=(TTupleProtocol)prot;
   BitSet optionals=new BitSet();
-  if (struct.isSetSdkProperties()) {
+  if (struct.isSetSdkProfile()) {
     optionals.set(0);
   }
-  oprot.writeBitSet(optionals,1);
-  if (struct.isSetSdkProperties()) {
-    struct.sdkProperties.write(oprot);
+  if (struct.isSetTargetPlatform()) {
+    optionals.set(1);
+  }
+  oprot.writeBitSet(optionals,2);
+  if (struct.isSetSdkProfile()) {
+    struct.sdkProfile.write(oprot);
+  }
+  if (struct.isSetTargetPlatform()) {
+    oprot.writeI32(struct.targetPlatform.getValue());
   }
 }

@@ -1,0 +1,164 @@
+{
+  Integer configurationSchemaVersion=sdkProfile.getConfigurationSchemaVersion();
+  Integer profileSchemaVersion=sdkProfile.getProfileSchemaVersion();
+  Integer notificationSchemaVersion=sdkProfile.getNotificationSchemaVersion();
+  Integer logSchemaVersion=sdkProfile.getLogSchemaVersion();
+  String defaultVerifierToken=sdkProfile.getDefaultVerifierToken();
+  Schema configurationSchema=new Schema.Parser().parse(configurationSchemaBody);
+  Schema profileSchema=new Schema.Parser().parse(profileSchemaBody);
+  Schema notificationSchema=new Schema.Parser().parse(notificationSchemaBody);
+  Schema logSchema=new Schema.Parser().parse(logSchemaBody);
+  List<Schema> eventFamilySchemas=new LinkedList<>();
+  if (eventFamilies != null && !eventFamilies.isEmpty()) {
+    for (    EventFamilyMetadata eventFamily : eventFamilies) {
+      Schema eventFamilySchema=new Schema.Parser().parse(eventFamily.getEcfSchema());
+      eventFamilySchemas.add(eventFamilySchema);
+    }
+  }
+  List<Schema> schemasToCheck=new LinkedList<>();
+  schemasToCheck.add(configurationSchema);
+  schemasToCheck.add(profileSchema);
+  schemasToCheck.add(notificationSchema);
+  schemasToCheck.add(logSchema);
+  schemasToCheck.addAll(eventFamilySchemas);
+  Map<String,Schema> uniqueSchemasMap=SchemaUtil.getUniqueSchemasMap(schemasToCheck);
+  String sdkTemplateLocation;
+  if (sdkPlatform == SdkPlatform.JAVA) {
+    sdkTemplateLocation=System.getProperty("server_home_dir") + "/" + JAVA_SDK_DIR+ "/"+ JAVA_SDK_PREFIX+ buildVersion+ ".jar";
+    LOG.debug("Lookup Java SDK template: {}",sdkTemplateLocation);
+  }
+ else {
+    sdkTemplateLocation=System.getProperty("server_home_dir") + "/" + ANDROID_SDK_DIR+ "/"+ ANDROID_SDK_PREFIX+ buildVersion+ ".jar";
+    LOG.debug("Lookup Android SDK template: {}",sdkTemplateLocation);
+  }
+  File sdkTemplateFile=new File(sdkTemplateLocation);
+  ZipFile templateArhive=new ZipFile(sdkTemplateFile);
+  Map<String,ZipEntryData> replacementData=new HashMap<String,ZipEntryData>();
+  ZipEntry clientPropertiesEntry=templateArhive.getEntry(CLIENT_PROPERTIES);
+  byte[] clientPropertiesData=generateClientProperties(templateArhive.getInputStream(clientPropertiesEntry),bootstrapNodes,sdkToken,configurationProtocolSchemaBody,defaultConfigurationData);
+  replacementData.put(CLIENT_PROPERTIES,new ZipEntryData(new ZipEntry(CLIENT_PROPERTIES),clientPropertiesData));
+  List<JavaDynamicBean> javaSources=new ArrayList<JavaDynamicBean>();
+  String configurationClassName=configurationSchema.getName();
+  String configurationClassPackage=configurationSchema.getNamespace();
+  javaSources.addAll(generateSchemaSources(configurationSchema,uniqueSchemasMap));
+  String configurationManagerImplTemplate=readResource(CONFIGURATION_MANAGER_IMPL_SOURCE_TEMPLATE);
+  String configurationManagerImplSource=configurationManagerImplTemplate.replaceAll(CONFIGURATION_CLASS_PACKAGE_VAR,configurationClassPackage).replaceAll(CONFIGURATION_CLASS_VAR,configurationClassName);
+  JavaDynamicBean configurationManagerImplClassBean=new JavaDynamicBean(CONFIGURATION_MANAGER_IMPL,configurationManagerImplSource);
+  javaSources.add(configurationManagerImplClassBean);
+  String configurationManagerTemplate=readResource(CONFIGURATION_MANAGER_SOURCE_TEMPLATE);
+  String configurationManagerSource=configurationManagerTemplate.replaceAll(CONFIGURATION_CLASS_PACKAGE_VAR,configurationClassPackage).replaceAll(CONFIGURATION_CLASS_VAR,configurationClassName);
+  JavaDynamicBean configurationManagerClassBean=new JavaDynamicBean(CONFIGURATION_MANAGER,configurationManagerSource);
+  javaSources.add(configurationManagerClassBean);
+  String configurationListenerTemplate=readResource(CONFIGURATION_LISTENER_SOURCE_TEMPLATE);
+  String configurationListenerSource=configurationListenerTemplate.replaceAll(CONFIGURATION_CLASS_PACKAGE_VAR,configurationClassPackage).replaceAll(CONFIGURATION_CLASS_VAR,configurationClassName);
+  JavaDynamicBean configurationListenerClassBean=new JavaDynamicBean(CONFIGURATION_LISTENER,configurationListenerSource);
+  javaSources.add(configurationListenerClassBean);
+  String configurationDeserializerSourceTemplate=readResource(CONFIGURATION_DESERIALIZER_SOURCE_TEMPLATE);
+  String configurationDeserializerSource=configurationDeserializerSourceTemplate.replaceAll(CONFIGURATION_CLASS_PACKAGE_VAR,configurationClassPackage).replaceAll(CONFIGURATION_CLASS_VAR,configurationClassName);
+  JavaDynamicBean configurationDeserializerClassBean=new JavaDynamicBean(CONFIGURATION_DESERIALIZER,configurationDeserializerSource);
+  javaSources.add(configurationDeserializerClassBean);
+  String profileClassName=profileSchema.getName();
+  String profileClassPackage=profileSchema.getNamespace();
+  if (profileSchemaVersion != DEFAULT_SCHEMA_VERSION) {
+    javaSources.addAll(generateSchemaSources(profileSchema,uniqueSchemasMap));
+  }
+  String profileContainerTemplate=readResource(PROFILE_CONTAINER_SOURCE_TEMPLATE);
+  String profileContainerSource=profileContainerTemplate.replaceAll(PROFILE_CLASS_PACKAGE_VAR,profileClassPackage).replaceAll(PROFILE_CLASS_VAR,profileClassName);
+  JavaDynamicBean profileContainerClassBean=new JavaDynamicBean(PROFILE_CONTAINER,profileContainerSource);
+  javaSources.add(profileContainerClassBean);
+  String profileSerializerTemplate;
+  if (profileSchemaVersion == DEFAULT_SCHEMA_VERSION) {
+    profileSerializerTemplate=readResource(DEFAULT_PROFILE_SERIALIZER_SOURCE_TEMPLATE);
+  }
+ else {
+    profileSerializerTemplate=readResource(PROFILE_SERIALIZER_SOURCE_TEMPLATE);
+  }
+  String profileSerializerSource=profileSerializerTemplate.replaceAll(PROFILE_CLASS_PACKAGE_VAR,profileClassPackage).replaceAll(PROFILE_CLASS_VAR,profileClassName);
+  JavaDynamicBean profileSerializerClassBean=new JavaDynamicBean(PROFILE_SERIALIZER,profileSerializerSource);
+  javaSources.add(profileSerializerClassBean);
+  String notificationClassName=notificationSchema.getName();
+  String notificationClassPackage=notificationSchema.getNamespace();
+  if (notificationSchemaVersion != DEFAULT_SCHEMA_VERSION) {
+    javaSources.addAll(generateSchemaSources(notificationSchema,uniqueSchemasMap));
+  }
+  String notificationListenerTemplate=readResource(NOTIFICATION_LISTENER_SOURCE_TEMPLATE);
+  String notificationListenerSource=notificationListenerTemplate.replaceAll(NOTIFICATION_CLASS_PACKAGE_VAR,notificationClassPackage).replaceAll(NOTIFICATION_CLASS_VAR,notificationClassName);
+  JavaDynamicBean notificationListenerClassBean=new JavaDynamicBean(NOTIFICATION_LISTENER,notificationListenerSource);
+  javaSources.add(notificationListenerClassBean);
+  String notificationDeserializerSourceTemplate=readResource(NOTIFICATION_DESERIALIZER_SOURCE_TEMPLATE);
+  String notificationDeserializerSource=notificationDeserializerSourceTemplate.replaceAll(NOTIFICATION_CLASS_PACKAGE_VAR,notificationClassPackage).replaceAll(NOTIFICATION_CLASS_VAR,notificationClassName);
+  JavaDynamicBean notificationDeserializerClassBean=new JavaDynamicBean(NOTIFICATION_DESERIALIZER,notificationDeserializerSource);
+  javaSources.add(notificationDeserializerClassBean);
+  if (logSchemaVersion != DEFAULT_SCHEMA_VERSION) {
+    javaSources.addAll(generateSchemaSources(logSchema,uniqueSchemasMap));
+  }
+  String logRecordTemplate=readResource(LOG_RECORD_SOURCE_TEMPLATE);
+  String logRecordSource=logRecordTemplate.replaceAll(LOG_RECORD_CLASS_PACKAGE_VAR,logSchema.getNamespace()).replaceAll(LOG_RECORD_CLASS_VAR,logSchema.getName());
+  String logCollectorInterfaceTemplate=readResource(LOG_COLLECTOR_INTERFACE_TEMPLATE);
+  String logCollectorInterface=logCollectorInterfaceTemplate.replaceAll(LOG_RECORD_CLASS_PACKAGE_VAR,logSchema.getNamespace()).replaceAll(LOG_RECORD_CLASS_VAR,logSchema.getName());
+  String logCollectorSourceTemplate=readResource(LOG_COLLECTOR_SOURCE_TEMPLATE);
+  String logCollectorSource=logCollectorSourceTemplate.replaceAll(LOG_RECORD_CLASS_PACKAGE_VAR,logSchema.getNamespace()).replaceAll(LOG_RECORD_CLASS_VAR,logSchema.getName());
+  JavaDynamicBean logRecordClassBean=new JavaDynamicBean(LOG_RECORD,logRecordSource);
+  JavaDynamicBean logCollectorInterfaceClassBean=new JavaDynamicBean(LOG_COLLECTOR_INTERFACE,logCollectorInterface);
+  JavaDynamicBean logCollectorSourceClassBean=new JavaDynamicBean(LOG_COLLECTOR_SOURCE,logCollectorSource);
+  javaSources.add(logRecordClassBean);
+  javaSources.add(logCollectorInterfaceClassBean);
+  javaSources.add(logCollectorSourceClassBean);
+  if (eventFamilies != null && !eventFamilies.isEmpty()) {
+    for (    Schema eventFamilySchema : eventFamilySchemas) {
+      javaSources.addAll(generateSchemaSources(eventFamilySchema,uniqueSchemasMap));
+    }
+    javaSources.addAll(JavaEventClassesGenerator.generateEventClasses(eventFamilies));
+  }
+  String userVerifierConstantsTemplate=readResource(USER_VERIFIER_CONSTANTS_SOURCE_TEMPLATE);
+  if (defaultVerifierToken == null) {
+    defaultVerifierToken="null";
+  }
+ else {
+    defaultVerifierToken="\"" + defaultVerifierToken + "\"";
+  }
+  String userVerifierConstantsSource=userVerifierConstantsTemplate.replaceAll(DEFAULT_USER_VERIFIER_TOKEN_VAR,defaultVerifierToken);
+  JavaDynamicBean userVerifierConstantsClassBean=new JavaDynamicBean(USER_VERIFIER_CONSTANTS,userVerifierConstantsSource);
+  javaSources.add(userVerifierConstantsClassBean);
+  String kaaClientTemplate=readResource(KAA_CLIENT_SOURCE_TEMPLATE);
+  String kaaClientSource=kaaClientTemplate.replaceAll(LOG_RECORD_CLASS_PACKAGE_VAR,logSchema.getNamespace()).replaceAll(LOG_RECORD_CLASS_VAR,logSchema.getName()).replaceAll(CONFIGURATION_CLASS_PACKAGE_VAR,configurationClassPackage).replaceAll(CONFIGURATION_CLASS_VAR,configurationClassName);
+  JavaDynamicBean kaaClientClassBean=new JavaDynamicBean(KAA_CLIENT,kaaClientSource);
+  javaSources.add(kaaClientClassBean);
+  String baseKaaClientTemplate=readResource(BASE_KAA_CLIENT_SOURCE_TEMPLATE);
+  String baseKaaClientSource=baseKaaClientTemplate.replaceAll(LOG_RECORD_CLASS_PACKAGE_VAR,logSchema.getNamespace()).replaceAll(LOG_RECORD_CLASS_VAR,logSchema.getName()).replaceAll(CONFIGURATION_CLASS_PACKAGE_VAR,configurationClassPackage).replaceAll(CONFIGURATION_CLASS_VAR,configurationClassName);
+  JavaDynamicBean baseKaaClientClassBean=new JavaDynamicBean(BASE_KAA_CLIENT,baseKaaClientSource);
+  javaSources.add(baseKaaClientClassBean);
+  packageSources(javaSources,replacementData);
+  ByteArrayOutputStream sdkOutput=new ByteArrayOutputStream();
+  ZipOutputStream sdkFile=new ZipOutputStream(sdkOutput);
+  Enumeration<? extends ZipEntry> entries=templateArhive.entries();
+  while (entries.hasMoreElements()) {
+    ZipEntry e=entries.nextElement();
+    if (replacementData.containsKey(e.getName())) {
+      ZipEntryData replacementEntry=replacementData.remove(e.getName());
+      sdkFile.putNextEntry(replacementEntry.getEntry());
+      sdkFile.write(replacementEntry.getData());
+    }
+ else {
+      sdkFile.putNextEntry(e);
+      if (!e.isDirectory()) {
+        IOUtils.copy(templateArhive.getInputStream(e),sdkFile);
+      }
+    }
+    sdkFile.closeEntry();
+  }
+  templateArhive.close();
+  for (  String entryName : replacementData.keySet()) {
+    ZipEntryData replacementEntry=replacementData.get(entryName);
+    sdkFile.putNextEntry(replacementEntry.getEntry());
+    sdkFile.write(replacementEntry.getData());
+    sdkFile.closeEntry();
+  }
+  sdkFile.close();
+  String sdkFileName=MessageFormatter.arrayFormat(sdkPlatform == SdkPlatform.JAVA ? JAVA_SDK_NAME_PATTERN : ANDROID_SDK_NAME_PATTERN,new Object[]{profileSchemaVersion,configurationSchemaVersion,notificationSchemaVersion,logSchemaVersion}).getMessage();
+  byte[] sdkData=sdkOutput.toByteArray();
+  Sdk sdk=new Sdk();
+  sdk.setFileName(sdkFileName);
+  sdk.setData(sdkData);
+  return sdk;
+}
