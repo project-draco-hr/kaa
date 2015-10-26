@@ -1,0 +1,7 @@
+{
+  FileDataResponseExtractor extractor=new FileDataResponseExtractor();
+  Map<String,String> parameters=new LinkedHashMap<>();
+  parameters.put("sdkProfileId",sdkProfileId);
+  parameters.put("targetPlatform",targetPlatform.toString());
+  return restTemplate.execute(url + "sdk",HttpMethod.POST,null,extractor,parameters);
+}

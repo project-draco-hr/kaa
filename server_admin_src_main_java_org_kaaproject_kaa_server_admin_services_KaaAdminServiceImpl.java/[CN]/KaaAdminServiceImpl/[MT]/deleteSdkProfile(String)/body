@@ -1,10 +1,13 @@
 {
   this.checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
-    if (isEmpty(sdkProfileId)) {
-      throw new IllegalArgumentException("SDK profile ID is empty!");
+    SdkProfileDto sdkProfile=this.checkSdkProfileId(sdkProfileId);
+    if (!clientProvider.getClient().isSdkProfileUsed(sdkProfile.getToken())) {
+      clientProvider.getClient().deleteSdkProfile(sdkProfileId);
     }
-    clientProvider.getClient().deleteSdkProfile(sdkProfileId);
+ else {
+      throw new IllegalArgumentException("Associated endpoint profiles have been found.");
+    }
   }
  catch (  Exception cause) {
     throw Utils.handleException(cause);

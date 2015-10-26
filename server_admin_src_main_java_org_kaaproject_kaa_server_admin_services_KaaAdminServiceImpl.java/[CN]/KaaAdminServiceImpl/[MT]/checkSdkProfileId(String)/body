@@ -1,0 +1,13 @@
+{
+  try {
+    if (isEmpty(sdkProfileId)) {
+      throw new IllegalArgumentException("The SDK profile identifier is empty!");
+    }
+    SdkProfileDto sdkProfile=ThriftDtoConverter.toDto(clientProvider.getClient().getSdkProfile(sdkProfileId));
+    Utils.checkNotNull(sdkProfile);
+    return sdkProfile;
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+}

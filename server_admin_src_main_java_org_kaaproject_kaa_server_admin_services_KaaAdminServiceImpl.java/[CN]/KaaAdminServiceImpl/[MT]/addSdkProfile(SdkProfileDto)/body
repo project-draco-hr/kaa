@@ -1,6 +1,7 @@
 {
   this.checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
+    this.checkApplicationId(sdkProfile.getApplicationId());
     sdkProfile.setCreatedUsername(this.getCurrentUser().getUsername());
     sdkProfile.setCreatedTime(System.currentTimeMillis());
     clientProvider.getClient().addSdkProfile(ThriftDtoConverter.toDataStruct(sdkProfile));
