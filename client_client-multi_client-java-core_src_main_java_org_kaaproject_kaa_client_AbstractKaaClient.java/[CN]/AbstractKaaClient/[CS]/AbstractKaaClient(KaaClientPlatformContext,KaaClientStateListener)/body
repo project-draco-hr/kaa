@@ -28,7 +28,7 @@
   eventManager=buildEventManager(properties,kaaClientState,transportContext);
   endpointRegistrationManager=buildRegistrationManager(properties,kaaClientState,transportContext);
   logCollector=buildLogCollector(properties,kaaClientState,transportContext);
-  configurationManager=buildConfigurationManager(properties,kaaClientState,transportContext);
+  configurationManager=buildConfigurationManager(properties,kaaClientState,transportContext,context.getExecutorContext());
   transportContext.getRedirectionTransport().setBootstrapManager(bootstrapManager);
   transportContext.getBootstrapTransport().setBootstrapManager(bootstrapManager);
   transportContext.getProfileTransport().setProfileManager(profileManager);
