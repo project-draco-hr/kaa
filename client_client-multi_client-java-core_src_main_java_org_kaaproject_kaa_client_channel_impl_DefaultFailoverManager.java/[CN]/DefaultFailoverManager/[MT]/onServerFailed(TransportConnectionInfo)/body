@@ -1,8 +1,10 @@
 {
-  LOG.info("Server {} failed",connectionInfo);
   if (connectionInfo == null) {
-    LOG.warn("Server connection info is null, can't resolve");
+    LOG.warn("Server failed, but connection info is null, can't resolve");
     return;
+  }
+ else {
+    LOG.info("Server [{}, {}] failed",connectionInfo.getServerType(),connectionInfo.getAccessPointId());
   }
   long currentResolutionTime=-1;
   AccessPointIdResolution currentAccessPointIdResolution=resolutionProgressMap.get(connectionInfo.getServerType());

@@ -1,13 +1,13 @@
 {
-  if (isShutdown) {
+  if (channelState == State.SHUTDOWN) {
     LOG.info("Can't sync. Channel [{}] is down",getId());
     return;
   }
-  if (isPaused) {
+  if (channelState == State.PAUSE) {
     LOG.info("Can't sync. Channel [{}] is paused",getId());
     return;
   }
-  if (!isFirstResponseReceived) {
+  if (channelState != State.OPENED) {
     LOG.info("Can't sync. Channel [{}] is waiting for CONNACK message + KAASYNC message",getId());
     return;
   }
