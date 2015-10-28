@@ -1,22 +1,24 @@
 {
+  LOG.info("Setting server [{}] for channel [{}]",server,getId());
   if (server == null) {
     LOG.warn("Server is null for Channel [{}].",getId());
     return;
   }
-  if (isShutdown) {
+  if (channelState == State.SHUTDOWN) {
     LOG.info("Can't set server. Channel [{}] is down",getId());
     return;
   }
+  IPTransportInfo oldServer=currentServer;
   this.currentServer=new IPTransportInfo(server);
   this.encDec=new MessageEncoderDecoder(state.getPrivateKey(),state.getPublicKey(),currentServer.getPublicKey());
-  if (!isPaused) {
+  if (channelState != State.PAUSE) {
     if (executor == null) {
       executor=createExecutor();
     }
-    closeConnection();
-    if (!isOpenConnectionScheduled) {
-      executor.submit(openConnectionTask);
-      isOpenConnectionScheduled=true;
+    if (oldServer == null || socket == null || !oldServer.getHost().equals(currentServer.getHost()) || oldServer.getPort() != currentServer.getPort()) {
+      LOG.info("New server's: {} host or ip is different from the old {}, reconnecting",oldServer,oldServer);
+      closeConnection();
+      scheduleOpenConnectionTask(0);
     }
   }
  else {
