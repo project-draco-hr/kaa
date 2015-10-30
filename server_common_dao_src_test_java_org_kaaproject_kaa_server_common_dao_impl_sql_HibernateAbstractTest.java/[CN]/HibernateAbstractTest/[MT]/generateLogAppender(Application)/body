@@ -1,0 +1,10 @@
+{
+  LogAppender appender=new LogAppender();
+  if (app == null) {
+    app=generateApplication(null);
+  }
+  appender.setApplication(app);
+  appender.setMinLogSchemaVersion(1);
+  appender.setMaxLogSchemaVersion(2);
+  return appenderDao.save(appender);
+}

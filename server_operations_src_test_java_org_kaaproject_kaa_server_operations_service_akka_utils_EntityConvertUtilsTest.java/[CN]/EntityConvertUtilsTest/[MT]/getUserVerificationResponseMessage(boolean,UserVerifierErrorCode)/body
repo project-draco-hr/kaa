@@ -1,0 +1,6 @@
+{
+  UserVerificationResponseMessage responseMessage=mock(UserVerificationResponseMessage.class);
+  when(responseMessage.isSuccess()).thenReturn(status);
+  when(responseMessage.getErrorCode()).thenReturn(errorCode);
+  return responseMessage;
+}

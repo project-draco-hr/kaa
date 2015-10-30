@@ -1,0 +1,5 @@
+{
+  LogAppender appender=generateLogAppender(null);
+  List<LogAppender> result=appenderDao.findByAppIdAndSchemaVersion("",appender.getMinLogSchemaVersion());
+  Assert.assertTrue(result.isEmpty());
+}

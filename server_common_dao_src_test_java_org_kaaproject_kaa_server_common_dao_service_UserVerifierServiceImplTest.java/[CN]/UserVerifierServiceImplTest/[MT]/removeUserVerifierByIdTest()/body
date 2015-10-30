@@ -1,0 +1,6 @@
+{
+  UserVerifierDto verifierDto=generateUserVerifier(null,null);
+  verifierService.removeUserVerifierById(verifierDto.getId());
+  UserVerifierDto found=verifierService.findUserVerifierById(verifierDto.getId());
+  Assert.assertNull(found);
+}

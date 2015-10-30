@@ -1,0 +1,13 @@
+{
+  AvroEncDec avroEncDec=new AvroEncDec();
+  Method method=AvroEncDec.class.getDeclaredMethod(CONVER_METHOD,UserVerifierErrorCode.class);
+  method.setAccessible(true);
+  UserVerifierErrorCode errorCode=null;
+  Assert.assertNull(method.invoke(avroEncDec,errorCode));
+  Assert.assertEquals(UserAttachErrorCode.CONNECTION_ERROR,method.invoke(avroEncDec,UserVerifierErrorCode.CONNECTION_ERROR));
+  Assert.assertEquals(UserAttachErrorCode.INTERNAL_ERROR,method.invoke(avroEncDec,UserVerifierErrorCode.INTERNAL_ERROR));
+  Assert.assertEquals(UserAttachErrorCode.NO_VERIFIER_CONFIGURED,method.invoke(avroEncDec,UserVerifierErrorCode.NO_VERIFIER_CONFIGURED));
+  Assert.assertEquals(UserAttachErrorCode.REMOTE_ERROR,method.invoke(avroEncDec,UserVerifierErrorCode.REMOTE_ERROR));
+  Assert.assertEquals(UserAttachErrorCode.TOKEN_EXPIRED,method.invoke(avroEncDec,UserVerifierErrorCode.TOKEN_EXPIRED));
+  Assert.assertEquals(UserAttachErrorCode.TOKEN_INVALID,method.invoke(avroEncDec,UserVerifierErrorCode.TOKEN_INVALID));
+}

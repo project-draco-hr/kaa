@@ -1,0 +1,10 @@
+{
+  TException tException=new TException();
+  doThrow(tException).when(template).process(any(OperationsThriftService.Iface.class),anyList());
+  neighborConnection.start();
+  ExecutorService executorSpy=getSpyOnExecutorAndInjectIt();
+  neighborConnection.sendMessages(Arrays.asList(new Event()));
+  verify(template,timeout(1000)).onServerError(anyString(),eq(tException));
+  neighborConnection.shutdown();
+  verify(executorSpy,timeout(1000)).shutdown();
+}

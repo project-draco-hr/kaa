@@ -1,0 +1,13 @@
+{
+  OperationsNodeInfo nodeInfo=Mockito.mock(OperationsNodeInfo.class);
+  ConnectionInfo connectionInfo=Mockito.mock(ConnectionInfo.class);
+  Mockito.when(nodeInfo.getConnectionInfo()).thenReturn(connectionInfo);
+  Map<String,OperationsNodeInfo> opsMap=Mockito.mock(Map.class);
+  ReflectionTestUtils.setField(service,"opsMap",opsMap);
+  DefaultOperationsServerListService.Memorizer memorizer=Mockito.mock(DefaultOperationsServerListService.Memorizer.class);
+  ReflectionTestUtils.setField(service,"cache",memorizer);
+  service.onNodeUpdated(nodeInfo);
+  service.onNodeAdded(nodeInfo);
+  Mockito.verify(opsMap,Mockito.times(2)).put(Mockito.anyString(),Mockito.eq(nodeInfo));
+  Mockito.verify(memorizer,Mockito.times(2)).clear();
+}

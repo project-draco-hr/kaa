@@ -1,0 +1,12 @@
+{
+  DesktopHttpClient client=new DesktopHttpClient(URL,privateKey,publicKey,remotePublicKey);
+  ReflectionTestUtils.setField(client,HTTP_METHOD_FIELD_NAME,null);
+  Assert.assertFalse(client.canAbort());
+  HttpPost method=new HttpPost();
+  method.abort();
+  ReflectionTestUtils.setField(client,HTTP_METHOD_FIELD_NAME,method);
+  Assert.assertFalse(client.canAbort());
+  method=new HttpPost();
+  ReflectionTestUtils.setField(client,HTTP_METHOD_FIELD_NAME,method);
+  Assert.assertTrue(client.canAbort());
+}

@@ -1,0 +1,15 @@
+{
+  MongoEndpointUserConfiguration mongoEndpointUserConfiguration=new MongoEndpointUserConfiguration();
+  String appToken="appToken";
+  String body="body";
+  int schemaVersion=2;
+  String userId="userId";
+  mongoEndpointUserConfiguration.setAppToken(appToken);
+  mongoEndpointUserConfiguration.setBody(body);
+  mongoEndpointUserConfiguration.setSchemaVersion(schemaVersion);
+  mongoEndpointUserConfiguration.setUserId(userId);
+  Assert.assertEquals(appToken,mongoEndpointUserConfiguration.getAppToken());
+  Assert.assertEquals(body,mongoEndpointUserConfiguration.getBody());
+  Assert.assertTrue(schemaVersion == mongoEndpointUserConfiguration.getSchemaVersion());
+  Assert.assertEquals(userId,mongoEndpointUserConfiguration.getUserId());
+}

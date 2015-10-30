@@ -1,0 +1,11 @@
+{
+  AvroEncDec avroEncDec=new AvroEncDec();
+  Method method=AvroEncDec.class.getDeclaredMethod(CONVER_METHOD,org.kaaproject.kaa.server.sync.LogDeliveryErrorCode.class);
+  method.setAccessible(true);
+  org.kaaproject.kaa.server.sync.LogDeliveryErrorCode deliveryErrorCode=null;
+  Assert.assertNull(method.invoke(avroEncDec,deliveryErrorCode));
+  Assert.assertEquals(LogDeliveryErrorCode.NO_APPENDERS_CONFIGURED,method.invoke(avroEncDec,org.kaaproject.kaa.server.sync.LogDeliveryErrorCode.NO_APPENDERS_CONFIGURED));
+  Assert.assertEquals(LogDeliveryErrorCode.APPENDER_INTERNAL_ERROR,method.invoke(avroEncDec,org.kaaproject.kaa.server.sync.LogDeliveryErrorCode.APPENDER_INTERNAL_ERROR));
+  Assert.assertEquals(LogDeliveryErrorCode.REMOTE_CONNECTION_ERROR,method.invoke(avroEncDec,org.kaaproject.kaa.server.sync.LogDeliveryErrorCode.REMOTE_CONNECTION_ERROR));
+  Assert.assertEquals(LogDeliveryErrorCode.REMOTE_INTERNAL_ERROR,method.invoke(avroEncDec,org.kaaproject.kaa.server.sync.LogDeliveryErrorCode.REMOTE_INTERNAL_ERROR));
+}

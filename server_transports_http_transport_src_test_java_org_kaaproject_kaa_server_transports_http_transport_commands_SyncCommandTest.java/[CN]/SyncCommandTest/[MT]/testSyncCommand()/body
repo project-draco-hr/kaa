@@ -6,4 +6,7 @@
   Assert.assertNotNull(response);
   Assert.assertEquals(RESPONSE_CONTENT_TYPE,response.headers().get(CONTENT_TYPE));
   Assert.assertEquals(ChannelType.SYNC,command.getChannelType());
+  Assert.assertEquals("",command.getName());
+  Assert.assertEquals("",AbstractCommand.getCommandName());
+  command.call();
 }

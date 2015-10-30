@@ -1,0 +1,5 @@
+{
+  EndpointUserConfigurationDto configurationDto=generateEndpointUserConfiguration(null,null,null,readSchemaFileAsString(OVERRIDE_USER_DATA_JSON),true);
+  EndpointUserConfigurationDto result=userConfigurationService.saveUserConfiguration(configurationDto);
+  Assert.assertEquals(configurationDto,result);
+}

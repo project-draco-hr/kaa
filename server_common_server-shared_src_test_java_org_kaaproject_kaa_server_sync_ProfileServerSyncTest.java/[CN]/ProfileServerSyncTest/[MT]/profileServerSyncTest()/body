@@ -1,0 +1,6 @@
+{
+  SyncResponseStatus status=SyncResponseStatus.DELTA;
+  ProfileServerSync serverSync=new ProfileServerSync();
+  serverSync.setResponseStatus(status);
+  Assert.assertEquals(status,serverSync.getResponseStatus());
+}

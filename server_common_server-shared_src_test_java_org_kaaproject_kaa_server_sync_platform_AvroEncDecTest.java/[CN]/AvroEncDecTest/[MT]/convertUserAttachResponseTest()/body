@@ -1,0 +1,9 @@
+{
+  AvroEncDec avroEncDec=new AvroEncDec();
+  Method method=AvroEncDec.class.getDeclaredMethod(CONVER_METHOD,org.kaaproject.kaa.server.sync.UserAttachResponse.class);
+  method.setAccessible(true);
+  org.kaaproject.kaa.server.sync.UserAttachResponse failure=new org.kaaproject.kaa.server.sync.UserAttachResponse(SyncStatus.FAILURE,null,null);
+  Assert.assertEquals(new UserAttachResponse(SyncResponseResultType.FAILURE,null,null),method.invoke(avroEncDec,failure));
+  org.kaaproject.kaa.server.sync.UserAttachResponse success=new org.kaaproject.kaa.server.sync.UserAttachResponse(SyncStatus.SUCCESS,null,null);
+  Assert.assertEquals(new UserAttachResponse(SyncResponseResultType.SUCCESS,null,null),method.invoke(avroEncDec,success));
+}
