@@ -1,4 +1,4 @@
 {
-  setData(data == null ? (ByteBuffer)null : ByteBuffer.wrap(data));
+  this.data=data == null ? (ByteBuffer)null : ByteBuffer.wrap(Arrays.copyOf(data,data.length));
   return this;
 }

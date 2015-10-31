@@ -1,0 +1,10 @@
+{
+  if (that == null)   return false;
+  boolean this_present_pageLink=true && this.isSetPageLink();
+  boolean that_present_pageLink=true && that.isSetPageLink();
+  if (this_present_pageLink || that_present_pageLink) {
+    if (!(this_present_pageLink && that_present_pageLink))     return false;
+    if (!this.pageLink.equals(that.pageLink))     return false;
+  }
+  return true;
+}

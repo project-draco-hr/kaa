@@ -1,19 +1,19 @@
 {
-  HashCodeBuilder builder=new HashCodeBuilder();
+  List<Object> list=new ArrayList<Object>();
   boolean present_tenantId=true && (isSetTenantId());
-  builder.append(present_tenantId);
-  if (present_tenantId)   builder.append(tenantId);
+  list.add(present_tenantId);
+  if (present_tenantId)   list.add(tenantId);
   boolean present_userId=true && (isSetUserId());
-  builder.append(present_userId);
-  if (present_userId)   builder.append(userId);
+  list.add(present_userId);
+  if (present_userId)   list.add(userId);
   boolean present_applicationToken=true && (isSetApplicationToken());
-  builder.append(present_applicationToken);
-  if (present_applicationToken)   builder.append(applicationToken);
+  list.add(present_applicationToken);
+  if (present_applicationToken)   list.add(applicationToken);
   boolean present_cfSchemaVersion=true;
-  builder.append(present_cfSchemaVersion);
-  if (present_cfSchemaVersion)   builder.append(cfSchemaVersion);
+  list.add(present_cfSchemaVersion);
+  if (present_cfSchemaVersion)   list.add(cfSchemaVersion);
   boolean present_ucfHash=true && (isSetUcfHash());
-  builder.append(present_ucfHash);
-  if (present_ucfHash)   builder.append(ucfHash);
-  return builder.toHashCode();
+  list.add(present_ucfHash);
+  if (present_ucfHash)   list.add(ucfHash);
+  return list.hashCode();
 }

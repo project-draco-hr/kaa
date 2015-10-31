@@ -1,0 +1,20 @@
+{
+  EndpointProfilesPageDto endpointProfilesPageDto=new EndpointProfilesPageDto();
+  PageLinkDto pageLinkDto=new PageLinkDto();
+  String next;
+  int lim=Integer.valueOf(limit);
+  if (cassandraEndpointProfileList.size() == (lim + 1)) {
+    pageLinkDto.setEndpointGroupId(endpointGroupId);
+    pageLinkDto.setLimit(limit);
+    pageLinkDto.setOffset(Base64.encodeBase64String(cassandraEndpointProfileList.get(lim).getEndpointKeyHash()));
+    cassandraEndpointProfileList.remove(lim);
+    next=null;
+  }
+ else {
+    next=DaoConstants.LAST_PAGE_MESSAGE;
+  }
+  pageLinkDto.setNext(next);
+  endpointProfilesPageDto.setPageLinkDto(pageLinkDto);
+  endpointProfilesPageDto.setEndpointProfiles(cassandraEndpointProfileList);
+  return endpointProfilesPageDto;
+}

@@ -1,0 +1,9 @@
+{
+  EndpointProfileDto profileDto=new EndpointProfileDto();
+  profileDto.setId(id);
+  profileDto.setApplicationId(generateStringId());
+  profileDto.setEndpointKeyHash("TEST_KEY_HASH".getBytes());
+  profileDto.setAccessToken(generateStringId());
+  profileDto.setCfGroupStates(cfGroupState);
+  return profileDto;
+}

@@ -1,7 +1,7 @@
 {
-  HashCodeBuilder builder=new HashCodeBuilder();
+  List<Object> list=new ArrayList<Object>();
   boolean present_appId=true && (isSetAppId());
-  builder.append(present_appId);
-  if (present_appId)   builder.append(appId);
-  return builder.toHashCode();
+  list.add(present_appId);
+  if (present_appId)   list.add(appId);
+  return list.hashCode();
 }

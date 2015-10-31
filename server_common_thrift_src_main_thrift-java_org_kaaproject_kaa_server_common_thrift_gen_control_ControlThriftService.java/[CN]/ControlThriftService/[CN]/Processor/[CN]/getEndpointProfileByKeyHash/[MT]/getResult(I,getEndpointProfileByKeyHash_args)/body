@@ -1,0 +1,10 @@
+{
+  getEndpointProfileByKeyHash_result result=new getEndpointProfileByKeyHash_result();
+  try {
+    result.success=iface.getEndpointProfileByKeyHash(args.endpointProfileKeyHash);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

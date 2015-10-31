@@ -1,0 +1,15 @@
+{
+  String limit=pageLink.getLimit();
+  ByteBuffer endpointKey=getByteBuffer(Base64.decodeBase64(pageLink.getOffset()));
+  Statement queryStatement;
+  if ("0".equals(pageLink.getOffset())) {
+    queryStatement=select().from(getColumnFamilyName()).where(eq(EP_BY_APP_ID_APPLICATION_ID_PROPERTY,appId)).limit(Integer.valueOf(limit) + 1);
+    LOG.debug("Try to find first page of endpoint key hash by application id {} with limit {}",appId,limit);
+  }
+ else {
+    queryStatement=select().from(getColumnFamilyName()).where(eq(EP_BY_APP_ID_APPLICATION_ID_PROPERTY,appId)).and(gte(EP_BY_APP_ID_ENDPOINT_KEY_HASH_PROPERTY,endpointKey)).limit(Integer.valueOf(limit) + 1);
+    LOG.debug("Try to find endpoint key hash list by endpoint group id {} with limit {} start from keyHash {}",appId,limit,endpointKey);
+  }
+  List<CassandraEPByAppId> filter=findListByStatement(queryStatement);
+  return getEndpointKeyHash(filter);
+}

@@ -1,0 +1,10 @@
+{
+  getEndpointProfileBodyByEndpointGroupId_result result=new getEndpointProfileBodyByEndpointGroupId_result();
+  try {
+    result.success=iface.getEndpointProfileBodyByEndpointGroupId(args.pageLink);
+  }
+ catch (  ControlThriftException ControlException) {
+    result.ControlException=ControlException;
+  }
+  return result;
+}

@@ -1,0 +1,14 @@
+{
+  List<EndpointProfileBodyDto> endpointProfilesBodyDto=new ArrayList<>();
+  LOG.debug("Found {} endpoint profiles body by group id {}",keyHashList != null ? keyHashList.length : 0,endpointGroupId);
+  for (  ByteBuffer keyHash : keyHashList) {
+    EndpointProfileBodyDto endpointProfileBodyDto=findBodyByKeyHash(getBytes(keyHash));
+    if (endpointProfileBodyDto != null) {
+      endpointProfilesBodyDto.add(endpointProfileBodyDto);
+    }
+ else {
+      LOG.debug("Can't find endpoint profile by id {}",keyHash);
+    }
+  }
+  return endpointProfilesBodyDto;
+}

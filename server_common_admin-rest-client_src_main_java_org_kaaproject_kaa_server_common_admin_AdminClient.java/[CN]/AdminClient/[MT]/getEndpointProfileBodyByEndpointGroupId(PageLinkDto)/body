@@ -1,0 +1,11 @@
+{
+  MultiValueMap<String,String> params=new LinkedMultiValueMap<String,String>();
+  params.add("endpointGroupId",pageLink.getEndpointGroupId());
+  params.add("limit",pageLink.getLimit());
+  params.add("offset",pageLink.getOffset());
+  ParameterizedTypeReference<EndpointProfilesBodyDto> typeRef=new ParameterizedTypeReference<EndpointProfilesBodyDto>(){
+  }
+;
+  ResponseEntity<EndpointProfilesBodyDto> entity=restTemplate.exchange(url + "endpointProfileBodyByGroupId/" + params,HttpMethod.GET,null,typeRef);
+  return entity.getBody();
+}

@@ -1,0 +1,8 @@
+{
+  ByteBuffer[] endpointKeyHash=new ByteBuffer[filter.size()];
+  int i=0;
+  for (  CassandraEPByAppId ep : filter) {
+    endpointKeyHash[i++]=ep.getEndpointKeyHash();
+  }
+  return endpointKeyHash;
+}

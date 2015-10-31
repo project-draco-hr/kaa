@@ -1,0 +1,20 @@
+{
+  EndpointProfilesBodyDto endpointProfilesBodyDto=new EndpointProfilesBodyDto();
+  PageLinkDto pageLinkDto=new PageLinkDto();
+  String next;
+  int lim=Integer.valueOf(limit);
+  if (profilesBodyDto.size() == (lim + 1)) {
+    pageLinkDto.setEndpointGroupId(endpointGroupId);
+    pageLinkDto.setLimit(limit);
+    pageLinkDto.setOffset(Base64.encodeBase64String(profilesBodyDto.get(lim).getEndpointKeyHash()));
+    profilesBodyDto.remove(lim);
+    next=null;
+  }
+ else {
+    next=DaoConstants.LAST_PAGE_MESSAGE;
+  }
+  pageLinkDto.setNext(next);
+  endpointProfilesBodyDto.setPageLinkDto(pageLinkDto);
+  endpointProfilesBodyDto.setEndpointProfilesBody(profilesBodyDto);
+  return endpointProfilesBodyDto;
+}

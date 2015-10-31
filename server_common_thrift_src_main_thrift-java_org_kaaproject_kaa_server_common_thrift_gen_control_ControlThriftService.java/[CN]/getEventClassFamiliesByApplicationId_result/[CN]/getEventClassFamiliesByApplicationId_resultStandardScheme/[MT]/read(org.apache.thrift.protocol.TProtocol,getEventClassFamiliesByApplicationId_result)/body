@@ -12,11 +12,11 @@ case 0:
 {
           org.apache.thrift.protocol.TList _list232=iprot.readListBegin();
           struct.success=new ArrayList<org.kaaproject.kaa.server.common.thrift.gen.shared.DataStruct>(_list232.size);
-          for (int _i233=0; _i233 < _list232.size; ++_i233) {
-            org.kaaproject.kaa.server.common.thrift.gen.shared.DataStruct _elem234;
-            _elem234=new org.kaaproject.kaa.server.common.thrift.gen.shared.DataStruct();
-            _elem234.read(iprot);
-            struct.success.add(_elem234);
+          org.kaaproject.kaa.server.common.thrift.gen.shared.DataStruct _elem233;
+          for (int _i234=0; _i234 < _list232.size; ++_i234) {
+            _elem233=new org.kaaproject.kaa.server.common.thrift.gen.shared.DataStruct();
+            _elem233.read(iprot);
+            struct.success.add(_elem233);
           }
           iprot.readListEnd();
         }

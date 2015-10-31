@@ -1,0 +1,33 @@
+{
+  LOG.debug("Find endpoint profiles body by endpoint group id [{}] ",pageLink.getEndpointGroupId());
+  EndpointProfilesBodyDto endpointProfilesBodyDto=new EndpointProfilesBodyDto();
+  List<EndpointProfileBodyDto> profilesBody=new ArrayList<>();
+  String profile="profile";
+  String next=null;
+  int lim=Integer.valueOf(pageLink.getLimit());
+  Query query=Query.query(new Criteria().orOperator(where(EP_CF_GROUP_STATE + "." + ENDPOINT_GROUP_ID).is(pageLink.getEndpointGroupId()),where(EP_NF_GROUP_STATE + "." + ENDPOINT_GROUP_ID).is(pageLink.getEndpointGroupId())));
+  query.skip(Integer.parseInt(pageLink.getOffset())).limit(Integer.parseInt(pageLink.getLimit()) + 1);
+  query.fields().include(profile);
+  query.fields().include(EP_ENDPOINT_KEY_HASH);
+  List<MongoEndpointProfile> mongoEndpointProfileList=mongoTemplate.find(query,getDocumentClass());
+  if (mongoEndpointProfileList.size() == (lim + 1)) {
+    String offset=Integer.toString(lim + Integer.valueOf(pageLink.getOffset()));
+    pageLink.setOffset(offset);
+    mongoEndpointProfileList.remove(lim);
+  }
+ else {
+    next=DaoConstants.LAST_PAGE_MESSAGE;
+  }
+  for (  MongoEndpointProfile epList : mongoEndpointProfileList) {
+    EndpointProfileBodyDto endpointProfileBodyDto=new EndpointProfileBodyDto();
+    endpointProfileBodyDto.setEndpointKeyHash(epList.getEndpointKeyHash());
+    if (epList.getProfile() != null) {
+      endpointProfileBodyDto.setProfile(epList.getProfile().toString());
+    }
+    profilesBody.add(endpointProfileBodyDto);
+  }
+  pageLink.setNext(next);
+  endpointProfilesBodyDto.setPageLinkDto(pageLink);
+  endpointProfilesBodyDto.setEndpointProfilesBody(profilesBody);
+  return endpointProfilesBodyDto;
+}

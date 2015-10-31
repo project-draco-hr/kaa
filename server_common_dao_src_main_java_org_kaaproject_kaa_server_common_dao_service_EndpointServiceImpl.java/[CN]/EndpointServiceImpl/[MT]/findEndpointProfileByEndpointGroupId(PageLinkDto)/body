@@ -1,0 +1,5 @@
+{
+  validateSqlId(pageLink.getLimit(),"Can't find endpoint group by id. Incorrect limit parameter " + pageLink.getLimit());
+  validateString(pageLink.getOffset(),"Can't find endpoint group by id. Incorrect offset parameter " + pageLink.getOffset());
+  return endpointProfileDao.findByEndpointGroupId(pageLink);
+}

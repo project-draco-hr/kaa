@@ -1,7 +1,7 @@
 {
-  HashCodeBuilder builder=new HashCodeBuilder();
+  List<Object> list=new ArrayList<Object>();
   boolean present_applicationEventFamilyMap=true && (isSetApplicationEventFamilyMap());
-  builder.append(present_applicationEventFamilyMap);
-  if (present_applicationEventFamilyMap)   builder.append(applicationEventFamilyMap);
-  return builder.toHashCode();
+  list.add(present_applicationEventFamilyMap);
+  if (present_applicationEventFamilyMap)   list.add(applicationEventFamilyMap);
+  return list.hashCode();
 }

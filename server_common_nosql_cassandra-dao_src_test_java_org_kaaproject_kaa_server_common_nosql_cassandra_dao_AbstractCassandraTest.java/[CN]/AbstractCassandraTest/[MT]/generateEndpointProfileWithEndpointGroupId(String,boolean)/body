@@ -1,0 +1,21 @@
+{
+  byte[] keyHash=generateBytes();
+  if (appId == null) {
+    appId=generateStringId();
+  }
+  EndpointProfileDto profileDto=new EndpointProfileDto();
+  profileDto.setApplicationId(appId);
+  profileDto.setEndpointKeyHash(keyHash);
+  profileDto.setAccessToken(generateStringId());
+  profileDto.setProfile("test Profile");
+  List<EndpointGroupStateDto> groupState=new ArrayList<>();
+  groupState.add(new EndpointGroupStateDto(TEST_ENDPOINT_GROUP_ID,null,null));
+  if (nfGroupStateOnly) {
+    profileDto.setNfGroupStates(groupState);
+    profileDto.setCfGroupStates(null);
+  }
+ else {
+    profileDto.setCfGroupStates(groupState);
+  }
+  return endpointProfileDao.save(new CassandraEndpointProfile(profileDto)).toDto();
+}
