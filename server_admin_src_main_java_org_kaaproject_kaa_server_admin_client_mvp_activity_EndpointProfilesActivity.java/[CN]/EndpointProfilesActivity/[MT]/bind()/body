@@ -1,0 +1,42 @@
+{
+  listView.clearError();
+  registrations.add(listView.getRowActionsSource().addRowActionHandler(new RowActionEventHandler<String>(){
+    @Override public void onRowAction(    RowActionEvent<String> event){
+      String id=event.getClickedId();
+      if (event.getAction() == RowActionEvent.CLICK) {
+        goTo(new EndpointProfilePlace(applicationId,id,gridLoaded));
+      }
+    }
+  }
+));
+  registrations.add(listView.getEndpointGroupsInfo().addValueChangeHandler(new ValueChangeHandler<EndpointGroupDto>(){
+    @Override public void onValueChange(    ValueChangeEvent<EndpointGroupDto> valueChangeEvent){
+      getDataProvider().setNewGroup(valueChangeEvent.getValue().getId());
+      listView.getListWidget().getDataGrid().setVisibleRangeAndClearData(new Range(0,listView.getListWidget().getPageSize()),true);
+    }
+  }
+));
+  registrations.add(listView.getFindEndpointButton().addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent clickEvent){
+      listView.clearError();
+      String value=listView.getEndpointKeyHashTextBox().getValue();
+      if (value != null && !value.isEmpty()) {
+        findEndpointFromThisApplication(value);
+      }
+ else {
+        Utils.handleException(new IllegalArgumentException(Utils.messages.emptyEndpointKeyHash()),listView);
+      }
+    }
+  }
+));
+  final Place previousPlace=place.getPreviousPlace();
+  if (previousPlace != null) {
+    listView.setBackEnabled(true);
+    registrations.add(listView.getBackButton().addClickHandler(new ClickHandler(){
+      public void onClick(      ClickEvent event){
+        goTo(previousPlace);
+      }
+    }
+));
+  }
+}

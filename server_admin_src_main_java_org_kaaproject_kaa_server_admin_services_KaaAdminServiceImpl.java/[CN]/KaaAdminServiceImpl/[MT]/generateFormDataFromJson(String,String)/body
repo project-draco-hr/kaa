@@ -1,0 +1,12 @@
+{
+  try {
+    Schema schema=new Schema.Parser().parse(avroSchema);
+    JsonDecoder jsonDecoder=DecoderFactory.get().jsonDecoder(schema,json);
+    DatumReader<GenericRecord> datumReader=new GenericDatumReader<GenericRecord>(schema);
+    GenericRecord genericRecord=datumReader.read(null,jsonDecoder);
+    return FormAvroConverter.createRecordFieldFromGenericRecord(genericRecord);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

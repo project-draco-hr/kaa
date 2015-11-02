@@ -1,0 +1,21 @@
+{
+  KaaAdmin.getDataSource().getEndpointProfileByKeyHash(endpointKeyHash,new AsyncCallback<EndpointProfileDto>(){
+    @Override public void onFailure(    Throwable caught){
+      if (caught instanceof KaaAdminServiceException) {
+        if (((KaaAdminServiceException)caught).getErrorCode() == ServiceErrorCode.ITEM_NOT_FOUND) {
+          listView.getListWidget().getDataGrid().setRowData(new ArrayList<EndpointProfileDto>());
+        }
+      }
+ else       Utils.handleException(caught,listView);
+    }
+    @Override public void onSuccess(    EndpointProfileDto endpointProfileDto){
+      List<EndpointProfileDto> result=new ArrayList<>();
+      if (endpointProfileDto.getApplicationId().equals(applicationId)) {
+        result.add(endpointProfileDto);
+      }
+      listView.getListWidget().getDataGrid().setRowData(result);
+      listView.getEndpointKeyHashTextBox().setValue("");
+    }
+  }
+);
+}

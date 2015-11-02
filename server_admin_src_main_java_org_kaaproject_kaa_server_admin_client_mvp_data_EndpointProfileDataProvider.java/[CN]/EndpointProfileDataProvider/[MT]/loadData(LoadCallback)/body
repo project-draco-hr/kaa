@@ -1,0 +1,19 @@
+{
+  KaaAdmin.getDataSource().getEndpointProfileByGroupID(groupID,limit,offset,new AsyncCallback<EndpointProfilesPageDto>(){
+    @Override public void onFailure(    Throwable caught){
+      if (caught instanceof KaaAdminServiceException) {
+        if (((KaaAdminServiceException)caught).getErrorCode() == ServiceErrorCode.ITEM_NOT_FOUND) {
+          endpointProfilesList.clear();
+          callback.onSuccess(endpointProfilesList);
+        }
+      }
+ else       callback.onFailure(caught);
+    }
+    @Override public void onSuccess(    EndpointProfilesPageDto result){
+      endpointProfilesList.addAll(result.getEndpointProfiles());
+      offset=result.getPageLinkDto().getOffset();
+      callback.onSuccess(endpointProfilesList);
+    }
+  }
+);
+}

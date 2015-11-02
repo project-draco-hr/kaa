@@ -1,0 +1,34 @@
+{
+  float prefWidth=0;
+  prefWidth+=constructStringColumn(table,Utils.constants.keyHash(),new StringValueProvider<EndpointProfileDto>(){
+    @Override public String getValue(    EndpointProfileDto item){
+      return BaseEncoding.base64().encode(item.getEndpointKeyHash());
+    }
+  }
+,160);
+  prefWidth+=constructStringColumn(table,Utils.constants.profileSchemaVersion(),new StringValueProvider<EndpointProfileDto>(){
+    @Override public String getValue(    EndpointProfileDto item){
+      return item.getProfileVersion() + "";
+    }
+  }
+,80);
+  prefWidth+=constructStringColumn(table,Utils.constants.configurationSchemaVersion(),new StringValueProvider<EndpointProfileDto>(){
+    @Override public String getValue(    EndpointProfileDto item){
+      return item.getConfigurationVersion() + "";
+    }
+  }
+,80);
+  prefWidth+=constructStringColumn(table,Utils.constants.notificationSchemaVersion(),new StringValueProvider<EndpointProfileDto>(){
+    @Override public String getValue(    EndpointProfileDto item){
+      return item.getUserNfVersion() + "";
+    }
+  }
+,80);
+  prefWidth+=constructStringColumn(table,Utils.constants.logSchemaVersion(),new StringValueProvider<EndpointProfileDto>(){
+    @Override public String getValue(    EndpointProfileDto item){
+      return item.getLogSchemaVersion() + "";
+    }
+  }
+,80);
+  return prefWidth;
+}
