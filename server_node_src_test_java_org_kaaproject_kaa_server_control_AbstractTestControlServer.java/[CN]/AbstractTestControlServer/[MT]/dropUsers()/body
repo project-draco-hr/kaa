@@ -1,0 +1,15 @@
+{
+  LOG.info("Dropping users...");
+  if (tenantAdminDto != null) {
+    loginTenantAdmin(tenantAdminUser);
+    for (    UserDto user : client.getUsers()) {
+      client.deleteUser(user.getId());
+    }
+  }
+  loginKaaAdmin();
+  for (  TenantUserDto tenant : client.getTenants()) {
+    client.deleteTenant(tenant.getId());
+  }
+  tenantAdminDto=null;
+  tenantDeveloperDto=null;
+}
