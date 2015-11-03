@@ -6,7 +6,7 @@
   if (profilesBodyDto.size() == (lim + 1)) {
     pageLinkDto.setEndpointGroupId(endpointGroupId);
     pageLinkDto.setLimit(limit);
-    pageLinkDto.setOffset(Base64.encodeBase64String(profilesBodyDto.get(lim).getEndpointKeyHash()));
+    pageLinkDto.setOffset(Base64.encodeBase64URLSafeString(profilesBodyDto.get(lim).getEndpointKeyHash()));
     profilesBodyDto.remove(lim);
     next=null;
   }
