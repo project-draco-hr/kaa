@@ -1,8 +1,0 @@
-{
-  EndpointUserDto endpointUser=new EndpointUserDto();
-  endpointUser.setExternalId(ENDPOINT_USER_EXTERNAL_ID + externalUID);
-  endpointUser.setUsername(ENDPOINT_USER_NAME);
-  endpointUser.setTenantId(tenantId);
-  EndpointUserDto savedEndpointUser=toDto(client.editEndpointUser(toDataStruct(endpointUser)));
-  return savedEndpointUser;
-}

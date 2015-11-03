@@ -7,7 +7,14 @@
     InetSocketAddress address=new InetSocketAddress(connectionInfo.getThriftHost().toString(),connectionInfo.getThriftPort());
     Set<InetSocketAddress> backends=new HashSet<InetSocketAddress>();
     backends.add(address);
-    thrift=clientFactory.withMaxConnectionsPerEndpoint(maxNumberConnection).withSocketTimeout(Amount.of(socketTimeout,Time.SECONDS)).build(backends);
+    thrift=clientFactory.withMaxConnectionsPerEndpoint(maxNumberConnection).withSocketTimeout(Amount.of(socketTimeout,Time.SECONDS)).withClientFactory(new Function<TTransport,OperationsThriftService.Iface>(){
+      @Override public Iface apply(      TTransport transport){
+        TProtocol protocol=new TBinaryProtocol(transport);
+        TMultiplexedProtocol mprotocol=new TMultiplexedProtocol(protocol,KaaThriftService.OPERATIONS_SERVICE.getServiceName());
+        return new OperationsThriftService.Client(mprotocol);
+      }
+    }
+).build(backends);
     for (int i=0; i < maxNumberConnection; i++) {
       EventWorker worker=new EventWorker(template);
       workers.add(executor.submit(worker));

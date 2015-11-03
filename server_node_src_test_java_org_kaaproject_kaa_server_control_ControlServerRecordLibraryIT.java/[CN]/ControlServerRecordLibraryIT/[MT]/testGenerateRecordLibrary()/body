@@ -1,0 +1,8 @@
+{
+  ApplicationDto application=createApplication(tenantAdminDto);
+  LogSchemaDto logSchema=createLogSchema(application.getId());
+  FileData library=client.downloadLogRecordLibrary(new RecordKey(application.getId(),logSchema.getMajorVersion()));
+  Assert.assertNotNull(library);
+  Assert.assertFalse(strIsEmpty(library.getFileName()));
+  Assert.assertNotNull(library.getFileData());
+}

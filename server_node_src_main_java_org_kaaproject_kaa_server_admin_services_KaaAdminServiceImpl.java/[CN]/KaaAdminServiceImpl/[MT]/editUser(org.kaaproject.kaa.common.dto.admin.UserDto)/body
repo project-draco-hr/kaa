@@ -1,0 +1,22 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_ADMIN);
+  try {
+    if (!isEmpty(user.getId())) {
+      UserDto storedUser=controlService.getUser(user.getId());
+      Utils.checkNotNull(storedUser);
+      checkTenantId(storedUser.getTenantId());
+    }
+    Long userId=saveUser(user);
+    UserDto userDto=new UserDto();
+    userDto.setId(user.getId());
+    userDto.setUsername(user.getUsername());
+    userDto.setExternalUid(userId.toString());
+    userDto.setTenantId(getTenantId());
+    userDto.setAuthority(user.getAuthority());
+    UserDto savedUser=controlService.editUser(userDto);
+    return toUser(savedUser);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

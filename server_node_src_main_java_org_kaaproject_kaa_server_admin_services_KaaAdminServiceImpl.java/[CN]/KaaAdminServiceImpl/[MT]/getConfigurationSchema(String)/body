@@ -1,0 +1,12 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    ConfigurationSchemaDto configurationSchema=controlService.getConfigurationSchema(configurationSchemaId);
+    Utils.checkNotNull(configurationSchema);
+    checkApplicationId(configurationSchema.getApplicationId());
+    return configurationSchema;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

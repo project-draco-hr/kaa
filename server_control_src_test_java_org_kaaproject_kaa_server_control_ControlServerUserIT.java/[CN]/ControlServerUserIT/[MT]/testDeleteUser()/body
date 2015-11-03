@@ -1,6 +1,0 @@
-{
-  UserDto user=createUser(KaaAuthorityDto.TENANT_ADMIN);
-  client.deleteUser(user.getId());
-  UserDto storedUser=toDto(client.getUser(user.getId()));
-  Assert.assertNull(storedUser);
-}

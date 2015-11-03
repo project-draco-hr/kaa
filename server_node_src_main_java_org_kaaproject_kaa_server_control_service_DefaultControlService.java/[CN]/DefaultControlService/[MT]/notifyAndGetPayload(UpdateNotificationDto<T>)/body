@@ -1,0 +1,11 @@
+{
+  T result=null;
+  if (notification != null) {
+    notifyEndpoints(notification);
+    T payload=notification.getPayload();
+    if (payload instanceof HasId && payload != null) {
+      result=payload;
+    }
+  }
+  return result;
+}

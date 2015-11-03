@@ -1,0 +1,14 @@
+{
+  org.kaaproject.kaa.common.dto.admin.UserDto tenantDeveloper=new org.kaaproject.kaa.common.dto.admin.UserDto();
+  tenantDeveloper.setAuthority(KaaAuthorityDto.TENANT_DEVELOPER);
+  tenantDeveloper.setUsername(username);
+  tenantDeveloper.setMail(username + "@demoproject.org");
+  tenantDeveloper.setFirstName("Tenant");
+  tenantDeveloper.setLastName("Developer");
+  tenantDeveloper=client.editUser(tenantDeveloper);
+  if (StringUtils.isNotBlank(tenantDeveloper.getTempPassword())) {
+    client.clearCredentials();
+    client.changePassword(tenantDeveloper.getUsername(),tenantDeveloper.getTempPassword(),tenantDeveloperPassword);
+  }
+  return tenantDeveloper;
+}

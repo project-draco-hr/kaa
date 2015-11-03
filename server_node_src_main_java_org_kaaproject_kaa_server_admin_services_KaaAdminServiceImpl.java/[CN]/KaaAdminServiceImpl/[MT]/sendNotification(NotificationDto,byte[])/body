@@ -1,0 +1,15 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    checkExpiredDate(notification);
+    notification.setBody(body);
+    checkApplicationId(notification.getApplicationId());
+    TopicDto topic=controlService.getTopic(notification.getTopicId());
+    Utils.checkNotNull(topic);
+    checkApplicationId(topic.getApplicationId());
+    return controlService.editNotification(notification);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

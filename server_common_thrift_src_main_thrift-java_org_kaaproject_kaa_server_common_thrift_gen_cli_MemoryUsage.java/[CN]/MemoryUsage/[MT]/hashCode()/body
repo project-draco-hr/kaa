@@ -1,13 +1,13 @@
 {
-  HashCodeBuilder builder=new HashCodeBuilder();
+  List<Object> list=new ArrayList<Object>();
   boolean present_max=true;
-  builder.append(present_max);
-  if (present_max)   builder.append(max);
+  list.add(present_max);
+  if (present_max)   list.add(max);
   boolean present_total=true;
-  builder.append(present_total);
-  if (present_total)   builder.append(total);
+  list.add(present_total);
+  if (present_total)   list.add(total);
   boolean present_free=true;
-  builder.append(present_free);
-  if (present_free)   builder.append(free);
-  return builder.toHashCode();
+  list.add(present_free);
+  if (present_free)   list.add(free);
+  return list.hashCode();
 }

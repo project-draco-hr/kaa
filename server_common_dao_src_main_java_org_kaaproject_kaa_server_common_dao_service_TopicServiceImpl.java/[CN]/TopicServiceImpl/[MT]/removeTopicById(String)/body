@@ -1,7 +1,7 @@
 {
   validateId(id,"Can't remove topic. Invalid topic id " + id);
   TopicDto topic=findTopicById(id);
-  List<UpdateNotificationDto> notificationList=new LinkedList<>();
+  List<UpdateNotificationDto<EndpointGroupDto>> notificationList=new LinkedList<>();
   if (topic != null) {
     List<EndpointGroup> groups=endpointGroupDao.findEndpointGroupsByTopicIdAndAppId(topic.getApplicationId(),id);
     if (groups != null && !groups.isEmpty()) {

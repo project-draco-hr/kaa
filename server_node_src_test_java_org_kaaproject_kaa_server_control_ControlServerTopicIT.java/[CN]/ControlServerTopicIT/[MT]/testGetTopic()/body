@@ -1,0 +1,7 @@
+{
+  TopicDto topic=createTopic(null,TopicTypeDto.MANDATORY);
+  LOGGER.debug("Created topic with id {}",topic.getId());
+  TopicDto storedTopic=client.getTopic(topic.getId());
+  Assert.assertNotNull(storedTopic);
+  Assert.assertEquals(topic,storedTopic);
+}

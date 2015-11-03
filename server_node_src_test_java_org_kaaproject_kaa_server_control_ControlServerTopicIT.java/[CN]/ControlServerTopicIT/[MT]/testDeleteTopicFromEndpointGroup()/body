@@ -1,0 +1,17 @@
+{
+  EndpointGroupDto group=createEndpointGroup();
+  String groupId=group.getId();
+  TopicDto topic=createTopic(group.getApplicationId(),TopicTypeDto.MANDATORY);
+  String topicId=topic.getId();
+  LOGGER.debug("Created topic with id {}",topicId);
+  client.addTopicToEndpointGroup(group.getId(),topicId);
+  EndpointGroupDto found=client.getEndpointGroup(groupId);
+  Assert.assertNotNull(found);
+  Assert.assertEquals(topicId,found.getTopics().get(0));
+  client.removeTopicFromEndpointGroup(groupId,topicId);
+  found=client.getEndpointGroup(groupId);
+  Assert.assertNotNull(found);
+  List<String> topics=found.getTopics();
+  Assert.assertNotNull(topics);
+  Assert.assertTrue(topics.isEmpty());
+}

@@ -1,0 +1,15 @@
+{
+  TopicDto topicDto=new TopicDto();
+  topicDto.setName(generateString(TOPIC));
+  topicDto.setType(type);
+  if (strIsEmpty(appId)) {
+    ApplicationDto applicationDto=createApplication(tenantAdminDto);
+    topicDto.setApplicationId(applicationDto.getId());
+  }
+ else {
+    topicDto.setApplicationId(appId);
+  }
+  loginTenantDeveloper(tenantDeveloperDto.getUsername());
+  TopicDto savedTopic=client.createTopic(topicDto);
+  return savedTopic;
+}

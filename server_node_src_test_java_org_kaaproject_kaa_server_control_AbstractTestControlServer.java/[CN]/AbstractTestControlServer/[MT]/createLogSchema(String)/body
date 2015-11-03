@@ -1,0 +1,15 @@
+{
+  LogSchemaDto logSchema=new LogSchemaDto();
+  logSchema.setName(generateString("Test Schema"));
+  logSchema.setDescription(generateString("Test Desc"));
+  if (strIsEmpty(applicationId)) {
+    ApplicationDto application=createApplication(tenantAdminDto);
+    logSchema.setApplicationId(application.getId());
+  }
+ else {
+    logSchema.setApplicationId(applicationId);
+  }
+  loginTenantDeveloper(tenantDeveloperDto.getUsername());
+  LogSchemaDto savedLogSchema=client.createLogSchema(logSchema,TEST_LOG_SCHEMA);
+  return savedLogSchema;
+}

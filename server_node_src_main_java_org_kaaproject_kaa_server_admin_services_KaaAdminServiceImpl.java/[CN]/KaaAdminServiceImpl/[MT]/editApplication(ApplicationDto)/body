@@ -1,0 +1,13 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_ADMIN);
+  try {
+    if (!isEmpty(application.getId())) {
+      checkApplicationId(application.getId());
+    }
+    application.setTenantId(getTenantId());
+    return controlService.editApplication(application);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

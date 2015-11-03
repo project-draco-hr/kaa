@@ -1,0 +1,7 @@
+{
+  List<EndpointNotificationDto> structList=Collections.emptyList();
+  if (keyhash != null) {
+    structList=notificationService.findUnicastNotificationsByKeyHash(keyhash);
+  }
+  return structList;
+}

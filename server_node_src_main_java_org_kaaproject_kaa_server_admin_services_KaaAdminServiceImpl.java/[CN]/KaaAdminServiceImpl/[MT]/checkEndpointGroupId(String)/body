@@ -1,0 +1,14 @@
+{
+  try {
+    if (isEmpty(endpointGroupId)) {
+      throw new IllegalArgumentException("The endpointGroupId parameter is empty.");
+    }
+    EndpointGroupDto endpointGroup=controlService.getEndpointGroup(endpointGroupId);
+    Utils.checkNotNull(endpointGroup);
+    checkApplicationId(endpointGroup.getApplicationId());
+    return endpointGroup;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

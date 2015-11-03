@@ -1,0 +1,10 @@
+{
+  final EndpointGroupDto endpointGroup=createEndpointGroup();
+  client.deleteEndpointGroup(endpointGroup.getId());
+  checkNotFound(new TestRestCall(){
+    @Override public void executeRestCall() throws Exception {
+      client.getEndpointGroup(endpointGroup.getId());
+    }
+  }
+);
+}

@@ -1,8 +1,0 @@
-{
-  TenantDto tenant=createTenant();
-  EndpointUserDto endpointUser=createEndpointUser("",tenant.getId());
-  EndpointUserDto storedEndpointUser=toDto(client.getEndpointUser(endpointUser.getId()));
-  Assert.assertNotNull(storedEndpointUser);
-  Assert.assertEquals(endpointUser,storedEndpointUser);
-  client.deleteEndpointUser(endpointUser.getId());
-}

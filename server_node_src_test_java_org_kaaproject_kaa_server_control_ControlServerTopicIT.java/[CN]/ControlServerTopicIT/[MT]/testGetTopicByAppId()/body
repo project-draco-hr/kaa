@@ -1,0 +1,8 @@
+{
+  TopicDto topic=createTopic(null,TopicTypeDto.MANDATORY);
+  LOGGER.debug("Created topic with id {}",topic.getId());
+  List<TopicDto> storedTopic=client.getTopicsByApplicationId(topic.getApplicationId());
+  Assert.assertNotNull(storedTopic);
+  Assert.assertFalse(storedTopic.isEmpty());
+  Assert.assertEquals(topic,storedTopic.get(0));
+}

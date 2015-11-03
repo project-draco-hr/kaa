@@ -1,0 +1,11 @@
+{
+  if (kaaNodeServerStarted) {
+    Thread.sleep(1000);
+    kaaNodeInstance.stop();
+    kaaNodeServerThread.join();
+    endpointNode.close();
+    bootstrapNode.close();
+    zkCluster.close();
+    kaaNodeServerStarted=false;
+  }
+}

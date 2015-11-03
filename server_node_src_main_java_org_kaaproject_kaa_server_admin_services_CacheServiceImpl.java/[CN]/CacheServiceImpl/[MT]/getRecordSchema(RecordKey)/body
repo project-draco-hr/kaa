@@ -1,0 +1,8 @@
+{
+  try {
+    return controlService.getRecordStructureSchema(key.getApplicationId(),key.getSchemaVersion());
+  }
+ catch (  ControlServiceException e) {
+    throw Utils.handleException(e);
+  }
+}

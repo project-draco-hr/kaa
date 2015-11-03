@@ -1,7 +1,0 @@
-{
-  ProfileFilterDto profileFilter=createProfileFilter();
-  StructureRecordDto<ProfileFilterDto> profileFilterRecord=toGenericDto(client.getProfileFilterRecord(profileFilter.getSchemaId(),profileFilter.getEndpointGroupId()));
-  Assert.assertNotNull(profileFilterRecord);
-  Assert.assertNotNull(profileFilterRecord.getInactiveStructureDto());
-  assertProfileFiltersEquals(profileFilter,profileFilterRecord.getInactiveStructureDto());
-}

@@ -1,0 +1,67 @@
+{
+  ApplicationDto application=applicationService.findAppById(key.getApplicationId());
+  if (application == null) {
+    throw new NotFoundException("Application not found!");
+  }
+  FileData data=new FileData();
+  if (RecordFiles.LOG_LIBRARY.equals(key.getRecordFiles())) {
+    data=generateRecordStructureLibrary(key.getApplicationId(),key.getSchemaVersion());
+  }
+ else {
+    AbstractSchemaDto schemaDto=null;
+    String fileName=null;
+    String schema=null;
+switch (key.getRecordFiles()) {
+case LOG_SCHEMA:
+      schemaDto=logSchemaService.findLogSchemaByAppIdAndVersion(key.getApplicationId(),key.getSchemaVersion());
+    checkSchema(schemaDto,RecordFiles.LOG_SCHEMA);
+  Schema recordWrapperSchema=null;
+try {
+  recordWrapperSchema=RecordWrapperSchemaGenerator.generateRecordWrapperSchema(schemaDto.getSchema());
+}
+ catch (IOException e) {
+  LOG.error("Unable to get Record Structure Schema",e);
+  throw new ControlServiceException(e);
+}
+schema=recordWrapperSchema.toString(true);
+fileName=MessageFormatter.arrayFormat(DATA_NAME_PATTERN,new Object[]{"log",key.getSchemaVersion()}).getMessage();
+break;
+case CONFIGURATION_SCHEMA:
+schemaDto=configurationService.findConfSchemaByAppIdAndVersion(key.getApplicationId(),key.getSchemaVersion());
+checkSchema(schemaDto,RecordFiles.CONFIGURATION_SCHEMA);
+schema=schemaDto.getSchema();
+fileName=MessageFormatter.arrayFormat(DATA_NAME_PATTERN,new Object[]{"configuration",key.getSchemaVersion()}).getMessage();
+break;
+case CONFIGURATION_BASE_SCHEMA:
+schemaDto=configurationService.findConfSchemaByAppIdAndVersion(key.getApplicationId(),key.getSchemaVersion());
+checkSchema(schemaDto,RecordFiles.CONFIGURATION_BASE_SCHEMA);
+schema=((ConfigurationSchemaDto)schemaDto).getBaseSchema();
+fileName=MessageFormatter.arrayFormat(DATA_NAME_PATTERN,new Object[]{"configuration-base",key.getSchemaVersion()}).getMessage();
+break;
+case CONFIGURATION_OVERRIDE_SCHEMA:
+schemaDto=configurationService.findConfSchemaByAppIdAndVersion(key.getApplicationId(),key.getSchemaVersion());
+checkSchema(schemaDto,RecordFiles.CONFIGURATION_OVERRIDE_SCHEMA);
+schema=((ConfigurationSchemaDto)schemaDto).getOverrideSchema();
+fileName=MessageFormatter.arrayFormat(DATA_NAME_PATTERN,new Object[]{"configuration-override",key.getSchemaVersion()}).getMessage();
+break;
+case NOTIFICATION_SCHEMA:
+schemaDto=notificationService.findNotificationSchemaByAppIdAndTypeAndVersion(key.getApplicationId(),NotificationTypeDto.USER,key.getSchemaVersion());
+checkSchema(schemaDto,RecordFiles.NOTIFICATION_SCHEMA);
+schema=schemaDto.getSchema();
+fileName=MessageFormatter.arrayFormat(DATA_NAME_PATTERN,new Object[]{"notification",key.getSchemaVersion()}).getMessage();
+break;
+case PROFILE_SCHEMA:
+schemaDto=profileService.findProfileSchemaByAppIdAndVersion(key.getApplicationId(),key.getSchemaVersion());
+checkSchema(schemaDto,RecordFiles.PROFILE_SCHEMA);
+schema=schemaDto.getSchema();
+fileName=MessageFormatter.arrayFormat(DATA_NAME_PATTERN,new Object[]{"profile",key.getSchemaVersion()}).getMessage();
+break;
+default :
+break;
+}
+byte[] schemaData=schema.getBytes(StandardCharsets.UTF_8);
+data.setFileName(fileName);
+data.setFileData(schemaData);
+}
+return data;
+}

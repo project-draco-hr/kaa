@@ -1,0 +1,31 @@
+{
+  ProfileFilterDto profileFilter=new ProfileFilterDto();
+  String filter=getResourceAsString(TEST_PROFILE_FILTER);
+  profileFilter.setBody(filter);
+  profileFilter.setStatus(UpdateStatus.INACTIVE);
+  if (strIsEmpty(applicationId)) {
+    ApplicationDto application=createApplication(tenantAdminDto);
+    profileFilter.setApplicationId(application.getId());
+    applicationId=application.getId();
+  }
+ else {
+    profileFilter.setApplicationId(applicationId);
+  }
+  if (strIsEmpty(profileSchemaId)) {
+    ProfileSchemaDto profileSchema=createProfileSchema(applicationId);
+    profileFilter.setSchemaId(profileSchema.getId());
+  }
+ else {
+    profileFilter.setSchemaId(profileSchemaId);
+  }
+  if (strIsEmpty(endpointGroupId)) {
+    EndpointGroupDto endpointGroup=createEndpointGroup(applicationId);
+    profileFilter.setEndpointGroupId(endpointGroup.getId());
+  }
+ else {
+    profileFilter.setEndpointGroupId(endpointGroupId);
+  }
+  loginTenantDeveloper(tenantDeveloperDto.getUsername());
+  ProfileFilterDto savedProfileFilter=client.editProfileFilter(profileFilter);
+  return savedProfileFilter;
+}

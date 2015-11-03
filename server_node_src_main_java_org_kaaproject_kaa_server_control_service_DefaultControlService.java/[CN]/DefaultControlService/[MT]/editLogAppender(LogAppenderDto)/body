@@ -1,0 +1,22 @@
+{
+  LogAppenderDto saved=null;
+  if (logAppender != null) {
+    saved=logAppenderService.saveLogAppender(logAppender);
+    if (saved != null) {
+      Notification thriftNotification=new Notification();
+      thriftNotification.setAppId(saved.getApplicationId());
+      thriftNotification.setAppenderId(saved.getId());
+      if (logAppender.getId() == null) {
+        LOG.info("Add new log appender ...");
+        thriftNotification.setOp(Operation.ADD_LOG_APPENDER);
+        LOG.info("Send notification to operation servers about new appender.");
+      }
+ else {
+        thriftNotification.setOp(Operation.UPDATE_LOG_APPENDER);
+        LOG.info("Send notification to operation servers about update appender configuration.");
+      }
+      controlZKService.sendEndpointNotification(thriftNotification);
+    }
+  }
+  return saved;
+}

@@ -1,0 +1,11 @@
+{
+  ControlZkService zkService=new ControlZkService();
+  KaaNodeServerConfig kaaNodeServerConfig=createKaaNodeServerConfig();
+  ReflectionTestUtils.setField(zkService,"kaaNodeServerConfig",kaaNodeServerConfig);
+  kaaNodeServerConfig.setZkEnabled(false);
+  Assert.assertNull(zkService.getCurrentBootstrapNodes());
+  kaaNodeServerConfig.setZkEnabled(true);
+  ControlNode controlZKNode=Mockito.mock(ControlNode.class);
+  ReflectionTestUtils.setField(zkService,"controlZKNode",controlZKNode);
+  Assert.assertNotNull(zkService.getCurrentBootstrapNodes());
+}
