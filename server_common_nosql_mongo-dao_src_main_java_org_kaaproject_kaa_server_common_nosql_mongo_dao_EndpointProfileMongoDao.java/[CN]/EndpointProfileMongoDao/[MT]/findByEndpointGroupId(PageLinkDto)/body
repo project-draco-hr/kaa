@@ -1,7 +1,6 @@
 {
   LOG.debug("Find endpoint profiles by endpoint group id [{}] ",pageLink.getEndpointGroupId());
   EndpointProfilesPageDto endpointProfilesPageDto=new EndpointProfilesPageDto();
-  String next=null;
   int lim=Integer.valueOf(pageLink.getLimit());
   List<MongoEndpointProfile> mongoEndpointProfileList=find(query(new Criteria().orOperator(where(EP_CF_GROUP_STATE + "." + ENDPOINT_GROUP_ID).is(pageLink.getEndpointGroupId()),where(EP_NF_GROUP_STATE + "." + ENDPOINT_GROUP_ID).is(pageLink.getEndpointGroupId()))).skip(Integer.parseInt(pageLink.getOffset())).limit(Integer.parseInt(pageLink.getLimit()) + 1));
   if (mongoEndpointProfileList.size() == (lim + 1)) {
@@ -10,9 +9,8 @@
     mongoEndpointProfileList.remove(lim);
   }
  else {
-    next=DaoConstants.LAST_PAGE_MESSAGE;
+    pageLink.setNext(DaoConstants.LAST_PAGE_MESSAGE);
   }
-  pageLink.setNext(next);
   endpointProfilesPageDto.setPageLinkDto(pageLink);
   endpointProfilesPageDto.setEndpointProfiles(convertDtoList(mongoEndpointProfileList));
   return endpointProfilesPageDto;
