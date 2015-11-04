@@ -1,9 +1,6 @@
 {
   LOG.info("Creating users...");
-  if (!kaaAdminCreated) {
-    client.createKaaAdmin(kaaAdminUser,kaaAdminPassword);
-    kaaAdminCreated=true;
-  }
+  client.createKaaAdmin(kaaAdminUser,kaaAdminPassword);
   loginKaaAdmin();
   if (createTenantAdminNeeded()) {
     tenantAdminDto=createTenant(tenantAdminUser);

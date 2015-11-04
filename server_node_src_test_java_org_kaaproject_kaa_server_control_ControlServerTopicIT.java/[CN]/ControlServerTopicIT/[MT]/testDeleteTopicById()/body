@@ -1,6 +1,6 @@
 {
   final TopicDto topic=createTopic(null,TopicTypeDto.MANDATORY);
-  LOGGER.debug("Created topic with id {}",topic.getId());
+  LOG.debug("Created topic with id {}",topic.getId());
   TopicDto foundTopic=client.getTopic(topic.getId());
   Assert.assertNotNull(foundTopic);
   Assert.assertEquals(topic,foundTopic);

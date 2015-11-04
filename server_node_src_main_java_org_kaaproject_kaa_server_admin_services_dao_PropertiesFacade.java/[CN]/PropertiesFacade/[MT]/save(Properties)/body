@@ -1,4 +1,4 @@
 {
-  em.persist(properties);
+  properties=(Properties)getSession().merge(properties);
   return properties.getId();
 }

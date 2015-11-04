@@ -11,9 +11,9 @@
     kaaNodeInstance=kaaNodeInitializationService;
     kaaNodeServerThread=new Thread(new Runnable(){
       @Override public void run(){
-        logger.info("Kaa Node Started.");
+        LOG.info("Kaa Node Started.");
         kaaNodeInstance.start();
-        logger.info("Kaa Node Stoped.");
+        LOG.info("Kaa Node Stoped.");
       }
     }
 );

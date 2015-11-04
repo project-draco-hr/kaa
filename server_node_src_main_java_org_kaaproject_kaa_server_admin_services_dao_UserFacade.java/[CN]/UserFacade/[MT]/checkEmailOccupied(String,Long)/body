@@ -1,18 +1,11 @@
 {
-  TypedQuery<User> query;
+  Criteria criteria=getCriteria();
+  Criterion mailCriterion=Restrictions.eq(MAIL_PROPERTY,mail);
   if (userId != null) {
-    query=em.createQuery("SELECT u FROM User u WHERE u.mail = :mail AND u.id != :userId",User.class);
-    query.setParameter("userId",userId);
+    criteria.add(Restrictions.and(mailCriterion,Restrictions.not(Restrictions.eq(ID_PROPERTY,userId))));
   }
  else {
-    query=em.createQuery("SELECT u FROM User u WHERE u.mail = :mail",User.class);
+    criteria.add(mailCriterion);
   }
-  query.setParameter("mail",mail);
-  List<User> resultList=query.getResultList();
-  if (!resultList.isEmpty()) {
-    return resultList.get(0);
-  }
- else {
-    return null;
-  }
+  return (User)criteria.uniqueResult();
 }

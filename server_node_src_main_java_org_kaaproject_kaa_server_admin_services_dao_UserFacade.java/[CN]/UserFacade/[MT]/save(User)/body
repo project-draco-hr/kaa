@@ -1,4 +1,4 @@
 {
-  em.persist(user);
+  user=(User)getSession().merge(user);
   return user.getId();
 }

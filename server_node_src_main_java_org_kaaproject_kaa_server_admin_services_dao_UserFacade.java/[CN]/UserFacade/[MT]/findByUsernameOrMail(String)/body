@@ -1,11 +1,7 @@
 {
-  TypedQuery<User> query=em.createQuery("SELECT u FROM User u WHERE u.username = :usernameOrMail" + " OR u.mail = :usernameOrMail",User.class);
-  query.setParameter("usernameOrMail",usernameOrMail);
-  List<User> resultList=query.getResultList();
-  if (!resultList.isEmpty()) {
-    return resultList.get(0);
-  }
- else {
-    return null;
-  }
+  Criteria criteria=getCriteria();
+  Criterion usernameCriterion=Restrictions.eq(USERNAME_PROPERTY,usernameOrMail);
+  Criterion mailCriterion=Restrictions.eq(MAIL_PROPERTY,usernameOrMail);
+  criteria.add(Restrictions.or(usernameCriterion,mailCriterion));
+  return (User)criteria.uniqueResult();
 }

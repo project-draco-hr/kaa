@@ -1,11 +1,5 @@
 {
-  TypedQuery<User> query=em.createQuery("SELECT u FROM User u WHERE u.passwordResetHash = :passwordResetHash",User.class);
-  query.setParameter("passwordResetHash",passwordResetHash);
-  List<User> resultList=query.getResultList();
-  if (!resultList.isEmpty()) {
-    return resultList.get(0);
-  }
- else {
-    return null;
-  }
+  Criteria criteria=getCriteria();
+  criteria.add(Restrictions.eq(PASSWORD_RESET_HASH_PROPERTY,passwordResetHash));
+  return (User)criteria.uniqueResult();
 }

@@ -3,7 +3,7 @@
   String groupId=group.getId();
   TopicDto topic=createTopic(group.getApplicationId(),TopicTypeDto.MANDATORY);
   String topicId=topic.getId();
-  LOGGER.debug("Created topic with id {}",topicId);
+  LOG.debug("Created topic with id {}",topicId);
   client.addTopicToEndpointGroup(group.getId(),topicId);
   EndpointGroupDto found=client.getEndpointGroup(groupId);
   Assert.assertNotNull(found);

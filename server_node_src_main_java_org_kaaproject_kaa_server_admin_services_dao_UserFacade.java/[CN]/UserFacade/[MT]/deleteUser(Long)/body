@@ -1,6 +1,6 @@
 {
-  User user=findById(id);
+  User user=findById(id,true);
   if (user != null) {
-    em.remove(user);
+    getSession().delete(user);
   }
 }

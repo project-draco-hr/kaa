@@ -1,18 +1,11 @@
 {
-  TypedQuery<User> query;
+  Criteria criteria=getCriteria();
+  Criterion usernameCriterion=Restrictions.eq(USERNAME_PROPERTY,userName);
   if (userId != null) {
-    query=em.createQuery("SELECT u FROM User u WHERE u.username = :username AND u.id != :userId",User.class);
-    query.setParameter("userId",userId);
+    criteria.add(Restrictions.and(usernameCriterion,Restrictions.not(Restrictions.eq(ID_PROPERTY,userId))));
   }
  else {
-    query=em.createQuery("SELECT u FROM User u WHERE u.username = :username",User.class);
+    criteria.add(usernameCriterion);
   }
-  query.setParameter("username",userName);
-  List<User> resultList=query.getResultList();
-  if (!resultList.isEmpty()) {
-    return resultList.get(0);
-  }
- else {
-    return null;
-  }
+  return (User)criteria.uniqueResult();
 }
