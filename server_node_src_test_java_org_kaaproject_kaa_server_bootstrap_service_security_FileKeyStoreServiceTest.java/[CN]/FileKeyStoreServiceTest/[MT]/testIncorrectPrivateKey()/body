@@ -1,0 +1,14 @@
+{
+  BootstrapFileKeyStoreService ks=new BootstrapFileKeyStoreService();
+  assertNotNull(ks);
+  ks.setPrivateKeyLocation(PRIVATE_KEY_LOCATION);
+  File pub=new File(privateKeyPath);
+  if (pub.exists()) {
+    pub.delete();
+  }
+  FileWriter privfw;
+  privfw=new FileWriter(pub);
+  privfw.write("ascasdca42314*&^*$@^#5$^&sdcasdc");
+  privfw.close();
+  ks.loadKeys();
+}

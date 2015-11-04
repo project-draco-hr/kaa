@@ -1,0 +1,7 @@
+{
+  when(response.headers().get(isA(CharSequence.class))).thenReturn(CONNECTION);
+  when(channelHandlerContext.writeAndFlush(response,promise)).thenReturn(future);
+  responseEncoder.write(channelHandlerContext,abstractCommand,promise);
+  verify(channelHandlerContext).writeAndFlush(response,promise);
+  verify(future).addListener(ChannelFutureListener.CLOSE);
+}

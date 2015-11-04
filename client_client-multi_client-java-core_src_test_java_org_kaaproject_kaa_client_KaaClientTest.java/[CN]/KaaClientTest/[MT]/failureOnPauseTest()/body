@@ -1,0 +1,8 @@
+{
+  client.start();
+  KaaClientState clientState=Mockito.mock(KaaClientState.class);
+  Mockito.doThrow(new RuntimeException()).when(clientState).persist();
+  ReflectionTestUtils.setField(client,"kaaClientState",clientState);
+  client.pause();
+  Mockito.verify(stateListener,Mockito.timeout(1000)).onPauseFailure(Mockito.any(KaaException.class));
+}

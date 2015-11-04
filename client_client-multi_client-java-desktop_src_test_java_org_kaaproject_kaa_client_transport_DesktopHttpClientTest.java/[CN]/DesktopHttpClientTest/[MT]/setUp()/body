@@ -1,0 +1,10 @@
+{
+  entities.put("entity1",new byte[]{1,2,3});
+  entities.put("entity2",new byte[]{53,1});
+  privateKey=mock(PrivateKey.class);
+  publicKey=mock(PublicKey.class);
+  remotePublicKey=mock(PublicKey.class);
+  when(privateKey.getEncoded()).thenReturn(new byte[]{1,2,3,4,5});
+  when(publicKey.getEncoded()).thenReturn(new byte[]{1,2,3,4,5,10});
+  when(remotePublicKey.getEncoded()).thenReturn(new byte[]{5,3,2,5,6,3,127});
+}

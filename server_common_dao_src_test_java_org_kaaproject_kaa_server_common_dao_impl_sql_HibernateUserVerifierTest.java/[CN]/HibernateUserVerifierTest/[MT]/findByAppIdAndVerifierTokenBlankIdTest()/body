@@ -1,0 +1,5 @@
+{
+  UserVerifier verifier=generateUserVerifier(null,null);
+  UserVerifier result=verifierDao.findByAppIdAndVerifierToken("",verifier.getVerifierToken());
+  Assert.assertNull(result);
+}

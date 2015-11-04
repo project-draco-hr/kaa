@@ -1,0 +1,5 @@
+{
+  List<ProfileFilterDto> filters=generateFilter(null,null,1,true);
+  ProfileFilterDto filterDto=filters.get(0);
+  ChangeProfileFilterNotification activated=profileService.activateProfileFilter(filterDto.getId(),null);
+}

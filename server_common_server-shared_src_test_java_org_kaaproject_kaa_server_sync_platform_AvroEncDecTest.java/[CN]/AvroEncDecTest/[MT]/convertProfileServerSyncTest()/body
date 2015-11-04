@@ -1,0 +1,8 @@
+{
+  AvroEncDec avroEncDec=new AvroEncDec();
+  Method method=AvroEncDec.class.getDeclaredMethod(CONVER_METHOD,ProfileServerSync.class);
+  method.setAccessible(true);
+  ProfileServerSync serverSync=null;
+  Assert.assertNull(method.invoke(avroEncDec,serverSync));
+  method.invoke(avroEncDec,new ProfileServerSync());
+}

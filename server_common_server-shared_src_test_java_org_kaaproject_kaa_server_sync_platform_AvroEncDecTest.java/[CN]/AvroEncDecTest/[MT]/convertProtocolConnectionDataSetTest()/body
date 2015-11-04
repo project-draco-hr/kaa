@@ -1,0 +1,8 @@
+{
+  AvroEncDec avroEncDec=new AvroEncDec();
+  Method method=AvroEncDec.class.getDeclaredMethod(CONVER_METHOD,Set.class);
+  method.setAccessible(true);
+  Set set=null;
+  Assert.assertEquals(Collections.emptyList(),method.invoke(avroEncDec,set));
+  method.invoke(avroEncDec,new HashSet<>());
+}

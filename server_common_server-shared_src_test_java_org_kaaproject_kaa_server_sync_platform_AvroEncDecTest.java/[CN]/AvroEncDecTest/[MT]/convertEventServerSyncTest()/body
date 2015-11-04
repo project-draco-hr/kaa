@@ -1,0 +1,8 @@
+{
+  AvroEncDec avroEncDec=new AvroEncDec();
+  Method method=AvroEncDec.class.getDeclaredMethod(CONVER_METHOD,EventServerSync.class);
+  method.setAccessible(true);
+  EventServerSync serverSync=null;
+  Assert.assertNull(method.invoke(avroEncDec,serverSync));
+  method.invoke(avroEncDec,new EventServerSync());
+}

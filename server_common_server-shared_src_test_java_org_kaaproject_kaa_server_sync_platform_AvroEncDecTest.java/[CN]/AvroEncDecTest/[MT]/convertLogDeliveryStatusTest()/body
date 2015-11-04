@@ -1,0 +1,8 @@
+{
+  AvroEncDec avroEncDec=new AvroEncDec();
+  Method method=AvroEncDec.class.getDeclaredMethod(CONVER_METHOD,LogDeliveryStatus.class);
+  method.setAccessible(true);
+  LogDeliveryStatus deliveryStatus=null;
+  Assert.assertNull(method.invoke(avroEncDec,deliveryStatus));
+  method.invoke(avroEncDec,new LogDeliveryStatus(1,SyncStatus.SUCCESS,null));
+}

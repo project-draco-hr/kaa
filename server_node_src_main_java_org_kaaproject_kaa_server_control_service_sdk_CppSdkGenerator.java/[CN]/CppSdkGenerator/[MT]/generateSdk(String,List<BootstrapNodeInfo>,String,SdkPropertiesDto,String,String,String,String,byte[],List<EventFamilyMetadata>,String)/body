@@ -20,10 +20,12 @@
   entry.setSize(data.length);
   TarEntryData tarEntry=new TarEntryData(entry,data);
   cppSources.add(tarEntry);
-  cppSources.addAll(processFeatureSchema(profileSchemaBody,PROFILE_SCHEMA_AVRO_SRC,PROFILE_DEFINITIONS_TEMPLATE,PROFILE_DEFINITIONS_PATH));
-  cppSources.addAll(processFeatureSchema(notificationSchemaBody,NOTIFICATION_SCHEMA_AVRO_SRC,NOTIFICATION_DEFINITIONS_TEMPLATE,NOTIFICATION_DEFINITIONS_PATH));
-  cppSources.addAll(processFeatureSchema(logSchemaBody,LOG_SCHEMA_AVRO_SRC,LOG_DEFINITIONS_TEMPLATE,LOG_DEFINITIONS_PATH));
-  cppSources.addAll(processFeatureSchema(configurationBaseSchema,CONFIGURATION_SCHEMA_AVRO_SRC,CONFIGURATION_DEFINITIONS_TEMPLATE,CONFIGURATION_DEFINITIONS_PATH));
+  Map<String,String> profileVars=new HashMap<String,String>();
+  profileVars.put(SDK_PROFILE_VERSION_VAR,profileSchemaVersion.toString());
+  cppSources.addAll(processFeatureSchema(profileSchemaBody,PROFILE_SCHEMA_AVRO_SRC,PROFILE_DEFINITIONS_TEMPLATE,PROFILE_DEFINITIONS_PATH,profileVars));
+  cppSources.addAll(processFeatureSchema(notificationSchemaBody,NOTIFICATION_SCHEMA_AVRO_SRC,NOTIFICATION_DEFINITIONS_TEMPLATE,NOTIFICATION_DEFINITIONS_PATH,null));
+  cppSources.addAll(processFeatureSchema(logSchemaBody,LOG_SCHEMA_AVRO_SRC,LOG_DEFINITIONS_TEMPLATE,LOG_DEFINITIONS_PATH,null));
+  cppSources.addAll(processFeatureSchema(configurationBaseSchema,CONFIGURATION_SCHEMA_AVRO_SRC,CONFIGURATION_DEFINITIONS_TEMPLATE,CONFIGURATION_DEFINITIONS_PATH,null));
   if (eventFamilies != null && !eventFamilies.isEmpty()) {
     cppSources.addAll(CppEventSourcesGenerator.generateEventSources(eventFamilies));
   }

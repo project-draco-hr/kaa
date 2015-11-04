@@ -1,0 +1,7 @@
+{
+  LogAppender appender=generateLogAppender(null);
+  Application app=appender.getApplication();
+  List<LogAppender> result=appenderDao.findByAppId(app.getId().toString());
+  System.out.println(result.get(0));
+  Assert.assertEquals(result.size(),1);
+}
