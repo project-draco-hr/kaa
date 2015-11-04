@@ -1,10 +1,10 @@
 {
-  HashCodeBuilder builder=new HashCodeBuilder();
+  List<Object> list=new ArrayList<Object>();
   boolean present_success=true && (isSetSuccess());
-  builder.append(present_success);
-  if (present_success)   builder.append(success);
+  list.add(present_success);
+  if (present_success)   list.add(success);
   boolean present_cliException=true && (isSetCliException());
-  builder.append(present_cliException);
-  if (present_cliException)   builder.append(cliException);
-  return builder.toHashCode();
+  list.add(present_cliException);
+  if (present_cliException)   list.add(cliException);
+  return list.hashCode();
 }

@@ -1,0 +1,9 @@
+{
+  final ApplicationEventFamilyMapDto applicationEventFamilyMap=createApplicationEventFamilyMap();
+  checkBadRequest(new TestRestCall(){
+    @Override public void executeRestCall() throws Exception {
+      client.editApplicationEventFamilyMap(applicationEventFamilyMap);
+    }
+  }
+);
+}

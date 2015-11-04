@@ -1,6 +1,0 @@
-{
-  TenantDto tenant=createTenant();
-  client.deleteTenant(tenant.getId());
-  TenantDto storedTenant=toDto(client.getTenant(tenant.getId()));
-  Assert.assertNull(storedTenant);
-}

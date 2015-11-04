@@ -1,0 +1,11 @@
+{
+  Criteria criteria=getCriteria();
+  Criterion mailCriterion=Restrictions.eq(MAIL_PROPERTY,mail);
+  if (userId != null) {
+    criteria.add(Restrictions.and(mailCriterion,Restrictions.not(Restrictions.eq(ID_PROPERTY,userId))));
+  }
+ else {
+    criteria.add(mailCriterion);
+  }
+  return (User)criteria.uniqueResult();
+}

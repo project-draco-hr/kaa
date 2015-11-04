@@ -1,0 +1,18 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    if (isEmpty(appender.getId())) {
+      appender.setCreatedUsername(getCurrentUser().getUsername());
+      checkApplicationId(appender.getApplicationId());
+    }
+ else {
+      LogAppenderDto storedlLogAppender=controlService.getLogAppender(appender.getId());
+      Utils.checkNotNull(storedlLogAppender);
+      checkApplicationId(storedlLogAppender.getApplicationId());
+    }
+    return controlService.editLogAppender(appender);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

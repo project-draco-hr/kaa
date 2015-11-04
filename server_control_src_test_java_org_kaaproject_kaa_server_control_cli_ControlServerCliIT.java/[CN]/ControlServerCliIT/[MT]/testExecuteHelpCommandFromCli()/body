@@ -1,8 +1,0 @@
-{
-  controlClientConnect();
-  ControlApiCliThriftClient cli=new ControlApiCliThriftClient();
-  int result=cli.processLine("help");
-  Assert.assertEquals(result,0);
-  String output=cliOut.toString("UTF-8");
-  Assert.assertTrue(output.trim().startsWith("Available Control Server API commands:"));
-}

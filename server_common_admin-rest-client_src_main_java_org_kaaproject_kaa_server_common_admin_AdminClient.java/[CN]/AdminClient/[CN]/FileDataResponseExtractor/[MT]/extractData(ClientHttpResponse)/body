@@ -1,6 +1,7 @@
 {
   String fileName="";
   String contentDisposition=response.getHeaders().getFirst("Content-Disposition");
+  String contentType=response.getHeaders().getFirst("Content-Type");
   if (StringUtils.isNotBlank(contentDisposition)) {
     Matcher m=fileNamePattern.matcher(contentDisposition);
     if (m.matches()) {
@@ -19,5 +20,8 @@
   FileData data=new FileData();
   data.setFileName(fileName);
   data.setFileData(baos.toByteArray());
+  if (contentType != null) {
+    data.setContentType(contentType);
+  }
   return data;
 }

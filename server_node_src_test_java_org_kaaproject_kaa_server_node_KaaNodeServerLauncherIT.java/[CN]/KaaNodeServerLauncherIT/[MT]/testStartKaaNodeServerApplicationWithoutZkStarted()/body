@@ -1,0 +1,38 @@
+{
+  TTransport transport=null;
+  Thread kaaNodeServerLauncherThread=null;
+  KaaNodeThriftService.Client client=null;
+  try {
+    kaaNodeServerLauncherThread=new Thread(new Runnable(){
+      @Override public void run(){
+        logger.info("Starting Kaa Node Server ...");
+        KaaNodeApplication.main(new String[]{"common-zk-test-context.xml","kaa-node-zk-test.properties"});
+        logger.info("Kaa Node Server Stopped");
+      }
+    }
+);
+    kaaNodeServerLauncherThread.start();
+    Thread.sleep(20000);
+    transport=new TSocket(HOST,PORT);
+    TProtocol protocol=new TBinaryProtocol(transport);
+    TMultiplexedProtocol mp=new TMultiplexedProtocol(protocol,KaaThriftService.KAA_NODE_SERVICE.getServiceName());
+    client=new KaaNodeThriftService.Client(mp);
+    transport.open();
+    client.shutdown();
+  }
+  finally {
+    if (transport != null && transport.isOpen()) {
+      try {
+        transport.close();
+      }
+ catch (      Exception e) {
+      }
+    }
+    if (kaaNodeServerLauncherThread != null) {
+      kaaNodeServerLauncherThread.join(10000);
+      if (kaaNodeServerLauncherThread.isAlive()) {
+        throw new TimeoutException("Timeout (10 sec) occured while waiting kaa node server shutdown thread!");
+      }
+    }
+  }
+}

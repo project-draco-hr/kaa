@@ -1,0 +1,10 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    checkApplicationId(applicationId);
+    return controlService.findNotificationSchemasByAppIdAndType(applicationId,NotificationTypeDto.USER);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

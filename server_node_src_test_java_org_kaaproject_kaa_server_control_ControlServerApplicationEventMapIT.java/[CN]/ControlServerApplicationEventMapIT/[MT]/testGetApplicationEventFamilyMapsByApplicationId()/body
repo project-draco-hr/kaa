@@ -1,0 +1,14 @@
+{
+  List<ApplicationEventFamilyMapDto> applicationEventFamilyMaps=new ArrayList<ApplicationEventFamilyMapDto>(10);
+  ApplicationDto application=createApplication(tenantAdminDto);
+  EventClassFamilyDto eventClassFamily=createEventClassFamily(application.getTenantId());
+  for (int i=0; i < 10; i++) {
+    ApplicationEventFamilyMapDto applicationEventFamilyMap=createApplicationEventFamilyMap(application.getId(),eventClassFamily.getId(),(i + 1));
+    applicationEventFamilyMaps.add(applicationEventFamilyMap);
+  }
+  Collections.sort(applicationEventFamilyMaps,new IdComparator());
+  loginTenantDeveloper(tenantDeveloperUser);
+  List<ApplicationEventFamilyMapDto> storedApplicationEventFamilyMaps=client.getApplicationEventFamilyMapsByApplicationId(application.getId());
+  Collections.sort(storedApplicationEventFamilyMaps,new IdComparator());
+  Assert.assertEquals(applicationEventFamilyMaps,storedApplicationEventFamilyMaps);
+}

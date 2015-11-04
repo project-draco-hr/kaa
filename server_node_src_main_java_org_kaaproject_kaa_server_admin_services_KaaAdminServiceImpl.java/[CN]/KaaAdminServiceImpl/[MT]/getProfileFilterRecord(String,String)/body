@@ -1,0 +1,13 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    checkSchemaId(schemaId);
+    checkEndpointGroupId(endpointGroupId);
+    StructureRecordDto<ProfileFilterDto> record=controlService.getProfileFilterRecord(schemaId,endpointGroupId);
+    Utils.checkNotNull(record);
+    return record;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

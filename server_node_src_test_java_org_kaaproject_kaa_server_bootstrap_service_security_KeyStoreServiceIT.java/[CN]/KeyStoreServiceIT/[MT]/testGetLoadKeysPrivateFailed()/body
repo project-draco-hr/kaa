@@ -1,0 +1,20 @@
+{
+  assertNotNull("FileKeyStore service created sucessfully",bootstrapKeyStoreService);
+  BootstrapFileKeyStoreService fs=(BootstrapFileKeyStoreService)bootstrapKeyStoreService;
+  String privFileName=fs.getPrivateKeyLocation();
+  File privFile=new File(privFileName);
+  if (privFile.exists() && privFile.canWrite()) {
+    privFile.delete();
+    try {
+      if (privFile.createNewFile()) {
+        fs.loadKeys();
+        fail("testGetLoadKeysPrivateFailed failed, Privatekey file was removed but stil can read key from it");
+      }
+    }
+ catch (    IOException e) {
+      fail("Failed test testGetLoadKeysPrivateFailed " + e.toString());
+    }
+catch (    RuntimeException re) {
+    }
+  }
+}

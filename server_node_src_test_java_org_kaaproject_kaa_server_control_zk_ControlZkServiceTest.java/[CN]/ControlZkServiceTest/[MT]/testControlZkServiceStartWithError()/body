@@ -1,0 +1,7 @@
+{
+  ControlZkService zkService=new ControlZkService();
+  KaaNodeServerConfig kaaNodeServerConfig=createKaaNodeServerConfig();
+  ReflectionTestUtils.setField(zkService,"kaaNodeServerConfig",kaaNodeServerConfig);
+  kaaNodeServerConfig.setZkIgnoreErrors(false);
+  zkService.start();
+}

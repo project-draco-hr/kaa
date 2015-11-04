@@ -1,0 +1,32 @@
+{
+  LOG.trace("Starting Bootstrap service..." + propertiesToString());
+  try {
+    LOG.trace("Bootstrap Service ZK started");
+    if (operationsServerListService == null) {
+      throw new Exception("Error initializing OperationsServerListService()");
+    }
+    bootstrapTransportService.lookupAndInit();
+    if (getNodeConfig().isZkEnabled()) {
+      startZK();
+      operationsServerListService.init(bootstrapNode);
+      bootstrapTransportService.addListener(new TransportUpdateListener(){
+        @Override public void onTransportsStarted(        List<TransportMetaData> mdList){
+          BootstrapNodeInfo info=bootstrapNode.getNodeInfo();
+          info.setTransports(mdList);
+          try {
+            bootstrapNode.updateNodeData(info);
+          }
+ catch (          IOException e) {
+            LOG.error("Failed to update bootstrap node info",e);
+          }
+        }
+      }
+);
+    }
+    bootstrapTransportService.start();
+    LOG.info("Bootstrap Service Started.");
+  }
+ catch (  Exception e) {
+    LOG.error("Error starting Bootstrap Service",e);
+  }
+}

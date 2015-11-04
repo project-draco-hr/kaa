@@ -1,0 +1,10 @@
+{
+  KaaNodeInitializationService kaaNodeInitializationService=kaaNodeInitializationServiceSpy();
+  TThreadPoolServer server=Mockito.mock(TThreadPoolServer.class);
+  Mockito.doNothing().when(server).serve();
+  Mockito.doReturn(server).when(kaaNodeInitializationService).createServer(Mockito.any(TServerTransport.class),Mockito.any(TMultiplexedProcessor.class));
+  kaaNodeInitializationService.start();
+  Mockito.verify(controlInitializationService).start();
+  Mockito.verify(bootstrapInitializationService).start();
+  Mockito.verify(operationsInitializationService).start();
+}

@@ -1,0 +1,12 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  List<SchemaDto> logSchemaVersions=Collections.emptyList();
+  try {
+    checkApplicationId(applicationId);
+    logSchemaVersions=controlService.getLogSchemaVersionsByApplicationId(applicationId);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+  return logSchemaVersions;
+}

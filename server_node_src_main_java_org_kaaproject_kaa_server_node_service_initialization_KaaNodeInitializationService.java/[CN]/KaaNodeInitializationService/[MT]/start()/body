@@ -1,0 +1,27 @@
+{
+  final CountDownLatch thriftStartupLatch=new CountDownLatch(1);
+  final CountDownLatch thriftShutdownLatch=new CountDownLatch(1);
+  startThrift(thriftStartupLatch,thriftShutdownLatch);
+  try {
+    thriftStartupLatch.await();
+  }
+ catch (  InterruptedException e) {
+    LOG.error("Interrupted while waiting for thrift to start...",e);
+  }
+  if (getNodeConfig().isControlServerEnabled()) {
+    controlInitializationService.start();
+  }
+  if (getNodeConfig().isBootstrapServerEnabled()) {
+    bootstrapInitializationService.start();
+  }
+  if (getNodeConfig().isOperationsServerEnabled()) {
+    operationsInitializationService.start();
+  }
+  LOG.info("Kaa Node Server Started.");
+  try {
+    thriftShutdownLatch.await();
+  }
+ catch (  InterruptedException e) {
+    LOG.error("Interrupted while waiting for thrift to stop...",e);
+  }
+}

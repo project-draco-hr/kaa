@@ -1,0 +1,8 @@
+{
+  adminInitializationService.stop();
+  if (getNodeConfig().isZkEnabled()) {
+    loadMgmtService.shutdown();
+    controlZkService.stop();
+  }
+  LOG.info("Control Service Stopped.");
+}

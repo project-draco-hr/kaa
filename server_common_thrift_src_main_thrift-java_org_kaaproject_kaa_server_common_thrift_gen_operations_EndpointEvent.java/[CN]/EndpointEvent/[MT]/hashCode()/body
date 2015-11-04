@@ -1,19 +1,19 @@
 {
-  HashCodeBuilder builder=new HashCodeBuilder();
+  List<Object> list=new ArrayList<Object>();
   boolean present_uuid=true && (isSetUuid());
-  builder.append(present_uuid);
-  if (present_uuid)   builder.append(uuid);
+  list.add(present_uuid);
+  if (present_uuid)   list.add(uuid);
   boolean present_sender=true && (isSetSender());
-  builder.append(present_sender);
-  if (present_sender)   builder.append(sender);
+  list.add(present_sender);
+  if (present_sender)   list.add(sender);
   boolean present_eventData=true && (isSetEventData());
-  builder.append(present_eventData);
-  if (present_eventData)   builder.append(eventData);
+  list.add(present_eventData);
+  if (present_eventData)   list.add(eventData);
   boolean present_createTime=true;
-  builder.append(present_createTime);
-  if (present_createTime)   builder.append(createTime);
+  list.add(present_createTime);
+  if (present_createTime)   list.add(createTime);
   boolean present_version=true;
-  builder.append(present_version);
-  if (present_version)   builder.append(version);
-  return builder.toHashCode();
+  list.add(present_version);
+  if (present_version)   list.add(version);
+  return list.hashCode();
 }

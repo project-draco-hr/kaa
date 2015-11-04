@@ -1,0 +1,35 @@
+{
+  ConfigurationDto configuration=new ConfigurationDto();
+  String config=getResourceAsString(TEST_CONFIGURATION);
+  configuration.setStatus(UpdateStatus.INACTIVE);
+  if (strIsEmpty(applicationId)) {
+    ApplicationDto application=createApplication(tenantAdminDto);
+    configuration.setApplicationId(application.getId());
+    applicationId=application.getId();
+  }
+ else {
+    configuration.setApplicationId(applicationId);
+  }
+  ConfigurationSchemaDto configSchema=null;
+  if (strIsEmpty(configurationSchemaId)) {
+    configSchema=createConfigurationSchema(applicationId);
+    configuration.setSchemaId(configSchema.getId());
+  }
+ else {
+    loginTenantDeveloper(tenantDeveloperDto.getUsername());
+    configuration.setSchemaId(configurationSchemaId);
+    configSchema=client.getConfigurationSchema(configurationSchemaId);
+  }
+  if (strIsEmpty(endpointGroupId)) {
+    EndpointGroupDto endpointGroup=createEndpointGroup(applicationId);
+    configuration.setEndpointGroupId(endpointGroup.getId());
+  }
+ else {
+    configuration.setEndpointGroupId(endpointGroupId);
+  }
+  GenericAvroConverter converter=new GenericAvroConverter(configSchema.getOverrideSchema());
+  configuration.setBody(converter.encodeToJson(converter.decodeJson(config)));
+  loginTenantDeveloper(tenantDeveloperDto.getUsername());
+  ConfigurationDto savedConfiguration=client.editConfiguration(configuration);
+  return savedConfiguration;
+}

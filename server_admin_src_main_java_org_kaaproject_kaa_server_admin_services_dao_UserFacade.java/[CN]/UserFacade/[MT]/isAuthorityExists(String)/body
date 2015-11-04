@@ -1,6 +1,0 @@
-{
-  TypedQuery<Authority> query=em.createQuery("SELECT a FROM Authority a WHERE a.authority = :authority",Authority.class);
-  query.setParameter("authority",authority);
-  List<Authority> resultList=query.getResultList();
-  return !resultList.isEmpty();
-}

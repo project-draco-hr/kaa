@@ -1,0 +1,7 @@
+{
+  ParameterizedTypeReference<List<ProfileFilterRecordDto>> typeRef=new ParameterizedTypeReference<List<ProfileFilterRecordDto>>(){
+  }
+;
+  ResponseEntity<List<ProfileFilterRecordDto>> entity=restTemplate.exchange(url + "profileFilterRecords?endpointGroupId={endpointGroupId}&includeDeprecated={includeDeprecated}",HttpMethod.GET,null,typeRef,endpointGroupId,includeDeprecated);
+  return entity.getBody();
+}

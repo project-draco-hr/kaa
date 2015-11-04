@@ -1,0 +1,10 @@
+{
+  EndpointGroupDto group=createEndpointGroup();
+  TopicDto topic=createTopic(group.getApplicationId(),TopicTypeDto.MANDATORY);
+  LOG.debug("Created topic with id {}",topic.getId());
+  client.addTopicToEndpointGroup(group.getId(),topic.getId());
+  List<TopicDto> storedTopic=client.getTopicsByEndpointGroupId(group.getId());
+  Assert.assertNotNull(storedTopic);
+  Assert.assertFalse(storedTopic.isEmpty());
+  Assert.assertEquals(topic,storedTopic.get(0));
+}

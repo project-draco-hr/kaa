@@ -1,0 +1,6 @@
+{
+  MultiValueMap<String,Object> params=new LinkedMultiValueMap<>();
+  params.add("endpointGroupId",endpointGroupId);
+  params.add("topicId",topicId);
+  restTemplate.postForObject(url + "removeTopicFromEpGroup",params,Void.class);
+}
