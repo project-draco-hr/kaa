@@ -1,0 +1,10 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    checkApplicationToken(endpointUserConfiguration.getAppToken());
+    controlService.editUserConfiguration(endpointUserConfiguration);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

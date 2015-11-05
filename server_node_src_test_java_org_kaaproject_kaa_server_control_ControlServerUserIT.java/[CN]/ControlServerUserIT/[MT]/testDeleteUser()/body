@@ -1,0 +1,10 @@
+{
+  final UserDto user=createUser(KaaAuthorityDto.TENANT_DEVELOPER);
+  client.deleteUser(user.getId());
+  checkNotFound(new TestRestCall(){
+    @Override public void executeRestCall() throws Exception {
+      client.getUser(user.getId());
+    }
+  }
+);
+}

@@ -1,0 +1,15 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_ADMIN);
+  try {
+    List<UserDto> users=controlService.getTenantUsers(getTenantId());
+    List<org.kaaproject.kaa.common.dto.admin.UserDto> tenantUsers=new ArrayList<>(users.size());
+    for (    UserDto user : users) {
+      org.kaaproject.kaa.common.dto.admin.UserDto tenantUser=toUser(user);
+      tenantUsers.add(tenantUser);
+    }
+    return tenantUsers;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

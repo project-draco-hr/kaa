@@ -1,6 +1,3 @@
 {
-  MultiValueMap<String,Object> params=new LinkedMultiValueMap<>();
-  params.add("logSchema",logSchema);
-  params.add("file",getFileResource(schemaResource));
-  return restTemplate.postForObject(url + "logSchema",params,LogSchemaDto.class);
+  return createLogSchema(logSchema,getFileResource(schemaResource));
 }

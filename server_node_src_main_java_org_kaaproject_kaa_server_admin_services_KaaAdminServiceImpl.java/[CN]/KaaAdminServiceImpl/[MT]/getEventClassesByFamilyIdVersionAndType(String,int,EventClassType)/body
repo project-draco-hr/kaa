@@ -1,0 +1,13 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_ADMIN,KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    checkEventClassFamilyId(eventClassFamilyId);
+    EventClassFamilyDto storedEventClassFamily=controlService.getEventClassFamily(eventClassFamilyId);
+    Utils.checkNotNull(storedEventClassFamily);
+    checkTenantId(storedEventClassFamily.getTenantId());
+    return controlService.getEventClassesByFamilyIdVersionAndType(eventClassFamilyId,version,type);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

@@ -1,0 +1,5 @@
+{
+  MultiValueMap<String,Object> params=new LinkedMultiValueMap<>();
+  params.add("logAppenderId",logAppenderId);
+  restTemplate.postForLocation(url + "delLogAppender",params);
+}

@@ -1,0 +1,5 @@
+{
+  Criteria criteria=getCriteria();
+  criteria.add(Restrictions.eq(PASSWORD_RESET_HASH_PROPERTY,passwordResetHash));
+  return (User)criteria.uniqueResult();
+}

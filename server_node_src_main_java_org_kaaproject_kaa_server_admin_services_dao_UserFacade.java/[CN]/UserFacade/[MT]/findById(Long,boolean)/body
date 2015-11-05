@@ -1,0 +1,8 @@
+{
+  if (lazy) {
+    return (User)getSession().load(User.class,id);
+  }
+ else {
+    return (User)getSession().get(User.class,id);
+  }
+}

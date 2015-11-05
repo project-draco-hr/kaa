@@ -1,0 +1,14 @@
+{
+  try {
+    KaaRestPluginConfigSchema record=new KaaRestPluginConfigSchema();
+    record.host=fieldSetFlags()[0] ? this.host : (java.lang.String)defaultValue(fields()[0]);
+    record.port=fieldSetFlags()[1] ? this.port : (java.lang.Integer)defaultValue(fields()[1]);
+    record.httpSchema=fieldSetFlags()[2] ? this.httpSchema : (org.kaaproject.kaa.server.plugin.rest.gen.HttpSchemaType)defaultValue(fields()[2]);
+    record.keyStoreFileName=fieldSetFlags()[3] ? this.keyStoreFileName : (java.lang.String)defaultValue(fields()[3]);
+    record.keyStorePass=fieldSetFlags()[4] ? this.keyStorePass : (java.lang.String)defaultValue(fields()[4]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

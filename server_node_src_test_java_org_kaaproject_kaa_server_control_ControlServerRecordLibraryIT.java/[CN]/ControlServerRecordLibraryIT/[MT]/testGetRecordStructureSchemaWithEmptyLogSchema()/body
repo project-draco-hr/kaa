@@ -1,0 +1,10 @@
+{
+  final ApplicationDto application=createApplication(tenantAdminDto);
+  loginTenantDeveloper(tenantDeveloperUser);
+  checkNotFound(new TestRestCall(){
+    @Override public void executeRestCall() throws Exception {
+      client.downloadLogRecordSchema(new RecordKey(application.getId(),0));
+    }
+  }
+);
+}

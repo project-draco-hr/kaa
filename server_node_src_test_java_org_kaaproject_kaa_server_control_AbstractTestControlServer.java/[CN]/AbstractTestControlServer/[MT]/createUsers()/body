@@ -1,0 +1,13 @@
+{
+  LOG.info("Creating users...");
+  client.createKaaAdmin(kaaAdminUser,kaaAdminPassword);
+  loginKaaAdmin();
+  if (createTenantAdminNeeded()) {
+    tenantAdminDto=createTenant(tenantAdminUser);
+    loginTenantAdmin(tenantAdminUser);
+    if (createTenantDeveloperNeeded()) {
+      tenantDeveloperDto=createTenantDeveloper(tenantDeveloperUser);
+      loginTenantDeveloper(tenantDeveloperUser);
+    }
+  }
+}

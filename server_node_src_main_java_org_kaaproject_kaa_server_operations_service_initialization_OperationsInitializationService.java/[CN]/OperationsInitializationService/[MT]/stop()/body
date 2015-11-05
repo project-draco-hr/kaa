@@ -1,0 +1,18 @@
+{
+  if (eventService != null) {
+    eventService.shutdown();
+  }
+  if (loadBalancingService != null && getNodeConfig().isZkEnabled()) {
+    loadBalancingService.stop();
+  }
+  if (operationsTransportService != null) {
+    operationsTransportService.stop();
+  }
+  if (akkaService != null) {
+    akkaService.getActorSystem().shutdown();
+  }
+  if (getNodeConfig().isZkEnabled()) {
+    stopZK();
+  }
+  LOG.info("Operations Service Stopped.");
+}

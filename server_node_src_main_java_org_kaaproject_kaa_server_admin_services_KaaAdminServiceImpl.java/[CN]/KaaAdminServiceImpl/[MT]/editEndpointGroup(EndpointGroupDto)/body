@@ -1,0 +1,16 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    if (isEmpty(endpointGroup.getId())) {
+      endpointGroup.setCreatedUsername(getCurrentUser().getUsername());
+      checkApplicationId(endpointGroup.getApplicationId());
+    }
+ else {
+      checkEndpointGroupId(endpointGroup.getId());
+    }
+    return controlService.editEndpointGroup(endpointGroup);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

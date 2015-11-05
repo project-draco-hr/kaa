@@ -1,0 +1,13 @@
+{
+  ControlInitializationService controlInitializationService=Mockito.spy(new ControlInitializationService());
+  KaaNodeServerConfig kaaNodeServerConfig=new KaaNodeServerConfig();
+  kaaNodeServerConfig.setZkEnabled(true);
+  ReflectionTestUtils.setField(controlInitializationService,"kaaNodeServerConfig",kaaNodeServerConfig);
+  zkService=Mockito.mock(ControlZkService.class);
+  loadMgmtService=Mockito.mock(LoadDistributionService.class);
+  adminInitializationService=Mockito.mock(AdminInitializationService.class);
+  ReflectionTestUtils.setField(controlInitializationService,"controlZkService",zkService);
+  ReflectionTestUtils.setField(controlInitializationService,"loadMgmtService",loadMgmtService);
+  ReflectionTestUtils.setField(controlInitializationService,"adminInitializationService",adminInitializationService);
+  return controlInitializationService;
+}

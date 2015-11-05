@@ -1,0 +1,13 @@
+{
+  LOG.info("Received shutdown command.");
+  Runnable shutdownCommmand=new Runnable(){
+    @Override public void run(){
+      LOG.info("Stopping Kaa Node Server Application...");
+      kaaNodeInitializationService.stop();
+    }
+  }
+;
+  Thread shutdownThread=new Thread(shutdownCommmand);
+  shutdownThread.setName("Kaa Node Server Shutdown Thread");
+  shutdownThread.start();
+}

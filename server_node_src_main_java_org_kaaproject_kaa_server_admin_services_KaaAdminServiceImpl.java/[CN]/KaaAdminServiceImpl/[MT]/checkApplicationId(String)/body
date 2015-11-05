@@ -1,0 +1,13 @@
+{
+  try {
+    if (isEmpty(applicationId)) {
+      throw new IllegalArgumentException("The applicationId parameter is empty.");
+    }
+    ApplicationDto application=controlService.getApplication(applicationId);
+    checkApplication(application);
+    return application;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

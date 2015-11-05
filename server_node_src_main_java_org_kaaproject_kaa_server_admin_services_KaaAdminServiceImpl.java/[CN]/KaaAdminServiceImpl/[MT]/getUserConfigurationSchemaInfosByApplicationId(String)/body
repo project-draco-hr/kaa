@@ -1,0 +1,19 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    checkApplicationId(applicationId);
+    List<ConfigurationSchemaDto> configurationSchemas=controlService.getConfigurationSchemasByApplicationId(applicationId);
+    List<SchemaInfoDto> schemaInfos=new ArrayList<>(configurationSchemas.size());
+    for (    ConfigurationSchemaDto configurationSchema : configurationSchemas) {
+      SchemaInfoDto schemaInfo=new SchemaInfoDto(configurationSchema);
+      Schema schema=new Schema.Parser().parse(configurationSchema.getOverrideSchema());
+      RecordField schemaForm=FormAvroConverter.createRecordFieldFromSchema(schema);
+      schemaInfo.setSchemaForm(schemaForm);
+      schemaInfos.add(schemaInfo);
+    }
+    return schemaInfos;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

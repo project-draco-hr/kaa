@@ -1,0 +1,5 @@
+{
+  LogSchemaDto logSchemaDto=createLogSchema();
+  LogSchemaDto found=client.getLogSchema(logSchemaDto.getId());
+  Assert.assertEquals(logSchemaDto,found);
+}

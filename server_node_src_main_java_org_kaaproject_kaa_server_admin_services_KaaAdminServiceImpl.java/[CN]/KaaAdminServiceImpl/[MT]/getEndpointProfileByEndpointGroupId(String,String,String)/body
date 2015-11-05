@@ -1,0 +1,21 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    if (Integer.valueOf(limit) > MAX_LIMIT) {
+      throw new IllegalArgumentException("Incorrect limit parameter. You must enter value not more than " + MAX_LIMIT);
+    }
+    EndpointGroupDto endpointGroupDto=getEndpointGroup(endpointGroupId);
+    PageLinkDto pageLinkDto=new PageLinkDto(endpointGroupId,limit,offset);
+    if (endpointGroupDto.isGroupAll()) {
+      pageLinkDto.setApplicationId(endpointGroupDto.getApplicationId());
+    }
+    EndpointProfilesPageDto endpointProfilesPage=controlService.getEndpointProfileByEndpointGroupId(pageLinkDto);
+    if (endpointProfilesPage.getEndpointProfiles() == null || !endpointProfilesPage.hasEndpointProfiles()) {
+      throw new KaaAdminServiceException("Requested item was not found!",ServiceErrorCode.ITEM_NOT_FOUND);
+    }
+    return endpointProfilesPage;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

@@ -1,0 +1,15 @@
+{
+  ProfileSchemaDto profileSchema=new ProfileSchemaDto();
+  profileSchema.setName(generateString("Test Schema"));
+  profileSchema.setDescription(generateString("Test Desc"));
+  if (strIsEmpty(applicationId)) {
+    ApplicationDto application=createApplication(tenantAdminDto);
+    profileSchema.setApplicationId(application.getId());
+  }
+ else {
+    profileSchema.setApplicationId(applicationId);
+  }
+  loginTenantDeveloper(tenantDeveloperDto.getUsername());
+  ProfileSchemaDto savedProfileSchema=client.createProfileSchema(profileSchema,TEST_PROFILE_SCHEMA);
+  return savedProfileSchema;
+}

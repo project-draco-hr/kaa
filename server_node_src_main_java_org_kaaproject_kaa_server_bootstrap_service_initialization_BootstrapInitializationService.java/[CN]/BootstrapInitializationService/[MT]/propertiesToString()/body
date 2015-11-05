@@ -1,0 +1,12 @@
+{
+  StringBuffer sb=new StringBuffer();
+  sb.append("\nProperties: \n");
+  sb.append("thriftHost: " + getNodeConfig().getThriftHost() + "\n");
+  sb.append("thriftPort: " + getNodeConfig().getThriftPort() + "\n");
+  sb.append("zkEnabled: " + getNodeConfig().isZkEnabled() + "\n");
+  sb.append("zkHostPortList: " + getNodeConfig().getZkHostPortList() + "\n");
+  sb.append("zkMaxRetryTime: " + getNodeConfig().getZkMaxRetryTime() + "\n");
+  sb.append("zkSleepTime: " + getNodeConfig().getZkSleepTime() + "\n");
+  sb.append("zkIgnoreErrors: " + getNodeConfig().isZkIgnoreErrors() + "\n");
+  return sb.toString();
+}

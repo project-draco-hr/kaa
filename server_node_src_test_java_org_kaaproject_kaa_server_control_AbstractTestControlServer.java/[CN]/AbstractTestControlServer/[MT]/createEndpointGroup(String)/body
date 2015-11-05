@@ -1,0 +1,15 @@
+{
+  EndpointGroupDto endpointGroup=new EndpointGroupDto();
+  endpointGroup.setName(generateString(ENDPOINT_GROUP));
+  endpointGroup.setWeight(random.nextInt());
+  if (strIsEmpty(applicationId)) {
+    ApplicationDto application=createApplication(tenantAdminDto);
+    endpointGroup.setApplicationId(application.getId());
+  }
+ else {
+    endpointGroup.setApplicationId(applicationId);
+  }
+  loginTenantDeveloper(tenantDeveloperDto.getUsername());
+  EndpointGroupDto savedEndpointGroup=client.editEndpointGroup(endpointGroup);
+  return savedEndpointGroup;
+}

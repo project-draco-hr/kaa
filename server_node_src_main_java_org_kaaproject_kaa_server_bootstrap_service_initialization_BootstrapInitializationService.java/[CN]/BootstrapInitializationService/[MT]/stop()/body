@@ -1,0 +1,10 @@
+{
+  LOG.trace("Stopping Bootstrap Service..." + propertiesToString());
+  if (getNodeConfig().isZkEnabled()) {
+    stopZK();
+  }
+  if (bootstrapTransportService != null) {
+    bootstrapTransportService.stop();
+  }
+  LOG.info("Bootstrap Service Stopped.");
+}

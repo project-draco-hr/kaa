@@ -1,0 +1,28 @@
+{
+  final Schema recordWrapperSchema=RecordWrapperSchemaGenerator.generateRecordWrapperSchema(logSchema);
+  Map<String,Schema> uniqueSchemas=SchemaUtil.getUniqueSchemasMap(Arrays.asList(recordWrapperSchema));
+  List<JavaDynamicBean> javaSources=JavaSdkGenerator.generateSchemaSources(recordWrapperSchema,uniqueSchemas);
+  ByteArrayOutputStream libraryOutput=new ByteArrayOutputStream();
+  ZipOutputStream libraryFile=new ZipOutputStream(libraryOutput);
+  JavaDynamicCompiler dynamicCompiler=new JavaDynamicCompiler();
+  dynamicCompiler.init();
+  for (  JavaDynamicBean bean : javaSources) {
+    LOG.debug("Compiling bean {} with source: {}",bean.getName(),bean.getCharContent(true));
+  }
+  Collection<JavaDynamicBean> compiledObjects=dynamicCompiler.compile(javaSources);
+  for (  JavaDynamicBean compiledObject : compiledObjects) {
+    String className=compiledObject.getName();
+    String classFileName=className.replace('.','/') + Kind.CLASS.extension;
+    ZipEntry classFile=new ZipEntry(classFileName);
+    libraryFile.putNextEntry(classFile);
+    libraryFile.write(compiledObject.getBytes());
+    libraryFile.closeEntry();
+  }
+  libraryFile.close();
+  String libraryFileName=MessageFormatter.arrayFormat(LIBRARY_NAME_PATTERN,new Object[]{logSchemaVersion}).getMessage();
+  byte[] libraryData=libraryOutput.toByteArray();
+  FileData library=new FileData();
+  library.setFileName(libraryFileName);
+  library.setFileData(libraryData);
+  return library;
+}

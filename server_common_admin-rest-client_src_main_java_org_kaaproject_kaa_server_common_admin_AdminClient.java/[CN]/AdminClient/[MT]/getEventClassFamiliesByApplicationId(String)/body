@@ -1,0 +1,7 @@
+{
+  ParameterizedTypeReference<List<AefMapInfoDto>> typeRef=new ParameterizedTypeReference<List<AefMapInfoDto>>(){
+  }
+;
+  ResponseEntity<List<AefMapInfoDto>> entity=restTemplate.exchange(url + "eventClassFamilies/" + applicationId,HttpMethod.GET,null,typeRef);
+  return entity.getBody();
+}

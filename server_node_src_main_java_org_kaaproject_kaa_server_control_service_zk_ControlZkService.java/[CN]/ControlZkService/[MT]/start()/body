@@ -1,0 +1,20 @@
+{
+  if (getNodeConfig().isZkEnabled()) {
+    ControlNodeInfo nodeInfo=new ControlNodeInfo();
+    ConnectionInfo connectionInfo=new ConnectionInfo(getNodeConfig().getThriftHost(),getNodeConfig().getThriftPort(),null);
+    nodeInfo.setConnectionInfo(connectionInfo);
+    controlZKNode=new ControlNode(nodeInfo,getNodeConfig().getZkHostPortList(),60 * 1000,3 * 1000,new RetryUntilElapsed(getNodeConfig().getZkMaxRetryTime(),getNodeConfig().getZkSleepTime()));
+    try {
+      controlZKNode.start();
+    }
+ catch (    Exception e) {
+      if (getNodeConfig().isZkIgnoreErrors()) {
+        LOG.info("Failed to register control in ZooKeeper",e);
+      }
+ else {
+        LOG.error("Failed to register control in ZooKeeper",e);
+        throw new RuntimeException(e);
+      }
+    }
+  }
+}

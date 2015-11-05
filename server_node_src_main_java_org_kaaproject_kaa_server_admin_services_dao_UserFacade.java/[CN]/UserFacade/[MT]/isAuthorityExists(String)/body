@@ -1,0 +1,6 @@
+{
+  Criteria criteria=getSession().createCriteria(Authority.class);
+  criteria.add(Restrictions.eq(AUTHORITY_PROPERTY,authority));
+  List<Authority> resultList=criteria.list();
+  return !resultList.isEmpty();
+}

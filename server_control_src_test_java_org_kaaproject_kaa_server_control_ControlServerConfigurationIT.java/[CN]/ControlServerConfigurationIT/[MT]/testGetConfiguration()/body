@@ -1,6 +1,0 @@
-{
-  ConfigurationDto configuration=createConfiguration();
-  ConfigurationDto storedConfiguration=toDto(client.getConfiguration(configuration.getId()));
-  Assert.assertNotNull(storedConfiguration);
-  assertConfigurationsEquals(configuration,storedConfiguration);
-}
