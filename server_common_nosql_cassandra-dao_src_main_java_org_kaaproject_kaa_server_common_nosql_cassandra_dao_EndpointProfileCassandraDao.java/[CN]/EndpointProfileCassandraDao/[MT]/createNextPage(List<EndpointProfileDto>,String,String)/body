@@ -6,7 +6,7 @@
   if (cassandraEndpointProfileList.size() == (lim + 1)) {
     pageLinkDto.setEndpointGroupId(endpointGroupId);
     pageLinkDto.setLimit(limit);
-    pageLinkDto.setOffset(Base64.encodeBase64String(cassandraEndpointProfileList.get(lim).getEndpointKeyHash()));
+    pageLinkDto.setOffset(Base64.encodeBase64URLSafeString(cassandraEndpointProfileList.get(lim).getEndpointKeyHash()));
     cassandraEndpointProfileList.remove(lim);
     next=null;
   }

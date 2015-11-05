@@ -1,6 +1,8 @@
 {
   if (!thriftServerStarted) {
-    CliThriftService.Processor<CliThriftService.Iface> processor=new CliThriftService.Processor<CliThriftService.Iface>(new TestCliThriftService(THRIFT_SERVER_SHORT_NAME));
+    CliThriftService.Processor<CliThriftService.Iface> cliProcessor=new CliThriftService.Processor<CliThriftService.Iface>(new TestCliThriftService(THRIFT_SERVER_SHORT_NAME));
+    TMultiplexedProcessor processor=new TMultiplexedProcessor();
+    processor.registerProcessor(KaaThriftService.KAA_NODE_SERVICE.getServiceName(),cliProcessor);
     TServerTransport serverTransport=new TServerSocket(new InetSocketAddress(HOST,PORT));
     server=new TThreadPoolServer(new Args(serverTransport).processor(processor));
     thriftServerThread=new Thread(new Runnable(){

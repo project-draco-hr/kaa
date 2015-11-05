@@ -1,0 +1,14 @@
+{
+  final TopicDto topic=createTopic(null,TopicTypeDto.MANDATORY);
+  LOG.debug("Created topic with id {}",topic.getId());
+  TopicDto foundTopic=client.getTopic(topic.getId());
+  Assert.assertNotNull(foundTopic);
+  Assert.assertEquals(topic,foundTopic);
+  client.deleteTopic(topic.getId());
+  checkNotFound(new TestRestCall(){
+    @Override public void executeRestCall() throws Exception {
+      client.getTopic(topic.getId());
+    }
+  }
+);
+}

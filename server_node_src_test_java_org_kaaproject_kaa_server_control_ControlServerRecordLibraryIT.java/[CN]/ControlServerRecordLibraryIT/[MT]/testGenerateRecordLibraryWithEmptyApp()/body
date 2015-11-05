@@ -1,0 +1,9 @@
+{
+  loginTenantDeveloper(tenantDeveloperUser);
+  checkNotFound(new TestRestCall(){
+    @Override public void executeRestCall() throws Exception {
+      client.downloadLogRecordLibrary(new RecordKey("0",0));
+    }
+  }
+);
+}

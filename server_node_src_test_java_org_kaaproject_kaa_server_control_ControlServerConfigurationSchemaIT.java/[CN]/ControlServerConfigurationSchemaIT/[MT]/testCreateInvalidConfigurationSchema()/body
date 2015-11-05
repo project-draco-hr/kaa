@@ -1,0 +1,13 @@
+{
+  final ConfigurationSchemaDto configurationSchema=new ConfigurationSchemaDto();
+  configurationSchema.setStatus(UpdateStatus.ACTIVE);
+  ApplicationDto application=createApplication(tenantAdminDto);
+  configurationSchema.setApplicationId(application.getId());
+  loginTenantDeveloper(tenantDeveloperDto.getUsername());
+  checkBadRequest(new TestRestCall(){
+    @Override public void executeRestCall() throws Exception {
+      client.createConfigurationSchema(configurationSchema,TEST_INVALID_CONFIG_SCHEMA);
+    }
+  }
+);
+}

@@ -1,7 +1,8 @@
 {
   transport=new TSocket(host,port);
   TProtocol protocol=new TBinaryProtocol(transport);
-  client=new CliClient(protocol);
+  TMultiplexedProtocol mp=new TMultiplexedProtocol(protocol,KaaThriftService.KAA_NODE_SERVICE.getServiceName());
+  client=new CliClient(mp);
   transport.open();
   remoteServerName=client.serverName();
   remoteMode=true;

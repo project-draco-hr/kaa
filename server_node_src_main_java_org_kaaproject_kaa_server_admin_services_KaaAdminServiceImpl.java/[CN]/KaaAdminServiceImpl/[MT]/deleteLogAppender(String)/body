@@ -1,0 +1,15 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    if (isEmpty(appenderId)) {
+      throw new IllegalArgumentException("The appenderId parameter is empty.");
+    }
+    LogAppenderDto logAppender=controlService.getLogAppender(appenderId);
+    Utils.checkNotNull(logAppender);
+    checkApplicationId(logAppender.getApplicationId());
+    controlService.deleteLogAppender(appenderId);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

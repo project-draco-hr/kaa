@@ -1,0 +1,7 @@
+{
+  ParameterizedTypeReference<List<SchemaDto>> typeRef=new ParameterizedTypeReference<List<SchemaDto>>(){
+  }
+;
+  ResponseEntity<List<SchemaDto>> entity=restTemplate.exchange(url + "userNotificationSchemas/" + applicationId,HttpMethod.GET,null,typeRef);
+  return entity.getBody();
+}

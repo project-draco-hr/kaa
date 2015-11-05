@@ -1,9 +1,0 @@
-{
-  ControlZkService zkService=new ControlZkService();
-  ReflectionTestUtils.setField(zkService,"zkEnabled",false);
-  Assert.assertNull(zkService.getCurrentBootstrapNodes());
-  ReflectionTestUtils.setField(zkService,"zkEnabled",true);
-  ControlNode controlZKNode=Mockito.mock(ControlNode.class);
-  ReflectionTestUtils.setField(zkService,"controlZKNode",controlZKNode);
-  Assert.assertNotNull(zkService.getCurrentBootstrapNodes());
-}

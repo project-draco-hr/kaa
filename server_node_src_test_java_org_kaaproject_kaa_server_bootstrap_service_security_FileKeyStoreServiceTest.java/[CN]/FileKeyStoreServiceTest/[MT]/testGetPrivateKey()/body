@@ -1,0 +1,16 @@
+{
+  File pri=new File(privateKeyPath);
+  if (pri.exists()) {
+    pri.delete();
+  }
+  File pub=new File(publicKeyPath);
+  if (pub.exists()) {
+    pub.delete();
+  }
+  BootstrapFileKeyStoreService ks=new BootstrapFileKeyStoreService();
+  assertNotNull(ks);
+  ks.setPrivateKeyLocation(PRIVATE_KEY_LOCATION);
+  ks.setPublicKeyLocation(PUBLIC_KEY_LOCATION);
+  ks.loadKeys();
+  assertNotNull(ks.getPrivateKey());
+}

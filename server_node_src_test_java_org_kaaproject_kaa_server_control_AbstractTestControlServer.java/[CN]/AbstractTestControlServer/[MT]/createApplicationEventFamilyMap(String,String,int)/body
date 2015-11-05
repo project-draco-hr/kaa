@@ -1,0 +1,45 @@
+{
+  ApplicationEventFamilyMapDto applicationEventFamilyMap=new ApplicationEventFamilyMapDto();
+  String tenantId=null;
+  if (strIsEmpty(applicationId)) {
+    ApplicationDto application=createApplication(tenantAdminDto);
+    tenantId=application.getTenantId();
+    applicationEventFamilyMap.setApplicationId(application.getId());
+  }
+ else {
+    applicationEventFamilyMap.setApplicationId(applicationId);
+    ApplicationDto application=client.getApplication(applicationId);
+    tenantId=application.getTenantId();
+  }
+  EventClassFamilyDto eventClassFamily=null;
+  if (strIsEmpty(ecfId)) {
+    eventClassFamily=createEventClassFamily(tenantId);
+  }
+ else {
+    loginTenantAdmin(tenantAdminUser);
+    eventClassFamily=client.getEventClassFamilyById(ecfId);
+  }
+  applicationEventFamilyMap.setEcfId(eventClassFamily.getId());
+  applicationEventFamilyMap.setEcfName(eventClassFamily.getName());
+  if (eventClassFamily.getSchemas() == null || eventClassFamily.getSchemas().size() < version) {
+    int start=eventClassFamily.getSchemas() == null ? 0 : eventClassFamily.getSchemas().size();
+    for (int i=start; i < version; i++) {
+      loginTenantAdmin(tenantAdminUser);
+      client.addEventClassFamilySchema(eventClassFamily.getId(),TEST_EVENT_CLASS_FAMILY_SCHEMA);
+    }
+  }
+  loginTenantDeveloper(tenantDeveloperUser);
+  applicationEventFamilyMap.setVersion(version);
+  List<EventClassDto> eventClasses=client.getEventClassesByFamilyIdVersionAndType(eventClassFamily.getId(),version,EventClassType.EVENT);
+  List<ApplicationEventMapDto> eventMaps=new ArrayList<>(eventClasses.size());
+  for (  EventClassDto eventClass : eventClasses) {
+    ApplicationEventMapDto eventMap=new ApplicationEventMapDto();
+    eventMap.setEventClassId(eventClass.getId());
+    eventMap.setFqn(eventClass.getFqn());
+    eventMap.setAction(ApplicationEventAction.BOTH);
+    eventMaps.add(eventMap);
+  }
+  applicationEventFamilyMap.setEventMaps(eventMaps);
+  ApplicationEventFamilyMapDto savedApplicationEventFamilyMap=client.editApplicationEventFamilyMap(applicationEventFamilyMap);
+  return savedApplicationEventFamilyMap;
+}

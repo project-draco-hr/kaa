@@ -1,0 +1,29 @@
+{
+  LOG.info("Initializing Thrift Service for Bootstrap Server....");
+  LOG.info("thrift host: {}",thriftHost);
+  LOG.info("thrift port: {}",thriftPort);
+  try {
+    TMultiplexedProcessor processor=new TMultiplexedProcessor();
+    BootstrapThriftService.Processor<BootstrapThriftService.Iface> bootstrapProcessor=new BootstrapThriftService.Processor<BootstrapThriftService.Iface>(bootstrapThriftService);
+    processor.registerProcessor(KaaThriftService.BOOTSTRAP_SERVICE.getServiceName(),bootstrapProcessor);
+    TServerTransport serverTransport=new TServerSocket(new InetSocketAddress(thriftHost,thriftPort));
+    server=new TThreadPoolServer(new Args(serverTransport).processor(processor));
+    LOG.info("Bootstrap test Server {}:{} Started.",thriftHost,thriftPort);
+synchronized (startSync) {
+      startComplete=true;
+      startSync.notify();
+    }
+    server.serve();
+    LOG.info("Bootstrap test Server {}:{} Stopped.",thriftHost,thriftPort);
+  }
+ catch (  TTransportException e) {
+    LOG.error("TTransportException",e);
+  }
+ finally {
+synchronized (stopSync) {
+      stopComplete=true;
+      bootstrapThriftService.reset();
+      stopSync.notify();
+    }
+  }
+}

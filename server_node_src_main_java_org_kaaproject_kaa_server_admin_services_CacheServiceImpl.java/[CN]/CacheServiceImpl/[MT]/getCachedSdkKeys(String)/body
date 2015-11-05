@@ -1,0 +1,14 @@
+{
+  List<SdkPropertiesDto> keys=new ArrayList<>();
+  Ehcache cache=(Ehcache)adminCacheManager.getCache(SDK_CACHE).getNativeCache();
+  List<?> cachedKeys=cache.getKeysWithExpiryCheck();
+  for (  Object cachedKey : cachedKeys) {
+    if (cachedKey instanceof SdkPropertiesDto) {
+      SdkPropertiesDto cachedSdkPropertiesDto=(SdkPropertiesDto)cachedKey;
+      if (applicationId.equals(cachedSdkPropertiesDto.getApplicationId())) {
+        keys.add(cachedSdkPropertiesDto);
+      }
+    }
+  }
+  return keys;
+}

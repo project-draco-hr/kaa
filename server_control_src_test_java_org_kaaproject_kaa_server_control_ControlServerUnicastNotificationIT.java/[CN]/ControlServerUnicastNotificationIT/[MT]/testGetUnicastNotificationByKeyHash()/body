@@ -1,8 +1,0 @@
-{
-  EndpointNotificationDto unicast=createUnicastNotification(KEY_HASH,TOPIC_ID,null,null,NotificationTypeDto.USER);
-  List<EndpointNotificationDto> notifications=toDtoList(client.getUnicastNotificationsByKeyHash(ByteBuffer.wrap(KEY_HASH)));
-  Assert.assertNotNull(notifications);
-  Assert.assertFalse(notifications.isEmpty());
-  Assert.assertEquals(1,notifications.size());
-  Assert.assertEquals(unicast,notifications.get(0));
-}

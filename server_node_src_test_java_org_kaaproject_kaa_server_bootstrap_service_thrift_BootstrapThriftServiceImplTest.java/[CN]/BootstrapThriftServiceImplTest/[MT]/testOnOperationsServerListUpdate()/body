@@ -1,0 +1,10 @@
+{
+  BootstrapThriftServiceImpl b=new BootstrapThriftServiceImpl();
+  assertNotNull(b);
+  try {
+    b.onOperationsServerListUpdate(Collections.<ThriftOperationsServer>emptyList());
+  }
+ catch (  TException e) {
+    e.printStackTrace();
+  }
+}

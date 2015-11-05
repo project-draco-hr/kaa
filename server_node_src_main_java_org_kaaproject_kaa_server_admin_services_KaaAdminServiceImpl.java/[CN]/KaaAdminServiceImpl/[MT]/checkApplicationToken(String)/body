@@ -1,0 +1,13 @@
+{
+  try {
+    if (isEmpty(applicationToken)) {
+      throw new KaaAdminServiceException(ServiceErrorCode.INVALID_ARGUMENTS);
+    }
+    ApplicationDto application=controlService.getApplicationByApplicationToken(applicationToken);
+    checkApplication(application);
+    return application;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

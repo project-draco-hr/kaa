@@ -1,0 +1,9 @@
+{
+  if (getNodeConfig().isZkEnabled()) {
+    controlZkService.start();
+    loadMgmtService.setZkService(controlZkService);
+    loadMgmtService.start();
+  }
+  adminInitializationService.start();
+  LOG.info("Control Service Started.");
+}

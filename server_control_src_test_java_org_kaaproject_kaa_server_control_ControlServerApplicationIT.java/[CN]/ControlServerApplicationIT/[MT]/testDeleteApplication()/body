@@ -1,6 +1,0 @@
-{
-  ApplicationDto application=createApplication();
-  client.deleteApplication(application.getId());
-  ApplicationDto storedApplication=toDto(client.getApplication(application.getId()));
-  Assert.assertNull(storedApplication);
-}

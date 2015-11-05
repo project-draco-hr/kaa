@@ -1,13 +1,11 @@
 {
   LOG.debug("Find endpoint profile body by endpoint key hash [{}] ",endpointKeyHash);
-  String profile="profile";
-  EndpointProfileBodyDto endpointProfileBodyDto=new EndpointProfileBodyDto();
-  endpointProfileBodyDto.setEndpointKeyHash(endpointKeyHash);
+  EndpointProfileBodyDto endpointProfileBodyDto=null;
   Query query=Query.query(where(EP_ENDPOINT_KEY_HASH).is(endpointKeyHash));
-  query.fields().include(profile);
-  DBObject profileObject=mongoTemplate.findOne(query,getDocumentClass()).getProfile();
-  if (profileObject != null) {
-    endpointProfileBodyDto.setProfile(profileObject.toString());
+  query.fields().include(DaoConstants.PROFILE).include(EP_APPLICATION_ID);
+  MongoEndpointProfile pf=mongoTemplate.findOne(query,getDocumentClass());
+  if (pf != null) {
+    endpointProfileBodyDto=new EndpointProfileBodyDto(endpointKeyHash,pf.getProfileAsString(),pf.getApplicationId());
   }
   return endpointProfileBodyDto;
 }

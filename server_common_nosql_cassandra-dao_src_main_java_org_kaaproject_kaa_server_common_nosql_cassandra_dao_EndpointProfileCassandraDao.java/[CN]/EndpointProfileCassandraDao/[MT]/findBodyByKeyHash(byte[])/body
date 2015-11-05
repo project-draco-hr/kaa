@@ -1,11 +1,13 @@
 {
   LOG.debug("Try to find endpoint profile body by key hash [{}]",endpointKeyHash);
   String profile=null;
-  ResultSet resultSet=execute(select(EP_PROFILE_PROPERTY).from(getColumnFamilyName()).where(eq(EP_EP_KEY_HASH_PROPERTY,getByteBuffer(endpointKeyHash))));
+  String appId=null;
+  ResultSet resultSet=execute(select(EP_PROFILE_PROPERTY,EP_APP_ID_PROPERTY).from(getColumnFamilyName()).where(eq(EP_EP_KEY_HASH_PROPERTY,getByteBuffer(endpointKeyHash))));
   Row row=resultSet.one();
   if (row != null) {
-    profile=row.getString(0);
+    profile=row.getString(EP_PROFILE_PROPERTY);
+    appId=row.getString(EP_APP_ID_PROPERTY);
   }
   LOG.debug("[{}] Found endpoint profile body {}",endpointKeyHash,profile);
-  return new EndpointProfileBodyDto(endpointKeyHash,profile);
+  return new EndpointProfileBodyDto(endpointKeyHash,profile,appId);
 }

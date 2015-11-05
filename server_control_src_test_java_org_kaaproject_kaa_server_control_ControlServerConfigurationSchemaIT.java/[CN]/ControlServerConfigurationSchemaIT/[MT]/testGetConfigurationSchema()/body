@@ -1,6 +1,0 @@
-{
-  ConfigurationSchemaDto configurationSchema=createConfigurationSchema();
-  ConfigurationSchemaDto storedConfigurationSchema=toDto(client.getConfigurationSchema(configurationSchema.getId()));
-  Assert.assertNotNull(storedConfigurationSchema);
-  assertConfigurationSchemasEquals(configurationSchema,storedConfigurationSchema);
-}

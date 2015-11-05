@@ -1,0 +1,12 @@
+{
+  ApplicationDto application=createApplication(tenantAdminDto);
+  ProfileSchemaDto profileSchema=createProfileSchema(application.getId());
+  ConfigurationSchemaDto configSchema=createConfigurationSchema(application.getId());
+  NotificationSchemaDto notificationSchema=createUserNotificationSchema(application.getId());
+  LogSchemaDto logSchema=createLogSchema(application.getId());
+  FileData sdk=client.downloadSdk(getSdkProperties(SdkPlatform.CPP,application.getId(),profileSchema.getMajorVersion(),configSchema.getMajorVersion(),notificationSchema.getMajorVersion(),null,logSchema.getMajorVersion(),null));
+  Assert.assertNotNull(sdk);
+  Assert.assertFalse(strIsEmpty(sdk.getFileName()));
+  Assert.assertNotNull(sdk.getFileData());
+  Assert.assertEquals(SdkPlatform.CPP.getContentType(),sdk.getContentType());
+}
