@@ -6,7 +6,7 @@
     }
     EndpointGroupDto endpointGroupDto=getEndpointGroup(endpointGroupId);
     PageLinkDto pageLinkDto=new PageLinkDto(endpointGroupId,limit,offset);
-    if (endpointGroupDto.isGroupAll()) {
+    if (isGroupAll(endpointGroupDto)) {
       pageLinkDto.setApplicationId(endpointGroupDto.getApplicationId());
     }
     EndpointProfilesBodyDto endpointProfilesBodyDto=controlService.getEndpointProfileBodyByEndpointGroupId(pageLinkDto);
