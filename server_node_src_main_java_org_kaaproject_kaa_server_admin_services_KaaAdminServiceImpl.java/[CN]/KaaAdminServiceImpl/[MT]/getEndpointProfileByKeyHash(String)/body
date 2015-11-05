@@ -1,0 +1,14 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    EndpointProfileDto profileDto=controlService.getEndpointProfileByKeyHash(endpointProfileKeyHash);
+    if (profileDto == null) {
+      throw new KaaAdminServiceException("Requested item was not found!",ServiceErrorCode.ITEM_NOT_FOUND);
+    }
+    checkApplicationId(profileDto.getApplicationId());
+    return profileDto;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

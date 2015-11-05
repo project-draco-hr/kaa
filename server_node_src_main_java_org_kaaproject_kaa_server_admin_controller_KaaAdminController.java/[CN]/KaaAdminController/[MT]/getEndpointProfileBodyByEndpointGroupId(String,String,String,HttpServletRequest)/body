@@ -1,0 +1,8 @@
+{
+  EndpointProfilesBodyDto endpointProfilesBodyDto=kaaAdminService.getEndpointProfileBodyByEndpointGroupId(endpointGroupId,limit,offset);
+  if (endpointProfilesBodyDto.hasEndpointBodies()) {
+    PageLinkDto pageLinkDto=createNext(endpointProfilesBodyDto.getPageLinkDto(),request);
+    endpointProfilesBodyDto.setNext(pageLinkDto.getNext());
+  }
+  return endpointProfilesBodyDto;
+}

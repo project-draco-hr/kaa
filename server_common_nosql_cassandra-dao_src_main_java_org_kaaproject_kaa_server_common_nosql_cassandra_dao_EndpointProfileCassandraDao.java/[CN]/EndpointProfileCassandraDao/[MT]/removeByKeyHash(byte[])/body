@@ -1,4 +1,11 @@
 {
   LOG.debug("Remove endpoint profile by key hash [{}]",endpointKeyHash);
+  CassandraEndpointProfile storedProfile=findByKeyHash(endpointKeyHash);
+  removeByKeyHashFromEpByEndpointGroupId(endpointKeyHash);
+  String appId=storedProfile.getApplicationId();
+  if (!appId.isEmpty()) {
+    Statement deleteEp=delete().from(EP_BY_APP_ID_COLUMN_FAMILY_NAME).where(eq(EP_BY_APP_ID_APPLICATION_ID_PROPERTY,appId)).and(eq(EP_BY_APP_ID_ENDPOINT_KEY_HASH_PROPERTY,getByteBuffer(endpointKeyHash)));
+    executeBatch(deleteEp);
+  }
   getMapper().delete(getByteBuffer(endpointKeyHash));
 }
