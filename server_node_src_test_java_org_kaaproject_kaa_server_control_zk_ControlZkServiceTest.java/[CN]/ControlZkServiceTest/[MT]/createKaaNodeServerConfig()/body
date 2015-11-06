@@ -1,0 +1,10 @@
+{
+  KaaNodeServerConfig kaaNodeServerConfig=new KaaNodeServerConfig();
+  kaaNodeServerConfig.setZkEnabled(true);
+  kaaNodeServerConfig.setThriftHost("localhost");
+  kaaNodeServerConfig.setThriftPort(9090);
+  kaaNodeServerConfig.setZkHostPortList("localhost:2185");
+  kaaNodeServerConfig.setZkMaxRetryTime(3000);
+  kaaNodeServerConfig.setZkSleepTime(1000);
+  return kaaNodeServerConfig;
+}

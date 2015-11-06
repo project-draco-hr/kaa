@@ -1,0 +1,7 @@
+{
+  Criteria criteria=getCriteria();
+  Criterion usernameCriterion=Restrictions.eq(USERNAME_PROPERTY,usernameOrMail);
+  Criterion mailCriterion=Restrictions.eq(MAIL_PROPERTY,usernameOrMail);
+  criteria.add(Restrictions.or(usernameCriterion,mailCriterion));
+  return (User)criteria.uniqueResult();
+}

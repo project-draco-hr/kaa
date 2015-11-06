@@ -1,25 +1,18 @@
 {
+  if (channelState == State.PAUSE || channelState == State.SHUTDOWN) {
+    LOG.info("Can't open connection, as channel is in the {} state",channelState);
+    return;
+  }
   try {
     LOG.info("Channel [{}]: opening connection to server {}",getId(),currentServer);
-    this.socket=createSocket(currentServer.getHost(),currentServer.getPort());
+    isOpenConnectionScheduled=false;
+    socket=createSocket(currentServer.getHost(),currentServer.getPort());
     sendConnect();
-    if (!isReadTaskScheduled) {
-      executor.execute(readTask);
-      isReadTaskScheduled=true;
-    }
-    if (pingTaskFuture != null && !pingTaskFuture.isCancelled()) {
-      pingTaskFuture.cancel(true);
-    }
+    scheduleReadTask(socket);
     schedulePingTask();
   }
  catch (  Exception e) {
-    LOG.error("Failed to create a socket for server {}:{}",currentServer.getHost(),currentServer.getPort());
-    LOG.error("Stack trace: ",e);
-    isOpenConnectionScheduled=false;
+    LOG.error("Failed to create a socket for server {}:{}. Stack trace: ",currentServer.getHost(),currentServer.getPort(),e);
     onServerFailed();
-    socket=null;
-  }
- finally {
-    isOpenConnectionScheduled=false;
   }
 }

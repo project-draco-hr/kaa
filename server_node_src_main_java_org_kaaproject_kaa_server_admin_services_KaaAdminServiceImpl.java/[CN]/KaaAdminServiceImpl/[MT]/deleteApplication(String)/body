@@ -1,0 +1,10 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_ADMIN);
+  try {
+    checkApplicationId(applicationId);
+    controlService.deleteApplication(applicationId);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

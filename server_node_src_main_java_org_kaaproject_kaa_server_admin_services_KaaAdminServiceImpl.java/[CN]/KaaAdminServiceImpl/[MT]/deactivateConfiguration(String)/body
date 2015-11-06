@@ -1,0 +1,13 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    ConfigurationDto storedConfiguration=controlService.getConfiguration(configurationId);
+    Utils.checkNotNull(storedConfiguration);
+    checkEndpointGroupId(storedConfiguration.getEndpointGroupId());
+    String username=this.getCurrentUser().getUsername();
+    return controlService.deactivateConfiguration(configurationId,username);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

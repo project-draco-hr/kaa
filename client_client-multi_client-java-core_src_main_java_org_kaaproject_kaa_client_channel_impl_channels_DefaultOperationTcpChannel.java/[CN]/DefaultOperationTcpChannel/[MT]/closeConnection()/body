@@ -2,6 +2,9 @@
   if (pingTaskFuture != null && !pingTaskFuture.isCancelled()) {
     pingTaskFuture.cancel(true);
   }
+  if (readTaskFuture != null && !readTaskFuture.isCancelled()) {
+    readTaskFuture.cancel(true);
+  }
   if (socket != null) {
     LOG.info("Channel \"{}\": closing current connection",getId());
     try {
@@ -19,7 +22,7 @@
       }
       socket=null;
       messageFactory.getFramer().flush();
-      isFirstResponseReceived=false;
+      channelState=State.CLOSED;
     }
   }
 }

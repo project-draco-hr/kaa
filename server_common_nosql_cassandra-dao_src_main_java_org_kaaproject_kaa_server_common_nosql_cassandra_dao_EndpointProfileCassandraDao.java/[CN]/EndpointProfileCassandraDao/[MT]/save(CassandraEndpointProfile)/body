@@ -1,23 +1,21 @@
 {
-  if (profile.getId() == null) {
-    profile.setId(convertKeyHashToString(profile.getEndpointKeyHash()));
-  }
+  profile.setId(convertKeyHashToString(profile.getEndpointKeyHash()));
   LOG.debug("Saving endpoint profile with id {}",profile.getId());
   ByteBuffer epKeyHash=profile.getEndpointKeyHash();
-  Statement saveByAppId=cassandraEPByAppIdDao.getSaveQuery(new CassandraEPByAppId(profile.getApplicationId(),epKeyHash));
+  List<Statement> statementList=new ArrayList<>();
+  statementList.add(cassandraEPByAppIdDao.getSaveQuery(new CassandraEPByAppId(profile.getApplicationId(),epKeyHash)));
   String accessToken=profile.getAccessToken();
-  Statement saveByAccessToken=null;
   if (accessToken != null) {
-    saveByAccessToken=cassandraEPByAccessTokenDao.getSaveQuery(new CassandraEPByAccessToken(accessToken,epKeyHash));
+    statementList.add(cassandraEPByAccessTokenDao.getSaveQuery(new CassandraEPByAccessToken(accessToken,epKeyHash)));
   }
+  statementList.add(getSaveQuery(profile));
   Statement saveBySdkTokenId=cassandraEPBySdkTokenDao.getSaveQuery(new CassandraEPBySdkToken(profile.getSdkToken(),epKeyHash));
-  Statement saveProfile=getSaveQuery(profile);
-  if (saveByAccessToken != null) {
-    executeBatch(saveProfile,saveByAppId,saveByAccessToken,saveBySdkTokenId);
+  statementList.add(saveBySdkTokenId);
+  Set<String> groupIdSet=getEndpointProfilesGroupIdSet(profile);
+  for (  String groupId : groupIdSet) {
+    statementList.add(cassandraEPByEndpointGroupIdDao.getSaveQuery(new CassandraEPByEndpointGroupId(groupId,epKeyHash)));
   }
- else {
-    executeBatch(saveProfile,saveByAppId,saveBySdkTokenId);
-  }
+  executeBatch(statementList.toArray(new Statement[statementList.size()]));
   LOG.debug("[{}] Endpoint profile saved",profile.getId());
   return profile;
 }

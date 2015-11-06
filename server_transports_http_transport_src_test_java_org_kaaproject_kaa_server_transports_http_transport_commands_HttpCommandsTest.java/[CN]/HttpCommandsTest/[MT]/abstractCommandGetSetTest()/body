@@ -1,0 +1,15 @@
+{
+  AbstractCommand abstractCommand=mock(AbstractCommand.class,Mockito.CALLS_REAL_METHODS);
+  UUID uuid=UUID.randomUUID();
+  abstractCommand.setSessionUuid(uuid);
+  Assert.assertEquals(uuid,abstractCommand.getSessionUuid());
+  long syncTime=100342L;
+  abstractCommand.setSyncTime(syncTime);
+  Assert.assertEquals(syncTime,abstractCommand.getSyncTime());
+  int commandId=1;
+  abstractCommand.setCommandId(commandId);
+  Assert.assertEquals(commandId,abstractCommand.getCommandId());
+  HttpRequest httpRequest=mock(HttpRequest.class);
+  abstractCommand.setRequest(httpRequest);
+  Assert.assertEquals(httpRequest,abstractCommand.getRequest());
+}

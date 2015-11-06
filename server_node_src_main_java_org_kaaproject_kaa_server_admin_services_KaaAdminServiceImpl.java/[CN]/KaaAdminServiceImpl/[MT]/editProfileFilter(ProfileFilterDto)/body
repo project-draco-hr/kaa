@@ -1,0 +1,20 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    String username=this.getCurrentUser().getUsername();
+    if (isEmpty(profileFilter.getId())) {
+      profileFilter.setCreatedUsername(username);
+      checkEndpointGroupId(profileFilter.getEndpointGroupId());
+    }
+ else {
+      profileFilter.setModifiedUsername(username);
+      ProfileFilterDto storedProfileFilter=controlService.getProfileFilter(profileFilter.getId());
+      Utils.checkNotNull(storedProfileFilter);
+      checkEndpointGroupId(storedProfileFilter.getEndpointGroupId());
+    }
+    return controlService.editProfileFilter(profileFilter);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

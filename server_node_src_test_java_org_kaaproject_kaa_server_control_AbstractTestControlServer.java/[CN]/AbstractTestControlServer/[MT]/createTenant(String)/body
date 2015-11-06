@@ -1,0 +1,19 @@
+{
+  loginKaaAdmin();
+  if (username == null) {
+    username=generateString(TENANT_ADMIN_USERNAME);
+  }
+  TenantUserDto tenantUser=new TenantUserDto();
+  tenantUser.setTenantName(username);
+  tenantUser.setAuthority(KaaAuthorityDto.TENANT_ADMIN);
+  tenantUser.setUsername(username);
+  tenantUser.setMail(username + "@demoproject.org");
+  tenantUser.setFirstName(username);
+  tenantUser.setLastName("Admin");
+  tenantUser=client.editTenant(tenantUser);
+  if (StringUtils.isNotBlank(tenantUser.getTempPassword())) {
+    client.clearCredentials();
+    client.changePassword(tenantUser.getUsername(),tenantUser.getTempPassword(),tenantAdminPassword);
+  }
+  return tenantUser;
+}

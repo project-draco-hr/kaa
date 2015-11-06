@@ -1,0 +1,9 @@
+{
+  SessionInitMessage message=mock(SessionInitMessage.class);
+  when(message.isEncrypted()).thenReturn(isEncrypted);
+  when(message.getEncodedMessageData()).thenReturn(new byte[]{2,3,4,5});
+  when(message.getEncodedSessionKey()).thenReturn(new byte[]{10,11,12,13});
+  when(message.getChannelContext()).thenReturn(mock(ChannelContext.class));
+  when(message.getErrorBuilder()).thenReturn(mock(ErrorBuilder.class));
+  return message;
+}

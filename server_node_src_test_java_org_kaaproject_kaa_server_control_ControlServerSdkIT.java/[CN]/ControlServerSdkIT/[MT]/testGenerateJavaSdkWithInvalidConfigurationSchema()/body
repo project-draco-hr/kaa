@@ -1,0 +1,11 @@
+{
+  final ApplicationDto application=createApplication(tenantAdminDto);
+  loginTenantDeveloper(tenantDeveloperUser);
+  final ProfileSchemaDto profileSchema=createProfileSchema(application.getId());
+  checkNotFound(new TestRestCall(){
+    @Override public void executeRestCall() throws Exception {
+      client.downloadSdk(getSdkProfile(application.getId(),profileSchema.getMajorVersion(),2,2,null,0,null).getId(),SdkPlatform.JAVA);
+    }
+  }
+);
+}

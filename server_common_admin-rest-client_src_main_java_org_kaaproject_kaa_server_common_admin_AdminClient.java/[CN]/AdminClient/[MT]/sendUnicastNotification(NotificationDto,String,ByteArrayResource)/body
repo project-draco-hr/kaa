@@ -1,0 +1,7 @@
+{
+  MultiValueMap<String,Object> params=new LinkedMultiValueMap<>();
+  params.add("notification",notification);
+  params.add("clientKeyHash",clientKeyHash);
+  params.add("file",resource);
+  return restTemplate.postForObject(url + "sendUnicastNotification",params,EndpointNotificationDto.class);
+}

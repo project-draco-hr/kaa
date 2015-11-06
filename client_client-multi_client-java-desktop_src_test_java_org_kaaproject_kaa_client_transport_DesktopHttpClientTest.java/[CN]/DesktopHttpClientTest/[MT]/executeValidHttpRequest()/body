@@ -1,0 +1,9 @@
+{
+  byte[] inputData=new byte[]{100,101,102};
+  DesktopHttpClient client=new DesktopHttpClient(URL,privateKey,publicKey,remotePublicKey);
+  CloseableHttpClient httpClientMock=mockForHttpClient(OK,true,inputData);
+  ReflectionTestUtils.setField(client,HTTP_CLIENT_FIELD_NAME,httpClientMock);
+  byte[] body=client.executeHttpRequest(URL,entities,false);
+  Assert.assertArrayEquals(inputData,body);
+  verify(httpResponse).close();
+}

@@ -1,0 +1,11 @@
+{
+  Criteria criteria=getCriteria();
+  Criterion usernameCriterion=Restrictions.eq(USERNAME_PROPERTY,userName);
+  if (userId != null) {
+    criteria.add(Restrictions.and(usernameCriterion,Restrictions.not(Restrictions.eq(ID_PROPERTY,userId))));
+  }
+ else {
+    criteria.add(usernameCriterion);
+  }
+  return (User)criteria.uniqueResult();
+}

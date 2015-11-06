@@ -1,0 +1,52 @@
+{
+  Runnable thriftRunnable=new Runnable(){
+    @Override public void run(){
+      LOG.info("Initializing Thrift Service for Kaa Node Server....");
+      LOG.info("host: " + getNodeConfig().getThriftHost());
+      LOG.info("port: " + getNodeConfig().getThriftPort());
+      try {
+        TMultiplexedProcessor processor=new TMultiplexedProcessor();
+        KaaNodeThriftService.Processor<KaaNodeThriftService.Iface> kaaNodeProcessor=new KaaNodeThriftService.Processor<KaaNodeThriftService.Iface>(kaaNodeThriftService);
+        processor.registerProcessor(KaaThriftService.KAA_NODE_SERVICE.getServiceName(),kaaNodeProcessor);
+        if (getNodeConfig().isBootstrapServerEnabled()) {
+          BootstrapThriftService.Processor<BootstrapThriftService.Iface> bootstrapProcessor=new BootstrapThriftService.Processor<BootstrapThriftService.Iface>(bootstrapThriftService);
+          processor.registerProcessor(KaaThriftService.BOOTSTRAP_SERVICE.getServiceName(),bootstrapProcessor);
+        }
+        if (getNodeConfig().isOperationsServerEnabled()) {
+          OperationsThriftService.Processor<OperationsThriftService.Iface> operationsProcessor=new OperationsThriftService.Processor<OperationsThriftService.Iface>(operationsThriftService);
+          processor.registerProcessor(KaaThriftService.OPERATIONS_SERVICE.getServiceName(),operationsProcessor);
+        }
+        TServerTransport serverTransport=createServerSocket();
+        server=createServer(serverTransport,processor);
+        LOG.info("Thrift Kaa Node Server Started.");
+        thriftStartupLatch.countDown();
+        server.serve();
+        if (executorService != null && !executorService.isTerminated()) {
+          for (          TSocketWrapper socket : new ArrayList<>(openedSockets)) {
+            if (socket.getSocket() != null && !socket.getSocket().isClosed()) {
+              socket.close();
+            }
+          }
+          LOG.info("Terminating executor service.");
+          executorService.shutdownNow();
+        }
+        LOG.info("Thrift Kaa Node Server Stopped.");
+        thriftShutdownLatch.countDown();
+      }
+ catch (      TTransportException e) {
+        LOG.error("TTransportException",e);
+      }
+ finally {
+        if (thriftStartupLatch.getCount() > 0) {
+          thriftStartupLatch.countDown();
+        }
+        if (thriftShutdownLatch.getCount() > 0) {
+          LOG.info("Thrift Kaa Node Server Stopped.");
+          thriftShutdownLatch.countDown();
+        }
+      }
+    }
+  }
+;
+  new Thread(thriftRunnable).start();
+}

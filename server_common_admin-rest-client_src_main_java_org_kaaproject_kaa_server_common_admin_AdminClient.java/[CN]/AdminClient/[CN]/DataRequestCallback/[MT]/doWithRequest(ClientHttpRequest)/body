@@ -1,0 +1,16 @@
+{
+  httpRequest.getHeaders().setAccept(mediaTypes);
+  T requestBody=requestEntity.getBody();
+  Class<?> requestType=requestBody.getClass();
+  HttpHeaders requestHeaders=requestEntity.getHeaders();
+  MediaType requestContentType=requestHeaders.getContentType();
+  for (  HttpMessageConverter<?> messageConverter : restTemplate.getMessageConverters()) {
+    if (messageConverter.canWrite(requestType,requestContentType)) {
+      if (!requestHeaders.isEmpty()) {
+        httpRequest.getHeaders().putAll(requestHeaders);
+      }
+      ((HttpMessageConverter<Object>)messageConverter).write(requestBody,requestContentType,httpRequest);
+      return;
+    }
+  }
+}

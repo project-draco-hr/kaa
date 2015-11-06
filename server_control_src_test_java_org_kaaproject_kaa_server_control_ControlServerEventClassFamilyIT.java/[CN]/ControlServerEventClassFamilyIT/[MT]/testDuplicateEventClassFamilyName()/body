@@ -1,7 +1,0 @@
-{
-  TenantDto tenant=createTenant();
-  EventClassFamilyDto eventClassFamily=createEventClassFamily(tenant.getId());
-  EventClassFamilyDto secondEventClassFamily=createEventClassFamily(tenant.getId());
-  secondEventClassFamily.setName(eventClassFamily.getName());
-  toDto(client.editEventClassFamily(toDataStruct(secondEventClassFamily)));
-}

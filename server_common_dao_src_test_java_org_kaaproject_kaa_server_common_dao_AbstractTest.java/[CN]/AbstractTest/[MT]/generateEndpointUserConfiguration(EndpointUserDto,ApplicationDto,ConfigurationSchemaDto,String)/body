@@ -1,17 +1,3 @@
 {
-  EndpointUserConfigurationDto configurationDto=new EndpointUserConfigurationDto();
-  if (endpointUser == null) {
-    endpointUser=generateEndpointUser(null);
-  }
-  if (applicationDto == null) {
-    applicationDto=generateApplication();
-  }
-  configurationDto.setUserId(endpointUser.getId());
-  if (configurationSchema == null) {
-    configurationSchema=generateConfSchema(applicationDto.getId(),1).get(0);
-  }
-  configurationDto.setSchemaVersion(configurationSchema.getMajorVersion());
-  configurationDto.setBody(body);
-  configurationDto.setAppToken(applicationDto.getApplicationToken());
-  return userConfigurationService.saveUserConfiguration(configurationDto);
+  return generateEndpointUserConfiguration(endpointUser,applicationDto,configurationSchema,body,false);
 }

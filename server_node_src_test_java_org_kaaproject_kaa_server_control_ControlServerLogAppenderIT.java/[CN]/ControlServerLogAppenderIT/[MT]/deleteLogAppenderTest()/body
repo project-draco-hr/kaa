@@ -1,0 +1,10 @@
+{
+  final LogAppenderDto appenderDto=createLogAppender(null,null);
+  client.deleteLogAppender(appenderDto.getId());
+  checkNotFound(new TestRestCall(){
+    @Override public void executeRestCall() throws Exception {
+      client.getLogAppender(appenderDto.getId());
+    }
+  }
+);
+}

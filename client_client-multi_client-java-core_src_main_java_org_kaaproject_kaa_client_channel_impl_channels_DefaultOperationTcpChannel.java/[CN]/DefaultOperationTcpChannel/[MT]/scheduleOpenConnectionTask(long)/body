@@ -1,0 +1,15 @@
+{
+  if (!isOpenConnectionScheduled) {
+    if (executor != null) {
+      LOG.info("Scheduling open connection task");
+      executor.schedule(openConnectionTask,retryPeriod,TimeUnit.MILLISECONDS);
+      isOpenConnectionScheduled=true;
+    }
+ else {
+      LOG.info("Executor is null, can't schedule open connection task");
+    }
+  }
+ else {
+    LOG.info("Reconnect is already scheduled, ignoring the call");
+  }
+}

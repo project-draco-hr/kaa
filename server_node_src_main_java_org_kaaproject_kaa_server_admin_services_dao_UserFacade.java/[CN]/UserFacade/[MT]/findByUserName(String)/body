@@ -1,0 +1,5 @@
+{
+  Criteria criteria=getCriteria();
+  criteria.add(Restrictions.eq(USERNAME_PROPERTY,userName));
+  return (User)criteria.uniqueResult();
+}

@@ -1,0 +1,14 @@
+{
+  List<EndpointProfileDto> cassandraEndpointProfileList=new ArrayList<>();
+  LOG.debug("Found {} endpoint profiles by group id {}",keyHashList != null ? keyHashList.length : 0,endpointGroupId);
+  for (  ByteBuffer keyHash : keyHashList) {
+    CassandraEndpointProfile profile=findByKeyHash(getBytes(keyHash));
+    if (profile != null) {
+      cassandraEndpointProfileList.add(getDto(profile));
+    }
+ else {
+      LOG.debug("Can't find endpoint profile by id {}",keyHash);
+    }
+  }
+  return cassandraEndpointProfileList;
+}

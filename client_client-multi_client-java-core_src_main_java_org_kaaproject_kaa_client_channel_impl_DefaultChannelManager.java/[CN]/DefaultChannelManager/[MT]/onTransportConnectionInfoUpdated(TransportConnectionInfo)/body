@@ -1,9 +1,11 @@
 {
+  LOG.debug("Transport connection info updated for server: {}",newServer);
   if (isShutdown) {
     LOG.warn("Can't process server update. Channel manager is down");
     return;
   }
   if (newServer.getServerType() == ServerType.OPERATIONS) {
+    LOG.info("Adding new operations server: {}",newServer);
     lastServers.put(newServer.getTransportId(),newServer);
   }
   for (  KaaDataChannel channel : channels) {

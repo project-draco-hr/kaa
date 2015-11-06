@@ -1,9 +1,0 @@
-{
-  controlClientConnect();
-  ControlApiCliThriftClient cli=new ControlApiCliThriftClient();
-  String applicationId=editApplicationCli(cli,null,"testApplication",null,"testTenant",false);
-  String schemaId=editNotificationSchemaCli(cli,null,applicationId,null,null,NotificationTypeDto.SYSTEM,false,false);
-  String topicId=editTopicCli(cli,null,applicationId,null,null,SubscriptionType.MANDATORY,false);
-  String notificationId=createNotificationCli(cli,schemaId,topicId,220,true,false);
-  Assert.assertTrue(StringUtils.isNotBlank(notificationId));
-}

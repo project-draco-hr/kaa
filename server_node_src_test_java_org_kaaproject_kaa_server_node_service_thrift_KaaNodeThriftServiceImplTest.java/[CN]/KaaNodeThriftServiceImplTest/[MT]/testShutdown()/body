@@ -1,0 +1,11 @@
+{
+  KaaNodeThriftServiceImpl b=new KaaNodeThriftServiceImpl();
+  ReflectionTestUtils.setField(b,"kaaNodeInitializationService",kaaNodeInitializationService);
+  try {
+    b.shutdown();
+  }
+ catch (  Exception e) {
+    e.printStackTrace();
+  }
+  Mockito.verify(kaaNodeInitializationService,Mockito.timeout(10000)).stop();
+}

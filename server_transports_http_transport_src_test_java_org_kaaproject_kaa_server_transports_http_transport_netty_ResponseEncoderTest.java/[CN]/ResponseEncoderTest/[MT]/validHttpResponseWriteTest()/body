@@ -1,4 +1,6 @@
 {
+  when(response.headers().get(isA(CharSequence.class))).thenReturn(null);
   responseEncoder.write(channelHandlerContext,abstractCommand,promise);
   verify(channelHandlerContext).writeAndFlush(response,promise);
+  verify(future,never()).addListener(ChannelFutureListener.CLOSE);
 }

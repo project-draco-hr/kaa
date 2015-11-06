@@ -1,0 +1,5 @@
+{
+  ExecutorService executorSpy=spy((ExecutorService)ReflectionTestUtils.getField(neighborConnection,"executor"));
+  ReflectionTestUtils.setField(neighborConnection,"executor",executorSpy);
+  return executorSpy;
+}

@@ -1,0 +1,10 @@
+{
+  AvroEncDec avroEncDec=new AvroEncDec();
+  Method method=AvroEncDec.class.getDeclaredMethod(CONVER_METHOD,org.kaaproject.kaa.server.sync.SyncResponseStatus.class);
+  method.setAccessible(true);
+  org.kaaproject.kaa.server.sync.SyncResponseStatus responseStatus=null;
+  Assert.assertNull(method.invoke(avroEncDec,responseStatus));
+  Assert.assertEquals(SyncResponseStatus.DELTA,method.invoke(avroEncDec,org.kaaproject.kaa.server.sync.SyncResponseStatus.DELTA));
+  Assert.assertEquals(SyncResponseStatus.NO_DELTA,method.invoke(avroEncDec,org.kaaproject.kaa.server.sync.SyncResponseStatus.NO_DELTA));
+  Assert.assertEquals(SyncResponseStatus.RESYNC,method.invoke(avroEncDec,org.kaaproject.kaa.server.sync.SyncResponseStatus.RESYNC));
+}

@@ -1,0 +1,14 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    checkEndpointGroupId(endpointGroupId);
+    checkTopicId(topicId);
+    TopicDto topic=controlService.getTopic(topicId);
+    Utils.checkNotNull(topic);
+    checkApplicationId(topic.getApplicationId());
+    controlService.addTopicsToEndpointGroup(endpointGroupId,topicId);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

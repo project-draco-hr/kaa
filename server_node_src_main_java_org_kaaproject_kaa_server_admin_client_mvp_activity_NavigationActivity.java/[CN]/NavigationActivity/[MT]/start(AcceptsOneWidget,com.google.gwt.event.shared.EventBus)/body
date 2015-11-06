@@ -1,0 +1,27 @@
+{
+  containerWidget.setWidget(navigationView.asWidget());
+  registrations.add(navigationView.getSelectionModel().addSelectionChangeHandler(new SelectionChangeEvent.Handler(){
+    @Override public void onSelectionChange(    SelectionChangeEvent event){
+      TreePlace place=navigationView.getSelectionModel().getSelectedObject();
+      if (place != null) {
+        goTo(place);
+        TreePlace current=(TreePlace)clientFactory.getPlaceController().getWhere();
+        if (!current.equals(place)) {
+          navigationView.getSelectionModel().setSelected(current,true);
+        }
+      }
+    }
+  }
+));
+  registrations.add(eventBus.addHandler(DataEvent.getType(),new DataEventHandler(){
+    @Override public void onDataChanged(    DataEvent event){
+      if (event.refreshTree()) {
+        refreshTree();
+        if (pendingPlace != null) {
+          selectPlace(pendingPlace);
+        }
+      }
+    }
+  }
+));
+}

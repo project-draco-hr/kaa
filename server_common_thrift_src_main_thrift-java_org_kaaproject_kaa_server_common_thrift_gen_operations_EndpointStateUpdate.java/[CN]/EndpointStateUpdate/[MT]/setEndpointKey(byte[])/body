@@ -1,4 +1,4 @@
 {
-  setEndpointKey(endpointKey == null ? (ByteBuffer)null : ByteBuffer.wrap(endpointKey));
+  this.endpointKey=endpointKey == null ? (ByteBuffer)null : ByteBuffer.wrap(Arrays.copyOf(endpointKey,endpointKey.length));
   return this;
 }

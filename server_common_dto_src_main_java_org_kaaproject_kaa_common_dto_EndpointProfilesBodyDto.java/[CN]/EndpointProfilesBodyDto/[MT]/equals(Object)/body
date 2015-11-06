@@ -1,0 +1,11 @@
+{
+  if (this == obj)   return true;
+  if (!super.equals(obj))   return false;
+  if (getClass() != obj.getClass())   return false;
+  EndpointProfilesBodyDto other=(EndpointProfilesBodyDto)obj;
+  if (endpointProfilesBody == null) {
+    if (other.endpointProfilesBody != null)     return false;
+  }
+ else   if (!endpointProfilesBody.equals(other.endpointProfilesBody))   return false;
+  return true;
+}

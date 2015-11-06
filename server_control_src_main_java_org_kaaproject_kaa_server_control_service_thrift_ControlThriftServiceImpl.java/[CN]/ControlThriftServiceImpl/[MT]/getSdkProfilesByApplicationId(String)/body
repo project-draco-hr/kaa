@@ -1,9 +1,0 @@
-{
-  try {
-    return ThriftDtoConverter.toDataStructList(sdkProfileService.findSdkProfilesByApplicationId(applicationId));
-  }
- catch (  Exception cause) {
-    LOG.error("Unable to get SDK profiles",cause);
-    throw new TException(cause);
-  }
-}

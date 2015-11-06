@@ -25,7 +25,7 @@
       handler.process(new NettyTcpConnectMessage(uuid,new NettyChannelContext(ctx),(Connect)frame,ChannelType.ASYNC,this,connectResponseConverter,connectErrorConverter));
     }
  else {
-      LOG.warn("[{}] Ignoring duplicate {} message ",uuid,MessageType.CONNECT);
+      LOG.info("[{}] Ignoring duplicate {} message ",uuid,MessageType.CONNECT);
     }
   }
  else {
@@ -48,7 +48,7 @@ break;
 }
 }
  else {
-LOG.warn("[{}] Ignoring {} message due to incomplete CONNECT sequence",uuid,frame.getMessageType());
+LOG.info("[{}] Ignoring {} message due to incomplete CONNECT sequence",uuid,frame.getMessageType());
 ctx.writeAndFlush(new ConnAck(ReturnCode.REFUSE_BAD_PROTOCOL));
 }
 }

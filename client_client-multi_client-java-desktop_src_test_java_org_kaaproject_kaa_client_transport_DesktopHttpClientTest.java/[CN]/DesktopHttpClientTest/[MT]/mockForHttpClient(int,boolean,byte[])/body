@@ -1,0 +1,17 @@
+{
+  CloseableHttpClient httpClientMock=mock(CloseableHttpClient.class);
+  httpResponse=mock(CloseableHttpResponse.class,RETURNS_DEEP_STUBS);
+  doReturn(httpResponse).when(httpClientMock).execute(any(HttpPost.class));
+  if (hasEntity) {
+    HttpEntity entity=mock(HttpEntity.class);
+    doReturn(entity).when(httpResponse).getEntity();
+    if (body != null) {
+      doReturn(new ByteArrayInputStream(body)).when(entity).getContent();
+    }
+  }
+ else {
+    doReturn(null).when(httpResponse).getEntity();
+  }
+  when(httpResponse.getStatusLine().getStatusCode()).thenReturn(status);
+  return httpClientMock;
+}

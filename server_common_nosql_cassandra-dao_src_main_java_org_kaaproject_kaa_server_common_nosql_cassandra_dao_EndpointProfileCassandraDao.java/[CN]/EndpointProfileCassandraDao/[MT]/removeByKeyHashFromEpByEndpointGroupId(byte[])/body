@@ -1,0 +1,22 @@
+{
+  CassandraEndpointProfile storedProfile=findByKeyHash(endpointKeyHash);
+  List<CassandraEndpointGroupState> cfGroupState=new ArrayList<>();
+  List<String> endpointGroupIds=new ArrayList<>();
+  List<Statement> statementList=new ArrayList<>();
+  if (storedProfile.getCfGroupState() != null) {
+    cfGroupState.addAll(storedProfile.getCfGroupState());
+  }
+  if (cfGroupState != null) {
+    for (    CassandraEndpointGroupState cf : cfGroupState) {
+      endpointGroupIds.add(cf.getEndpointGroupId());
+    }
+  }
+  if (endpointGroupIds != null) {
+    for (    String id : endpointGroupIds) {
+      statementList.add(delete().from(EP_BY_ENDPOINT_GROUP_ID_COLUMN_FAMILY_NAME).where(eq(EP_BY_ENDPOINT_GROUP_ID_ENDPOINT_GROUP_ID_PROPERTY,id)).and(eq(EP_BY_ENDPOINT_GROUP_ID_ENDPOINT_KEY_HASH_PROPERTY,getByteBuffer(endpointKeyHash))));
+    }
+  }
+  Statement[] st=new Statement[statementList.size()];
+  statementList.toArray(st);
+  executeBatch(st);
+}

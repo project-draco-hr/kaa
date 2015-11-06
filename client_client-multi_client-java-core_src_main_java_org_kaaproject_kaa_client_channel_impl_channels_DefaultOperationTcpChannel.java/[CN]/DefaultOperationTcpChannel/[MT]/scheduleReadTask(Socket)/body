@@ -1,0 +1,9 @@
+{
+  if (executor != null) {
+    readTaskFuture=executor.submit(new SocketReadTask(socket));
+    LOG.debug("Submitting a read task for channel [{}]",getId());
+  }
+ else {
+    LOG.warn("Executor is null, can't submit read task");
+  }
+}

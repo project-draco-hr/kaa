@@ -1,0 +1,7 @@
+{
+  DesktopHttpClient client=new DesktopHttpClient(URL,privateKey,publicKey,remotePublicKey);
+  CloseableHttpClient httpClientMock=mockForHttpClient(FAILURE,true,null);
+  ReflectionTestUtils.setField(client,HTTP_CLIENT_FIELD_NAME,httpClientMock);
+  client.executeHttpRequest(URL,entities,false);
+  verify(httpResponse).close();
+}

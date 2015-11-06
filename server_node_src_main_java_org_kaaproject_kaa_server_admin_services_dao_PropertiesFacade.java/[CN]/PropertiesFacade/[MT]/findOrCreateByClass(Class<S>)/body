@@ -1,0 +1,11 @@
+{
+  Criteria criteria=getCriteria();
+  criteria.add(Restrictions.eq(FQN_PROPERTY,propertiesClass.getName()));
+  Properties result=(Properties)criteria.uniqueResult();
+  if (result != null) {
+    return result;
+  }
+ else {
+    return createDefault(propertiesClass);
+  }
+}

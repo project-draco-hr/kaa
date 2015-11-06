@@ -1,0 +1,15 @@
+{
+  EndpointGroupDto endpointGroup=createEndpointGroup();
+  ConfigurationDto configuration1=createConfiguration(null,endpointGroup.getId());
+  ConfigurationDto configuration2=createConfiguration(null,endpointGroup.getId());
+  client.activateConfiguration(configuration2.getId());
+  client.deleteConfigurationRecord(configuration2.getSchemaId(),endpointGroup.getId());
+  List<ConfigurationRecordDto> configurationRecords=client.getConfigurationRecords(endpointGroup.getId(),false);
+  Assert.assertNotNull(configurationRecords);
+  Assert.assertEquals(1,configurationRecords.size());
+  assertConfigurationsEquals(configuration1,configurationRecords.get(0).getInactiveConfiguration());
+  client.deleteConfigurationRecord(configuration1.getSchemaId(),endpointGroup.getId());
+  configurationRecords=client.getConfigurationRecords(endpointGroup.getId(),false);
+  Assert.assertNotNull(configurationRecords);
+  Assert.assertEquals(0,configurationRecords.size());
+}

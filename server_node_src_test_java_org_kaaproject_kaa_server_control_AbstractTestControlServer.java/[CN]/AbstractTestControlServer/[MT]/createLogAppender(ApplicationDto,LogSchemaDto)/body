@@ -1,0 +1,26 @@
+{
+  LogAppenderDto appender=new LogAppenderDto();
+  appender.setName(generateString("Test Schema"));
+  appender.setDescription(generateString("Test Desc"));
+  if (application == null) {
+    application=createApplication(tenantAdminDto);
+  }
+  appender.setApplicationId(application.getId());
+  appender.setApplicationToken(application.getApplicationToken());
+  appender.setTenantId(application.getTenantId());
+  FileSystemAppenderConfig config=new FileSystemAppenderConfig();
+  appender.setPluginClassName(config.getPluginClassName());
+  Schema pluginSchema=config.getPluginConfigSchema();
+  RawSchema rawSchema=new RawSchema(pluginSchema.toString());
+  DefaultRecordGenerationAlgorithm<RawData> algotithm=new DefaultRecordGenerationAlgorithmImpl<>(rawSchema,new RawDataFactory());
+  RawData rawData=algotithm.getRootData();
+  appender.setJsonConfiguration(rawData.getRawData());
+  if (schema == null) {
+    schema=createLogSchema(application.getId());
+  }
+  appender.setMinLogSchemaVersion(schema.getMajorVersion());
+  appender.setMaxLogSchemaVersion(schema.getMajorVersion());
+  loginTenantDeveloper(tenantDeveloperDto.getUsername());
+  LogAppenderDto savedLogAppender=client.editLogAppenderDto(appender);
+  return savedLogAppender;
+}

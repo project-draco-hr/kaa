@@ -1,0 +1,15 @@
+{
+  OperationsFileKeyStoreService keyStoreService=new OperationsFileKeyStoreService();
+  String randomFolderName="randomFolder" + new Random().nextInt(100000);
+  LOG.info("Creating random folder: {}",randomFolderName);
+  keyStoreService.setPrivateKeyLocation(randomFolderName + File.separator + "private.key");
+  keyStoreService.setPublicKeyLocation(randomFolderName + File.separator + "public.key");
+  try {
+    keyStoreService.loadKeys();
+    Assert.assertNotNull(keyStoreService.getPrivateKey());
+    Assert.assertNotNull(keyStoreService.getPublicKey());
+  }
+  finally {
+    removeFolder(Environment.getServerHomeDir() + File.separator + randomFolderName);
+  }
+}

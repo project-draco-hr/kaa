@@ -1,0 +1,11 @@
+{
+  try {
+    LOG.info("Stopping Kaa Admin Web Server...");
+    server.stop();
+    webAppContext.destroy();
+    LOG.info("Kaa Admin Web Server stopped.");
+  }
+ catch (  Exception e) {
+    LOG.error("Error stopping Kaa Admin Web Server!",e);
+  }
+}

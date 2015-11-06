@@ -1,0 +1,12 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    LogAppenderDto logAppender=controlService.getLogAppender(appenderId);
+    Utils.checkNotNull(logAppender);
+    checkApplicationId(logAppender.getApplicationId());
+    return logAppender;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

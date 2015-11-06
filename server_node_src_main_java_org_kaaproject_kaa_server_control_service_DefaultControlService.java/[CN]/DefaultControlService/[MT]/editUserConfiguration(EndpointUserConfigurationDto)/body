@@ -1,0 +1,19 @@
+{
+  ApplicationDto appDto=applicationService.findAppByApplicationToken(configuration.getAppToken());
+  EndpointUserDto userDto=endpointService.findEndpointUserByExternalIdAndTenantId(configuration.getUserId(),appDto.getTenantId());
+  configuration.setUserId(userDto.getId());
+  configuration=userConfigurationService.saveUserConfiguration(configuration);
+  EndpointObjectHash hash=EndpointObjectHash.fromString(configuration.getBody());
+  checkNeighbors();
+  OperationsNodeInfo server=resolve(configuration.getUserId());
+  if (server != null) {
+    UserConfigurationUpdate msg=new UserConfigurationUpdate(appDto.getTenantId(),configuration.getUserId(),configuration.getAppToken(),configuration.getSchemaVersion(),hash.getDataBuf());
+    if (LOG.isTraceEnabled()) {
+      LOG.trace("Sending message {} to [{}]",msg,Neighbors.getServerID(server.getConnectionInfo()));
+    }
+    neighbors.sendMessage(server.getConnectionInfo(),msg);
+  }
+ else {
+    LOG.warn("Can't find server for user [{}]",configuration.getUserId());
+  }
+}
