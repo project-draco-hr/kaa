@@ -1,5 +1,5 @@
 {
-  buildExtensionHeader(buf,NOTIFICATION_EXTENSION_ID,NOTHING,NOTHING,NOTHING,0);
+  buildExtensionHeader(buf,NOTIFICATION_EXTENSION_ID,NOTHING,NOTHING,0);
   int extPosition=buf.position();
   buf.putInt(notificationSync.getAppStateSeqNumber());
   SyncResponseStatus status=notificationSync.getResponseStatus();

@@ -1,5 +1,5 @@
 {
-  buildExtensionHeader(buf,BOOTSTRAP_EXTENSION_ID,NOTHING,NOTHING,NOTHING,0);
+  buildExtensionHeader(buf,BOOTSTRAP_EXTENSION_ID,NOTHING,NOTHING,0);
   int extPosition=buf.position();
   buf.putShort((short)bootstrapSync.getRequestId());
   buf.putShort((short)bootstrapSync.getProtocolList().size());
