@@ -1,0 +1,5 @@
+{
+  MultiValueMap<String,Object> params=new LinkedMultiValueMap<>();
+  params.add("topicId",sdkProfile.getId());
+  restTemplate.postForLocation(url + "deleteSdkProfile",params);
+}

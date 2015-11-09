@@ -1,0 +1,58 @@
+{
+  float prefWidth=0;
+  prefWidth+=this.constructStringColumn(table,Utils.constants.name(),new StringValueProvider<SdkProfileDto>(){
+    @Override public String getValue(    SdkProfileDto item){
+      return item.getName();
+    }
+  }
+,40);
+  prefWidth+=this.constructStringColumn(table,Utils.constants.author(),new StringValueProvider<SdkProfileDto>(){
+    @Override public String getValue(    SdkProfileDto item){
+      return item.getCreatedUsername();
+    }
+  }
+,40);
+  prefWidth+=this.constructStringColumn(table,Utils.constants.dateCreated(),new StringValueProvider<SdkProfileDto>(){
+    @Override public String getValue(    SdkProfileDto item){
+      return Utils.millisecondsToDateString(item.getCreatedTime());
+    }
+  }
+,40);
+  prefWidth+=this.constructStringColumn(table,Utils.constants.configuration(),new StringValueProvider<SdkProfileDto>(){
+    @Override public String getValue(    SdkProfileDto item){
+      return "v" + item.getConfigurationSchemaVersion().toString();
+    }
+  }
+,40);
+  prefWidth+=this.constructStringColumn(table,Utils.constants.profile(),new StringValueProvider<SdkProfileDto>(){
+    @Override public String getValue(    SdkProfileDto item){
+      return "v" + item.getProfileSchemaVersion().toString();
+    }
+  }
+,40);
+  prefWidth+=this.constructStringColumn(table,Utils.constants.notification(),new StringValueProvider<SdkProfileDto>(){
+    @Override public String getValue(    SdkProfileDto item){
+      return "v" + item.getNotificationSchemaVersion().toString();
+    }
+  }
+,40);
+  prefWidth+=this.constructStringColumn(table,Utils.constants.log(),new StringValueProvider<SdkProfileDto>(){
+    @Override public String getValue(    SdkProfileDto item){
+      return "v" + item.getLogSchemaVersion().toString();
+    }
+  }
+,40);
+  prefWidth+=this.constructStringColumn(table,Utils.constants.sdkToken(),new StringValueProvider<SdkProfileDto>(){
+    @Override public String getValue(    SdkProfileDto item){
+      return item.getToken();
+    }
+  }
+,80);
+  prefWidth+=this.constructStringColumn(table,Utils.constants.ecfs(),new StringValueProvider<SdkProfileDto>(){
+    @Override public String getValue(    SdkProfileDto item){
+      return Integer.toString(item.getAefMapIds().size());
+    }
+  }
+,40);
+  return prefWidth;
+}

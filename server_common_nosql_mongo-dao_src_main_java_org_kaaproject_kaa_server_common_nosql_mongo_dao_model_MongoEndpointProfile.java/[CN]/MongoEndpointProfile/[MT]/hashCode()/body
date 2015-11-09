@@ -18,5 +18,6 @@
   result=31 * result + (ntHash != null ? Arrays.hashCode(ntHash) : 0);
   result=31 * result + systemNfVersion;
   result=31 * result + userNfVersion;
+  result=31 * result + (sdkToken != null ? sdkToken.hashCode() : 0);
   return result;
 }

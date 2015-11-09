@@ -6,7 +6,7 @@
   LogSchemaDto logSchema=createLogSchema(application.getId());
   ApplicationEventFamilyMapDto aefMap=createApplicationEventFamilyMap(application.getId(),null,1);
   List<String> aefMapIds=Collections.singletonList(aefMap.getId());
-  FileData sdk=client.downloadSdk(getSdkProperties(SdkPlatform.JAVA,application.getId(),profileSchema.getMajorVersion(),configSchema.getMajorVersion(),notificationSchema.getMajorVersion(),aefMapIds,logSchema.getMajorVersion(),null));
+  FileData sdk=client.downloadSdk(getSdkProfile(application.getId(),profileSchema.getMajorVersion(),configSchema.getMajorVersion(),notificationSchema.getMajorVersion(),aefMapIds,logSchema.getMajorVersion(),null).getId(),SdkPlatform.JAVA);
   Assert.assertNotNull(sdk);
   Assert.assertFalse(strIsEmpty(sdk.getFileName()));
   Assert.assertNotNull(sdk.getFileData());

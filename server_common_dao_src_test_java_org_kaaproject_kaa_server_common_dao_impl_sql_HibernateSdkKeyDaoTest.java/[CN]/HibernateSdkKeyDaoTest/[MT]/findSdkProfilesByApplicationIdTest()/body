@@ -1,0 +1,6 @@
+{
+  SdkProfile saved=this.generateSdkProfile(null,null);
+  List<SdkProfile> loaded=sdkProfileDao.findSdkProfileByApplicationId(saved.getApplication().getId().toString());
+  Assert.assertEquals(1,loaded.size());
+  Assert.assertEquals(saved,loaded.get(0));
+}

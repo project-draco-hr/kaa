@@ -1,0 +1,32 @@
+{
+  if (event.getAction() == KaaRowAction.GENERATE_SDK) {
+    KaaAdmin.getDataSource().getSdkProfile(event.getClickedId(),new AsyncCallback<SdkProfileDto>(){
+      @Override public void onFailure(      Throwable caught){
+        Utils.handleException(caught,SdkProfilesActivity.this.getView());
+      }
+      @Override public void onSuccess(      final SdkProfileDto sdkProfile){
+        GenerateSdkDialog.show(new GenerateSdkDialog.Listener(){
+          @Override public void onGenerateSdk(          SdkPlatform targetPlatform){
+            BusyPopup.showPopup();
+            KaaAdmin.getDataSource().generateSdk(sdkProfile,targetPlatform,new AsyncCallback<String>(){
+              @Override public void onFailure(              Throwable caught){
+                BusyPopup.hidePopup();
+                Utils.handleException(caught,SdkProfilesActivity.this.getView());
+              }
+              @Override public void onSuccess(              String key){
+                BusyPopup.hidePopup();
+                SdkProfilesActivity.this.getView().clearError();
+                ServletHelper.downloadSdk(key);
+              }
+            }
+);
+          }
+          @Override public void onCancel(){
+          }
+        }
+);
+      }
+    }
+);
+  }
+}

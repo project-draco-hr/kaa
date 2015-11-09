@@ -1,0 +1,43 @@
+{
+  if (this == o) {
+    return true;
+  }
+  if (o == null || getClass() != o.getClass()) {
+    return false;
+  }
+  SdkProfile other=(SdkProfile)o;
+  if (application != null ? !application.equals(other.application) : other.application != null) {
+    return false;
+  }
+  if (token != null ? !token.equals(other.token) : other.token != null) {
+    return false;
+  }
+  if (name != null ? !name.equals(other.name) : other.name != null) {
+    return false;
+  }
+  if (configurationSchemaVersion != null ? !configurationSchemaVersion.equals(other.configurationSchemaVersion) : other.configurationSchemaVersion != null) {
+    return false;
+  }
+  if (profileSchemaVersion != null ? !profileSchemaVersion.equals(other.profileSchemaVersion) : other.profileSchemaVersion != null) {
+    return false;
+  }
+  if (notificationSchemaVersion != null ? !notificationSchemaVersion.equals(other.notificationSchemaVersion) : other.notificationSchemaVersion != null) {
+    return false;
+  }
+  if (logSchemaVersion != null ? !logSchemaVersion.equals(other.logSchemaVersion) : other.logSchemaVersion != null) {
+    return false;
+  }
+  if (aefMapIds != null ? !aefMapIds.equals(other.aefMapIds) : other.aefMapIds != null) {
+    return false;
+  }
+  if (defaultVerifierToken != null ? !defaultVerifierToken.equals(other.defaultVerifierToken) : other.defaultVerifierToken != null) {
+    return false;
+  }
+  if (createdUsername != null ? !createdUsername.equals(other.createdUsername) : other.createdUsername != null) {
+    return false;
+  }
+  if (createdTime != null ? !createdTime.equals(other.createdTime) : other.createdTime != null) {
+    return false;
+  }
+  return true;
+}

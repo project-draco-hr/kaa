@@ -3,19 +3,20 @@
   LOG.trace("Lookup application by token: {}",request.getAppToken());
   AppSeqNumber appSeqNumber=cacheService.getAppSeqNumber(request.getAppToken());
   LOG.trace("Application by token: {} found: {}",request.getAppToken(),appSeqNumber);
-  SdkPropertiesDto sdkProperties=cacheService.getSdkPropertiesBySdkToken(request.getSdkToken());
-  LOG.trace("Sdk properties by sdk token: {} found: {}",request.getSdkToken(),sdkProperties);
-  String profileJson=decodeProfile(request.getProfile(),appSeqNumber.getAppToken(),sdkProperties.getProfileSchemaVersion());
+  SdkProfileDto sdkProfile=cacheService.getSdkProfileBySdkToken(request.getSdkToken());
+  LOG.trace("Sdk properties by sdk token: {} found: {}",request.getSdkToken(),sdkProfile);
+  String profileJson=decodeProfile(request.getProfile(),appSeqNumber.getAppToken(),sdkProfile.getProfileSchemaVersion());
   EndpointObjectHash keyHash=EndpointObjectHash.fromSHA1(request.getEndpointKey());
   EndpointProfileDto dto=endpointService.findEndpointProfileByKeyHash(keyHash.getData());
   if (dto == null) {
     dto=new EndpointProfileDto();
+    dto.setSdkToken(sdkProfile.getToken());
     dto.setApplicationId(appSeqNumber.getAppId());
     dto.setEndpointKey(request.getEndpointKey());
     dto.setEndpointKeyHash(keyHash.getData());
     dto.setProfile(profileJson);
     dto.setProfileHash(EndpointObjectHash.fromSHA1(request.getProfile()).getData());
-    populateVersionStates(appSeqNumber.getTenantId(),dto,sdkProperties);
+    populateVersionStates(appSeqNumber.getTenantId(),dto,sdkProfile);
     if (request.getAccessToken() != null) {
       dto.setAccessToken(request.getAccessToken());
     }

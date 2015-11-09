@@ -17,5 +17,6 @@
  else {
     profileDto.setCfGroupStates(groupState);
   }
+  profileDto.setSdkToken(UUID.randomUUID().toString());
   return endpointProfileDao.save(new CassandraEndpointProfile(profileDto)).toDto();
 }

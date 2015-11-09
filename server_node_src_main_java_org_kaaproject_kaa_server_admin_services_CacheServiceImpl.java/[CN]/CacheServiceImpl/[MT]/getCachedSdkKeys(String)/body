@@ -1,12 +1,12 @@
 {
-  List<SdkPropertiesDto> keys=new ArrayList<>();
+  List<SdkKey> keys=new ArrayList<>();
   Ehcache cache=(Ehcache)adminCacheManager.getCache(SDK_CACHE).getNativeCache();
   List<?> cachedKeys=cache.getKeysWithExpiryCheck();
   for (  Object cachedKey : cachedKeys) {
-    if (cachedKey instanceof SdkPropertiesDto) {
-      SdkPropertiesDto cachedSdkPropertiesDto=(SdkPropertiesDto)cachedKey;
-      if (applicationId.equals(cachedSdkPropertiesDto.getApplicationId())) {
-        keys.add(cachedSdkPropertiesDto);
+    if (cachedKey instanceof SdkKey) {
+      SdkKey cachedSdkKey=(SdkKey)cachedKey;
+      if (applicationId.equals(cachedSdkKey.getSdkProfile().getApplicationId())) {
+        keys.add(cachedSdkKey);
       }
     }
   }

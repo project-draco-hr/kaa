@@ -1,0 +1,128 @@
+{
+  detailsTable.getColumnFormatter().setWidth(0,"250px");
+  detailsTable.getColumnFormatter().setWidth(1,"500px");
+  int row=0;
+  Widget label=new Label(Utils.constants.name());
+  label.addStyleName(REQUIRED);
+  name=new KaaAdminSizedTextBox(15);
+  name.addInputHandler(this);
+  detailsTable.setWidget(row,0,label);
+  detailsTable.setWidget(row,1,name);
+  row++;
+  label=new Label(Utils.constants.configurationSchemaVersion());
+  label.addStyleName(REQUIRED);
+  configurationSchemaVersion=new SchemaListBox();
+  configurationSchemaVersion.setWidth("80px");
+  configurationSchemaVersion.addValueChangeHandler(this);
+  detailsTable.setWidget(row,0,label);
+  detailsTable.setWidget(row,1,configurationSchemaVersion);
+  row++;
+  label=new Label(Utils.constants.profileSchemaVersion());
+  label.addStyleName(REQUIRED);
+  profileSchemaVersion=new SchemaListBox();
+  profileSchemaVersion.setWidth("80px");
+  profileSchemaVersion.addValueChangeHandler(this);
+  detailsTable.setWidget(row,0,label);
+  detailsTable.setWidget(row,1,profileSchemaVersion);
+  row++;
+  label=new Label(Utils.constants.notificationSchemaVersion());
+  label.addStyleName(REQUIRED);
+  notificationSchemaVersion=new SchemaListBox();
+  notificationSchemaVersion.setWidth("80px");
+  notificationSchemaVersion.addValueChangeHandler(this);
+  detailsTable.setWidget(row,0,label);
+  detailsTable.setWidget(row,1,notificationSchemaVersion);
+  row++;
+  label=new Label(Utils.constants.logSchemaVersion());
+  label.addStyleName(REQUIRED);
+  logSchemaVersion=new SchemaListBox();
+  logSchemaVersion.setWidth("80px");
+  logSchemaVersion.addValueChangeHandler(this);
+  detailsTable.setWidget(row,0,label);
+  detailsTable.setWidget(row,1,logSchemaVersion);
+  row++;
+  FlexTable ecfsTable=new FlexTable();
+  ecfsTable.setCellSpacing(6);
+  availableAefMaps=new MultiAefMapListBox();
+  selectedAefMaps=new MultiAefMapListBox();
+  addAefMapButton=new Button(Utils.constants.add());
+  removeAefMapButton=new Button(Utils.constants.remove());
+  VerticalPanel availableEcfsPanel=new VerticalPanel();
+  availableEcfsPanel.setSpacing(6);
+  Label availableLabel=new Label(Utils.constants.available());
+  availableEcfsPanel.add(availableLabel);
+  availableEcfsPanel.add(availableAefMaps);
+  VerticalPanel ecfButtonsPanel=new VerticalPanel();
+  ecfButtonsPanel.setSpacing(6);
+  ecfButtonsPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+  ecfButtonsPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+  ecfButtonsPanel.add(addAefMapButton);
+  ecfButtonsPanel.add(removeAefMapButton);
+  VerticalPanel selectedEcfsPanel=new VerticalPanel();
+  selectedEcfsPanel.setSpacing(6);
+  Label selectedLabel=new Label(Utils.constants.selected());
+  selectedEcfsPanel.add(selectedLabel);
+  selectedEcfsPanel.add(selectedAefMaps);
+  ecfsTable.setWidget(0,0,availableEcfsPanel);
+  ecfsTable.setWidget(0,1,ecfButtonsPanel);
+  ecfsTable.setWidget(0,2,selectedEcfsPanel);
+  ecfsTable.getFlexCellFormatter().setVerticalAlignment(0,1,HasVerticalAlignment.ALIGN_MIDDLE);
+  DisclosurePanel ecfsDisclosure=new DisclosurePanel(Utils.constants.ecfs());
+  ecfsDisclosure.setAnimationEnabled(true);
+  ecfsDisclosure.setContent(ecfsTable);
+  addAefMapButton.addStyleName(Utils.kaaAdminStyle.bAppButtonSmall());
+  removeAefMapButton.addStyleName(Utils.kaaAdminStyle.bAppButtonSmall());
+  addAefMapButton.addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      addAefMap();
+    }
+  }
+);
+  removeAefMapButton.addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      removeAefMap();
+    }
+  }
+);
+  availableAefMaps.setSize("250px","100px");
+  selectedAefMaps.setSize("250px","100px");
+  availableAefMaps.addValueChangeHandler(new ValueChangeHandler<List<AefMapInfoDto>>(){
+    @Override public void onValueChange(    ValueChangeEvent<List<AefMapInfoDto>> event){
+      updateAefMapButtons();
+    }
+  }
+);
+  selectedAefMaps.addValueChangeHandler(new ValueChangeHandler<List<AefMapInfoDto>>(){
+    @Override public void onValueChange(    ValueChangeEvent<List<AefMapInfoDto>> event){
+      updateAefMapButtons();
+    }
+  }
+);
+  detailsTable.setWidget(row,0,ecfsDisclosure);
+  detailsTable.getFlexCellFormatter().setColSpan(row,0,2);
+  row++;
+  label=new Label(Utils.constants.defaultUserVerifier());
+  Renderer<UserVerifierDto> userVerifierRenderer=new Renderer<UserVerifierDto>(){
+    @Override public String render(    UserVerifierDto object){
+      if (object != null) {
+        return object.getName();
+      }
+ else {
+        return "";
+      }
+    }
+    @Override public void render(    UserVerifierDto object,    Appendable appendable) throws IOException {
+      appendable.append(render(object));
+    }
+  }
+;
+  defaultUserVerifier=new ValueListBox<>(userVerifierRenderer);
+  defaultUserVerifier.addValueChangeHandler(new ValueChangeHandler<UserVerifierDto>(){
+    @Override public void onValueChange(    ValueChangeEvent<UserVerifierDto> event){
+      fireChanged();
+    }
+  }
+);
+  detailsTable.setWidget(row,0,label);
+  detailsTable.setWidget(row,1,defaultUserVerifier);
+}

@@ -14,5 +14,6 @@
  else {
     profileDto.setCfGroupStates(groupState);
   }
+  profileDto.setSdkToken(UUID.randomUUID().toString());
   return endpointService.saveEndpointProfile(profileDto);
 }

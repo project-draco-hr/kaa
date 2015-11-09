@@ -1,0 +1,9 @@
+{
+  return sdkProfileMemorizer.compute(key,new Computable<String,SdkProfileDto>(){
+    @Override public SdkProfileDto compute(    String key){
+      LOG.debug("Fetching result for getSdkPropertiesBySdkToken");
+      return sdkProfileService.findSdkProfileByToken(key);
+    }
+  }
+);
+}

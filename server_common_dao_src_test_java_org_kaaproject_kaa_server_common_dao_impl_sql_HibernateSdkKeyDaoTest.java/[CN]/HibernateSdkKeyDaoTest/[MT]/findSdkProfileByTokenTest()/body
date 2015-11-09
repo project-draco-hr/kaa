@@ -1,0 +1,6 @@
+{
+  String token=HibernateSdkKeyDaoTest.class.getName();
+  SdkProfile saved=this.generateSdkProfile(null,token);
+  SdkProfile loaded=sdkProfileDao.findSdkProfileByToken(token);
+  Assert.assertEquals(saved,loaded);
+}

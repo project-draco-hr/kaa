@@ -1,0 +1,16 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    checkApplicationId(sdkProfile.getApplicationId());
+    CacheService.SdkKey sdkKey=new CacheService.SdkKey(sdkProfile,targetPlatform);
+    FileData sdkFile=cacheService.getSdk(sdkKey);
+    if (sdkFile == null) {
+      sdkFile=controlService.generateSdk(sdkProfile,targetPlatform);
+      cacheService.putSdk(sdkKey,sdkFile);
+    }
+    return sdkFile;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

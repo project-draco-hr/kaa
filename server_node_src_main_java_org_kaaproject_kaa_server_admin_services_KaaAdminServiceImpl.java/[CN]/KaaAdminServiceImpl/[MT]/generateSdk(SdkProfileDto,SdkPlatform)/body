@@ -1,0 +1,9 @@
+{
+  try {
+    doGenerateSdk(sdkProfile,targetPlatform);
+    return Base64.encodeObject(new CacheService.SdkKey(sdkProfile,targetPlatform),Base64.URL_SAFE);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

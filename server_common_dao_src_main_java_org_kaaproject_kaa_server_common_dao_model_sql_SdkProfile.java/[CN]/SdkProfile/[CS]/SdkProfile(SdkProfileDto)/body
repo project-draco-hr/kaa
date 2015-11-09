@@ -1,0 +1,49 @@
+{
+  if (dto != null) {
+    try {
+      this.id=ModelUtils.getLongId(dto.getId());
+      this.name=dto.getName();
+      this.configurationSchemaVersion=dto.getConfigurationSchemaVersion();
+      this.profileSchemaVersion=dto.getProfileSchemaVersion();
+      this.notificationSchemaVersion=dto.getNotificationSchemaVersion();
+      this.logSchemaVersion=dto.getLogSchemaVersion();
+      if (dto.getAefMapIds() != null) {
+        this.aefMapIds=new ArrayList<>(dto.getAefMapIds().size());
+        for (        String id : dto.getAefMapIds()) {
+          this.aefMapIds.add(id);
+        }
+      }
+      this.defaultVerifierToken=dto.getDefaultVerifierToken();
+      this.createdUsername=dto.getCreatedUsername();
+      this.createdTime=dto.getCreatedTime();
+      this.endpointCount=dto.getEndpointCount();
+      Long applicationId=ModelUtils.getLongId(dto.getApplicationId());
+      this.application=(applicationId != null) ? new Application(applicationId) : null;
+      if (this.aefMapIds != null && this.aefMapIds.isEmpty()) {
+        dto.setAefMapIds(null);
+      }
+      dto.setId(null);
+      dto.setCreatedUsername(null);
+      dto.setCreatedTime(null);
+      dto.setEndpointCount(null);
+      dto.setToken(null);
+      MessageDigest messageDigest=MessageDigest.getInstance(HASH_ALGORITHM);
+      messageDigest.update(DtoByteMarshaller.toBytes(dto));
+      this.token=Base64.encodeBase64String(messageDigest.digest());
+      dto.setId(this.getStringId());
+      dto.setCreatedUsername(this.createdUsername);
+      dto.setCreatedTime(this.createdTime);
+      dto.setEndpointCount(this.endpointCount);
+      dto.setToken(this.token);
+      if (this.aefMapIds != null) {
+        dto.setAefMapIds(new ArrayList<String>(this.aefMapIds.size()));
+        for (        String id : this.aefMapIds) {
+          dto.getAefMapIds().add(id);
+        }
+      }
+    }
+ catch (    NoSuchAlgorithmException e) {
+      throw new RuntimeException(e);
+    }
+  }
+}

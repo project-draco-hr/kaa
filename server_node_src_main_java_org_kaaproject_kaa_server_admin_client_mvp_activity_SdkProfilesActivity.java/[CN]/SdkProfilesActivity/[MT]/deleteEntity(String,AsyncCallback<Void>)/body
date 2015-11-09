@@ -1,0 +1,14 @@
+{
+  SdkProfilesActivity.this.getView().clearError();
+  BusyPopup.showPopup();
+  KaaAdmin.getDataSource().deleteSdkProfile(id,new AsyncCallback<Void>(){
+    @Override public void onFailure(    Throwable caught){
+      BusyPopup.hidePopup();
+      Utils.handleException(caught,SdkProfilesActivity.this.getView());
+    }
+    @Override public void onSuccess(    Void result){
+      BusyPopup.hidePopup();
+    }
+  }
+);
+}
