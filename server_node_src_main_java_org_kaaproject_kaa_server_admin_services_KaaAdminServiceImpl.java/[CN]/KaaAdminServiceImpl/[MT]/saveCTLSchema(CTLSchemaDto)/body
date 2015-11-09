@@ -1,0 +1,24 @@
+{
+  this.checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    this.checkCTLSchemaFqnAndVersion(schema.getFqn(),schema.getVersion());
+    this.checkApplicationId(schema.getApplicationId());
+    this.checkTenantId(schema.getTenantId());
+    for (    CTLSchemaDto other : controlService.getCTLSchemas()) {
+      if (schema.getFqn().equals(other.getFqn()) && schema.getVersion() == other.getVersion()) {
+        String message;
+        if (schema.equals(other)) {
+          message="A CTL schema cannot depend on itself!";
+        }
+ else {
+          message="A CTL schema with the FQN and version number specified already exists!";
+        }
+        throw new IllegalArgumentException(message);
+      }
+    }
+    return controlService.saveCTLSchema(schema);
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+}

@@ -1,0 +1,12 @@
+{
+  this.checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    if (isEmpty(fqn)) {
+      throw new IllegalArgumentException("The fully qualified name is empty!");
+    }
+    return controlService.getCTLSchemasByFqn(fqn);
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+}

@@ -1,0 +1,10 @@
+{
+  this.checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    this.checkCTLSchemaFqnAndVersion(fqn,version);
+    return controlService.getCTLSchemaByFqnAndVersion(fqn,version);
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+}

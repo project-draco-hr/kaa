@@ -1,0 +1,28 @@
+{
+  this.checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    this.checkCTLSchemaId(schemaId);
+    CTLSchemaDto schemaDto=controlService.getCTLSchemaById(schemaId);
+    Utils.checkNotNull(schemaDto);
+    this.checkApplicationId(schemaDto.getApplicationId());
+    this.checkTenantId(schemaDto.getTenantId());
+    List<CTLSchemaDto> dependents=new ArrayList<>();
+    CTLDependencyDto dependency=schemaDto.asDependency();
+    for (    CTLSchemaDto other : controlService.getCTLSchemas()) {
+      if (other.getDependencies().contains(dependency)) {
+        dependents.add(other);
+      }
+    }
+    if (!dependents.isEmpty()) {
+      StringBuilder message=new StringBuilder("Unable to delete the CTL schema specified! Dependents founds: ");
+      for (      CTLSchemaDto dependent : dependents) {
+        message.append(dependent.asDependency().toString());
+      }
+      throw new IllegalArgumentException(message.toString());
+    }
+    controlService.deleteCTLSchemaById(schemaId);
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+}
