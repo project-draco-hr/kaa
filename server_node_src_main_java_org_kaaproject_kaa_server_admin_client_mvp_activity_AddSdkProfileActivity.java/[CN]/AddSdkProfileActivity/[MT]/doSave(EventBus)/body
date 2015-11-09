@@ -4,8 +4,8 @@
     detailsView.setErrorMessage(Utils.constants.specifyVerifier());
   }
  else {
-    KaaAdmin.getDataSource().addSdkProfile(entity,new BusyAsyncCallback<Void>(){
-      @Override public void onSuccessImpl(      Void result){
+    KaaAdmin.getDataSource().addSdkProfile(entity,new BusyAsyncCallback<SdkProfileDto>(){
+      @Override public void onSuccessImpl(      SdkProfileDto result){
         detailsView.reset();
         AddSdkProfileActivity.this.goTo(new SdkProfilesPlace(applicationId));
       }

@@ -4,7 +4,7 @@
     this.checkApplicationId(sdkProfile.getApplicationId());
     sdkProfile.setCreatedUsername(this.getCurrentUser().getUsername());
     sdkProfile.setCreatedTime(System.currentTimeMillis());
-    controlService.saveSdkProfile(sdkProfile);
+    return controlService.saveSdkProfile(sdkProfile);
   }
  catch (  Exception cause) {
     throw Utils.handleException(cause);

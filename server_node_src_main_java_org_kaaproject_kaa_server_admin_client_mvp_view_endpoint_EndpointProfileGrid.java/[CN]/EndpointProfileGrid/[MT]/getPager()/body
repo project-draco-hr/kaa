@@ -1,0 +1,20 @@
+{
+  return new SimplePager(SimplePager.TextLocation.CENTER,pagerResources,false,0,true){
+    @Override protected String createText(){
+      Range range=getDisplay().getVisibleRange();
+      int currentPage=range.getStart() / (range.getLength() != 0 ? range.getLength() : 1) + 1;
+      return Utils.messages.pagerText(currentPage + "");
+    }
+    @Override public void setPageStart(    int index){
+      if (getDisplay() != null) {
+        Range range=getDisplay().getVisibleRange();
+        int pageSize=range.getLength();
+        index=Math.max(0,index);
+        if (index != range.getStart()) {
+          getDisplay().setVisibleRange(index,pageSize);
+        }
+      }
+    }
+  }
+;
+}

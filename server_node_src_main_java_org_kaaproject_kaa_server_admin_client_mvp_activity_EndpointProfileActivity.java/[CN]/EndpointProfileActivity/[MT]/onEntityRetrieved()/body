@@ -1,0 +1,39 @@
+{
+  detailsView.reset();
+  EndpointProfileDto profileDto=entity.getEndpointProfileDto();
+  EndpointUserDto userDto=entity.getEndpointUserDto();
+  ProfileSchemaDto profileSchemaDto=entity.getProfileSchemaDto();
+  detailsView.getKeyHash().setValue(BaseEncoding.base64().encode(profileDto.getEndpointKeyHash()));
+  if (userDto != null) {
+    detailsView.getUserID().setValue(userDto.getId());
+    detailsView.getUserExternalID().setValue(userDto.getExternalId());
+    for (    Widget widget : detailsView.getUserInfoList()) {
+      widget.setVisible(true);
+    }
+  }
+ else {
+    for (    Widget widget : detailsView.getUserInfoList()) {
+      widget.setVisible(false);
+    }
+  }
+  detailsView.getProfileSchemaVersion().setValue(profileDto.getProfileVersion() + "");
+  detailsView.getConfigurationSchemaVersion().setValue(profileDto.getConfigurationVersion() + "");
+  detailsView.getNotificationVersion().setValue(profileDto.getUserNfVersion() + "");
+  detailsView.getLogSchemaVer().setValue(profileDto.getLogSchemaVersion() + "");
+  List<EndpointGroupDto> groupDtoList=entity.getGroupDtoList();
+  if (groupDtoList != null) {
+    detailsView.getGroupsGrid().getDataGrid().setRowData(groupDtoList);
+  }
+  List<TopicDto> endpointNotificationTopics=entity.getEndpointNotificationTopics();
+  if (endpointNotificationTopics != null) {
+    detailsView.getTopicsGrid().getDataGrid().setRowData(endpointNotificationTopics);
+  }
+ else   detailsView.getTopicsGrid().getDataGrid().setRowData(new ArrayList<TopicDto>());
+  detailsView.getSchemaName().setValue(profileSchemaDto.getName());
+  detailsView.getDescription().setValue(profileSchemaDto.getDescription());
+  RecordField endpointProfileRecord=entity.getEndpointProfileRecord();
+  if (endpointProfileRecord != null) {
+    detailsView.getSchemaForm().reset();
+    detailsView.getSchemaForm().setValue(endpointProfileRecord);
+  }
+}
