@@ -1,0 +1,6 @@
+{
+  Session session=getSession();
+  CTLSchema t=(CTLSchema)session.merge(o);
+  session.flush();
+  return t;
+}
