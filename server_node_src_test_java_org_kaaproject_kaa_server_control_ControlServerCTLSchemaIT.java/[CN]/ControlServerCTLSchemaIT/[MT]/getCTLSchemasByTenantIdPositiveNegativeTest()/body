@@ -1,0 +1,8 @@
+{
+  this.checkNotFound(new TestRestCall(){
+    @Override public void executeRestCall() throws Exception {
+      client.getCTLSchemasByTenantId(UNKNOWN_TENANT_ID);
+    }
+  }
+);
+}

@@ -1,0 +1,5 @@
+{
+  CTLSchemaDto saved=this.createCTLSchema(null,null,CTLSchemaScope.APPLICATION);
+  CTLSchemaDto loaded=client.getCTLSchemaById(saved.getId());
+  Assert.assertEquals(saved,loaded);
+}

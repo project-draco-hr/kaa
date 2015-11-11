@@ -1,0 +1,5 @@
+{
+  CTLSchemaDto saved=this.createCTLSchema(null,null,null);
+  CTLSchemaDto loaded=client.getCTLSchemaByFqnAndVersion(saved.getFqn(),saved.getVersion());
+  Assert.assertEquals(saved,loaded);
+}

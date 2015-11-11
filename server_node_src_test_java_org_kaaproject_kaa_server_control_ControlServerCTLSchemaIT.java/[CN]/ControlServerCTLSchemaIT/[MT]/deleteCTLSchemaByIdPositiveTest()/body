@@ -1,0 +1,10 @@
+{
+  final CTLSchemaDto schema=this.createCTLSchema(null,null,null);
+  client.deleteCTLSchemaById(schema.getId());
+  this.checkNotFound(new TestRestCall(){
+    @Override public void executeRestCall() throws Exception {
+      client.getCTLSchemaById(schema.getId());
+    }
+  }
+);
+}
