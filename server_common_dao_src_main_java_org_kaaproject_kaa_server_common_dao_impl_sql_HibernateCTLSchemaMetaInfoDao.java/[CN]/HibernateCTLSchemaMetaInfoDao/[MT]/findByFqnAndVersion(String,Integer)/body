@@ -1,0 +1,14 @@
+{
+  CTLSchemaMetaInfo ctlSchema=null;
+  LOG.debug("Searching ctl metadata by fqn [{}] and version [{}]",fqn,version);
+  if (isNotBlank(fqn) && version != null) {
+    ctlSchema=findOneByCriterion(Restrictions.and(Restrictions.eq("version",version),Restrictions.eq("fqn",fqn)));
+  }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{},{}] Search result: {}.",fqn,version,ctlSchema);
+  }
+ else {
+    LOG.debug("[{},{}] Search result: {}.",fqn,version,ctlSchema != null);
+  }
+  return ctlSchema;
+}

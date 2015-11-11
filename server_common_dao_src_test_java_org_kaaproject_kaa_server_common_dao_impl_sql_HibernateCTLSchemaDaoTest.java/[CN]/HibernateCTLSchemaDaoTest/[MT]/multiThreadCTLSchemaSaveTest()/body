@@ -1,16 +1,16 @@
 {
-  List<Future<CTLSchema>> list=new ArrayList<>();
+  List<Future<CTLSchemaDto>> list=new ArrayList<>();
   for (int i=0; i < 100; i++) {
     final int x=i;
-    list.add(executorService.submit(new Callable<CTLSchema>(){
-      @Override public CTLSchema call(){
-        CTLSchema sch=null;
+    list.add(executorService.submit(new Callable<CTLSchemaDto>(){
+      @Override public CTLSchemaDto call(){
+        CTLSchemaDto sch=null;
         try {
-          if (x % 2 == 0) {
-            sch=ctlSchemaService.save(generateCTLSchema(new Tenant(tenant)));
+          if (x % 77 == 0) {
+            sch=ctlSchemaService.save(generateCTLSchema(null));
           }
  else {
-            sch=ctlSchemaService.save(generateCTLSchema(null));
+            sch=ctlSchemaService.save(generateCTLSchema(generateTenantDto().getId()));
           }
         }
  catch (        Throwable t) {
@@ -21,7 +21,7 @@
     }
 ));
   }
-  for (  Future<CTLSchema> f : list) {
-    LOG.debug("id {}",f.get().getId());
+  for (  Future<CTLSchemaDto> f : list) {
+    LOG.debug("id {}",f.get());
   }
 }

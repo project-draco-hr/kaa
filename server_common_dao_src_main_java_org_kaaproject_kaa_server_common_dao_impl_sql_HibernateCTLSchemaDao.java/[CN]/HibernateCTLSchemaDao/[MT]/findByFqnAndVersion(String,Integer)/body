@@ -2,7 +2,7 @@
   CTLSchema ctlSchema=null;
   LOG.debug("Searching ctl schema by fqn [{}] and version [{}]",fqn,version);
   if (isNotBlank(fqn) && version != null) {
-    ctlSchema=findOneByCriterionWithLock(Restrictions.and(Restrictions.eq("version",version),Restrictions.eq("fqn",fqn)),LockMode.PESSIMISTIC_WRITE);
+    ctlSchema=findOneByCriterionWithAlias("metaInfo","mi",Restrictions.and(Restrictions.eq("mi.version",version),Restrictions.eq("mi.fqn",fqn)));
   }
   if (LOG.isTraceEnabled()) {
     LOG.trace("[{},{}] Search result: {}.",fqn,version,ctlSchema);
