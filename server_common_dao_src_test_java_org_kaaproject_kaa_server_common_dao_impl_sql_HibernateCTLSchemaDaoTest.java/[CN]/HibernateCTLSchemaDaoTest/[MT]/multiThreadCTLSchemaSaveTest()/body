@@ -1,10 +1,27 @@
 {
+  List<Future<CTLSchema>> list=new ArrayList<>();
   for (int i=0; i < 100; i++) {
-    executorService.submit(new Runnable(){
-      @Override public void run(){
-        ctlSchemaDao.save(generateCTLSchema(generateTenant()));
+    final int x=i;
+    list.add(executorService.submit(new Callable<CTLSchema>(){
+      @Override public CTLSchema call(){
+        CTLSchema sch=null;
+        try {
+          if (x % 2 == 0) {
+            sch=ctlSchemaService.save(generateCTLSchema(new Tenant(tenant)));
+          }
+ else {
+            sch=ctlSchemaService.save(generateCTLSchema(null));
+          }
+        }
+ catch (        Throwable t) {
+          LOG.warn("Catch exception {}",t.getCause(),t);
+        }
+        return sch;
       }
     }
-);
+));
+  }
+  for (  Future<CTLSchema> f : list) {
+    LOG.debug("id {}",f.get().getId());
   }
 }

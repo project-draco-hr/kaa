@@ -1,4 +1,4 @@
 {
-  ctlSchemaDao.save(generateCTLSchema(tenant));
-  ctlSchemaDao.save(generateCTLSchema(generateTenant()));
+  ctlSchemaService.save(generateCTLSchema(new Tenant(tenant)));
+  ctlSchemaService.save(generateCTLSchema(null));
 }

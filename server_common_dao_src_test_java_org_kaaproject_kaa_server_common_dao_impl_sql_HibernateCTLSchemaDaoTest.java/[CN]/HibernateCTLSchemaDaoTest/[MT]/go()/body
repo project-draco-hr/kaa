@@ -1,5 +1,10 @@
 {
   if (tenant == null) {
-    tenant=generateTenant();
+    tenant=userService.findTenantByName(SUPER_TENANT);
+    if (tenant == null) {
+      TenantDto tn=new TenantDto();
+      tn.setName(SUPER_TENANT);
+      tenant=userService.saveTenant(tn);
+    }
   }
 }
