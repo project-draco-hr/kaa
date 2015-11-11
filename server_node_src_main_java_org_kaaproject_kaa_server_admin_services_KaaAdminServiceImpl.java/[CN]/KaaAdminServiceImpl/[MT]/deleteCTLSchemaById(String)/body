@@ -8,15 +8,20 @@
     this.checkTenantId(schemaDto.getTenantId());
     List<CTLSchemaDto> dependents=new ArrayList<>();
     CTLDependencyDto dependency=schemaDto.asDependency();
-    for (    CTLSchemaDto other : controlService.getCTLSchemas()) {
-      if (other.getDependencies().contains(dependency)) {
-        dependents.add(other);
+    for (    CTLSchemaDto schema : controlService.getCTLSchemas()) {
+      if (schema.getDependencies().contains(dependency)) {
+        dependents.add(schema);
       }
     }
     if (!dependents.isEmpty()) {
-      StringBuilder message=new StringBuilder("Unable to delete the CTL schema specified! Dependents founds: ");
-      for (      CTLSchemaDto dependent : dependents) {
-        message.append(dependent.asDependency().toString());
+      StringBuilder message=new StringBuilder("Unable to delete the CTL schema specified! Dependents found: ");
+      for (int i=0; i < dependents.size(); i++) {
+        CTLSchemaDto dependent=dependents.get(i);
+        message.append("\"").append(dependent.getFqn()).append("\"");
+        message.append(" ").append("(v").append(dependent.getVersion()).append(")");
+        if (i != dependents.size() - 1) {
+          message.append(", ");
+        }
       }
       throw new IllegalArgumentException(message.toString());
     }

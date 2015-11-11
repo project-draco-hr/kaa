@@ -1,0 +1,12 @@
+{
+  this.checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    CTLSchemaDto schema=this.getCTLSchemaByFqnAndVersion(fqn,version);
+    this.checkApplicationId(schema.getApplicationId());
+    this.checkTenantId(schema.getTenantId());
+    return controlService.generateDeepCTLSchema(fqn,version);
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+}
