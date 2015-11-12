@@ -1,0 +1,54 @@
+{
+  CTLSchemaDto savedCtlSchemaDto;
+synchronized (huita) {
+    schemaMetaInfoDao.refreshSession();
+    validateCTLSchemaObject(unSavedSchema);
+    CTLSchemaMetaInfoDto metaInfo=unSavedSchema.getMetaInfo();
+    CTLSchemaScopeDto currentScope=null;
+    if (isBlank(unSavedSchema.getTenantId())) {
+      currentScope=SYSTEM;
+    }
+ else     if (!isBlank(unSavedSchema.getTenantId())) {
+      currentScope=TENANT;
+    }
+ else     if (!isBlank(unSavedSchema.getAppId())) {
+      currentScope=APPLICATION;
+    }
+    metaInfo.setSchemaScopeDto(currentScope);
+    CTLSchemaMetaInfo uniqueMetaInfo;
+    try {
+      uniqueMetaInfo=schemaMetaInfoDao.findByFqnAndVersion(metaInfo.getFqn(),metaInfo.getVersion());
+      if (uniqueMetaInfo == null) {
+        uniqueMetaInfo=schemaMetaInfoDao.save(new CTLSchemaMetaInfo(metaInfo),true);
+      }
+    }
+ catch (    DataIntegrityViolationException ex) {
+      LOG.warn("---> Got DataIntegrityViolationException. Its ok for multy thread");
+      uniqueMetaInfo=schemaMetaInfoDao.findByFqnAndVersion(metaInfo.getFqn(),metaInfo.getVersion());
+    }
+catch (    Exception e) {
+      throw new RuntimeException("Database processing exception.");
+    }
+    LockOptions lockOptions=new LockOptions(LockMode.PESSIMISTIC_WRITE);
+    lockOptions.setTimeOut(1000);
+    schemaMetaInfoDao.lock(uniqueMetaInfo,lockOptions);
+switch (uniqueMetaInfo.getSchemaScopeDto()) {
+case SYSTEM:
+      throw new RuntimeException("Disable to store system ctl schema with same fqn and version.");
+case TENANT:
+    if (currentScope == SYSTEM) {
+      throw new RuntimeException("Disable to store system ctl schema. Tenant's scope schema already exists with the same fqn and version.");
+    }
+  break;
+case APPLICATION:
+break;
+default :
+break;
+}
+CTLSchema ctlSchema=new CTLSchema(unSavedSchema);
+ctlSchema.setMetaInfo(uniqueMetaInfo);
+savedCtlSchemaDto=getDto(ctlSchemaDao.save(ctlSchema));
+uniqueMetaInfo.incrementCount();
+}
+return savedCtlSchemaDto;
+}

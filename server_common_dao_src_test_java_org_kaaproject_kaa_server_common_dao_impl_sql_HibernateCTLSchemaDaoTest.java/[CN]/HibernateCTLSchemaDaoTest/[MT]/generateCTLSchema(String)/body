@@ -1,7 +1,3 @@
 {
-  CTLSchemaDto ctlSchema=new CTLSchemaDto();
-  ctlSchema.setMetaInfo(new CTLSchemaMetaInfoDto("org.kaaproject.kaa.ctl.TestSchema",1));
-  ctlSchema.setBody(UUID.randomUUID().toString());
-  ctlSchema.setTenantId(tenantId);
-  return ctlSchema;
+  return generateCTLSchema(tenantId,100);
 }

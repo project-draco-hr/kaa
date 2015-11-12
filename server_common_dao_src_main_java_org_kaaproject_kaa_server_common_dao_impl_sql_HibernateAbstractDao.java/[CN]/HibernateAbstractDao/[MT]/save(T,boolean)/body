@@ -1,0 +1,15 @@
+{
+  LOG.debug("Saving {} entity {}",getEntityClass(),o);
+  Session session=getSession();
+  o=(T)session.merge(o);
+  if (flush) {
+    session.flush();
+  }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("Saving result: {}",o);
+  }
+ else {
+    LOG.debug("Saving result: {}",o != null);
+  }
+  return o;
+}
