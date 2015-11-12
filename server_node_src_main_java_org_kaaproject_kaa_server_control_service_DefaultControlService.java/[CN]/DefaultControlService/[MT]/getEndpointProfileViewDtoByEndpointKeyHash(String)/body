@@ -2,6 +2,7 @@
   EndpointProfileViewDto viewDto=new EndpointProfileViewDto();
   EndpointProfileDto endpointProfileDto=endpointService.findEndpointProfileByKeyHash(Base64.decodeBase64(endpointProfileKeyHash));
   viewDto.setEndpointProfileDto(endpointProfileDto);
+  viewDto.setSdkProfileDto(sdkProfileService.findSdkProfileByToken(endpointProfileDto.getSdkToken()));
   String externalId=endpointProfileDto.getEndpointUserId();
   EndpointUserDto userDto=null;
   if (externalId != null) {

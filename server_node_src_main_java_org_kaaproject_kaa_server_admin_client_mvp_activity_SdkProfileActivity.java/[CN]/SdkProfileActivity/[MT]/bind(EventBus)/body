@@ -1,0 +1,12 @@
+{
+  super.bind(eventBus);
+  registrations.add(detailsView.getSdkAefMapsGrid().addRowActionHandler(new RowActionEventHandler<String>(){
+    @Override public void onRowAction(    RowActionEvent<String> rowActionEvent){
+      String id=rowActionEvent.getClickedId();
+      AefMapPlace aefMapPlace=new AefMapPlace(place.getApplicationId(),id);
+      aefMapPlace.setPreviousPlace(place);
+      goTo(aefMapPlace);
+    }
+  }
+));
+}

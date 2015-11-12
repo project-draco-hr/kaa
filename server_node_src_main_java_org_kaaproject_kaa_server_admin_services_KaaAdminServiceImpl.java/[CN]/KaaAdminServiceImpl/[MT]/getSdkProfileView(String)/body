@@ -1,0 +1,50 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    SdkProfileViewDto viewDto=new SdkProfileViewDto();
+    SdkProfileDto sdkProfile=controlService.getSdkProfile(sdkProfileId);
+    viewDto.setSdkProfile(sdkProfile);
+    String applicationId=sdkProfile.getApplicationId();
+    List<ApplicationEventFamilyMapDto> aefDtoList=new ArrayList<>();
+    List<ApplicationEventFamilyMapDto> aefMaps=controlService.getApplicationEventFamilyMapsByApplicationId(applicationId);
+    List<String> aefMapIds=sdkProfile.getAefMapIds();
+    for (    ApplicationEventFamilyMapDto aefDto : aefMaps) {
+      if (aefMapIds.contains(aefDto.getId())) {
+        aefDtoList.add(aefDto);
+      }
+    }
+    viewDto.setAefMapDtoList(aefDtoList);
+    List<ConfigurationSchemaDto> configSchemas=controlService.getConfigurationSchemasByApplicationId(applicationId);
+    for (    ConfigurationSchemaDto dto : configSchemas) {
+      if (dto.getMajorVersion() == sdkProfile.getConfigurationSchemaVersion()) {
+        viewDto.setConfigurationSchemaName(dto.getName() + " (v." + dto.getMajorVersion()+ "."+ dto.getMinorVersion()+ ")");
+        viewDto.setConfigurationSchemaId(dto.getId());
+      }
+    }
+    List<ProfileSchemaDto> profileSchemas=controlService.getProfileSchemasByApplicationId(applicationId);
+    for (    ProfileSchemaDto dto : profileSchemas) {
+      if (dto.getMajorVersion() == sdkProfile.getProfileSchemaVersion()) {
+        viewDto.setProfileSchemaName(dto.getName() + " (v." + dto.getMajorVersion()+ "."+ dto.getMinorVersion()+ ")");
+        viewDto.setProfileSchemaId(dto.getId());
+      }
+    }
+    List<NotificationSchemaDto> notificationSchemas=controlService.getNotificationSchemasByAppId(applicationId);
+    for (    NotificationSchemaDto dto : notificationSchemas) {
+      if (dto.getMajorVersion() == sdkProfile.getNotificationSchemaVersion()) {
+        viewDto.setNotificationSchemaName(dto.getName() + " (v." + dto.getMajorVersion()+ "."+ dto.getMinorVersion()+ ")");
+        viewDto.setNotificationSchemaId(dto.getId());
+      }
+    }
+    List<LogSchemaDto> logSchemas=controlService.getLogSchemasByApplicationId(applicationId);
+    for (    LogSchemaDto dto : logSchemas) {
+      if (dto.getMajorVersion() == sdkProfile.getLogSchemaVersion()) {
+        viewDto.setLogSchemaName(dto.getName() + " (v." + dto.getMajorVersion()+ "."+ dto.getMinorVersion()+ ")");
+        viewDto.setLogSchemaId(dto.getId());
+      }
+    }
+    return viewDto;
+  }
+ catch (  ControlServiceException e) {
+    throw Utils.handleException(e);
+  }
+}
