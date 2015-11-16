@@ -1,5 +1,6 @@
 {
   validateCTLSchemaObject(unSavedSchema);
+  LOG.info("---> Session: {}, this: {}",schemaMetaInfoDao.getSession().hashCode(),this.hashCode());
   CTLSchemaMetaInfoDto metaInfo=unSavedSchema.getMetaInfo();
   CTLSchemaScopeDto currentScope=null;
   if (isBlank(unSavedSchema.getTenantId())) {
@@ -12,22 +13,25 @@
     currentScope=APPLICATION;
   }
   metaInfo.setSchemaScopeDto(currentScope);
-  CTLSchemaMetaInfo uniqueMetaInfo;
-  try {
-    uniqueMetaInfo=schemaMetaInfoDao.save(new CTLSchemaMetaInfo(metaInfo));
-  }
- catch (  Exception e) {
-    LOG.warn("---> Got rollback during save metainfo object.");
-    uniqueMetaInfo=schemaMetaInfoDao.findByFqnAndVersion(metaInfo.getFqn(),metaInfo.getVersion());
-  }
+  CTLSchemaDto dto;
+synchronized (this) {
+    CTLSchemaMetaInfo uniqueMetaInfo;
+    try {
+      uniqueMetaInfo=schemaMetaInfoDao.save(new CTLSchemaMetaInfo(metaInfo));
+    }
+ catch (    Exception e) {
+      LOG.warn("---> Got rollback during save metainfo object.");
+      uniqueMetaInfo=schemaMetaInfoDao.findByFqnAndVersion(metaInfo.getFqn(),metaInfo.getVersion());
+    }
+    schemaMetaInfoDao.lockRequest(lo).setScope(true).lock(uniqueMetaInfo);
 switch (uniqueMetaInfo.getSchemaScopeDto()) {
 case SYSTEM:
-    throw new RuntimeException("Disable to store system ctl schema with same fqn and version.");
+      throw new RuntimeException("Disable to store system ctl schema with same fqn and version.");
 case TENANT:
-  if (currentScope == SYSTEM) {
-    throw new RuntimeException("Disable to store system ctl schema. Tenant's scope schema already exists with the same fqn and version.");
-  }
-break;
+    if (currentScope == SYSTEM) {
+      throw new RuntimeException("Disable to store system ctl schema. Tenant's scope schema already exists with the same fqn and version.");
+    }
+  break;
 case APPLICATION:
 break;
 default :
@@ -35,7 +39,9 @@ break;
 }
 CTLSchema ctlSchema=new CTLSchema(unSavedSchema);
 ctlSchema.setMetaInfo(uniqueMetaInfo);
-CTLSchemaDto dto=getDto(ctlSchemaDao.save(ctlSchema));
 schemaMetaInfoDao.incrementCount(uniqueMetaInfo);
+dto=getDto(ctlSchemaDao.save(ctlSchema,true));
+LOG.info("---> end trans");
+}
 return dto;
 }

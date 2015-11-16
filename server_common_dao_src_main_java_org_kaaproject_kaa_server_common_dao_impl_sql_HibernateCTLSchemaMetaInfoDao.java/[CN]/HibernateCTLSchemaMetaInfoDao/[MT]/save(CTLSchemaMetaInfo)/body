@@ -1,7 +1,8 @@
 {
   CTLSchemaMetaInfo uniqueMetaInfo=findByFqnAndVersion(metaInfo.getFqn(),metaInfo.getVersion());
   if (uniqueMetaInfo == null) {
-    uniqueMetaInfo=super.save(metaInfo);
+    uniqueMetaInfo=super.save(metaInfo,true);
   }
+  LOG.info("---> count {}",uniqueMetaInfo.getCount());
   return uniqueMetaInfo;
 }

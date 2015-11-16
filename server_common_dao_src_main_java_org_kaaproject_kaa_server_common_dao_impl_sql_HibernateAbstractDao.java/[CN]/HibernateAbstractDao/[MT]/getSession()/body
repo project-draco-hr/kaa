@@ -1,3 +1,5 @@
 {
-  return sessionFactory.getCurrentSession();
+  Session session=sessionFactory.getCurrentSession();
+  session.setFlushMode(FlushMode.ALWAYS);
+  return session;
 }
