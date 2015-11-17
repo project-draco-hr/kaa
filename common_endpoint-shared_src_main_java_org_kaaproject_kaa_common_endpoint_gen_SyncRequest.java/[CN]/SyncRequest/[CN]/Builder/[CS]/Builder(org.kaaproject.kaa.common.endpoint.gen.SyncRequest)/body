@@ -36,4 +36,8 @@
     this.logSyncRequest=data().deepCopy(fields()[8].schema(),other.logSyncRequest);
     fieldSetFlags()[8]=true;
   }
+  if (isValidValue(fields()[9],other.extensionSyncRequests)) {
+    this.extensionSyncRequests=data().deepCopy(fields()[9].schema(),other.extensionSyncRequests);
+    fieldSetFlags()[9]=true;
+  }
 }
