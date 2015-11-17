@@ -1,8 +1,14 @@
 {
-  LOG.debug("Find log schema by applicationId [{}] and version [{}] ",applicationId,version);
-  LogSchema schema=null;
+  LOG.debug("Searching log schema by applicationId [{}] and version [{}] ",applicationId,version);
+  LogSchema logSchema=null;
   if (isNotBlank(applicationId)) {
-    schema=findOneByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.and(Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(applicationId)),Restrictions.eq(MAJOR_VERSION_PROPERTY,version)));
+    logSchema=findOneByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.and(Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(applicationId)),Restrictions.eq(MAJOR_VERSION_PROPERTY,version)));
   }
-  return schema;
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{},{}] Search result: {}.",applicationId,version,logSchema);
+  }
+ else {
+    LOG.debug("[{},{}] Search result: {}.",applicationId,version,logSchema != null);
+  }
+  return logSchema;
 }

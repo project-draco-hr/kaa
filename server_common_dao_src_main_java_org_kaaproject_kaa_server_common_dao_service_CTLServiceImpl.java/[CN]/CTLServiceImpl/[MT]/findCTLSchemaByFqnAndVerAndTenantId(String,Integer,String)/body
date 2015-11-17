@@ -1,3 +1,4 @@
 {
+  LOG.debug("Find ctl schema by fqn {} version {} and tenant id {}",fqn,version,tenantId);
   return DaoUtil.getDto(ctlSchemaDao.findByFqnAndVerAndTenantId(fqn,version,tenantId));
 }

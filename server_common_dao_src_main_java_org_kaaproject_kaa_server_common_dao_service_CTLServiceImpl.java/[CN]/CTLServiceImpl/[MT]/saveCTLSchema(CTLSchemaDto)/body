@@ -1,6 +1,5 @@
 {
   validateCTLSchemaObject(unSavedSchema);
-  LOG.info("---> Session: {}, this: {}",schemaMetaInfoDao.getSession().hashCode(),this.hashCode());
   CTLSchemaMetaInfoDto metaInfo=unSavedSchema.getMetaInfo();
   CTLSchemaScopeDto currentScope=null;
   if (isBlank(unSavedSchema.getTenantId())) {
@@ -12,7 +11,7 @@
  else   if (!isBlank(unSavedSchema.getAppId())) {
     currentScope=APPLICATION;
   }
-  metaInfo.setSchemaScopeDto(currentScope);
+  metaInfo.setScope(currentScope);
   CTLSchemaDto dto;
 synchronized (this) {
     CTLSchemaMetaInfo uniqueMetaInfo;
@@ -20,11 +19,10 @@ synchronized (this) {
       uniqueMetaInfo=schemaMetaInfoDao.save(new CTLSchemaMetaInfo(metaInfo));
     }
  catch (    Exception e) {
-      LOG.warn("---> Got rollback during save metainfo object.");
       uniqueMetaInfo=schemaMetaInfoDao.findByFqnAndVersion(metaInfo.getFqn(),metaInfo.getVersion());
     }
-    schemaMetaInfoDao.lockRequest(lo).setScope(true).lock(uniqueMetaInfo);
-switch (uniqueMetaInfo.getSchemaScopeDto()) {
+    schemaMetaInfoDao.lockRequest(lockOptions).setScope(true).lock(uniqueMetaInfo);
+switch (uniqueMetaInfo.getScope()) {
 case SYSTEM:
       throw new RuntimeException("Disable to store system ctl schema with same fqn and version.");
 case TENANT:
@@ -41,7 +39,6 @@ CTLSchema ctlSchema=new CTLSchema(unSavedSchema);
 ctlSchema.setMetaInfo(uniqueMetaInfo);
 schemaMetaInfoDao.incrementCount(uniqueMetaInfo);
 dto=getDto(ctlSchemaDao.save(ctlSchema,true));
-LOG.info("---> end trans");
 }
 return dto;
 }

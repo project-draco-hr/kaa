@@ -1,3 +1,11 @@
 {
-  return null;
+  LOG.debug("Searching system ctl metadata");
+  List<CTLSchema> schemas=findListByCriterionWithAlias(CTL_SCHEMA_META_INFO_PROPERTY,CTL_SCHEMA_META_INFO_ALIAS,Restrictions.eq(CTL_SCHEMA_META_INFO_ALIAS_SCOPE,CTLSchemaScopeDto.SYSTEM));
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("Search result: [{}].",Arrays.toString(schemas.toArray()));
+  }
+ else {
+    LOG.debug("Search result: [{}].",schemas.size());
+  }
+  return schemas;
 }

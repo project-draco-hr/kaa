@@ -1,7 +1,7 @@
 {
-  validateObject(ctlSchema,"Error");
+  validateObject(ctlSchema,"Invalid ctl schema object");
   CTLSchemaMetaInfoDto metaInfo=ctlSchema.getMetaInfo();
   if (metaInfo == null) {
-    throw new RuntimeException("Invalid object ");
+    throw new RuntimeException("Invalid ctl schema object. CTLSchemaMetaInfoDto is mandatory information.");
   }
 }

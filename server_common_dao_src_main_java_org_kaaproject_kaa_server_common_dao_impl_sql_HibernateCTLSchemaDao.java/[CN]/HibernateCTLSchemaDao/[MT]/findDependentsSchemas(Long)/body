@@ -1,4 +1,11 @@
 {
-  List<CTLSchema> dependentsList=findListByCriterionWithAlias("dependencySet","dep",JoinType.INNER_JOIN,Restrictions.eq("dep.id",schemaId));
+  LOG.debug("Searching dependents ctl schemas for schema with id [{}]",schemaId);
+  List<CTLSchema> dependentsList=findListByCriterionWithAlias(CTL_SCHEMA_DEPENDENCY_PROP,CTL_SCHEMA_DEPENDENCY_ALIAS,JoinType.INNER_JOIN,Restrictions.eq(CTL_SCHEMA_DEPENDENCY_ID_ALIAS,schemaId));
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{}] Search result: [{}].",schemaId,Arrays.toString(dependentsList.toArray()));
+  }
+ else {
+    LOG.debug("[{}] Search result: [{}].",schemaId,dependentsList.size());
+  }
   return dependentsList;
 }

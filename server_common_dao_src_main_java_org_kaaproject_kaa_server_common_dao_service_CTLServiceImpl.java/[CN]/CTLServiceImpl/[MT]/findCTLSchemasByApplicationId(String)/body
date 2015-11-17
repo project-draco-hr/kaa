@@ -1,3 +1,4 @@
 {
-  return DaoUtil.convertDtoList(ctlSchemaDao.findByApplicationId(appId));
+  LOG.debug("Find ctl schemas by application id {}",appId);
+  return convertDtoList(ctlSchemaDao.findByApplicationId(appId));
 }

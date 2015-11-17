@@ -1,3 +1,4 @@
 {
-  return null;
+  LOG.debug("Find meta info for ctl schemas by tenant id {}",tenantId);
+  return getMetaInfoFromCTLSchema(ctlSchemaDao.findByTenantId(tenantId));
 }

@@ -1,8 +1,9 @@
 {
+  LOG.debug("Find dependents schemas for schema with id [{}]",schemaId);
   List<CTLSchemaDto> list=Collections.emptyList();
   CTLSchema schemaDto=ctlSchemaDao.findById(schemaId);
   if (schemaDto != null) {
-    list=DaoUtil.convertDtoList(ctlSchemaDao.findDependentsSchemas(schemaDto.getId()));
+    list=convertDtoList(ctlSchemaDao.findDependentsSchemas(schemaDto.getId()));
   }
   return list;
 }

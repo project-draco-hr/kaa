@@ -10,7 +10,7 @@
  else {
       result=(T)session.get(getEntityClass(),Long.parseLong(id));
     }
-    session.buildLockRequest(lockOptions).setScope(true).lock(result);
+    lockRequest(lockOptions).lock(result);
   }
   if (LOG.isTraceEnabled()) {
     LOG.trace("[{}] Search result: {}.",id,result);

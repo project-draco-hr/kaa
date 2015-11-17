@@ -1,3 +1,4 @@
 {
-  return DaoUtil.convertDtoList(ctlSchemaDao.findByTenantId(tenantId));
+  LOG.debug("Find ctl schemas by tenant id {}",tenantId);
+  return convertDtoList(ctlSchemaDao.findByTenantId(tenantId));
 }

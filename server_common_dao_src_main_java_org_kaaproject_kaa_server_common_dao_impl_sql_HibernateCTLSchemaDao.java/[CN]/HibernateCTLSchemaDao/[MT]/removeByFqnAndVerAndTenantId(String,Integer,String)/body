@@ -1,2 +1,7 @@
 {
+  CTLSchema ctlSchema=findByFqnAndVerAndTenantId(fqn,version,tenantId);
+  if (ctlSchema != null) {
+    remove(ctlSchema);
+  }
+  LOG.debug("Removed ctl schema by fqn [{}], version [{}] tenant id [{}]",fqn,version,tenantId);
 }

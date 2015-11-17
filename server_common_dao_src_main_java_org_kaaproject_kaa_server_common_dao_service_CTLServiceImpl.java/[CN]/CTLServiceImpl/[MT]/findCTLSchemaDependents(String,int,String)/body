@@ -1,3 +1,9 @@
 {
-  return null;
+  LOG.debug("Find dependents schemas for schema with fqn {} version {} and tenantId {}",fqn,version,tenantId);
+  List<CTLSchemaDto> schemas=Collections.emptyList();
+  CTLSchema schema=ctlSchemaDao.findByFqnAndVerAndTenantId(fqn,version,tenantId);
+  if (schema != null) {
+    schemas=convertDtoList(ctlSchemaDao.findDependentsSchemas(schema.getId()));
+  }
+  return schemas;
 }

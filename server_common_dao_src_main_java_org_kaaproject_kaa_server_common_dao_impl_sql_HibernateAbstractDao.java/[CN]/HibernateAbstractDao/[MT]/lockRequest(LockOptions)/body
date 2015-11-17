@@ -1,4 +1,8 @@
 {
-  LOG.info("---> Got lock request");
+  int timeout=lockOptions.getTimeOut();
+  if (timeout > MAX_TIMEOUT) {
+    lockOptions.setTimeOut(MAX_TIMEOUT);
+  }
+  LOG.debug("Build lock request with options {}",lockOptions);
   return getSession().buildLockRequest(lockOptions);
 }

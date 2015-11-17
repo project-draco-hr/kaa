@@ -1,3 +1,4 @@
 {
-  return getMetaInfoFromCTLSchema(ctlSchemaDao.findMetaInfoByApplicationId(appId));
+  LOG.debug("Find meta info for ctl schemas by application id {}",appId);
+  return getMetaInfoFromCTLSchema(ctlSchemaDao.findByApplicationId(appId));
 }
