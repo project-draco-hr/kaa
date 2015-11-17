@@ -1,0 +1,8 @@
+{
+  Set<CTLSchemaDto> dep=new HashSet<>();
+  dep.add(ctlService.saveCTLSchema(generateCTLSchema(tenant.getId(),20)));
+  dep.add(ctlService.saveCTLSchema(generateCTLSchema(tenant.getId(),21)));
+  CTLSchemaDto unsaved=generateCTLSchema(tenant.getId(),22);
+  unsaved.setDependencySet(dep);
+  ctlService.saveCTLSchema(unsaved);
+}

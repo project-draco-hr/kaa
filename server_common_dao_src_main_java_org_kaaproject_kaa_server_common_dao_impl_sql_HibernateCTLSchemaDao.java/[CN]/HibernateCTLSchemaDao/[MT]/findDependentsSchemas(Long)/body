@@ -1,0 +1,4 @@
+{
+  List<CTLSchema> dependentsList=findListByCriterionWithAlias("dependencySet","dep",JoinType.INNER_JOIN,Restrictions.eq("dep.id",schemaId));
+  return dependentsList;
+}

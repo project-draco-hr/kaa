@@ -1,0 +1,8 @@
+{
+  List<CTLSchemaDto> list=Collections.emptyList();
+  CTLSchema schemaDto=ctlSchemaDao.findById(schemaId);
+  if (schemaDto != null) {
+    list=DaoUtil.convertDtoList(ctlSchemaDao.findDependentsSchemas(schemaDto.getId()));
+  }
+  return list;
+}
