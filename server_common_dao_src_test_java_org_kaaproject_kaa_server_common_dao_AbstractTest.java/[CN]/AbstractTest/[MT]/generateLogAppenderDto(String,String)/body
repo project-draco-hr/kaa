@@ -1,0 +1,24 @@
+{
+  LogAppenderDto logAppender=null;
+  ApplicationDto app=null;
+  LogSchemaDto schema=null;
+  if (isBlank(appId)) {
+    app=generateApplicationDto();
+    appId=app.getId();
+  }
+ else {
+    app=applicationService.findAppById(appId);
+  }
+  if (isBlank(schemaId)) {
+    schema=generateLogSchemaDto(appId,1).get(0);
+  }
+  logAppender=new LogAppenderDto();
+  logAppender.setApplicationId(appId);
+  logAppender.setName("Generated Appender");
+  int version=schema.getMajorVersion();
+  logAppender.setMinLogSchemaVersion(version);
+  logAppender.setMaxLogSchemaVersion(version);
+  logAppender.setTenantId(app.getTenantId());
+  logAppender.setHeaderStructure(Arrays.asList(LogHeaderStructureDto.values()));
+  return logAppendersService.saveLogAppender(logAppender);
+}

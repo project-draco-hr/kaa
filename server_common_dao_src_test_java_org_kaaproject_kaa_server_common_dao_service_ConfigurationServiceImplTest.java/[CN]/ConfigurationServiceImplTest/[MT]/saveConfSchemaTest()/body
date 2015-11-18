@@ -1,5 +1,5 @@
 {
-  String id=generateConfSchema(null,1).get(0).getId();
+  String id=generateConfSchemaDto(null,1).get(0).getId();
   ConfigurationSchemaDto schema=configurationService.findConfSchemaById(id);
   Assert.assertNotNull(schema);
   schema.setId(null);

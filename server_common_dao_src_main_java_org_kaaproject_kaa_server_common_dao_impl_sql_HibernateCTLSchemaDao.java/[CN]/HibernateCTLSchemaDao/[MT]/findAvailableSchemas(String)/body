@@ -1,6 +1,6 @@
 {
   LOG.debug("Searching available ctl schemas for tenant with id [{}]",tenantId);
-  List<CTLSchema> availableSchemas=findListByCriterion(Restrictions.eqOrIsNull(CTL_SCHEMA_TENANT_ID_ALIAS,Long.valueOf(tenantId)));
+  List<CTLSchema> availableSchemas=findListByCriterion(Restrictions.or(Restrictions.eq(CTL_SCHEMA_TENANT_ID_ALIAS,Long.valueOf(tenantId)),Restrictions.isNull(CTL_SCHEMA_TENANT_ID_ALIAS)));
   if (LOG.isTraceEnabled()) {
     LOG.trace("[{}] Search result: [{}].",tenantId,Arrays.toString(availableSchemas.toArray()));
   }

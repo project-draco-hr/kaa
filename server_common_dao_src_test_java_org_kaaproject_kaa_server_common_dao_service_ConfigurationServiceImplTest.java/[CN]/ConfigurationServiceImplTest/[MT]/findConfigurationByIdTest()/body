@@ -1,5 +1,5 @@
 {
-  List<ConfigurationDto> configurations=generateConfiguration(null,null,1,false,false);
+  List<ConfigurationDto> configurations=generateConfigurationDto(null,null,1,false,false);
   ConfigurationDto configuration=configurations.get(0);
   ConfigurationDto foundConfiguration=configurationService.findConfigurationById(configuration.getId());
   Assert.assertNotNull(foundConfiguration);

@@ -1,7 +1,7 @@
 {
-  List<ProfileSchemaDto> schemas=generateProfSchema(null,1);
+  List<ProfileSchemaDto> schemas=generateProfSchemaDto(null,1);
   ProfileSchemaDto schema=schemas.get(0);
-  generateFilter(schema.getId(),null,10,true);
+  generateFilterDto(schema.getId(),null,10,true);
   List<ProfileFilterDto> filters=profileService.findProfileFilterByAppIdAndVersion(schema.getApplicationId(),schema.getMajorVersion());
   Assert.assertFalse(filters.isEmpty());
   Assert.assertEquals(filters.get(0).getStatus(),UpdateStatus.ACTIVE);

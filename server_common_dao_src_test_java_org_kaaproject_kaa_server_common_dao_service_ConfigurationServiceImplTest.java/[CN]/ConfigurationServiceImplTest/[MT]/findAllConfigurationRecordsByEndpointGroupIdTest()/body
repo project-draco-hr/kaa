@@ -1,8 +1,8 @@
 {
-  String id=generateApplication().getId();
-  ConfigurationSchemaDto schema=generateConfSchema(id,1).get(0);
-  EndpointGroupDto group=generateEndpointGroup(id);
-  generateConfiguration(schema.getId(),group.getId(),1,true,false);
+  String id=generateApplicationDto().getId();
+  ConfigurationSchemaDto schema=generateConfSchemaDto(id,1).get(0);
+  EndpointGroupDto group=generateEndpointGroupDto(id);
+  generateConfigurationDto(schema.getId(),group.getId(),1,true,false);
   List<StructureRecordDto<ConfigurationDto>> records=(List<StructureRecordDto<ConfigurationDto>>)configurationService.findAllConfigurationRecordsByEndpointGroupId(group.getId(),false);
   Assert.assertNotNull(records);
   Assert.assertEquals(1,records.size());

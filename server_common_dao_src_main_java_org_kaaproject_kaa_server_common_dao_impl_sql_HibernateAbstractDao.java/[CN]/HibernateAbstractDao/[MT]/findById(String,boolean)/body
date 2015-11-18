@@ -1,3 +1,21 @@
 {
-  return findById(id,lazy,LockOptions.NONE);
+  T result=null;
+  String className=getSimpleClassName();
+  LOG.debug("Searching {} entity by id [{}] ",className,id);
+  if (isNotBlank(id)) {
+    Session session=getSession();
+    if (lazy) {
+      result=(T)session.load(getEntityClass(),Long.parseLong(id));
+    }
+ else {
+      result=(T)session.get(getEntityClass(),Long.parseLong(id));
+    }
+  }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{}] Search result: {}.",id,result);
+  }
+ else {
+    LOG.debug("[{}] Search result: {}.",id,result != null);
+  }
+  return result;
 }

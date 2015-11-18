@@ -1,5 +1,5 @@
 {
-  List<ConfigurationDto> configurations=generateConfiguration(null,null,1,false,false);
+  List<ConfigurationDto> configurations=generateConfigurationDto(null,null,1,false,false);
   String configId=configurations.get(0).getId();
   ConfigurationDto found=configurationService.findConfigurationById(configId);
   ChangeConfigurationNotification notification=configurationService.activateConfiguration(configId,null);

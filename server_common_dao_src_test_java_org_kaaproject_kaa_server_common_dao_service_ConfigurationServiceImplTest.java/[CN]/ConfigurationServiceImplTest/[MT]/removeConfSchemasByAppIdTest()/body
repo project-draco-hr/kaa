@@ -1,5 +1,5 @@
 {
-  ApplicationDto application=generateApplication();
+  ApplicationDto application=generateApplicationDto();
   String appId=application.getId();
   List<ConfigurationSchemaDto> dtoList=configurationService.findConfSchemasByAppId(appId);
   Assert.assertNotNull(dtoList);

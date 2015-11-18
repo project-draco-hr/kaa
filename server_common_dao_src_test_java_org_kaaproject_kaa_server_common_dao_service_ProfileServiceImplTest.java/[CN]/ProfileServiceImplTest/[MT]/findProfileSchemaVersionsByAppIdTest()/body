@@ -1,5 +1,5 @@
 {
-  String applicationId=generateApplication(null).getId();
+  String applicationId=generateApplicationDto(null).getId();
   List<SchemaDto> versions=profileService.findProfileSchemaVersionsByAppId(applicationId);
   Assert.assertNotNull(versions);
   Assert.assertFalse(versions.isEmpty());

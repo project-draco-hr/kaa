@@ -1,10 +1,10 @@
 {
-  String appId=generateApplication(null).getId();
+  String appId=generateApplicationDto(null).getId();
   List<ProfileFilterDto> filters=profileService.findProfileFilterByAppIdAndVersion(appId,1);
   Assert.assertNotNull(filters);
   ProfileFilterDto filter=filters.get(0);
   filter.setId(null);
-  EndpointGroupDto group=generateEndpointGroup(appId);
+  EndpointGroupDto group=generateEndpointGroupDto(appId);
   filter.setEndpointGroupId(group.getId());
   ProfileFilterDto dto=profileService.saveProfileFilter(filter);
   ChangeProfileFilterNotification change=profileService.activateProfileFilter(dto.getId(),null);

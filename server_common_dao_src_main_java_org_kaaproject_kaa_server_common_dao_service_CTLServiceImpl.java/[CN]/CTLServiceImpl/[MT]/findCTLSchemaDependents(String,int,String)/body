@@ -3,7 +3,7 @@
   List<CTLSchemaDto> schemas=Collections.emptyList();
   CTLSchema schema=ctlSchemaDao.findByFqnAndVerAndTenantId(fqn,version,tenantId);
   if (schema != null) {
-    schemas=convertDtoList(ctlSchemaDao.findDependentsSchemas(schema.getId()));
+    schemas=convertDtoList(ctlSchemaDao.findDependentsSchemas(schema.getStringId()));
   }
   return schemas;
 }

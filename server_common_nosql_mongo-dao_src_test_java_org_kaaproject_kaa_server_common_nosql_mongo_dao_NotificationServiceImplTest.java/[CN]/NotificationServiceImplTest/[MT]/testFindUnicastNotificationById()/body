@@ -1,8 +1,8 @@
 {
-  TopicDto topicDto=generateTopic(null,null);
-  EndpointProfileDto profile=generateEndpointProfile(topicDto.getApplicationId(),Arrays.asList(topicDto.getId()));
+  TopicDto topicDto=generateTopicDto(null,null);
+  EndpointProfileDto profile=generateEndpointProfileDto(topicDto.getApplicationId(),Arrays.asList(topicDto.getId()));
   byte[] keyHash=profile.getEndpointKeyHash();
-  EndpointNotificationDto notification=generateUnicastNotification(null,topicDto.getId(),keyHash);
+  EndpointNotificationDto notification=generateUnicastNotificationDto(null,topicDto.getId(),keyHash);
   Assert.assertTrue(isNotBlank(notification.getId()));
   EndpointNotificationDto found=notificationService.findUnicastNotificationById(notification.getId());
   Assert.assertEquals(notification,found);

@@ -1,8 +1,13 @@
 {
-  Set<CTLSchemaDto> dep=new HashSet<>();
-  dep.add(ctlService.saveCTLSchema(generateCTLSchema(tenant.getId(),20)));
-  dep.add(ctlService.saveCTLSchema(generateCTLSchema(tenant.getId(),21)));
-  CTLSchemaDto unsaved=generateCTLSchema(tenant.getId(),22);
-  unsaved.setDependencySet(dep);
-  ctlService.saveCTLSchema(unsaved);
+  List<CTLSchemaDto> dep=convertDtoList(ctlSchemaDao.findDependentsSchemas(mainSchema.getId()));
+  Assert.assertTrue(dep.isEmpty());
+  List<CTLSchemaDto> expected=Arrays.asList(mainSchema);
+  dep=convertDtoList(ctlSchemaDao.findDependentsSchemas(firstSchema.getId()));
+  Assert.assertEquals(expected.size(),dep.size());
+  dep=convertDtoList(ctlSchemaDao.findDependentsSchemas(secondSchema.getId()));
+  Assert.assertEquals(expected.size(),dep.size());
+  dep=convertDtoList(ctlSchemaDao.findDependentsSchemas(thirdSchema.getId()));
+  Assert.assertEquals(expected.size(),dep.size());
+  dep=convertDtoList(ctlSchemaDao.findDependentsSchemas(fourthSchema.getId()));
+  Assert.assertEquals(expected.size(),dep.size());
 }

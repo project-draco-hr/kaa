@@ -1,5 +1,5 @@
 {
-  TenantAdminDto tenantAdminDto=generateTenantAdmin(null,null);
+  TenantAdminDto tenantAdminDto=generateTenantAdminDto(null,null);
   userService.removeTenantAdminById(tenantAdminDto.getId());
   TenantAdminDto found=userService.findTenantAdminById(tenantAdminDto.getId());
   Assert.assertNull(found);

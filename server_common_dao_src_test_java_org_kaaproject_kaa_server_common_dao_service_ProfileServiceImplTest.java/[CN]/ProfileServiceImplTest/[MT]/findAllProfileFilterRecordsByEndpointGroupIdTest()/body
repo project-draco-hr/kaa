@@ -1,8 +1,8 @@
 {
-  String appId=generateApplication(null).getId();
-  EndpointGroupDto groupDto=generateEndpointGroup(appId);
-  ProfileSchemaDto schema=generateProfSchema(appId,1).get(0);
-  ProfileFilterDto filter=generateFilter(schema.getId(),groupDto.getId(),3,true).get(2);
+  String appId=generateApplicationDto(null).getId();
+  EndpointGroupDto groupDto=generateEndpointGroupDto(appId);
+  ProfileSchemaDto schema=generateProfSchemaDto(appId,1).get(0);
+  ProfileFilterDto filter=generateFilterDto(schema.getId(),groupDto.getId(),3,true).get(2);
   Assert.assertEquals(UpdateStatus.ACTIVE,filter.getStatus());
   profileService.deactivateProfileFilter(filter.getId(),null);
   List<StructureRecordDto<ProfileFilterDto>> records=(List<StructureRecordDto<ProfileFilterDto>>)profileService.findAllProfileFilterRecordsByEndpointGroupId(groupDto.getId(),true);

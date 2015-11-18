@@ -1,5 +1,5 @@
 {
-  NotificationDto notification=generateNotifications(null,null,1,null).get(0);
+  NotificationDto notification=generateNotificationsDto(null,null,1,null).get(0);
   Assert.assertNotNull(notification);
   Assert.assertTrue(isNotBlank(notification.getId()));
   Assert.assertEquals(NotificationTypeDto.USER,notification.getType());

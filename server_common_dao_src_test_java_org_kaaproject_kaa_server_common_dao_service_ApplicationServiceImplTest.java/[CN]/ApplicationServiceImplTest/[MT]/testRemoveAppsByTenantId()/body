@@ -1,6 +1,6 @@
 {
-  TenantDto tenant=generateTenant();
-  ApplicationDto application=generateApplication(tenant.getId());
+  TenantDto tenant=generateTenantDto();
+  ApplicationDto application=generateApplicationDto(tenant.getId());
   applicationService.removeAppsByTenantId(tenant.getId());
   List<ApplicationDto> foundApplications=applicationService.findAppsByTenantId(tenant.getId());
   Assert.assertTrue(foundApplications.isEmpty());

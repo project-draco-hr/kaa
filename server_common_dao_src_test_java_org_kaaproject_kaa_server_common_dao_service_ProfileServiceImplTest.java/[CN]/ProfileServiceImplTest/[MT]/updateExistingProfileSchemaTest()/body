@@ -1,6 +1,6 @@
 {
-  String appId=generateApplication(null).getId();
-  List<ProfileSchemaDto> schemas=generateProfSchema(appId,1);
+  String appId=generateApplicationDto(null).getId();
+  List<ProfileSchemaDto> schemas=generateProfSchemaDto(appId,1);
   ProfileSchemaDto schema=profileService.findProfileSchemaById(schemas.get(0).getId());
   Assert.assertNotNull(schema);
   ProfileSchema profileSchema=new ProfileSchema(schema);

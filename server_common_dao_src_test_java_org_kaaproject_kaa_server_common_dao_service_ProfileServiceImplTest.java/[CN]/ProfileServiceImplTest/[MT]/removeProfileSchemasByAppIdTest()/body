@@ -1,7 +1,7 @@
 {
   int profSchemaCount=2;
-  ApplicationDto application=generateApplication(null);
-  generateProfSchema(application.getId(),profSchemaCount);
+  ApplicationDto application=generateApplicationDto(null);
+  generateProfSchemaDto(application.getId(),profSchemaCount);
   List<ProfileSchemaDto> schemas=profileService.findProfileSchemasByAppId(application.getId());
   Assert.assertNotNull(schemas);
   Assert.assertFalse(schemas.isEmpty());

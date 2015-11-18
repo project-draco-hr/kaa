@@ -1,10 +1,10 @@
 {
-  EndpointUserDto userDto=generateEndpointUser(null);
-  ApplicationDto appDto=generateApplication();
-  ConfigurationSchemaDto schema=generateConfSchema(appDto.getId(),1).get(0);
-  EndpointUserConfigurationDto firstUserConfigurationDto=generateEndpointUserConfiguration(userDto,appDto,schema,readSchemaFileAsString(OVERRIDE_USER_DATA_JSON));
-  generateEndpointUserConfiguration(userDto,appDto,null,readSchemaFileAsString(OVERRIDE_USER_DATA_JSON));
-  generateEndpointUserConfiguration(null,null,null,readSchemaFileAsString(OVERRIDE_USER_DATA_JSON));
+  EndpointUserDto userDto=generateEndpointUserDto(null);
+  ApplicationDto appDto=generateApplicationDto();
+  ConfigurationSchemaDto schema=generateConfSchemaDto(appDto.getId(),1).get(0);
+  EndpointUserConfigurationDto firstUserConfigurationDto=generateEndpointUserConfigurationDto(userDto,appDto,schema,readSchemaFileAsString(OVERRIDE_USER_DATA_JSON));
+  generateEndpointUserConfigurationDto(userDto,appDto,null,readSchemaFileAsString(OVERRIDE_USER_DATA_JSON));
+  generateEndpointUserConfigurationDto(null,null,null,readSchemaFileAsString(OVERRIDE_USER_DATA_JSON));
   EndpointUserConfigurationDto found=userConfigurationService.findUserConfigurationByUserIdAndAppTokenAndSchemaVersion(userDto.getId(),appDto.getApplicationToken(),schema.getMajorVersion());
   Assert.assertEquals(firstUserConfigurationDto,found);
 }

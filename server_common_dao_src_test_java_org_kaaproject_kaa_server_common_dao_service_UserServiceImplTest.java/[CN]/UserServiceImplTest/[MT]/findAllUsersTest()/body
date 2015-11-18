@@ -1,6 +1,6 @@
 {
-  TenantDto tenantDto=generateTenant();
-  List<UserDto> users=generateUsers(tenantDto.getId(),KaaAuthorityDto.TENANT_DEVELOPER,7);
+  TenantDto tenantDto=generateTenantDto();
+  List<UserDto> users=generateUsersDto(tenantDto.getId(),KaaAuthorityDto.TENANT_DEVELOPER,7);
   List<UserDto> foundUsers=userService.findAllUsers();
   assertUsersListsEqual(users,foundUsers);
 }

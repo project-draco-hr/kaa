@@ -1,4 +1,13 @@
 {
   LOG.debug("Remove ctl schema by fqn {} version {} and tenant id {}",fqn,version,tenantId);
-  ctlSchemaDao.removeByFqnAndVerAndTenantId(fqn,version,tenantId);
+  CTLSchema ctlSchema=ctlSchemaDao.findByFqnAndVerAndTenantId(fqn,version,tenantId);
+  if (ctlSchema != null) {
+    List<CTLSchema> dependsList=ctlSchemaDao.findDependentsSchemas(ctlSchema.getStringId());
+    if (dependsList.isEmpty()) {
+      ctlSchemaDao.removeById(ctlSchema.getStringId());
+    }
+ else {
+      throw new DatabaseProcessingException("Forbidden to delete ctl schema with relations.");
+    }
+  }
 }

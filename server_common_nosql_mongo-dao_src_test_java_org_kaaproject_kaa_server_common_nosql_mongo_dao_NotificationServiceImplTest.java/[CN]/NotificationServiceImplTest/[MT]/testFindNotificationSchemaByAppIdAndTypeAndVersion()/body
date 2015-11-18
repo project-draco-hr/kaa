@@ -1,6 +1,6 @@
 {
-  NotificationDto dto=generateNotifications(null,null,1,null).get(0);
-  generateNotificationSchema(dto.getApplicationId(),NotificationTypeDto.SYSTEM);
+  NotificationDto dto=generateNotificationsDto(null,null,1,null).get(0);
+  generateNotificationSchemaDto(dto.getApplicationId(),NotificationTypeDto.SYSTEM);
   NotificationSchemaDto schema=notificationService.findNotificationSchemaByAppIdAndTypeAndVersion(dto.getApplicationId(),NotificationTypeDto.SYSTEM,1);
   Assert.assertNotNull(schema);
 }

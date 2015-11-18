@@ -1,5 +1,5 @@
 {
-  ConfigurationSchemaDto schema=generateConfSchema(null,1).get(0);
+  ConfigurationSchemaDto schema=generateConfSchemaDto(null,1).get(0);
   ConfigurationDto configuration=configurationService.findDefaultConfigurationBySchemaId(schema.getId());
   Assert.assertNotNull(configuration);
   Assert.assertEquals(UpdateStatus.ACTIVE,configuration.getStatus());
