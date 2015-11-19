@@ -1,4 +1,5 @@
 {
+  validateSqlId(tenantId,"Incorrect tenant id for ctl schema request.");
   LOG.debug("Find ctl schemas by tenant id {}",tenantId);
   return convertDtoList(ctlSchemaDao.findByTenantId(tenantId));
 }

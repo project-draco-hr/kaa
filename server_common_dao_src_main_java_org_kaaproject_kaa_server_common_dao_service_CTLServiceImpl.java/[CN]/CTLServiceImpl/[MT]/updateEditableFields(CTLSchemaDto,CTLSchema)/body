@@ -1,0 +1,18 @@
+{
+  CTLSchemaScopeDto scope=src.getMetaInfo().getScope();
+  dst.setDescription(src.getDescription());
+  dst.setName(src.getName());
+  dst.setCreatedUsername(src.getCreatedUsername());
+  String tenantId=src.getTenantId();
+  if (isBlank(tenantId)) {
+    if (SYSTEM.equals(scope)) {
+      dst.setTenant(null);
+    }
+  }
+  String appId=src.getAppId();
+  if (isBlank(appId)) {
+    if (SYSTEM.equals(scope) || TENANT.equals(scope)) {
+      dst.setApplication(null);
+    }
+  }
+}

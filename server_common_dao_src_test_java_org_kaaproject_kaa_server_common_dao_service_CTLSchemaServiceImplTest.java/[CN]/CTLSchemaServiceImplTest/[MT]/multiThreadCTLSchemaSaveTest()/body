@@ -1,4 +1,5 @@
 {
+  String tenantId=null;
   List<Future<CTLSchemaDto>> list=new ArrayList<>();
   for (int i=0; i < 100; i++) {
     list.add(executorService.submit(new Callable<CTLSchemaDto>(){
@@ -8,14 +9,21 @@
           sch=ctlService.saveCTLSchema(generateCTLSchemaDto(generateTenantDto().getId()));
         }
  catch (        Throwable t) {
-          LOG.warn("---> Test Catch exception {}",t.getCause(),t);
+          throw t;
         }
         return sch;
       }
     }
 ));
   }
-  for (  Future<CTLSchemaDto> f : list) {
-    LOG.debug("id {}",f.get());
+  Iterator<Future<CTLSchemaDto>> iterator=list.iterator();
+  while (iterator.hasNext()) {
+    Future<CTLSchemaDto> f=iterator.next();
+    while (!f.isDone()) {
+    }
+    tenantId=f.get().getTenantId();
+    iterator.remove();
   }
+  CTLSchemaDto schemaDto=ctlService.findCTLSchemaByFqnAndVerAndTenantId(DEFAULT_FQN,100,tenantId);
+  Assert.assertEquals(Long.valueOf(100L),schemaDto.getMetaInfo().getCount());
 }

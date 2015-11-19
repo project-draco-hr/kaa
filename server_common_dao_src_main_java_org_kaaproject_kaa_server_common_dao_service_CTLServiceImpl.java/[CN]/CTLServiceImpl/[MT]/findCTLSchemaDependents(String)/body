@@ -1,4 +1,5 @@
 {
+  validateSqlId(schemaId,"Incorrect schema id for ctl schema request.");
   LOG.debug("Find dependents schemas for schema with id [{}]",schemaId);
   List<CTLSchemaDto> list=Collections.emptyList();
   CTLSchema schemaDto=ctlSchemaDao.findById(schemaId);

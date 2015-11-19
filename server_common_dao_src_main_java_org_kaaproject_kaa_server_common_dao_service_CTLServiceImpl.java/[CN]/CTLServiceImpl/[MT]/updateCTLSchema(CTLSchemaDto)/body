@@ -3,7 +3,7 @@
   LOG.debug("Set new scope {} for ctl schema with id [{}]",ctlSchema.getId(),ctlSchema.getMetaInfo().getScope());
   CTLSchemaMetaInfoDto newMetaInfo=ctlSchema.getMetaInfo();
   CTLSchemaScopeDto newScope=newMetaInfo.getScope();
-  if (!CTLSchemaScopeDto.SYSTEM.equals(newScope)) {
+  if (!SYSTEM.equals(newScope)) {
     CTLSchema schema=ctlSchemaDao.findById(ctlSchema.getId());
     if (schema != null) {
       CTLSchemaMetaInfo metaInfo=schema.getMetaInfo();
@@ -11,7 +11,8 @@
         CTLSchemaMetaInfo updated=schemaMetaInfoDao.updateScope(new CTLSchemaMetaInfo(newMetaInfo));
         if (updated != null) {
           schema.setMetaInfo(updated);
-          return DaoUtil.getDto(schema);
+          updateEditableFields(ctlSchema,schema);
+          return DaoUtil.getDto(ctlSchemaDao.save(schema));
         }
  else {
           throw new DatabaseProcessingException("Can't update scope for ctl meta info.");
