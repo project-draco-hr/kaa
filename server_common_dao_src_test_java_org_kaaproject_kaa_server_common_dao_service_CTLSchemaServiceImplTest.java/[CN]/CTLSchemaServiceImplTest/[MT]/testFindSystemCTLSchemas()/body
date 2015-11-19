@@ -1,2 +1,4 @@
 {
+  List<CTLSchemaDto> appSchemas=ctlService.findSystemCTLSchemas();
+  Assert.assertEquals(getIdsDto(Arrays.asList(systemSchema)),getIdsDto(appSchemas));
 }

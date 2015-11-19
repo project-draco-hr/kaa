@@ -1,2 +1,12 @@
 {
+  List<CTLSchemaDto> appSchemas=ctlService.findCTLSchemaDependents(firstSchema.getMetaInfo().getFqn(),firstSchema.getMetaInfo().getVersion(),tenant.getId());
+  Assert.assertEquals(Arrays.asList(mainSchema),appSchemas);
+  appSchemas=ctlService.findCTLSchemaDependents(secondSchema.getMetaInfo().getFqn(),secondSchema.getMetaInfo().getVersion(),tenant.getId());
+  Assert.assertEquals(Arrays.asList(mainSchema),appSchemas);
+  appSchemas=ctlService.findCTLSchemaDependents(thirdSchema.getMetaInfo().getFqn(),thirdSchema.getMetaInfo().getVersion(),tenant.getId());
+  Assert.assertEquals(Arrays.asList(mainSchema),appSchemas);
+  appSchemas=ctlService.findCTLSchemaDependents(fourthSchema.getMetaInfo().getFqn(),fourthSchema.getMetaInfo().getVersion(),tenant.getId());
+  Assert.assertEquals(Arrays.asList(mainSchema),appSchemas);
+  appSchemas=ctlService.findCTLSchemaDependents(mainSchema.getMetaInfo().getFqn(),mainSchema.getMetaInfo().getVersion(),tenant.getId());
+  Assert.assertTrue(appSchemas.isEmpty());
 }

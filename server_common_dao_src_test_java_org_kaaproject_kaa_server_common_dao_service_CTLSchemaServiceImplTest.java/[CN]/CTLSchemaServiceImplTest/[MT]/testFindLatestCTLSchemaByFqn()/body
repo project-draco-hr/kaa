@@ -1,2 +1,4 @@
 {
+  CTLSchemaDto latest=ctlService.findLatestCTLSchemaByFqn(DEFAULT_FQN);
+  Assert.assertEquals(Integer.valueOf(80),latest.getMetaInfo().getVersion());
 }

@@ -1,0 +1,5 @@
+{
+  String schemaId=systemSchema.getId();
+  ctlService.removeCTLSchemaByFqnAndVerAndTenantId(systemSchema.getMetaInfo().getFqn(),systemSchema.getMetaInfo().getVersion(),systemSchema.getTenantId());
+  Assert.assertNull(ctlService.findCTLSchemaById(schemaId));
+}
