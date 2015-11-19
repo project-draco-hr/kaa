@@ -1,0 +1,10 @@
+{
+  CTLSchemaDto found=null;
+  for (  CTLSchemaDto object : storage) {
+    if (fqn.equals(object.getFqn()) && version == object.getVersion() && (tenantId.equals(object.getTenantId()) || object.getScope() == CTLSchemaScope.SYSTEM)) {
+      found=object;
+      break;
+    }
+  }
+  return found;
+}

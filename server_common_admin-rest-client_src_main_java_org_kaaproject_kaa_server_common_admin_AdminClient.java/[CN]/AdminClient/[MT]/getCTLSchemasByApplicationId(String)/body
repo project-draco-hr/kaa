@@ -1,7 +1,7 @@
 {
-  ParameterizedTypeReference<List<CTLSchemaDto>> typeRef=new ParameterizedTypeReference<List<CTLSchemaDto>>(){
+  ParameterizedTypeReference<List<CTLSchemaMetaInfoDto>> typeRef=new ParameterizedTypeReference<List<CTLSchemaMetaInfoDto>>(){
   }
 ;
-  ResponseEntity<List<CTLSchemaDto>> entity=restTemplate.exchange(url + "CTLSchemas?applicationId=" + applicationId,HttpMethod.GET,null,typeRef);
+  ResponseEntity<List<CTLSchemaMetaInfoDto>> entity=restTemplate.exchange(url + "CTL/getSchemas?applicationId=" + applicationId,HttpMethod.GET,null,typeRef);
   return entity.getBody();
 }

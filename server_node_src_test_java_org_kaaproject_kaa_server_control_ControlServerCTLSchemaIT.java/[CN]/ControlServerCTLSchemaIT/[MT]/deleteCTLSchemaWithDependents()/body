@@ -1,0 +1,10 @@
+{
+  this.loginTenantDeveloper(tenantDeveloperUser);
+  CTLSchemaDto dependency=this.createCTLSchema(this.randomFieldType(),DEFAULT_NAMESPACE,1,CTLSchemaScope.TENANT,null,null);
+  List<CTLDependencyDto> dependencies=new ArrayList<>();
+  dependencies.add(new CTLDependencyDto(dependency.getFqn(),dependency.getVersion()));
+  Map<String,String> fields=new HashMap<>();
+  fields.put(this.randomFieldName(),dependency.getFqn());
+  this.createCTLSchema(this.randomFieldName(),DEFAULT_NAMESPACE,1,CTLSchemaScope.TENANT,dependencies,fields);
+  client.deleteCTLSchemaByFqnAndVersion(dependency.getFqn(),dependency.getVersion());
+}
