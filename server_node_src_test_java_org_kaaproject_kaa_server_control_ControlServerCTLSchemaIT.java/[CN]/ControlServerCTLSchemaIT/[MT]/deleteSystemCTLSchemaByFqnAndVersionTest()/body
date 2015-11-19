@@ -1,0 +1,6 @@
+{
+  this.loginKaaAdmin();
+  CTLSchemaDto saved=this.createCTLSchema(this.randomFieldType(),DEFAULT_NAMESPACE,1,CTLSchemaScope.SYSTEM,null,null);
+  this.loginTenantDeveloper(tenantDeveloperUser);
+  client.deleteCTLSchemaByFqnAndVersion(saved.getFqn(),saved.getVersion());
+}

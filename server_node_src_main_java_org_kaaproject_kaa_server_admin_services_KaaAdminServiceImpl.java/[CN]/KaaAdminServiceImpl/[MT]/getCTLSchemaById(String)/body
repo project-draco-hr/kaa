@@ -1,8 +1,13 @@
 {
-  this.checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  this.checkAuthority(KaaAuthorityDto.values());
   try {
     this.checkCTLSchemaId(schemaId);
-    return controlService.getCTLSchemaById(schemaId);
+    CTLSchemaDto schemaFound=controlService.getCTLSchemaById(schemaId);
+    Utils.checkNotNull(schemaFound);
+    if (schemaFound.getScope() != CTLSchemaScope.SYSTEM) {
+      this.checkCTLAuthority(schemaFound);
+    }
+    return schemaFound;
   }
  catch (  Exception cause) {
     throw Utils.handleException(cause);

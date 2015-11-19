@@ -1,0 +1,9 @@
+{
+  List<CTLSchemaDto> found=new ArrayList<>();
+  for (  CTLSchemaDto object : storage) {
+    if (applicationId.equals(object.getApplicationId())) {
+      found.add(object);
+    }
+  }
+  return found;
+}

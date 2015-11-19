@@ -1,0 +1,9 @@
+{
+  List<CTLSchemaDto> found=new ArrayList<>();
+  for (  CTLSchemaDto object : storage) {
+    if (object.getScope() == CTLSchemaScope.SYSTEM) {
+      found.add(object);
+    }
+  }
+  return found;
+}

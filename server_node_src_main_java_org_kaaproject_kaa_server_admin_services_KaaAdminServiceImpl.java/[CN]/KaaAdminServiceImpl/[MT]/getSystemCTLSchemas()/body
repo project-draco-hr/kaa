@@ -1,9 +1,0 @@
-{
-  this.checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
-  try {
-    return controlService.getSystemCTLSchemas();
-  }
- catch (  Exception cause) {
-    throw Utils.handleException(cause);
-  }
-}

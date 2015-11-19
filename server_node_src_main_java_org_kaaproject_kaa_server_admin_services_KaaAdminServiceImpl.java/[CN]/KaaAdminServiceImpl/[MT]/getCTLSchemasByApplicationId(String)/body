@@ -1,8 +1,8 @@
 {
-  this.checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  this.checkAuthority(KaaAuthorityDto.values());
   try {
     this.checkApplicationId(applicationId);
-    return controlService.getCTLSchemasByApplicationId(applicationId);
+    return controlService.getCTLSchemasMetaInfoByApplicationId(applicationId);
   }
  catch (  Exception cause) {
     throw Utils.handleException(cause);

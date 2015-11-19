@@ -1,0 +1,7 @@
+{
+  this.loginTenantDeveloper(tenantDeveloperUser);
+  CTLSchemaDto saved=this.createCTLSchema(this.randomFieldType(),DEFAULT_NAMESPACE,1,CTLSchemaScope.TENANT,null,null);
+  CTLSchemaDto loaded=client.getCTLSchemaByFqnAndVersion(saved.getFqn(),saved.getVersion());
+  Assert.assertNotNull(loaded);
+  Assert.assertEquals(saved,loaded);
+}

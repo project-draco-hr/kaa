@@ -1,0 +1,11 @@
+{
+  LOG.error("testing missing deps");
+  String dependencyFqn=DEFAULT_NAMESPACE + "." + this.randomFieldType();
+  Integer dependencyVersion=1;
+  List<CTLDependencyDto> dependencies=new ArrayList<>();
+  dependencies.add(new CTLDependencyDto(dependencyFqn,dependencyVersion));
+  Map<String,String> fields=new HashMap<>();
+  fields.put(this.randomFieldName(),dependencyFqn);
+  this.loginTenantDeveloper(tenantDeveloperUser);
+  this.createCTLSchema(this.randomFieldType(),DEFAULT_NAMESPACE,1,CTLSchemaScope.TENANT,dependencies,fields);
+}

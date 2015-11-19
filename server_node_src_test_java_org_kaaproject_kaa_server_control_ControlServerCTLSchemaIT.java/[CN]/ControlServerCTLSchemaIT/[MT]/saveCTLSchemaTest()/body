@@ -1,0 +1,12 @@
+{
+  this.loginKaaAdmin();
+  CTLSchemaDto beta=this.createCTLSchema(this.randomFieldType(),DEFAULT_NAMESPACE,1,CTLSchemaScope.SYSTEM,null,null);
+  Assert.assertNotNull(beta.getId());
+  List<CTLDependencyDto> dependencies=new ArrayList<>();
+  dependencies.add(new CTLDependencyDto(beta.getFqn(),beta.getVersion()));
+  Map<String,String> fields=new HashMap<>();
+  fields.put(this.randomFieldName(),beta.getFqn());
+  this.loginTenantDeveloper(tenantDeveloperUser);
+  CTLSchemaDto alpha=this.createCTLSchema(this.randomFieldType(),DEFAULT_NAMESPACE,1,CTLSchemaScope.TENANT,dependencies,fields);
+  Assert.assertNotNull(alpha.getId());
+}
