@@ -1,8 +1,8 @@
 {
   String dependencyFqn=DEFAULT_NAMESPACE + "." + this.randomFieldType();
   Integer dependencyVersion=1;
-  Set<CTLDependencyDto> dependencies=new HashSet<>();
-  dependencies.add(new CTLDependencyDto(dependencyFqn,dependencyVersion));
+  Set<CTLSchemaMetaInfoDto> dependencies=new HashSet<>();
+  dependencies.add(new CTLSchemaMetaInfoDto(dependencyFqn,dependencyVersion));
   Map<String,String> fields=new HashMap<>();
   fields.put(this.randomFieldName(),dependencyFqn);
   this.loginTenantDeveloper(tenantDeveloperUser);

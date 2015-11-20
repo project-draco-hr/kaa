@@ -12,22 +12,22 @@
     }
  else     if (schema.getScope() == CTLSchemaScopeDto.TENANT) {
       if (schema.getTenantId() == null) {
-        throw new IllegalArgumentException("A tenant CTL schema must contain tenant id!");
+        throw new IllegalArgumentException("A tenant CTL schema must include a tenant identifier!");
       }
  else       if (schema.getApplicationId() != null) {
         throw new IllegalArgumentException("A tenant CTL schema cannot be tied to an application!");
       }
  else {
-        checkTenantId(schema.getTenantId());
+        this.checkTenantId(schema.getTenantId());
       }
     }
  else {
       this.checkApplicationId(schema.getApplicationId());
     }
-    List<CTLDependencyDto> missingDependencies=new ArrayList<>();
+    List<CTLSchemaMetaInfoDto> missingDependencies=new ArrayList<>();
     Set<CTLSchemaDto> dependencies=new HashSet<>();
     if (schema.getDependencies() != null) {
-      for (      CTLDependencyDto dependency : schema.getDependencies()) {
+      for (      CTLSchemaMetaInfoDto dependency : schema.getDependencies()) {
         CTLSchemaDto schemaFound=controlService.getCTLSchemaByFqnVersionAndTenantId(dependency.getFqn(),dependency.getVersion(),schema.getTenantId());
         if (schemaFound == null) {
           missingDependencies.add(dependency);

@@ -1,5 +1,5 @@
 {
-  if (isBlank(fqn) || version == null || isBlank(tenantId)) {
+  if (isBlank(fqn) || version == null) {
     throw new IncorrectParameterException("Incorrect parameters for ctl schema request.");
   }
   LOG.debug("Remove ctl schema by fqn {} version {} and tenant id {}",fqn,version,tenantId);

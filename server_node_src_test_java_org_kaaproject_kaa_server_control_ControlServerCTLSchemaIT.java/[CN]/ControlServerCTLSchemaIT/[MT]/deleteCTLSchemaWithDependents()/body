@@ -1,8 +1,8 @@
 {
   this.loginTenantDeveloper(tenantDeveloperUser);
   CTLSchemaInfoDto dependency=this.createCTLSchema(this.randomFieldType(),DEFAULT_NAMESPACE,1,CTLSchemaScopeDto.TENANT,null,null);
-  Set<CTLDependencyDto> dependencies=new HashSet<>();
-  dependencies.add(new CTLDependencyDto(dependency.getFqn(),dependency.getVersion()));
+  Set<CTLSchemaMetaInfoDto> dependencies=new HashSet<>();
+  dependencies.add(new CTLSchemaMetaInfoDto(dependency.getFqn(),dependency.getVersion()));
   Map<String,String> fields=new HashMap<>();
   fields.put(this.randomFieldName(),dependency.getFqn());
   this.createCTLSchema(this.randomFieldName(),DEFAULT_NAMESPACE,1,CTLSchemaScopeDto.TENANT,dependencies,fields);
