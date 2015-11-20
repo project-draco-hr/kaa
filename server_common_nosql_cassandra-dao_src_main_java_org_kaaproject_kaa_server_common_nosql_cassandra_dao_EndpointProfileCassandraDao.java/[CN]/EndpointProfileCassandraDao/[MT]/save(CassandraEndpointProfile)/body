@@ -9,6 +9,8 @@
     statementList.add(cassandraEPByAccessTokenDao.getSaveQuery(new CassandraEPByAccessToken(accessToken,epKeyHash)));
   }
   statementList.add(getSaveQuery(profile));
+  Statement saveBySdkTokenId=cassandraEPBySdkTokenDao.getSaveQuery(new CassandraEPBySdkToken(profile.getSdkToken(),epKeyHash));
+  statementList.add(saveBySdkTokenId);
   Set<String> groupIdSet=getEndpointProfilesGroupIdSet(profile);
   for (  String groupId : groupIdSet) {
     statementList.add(cassandraEPByEndpointGroupIdDao.getSaveQuery(new CassandraEPByEndpointGroupId(groupId,epKeyHash)));

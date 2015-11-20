@@ -22,8 +22,11 @@
  else     if (clazz == ApplicationPlace.class) {
       return new ApplicationActivity((ApplicationPlace)place,clientFactory);
     }
- else     if (clazz == GenerateSdkPlace.class) {
-      return new GenerateSdkActivity((GenerateSdkPlace)place,clientFactory);
+ else     if (clazz == SdkProfilesPlace.class) {
+      return new SdkProfilesActivity((SdkProfilesPlace)place,clientFactory);
+    }
+ else     if (clazz == AddSdkProfilePlace.class) {
+      return new AddSdkProfileActivity((AddSdkProfilePlace)place,clientFactory);
     }
  else     if (clazz == UsersPlace.class) {
       return new UsersActivity((UsersPlace)place,clientFactory);
@@ -69,6 +72,12 @@
     }
  else     if (clazz == EndpointGroupPlace.class) {
       return new EndpointGroupActivity((EndpointGroupPlace)place,clientFactory);
+    }
+ else     if (clazz == EndpointProfilesPlace.class) {
+      return new EndpointProfilesActivity((EndpointProfilesPlace)place,clientFactory);
+    }
+ else     if (clazz == EndpointProfilePlace.class) {
+      return new EndpointProfileActivity((EndpointProfilePlace)place,clientFactory);
     }
  else     if (clazz == ProfileFilterPlace.class) {
       return new ProfileFilterActivity((ProfileFilterPlace)place,clientFactory);

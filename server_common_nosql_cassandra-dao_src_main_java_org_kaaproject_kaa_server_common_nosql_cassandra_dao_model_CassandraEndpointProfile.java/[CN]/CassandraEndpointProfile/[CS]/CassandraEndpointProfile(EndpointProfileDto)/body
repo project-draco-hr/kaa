@@ -5,7 +5,6 @@
   this.endpointKeyHash=getByteBuffer(dto.getEndpointKeyHash());
   this.endpointUserId=dto.getEndpointUserId();
   this.accessToken=dto.getAccessToken();
-  this.profileSchemaId=dto.getProfileSchemaId();
   this.cfGroupState=convertDtoToModelList(dto.getCfGroupStates());
   this.nfGroupState=convertDtoToModelList(dto.getNfGroupStates());
   this.cfSequenceNumber=dto.getCfSequenceNumber();
@@ -24,4 +23,5 @@
   this.logSchemaVersion=dto.getLogSchemaVersion();
   this.ecfVersionStates=convertECFVersionDtoToModelList(dto.getEcfVersionStates());
   this.serverHash=dto.getServerHash();
+  this.sdkToken=dto.getSdkToken();
 }

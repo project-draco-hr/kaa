@@ -11,13 +11,13 @@
     }
   }
 );
-  SDK_PROPERTIES.setApplicationToken(TEST_APP_TOKEN);
-  SDK_PROPERTIES.setApplicationId(APP_ID);
-  SDK_PROPERTIES.setDefaultVerifierToken(DEFAULT_VERIFIER_TOKEN);
-  when(sdkKeyService.findSdkKeyByToken(TEST_SDK_TOKEN)).then(new Answer<SdkPropertiesDto>(){
-    @Override public SdkPropertiesDto answer(    InvocationOnMock invocationOnMock) throws Throwable {
+  SDK_PROFILE.setApplicationToken(TEST_APP_TOKEN);
+  SDK_PROFILE.setApplicationId(APP_ID);
+  SDK_PROFILE.setDefaultVerifierToken(DEFAULT_VERIFIER_TOKEN);
+  when(sdkProfileService.findSdkProfileByToken(TEST_SDK_TOKEN)).then(new Answer<SdkProfileDto>(){
+    @Override public SdkProfileDto answer(    InvocationOnMock invocationOnMock) throws Throwable {
       sleepABit();
-      return SDK_PROPERTIES;
+      return SDK_PROFILE;
     }
   }
 );

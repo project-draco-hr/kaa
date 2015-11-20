@@ -1,0 +1,27 @@
+{
+  SdkProfileDto saved=null;
+  if (Validator.isValidSqlObject(sdkPropertiesDto)) {
+    if (StringUtils.isNotBlank(sdkPropertiesDto.getId())) {
+      SdkProfile entity=new SdkProfile(sdkPropertiesDto);
+      SdkProfile loaded=sdkProfileDao.findSdkProfileByToken(entity.getToken());
+      LOG.debug("Saving SDK profile [{}] for application [{}]",entity.getToken(),sdkPropertiesDto.getApplicationId());
+      if (loaded == null || loaded.getStringId().equals(entity.getStringId())) {
+        saved=DaoUtil.getDto(sdkProfileDao.save(entity));
+      }
+ else {
+        throw new IncorrectParameterException("An SDK profile with token [" + entity.getToken() + "] already exists.");
+      }
+    }
+ else {
+      SdkProfile entity=new SdkProfile(sdkPropertiesDto);
+      SdkProfile loaded=sdkProfileDao.findSdkProfileByToken(entity.getToken());
+      if (loaded == null) {
+        saved=DaoUtil.getDto(sdkProfileDao.save(entity));
+      }
+ else {
+        saved=DaoUtil.getDto(loaded);
+      }
+    }
+  }
+  return saved;
+}

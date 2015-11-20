@@ -1,0 +1,15 @@
+{
+  this.checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    SdkProfileDto sdkProfile=this.checkSdkProfileId(sdkProfileId);
+    if (!controlService.isSdkProfileUsed(sdkProfile.getToken())) {
+      controlService.deleteSdkProfile(sdkProfileId);
+    }
+ else {
+      throw new IllegalArgumentException("Associated endpoint profiles have been found.");
+    }
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+}

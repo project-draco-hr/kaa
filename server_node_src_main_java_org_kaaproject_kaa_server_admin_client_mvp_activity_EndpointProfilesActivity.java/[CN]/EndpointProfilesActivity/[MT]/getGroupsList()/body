@@ -1,0 +1,16 @@
+{
+  if (!gridLoaded) {
+    KaaAdmin.getDataSource().loadEndpointGroups(applicationId,new AsyncCallback<List<EndpointGroupDto>>(){
+      @Override public void onFailure(      Throwable caught){
+        Utils.handleException(caught,listView);
+      }
+      @Override public void onSuccess(      List<EndpointGroupDto> result){
+        if (listView.getListWidget().getDataGrid().getVisibleRange().getStart() != 0) {
+          listView.getListWidget().getDataGrid().setVisibleRangeAndClearData(new Range(0,listView.getListWidget().getPageSize()),false);
+        }
+        populateListBoxAndGrid(result);
+      }
+    }
+);
+  }
+}

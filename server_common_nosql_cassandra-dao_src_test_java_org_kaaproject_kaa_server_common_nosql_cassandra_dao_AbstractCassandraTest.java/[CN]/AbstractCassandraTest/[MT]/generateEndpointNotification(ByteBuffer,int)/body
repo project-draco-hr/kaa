@@ -2,7 +2,7 @@
   List<CassandraEndpointNotification> savedNotifications=new ArrayList<>();
   String appId=generateStringId();
   if (endpointKeyHash == null) {
-    endpointKeyHash=ByteBuffer.wrap(generateEndpointProfile(appId,null,null).getEndpointKeyHash());
+    endpointKeyHash=ByteBuffer.wrap(generateEndpointProfile(appId,null,null,null).getEndpointKeyHash());
   }
   String schemaId=generateStringId();
   for (int i=0; i < count; i++) {

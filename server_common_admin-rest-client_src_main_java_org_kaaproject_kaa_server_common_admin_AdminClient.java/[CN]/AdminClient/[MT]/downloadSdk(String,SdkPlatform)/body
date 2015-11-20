@@ -1,0 +1,8 @@
+{
+  FileDataResponseExtractor extractor=new FileDataResponseExtractor();
+  MultiValueMap<String,String> parameters=new LinkedMultiValueMap<>();
+  parameters.add("sdkProfileId",sdkProfileId);
+  parameters.add("targetPlatform",targetPlatform.toString());
+  RequestCallback request=new DataRequestCallback<>(parameters);
+  return restTemplate.execute(url + "sdk",HttpMethod.POST,request,extractor);
+}

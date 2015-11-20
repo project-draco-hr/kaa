@@ -1,5 +1,5 @@
 {
-  buildExtensionHeader(buf,LOGGING_EXTENSION_ID,NOTHING,NOTHING,NOTHING,4);
+  buildExtensionHeader(buf,LOGGING_EXTENSION_ID,NOTHING,NOTHING,4);
   List<LogDeliveryStatus> statusList=logSync.getDeliveryStatuses();
   if (statusList != null && !statusList.isEmpty()) {
     buf.putInt(statusList.size());

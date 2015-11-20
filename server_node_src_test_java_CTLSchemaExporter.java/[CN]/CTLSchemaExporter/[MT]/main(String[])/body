@@ -1,0 +1,13 @@
+{
+  String content=new String(Files.readAllBytes(Paths.get("C:\\beta.json")));
+  JsonNode beta=asJsonNode(content);
+  content=new String(Files.readAllBytes(Paths.get("C:\\alpha.json")));
+  JsonNode alpha=asJsonNode(content);
+  ArrayNode fields=JsonNodeFactory.instance.arrayNode();
+  for (  JsonNode field : alpha.get("fields")) {
+    if (field.get("type").asText().equals(beta.get("namespace").asText() + "." + beta.get("name").asText())) {
+      change(field,"type",beta);
+    }
+  }
+  System.out.println(alpha);
+}

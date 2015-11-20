@@ -3,7 +3,7 @@
   loginTenantDeveloper(tenantDeveloperUser);
   checkNotFound(new TestRestCall(){
     @Override public void executeRestCall() throws Exception {
-      client.downloadSdk(getSdkProperties(SdkPlatform.JAVA,application.getId(),2,2,2,null,0,null));
+      client.downloadSdk(getSdkProfile(application.getId(),2,2,2,null,0,null).getId(),SdkPlatform.JAVA);
     }
   }
 );
