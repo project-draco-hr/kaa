@@ -5,7 +5,7 @@
   LOG.debug("Remove ctl schema by fqn {} version {} and tenant id {}",fqn,version,tenantId);
   CTLSchema ctlSchema=ctlSchemaDao.findByFqnAndVerAndTenantId(fqn,version,tenantId);
   if (ctlSchema != null) {
-    List<CTLSchema> dependsList=ctlSchemaDao.findDependentsSchemas(ctlSchema.getStringId());
+    List<CTLSchema> dependsList=ctlSchemaDao.findDependentSchemas(ctlSchema.getStringId());
     if (dependsList.isEmpty()) {
       ctlSchemaDao.removeById(ctlSchema.getStringId());
     }
