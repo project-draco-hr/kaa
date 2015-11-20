@@ -1,0 +1,6 @@
+{
+  AuthUserDto currentUser=this.getCurrentUser();
+  if ((schema.getMetaInfo().getScope() != CTLSchemaScopeDto.SYSTEM || currentUser.getAuthority() != KaaAuthorityDto.KAA_ADMIN) && (schema.getMetaInfo().getScope() == CTLSchemaScopeDto.SYSTEM || !schema.getTenantId().equals(currentUser.getTenantId()))) {
+    throw new KaaAdminServiceException("You do not have permission to perform this operation!",ServiceErrorCode.PERMISSION_DENIED);
+  }
+}

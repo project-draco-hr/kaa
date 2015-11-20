@@ -1,0 +1,22 @@
+{
+  CTLSchemaInfoDto infoDto=new CTLSchemaInfoDto();
+  infoDto.setId(id);
+  infoDto.setFqn(metaInfo.getFqn());
+  infoDto.setVersion(metaInfo.getVersion());
+  infoDto.setScope(metaInfo.getScope());
+  infoDto.setApplicationId(applicationId);
+  infoDto.setTenantId(tenantId);
+  infoDto.setBody(body);
+  infoDto.setCreatedTime(createdTime);
+  infoDto.setCreatedUsername(createdUsername);
+  infoDto.setDescription(description);
+  if (dependencySet != null && !dependencySet.isEmpty()) {
+    Set<CTLDependencyDto> dependencies=new HashSet<>();
+    for (    CTLSchemaDto dep : dependencySet) {
+      CTLSchemaMetaInfoDto mi=dep.getMetaInfo();
+      dependencies.add(new CTLDependencyDto(mi.getFqn(),mi.getVersion()));
+    }
+    infoDto.setDependencies(dependencies);
+  }
+  return infoDto;
+}

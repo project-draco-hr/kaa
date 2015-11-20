@@ -1,0 +1,14 @@
+{
+  Objects.requireNonNull(infoDto);
+  if (infoDto != null) {
+    this.dependencySet=dependencySet;
+    this.metaInfo=new CTLSchemaMetaInfoDto(infoDto.getFqn(),infoDto.getVersion(),infoDto.getScope());
+    id=infoDto.getId();
+    applicationId=infoDto.getApplicationId();
+    tenantId=infoDto.getTenantId();
+    body=infoDto.getBody();
+    createdTime=infoDto.getCreatedTime();
+    createdUsername=infoDto.getCreatedUsername();
+    description=infoDto.getDescription();
+  }
+}

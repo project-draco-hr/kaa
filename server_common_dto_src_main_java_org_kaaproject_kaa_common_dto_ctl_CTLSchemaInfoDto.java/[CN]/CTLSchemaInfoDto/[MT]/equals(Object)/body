@@ -1,0 +1,9 @@
+{
+  if (this == o)   return true;
+  if (o == null || getClass() != o.getClass())   return false;
+  CTLSchemaInfoDto infoDto=(CTLSchemaInfoDto)o;
+  if (fqn != null ? !fqn.equals(infoDto.fqn) : infoDto.fqn != null)   return false;
+  if (version != null ? !version.equals(infoDto.version) : infoDto.version != null)   return false;
+  if (scope != infoDto.scope)   return false;
+  return dependencies != null ? dependencies.equals(infoDto.dependencies) : infoDto.dependencies == null;
+}

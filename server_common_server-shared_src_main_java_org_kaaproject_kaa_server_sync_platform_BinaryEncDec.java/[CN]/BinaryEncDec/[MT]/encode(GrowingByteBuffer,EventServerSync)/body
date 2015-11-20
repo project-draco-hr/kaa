@@ -3,7 +3,7 @@
   if (eventSync.getEventSequenceNumberResponse() != null) {
     option=1;
   }
-  buildExtensionHeader(buf,EVENT_EXTENSION_ID,NOTHING,NOTHING,option,0);
+  buildExtensionHeader(buf,EVENT_EXTENSION_ID,NOTHING,option,0);
   int extPosition=buf.position();
   if (eventSync.getEventSequenceNumberResponse() != null) {
     buf.putInt(eventSync.getEventSequenceNumberResponse().getSeqNum());

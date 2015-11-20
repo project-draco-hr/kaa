@@ -3,7 +3,7 @@
   this.metaInfo=new CTLSchemaMetaInfo(dto.getMetaInfo());
   Long tenantId=getLongId(dto.getTenantId());
   this.tenant=tenantId != null ? new Tenant(tenantId) : null;
-  Long appId=getLongId(dto.getAppId());
+  Long appId=getLongId(dto.getApplicationId());
   this.application=appId != null ? new Application(appId) : null;
   this.body=dto.getBody();
   Set<CTLSchemaDto> dependencies=dto.getDependencySet();

@@ -1,4 +1,4 @@
 {
-  ctlSchemaDao.removeByFqnAndVerAndTenantId(systemSchema.getMetaInfo().getFqn(),systemSchema.getMetaInfo().getVersion(),tenant.getId());
+  ctlSchemaDao.removeByFqnAndVerAndTenantId(systemSchema.getMetaInfo().getFqn(),systemSchema.getMetaInfo().getVersion(),systemSchema.getTenantId());
   Assert.assertNull(ctlSchemaDao.findById(systemSchema.getId()));
 }
