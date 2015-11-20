@@ -22,7 +22,9 @@
       }
       socket=null;
       messageFactory.getFramer().flush();
-      channelState=State.CLOSED;
+      if (channelState != State.SHUTDOWN) {
+        channelState=State.CLOSED;
+      }
     }
   }
 }
