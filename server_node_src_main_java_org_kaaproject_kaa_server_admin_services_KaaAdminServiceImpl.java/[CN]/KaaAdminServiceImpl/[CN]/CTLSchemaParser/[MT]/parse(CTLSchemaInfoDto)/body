@@ -1,18 +1,18 @@
 {
-  Map<String,Schema> types=new HashMap<>();
   if (schema.getDependencies() != null) {
-    for (    CTLDependencyDto dependency : schema.getDependencies()) {
+    for (    CTLSchemaMetaInfoDto dependency : schema.getDependencies()) {
       try {
         CTLSchemaDto dependencySchema=controlService.getCTLSchemaByFqnVersionAndTenantId(dependency.getFqn(),dependency.getVersion(),getCurrentUser().getTenantId());
-        types.put(dependency.getFqn(),this.parse(dependencySchema.toCTLSchemaInfoDto()));
+        this.parse(dependencySchema.toCTLSchemaInfoDto());
       }
  catch (      Exception cause) {
-        throw new IllegalArgumentException("Unable to locate dependency " + dependency.toString());
+        String message="Unable to locate dependency \"" + dependency.getFqn() + "\" (version "+ dependency.getVersion()+ ")";
+        throw new IllegalArgumentException(message);
       }
     }
   }
   try {
-    return this.parser.addTypes(types).parse(schema.getBody());
+    return parser.parse(schema.getBody());
   }
  catch (  Exception cause) {
     throw new IllegalArgumentException("Unable to parse CTL schema: " + cause.getMessage());

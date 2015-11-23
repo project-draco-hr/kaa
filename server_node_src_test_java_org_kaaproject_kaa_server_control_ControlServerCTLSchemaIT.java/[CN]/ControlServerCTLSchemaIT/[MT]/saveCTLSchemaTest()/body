@@ -2,8 +2,8 @@
   this.loginKaaAdmin();
   CTLSchemaInfoDto beta=this.createCTLSchema(this.randomFieldType(),DEFAULT_NAMESPACE,1,CTLSchemaScopeDto.SYSTEM,null,null);
   Assert.assertNotNull(beta.getId());
-  Set<CTLDependencyDto> dependencies=new HashSet<>();
-  dependencies.add(new CTLDependencyDto(beta.getFqn(),beta.getVersion()));
+  Set<CTLSchemaMetaInfoDto> dependencies=new HashSet<>();
+  dependencies.add(new CTLSchemaMetaInfoDto(beta.getFqn(),beta.getVersion()));
   Map<String,String> fields=new HashMap<>();
   fields.put(this.randomFieldName(),beta.getFqn());
   this.loginTenantDeveloper(tenantDeveloperUser);
