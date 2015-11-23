@@ -1,0 +1,7 @@
+{
+  FileData result=new FileData();
+  result.setContentType("application/json");
+  result.setFileName(schema.getMetaInfo().getFqn() + "-v" + schema.getMetaInfo().getVersion()+ ".json");
+  result.setFileData(schema.getBody().getBytes());
+  return result;
+}
