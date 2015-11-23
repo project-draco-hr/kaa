@@ -11,10 +11,10 @@
   infoDto.setCreatedUsername(createdUsername);
   infoDto.setDescription(description);
   if (dependencySet != null && !dependencySet.isEmpty()) {
-    Set<CTLDependencyDto> dependencies=new HashSet<>();
+    Set<CTLSchemaMetaInfoDto> dependencies=new HashSet<>();
     for (    CTLSchemaDto dep : dependencySet) {
       CTLSchemaMetaInfoDto mi=dep.getMetaInfo();
-      dependencies.add(new CTLDependencyDto(mi.getFqn(),mi.getVersion()));
+      dependencies.add(new CTLSchemaMetaInfoDto(mi.getFqn(),mi.getVersion()));
     }
     infoDto.setDependencies(dependencies);
   }

@@ -4,7 +4,7 @@
   List<CTLSchemaDto> list=Collections.emptyList();
   CTLSchema schemaDto=ctlSchemaDao.findById(schemaId);
   if (schemaDto != null) {
-    list=convertDtoList(ctlSchemaDao.findDependentsSchemas(schemaDto.getStringId()));
+    list=convertDtoList(ctlSchemaDao.findDependentSchemas(schemaDto.getStringId()));
   }
   return list;
 }
