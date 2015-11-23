@@ -6,7 +6,8 @@
         this.parse(dependencySchema.toCTLSchemaInfoDto());
       }
  catch (      Exception cause) {
-        throw new IllegalArgumentException("Unable to locate dependency " + dependency.toString());
+        String message="Unable to locate dependency \"" + dependency.getFqn() + "\" (version "+ dependency.getVersion()+ ")";
+        throw new IllegalArgumentException(message);
       }
     }
   }
