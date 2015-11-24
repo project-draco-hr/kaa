@@ -1,0 +1,16 @@
+{
+  ConfirmDialog.ConfirmListener listener=new ConfirmDialog.ConfirmListener(){
+    public void onNo(){
+    }
+    public void onYes(){
+      detailsView.getServerProfForm().reset();
+      detailsView.getServerProfRecord().setValue(null);
+    }
+  }
+;
+  String question=org.kaaproject.avro.ui.gwt.client.util.Utils.messages.deleteSelectedEntryQuestion();
+  String title=org.kaaproject.avro.ui.gwt.client.util.Utils.messages.deleteSelectedEntryTitle();
+  ConfirmDialog dialog=new ConfirmDialog(listener,title,question);
+  dialog.center();
+  dialog.show();
+}
