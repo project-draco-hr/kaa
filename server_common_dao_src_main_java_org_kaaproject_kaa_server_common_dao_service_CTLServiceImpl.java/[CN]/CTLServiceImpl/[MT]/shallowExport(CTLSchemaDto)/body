@@ -1,7 +1,13 @@
 {
-  FileData result=new FileData();
-  result.setContentType("application/json");
-  result.setFileName(schema.getMetaInfo().getFqn() + "-v" + schema.getMetaInfo().getVersion()+ ".json");
-  result.setFileData(schema.getBody().getBytes());
-  return result;
+  try {
+    FileData result=new FileData();
+    result.setContentType("application/json");
+    result.setFileName(MessageFormat.format(CTL_EXPORT_TEMPLATE,schema.getMetaInfo().getFqn(),schema.getMetaInfo().getVersion()));
+    Object json=FORMATTER.readValue(schema.getBody(),Object.class);
+    result.setFileData(FORMATTER.writerWithDefaultPrettyPrinter().writeValueAsString(json).getBytes());
+    return result;
+  }
+ catch (  Exception cause) {
+    throw new RuntimeException("An unexpected exception occured: " + cause.toString());
+  }
 }

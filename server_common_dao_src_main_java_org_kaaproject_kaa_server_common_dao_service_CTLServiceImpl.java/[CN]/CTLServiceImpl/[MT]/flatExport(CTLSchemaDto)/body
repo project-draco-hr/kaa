@@ -2,8 +2,10 @@
   try {
     FileData result=new FileData();
     result.setContentType("application/json");
-    result.setFileName(schema.getMetaInfo().getFqn() + "-v" + schema.getMetaInfo().getVersion()+ ".json");
-    result.setFileData(this.inlineDependencies(schema).toString().getBytes());
+    result.setFileName(MessageFormat.format(CTL_EXPORT_TEMPLATE,schema.getMetaInfo().getFqn(),schema.getMetaInfo().getVersion()));
+    String body=this.parseDependencies(schema,new Schema.Parser()).toString();
+    Object json=FORMATTER.readValue(body,Object.class);
+    result.setFileData(FORMATTER.writerWithDefaultPrettyPrinter().writeValueAsString(json).getBytes());
     return result;
   }
  catch (  Exception cause) {
