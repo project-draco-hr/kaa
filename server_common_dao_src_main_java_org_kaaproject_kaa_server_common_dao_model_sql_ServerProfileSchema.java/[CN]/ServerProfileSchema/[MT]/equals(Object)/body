@@ -1,0 +1,8 @@
+{
+  if (this == o)   return true;
+  if (o == null || getClass() != o.getClass())   return false;
+  ServerProfileSchema that=(ServerProfileSchema)o;
+  if (createdTime != null ? !createdTime.equals(that.createdTime) : that.createdTime != null)   return false;
+  if (application != null ? !application.equals(that.application) : that.application != null)   return false;
+  return ctlSchema != null ? ctlSchema.equals(that.ctlSchema) : that.ctlSchema == null;
+}
