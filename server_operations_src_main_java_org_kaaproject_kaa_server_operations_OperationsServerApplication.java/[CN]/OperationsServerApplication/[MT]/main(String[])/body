@@ -1,4 +1,10 @@
 {
+  Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler(){
+    @Override public void uncaughtException(    Thread th,    Throwable ex){
+      LOG.error("Uncaught exception: ",ex);
+    }
+  }
+);
   OperationsServerApplication app=new OperationsServerApplication(DEFAULT_APPLICATION_CONTEXT_XMLS,DEFAULT_APPLICATION_CONFIGURATION_FILES);
   app.startAndWait(args);
 }
