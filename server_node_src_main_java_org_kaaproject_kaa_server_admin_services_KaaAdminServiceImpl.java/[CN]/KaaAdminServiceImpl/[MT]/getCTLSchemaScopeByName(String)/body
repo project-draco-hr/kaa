@@ -1,9 +1,8 @@
 {
-  name=name.toUpperCase();
-  for (  CTLSchemaScopeDto scope : CTLSchemaScopeDto.values()) {
-    if (name.equals(scope.name())) {
-      return scope;
-    }
+  try {
+    return CTLSchemaScopeDto.valueOf(name.toUpperCase());
   }
-  throw new IllegalArgumentException("Invalid CTL schema scope name!");
+ catch (  Exception cause) {
+    throw new IllegalArgumentException("Invalid CTL schema scope name!");
+  }
 }
