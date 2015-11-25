@@ -56,6 +56,12 @@ checkSchema(schemaDto,RecordFiles.PROFILE_SCHEMA);
 schema=schemaDto.getSchema();
 fileName=MessageFormatter.arrayFormat(DATA_NAME_PATTERN,new Object[]{"profile",key.getSchemaVersion()}).getMessage();
 break;
+case SERVER_PROFILE_SCHEMA:
+schemaDto=getServerProfileSchema("" + key.getSchemaVersion());
+checkSchema(schemaDto,RecordFiles.PROFILE_SCHEMA);
+schema=schemaDto.getSchema();
+fileName=MessageFormatter.arrayFormat(DATA_NAME_PATTERN,new Object[]{"profile",schemaDto.getMajorVersion()}).getMessage();
+break;
 default :
 break;
 }
