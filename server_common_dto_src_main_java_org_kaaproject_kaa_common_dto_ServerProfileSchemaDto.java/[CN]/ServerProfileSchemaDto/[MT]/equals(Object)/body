@@ -1,9 +1,7 @@
 {
   if (this == o)   return true;
   if (o == null || getClass() != o.getClass())   return false;
+  if (!super.equals(o))   return false;
   ServerProfileSchemaDto that=(ServerProfileSchemaDto)o;
-  if (id != null ? !id.equals(that.id) : that.id != null)   return false;
-  if (createdTime != null ? !createdTime.equals(that.createdTime) : that.createdTime != null)   return false;
-  if (applicationId != null ? !applicationId.equals(that.applicationId) : that.applicationId != null)   return false;
-  return schemaDto != null ? schemaDto.equals(that.schemaDto) : that.schemaDto == null;
+  return !(schemaDto != null ? !schemaDto.equals(that.schemaDto) : that.schemaDto != null);
 }
