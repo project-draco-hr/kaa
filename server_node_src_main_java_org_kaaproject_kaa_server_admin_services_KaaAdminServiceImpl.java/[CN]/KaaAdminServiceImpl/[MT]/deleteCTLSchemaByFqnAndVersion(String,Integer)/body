@@ -9,7 +9,7 @@
     this.checkCTLAuthority(schemaFound);
     List<CTLSchemaDto> schemaDependents=controlService.getCTLSchemaDependents(fqn,version,tenantId);
     if (schemaDependents != null && !schemaDependents.isEmpty()) {
-      String message="Unable to delete the CTL schema as it is referenced by " + Arrays.toString(schemaDependents.toArray());
+      String message="Unable to delete the CTL schema as it is referenced by the following common type(s): " + this.asText(schemaDependents);
       throw new IllegalArgumentException(message);
     }
     controlService.deleteCTLSchemaByFqnAndVersionAndTenantId(fqn,version,tenantId);
