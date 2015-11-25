@@ -1,5 +1,13 @@
 {
   listView.clearError();
+  registrations.add(listView.getResetButton().addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent clickEvent){
+      listView.getEndpointKeyHashTextBox().setValue("");
+      gridLoaded=false;
+      getGroupsList();
+    }
+  }
+));
   registrations.add(listView.getRowActionsSource().addRowActionHandler(new RowActionEventHandler<String>(){
     @Override public void onRowAction(    RowActionEvent<String> event){
       String id=event.getClickedId();

@@ -1,0 +1,49 @@
+{
+  detailsView.getSdkProfileToken().setValue(entity.getSdkProfile().getToken());
+  detailsView.getSdkName().setValue(entity.getSdkProfile().getName());
+  detailsView.getSdkAuthor().setValue(entity.getSdkProfile().getCreatedUsername());
+  detailsView.getSdkDateCreated().setValue(Utils.millisecondsToDateString(entity.getSdkProfile().getCreatedTime()));
+  List<ApplicationEventFamilyMapDto> aefMapDtoList=entity.getAefMapDtoList();
+  if (aefMapDtoList != null) {
+    detailsView.getSdkAefMapsGrid().getDataGrid().setRowData(aefMapDtoList);
+  }
+ else {
+    detailsView.getSdkAefMapsGrid().getDataGrid().setRowData(new ArrayList<ApplicationEventFamilyMapDto>());
+  }
+  detailsView.getSdkConfigurationVersion().setText(entity.getConfigurationSchemaName());
+  registrations.add(detailsView.getSdkConfigurationVersion().addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent clickEvent){
+      ConfigurationSchemaPlace configurationSchemaPlace=new ConfigurationSchemaPlace(place.getApplicationId(),entity.getConfigurationSchemaId());
+      configurationSchemaPlace.setPreviousPlace(place);
+      goTo(configurationSchemaPlace);
+    }
+  }
+));
+  detailsView.getSdkProfileVersion().setText(entity.getProfileSchemaName());
+  registrations.add(detailsView.getSdkProfileVersion().addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent clickEvent){
+      ProfileSchemaPlace profileSchemaPlace=new ProfileSchemaPlace(place.getApplicationId(),entity.getProfileSchemaId());
+      profileSchemaPlace.setPreviousPlace(place);
+      goTo(profileSchemaPlace);
+    }
+  }
+));
+  detailsView.getSdkNotificationVersion().setText(entity.getNotificationSchemaName());
+  registrations.add(detailsView.getSdkNotificationVersion().addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent clickEvent){
+      NotificationSchemaPlace notificationSchemaPlace=new NotificationSchemaPlace(place.getApplicationId(),entity.getNotificationSchemaId());
+      notificationSchemaPlace.setPreviousPlace(place);
+      goTo(notificationSchemaPlace);
+    }
+  }
+));
+  detailsView.getSdkLoggingVersion().setText(entity.getLogSchemaName());
+  registrations.add(detailsView.getSdkLoggingVersion().addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent clickEvent){
+      LogSchemaPlace logSchemaPlace=new LogSchemaPlace(place.getApplicationId(),entity.getLogSchemaId());
+      logSchemaPlace.setPreviousPlace(place);
+      goTo(logSchemaPlace);
+    }
+  }
+));
+}

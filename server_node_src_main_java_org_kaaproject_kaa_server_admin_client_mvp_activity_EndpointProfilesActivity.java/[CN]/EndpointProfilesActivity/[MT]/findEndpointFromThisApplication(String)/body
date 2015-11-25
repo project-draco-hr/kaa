@@ -6,7 +6,9 @@
           listView.getListWidget().getDataGrid().setRowData(new ArrayList<EndpointProfileDto>());
         }
       }
- else       Utils.handleException(caught,listView);
+ else {
+        Utils.handleException(caught,listView);
+      }
     }
     @Override public void onSuccess(    EndpointProfileDto endpointProfileDto){
       List<EndpointProfileDto> result=new ArrayList<>();
