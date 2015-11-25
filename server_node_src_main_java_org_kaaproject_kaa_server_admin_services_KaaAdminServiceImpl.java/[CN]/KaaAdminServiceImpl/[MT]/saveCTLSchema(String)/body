@@ -35,7 +35,7 @@
       schema.setScope(CTLSchemaScopeDto.SYSTEM);
     }
  else {
-      throw new IllegalArgumentException("Unable to determine the scope!");
+      throw new IllegalArgumentException("You do not have permission to perform this operation!");
     }
     Set<CTLSchemaMetaInfoDto> dependencies=new HashSet<>();
     if (!object.has("dependencies")) {
@@ -47,7 +47,7 @@
  else {
       for (      JsonNode child : object.get("dependencies")) {
         if (!child.isObject() || !child.has("fqn") || !child.get("fqn").isTextual()|| !child.has("version")|| !child.get("version").isInt()) {
-          throw new IllegalArgumentException("Wrong dependency format!");
+          throw new IllegalArgumentException("Illegal dependency format!");
         }
  else {
           dependencies.add(new CTLSchemaMetaInfoDto(child.get("fqn").asText(),child.get("version").asInt()));

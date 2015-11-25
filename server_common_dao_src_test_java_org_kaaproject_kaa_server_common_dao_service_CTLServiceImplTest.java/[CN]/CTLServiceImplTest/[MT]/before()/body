@@ -26,5 +26,20 @@
   CTLSchemaDto unsaved=generateCTLSchemaDto(DEFAULT_FQN,tenant.getId(),80,CTLSchemaScopeDto.APPLICATION);
   unsaved.setApplicationId(appDto.getId());
   appSchema=ctlService.saveCTLSchema(unsaved);
-  allSchemaList=Arrays.asList(firstSchema,secondSchema,thirdSchema,fourthSchema,mainSchema,systemSchema,tenantSchema,appSchema);
+  beta=new CTLSchemaDto();
+  CTLSchemaMetaInfoDto betaMetaInfo=new CTLSchemaMetaInfoDto("org.kaaproject.kaa.Beta",1);
+  betaMetaInfo.setScope(CTLSchemaScopeDto.TENANT);
+  beta.setMetaInfo(betaMetaInfo);
+  beta.setBody(getResourceAsString(TEST_CTL_SCHEMA_BETA));
+  beta=ctlService.saveCTLSchema(beta);
+  alpha=new CTLSchemaDto();
+  CTLSchemaMetaInfoDto alphaMetaInfo=new CTLSchemaMetaInfoDto("org.kaaproject.kaa.Alpha",1);
+  alphaMetaInfo.setScope(CTLSchemaScopeDto.TENANT);
+  Set<CTLSchemaDto> alphaDependencies=new HashSet<>();
+  alphaDependencies.add(beta);
+  alpha.setMetaInfo(alphaMetaInfo);
+  alpha.setDependencySet(alphaDependencies);
+  alpha.setBody(getResourceAsString(TEST_CTL_SCHEMA_ALPHA));
+  alpha=ctlService.saveCTLSchema(alpha);
+  allSchemaList=Arrays.asList(firstSchema,secondSchema,thirdSchema,fourthSchema,mainSchema,systemSchema,tenantSchema,appSchema,beta,alpha);
 }

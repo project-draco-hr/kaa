@@ -1,0 +1,6 @@
+{
+  ObjectMapper mapper=new ObjectMapper();
+  JsonNode expected=mapper.readTree(getResourceAsString(TEST_CTL_SCHEMA_ALPHA));
+  JsonNode actual=mapper.readTree(ctlService.shallowExport(alpha).getFileData());
+  Assert.assertEquals(expected,actual);
+}
