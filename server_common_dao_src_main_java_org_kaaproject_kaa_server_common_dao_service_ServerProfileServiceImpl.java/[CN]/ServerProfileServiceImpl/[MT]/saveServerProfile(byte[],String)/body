@@ -1,11 +1,12 @@
 {
+  Validator.validateHash(keyHash,"Incorrect endpoint key hash.");
   EndpointProfile ep=endpointProfileDao.findById(ByteBuffer.wrap(keyHash));
   if (ep != null) {
     String schemaId=ep.getServerProfileSchemaId();
     ep=endpointProfileDao.updateProfileServer(keyHash,schemaId,serverProfile);
   }
  else {
-    throw new DatabaseProcessingException("Can't find endpoint profile ");
+    throw new DatabaseProcessingException("Can't find endpoint profile by key hash " + keyHash);
   }
   return ep != null ? ep.toDto() : null;
 }

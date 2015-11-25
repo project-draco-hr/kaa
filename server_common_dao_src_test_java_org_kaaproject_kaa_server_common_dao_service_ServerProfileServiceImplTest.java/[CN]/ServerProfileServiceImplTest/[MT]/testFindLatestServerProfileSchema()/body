@@ -1,0 +1,10 @@
+{
+  ApplicationDto app=generateApplicationDto();
+  generateServiceProfileSchema(app.getId(),app.getTenantId());
+  generateServiceProfileSchema(app.getId(),app.getTenantId());
+  generateServiceProfileSchema(app.getId(),app.getTenantId());
+  generateServiceProfileSchema(app.getId(),app.getTenantId());
+  ServerProfileSchemaDto expected=generateServiceProfileSchema(app.getId(),app.getTenantId());
+  ServerProfileSchemaDto last=serverProfileService.findLatestServerProfileSchema(app.getId());
+  Assert.assertEquals(expected,last);
+}

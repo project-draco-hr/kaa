@@ -1,3 +1,4 @@
 {
-  return getDto(serverProfileSchemaDao.findLatestByAppId(schemaId));
+  Validator.validateId(schemaId,"Incorrect server profile schema  id.");
+  return getDto(serverProfileSchemaDao.findById(schemaId));
 }
