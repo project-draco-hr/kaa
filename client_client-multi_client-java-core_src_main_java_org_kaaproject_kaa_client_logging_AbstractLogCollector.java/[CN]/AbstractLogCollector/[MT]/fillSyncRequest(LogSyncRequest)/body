@@ -15,15 +15,20 @@
       }
       request.setRequestId(group.getBlockId());
       request.setLogEntries(logs);
-      LOG.info("Adding following bucket id [{}] for timeout tracking",group.getBlockId());
-      timeouts.add(group.getBlockId());
       final LogBlock timeoutGroup=group;
-      executorContext.getScheduledExecutor().schedule(new Runnable(){
+      Future<?> timeoutFuture=executorContext.getScheduledExecutor().schedule(new Runnable(){
         @Override public void run(){
-          checkDeliveryTimeout(timeoutGroup.getBlockId());
+          if (!Thread.currentThread().isInterrupted()) {
+            checkDeliveryTimeout(timeoutGroup.getBlockId());
+          }
+ else {
+            LOG.debug("Timeout check worker for block: {} was interrupted",timeoutGroup.getBlockId());
+          }
         }
       }
 ,strategy.getTimeout(),TimeUnit.SECONDS);
+      LOG.info("Adding following bucket id [{}] for timeout tracking",group.getBlockId());
+      timeouts.put(group.getBlockId(),timeoutFuture);
     }
   }
  else {

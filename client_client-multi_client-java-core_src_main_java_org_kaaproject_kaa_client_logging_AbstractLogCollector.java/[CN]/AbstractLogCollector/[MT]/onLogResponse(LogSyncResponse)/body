@@ -18,7 +18,8 @@
         isAlreadyScheduled=true;
       }
       LOG.info("Removing bucket id from timeouts: {}",response.getRequestId());
-      timeouts.remove(response.getRequestId());
+      Future<?> timeoutFuture=timeouts.remove(response.getRequestId());
+      timeoutFuture.cancel(true);
     }
     if (!isAlreadyScheduled) {
       processUploadDecision(strategy.isUploadNeeded(storage.getStatus()));

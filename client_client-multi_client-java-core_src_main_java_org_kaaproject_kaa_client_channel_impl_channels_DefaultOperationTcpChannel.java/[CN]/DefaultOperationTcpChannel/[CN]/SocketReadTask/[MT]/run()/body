@@ -12,9 +12,15 @@
       }
     }
  catch (    IOException|KaaTcpProtocolException|RuntimeException e) {
-      LOG.warn("Failed to read from the socket for channel [{}]. Stack trace: ",getId(),e);
       if (Thread.currentThread().isInterrupted()) {
-        LOG.warn("Socket connection for channel [{}] was interrupted: ",e);
+        if (channelState != State.SHUTDOWN) {
+          LOG.warn("Failed to read from the socket for channel [{}]. Stack trace: ",getId(),e);
+          LOG.warn("Socket connection for channel [{}] was interrupted: ",e);
+        }
+ else {
+          LOG.debug("Failed to read from the socket for channel [{}]. Stack trace: ",getId(),e);
+          LOG.debug("Socket connection for channel [{}] was interrupted: ",e);
+        }
       }
       if (readTaskSocket.equals(socket)) {
         onServerFailed();
