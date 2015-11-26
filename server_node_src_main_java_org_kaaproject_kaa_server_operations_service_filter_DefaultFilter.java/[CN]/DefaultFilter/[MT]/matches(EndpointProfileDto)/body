@@ -1,0 +1,18 @@
+{
+  GenericRecord serverProfileGenericRecord;
+  GenericRecord clientProfileGenericRecord;
+  try {
+    serverProfileGenericRecord=avroConverter.decodeJson(profile.getServerProfileBody());
+    clientProfileGenericRecord=avroConverter.decodeJson(profile.getClientProfileBody());
+  }
+ catch (  IOException ioe) {
+    LOG.error("Error decoding avro object from Json string",ioe);
+    return false;
+  }
+  StandardEvaluationContext evaluationContext=new StandardEvaluationContext();
+  evaluationContext.addPropertyAccessor(new GenericRecordPropertyAccessor());
+  evaluationContext.setVariable(CLIENT_PROFILE_VARIABLE_NAME,clientProfileGenericRecord);
+  evaluationContext.setVariable(SERVER_PROFILE_VARIABLE_NAME,serverProfileGenericRecord);
+  evaluationContext.setVariable(EP_KEYHASH_VARIABLE_NAME,Base64Util.encode(profile.getEndpointKeyHash()));
+  return expression.getValue(evaluationContext,Boolean.class);
+}
