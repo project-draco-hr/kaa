@@ -1,7 +1,13 @@
 {
   CreateUserResult result=userFacade.saveUserDto(user,passwordEncoder);
-  if (!isEmpty(result.getPassword())) {
-    messagingService.sendTempPassword(user.getUsername(),result.getPassword(),user.getMail());
+  try {
+    if (!isEmpty(result.getPassword())) {
+      messagingService.sendTempPassword(user.getUsername(),result.getPassword(),user.getMail());
+    }
+  }
+ catch (  Exception e) {
+    userFacade.deleteUser(result.getUserId());
+    throw Utils.handleException(e);
   }
   return result.getUserId();
 }
