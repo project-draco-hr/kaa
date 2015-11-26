@@ -1,15 +1,14 @@
 {
+  CTLSchemaDto ctlDto=new CTLSchemaDto();
   ServerProfileSchemaDto servProf=new ServerProfileSchemaDto();
+  servProf.setSchemaDto(ctlDto);
   servProf.setId(dto.getId());
   servProf.setApplicationId(dto.getApplicationId());
-  servProf.setSchema(dto.getSchema());
+  servProf.getSchemaDto().setBody(dto.getSchema());
   servProf.setSchemaForm(dto.getSchemaForm());
-  servProf.setName(dto.getName());
-  servProf.setDescription(dto.getDescription());
-  servProf.setCreatedUsername(dto.getCreatedUsername());
+  servProf.getSchemaDto().setName(dto.getName());
+  servProf.getSchemaDto().setDescription(dto.getDescription());
+  servProf.getSchemaDto().setCreatedUsername(dto.getCreatedUsername());
   servProf.setCreatedTime(dto.getCreatedTime());
-  servProf.setEndpointCount(dto.getEndpointCount());
-  servProf.setMajorVersion(dto.getMajorVersion());
-  servProf.setMinorVersion(dto.getMinorVersion());
   return servProf;
 }
