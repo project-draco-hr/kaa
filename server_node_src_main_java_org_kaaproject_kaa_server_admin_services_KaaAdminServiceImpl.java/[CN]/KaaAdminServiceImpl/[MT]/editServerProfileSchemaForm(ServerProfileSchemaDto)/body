@@ -1,10 +1,23 @@
 {
   checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
+    int version=0;
     if (isEmpty(serverProfileSchema.getId())) {
-      serverProfileSchema.getSchemaDto().setCreatedUsername(getCurrentUser().getUsername());
-      checkApplicationId(serverProfileSchema.getApplicationId());
+      CTLSchemaDto ctlSchemaDto=serverProfileSchema.getSchemaDto();
+      ServerProfileSchemaDto latestServerProfileSchema=controlService.findLatestServerProfileSchema(serverProfileSchema.getApplicationId());
+      if (latestServerProfileSchema != null) {
+        version=latestServerProfileSchema.getSchemaDto().getMetaInfo().getVersion();
+      }
+      CTLSchemaMetaInfoDto metaInfoDto=new CTLSchemaMetaInfoDto(getDeclaredFqn(serverProfileSchema.getSchemaForm()),++version,CTLSchemaScopeDto.SERVER_PROFILE_SCHEMA);
+      ctlSchemaDto.setMetaInfo(metaInfoDto);
+      ctlSchemaDto.setCreatedTime(new Date().getTime());
       convertToStringSchema(serverProfileSchema,simpleSchemaFormAvroConverter);
+      ctlSchemaDto.setCreatedUsername(getCurrentUser().getUsername());
+      ctlSchemaDto.setTenantId(getCurrentUser().getTenantId());
+      CTLSchemaDto savedCtlSchemaDto=controlService.saveCTLSchema(ctlSchemaDto);
+      serverProfileSchema.setCreatedTime(new Date().getTime());
+      serverProfileSchema.setSchemaDto(savedCtlSchemaDto);
+      checkApplicationId(serverProfileSchema.getApplicationId());
     }
  else {
       ServerProfileSchemaDto storedProfileSchema=controlService.getServerProfileSchema(serverProfileSchema.getId());

@@ -57,7 +57,7 @@ schema=schemaDto.getSchema();
 fileName=MessageFormatter.arrayFormat(DATA_NAME_PATTERN,new Object[]{"profile",key.getSchemaVersion()}).getMessage();
 break;
 case SERVER_PROFILE_SCHEMA:
-ServerProfileSchemaDto ctlSchemaDto=getServerProfileSchema("" + key.getSchemaVersion());
+ServerProfileSchemaDto ctlSchemaDto=serverProfileService.findServerProfileSchema("" + key.getSchemaVersion());
 checkSchema(ctlSchemaDto,RecordFiles.PROFILE_SCHEMA);
 schema=ctlSchemaDto.getSchemaDto().getBody();
 fileName=MessageFormatter.arrayFormat(DATA_NAME_PATTERN,new Object[]{"profile",5}).getMessage();
