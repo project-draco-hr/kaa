@@ -7,7 +7,7 @@
   if (request.getAccessToken() != null) {
     dto.setAccessToken(request.getAccessToken());
   }
-  dto.setProfile(profileJson);
+  dto.setClientProfileBody(profileJson);
   dto.setProfileHash(EndpointObjectHash.fromSHA1(request.getProfile()).getData());
   populateVersionStates(appSeqNumber.getTenantId(),dto,sdkProfile);
   List<EndpointGroupStateDto> egsList=new ArrayList<>();
