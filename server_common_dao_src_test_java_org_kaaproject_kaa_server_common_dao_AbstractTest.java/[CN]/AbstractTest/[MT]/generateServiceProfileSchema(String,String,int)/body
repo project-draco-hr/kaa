@@ -1,0 +1,12 @@
+{
+  ServerProfileSchemaDto schemaDto=new ServerProfileSchemaDto();
+  if (isBlank(tenantId)) {
+    ApplicationDto applicationDto=generateApplicationDto();
+    appId=applicationDto.getId();
+    tenantId=applicationDto.getTenantId();
+  }
+  schemaDto.setApplicationId(appId);
+  schemaDto.setCreatedTime(System.currentTimeMillis());
+  schemaDto.setSchemaDto(ctlService.saveCTLSchema(generateCTLSchemaDto(tenantId,DEFAULT_FQN,version,CTLSchemaScopeDto.SERVER_PROFILE_SCHEMA)));
+  return serverProfileService.saveServerProfileSchema(schemaDto);
+}

@@ -1,0 +1,7 @@
+{
+  ServerProfileSchemaDto schemaDto=generateServiceProfileSchema(null,null);
+  EndpointProfileDto ep=generateEndpointProfileDtoWithSchemaId(schemaDto.getApplicationId(),schemaDto.getId(),null);
+  EndpointProfileDto found=endpointService.findEndpointProfileByKeyHash(ep.getEndpointKeyHash());
+  ServerProfileSchemaDto foundSchema=serverProfileService.findServerProfileSchema(found.getServerProfileSchemaId());
+  Assert.assertEquals(schemaDto,foundSchema);
+}

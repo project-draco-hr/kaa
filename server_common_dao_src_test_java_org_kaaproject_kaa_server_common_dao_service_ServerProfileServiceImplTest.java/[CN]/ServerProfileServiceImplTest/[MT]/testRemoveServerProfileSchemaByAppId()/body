@@ -1,0 +1,14 @@
+{
+  ApplicationDto app=generateApplicationDto();
+  generateServiceProfileSchema(null,null);
+  generateServiceProfileSchema(null,null);
+  generateServiceProfileSchema(null,null);
+  generateServiceProfileSchema(null,null);
+  generateServiceProfileSchema(app.getId(),app.getTenantId());
+  generateServiceProfileSchema(app.getId(),app.getTenantId());
+  generateServiceProfileSchema(app.getId(),app.getTenantId());
+  generateServiceProfileSchema(app.getId(),app.getTenantId());
+  serverProfileService.removeServerProfileSchemaByAppId(app.getId());
+  List<ServerProfileSchemaDto> found=serverProfileService.findServerProfileSchemasByAppId(app.getId());
+  Assert.assertTrue(found.isEmpty());
+}
