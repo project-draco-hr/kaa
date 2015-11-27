@@ -12,6 +12,11 @@
   int profileVersion=endpointProfileDto.getProfileVersion();
   ProfileSchemaDto schemaDto=profileService.findProfileSchemaByAppIdAndVersion(applicationId,profileVersion);
   viewDto.setProfileSchemaDto(schemaDto);
+  String serverProfileSchemaId=endpointProfileDto.getServerProfileSchemaId();
+  System.out.println("\n\n\n\tserv prof id: " + serverProfileSchemaId + "\n\n");
+  if (serverProfileSchemaId != null && !serverProfileSchemaId.isEmpty()) {
+    viewDto.setServerProfileSchemaDto(serverProfileService.findServerProfileSchema(serverProfileSchemaId));
+  }
   List<TopicDto> topicsByApplicationId=topicService.findTopicsByAppId(applicationId);
   List<String> endpointTopicsIDs=endpointProfileDto.getSubscriptions();
   List<TopicDto> endpointTopics=null;
