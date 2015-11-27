@@ -1,8 +1,8 @@
 {
   ActionButtonCell<T> cell=new ActionButtonCell<T>(Utils.resources.download(),text,embedded,new ActionButtonCell.ActionListener<T>(){
     @Override public void onItemAction(    T value){
-      Integer schemaVersion=Integer.valueOf(value.getId());
-      RowActionEvent<String> rowDownloadSchemaEvent=new RowActionEvent<>(String.valueOf(schemaVersion),KaaRowAction.DOWNLOAD_SCHEMA);
+      String schemaVersion=value.getId();
+      RowActionEvent<String> rowDownloadSchemaEvent=new RowActionEvent<>(schemaVersion,KaaRowAction.DOWNLOAD_SCHEMA);
       fireEvent(rowDownloadSchemaEvent);
     }
   }
