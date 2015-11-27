@@ -1,12 +1,8 @@
 {
   this.loginKaaAdmin();
-  CTLSchemaInfoDto beta=this.createCTLSchema(this.randomFieldType(),DEFAULT_NAMESPACE,1,CTLSchemaScopeDto.SYSTEM,null,null);
+  CTLSchemaInfoDto beta=client.saveCTLSchema(getResourceAsString(TEST_CTL_SCHEMA_BETA));
   Assert.assertNotNull(beta.getId());
-  Set<CTLSchemaMetaInfoDto> dependencies=new HashSet<>();
-  dependencies.add(new CTLSchemaMetaInfoDto(beta.getFqn(),beta.getVersion()));
-  Map<String,String> fields=new HashMap<>();
-  fields.put(this.randomFieldName(),beta.getFqn());
   this.loginTenantDeveloper(tenantDeveloperUser);
-  CTLSchemaInfoDto alpha=this.createCTLSchema(this.randomFieldType(),DEFAULT_NAMESPACE,1,CTLSchemaScopeDto.TENANT,dependencies,fields);
+  CTLSchemaInfoDto alpha=client.saveCTLSchema(getResourceAsString(TEST_CTL_SCHEMA_ALPHA));
   Assert.assertNotNull(alpha.getId());
 }

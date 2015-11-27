@@ -1,0 +1,8 @@
+{
+  if (schema.getDependencySet() != null) {
+    for (    CTLSchemaDto dependency : schema.getDependencySet()) {
+      this.parseDependencies(dependency,parser);
+    }
+  }
+  return parser.parse(schema.getBody());
+}
