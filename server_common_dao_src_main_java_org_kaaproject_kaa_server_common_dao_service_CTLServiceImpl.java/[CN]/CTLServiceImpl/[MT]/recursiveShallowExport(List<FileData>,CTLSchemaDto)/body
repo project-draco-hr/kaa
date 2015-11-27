@@ -1,12 +1,12 @@
 {
   files.add(this.shallowExport(parent));
   ObjectNode object=new ObjectMapper().readValue(parent.getBody(),ObjectNode.class);
-  ArrayNode dependencies=(ArrayNode)object.get("dependencies");
+  ArrayNode dependencies=(ArrayNode)object.get(DEPENDENCIES);
   if (dependencies != null) {
     for (    JsonNode node : dependencies) {
       ObjectNode dependency=(ObjectNode)node;
-      String fqn=dependency.get("fqn").getTextValue();
-      Integer version=dependency.get("version").getIntValue();
+      String fqn=dependency.get(FQN).getTextValue();
+      Integer version=dependency.get(VERSION).getIntValue();
       CTLSchemaDto child=this.findCTLSchemaByFqnAndVerAndTenantId(fqn,version,parent.getTenantId());
       this.recursiveShallowExport(files,child);
     }

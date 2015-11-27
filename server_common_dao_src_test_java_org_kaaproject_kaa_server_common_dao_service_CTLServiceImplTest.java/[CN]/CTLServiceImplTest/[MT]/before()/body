@@ -26,12 +26,23 @@
   CTLSchemaDto unsaved=generateCTLSchemaDto(DEFAULT_FQN,tenant.getId(),80,CTLSchemaScopeDto.APPLICATION);
   unsaved.setApplicationId(appDto.getId());
   appSchema=ctlService.saveCTLSchema(unsaved);
+  gamma=new CTLSchemaDto();
+  CTLSchemaMetaInfoDto gammaMetaInfo=new CTLSchemaMetaInfoDto("org.kaaproject.kaa.Gamma",1);
+  gammaMetaInfo.setScope(CTLSchemaScopeDto.TENANT);
+  gamma.setMetaInfo(gammaMetaInfo);
+  gamma.setBody(readSchemaFileAsString(TEST_CTL_SCHEMA_GAMMA));
+  gamma=ctlService.saveCTLSchema(gamma);
+  gamma=ctlService.findCTLSchemaById(gamma.getId());
   beta=new CTLSchemaDto();
   CTLSchemaMetaInfoDto betaMetaInfo=new CTLSchemaMetaInfoDto("org.kaaproject.kaa.Beta",1);
   betaMetaInfo.setScope(CTLSchemaScopeDto.TENANT);
+  Set<CTLSchemaDto> betaDependencies=new HashSet<>();
+  betaDependencies.add(gamma);
   beta.setMetaInfo(betaMetaInfo);
-  beta.setBody(getResourceAsString(TEST_CTL_SCHEMA_BETA));
+  beta.setDependencySet(betaDependencies);
+  beta.setBody(readSchemaFileAsString(TEST_CTL_SCHEMA_BETA));
   beta=ctlService.saveCTLSchema(beta);
+  beta=ctlService.findCTLSchemaById(beta.getId());
   alpha=new CTLSchemaDto();
   CTLSchemaMetaInfoDto alphaMetaInfo=new CTLSchemaMetaInfoDto("org.kaaproject.kaa.Alpha",1);
   alphaMetaInfo.setScope(CTLSchemaScopeDto.TENANT);
@@ -39,7 +50,8 @@
   alphaDependencies.add(beta);
   alpha.setMetaInfo(alphaMetaInfo);
   alpha.setDependencySet(alphaDependencies);
-  alpha.setBody(getResourceAsString(TEST_CTL_SCHEMA_ALPHA));
+  alpha.setBody(readSchemaFileAsString(TEST_CTL_SCHEMA_ALPHA));
   alpha=ctlService.saveCTLSchema(alpha);
-  allSchemaList=Arrays.asList(firstSchema,secondSchema,thirdSchema,fourthSchema,mainSchema,systemSchema,tenantSchema,appSchema,beta,alpha);
+  alpha=ctlService.findCTLSchemaById(alpha.getId());
+  allSchemaList=Arrays.asList(firstSchema,secondSchema,thirdSchema,fourthSchema,mainSchema,systemSchema,tenantSchema,appSchema,gamma,beta,alpha);
 }

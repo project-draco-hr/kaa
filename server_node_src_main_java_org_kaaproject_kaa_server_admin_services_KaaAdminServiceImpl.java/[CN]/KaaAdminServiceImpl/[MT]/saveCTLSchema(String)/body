@@ -1,64 +1,36 @@
 {
-  CTLSchemaInfoDto schema=new CTLSchemaInfoDto();
+  this.checkAuthority(KaaAuthorityDto.values());
   try {
-    ObjectNode object=new ObjectMapper().readValue(body,ObjectNode.class);
-    if (!object.has("type") || !object.get("type").isTextual() || !object.get("type").getTextValue().equals("record")) {
-      throw new IllegalArgumentException("The data provided is not a record!");
-    }
-    if (!object.has("namespace") || !object.get("namespace").isTextual()) {
-      throw new IllegalArgumentException("No namespace specified!");
-    }
- else     if (!object.has("name") || !object.get("name").isTextual()) {
-      throw new IllegalArgumentException("No name specified!");
-    }
- else {
-      schema.setFqn(object.get("namespace").getTextValue() + "." + object.get("name").getTextValue());
-    }
-    if (!object.has("version") || !object.get("version").isInt()) {
-      throw new IllegalArgumentException("No version specified!");
-    }
- else {
-      schema.setVersion(object.get("version").asInt());
-    }
-    schema.setTenantId(this.getCurrentUser().getTenantId());
-    if (object.has("application") && object.get("application").isTextual()) {
-      schema.setApplicationId(object.get("application").asText());
-    }
-    String tenantId=this.getCurrentUser().getTenantId();
-    if (tenantId != null && schema.getApplicationId() != null) {
-      schema.setScope(CTLSchemaScopeDto.APPLICATION);
-    }
- else     if (tenantId != null && schema.getApplicationId() == null) {
-      schema.setScope(CTLSchemaScopeDto.TENANT);
-    }
- else     if (tenantId == null && schema.getApplicationId() == null) {
-      schema.setScope(CTLSchemaScopeDto.SYSTEM);
-    }
- else {
-      throw new IllegalArgumentException("You do not have permission to perform this operation!");
-    }
-    Set<CTLSchemaMetaInfoDto> dependencies=new HashSet<>();
-    if (!object.has("dependencies")) {
-      schema.setDependencies(dependencies);
-    }
- else     if (!object.get("dependencies").isArray()) {
-      throw new IllegalArgumentException("Illegal dependencies format!");
-    }
- else {
-      for (      JsonNode child : object.get("dependencies")) {
-        if (!child.isObject() || !child.has("fqn") || !child.get("fqn").isTextual()|| !child.has("version")|| !child.get("version").isInt()) {
-          throw new IllegalArgumentException("Illegal dependency format!");
-        }
- else {
-          dependencies.add(new CTLSchemaMetaInfoDto(child.get("fqn").asText(),child.get("version").asInt()));
-        }
-        schema.setDependencies(dependencies);
+    CTLSchemaParser parser=new CTLSchemaParser(controlService,getCurrentUser().getTenantId());
+    CTLSchemaInfoDto schema=parser.parse(body);
+    if (schema.getScope() == CTLSchemaScopeDto.SYSTEM) {
+      if (schema.getTenantId() != null) {
+        throw new IllegalArgumentException("A system CTL schema cannot be tied to a tenant!");
+      }
+ else       if (schema.getApplicationId() != null) {
+        throw new IllegalArgumentException("A system CTL schema cannot be tied to an application!");
       }
     }
-    schema.setBody(body);
+ else     if (schema.getScope() == CTLSchemaScopeDto.TENANT) {
+      if (schema.getTenantId() == null) {
+        throw new IllegalArgumentException("A tenant CTL schema must include a tenant identifier!");
+      }
+ else       if (schema.getApplicationId() != null) {
+        throw new IllegalArgumentException("A tenant CTL schema cannot be tied to an application!");
+      }
+ else {
+        checkTenantId(schema.getTenantId());
+      }
+    }
+ else {
+      checkApplicationId(schema.getApplicationId());
+    }
+    Set<CTLSchemaDto> dependencies=parser.fetchDependencies(schema);
+    parser.validate(schema);
+    CTLSchemaDto result=controlService.saveCTLSchema(new CTLSchemaDto(schema,dependencies));
+    return result != null ? result.toCTLSchemaInfoDto() : null;
   }
  catch (  Exception cause) {
     throw Utils.handleException(cause);
   }
-  return this.saveCTLSchema(schema);
 }

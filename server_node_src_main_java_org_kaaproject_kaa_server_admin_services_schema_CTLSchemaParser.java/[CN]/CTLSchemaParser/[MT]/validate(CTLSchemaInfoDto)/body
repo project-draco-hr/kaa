@@ -2,8 +2,8 @@
   if (schema.getDependencies() != null) {
     for (    CTLSchemaMetaInfoDto dependency : schema.getDependencies()) {
       try {
-        CTLSchemaDto dependencySchema=controlService.getCTLSchemaByFqnVersionAndTenantId(dependency.getFqn(),dependency.getVersion(),getCurrentUser().getTenantId());
-        this.parse(dependencySchema.toCTLSchemaInfoDto());
+        CTLSchemaDto dependencySchema=controlService.getCTLSchemaByFqnVersionAndTenantId(dependency.getFqn(),dependency.getVersion(),tenantId);
+        validate(dependencySchema.toCTLSchemaInfoDto());
       }
  catch (      Exception cause) {
         String message="Unable to locate dependency \"" + dependency.getFqn() + "\" (version "+ dependency.getVersion()+ ")";

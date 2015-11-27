@@ -1,7 +1,7 @@
 {
   try {
     FileData result=new FileData();
-    result.setContentType("application/json");
+    result.setContentType(JSON);
     result.setFileName(MessageFormat.format(CTL_EXPORT_TEMPLATE,schema.getMetaInfo().getFqn(),schema.getMetaInfo().getVersion()));
     Object json=FORMATTER.readValue(schema.getBody(),Object.class);
     result.setFileData(FORMATTER.writerWithDefaultPrettyPrinter().writeValueAsString(json).getBytes());
