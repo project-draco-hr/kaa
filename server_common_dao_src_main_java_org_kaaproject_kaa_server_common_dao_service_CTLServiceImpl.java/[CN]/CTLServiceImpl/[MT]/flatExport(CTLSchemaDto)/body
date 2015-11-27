@@ -1,0 +1,14 @@
+{
+  try {
+    FileData result=new FileData();
+    result.setContentType(JSON);
+    result.setFileName(MessageFormat.format(CTL_EXPORT_TEMPLATE,schema.getMetaInfo().getFqn(),schema.getMetaInfo().getVersion()));
+    String body=flatExportAsString(schema);
+    Object json=FORMATTER.readValue(body,Object.class);
+    result.setFileData(FORMATTER.writerWithDefaultPrettyPrinter().writeValueAsString(json).getBytes());
+    return result;
+  }
+ catch (  Exception cause) {
+    throw new RuntimeException("An unexpected exception occured: " + cause.toString());
+  }
+}
