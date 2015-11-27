@@ -1,0 +1,16 @@
+{
+  super();
+  this.logAppenderService=context.getLogAppenderService();
+  this.cacheService=context.getCacheService();
+  this.applicationToken=applicationToken;
+  this.applicationId=context.getApplicationService().findAppByApplicationToken(applicationToken).getId();
+  this.logAppenders=new HashMap<>();
+  this.logAppendersCache=new HashMap<>();
+  this.logSchemas=new HashMap<>();
+  this.clientProfileSchemas=new HashMap<>();
+  this.serverProfileSchemas=new HashMap<>();
+  this.voidCallback=new VoidCallback();
+  for (  LogAppender appender : logAppenderService.getApplicationAppenders(applicationId)) {
+    logAppenders.put(appender.getAppenderId(),appender);
+  }
+}
