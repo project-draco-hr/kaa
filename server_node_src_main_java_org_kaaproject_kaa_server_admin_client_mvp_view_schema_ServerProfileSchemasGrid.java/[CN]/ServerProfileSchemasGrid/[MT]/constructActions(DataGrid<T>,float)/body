@@ -1,0 +1,11 @@
+{
+  float result=0;
+  if (!embedded && (downloadSchemaColumn == null || table.getColumnIndex(downloadSchemaColumn) == -1)) {
+    Header<SafeHtml> downloadRecordSchemaHeader=new SafeHtmlHeader(SafeHtmlUtils.fromSafeConstant(Utils.constants.downloadRecordSchema()));
+    downloadSchemaColumn=constructDownloadSchemaColumn("");
+    table.addColumn(downloadSchemaColumn,downloadRecordSchemaHeader);
+    table.setColumnWidth(downloadSchemaColumn,ACTION_COLUMN_WIDTH,Style.Unit.PX);
+    result+=ACTION_COLUMN_WIDTH;
+  }
+  return result;
+}

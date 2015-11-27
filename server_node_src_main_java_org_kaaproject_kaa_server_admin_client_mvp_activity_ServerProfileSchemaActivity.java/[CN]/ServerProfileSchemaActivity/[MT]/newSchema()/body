@@ -1,3 +1,6 @@
 {
-  return new ProfileSchemaDto();
+  CTLSchemaDto ctlDto=new CTLSchemaDto();
+  ServerProfileSchemaDto serverProfileSchemaDto=new ServerProfileSchemaDto();
+  serverProfileSchemaDto.setSchemaDto(ctlDto);
+  return serverProfileSchemaDto;
 }

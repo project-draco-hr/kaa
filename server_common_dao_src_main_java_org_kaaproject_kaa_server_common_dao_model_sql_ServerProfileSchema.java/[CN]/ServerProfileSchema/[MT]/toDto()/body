@@ -1,0 +1,8 @@
+{
+  ServerProfileSchemaDto dto=new ServerProfileSchemaDto();
+  dto.setId(getStringId());
+  dto.setApplicationId(ModelUtils.getStringId(application));
+  dto.setCreatedTime(createdTime);
+  dto.setSchemaDto(DaoUtil.getDto(ctlSchema));
+  return dto;
+}

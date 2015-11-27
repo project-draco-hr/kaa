@@ -1,0 +1,5 @@
+{
+  Schema schema=new Schema.Parser().parse(dto.getSchemaDto().getBody());
+  RecordField schemaForm=converter.createSchemaFormFromSchema(schema);
+  dto.setSchemaForm(schemaForm);
+}

@@ -26,5 +26,7 @@
   if (ntHash != null ? !ntHash.equals(that.ntHash) : that.ntHash != null)   return false;
   if (ecfVersionStates != null ? !ecfVersionStates.equals(that.ecfVersionStates) : that.ecfVersionStates != null)   return false;
   if (serverHash != null ? !serverHash.equals(that.serverHash) : that.serverHash != null)   return false;
-  return !(sdkToken != null ? !sdkToken.equals(that.sdkToken) : that.sdkToken != null);
+  if (sdkToken != null ? !sdkToken.equals(that.sdkToken) : that.sdkToken != null)   return false;
+  if (serverProfileSchemaId != null ? !serverProfileSchemaId.equals(that.serverProfileSchemaId) : that.serverProfileSchemaId != null)   return false;
+  return serverProfile != null ? serverProfile.equals(that.serverProfile) : that.serverProfile == null;
 }

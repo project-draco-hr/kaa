@@ -1,0 +1,12 @@
+{
+  Validator.validateHash(keyHash,"Incorrect endpoint key hash.");
+  ServerProfileSchemaDto schemaDto=null;
+  EndpointProfile ep=endpointProfileDao.findById(ByteBuffer.wrap(keyHash));
+  if (ep != null) {
+    String schemaId=ep.getServerProfileSchemaId();
+    if (isNotBlank(schemaId)) {
+      schemaDto=findServerProfileSchema(schemaId);
+    }
+  }
+  return schemaDto;
+}

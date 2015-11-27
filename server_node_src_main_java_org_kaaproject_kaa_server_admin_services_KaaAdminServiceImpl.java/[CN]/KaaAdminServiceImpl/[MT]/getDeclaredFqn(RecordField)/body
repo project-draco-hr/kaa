@@ -1,0 +1,12 @@
+{
+  FormField nameField=rec.getFieldByName("recordNamespace");
+  FormField namespaceField=rec.getFieldByName("recordName");
+  if (nameField != null && namespaceField != null) {
+    String name=((StringField)nameField).getValue();
+    String namespace=((StringField)namespaceField).getValue();
+    if (!name.isEmpty() && !namespace.isEmpty()) {
+      return namespace + "." + name;
+    }
+  }
+  return null;
+}

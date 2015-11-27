@@ -1,0 +1,15 @@
+{
+  LOG.debug("Searching for server profile schema by application id: [{}]",appId);
+  ServerProfileSchema found=null;
+  Criteria criteria=getCriteria().add(Restrictions.eq(APPLICATION_REFERENCE,getLongId(appId))).addOrder(Order.desc(CREATED_TIME_PROPERTY)).setMaxResults(FIRST);
+  if (isNotBlank(appId)) {
+    found=this.findOneByCriteria(criteria);
+  }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{}] Search result: {}.",appId,found);
+  }
+ else {
+    LOG.debug("[{}] Search result: {}.",appId,found != null);
+  }
+  return found;
+}

@@ -1,0 +1,30 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    int version=0;
+    CTLSchemaDto ctlSchemaDto=serverProfileSchema.getSchemaDto();
+    if (isEmpty(serverProfileSchema.getId())) {
+      ServerProfileSchemaDto latestServerProfileSchema=controlService.findLatestServerProfileSchema(serverProfileSchema.getApplicationId());
+      if (latestServerProfileSchema != null) {
+        version=latestServerProfileSchema.getSchemaDto().getMetaInfo().getVersion();
+      }
+      CTLSchemaMetaInfoDto metaInfoDto=new CTLSchemaMetaInfoDto(getDeclaredFqn(serverProfileSchema.getSchemaForm()),++version,CTLSchemaScopeDto.SERVER_PROFILE_SCHEMA);
+      ctlSchemaDto.setMetaInfo(metaInfoDto);
+      convertToStringSchema(serverProfileSchema,simpleSchemaFormAvroConverter);
+      ctlSchemaDto.setCreatedUsername(getCurrentUser().getUsername());
+      ctlSchemaDto.setTenantId(getCurrentUser().getTenantId());
+      serverProfileSchema.setCreatedTime(new Date().getTime());
+      checkApplicationId(serverProfileSchema.getApplicationId());
+    }
+ else {
+      ServerProfileSchemaDto storedProfileSchema=controlService.getServerProfileSchema(serverProfileSchema.getId());
+      Utils.checkNotNull(storedProfileSchema);
+      checkApplicationId(storedProfileSchema.getApplicationId());
+      ctlSchemaDto.setBody(storedProfileSchema.getSchemaDto().getBody());
+    }
+    return controlService.editServerProfileSchema(serverProfileSchema);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}
