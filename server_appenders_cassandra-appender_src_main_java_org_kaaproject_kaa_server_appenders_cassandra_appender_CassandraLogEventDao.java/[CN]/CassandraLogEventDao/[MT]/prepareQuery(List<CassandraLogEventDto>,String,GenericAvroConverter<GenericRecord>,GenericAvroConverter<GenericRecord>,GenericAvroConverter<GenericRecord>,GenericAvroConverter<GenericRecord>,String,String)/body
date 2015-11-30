@@ -1,6 +1,10 @@
 {
   String reuseTsValue=null;
   Insert[] insertArray=new Insert[logEventDtoList.size()];
+  GenericRecord clientProfile=clientProfileConverter.decodeJson(clientProfileJson);
+  ByteBuffer clientProfileBinary=ByteBuffer.wrap(clientProfileConverter.encode(clientProfile));
+  GenericRecord serverProfile=serverProfileConverter.decodeJson(serverProfileJson);
+  ByteBuffer serverProfileBinary=ByteBuffer.wrap(serverProfileConverter.encode(serverProfile));
   for (int i=0; i < logEventDtoList.size(); i++) {
     CassandraLogEventDto dto=logEventDtoList.get(i);
     Insert insert=QueryBuilder.insertInto(keyspaceName,collectionName);
@@ -12,6 +16,10 @@ case HEADER_FIELD:
 case EVENT_FIELD:
     insert.value(element.getColumnName(),formatField(element.getColumnType(),dto.getEvent().get(element.getValue())));
   break;
+case CLIENT_FIELD:
+insert.value(element.getColumnName(),formatField(element.getColumnType(),clientProfile.get(element.getValue())));
+case SERVER_FIELD:
+insert.value(element.getColumnName(),formatField(element.getColumnType(),serverProfile.get(element.getValue())));
 case HEADER_JSON:
 insert.value(element.getColumnName(),headerConverter.encodeToJson(dto.getHeader()));
 break;
@@ -23,6 +31,18 @@ insert.value(element.getColumnName(),eventConverter.encodeToJson(dto.getEvent())
 break;
 case EVENT_BINARY:
 insert.value(element.getColumnName(),ByteBuffer.wrap(eventConverter.encode(dto.getEvent())));
+break;
+case CLIENT_JSON:
+insert.value(element.getColumnName(),clientProfileJson);
+break;
+case CLIENT_BINARY:
+insert.value(element.getColumnName(),clientProfileBinary);
+break;
+case SERVER_JSON:
+insert.value(element.getColumnName(),serverProfileJson);
+break;
+case SERVER_BINARY:
+insert.value(element.getColumnName(),serverProfileBinary);
 break;
 case UUID:
 insert.value(element.getColumnName(),UUID.randomUUID());
