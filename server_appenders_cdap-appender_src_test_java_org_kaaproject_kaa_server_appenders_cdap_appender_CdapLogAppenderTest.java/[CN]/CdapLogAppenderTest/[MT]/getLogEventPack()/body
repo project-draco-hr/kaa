@@ -6,6 +6,8 @@
   LogSchema schema=new LogSchema(schemaDto);
   LogEvent logEvent=new LogEvent();
   logEvent.setLogData(converter.encode(theLog));
-  LogEventPack logEventPack=new LogEventPack("endpointKey",1234567l,schema,Collections.singletonList(logEvent));
+  EndpointProfileDataDto profileDto=new EndpointProfileDataDto("1","endpointKey",1,"",null,null);
+  BaseLogEventPack logEventPack=new BaseLogEventPack(profileDto,1234567l,schema.getVersion(),Collections.singletonList(logEvent));
+  logEventPack.setLogSchema(schema);
   return logEventPack;
 }

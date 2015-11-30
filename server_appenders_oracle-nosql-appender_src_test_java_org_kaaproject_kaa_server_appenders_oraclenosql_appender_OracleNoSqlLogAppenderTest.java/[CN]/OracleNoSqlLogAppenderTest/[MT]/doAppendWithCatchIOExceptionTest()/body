@@ -14,7 +14,8 @@
   LogSchemaDto schemaDto=new LogSchemaDto();
   schemaDto.setSchema(BasicEndpointProfile.SCHEMA$.toString());
   LogSchema schema=new LogSchema(schemaDto);
-  LogEventPack logEventPack=new LogEventPack(ENDPOINT_KEY,DATE_CREATED,schema,events);
+  EndpointProfileDataDto profileDto=new EndpointProfileDataDto("1",ENDPOINT_KEY,1,"test",null,null);
+  BaseLogEventPack logEventPack=new BaseLogEventPack(profileDto,DATE_CREATED,schema.getVersion(),events);
   TestLogDeliveryCallback callback=new TestLogDeliveryCallback();
   logAppender.doAppend(logEventPack,callback);
   Assert.assertTrue(callback.internallError);

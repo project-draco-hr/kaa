@@ -1,5 +1,5 @@
 {
-  LogEventPack logEventPack=getLogEventPack();
+  BaseLogEventPack logEventPack=getLogEventPack();
   appender.close();
   LogDeliveryCallback callback=Mockito.mock(LogDeliveryCallback.class);
   appender.doAppend(logEventPack,callback);

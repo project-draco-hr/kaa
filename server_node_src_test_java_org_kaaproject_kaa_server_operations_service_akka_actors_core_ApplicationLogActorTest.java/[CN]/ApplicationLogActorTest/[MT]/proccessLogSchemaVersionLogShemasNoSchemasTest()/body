@@ -1,0 +1,8 @@
+{
+  applicationLogActorMessageProcessor=new ApplicationLogActorMessageProcessor(context,APP_TOKEN);
+  LogEventPackMessage logEventPackMessage=buildTestMessage(LOG_SCHEMA_VERSION);
+  applicationLogActorMessageProcessor.processLogEventPack(Mockito.mock(ActorContext.class),logEventPackMessage);
+  verify(cacheService).getProfileSchemaByAppAndVersion(new AppVersionKey(APP_TOKEN,CLIENT_SCHEMA_VERSION));
+  verify(logAppenderService).getLogSchema(APPLICATION_ID,LOG_SCHEMA_VERSION);
+  verify(logAppender).doAppend(Mockito.any(LogEventPack.class),Mockito.any(LogDeliveryCallback.class));
+}

@@ -1,5 +1,6 @@
 {
   endpointKeyHash=UUID.randomUUID().toString();
+  profileDto=new EndpointProfileDataDto("1",endpointKeyHash,1,"","1","");
   appToken=String.valueOf(RANDOM.nextInt(Integer.MAX_VALUE));
   appenderDto=new LogAppenderDto();
   appenderDto.setId("Test_id");
@@ -13,9 +14,6 @@
   header.setEndpointKeyHash(endpointKeyHash);
   header.setHeaderVersion(1);
   header.setTimestamp(System.currentTimeMillis());
-  logEventPack=new LogEventPack();
-  logEventPack.setDateCreated(System.currentTimeMillis());
-  logEventPack.setEndpointKey(endpointKeyHash);
   CassandraServer server=new CassandraServer("127.0.0.1",9142);
   configuration=new CassandraConfig();
   configuration.setCassandraBatchType(CassandraBatchType.UNLOGGED);

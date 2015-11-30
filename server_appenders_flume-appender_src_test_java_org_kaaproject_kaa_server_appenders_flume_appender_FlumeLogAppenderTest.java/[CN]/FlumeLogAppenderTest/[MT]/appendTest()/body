@@ -1,7 +1,7 @@
 {
-  LogEventPack eventPack=new LogEventPack();
+  BaseLogEventPack eventPack=generateLogEventPack();
   ListeningExecutorService rpcES=MoreExecutors.listeningDecorator(Executors.newFixedThreadPool(1));
-  Mockito.when(flumeEventBuilder.generateEvents(Mockito.any(LogEventPack.class),Mockito.any(RecordHeader.class),Mockito.anyString())).thenReturn(Collections.singletonList(Mockito.mock(Event.class)));
+  Mockito.when(flumeEventBuilder.generateEvents(Mockito.any(BaseLogEventPack.class),Mockito.any(RecordHeader.class),Mockito.anyString())).thenReturn(Collections.singletonList(Mockito.mock(Event.class)));
   Mockito.when(flumeClientManager.sendEventsToFlumeAsync(Mockito.anyList())).thenReturn(rpcES.submit(new Callable<AppendBatchAsyncResultPojo>(){
     public AppendBatchAsyncResultPojo call() throws Exception {
       return new AppendBatchAsyncResultPojo(true,Collections.singletonList(Mockito.mock(Event.class)));

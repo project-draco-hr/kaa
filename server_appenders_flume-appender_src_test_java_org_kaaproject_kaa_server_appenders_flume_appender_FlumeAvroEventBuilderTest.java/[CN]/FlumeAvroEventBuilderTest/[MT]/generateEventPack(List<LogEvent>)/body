@@ -1,0 +1,8 @@
+{
+  BaseLogEventPack eventPack=new BaseLogEventPack(profileDto,System.currentTimeMillis(),SCHEMA_VERSION,list);
+  LogSchemaDto schemaDto=new LogSchemaDto();
+  schemaDto.setMajorVersion(SCHEMA_VERSION);
+  LogSchema logSchema=new LogSchema(schemaDto);
+  eventPack.setLogSchema(logSchema);
+  return eventPack;
+}

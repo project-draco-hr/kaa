@@ -1,0 +1,9 @@
+{
+  return serverPfSchemaMemorizer.compute(key,new Computable<String,ServerProfileSchemaDto>(){
+    @Override public ServerProfileSchemaDto compute(    String key){
+      LOG.debug("Fetching result for getServerProfileSchemaById");
+      return serverProfileService.findServerProfileSchema(key);
+    }
+  }
+);
+}

@@ -5,7 +5,7 @@
   GenericRecord recordData=null;
   OperationFactory of=kvStore.getOperationFactory();
   ArrayList<Operation> opList=new ArrayList<Operation>();
-  List<String> majorPath=Arrays.asList(getApplicationToken(),logEventPack.getLogSchemaVersion() + "",logEventPack.getEndpointKey(),System.currentTimeMillis() + "");
+  List<String> majorPath=Arrays.asList(getApplicationToken(),logEventPack.getLogSchema().getVersion() + "",logEventPack.getEndpointKey(),System.currentTimeMillis() + "");
   int counter=0;
   for (  LogEvent event : logEventPack.getEvents()) {
     binaryDecoder=DecoderFactory.get().binaryDecoder(event.getLogData(),binaryDecoder);

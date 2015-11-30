@@ -1,11 +1,6 @@
 {
   appToken=RandomStringUtils.randomNumeric(15);
-  eventPack=new LogEventPack();
+  profileDto=new EndpointProfileDataDto("1",UUID.randomUUID().toString(),1,"","1","");
   List<LogEvent> list=generateEvents();
-  eventPack.setEvents(list);
-  LogSchemaDto schemaDto=new LogSchemaDto();
-  schemaDto.setMajorVersion(SCHEMA_VERSION);
-  LogSchema logSchema=new LogSchema(schemaDto);
-  eventPack.setLogSchema(logSchema);
-  eventPack.setLogSchemaVersion(SCHEMA_VERSION);
+  eventPack=generateEventPack(list);
 }

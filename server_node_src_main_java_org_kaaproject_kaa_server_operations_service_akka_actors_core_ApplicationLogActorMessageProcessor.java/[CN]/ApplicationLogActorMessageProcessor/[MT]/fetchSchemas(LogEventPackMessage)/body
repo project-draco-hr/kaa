@@ -1,0 +1,35 @@
+{
+  BaseLogEventPack logPack=message.getLogEventPack();
+  LogSchema logSchema=logPack.getLogSchema();
+  if (logSchema == null) {
+    logSchema=logSchemas.get(message.getLogSchemaVersion());
+    if (logSchema == null) {
+      logSchema=logAppenderService.getLogSchema(applicationId,logPack.getLogSchemaVersion());
+      logSchemas.put(message.getLogSchemaVersion(),logSchema);
+    }
+    logPack.setLogSchema(logSchema);
+  }
+  EndpointProfileDataDto profileDto=logPack.getProfileDto();
+  ProfileInfo clientProfile=logPack.getClientProfile();
+  if (clientProfile == null) {
+    AppVersionKey key=new AppVersionKey(applicationToken,profileDto.getClientProfileSchemaVersion());
+    BaseSchemaInfo schemaInfo=clientProfileSchemas.get(key);
+    if (schemaInfo == null) {
+      ProfileSchemaDto schemaDto=cacheService.getProfileSchemaByAppAndVersion(key);
+      schemaInfo=new BaseSchemaInfo(schemaDto.getId(),schemaDto.getSchema());
+      clientProfileSchemas.put(key,schemaInfo);
+    }
+    logPack.setClientProfile(new BaseProfileInfo(schemaInfo,profileDto.getClientProfileBody()));
+  }
+  ProfileInfo serverProfile=logPack.getServerProfile();
+  if (serverProfile == null && profileDto.getServerProfileSchemaId() != null) {
+    BaseSchemaInfo schemaInfo=serverProfileSchemas.get(profileDto.getServerProfileSchemaId());
+    if (schemaInfo == null) {
+      ServerProfileSchemaDto serverSchemaDto=cacheService.getServerProfileSchemaById(profileDto.getServerProfileSchemaId());
+      String schema=ctlService.flatExportAsString(serverSchemaDto.getSchemaDto());
+      schemaInfo=new BaseSchemaInfo(serverSchemaDto.getId(),schema);
+      serverProfileSchemas.put(profileDto.getServerProfileSchemaId(),schemaInfo);
+    }
+    logPack.setServerProfile(new BaseProfileInfo(schemaInfo,profileDto.getServerProfileBody()));
+  }
+}
