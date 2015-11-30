@@ -5,7 +5,7 @@
     ProfileSchemaDto schemaDto=viewDto.getProfileSchemaDto();
     if (schemaDto != null) {
       convertToSchemaForm(schemaDto,simpleSchemaFormAvroConverter);
-      viewDto.setEndpointProfileRecord(generateFormDataFromJson(schemaDto.getSchema(),viewDto.getEndpointProfileDto().getProfile()));
+      viewDto.setEndpointProfileRecord(generateFormDataFromJson(schemaDto.getSchema(),viewDto.getEndpointProfileDto().getClientProfileBody()));
     }
     viewDto.setProfileSchemaDto(schemaDto);
     for (    EndpointGroupDto groupDto : viewDto.getGroupDtoList()) {

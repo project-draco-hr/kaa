@@ -3,7 +3,6 @@
   dto.setId(id);
   dto.setCfGroupStates(DaoUtil.<EndpointGroupStateDto>convertDtoList(cfGroupState));
   dto.setNfGroupStates(DaoUtil.<EndpointGroupStateDto>convertDtoList(nfGroupState));
-  dto.setChangedFlag(changedFlag);
   dto.setCfSequenceNumber(cfSequenceNumber);
   dto.setNfSequenceNumber(nfSequenceNumber);
   dto.setConfigurationHash(configurationHash);
@@ -14,7 +13,7 @@
   dto.setEndpointKeyHash(endpointKeyHash);
   dto.setEndpointUserId(endpointUserId);
   dto.setAccessToken(accessToken);
-  dto.setProfile(profile != null ? profile.toString() : "");
+  dto.setClientProfileBody(profile != null ? profile.toString() : "");
   dto.setProfileHash(profileHash);
   dto.setProfileVersion(profileVersion);
   dto.setNotificationVersion(notificationVersion);
@@ -26,7 +25,7 @@
   dto.setEcfVersionStates(DaoUtil.<EventClassFamilyVersionStateDto>convertDtoList(ecfVersionStates));
   dto.setServerHash(serverHash);
   dto.setSdkToken(sdkToken);
-  dto.setServerProfile(serverProfile);
+  dto.setServerProfileBody(serverProfile);
   dto.setServerProfileSchemaId(serverProfileSchemaId);
   return dto;
 }
