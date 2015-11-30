@@ -13,6 +13,7 @@
   props.put(ConsumerConfig.PARTITION_ASSIGNMENT_STRATEGY,"range");
   KafkaConsumer<String,byte[]> consumer=new KafkaConsumer<String,byte[]>(props);
   consumer.subscribe(TOPIC_NAME);
-  Map<String,ConsumerRecords<String,byte[]>> records=consumer.poll(100);
+  consumer.poll(100);
+  consumer.close();
   Assert.assertEquals(20,callback.getSuccessCount());
 }

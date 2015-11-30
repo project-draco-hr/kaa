@@ -1,6 +1,6 @@
 {
-  LogEventPack logEventPack1=new LogEventPack();
-  LogEventPack logEventPack2=new LogEventPack();
+  BaseLogEventPack logEventPack1=new BaseLogEventPack(null,System.currentTimeMillis(),1,new ArrayList<LogEvent>());
+  BaseLogEventPack logEventPack2=new BaseLogEventPack(null,System.currentTimeMillis(),2,new ArrayList<LogEvent>());
   LogEventPackMessage logEvent=new LogEventPackMessage(REQUEST_ID,ActorRef.noSender(),logEventPack1);
   Assert.assertEquals(logEventPack1,logEvent.getLogEventPack());
   Assert.assertNotEquals(logEventPack2,logEvent.getLogEventPack());

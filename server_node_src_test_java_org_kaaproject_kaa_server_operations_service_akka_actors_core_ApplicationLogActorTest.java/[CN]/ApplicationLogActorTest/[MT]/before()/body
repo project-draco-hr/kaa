@@ -1,7 +1,14 @@
 {
+  context=mock(AkkaContext.class);
   logAppenderService=mock(LogAppenderService.class);
   applicationService=mock(ApplicationService.class);
+  cacheService=mock(CacheService.class);
   applicationDto=mock(ApplicationDto.class);
+  ctlService=mock(CTLService.class);
+  when(context.getCacheService()).thenReturn(cacheService);
+  when(context.getApplicationService()).thenReturn(applicationService);
+  when(context.getLogAppenderService()).thenReturn(logAppenderService);
+  when(context.getCtlService()).thenReturn(ctlService);
   LogSchemaDto logSchemaDto=new LogSchemaDto();
   logSchemaDto.setMajorVersion(TEST_SCHEMA_VERSION);
   logSchema=new LogSchema(logSchemaDto);
@@ -13,4 +20,14 @@
   when(applicationDto.getId()).thenReturn(APPLICATION_ID);
   when(logAppenderService.getApplicationAppenders(APPLICATION_ID)).thenReturn(logAppenders);
   when(logAppender.isSchemaVersionSupported(Mockito.anyInt())).thenReturn(Boolean.TRUE);
+  ProfileSchemaDto profileSchemaDto=new ProfileSchemaDto();
+  profileSchemaDto.setId("" + CLIENT_SCHEMA_VERSION);
+  profileSchemaDto.setSchema("ClientProfileSchema");
+  when(cacheService.getProfileSchemaByAppAndVersion(new AppVersionKey(APP_TOKEN,CLIENT_SCHEMA_VERSION))).thenReturn(profileSchemaDto);
+  CTLSchemaDto schemaDto=new CTLSchemaDto();
+  ServerProfileSchemaDto serverProfileSchemaDto=new ServerProfileSchemaDto();
+  serverProfileSchemaDto.setId(SERVER_PROFILE_SCHEMA_ID);
+  serverProfileSchemaDto.setSchemaDto(schemaDto);
+  when(cacheService.getServerProfileSchemaById(SERVER_PROFILE_SCHEMA_ID)).thenReturn(serverProfileSchemaDto);
+  when(ctlService.flatExportAsString(schemaDto)).thenReturn("ServerProfileSchema");
 }

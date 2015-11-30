@@ -10,7 +10,7 @@
         logEvent.setLogData(logEntry.getData().array());
         logEvents.add(logEvent);
       }
-      LogEventPack logPack=new LogEventPack(profileDto,System.currentTimeMillis(),responseHolder.getEndpointProfile().getLogSchemaVersion(),logEvents);
+      BaseLogEventPack logPack=new BaseLogEventPack(profileDto,System.currentTimeMillis(),responseHolder.getEndpointProfile().getLogSchemaVersion(),logEvents);
       logPack.setUserId(state.getUserId());
       context.parent().tell(new LogEventPackMessage(request.getRequestId(),context.self(),logPack),context.self());
     }

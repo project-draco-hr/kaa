@@ -1,14 +1,11 @@
 {
-  LogEventPack logEventPack=new LogEventPack(ENDPOINT_KEY,DATE_CREATED,LOG_SCHEMA,EVENTS);
-  logEventPack.setLogSchemaVersion(LOG_SCHEMA_VERSION);
+  EndpointProfileDataDto profileDto=new EndpointProfileDataDto("1",ENDPOINT_KEY,1,"",null,null);
+  BaseLogEventPack logEventPack=new BaseLogEventPack(profileDto,DATE_CREATED,LOG_SCHEMA_VERSION,EVENTS);
+  logEventPack.setLogSchema(LOG_SCHEMA);
   LogEventPackMessage logEvent=new LogEventPackMessage(REQUEST_ID,ActorRef.noSender(),logEventPack);
   Assert.assertEquals(ENDPOINT_KEY,logEvent.getEndpointKey());
   Assert.assertEquals(DATE_CREATED,logEvent.getDateCreated());
   Assert.assertEquals(LOG_SCHEMA_VERSION,logEvent.getLogSchemaVersion());
   Assert.assertEquals(LOG_SCHEMA,logEvent.getLogSchema());
   Assert.assertEquals(EVENTS,logEvent.getEvents());
-  LogSchema logSchema=new LogSchema(new LogSchemaDto());
-  logEvent.setLogSchema(logSchema);
-  Assert.assertEquals(logSchema,logEvent.getLogSchema());
-  Assert.assertNotEquals(LOG_SCHEMA,logEvent.getLogSchema());
 }

@@ -2,6 +2,7 @@
   super();
   this.logAppenderService=context.getLogAppenderService();
   this.cacheService=context.getCacheService();
+  this.ctlService=context.getCtlService();
   this.applicationToken=applicationToken;
   this.applicationId=context.getApplicationService().findAppByApplicationToken(applicationToken).getId();
   this.logAppenders=new HashMap<>();
