@@ -1,7 +1,6 @@
 {
   checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
-    System.out.println("\n\n\n\tupdateEndpointProfile!!!!\n\n");
     RecordField profileRecord=endpointProfileRecordDto.getProfileRecord();
     EndpointProfileDto endpointProfileDto=endpointProfileRecordDto.getProfileDto();
     String schemaId=endpointProfileDto.getServerProfileSchemaId();
@@ -20,7 +19,6 @@
     EndpointProfileDto profileDto=controlService.updateEndpointProfile(endpointProfileDto);
     checkApplicationId(profileDto.getApplicationId());
     endpointProfileRecordDto.setProfileDto(profileDto);
-    System.out.println("\n\n\n\tReturning updateEndpointProfile!!!!" + "\n\tschema? : " + profileDto.getServerProfile() + "\n\tschema id? : "+ profileDto.getServerProfileSchemaId()+ "\n\n");
     return endpointProfileRecordDto;
   }
  catch (  Exception e) {

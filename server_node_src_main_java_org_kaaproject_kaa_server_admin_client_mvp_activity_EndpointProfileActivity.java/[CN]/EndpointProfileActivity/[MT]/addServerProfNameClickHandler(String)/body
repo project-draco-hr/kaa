@@ -1,0 +1,14 @@
+{
+  if (serverProfNameClickHandler != null) {
+    removeServerProfNameClickHandler();
+  }
+  serverProfNameClickHandler=detailsView.getServerProfSchemaName().addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent clickEvent){
+      ServerProfileSchemaPlace serverProfSchemaPlace=new ServerProfileSchemaPlace(place.getApplicationId(),id);
+      serverProfSchemaPlace.setPreviousPlace(place);
+      goTo(serverProfSchemaPlace);
+    }
+  }
+);
+  registrations.add(serverProfNameClickHandler);
+}
