@@ -1,0 +1,21 @@
+{
+  try {
+    ByteArrayOutputStream content=new ByteArrayOutputStream();
+    ZipOutputStream out=new ZipOutputStream(content);
+    List<FileData> files=this.recursiveShallowExport(new ArrayList<FileData>(),schema);
+    for (    FileData file : files) {
+      out.putNextEntry(new ZipEntry(file.getFileName()));
+      out.write(file.getFileData());
+      out.closeEntry();
+    }
+    out.close();
+    FileData result=new FileData();
+    result.setContentType(ZIP);
+    result.setFileName(CTL_EXPORT_ZIP_NAME);
+    result.setFileData(content.toByteArray());
+    return result;
+  }
+ catch (  Exception cause) {
+    throw new RuntimeException("An unexpected exception occured: " + cause.toString());
+  }
+}

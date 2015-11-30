@@ -58,7 +58,7 @@
       }
  else       if (changeType == ChangeType.ADD_PROF) {
         LOG.trace("[{}] Detected {} for {} on group {}",endpointId,changeType,change.getProfileFilterId(),change.getEndpointGroupId());
-        if (!filterService.matches(historyKey.getAppToken(),change.getProfileFilterId(),profile.getProfile().toString())) {
+        if (!filterService.matches(historyKey.getAppToken(),change.getProfileFilterId(),profile.getClientProfileBody().toString())) {
           LOG.trace("[{}] Detected {} does not match current profile body which means configuration/topic list change",endpointId,change.getProfileFilterId());
           groupsMap.remove(egs.getEndpointGroupId());
           historyDelta.setAllChanged();
@@ -71,7 +71,7 @@
  else {
       if (changeType == ChangeType.ADD_PROF) {
         LOG.trace("[{}] Detected {} for {} on group {}",endpointId,changeType,change.getProfileFilterId(),change.getEndpointGroupId());
-        if (filterService.matches(historyKey.getAppToken(),change.getProfileFilterId(),profile.getProfile().toString())) {
+        if (filterService.matches(historyKey.getAppToken(),change.getProfileFilterId(),profile.getClientProfileBody().toString())) {
           LOG.trace("[{}] Detected {} match current profile body which means possible configuration/topic list change",endpointId,change.getProfileFilterId());
           egs=new EndpointGroupStateDto(groupId,change.getProfileFilterId(),null);
           groupsMap.put(groupId,egs);

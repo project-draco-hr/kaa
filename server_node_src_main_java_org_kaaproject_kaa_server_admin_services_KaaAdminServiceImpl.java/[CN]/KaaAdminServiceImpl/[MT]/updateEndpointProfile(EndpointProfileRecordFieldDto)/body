@@ -14,7 +14,7 @@
       datumWriter.write(record,jsonEncoder);
       jsonEncoder.flush();
       baos.flush();
-      endpointProfileDto.setServerProfile(new String(baos.toByteArray(),Charset.forName("UTF-8")));
+      endpointProfileDto.setServerProfileBody(new String(baos.toByteArray(),Charset.forName("UTF-8")));
     }
     EndpointProfileDto profileDto=controlService.updateEndpointProfile(endpointProfileDto);
     checkApplicationId(profileDto.getApplicationId());

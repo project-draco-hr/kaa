@@ -9,8 +9,7 @@
   this.nfGroupState=MongoDaoUtil.convertDtoToModelList(dto.getNfGroupStates());
   this.cfSequenceNumber=dto.getCfSequenceNumber();
   this.nfSequenceNumber=dto.getNfSequenceNumber();
-  this.changedFlag=dto.getChangedFlag();
-  this.profile=(DBObject)JSON.parse(dto.getProfile());
+  this.profile=(DBObject)JSON.parse(dto.getClientProfileBody());
   this.profileHash=dto.getProfileHash();
   this.profileVersion=dto.getProfileVersion();
   this.configurationHash=dto.getConfigurationHash();
@@ -26,5 +25,5 @@
   this.serverHash=dto.getServerHash();
   this.sdkToken=dto.getSdkToken();
   this.serverProfileSchemaId=dto.getServerProfileSchemaId();
-  this.serverProfile=dto.getServerProfile();
+  this.serverProfile=dto.getServerProfileBody();
 }

@@ -6,14 +6,15 @@
     ProfileSchemaDto schemaDto=viewDto.getProfileSchemaDto();
     if (schemaDto != null) {
       convertToSchemaForm(schemaDto,simpleSchemaFormAvroConverter);
-      viewDto.setEndpointProfileRecord(generateFormDataFromJson(schemaDto.getSchema(),endpointProfileDto.getProfile()));
+      viewDto.setEndpointProfileRecord(generateFormDataFromJson(schemaDto.getSchema(),endpointProfileDto.getClientProfileBody()));
+      generateFormDataFromJson(schemaDto.getSchema(),viewDto.getEndpointProfileDto().getClientProfileBody());
     }
     viewDto.setProfileSchemaDto(schemaDto);
     ServerProfileSchemaDto serverProfileSchemaDto=viewDto.getServerProfileSchemaDto();
     if (serverProfileSchemaDto != null) {
       convertToSchemaForm(serverProfileSchemaDto,simpleSchemaFormAvroConverter);
-      if (endpointProfileDto.getServerProfile() != null) {
-        viewDto.setServerProfileRecord(generateFormDataFromJson(serverProfileSchemaDto.getSchemaDto().getBody(),endpointProfileDto.getServerProfile()));
+      if (endpointProfileDto.getServerProfileBody() != null) {
+        viewDto.setServerProfileRecord(generateFormDataFromJson(serverProfileSchemaDto.getSchemaDto().getBody(),endpointProfileDto.getServerProfileBody()));
       }
     }
     viewDto.setServerProfileSchemaDto(serverProfileSchemaDto);
