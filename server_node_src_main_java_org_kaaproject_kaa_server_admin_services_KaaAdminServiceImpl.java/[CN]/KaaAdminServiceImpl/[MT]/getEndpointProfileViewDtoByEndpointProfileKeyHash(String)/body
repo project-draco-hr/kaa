@@ -2,12 +2,22 @@
   checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
     EndpointProfileViewDto viewDto=controlService.getEndpointProfileViewDtoByEndpointKeyHash(endpointProfileKeyHash);
+    EndpointProfileDto endpointProfileDto=viewDto.getEndpointProfileDto();
     ProfileSchemaDto schemaDto=viewDto.getProfileSchemaDto();
     if (schemaDto != null) {
       convertToSchemaForm(schemaDto,simpleSchemaFormAvroConverter);
-      viewDto.setEndpointProfileRecord(generateFormDataFromJson(schemaDto.getSchema(),viewDto.getEndpointProfileDto().getClientProfileBody()));
+      viewDto.setEndpointProfileRecord(generateFormDataFromJson(schemaDto.getSchema(),endpointProfileDto.getClientProfileBody()));
+      generateFormDataFromJson(schemaDto.getSchema(),viewDto.getEndpointProfileDto().getClientProfileBody());
     }
     viewDto.setProfileSchemaDto(schemaDto);
+    ServerProfileSchemaDto serverProfileSchemaDto=viewDto.getServerProfileSchemaDto();
+    if (serverProfileSchemaDto != null) {
+      convertToSchemaForm(serverProfileSchemaDto,simpleSchemaFormAvroConverter);
+      if (endpointProfileDto.getServerProfileBody() != null) {
+        viewDto.setServerProfileRecord(generateFormDataFromJson(serverProfileSchemaDto.getSchemaDto().getBody(),endpointProfileDto.getServerProfileBody()));
+      }
+    }
+    viewDto.setServerProfileSchemaDto(serverProfileSchemaDto);
     for (    EndpointGroupDto groupDto : viewDto.getGroupDtoList()) {
       Utils.checkNotNull(groupDto);
     }

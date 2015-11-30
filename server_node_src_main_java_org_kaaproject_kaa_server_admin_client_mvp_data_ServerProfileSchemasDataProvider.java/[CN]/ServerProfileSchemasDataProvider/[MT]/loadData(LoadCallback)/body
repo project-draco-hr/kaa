@@ -1,9 +1,9 @@
 {
-  KaaAdmin.getDataSource().loadServerProfileSchemas(applicationId,new AsyncCallback<List<ProfileSchemaDto>>(){
+  KaaAdmin.getDataSource().loadServerProfileSchemas(applicationId,new AsyncCallback<List<ServerProfileSchemaDto>>(){
     @Override public void onFailure(    Throwable caught){
       callback.onFailure(caught);
     }
-    @Override public void onSuccess(    List<ProfileSchemaDto> result){
+    @Override public void onSuccess(    List<ServerProfileSchemaDto> result){
       callback.onSuccess(result);
     }
   }

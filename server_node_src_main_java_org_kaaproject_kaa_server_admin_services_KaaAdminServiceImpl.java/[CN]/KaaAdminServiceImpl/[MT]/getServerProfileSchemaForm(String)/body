@@ -1,0 +1,11 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    ServerProfileSchemaDto profileSchema=getServerProfileSchema(serverProfileSchemaId);
+    convertToSchemaForm(profileSchema,simpleSchemaFormAvroConverter);
+    return profileSchema;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}
