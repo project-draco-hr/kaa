@@ -1,0 +1,18 @@
+{
+  if (!create) {
+    List<Integer> schemaVersions=entity.getAvailableVersions();
+    if (version == null && !schemaVersions.isEmpty()) {
+      version=schemaVersions.get(schemaVersions.size() - 1);
+    }
+    if (version != null) {
+      detailsView.getVersion().setValue(version);
+    }
+    detailsView.getVersion().setAcceptableValues(schemaVersions);
+    detailsView.setTitle(entity.getFqnString());
+  }
+  detailsView.getName().setValue(entity.getSchemaName());
+  detailsView.getDescription().setValue(entity.getDescription());
+  detailsView.getCreatedUsername().setValue(entity.getCreatedUsername());
+  detailsView.getCreatedDateTime().setValue(Utils.millisecondsToDateTimeString(entity.getCreatedTime()));
+  detailsView.getSchemaForm().setValue(entity.getSchema(),fireChanged);
+}

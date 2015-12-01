@@ -1,0 +1,56 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    AuthUserDto currentUser=this.getCurrentUser();
+    CTLSchemaInfoDto ctlSchemaInfo=null;
+    if (!isEmpty(ctlSchemaForm.getCtlSchemaId())) {
+      ctlSchemaInfo=getCTLSchemaById(ctlSchemaForm.getCtlSchemaId());
+      if (ctlSchemaInfo == null) {
+        throw new KaaAdminServiceException("Requested item was not found!",ServiceErrorCode.ITEM_NOT_FOUND);
+      }
+    }
+ else {
+      ctlSchemaInfo=new CTLSchemaInfoDto();
+    }
+    ctlSchemaInfo.setName(ctlSchemaForm.getSchemaName());
+    ctlSchemaInfo.setDescription(ctlSchemaForm.getDescription());
+    if (isEmpty(ctlSchemaInfo.getId())) {
+      ctlSchemaInfo.setCreatedUsername(currentUser.getUsername());
+      RecordField schemaForm=ctlSchemaForm.getSchema();
+      ctlSchemaInfo.setFqn(schemaForm.getDeclaredFqn().getFqnString());
+      ctlSchemaInfo.setVersion(schemaForm.getVersion());
+      List<FqnVersion> dependenciesList=schemaForm.getContext().getCtlDependenciesList();
+      Set<CTLSchemaMetaInfoDto> dependencies=new HashSet<>();
+      for (      FqnVersion fqnVersion : dependenciesList) {
+        dependencies.add(new CTLSchemaMetaInfoDto(fqnVersion.getFqnString(),fqnVersion.getVersion()));
+      }
+      ctlSchemaInfo.setDependencies(dependencies);
+      ctlSchemaInfo.setTenantId(currentUser.getTenantId());
+      ctlSchemaInfo.setScope(CTLSchemaScopeDto.TENANT);
+      SchemaFormAvroConverter converter=getCtlSchemaConverterForTenantId(currentUser.getTenantId());
+      Schema avroSchema=converter.createSchemaFromSchemaForm(schemaForm);
+      String schemaBody=SchemaFormAvroConverter.createSchemaString(avroSchema,true);
+      ctlSchemaInfo.setBody(schemaBody);
+    }
+    CTLSchemaInfoDto savedCtlSchemaInfo=saveCTLSchema(ctlSchemaInfo);
+    if (savedCtlSchemaInfo != null) {
+      CtlSchemaFormDto result=new CtlSchemaFormDto(savedCtlSchemaInfo.getFqn());
+      result.setVersion(savedCtlSchemaInfo.getVersion());
+      result.setSchemaName(savedCtlSchemaInfo.getName());
+      result.setDescription(savedCtlSchemaInfo.getDescription());
+      result.setCreatedTime(savedCtlSchemaInfo.getCreatedTime());
+      result.setCreatedUsername(savedCtlSchemaInfo.getCreatedUsername());
+      SchemaFormAvroConverter converter=getCtlSchemaConverterForTenantId(currentUser.getTenantId());
+      RecordField form=converter.createSchemaFormFromSchema(savedCtlSchemaInfo.getBody());
+      result.setSchema(form);
+      List<Integer> availableVersions=form.getContext().getAvailableVersions(new Fqn(savedCtlSchemaInfo.getFqn()));
+      Collections.sort(availableVersions);
+      result.setAvailableVersions(availableVersions);
+      return result;
+    }
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+  return null;
+}

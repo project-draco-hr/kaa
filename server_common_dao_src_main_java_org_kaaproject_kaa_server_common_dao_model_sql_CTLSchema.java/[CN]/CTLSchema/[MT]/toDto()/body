@@ -3,6 +3,10 @@
   ctlSchemaDto.setId(getStringId());
   ctlSchemaDto.setApplicationId(application != null ? application.getStringId() : null);
   ctlSchemaDto.setTenantId(tenant != null ? tenant.getStringId() : null);
+  ctlSchemaDto.setCreatedTime(createdTime);
+  ctlSchemaDto.setCreatedUsername(createdUsername);
+  ctlSchemaDto.setName(name);
+  ctlSchemaDto.setDescription(description);
   ctlSchemaDto.setMetaInfo(metaInfo.toDto());
   ctlSchemaDto.setBody(body);
   ctlSchemaDto.setDependencySet(DaoUtil.convertDtoSet(dependencySet));

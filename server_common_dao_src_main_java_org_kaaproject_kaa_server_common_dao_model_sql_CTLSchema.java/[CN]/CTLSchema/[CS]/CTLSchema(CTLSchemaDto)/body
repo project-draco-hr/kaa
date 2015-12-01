@@ -6,6 +6,10 @@
   Long appId=getLongId(dto.getApplicationId());
   this.application=appId != null ? new Application(appId) : null;
   this.body=dto.getBody();
+  this.name=dto.getName();
+  this.description=dto.getDescription();
+  this.createdUsername=dto.getCreatedUsername();
+  this.createdTime=dto.getCreatedTime();
   Set<CTLSchemaDto> dependencies=dto.getDependencySet();
   if (dependencies != null && !dependencies.isEmpty()) {
     for (    CTLSchemaDto dependency : dependencies) {

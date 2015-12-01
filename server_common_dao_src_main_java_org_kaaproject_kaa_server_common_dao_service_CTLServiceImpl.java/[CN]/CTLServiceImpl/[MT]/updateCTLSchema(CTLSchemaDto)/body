@@ -7,12 +7,10 @@
     CTLSchema schema=ctlSchemaDao.findById(ctlSchema.getId());
     if (schema != null) {
       CTLSchemaMetaInfo metaInfo=schema.getMetaInfo();
-      if (metaInfo.getScope().getLevel() < newScope.getLevel()) {
+      if (metaInfo.getScope().getLevel() <= newScope.getLevel()) {
         CTLSchemaMetaInfo updated=schemaMetaInfoDao.updateScope(new CTLSchemaMetaInfo(newMetaInfo));
         if (updated != null) {
           schema.setMetaInfo(updated);
-          updateEditableFields(ctlSchema,schema);
-          return DaoUtil.getDto(ctlSchemaDao.save(schema));
         }
  else {
           throw new DatabaseProcessingException("Can't update scope for ctl meta info.");
@@ -21,6 +19,8 @@
  else {
         throw new DatabaseProcessingException("Forbidden to update scope to lower level.");
       }
+      updateEditableFields(ctlSchema,schema);
+      return DaoUtil.getDto(ctlSchemaDao.save(schema));
     }
  else {
       throw new DatabaseProcessingException("Can't find ctl schema by id.");
