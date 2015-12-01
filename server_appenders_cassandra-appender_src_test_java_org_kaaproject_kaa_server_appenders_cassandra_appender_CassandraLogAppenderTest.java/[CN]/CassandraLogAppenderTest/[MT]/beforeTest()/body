@@ -27,6 +27,7 @@
   columnMapping.add(new ColumnMappingElement(ColumnMappingElementType.HEADER_FIELD,"endpointKeyHash","endpointKeyHash",ColumnType.TEXT,true,false));
   columnMapping.add(new ColumnMappingElement(ColumnMappingElementType.EVENT_JSON,"","event_json",ColumnType.TEXT,false,false));
   columnMapping.add(new ColumnMappingElement(ColumnMappingElementType.UUID,"","binid",ColumnType.UUID,false,true));
+  columnMapping.add(new ColumnMappingElement(ColumnMappingElementType.SERVER_FIELD,"","server_field",ColumnType.TEXT,false,false));
   configuration.setColumnMapping(columnMapping);
   List<ClusteringElement> clusteringMapping=new ArrayList<ClusteringElement>();
   clusteringMapping.add(new ClusteringElement("binid",OrderType.DESC));

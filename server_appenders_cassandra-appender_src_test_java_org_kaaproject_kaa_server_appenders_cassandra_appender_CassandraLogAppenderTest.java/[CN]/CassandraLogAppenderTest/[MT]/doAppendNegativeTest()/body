@@ -1,0 +1,9 @@
+{
+  this.logAppender.doAppend(this.generateLogEventPack(5,false),new DeliveryCallback());
+  Thread.sleep(3000);
+  CassandraLogEventDao logEventDao=(CassandraLogEventDao)ReflectionTestUtils.getField(this.logAppender,"logEventDao");
+  Session session=(Session)ReflectionTestUtils.getField(logEventDao,"session");
+  String table="logs_" + this.appToken + "_"+ Math.abs(this.configuration.hashCode());
+  Row count=session.execute(QueryBuilder.select().countAll().from(KEY_SPACE_NAME,table)).one();
+  Assert.assertEquals(0L,count.getLong(0));
+}

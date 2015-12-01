@@ -11,6 +11,11 @@
   logSchemaDto.setId(String.valueOf(RANDOM.nextInt()));
   logSchemaDto.setCreatedTime(System.currentTimeMillis());
   logSchemaDto.setSchema(LogData.getClassSchema().toString());
+  if (includeServerProfile) {
+    BaseSchemaInfo schemaInfo=new BaseSchemaInfo(Integer.toString(RANDOM.nextInt()),this.getResourceAsString(SERVER_PROFILE_SCHEMA_FILE));
+    String body=this.getResourceAsString(SERVER_PROFILE_CONTENT_FILE);
+    logEventPack.setServerProfile(new BaseProfileInfo(schemaInfo,body));
+  }
   logEventPack.setLogSchema(new LogSchema(logSchemaDto));
   return logEventPack;
 }
