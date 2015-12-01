@@ -128,7 +128,7 @@
       endpointProfileRecordFieldDto.setProfileRecord(value);
       final String serverSchemaId=detailsView.getServerSchemasListBox().getValue().getId();
       final String serverSchemaName=detailsView.getServerSchemasListBox().getValue().getSchemaDto().getName();
-      profileDto.setServerProfileSchemaId(serverSchemaId);
+      profileDto.setServerProfileCtlSchemaId(serverSchemaId);
       endpointProfileRecordFieldDto.setProfileDto(profileDto);
       KaaAdmin.getDataSource().updateEndpointProfile(endpointProfileRecordFieldDto,new AsyncCallback<EndpointProfileRecordFieldDto>(){
         @Override public void onFailure(        Throwable throwable){

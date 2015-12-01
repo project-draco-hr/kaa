@@ -12,7 +12,7 @@
   int profileVersion=endpointProfileDto.getProfileVersion();
   ProfileSchemaDto schemaDto=profileService.findProfileSchemaByAppIdAndVersion(applicationId,profileVersion);
   viewDto.setProfileSchemaDto(schemaDto);
-  String serverProfileSchemaId=endpointProfileDto.getServerProfileSchemaId();
+  String serverProfileSchemaId=endpointProfileDto.getServerProfileCtlSchemaId();
   if (serverProfileSchemaId != null && !serverProfileSchemaId.isEmpty()) {
     ServerProfileSchemaDto serverProfileSchema=serverProfileService.findServerProfileSchema(serverProfileSchemaId);
     viewDto.setServerProfileSchemaDto(serverProfileSchema);

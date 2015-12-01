@@ -1,10 +1,19 @@
 {
-  if (this == o)   return true;
-  if (o == null || getClass() != o.getClass())   return false;
-  ServerProfileSchemaDto that=(ServerProfileSchemaDto)o;
-  if (id != null ? !id.equals(that.id) : that.id != null)   return false;
-  if (createdTime != null ? !createdTime.equals(that.createdTime) : that.createdTime != null)   return false;
-  if (applicationId != null ? !applicationId.equals(that.applicationId) : that.applicationId != null)   return false;
-  if (schemaDto != null ? !schemaDto.equals(that.schemaDto) : that.schemaDto != null)   return false;
-  return !(schemaForm != null ? !schemaForm.equals(that.schemaForm) : that.schemaForm != null);
+  if (this == obj)   return true;
+  if (obj == null)   return false;
+  if (getClass() != obj.getClass())   return false;
+  ServerProfileSchemaDto other=(ServerProfileSchemaDto)obj;
+  if (applicationId == null) {
+    if (other.applicationId != null)     return false;
+  }
+ else   if (!applicationId.equals(other.applicationId))   return false;
+  if (ctlSchemaId == null) {
+    if (other.ctlSchemaId != null)     return false;
+  }
+ else   if (!ctlSchemaId.equals(other.ctlSchemaId))   return false;
+  if (id == null) {
+    if (other.id != null)     return false;
+  }
+ else   if (!id.equals(other.id))   return false;
+  return true;
 }

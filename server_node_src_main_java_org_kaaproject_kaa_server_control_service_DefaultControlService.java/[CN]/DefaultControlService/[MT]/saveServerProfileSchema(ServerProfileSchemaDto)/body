@@ -1,0 +1,15 @@
+{
+  if (Utils.isBlank(serverProfileSchema.getId())) {
+    if (Utils.isNotBlank(serverProfileSchema.getCtlSchemaId())) {
+      return serverProfileService.saveServerProfileSchema(serverProfileSchema);
+    }
+ else {
+      LOG.error("Server profile schema has no CTL schema ID");
+      throw new ControlServiceException("Server profile schema has no CTL schema ID");
+    }
+  }
+ else {
+    LOG.error("Can't edit existing server profile schema with id: {}",serverProfileSchema.getId());
+    throw new ControlServiceException("Can't edit existing server profile schema");
+  }
+}
