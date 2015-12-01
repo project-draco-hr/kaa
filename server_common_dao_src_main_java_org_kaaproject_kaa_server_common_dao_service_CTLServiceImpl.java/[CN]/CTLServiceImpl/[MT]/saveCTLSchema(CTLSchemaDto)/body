@@ -41,7 +41,15 @@ ctlSchema.setDescription(GENERATED);
 }
 schemaMetaInfoDao.refresh(uniqueMetaInfo);
 schemaMetaInfoDao.incrementCount(uniqueMetaInfo);
+try {
 dto=getDto(ctlSchemaDao.save(ctlSchema,true));
+}
+ catch (DataIntegrityViolationException ex) {
+throw new DatabaseProcessingException("Can't save cql schema with same fqn, version and tenant id.");
+}
+catch (Exception ex) {
+throw new DatabaseProcessingException(ex);
+}
 }
 return dto;
 }

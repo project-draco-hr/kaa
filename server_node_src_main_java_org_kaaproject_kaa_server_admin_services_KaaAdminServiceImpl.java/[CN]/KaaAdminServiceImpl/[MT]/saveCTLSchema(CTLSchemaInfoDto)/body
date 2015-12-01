@@ -41,7 +41,8 @@
       String message="The following dependencies are missing from the database: " + Arrays.toString(missingDependencies.toArray());
       throw new IllegalArgumentException(message);
     }
-    new CTLSchemaParser().parse(schema);
+    CTLSchemaParser parser=new CTLSchemaParser(controlService,getCurrentUser().getTenantId());
+    parser.validate(schema);
     CTLSchemaDto result=controlService.saveCTLSchema(new CTLSchemaDto(schema,dependencies));
     return result != null ? result.toCTLSchemaInfoDto() : null;
   }
