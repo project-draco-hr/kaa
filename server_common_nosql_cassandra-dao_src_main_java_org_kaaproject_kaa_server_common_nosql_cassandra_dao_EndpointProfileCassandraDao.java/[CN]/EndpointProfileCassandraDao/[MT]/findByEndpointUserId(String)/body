@@ -5,7 +5,7 @@
   if (endpointUser != null) {
     List<String> ids=endpointUser.getEndpointIds();
     if (ids != null && !ids.isEmpty()) {
-      Statement select=select().from(getColumnFamilyName()).where(QueryBuilder.in(EP_EP_KEY_HASH_PROPERTY,convertStringIds(ids)));
+      Statement select=select().from(getColumnFamilyName()).where(in(EP_EP_KEY_HASH_PROPERTY,convertStringIds(ids)));
       LOG.trace("Execute statements {}",select);
       profileList=findListByStatement(select);
     }
