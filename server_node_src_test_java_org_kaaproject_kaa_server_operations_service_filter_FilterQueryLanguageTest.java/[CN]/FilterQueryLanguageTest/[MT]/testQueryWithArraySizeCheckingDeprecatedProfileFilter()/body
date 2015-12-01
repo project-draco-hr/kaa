@@ -1,5 +1,5 @@
 {
-  String filterBody="#" + DefaultFilter.CLIENT_PROFILE_VARIABLE_NAME + "."+ "mapSimpleField[KEY8] == 8";
+  String filterBody="arraySimpleField.size() == 2";
   Filter filter=new DefaultFilter(filterBody,PROFILE_SCHEMA);
   Assert.assertEquals(Boolean.TRUE,filter.matches(profile));
 }

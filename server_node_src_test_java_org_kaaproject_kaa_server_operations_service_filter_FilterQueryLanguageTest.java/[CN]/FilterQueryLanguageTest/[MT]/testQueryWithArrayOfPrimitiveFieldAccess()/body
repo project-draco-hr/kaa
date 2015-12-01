@@ -1,5 +1,8 @@
 {
-  String filterBody="arraySimpleField[1] == 'VALUE2'";
+  String filterBody="#" + DefaultFilter.CLIENT_PROFILE_VARIABLE_NAME + "."+ "arraySimpleField[1] == 'VALUE2'";
   Filter filter=new DefaultFilter(filterBody,PROFILE_SCHEMA);
-  Assert.assertEquals(Boolean.TRUE,filter.matches(profileBody));
+  Assert.assertEquals(Boolean.TRUE,filter.matches(profile));
+  filterBody="#" + DefaultFilter.SERVER_PROFILE_VARIABLE_NAME + ".arraySimpleField[1] == 'VALUE2'";
+  filter=new DefaultFilter(filterBody,PROFILE_SCHEMA);
+  Assert.assertEquals(Boolean.TRUE,filter.matches(profile));
 }
