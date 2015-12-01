@@ -1,6 +1,6 @@
 {
   appender.close();
-  LogEventPack eventPack=new LogEventPack();
+  BaseLogEventPack eventPack=generateLogEventPack();
   TestLogDeliveryCallback callback=new TestLogDeliveryCallback();
   appender.doAppend(eventPack,callback);
   Assert.assertTrue(callback.internallError);

@@ -1,5 +1,5 @@
 {
-  LogEventPack logEventPack=getLogEventPack();
+  BaseLogEventPack logEventPack=getLogEventPack();
   Mockito.when(writer.write(Mockito.anyString(),Mockito.any(Charset.class))).thenReturn(new DummyFuture(){
     @Override public Void get() throws InterruptedException, ExecutionException {
       throw new ExecutionException(new HttpFailureException("fail",500));
