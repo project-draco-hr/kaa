@@ -1,0 +1,7 @@
+{
+  if (this == o)   return true;
+  if (o == null || getClass() != o.getClass())   return false;
+  ServerProfileSchemaViewDto that=(ServerProfileSchemaViewDto)o;
+  if (profileSchemaDto != null ? !profileSchemaDto.equals(that.profileSchemaDto) : that.profileSchemaDto != null)   return false;
+  return !(ctlSchemaDto != null ? !ctlSchemaDto.equals(that.ctlSchemaDto) : that.ctlSchemaDto != null);
+}

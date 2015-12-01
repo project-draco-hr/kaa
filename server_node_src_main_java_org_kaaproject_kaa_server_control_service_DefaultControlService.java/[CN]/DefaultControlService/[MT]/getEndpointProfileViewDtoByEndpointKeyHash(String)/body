@@ -14,8 +14,15 @@
   viewDto.setProfileSchemaDto(schemaDto);
   String serverProfileSchemaId=endpointProfileDto.getServerProfileCtlSchemaId();
   if (serverProfileSchemaId != null && !serverProfileSchemaId.isEmpty()) {
-    ServerProfileSchemaDto serverProfileSchema=serverProfileService.findServerProfileSchema(serverProfileSchemaId);
-    viewDto.setServerProfileSchemaDto(serverProfileSchema);
+    CTLSchemaDto ctlSchemaDto=ctlService.findCTLSchemaById(serverProfileSchemaId);
+    ServerProfileSchemaDto serverProfileSchema=null;
+    List<ServerProfileSchemaDto> serverProfileSchemas=serverProfileService.findServerProfileSchemasByAppId(applicationId);
+    for (    ServerProfileSchemaDto dto : serverProfileSchemas) {
+      if (dto.getCtlSchemaId().equals(serverProfileSchemaId)) {
+        serverProfileSchema=dto;
+      }
+    }
+    viewDto.setServerProfileSchemaDto(new ServerProfileSchemaViewDto(serverProfileSchema,ctlSchemaDto));
   }
   List<TopicDto> topicsByApplicationId=topicService.findTopicsByAppId(applicationId);
   List<String> endpointTopicsIDs=endpointProfileDto.getSubscriptions();

@@ -1,0 +1,42 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    String applicationId=serverProfileSchema.getProfileSchemaDto().getApplicationId();
+    checkApplicationId(applicationId);
+    String ctlSchemaId=serverProfileSchema.getProfileSchemaDto().getCtlSchemaId();
+    if (isEmpty(ctlSchemaId)) {
+      serverProfileSchema.getProfileSchemaDto().setCreatedUser(getCurrentUser().getUsername());
+      serverProfileSchema.getProfileSchemaDto().setCreatedTime(new Date().getTime());
+      String body=null;
+      RecordField schemaForm=serverProfileSchema.getProfileSchemaDto().getSchemaForm();
+      if (schemaForm != null) {
+        GenericRecord record=FormAvroConverter.createGenericRecordFromRecordField(schemaForm);
+        GenericAvroConverter<GenericRecord> converter=new GenericAvroConverter<>(record.getSchema());
+        body=converter.encodeToJson(record);
+      }
+      serverProfileSchema.getCtlSchemaDto().setBody(body);
+      int version=0;
+      ServerProfileSchemaDto latestServerProfileSchema=controlService.findLatestServerProfileSchema(applicationId);
+      if (latestServerProfileSchema != null && latestServerProfileSchema.getCtlSchemaId() != null) {
+        version=controlService.getCTLSchemaById(latestServerProfileSchema.getCtlSchemaId()).getMetaInfo().getVersion();
+      }
+      CTLSchemaMetaInfoDto metaInfoDto=new CTLSchemaMetaInfoDto(getDeclaredFqn(schemaForm),++version,CTLSchemaScopeDto.SERVER_PROFILE_SCHEMA);
+      serverProfileSchema.getCtlSchemaDto().setMetaInfo(metaInfoDto);
+      CTLSchemaDto savedCtlSchemaDto=controlService.saveCTLSchema(serverProfileSchema.getCtlSchemaDto());
+      serverProfileSchema.getProfileSchemaDto().setCtlSchemaId(savedCtlSchemaDto.getId());
+      ServerProfileSchemaDto serverProfileSchemaDto=controlService.saveServerProfileSchema(serverProfileSchema.getProfileSchemaDto());
+      serverProfileSchema=new ServerProfileSchemaViewDto(serverProfileSchemaDto,savedCtlSchemaDto);
+    }
+ else {
+      CTLSchemaDto savedCtlSchema=controlService.getCTLSchemaById(ctlSchemaId);
+      savedCtlSchema.setName(serverProfileSchema.getCtlSchemaDto().getName());
+      savedCtlSchema.setDescription(serverProfileSchema.getCtlSchemaDto().getDescription());
+      CTLSchemaDto ctlSchemaDto=controlService.saveCTLSchema(savedCtlSchema);
+      serverProfileSchema.setCtlSchemaDto(ctlSchemaDto);
+    }
+    return serverProfileSchema;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

@@ -10,13 +10,13 @@
       generateFormDataFromJson(schemaDto.getSchema(),viewDto.getEndpointProfileDto().getClientProfileBody());
     }
     viewDto.setProfileSchemaDto(schemaDto);
-    ServerProfileSchemaDto serverProfileSchemaDto=viewDto.getServerProfileSchemaDto();
+    ServerProfileSchemaViewDto serverProfileSchemaDto=viewDto.getServerProfileSchemaDto();
     if (serverProfileSchemaDto != null) {
-      CTLSchemaDto ctlSchemaDto=controlService.getCTLSchemaById(serverProfileSchemaDto.getCtlSchemaId());
+      CTLSchemaDto ctlSchemaDto=controlService.getCTLSchemaById(serverProfileSchemaDto.getProfileSchemaDto().getCtlSchemaId());
       String ctlSchemaBody=controlService.exportCTLSchemaFlatAsString(ctlSchemaDto);
       Schema schema=new Schema.Parser().parse(ctlSchemaBody);
       RecordField schemaForm=simpleSchemaFormAvroConverter.createSchemaFormFromSchema(schema);
-      serverProfileSchemaDto.setSchemaForm(schemaForm);
+      serverProfileSchemaDto.getProfileSchemaDto().setSchemaForm(schemaForm);
       if (endpointProfileDto.getServerProfileBody() != null) {
         viewDto.setServerProfileRecord(generateFormDataFromJson(ctlSchemaBody,endpointProfileDto.getServerProfileBody()));
       }
