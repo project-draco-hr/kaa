@@ -1,4 +1,5 @@
 {
+  this.initLogAppender(true);
   this.logAppender.doAppend(this.generateLogEventPack(5,false),new DeliveryCallback());
   Thread.sleep(3000);
   CassandraLogEventDao logEventDao=(CassandraLogEventDao)ReflectionTestUtils.getField(this.logAppender,"logEventDao");
