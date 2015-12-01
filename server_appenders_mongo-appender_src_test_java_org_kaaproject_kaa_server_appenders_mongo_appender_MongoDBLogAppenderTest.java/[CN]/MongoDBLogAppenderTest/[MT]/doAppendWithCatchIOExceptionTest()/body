@@ -23,6 +23,6 @@
   TestLogDeliveryCallback callback=new TestLogDeliveryCallback();
   logAppender.doAppend(logEventPack,callback);
   Assert.assertTrue(callback.internallError);
-  Mockito.verify(logEventDao,Mockito.never()).save(Mockito.anyList(),Mockito.anyString());
+  Mockito.verify(logEventDao,Mockito.never()).save(Mockito.anyList(),Mockito.<ProfileInfo>anyObject(),Mockito.<ProfileInfo>anyObject(),Mockito.anyString());
   ReflectionTestUtils.setField(logAppender,"logEventDao",eventDao);
 }

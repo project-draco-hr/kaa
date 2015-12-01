@@ -17,6 +17,9 @@
   EndpointProfileDataDto profileDto=new EndpointProfileDataDto("1",ENDPOINT_KEY,1,"",null,null);
   BaseLogEventPack logEventPack=new BaseLogEventPack(profileDto,DATE_CREATED,schema.getVersion(),events);
   logEventPack.setLogSchema(schema);
+  BaseSchemaInfo schemaInfo=new BaseSchemaInfo(Integer.toString(new Random().nextInt()),this.getResourceAsString(SERVER_PROFILE_SCHEMA_FILE));
+  String body=this.getResourceAsString(SERVER_PROFILE_CONTENT_FILE);
+  logEventPack.setServerProfile(new BaseProfileInfo(schemaInfo,body));
   String collectionName=(String)ReflectionTestUtils.getField(logAppender,"collectionName");
   Assert.assertEquals(0,MongoDBTestRunner.getDB().getCollection(collectionName).count());
   TestLogDeliveryCallback callback=new TestLogDeliveryCallback();

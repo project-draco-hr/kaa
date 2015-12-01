@@ -2,6 +2,8 @@
   LOG.debug("Initializing new instance of MongoDB log appender");
   try {
     logEventDao=new LogEventMongoDao(configuration);
+    this.clientProfileRequired=configuration.getClientProfileRequired();
+    this.serverProfileRequired=configuration.getServerProfileRequired();
     createCollection(appender.getApplicationToken());
   }
  catch (  Exception e) {

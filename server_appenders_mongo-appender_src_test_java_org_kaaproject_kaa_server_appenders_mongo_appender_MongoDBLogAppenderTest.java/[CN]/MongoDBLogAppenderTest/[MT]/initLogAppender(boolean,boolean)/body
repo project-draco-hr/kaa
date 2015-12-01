@@ -1,0 +1,29 @@
+{
+  logAppender=new MongoDbLogAppender();
+  LogAppenderDto appenderDto=new LogAppenderDto();
+  appenderDto.setApplicationId(APPLICATION_ID);
+  appenderDto.setApplicationToken(APPLICATION_TOKEN);
+  appenderDto.setTenantId(TENANT_ID);
+  appenderDto.setHeaderStructure(Arrays.asList(LogHeaderStructureDto.values()));
+  String dbName=MongoDBTestRunner.getDB().getName();
+  List<ServerAddress> serverAddresses=MongoDBTestRunner.getDB().getMongo().getServerAddressList();
+  List<MongoDbServer> servers=new ArrayList<>();
+  for (  ServerAddress serverAddress : serverAddresses) {
+    servers.add(new MongoDbServer(serverAddress.getHost(),serverAddress.getPort()));
+  }
+  List<MongoDBCredential> credentials=new ArrayList<>();
+  RawSchema rawSchema=new RawSchema(MongoDbConfig.getClassSchema().toString());
+  DefaultRecordGenerationAlgorithm<RawData> algotithm=new DefaultRecordGenerationAlgorithmImpl<>(rawSchema,new RawDataFactory());
+  RawData rawData=algotithm.getRootData();
+  AvroJsonConverter<MongoDbConfig> converter=new AvroJsonConverter<>(MongoDbConfig.getClassSchema(),MongoDbConfig.class);
+  MongoDbConfig mongoDbConfig=converter.decodeJson(rawData.getRawData());
+  mongoDbConfig.setMongoServers(servers);
+  mongoDbConfig.setMongoCredentials(credentials);
+  mongoDbConfig.setDbName(dbName);
+  mongoDbConfig.setServerProfileRequired(requireClientProfile);
+  mongoDbConfig.setServerProfileRequired(requireServerProfile);
+  AvroByteArrayConverter<MongoDbConfig> byteConverter=new AvroByteArrayConverter<>(MongoDbConfig.class);
+  byte[] rawConfiguration=byteConverter.toByteArray(mongoDbConfig);
+  appenderDto.setRawConfiguration(rawConfiguration);
+  logAppender.init(appenderDto);
+}
