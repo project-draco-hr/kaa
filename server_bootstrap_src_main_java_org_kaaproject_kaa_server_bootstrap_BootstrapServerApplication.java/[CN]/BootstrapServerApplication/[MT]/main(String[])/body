@@ -1,4 +1,5 @@
 {
+  Thread.setDefaultUncaughtExceptionHandler(new KaaUncaughtExceptionHandler());
   BootstrapServerApplication app=new BootstrapServerApplication(DEFAULT_APPLICATION_CONTEXT_XMLS,DEFAULT_APPLICATION_CONFIGURATION_FILES);
   app.startAndWait(args);
 }
