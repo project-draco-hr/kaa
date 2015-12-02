@@ -1,0 +1,47 @@
+{
+  if (!create) {
+    List<Integer> schemaVersions=entity.getAvailableVersions();
+    if (version == null && !schemaVersions.isEmpty()) {
+      version=schemaVersions.get(schemaVersions.size() - 1);
+    }
+    if (version != null) {
+      detailsView.getVersion().setValue(version);
+    }
+    detailsView.getVersion().setAcceptableValues(schemaVersions);
+    detailsView.setTitle(entity.getFqnString());
+    detailsView.enableSingleExportMode(!entity.hasDependencies());
+    if (entity.hasDependencies()) {
+      registrations.add(detailsView.getExportActionsButton().addMenuItem(Utils.constants.shallow(),new ActionMenuItemListener(){
+        @Override public void onMenuItemSelected(){
+          exportSchema(CTLSchemaExportMethod.SHALLOW);
+        }
+      }
+));
+      registrations.add(detailsView.getExportActionsButton().addMenuItem(Utils.constants.deep(),new ActionMenuItemListener(){
+        @Override public void onMenuItemSelected(){
+          exportSchema(CTLSchemaExportMethod.DEEP);
+        }
+      }
+));
+      registrations.add(detailsView.getExportActionsButton().addMenuItem(Utils.constants.flat(),new ActionMenuItemListener(){
+        @Override public void onMenuItemSelected(){
+          exportSchema(CTLSchemaExportMethod.FLAT);
+        }
+      }
+));
+    }
+ else {
+      registrations.add(detailsView.getExportButton().addClickHandler(new ClickHandler(){
+        @Override public void onClick(        ClickEvent event){
+          exportSchema(CTLSchemaExportMethod.FLAT);
+        }
+      }
+));
+    }
+  }
+  detailsView.getName().setValue(entity.getSchemaName());
+  detailsView.getDescription().setValue(entity.getDescription());
+  detailsView.getCreatedUsername().setValue(entity.getCreatedUsername());
+  detailsView.getCreatedDateTime().setValue(Utils.millisecondsToDateTimeString(entity.getCreatedTime()));
+  detailsView.getSchemaForm().setValue(entity.getSchema(),fireChanged);
+}

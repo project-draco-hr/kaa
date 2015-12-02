@@ -1,7 +1,7 @@
 {
   this.checkAuthority(KaaAuthorityDto.values());
   try {
-    String tenantId=this.getCurrentUser().getTenantId();
+    String tenantId=getCurrentUser().getTenantId();
     return controlService.getAvailableCTLSchemasMetaInfoByTenantId(tenantId);
   }
  catch (  Exception cause) {

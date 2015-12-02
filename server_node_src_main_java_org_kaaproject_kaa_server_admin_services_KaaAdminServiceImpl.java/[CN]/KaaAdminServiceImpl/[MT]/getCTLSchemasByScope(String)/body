@@ -1,7 +1,7 @@
 {
   this.checkAuthority(KaaAuthorityDto.values());
   try {
-    AuthUserDto currentUser=this.getCurrentUser();
+    AuthUserDto currentUser=getCurrentUser();
     CTLSchemaScopeDto scope=this.getCTLSchemaScopeByName(scopeName);
     if (scope == CTLSchemaScopeDto.TENANT && currentUser.getAuthority() != KaaAuthorityDto.KAA_ADMIN) {
       return controlService.getCTLSchemasMetaInfoByTenantId(currentUser.getTenantId());

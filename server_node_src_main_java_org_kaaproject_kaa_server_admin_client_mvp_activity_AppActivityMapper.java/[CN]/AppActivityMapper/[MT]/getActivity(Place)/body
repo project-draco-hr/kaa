@@ -121,6 +121,12 @@
  else     if (clazz == UpdateUserConfigPlace.class) {
       return new UpdateUserConfigActivity((UpdateUserConfigPlace)place,clientFactory);
     }
+ else     if (clazz == TenantCtlSchemasPlace.class) {
+      return new TenantCtlSchemasActivity((TenantCtlSchemasPlace)place,clientFactory);
+    }
+ else     if (clazz == CtlSchemaPlace.class) {
+      return new CtlSchemaActivity((CtlSchemaPlace)place,clientFactory);
+    }
   }
   return null;
 }

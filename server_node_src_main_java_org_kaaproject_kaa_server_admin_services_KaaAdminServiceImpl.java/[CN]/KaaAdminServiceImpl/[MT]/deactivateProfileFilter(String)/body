@@ -4,7 +4,7 @@
     ProfileFilterDto storedProfileFilter=controlService.getProfileFilter(profileFilterId);
     Utils.checkNotNull(storedProfileFilter);
     checkEndpointGroupId(storedProfileFilter.getEndpointGroupId());
-    String username=this.getCurrentUser().getUsername();
+    String username=getCurrentUser().getUsername();
     return controlService.deactivateProfileFilter(profileFilterId,username);
   }
  catch (  Exception e) {

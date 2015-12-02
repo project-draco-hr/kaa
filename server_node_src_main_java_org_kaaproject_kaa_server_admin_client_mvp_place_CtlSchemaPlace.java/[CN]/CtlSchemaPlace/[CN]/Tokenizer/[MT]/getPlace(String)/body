@@ -1,0 +1,16 @@
+{
+  PlaceParams.paramsFromToken(token);
+  String sourceFqn=PlaceParams.getParam(SOURCE_FQN);
+  int sourceVersion=PlaceParams.getIntParam(SOURCE_VERSION);
+  String fqn=PlaceParams.getParam(FQN);
+  Integer version=null;
+  if (PlaceParams.hasParam(VERSION)) {
+    version=PlaceParams.getIntParam(VERSION);
+  }
+  if (sourceFqn != null && sourceVersion > 0) {
+    return new CtlSchemaPlace(sourceFqn,sourceVersion,true);
+  }
+ else {
+    return new CtlSchemaPlace(fqn,version,false);
+  }
+}

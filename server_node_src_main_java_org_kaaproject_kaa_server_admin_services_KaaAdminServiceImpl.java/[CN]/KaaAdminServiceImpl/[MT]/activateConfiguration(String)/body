@@ -4,7 +4,7 @@
     ConfigurationDto storedConfiguration=controlService.getConfiguration(configurationId);
     Utils.checkNotNull(storedConfiguration);
     checkEndpointGroupId(storedConfiguration.getEndpointGroupId());
-    String username=this.getCurrentUser().getUsername();
+    String username=getCurrentUser().getUsername();
     return controlService.activateConfiguration(configurationId,username);
   }
  catch (  Exception e) {

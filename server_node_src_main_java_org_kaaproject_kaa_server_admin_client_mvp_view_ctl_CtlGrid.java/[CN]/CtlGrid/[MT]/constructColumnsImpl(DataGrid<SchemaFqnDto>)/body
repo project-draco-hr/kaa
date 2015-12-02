@@ -1,0 +1,26 @@
+{
+  float prefWidth=0;
+  prefWidth+=constructStringColumn(table,Utils.constants.name(),new StringValueProvider<SchemaFqnDto>(){
+    @Override public String getValue(    SchemaFqnDto item){
+      return item.getSchemaName();
+    }
+  }
+,new Comparator<SchemaFqnDto>(){
+    @Override public int compare(    SchemaFqnDto o1,    SchemaFqnDto o2){
+      return o1.getSchemaName().compareTo(o2.getSchemaName());
+    }
+  }
+,Boolean.TRUE,true,80);
+  prefWidth+=constructStringColumn(table,Utils.constants.fqn(),new StringValueProvider<SchemaFqnDto>(){
+    @Override public String getValue(    SchemaFqnDto item){
+      return item.getFqnString();
+    }
+  }
+,new Comparator<SchemaFqnDto>(){
+    @Override public int compare(    SchemaFqnDto o1,    SchemaFqnDto o2){
+      return o1.compareTo(o2);
+    }
+  }
+,Boolean.TRUE,true,160);
+  return prefWidth;
+}

@@ -6,6 +6,10 @@
   dialogContents.setSpacing(4);
   setWidget(dialogContents);
   AlertPanel messageLabel=new AlertPanel(type);
+  messageLabel.getElement().getStyle().setWhiteSpace(WhiteSpace.PRE_WRAP);
+  messageLabel.getElement().getStyle().setProperty("maxHeight","400px");
+  messageLabel.getElement().getStyle().setProperty("maxWidth",Window.getClientWidth() * 2 / 3 + "px");
+  messageLabel.getElement().getStyle().setOverflowY(Overflow.AUTO);
   messageLabel.setMessage(message);
   dialogContents.add(messageLabel);
   okButton=new Button(Utils.constants.ok(),new ClickHandler(){

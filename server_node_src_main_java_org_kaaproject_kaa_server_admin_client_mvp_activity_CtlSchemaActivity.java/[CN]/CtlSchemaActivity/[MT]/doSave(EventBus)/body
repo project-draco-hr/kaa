@@ -1,0 +1,17 @@
+{
+  onSave();
+  editEntity(entity,new BusyAsyncCallback<CtlSchemaFormDto>(){
+    public void onSuccessImpl(    CtlSchemaFormDto result){
+      if (!create) {
+        goTo(new CtlSchemaPlace(place.getFqn(),place.getVersion(),false));
+      }
+ else       if (place.getPreviousPlace() != null) {
+        goTo(place.getPreviousPlace());
+      }
+    }
+    public void onFailureImpl(    Throwable caught){
+      Utils.handleException(caught,detailsView);
+    }
+  }
+);
+}

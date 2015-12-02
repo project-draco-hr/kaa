@@ -17,6 +17,12 @@
   }
   if (!handled) {
     String message=parseErrorMessage(caught,errorMessageCustomizer);
-    hasErrorMessage.setErrorMessage(message);
+    String[] lines=message.split("\r\n|\r|\n");
+    if (lines.length > 1 || (lines.length == 1 && lines[0].length() >= MAX_ERROR_LINE_LENGTH)) {
+      MessageDialog.showMessageDialog(AlertPanel.Type.ERROR,constants.errorTitle(),message);
+    }
+ else {
+      hasErrorMessage.setErrorMessage(message);
+    }
   }
 }
