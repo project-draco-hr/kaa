@@ -4,11 +4,13 @@
   infoDto.setFqn(metaInfo.getFqn());
   infoDto.setVersion(metaInfo.getVersion());
   infoDto.setScope(metaInfo.getScope());
+  infoDto.setMetaInfoId(metaInfo.getId());
   infoDto.setApplicationId(applicationId);
   infoDto.setTenantId(tenantId);
   infoDto.setBody(body);
   infoDto.setCreatedTime(createdTime);
   infoDto.setCreatedUsername(createdUsername);
+  infoDto.setName(name);
   infoDto.setDescription(description);
   if (dependencySet != null && !dependencySet.isEmpty()) {
     Set<CTLSchemaMetaInfoDto> dependencies=new HashSet<>();

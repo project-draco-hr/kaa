@@ -2,7 +2,7 @@
   try {
     this.checkCTLSchemaFqn(fqn);
     this.checkCTLSchemaVersion(version);
-    String tenantId=this.getCurrentUser().getTenantId();
+    String tenantId=getCurrentUser().getTenantId();
     CTLSchemaDto schemaFound=controlService.getCTLSchemaByFqnVersionAndTenantId(fqn,version,tenantId);
     Utils.checkNotNull(schemaFound);
     if (schemaFound.getMetaInfo().getScope() != CTLSchemaScopeDto.SYSTEM) {

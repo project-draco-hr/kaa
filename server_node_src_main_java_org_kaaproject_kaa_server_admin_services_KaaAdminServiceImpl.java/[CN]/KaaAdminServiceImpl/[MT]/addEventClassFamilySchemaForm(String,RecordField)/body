@@ -6,7 +6,7 @@
     EventClassFamilyDto storedEventClassFamily=controlService.getEventClassFamily(eventClassFamilyId);
     Utils.checkNotNull(storedEventClassFamily);
     checkTenantId(storedEventClassFamily.getTenantId());
-    String username=this.getCurrentUser().getUsername();
+    String username=getCurrentUser().getUsername();
     controlService.addEventClassFamilySchema(eventClassFamilyId,schemaString,username);
   }
  catch (  Exception e) {
