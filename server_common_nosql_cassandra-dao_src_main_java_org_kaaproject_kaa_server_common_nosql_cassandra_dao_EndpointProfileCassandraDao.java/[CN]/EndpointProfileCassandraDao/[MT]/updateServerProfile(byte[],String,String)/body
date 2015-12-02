@@ -1,0 +1,7 @@
+{
+  LOG.debug("Updating server profile for endpoint profile with key hash [{}] with schema id [{}]",keyHash,schemaId);
+  ByteBuffer key=ByteBuffer.wrap(keyHash);
+  Statement update=QueryBuilder.update(EP_COLUMN_FAMILY_NAME).with(set(EP_SERVER_PROFILE_PROPERTY,serverProfile)).and(set(EP_SERVER_PROFILE_ID_PROPERTY,schemaId)).where(eq(EP_EP_KEY_HASH_PROPERTY,key));
+  execute(update,ConsistencyLevel.ALL);
+  return findById(key);
+}

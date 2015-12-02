@@ -2,7 +2,16 @@
   checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
     checkApplicationId(applicationId);
-    return controlService.getServerProfileSchemasByApplicationId(applicationId);
+    List<ServerProfileSchemaViewDto> viewDtoList=new ArrayList<>();
+    List<ServerProfileSchemaDto> serverProfileSchemas=controlService.getServerProfileSchemasByApplicationId(applicationId);
+    for (    ServerProfileSchemaDto dto : serverProfileSchemas) {
+      String ctlSchemaId=dto.getCtlSchemaId();
+      if (ctlSchemaId != null) {
+        CTLSchemaDto ctlDto=controlService.getCTLSchemaById(ctlSchemaId);
+        viewDtoList.add(new ServerProfileSchemaViewDto(dto,ctlDto));
+      }
+    }
+    return viewDtoList;
   }
  catch (  Exception e) {
     throw Utils.handleException(e);

@@ -1,0 +1,23 @@
+{
+  byte[] keyHash=generateBytes();
+  if (appId == null) {
+    appId=generateStringId();
+  }
+  if (sdkToken == null) {
+    sdkToken=generateStringId();
+  }
+  if (accessToken == null) {
+    accessToken=generateStringId();
+  }
+  EndpointProfileDto profileDto=new EndpointProfileDto();
+  profileDto.setApplicationId(appId);
+  profileDto.setSdkToken(sdkToken);
+  profileDto.setSubscriptions(topicIds);
+  profileDto.setEndpointKeyHash(keyHash);
+  profileDto.setAccessToken(accessToken);
+  if (ctlDataDto != null) {
+    profileDto.setServerProfileBody(ctlDataDto.getBody());
+    profileDto.setServerProfileCtlSchemaId(ctlDataDto.getCtlSchemaId());
+  }
+  return endpointProfileDao.save(new CassandraEndpointProfile(profileDto)).toDto();
+}

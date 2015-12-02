@@ -1,5 +1,7 @@
 {
-  Schema schema=new Schema.Parser().parse(dto.getSchemaDto().getBody());
-  RecordField schemaForm=converter.createSchemaFormFromSchema(schema);
-  dto.setSchemaForm(schemaForm);
+  CTLSchemaDto ctlSchemaDto=controlService.getCTLSchemaById(profileSchema.getCtlSchemaId());
+  String ctlSchemaBody=controlService.exportCTLSchemaFlatAsString(ctlSchemaDto);
+  Schema schema=new Schema.Parser().parse(ctlSchemaBody);
+  RecordField schemaForm=simpleSchemaFormAvroConverter.createSchemaFormFromSchema(schema);
+  profileSchema.setSchemaForm(schemaForm);
 }

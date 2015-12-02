@@ -1,4 +1,7 @@
 {
   Validator.validateObject(dto,"Incorrect server profile schema object.");
-  return getDto(serverProfileSchemaDao.save(new ServerProfileSchema(dto)));
+  CTLSchema ctlSchema=ctlSchemaDao.findById(dto.getCtlSchemaId());
+  ServerProfileSchema serverProfileSchema=new ServerProfileSchema(dto);
+  serverProfileSchema.setCtlSchema(ctlSchema);
+  return getDto(serverProfileSchemaDao.save(serverProfileSchema));
 }

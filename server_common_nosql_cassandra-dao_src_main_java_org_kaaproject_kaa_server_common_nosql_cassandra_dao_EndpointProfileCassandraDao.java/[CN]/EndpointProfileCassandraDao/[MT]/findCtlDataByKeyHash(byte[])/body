@@ -1,0 +1,12 @@
+{
+  CTLDataDto ctlData=null;
+  LOG.debug("Trying to find ctl data by endpoint key hash {}",keyHash);
+  Statement query=select(EP_SERVER_PROFILE_ID_PROPERTY,EP_SERVER_PROFILE_PROPERTY).from(EP_COLUMN_FAMILY_NAME).where(eq(EP_EP_KEY_HASH_PROPERTY,ByteBuffer.wrap(keyHash)));
+  ResultSet resultSet=execute(query);
+  Row row=resultSet.one();
+  if (row != null) {
+    ctlData=new CTLDataDto(row.getString(EP_SERVER_PROFILE_ID_PROPERTY),row.getString(EP_SERVER_PROFILE_PROPERTY));
+  }
+  LOG.debug("[{}] Found ctl data {}",keyHash,ctlData);
+  return ctlData;
+}

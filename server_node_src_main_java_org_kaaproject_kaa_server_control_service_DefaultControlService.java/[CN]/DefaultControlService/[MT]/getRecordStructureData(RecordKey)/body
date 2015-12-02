@@ -57,12 +57,7 @@ schema=schemaDto.getSchema();
 fileName=MessageFormatter.arrayFormat(DATA_NAME_PATTERN,new Object[]{"profile",key.getSchemaVersion()}).getMessage();
 break;
 case SERVER_PROFILE_SCHEMA:
-ServerProfileSchemaDto ctlSchemaDto=serverProfileService.findServerProfileSchema("" + key.getSchemaVersion());
-checkSchema(ctlSchemaDto,RecordFiles.PROFILE_SCHEMA);
-schema=ctlSchemaDto.getSchemaDto().getBody();
-Integer version=ctlSchemaDto.getSchemaDto().getMetaInfo().getVersion();
-fileName=MessageFormatter.arrayFormat(DATA_NAME_PATTERN,new Object[]{"profile",version}).getMessage();
-break;
+throw new RuntimeException("Not implemented!");
 default :
 break;
 }

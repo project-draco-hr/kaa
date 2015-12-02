@@ -2,7 +2,12 @@
   EndpointObjectHash keyHash=EndpointObjectHash.fromBytes(message.getNotification().getKeyHash());
   ActorMetaData endpointActor=endpointSessions.get(keyHash);
   if (endpointActor != null) {
-    endpointActor.actorRef.tell(NotificationMessage.fromUnicastId(message.getNotification().getUnicastNotificationId()),self());
+    if (message.getNotification().getOp() == Operation.UPDATE_SERVER_PROFILE) {
+      endpointActor.actorRef.tell(message,self());
+    }
+ else {
+      endpointActor.actorRef.tell(NotificationMessage.fromUnicastId(message.getNotification().getUnicastNotificationId()),self());
+    }
   }
  else {
     LOG.debug("[{}] Can't find endpoint actor that corresponds to {} ",applicationToken,keyHash);
