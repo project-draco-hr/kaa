@@ -63,6 +63,14 @@
   response.setConfigurationSync(confSyncResponse);
   deltaResponse=new SyncContext(response);
   response=new ServerSync();
+  response.setStatus(org.kaaproject.kaa.server.sync.SyncStatus.SUCCESS);
+  confSyncResponse=new ConfigurationServerSync();
+  confSyncResponse.setResponseStatus(org.kaaproject.kaa.server.sync.SyncResponseStatus.DELTA);
+  response.setConfigurationSync(confSyncResponse);
+  deltaResponseWithProfile=new SyncContext(response);
+  mockProfile=mock(EndpointProfileDto.class);
+  deltaResponseWithProfile.setEndpointProfile(mockProfile);
+  response=new ServerSync();
   response.setRequestId(REQUEST_ID);
   response.setStatus(org.kaaproject.kaa.server.sync.SyncStatus.SUCCESS);
   simpleResponse=new SyncContext(response);
