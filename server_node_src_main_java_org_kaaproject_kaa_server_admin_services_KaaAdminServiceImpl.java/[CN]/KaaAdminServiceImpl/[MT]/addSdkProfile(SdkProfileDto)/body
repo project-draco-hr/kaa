@@ -2,7 +2,7 @@
   this.checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
     this.checkApplicationId(sdkProfile.getApplicationId());
-    sdkProfile.setCreatedUsername(this.getCurrentUser().getUsername());
+    sdkProfile.setCreatedUsername(getCurrentUser().getUsername());
     sdkProfile.setCreatedTime(System.currentTimeMillis());
     return controlService.saveSdkProfile(sdkProfile);
   }

@@ -1,7 +1,7 @@
 {
   checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
-    String username=this.getCurrentUser().getUsername();
+    String username=getCurrentUser().getUsername();
     if (isEmpty(profileFilter.getId())) {
       profileFilter.setCreatedUsername(username);
       checkEndpointGroupId(profileFilter.getEndpointGroupId());

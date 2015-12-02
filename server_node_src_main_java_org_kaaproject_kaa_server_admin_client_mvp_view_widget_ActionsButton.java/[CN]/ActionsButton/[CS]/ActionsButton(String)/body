@@ -1,0 +1,45 @@
+{
+  super();
+  if (template == null) {
+    template=GWT.create(Template.class);
+  }
+  getElement().getStyle().setPaddingRight(20,Unit.PX);
+  Element caretSpan=DOM.createElement("span");
+  caretSpan.setClassName(Utils.kaaAdminStyle.buttonCaret());
+  DOM.insertChild(getElement(),caretSpan,0);
+  Element textElement=DOM.createElement("span");
+  textElement.setInnerText(text);
+  DOM.insertChild(caretSpan,textElement,0);
+  actionsPopup=new PopupPanel(true,false);
+  actionsPopup.addStyleName(Utils.kaaAdminStyle.actionPopup());
+  actionsPopup.setWidget(menu);
+  actionsPopup.addCloseHandler(new CloseHandler<PopupPanel>(){
+    @Override public void onClose(    CloseEvent<PopupPanel> event){
+      ActionsButton.this.setDown(false);
+    }
+  }
+);
+  actionsPopup.addAutoHidePartner(getElement());
+  addClickHandler(new ClickHandler(){
+    public void onClick(    ClickEvent event){
+      if (!actionsPopup.isShowing()) {
+        final Element parent=ActionsButton.this.getElement();
+        actionsPopup.setPopupPositionAndShow(new PopupPanel.PositionCallback(){
+          public void setPosition(          int offsetWidth,          int offsetHeight){
+            int left=parent.getAbsoluteLeft();
+            int top=parent.getAbsoluteTop() + parent.getOffsetHeight() + 2;
+            if (left + actionsPopup.getOffsetWidth() > Window.getClientWidth()) {
+              left=parent.getAbsoluteRight() - actionsPopup.getOffsetWidth();
+            }
+            actionsPopup.setPopupPosition(left,top);
+          }
+        }
+);
+      }
+ else {
+        actionsPopup.hide();
+      }
+    }
+  }
+);
+}

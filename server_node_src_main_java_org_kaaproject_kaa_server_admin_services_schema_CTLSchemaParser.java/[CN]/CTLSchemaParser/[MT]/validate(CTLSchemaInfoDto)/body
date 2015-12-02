@@ -3,11 +3,14 @@
     for (    CTLSchemaMetaInfoDto dependency : schema.getDependencies()) {
       try {
         CTLSchemaDto dependencySchema=controlService.getCTLSchemaByFqnVersionAndTenantId(dependency.getFqn(),dependency.getVersion(),tenantId);
+        if (dependencySchema == null) {
+          String message="Unable to locate dependency \"" + dependency.getFqn() + "\" (version "+ dependency.getVersion()+ ")";
+          throw new IllegalArgumentException(message);
+        }
         validate(dependencySchema.toCTLSchemaInfoDto());
       }
  catch (      Exception cause) {
-        String message="Unable to locate dependency \"" + dependency.getFqn() + "\" (version "+ dependency.getVersion()+ ")";
-        throw new IllegalArgumentException(message);
+        throw Utils.handleException(cause);
       }
     }
   }
@@ -15,6 +18,6 @@
     return parser.parse(schema.getBody());
   }
  catch (  Exception cause) {
-    throw new IllegalArgumentException("Unable to parse CTL schema: " + cause.getMessage());
+    throw new IllegalArgumentException("Unable to parse CTL schema \"" + schema.getFqn() + "\" (version "+ schema.getVersion()+ "): "+ cause.getMessage());
   }
 }

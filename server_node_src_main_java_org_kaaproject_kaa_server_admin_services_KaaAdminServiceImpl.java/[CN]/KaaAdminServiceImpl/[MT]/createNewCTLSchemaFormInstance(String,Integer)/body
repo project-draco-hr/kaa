@@ -1,7 +1,7 @@
 {
   checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
-    AuthUserDto currentUser=this.getCurrentUser();
+    AuthUserDto currentUser=getCurrentUser();
     SchemaFormAvroConverter converter=getCtlSchemaConverterForTenantId(currentUser.getTenantId());
     CTLSchemaInfoDto sourceCtlSchema=null;
     if (!isEmpty(sourceFqn) && sourceVersion != null) {

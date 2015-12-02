@@ -2,7 +2,7 @@
   checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
     CtlSchemaFormDto ctlSchemaForm=null;
-    AuthUserDto currentUser=this.getCurrentUser();
+    AuthUserDto currentUser=getCurrentUser();
     CTLSchemaDto ctlSchema=null;
     List<CTLSchemaDto> ctlSchemas=controlService.getCTLSchemasByFqnAndTenantId(fqn,currentUser.getTenantId());
     Integer maxVersion=Integer.MIN_VALUE;
@@ -27,6 +27,7 @@
       ctlSchemaForm.setDescription(ctlSchema.getDescription());
       ctlSchemaForm.setCreatedTime(ctlSchema.getCreatedTime());
       ctlSchemaForm.setCreatedUsername(ctlSchema.getCreatedUsername());
+      ctlSchemaForm.setHasDependencies(ctlSchema.getDependencySet() != null && !ctlSchema.getDependencySet().isEmpty());
       SchemaFormAvroConverter converter=getCtlSchemaConverterForTenantId(currentUser.getTenantId());
       RecordField form=converter.createSchemaFormFromSchema(ctlSchema.getBody());
       ctlSchemaForm.setSchema(form);
