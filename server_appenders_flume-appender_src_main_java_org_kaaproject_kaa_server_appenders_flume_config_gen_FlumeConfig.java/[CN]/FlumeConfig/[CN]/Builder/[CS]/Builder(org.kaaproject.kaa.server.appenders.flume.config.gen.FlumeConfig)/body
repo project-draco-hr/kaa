@@ -12,12 +12,20 @@
     this.clientsThreadPoolSize=data().deepCopy(fields()[2].schema(),other.clientsThreadPoolSize);
     fieldSetFlags()[2]=true;
   }
-  if (isValidValue(fields()[3],other.flumeEventFormat)) {
-    this.flumeEventFormat=data().deepCopy(fields()[3].schema(),other.flumeEventFormat);
+  if (isValidValue(fields()[3],other.clientProfileRequired)) {
+    this.clientProfileRequired=data().deepCopy(fields()[3].schema(),other.clientProfileRequired);
     fieldSetFlags()[3]=true;
   }
-  if (isValidValue(fields()[4],other.hostsBalancing)) {
-    this.hostsBalancing=data().deepCopy(fields()[4].schema(),other.hostsBalancing);
+  if (isValidValue(fields()[4],other.serverProfileRequired)) {
+    this.serverProfileRequired=data().deepCopy(fields()[4].schema(),other.serverProfileRequired);
     fieldSetFlags()[4]=true;
+  }
+  if (isValidValue(fields()[5],other.flumeEventFormat)) {
+    this.flumeEventFormat=data().deepCopy(fields()[5].schema(),other.flumeEventFormat);
+    fieldSetFlags()[5]=true;
+  }
+  if (isValidValue(fields()[6],other.hostsBalancing)) {
+    this.hostsBalancing=data().deepCopy(fields()[6].schema(),other.hostsBalancing);
+    fieldSetFlags()[6]=true;
   }
 }
