@@ -1,0 +1,48 @@
+{
+  if (clientProfile == null && includeClientProfile) {
+    LOG.error("Can't  generate records container event. " + CLIENT_PROFILE_NOT_SET);
+    throw new RuntimeException(CLIENT_PROFILE_NOT_SET);
+  }
+  if (serverProfile == null && includeServerProfile) {
+    LOG.error("Can't  generate records container event. " + SERVER_PROFILE_NOT_SET);
+    throw new RuntimeException(SERVER_PROFILE_NOT_SET);
+  }
+  Event event=null;
+  RecordData logData=new RecordData();
+  logData.setSchemaVersion(schema.getVersion());
+  logData.setApplicationToken(appToken);
+  logData.setRecordHeader(header);
+  if (includeClientProfile) {
+    if (clientProfile != null) {
+      logData.setClientProfileBody(clientProfile.getBody());
+      logData.setClientSchemaId(clientProfile.getSchemaId());
+    }
+  }
+  if (includeServerProfile) {
+    if (serverProfile != null) {
+      logData.setServerProfileBody(serverProfile.getBody());
+      logData.setServerSchemaId(serverProfile.getSchemaId());
+    }
+  }
+  List<ByteBuffer> bytes=new ArrayList<>(logEvents.size());
+  for (  LogEvent logEvent : logEvents) {
+    bytes.add(ByteBuffer.wrap(logEvent.getLogData()));
+  }
+  logData.setEventRecords(bytes);
+  EncoderFactory factory=EncoderFactory.get();
+  GenericDatumWriter<RecordData> writer=new GenericDatumWriter<>(logData.getSchema());
+  LOG.debug("Convert load data [{}] to bytes.",logData);
+  ByteArrayOutputStream baos=new ByteArrayOutputStream();
+  factory.binaryEncoder(baos,null);
+  BinaryEncoder encoder=factory.binaryEncoder(baos,null);
+  try {
+    writer.write(logData,encoder);
+    encoder.flush();
+    event=EventBuilder.withBody(baos.toByteArray());
+  }
+ catch (  IOException e) {
+    LOG.warn("Can't convert avro object {} to binary.",logData);
+  }
+  LOG.trace("Build flume event with array body [{}]",baos);
+  return event;
+}
