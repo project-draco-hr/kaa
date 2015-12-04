@@ -1,30 +1,26 @@
 {
-  if (clientProfile == null && clientProfileRequired) {
-    LOG.error("Can't  generate records container event. Client profile is not set!");
-    throw new RuntimeException("Client profile is not set!");
+  if (clientProfile == null && includeClientProfile) {
+    LOG.error("Can't  generate records container event. " + CLIENT_PROFILE_NOT_SET);
+    throw new RuntimeException(CLIENT_PROFILE_NOT_SET);
   }
-  if (serverProfile == null && serverProfileRequired) {
-    LOG.error("Can't  generate records container event. Server profile is not set!");
-    throw new RuntimeException("Server profile is not set!");
+  if (serverProfile == null && includeServerProfile) {
+    LOG.error("Can't  generate records container event. " + SERVER_PROFILE_NOT_SET);
+    throw new RuntimeException(SERVER_PROFILE_NOT_SET);
   }
   Event event=null;
   RecordData logData=new RecordData();
   logData.setSchemaVersion(schema.getVersion());
   logData.setApplicationToken(appToken);
   logData.setRecordHeader(header);
-  if (clientProfileRequired) {
+  if (includeClientProfile) {
     if (clientProfile != null) {
       logData.setClientProfileBody(clientProfile.getBody());
-    }
-    if (clientProfile != null) {
       logData.setClientSchemaId(clientProfile.getSchemaId());
     }
   }
-  if (serverProfileRequired) {
+  if (includeServerProfile) {
     if (serverProfile != null) {
       logData.setServerProfileBody(serverProfile.getBody());
-    }
-    if (serverProfile != null) {
       logData.setServerSchemaId(serverProfile.getSchemaId());
     }
   }

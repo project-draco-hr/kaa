@@ -4,5 +4,8 @@
   schemaDto.setMajorVersion(SCHEMA_VERSION);
   LogSchema logSchema=new LogSchema(schemaDto);
   eventPack.setLogSchema(logSchema);
+  BaseSchemaInfo schemaInfo=new BaseSchemaInfo("1",getResourceAsString(SERVER_PROFILE_SCHEMA_FILE));
+  String body=this.getResourceAsString(SERVER_PROFILE_CONTENT_FILE);
+  eventPack.setServerProfile(new BaseProfileInfo(schemaInfo,body));
   return eventPack;
 }

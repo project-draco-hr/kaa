@@ -2,6 +2,8 @@
   eventBuilder=new FlumeAvroEventBuilder();
   FlumeConfig flumeConfig=new FlumeConfig();
   flumeConfig.setFlumeEventFormat(FlumeEventFormat.GENERIC);
+  flumeConfig.setIncludeClientProfile(false);
+  flumeConfig.setIncludeServerProfile(false);
   eventBuilder.init(flumeConfig);
   List<Event> events=eventBuilder.generateEvents(eventPack,null,appToken);
   Assert.assertNotNull(events);
