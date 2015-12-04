@@ -1,0 +1,45 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  CtlSchemaPlace other=(CtlSchemaPlace)obj;
+  if (fqn == null) {
+    if (other.fqn != null) {
+      return false;
+    }
+  }
+ else   if (!fqn.equals(other.fqn)) {
+    return false;
+  }
+  if (sourceFqn == null) {
+    if (other.sourceFqn != null) {
+      return false;
+    }
+  }
+ else   if (!sourceFqn.equals(other.sourceFqn)) {
+    return false;
+  }
+  if (sourceVersion == null) {
+    if (other.sourceVersion != null) {
+      return false;
+    }
+  }
+ else   if (!sourceVersion.equals(other.sourceVersion)) {
+    return false;
+  }
+  if (version == null) {
+    if (other.version != null) {
+      return false;
+    }
+  }
+ else   if (!version.equals(other.version)) {
+    return false;
+  }
+  return true;
+}

@@ -22,13 +22,13 @@
     logPack.setClientProfile(new BaseProfileInfo(schemaInfo,profileDto.getClientProfileBody()));
   }
   ProfileInfo serverProfile=logPack.getServerProfile();
-  if (serverProfile == null && profileDto.getServerProfileSchemaId() != null) {
-    BaseSchemaInfo schemaInfo=serverProfileSchemas.get(profileDto.getServerProfileSchemaId());
+  if (serverProfile == null && profileDto.getServerProfileCtlSchemaId() != null) {
+    BaseSchemaInfo schemaInfo=serverProfileSchemas.get(profileDto.getServerProfileCtlSchemaId());
     if (schemaInfo == null) {
-      ServerProfileSchemaDto serverSchemaDto=cacheService.getServerProfileSchemaById(profileDto.getServerProfileSchemaId());
-      String schema=ctlService.flatExportAsString(serverSchemaDto.getSchemaDto());
-      schemaInfo=new BaseSchemaInfo(serverSchemaDto.getId(),schema);
-      serverProfileSchemas.put(profileDto.getServerProfileSchemaId(),schemaInfo);
+      CTLSchemaDto ctlSchemaDto=cacheService.getCtlSchemaById(profileDto.getServerProfileCtlSchemaId());
+      String schema=ctlService.flatExportAsString(ctlSchemaDto);
+      schemaInfo=new BaseSchemaInfo(ctlSchemaDto.getId(),schema);
+      serverProfileSchemas.put(profileDto.getServerProfileCtlSchemaId(),schemaInfo);
     }
     logPack.setServerProfile(new BaseProfileInfo(schemaInfo,profileDto.getServerProfileBody()));
   }

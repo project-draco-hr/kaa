@@ -2,9 +2,9 @@
   String endpointId=Base64Util.encode(profile);
   ConfigurationIdKey confIdKey=new ConfigurationIdKey(applicationToken,curAppSeqNumber,profile.getConfigurationVersion());
   AppVersionKey appProfileVersionKey=new AppVersionKey(confIdKey.getApplicationToken(),profile.getProfileVersion());
-  List<ProfileFilterDto> filters=filterService.getAllMatchingFilters(appProfileVersionKey,profile.getClientProfileBody().toString());
+  List<ProfileFilterDto> filters=filterService.getAllMatchingFilters(appProfileVersionKey,profile);
   LOG.debug("[{}] Found {} matching filters",endpointId,filters.size());
-  List<EndpointGroupStateDto> result=new ArrayList<EndpointGroupStateDto>(filters.size());
+  List<EndpointGroupStateDto> result=new ArrayList<>(filters.size());
   for (  ProfileFilterDto filter : filters) {
     String confId=cacheService.getConfIdByKey(confIdKey.copyWithNewEGId(filter.getEndpointGroupId()));
     EndpointGroupStateDto endpointGroupState=new EndpointGroupStateDto();

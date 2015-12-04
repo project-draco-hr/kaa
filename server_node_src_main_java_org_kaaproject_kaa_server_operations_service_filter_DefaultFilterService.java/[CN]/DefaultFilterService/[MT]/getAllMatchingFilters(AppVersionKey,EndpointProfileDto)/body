@@ -1,0 +1,29 @@
+{
+  ProfileSchemaDto profileSchema=cacheService.getProfileSchemaByAppAndVersion(appProfileVersionKey);
+  List<ProfileFilterDto> filters=cacheService.getFilters(appProfileVersionKey);
+  LOG.trace("Found {} filters by {}",filters.size(),appProfileVersionKey);
+  List<ProfileFilterDto> matchingFilters=new LinkedList<ProfileFilterDto>();
+  Filter filter=null;
+  for (  ProfileFilterDto filterBody : filters) {
+    if (filter == null) {
+      filter=new DefaultFilter(filterBody.getBody(),profileSchema.getSchema());
+    }
+ else {
+      filter.updateFilterBody(filterBody.getBody());
+    }
+    LOG.trace("matching profile body with filter {}",filter);
+    try {
+      if (filter.matches(profile)) {
+        matchingFilters.add(filterBody);
+        LOG.trace("profile body matched");
+      }
+    }
+ catch (    EvaluationException ee) {
+      LOG.warn("Failed to process filter {} due to evaluate exception. Please check your filter body",filterBody.getBody(),ee);
+    }
+catch (    Exception e) {
+      LOG.error("Failed to process filter {} due to exception",filterBody.getBody(),e);
+    }
+  }
+  return matchingFilters;
+}

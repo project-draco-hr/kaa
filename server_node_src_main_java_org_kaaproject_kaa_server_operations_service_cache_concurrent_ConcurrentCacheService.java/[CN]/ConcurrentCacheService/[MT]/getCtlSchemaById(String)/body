@@ -1,0 +1,9 @@
+{
+  return ctlSchemaMemorizer.compute(key,new Computable<String,CTLSchemaDto>(){
+    @Override public CTLSchemaDto compute(    String key){
+      LOG.debug("Fetching result for ctl schemas");
+      return ctlService.findCTLSchemaById(key);
+    }
+  }
+);
+}

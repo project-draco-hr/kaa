@@ -1,0 +1,20 @@
+{
+  try {
+    String tenantId=getCurrentUser().getTenantId();
+    CTLSchemaDto schemaFound=controlService.getCTLSchemaByFqnVersionAndTenantId(key.getFqn(),key.getVersion(),tenantId);
+    Utils.checkNotNull(schemaFound);
+switch (key.getExportMethod()) {
+case SHALLOW:
+      return controlService.exportCTLSchemaShallow(schemaFound);
+case FLAT:
+    return controlService.exportCTLSchemaFlat(schemaFound);
+case DEEP:
+  return controlService.exportCTLSchemaDeep(schemaFound);
+default :
+throw new IllegalArgumentException("The export method " + key.getExportMethod().name() + " is not currently supported!");
+}
+}
+ catch (ControlServiceException e) {
+throw Utils.handleException(e);
+}
+}

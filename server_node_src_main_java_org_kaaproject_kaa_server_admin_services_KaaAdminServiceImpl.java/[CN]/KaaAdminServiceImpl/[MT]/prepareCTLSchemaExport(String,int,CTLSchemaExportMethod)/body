@@ -1,0 +1,18 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    this.checkCTLSchemaFqn(fqn);
+    this.checkCTLSchemaVersion(version);
+    String tenantId=getCurrentUser().getTenantId();
+    CTLSchemaDto schemaFound=controlService.getCTLSchemaByFqnVersionAndTenantId(fqn,version,tenantId);
+    Utils.checkNotNull(schemaFound);
+    if (schemaFound.getMetaInfo().getScope() != CTLSchemaScopeDto.SYSTEM) {
+      this.checkCTLAuthority(schemaFound);
+    }
+    CtlSchemaExportKey key=new CtlSchemaExportKey(fqn,version,method);
+    return Base64.encodeObject(key,Base64.URL_SAFE);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

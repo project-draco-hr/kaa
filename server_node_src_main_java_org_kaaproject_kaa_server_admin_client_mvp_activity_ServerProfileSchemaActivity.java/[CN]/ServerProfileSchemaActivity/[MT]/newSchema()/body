@@ -1,6 +1,8 @@
 {
+  ServerProfileSchemaViewDto serverProfileSchemaViewDto=new ServerProfileSchemaViewDto();
   CTLSchemaDto ctlDto=new CTLSchemaDto();
-  ServerProfileSchemaDto serverProfileSchemaDto=new ServerProfileSchemaDto();
-  serverProfileSchemaDto.setSchemaDto(ctlDto);
-  return serverProfileSchemaDto;
+  ServerProfileSchemaDto schemaDto=new ServerProfileSchemaDto();
+  serverProfileSchemaViewDto.setCtlSchemaDto(ctlDto);
+  serverProfileSchemaViewDto.setProfileSchemaDto(schemaDto);
+  return serverProfileSchemaViewDto;
 }

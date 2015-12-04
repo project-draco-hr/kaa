@@ -1,5 +1,5 @@
 {
-  String filterBody="arrayRecordField[1].otherMapSimpleField[KEY5] == 5";
+  String filterBody="#" + DefaultFilter.CLIENT_PROFILE_VARIABLE_NAME + "."+ "arrayRecordField[1].otherMapSimpleField[KEY5] == 5";
   Filter filter=new DefaultFilter(filterBody,PROFILE_SCHEMA);
-  Assert.assertEquals(Boolean.TRUE,filter.matches(profileBody));
+  Assert.assertEquals(Boolean.TRUE,filter.matches(profile));
 }

@@ -1,0 +1,27 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  CtlSchemaExportKey other=(CtlSchemaExportKey)obj;
+  if (exportMethod != other.exportMethod) {
+    return false;
+  }
+  if (fqn == null) {
+    if (other.fqn != null) {
+      return false;
+    }
+  }
+ else   if (!fqn.equals(other.fqn)) {
+    return false;
+  }
+  if (version != other.version) {
+    return false;
+  }
+  return true;
+}

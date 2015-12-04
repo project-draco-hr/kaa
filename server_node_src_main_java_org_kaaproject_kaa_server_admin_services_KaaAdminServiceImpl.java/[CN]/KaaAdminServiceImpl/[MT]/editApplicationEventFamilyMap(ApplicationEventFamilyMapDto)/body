@@ -2,7 +2,7 @@
   checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
     if (isEmpty(applicationEventFamilyMap.getId())) {
-      String username=this.getCurrentUser().getUsername();
+      String username=getCurrentUser().getUsername();
       applicationEventFamilyMap.setCreatedUsername(username);
       checkApplicationId(applicationEventFamilyMap.getApplicationId());
     }

@@ -5,7 +5,7 @@
     StructureRecordDto<ProfileFilterDto> record=controlService.getProfileFilterRecord(schemaId,endpointGroupId);
     Utils.checkNotNull(record);
     checkEndpointGroupId(record.getEndpointGroupId());
-    String username=this.getCurrentUser().getUsername();
+    String username=getCurrentUser().getUsername();
     controlService.deleteProfileFilterRecord(schemaId,endpointGroupId,username);
   }
  catch (  Exception e) {

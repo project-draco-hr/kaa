@@ -1,0 +1,57 @@
+{
+  if (create) {
+    detailsView.getSchemaForm().setFormDataLoader(this);
+  }
+ else {
+    registrations.add(detailsView.getVersion().addValueChangeHandler(new ValueChangeHandler<Integer>(){
+      @Override public void onValueChange(      ValueChangeEvent<Integer> event){
+        detailsView.getVersion().setValue(version);
+        goTo(new CtlSchemaPlace(place.getFqn(),event.getValue(),false));
+      }
+    }
+));
+    registrations.add(detailsView.getCreateNewSchemaVersionButton().addClickHandler(new ClickHandler(){
+      @Override public void onClick(      ClickEvent event){
+        Integer version=detailsView.getVersion().getValue();
+        CtlSchemaPlace newPlace=new CtlSchemaPlace(place.getFqn(),version,true);
+        newPlace.setPreviousPlace(place);
+        goTo(newPlace);
+      }
+    }
+));
+    registrations.add(detailsView.getDeleteSchemaVersionButton().addClickHandler(new ClickHandler(){
+      @Override public void onClick(      ClickEvent event){
+        final Integer version=detailsView.getVersion().getValue();
+        final String fqn=place.getFqn();
+        ConfirmDialog.ConfirmListener listener=new ConfirmDialog.ConfirmListener(){
+          @Override public void onNo(){
+          }
+          @Override public void onYes(){
+            KaaAdmin.getDataSource().deleteCTLSchema(fqn,version,new BusyAsyncCallback<Void>(){
+              @Override public void onSuccessImpl(              Void result){
+                List<Integer> versions=entity.getAvailableVersions();
+                versions.remove(version);
+                if (versions.isEmpty()) {
+                  goTo(place.getPreviousPlace());
+                }
+ else {
+                  goTo(new CtlSchemaPlace(place.getFqn(),versions.get(versions.size() - 1),false));
+                }
+              }
+              @Override public void onFailureImpl(              Throwable caught){
+                Utils.handleException(caught,detailsView);
+              }
+            }
+);
+          }
+        }
+;
+        ConfirmDialog dialog=new ConfirmDialog(listener,Utils.messages.deleteCommonTypeVersionTitle(),Utils.messages.deleteCommonTypeVersionQuestion(fqn,version.toString()));
+        dialog.center();
+        dialog.show();
+      }
+    }
+));
+  }
+  super.bind(eventBus);
+}
