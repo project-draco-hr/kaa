@@ -20,8 +20,8 @@
   mongoDbConfig.setMongoServers(servers);
   mongoDbConfig.setMongoCredentials(credentials);
   mongoDbConfig.setDbName(dbName);
-  mongoDbConfig.setServerProfileRequired(requireClientProfile);
-  mongoDbConfig.setServerProfileRequired(requireServerProfile);
+  mongoDbConfig.setIncludeClientProfile(includeClientProfile);
+  mongoDbConfig.setIncludeServerProfile(includeServerProfile);
   AvroByteArrayConverter<MongoDbConfig> byteConverter=new AvroByteArrayConverter<>(MongoDbConfig.class);
   byte[] rawConfiguration=byteConverter.toByteArray(mongoDbConfig);
   appenderDto.setRawConfiguration(rawConfiguration);

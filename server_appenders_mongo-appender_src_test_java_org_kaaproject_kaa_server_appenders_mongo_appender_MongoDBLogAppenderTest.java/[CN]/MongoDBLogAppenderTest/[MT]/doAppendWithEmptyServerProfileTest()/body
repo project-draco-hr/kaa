@@ -18,8 +18,8 @@
   EndpointProfileDataDto profileDto=new EndpointProfileDataDto("1",ENDPOINT_KEY,1,"",null,null);
   BaseLogEventPack logEventPack=new BaseLogEventPack(profileDto,DATE_CREATED,logSchema.getVersion(),logEvents);
   logEventPack.setLogSchema(logSchema);
-  String collectionName=(String)ReflectionTestUtils.getField(this.logAppender,"collectionName");
-  Assert.assertEquals(0,MongoDBTestRunner.getDB().getCollection(collectionName).count());
   this.logAppender.doAppend(logEventPack,new TestLogDeliveryCallback());
-  Assert.assertEquals(0,MongoDBTestRunner.getDB().getCollection(collectionName).count());
+  String collectionName=(String)ReflectionTestUtils.getField(this.logAppender,"collectionName");
+  DBObject serverProfile=(DBObject)MongoDBTestRunner.getDB().getCollection(collectionName).findOne().get(SERVER_PROFILE);
+  Assert.assertEquals(null,serverProfile);
 }

@@ -1,14 +1,8 @@
 {
   if (!closed) {
     try {
-      ProfileInfo clientProfile=logEventPack.getClientProfile();
-      if (clientProfile == null && this.clientProfileRequired) {
-        throw new RuntimeException("Client profile is not set!");
-      }
-      ProfileInfo serverProfile=logEventPack.getServerProfile();
-      if (serverProfile == null && serverProfileRequired) {
-        throw new RuntimeException("Server profile is not set!");
-      }
+      ProfileInfo clientProfile=(this.includeClientProfile) ? logEventPack.getClientProfile() : null;
+      ProfileInfo serverProfile=(this.includeServerProfile) ? logEventPack.getServerProfile() : null;
       LOG.debug("[{}] appending {} logs to mongodb collection",collectionName,logEventPack.getEvents().size());
       List<LogEventDto> dtos=generateLogEvent(logEventPack,header);
       LOG.debug("[{}] saving {} objects",collectionName,dtos.size());
