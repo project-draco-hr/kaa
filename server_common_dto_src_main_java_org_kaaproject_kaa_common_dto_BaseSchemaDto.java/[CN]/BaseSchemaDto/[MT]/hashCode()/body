@@ -1,0 +1,11 @@
+{
+  final int prime=31;
+  int result=super.hashCode();
+  result=prime * result + ((applicationId == null) ? 0 : applicationId.hashCode());
+  result=prime * result + (int)(createdTime ^ (createdTime >>> 32));
+  result=prime * result + ((createdUsername == null) ? 0 : createdUsername.hashCode());
+  result=prime * result + ((ctlSchemaId == null) ? 0 : ctlSchemaId.hashCode());
+  result=prime * result + ((description == null) ? 0 : description.hashCode());
+  result=prime * result + ((name == null) ? 0 : name.hashCode());
+  return result;
+}

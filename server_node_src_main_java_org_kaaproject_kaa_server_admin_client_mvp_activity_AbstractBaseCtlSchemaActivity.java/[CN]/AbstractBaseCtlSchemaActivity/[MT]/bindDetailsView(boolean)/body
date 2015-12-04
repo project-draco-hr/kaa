@@ -1,0 +1,10 @@
+{
+  S schema=entity.getSchema();
+  String version=schema.getVersion() + "";
+  detailsView.getVersion().setValue(version);
+  detailsView.getName().setValue(schema.getName());
+  detailsView.getDescription().setValue(schema.getDescription());
+  detailsView.getCreatedUsername().setValue(schema.getCreatedUsername());
+  detailsView.getCreatedDateTime().setValue(Utils.millisecondsToDateTimeString(schema.getCreatedTime()));
+  detailsView.getSchemaForm().setValue(entity.getCtlSchemaForm().getSchema(),fireChanged);
+}

@@ -1,3 +1,7 @@
 {
-  return "ServerProfileSchemaDto [id=" + id + ", createdTime="+ createdTime+ ", createdUser="+ createdUser+ ", applicationId="+ applicationId+ ", ctlSchemaId="+ ctlSchemaId+ ", schemaForm="+ schemaForm+ "]";
+  StringBuilder builder=new StringBuilder();
+  builder.append("ServerProfileSchemaDto [");
+  builder.append(super.toString());
+  builder.append("]");
+  return builder.toString();
 }

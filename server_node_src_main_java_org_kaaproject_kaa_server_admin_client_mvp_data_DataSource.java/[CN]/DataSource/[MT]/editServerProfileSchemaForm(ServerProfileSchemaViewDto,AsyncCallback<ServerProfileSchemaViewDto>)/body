@@ -1,8 +1,0 @@
-{
-  rpcService.editServerProfileSchemaForm(profileSchema,new DataCallback<ServerProfileSchemaViewDto>(callback){
-    @Override protected void onResult(    ServerProfileSchemaViewDto result){
-      eventBus.fireEvent(new DataEvent(ServerProfileSchemaViewDto.class));
-    }
-  }
-);
-}

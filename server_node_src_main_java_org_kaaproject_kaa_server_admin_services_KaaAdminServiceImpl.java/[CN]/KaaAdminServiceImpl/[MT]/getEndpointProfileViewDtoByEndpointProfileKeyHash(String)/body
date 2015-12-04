@@ -2,29 +2,6 @@
   checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
     EndpointProfileViewDto viewDto=controlService.getEndpointProfileViewDtoByEndpointKeyHash(endpointProfileKeyHash);
-    EndpointProfileDto endpointProfileDto=viewDto.getEndpointProfileDto();
-    ProfileSchemaDto schemaDto=viewDto.getProfileSchemaDto();
-    if (schemaDto != null) {
-      convertToSchemaForm(schemaDto,simpleSchemaFormAvroConverter);
-      viewDto.setEndpointProfileRecord(generateFormDataFromJson(schemaDto.getSchema(),endpointProfileDto.getClientProfileBody()));
-      generateFormDataFromJson(schemaDto.getSchema(),viewDto.getEndpointProfileDto().getClientProfileBody());
-    }
-    viewDto.setProfileSchemaDto(schemaDto);
-    ServerProfileSchemaViewDto serverProfileSchemaDto=viewDto.getServerProfileSchemaDto();
-    if (serverProfileSchemaDto != null) {
-      CTLSchemaDto ctlSchemaDto=controlService.getCTLSchemaById(serverProfileSchemaDto.getProfileSchemaDto().getCtlSchemaId());
-      String ctlSchemaBody=controlService.exportCTLSchemaFlatAsString(ctlSchemaDto);
-      Schema schema=new Schema.Parser().parse(ctlSchemaBody);
-      RecordField schemaForm=simpleSchemaFormAvroConverter.createSchemaFormFromSchema(schema);
-      serverProfileSchemaDto.getProfileSchemaDto().setSchemaForm(schemaForm);
-      if (endpointProfileDto.getServerProfileBody() != null) {
-        viewDto.setServerProfileRecord(generateFormDataFromJson(ctlSchemaBody,endpointProfileDto.getServerProfileBody()));
-      }
-    }
-    viewDto.setServerProfileSchemaDto(serverProfileSchemaDto);
-    for (    EndpointGroupDto groupDto : viewDto.getGroupDtoList()) {
-      Utils.checkNotNull(groupDto);
-    }
     return viewDto;
   }
  catch (  Exception e) {

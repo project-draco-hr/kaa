@@ -2,7 +2,7 @@
   checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
     AuthUserDto currentUser=getCurrentUser();
-    List<CTLSchemaMetaInfoDto> ctlSchemas=controlService.getCTLSchemasMetaInfoByTenantId(currentUser.getTenantId());
+    List<CTLSchemaMetaInfoDto> ctlSchemas=controlService.getTenantCTLSchemasMetaInfoByTenantId(currentUser.getTenantId());
     Set<SchemaFqnDto> ctlSchemaFqns=new HashSet<>();
     for (    CTLSchemaMetaInfoDto ctlSchema : ctlSchemas) {
       ctlSchemaFqns.add(new SchemaFqnDto(ctlSchema.getFqn(),ctlSchema.getName()));

@@ -5,8 +5,7 @@
   version.getElement().getStyle().setPadding(5,Unit.PX);
   version.getElement().getStyle().setMarginLeft(5,Unit.PX);
   createNewSchemaVersionButton=new Button(Utils.constants.createNewVersion());
-  exportButton=new Button(Utils.constants.export());
-  exportActionsButton=new ActionsButton(Utils.constants.export());
+  exportActionsButton=new ActionsButton(Utils.resources.export(),Utils.constants.export());
   deleteSchemaVersionButton=new Button(Utils.constants.delete());
   HorizontalPanel versionPanel=new HorizontalPanel();
   versionPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
@@ -14,14 +13,12 @@
   versionPanel.add(version);
   prependToolbarWidget(versionPanel);
   appendToolbarWidget(createNewSchemaVersionButton);
-  appendToolbarWidget(exportButton);
   appendToolbarWidget(exportActionsButton);
   appendToolbarWidget(deleteSchemaVersionButton);
   versionPanel.setVisible(!create);
   createNewSchemaVersionButton.setVisible(!create);
   deleteSchemaVersionButton.setVisible(!create);
-  exportButton.setVisible(false);
-  exportActionsButton.setVisible(false);
+  exportActionsButton.setVisible(!create);
   Label authorLabel=new Label(Utils.constants.author());
   createdUsername=new KaaAdminSizedTextBox(-1,false);
   createdUsername.setWidth("100%");

@@ -8,7 +8,9 @@
     throw new NotFoundException("Log schema not found!");
   }
   try {
-    return RecordLibraryGenerator.generateRecordLibrary(logSchemaVersion,logSchema.getSchema());
+    Schema recordWrapperSchema=RecordWrapperSchemaGenerator.generateRecordWrapperSchema(logSchema.getSchema());
+    String fileName=MessageFormatter.arrayFormat(LOG_SCHEMA_LIBRARY_NAME_PATTERN,new Object[]{logSchemaVersion}).getMessage();
+    return SchemaLibraryGenerator.generateSchemaLibrary(recordWrapperSchema,fileName);
   }
  catch (  Exception e) {
     LOG.error("Unable to generate Record Structure Library",e);

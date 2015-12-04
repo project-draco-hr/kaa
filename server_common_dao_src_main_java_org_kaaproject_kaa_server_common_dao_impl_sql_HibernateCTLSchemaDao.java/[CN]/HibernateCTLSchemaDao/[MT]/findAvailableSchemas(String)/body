@@ -2,10 +2,10 @@
   LOG.debug("Searching available ctl schemas for tenant with id [{}]",tenantId);
   List<CTLSchema> availableSchemas;
   if (tenantId != null) {
-    availableSchemas=this.findListByCriterion(Restrictions.or(Restrictions.eq(CTL_SCHEMA_TENANT_ID_ALIAS,Long.valueOf(tenantId)),Restrictions.isNull(CTL_SCHEMA_TENANT_ID_ALIAS)));
+    availableSchemas=this.findListByCriterionWithAlias(CTL_SCHEMA_META_INFO_PROPERTY,CTL_SCHEMA_META_INFO_ALIAS,Restrictions.and(Restrictions.or(Restrictions.eq(CTL_SCHEMA_TENANT_ID_ALIAS,Long.valueOf(tenantId)),Restrictions.isNull(CTL_SCHEMA_TENANT_ID_ALIAS)),buildScopeCriterion(CTLSchemaScopeDto.SYSTEM,CTLSchemaScopeDto.TENANT)));
   }
  else {
-    availableSchemas=this.findListByCriterion(Restrictions.isNull(CTL_SCHEMA_TENANT_ID_ALIAS));
+    availableSchemas=this.findSystemSchemas();
   }
   if (LOG.isTraceEnabled()) {
     LOG.trace("[{}] Search result: [{}].",tenantId,Arrays.toString(availableSchemas.toArray()));

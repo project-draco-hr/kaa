@@ -9,18 +9,15 @@
     return false;
   }
   CtlSchemaExportKey other=(CtlSchemaExportKey)obj;
-  if (exportMethod != other.exportMethod) {
-    return false;
-  }
-  if (fqn == null) {
-    if (other.fqn != null) {
+  if (ctlSchemaId == null) {
+    if (other.ctlSchemaId != null) {
       return false;
     }
   }
- else   if (!fqn.equals(other.fqn)) {
+ else   if (!ctlSchemaId.equals(other.ctlSchemaId)) {
     return false;
   }
-  if (version != other.version) {
+  if (exportMethod != other.exportMethod) {
     return false;
   }
   return true;

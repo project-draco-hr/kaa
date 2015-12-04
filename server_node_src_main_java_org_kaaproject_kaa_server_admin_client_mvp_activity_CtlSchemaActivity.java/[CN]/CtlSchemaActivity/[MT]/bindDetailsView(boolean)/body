@@ -9,7 +9,6 @@
     }
     detailsView.getVersion().setAcceptableValues(schemaVersions);
     detailsView.setTitle(entity.getFqnString());
-    detailsView.enableSingleExportMode(!entity.hasDependencies());
     if (entity.hasDependencies()) {
       registrations.add(detailsView.getExportActionsButton().addMenuItem(Utils.constants.shallow(),new ActionMenuItemListener(){
         @Override public void onMenuItemSelected(){
@@ -23,21 +22,19 @@
         }
       }
 ));
-      registrations.add(detailsView.getExportActionsButton().addMenuItem(Utils.constants.flat(),new ActionMenuItemListener(){
-        @Override public void onMenuItemSelected(){
-          exportSchema(CTLSchemaExportMethod.FLAT);
-        }
-      }
-));
     }
- else {
-      registrations.add(detailsView.getExportButton().addClickHandler(new ClickHandler(){
-        @Override public void onClick(        ClickEvent event){
-          exportSchema(CTLSchemaExportMethod.FLAT);
-        }
+    registrations.add(detailsView.getExportActionsButton().addMenuItem(Utils.constants.flat(),new ActionMenuItemListener(){
+      @Override public void onMenuItemSelected(){
+        exportSchema(CTLSchemaExportMethod.FLAT);
       }
-));
     }
+));
+    registrations.add(detailsView.getExportActionsButton().addMenuItem(Utils.constants.javaLibrary(),new ActionMenuItemListener(){
+      @Override public void onMenuItemSelected(){
+        exportSchema(CTLSchemaExportMethod.LIBRARY);
+      }
+    }
+));
   }
   detailsView.getName().setValue(entity.getSchemaName());
   detailsView.getDescription().setValue(entity.getDescription());

@@ -22,7 +22,6 @@
         serverProfileSchema=dto;
       }
     }
-    viewDto.setServerProfileSchemaDto(new ServerProfileSchemaViewDto(serverProfileSchema,ctlSchemaDto));
   }
   List<TopicDto> topicsByApplicationId=topicService.findTopicsByAppId(applicationId);
   List<String> endpointTopicsIDs=endpointProfileDto.getSubscriptions();

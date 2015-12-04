@@ -26,7 +26,8 @@
       }
       ctlSchemaInfo.setDependencies(dependencies);
       ctlSchemaInfo.setTenantId(currentUser.getTenantId());
-      ctlSchemaInfo.setScope(CTLSchemaScopeDto.TENANT);
+      ctlSchemaInfo.setApplicationId(ctlSchemaForm.getApplicationId());
+      ctlSchemaInfo.setScope(ctlSchemaForm.getScope());
       SchemaFormAvroConverter converter=getCtlSchemaConverterForTenantId(currentUser.getTenantId());
       Schema avroSchema=converter.createSchemaFromSchemaForm(schemaForm);
       String schemaBody=SchemaFormAvroConverter.createSchemaString(avroSchema,true);
@@ -35,15 +36,19 @@
     CTLSchemaInfoDto savedCtlSchemaInfo=saveCTLSchema(ctlSchemaInfo);
     if (savedCtlSchemaInfo != null) {
       CtlSchemaFormDto result=new CtlSchemaFormDto(savedCtlSchemaInfo.getFqn());
+      result.setCtlSchemaId(savedCtlSchemaInfo.getId());
       result.setVersion(savedCtlSchemaInfo.getVersion());
       result.setSchemaName(savedCtlSchemaInfo.getName());
       result.setDescription(savedCtlSchemaInfo.getDescription());
       result.setCreatedTime(savedCtlSchemaInfo.getCreatedTime());
       result.setCreatedUsername(savedCtlSchemaInfo.getCreatedUsername());
+      result.setScope(savedCtlSchemaInfo.getScope());
+      result.setApplicationId(savedCtlSchemaInfo.getApplicationId());
       SchemaFormAvroConverter converter=getCtlSchemaConverterForTenantId(currentUser.getTenantId());
       RecordField form=converter.createSchemaFormFromSchema(savedCtlSchemaInfo.getBody());
       result.setSchema(form);
       List<Integer> availableVersions=form.getContext().getAvailableVersions(new Fqn(savedCtlSchemaInfo.getFqn()));
+      availableVersions=availableVersions == null ? Collections.<Integer>emptyList() : availableVersions;
       Collections.sort(availableVersions);
       result.setAvailableVersions(availableVersions);
       return result;

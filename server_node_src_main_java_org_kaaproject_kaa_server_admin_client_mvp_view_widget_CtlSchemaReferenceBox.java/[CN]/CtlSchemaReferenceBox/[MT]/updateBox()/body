@@ -1,0 +1,14 @@
+{
+  if (value != null) {
+    Fqn fqn=new Fqn(value.getFqn());
+    fqnReferenceBox.setValue(new FqnKey(fqn));
+    List<Integer> versions=fqnVersionsMap.get(fqn);
+    Collections.sort(versions);
+    versionsBox.setValue(value.getVersion());
+    versionsBox.setAcceptableValues(versions);
+  }
+ else {
+    fqnReferenceBox.setValue(null);
+    versionsBox.reset();
+  }
+}

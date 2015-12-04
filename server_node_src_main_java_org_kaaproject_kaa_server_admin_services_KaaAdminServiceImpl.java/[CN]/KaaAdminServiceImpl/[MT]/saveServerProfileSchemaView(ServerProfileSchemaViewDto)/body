@@ -1,0 +1,25 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    ServerProfileSchemaDto serverProfileSchema=serverProfileSchemaView.getSchema();
+    String applicationId=serverProfileSchema.getApplicationId();
+    checkApplicationId(applicationId);
+    String ctlSchemaId=serverProfileSchema.getCtlSchemaId();
+    if (isEmpty(ctlSchemaId)) {
+      if (serverProfileSchemaView.useExistingCtlSchema()) {
+        CTLSchemaMetaInfoDto metaInfo=serverProfileSchemaView.getExistingMetaInfo();
+        CTLSchemaInfoDto schemaInfo=getCTLSchemaByFqnAndVersion(metaInfo.getFqn(),metaInfo.getVersion());
+        serverProfileSchema.setCtlSchemaId(schemaInfo.getId());
+      }
+ else {
+        CtlSchemaFormDto ctlSchemaForm=saveCTLSchemaForm(serverProfileSchemaView.getCtlSchemaForm());
+        serverProfileSchema.setCtlSchemaId(ctlSchemaForm.getCtlSchemaId());
+      }
+    }
+    ServerProfileSchemaDto savedServerProfileSchema=saveServerProfileSchema(serverProfileSchema);
+    return getServerProfileSchemaView(savedServerProfileSchema.getId());
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

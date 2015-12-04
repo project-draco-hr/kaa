@@ -1,8 +1,0 @@
-{
-  if (isBlank(fqn)) {
-    throw new IncorrectParameterException("Incorrect parameters for ctl schema request.");
-  }
-  validateSqlId(tenantId,"Incorrect tenant id for ctl schema request.");
-  LOG.debug("Find ctl schema by fqn {} and tenant id {}",fqn,tenantId);
-  return convertDtoList(ctlSchemaDao.findByFqnAndTenantId(fqn,tenantId));
-}

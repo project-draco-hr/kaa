@@ -1,0 +1,11 @@
+{
+  if (value == this.value || (this.value != null && this.value.equals(value))) {
+    return;
+  }
+  CTLSchemaMetaInfoDto before=this.value;
+  this.value=value;
+  updateBox();
+  if (fireEvents) {
+    ValueChangeEvent.fireIfNotEqual(this,before,value);
+  }
+}
