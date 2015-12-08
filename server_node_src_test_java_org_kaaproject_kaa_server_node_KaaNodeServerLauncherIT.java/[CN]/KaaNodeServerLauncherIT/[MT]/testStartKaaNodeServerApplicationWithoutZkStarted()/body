@@ -12,7 +12,7 @@
     }
 );
     kaaNodeServerLauncherThread.start();
-    Thread.sleep(20000);
+    Thread.sleep(30000);
     transport=new TSocket(HOST,PORT);
     TProtocol protocol=new TBinaryProtocol(transport);
     TMultiplexedProtocol mp=new TMultiplexedProtocol(protocol,KaaThriftService.KAA_NODE_SERVICE.getServiceName());
