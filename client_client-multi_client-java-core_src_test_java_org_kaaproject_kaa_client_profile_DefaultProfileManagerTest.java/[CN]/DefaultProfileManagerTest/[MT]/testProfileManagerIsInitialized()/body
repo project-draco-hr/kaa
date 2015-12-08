@@ -8,8 +8,8 @@
  else {
     Assert.assertFalse(profileManager.isInitialized());
     profileManager.setProfileContainer(new ProfileContainer(){
-      @Override public Profile getProfile(){
-        return new Profile();
+      @Override public EmptyData getProfile(){
+        return new EmptyData();
       }
     }
 );

@@ -1,3 +1,17 @@
 {
-  return "EndpointProfileDataDto [id=" + id + ", endpointKey="+ endpointKey+ ", clientProfileBody="+ clientProfileBody+ ", serverProfileBody="+ serverProfileBody+ ", clientProfileSchemaVersion="+ clientProfileSchemaVersion+ ", serverProfileCtlSchemaId="+ serverProfileCtlSchemaId+ "]";
+  StringBuilder builder=new StringBuilder();
+  builder.append("EndpointProfileDataDto [id=");
+  builder.append(id);
+  builder.append(", endpointKey=");
+  builder.append(endpointKey);
+  builder.append(", clientProfileBody=");
+  builder.append(clientProfileBody);
+  builder.append(", serverProfileBody=");
+  builder.append(serverProfileBody);
+  builder.append(", clientProfileVersion=");
+  builder.append(clientProfileVersion);
+  builder.append(", serverProfileVersion=");
+  builder.append(serverProfileVersion);
+  builder.append("]");
+  return builder.toString();
 }

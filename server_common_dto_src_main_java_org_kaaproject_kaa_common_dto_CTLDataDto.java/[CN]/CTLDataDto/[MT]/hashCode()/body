@@ -1,5 +1,7 @@
 {
-  int result=ctlSchemaId != null ? ctlSchemaId.hashCode() : 0;
-  result=31 * result + (body != null ? body.hashCode() : 0);
+  final int prime=31;
+  int result=1;
+  result=prime * result + ((body == null) ? 0 : body.hashCode());
+  result=prime * result + serverProfileVersion;
   return result;
 }

@@ -8,7 +8,7 @@
   field.set(null,testLogger);
   logAppender.close();
   TestLogDeliveryCallback callback=new TestLogDeliveryCallback();
-  EndpointProfileDataDto profileDto=new EndpointProfileDataDto("1",ENDPOINT_KEY,1,"test",null,null);
+  EndpointProfileDataDto profileDto=new EndpointProfileDataDto("1",ENDPOINT_KEY,1,"test",0,null);
   BaseLogEventPack logEventPack=new BaseLogEventPack(profileDto,DATE_CREATED,1,null);
   logAppender.doAppend(logEventPack,callback);
   Assert.assertTrue(callback.internallError);

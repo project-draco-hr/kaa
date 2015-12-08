@@ -7,13 +7,12 @@
     String id=profileSchemaDto.getId();
     if (StringUtils.isBlank(id)) {
       ProfileSchema profileSchema=profileSchemaDao.findLatestByAppId(appId);
-      int majorVersion=0;
+      int version=-1;
       if (profileSchema != null) {
-        majorVersion=profileSchema.getMajorVersion();
+        version=profileSchema.getVersion();
       }
-      profileSchemaDto.setMinorVersion(0);
       profileSchemaDto.setId(null);
-      profileSchemaDto.setMajorVersion(++majorVersion);
+      profileSchemaDto.setVersion(++version);
       profileSchemaDto.setCreatedTime(System.currentTimeMillis());
     }
  else {

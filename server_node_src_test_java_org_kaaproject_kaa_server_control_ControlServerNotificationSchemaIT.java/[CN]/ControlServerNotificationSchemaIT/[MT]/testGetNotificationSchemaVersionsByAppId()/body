@@ -3,7 +3,7 @@
   Assert.assertNotNull(schemaDto.getId());
   LOG.debug("Create notification schema with id {}",schemaDto.getId());
   SchemaVersions schemaVersions=client.getSchemaVersionsByApplicationId(schemaDto.getApplicationId());
-  List<SchemaDto> foundSchema=schemaVersions.getNotificationSchemaVersions();
+  List<VersionDto> foundSchema=schemaVersions.getNotificationSchemaVersions();
   Assert.assertFalse(foundSchema.isEmpty());
   Assert.assertEquals(2,foundSchema.size());
   assertSchemasEquals(schemaDto,foundSchema.get(1));

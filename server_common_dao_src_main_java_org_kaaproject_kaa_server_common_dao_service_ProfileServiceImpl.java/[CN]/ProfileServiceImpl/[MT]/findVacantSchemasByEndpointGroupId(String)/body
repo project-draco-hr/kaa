@@ -7,9 +7,9 @@
     usedSchemaIds.add(filter.getSchemaId());
   }
   List<ProfileSchema> schemas=profileSchemaDao.findVacantSchemas(group.getApplicationId(),usedSchemaIds);
-  List<SchemaDto> schemaDtoList=new ArrayList<>();
+  List<VersionDto> schemaDtoList=new ArrayList<>();
   for (  ProfileSchema schema : schemas) {
-    schemaDtoList.add(schema.toSchemaDto());
+    schemaDtoList.add(schema.toVersionDto());
   }
   return schemaDtoList;
 }

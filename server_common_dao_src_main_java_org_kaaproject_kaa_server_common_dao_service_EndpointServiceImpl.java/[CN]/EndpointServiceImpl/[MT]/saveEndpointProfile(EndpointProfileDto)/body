@@ -6,6 +6,8 @@
   if (isBlank(endpointProfileDto.getId())) {
     if (endpointProfileDao.getCountByKeyHash(keyHash) == 0) {
       LOG.debug("Register new endpoint profile.");
+      endpointProfileDto.setServerProfileVersion(0);
+      endpointProfileDto.setServerProfileBody("");
       dto=getDto(endpointProfileDao.save(endpointProfileDto));
     }
  else {

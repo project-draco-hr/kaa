@@ -9,20 +9,10 @@
   }
   viewDto.setEndpointUserDto(userDto);
   String applicationId=endpointProfileDto.getApplicationId();
-  int profileVersion=endpointProfileDto.getProfileVersion();
-  ProfileSchemaDto schemaDto=profileService.findProfileSchemaByAppIdAndVersion(applicationId,profileVersion);
-  viewDto.setProfileSchemaDto(schemaDto);
-  String serverProfileSchemaId=endpointProfileDto.getServerProfileCtlSchemaId();
-  if (serverProfileSchemaId != null && !serverProfileSchemaId.isEmpty()) {
-    CTLSchemaDto ctlSchemaDto=ctlService.findCTLSchemaById(serverProfileSchemaId);
-    ServerProfileSchemaDto serverProfileSchema=null;
-    List<ServerProfileSchemaDto> serverProfileSchemas=serverProfileService.findServerProfileSchemasByAppId(applicationId);
-    for (    ServerProfileSchemaDto dto : serverProfileSchemas) {
-      if (dto.getCtlSchemaId().equals(serverProfileSchemaId)) {
-        serverProfileSchema=dto;
-      }
-    }
-  }
+  ProfileSchemaDto clientProfileSchemaDto=profileService.findProfileSchemaByAppIdAndVersion(applicationId,endpointProfileDto.getClientProfileVersion());
+  viewDto.setProfileSchemaDto(clientProfileSchemaDto);
+  ServerProfileSchemaDto serverProfileSchemaDto=serverProfileService.findServerProfileSchemaByAppIdAndVersion(applicationId,endpointProfileDto.getServerProfileVersion());
+  viewDto.setServerProfileSchemaDto(serverProfileSchemaDto);
   List<TopicDto> topicsByApplicationId=topicService.findTopicsByAppId(applicationId);
   List<String> endpointTopicsIDs=endpointProfileDto.getSubscriptions();
   List<TopicDto> endpointTopics=null;

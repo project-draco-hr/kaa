@@ -2,8 +2,8 @@
   ProfileTransport transport=mock(ProfileTransport.class);
   DefaultProfileManager profileManager=new DefaultProfileManager(transport);
   profileManager.setProfileContainer(new ProfileContainer(){
-    @Override public Profile getProfile(){
-      return new Profile();
+    @Override public EmptyData getProfile(){
+      return new EmptyData();
     }
   }
 );

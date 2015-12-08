@@ -2,13 +2,12 @@
   String id=logSchemaDto.getId();
   if (StringUtils.isBlank(id)) {
     LogSchema logSchema=logSchemaDao.findLatestLogSchemaByAppId(logSchemaDto.getApplicationId());
-    int majorVersion=0;
+    int version=0;
     if (logSchema != null) {
-      majorVersion=logSchema.getMajorVersion();
+      version=logSchema.getVersion();
     }
-    logSchemaDto.setMinorVersion(0);
     logSchemaDto.setId(null);
-    logSchemaDto.setMajorVersion(++majorVersion);
+    logSchemaDto.setVersion(++version);
     logSchemaDto.setCreatedTime(System.currentTimeMillis());
   }
  else {

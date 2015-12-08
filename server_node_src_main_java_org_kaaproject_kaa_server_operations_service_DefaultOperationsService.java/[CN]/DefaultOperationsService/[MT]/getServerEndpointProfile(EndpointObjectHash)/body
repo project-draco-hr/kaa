@@ -1,0 +1,5 @@
+{
+  EndpointProfileDto enpointProfile=profileService.getProfile(key);
+  CTLDataDto ctlDataDto=new CTLDataDto(enpointProfile.getServerProfileVersion(),enpointProfile.getServerProfileBody());
+  return ctlDataDto;
+}

@@ -14,7 +14,7 @@
   LogSchemaDto schemaDto=new LogSchemaDto();
   schemaDto.setSchema(BasicEndpointProfile.SCHEMA$.toString());
   LogSchema schema=new LogSchema(schemaDto);
-  EndpointProfileDataDto profileDto=new EndpointProfileDataDto("1",ENDPOINT_KEY,1,"",null,null);
+  EndpointProfileDataDto profileDto=new EndpointProfileDataDto("1",ENDPOINT_KEY,1,"",0,null);
   BaseLogEventPack logEventPack=new BaseLogEventPack(profileDto,DATE_CREATED,schema.getVersion(),events);
   logEventPack.setLogSchema(schema);
   String collectionName=(String)ReflectionTestUtils.getField(logAppender,"collectionName");

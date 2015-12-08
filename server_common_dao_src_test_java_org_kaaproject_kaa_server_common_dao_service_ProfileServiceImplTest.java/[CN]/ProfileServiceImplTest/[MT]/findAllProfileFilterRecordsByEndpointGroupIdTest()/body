@@ -1,7 +1,8 @@
 {
-  String appId=generateApplicationDto(null).getId();
+  ApplicationDto app=generateApplicationDto(null);
+  String appId=app.getId();
   EndpointGroupDto groupDto=generateEndpointGroupDto(appId);
-  ProfileSchemaDto schema=generateProfSchemaDto(appId,1).get(0);
+  ProfileSchemaDto schema=generateProfSchemaDto(app.getTenantId(),appId,1).get(0);
   ProfileFilterDto filter=generateFilterDto(schema.getId(),groupDto.getId(),3,true).get(2);
   Assert.assertEquals(UpdateStatus.ACTIVE,filter.getStatus());
   profileService.deactivateProfileFilter(filter.getId(),null);

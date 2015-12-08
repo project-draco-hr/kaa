@@ -1,6 +1,6 @@
 {
   String appId=generateApplicationDto(null).getId();
-  int schemaVersion=1;
+  int schemaVersion=0;
   List<ProfileFilterDto> filters=profileService.findProfileFilterByAppIdAndVersion(appId,schemaVersion);
   Assert.assertFalse(filters.isEmpty());
   ProfileFilterDto filter=filters.get(0);

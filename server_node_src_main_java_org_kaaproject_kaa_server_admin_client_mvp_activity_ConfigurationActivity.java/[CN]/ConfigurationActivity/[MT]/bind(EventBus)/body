@@ -1,8 +1,8 @@
 {
   super.bind(eventBus);
   if (create) {
-    registrations.add(recordView.getSchema().addValueChangeHandler(new ValueChangeHandler<SchemaDto>(){
-      @Override public void onValueChange(      ValueChangeEvent<SchemaDto> event){
+    registrations.add(recordView.getSchema().addValueChangeHandler(new ValueChangeHandler<VersionDto>(){
+      @Override public void onValueChange(      ValueChangeEvent<VersionDto> event){
         schemaSelected(event.getValue());
       }
     }

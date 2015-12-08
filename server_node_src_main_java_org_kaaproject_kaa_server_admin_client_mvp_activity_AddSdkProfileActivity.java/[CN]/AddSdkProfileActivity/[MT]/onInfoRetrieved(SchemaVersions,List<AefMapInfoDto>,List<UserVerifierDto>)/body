@@ -1,14 +1,14 @@
 {
-  List<SchemaDto> confSchemaVersions=schemaVersions.getConfigurationSchemaVersions();
+  List<VersionDto> confSchemaVersions=schemaVersions.getConfigurationSchemaVersions();
   detailsView.getConfigurationSchemaVersion().setValue(getMaxSchemaVersions(confSchemaVersions));
   detailsView.getConfigurationSchemaVersion().setAcceptableValues(confSchemaVersions);
-  List<SchemaDto> pfSchemaVersions=schemaVersions.getProfileSchemaVersions();
+  List<VersionDto> pfSchemaVersions=schemaVersions.getProfileSchemaVersions();
   detailsView.getProfileSchemaVersion().setValue(getMaxSchemaVersions(pfSchemaVersions));
   detailsView.getProfileSchemaVersion().setAcceptableValues(pfSchemaVersions);
-  List<SchemaDto> notSchemaVersions=schemaVersions.getNotificationSchemaVersions();
+  List<VersionDto> notSchemaVersions=schemaVersions.getNotificationSchemaVersions();
   detailsView.getNotificationSchemaVersion().setValue(getMaxSchemaVersions(notSchemaVersions));
   detailsView.getNotificationSchemaVersion().setAcceptableValues(notSchemaVersions);
-  List<SchemaDto> logSchemaVersions=schemaVersions.getLogSchemaVersions();
+  List<VersionDto> logSchemaVersions=schemaVersions.getLogSchemaVersions();
   detailsView.getLogSchemaVersion().setValue(getMaxSchemaVersions(logSchemaVersions));
   detailsView.getLogSchemaVersion().setAcceptableValues(logSchemaVersions);
   detailsView.setAefMaps(aefMaps);

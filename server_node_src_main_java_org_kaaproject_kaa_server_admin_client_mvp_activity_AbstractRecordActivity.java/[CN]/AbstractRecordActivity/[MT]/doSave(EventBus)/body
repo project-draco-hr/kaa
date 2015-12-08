@@ -3,8 +3,7 @@
   if (create) {
     schemaId=recordView.getSchema().getValue().getId();
     inactiveStruct.setSchemaId(schemaId);
-    inactiveStruct.setMajorVersion(recordView.getSchema().getValue().getMajorVersion());
-    inactiveStruct.setMinorVersion(recordView.getSchema().getValue().getMinorVersion());
+    inactiveStruct.setSchemaVersion(recordView.getSchema().getValue().getVersion());
   }
   inactiveStruct.setDescription(recordView.getRecordPanel().getDescription().getValue());
   updateBody(inactiveStruct,recordView.getRecordPanel().getBody().getValue());

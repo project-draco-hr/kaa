@@ -7,7 +7,7 @@
   appDto.setId(TEST_APP_ID);
   appDto.setApplicationToken(TEST_APP_TOKEN);
   ProfileFilterDto pfDto=new ProfileFilterDto();
-  pfDto.setMajorVersion(PF_VERSION);
+  pfDto.setSchemaVersion(PF_VERSION);
   Mockito.when(applicationService.findAppById(TEST_APP_ID)).thenReturn(appDto);
   Mockito.when(cacheService.getFilter(TEST_PF_ID)).thenReturn(pfDto);
   operationsThriftService.onNotification(notification);

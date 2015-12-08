@@ -5,7 +5,7 @@
     String id=dto.getId();
     if (isBlank(id)) {
       ServerProfileSchema serverProfileSchema=serverProfileSchemaDao.findLatestByAppId(appId);
-      int version=0;
+      int version=-1;
       if (serverProfileSchema != null) {
         version=serverProfileSchema.getVersion();
       }

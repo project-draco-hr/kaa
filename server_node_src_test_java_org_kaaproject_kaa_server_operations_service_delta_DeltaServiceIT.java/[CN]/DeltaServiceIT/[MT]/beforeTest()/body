@@ -17,10 +17,20 @@
   assertNotNull(applicationDto.getId());
   application=applicationService.findAppById(applicationDto.getId());
   EndpointGroupDto groupAll=endpointService.findEndpointGroupsByAppId(application.getId()).get(0);
+  CTLSchemaDto profileCtlSchema=new CTLSchemaDto();
+  profileCtlSchema.setTenantId(application.getTenantId());
+  profileCtlSchema.setApplicationId(application.getId());
+  profileCtlSchema.setBody(BasicEndpointProfile.SCHEMA$.toString());
+  profileCtlSchema.setDependencySet(new HashSet<CTLSchemaDto>());
+  CTLSchemaMetaInfoDto metaInfo=new CTLSchemaMetaInfoDto();
+  metaInfo.setVersion(1);
+  metaInfo.setFqn(BasicEndpointProfile.SCHEMA$.getFullName());
+  metaInfo.setScope(CTLSchemaScopeDto.SERVER_PROFILE_SCHEMA);
+  profileCtlSchema.setMetaInfo(metaInfo);
+  profileCtlSchema=ctlService.saveCTLSchema(profileCtlSchema);
   ProfileSchemaDto profileSchemaObj=new ProfileSchemaDto();
-  profileSchemaObj.setMajorVersion(PROFILE_SCHEMA_VERSION);
-  profileSchemaObj.setMinorVersion(0);
-  profileSchemaObj.setSchema(BasicEndpointProfile.SCHEMA$.toString());
+  profileSchemaObj.setVersion(PROFILE_SCHEMA_VERSION);
+  profileSchemaObj.setCtlSchemaId(profileCtlSchema.getId());
   profileSchemaObj.setApplicationId(application.getId());
   ProfileSchemaDto profileSchemaDto=profileService.saveProfileSchema(profileSchemaObj);
   profileSchema=profileService.findProfileSchemaById(profileSchemaDto.getId());
@@ -39,7 +49,7 @@
   profileService.activateProfileFilter(profileFilter.getId(),null);
   confSchema=new ConfigurationSchemaDto();
   confSchema.setApplicationId(application.getId());
-  confSchema.setMajorVersion(CONF_SCHEMA_VERSION);
+  confSchema.setVersion(CONF_SCHEMA_VERSION);
   confSchema.setSchema(dataSchema);
   try {
     confSchema=configurationService.saveConfSchema(confSchema);
@@ -68,7 +78,7 @@
   endpointProfile.setProfileHash(EndpointObjectHash.fromSHA1(PROFILE_BYTES).getData());
   endpointProfile.setConfigurationHash(endpointConfiguration.getConfigurationHash());
   endpointProfile.setConfigurationVersion(CONF_SCHEMA_VERSION);
-  endpointProfile.setProfileVersion(PROFILE_VERSION);
+  endpointProfile.setClientProfileVersion(PROFILE_VERSION);
   endpointProfile.setCfGroupStates(Collections.singletonList(egs));
   endpointProfile.setNfGroupStates(Collections.singletonList(egs));
   endpointProfile=endpointService.saveEndpointProfile(endpointProfile);

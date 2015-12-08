@@ -5,7 +5,7 @@
       String confId=null;
       List<ConfigurationDto> configurations=configurationService.findConfigurationsByEndpointGroupId(key.getEndpointGroupId());
       for (      ConfigurationDto confDto : configurations) {
-        if (confDto.getMajorVersion() == key.getConfigSchemaVersion()) {
+        if (confDto.getSchemaVersion() == key.getConfigSchemaVersion()) {
           confId=confDto.getId();
           break;
         }

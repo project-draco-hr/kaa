@@ -13,7 +13,7 @@
     dto.setEndpointGroup(group);
     dto.setProfileSchema(schema);
     dto.setSequenceNumber(i);
-    dto.setMajorVersion(i + 1);
+    dto.setSchemaVersion(i + 1);
     dto.setApplication(schema.getApplication());
     ProfileFilter saved=profileFilterDao.save(dto);
     Assert.assertNotNull(saved);

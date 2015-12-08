@@ -3,7 +3,7 @@
   Assert.assertEquals(4,schemas.size());
   ConfigurationSchema schema=schemas.get(2);
   Application app=schema.getApplication();
-  ConfigurationSchema found=configurationSchemaDao.findByAppIdAndVersion(app.getId().toString(),schema.getMajorVersion());
+  ConfigurationSchema found=configurationSchemaDao.findByAppIdAndVersion(app.getId().toString(),schema.getVersion());
   Assert.assertNotNull(found);
-  Assert.assertEquals(3,found.getMajorVersion());
+  Assert.assertEquals(3,found.getVersion());
 }

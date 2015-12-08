@@ -5,6 +5,6 @@
   EndpointUserConfigurationDto firstUserConfigurationDto=generateEndpointUserConfigurationDto(userDto,appDto,schema,readSchemaFileAsString(OVERRIDE_USER_DATA_JSON));
   generateEndpointUserConfigurationDto(userDto,appDto,null,readSchemaFileAsString(OVERRIDE_USER_DATA_JSON));
   generateEndpointUserConfigurationDto(null,null,null,readSchemaFileAsString(OVERRIDE_USER_DATA_JSON));
-  EndpointUserConfigurationDto found=userConfigurationService.findUserConfigurationByUserIdAndAppTokenAndSchemaVersion(userDto.getId(),appDto.getApplicationToken(),schema.getMajorVersion());
+  EndpointUserConfigurationDto found=userConfigurationService.findUserConfigurationByUserIdAndAppTokenAndSchemaVersion(userDto.getId(),appDto.getApplicationToken(),schema.getVersion());
   Assert.assertEquals(firstUserConfigurationDto,found);
 }

@@ -24,7 +24,7 @@
   final List<ConfigurationDto> configurations=new ArrayList<ConfigurationDto>();
   ConfigurationDto theConf=new ConfigurationDto();
   theConf.setId(CF1_ID);
-  theConf.setMajorVersion(CONF1_SCHEMA_VERSION);
+  theConf.setSchemaVersion(CONF1_SCHEMA_VERSION);
   configurations.add(theConf);
   when(configurationService.findConfigurationsByEndpointGroupId(ENDPOINT_GROUP1_ID)).then(new Answer<List<ConfigurationDto>>(){
     @Override public List<ConfigurationDto> answer(    InvocationOnMock invocation) throws Throwable {

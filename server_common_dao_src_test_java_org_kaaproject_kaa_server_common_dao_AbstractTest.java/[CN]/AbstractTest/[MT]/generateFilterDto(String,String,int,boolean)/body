@@ -3,7 +3,7 @@
   try {
     ProfileSchemaDto schemaDto=null;
     if (isBlank(schemaId)) {
-      schemaDto=generateProfSchemaDto(null,1).get(0);
+      schemaDto=generateProfSchemaDto(null,null,1).get(0);
       schemaId=schemaDto.getId();
     }
  else {

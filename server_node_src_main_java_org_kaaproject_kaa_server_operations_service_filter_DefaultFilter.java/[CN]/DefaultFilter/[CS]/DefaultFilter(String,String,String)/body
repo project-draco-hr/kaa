@@ -1,0 +1,7 @@
+{
+  this.profileSchemaBody=profileSchemaBody;
+  this.serverProfileSchemaBody=serverProfileSchemaBody;
+  this.expression=new SpelExpressionParser().parseExpression(filterBody);
+  this.profileAvroConverter=new GenericAvroConverter<>(new Schema.Parser().parse(this.profileSchemaBody));
+  this.serverProfileAvroConverter=new GenericAvroConverter<>(new Schema.Parser().parse(this.serverProfileSchemaBody));
+}

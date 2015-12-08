@@ -1,9 +1,9 @@
 {
   entity.setName(detailsView.getName().getValue());
-  entity.setConfigurationSchemaVersion(detailsView.getConfigurationSchemaVersion().getValue().getMajorVersion());
-  entity.setProfileSchemaVersion(detailsView.getProfileSchemaVersion().getValue().getMajorVersion());
-  entity.setNotificationSchemaVersion(detailsView.getNotificationSchemaVersion().getValue().getMajorVersion());
-  entity.setLogSchemaVersion(detailsView.getLogSchemaVersion().getValue().getMajorVersion());
+  entity.setConfigurationSchemaVersion(detailsView.getConfigurationSchemaVersion().getValue().getVersion());
+  entity.setProfileSchemaVersion(detailsView.getProfileSchemaVersion().getValue().getVersion());
+  entity.setNotificationSchemaVersion(detailsView.getNotificationSchemaVersion().getValue().getVersion());
+  entity.setLogSchemaVersion(detailsView.getLogSchemaVersion().getValue().getVersion());
   List<String> aefMapIds=new ArrayList<>();
   List<AefMapInfoDto> aefMaps=detailsView.getSelectedAefMaps().getValues();
   if (aefMaps != null) {

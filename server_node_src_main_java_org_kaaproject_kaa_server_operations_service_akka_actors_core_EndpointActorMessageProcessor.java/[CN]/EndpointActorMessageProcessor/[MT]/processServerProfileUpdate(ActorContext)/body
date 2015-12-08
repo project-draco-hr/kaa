@@ -3,12 +3,12 @@
   if (endpointProfile != null) {
     CTLDataDto serverProfileDto=operationsService.getServerEndpointProfile(key);
     if (serverProfileDto != null) {
-      endpointProfile.setServerProfileCtlSchemaId(serverProfileDto.getCtlSchemaId());
+      endpointProfile.setServerProfileVersion(serverProfileDto.getServerProfileVersion());
       endpointProfile.setServerProfileBody(serverProfileDto.getBody());
     }
  else {
-      endpointProfile.setServerProfileCtlSchemaId(null);
-      endpointProfile.setServerProfileBody(null);
+      endpointProfile.setServerProfileVersion(0);
+      endpointProfile.setServerProfileBody("");
     }
     state.setProfile(endpointProfile);
     processThriftNotification(context);

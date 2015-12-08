@@ -1,6 +1,6 @@
 {
   checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
-  List<SchemaDto> logSchemaVersions=Collections.emptyList();
+  List<VersionDto> logSchemaVersions=Collections.emptyList();
   try {
     checkApplicationId(applicationId);
     logSchemaVersions=controlService.getLogSchemaVersionsByApplicationId(applicationId);

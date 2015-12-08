@@ -4,7 +4,7 @@
     }
     public void onYes(){
       EndpointProfileRecordFieldDto endpointProfileRecordFieldDto=new EndpointProfileRecordFieldDto();
-      profileDto.setServerProfileCtlSchemaId(null);
+      profileDto.setServerProfileVersion(0);
       endpointProfileRecordFieldDto.setProfileRecord(null);
       endpointProfileRecordFieldDto.setEndpointKeyHash(profileDto.getEndpointKeyHash());
       KaaAdmin.getDataSource().updateEndpointProfile(endpointProfileRecordFieldDto,new AsyncCallback<EndpointProfileRecordFieldDto>(){

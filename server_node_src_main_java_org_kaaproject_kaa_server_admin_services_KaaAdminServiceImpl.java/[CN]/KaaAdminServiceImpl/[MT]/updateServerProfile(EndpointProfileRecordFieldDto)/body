@@ -5,15 +5,13 @@
     EndpointProfileDto profileDto=controlService.getEndpointProfileByKeyHash(keyHash);
     checkApplicationId(profileDto.getApplicationId());
     RecordField profileRecord=endpointProfileRecordDto.getProfileRecord();
-    String ctlSchemaId=endpointProfileRecordDto.getCtlSchemaId();
-    if (ctlSchemaId != null && profileRecord != null) {
+    if (profileRecord != null) {
       GenericRecord record=FormAvroConverter.createGenericRecordFromRecordField(profileRecord);
       GenericAvroConverter<GenericRecord> converter=new GenericAvroConverter<GenericRecord>(record.getSchema());
-      profileDto.setServerProfileCtlSchemaId(ctlSchemaId);
+      profileDto.setServerProfileVersion(endpointProfileRecordDto.getServerProfileVersion());
       profileDto.setServerProfileBody(converter.encodeToJson(record));
       profileDto=controlService.updateEndpointProfile(profileDto);
     }
-    endpointProfileRecordDto.setCtlSchemaId(profileDto.getServerProfileCtlSchemaId());
     endpointProfileRecordDto.setEndpointKeyHash(profileDto.getEndpointKeyHash());
     return endpointProfileRecordDto;
   }

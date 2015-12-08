@@ -19,12 +19,12 @@
           relatedChanges.add(historyDto);
         }
  else         if (changeType == ChangeType.ADD_PROF || changeType == ChangeType.REMOVE_PROF) {
-          if (changeDto.getPfMajorVersion() == key.getProfileSchemaVersion()) {
+          if (changeDto.getPfVersion() == key.getProfileSchemaVersion()) {
             relatedChanges.add(historyDto);
           }
         }
  else         if (changeType == ChangeType.ADD_CONF || changeType == ChangeType.REMOVE_CONF) {
-          if (changeDto.getCfMajorVersion() == key.getConfSchemaVersion()) {
+          if (changeDto.getCfVersion() == key.getConfSchemaVersion()) {
             relatedChanges.add(historyDto);
           }
         }

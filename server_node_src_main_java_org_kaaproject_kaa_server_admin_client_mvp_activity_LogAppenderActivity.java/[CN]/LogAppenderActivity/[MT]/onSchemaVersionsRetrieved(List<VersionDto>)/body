@@ -1,0 +1,14 @@
+{
+  Collections.sort(result);
+  List<Integer> versions=new ArrayList<>(result.size());
+  for (  VersionDto schema : result) {
+    versions.add(schema.getVersion());
+  }
+  if (!create) {
+    detailsView.getMinSchemaVersion().setValue(entity.getMinLogSchemaVersion());
+    detailsView.getMaxSchemaVersion().setValue(entity.getMaxLogSchemaVersion());
+    detailsView.getConfirmDelivery().setValue(entity.isConfirmDelivery());
+    detailsView.setMetadataListBox(entity.getHeaderStructure());
+  }
+  detailsView.setSchemaVersions(versions);
+}

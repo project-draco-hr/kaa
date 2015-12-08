@@ -4,22 +4,24 @@
     if (app == null) {
       app=generateApplication(null);
     }
+    CTLSchemaDto ctlSchemaDto=ctlService.saveCTLSchema(generateCTLSchemaDto(DEFAULT_FQN,app.getTenant().getStringId(),1,null));
+    CTLSchema ctlSchema=ctlSchemaDao.findById(ctlSchemaDto.getId());
     ProfileSchema schemaDto;
     schemas=new ArrayList<>(count);
     for (int i=0; i < count; i++) {
       schemaDto=new ProfileSchema();
       schemaDto.setApplication(app);
-      schemaDto.setSchema(readSchemaFileAsString("dao/schema/testDataSchema.json"));
       schemaDto.setCreatedUsername("Test User");
-      schemaDto.setMajorVersion(i + 1);
+      schemaDto.setCtlSchema(ctlSchema);
+      schemaDto.setVersion(i + 1);
       schemaDto.setName("Test Name");
       schemaDto=profileSchemaDao.save(schemaDto);
       Assert.assertNotNull(schemaDto);
       schemas.add(schemaDto);
     }
   }
- catch (  IOException e) {
-    LOG.error("Can't generate configs {}",e);
+ catch (  Exception e) {
+    LOG.error("Can't generate profile schema {}",e);
     Assert.fail("Can't generate profile schema." + e.getMessage());
   }
   return schemas;

@@ -1,0 +1,18 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    if (isEmpty(profileSchema.getId())) {
+      profileSchema.setCreatedUsername(getCurrentUser().getUsername());
+      checkApplicationId(profileSchema.getApplicationId());
+    }
+ else {
+      ProfileSchemaDto storedProfileSchema=controlService.getProfileSchema(profileSchema.getId());
+      Utils.checkNotNull(storedProfileSchema);
+      checkApplicationId(storedProfileSchema.getApplicationId());
+    }
+    return controlService.editProfileSchema(profileSchema);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

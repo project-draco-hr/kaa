@@ -7,6 +7,8 @@
       tn.setName(SUPER_TENANT);
       tenant=userService.saveTenant(tn);
       appDto=generateApplicationDto(tenant.getId());
+      List<CTLSchemaDto> ctlSchemas=ctlService.findSystemCTLSchemas();
+      defaultSystemSchema=ctlSchemas.get(0);
     }
   }
   Set<CTLSchemaDto> dependency=new HashSet<>();

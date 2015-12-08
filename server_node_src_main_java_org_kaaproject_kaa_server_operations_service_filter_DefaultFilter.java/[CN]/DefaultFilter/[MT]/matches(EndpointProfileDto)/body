@@ -3,10 +3,10 @@
   GenericRecord clientProfileGenericRecord=null;
   try {
     if (profile.getServerProfileBody() != null) {
-      serverProfileGenericRecord=avroConverter.decodeJson(profile.getServerProfileBody());
+      serverProfileGenericRecord=serverProfileAvroConverter.decodeJson(profile.getServerProfileBody());
     }
     if (profile.getClientProfileBody() != null) {
-      clientProfileGenericRecord=avroConverter.decodeJson(profile.getClientProfileBody());
+      clientProfileGenericRecord=profileAvroConverter.decodeJson(profile.getClientProfileBody());
     }
   }
  catch (  IOException ioe) {

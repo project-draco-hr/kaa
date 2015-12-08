@@ -1,11 +1,11 @@
 {
   if (create) {
-    getVacantSchemas(endpointGroupId,new BusyAsyncCallback<List<SchemaDto>>(){
+    getVacantSchemas(endpointGroupId,new BusyAsyncCallback<List<VersionDto>>(){
       @Override public void onFailureImpl(      Throwable caught){
         Utils.handleException(caught,recordView);
       }
-      @Override public void onSuccessImpl(      List<SchemaDto> result){
-        SchemaDto schema=Utils.getMaxSchemaVersions(result);
+      @Override public void onSuccessImpl(      List<VersionDto> result){
+        VersionDto schema=Utils.getMaxSchemaVersions(result);
         recordView.getSchema().setValue(schema);
         recordView.getSchema().setAcceptableValues(result);
         recordView.getRecordPanel().setData(record);
@@ -16,13 +16,12 @@
 );
   }
  else {
-    String version=record.getMajorVersion() + "." + record.getMinorVersion();
+    String version=record.getSchemaVersion() + "";
     recordView.getSchemaVersion().setValue(version);
     if (record.hasActive() && !record.hasDraft()) {
       T inactiveStruct=createInactiveStruct();
       inactiveStruct.setSchemaId(record.getSchemaId());
-      inactiveStruct.setMajorVersion(record.getMajorVersion());
-      inactiveStruct.setMinorVersion(record.getMinorVersion());
+      inactiveStruct.setSchemaVersion(record.getSchemaVersion());
       inactiveStruct.setDescription(record.getDescription());
       copyBody(record.getActiveStructureDto(),inactiveStruct);
       record.setInactiveStructureDto(inactiveStruct);

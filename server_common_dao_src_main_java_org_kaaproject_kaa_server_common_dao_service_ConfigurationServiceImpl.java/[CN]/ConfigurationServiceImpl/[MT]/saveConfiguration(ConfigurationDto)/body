@@ -26,8 +26,7 @@
         configurationDto.setSequenceNumber(oldActiveConfiguration.getSequenceNumber());
       }
       configurationDto.setApplicationId(configurationSchemaDto.getApplicationId());
-      configurationDto.setMajorVersion(configurationSchemaDto.getMajorVersion());
-      configurationDto.setMinorVersion(configurationSchemaDto.getMinorVersion());
+      configurationDto.setSchemaVersion(configurationSchemaDto.getVersion());
       configurationDto.setProtocolSchema(configurationSchemaDto.getProtocolSchema());
       configurationDto.setCreatedTime(System.currentTimeMillis());
     }

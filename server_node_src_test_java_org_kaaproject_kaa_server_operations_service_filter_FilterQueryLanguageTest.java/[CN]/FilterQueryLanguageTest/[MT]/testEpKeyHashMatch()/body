@@ -1,5 +1,5 @@
 {
   String filterBody="{'" + endpointKeyHash + "','"+ endpointKeyHash2+ "'}.contains("+ "#"+ DefaultFilter.EP_KEYHASH_VARIABLE_NAME+ ")";
-  Filter filter=new DefaultFilter(filterBody,PROFILE_SCHEMA);
+  Filter filter=new DefaultFilter(filterBody,PROFILE_SCHEMA,SERVER_PROFILE_SCHEMA);
   Assert.assertEquals(Boolean.TRUE,filter.matches(profile));
 }

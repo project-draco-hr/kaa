@@ -1,25 +1,28 @@
 {
   SdkProfileDto saved=null;
-  if (Validator.isValidSqlObject(sdkPropertiesDto)) {
-    if (StringUtils.isNotBlank(sdkPropertiesDto.getId())) {
-      SdkProfile entity=new SdkProfile(sdkPropertiesDto);
-      SdkProfile loaded=sdkProfileDao.findSdkProfileByToken(entity.getToken());
-      LOG.debug("Saving SDK profile [{}] for application [{}]",entity.getToken(),sdkPropertiesDto.getApplicationId());
-      if (loaded == null || loaded.getStringId().equals(entity.getStringId())) {
-        saved=DaoUtil.getDto(sdkProfileDao.save(entity));
-      }
- else {
-        throw new IncorrectParameterException("An SDK profile with token [" + entity.getToken() + "] already exists.");
-      }
+  if (Validator.isValidSqlObject(sdkProfileDto)) {
+    if (StringUtils.isNotBlank(sdkProfileDto.getId())) {
+      throw new IncorrectParameterException("Update of existing SDK profile is prohibited.");
     }
  else {
-      SdkProfile entity=new SdkProfile(sdkPropertiesDto);
+      if (StringUtils.isEmpty(sdkProfileDto.getToken())) {
+        try {
+          MessageDigest messageDigest=MessageDigest.getInstance(SDK_TOKEN_HASH_ALGORITHM);
+          messageDigest.update(DtoByteMarshaller.toBytes(sdkProfileDto.toSdkTokenDto()));
+          String token=Base64.encodeBase64String(messageDigest.digest());
+          sdkProfileDto.setToken(token);
+        }
+ catch (        NoSuchAlgorithmException e) {
+          throw new RuntimeException(e);
+        }
+      }
+      SdkProfile entity=new SdkProfile(sdkProfileDto);
       SdkProfile loaded=sdkProfileDao.findSdkProfileByToken(entity.getToken());
       if (loaded == null) {
         saved=DaoUtil.getDto(sdkProfileDao.save(entity));
       }
  else {
-        saved=DaoUtil.getDto(loaded);
+        throw new IncorrectParameterException("An SDK profile with token [" + entity.getToken() + "] already exists.");
       }
     }
   }

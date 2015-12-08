@@ -5,5 +5,5 @@
   Application app=schema.getApplication();
   ProfileSchema found=profileSchemaDao.findLatestByAppId(app.getId().toString());
   Assert.assertNotNull(found);
-  Assert.assertEquals(4,found.getMajorVersion());
+  Assert.assertEquals(4,found.getVersion());
 }
