@@ -4,8 +4,10 @@
   LogSchema schema=eventPack.getLogSchema();
   if (schema != null) {
     List<LogEvent> logEvents=eventPack.getEvents();
+    ProfileInfo clientProfile=eventPack.getClientProfile();
+    ProfileInfo serverProfile=eventPack.getServerProfile();
     if (logEvents != null && !logEvents.isEmpty()) {
-      events=generateEvents(appToken,schema,logEvents,header);
+      events=generateEvents(appToken,schema,logEvents,clientProfile,serverProfile,header);
     }
  else {
       LOG.warn("Can't build flume events. Empty Log events.");

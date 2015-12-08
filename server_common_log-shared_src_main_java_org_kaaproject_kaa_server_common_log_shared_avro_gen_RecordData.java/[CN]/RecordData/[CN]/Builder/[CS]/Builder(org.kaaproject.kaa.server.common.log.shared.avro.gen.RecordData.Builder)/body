@@ -16,4 +16,20 @@
     this.eventRecords=data().deepCopy(fields()[3].schema(),other.eventRecords);
     fieldSetFlags()[3]=true;
   }
+  if (isValidValue(fields()[4],other.clientProfileBody)) {
+    this.clientProfileBody=data().deepCopy(fields()[4].schema(),other.clientProfileBody);
+    fieldSetFlags()[4]=true;
+  }
+  if (isValidValue(fields()[5],other.clientSchemaId)) {
+    this.clientSchemaId=data().deepCopy(fields()[5].schema(),other.clientSchemaId);
+    fieldSetFlags()[5]=true;
+  }
+  if (isValidValue(fields()[6],other.serverProfileBody)) {
+    this.serverProfileBody=data().deepCopy(fields()[6].schema(),other.serverProfileBody);
+    fieldSetFlags()[6]=true;
+  }
+  if (isValidValue(fields()[7],other.serverSchemaId)) {
+    this.serverSchemaId=data().deepCopy(fields()[7].schema(),other.serverSchemaId);
+    fieldSetFlags()[7]=true;
+  }
 }
