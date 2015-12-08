@@ -3,15 +3,19 @@
   this.storage=storage;
   this.base64=base64;
   properties.setBase64(base64);
-  String workDirProperty=properties.getProperty(WORKING_DIR_PROPERTY);
-  String workDir=isEmpty(workDirProperty) ? workDirProperty : WORKING_DIR_DEFAULT;
-  workDirLocation=workDir.endsWith(FILE_SEPARATOR) ? workDir : workDir + FILE_SEPARATOR;
-  String stateFileName=properties.getProperty(STATE_FILE_NAME_PROPERTY);
-  stateFileLocation=isEmpty(stateFileName) ? workDirLocation + stateFileName : workDirLocation + STATE_FILE_NAME_DEFAULT;
-  String privateKeyName=properties.getProperty(CLIENT_PRIVATE_KEY_FILE_NAME_PROPERTY);
-  clientPrivateKeyFileLocation=isEmpty(privateKeyName) ? workDirLocation + privateKeyName : workDirLocation + CLIENT_PRIVATE_KEY_NAME_DEFAULT;
-  String publicKeyName=properties.getProperty(CLIENT_PUBLIC_KEY_FILE_NAME_PROPERTY);
-  clientPublicKeyFileLocation=isEmpty(publicKeyName) ? workDirLocation + publicKeyName : workDirLocation + CLIENT_PUBLIC_KEY_NAME_DEFAULT;
+  String workingDir=properties.getWorkingDirectory();
+  if (isBlank(workingDir)) {
+    workDirLocation=WORKING_DIR_DEFAULT;
+  }
+ else {
+    workDirLocation=workingDir.endsWith(FILE_SEPARATOR) ? workingDir : workingDir + FILE_SEPARATOR;
+  }
+  String stateFileName=properties.getStateFileName();
+  stateFileLocation=isBlank(stateFileName) ? workDirLocation + STATE_FILE_NAME_DEFAULT : workDirLocation + stateFileName;
+  String privateKeyName=properties.getPrivateKeyFileName();
+  clientPrivateKeyFileLocation=isBlank(privateKeyName) ? workDirLocation + CLIENT_PRIVATE_KEY_NAME_DEFAULT : workDirLocation + privateKeyName;
+  String publicKeyName=properties.getPublicKeyFileName();
+  clientPublicKeyFileLocation=isBlank(publicKeyName) ? workDirLocation + CLIENT_PUBLIC_KEY_NAME_DEFAULT : workDirLocation + publicKeyName;
   LOG.info("Version: '{}', commit hash: '{}'",properties.getBuildVersion(),properties.getCommitHash());
   state=new Properties();
   if (storage.exists(stateFileLocation)) {

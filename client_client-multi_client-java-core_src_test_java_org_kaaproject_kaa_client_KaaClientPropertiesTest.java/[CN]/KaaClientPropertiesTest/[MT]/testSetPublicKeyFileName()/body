@@ -1,0 +1,7 @@
+{
+  String requestedName="test_key.public";
+  System.setProperty(KaaClientProperties.KAA_CLIENT_PROPERTIES_FILE,"client-test.properties");
+  KaaClientProperties properties=new KaaClientProperties();
+  properties.setPublicKeyFileName(requestedName);
+  assertEquals(requestedName,properties.getPublicKeyFileName());
+}
