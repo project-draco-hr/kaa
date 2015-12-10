@@ -1,11 +1,13 @@
 {
   if (!closed) {
     try {
+      ProfileInfo clientProfile=(this.includeClientProfile) ? logEventPack.getClientProfile() : null;
+      ProfileInfo serverProfile=(this.includeServerProfile) ? logEventPack.getServerProfile() : null;
       LOG.debug("[{}] appending {} logs to mongodb collection",collectionName,logEventPack.getEvents().size());
       List<LogEventDto> dtos=generateLogEvent(logEventPack,header);
       LOG.debug("[{}] saving {} objects",collectionName,dtos.size());
       if (!dtos.isEmpty()) {
-        logEventDao.save(dtos,collectionName);
+        logEventDao.save(dtos,clientProfile,serverProfile,collectionName);
         LOG.debug("[{}] appended {} logs to mongodb collection",collectionName,logEventPack.getEvents().size());
       }
       listener.onSuccess();
