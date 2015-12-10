@@ -1,0 +1,6 @@
+{
+  if (message.getUserConfigurationUpdate() != null) {
+    state.setUcfHash(message.getUserConfigurationUpdate().getHash());
+    syncChannels(context,state.getChannelsByTypes(TransportType.CONFIGURATION),true,false);
+  }
+}

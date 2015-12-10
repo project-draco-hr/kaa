@@ -19,7 +19,8 @@
           relatedChanges.add(historyDto);
         }
  else         if (changeType == ChangeType.ADD_PROF || changeType == ChangeType.REMOVE_PROF) {
-          if (changeDto.getPfVersion() == key.getProfileSchemaVersion()) {
+          ProfileFilterDto profileFilter=profileService.findProfileFilterById(changeDto.getProfileFilterId());
+          if (supports(profileFilter,key.getClientProfileSchemaVersion(),key.getServerProfileSchemaVersion())) {
             relatedChanges.add(historyDto);
           }
         }
@@ -30,6 +31,9 @@
         }
       }
       return relatedChanges;
+    }
+    private boolean supports(    ProfileFilterDto profileFilter,    int clientProfileSchemaVersion,    int serverProfileSchemaVersion){
+      throw new RuntimeException("Not implemented!");
     }
   }
 );
