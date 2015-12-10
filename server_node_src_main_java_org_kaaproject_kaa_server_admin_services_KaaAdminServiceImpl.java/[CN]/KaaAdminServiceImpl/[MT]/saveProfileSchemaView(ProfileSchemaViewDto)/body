@@ -1,7 +1,7 @@
 {
   checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
-    ProfileSchemaDto profileSchema=profileSchemaView.getSchema();
+    EndpointProfileSchemaDto profileSchema=profileSchemaView.getSchema();
     String applicationId=profileSchema.getApplicationId();
     checkApplicationId(applicationId);
     String ctlSchemaId=profileSchema.getCtlSchemaId();
@@ -16,7 +16,7 @@
         profileSchema.setCtlSchemaId(ctlSchemaForm.getCtlSchemaId());
       }
     }
-    ProfileSchemaDto savedProfileSchema=saveProfileSchema(profileSchema);
+    EndpointProfileSchemaDto savedProfileSchema=saveProfileSchema(profileSchema);
     return getProfileSchemaView(savedProfileSchema.getId());
   }
  catch (  Exception e) {

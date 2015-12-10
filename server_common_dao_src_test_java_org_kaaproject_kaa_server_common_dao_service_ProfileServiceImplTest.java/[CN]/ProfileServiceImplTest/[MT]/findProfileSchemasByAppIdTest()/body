@@ -3,7 +3,7 @@
   int profSchemaWithDefaultCount=profSchemaCount + 1;
   ApplicationDto application=generateApplicationDto(null);
   generateProfSchemaDto(application.getTenantId(),application.getId(),profSchemaCount);
-  List<ProfileSchemaDto> schemas=profileService.findProfileSchemasByAppId(application.getId());
+  List<EndpointProfileSchemaDto> schemas=profileService.findProfileSchemasByAppId(application.getId());
   Assert.assertNotNull(schemas);
   Assert.assertEquals(profSchemaWithDefaultCount,schemas.size());
 }

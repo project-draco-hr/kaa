@@ -1,10 +1,10 @@
 {
   String schemaId=generateProfSchemaDto(null,null,1).get(0).getId();
-  ProfileSchemaDto schemaDto=profileService.findProfileSchemaById(schemaId);
+  EndpointProfileSchemaDto schemaDto=profileService.findProfileSchemaById(schemaId);
   Assert.assertNotNull(schemaDto);
   int version=schemaDto.getVersion();
   schemaDto.setId(null);
-  ProfileSchemaDto saved=profileService.saveProfileSchema(schemaDto);
+  EndpointProfileSchemaDto saved=profileService.saveProfileSchema(schemaDto);
   Assert.assertNotNull(saved);
   Assert.assertNotEquals(version,saved.getVersion());
   Assert.assertNotEquals(schemaId,saved.getId());

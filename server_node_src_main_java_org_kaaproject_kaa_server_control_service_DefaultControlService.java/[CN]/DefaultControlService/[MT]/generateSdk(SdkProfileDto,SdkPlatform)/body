@@ -1,5 +1,5 @@
 {
-  ProfileSchemaDto profileSchema=profileService.findProfileSchemaByAppIdAndVersion(sdkProfile.getApplicationId(),sdkProfile.getProfileSchemaVersion());
+  EndpointProfileSchemaDto profileSchema=profileService.findProfileSchemaByAppIdAndVersion(sdkProfile.getApplicationId(),sdkProfile.getProfileSchemaVersion());
   if (profileSchema == null) {
     throw new NotFoundException("Profile schema not found!");
   }

@@ -1,5 +1,5 @@
 {
-  List<ProfileSchemaDto> schemas=Collections.emptyList();
+  List<EndpointProfileSchemaDto> schemas=Collections.emptyList();
   try {
     if (isBlank(tenantId)) {
       tenantId=generateTenant().getId();
@@ -8,10 +8,10 @@
       applicationId=generateApplication(tenantId).getId();
     }
     CTLSchemaDto ctlSchemaDto=ctlService.saveCTLSchema(generateCTLSchemaDto(DEFAULT_FQN,tenantId,1,null));
-    ProfileSchemaDto schemaDto;
+    EndpointProfileSchemaDto schemaDto;
     schemas=new ArrayList<>(count);
     for (int i=0; i < count; i++) {
-      schemaDto=new ProfileSchemaDto();
+      schemaDto=new EndpointProfileSchemaDto();
       schemaDto.setApplicationId(applicationId);
       schemaDto.setCtlSchemaId(ctlSchemaDto.getId());
       schemaDto.setCreatedUsername("Test User");

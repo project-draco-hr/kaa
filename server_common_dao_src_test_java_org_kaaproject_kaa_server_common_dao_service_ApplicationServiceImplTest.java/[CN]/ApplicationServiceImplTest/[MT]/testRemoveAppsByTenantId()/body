@@ -7,7 +7,7 @@
   Assert.assertEquals(0,foundApplications.size());
   TenantDto foundTenant=userService.findTenantById(tenant.getId());
   Assert.assertNotNull(foundTenant);
-  List<ProfileSchemaDto> foundProfileSchemas=profileService.findProfileSchemasByAppId(application.getId());
+  List<EndpointProfileSchemaDto> foundProfileSchemas=profileService.findProfileSchemasByAppId(application.getId());
   Assert.assertEquals(0,foundProfileSchemas.size());
   List<ConfigurationSchemaDto> foundConfigSchemas=configurationService.findConfSchemasByAppId(application.getId());
   Assert.assertEquals(0,foundConfigSchemas.size());

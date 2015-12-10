@@ -1,7 +1,7 @@
 {
   checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
-    ProfileSchemaDto profileSchema=getProfileSchema(profileSchemaId);
+    EndpointProfileSchemaDto profileSchema=getProfileSchema(profileSchemaId);
     CTLSchemaDto ctlSchemaDto=controlService.getCTLSchemaById(profileSchema.getCtlSchemaId());
     return new ProfileSchemaViewDto(profileSchema,toCtlSchemaForm(ctlSchemaDto));
   }

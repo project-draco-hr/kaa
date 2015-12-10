@@ -52,7 +52,7 @@
     }
   }
 );
-  when(profileService.findProfileFilterByAppIdAndVersion(APP_ID,TEST_GET_PROFILES_KEY.getVersion())).then(new Answer<List<ProfileFilterDto>>(){
+  when(profileService.findProfileFiltersByAppIdAndVersion(APP_ID,TEST_GET_PROFILES_KEY.getVersion())).then(new Answer<List<ProfileFilterDto>>(){
     @Override public List<ProfileFilterDto> answer(    InvocationOnMock invocation) throws Throwable {
       sleepABit();
       return TEST_PROFILE_FILTER_LIST;
@@ -80,8 +80,8 @@
     }
   }
 );
-  when(profileService.findProfileSchemaByAppIdAndVersion(APP_ID,PF_SCHEMA_KEY.getVersion())).then(new Answer<ProfileSchemaDto>(){
-    @Override public ProfileSchemaDto answer(    InvocationOnMock invocation) throws Throwable {
+  when(profileService.findProfileSchemaByAppIdAndVersion(APP_ID,PF_SCHEMA_KEY.getVersion())).then(new Answer<EndpointProfileSchemaDto>(){
+    @Override public EndpointProfileSchemaDto answer(    InvocationOnMock invocation) throws Throwable {
       sleepABit();
       return PF1_SCHEMA;
     }

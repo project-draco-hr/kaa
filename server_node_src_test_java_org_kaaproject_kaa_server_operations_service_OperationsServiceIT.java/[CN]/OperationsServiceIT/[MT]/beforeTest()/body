@@ -36,7 +36,7 @@
   profileSchemaObj.setVersion(PROFILE_SCHEMA_VERSION);
   profileSchemaObj.setCtlSchema(ctlSchema);
   profileSchemaObj.setApplication(application);
-  ProfileSchemaDto profileSchemaDto=profileService.saveProfileSchema(profileSchemaObj.toDto());
+  EndpointProfileSchemaDto profileSchemaDto=profileService.saveProfileSchema(profileSchemaObj.toDto());
   profileSchema=profileSchemaDao.findById(profileSchemaDto.getId());
   EndpointGroup endpointGroup=new EndpointGroup();
   endpointGroup.setApplication(application);

@@ -1,0 +1,55 @@
+{
+  if (profileSchemaDto == null) {
+    throw new IncorrectParameterException("Can't save profile schema. Invalid profile schema object.");
+  }
+  String appId=profileSchemaDto.getApplicationId();
+  if (isNotBlank(appId)) {
+    String id=profileSchemaDto.getId();
+    if (StringUtils.isBlank(id)) {
+      ProfileSchema profileSchema=profileSchemaDao.findLatestByAppId(appId);
+      int version=-1;
+      if (profileSchema != null) {
+        version=profileSchema.getVersion();
+      }
+      profileSchemaDto.setId(null);
+      profileSchemaDto.setVersion(++version);
+      profileSchemaDto.setCreatedTime(System.currentTimeMillis());
+    }
+ else {
+      EndpointProfileSchemaDto oldProfileSchemaDto=getDto(profileSchemaDao.findById(id));
+      if (oldProfileSchemaDto != null) {
+        oldProfileSchemaDto.editFields(profileSchemaDto);
+        profileSchemaDto=oldProfileSchemaDto;
+        return getDto(profileSchemaDao.save(new ProfileSchema(profileSchemaDto)));
+      }
+ else {
+        LOG.error("Can't find profile schema with given id [{}].",id);
+        throw new IncorrectParameterException("Invalid profile schema id: " + id);
+      }
+    }
+    EndpointProfileSchemaDto profileSchema=getDto(profileSchemaDao.save(new ProfileSchema(profileSchemaDto)));
+    if (profileSchema != null) {
+      EndpointGroup group=endpointGroupDao.findByAppIdAndWeight(profileSchemaDto.getApplicationId(),0);
+      ProfileFilterDto filter=new ProfileFilterDto();
+      filter.setBody(DEFAULT_FILTER_BODY);
+      filter.setEndpointGroupId(group.getId().toString());
+      filter.setSchemaId(profileSchema.getId());
+      filter=saveProfileFilter(filter);
+      if (filter != null) {
+        activateProfileFilter(filter.getId(),profileSchema.getCreatedUsername());
+      }
+ else {
+        LOG.warn("Can't activate profile filter {}",filter);
+        throw new IncorrectParameterException("Can't save profile filter.");
+      }
+    }
+ else {
+      LOG.warn("Can't save profile schema {}",profileSchemaDto);
+      throw new IncorrectParameterException("Can't save profile schema.");
+    }
+    return profileSchema;
+  }
+ else {
+    throw new IncorrectParameterException("Invalid profile schema object. Incorrect application id" + appId);
+  }
+}

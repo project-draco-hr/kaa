@@ -14,7 +14,7 @@
   LogAppender mockAppender=Mockito.mock(LogAppender.class);
   Mockito.when(logAppenderService.getApplicationAppenders(APP_ID)).thenReturn(Collections.singletonList(mockAppender));
   Mockito.when(logAppenderService.getLogSchema(Mockito.anyString(),Mockito.anyInt())).thenReturn(new LogSchema(new LogSchemaDto()));
-  ProfileSchemaDto profileSchemaDto=new ProfileSchemaDto();
+  EndpointProfileSchemaDto profileSchemaDto=new EndpointProfileSchemaDto();
   profileSchemaDto.setId("1");
   profileSchemaDto.setCtlSchemaId("22");
   CTLSchemaDto ctlSchema=new CTLSchemaDto();

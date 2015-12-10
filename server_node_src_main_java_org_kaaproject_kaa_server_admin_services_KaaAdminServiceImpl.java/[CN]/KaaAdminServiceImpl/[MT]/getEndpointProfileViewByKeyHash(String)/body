@@ -13,7 +13,7 @@
         endpointProfileView.setUserExternalId(endpointUser.getExternalId());
       }
     }
-    ProfileSchemaDto clientProfileSchema=controlService.getProfileSchemaByApplicationIdAndVersion(endpointProfile.getApplicationId(),endpointProfile.getClientProfileVersion());
+    EndpointProfileSchemaDto clientProfileSchema=controlService.getProfileSchemaByApplicationIdAndVersion(endpointProfile.getApplicationId(),endpointProfile.getClientProfileVersion());
     ServerProfileSchemaDto serverProfileSchema=controlService.getServerProfileSchemaByApplicationIdAndVersion(endpointProfile.getApplicationId(),endpointProfile.getServerProfileVersion());
     endpointProfileView.setProfileSchemaName(clientProfileSchema.getName());
     endpointProfileView.setProfileSchemaVersion(clientProfileSchema.toVersionDto());

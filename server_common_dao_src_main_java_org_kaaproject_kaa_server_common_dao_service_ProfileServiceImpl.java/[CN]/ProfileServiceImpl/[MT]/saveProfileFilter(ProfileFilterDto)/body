@@ -17,7 +17,7 @@
         throw new UpdateStatusConflictException("Can't create more than one profile filter, for default endpoint group");
       }
     }
-    ProfileSchemaDto profileSchemaDto=findProfileSchemaById(schemaId);
+    EndpointProfileSchemaDto profileSchemaDto=findProfileSchemaById(schemaId);
     if (profileSchemaDto != null) {
       ProfileFilter inactiveFilter=profileFilterDao.findInactiveFilter(schemaId,groupId);
       ProfileFilter latestFilter=profileFilterDao.findLatestFilter(schemaId,groupId);

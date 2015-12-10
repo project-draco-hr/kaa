@@ -1,5 +1,5 @@
 {
-  ProfileSchemaDto profileSchema=new ProfileSchemaDto();
+  EndpointProfileSchemaDto profileSchema=new EndpointProfileSchemaDto();
   profileSchema.setName(generateString("Test Schema"));
   profileSchema.setDescription(generateString("Test Desc"));
   if (strIsEmpty(applicationId)) {
@@ -14,6 +14,6 @@
     profileSchema.setCtlSchemaId(ctlSchema.getId());
   }
   loginTenantDeveloper(tenantDeveloperDto.getUsername());
-  ProfileSchemaDto savedProfileSchema=client.saveProfileSchema(profileSchema);
+  EndpointProfileSchemaDto savedProfileSchema=client.saveProfileSchema(profileSchema);
   return savedProfileSchema;
 }

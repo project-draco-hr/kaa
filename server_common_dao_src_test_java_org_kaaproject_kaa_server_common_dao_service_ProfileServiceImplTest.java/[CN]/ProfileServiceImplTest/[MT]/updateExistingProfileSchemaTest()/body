@@ -1,13 +1,13 @@
 {
   ApplicationDto app=generateApplicationDto(null);
   String appId=app.getId();
-  List<ProfileSchemaDto> schemas=generateProfSchemaDto(app.getTenantId(),appId,1);
-  ProfileSchemaDto schema=profileService.findProfileSchemaById(schemas.get(0).getId());
+  List<EndpointProfileSchemaDto> schemas=generateProfSchemaDto(app.getTenantId(),appId,1);
+  EndpointProfileSchemaDto schema=profileService.findProfileSchemaById(schemas.get(0).getId());
   Assert.assertNotNull(schema);
   ProfileSchema profileSchema=new ProfileSchema(schema);
   profileSchema.setName("Updated name");
   profileSchema.setDescription("Updated description");
-  ProfileSchemaDto saved=profileService.saveProfileSchema(profileSchema.toDto());
+  EndpointProfileSchemaDto saved=profileService.saveProfileSchema(profileSchema.toDto());
   Assert.assertNotNull(saved);
   Assert.assertEquals(schema.getId(),saved.getId());
   Assert.assertEquals(schema.getApplicationId(),saved.getApplicationId());

@@ -1,5 +1,5 @@
 {
-  ProfileSchemaDto profileSchemaDto=new ProfileSchemaDto();
+  EndpointProfileSchemaDto profileSchemaDto=new EndpointProfileSchemaDto();
   profileSchemaDto.setApplicationId(appId);
   CTLSchemaDto ctlSchema=ctlService.getOrCreateEmptySystemSchema(createdUsername);
   profileSchemaDto.setCtlSchemaId(ctlSchema.getId());
@@ -7,7 +7,7 @@
   profileSchemaDto.setCreatedUsername(createdUsername);
   profileSchemaDto=profileService.saveProfileSchema(profileSchemaDto);
   if (profileSchemaDto != null) {
-    return profileService.findLatestFilterBySchemaIdAndGroupId(profileSchemaDto.getId(),groupId);
+    return profileService.findLatestFilterBySchemaIdsAndGroupId(profileSchemaDto.getId(),groupId);
   }
  else {
     throw new RuntimeException("Can't save default profile schema " + profileSchemaDto);

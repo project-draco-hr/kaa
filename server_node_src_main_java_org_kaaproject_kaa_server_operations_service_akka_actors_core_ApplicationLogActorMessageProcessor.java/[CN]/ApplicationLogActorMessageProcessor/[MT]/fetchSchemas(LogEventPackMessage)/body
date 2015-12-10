@@ -15,7 +15,7 @@
     AppVersionKey key=new AppVersionKey(applicationToken,profileDto.getClientProfileVersion());
     BaseSchemaInfo schemaInfo=clientProfileSchemas.get(key);
     if (schemaInfo == null) {
-      ProfileSchemaDto profileSchema=cacheService.getProfileSchemaByAppAndVersion(key);
+      EndpointProfileSchemaDto profileSchema=cacheService.getProfileSchemaByAppAndVersion(key);
       CTLSchemaDto ctlSchemaDto=cacheService.getCtlSchemaById(profileSchema.getCtlSchemaId());
       String schema=ctlService.flatExportAsString(ctlSchemaDto);
       schemaInfo=new BaseSchemaInfo(ctlSchemaDto.getId(),schema);

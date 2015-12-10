@@ -2,7 +2,7 @@
   int profSchemaCount=2;
   ApplicationDto application=generateApplicationDto(null);
   generateProfSchemaDto(application.getTenantId(),application.getId(),profSchemaCount);
-  List<ProfileSchemaDto> schemas=profileService.findProfileSchemasByAppId(application.getId());
+  List<EndpointProfileSchemaDto> schemas=profileService.findProfileSchemasByAppId(application.getId());
   Assert.assertNotNull(schemas);
   Assert.assertFalse(schemas.isEmpty());
   profileService.removeProfileSchemasByAppId(application.getId());
