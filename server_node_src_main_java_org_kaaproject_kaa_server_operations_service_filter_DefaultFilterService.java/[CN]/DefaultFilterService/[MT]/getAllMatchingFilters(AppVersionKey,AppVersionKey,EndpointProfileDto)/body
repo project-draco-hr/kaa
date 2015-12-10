@@ -1,5 +1,5 @@
 {
-  ProfileSchemaDto profileSchema=cacheService.getProfileSchemaByAppAndVersion(appProfileVersionKey);
+  EndpointProfileSchemaDto profileSchema=cacheService.getProfileSchemaByAppAndVersion(appProfileVersionKey);
   ServerProfileSchemaDto serverProfileSchema=cacheService.getServerProfileSchemaByAppAndVersion(appServerProfileVersionKey);
   String profileSchemaBody=cacheService.getFlatCtlSchemaById(profileSchema.getCtlSchemaId());
   String serverProfileSchemaBody=cacheService.getFlatCtlSchemaById(serverProfileSchema.getCtlSchemaId());

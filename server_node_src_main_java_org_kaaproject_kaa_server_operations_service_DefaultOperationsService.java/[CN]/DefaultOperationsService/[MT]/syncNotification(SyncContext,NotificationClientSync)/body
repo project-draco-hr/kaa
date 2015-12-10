@@ -11,7 +11,7 @@
     LOG.debug("[{}][{}] fetching history for seq numbers {}-{}",context.getEndpointKey(),context.getRequestHash(),request.getAppStateSeqNumber(),curAppSeqNumber);
     int startSeqNumber=Math.min(request.getAppStateSeqNumber(),profile.getNfSequenceNumber());
     LOG.debug("[{}][{}] calculating notification delta using seq number {}",context.getEndpointKey(),context.getRequestHash(),startSeqNumber);
-    HistoryDelta historyDelta=fetchHistory(context.getEndpointKey(),context.getRequestHash(),md.getApplicationToken(),profile,HistorySubject.NOTIFICATION,startSeqNumber,curAppSeqNumber);
+    HistoryDelta historyDelta=fetchHistory(context,md.getApplicationToken(),profile,HistorySubject.NOTIFICATION,startSeqNumber,curAppSeqNumber);
     GetNotificationResponse notificationResponse=calculateNotificationDelta(request,profile,historyDelta);
     context.setSubscriptionStates(notificationResponse.getSubscriptionStates());
     NotificationServerSync nfSyncResponse=buildNotificationSyncResponse(notificationResponse,curAppSeqNumber);

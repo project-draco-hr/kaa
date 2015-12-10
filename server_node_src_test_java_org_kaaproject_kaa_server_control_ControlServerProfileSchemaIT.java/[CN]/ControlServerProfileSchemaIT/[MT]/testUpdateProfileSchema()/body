@@ -1,8 +1,8 @@
 {
-  ProfileSchemaDto profileSchema=createProfileSchema();
+  EndpointProfileSchemaDto profileSchema=createProfileSchema();
   profileSchema.setName("Test Schema 2");
   profileSchema.setDescription("Test Desc 2");
-  ProfileSchemaDto updatedProfileSchema=client.saveProfileSchema(profileSchema);
+  EndpointProfileSchemaDto updatedProfileSchema=client.saveProfileSchema(profileSchema);
   Assert.assertEquals(profileSchema.getApplicationId(),updatedProfileSchema.getApplicationId());
   Assert.assertEquals(profileSchema.getName(),updatedProfileSchema.getName());
   Assert.assertEquals(profileSchema.getDescription(),updatedProfileSchema.getDescription());

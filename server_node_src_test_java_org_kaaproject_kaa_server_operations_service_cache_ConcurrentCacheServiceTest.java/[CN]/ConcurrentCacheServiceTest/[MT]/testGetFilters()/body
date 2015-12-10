@@ -1,8 +1,8 @@
 {
   assertEquals(TEST_PROFILE_FILTER_LIST,cacheService.getFilters(TEST_GET_PROFILES_KEY));
-  verify(profileService,times(1)).findProfileFilterByAppIdAndVersion(APP_ID,TEST_GET_PROFILES_KEY.getVersion());
+  verify(profileService,times(1)).findProfileFiltersByAppIdAndVersion(APP_ID,TEST_GET_PROFILES_KEY.getVersion());
   reset(profileService);
   assertEquals(TEST_PROFILE_FILTER_LIST,cacheService.getFilters(TEST_GET_PROFILES_KEY));
-  verify(profileService,times(0)).findProfileFilterByAppIdAndVersion(APP_ID,TEST_GET_PROFILES_KEY.getVersion());
+  verify(profileService,times(0)).findProfileFiltersByAppIdAndVersion(APP_ID,TEST_GET_PROFILES_KEY.getVersion());
   reset(profileService);
 }

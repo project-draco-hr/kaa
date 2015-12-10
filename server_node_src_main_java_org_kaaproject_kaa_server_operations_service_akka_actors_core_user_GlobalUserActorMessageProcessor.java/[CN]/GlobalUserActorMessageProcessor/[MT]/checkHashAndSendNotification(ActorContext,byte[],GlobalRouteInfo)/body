@@ -2,7 +2,7 @@
   if (!Arrays.equals(newHash,route.getUcfHash())) {
     LOG.trace("Sending notification to route {}",route);
     if (route.isLocal()) {
-      context.parent().tell(new EndpointStateUpdateMessage(toUpdate(newHash,route)),context.self());
+      context.parent().tell(new EndpointUserConfigurationUpdateMessage(toUpdate(newHash,route)),context.self());
     }
  else {
       eventService.sendEndpointStateInfo(route.getAddress().getServerId(),toUpdate(newHash,route));

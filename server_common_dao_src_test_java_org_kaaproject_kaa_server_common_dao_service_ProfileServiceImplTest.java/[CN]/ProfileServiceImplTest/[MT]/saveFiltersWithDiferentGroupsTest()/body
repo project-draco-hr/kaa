@@ -2,7 +2,7 @@
   ApplicationDto application=generateApplicationDto(null);
   EndpointGroupDto groupDto=generateEndpointGroupDto(application.getId());
   EndpointGroupDto groupDto2=generateEndpointGroupDto(application.getId(),"OTHER_GROUP");
-  ProfileSchemaDto schema=generateProfSchemaDto(application.getTenantId(),application.getId(),1).get(0);
+  EndpointProfileSchemaDto schema=generateProfSchemaDto(application.getTenantId(),application.getId(),1).get(0);
   ProfileFilterDto filterDto=generateFilterDto(schema.getId(),groupDto.getId(),1,false).get(0);
   Assert.assertNotNull(filterDto);
   profileService.removeProfileFiltersByProfileSchemaId(schema.getId());
@@ -18,7 +18,7 @@
   Assert.assertNotNull(savedTwo);
   ChangeProfileFilterNotification activeTwo=profileService.activateProfileFilter(savedTwo.getId(),null);
   Assert.assertNotNull(activeTwo);
-  List<ProfileFilterDto> activeList=profileService.findProfileFilterByAppIdAndVersion(application.getId(),schema.getVersion());
+  List<ProfileFilterDto> activeList=profileService.findProfileFiltersByAppIdAndVersion(application.getId(),schema.getVersion());
   Assert.assertFalse(activeList.isEmpty());
   Set<String> groupIds=new HashSet<>();
   for (  ProfileFilterDto dto : activeList) {

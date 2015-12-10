@@ -1,7 +1,7 @@
 {
-  ParameterizedTypeReference<List<ProfileSchemaDto>> typeRef=new ParameterizedTypeReference<List<ProfileSchemaDto>>(){
+  ParameterizedTypeReference<List<EndpointProfileSchemaDto>> typeRef=new ParameterizedTypeReference<List<EndpointProfileSchemaDto>>(){
   }
 ;
-  ResponseEntity<List<ProfileSchemaDto>> entity=restTemplate.exchange(url + "profileSchemas/" + applicationId,HttpMethod.GET,null,typeRef);
+  ResponseEntity<List<EndpointProfileSchemaDto>> entity=restTemplate.exchange(url + "profileSchemas/" + applicationId,HttpMethod.GET,null,typeRef);
   return entity.getBody();
 }

@@ -1,6 +1,6 @@
 {
   LOG.trace("Lookup profileSchema by appToken: {} and version: {}",appToken,schemaVersion);
-  ProfileSchemaDto profileSchemaDto=cacheService.getProfileSchemaByAppAndVersion(new AppVersionKey(appToken,schemaVersion));
+  EndpointProfileSchemaDto profileSchemaDto=cacheService.getProfileSchemaByAppAndVersion(new AppVersionKey(appToken,schemaVersion));
   String profileSchema=cacheService.getFlatCtlSchemaById(profileSchemaDto.getCtlSchemaId());
   LOG.trace("ProfileSchema by appToken: {} and version: {} found: {}",appToken,schemaVersion,profileSchema);
   String profileJson=GenericAvroConverter.toJson(profileRaw,profileSchema);

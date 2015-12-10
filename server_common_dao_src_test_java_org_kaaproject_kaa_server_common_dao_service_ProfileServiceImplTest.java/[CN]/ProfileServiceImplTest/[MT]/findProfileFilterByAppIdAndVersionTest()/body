@@ -1,6 +1,6 @@
 {
   ApplicationDto application=generateApplicationDto(null);
-  List<ProfileFilterDto> filters=profileService.findProfileFilterByAppIdAndVersion(application.getId(),0);
+  List<ProfileFilterDto> filters=profileService.findProfileFiltersByAppIdAndVersion(application.getId(),0);
   Assert.assertNotNull(filters);
   Assert.assertFalse(filters.isEmpty());
 }

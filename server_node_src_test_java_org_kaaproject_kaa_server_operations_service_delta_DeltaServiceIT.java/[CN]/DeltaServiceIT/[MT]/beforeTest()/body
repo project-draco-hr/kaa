@@ -28,11 +28,11 @@
   metaInfo.setScope(CTLSchemaScopeDto.SERVER_PROFILE_SCHEMA);
   profileCtlSchema.setMetaInfo(metaInfo);
   profileCtlSchema=ctlService.saveCTLSchema(profileCtlSchema);
-  ProfileSchemaDto profileSchemaObj=new ProfileSchemaDto();
+  EndpointProfileSchemaDto profileSchemaObj=new EndpointProfileSchemaDto();
   profileSchemaObj.setVersion(PROFILE_SCHEMA_VERSION);
   profileSchemaObj.setCtlSchemaId(profileCtlSchema.getId());
   profileSchemaObj.setApplicationId(application.getId());
-  ProfileSchemaDto profileSchemaDto=profileService.saveProfileSchema(profileSchemaObj);
+  EndpointProfileSchemaDto profileSchemaDto=profileService.saveProfileSchema(profileSchemaObj);
   profileSchema=profileService.findProfileSchemaById(profileSchemaDto.getId());
   EndpointGroupDto endpointGroup=new EndpointGroupDto();
   endpointGroup.setApplicationId(application.getId());

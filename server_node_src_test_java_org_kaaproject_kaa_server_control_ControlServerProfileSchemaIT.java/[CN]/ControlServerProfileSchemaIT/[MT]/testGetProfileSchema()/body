@@ -1,6 +1,6 @@
 {
-  ProfileSchemaDto profileSchema=createProfileSchema();
-  ProfileSchemaDto storedProfileSchema=client.getProfileSchema(profileSchema.getId());
+  EndpointProfileSchemaDto profileSchema=createProfileSchema();
+  EndpointProfileSchemaDto storedProfileSchema=client.getProfileSchema(profileSchema.getId());
   Assert.assertNotNull(storedProfileSchema);
   assertProfileSchemasEquals(profileSchema,storedProfileSchema);
 }

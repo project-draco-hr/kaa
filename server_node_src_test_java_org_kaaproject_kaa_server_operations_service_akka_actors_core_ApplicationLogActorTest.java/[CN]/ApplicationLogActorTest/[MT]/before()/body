@@ -20,7 +20,7 @@
   when(applicationDto.getId()).thenReturn(APPLICATION_ID);
   when(logAppenderService.getApplicationAppenders(APPLICATION_ID)).thenReturn(logAppenders);
   when(logAppender.isSchemaVersionSupported(Mockito.anyInt())).thenReturn(Boolean.TRUE);
-  ProfileSchemaDto profileSchemaDto=new ProfileSchemaDto();
+  EndpointProfileSchemaDto profileSchemaDto=new EndpointProfileSchemaDto();
   profileSchemaDto.setId("" + CLIENT_SCHEMA_VERSION);
   profileSchemaDto.setCtlSchemaId(CLIENT_PROFILE_CTL_SCHEMA_ID);
   ServerProfileSchemaDto serverProfileSchemaDto=new ServerProfileSchemaDto();

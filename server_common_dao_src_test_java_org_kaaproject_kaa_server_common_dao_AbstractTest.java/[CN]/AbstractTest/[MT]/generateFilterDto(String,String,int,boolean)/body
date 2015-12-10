@@ -1,7 +1,7 @@
 {
   List<ProfileFilterDto> filters=Collections.emptyList();
   try {
-    ProfileSchemaDto schemaDto=null;
+    EndpointProfileSchemaDto schemaDto=null;
     if (isBlank(schemaId)) {
       schemaDto=generateProfSchemaDto(null,null,1).get(0);
       schemaId=schemaDto.getId();

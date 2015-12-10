@@ -1,7 +1,7 @@
 {
   final ApplicationDto application=createApplication(tenantAdminDto);
   loginTenantDeveloper(tenantDeveloperUser);
-  final ProfileSchemaDto profileSchema=createProfileSchema(application.getId(),null);
+  final EndpointProfileSchemaDto profileSchema=createProfileSchema(application.getId(),null);
   checkNotFound(new TestRestCall(){
     @Override public void executeRestCall() throws Exception {
       client.downloadSdk(getSdkProfile(application.getId(),profileSchema.getVersion(),2,2,null,0,null).getId(),SdkPlatform.JAVA);

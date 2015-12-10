@@ -20,11 +20,11 @@
     @Override public void onClick(    ClickEvent clickEvent){
       listView.clearError();
       String value=listView.getEndpointKeyHashTextBox().getValue();
-      if (value != null && !value.isEmpty()) {
+      if (isNotBlank(value)) {
         findEndpointFromThisApplication(value);
       }
  else {
-        Utils.handleException(new IllegalArgumentException(Utils.messages.emptyEndpointKeyHash()),listView);
+        listView.getListWidget().getDataGrid().setRowData(new ArrayList<EndpointProfileDto>());
       }
     }
   }
