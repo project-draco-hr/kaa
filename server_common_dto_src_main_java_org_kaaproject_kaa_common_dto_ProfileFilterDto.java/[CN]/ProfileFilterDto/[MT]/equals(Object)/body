@@ -1,9 +1,8 @@
 {
-  if (this == o) {
-    return true;
-  }
-  if (!(o instanceof ProfileFilterDto)) {
-    return false;
-  }
-  return super.equals(o);
+  if (this == o)   return true;
+  if (o == null || getClass() != o.getClass())   return false;
+  if (!super.equals(o))   return false;
+  ProfileFilterDto that=(ProfileFilterDto)o;
+  if (endpointSchemaVersions != null ? !endpointSchemaVersions.equals(that.endpointSchemaVersions) : that.endpointSchemaVersions != null)   return false;
+  return serverSchemaVersions != null ? serverSchemaVersions.equals(that.serverSchemaVersions) : that.serverSchemaVersions == null;
 }

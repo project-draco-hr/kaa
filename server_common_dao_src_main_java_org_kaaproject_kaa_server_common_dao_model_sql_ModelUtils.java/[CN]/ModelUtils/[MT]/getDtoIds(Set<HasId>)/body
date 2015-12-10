@@ -1,0 +1,13 @@
+{
+  List<String> ids;
+  if (set == null || set.isEmpty()) {
+    ids=Collections.emptyList();
+  }
+ else {
+    ids=new ArrayList<>(set.size());
+    for (    HasId hasId : set) {
+      ids.add(hasId.getId());
+    }
+  }
+  return ids;
+}

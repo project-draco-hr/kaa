@@ -1,6 +1,7 @@
 {
   ProfileFilterDto filterDto=super.toDto();
   filterDto.setBody(body);
-  filterDto.setSchemaId(profileSchema.getStringId());
+  filterDto.setEndpointSchemaVersions(getGenericModelVersions(profileSchemas));
+  filterDto.setServerSchemaVersions(getGenericModelVersions(serverProfileSchemas));
   return filterDto;
 }

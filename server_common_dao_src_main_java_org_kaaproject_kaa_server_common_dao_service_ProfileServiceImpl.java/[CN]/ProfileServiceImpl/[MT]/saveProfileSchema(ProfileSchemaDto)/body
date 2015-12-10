@@ -27,27 +27,7 @@
         throw new IncorrectParameterException("Invalid profile schema id: " + id);
       }
     }
-    ProfileSchemaDto profileSchema=getDto(profileSchemaDao.save(new ProfileSchema(profileSchemaDto)));
-    if (profileSchema != null) {
-      EndpointGroup group=endpointGroupDao.findByAppIdAndWeight(profileSchemaDto.getApplicationId(),0);
-      ProfileFilterDto filter=new ProfileFilterDto();
-      filter.setBody(DEFAULT_FILTER_BODY);
-      filter.setEndpointGroupId(group.getId().toString());
-      filter.setSchemaId(profileSchema.getId());
-      filter=saveProfileFilter(filter);
-      if (filter != null) {
-        activateProfileFilter(filter.getId(),profileSchema.getCreatedUsername());
-      }
- else {
-        LOG.warn("Can't activate profile filter {}",filter);
-        throw new IncorrectParameterException("Can't save profile filter.");
-      }
-    }
- else {
-      LOG.warn("Can't save profile schema {}",profileSchemaDto);
-      throw new IncorrectParameterException("Can't save profile schema.");
-    }
-    return profileSchema;
+    return getDto(profileSchemaDao.save(new ProfileSchema(profileSchemaDto)));
   }
  else {
     throw new IncorrectParameterException("Invalid profile schema object. Incorrect application id" + appId);

@@ -1,0 +1,13 @@
+{
+  ProfileSchemaDto profileSchemaDto=new ProfileSchemaDto();
+  profileSchemaDto.setApplicationId(appId);
+  CTLSchemaDto ctlSchema=ctlService.getOrCreateEmptySystemSchema(createdUsername);
+  profileSchemaDto.setCtlSchemaId(ctlSchema.getId());
+  profileSchemaDto.setName(DEFAULT_SCHEMA_NAME);
+  profileSchemaDto.setCreatedUsername(createdUsername);
+  profileSchemaDto=profileService.saveProfileSchema(profileSchemaDto);
+  if (profileSchemaDto == null) {
+    throw new RuntimeException("Can't save default profile schema " + profileSchemaDto);
+  }
+  return profileSchemaDto;
+}

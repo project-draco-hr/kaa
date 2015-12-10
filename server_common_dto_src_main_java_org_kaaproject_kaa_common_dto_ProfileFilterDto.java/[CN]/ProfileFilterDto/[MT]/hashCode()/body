@@ -1,3 +1,6 @@
 {
-  return super.hashCode();
+  int result=super.hashCode();
+  result=31 * result + (endpointSchemaVersions != null ? endpointSchemaVersions.hashCode() : 0);
+  result=31 * result + (serverSchemaVersions != null ? serverSchemaVersions.hashCode() : 0);
+  return result;
 }
