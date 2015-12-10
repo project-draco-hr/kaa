@@ -1,0 +1,19 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    checkApplicationId(applicationId);
+    List<ServerProfileSchemaDto> serverProfileSchemas=controlService.getServerProfileSchemasByApplicationId(applicationId);
+    List<SchemaInfoDto> schemaInfos=new ArrayList<>(serverProfileSchemas.size());
+    for (    ServerProfileSchemaDto serverProfileSchema : serverProfileSchemas) {
+      SchemaInfoDto schemaInfo=new SchemaInfoDto(serverProfileSchema);
+      RecordField schemaForm=createRecordFieldFromCtlSchemaAndBody(serverProfileSchema.getCtlSchemaId(),null);
+      schemaInfo.setSchemaName(serverProfileSchema.getName());
+      schemaInfo.setSchemaForm(schemaForm);
+      schemaInfos.add(schemaInfo);
+    }
+    return schemaInfos;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

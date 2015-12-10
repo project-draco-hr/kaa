@@ -1,0 +1,24 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    EndpointProfileDto endpointProfile=getEndpointProfileByKeyHash(endpointKeyHash);
+    List<ServerProfileSchemaDto> serverProfileSchemas=controlService.getServerProfileSchemasByApplicationId(endpointProfile.getApplicationId());
+    List<SchemaInfoDto> schemaInfos=new ArrayList<>(serverProfileSchemas.size());
+    for (    ServerProfileSchemaDto serverProfileSchema : serverProfileSchemas) {
+      SchemaInfoDto schemaInfo=new SchemaInfoDto(serverProfileSchema);
+      String body=null;
+      if (schemaInfo.getVersion() == endpointProfile.getServerProfileVersion()) {
+        body=endpointProfile.getServerProfileBody();
+      }
+      RecordField schemaForm=createRecordFieldFromCtlSchemaAndBody(serverProfileSchema.getCtlSchemaId(),body);
+      schemaInfo.setSchemaName(serverProfileSchema.getName());
+      schemaInfo.setSchemaForm(schemaForm);
+      schemaInfos.add(schemaInfo);
+    }
+    Collections.sort(schemaInfos,Collections.reverseOrder());
+    return schemaInfos;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

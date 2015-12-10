@@ -1,0 +1,23 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    EndpointProfileDto profileDto=controlService.getEndpointProfileByKeyHash(endpointKeyHash);
+    checkApplicationId(profileDto.getApplicationId());
+    ServerProfileSchemaDto serverProfileSchema=controlService.getServerProfileSchemaByApplicationIdAndVersion(profileDto.getApplicationId(),serverProfileVersion);
+    RecordField record;
+    try {
+      record=createRecordFieldFromCtlSchemaAndBody(serverProfileSchema.getCtlSchemaId(),serverProfileBody);
+    }
+ catch (    Exception e) {
+      throw new KaaAdminServiceException("Provided server profile body is not valid: " + e.getMessage(),ServiceErrorCode.BAD_REQUEST_PARAMS);
+    }
+    if (!record.isValid()) {
+      throw new KaaAdminServiceException("Provided server profile body is not valid!",ServiceErrorCode.BAD_REQUEST_PARAMS);
+    }
+    profileDto=controlService.updateServerProfile(endpointKeyHash,serverProfileVersion,serverProfileBody);
+    return profileDto;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

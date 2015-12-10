@@ -1,0 +1,12 @@
+{
+  if (optional) {
+    recordCaption.setCaptionText(title);
+  }
+ else {
+    SpanElement span=Document.get().createSpanElement();
+    span.appendChild(Document.get().createTextNode(title));
+    span.addClassName("gwt-Label");
+    span.addClassName(REQUIRED);
+    recordCaption.setCaptionHTML(span.getString());
+  }
+}

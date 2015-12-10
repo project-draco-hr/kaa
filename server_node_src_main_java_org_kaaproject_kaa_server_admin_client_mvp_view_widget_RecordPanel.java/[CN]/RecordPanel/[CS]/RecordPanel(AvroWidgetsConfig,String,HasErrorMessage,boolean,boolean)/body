@@ -1,19 +1,11 @@
 {
+  this.optional=optional;
   this.readOnly=readOnly;
   this.hasErrorMessage=hasErrorMessage;
   FlexTable table=new FlexTable();
   table.setWidth("100%");
   recordCaption=new CaptionPanel();
-  if (optional) {
-    recordCaption.setCaptionText(title);
-  }
- else {
-    SpanElement span=Document.get().createSpanElement();
-    span.appendChild(Document.get().createTextNode(title));
-    span.addClassName("gwt-Label");
-    span.addClassName(REQUIRED);
-    recordCaption.setCaptionHTML(span.getString());
-  }
+  setTitle(title);
   if (config == null) {
     config=new AvroWidgetsConfig.Builder().createConfig();
   }

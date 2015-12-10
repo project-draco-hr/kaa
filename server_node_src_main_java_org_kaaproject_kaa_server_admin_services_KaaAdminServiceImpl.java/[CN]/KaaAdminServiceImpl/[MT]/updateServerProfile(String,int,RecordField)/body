@@ -1,0 +1,12 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    GenericRecord record=FormAvroConverter.createGenericRecordFromRecordField(serverProfileRecord);
+    GenericAvroConverter<GenericRecord> converter=new GenericAvroConverter<GenericRecord>(record.getSchema());
+    String serverProfileBody=converter.encodeToJson(record);
+    return updateServerProfile(endpointKeyHash,serverProfileVersion,serverProfileBody);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

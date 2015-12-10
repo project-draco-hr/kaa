@@ -1,9 +1,0 @@
-{
-  EndpointProfileDto profileDto=serverProfileService.saveServerProfile(endpointProfileDto.getEndpointKeyHash(),endpointProfileDto.getServerProfileBody());
-  Notification thriftNotification=new Notification();
-  thriftNotification.setAppId(endpointProfileDto.getApplicationId());
-  thriftNotification.setKeyHash(endpointProfileDto.getEndpointKeyHash());
-  thriftNotification.setOp(Operation.UPDATE_SERVER_PROFILE);
-  controlZKService.sendEndpointNotification(thriftNotification);
-  return profileDto;
-}

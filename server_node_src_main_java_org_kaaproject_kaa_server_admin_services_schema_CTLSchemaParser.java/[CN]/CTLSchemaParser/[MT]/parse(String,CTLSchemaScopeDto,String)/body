@@ -17,11 +17,9 @@
     schema.setFqn(object.get("namespace").getTextValue() + "." + object.get("name").getTextValue());
   }
   if (!object.has("version") || !object.get("version").isInt()) {
-    throw new IllegalArgumentException("No version specified!");
+    object.put("version",1);
   }
- else {
-    schema.setVersion(object.get("version").asInt());
-  }
+  schema.setVersion(object.get("version").asInt());
   Set<CTLSchemaMetaInfoDto> dependencies=new HashSet<>();
   if (!object.has("dependencies")) {
     schema.setDependencies(dependencies);
@@ -40,6 +38,7 @@
       schema.setDependencies(dependencies);
     }
   }
+  body=new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(object);
   schema.setBody(body);
   return schema;
 }

@@ -4,8 +4,7 @@
     if (app == null) {
       app=generateApplication(null);
     }
-    CTLSchemaDto ctlSchemaDto=ctlService.saveCTLSchema(generateCTLSchemaDto(DEFAULT_FQN,app.getTenant().getStringId(),1,null));
-    CTLSchema ctlSchema=ctlSchemaDao.findById(ctlSchemaDto.getId());
+    CTLSchema ctlSchema=generateCTLSchema(DEFAULT_FQN,1,app.getTenant(),null);
     ProfileSchema schemaDto;
     schemas=new ArrayList<>(count);
     for (int i=0; i < count; i++) {
