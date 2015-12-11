@@ -6,9 +6,9 @@
   for (  ProfileFilter filter : profileFilters) {
     usedSchemaIds.add(filter.getSchemaId());
   }
-  List<ProfileSchema> schemas=profileSchemaDao.findVacantSchemas(group.getApplicationId(),usedSchemaIds);
-  List<VersionDto> schemaDtoList=new ArrayList<>();
-  for (  ProfileSchema schema : schemas) {
+  List<EndpointProfileSchema> schemas=profileSchemaDao.findVacantSchemas(group.getApplicationId(),usedSchemaIds);
+  List<ProfileVersionPairDto> schemaDtoList=new ArrayList<>();
+  for (  EndpointProfileSchema schema : schemas) {
     schemaDtoList.add(schema.toVersionDto());
   }
   return schemaDtoList;

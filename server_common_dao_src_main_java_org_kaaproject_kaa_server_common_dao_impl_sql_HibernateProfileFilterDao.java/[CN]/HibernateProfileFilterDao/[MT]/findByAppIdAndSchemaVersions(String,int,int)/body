@@ -1,0 +1,14 @@
+{
+  List<ProfileFilter> filters=null;
+  LOG.debug("Searching configuration by application id [{}] and schema version [{}]",appId,serverSchemaVersion);
+  if (isNotBlank(appId)) {
+    filters=findListByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.and(Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(appId)),Restrictions.eq(SCHEMA_VERSION_PROPERTY,serverSchemaVersion),Restrictions.eq(STATUS_PROPERTY,UpdateStatus.ACTIVE)));
+  }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{},{}] Search result: {}.",appId,serverSchemaVersion,Arrays.toString(filters.toArray()));
+  }
+ else {
+    LOG.debug("[{},{}] Search result: {}.",appId,serverSchemaVersion,filters.size());
+  }
+  return filters;
+}

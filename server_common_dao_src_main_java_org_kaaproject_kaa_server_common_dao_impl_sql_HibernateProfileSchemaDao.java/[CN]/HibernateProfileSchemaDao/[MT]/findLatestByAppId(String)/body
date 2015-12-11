@@ -1,5 +1,5 @@
 {
-  ProfileSchema latestSchema=null;
+  EndpointProfileSchema latestSchema=null;
   LOG.debug("Searching latest profile schema by application id [{}] ",appId);
   if (isNotBlank(appId)) {
     Criteria criteria=getCriteria().createAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS).add(Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(appId))).addOrder(Order.desc(VERSION_PROPERTY)).setMaxResults(FIRST);

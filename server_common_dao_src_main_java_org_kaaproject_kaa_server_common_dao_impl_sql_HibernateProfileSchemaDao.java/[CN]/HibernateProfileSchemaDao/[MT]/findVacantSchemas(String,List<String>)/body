@@ -1,6 +1,6 @@
 {
   LOG.debug("Searching vacant schemas by application id [{}] and used schema ids [{}] ",appId,usedSchemaIds);
-  List<ProfileSchema> schemas=Collections.emptyList();
+  List<EndpointProfileSchema> schemas=Collections.emptyList();
   if (isNotBlank(appId)) {
     Criteria criteria=getCriteria().createAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS).add(Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(appId)));
     if (usedSchemaIds != null && !usedSchemaIds.isEmpty()) {

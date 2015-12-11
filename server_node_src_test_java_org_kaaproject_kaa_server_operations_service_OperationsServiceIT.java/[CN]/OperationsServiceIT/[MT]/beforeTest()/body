@@ -32,12 +32,12 @@
   ctlSchema.setDependencySet(new HashSet<CTLSchema>());
   ctlSchema.setMetaInfo(metaInfo);
   ctlSchema=ctlSchemaDao.save(ctlSchema);
-  ProfileSchema profileSchemaObj=new ProfileSchema();
-  profileSchemaObj.setVersion(PROFILE_SCHEMA_VERSION);
-  profileSchemaObj.setCtlSchema(ctlSchema);
-  profileSchemaObj.setApplication(application);
-  EndpointProfileSchemaDto profileSchemaDto=profileService.saveProfileSchema(profileSchemaObj.toDto());
-  profileSchema=profileSchemaDao.findById(profileSchemaDto.getId());
+  EndpointProfileSchema endpointProfileSchemaObj=new EndpointProfileSchema();
+  endpointProfileSchemaObj.setVersion(PROFILE_SCHEMA_VERSION);
+  endpointProfileSchemaObj.setCtlSchema(ctlSchema);
+  endpointProfileSchemaObj.setApplication(application);
+  EndpointProfileSchemaDto profileSchemaDto=profileService.saveProfileSchema(endpointProfileSchemaObj.toDto());
+  endpointProfileSchema=profileSchemaDao.findById(profileSchemaDto.getId());
   EndpointGroup endpointGroup=new EndpointGroup();
   endpointGroup.setApplication(application);
   endpointGroup.setName("Test group");
@@ -48,7 +48,7 @@
   profileFilterObj.setApplication(application);
   profileFilterObj.setEndpointGroup(endpointGroup);
   profileFilterObj.setBody("profileBody.contains(\"dummy\")");
-  profileFilterObj.setProfileSchema(profileSchema);
+  profileFilterObj.setProfileSchema(endpointProfileSchema);
   profileFilter=profileService.saveProfileFilter(profileFilterObj.toDto());
   profileService.activateProfileFilter(profileFilter.getId(),null);
   confSchema=new ConfigurationSchema();

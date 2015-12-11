@@ -1,0 +1,13 @@
+{
+  Set<Integer> ids;
+  if (set == null || set.isEmpty()) {
+    ids=Collections.emptySet();
+  }
+ else {
+    ids=new HashSet<>(set.size());
+    for (    HasVersion hasVersion : set) {
+      ids.add(hasVersion.getVersion());
+    }
+  }
+  return ids;
+}

@@ -1,0 +1,13 @@
+{
+  Set<String> ids;
+  if (set == null || set.isEmpty()) {
+    ids=Collections.emptySet();
+  }
+ else {
+    ids=new HashSet<>(set.size());
+    for (    GenericModel<?> model : set) {
+      ids.add(model.getStringId());
+    }
+  }
+  return ids;
+}

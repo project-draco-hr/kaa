@@ -8,7 +8,6 @@
     }
   }
  else {
-    String schemaId=profileFilterDto.getSchemaId();
     String groupId=profileFilterDto.getEndpointGroupId();
     EndpointGroup group=endpointGroupDao.findById(groupId);
     if (group.getWeight() == 0) {
@@ -29,7 +28,6 @@
         profileFilterDto.setSequenceNumber(latestFilter.getSequenceNumber());
       }
       profileFilterDto.setApplicationId(profileSchemaDto.getApplicationId());
-      profileFilterDto.setSchemaVersion(profileSchemaDto.getVersion());
       profileFilterDto.setCreatedTime(System.currentTimeMillis());
     }
  else {

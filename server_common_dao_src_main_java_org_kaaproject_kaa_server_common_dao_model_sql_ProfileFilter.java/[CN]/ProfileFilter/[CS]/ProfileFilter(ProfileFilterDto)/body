@@ -1,6 +1,6 @@
 {
   super(dto);
   this.body=dto.getBody();
-  Long schemaId=getLongId(dto.getSchemaId());
-  this.profileSchema=schemaId != null ? new ProfileSchema(schemaId) : null;
+  this.endpointProfileSchema=getGenericModelWithId(dto,new EndpointProfileSchema());
+  this.serverProfileSchema=getGenericModelWithId(dto,new ServerProfileSchema());
 }

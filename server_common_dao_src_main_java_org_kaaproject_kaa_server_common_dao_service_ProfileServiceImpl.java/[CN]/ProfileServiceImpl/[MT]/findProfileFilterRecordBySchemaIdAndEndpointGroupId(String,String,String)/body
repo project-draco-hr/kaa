@@ -1,0 +1,25 @@
+{
+  ProfileFilterRecordDto record=new ProfileFilterRecordDto();
+  Collection<ProfileFilterDto> profileFilters=convertDtoList(profileFilterDao.findActualBySchemaIdAndGroupId(schemaId,endpointGroupId));
+  if (profileFilters != null) {
+    for (    ProfileFilterDto profileFilter : profileFilters) {
+      if (profileFilter.getStatus() == UpdateStatus.ACTIVE) {
+        record.setActiveStructureDto(profileFilter);
+      }
+ else       if (profileFilter.getStatus() == UpdateStatus.INACTIVE) {
+        record.setInactiveStructureDto(profileFilter);
+      }
+    }
+  }
+  if (!record.hasActive()) {
+    ProfileFilterDto deprecatedProfileFilter=getDto(profileFilterDao.findLatestDeprecated(schemaId,endpointGroupId));
+    if (deprecatedProfileFilter != null) {
+      record.setActiveStructureDto(deprecatedProfileFilter);
+    }
+  }
+  if (record.isEmpty()) {
+    LOG.debug("Can't find related profile filter record for schema {} and group {}.",schemaId,endpointGroupId);
+    throw new IncorrectParameterException("Profile filter record not found, schemaId: " + schemaId + ", endpointGroupId: "+ endpointGroupId);
+  }
+  return record;
+}

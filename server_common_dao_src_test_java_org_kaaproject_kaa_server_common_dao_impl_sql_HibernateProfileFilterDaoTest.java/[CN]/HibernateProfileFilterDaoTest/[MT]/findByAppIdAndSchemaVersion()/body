@@ -3,6 +3,6 @@
   Assert.assertEquals(1,filters.size());
   ProfileFilter first=filters.get(0);
   Application app=first.getApplication();
-  List<ProfileFilter> found=profileFilterDao.findByAppIdAndSchemaVersion(app.getId().toString(),first.getSchemaVersion());
+  List<ProfileFilter> found=profileFilterDao.findByAppIdAndSchemaVersions(app.getId().toString(),endpointSchemaVersion,first.getSchemaVersion());
   Assert.assertEquals(filters,found);
 }

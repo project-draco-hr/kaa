@@ -1,0 +1,10 @@
+{
+  Set<T> set=Collections.emptySet();
+  if (toDtoSet != null && !toDtoSet.isEmpty()) {
+    set=new HashSet<>();
+    for (    ToDto<T> object : toDtoSet) {
+      set.add(object.toDto());
+    }
+  }
+  return set;
+}
