@@ -1,0 +1,19 @@
+{
+  super.bind(eventBus);
+  if (create) {
+    registrations.add(recordView.getEndpointProfileSchema().addValueChangeHandler(new ValueChangeHandler<VersionDto>(){
+      @Override public void onValueChange(      ValueChangeEvent<VersionDto> event){
+        List<VersionDto> newValues=extractServerProfileVersions(event.getValue());
+        updateValues(recordView.getServerProfileSchema(),newValues);
+      }
+    }
+));
+    registrations.add(recordView.getServerProfileSchema().addValueChangeHandler(new ValueChangeHandler<VersionDto>(){
+      @Override public void onValueChange(      ValueChangeEvent<VersionDto> event){
+        List<VersionDto> newValues=extractEndpointProfileVersions(event.getValue());
+        updateValues(recordView.getEndpointProfileSchema(),newValues);
+      }
+    }
+));
+  }
+}

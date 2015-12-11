@@ -1,0 +1,28 @@
+{
+  float prefWidth=0;
+  prefWidth+=constructStringColumn(table,Utils.constants.description(),new StringValueProvider<T>(){
+    @Override public String getValue(    T item){
+      return item.getDescription();
+    }
+  }
+,160);
+  prefWidth+=constructStringColumn(table,Utils.constants.numberOfEps(),new StringValueProvider<T>(){
+    @Override public String getValue(    T item){
+      return item.getEndpointCount() + "";
+    }
+  }
+,80);
+  prefWidth+=constructBooleanColumn(table,Utils.constants.active(),new BooleanValueProvider<T>(){
+    @Override public Boolean getValue(    T item){
+      return item.hasActive() && !item.hasDeprecated();
+    }
+  }
+,40);
+  prefWidth+=constructBooleanColumn(table,Utils.constants.draft(),new BooleanValueProvider<T>(){
+    @Override public Boolean getValue(    T item){
+      return item.hasDraft();
+    }
+  }
+,40);
+  return prefWidth;
+}

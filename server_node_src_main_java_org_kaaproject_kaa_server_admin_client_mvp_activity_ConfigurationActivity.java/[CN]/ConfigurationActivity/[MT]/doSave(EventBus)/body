@@ -1,0 +1,19 @@
+{
+  ConfigurationRecordFormDto inactiveStruct=record.getInactiveStructureDto();
+  if (create) {
+    schemaId=recordView.getSchema().getValue().getId();
+    inactiveStruct.setSchemaId(schemaId);
+    inactiveStruct.setSchemaVersion(recordView.getSchema().getValue().getVersion());
+  }
+  inactiveStruct.setDescription(recordView.getRecordPanel().getDescription().getValue());
+  inactiveStruct.setConfigurationRecord(recordView.getRecordPanel().getBody().getValue());
+  editConfiguration(inactiveStruct,new BusyAsyncCallback<ConfigurationRecordFormDto>(){
+    public void onSuccessImpl(    ConfigurationRecordFormDto result){
+      goTo(getRecordPlace(applicationId,endpointGroupId,false,false,Math.random()));
+    }
+    public void onFailureImpl(    Throwable caught){
+      Utils.handleException(caught,recordView,ConfigurationActivity.this);
+    }
+  }
+);
+}
