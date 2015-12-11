@@ -1,5 +1,5 @@
 {
-  String filterBody="#" + DefaultFilter.CLIENT_PROFILE_VARIABLE_NAME + "."+ "recordField.otherSimpleField == 123";
-  Filter filter=new DefaultFilter(filterBody,PROFILE_SCHEMA,SERVER_PROFILE_SCHEMA);
+  String filterBody="#" + DefaultFilterEvaluator.CLIENT_PROFILE_VARIABLE_NAME + "."+ "recordField.otherSimpleField == 123";
+  FilterEvaluator filter=new DefaultFilterEvaluator(filterBody,PROFILE_SCHEMA,SERVER_PROFILE_SCHEMA);
   Assert.assertEquals(Boolean.TRUE,filter.matches(profile));
 }

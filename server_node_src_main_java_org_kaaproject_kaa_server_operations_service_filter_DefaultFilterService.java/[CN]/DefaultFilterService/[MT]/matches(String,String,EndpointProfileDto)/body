@@ -1,12 +1,10 @@
 {
   ProfileFilterDto filterDto=cacheService.getFilter(profileFilterId);
-  AppVersionKey appProfileVersionKey=new AppVersionKey(appToken,filterDto.getSchemaVersion());
-  AppVersionKey appServerProfileVersionKey=new AppVersionKey(appToken,profile.getServerProfileVersion());
-  EndpointProfileSchemaDto profileSchema=cacheService.getProfileSchemaByAppAndVersion(appProfileVersionKey);
-  ServerProfileSchemaDto serverProfileSchema=cacheService.getServerProfileSchemaByAppAndVersion(appServerProfileVersionKey);
-  String profileSchemaBody=cacheService.getFlatCtlSchemaById(profileSchema.getCtlSchemaId());
-  String serverProfileSchemaBody=cacheService.getFlatCtlSchemaById(serverProfileSchema.getCtlSchemaId());
-  Filter filter=new DefaultFilter(filterDto.getBody(),profileSchemaBody,serverProfileSchemaBody);
-  LOG.trace("matching profile body with filter {}",filter);
-  return filter.matches(profile);
+  AppProfileVersionsKey key=new AppProfileVersionsKey(appToken,profile.getClientProfileVersion(),profile.getServerProfileVersion());
+  String endpointProfileSchemaBody=getEndpointProfileSchemaBody(key);
+  String serverProfileSchemaBody=getServerProfileSchemaBody(key);
+  FilterEvaluator filterEvaluator=new DefaultFilterEvaluator();
+  filterEvaluator.init(profile,endpointProfileSchemaBody,serverProfileSchemaBody);
+  LOG.trace("matching profile body with filter {}",filterEvaluator);
+  return filterEvaluator.matches(filterDto);
 }

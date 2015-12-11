@@ -1,0 +1,28 @@
+{
+  String endpointProfileSchemaBody=getEndpointProfileSchemaBody(key);
+  String serverProfileSchemaBody=getServerProfileSchemaBody(key);
+  List<ProfileFilterDto> filters=cacheService.getFilters(key);
+  LOG.trace("Found {} filters by {}",filters.size(),key);
+  List<ProfileFilterDto> matchingFilters=new LinkedList<ProfileFilterDto>();
+  FilterEvaluator filterEvaluator=null;
+  for (  ProfileFilterDto filterBody : filters) {
+    if (filterEvaluator == null) {
+      filterEvaluator=new DefaultFilterEvaluator();
+      filterEvaluator.init(profile,endpointProfileSchemaBody,serverProfileSchemaBody);
+    }
+    LOG.trace("matching profile body with filter [{}]: {}",filterBody.getId(),filterBody.getBody());
+    try {
+      if (filterEvaluator.matches(filterBody)) {
+        matchingFilters.add(filterBody);
+        LOG.trace("profile body matched");
+      }
+    }
+ catch (    EvaluationException ee) {
+      LOG.warn("Failed to process filter {} due to evaluate exception. Please check your filter body",filterBody.getBody(),ee);
+    }
+catch (    Exception e) {
+      LOG.error("Failed to process filter {} due to exception",filterBody.getBody(),e);
+    }
+  }
+  return matchingFilters;
+}
