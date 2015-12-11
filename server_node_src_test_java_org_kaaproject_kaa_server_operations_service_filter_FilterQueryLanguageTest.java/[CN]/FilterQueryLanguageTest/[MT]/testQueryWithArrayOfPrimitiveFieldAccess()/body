@@ -1,8 +1,8 @@
 {
-  String filterBody="#" + DefaultFilter.CLIENT_PROFILE_VARIABLE_NAME + "."+ "arraySimpleField[1] == 'VALUE2'";
-  Filter filter=new DefaultFilter(filterBody,PROFILE_SCHEMA,SERVER_PROFILE_SCHEMA);
+  String filterBody="#" + DefaultFilterEvaluator.CLIENT_PROFILE_VARIABLE_NAME + "."+ "arraySimpleField[1] == 'VALUE2'";
+  FilterEvaluator filter=new DefaultFilterEvaluator(filterBody,PROFILE_SCHEMA,SERVER_PROFILE_SCHEMA);
   Assert.assertEquals(Boolean.TRUE,filter.matches(profile));
-  filterBody="#" + DefaultFilter.SERVER_PROFILE_VARIABLE_NAME + ".arraySimpleField[1] == 'VALUE2'";
-  filter=new DefaultFilter(filterBody,PROFILE_SCHEMA,SERVER_PROFILE_SCHEMA);
+  filterBody="#" + DefaultFilterEvaluator.SERVER_PROFILE_VARIABLE_NAME + ".arraySimpleField[1] == 'VALUE2'";
+  filter=new DefaultFilterEvaluator(filterBody,PROFILE_SCHEMA,SERVER_PROFILE_SCHEMA);
   Assert.assertEquals(Boolean.TRUE,filter.matches(profile));
 }

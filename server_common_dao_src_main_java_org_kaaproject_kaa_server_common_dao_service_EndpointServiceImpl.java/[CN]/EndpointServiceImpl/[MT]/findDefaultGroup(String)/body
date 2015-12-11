@@ -1,0 +1,4 @@
+{
+  validateSqlId(appId,"Can't find defualt endpoint group by app id. Incorrect app id " + appId);
+  return getDto(endpointGroupDao.findByAppIdAndWeight(appId,DEFAULT_GROUP_WEIGHT));
+}
