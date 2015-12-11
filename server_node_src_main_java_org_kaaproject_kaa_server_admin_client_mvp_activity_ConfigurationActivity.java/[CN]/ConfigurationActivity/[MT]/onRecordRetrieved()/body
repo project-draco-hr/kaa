@@ -1,0 +1,43 @@
+{
+  if (create) {
+    getVacantSchemas(endpointGroupId,new BusyAsyncCallback<List<SchemaInfoDto>>(){
+      @Override public void onFailureImpl(      Throwable caught){
+        Utils.handleException(caught,recordView);
+      }
+      @Override public void onSuccessImpl(      List<SchemaInfoDto> result){
+        VersionDto schema=Utils.getMaxSchemaVersions(result);
+        recordView.getSchema().setValue(schema);
+        List<VersionDto> values=new ArrayList<>();
+        values.addAll(result);
+        Collections.sort(values);
+        recordView.getSchema().setAcceptableValues(values);
+        recordView.getRecordPanel().setData(record);
+        schemaSelected(schema);
+        recordView.getRecordPanel().openDraft();
+      }
+    }
+);
+  }
+ else {
+    String version=record.getSchemaVersion() + "";
+    recordView.getSchemaVersion().setValue(version);
+    if (record.hasActive() && !record.hasDraft()) {
+      ConfigurationRecordFormDto inactiveStruct=createInactiveStruct();
+      inactiveStruct.setSchemaId(record.getSchemaId());
+      inactiveStruct.setSchemaVersion(record.getSchemaVersion());
+      inactiveStruct.setDescription(record.getDescription());
+      inactiveStruct.setConfigurationRecord(record.getActiveStructureDto().getConfigurationRecord());
+      record.setInactiveStructureDto(inactiveStruct);
+    }
+    recordView.getRecordPanel().setData(record);
+    if (endpointGroup.getWeight() == 0) {
+      recordView.getRecordPanel().setReadOnly();
+    }
+    if (showActive && record.hasActive()) {
+      recordView.getRecordPanel().openActive();
+    }
+ else {
+      recordView.getRecordPanel().openDraft();
+    }
+  }
+}

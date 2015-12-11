@@ -1,0 +1,11 @@
+{
+  super.resetImpl();
+  if (create) {
+    endpointProfileSchema.reset();
+    serverProfileSchema.reset();
+  }
+ else {
+    endpointProfileSchemaVersion.setValue("");
+    serverProfileSchemaVersion.setValue("");
+  }
+}

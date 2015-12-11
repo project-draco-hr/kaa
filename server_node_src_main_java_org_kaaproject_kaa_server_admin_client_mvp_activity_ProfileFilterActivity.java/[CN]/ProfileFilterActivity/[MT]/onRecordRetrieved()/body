@@ -1,0 +1,49 @@
+{
+  if (create) {
+    getVacantSchemas(endpointGroupId,new BusyAsyncCallback<List<ProfileVersionPairDto>>(){
+      @Override public void onFailureImpl(      Throwable caught){
+        Utils.handleException(caught,recordView);
+      }
+      @Override public void onSuccessImpl(      List<ProfileVersionPairDto> result){
+        profileVersionPairs=result;
+        List<VersionDto> endpointProfileVersions=extractEndpointProfileVersions(null);
+        VersionDto endpointProfileVersion=Utils.getMaxSchemaVersions(endpointProfileVersions);
+        List<VersionDto> serverProfileVersions=extractServerProfileVersions(endpointProfileVersion);
+        VersionDto serverProfileVersion=Utils.getMaxSchemaVersions(serverProfileVersions);
+        recordView.getEndpointProfileSchema().setValue(endpointProfileVersion);
+        recordView.getServerProfileSchema().setValue(serverProfileVersion);
+        recordView.getEndpointProfileSchema().setAcceptableValues(endpointProfileVersions);
+        recordView.getServerProfileSchema().setAcceptableValues(serverProfileVersions);
+        recordView.getRecordPanel().setData(record);
+        recordView.getRecordPanel().openDraft();
+      }
+    }
+);
+  }
+ else {
+    String endpointProfileVersion=record.getEndpointProfileSchemaVersion() != null ? record.getEndpointProfileSchemaVersion().intValue() + "" : "";
+    String serverProfileVersion=record.getServerProfileSchemaVersion() != null ? record.getServerProfileSchemaVersion().intValue() + "" : "";
+    recordView.getEndpointProfileSchemaVersion().setValue(endpointProfileVersion);
+    recordView.getServerProfileSchemaVersion().setValue(serverProfileVersion);
+    if (record.hasActive() && !record.hasDraft()) {
+      ProfileFilterDto inactiveStruct=createInactiveStruct();
+      inactiveStruct.setEndpointProfileSchemaId(record.getEndpointProfileSchemaId());
+      inactiveStruct.setEndpointProfileSchemaVersion(record.getEndpointProfileSchemaVersion());
+      inactiveStruct.setServerProfileSchemaId(record.getServerProfileSchemaId());
+      inactiveStruct.setServerProfileSchemaVersion(record.getServerProfileSchemaVersion());
+      inactiveStruct.setDescription(record.getDescription());
+      inactiveStruct.setBody(record.getActiveStructureDto().getBody());
+      record.setInactiveStructureDto(inactiveStruct);
+    }
+    recordView.getRecordPanel().setData(record);
+    if (endpointGroup.getWeight() == 0) {
+      recordView.getRecordPanel().setReadOnly();
+    }
+    if (showActive && record.hasActive()) {
+      recordView.getRecordPanel().openActive();
+    }
+ else {
+      recordView.getRecordPanel().openDraft();
+    }
+  }
+}
