@@ -1,0 +1,19 @@
+{
+  LOG.debug("Searching actual profile filters by endpoint schema id [{}], server schema id [{}] and group id [{}] ",endpointProfileSchemaId,serverProfileSchemaId,groupId);
+  List<ProfileFilter> filters=Collections.emptyList();
+  if (isNotBlank(groupId)) {
+    Criteria criteria=getCriteria();
+    criteria.createAlias(ENDPOINT_GROUP_PROPERTY,ENDPOINT_GROUP_ALIAS);
+    criteria.createAlias(ENDPOINT_PROFILE_SCHEMA_PROPERTY,ENDPOINT_PROFILE_SCHEMA_ALIAS);
+    criteria.createAlias(SERVER_PROFILE_SCHEMA_PROPERTY,SERVER_PROFILE_SCHEMA_ALIAS);
+    criteria.add(Restrictions.and(Restrictions.eq(ENDPOINT_GROUP_REFERENCE,Long.valueOf(groupId)),buildEqIdCriterion(ENDPOINT_PROFILE_SCHEMA_REFERENCE,endpointProfileSchemaId),buildEqIdCriterion(SERVER_PROFILE_SCHEMA_REFERENCE,serverProfileSchemaId),Restrictions.ne(STATUS_PROPERTY,UpdateStatus.DEPRECATED)));
+    filters=findListByCriteria(criteria);
+  }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{},{},{}] Search result: {}.",endpointProfileSchemaId,serverProfileSchemaId,groupId,Arrays.toString(filters.toArray()));
+  }
+ else {
+    LOG.debug("[{},{},{}] Search result: {}.",endpointProfileSchemaId,serverProfileSchemaId,groupId,filters.size());
+  }
+  return filters;
+}

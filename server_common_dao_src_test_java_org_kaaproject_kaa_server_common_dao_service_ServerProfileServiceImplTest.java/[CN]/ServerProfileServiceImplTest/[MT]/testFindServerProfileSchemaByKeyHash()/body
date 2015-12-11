@@ -1,5 +1,5 @@
 {
-  ServerProfileSchemaDto schemaDto=generateServiceProfileSchema(null,null);
+  ServerProfileSchemaDto schemaDto=generateServerProfileSchema(null,null);
   EndpointProfileDto ep=generateEndpointProfileDtoWithSchemaVersion(schemaDto.getApplicationId(),schemaDto.getVersion(),null);
   EndpointProfileDto found=endpointService.findEndpointProfileByKeyHash(ep.getEndpointKeyHash());
   ServerProfileSchemaDto foundSchema=serverProfileService.findServerProfileSchemaByAppIdAndVersion(found.getApplicationId(),found.getServerProfileVersion());

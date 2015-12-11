@@ -1,0 +1,5 @@
+{
+  if (isNotBlank(endpointProfileSchemaId) && isBlank(serverProfileSchemaId)) {
+    throw new IncorrectParameterException("Both profile schema ids can't be empty");
+  }
+}

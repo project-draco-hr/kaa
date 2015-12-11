@@ -2,16 +2,16 @@
   ApplicationDto app=generateApplicationDto();
   List<ServerProfileSchemaDto> found=serverProfileService.findServerProfileSchemasByAppId(app.getId());
   Assert.assertEquals(1,found.size());
-  generateServiceProfileSchema(null,null);
-  generateServiceProfileSchema(null,null);
-  generateServiceProfileSchema(null,null);
-  generateServiceProfileSchema(null,null);
+  generateServerProfileSchema(null,null);
+  generateServerProfileSchema(null,null);
+  generateServerProfileSchema(null,null);
+  generateServerProfileSchema(null,null);
   List<ServerProfileSchemaDto> expected=new ArrayList<>();
   expected.add(found.get(0));
-  expected.add(generateServiceProfileSchema(app.getId(),app.getTenantId()));
-  expected.add(generateServiceProfileSchema(app.getId(),app.getTenantId()));
-  expected.add(generateServiceProfileSchema(app.getId(),app.getTenantId()));
-  expected.add(generateServiceProfileSchema(app.getId(),app.getTenantId()));
+  expected.add(generateServerProfileSchema(app.getId(),app.getTenantId()));
+  expected.add(generateServerProfileSchema(app.getId(),app.getTenantId()));
+  expected.add(generateServerProfileSchema(app.getId(),app.getTenantId()));
+  expected.add(generateServerProfileSchema(app.getId(),app.getTenantId()));
   found=serverProfileService.findServerProfileSchemasByAppId(app.getId());
   Assert.assertEquals(expected,found);
 }

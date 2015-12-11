@@ -1,11 +1,12 @@
 {
-  List<ProfileFilter> filters=generateFilter(null,null,1,UpdateStatus.ACTIVE);
+  List<ProfileFilter> filters=generateFilter(null,null,null,1,UpdateStatus.ACTIVE);
   Assert.assertEquals(1,filters.size());
   ProfileFilter first=filters.get(0);
   EndpointGroup group=first.getEndpointGroup();
-  EndpointProfileSchema schema=first.getProfileSchema();
-  List<ProfileFilter> inactiveConfigs=generateFilter(schema,group,1,UpdateStatus.INACTIVE);
-  generateFilter(schema,group,3,UpdateStatus.DEPRECATED);
-  ProfileFilter found=profileFilterDao.findInactiveFilter(schema.getId().toString(),group.getId().toString());
+  EndpointProfileSchema schema=first.getEndpointProfileSchema();
+  ServerProfileSchema server=first.getServerProfileSchema();
+  List<ProfileFilter> inactiveConfigs=generateFilter(schema,server,group,1,UpdateStatus.INACTIVE);
+  generateFilter(schema,server,group,3,UpdateStatus.DEPRECATED);
+  ProfileFilter found=profileFilterDao.findInactiveFilter(schema.getStringId(),server.getStringId(),group.getStringId());
   Assert.assertEquals(inactiveConfigs.get(0),found);
 }

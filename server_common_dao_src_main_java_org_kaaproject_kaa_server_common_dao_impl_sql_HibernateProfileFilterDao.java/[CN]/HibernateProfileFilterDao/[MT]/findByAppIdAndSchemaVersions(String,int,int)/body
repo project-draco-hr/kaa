@@ -2,7 +2,13 @@
   List<ProfileFilter> filters=null;
   LOG.debug("Searching configuration by application id [{}] and schema version [{}]",appId,serverSchemaVersion);
   if (isNotBlank(appId)) {
-    filters=findListByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.and(Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(appId)),Restrictions.eq(SCHEMA_VERSION_PROPERTY,serverSchemaVersion),Restrictions.eq(STATUS_PROPERTY,UpdateStatus.ACTIVE)));
+    Criteria criteria=getCriteria();
+    criteria.createAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS);
+    criteria.createAlias(ENDPOINT_PROFILE_SCHEMA_PROPERTY,ENDPOINT_PROFILE_SCHEMA_ALIAS);
+    criteria.createAlias(SERVER_PROFILE_SCHEMA_PROPERTY,SERVER_PROFILE_SCHEMA_ALIAS);
+    Criterion criterion=Restrictions.and(Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(appId)),Restrictions.eq(ENDPOINT_PROFILE_SCHEMA_VERSION_REFERENCE,endpointSchemaVersion),Restrictions.eq(SERVER_PROFILE_SCHEMA_VERSION_REFERENCE,serverSchemaVersion),Restrictions.eq(STATUS_PROPERTY,UpdateStatus.ACTIVE));
+    criteria.add(criterion);
+    filters=findListByCriteria(criteria);
   }
   if (LOG.isTraceEnabled()) {
     LOG.trace("[{},{}] Search result: {}.",appId,serverSchemaVersion,Arrays.toString(filters.toArray()));

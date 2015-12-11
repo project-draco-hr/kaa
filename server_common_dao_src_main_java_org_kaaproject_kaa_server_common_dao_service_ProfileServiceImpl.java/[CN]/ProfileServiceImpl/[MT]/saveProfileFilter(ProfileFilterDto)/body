@@ -8,18 +8,20 @@
     }
   }
  else {
+    String endProfSchemaId=profileFilterDto.getEndpointProfileSchemaId();
+    String srvProfSchemaId=profileFilterDto.getServerProfileSchemaId();
     String groupId=profileFilterDto.getEndpointGroupId();
     EndpointGroup group=endpointGroupDao.findById(groupId);
     if (group.getWeight() == 0) {
-      long count=profileFilterDao.findActiveFilterCount(schemaId,groupId);
+      long count=profileFilterDao.findActiveFilterCount(endProfSchemaId,srvProfSchemaId,groupId);
       if (count > 0) {
         throw new UpdateStatusConflictException("Can't create more than one profile filter, for default endpoint group");
       }
     }
-    EndpointProfileSchemaDto profileSchemaDto=findProfileSchemaById(schemaId);
+    EndpointProfileSchemaDto profileSchemaDto=findProfileSchemaById(endProfSchemaId);
     if (profileSchemaDto != null) {
-      ProfileFilter inactiveFilter=profileFilterDao.findInactiveFilter(schemaId,groupId);
-      ProfileFilter latestFilter=profileFilterDao.findLatestFilter(schemaId,groupId);
+      ProfileFilter inactiveFilter=profileFilterDao.findInactiveFilter(endProfSchemaId,srvProfSchemaId,groupId);
+      ProfileFilter latestFilter=profileFilterDao.findLatestFilter(endProfSchemaId,srvProfSchemaId,groupId);
       if (inactiveFilter != null) {
         profileFilterDto.setId(inactiveFilter.getId().toString());
         profileFilterDto.setSequenceNumber(inactiveFilter.getSequenceNumber());

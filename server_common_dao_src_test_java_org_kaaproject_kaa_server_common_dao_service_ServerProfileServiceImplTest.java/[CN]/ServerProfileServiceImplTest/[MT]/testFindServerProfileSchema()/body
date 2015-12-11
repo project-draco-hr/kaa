@@ -1,10 +1,10 @@
 {
   ApplicationDto app=generateApplicationDto();
-  generateServiceProfileSchema(app.getId(),app.getTenantId());
-  generateServiceProfileSchema(app.getId(),app.getTenantId());
-  generateServiceProfileSchema(app.getId(),app.getTenantId());
-  generateServiceProfileSchema(app.getId(),app.getTenantId());
-  ServerProfileSchemaDto expected=generateServiceProfileSchema(app.getId(),app.getTenantId());
+  generateServerProfileSchema(app.getId(),app.getTenantId());
+  generateServerProfileSchema(app.getId(),app.getTenantId());
+  generateServerProfileSchema(app.getId(),app.getTenantId());
+  generateServerProfileSchema(app.getId(),app.getTenantId());
+  ServerProfileSchemaDto expected=generateServerProfileSchema(app.getId(),app.getTenantId());
   ServerProfileSchemaDto found=serverProfileService.findServerProfileSchema(expected.getId());
   Assert.assertEquals(expected,found);
 }
