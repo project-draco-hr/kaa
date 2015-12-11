@@ -1,5 +1,9 @@
 {
   String filterBody="#" + DefaultFilterEvaluator.CLIENT_PROFILE_VARIABLE_NAME + "."+ "arrayRecordField[1].otherSimpleField == 789";
-  FilterEvaluator filter=new DefaultFilterEvaluator(filterBody,PROFILE_SCHEMA,SERVER_PROFILE_SCHEMA);
-  Assert.assertEquals(Boolean.TRUE,filter.matches(profile));
+  ProfileFilterDto filterDto=new ProfileFilterDto();
+  filterDto.setBody(filterBody);
+  filterDto.setEndpointProfileSchemaVersion(1);
+  FilterEvaluator filter=new DefaultFilterEvaluator();
+  filter.init(profile,PROFILE_SCHEMA,SERVER_PROFILE_SCHEMA);
+  Assert.assertEquals(Boolean.TRUE,filter.matches(filterDto));
 }

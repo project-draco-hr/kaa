@@ -52,7 +52,7 @@
     }
   }
 );
-  when(profileService.findProfileFiltersByAppIdAndVersion(APP_ID,TEST_GET_PROFILES_KEY.getVersion())).then(new Answer<List<ProfileFilterDto>>(){
+  when(profileService.findProfileFiltersByAppIdAndVersions(APP_ID,TEST_GET_PROFILES_KEY.getEndpointProfileSchemaVersion(),TEST_GET_PROFILES_KEY.getServerProfileSchemaVersion())).then(new Answer<List<ProfileFilterDto>>(){
     @Override public List<ProfileFilterDto> answer(    InvocationOnMock invocation) throws Throwable {
       sleepABit();
       return TEST_PROFILE_FILTER_LIST;

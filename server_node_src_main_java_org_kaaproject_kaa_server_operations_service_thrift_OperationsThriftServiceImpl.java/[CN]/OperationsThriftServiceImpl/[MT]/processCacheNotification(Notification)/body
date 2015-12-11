@@ -3,6 +3,19 @@
   if (appDto != null) {
     if (notification.getProfileFilterId() != null) {
       ProfileFilterDto filterDto=cacheService.getFilter(notification.getProfileFilterId());
+      if (filterDto.getEndpointProfileSchemaId() != null && filterDto.getServerProfileSchemaId() != null) {
+        cacheService.resetFilters(new AppProfileVersionsKey(appDto.getApplicationToken(),filterDto.getEndpointProfileSchemaVersion(),filterDto.getServerProfileSchemaVersion()));
+      }
+ else       if (filterDto.getServerProfileSchemaVersion() == null) {
+        for (        VersionDto version : profileService.findProfileSchemaVersionsByAppId(appDto.getId())) {
+          cacheService.resetFilters(new AppProfileVersionsKey(appDto.getApplicationToken(),version.getVersion(),filterDto.getServerProfileSchemaVersion()));
+        }
+      }
+ else {
+        for (        ServerProfileSchemaDto version : serverProfileService.findServerProfileSchemasByAppId(appDto.getId())) {
+          cacheService.resetFilters(new AppProfileVersionsKey(appDto.getApplicationToken(),version.getVersion(),filterDto.getServerProfileSchemaVersion()));
+        }
+      }
     }
     if (notification.getGroupId() != null) {
       cacheService.resetGroup(notification.getGroupId());
