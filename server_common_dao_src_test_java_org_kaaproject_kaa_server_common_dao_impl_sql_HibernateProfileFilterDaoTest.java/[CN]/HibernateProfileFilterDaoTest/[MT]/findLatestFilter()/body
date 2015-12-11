@@ -3,7 +3,7 @@
   Assert.assertEquals(1,filters.size());
   ProfileFilter first=filters.get(0);
   EndpointGroup group=first.getEndpointGroup();
-  ProfileSchema schema=first.getProfileSchema();
+  EndpointProfileSchema schema=first.getProfileSchema();
   generateFilter(schema,group,3,UpdateStatus.DEPRECATED);
   generateFilter(schema,group,1,UpdateStatus.INACTIVE);
   ProfileFilter found=profileFilterDao.findLatestFilter(schema.getId().toString(),group.getId().toString());

@@ -1,4 +1,6 @@
 {
   super(dto);
   this.body=dto.getBody();
+  this.endpointProfileSchema=getGenericModelWithId(dto,new EndpointProfileSchema());
+  this.serverProfileSchema=getGenericModelWithId(dto,new ServerProfileSchema());
 }

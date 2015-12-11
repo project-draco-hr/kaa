@@ -2,8 +2,8 @@
   Collection<ProfileFilterDto> profileFilters=convertDtoList(profileFilterDao.findActualByEndpointGroupId(endpointGroupId));
   List<StructureRecordDto<ProfileFilterDto>> records=StructureRecordDto.convertToRecords(profileFilters);
   if (includeDeprecated) {
-    List<VersionDto> schemas=findVacantSchemasByEndpointGroupId(endpointGroupId);
-    for (    VersionDto schema : schemas) {
+    List<ProfileVersionPairDto> schemas=findVacantSchemasByEndpointGroupId(endpointGroupId);
+    for (    ProfileVersionPairDto schema : schemas) {
       ProfileFilterDto deprecatedProfileFilter=getDto(profileFilterDao.findLatestDeprecated(schema.getId(),endpointGroupId));
       if (deprecatedProfileFilter != null) {
         StructureRecordDto<ProfileFilterDto> record=new StructureRecordDto<>();

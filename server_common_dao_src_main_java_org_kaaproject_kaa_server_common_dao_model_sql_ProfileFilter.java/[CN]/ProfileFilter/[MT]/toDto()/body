@@ -1,7 +1,13 @@
 {
   ProfileFilterDto filterDto=super.toDto();
   filterDto.setBody(body);
-  filterDto.setEndpointSchemaVersions(getGenericModelVersions(profileSchemas));
-  filterDto.setServerSchemaVersions(getGenericModelVersions(serverProfileSchemas));
+  if (endpointProfileSchema != null) {
+    filterDto.setEndpointProfileSchemaId(endpointProfileSchema.getStringId());
+    filterDto.setEndpointProfileSchemaVersion(endpointProfileSchema.getVersion());
+  }
+  if (serverProfileSchema != null) {
+    filterDto.setServerProfileSchemaId(serverProfileSchema.getStringId());
+    filterDto.setServerProfileSchemaVersion(serverProfileSchema.getVersion());
+  }
   return filterDto;
 }

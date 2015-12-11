@@ -1,9 +1,9 @@
 {
   validateId(applicationId,"Can't find profile schemas. Invalid application id: " + applicationId);
-  List<ProfileSchema> profileSchemas=profileSchemaDao.findByApplicationId(applicationId);
+  List<EndpointProfileSchema> endpointProfileSchemas=profileSchemaDao.findByApplicationId(applicationId);
   List<VersionDto> schemas=new ArrayList<>();
-  for (  ProfileSchema profileSchema : profileSchemas) {
-    schemas.add(profileSchema.toVersionDto());
+  for (  EndpointProfileSchema endpointProfileSchema : endpointProfileSchemas) {
+    schemas.add(endpointProfileSchema.toVersionDto());
   }
   return schemas;
 }

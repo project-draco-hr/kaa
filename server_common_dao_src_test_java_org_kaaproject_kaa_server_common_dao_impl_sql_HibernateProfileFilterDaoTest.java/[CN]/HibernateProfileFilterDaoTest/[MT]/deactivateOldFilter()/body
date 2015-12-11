@@ -2,7 +2,7 @@
   List<ProfileFilter> filters=generateFilter(null,null,1,UpdateStatus.ACTIVE);
   Assert.assertEquals(1,filters.size());
   ProfileFilter first=filters.get(0);
-  ProfileSchema schema=first.getProfileSchema();
+  EndpointProfileSchema schema=first.getProfileSchema();
   EndpointGroup group=first.getEndpointGroup();
   Assert.assertEquals(UpdateStatus.ACTIVE,first.getStatus());
   ProfileFilter deactivated=profileFilterDao.deactivateOldFilter(schema.getId().toString(),group.getId().toString(),"Test user");

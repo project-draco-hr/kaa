@@ -8,8 +8,6 @@
     }
   }
  else {
-    Set<Integer> endpointSchemaVersions=profileFilterDto.getEndpointSchemaVersions();
-    Set<Integer> serverSchemaVersions=profileFilterDto.getServerSchemaVersions();
     String groupId=profileFilterDto.getEndpointGroupId();
     EndpointGroup group=endpointGroupDao.findById(groupId);
     if (group.getWeight() == 0) {

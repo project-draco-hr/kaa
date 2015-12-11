@@ -1,6 +1,6 @@
 {
   List<ProfileFilter> filters=generateFilter(null,null,1,null);
-  ProfileSchema schema=filters.get(0).getProfileSchema();
+  EndpointProfileSchema schema=filters.get(0).getProfileSchema();
   List<ProfileFilter> found=profileFilterDao.findAllByProfileSchemaId(schema.getId().toString());
   Assert.assertEquals(filters,found);
 }

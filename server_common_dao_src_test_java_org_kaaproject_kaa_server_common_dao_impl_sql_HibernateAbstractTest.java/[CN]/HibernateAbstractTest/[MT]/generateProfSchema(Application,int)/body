@@ -1,14 +1,14 @@
 {
-  List<ProfileSchema> schemas=Collections.emptyList();
+  List<EndpointProfileSchema> schemas=Collections.emptyList();
   try {
     if (app == null) {
       app=generateApplication(null);
     }
     CTLSchema ctlSchema=generateCTLSchema(DEFAULT_FQN,1,app.getTenant(),null);
-    ProfileSchema schemaDto;
+    EndpointProfileSchema schemaDto;
     schemas=new ArrayList<>(count);
     for (int i=0; i < count; i++) {
-      schemaDto=new ProfileSchema();
+      schemaDto=new EndpointProfileSchema();
       schemaDto.setApplication(app);
       schemaDto.setCreatedUsername("Test User");
       schemaDto.setCtlSchema(ctlSchema);

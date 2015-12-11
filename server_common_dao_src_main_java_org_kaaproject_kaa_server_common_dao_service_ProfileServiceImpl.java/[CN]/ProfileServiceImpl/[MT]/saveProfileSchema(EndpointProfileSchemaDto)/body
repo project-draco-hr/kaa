@@ -6,10 +6,10 @@
   if (isNotBlank(appId)) {
     String id=profileSchemaDto.getId();
     if (StringUtils.isBlank(id)) {
-      ProfileSchema profileSchema=profileSchemaDao.findLatestByAppId(appId);
+      EndpointProfileSchema endpointProfileSchema=profileSchemaDao.findLatestByAppId(appId);
       int version=-1;
-      if (profileSchema != null) {
-        version=profileSchema.getVersion();
+      if (endpointProfileSchema != null) {
+        version=endpointProfileSchema.getVersion();
       }
       profileSchemaDto.setId(null);
       profileSchemaDto.setVersion(++version);
@@ -20,14 +20,14 @@
       if (oldProfileSchemaDto != null) {
         oldProfileSchemaDto.editFields(profileSchemaDto);
         profileSchemaDto=oldProfileSchemaDto;
-        return getDto(profileSchemaDao.save(new ProfileSchema(profileSchemaDto)));
+        return getDto(profileSchemaDao.save(new EndpointProfileSchema(profileSchemaDto)));
       }
  else {
         LOG.error("Can't find profile schema with given id [{}].",id);
         throw new IncorrectParameterException("Invalid profile schema id: " + id);
       }
     }
-    return getDto(profileSchemaDao.save(new ProfileSchema(profileSchemaDto)));
+    return getDto(profileSchemaDao.save(new EndpointProfileSchema(profileSchemaDto)));
   }
  else {
     throw new IncorrectParameterException("Invalid profile schema object. Incorrect application id" + appId);
