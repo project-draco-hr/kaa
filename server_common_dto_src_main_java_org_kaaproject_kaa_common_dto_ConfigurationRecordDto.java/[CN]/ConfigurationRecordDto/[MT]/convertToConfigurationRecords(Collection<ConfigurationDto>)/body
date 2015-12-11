@@ -1,0 +1,17 @@
+{
+  Map<String,ConfigurationRecordDto> configurationRecordsMap=new HashMap<>();
+  for (  ConfigurationDto configuration : configurations) {
+    ConfigurationRecordDto configurationRecord=configurationRecordsMap.get(configuration.getSchemaId());
+    if (configurationRecord == null) {
+      configurationRecord=new ConfigurationRecordDto();
+      configurationRecordsMap.put(configuration.getSchemaId(),configurationRecord);
+    }
+    if (configuration.getStatus() == UpdateStatus.ACTIVE) {
+      configurationRecord.setActiveStructureDto(configuration);
+    }
+ else     if (configuration.getStatus() == UpdateStatus.INACTIVE) {
+      configurationRecord.setInactiveStructureDto(configuration);
+    }
+  }
+  return new ArrayList<>(configurationRecordsMap.values());
+}

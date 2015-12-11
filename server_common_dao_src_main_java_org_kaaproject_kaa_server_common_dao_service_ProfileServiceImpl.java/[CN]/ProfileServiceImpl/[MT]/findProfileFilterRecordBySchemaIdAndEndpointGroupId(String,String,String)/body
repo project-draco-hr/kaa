@@ -1,5 +1,5 @@
 {
-  StructureRecordDto<ProfileFilterDto> record=new StructureRecordDto<>();
+  ProfileFilterRecordDto record=new ProfileFilterRecordDto();
   Collection<ProfileFilterDto> profileFilters=convertDtoList(profileFilterDao.findActualBySchemaIdAndGroupId(schemaId,endpointGroupId));
   if (profileFilters != null) {
     for (    ProfileFilterDto profileFilter : profileFilters) {
