@@ -28,9 +28,8 @@
       if (groupDto != null) {
         String groupId=groupDto.getId();
         LOG.debug("Saved endpoint group with id [{}]",groupId);
-        ProfileFilterDto filter=createDefaultProfileWithSchema(appId,groupId,createdUsername);
         ConfigurationDto configuration=createDefaultConfigurationWithSchema(appId,groupId,createdUsername);
-        if (filter == null || configuration == null) {
+        if (configuration == null) {
           LOG.warn("Got error during creation application. Deleted application with id [{}]",appId);
           removeCascadeApplication(appId);
         }
