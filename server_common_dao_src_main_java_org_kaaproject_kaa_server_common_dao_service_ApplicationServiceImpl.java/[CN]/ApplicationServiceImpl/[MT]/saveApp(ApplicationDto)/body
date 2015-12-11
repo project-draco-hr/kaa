@@ -28,7 +28,7 @@
       if (groupDto != null) {
         String groupId=groupDto.getId();
         LOG.debug("Saved endpoint group with id [{}]",groupId);
-        ProfileSchemaDto profileSchema=createDefaultProfileSchema(appId,createdUsername);
+        EndpointProfileSchemaDto profileSchema=createDefaultProfileSchema(appId,createdUsername);
         ConfigurationDto configuration=createDefaultConfigurationWithSchema(appId,groupId,createdUsername);
         if (profileSchema == null || configuration == null) {
           LOG.warn("Got error during creation application. Deleted application with id [{}]",appId);
@@ -36,7 +36,6 @@
         }
         LOG.debug("Creating default server profile schema");
         ServerProfileSchemaDto serverProfileService=createDefaultServerProfileSchema(appId,createdUsername);
-        createDefaultProfileFilter(groupDto.getId(),profileSchema,serverProfileService);
         LOG.debug("Creating default notification schema");
         createDefaultNotificationSchema(appId,createdUsername);
         LOG.debug("Creating default log schema");

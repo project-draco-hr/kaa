@@ -18,7 +18,7 @@
         groupId=generateEndpointGroupDto(schemaDto.getApplicationId()).getId();
       }
       dto.setEndpointGroupId(groupId);
-      dto.setSchemaId(schemaId);
+      dto.setEndpointProfileSchemaId(schemaId);
       dto.setApplicationId(schemaDto.getApplicationId());
       ProfileFilterDto saved=profileService.saveProfileFilter(dto);
       Assert.assertNotNull(saved);

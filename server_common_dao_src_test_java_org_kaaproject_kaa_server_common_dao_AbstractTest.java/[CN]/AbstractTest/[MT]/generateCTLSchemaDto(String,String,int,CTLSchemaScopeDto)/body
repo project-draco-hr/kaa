@@ -11,7 +11,14 @@
   }
   metaInfoDto.setScope(scopeDto);
   ctlSchema.setMetaInfo(metaInfoDto);
-  ctlSchema.setBody(UUID.randomUUID().toString());
+  String name=fqn.substring(fqn.lastIndexOf(".") + 1);
+  String namespace=fqn.substring(0,fqn.lastIndexOf("."));
+  StringBuilder body=new StringBuilder("{\"type\": \"record\",");
+  body=body.append("\"name\": \"").append(name).append("\",");
+  body=body.append("\"namespace\": \"").append(namespace).append("\",");
+  body=body.append("\"version\": ").append(version).append(",");
+  body=body.append("\"dependencies\": [], \"fields\": []}");
+  ctlSchema.setBody(body.toString());
   ctlSchema.setTenantId(tenantId);
   return ctlSchema;
 }
