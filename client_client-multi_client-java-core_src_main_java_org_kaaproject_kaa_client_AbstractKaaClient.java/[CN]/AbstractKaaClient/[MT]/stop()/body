@@ -1,6 +1,8 @@
 {
-  checkClientStateNot(State.CREATED,"Kaa client is not started");
-  checkClientStateNot(State.STOPPED,"Kaa client is already stopped");
+  if (context.needToCheckClientState()) {
+    checkClientStateNot(State.CREATED,"Kaa client is not started");
+    checkClientStateNot(State.STOPPED,"Kaa client is already stopped");
+  }
   getLifeCycleExecutor().submit(new Runnable(){
     @Override public void run(){
       try {
