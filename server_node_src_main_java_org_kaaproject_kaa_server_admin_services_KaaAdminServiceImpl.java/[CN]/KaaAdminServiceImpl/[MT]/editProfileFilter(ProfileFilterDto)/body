@@ -12,6 +12,7 @@
       Utils.checkNotNull(storedProfileFilter);
       checkEndpointGroupId(storedProfileFilter.getEndpointGroupId());
     }
+    validateProfileFilterBody(profileFilter.getEndpointProfileSchemaId(),profileFilter.getServerProfileSchemaId(),profileFilter.getBody());
     return controlService.editProfileFilter(profileFilter);
   }
  catch (  Exception e) {
