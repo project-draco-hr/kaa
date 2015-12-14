@@ -1,10 +1,12 @@
 {
   super(dto);
   this.body=dto.getBody();
-  EndpointProfileSchemaDto endpointSchemaDto=new EndpointProfileSchemaDto();
-  endpointSchemaDto.setId(dto.getEndpointProfileSchemaId());
-  this.endpointProfileSchema=getGenericModelWithId(endpointSchemaDto,new EndpointProfileSchema());
-  ServerProfileSchemaDto serverSchemaDto=new ServerProfileSchemaDto();
-  serverSchemaDto.setId(dto.getServerProfileSchemaId());
-  this.serverProfileSchema=getGenericModelWithId(serverSchemaDto,new ServerProfileSchema());
+  String endpointSchemaId=dto.getEndpointProfileSchemaId();
+  if (isNotBlank(endpointSchemaId)) {
+    this.endpointProfileSchema=new EndpointProfileSchema(ModelUtils.getLongId(endpointSchemaId));
+  }
+  String serverSchemaId=dto.getServerProfileSchemaId();
+  if (isNotBlank(serverSchemaId)) {
+    this.serverProfileSchema=new ServerProfileSchema(ModelUtils.getLongId(serverSchemaId));
+  }
 }

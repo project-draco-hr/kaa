@@ -8,10 +8,13 @@
   List<EndpointProfileSchemaDto> endpointProfileSchemas=findProfileSchemasByAppId(appId);
   Collections.sort(endpointProfileSchemas);
   Collection<ProfileVersionPairDto> pairVersionSet=new HashSet<>();
-  for (  EndpointProfileSchemaDto endSchema : endpointProfileSchemas) {
+  for (int i=0; i < endpointProfileSchemas.size(); i++) {
+    EndpointProfileSchemaDto endSchema=endpointProfileSchemas.get(i);
     for (    ServerProfileSchemaDto serverSchema : serverSchemas) {
+      if (i == 0) {
+        pairVersionSet.add(new ProfileVersionPairDto(serverSchema.getId(),serverSchema.getVersion()));
+      }
       pairVersionSet.add(new ProfileVersionPairDto(endSchema.getId(),endSchema.getVersion(),serverSchema.getId(),serverSchema.getVersion()));
-      pairVersionSet.add(new ProfileVersionPairDto(serverSchema.getId(),serverSchema.getVersion()));
     }
     pairVersionSet.add(new ProfileVersionPairDto(endSchema.getVersion(),endSchema.getId()));
   }
