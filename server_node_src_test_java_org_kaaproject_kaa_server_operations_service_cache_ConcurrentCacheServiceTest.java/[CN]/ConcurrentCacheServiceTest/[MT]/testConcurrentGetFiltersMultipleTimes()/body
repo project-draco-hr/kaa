@@ -6,7 +6,7 @@
       }
     }
 );
-    verify(profileService,atMost(2)).findProfileFiltersByAppIdAndVersions(APP_ID,TEST_GET_PROFILES_KEY.getEndpointProfileSchemaVersion(),TEST_GET_PROFILES_KEY.getServerProfileSchemaVersion());
+    verify(profileService,atMost(2)).findProfileFiltersByAppIdAndVersionsCombination(APP_ID,TEST_GET_PROFILES_KEY.getEndpointProfileSchemaVersion(),TEST_GET_PROFILES_KEY.getServerProfileSchemaVersion());
     reset(profileService);
   }
 }

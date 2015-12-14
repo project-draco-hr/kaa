@@ -2,7 +2,7 @@
   List<ProfileFilterDto> filterList=generateFilterDto(null,null,null,1,true);
   ProfileFilterDto pf=filterList.get(0);
   String appId=pf.getApplicationId();
-  List<ProfileFilterDto> filters=profileService.findProfileFiltersByAppIdAndVersions(pf.getApplicationId(),pf.getEndpointProfileSchemaVersion(),pf.getServerProfileSchemaVersion());
+  List<ProfileFilterDto> filters=profileService.findProfileFiltersByAppIdAndVersionsCombination(pf.getApplicationId(),pf.getEndpointProfileSchemaVersion(),pf.getServerProfileSchemaVersion());
   Assert.assertNotNull(filters);
   ProfileFilterDto filter=filters.get(0);
   filter.setId(null);

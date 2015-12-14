@@ -18,7 +18,7 @@
   Assert.assertNotNull(savedTwo);
   ChangeProfileFilterNotification activeTwo=profileService.activateProfileFilter(savedTwo.getId(),null);
   Assert.assertNotNull(activeTwo);
-  List<ProfileFilterDto> activeList=profileService.findProfileFiltersByAppIdAndVersions(application.getId(),schema.getVersion(),serverSchema.getVersion());
+  List<ProfileFilterDto> activeList=profileService.findProfileFiltersByAppIdAndVersionsCombination(application.getId(),schema.getVersion(),serverSchema.getVersion());
   Assert.assertFalse(activeList.isEmpty());
   Set<String> groupIds=new HashSet<>();
   for (  ProfileFilterDto dto : activeList) {

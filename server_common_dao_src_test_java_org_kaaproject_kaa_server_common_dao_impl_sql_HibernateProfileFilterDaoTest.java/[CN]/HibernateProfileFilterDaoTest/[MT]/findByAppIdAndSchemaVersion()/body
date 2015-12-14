@@ -1,8 +1,11 @@
 {
-  List<ProfileFilter> filters=generateFilter(null,null,null,1,UpdateStatus.ACTIVE);
-  Assert.assertEquals(1,filters.size());
-  ProfileFilter first=filters.get(0);
-  Application app=first.getApplication();
-  List<ProfileFilter> found=profileFilterDao.findByAppIdAndSchemaVersions(app.getStringId(),first.getEndpointProfileSchemaVersion(),first.getServerProfileSchemaVersion());
+  Application app=generateApplication(null);
+  EndpointProfileSchema schema=generateProfSchema(app,1).get(0);
+  ServerProfileSchemaDto srvSchema=generateServerProfileSchema(app.getStringId(),app.getTenant().getStringId(),101);
+  generateFilter(schema,new ServerProfileSchema(srvSchema),null,2,UpdateStatus.ACTIVE);
+  List<ProfileFilter> filters=generateFilterWithoutSchemaGeneration(schema,new ServerProfileSchema(srvSchema),null,1,UpdateStatus.ACTIVE);
+  filters.addAll(generateFilterWithoutSchemaGeneration(null,new ServerProfileSchema(srvSchema),null,1,UpdateStatus.ACTIVE));
+  filters.addAll(generateFilterWithoutSchemaGeneration(schema,null,null,1,UpdateStatus.ACTIVE));
+  List<ProfileFilter> found=profileFilterDao.findByAppIdAndSchemaVersionsCombination(app.getStringId(),schema.getVersion(),srvSchema.getVersion());
   Assert.assertEquals(filters,found);
 }
