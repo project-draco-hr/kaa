@@ -1,5 +1,5 @@
 {
-  validateId(endpointGroupId,"Can't find vacant schemas. Invalid endpoint group id: " + endpointGroupId);
+  validateSqlId(endpointGroupId,"Can't find vacant schemas. Invalid endpoint group id: " + endpointGroupId);
   EndpointGroup group=endpointGroupDao.findById(endpointGroupId);
   List<ProfileFilter> profileFilters=profileFilterDao.findActualByEndpointGroupId(endpointGroupId);
   String appId=group.getApplicationId();

@@ -1,11 +1,11 @@
 {
   EndpointGroupDto endpointGroup=createEndpointGroup();
   CTLSchemaInfoDto ctlSchema=this.createCTLSchema(this.ctlRandomFieldType(),CTL_DEFAULT_NAMESPACE,1,CTLSchemaScopeDto.TENANT,null,null,null);
-  EndpointProfileSchemaDto profileSchema1=createProfileSchema(endpointGroup.getApplicationId(),ctlSchema.getId());
-  EndpointProfileSchemaDto profileSchema2=createProfileSchema(endpointGroup.getApplicationId(),ctlSchema.getId());
-  EndpointProfileSchemaDto profileSchema3=createProfileSchema(endpointGroup.getApplicationId(),ctlSchema.getId());
-  createProfileFilter(profileSchema1.getId(),endpointGroup.getId());
-  createProfileFilter(profileSchema2.getId(),endpointGroup.getId());
+  EndpointProfileSchemaDto profileSchema1=createEndpointProfileSchema(endpointGroup.getApplicationId(),ctlSchema.getId());
+  EndpointProfileSchemaDto profileSchema2=createEndpointProfileSchema(endpointGroup.getApplicationId(),ctlSchema.getId());
+  EndpointProfileSchemaDto profileSchema3=createEndpointProfileSchema(endpointGroup.getApplicationId(),ctlSchema.getId());
+  createProfileFilter(profileSchema1.getId(),null,endpointGroup.getId());
+  createProfileFilter(profileSchema2.getId(),null,endpointGroup.getId());
   List<VersionDto> schemas=client.getVacantProfileSchemasByEndpointGroupId(endpointGroup.getId());
   Assert.assertNotNull(schemas);
   Assert.assertEquals(2,schemas.size());

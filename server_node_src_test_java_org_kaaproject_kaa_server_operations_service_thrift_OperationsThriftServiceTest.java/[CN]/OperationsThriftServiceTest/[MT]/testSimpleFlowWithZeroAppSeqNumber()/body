@@ -7,13 +7,16 @@
   appDto.setId(TEST_APP_ID);
   appDto.setApplicationToken(TEST_APP_TOKEN);
   ProfileFilterDto pfDto=new ProfileFilterDto();
-  pfDto.setSchemaVersion(PF_VERSION);
+  pfDto.setEndpointProfileSchemaId(TEST_PF_ENDPOINT_SCHEMA_ID);
+  pfDto.setEndpointProfileSchemaVersion(TEST_PF_ENDPOINT_SCHEMA_VERSION);
+  pfDto.setServerProfileSchemaId(TEST_PF_SERVER_SCHEMA_ID);
+  pfDto.setServerProfileSchemaVersion(TEST_PF_SERVER_SCHEMA_VERSION);
   Mockito.when(applicationService.findAppById(TEST_APP_ID)).thenReturn(appDto);
   Mockito.when(cacheService.getFilter(TEST_PF_ID)).thenReturn(pfDto);
   operationsThriftService.onNotification(notification);
   Mockito.verify(applicationService).findAppById(TEST_APP_ID);
   Mockito.verify(cacheService).getFilter(TEST_PF_ID);
-  Mockito.verify(cacheService).resetFilters(new AppVersionKey(TEST_APP_TOKEN,PF_VERSION));
+  Mockito.verify(cacheService).resetFilters(new AppProfileVersionsKey(TEST_APP_TOKEN,TEST_PF_ENDPOINT_SCHEMA_VERSION,TEST_PF_SERVER_SCHEMA_VERSION));
   Mockito.verify(cacheService,Mockito.times(0)).putAppSeqNumber(Mockito.anyString(),Mockito.any(AppSeqNumber.class));
   Mockito.verify(akkaService).onNotification(notification);
 }

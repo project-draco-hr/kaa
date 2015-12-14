@@ -1,7 +1,7 @@
 {
   ChangeProfileFilterNotification profileNotification;
   ProfileFilterDto profileFilter;
-  validateId(id,"Can't activate profile filter. Invalid profile filter id: " + id);
+  validateSqlId(id,"Can't activate profile filter. Invalid profile filter id: " + id);
   ProfileFilter oldProfileFilter=profileFilterDao.findById(id);
   if (oldProfileFilter != null) {
     UpdateStatus status=oldProfileFilter.getStatus();

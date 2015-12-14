@@ -1,6 +1,6 @@
 {
   validateFilterSchemaIds(endpointProfileSchemaId,serverProfileSchemaId);
-  validateId(groupId,"Incorrect group id " + groupId + ".");
+  validateSqlId(groupId,"Incorrect group id " + groupId + ".");
   ChangeProfileFilterNotification profileNotification=null;
   ProfileFilterDto profileFilterDto=getDto(profileFilterDao.deactivateOldFilter(endpointProfileSchemaId,serverProfileSchemaId,groupId,deactivatedUsername));
   if (profileFilterDto != null) {

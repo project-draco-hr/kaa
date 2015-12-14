@@ -3,7 +3,8 @@
   client.activateProfileFilter(profileFilter.getId());
   ProfileFilterDto deactivatedProfileFilter=client.deactivateProfileFilter(profileFilter.getId());
   Assert.assertEquals(profileFilter.getId(),deactivatedProfileFilter.getId());
-  Assert.assertEquals(profileFilter.getSchemaId(),deactivatedProfileFilter.getSchemaId());
+  Assert.assertEquals(profileFilter.getEndpointProfileSchemaId(),deactivatedProfileFilter.getEndpointProfileSchemaId());
+  Assert.assertEquals(profileFilter.getServerProfileSchemaId(),deactivatedProfileFilter.getServerProfileSchemaId());
   Assert.assertEquals(profileFilter.getEndpointGroupId(),deactivatedProfileFilter.getEndpointGroupId());
   Assert.assertEquals(profileFilter.getBody(),deactivatedProfileFilter.getBody());
   Assert.assertEquals(profileFilter.getApplicationId(),deactivatedProfileFilter.getApplicationId());

@@ -6,7 +6,7 @@
   List<EndpointProfileSchemaDto> defaultProfileSchemas=client.getProfileSchemas(application.getId());
   profileSchemas.addAll(defaultProfileSchemas);
   for (int i=0; i < 10; i++) {
-    EndpointProfileSchemaDto profileSchema=createProfileSchema(application.getId(),ctlSchema.getId());
+    EndpointProfileSchemaDto profileSchema=createEndpointProfileSchema(application.getId(),ctlSchema.getId());
     profileSchemas.add(profileSchema);
   }
   Collections.sort(profileSchemas,new IdComparator());

@@ -2,10 +2,13 @@
   ApplicationDto app=generateApplicationDto(null);
   EndpointProfileSchemaDto schema=generateProfSchemaDto(app.getTenantId(),app.getId(),1).get(0);
   ServerProfileSchemaDto serverSchema=generateServerProfileSchema(app.getId(),app.getTenantId());
-  List<ProfileFilterDto> filters=profileService.findProfileFiltersByAppIdAndVersions(app.getId(),schema.getVersion(),serverSchema.getVersion());
-  Assert.assertNotNull(filters);
-  ProfileFilterDto filter=filters.get(0);
-  filter.setId(null);
-  filter.setBody("false");
-  profileService.saveProfileFilter(filter);
+  EndpointGroupDto defaultGroup=endpointService.findDefaultGroup(app.getId());
+  ProfileFilterDto filter=new ProfileFilterDto();
+  filter.setApplicationId(app.getId());
+  filter.setBody("true");
+  filter.setEndpointProfileSchemaId(schema.getId());
+  filter.setServerProfileSchemaId(serverSchema.getId());
+  filter.setEndpointGroupId(defaultGroup.getId());
+  filter=profileService.saveProfileFilter(filter);
+  profileService.activateProfileFilter(filter.getId(),"test");
 }

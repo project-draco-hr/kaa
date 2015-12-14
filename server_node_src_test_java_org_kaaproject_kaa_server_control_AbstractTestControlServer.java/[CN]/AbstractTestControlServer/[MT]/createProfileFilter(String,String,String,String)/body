@@ -1,0 +1,38 @@
+{
+  ProfileFilterDto profileFilter=new ProfileFilterDto();
+  String filter=getResourceAsString(TEST_PROFILE_FILTER);
+  profileFilter.setBody(filter);
+  profileFilter.setStatus(UpdateStatus.INACTIVE);
+  if (strIsEmpty(applicationId)) {
+    ApplicationDto application=createApplication(tenantAdminDto);
+    profileFilter.setApplicationId(application.getId());
+    applicationId=application.getId();
+  }
+ else {
+    profileFilter.setApplicationId(applicationId);
+  }
+  if (strIsEmpty(endpointPfSchemaId)) {
+    EndpointProfileSchemaDto profileSchema=createEndpointProfileSchema(applicationId,null);
+    profileFilter.setEndpointProfileSchemaId(profileSchema.getId());
+  }
+ else {
+    profileFilter.setEndpointProfileSchemaId(endpointPfSchemaId);
+  }
+  if (strIsEmpty(serverPfSchemaId)) {
+    ServerProfileSchemaDto profileSchema=createServerProfileSchema(applicationId,null);
+    profileFilter.setEndpointProfileSchemaId(profileSchema.getId());
+  }
+ else {
+    profileFilter.setEndpointProfileSchemaId(serverPfSchemaId);
+  }
+  if (strIsEmpty(endpointGroupId)) {
+    EndpointGroupDto endpointGroup=createEndpointGroup(applicationId);
+    profileFilter.setEndpointGroupId(endpointGroup.getId());
+  }
+ else {
+    profileFilter.setEndpointGroupId(endpointGroupId);
+  }
+  loginTenantDeveloper(tenantDeveloperDto.getUsername());
+  ProfileFilterDto savedProfileFilter=client.editProfileFilter(profileFilter);
+  return savedProfileFilter;
+}

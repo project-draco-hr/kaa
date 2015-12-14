@@ -2,6 +2,6 @@
   ConfigurationDto configuration=createConfiguration();
   ConfigurationRecordDto configurationRecord=client.getConfigurationRecord(configuration.getSchemaId(),configuration.getEndpointGroupId());
   Assert.assertNotNull(configurationRecord);
-  Assert.assertNotNull(configurationRecord.getInactiveConfiguration());
-  assertConfigurationsEquals(configuration,configurationRecord.getInactiveConfiguration());
+  Assert.assertNotNull(configurationRecord.getInactiveStructureDto());
+  assertConfigurationsEquals(configuration,configurationRecord.getInactiveStructureDto());
 }

@@ -4,16 +4,14 @@
     EndpointProfileSchemaDto schemaDto;
     if (isBlank(schemaId)) {
       schemaDto=generateProfSchemaDto(null,null,1).get(0);
-      schemaId=schemaDto.getId();
     }
  else {
       schemaDto=profileService.findProfileSchemaById(schemaId);
     }
-    Application app=applicationDao.findByApplicationToken(schemaDto.getApplicationId());
+    ApplicationDto app=applicationService.findAppById(schemaDto.getApplicationId());
     ServerProfileSchemaDto serverProfileSchemaDto;
     if (isBlank(serverSchemaId)) {
-      serverProfileSchemaDto=generateServerProfileSchema(app.getStringId(),app.getTenant().getStringId());
-      serverSchemaId=serverProfileSchemaDto.getId();
+      serverProfileSchemaDto=generateServerProfileSchema(app.getId(),app.getTenantId());
     }
  else {
       serverProfileSchemaDto=serverProfileService.findServerProfileSchema(serverSchemaId);
@@ -27,8 +25,10 @@
         groupId=generateEndpointGroupDto(schemaDto.getApplicationId()).getId();
       }
       dto.setEndpointGroupId(groupId);
-      dto.setEndpointProfileSchemaId(schemaId);
-      dto.setServerProfileSchemaId(serverSchemaId);
+      dto.setEndpointProfileSchemaId(schemaDto.getId());
+      dto.setEndpointProfileSchemaVersion(schemaDto.getVersion());
+      dto.setServerProfileSchemaId(serverProfileSchemaDto.getId());
+      dto.setServerProfileSchemaVersion(serverProfileSchemaDto.getVersion());
       dto.setApplicationId(schemaDto.getApplicationId());
       ProfileFilterDto saved=profileService.saveProfileFilter(dto);
       Assert.assertNotNull(saved);

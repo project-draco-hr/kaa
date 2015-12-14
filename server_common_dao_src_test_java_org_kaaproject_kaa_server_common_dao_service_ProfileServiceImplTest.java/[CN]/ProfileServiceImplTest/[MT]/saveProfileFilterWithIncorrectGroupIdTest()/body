@@ -3,10 +3,12 @@
   String appId=app.getId();
   EndpointProfileSchemaDto schema=generateProfSchemaDto(app.getTenantId(),appId,1).get(0);
   ServerProfileSchemaDto serverProfileSchema=generateServerProfileSchema(app.getId(),app.getTenantId());
-  List<ProfileFilterDto> filters=profileService.findProfileFiltersByAppIdAndVersions(appId,schema.getVersion(),serverProfileSchema.getVersion());
-  Assert.assertFalse(filters.isEmpty());
-  ProfileFilterDto filter=filters.get(0);
+  ProfileFilterDto filter=new ProfileFilterDto();
   filter.setId(null);
+  filter.setApplicationId(appId);
   filter.setEndpointGroupId(null);
+  filter.setBody("true");
+  filter.setEndpointProfileSchemaId(schema.getId());
+  filter.setServerProfileSchemaId(serverProfileSchema.getId());
   profileService.saveProfileFilter(filter);
 }
