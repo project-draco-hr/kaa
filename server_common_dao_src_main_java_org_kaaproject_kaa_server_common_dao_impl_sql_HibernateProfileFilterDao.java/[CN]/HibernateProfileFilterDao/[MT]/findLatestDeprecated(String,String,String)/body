@@ -3,8 +3,8 @@
   ProfileFilter filter=null;
   if (isNotBlank(groupId)) {
     Criteria criteria=getCriteria();
-    criteria.createAlias(ENDPOINT_PROFILE_SCHEMA_PROPERTY,ENDPOINT_PROFILE_SCHEMA_ALIAS);
-    criteria.createAlias(SERVER_PROFILE_SCHEMA_PROPERTY,SERVER_PROFILE_SCHEMA_ALIAS);
+    criteria.createAlias(ENDPOINT_PROFILE_SCHEMA_PROPERTY,ENDPOINT_PROFILE_SCHEMA_ALIAS,JoinType.LEFT_OUTER_JOIN);
+    criteria.createAlias(SERVER_PROFILE_SCHEMA_PROPERTY,SERVER_PROFILE_SCHEMA_ALIAS,JoinType.LEFT_OUTER_JOIN);
     criteria.createAlias(ENDPOINT_GROUP_PROPERTY,ENDPOINT_GROUP_ALIAS);
     Criterion crit=Restrictions.and(Restrictions.eq(ENDPOINT_GROUP_REFERENCE,Long.valueOf(groupId)),buildEqIdCriterion(ENDPOINT_PROFILE_SCHEMA_REFERENCE,endpointProfileSchemaId),buildEqIdCriterion(SERVER_PROFILE_SCHEMA_REFERENCE,serverProfileSchemaId),Restrictions.eq(STATUS_PROPERTY,UpdateStatus.DEPRECATED));
     filter=(ProfileFilter)criteria.add(crit).addOrder(Order.desc(SEQUENCE_NUMBER_PROPERTY)).setMaxResults(FIRST).uniqueResult();

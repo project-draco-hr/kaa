@@ -4,8 +4,8 @@
   if (isNotBlank(appId)) {
     Criteria criteria=getCriteria();
     criteria.createAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS);
-    criteria.createAlias(ENDPOINT_PROFILE_SCHEMA_PROPERTY,ENDPOINT_PROFILE_SCHEMA_ALIAS);
-    criteria.createAlias(SERVER_PROFILE_SCHEMA_PROPERTY,SERVER_PROFILE_SCHEMA_ALIAS);
+    criteria.createAlias(ENDPOINT_PROFILE_SCHEMA_PROPERTY,ENDPOINT_PROFILE_SCHEMA_ALIAS,JoinType.LEFT_OUTER_JOIN);
+    criteria.createAlias(SERVER_PROFILE_SCHEMA_PROPERTY,SERVER_PROFILE_SCHEMA_ALIAS,JoinType.LEFT_OUTER_JOIN);
     Criterion criterion=Restrictions.and(Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(appId)),Restrictions.eq(ENDPOINT_PROFILE_SCHEMA_VERSION_REFERENCE,endpointSchemaVersion),Restrictions.eq(SERVER_PROFILE_SCHEMA_VERSION_REFERENCE,serverSchemaVersion),Restrictions.eq(STATUS_PROPERTY,UpdateStatus.ACTIVE));
     criteria.add(criterion);
     filters=findListByCriteria(criteria);
