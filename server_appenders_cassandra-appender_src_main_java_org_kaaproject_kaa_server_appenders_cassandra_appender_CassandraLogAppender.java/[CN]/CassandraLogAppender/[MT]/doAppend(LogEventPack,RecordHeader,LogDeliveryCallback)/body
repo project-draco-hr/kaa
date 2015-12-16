@@ -6,6 +6,20 @@
           LOG.debug("[{}] appending {} logs to cassandra collection",tableName,logEventPack.getEvents().size());
           GenericAvroConverter<GenericRecord> eventConverter=getConverter(logEventPack.getLogSchema().getSchema());
           GenericAvroConverter<GenericRecord> headerConverter=getConverter(header.getSchema().toString());
+          GenericAvroConverter<GenericRecord> clientProfileConverter=null;
+          String clientProfileJson=null;
+          ProfileInfo clientProfile=logEventPack.getClientProfile();
+          if (clientProfile != null) {
+            clientProfileConverter=getConverter(clientProfile.getSchema());
+            clientProfileJson=clientProfile.getBody();
+          }
+          GenericAvroConverter<GenericRecord> serverProfileConverter=null;
+          String serverProfileJson=null;
+          ProfileInfo serverProfile=logEventPack.getServerProfile();
+          if (serverProfile != null) {
+            serverProfileConverter=getConverter(serverProfile.getSchema());
+            serverProfileJson=serverProfile.getBody();
+          }
           List<CassandraLogEventDto> dtoList=generateCassandraLogEvent(logEventPack,header,eventConverter);
           LOG.debug("[{}] saving {} objects",tableName,dtoList.size());
           if (!dtoList.isEmpty()) {
@@ -13,11 +27,11 @@
             inputLogCount.getAndAdd(logCount);
 switch (executeRequestType) {
 case ASYNC:
-              ListenableFuture<ResultSet> result=logEventDao.saveAsync(dtoList,tableName,eventConverter,headerConverter);
+              ListenableFuture<ResultSet> result=logEventDao.saveAsync(dtoList,tableName,eventConverter,headerConverter,clientProfileConverter,serverProfileConverter,clientProfileJson,serverProfileJson);
             Futures.addCallback(result,new Callback(listener,cassandraSuccessLogCount,cassandraFailureLogCount,logCount),callbackExecutor);
           break;
 case SYNC:
-        logEventDao.save(dtoList,tableName,eventConverter,headerConverter);
+        logEventDao.save(dtoList,tableName,eventConverter,headerConverter,clientProfileConverter,serverProfileConverter,clientProfileJson,serverProfileJson);
       listener.onSuccess();
     cassandraSuccessLogCount.getAndAdd(logCount);
   break;
