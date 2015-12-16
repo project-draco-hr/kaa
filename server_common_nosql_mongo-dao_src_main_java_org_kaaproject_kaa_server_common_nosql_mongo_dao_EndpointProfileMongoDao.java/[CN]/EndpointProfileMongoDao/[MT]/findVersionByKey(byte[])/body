@@ -1,0 +1,7 @@
+{
+  LOG.debug("Find endpoint profile version by key hash [{}] ",endpointKeyHash);
+  Query query=query(where(EP_ENDPOINT_KEY_HASH).is(endpointKeyHash));
+  query.fields().include(OPT_LOCK);
+  DBObject result=mongoTemplate.getDb().getCollection(getCollectionName()).findOne(query.getQueryObject());
+  return (Long)result.get(OPT_LOCK);
+}

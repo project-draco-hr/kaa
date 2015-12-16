@@ -1,0 +1,11 @@
+{
+  List<UserType> utList=null;
+  if (eventStates != null && !eventStates.isEmpty()) {
+    UserType ut=getUserType(EVENT_CLASS_FAMILY_VERSION_STATE_USER_TYPE_NAME);
+    utList=new ArrayList<>();
+    for (    CassandraEventClassFamilyVersionState state : eventStates) {
+      ut.newValue().setString(EVENT_CLASS_FAMILY_VERSION_STATE_ECF_ID_PROPERTY,state.getEcfId()).setInt(EVENT_CLASS_FAMILY_VERSION_STATE_ECF_VERSION_PROPERTY,state.getVersion());
+    }
+  }
+  return utList;
+}

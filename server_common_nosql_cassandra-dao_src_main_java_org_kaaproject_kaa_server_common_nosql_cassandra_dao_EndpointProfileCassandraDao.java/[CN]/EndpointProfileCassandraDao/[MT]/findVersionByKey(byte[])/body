@@ -1,0 +1,20 @@
+{
+  Long version=0L;
+  CassandraEndpointProfile endpointProfile=findByKeyHash(endpointKeyHash);
+  if (endpointProfile != null) {
+    Long newVersion=endpointProfile.getVersion() + 1;
+    ResultSet resultSet=execute(QueryBuilder.update(getColumnFamilyName()).with(set(OPT_LOCK,newVersion)).where(eq(EP_EP_KEY_HASH_PROPERTY,getByteBuffer(endpointKeyHash))).onlyIf(eq(OPT_LOCK,endpointProfile.getVersion())));
+    if (wasApplied(resultSet)) {
+      version=newVersion;
+    }
+ else {
+      LOG.error("[{}] Can't update version of endpoint profile.",convertKeyHashToString(endpointKeyHash));
+      new KaaOptimisticLockingFailureException("Can't update optimistic lock version of endpoint profile.");
+    }
+    return version;
+  }
+ else {
+    LOG.error("[{}] Can't find endpoint profile by key hash.",convertKeyHashToString(endpointKeyHash));
+    throw new DatabaseProcessingException("Can't find endpoint profile by key hash.");
+  }
+}

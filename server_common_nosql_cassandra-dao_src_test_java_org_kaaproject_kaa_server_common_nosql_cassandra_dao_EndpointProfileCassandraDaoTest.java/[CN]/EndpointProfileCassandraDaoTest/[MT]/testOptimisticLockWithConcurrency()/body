@@ -1,0 +1,27 @@
+{
+  final EndpointProfileDto endpointProfile=generateEndpointProfile(null,null,null,null);
+  final AtomicInteger errorCount=new AtomicInteger();
+  List<Future<?>> tasks=new ArrayList<>();
+  for (int i=0; i < 100; i++) {
+    final int id=i;
+    tasks.add(EXECUTOR.submit(new Runnable(){
+      @Override public void run(){
+        try {
+          CassandraEndpointProfile ep=new CassandraEndpointProfile(endpointProfile);
+          ep.setEndpointUserId("Ololo " + id);
+          endpointProfileDao.save(ep.toDto());
+        }
+ catch (        KaaOptimisticLockingFailureException ex) {
+          errorCount.incrementAndGet();
+          LOG.error("Catch optimistic exception.");
+          throw ex;
+        }
+      }
+    }
+));
+  }
+  for (  Future future : tasks) {
+    future.get();
+  }
+  Assert.assertTrue(errorCount.get() > 0);
+}

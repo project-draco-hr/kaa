@@ -1,0 +1,7 @@
+{
+  EndpointProfileDto endpointProfile=generateEndpointProfile(null,null,null,null);
+  endpointProfile.setAccessToken("Ololo");
+  endpointProfileDao.save(endpointProfile);
+  long version=endpointProfileDao.findVersionByKey(endpointProfile.getEndpointKeyHash());
+  Assert.assertEquals(1L,version);
+}
