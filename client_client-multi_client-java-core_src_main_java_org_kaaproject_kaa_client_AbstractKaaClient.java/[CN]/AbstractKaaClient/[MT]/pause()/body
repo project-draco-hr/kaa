@@ -1,5 +1,7 @@
 {
-  checkClientState(State.STARTED,"Kaa client is not started (" + clientState.toString().toLowerCase() + " now)");
+  if (context.needToCheckClientState()) {
+    checkClientState(State.STARTED,"Kaa client is not started (" + clientState.toString().toLowerCase() + " now)");
+  }
   getLifeCycleExecutor().submit(new Runnable(){
     @Override public void run(){
       try {
