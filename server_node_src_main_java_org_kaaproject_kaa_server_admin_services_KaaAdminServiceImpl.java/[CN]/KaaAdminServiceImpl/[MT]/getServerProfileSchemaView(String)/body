@@ -1,0 +1,11 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    ServerProfileSchemaDto serverProfileSchema=getServerProfileSchema(serverProfileSchemaId);
+    CTLSchemaDto ctlSchemaDto=controlService.getCTLSchemaById(serverProfileSchema.getCtlSchemaId());
+    return new ServerProfileSchemaViewDto(serverProfileSchema,toCtlSchemaForm(ctlSchemaDto));
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

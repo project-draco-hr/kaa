@@ -1,0 +1,36 @@
+{
+  this.checkAuthority(KaaAuthorityDto.values());
+  try {
+    CTLSchemaParser parser=new CTLSchemaParser(controlService,getCurrentUser().getTenantId());
+    CTLSchemaInfoDto schema=parser.parse(body,scope,applicationId);
+    if (schema.getScope() == CTLSchemaScopeDto.SYSTEM) {
+      if (schema.getTenantId() != null) {
+        throw new IllegalArgumentException("A system CTL schema cannot be tied to a tenant!");
+      }
+ else       if (schema.getApplicationId() != null) {
+        throw new IllegalArgumentException("A system CTL schema cannot be tied to an application!");
+      }
+    }
+ else     if (schema.getScope() == CTLSchemaScopeDto.TENANT) {
+      if (schema.getTenantId() == null) {
+        throw new IllegalArgumentException("A tenant CTL schema must include a tenant identifier!");
+      }
+ else       if (schema.getApplicationId() != null) {
+        throw new IllegalArgumentException("A tenant CTL schema cannot be tied to an application!");
+      }
+ else {
+        checkTenantId(schema.getTenantId());
+      }
+    }
+ else {
+      checkApplicationId(schema.getApplicationId());
+    }
+    Set<CTLSchemaDto> dependencies=parser.fetchDependencies(schema);
+    parser.validate(schema);
+    CTLSchemaDto result=controlService.saveCTLSchema(new CTLSchemaDto(schema,dependencies));
+    return result != null ? result.toCTLSchemaInfoDto() : null;
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+}

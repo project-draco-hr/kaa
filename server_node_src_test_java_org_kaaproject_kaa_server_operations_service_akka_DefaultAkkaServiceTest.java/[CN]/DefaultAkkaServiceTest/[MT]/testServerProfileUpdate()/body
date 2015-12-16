@@ -19,5 +19,5 @@
   thriftNotification.setOp(Operation.UPDATE_SERVER_PROFILE);
   thriftNotification.setKeyHash(clientPublicKeyHash);
   akkaService.onNotification(thriftNotification);
-  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT * 100).atLeastOnce()).getServerEndpointProfile(EndpointObjectHash.fromBytes(clientPublicKeyHash.array()));
+  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT * 100).atLeastOnce()).refreshServerEndpointProfile(EndpointObjectHash.fromBytes(clientPublicKeyHash.array()));
 }

@@ -10,9 +10,9 @@
     }
   }
   List<ConfigurationSchema> schemas=configurationSchemaDao.findVacantSchemas(group.getApplicationId(),usedSchemaIds);
-  List<SchemaDto> schemaDtoList=new ArrayList<>();
+  List<VersionDto> schemaDtoList=new ArrayList<>();
   for (  ConfigurationSchema schema : schemas) {
-    schemaDtoList.add(schema.toSchemaDto());
+    schemaDtoList.add(schema.toVersionDto());
   }
   return schemaDtoList;
 }

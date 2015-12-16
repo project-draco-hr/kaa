@@ -1,11 +1,13 @@
 {
-  String appId=generateApplicationDto(null).getId();
+  ApplicationDto app=generateApplicationDto(null);
+  String appId=app.getId();
   EndpointGroupDto groupDto=generateEndpointGroupDto(appId);
-  ProfileSchemaDto schema=generateProfSchemaDto(appId,1).get(0);
-  ProfileFilterDto filter=generateFilterDto(schema.getId(),groupDto.getId(),3,true).get(2);
+  EndpointProfileSchemaDto schema=generateProfSchemaDto(app.getTenantId(),appId,1).get(0);
+  ServerProfileSchemaDto serverProfileSchema=generateServerProfileSchema(app.getId(),app.getTenantId());
+  ProfileFilterDto filter=generateFilterDto(schema.getId(),serverProfileSchema.getId(),groupDto.getId(),3,true).get(2);
   Assert.assertEquals(UpdateStatus.ACTIVE,filter.getStatus());
   profileService.deactivateProfileFilter(filter.getId(),null);
-  List<StructureRecordDto<ProfileFilterDto>> records=(List<StructureRecordDto<ProfileFilterDto>>)profileService.findAllProfileFilterRecordsByEndpointGroupId(groupDto.getId(),true);
+  List<ProfileFilterRecordDto> records=(List<ProfileFilterRecordDto>)profileService.findAllProfileFilterRecordsByEndpointGroupId(groupDto.getId(),true);
   Assert.assertNotNull(records);
   Assert.assertEquals(1,records.size());
   Assert.assertEquals(UpdateStatus.DEPRECATED,records.get(0).getActiveStructureDto().getStatus());

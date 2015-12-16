@@ -1,0 +1,21 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (!super.equals(obj)) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  ConfigurationPlace other=(ConfigurationPlace)obj;
+  if (schemaId == null) {
+    if (other.schemaId != null) {
+      return false;
+    }
+  }
+ else   if (!schemaId.equals(other.schemaId)) {
+    return false;
+  }
+  return true;
+}

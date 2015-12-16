@@ -5,22 +5,12 @@
   ConfigurationSchemaDto configurationSchema3=createConfigurationSchema(endpointGroup.getApplicationId());
   createConfiguration(configurationSchema1.getId(),endpointGroup.getId());
   createConfiguration(configurationSchema2.getId(),endpointGroup.getId());
-  List<SchemaDto> schemas=client.getVacantConfigurationSchemasByEndpointGroupId(endpointGroup.getId());
+  List<VersionDto> schemas=client.getVacantConfigurationSchemasByEndpointGroupId(endpointGroup.getId());
   Assert.assertNotNull(schemas);
   Assert.assertEquals(2,schemas.size());
-  Collections.sort(schemas,new Comparator<SchemaDto>(){
-    @Override public int compare(    SchemaDto o1,    SchemaDto o2){
-      int result=o1.getMajorVersion() - o2.getMajorVersion();
-      if (result == 0) {
-        result=o1.getMinorVersion() - o2.getMinorVersion();
-      }
-      return result;
-    }
-  }
-);
-  SchemaDto schema=schemas.get(1);
+  Collections.sort(schemas);
+  VersionDto schema=schemas.get(1);
   Assert.assertNotNull(schema);
   Assert.assertEquals(configurationSchema3.getId(),schema.getId());
-  Assert.assertEquals(configurationSchema3.getMajorVersion(),schema.getMajorVersion());
-  Assert.assertEquals(configurationSchema3.getMinorVersion(),schema.getMinorVersion());
+  Assert.assertEquals(configurationSchema3.getVersion(),schema.getVersion());
 }

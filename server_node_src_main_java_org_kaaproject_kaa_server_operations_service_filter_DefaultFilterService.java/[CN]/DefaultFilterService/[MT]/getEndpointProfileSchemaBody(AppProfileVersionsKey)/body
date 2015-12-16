@@ -1,0 +1,5 @@
+{
+  EndpointProfileSchemaDto endpointProfileSchema=cacheService.getProfileSchemaByAppAndVersion(new AppVersionKey(key.getApplicationToken(),key.getEndpointProfileSchemaVersion()));
+  String endpointProfileSchemaBody=cacheService.getFlatCtlSchemaById(endpointProfileSchema.getCtlSchemaId());
+  return endpointProfileSchemaBody;
+}

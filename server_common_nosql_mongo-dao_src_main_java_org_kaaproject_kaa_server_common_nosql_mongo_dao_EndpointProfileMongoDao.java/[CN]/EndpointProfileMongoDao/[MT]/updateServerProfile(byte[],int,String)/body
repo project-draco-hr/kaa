@@ -1,0 +1,5 @@
+{
+  LOG.debug("Update server endpoint profile for endpoint with key hash {}, schema version is {}",keyHash,version);
+  updateFirst(query(where(EP_ENDPOINT_KEY_HASH).is(keyHash)),update(EP_SERVER_PROFILE_PROPERTY,serverProfile).set(EP_SERVER_PROFILE_VERSION_PROPERTY,version));
+  return findById(ByteBuffer.wrap(keyHash));
+}

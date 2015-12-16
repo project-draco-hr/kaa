@@ -1,19 +1,9 @@
 {
-  if (this == obj)   return true;
-  if (obj == null)   return false;
-  if (getClass() != obj.getClass())   return false;
-  ServerProfileSchemaDto other=(ServerProfileSchemaDto)obj;
-  if (applicationId == null) {
-    if (other.applicationId != null)     return false;
+  if (this == o) {
+    return true;
   }
- else   if (!applicationId.equals(other.applicationId))   return false;
-  if (ctlSchemaId == null) {
-    if (other.ctlSchemaId != null)     return false;
+  if (!(o instanceof ServerProfileSchemaDto)) {
+    return false;
   }
- else   if (!ctlSchemaId.equals(other.ctlSchemaId))   return false;
-  if (id == null) {
-    if (other.id != null)     return false;
-  }
- else   if (!id.equals(other.id))   return false;
-  return true;
+  return super.equals(o);
 }

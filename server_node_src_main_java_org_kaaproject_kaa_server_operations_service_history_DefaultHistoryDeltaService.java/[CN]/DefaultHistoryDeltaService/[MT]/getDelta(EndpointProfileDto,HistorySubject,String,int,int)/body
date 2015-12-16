@@ -17,7 +17,7 @@
     }
     return historyDelta;
   }
-  HistoryKey historyKey=new HistoryKey(applicationToken,subject,oldAppSeqNumber,curAppSeqNumber,profile.getConfigurationVersion(),profile.getProfileVersion());
+  HistoryKey historyKey=new HistoryKey(applicationToken,subject,oldAppSeqNumber,curAppSeqNumber,profile.getConfigurationVersion(),profile.getClientProfileVersion(),profile.getServerProfileVersion());
   ConfigurationIdKey confIdKey=new ConfigurationIdKey(applicationToken,curAppSeqNumber,profile.getConfigurationVersion());
   List<EndpointGroupStateDto> endpointGroups;
   LOG.debug("[{}] Fetching changes from history. From seq number: {} to {}",endpointId,historyKey.getOldSeqNumber(),historyKey.getNewSeqNumber());

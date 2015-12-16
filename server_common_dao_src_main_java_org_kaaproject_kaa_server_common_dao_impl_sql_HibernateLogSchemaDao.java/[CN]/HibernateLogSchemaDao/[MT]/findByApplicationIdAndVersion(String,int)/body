@@ -2,7 +2,7 @@
   LOG.debug("Searching log schema by applicationId [{}] and version [{}] ",applicationId,version);
   LogSchema logSchema=null;
   if (isNotBlank(applicationId)) {
-    logSchema=findOneByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.and(Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(applicationId)),Restrictions.eq(MAJOR_VERSION_PROPERTY,version)));
+    logSchema=findOneByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.and(Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(applicationId)),Restrictions.eq(VERSION_PROPERTY,version)));
   }
   if (LOG.isTraceEnabled()) {
     LOG.trace("[{},{}] Search result: {}.",applicationId,version,logSchema);

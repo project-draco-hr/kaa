@@ -1,7 +1,7 @@
 {
-  ParameterizedTypeReference<List<SchemaDto>> typeRef=new ParameterizedTypeReference<List<SchemaDto>>(){
+  ParameterizedTypeReference<List<VersionDto>> typeRef=new ParameterizedTypeReference<List<VersionDto>>(){
   }
 ;
-  ResponseEntity<List<SchemaDto>> entity=restTemplate.exchange(url + "vacantConfigurationSchemas/" + endpointGroupId,HttpMethod.GET,null,typeRef);
+  ResponseEntity<List<VersionDto>> entity=restTemplate.exchange(url + "vacantConfigurationSchemas/" + endpointGroupId,HttpMethod.GET,null,typeRef);
   return entity.getBody();
 }

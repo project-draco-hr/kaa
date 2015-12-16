@@ -1,0 +1,25 @@
+{
+  Map<String,Schema> uniqueSchemas=SchemaUtil.getUniqueSchemasMap(Arrays.asList(schema));
+  List<JavaDynamicBean> javaSources=JavaSdkGenerator.generateSchemaSources(schema,uniqueSchemas);
+  ByteArrayOutputStream libraryOutput=new ByteArrayOutputStream();
+  ZipOutputStream libraryFile=new ZipOutputStream(libraryOutput);
+  JavaDynamicCompiler dynamicCompiler=new JavaDynamicCompiler();
+  dynamicCompiler.init();
+  Collection<JavaDynamicBean> compiledObjects=dynamicCompiler.compile(javaSources);
+  for (  JavaDynamicBean compiledObject : compiledObjects) {
+    String className=compiledObject.getName();
+    String classFileName=className.replace('.','/') + Kind.CLASS.extension;
+    ZipEntry classFile=new ZipEntry(classFileName);
+    libraryFile.putNextEntry(classFile);
+    libraryFile.write(compiledObject.getBytes());
+    libraryFile.closeEntry();
+  }
+  libraryFile.close();
+  String libraryFileName=MessageFormatter.arrayFormat(LIBRARY_NAME_PATTERN,new Object[]{fileName}).getMessage();
+  byte[] libraryData=libraryOutput.toByteArray();
+  FileData library=new FileData();
+  library.setFileName(libraryFileName);
+  library.setFileData(libraryData);
+  library.setContentType(SdkPlatform.JAVA.getContentType());
+  return library;
+}

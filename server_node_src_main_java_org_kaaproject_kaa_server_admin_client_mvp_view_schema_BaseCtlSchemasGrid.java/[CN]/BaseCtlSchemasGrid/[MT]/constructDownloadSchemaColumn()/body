@@ -1,0 +1,38 @@
+{
+  ActionsButtonCell<T> cell=new ActionsButtonCell<>(Utils.resources.export(),Utils.constants.export());
+  cell.addMenuItem(Utils.constants.shallow(),new ActionsButtonCell.ActionMenuItemListener<T>(){
+    @Override public void onMenuItemSelected(    T value){
+      RowActionEvent<String> schemaEvent=new RowActionEvent<>(value.getCtlSchemaId(),KaaRowAction.CTL_EXPORT_SHALLOW);
+      fireEvent(schemaEvent);
+    }
+  }
+);
+  cell.addMenuItem(Utils.constants.deep(),new ActionsButtonCell.ActionMenuItemListener<T>(){
+    @Override public void onMenuItemSelected(    T value){
+      RowActionEvent<String> schemaEvent=new RowActionEvent<>(value.getCtlSchemaId(),KaaRowAction.CTL_EXPORT_DEEP);
+      fireEvent(schemaEvent);
+    }
+  }
+);
+  cell.addMenuItem(Utils.constants.flat(),new ActionsButtonCell.ActionMenuItemListener<T>(){
+    @Override public void onMenuItemSelected(    T value){
+      RowActionEvent<String> schemaEvent=new RowActionEvent<>(value.getCtlSchemaId(),KaaRowAction.CTL_EXPORT_FLAT);
+      fireEvent(schemaEvent);
+    }
+  }
+);
+  cell.addMenuItem(Utils.constants.javaLibrary(),new ActionsButtonCell.ActionMenuItemListener<T>(){
+    @Override public void onMenuItemSelected(    T value){
+      RowActionEvent<String> schemaEvent=new RowActionEvent<>(value.getCtlSchemaId(),KaaRowAction.CTL_EXPORT_LIBRARY);
+      fireEvent(schemaEvent);
+    }
+  }
+);
+  Column<T,T> column=new Column<T,T>(cell){
+    @Override public T getValue(    T item){
+      return item;
+    }
+  }
+;
+  return column;
+}

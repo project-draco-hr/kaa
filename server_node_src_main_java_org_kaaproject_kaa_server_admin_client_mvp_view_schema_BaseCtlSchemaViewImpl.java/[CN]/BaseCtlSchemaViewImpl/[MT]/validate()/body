@@ -1,0 +1,12 @@
+{
+  boolean result=name.getValue().length() > 0;
+  if (create) {
+    if (ctlSchemaPanel.getVisibleWidgetIndex() == 0) {
+      result&=ctlSchemaReferenceBox.getValue() != null;
+    }
+ else {
+      result&=schemaForm.validate();
+    }
+  }
+  return result;
+}

@@ -1,0 +1,15 @@
+{
+  S schema=entity.getSchema();
+  schema.setName(detailsView.getName().getValue());
+  schema.setDescription(detailsView.getDescription().getValue());
+  if (create) {
+    entity.setUseExistingCtlSchema(detailsView.useExistingCtlSchema());
+    if (detailsView.useExistingCtlSchema()) {
+      entity.setExistingMetaInfo(detailsView.getCtlSchemaReference().getValue());
+    }
+ else {
+      entity.getCtlSchemaForm().setSchema(detailsView.getSchemaForm().getValue());
+    }
+    entity.getCtlSchemaForm().setApplicationId(applicationId);
+  }
+}

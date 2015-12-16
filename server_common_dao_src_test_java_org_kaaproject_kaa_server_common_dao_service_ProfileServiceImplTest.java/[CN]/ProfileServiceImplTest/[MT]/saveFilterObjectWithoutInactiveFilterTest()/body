@@ -1,5 +1,5 @@
 {
-  ProfileFilterDto filterDto=generateFilterDto(null,null,1,true).get(0);
+  ProfileFilterDto filterDto=generateFilterDto(null,null,null,1,true).get(0);
   filterDto.setId(null);
   ProfileFilterDto saved=profileService.saveProfileFilter(filterDto);
   Assert.assertNotNull(saved);

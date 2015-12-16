@@ -1,11 +1,11 @@
 {
-  String schemaId=generateProfSchemaDto(null,1).get(0).getId();
-  ProfileSchemaDto schemaDto=profileService.findProfileSchemaById(schemaId);
+  String schemaId=generateProfSchemaDto(null,null,1).get(0).getId();
+  EndpointProfileSchemaDto schemaDto=profileService.findProfileSchemaById(schemaId);
   Assert.assertNotNull(schemaDto);
-  int majorVersion=schemaDto.getMajorVersion();
+  int version=schemaDto.getVersion();
   schemaDto.setId(null);
-  ProfileSchemaDto saved=profileService.saveProfileSchema(schemaDto);
+  EndpointProfileSchemaDto saved=profileService.saveProfileSchema(schemaDto);
   Assert.assertNotNull(saved);
-  Assert.assertNotEquals(majorVersion,saved.getMajorVersion());
+  Assert.assertNotEquals(version,saved.getVersion());
   Assert.assertNotEquals(schemaId,saved.getId());
 }

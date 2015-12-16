@@ -1,3 +1,9 @@
 {
-  return "CTLDataDto{" + "ctlSchemaId='" + ctlSchemaId + '\''+ ", body='"+ body+ '\''+ '}';
+  StringBuilder builder=new StringBuilder();
+  builder.append("CTLDataDto [serverProfileVersion=");
+  builder.append(serverProfileVersion);
+  builder.append(", body=");
+  builder.append(body);
+  builder.append("]");
+  return builder.toString();
 }

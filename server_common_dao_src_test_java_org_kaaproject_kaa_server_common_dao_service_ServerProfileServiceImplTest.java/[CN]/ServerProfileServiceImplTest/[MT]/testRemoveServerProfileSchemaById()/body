@@ -1,5 +1,5 @@
 {
-  ServerProfileSchemaDto schemaDto=generateServiceProfileSchema(null,null);
+  ServerProfileSchemaDto schemaDto=generateServerProfileSchema(null,null);
   serverProfileService.removeServerProfileSchemaById(schemaDto.getId());
   Assert.assertNull(serverProfileService.findServerProfileSchema(schemaDto.getId()));
 }

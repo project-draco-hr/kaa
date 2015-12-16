@@ -30,6 +30,7 @@
   context=operationsService.syncConfiguration(context,request.getConfigurationSync());
   context=operationsService.syncNotification(context,request.getNotificationSync());
   state.setProfile(operationsService.updateProfile(context));
+  state.setServerProfileChanged(false);
   LOG.trace("[{}][{}] processed sync. Response is {}",endpointKey,request.hashCode(),context.getResponse());
   return context;
 }

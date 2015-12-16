@@ -15,7 +15,8 @@
   dto.setAccessToken(accessToken);
   dto.setClientProfileBody(profile);
   dto.setProfileHash(getBytes(profileHash));
-  dto.setProfileVersion(profileVersion);
+  dto.setClientProfileVersion(profileVersion);
+  dto.setServerProfileVersion(serverProfileVersion);
   dto.setNotificationVersion(notificationVersion);
   dto.setSubscriptions(subscriptions);
   dto.setNtHash(getBytes(ntHash));
@@ -26,6 +27,5 @@
   dto.setServerHash(serverHash);
   dto.setSdkToken(sdkToken);
   dto.setServerProfileBody(serverProfile);
-  dto.setServerProfileCtlSchemaId(serverProfileSchemaId);
   return dto;
 }

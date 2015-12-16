@@ -1,15 +1,25 @@
 {
-  validateId(endpointGroupId,"Can't find vacant schemas. Invalid endpoint group id: " + endpointGroupId);
+  validateSqlId(endpointGroupId,"Can't find vacant schemas. Invalid endpoint group id: " + endpointGroupId);
   EndpointGroup group=endpointGroupDao.findById(endpointGroupId);
   List<ProfileFilter> profileFilters=profileFilterDao.findActualByEndpointGroupId(endpointGroupId);
-  List<String> usedSchemaIds=new ArrayList<>();
-  for (  ProfileFilter filter : profileFilters) {
-    usedSchemaIds.add(filter.getSchemaId());
+  String appId=group.getApplicationId();
+  List<ServerProfileSchemaDto> serverSchemas=serverProfileService.findServerProfileSchemasByAppId(appId);
+  Collections.sort(serverSchemas);
+  List<EndpointProfileSchemaDto> endpointProfileSchemas=findProfileSchemasByAppId(appId);
+  Collections.sort(endpointProfileSchemas);
+  Collection<ProfileVersionPairDto> pairVersionSet=new HashSet<>();
+  for (int i=0; i < endpointProfileSchemas.size(); i++) {
+    EndpointProfileSchemaDto endSchema=endpointProfileSchemas.get(i);
+    for (    ServerProfileSchemaDto serverSchema : serverSchemas) {
+      if (i == 0) {
+        pairVersionSet.add(new ProfileVersionPairDto(serverSchema.getId(),serverSchema.getVersion()));
+      }
+      pairVersionSet.add(new ProfileVersionPairDto(endSchema.getId(),endSchema.getVersion(),serverSchema.getId(),serverSchema.getVersion()));
+    }
+    pairVersionSet.add(new ProfileVersionPairDto(endSchema.getVersion(),endSchema.getId()));
   }
-  List<ProfileSchema> schemas=profileSchemaDao.findVacantSchemas(group.getApplicationId(),usedSchemaIds);
-  List<SchemaDto> schemaDtoList=new ArrayList<>();
-  for (  ProfileSchema schema : schemas) {
-    schemaDtoList.add(schema.toSchemaDto());
+  for (  ProfileFilter pf : profileFilters) {
+    pairVersionSet.remove(new ProfileVersionPairDto(pf.getEndpointProfileSchemaId(),pf.getEndpointProfileSchemaVersion(),pf.getServerProfileSchemaId(),pf.getServerProfileSchemaVersion()));
   }
-  return schemaDtoList;
+  return new ArrayList<>(pairVersionSet);
 }

@@ -1,0 +1,11 @@
+{
+  try {
+    String schemaBody=flatExportAsString(unSavedSchema);
+    GenericAvroConverter<GenericRecord> converter=new GenericAvroConverter<GenericRecord>(schemaBody);
+    converter.decodeJson(unSavedSchema.getDefaultRecord());
+  }
+ catch (  IOException|RuntimeException e) {
+    LOG.error("Invalid default record for CTL schema with body: {}",unSavedSchema.getBody(),e);
+    throw new RuntimeException("An unexpected exception occured: " + e.toString());
+  }
+}

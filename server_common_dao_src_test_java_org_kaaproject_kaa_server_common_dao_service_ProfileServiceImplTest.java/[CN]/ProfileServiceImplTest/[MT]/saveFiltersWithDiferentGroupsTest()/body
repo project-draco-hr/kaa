@@ -2,10 +2,10 @@
   ApplicationDto application=generateApplicationDto(null);
   EndpointGroupDto groupDto=generateEndpointGroupDto(application.getId());
   EndpointGroupDto groupDto2=generateEndpointGroupDto(application.getId(),"OTHER_GROUP");
-  ProfileSchemaDto schema=generateProfSchemaDto(application.getId(),1).get(0);
-  ProfileFilterDto filterDto=generateFilterDto(schema.getId(),groupDto.getId(),1,false).get(0);
+  EndpointProfileSchemaDto schema=generateProfSchemaDto(application.getTenantId(),application.getId(),1).get(0);
+  ServerProfileSchemaDto serverSchema=generateServerProfileSchema(application.getId(),application.getTenantId());
+  ProfileFilterDto filterDto=generateFilterDto(schema.getId(),serverSchema.getId(),groupDto.getId(),1,false).get(0);
   Assert.assertNotNull(filterDto);
-  profileService.removeProfileFiltersByProfileSchemaId(schema.getId());
   filterDto.setId(null);
   filterDto.setEndpointGroupId(groupDto.getId());
   ProfileFilterDto savedOne=profileService.saveProfileFilter(filterDto);
@@ -18,7 +18,7 @@
   Assert.assertNotNull(savedTwo);
   ChangeProfileFilterNotification activeTwo=profileService.activateProfileFilter(savedTwo.getId(),null);
   Assert.assertNotNull(activeTwo);
-  List<ProfileFilterDto> activeList=profileService.findProfileFilterByAppIdAndVersion(application.getId(),schema.getMajorVersion());
+  List<ProfileFilterDto> activeList=profileService.findProfileFiltersByAppIdAndVersionsCombination(application.getId(),schema.getVersion(),serverSchema.getVersion());
   Assert.assertFalse(activeList.isEmpty());
   Set<String> groupIds=new HashSet<>();
   for (  ProfileFilterDto dto : activeList) {

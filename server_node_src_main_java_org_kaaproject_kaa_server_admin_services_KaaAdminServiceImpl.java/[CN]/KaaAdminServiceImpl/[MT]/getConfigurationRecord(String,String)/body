@@ -2,7 +2,7 @@
   checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
     checkEndpointGroupId(endpointGroupId);
-    StructureRecordDto<ConfigurationDto> record=controlService.getConfigurationRecord(schemaId,endpointGroupId);
+    ConfigurationRecordDto record=controlService.getConfigurationRecord(schemaId,endpointGroupId);
     Utils.checkNotNull(record);
     return record;
   }

@@ -1,9 +1,9 @@
 {
-  return pfSchemaMemorizer.compute(key,new Computable<AppVersionKey,ProfileSchemaDto>(){
-    @Override public ProfileSchemaDto compute(    AppVersionKey key){
+  return pfSchemaMemorizer.compute(key,new Computable<AppVersionKey,EndpointProfileSchemaDto>(){
+    @Override public EndpointProfileSchemaDto compute(    AppVersionKey key){
       LOG.debug("Fetching result for getProfileSchemaByAppAndVersion");
       ApplicationDto appDto=applicationService.findAppByApplicationToken(key.getApplicationToken());
-      ProfileSchemaDto value=profileService.findProfileSchemaByAppIdAndVersion(appDto.getId(),key.getVersion());
+      EndpointProfileSchemaDto value=profileService.findProfileSchemaByAppIdAndVersion(appDto.getId(),key.getVersion());
       return value;
     }
   }

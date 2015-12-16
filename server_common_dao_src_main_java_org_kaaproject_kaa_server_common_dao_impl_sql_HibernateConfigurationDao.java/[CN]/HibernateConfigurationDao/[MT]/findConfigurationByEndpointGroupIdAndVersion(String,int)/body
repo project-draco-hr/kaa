@@ -1,8 +1,8 @@
 {
   Configuration configuration=null;
-  LOG.debug("Searching configuration by endpoint group id [{}] and major version [{}]",groupId,version);
+  LOG.debug("Searching configuration by endpoint group id [{}] and schema version [{}]",groupId,version);
   if (isNotBlank(groupId)) {
-    configuration=findOneByCriterionWithAlias(ENDPOINT_GROUP_PROPERTY,ENDPOINT_GROUP_ALIAS,Restrictions.and(Restrictions.eq(ENDPOINT_GROUP_REFERENCE,Long.valueOf(groupId)),Restrictions.eq(MAJOR_VERSION_PROPERTY,version),Restrictions.eq(STATUS_PROPERTY,UpdateStatus.ACTIVE)));
+    configuration=findOneByCriterionWithAlias(ENDPOINT_GROUP_PROPERTY,ENDPOINT_GROUP_ALIAS,Restrictions.and(Restrictions.eq(ENDPOINT_GROUP_REFERENCE,Long.valueOf(groupId)),Restrictions.eq(SCHEMA_VERSION_PROPERTY,version),Restrictions.eq(STATUS_PROPERTY,UpdateStatus.ACTIVE)));
   }
   if (LOG.isTraceEnabled()) {
     LOG.trace("[{},{}] Search result: {}.",groupId,version,configuration);

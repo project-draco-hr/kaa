@@ -1,7 +1,24 @@
 {
-  if (this == o)   return true;
-  if (o == null || getClass() != o.getClass())   return false;
-  CTLDataDto that=(CTLDataDto)o;
-  if (ctlSchemaId != null ? !ctlSchemaId.equals(that.ctlSchemaId) : that.ctlSchemaId != null)   return false;
-  return body != null ? body.equals(that.body) : that.body == null;
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  CTLDataDto other=(CTLDataDto)obj;
+  if (body == null) {
+    if (other.body != null) {
+      return false;
+    }
+  }
+ else   if (!body.equals(other.body)) {
+    return false;
+  }
+  if (serverProfileVersion != other.serverProfileVersion) {
+    return false;
+  }
+  return true;
 }

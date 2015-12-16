@@ -32,4 +32,12 @@
     this.socketKeepalive=data().deepCopy(fields()[7].schema(),other.socketKeepalive);
     fieldSetFlags()[7]=true;
   }
+  if (isValidValue(fields()[8],other.includeClientProfile)) {
+    this.includeClientProfile=data().deepCopy(fields()[8].schema(),other.includeClientProfile);
+    fieldSetFlags()[8]=true;
+  }
+  if (isValidValue(fields()[9],other.includeServerProfile)) {
+    this.includeServerProfile=data().deepCopy(fields()[9].schema(),other.includeServerProfile);
+    fieldSetFlags()[9]=true;
+  }
 }

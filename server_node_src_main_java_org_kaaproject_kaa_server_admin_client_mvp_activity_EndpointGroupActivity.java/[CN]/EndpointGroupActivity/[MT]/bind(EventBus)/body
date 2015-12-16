@@ -2,22 +2,35 @@
   super.bind(eventBus);
   registrations.add(detailsView.getAddProfileFilterButton().addClickHandler(new ClickHandler(){
     public void onClick(    ClickEvent event){
-      ProfileFilterPlace profileFilterPlace=new ProfileFilterPlace(applicationId,"",entityId,true,false,0);
-      profileFilterPlace.setPreviousPlace(place);
-      goTo(profileFilterPlace);
+      KaaAdmin.getDataSource().getVacantProfileSchemas(entityId,new BusyAsyncCallback<List<ProfileVersionPairDto>>(){
+        @Override public void onFailureImpl(        Throwable caught){
+          Utils.handleException(caught,detailsView);
+        }
+        @Override public void onSuccessImpl(        List<ProfileVersionPairDto> result){
+          if (!result.isEmpty()) {
+            ProfileFilterPlace profileFilterPlace=new ProfileFilterPlace(applicationId,"","",entityId,true,false,0);
+            profileFilterPlace.setPreviousPlace(place);
+            goTo(profileFilterPlace);
+          }
+ else {
+            MessageDialog.showMessageDialog(AlertPanel.Type.WARNING,Utils.constants.noVacantProfileSchemas(),Utils.messages.noVacantProfileSchemasMessage());
+          }
+        }
+      }
+);
     }
   }
 ));
-  registrations.add(detailsView.getProfileFiltersGrid().addRowActionHandler(new RowActionEventHandler<StructureRecordKey>(){
-    @Override public void onRowAction(    RowActionEvent<StructureRecordKey> event){
-      StructureRecordKey id=event.getClickedId();
+  registrations.add(detailsView.getProfileFiltersGrid().addRowActionHandler(new RowActionEventHandler<ProfileFilterRecordKey>(){
+    @Override public void onRowAction(    RowActionEvent<ProfileFilterRecordKey> event){
+      ProfileFilterRecordKey id=event.getClickedId();
       if (event.getAction() == RowActionEvent.CLICK) {
-        ProfileFilterPlace profileFilterPlace=new ProfileFilterPlace(applicationId,id.getSchemaId(),id.getEndpointGroupId(),false,true,0);
+        ProfileFilterPlace profileFilterPlace=new ProfileFilterPlace(applicationId,id.getEndpointProfileSchemaId(),id.getServerProfileSchemaId(),id.getEndpointGroupId(),false,true,0);
         profileFilterPlace.setPreviousPlace(place);
         goTo(profileFilterPlace);
       }
  else       if (event.getAction() == RowActionEvent.DELETE) {
-        KaaAdmin.getDataSource().deleteProfileFilterRecord(id.getSchemaId(),id.getEndpointGroupId(),new BusyAsyncCallback<Void>(){
+        KaaAdmin.getDataSource().deleteProfileFilterRecord(id.getEndpointProfileSchemaId(),id.getServerProfileSchemaId(),id.getEndpointGroupId(),new BusyAsyncCallback<Void>(){
           @Override public void onFailureImpl(          Throwable caught){
             Utils.handleException(caught,detailsView);
           }
@@ -40,15 +53,28 @@
 ));
   registrations.add(detailsView.getAddConfigurationButton().addClickHandler(new ClickHandler(){
     public void onClick(    ClickEvent event){
-      ConfigurationPlace configurationPlace=new ConfigurationPlace(applicationId,"",entityId,true,false,0);
-      configurationPlace.setPreviousPlace(place);
-      goTo(configurationPlace);
+      KaaAdmin.getDataSource().getVacantConfigurationSchemaInfos(entityId,new BusyAsyncCallback<List<SchemaInfoDto>>(){
+        @Override public void onFailureImpl(        Throwable caught){
+          Utils.handleException(caught,detailsView);
+        }
+        @Override public void onSuccessImpl(        List<SchemaInfoDto> result){
+          if (!result.isEmpty()) {
+            ConfigurationPlace configurationPlace=new ConfigurationPlace(applicationId,"",entityId,true,false,0);
+            configurationPlace.setPreviousPlace(place);
+            goTo(configurationPlace);
+          }
+ else {
+            MessageDialog.showMessageDialog(AlertPanel.Type.WARNING,Utils.constants.noVacantConfigurationSchemas(),Utils.messages.noVacantConfigurationSchemasMessage());
+          }
+        }
+      }
+);
     }
   }
 ));
-  registrations.add(detailsView.getConfigurationsGrid().addRowActionHandler(new RowActionEventHandler<StructureRecordKey>(){
-    @Override public void onRowAction(    RowActionEvent<StructureRecordKey> event){
-      StructureRecordKey id=event.getClickedId();
+  registrations.add(detailsView.getConfigurationsGrid().addRowActionHandler(new RowActionEventHandler<ConfigRecordKey>(){
+    @Override public void onRowAction(    RowActionEvent<ConfigRecordKey> event){
+      ConfigRecordKey id=event.getClickedId();
       if (event.getAction() == RowActionEvent.CLICK) {
         ConfigurationPlace configurationPlace=new ConfigurationPlace(applicationId,id.getSchemaId(),id.getEndpointGroupId(),false,true,0);
         configurationPlace.setPreviousPlace(place);

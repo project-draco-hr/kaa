@@ -1,6 +1,0 @@
-{
-  CTLDataDto dataDto=new CTLDataDto(String.valueOf(RANDOM.nextInt()),UUID.randomUUID().toString());
-  EndpointProfileDto ep=generateEndpointProfileDtoWithSchemaId(null,dataDto.getCtlSchemaId(),dataDto.getBody());
-  CTLDataDto found=endpointProfileDao.findCtlDataByKeyHash(ep.getEndpointKeyHash());
-  Assert.assertEquals(dataDto,found);
-}

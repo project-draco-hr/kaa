@@ -17,6 +17,6 @@
   if (configurationSchema == null) {
     configurationSchema=generateConfSchemaDto(applicationDto.getId(),1).get(0);
   }
-  configurationDto.setSchemaVersion(configurationSchema.getMajorVersion());
+  configurationDto.setSchemaVersion(configurationSchema.getVersion());
   return userConfigurationService.saveUserConfiguration(configurationDto);
 }

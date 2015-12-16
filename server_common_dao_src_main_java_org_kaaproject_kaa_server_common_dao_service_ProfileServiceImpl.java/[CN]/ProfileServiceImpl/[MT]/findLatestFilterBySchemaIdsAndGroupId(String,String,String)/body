@@ -1,0 +1,5 @@
+{
+  validateFilterSchemaIds(endpointProfileSchemaId,serverProfileSchemaId);
+  validateId(groupId,"Can't find profile filter. Invalid group id: " + groupId);
+  return getDto(profileFilterDao.findLatestFilter(endpointProfileSchemaId,serverProfileSchemaId,groupId));
+}

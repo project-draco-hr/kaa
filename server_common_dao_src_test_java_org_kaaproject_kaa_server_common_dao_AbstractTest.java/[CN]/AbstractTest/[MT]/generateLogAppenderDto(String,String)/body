@@ -15,7 +15,7 @@
   logAppender=new LogAppenderDto();
   logAppender.setApplicationId(appId);
   logAppender.setName("Generated Appender");
-  int version=schema.getMajorVersion();
+  int version=schema.getVersion();
   logAppender.setMinLogSchemaVersion(version);
   logAppender.setMaxLogSchemaVersion(version);
   logAppender.setTenantId(app.getTenantId());

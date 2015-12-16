@@ -29,7 +29,10 @@
   if (oldSeqNumber != other.oldSeqNumber) {
     return false;
   }
-  if (profileSchemaVersion != other.profileSchemaVersion) {
+  if (endpointProfileSchemaVersion != other.endpointProfileSchemaVersion) {
+    return false;
+  }
+  if (serverProfileSchemaVersion != other.serverProfileSchemaVersion) {
     return false;
   }
   return true;

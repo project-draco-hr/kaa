@@ -1,0 +1,13 @@
+{
+  List<SchemaInfoDto> schemaInfos=new ArrayList<>();
+  for (  VersionDto schemaDto : schemas) {
+    ConfigurationSchemaDto configSchema=this.getConfigurationSchema(schemaDto.getId());
+    String rawSchema=endpointGroup.getWeight() == 0 ? configSchema.getBaseSchema() : configSchema.getOverrideSchema();
+    Schema schema=new Schema.Parser().parse(rawSchema);
+    SchemaInfoDto schemaInfo=new SchemaInfoDto(schemaDto);
+    RecordField schemaForm=FormAvroConverter.createRecordFieldFromSchema(schema);
+    schemaInfo.setSchemaForm(schemaForm);
+    schemaInfos.add(schemaInfo);
+  }
+  return schemaInfos;
+}

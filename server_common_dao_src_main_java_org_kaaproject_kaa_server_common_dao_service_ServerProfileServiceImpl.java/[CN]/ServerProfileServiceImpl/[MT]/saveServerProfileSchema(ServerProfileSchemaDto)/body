@@ -1,7 +1,31 @@
 {
   Validator.validateObject(dto,"Incorrect server profile schema object.");
-  CTLSchema ctlSchema=ctlSchemaDao.findById(dto.getCtlSchemaId());
-  ServerProfileSchema serverProfileSchema=new ServerProfileSchema(dto);
-  serverProfileSchema.setCtlSchema(ctlSchema);
-  return getDto(serverProfileSchemaDao.save(serverProfileSchema));
+  String appId=dto.getApplicationId();
+  if (isNotBlank(appId)) {
+    String id=dto.getId();
+    if (isBlank(id)) {
+      ServerProfileSchema serverProfileSchema=serverProfileSchemaDao.findLatestByAppId(appId);
+      int version=-1;
+      if (serverProfileSchema != null) {
+        version=serverProfileSchema.getVersion();
+      }
+      dto.setVersion(++version);
+      dto.setCreatedTime(System.currentTimeMillis());
+    }
+ else {
+      ServerProfileSchemaDto oldServerProfileSchemaDto=getDto(serverProfileSchemaDao.findById(id));
+      if (oldServerProfileSchemaDto != null) {
+        oldServerProfileSchemaDto.editFields(dto);
+        dto=oldServerProfileSchemaDto;
+      }
+ else {
+        LOG.error("Can't find server profile schema with given id [{}].",id);
+        throw new IncorrectParameterException("Invalid server profile schema id: " + id);
+      }
+    }
+    return getDto(serverProfileSchemaDao.save(new ServerProfileSchema(dto)));
+  }
+ else {
+    throw new IncorrectParameterException("Invalid server profile schema object. Application identifier is not specified!");
+  }
 }

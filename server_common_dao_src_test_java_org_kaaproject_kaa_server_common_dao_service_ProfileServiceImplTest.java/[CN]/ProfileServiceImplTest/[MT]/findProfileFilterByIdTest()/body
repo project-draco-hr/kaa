@@ -1,5 +1,5 @@
 {
-  List<ProfileFilterDto> filters=generateFilterDto(null,null,1,true);
+  List<ProfileFilterDto> filters=generateFilterDto(null,null,null,1,true);
   ProfileFilterDto filterDto=profileService.findProfileFilterById(filters.get(0).getId());
   Assert.assertNotNull(filterDto);
   Assert.assertEquals(filters.get(0),filterDto);

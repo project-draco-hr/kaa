@@ -1,0 +1,22 @@
+{
+  if (scope == null) {
+    if (tenant == null) {
+      scope=CTLSchemaScopeDto.SYSTEM;
+    }
+ else {
+      scope=CTLSchemaScopeDto.TENANT;
+    }
+  }
+  CTLSchemaMetaInfo metaInfo=new CTLSchemaMetaInfo();
+  metaInfo.setVersion(version);
+  metaInfo.setFqn(fqn);
+  metaInfo.setScope(scope);
+  metaInfo=ctlSchemaMetaInfoDao.save(metaInfo);
+  CTLSchema ctlSchema=new CTLSchema();
+  ctlSchema.setTenant(tenant);
+  ctlSchema.setBody(UUID.randomUUID().toString());
+  ctlSchema.setDependencySet(new HashSet<CTLSchema>());
+  ctlSchema.setMetaInfo(metaInfo);
+  ctlSchema=ctlSchemaDao.save(ctlSchema);
+  return ctlSchema;
+}

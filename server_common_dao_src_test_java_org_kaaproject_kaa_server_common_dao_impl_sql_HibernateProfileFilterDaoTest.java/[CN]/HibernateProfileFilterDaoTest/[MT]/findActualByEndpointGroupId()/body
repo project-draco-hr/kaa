@@ -1,9 +1,9 @@
 {
-  List<ProfileFilter> filters=generateFilter(null,null,4,UpdateStatus.DEPRECATED);
+  List<ProfileFilter> filters=generateFilter(null,null,null,4,UpdateStatus.DEPRECATED);
   ProfileFilter first=filters.get(0);
   EndpointGroup group=first.getEndpointGroup();
-  List<ProfileFilter> active=generateFilter(null,group,1,UpdateStatus.ACTIVE);
-  List<ProfileFilter> inactive=generateFilter(null,group,1,UpdateStatus.INACTIVE);
+  List<ProfileFilter> active=generateFilter(null,null,group,1,UpdateStatus.ACTIVE);
+  List<ProfileFilter> inactive=generateFilter(null,null,group,1,UpdateStatus.INACTIVE);
   List<ProfileFilter> actual=new ArrayList<>();
   actual.addAll(active);
   actual.addAll(inactive);

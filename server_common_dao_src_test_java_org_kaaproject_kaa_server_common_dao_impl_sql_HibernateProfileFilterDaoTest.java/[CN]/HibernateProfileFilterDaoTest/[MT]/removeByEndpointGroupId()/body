@@ -1,9 +1,0 @@
-{
-  List<ProfileFilter> filters=generateFilter(null,null,3,UpdateStatus.ACTIVE);
-  Assert.assertEquals(3,filters.size());
-  Long id=filters.get(0).getId();
-  EndpointGroup group=filters.get(0).getEndpointGroup();
-  profileFilterDao.removeByEndpointGroupId(group.getId().toString());
-  ProfileFilter found=profileFilterDao.findById(id.toString());
-  Assert.assertNull(found);
-}

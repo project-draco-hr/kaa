@@ -1,0 +1,14 @@
+{
+  try {
+    String schemaBody=flatExportAsString(unSavedSchema);
+    LOG.debug("Generating default record for flat schema: {}",schemaBody);
+    RawSchema dataSchema=new RawSchema(schemaBody);
+    DefaultRecordGenerationAlgorithm<RawData> dataProcessor=new DefaultRecordGenerationAlgorithmImpl<RawSchema,RawData>(dataSchema,new RawDataFactory());
+    unSavedSchema.setDefaultRecord(dataProcessor.getRootData().getRawData());
+    return unSavedSchema;
+  }
+ catch (  ConfigurationGenerationException|IOException|RuntimeException e) {
+    LOG.error("Failed to generate default record for CTL schema with body: {}",unSavedSchema.getBody(),e);
+    throw new RuntimeException("An unexpected exception occured: " + e.toString());
+  }
+}

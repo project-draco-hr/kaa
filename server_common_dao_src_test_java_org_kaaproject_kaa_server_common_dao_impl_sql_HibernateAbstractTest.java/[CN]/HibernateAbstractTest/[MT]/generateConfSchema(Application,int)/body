@@ -10,7 +10,7 @@
       schema=new ConfigurationSchema();
       schema.setApplication(app);
       schema.setSchema(readSchemaFileAsString("dao/schema/testDataSchema.json"));
-      schema.setMajorVersion(i + 1);
+      schema.setVersion(i + 1);
       schema=configurationSchemaDao.save(schema);
       Assert.assertNotNull(schema);
       schemas.add(schema);

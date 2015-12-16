@@ -1,8 +1,8 @@
 {
   String appId=generateApplicationDto(null).getId();
-  int schemaVersion=1;
-  ProfileSchemaDto schema=profileService.findProfileSchemaByAppIdAndVersion(appId,schemaVersion);
+  int schemaVersion=0;
+  EndpointProfileSchemaDto schema=profileService.findProfileSchemaByAppIdAndVersion(appId,schemaVersion);
   Assert.assertNotNull(schema);
-  Assert.assertEquals(schemaVersion,schema.getMajorVersion());
+  Assert.assertEquals(schemaVersion,schema.getVersion());
   Assert.assertEquals(appId,schema.getApplicationId());
 }

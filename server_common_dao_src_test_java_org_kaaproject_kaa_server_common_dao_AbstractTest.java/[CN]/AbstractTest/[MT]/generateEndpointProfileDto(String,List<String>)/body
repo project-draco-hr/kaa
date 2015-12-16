@@ -1,4 +1,7 @@
 {
+  if (isBlank(appId)) {
+    appId=generateApplicationDto().getId();
+  }
   EndpointProfileDto profileDto=new EndpointProfileDto();
   profileDto.setApplicationId(appId);
   profileDto.setSubscriptions(topicIds);

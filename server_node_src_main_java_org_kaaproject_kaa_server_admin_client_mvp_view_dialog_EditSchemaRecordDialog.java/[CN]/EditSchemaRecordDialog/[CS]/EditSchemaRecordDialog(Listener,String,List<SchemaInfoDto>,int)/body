@@ -1,0 +1,63 @@
+{
+  super(false,true);
+  setWidth("100%");
+  setTitle(title);
+  this.listener=listener;
+  SchemaInfoDto currentValue=null;
+  for (  SchemaInfoDto schema : schemas) {
+    if (schema.getVersion() == schemaVersion) {
+      currentValue=schema;
+      break;
+    }
+  }
+  VerticalPanel dialogContents=new VerticalPanel();
+  dialogContents.setSpacing(4);
+  setWidget(dialogContents);
+  errorPanel=new AlertPanel(AlertPanel.Type.ERROR);
+  errorPanel.setVisible(false);
+  dialogContents.add(errorPanel);
+  FlexTable table=new FlexTable();
+  table.setCellSpacing(6);
+  table.addStyleName(Utils.avroUiStyle.fieldWidget());
+  int row=0;
+  Widget schemaVersionLabel=new Label(Utils.constants.schemaVersion());
+  schemaVersionLabel.addStyleName(Utils.avroUiStyle.requiredField());
+  schemaBox=new SchemaInfoListBox();
+  schemaBox.setWidth("50px");
+  schemaBox.getElement().getStyle().setMarginLeft(10,Unit.PX);
+  schemaBox.setValue(currentValue);
+  schemaBox.setAcceptableValues(schemas);
+  schemaBox.addValueChangeHandler(this);
+  HorizontalPanel versionPanel=new HorizontalPanel();
+  versionPanel.add(schemaVersionLabel);
+  versionPanel.add(schemaBox);
+  table.setWidget(row,0,versionPanel);
+  schemaRecordPanel=new RecordPanel(new AvroWidgetsConfig.Builder().recordPanelWidth(700).createConfig(),Utils.constants.schema(),this,false,false);
+  schemaRecordPanel.setWidth("750px");
+  schemaRecordPanel.addValueChangeHandler(new ValueChangeHandler<RecordField>(){
+    @Override public void onValueChange(    ValueChangeEvent<RecordField> event){
+      validate();
+    }
+  }
+);
+  table.setWidget(++row,0,schemaRecordPanel);
+  table.getFlexCellFormatter().setColSpan(row,0,2);
+  dialogContents.add(table);
+  saveButton=new Button(Utils.constants.save(),new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      performSave();
+    }
+  }
+);
+  Button cancelButton=new Button(Utils.constants.cancel(),new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      hide();
+      EditSchemaRecordDialog.this.listener.onCancel();
+    }
+  }
+);
+  addButton(saveButton);
+  addButton(cancelButton);
+  updateValue(currentValue);
+  saveButton.setEnabled(false);
+}

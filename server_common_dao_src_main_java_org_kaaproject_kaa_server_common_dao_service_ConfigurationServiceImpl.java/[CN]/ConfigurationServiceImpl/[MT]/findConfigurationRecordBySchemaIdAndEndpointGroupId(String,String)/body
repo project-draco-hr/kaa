@@ -1,5 +1,5 @@
 {
-  StructureRecordDto<ConfigurationDto> record=new StructureRecordDto<>();
+  ConfigurationRecordDto record=new ConfigurationRecordDto();
   Collection<ConfigurationDto> configurations=convertDtoList(configurationDao.findActualBySchemaIdAndGroupId(schemaId,endpointGroupId));
   if (configurations != null) {
     for (    ConfigurationDto configuration : configurations) {

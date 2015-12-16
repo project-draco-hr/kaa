@@ -5,6 +5,7 @@
   if (cfSequenceNumber != that.cfSequenceNumber)   return false;
   if (nfSequenceNumber != that.nfSequenceNumber)   return false;
   if (profileVersion != that.profileVersion)   return false;
+  if (serverProfileVersion != that.serverProfileVersion)   return false;
   if (configurationVersion != that.configurationVersion)   return false;
   if (notificationVersion != that.notificationVersion)   return false;
   if (systemNfVersion != that.systemNfVersion)   return false;
@@ -27,6 +28,5 @@
   if (ecfVersionStates != null ? !ecfVersionStates.equals(that.ecfVersionStates) : that.ecfVersionStates != null)   return false;
   if (serverHash != null ? !serverHash.equals(that.serverHash) : that.serverHash != null)   return false;
   if (sdkToken != null ? !sdkToken.equals(that.sdkToken) : that.sdkToken != null)   return false;
-  if (serverProfileSchemaId != null ? !serverProfileSchemaId.equals(that.serverProfileSchemaId) : that.serverProfileSchemaId != null)   return false;
   return serverProfile != null ? serverProfile.equals(that.serverProfile) : that.serverProfile == null;
 }

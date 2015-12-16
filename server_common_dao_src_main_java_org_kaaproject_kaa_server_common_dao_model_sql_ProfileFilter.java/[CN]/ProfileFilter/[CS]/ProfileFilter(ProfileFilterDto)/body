@@ -1,6 +1,12 @@
 {
   super(dto);
   this.body=dto.getBody();
-  Long schemaId=getLongId(dto.getSchemaId());
-  this.profileSchema=schemaId != null ? new ProfileSchema(schemaId) : null;
+  String endpointSchemaId=dto.getEndpointProfileSchemaId();
+  if (isNotBlank(endpointSchemaId)) {
+    this.endpointProfileSchema=new EndpointProfileSchema(getLongId(endpointSchemaId));
+  }
+  String serverSchemaId=dto.getServerProfileSchemaId();
+  if (isNotBlank(serverSchemaId)) {
+    this.serverProfileSchema=new ServerProfileSchema(getLongId(serverSchemaId));
+  }
 }

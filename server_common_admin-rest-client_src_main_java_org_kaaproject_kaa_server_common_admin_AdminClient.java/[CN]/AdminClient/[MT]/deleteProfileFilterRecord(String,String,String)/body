@@ -1,0 +1,7 @@
+{
+  MultiValueMap<String,Object> params=new LinkedMultiValueMap<>();
+  params.add("endpointProfileSchemaId",endpointProfileSchemaId);
+  params.add("serverProfileSchemaId",serverProfileSchemaId);
+  params.add("endpointGroupId",endpointGroupId);
+  restTemplate.postForObject(url + "delProfileFilterRecord",params,Void.class);
+}

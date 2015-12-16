@@ -5,10 +5,7 @@
     ConfigurationDto stored=editConfiguration(toSave);
     return toConfigurationRecordFormDto(stored);
   }
- catch (  StaleObjectStateException e) {
-    throw new KaaAdminServiceException("Someone has already updated the configuration. Reload page to be able to edit it.",ServiceErrorCode.GENERAL_ERROR);
-  }
-catch (  Exception e) {
+ catch (  Exception e) {
     throw Utils.handleException(e);
   }
 }

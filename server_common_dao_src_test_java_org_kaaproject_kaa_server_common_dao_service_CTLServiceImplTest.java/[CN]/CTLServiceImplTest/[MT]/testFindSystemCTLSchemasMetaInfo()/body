@@ -1,4 +1,4 @@
 {
   List<CTLSchemaMetaInfoDto> appSchemas=ctlService.findSystemCTLSchemasMetaInfo();
-  Assert.assertEquals(Arrays.asList(systemSchema.getMetaInfo()),appSchemas);
+  Assert.assertEquals(Arrays.asList(defaultSystemSchema.getMetaInfo(),systemSchema.getMetaInfo()),appSchemas);
 }

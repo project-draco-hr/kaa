@@ -1,0 +1,13 @@
+{
+  CTLSchemaMetaInfoDto newValue=null;
+  if (fqnKey != null) {
+    Fqn fqn=fqnKey.getFqn();
+    if (version == null) {
+      List<Integer> versions=fqnVersionsMap.get(fqn);
+      version=Collections.max(versions);
+    }
+    FqnVersion fqnVersion=new FqnVersion(fqn,version);
+    newValue=fqnVersionToReferenceMap.get(fqnVersion);
+  }
+  setValue(newValue,true);
+}

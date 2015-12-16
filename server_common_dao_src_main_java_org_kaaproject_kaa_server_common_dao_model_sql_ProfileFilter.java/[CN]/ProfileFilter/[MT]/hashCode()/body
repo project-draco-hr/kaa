@@ -1,8 +1,7 @@
 {
-  final int prime=43;
-  int result=1;
-  result=prime * result + super.hashCode();
-  result=prime * result + ((body == null) ? 0 : body.hashCode());
-  result=prime * result + ((profileSchema == null) ? 0 : profileSchema.hashCode());
+  int result=super.hashCode();
+  result=31 * result + (body != null ? body.hashCode() : 0);
+  result=31 * result + (endpointProfileSchema != null ? endpointProfileSchema.hashCode() : 0);
+  result=31 * result + (serverProfileSchema != null ? serverProfileSchema.hashCode() : 0);
   return result;
 }

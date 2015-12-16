@@ -1,6 +1,7 @@
 {
-  ApplicationDto application=generateApplicationDto(null);
-  List<ProfileFilterDto> filters=profileService.findProfileFilterByAppIdAndVersion(application.getId(),1);
+  List<ProfileFilterDto> generated=generateFilterDto(null,null,null,1,true);
+  ProfileFilterDto first=generated.get(0);
+  List<ProfileFilterDto> filters=profileService.findProfileFiltersByAppIdAndVersionsCombination(first.getApplicationId(),first.getEndpointProfileSchemaVersion(),first.getServerProfileSchemaVersion());
   Assert.assertNotNull(filters);
   Assert.assertFalse(filters.isEmpty());
 }

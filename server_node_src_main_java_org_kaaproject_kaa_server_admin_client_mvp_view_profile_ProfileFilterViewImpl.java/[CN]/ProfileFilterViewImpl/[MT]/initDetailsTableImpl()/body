@@ -1,0 +1,38 @@
+{
+  int row=-1;
+  Label endpointProfileSchemaLabel=new Label(Utils.constants.profileSchemaVersion());
+  Label serverProfileSchemaLabel=new Label(Utils.constants.serverProfileSchemaVersion());
+  int endpointProfileSchemaRow=++row;
+  int serverProfileSchemaRow=++row;
+  detailsTable.setWidget(endpointProfileSchemaRow,0,endpointProfileSchemaLabel);
+  detailsTable.setWidget(serverProfileSchemaRow,0,serverProfileSchemaLabel);
+  if (create) {
+    endpointProfileSchemaLabel.addStyleName(Utils.avroUiStyle.requiredField());
+    serverProfileSchemaLabel.addStyleName(Utils.avroUiStyle.requiredField());
+    endpointProfileSchema=new VersionListBox();
+    endpointProfileSchema.setWidth("80px");
+    serverProfileSchema=new VersionListBox();
+    serverProfileSchema.setWidth("80px");
+    VerticalPanel panel=new VerticalPanel();
+    panel.setWidth("100%");
+    panel.add(endpointProfileSchema);
+    panel.add(new HTML("&nbsp;"));
+    detailsTable.setWidget(endpointProfileSchemaRow,1,panel);
+    panel=new VerticalPanel();
+    panel.setWidth("100%");
+    panel.add(serverProfileSchema);
+    panel.add(new HTML("&nbsp;"));
+    detailsTable.setWidget(serverProfileSchemaRow,1,panel);
+    endpointProfileSchema.addValueChangeHandler(this);
+    serverProfileSchema.addValueChangeHandler(this);
+  }
+ else {
+    endpointProfileSchemaVersion=new KaaAdminSizedTextBox(-1,false);
+    endpointProfileSchemaVersion.setWidth("100%");
+    detailsTable.setWidget(endpointProfileSchemaRow,1,endpointProfileSchemaVersion);
+    serverProfileSchemaVersion=new KaaAdminSizedTextBox(-1,false);
+    serverProfileSchemaVersion.setWidth("100%");
+    detailsTable.setWidget(serverProfileSchemaRow,1,serverProfileSchemaVersion);
+  }
+  return row;
+}

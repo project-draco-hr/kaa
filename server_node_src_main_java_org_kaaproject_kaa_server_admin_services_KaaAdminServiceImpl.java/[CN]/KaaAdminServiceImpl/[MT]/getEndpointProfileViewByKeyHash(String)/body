@@ -1,0 +1,49 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    EndpointProfileDto endpointProfile=controlService.getEndpointProfileByKeyHash(endpointProfileKeyHash);
+    Utils.checkNotNull(endpointProfile);
+    checkApplicationId(endpointProfile.getApplicationId());
+    EndpointProfileViewDto endpointProfileView=new EndpointProfileViewDto();
+    endpointProfileView.setEndpointKeyHash(endpointProfile.getEndpointKeyHash());
+    if (endpointProfile.getEndpointUserId() != null) {
+      EndpointUserDto endpointUser=controlService.getEndpointUser(endpointProfile.getEndpointUserId());
+      if (endpointUser != null) {
+        endpointProfileView.setUserId(endpointUser.getId());
+        endpointProfileView.setUserExternalId(endpointUser.getExternalId());
+      }
+    }
+    EndpointProfileSchemaDto clientProfileSchema=controlService.getProfileSchemaByApplicationIdAndVersion(endpointProfile.getApplicationId(),endpointProfile.getClientProfileVersion());
+    ServerProfileSchemaDto serverProfileSchema=controlService.getServerProfileSchemaByApplicationIdAndVersion(endpointProfile.getApplicationId(),endpointProfile.getServerProfileVersion());
+    endpointProfileView.setProfileSchemaName(clientProfileSchema.getName());
+    endpointProfileView.setProfileSchemaVersion(clientProfileSchema.toVersionDto());
+    endpointProfileView.setServerProfileSchemaName(serverProfileSchema.getName());
+    endpointProfileView.setServerProfileSchemaVersion(serverProfileSchema.toVersionDto());
+    endpointProfileView.setProfileRecord(createRecordFieldFromCtlSchemaAndBody(clientProfileSchema.getCtlSchemaId(),endpointProfile.getClientProfileBody()));
+    endpointProfileView.setServerProfileRecord(createRecordFieldFromCtlSchemaAndBody(serverProfileSchema.getCtlSchemaId(),endpointProfile.getServerProfileBody()));
+    List<TopicDto> topics=new ArrayList<>();
+    if (endpointProfile.getSubscriptions() != null) {
+      for (      String topicId : endpointProfile.getSubscriptions()) {
+        topics.add(controlService.getTopic(topicId));
+      }
+    }
+    endpointProfileView.setTopics(topics);
+    Set<EndpointGroupDto> endpointGroupsSet=new HashSet<>();
+    if (endpointProfile.getCfGroupStates() != null) {
+      for (      EndpointGroupStateDto endpointGroupState : endpointProfile.getCfGroupStates()) {
+        endpointGroupsSet.add(controlService.getEndpointGroup(endpointGroupState.getEndpointGroupId()));
+      }
+    }
+    if (endpointProfile.getNfGroupStates() != null) {
+      for (      EndpointGroupStateDto endpointGroupState : endpointProfile.getNfGroupStates()) {
+        endpointGroupsSet.add(controlService.getEndpointGroup(endpointGroupState.getEndpointGroupId()));
+      }
+    }
+    List<EndpointGroupDto> endpointGroups=new ArrayList<EndpointGroupDto>(endpointGroupsSet);
+    endpointProfileView.setEndpointGroups(endpointGroups);
+    return endpointProfileView;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

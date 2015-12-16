@@ -1,10 +1,11 @@
 {
-  String appId=generateApplicationDto(null).getId();
-  int schemaVersion=1;
-  List<ProfileFilterDto> filters=profileService.findProfileFilterByAppIdAndVersion(appId,schemaVersion);
-  Assert.assertFalse(filters.isEmpty());
-  ProfileFilterDto filter=filters.get(0);
+  ApplicationDto app=generateApplicationDto(null);
+  String appId=app.getId();
+  ProfileFilterDto filter=new ProfileFilterDto();
   filter.setId(null);
-  filter.setSchemaId(null);
+  filter.setApplicationId(appId);
+  filter.setBody("true");
+  filter.setEndpointProfileSchemaId(null);
+  filter.setServerProfileSchemaId(null);
   profileService.saveProfileFilter(filter);
 }

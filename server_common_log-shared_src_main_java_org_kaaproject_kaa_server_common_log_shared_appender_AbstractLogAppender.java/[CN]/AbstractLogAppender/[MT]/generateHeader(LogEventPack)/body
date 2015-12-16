@@ -20,7 +20,9 @@ case LSVERSION:
 logHeader.setLogSchemaVersion(logEventPack.getLogSchema().getVersion());
 break;
 default :
+if (LOG.isWarnEnabled()) {
 LOG.warn("Current header field [{}] doesn't support",field);
+}
 break;
 }
 }

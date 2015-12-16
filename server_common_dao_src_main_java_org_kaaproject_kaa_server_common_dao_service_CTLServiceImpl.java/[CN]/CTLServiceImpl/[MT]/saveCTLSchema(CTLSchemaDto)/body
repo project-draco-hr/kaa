@@ -1,5 +1,11 @@
 {
   validateCTLSchemaObject(unSavedSchema);
+  if (unSavedSchema.getDefaultRecord() == null) {
+    unSavedSchema=generateDefaultRecord(unSavedSchema);
+  }
+ else {
+    validateDefaultRecord(unSavedSchema);
+  }
   if (isBlank(unSavedSchema.getId())) {
     CTLSchemaMetaInfoDto metaInfo=unSavedSchema.getMetaInfo();
     CTLSchemaScopeDto currentScope=metaInfo.getScope();

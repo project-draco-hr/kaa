@@ -2,8 +2,8 @@
   if (dto == null) {
     throw new IncorrectParameterException("Can't save profile filter. Incorrect object.");
   }
-  if (StringUtils.isBlank(dto.getSchemaId())) {
-    throw new IncorrectParameterException("Profile Filter object invalid. Profile Schema id invalid:" + dto.getSchemaId());
+  if (dto.getEndpointProfileSchemaId() == null && dto.getServerProfileSchemaId() == null) {
+    throw new IncorrectParameterException("Profile Filter object invalid. Both schemas are empty.");
   }
   if (StringUtils.isBlank(dto.getEndpointGroupId())) {
     throw new IncorrectParameterException("Profile Filter object invalid. Endpoint Group id invalid:" + dto.getEndpointGroupId());

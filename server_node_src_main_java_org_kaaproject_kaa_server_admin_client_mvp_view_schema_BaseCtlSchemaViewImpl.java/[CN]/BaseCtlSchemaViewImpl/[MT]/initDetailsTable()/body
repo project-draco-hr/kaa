@@ -1,0 +1,114 @@
+{
+  Label versionLabel=new Label(Utils.constants.version());
+  version=new KaaAdminSizedTextBox(-1,false);
+  version.setWidth("100%");
+  detailsTable.setWidget(0,0,versionLabel);
+  detailsTable.setWidget(0,1,version);
+  versionLabel.setVisible(!create);
+  version.setVisible(!create);
+  Label authorLabel=new Label(Utils.constants.author());
+  createdUsername=new KaaAdminSizedTextBox(-1,false);
+  createdUsername.setWidth("100%");
+  detailsTable.setWidget(1,0,authorLabel);
+  detailsTable.setWidget(1,1,createdUsername);
+  authorLabel.setVisible(!create);
+  createdUsername.setVisible(!create);
+  Label dateTimeCreatedLabel=new Label(Utils.constants.dateTimeCreated());
+  createdDateTime=new KaaAdminSizedTextBox(-1,false);
+  createdDateTime.setWidth("100%");
+  detailsTable.setWidget(2,0,dateTimeCreatedLabel);
+  detailsTable.setWidget(2,1,createdDateTime);
+  dateTimeCreatedLabel.setVisible(!create);
+  createdDateTime.setVisible(!create);
+  name=new KaaAdminSizedTextBox(DEFAULT_TEXTBOX_SIZE);
+  name.setWidth("100%");
+  Label nameLabel=new Label(Utils.constants.name());
+  nameLabel.addStyleName(REQUIRED);
+  detailsTable.setWidget(3,0,nameLabel);
+  detailsTable.setWidget(3,1,name);
+  name.addInputHandler(this);
+  description=new SizedTextArea(1024);
+  description.setWidth("100%");
+  description.getTextArea().getElement().getStyle().setPropertyPx("minHeight",80);
+  Label descriptionLabel=new Label(Utils.constants.description());
+  detailsTable.setWidget(4,0,descriptionLabel);
+  detailsTable.setWidget(4,1,description);
+  description.addInputHandler(this);
+  detailsTable.getCellFormatter().setVerticalAlignment(4,0,HasVerticalAlignment.ALIGN_TOP);
+  HorizontalPanel ctlSwitchPanel=new HorizontalPanel();
+  detailsTable.setWidget(5,0,ctlSwitchPanel);
+  detailsTable.getFlexCellFormatter().setColSpan(5,0,2);
+  ctlSwitchPanel.getElement().getStyle().setPaddingTop(10,Unit.PX);
+  ctlSwitchPanel.getElement().getStyle().setPaddingBottom(10,Unit.PX);
+  existingCtlButton=new ToggleButton(Utils.constants.selectExistingType());
+  newCtlButton=new ToggleButton(Utils.constants.createNewType());
+  newCtlButton.getElement().getStyle().setMarginLeft(10,Unit.PX);
+  existingCtlButton.setValue(true);
+  ctlSwitchPanel.add(existingCtlButton);
+  ctlSwitchPanel.add(newCtlButton);
+  ctlSwitchPanel.setVisible(create);
+  final LayoutPanel rootPanel=new LayoutPanel();
+  ctlSchemaPanel=new FragmentLayoutPanel();
+  if (create) {
+    existingCtlButton.addClickHandler(new ClickHandler(){
+      @Override public void onClick(      ClickEvent event){
+        ctlSchemaPanel.showWidget(0);
+        existingCtlButton.setValue(true);
+        newCtlButton.setValue(false);
+        fireChanged();
+      }
+    }
+);
+    newCtlButton.addClickHandler(new ClickHandler(){
+      @Override public void onClick(      ClickEvent event){
+        rootPanel.setHeight(SCHEMA_FORM_PANEL_HEIGHT);
+        ctlSchemaPanel.showWidget(1);
+        existingCtlButton.setValue(false);
+        newCtlButton.setValue(true);
+        fireChanged();
+      }
+    }
+);
+    ctlSchemaPanel.setAnimationCallback(new AnimationCallback(){
+      @Override public void onAnimationComplete(){
+        if (ctlSchemaPanel.getVisibleWidgetIndex() == 0) {
+          rootPanel.setHeight(CTL_REFERENCE_PANEL_HEIGHT);
+        }
+      }
+      @Override public void onLayout(      Layer layer,      double progress){
+      }
+    }
+);
+  }
+  ctlSchemaPanel.setAnimationDuration(create ? CTL_PANEL_ANIMATION_DURATION : 0);
+  ctlSchemaReferenceBox=new CtlSchemaReferenceBox();
+  ctlSchemaReferenceBox.setWidth("500px");
+  schemaForm=new RecordPanel(new AvroWidgetsConfig.Builder().recordPanelWidth(900).createConfig(),Utils.constants.schema(),this,!create,!create);
+  if (create) {
+    schemaForm.addValueChangeHandler(new ValueChangeHandler<RecordField>(){
+      @Override public void onValueChange(      ValueChangeEvent<RecordField> event){
+        fireChanged();
+      }
+    }
+);
+    ctlSchemaReferenceBox.addValueChangeHandler(new ValueChangeHandler<CTLSchemaMetaInfoDto>(){
+      @Override public void onValueChange(      ValueChangeEvent<CTLSchemaMetaInfoDto> event){
+        fireChanged();
+      }
+    }
+);
+  }
+  ctlSchemaPanel.add(ctlSchemaReferenceBox);
+  ctlSchemaPanel.add(schemaForm);
+  rootPanel.add(ctlSchemaPanel);
+  rootPanel.setWidgetLeftRight(ctlSchemaPanel,0,Unit.PX,0,Unit.PX);
+  rootPanel.setWidgetTopBottom(ctlSchemaPanel,0,Unit.PX,0,Unit.PX);
+  rootPanel.setWidgetVerticalPosition(ctlSchemaPanel,Alignment.STRETCH);
+  rootPanel.setSize("1000px",create ? CTL_REFERENCE_PANEL_HEIGHT : SCHEMA_FORM_PANEL_HEIGHT);
+  getFooter().addStyleName(Utils.kaaAdminStyle.bAppContentDetailsTable());
+  getFooter().addStyleName(Utils.avroUiStyle.fieldWidget());
+  getFooter().setWidth("1000px");
+  getFooter().add(rootPanel);
+  ctlSchemaPanel.showWidget(create ? 0 : 1);
+  name.setFocus(true);
+}

@@ -1,0 +1,4 @@
+{
+  validateSqlId(appId,"Can't find server profile schema. Invalid application id: " + appId);
+  return getDto(serverProfileSchemaDao.findByAppIdAndVersion(appId,schemaVersion));
+}

@@ -8,19 +8,30 @@
     }
   }
  else {
-    String schemaId=profileFilterDto.getSchemaId();
+    String endProfSchemaId=profileFilterDto.getEndpointProfileSchemaId();
+    String srvProfSchemaId=profileFilterDto.getServerProfileSchemaId();
     String groupId=profileFilterDto.getEndpointGroupId();
     EndpointGroup group=endpointGroupDao.findById(groupId);
     if (group.getWeight() == 0) {
-      long count=profileFilterDao.findActiveFilterCount(schemaId,groupId);
-      if (count > 0) {
-        throw new UpdateStatusConflictException("Can't create more than one profile filter, for default endpoint group");
+      throw new UpdateStatusConflictException("Add profile filter to default group is forbidden!");
+    }
+    EndpointProfileSchemaDto endpointProfileSchemaDto=null;
+    if (endProfSchemaId != null) {
+      endpointProfileSchemaDto=findProfileSchemaById(endProfSchemaId);
+      if (endpointProfileSchemaDto == null) {
+        throw new IncorrectParameterException("Can't update profile filter, endpoint profile schema not found!");
       }
     }
-    ProfileSchemaDto profileSchemaDto=findProfileSchemaById(schemaId);
-    if (profileSchemaDto != null) {
-      ProfileFilter inactiveFilter=profileFilterDao.findInactiveFilter(schemaId,groupId);
-      ProfileFilter latestFilter=profileFilterDao.findLatestFilter(schemaId,groupId);
+    ServerProfileSchemaDto serverProfileSchemaDto=null;
+    if (srvProfSchemaId != null) {
+      serverProfileSchemaDto=serverProfileService.findServerProfileSchema(srvProfSchemaId);
+      if (serverProfileSchemaDto == null) {
+        throw new IncorrectParameterException("Can't update profile filter, server profile schema not found!");
+      }
+    }
+    if (endpointProfileSchemaDto != null || serverProfileSchemaDto != null) {
+      ProfileFilter inactiveFilter=profileFilterDao.findInactiveFilter(endProfSchemaId,srvProfSchemaId,groupId);
+      ProfileFilter latestFilter=profileFilterDao.findLatestFilter(endProfSchemaId,srvProfSchemaId,groupId);
       if (inactiveFilter != null) {
         profileFilterDto.setId(inactiveFilter.getId().toString());
         profileFilterDto.setSequenceNumber(inactiveFilter.getSequenceNumber());
@@ -28,13 +39,16 @@
  else       if (latestFilter != null) {
         profileFilterDto.setSequenceNumber(latestFilter.getSequenceNumber());
       }
-      profileFilterDto.setApplicationId(profileSchemaDto.getApplicationId());
-      profileFilterDto.setMajorVersion(profileSchemaDto.getMajorVersion());
-      profileFilterDto.setMinorVersion(profileSchemaDto.getMinorVersion());
+      if (endpointProfileSchemaDto != null) {
+        profileFilterDto.setApplicationId(endpointProfileSchemaDto.getApplicationId());
+      }
+ else {
+        profileFilterDto.setApplicationId(serverProfileSchemaDto.getApplicationId());
+      }
       profileFilterDto.setCreatedTime(System.currentTimeMillis());
     }
  else {
-      throw new IncorrectParameterException("Can't update profile filter, invalid profile schema id " + id);
+      throw new IncorrectParameterException("Can't update profile filter, profile schemas not set!");
     }
   }
   profileFilterDto.setStatus(UpdateStatus.INACTIVE);
