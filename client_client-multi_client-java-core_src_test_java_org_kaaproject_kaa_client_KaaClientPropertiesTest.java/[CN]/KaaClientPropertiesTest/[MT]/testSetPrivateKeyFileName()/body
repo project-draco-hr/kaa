@@ -4,4 +4,5 @@
   KaaClientProperties properties=new KaaClientProperties();
   properties.setPrivateKeyFileName(requestedName);
   assertEquals(requestedName,properties.getPrivateKeyFileName());
+  assertEquals(properties.getWorkingDirectory() + requestedName,properties.getPrivateKeyFileFullName());
 }

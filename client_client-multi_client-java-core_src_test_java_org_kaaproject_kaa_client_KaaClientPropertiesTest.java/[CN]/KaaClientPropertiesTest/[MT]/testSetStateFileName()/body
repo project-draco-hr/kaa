@@ -4,4 +4,5 @@
   KaaClientProperties properties=new KaaClientProperties();
   properties.setStateFileName(requestedName);
   assertEquals(requestedName,properties.getStateFileName());
+  assertEquals(properties.getWorkingDirectory() + requestedName,properties.getStateFileFullName());
 }

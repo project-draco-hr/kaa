@@ -3,19 +3,9 @@
   this.storage=storage;
   this.base64=base64;
   properties.setBase64(base64);
-  String workingDir=properties.getWorkingDirectory();
-  if (isBlank(workingDir)) {
-    workDirLocation=WORKING_DIR_DEFAULT;
-  }
- else {
-    workDirLocation=workingDir.endsWith(FILE_SEPARATOR) ? workingDir : workingDir + FILE_SEPARATOR;
-  }
-  String stateFileName=properties.getStateFileName();
-  stateFileLocation=isBlank(stateFileName) ? workDirLocation + STATE_FILE_NAME_DEFAULT : workDirLocation + stateFileName;
-  String privateKeyName=properties.getPrivateKeyFileName();
-  clientPrivateKeyFileLocation=isBlank(privateKeyName) ? workDirLocation + CLIENT_PRIVATE_KEY_NAME_DEFAULT : workDirLocation + privateKeyName;
-  String publicKeyName=properties.getPublicKeyFileName();
-  clientPublicKeyFileLocation=isBlank(publicKeyName) ? workDirLocation + CLIENT_PUBLIC_KEY_NAME_DEFAULT : workDirLocation + publicKeyName;
+  stateFileLocation=properties.getStateFileFullName();
+  clientPrivateKeyFileLocation=properties.getPrivateKeyFileFullName();
+  clientPublicKeyFileLocation=properties.getPublicKeyFileFullName();
   LOG.info("Version: '{}', commit hash: '{}'",properties.getBuildVersion(),properties.getCommitHash());
   state=new Properties();
   if (storage.exists(stateFileLocation)) {
