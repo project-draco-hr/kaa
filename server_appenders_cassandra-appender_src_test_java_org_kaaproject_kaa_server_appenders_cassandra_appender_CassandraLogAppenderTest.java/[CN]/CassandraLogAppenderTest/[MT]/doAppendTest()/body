@@ -1,6 +1,6 @@
 {
   DeliveryCallback callback=new DeliveryCallback();
-  logAppender.doAppend(generateLogEventPack(20),callback);
+  logAppender.doAppend(generateLogEventPack(20,true),callback);
   Thread.sleep(3000);
   CassandraLogEventDao logEventDao=(CassandraLogEventDao)ReflectionTestUtils.getField(logAppender,"logEventDao");
   Session session=(Session)ReflectionTestUtils.getField(logEventDao,"session");

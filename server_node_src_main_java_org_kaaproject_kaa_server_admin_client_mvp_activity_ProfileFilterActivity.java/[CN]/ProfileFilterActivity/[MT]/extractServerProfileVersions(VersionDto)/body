@@ -1,5 +1,5 @@
 {
-  List<VersionDto> serverProfileVersions=new ArrayList<>();
+  Set<VersionDto> serverProfileVersions=new HashSet<>();
   if (profileVersionPairs != null) {
     for (    ProfileVersionPairDto profileVersionPair : profileVersionPairs) {
       if (endpointProfileVersion == null || profileVersionPair.getEndpointProfileSchemaVersion() == null || profileVersionPair.getEndpointProfileSchemaVersion().intValue() == endpointProfileVersion.getVersion()) {
@@ -10,6 +10,7 @@
       }
     }
   }
-  Collections.sort(serverProfileVersions);
-  return serverProfileVersions;
+  List<VersionDto> serverProfileVersionsList=new ArrayList<>(serverProfileVersions);
+  Collections.sort(serverProfileVersionsList);
+  return serverProfileVersionsList;
 }

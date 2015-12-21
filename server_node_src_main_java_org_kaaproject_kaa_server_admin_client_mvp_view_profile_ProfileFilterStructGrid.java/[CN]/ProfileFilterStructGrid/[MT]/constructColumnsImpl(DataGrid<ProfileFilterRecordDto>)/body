@@ -1,12 +1,12 @@
 {
   float prefWidth=0;
-  prefWidth+=constructStringColumn(table,Utils.constants.profileSchemaVersion(),new StringValueProvider<ProfileFilterRecordDto>(){
+  prefWidth+=constructStringColumn(table,Utils.constants.endpointProfileSchema(),new StringValueProvider<ProfileFilterRecordDto>(){
     @Override public String getValue(    ProfileFilterRecordDto item){
       return item.getEndpointProfileSchemaVersion() != null ? item.getEndpointProfileSchemaVersion() + "" : "";
     }
   }
 ,60);
-  prefWidth+=constructStringColumn(table,Utils.constants.serverProfileSchemaVersion(),new StringValueProvider<ProfileFilterRecordDto>(){
+  prefWidth+=constructStringColumn(table,Utils.constants.serverProfileSchema(),new StringValueProvider<ProfileFilterRecordDto>(){
     @Override public String getValue(    ProfileFilterRecordDto item){
       return item.getServerProfileSchemaVersion() != null ? item.getServerProfileSchemaVersion() + "" : "";
     }
