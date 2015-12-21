@@ -1,8 +1,0 @@
-{
-  String requestedName="test_state.properties";
-  System.setProperty(KaaClientProperties.KAA_CLIENT_PROPERTIES_FILE,"client-test.properties");
-  KaaClientProperties properties=new KaaClientProperties();
-  properties.setStateFileName(requestedName);
-  assertEquals(requestedName,properties.getStateFileName());
-  assertEquals(properties.getWorkingDirectory() + requestedName,properties.getStateFileFullName());
-}
