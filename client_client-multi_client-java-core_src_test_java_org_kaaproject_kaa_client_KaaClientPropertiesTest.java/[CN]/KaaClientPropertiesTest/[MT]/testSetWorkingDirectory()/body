@@ -1,8 +1,0 @@
-{
-  String requestedWorkDir="dir_";
-  String fileSeparator=System.getProperty("file.separator");
-  System.setProperty(KaaClientProperties.KAA_CLIENT_PROPERTIES_FILE,"client-test.properties");
-  KaaClientProperties properties=new KaaClientProperties();
-  properties.setWorkingDirectory(requestedWorkDir);
-  assertEquals(requestedWorkDir + fileSeparator,properties.getWorkingDirectory());
-}
