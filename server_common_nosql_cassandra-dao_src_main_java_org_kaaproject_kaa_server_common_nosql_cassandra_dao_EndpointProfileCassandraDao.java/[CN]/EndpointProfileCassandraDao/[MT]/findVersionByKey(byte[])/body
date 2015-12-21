@@ -3,8 +3,10 @@
   CassandraEndpointProfile endpointProfile=findByKeyHash(endpointKeyHash);
   if (endpointProfile != null) {
     Long newVersion=endpointProfile.getVersion() + 1;
+    LOG.debug("Try to increment version for endpoint {}",convertKeyHashToString(endpointKeyHash));
     ResultSet resultSet=execute(QueryBuilder.update(getColumnFamilyName()).with(set(OPT_LOCK,newVersion)).where(eq(EP_EP_KEY_HASH_PROPERTY,getByteBuffer(endpointKeyHash))).onlyIf(eq(OPT_LOCK,endpointProfile.getVersion())));
     if (wasApplied(resultSet)) {
+      LOG.debug("Increment version to {} for endpoint {}",newVersion,convertKeyHashToString(endpointKeyHash));
       version=newVersion;
     }
  else {
