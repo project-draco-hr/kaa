@@ -1,13 +1,14 @@
 {
-  KaaClientProperties props=new KaaClientProperties(CommonsBase64.getInstance());
-  props.setProperty("state.file_location","state.properties");
-  props.setProperty("keys.public","key.public");
-  File pub=new File("key.public");
+  KaaClientProperties props=new KaaClientProperties();
+  props.setProperty(KaaClientProperties.WORKING_DIR_PROPERTY,WORK_DIR);
+  props.setProperty(KaaClientProperties.STATE_FILE_NAME_PROPERTY,STATE_PROPERTIES);
+  props.setProperty(KaaClientProperties.CLIENT_PUBLIC_KEY_FILE_NAME_PROPERTY,KEY_PUBLIC);
+  File pub=new File(WORK_DIR + KEY_PUBLIC);
   pub.deleteOnExit();
-  props.setProperty("keys.private","key.private");
-  File priv=new File("key.private");
+  props.setProperty(KaaClientProperties.CLIENT_PRIVATE_KEY_FILE_NAME_PROPERTY,KEY_PRIVATE);
+  File priv=new File(WORK_DIR + KEY_PRIVATE);
   priv.deleteOnExit();
-  File state=new File("state.properties");
+  File state=new File(WORK_DIR + STATE_PROPERTIES);
   state.deleteOnExit();
   props.setProperty(KaaClientProperties.TRANSPORT_POLL_DELAY,"0");
   props.setProperty(KaaClientProperties.TRANSPORT_POLL_PERIOD,"1");
