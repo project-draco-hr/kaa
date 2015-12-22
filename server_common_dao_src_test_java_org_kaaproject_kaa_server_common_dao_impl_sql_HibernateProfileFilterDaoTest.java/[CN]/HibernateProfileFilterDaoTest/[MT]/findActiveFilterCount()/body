@@ -1,11 +1,12 @@
 {
-  List<ProfileFilter> filters=generateFilter(null,null,1,UpdateStatus.ACTIVE);
+  List<ProfileFilter> filters=generateFilter(null,null,null,1,UpdateStatus.ACTIVE);
   Assert.assertEquals(1,filters.size());
   ProfileFilter first=filters.get(0);
   EndpointGroup group=first.getEndpointGroup();
-  ProfileSchema schema=first.getProfileSchema();
-  generateFilter(schema,group,3,UpdateStatus.DEPRECATED);
-  generateFilter(schema,group,1,UpdateStatus.ACTIVE);
-  long count=profileFilterDao.findActiveFilterCount(schema.getId().toString(),group.getId().toString());
+  EndpointProfileSchema schema=first.getEndpointProfileSchema();
+  ServerProfileSchema server=first.getServerProfileSchema();
+  generateFilter(schema,server,group,3,UpdateStatus.DEPRECATED);
+  generateFilter(schema,server,group,1,UpdateStatus.ACTIVE);
+  long count=profileFilterDao.findActiveFilterCount(schema.getStringId(),server.getStringId(),group.getStringId());
   Assert.assertEquals(2,count);
 }

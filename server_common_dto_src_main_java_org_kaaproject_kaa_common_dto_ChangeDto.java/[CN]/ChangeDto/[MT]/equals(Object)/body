@@ -6,10 +6,7 @@
     return false;
   }
   ChangeDto changeDto=(ChangeDto)o;
-  if (cfMajorVersion != changeDto.cfMajorVersion) {
-    return false;
-  }
-  if (pfMajorVersion != changeDto.pfMajorVersion) {
+  if (cfVersion != changeDto.cfVersion) {
     return false;
   }
   if (configurationId != null ? !configurationId.equals(changeDto.configurationId) : changeDto.configurationId != null) {

@@ -51,11 +51,9 @@ schema=schemaDto.getSchema();
 fileName=MessageFormatter.arrayFormat(DATA_NAME_PATTERN,new Object[]{"notification",key.getSchemaVersion()}).getMessage();
 break;
 case PROFILE_SCHEMA:
-schemaDto=profileService.findProfileSchemaByAppIdAndVersion(key.getApplicationId(),key.getSchemaVersion());
-checkSchema(schemaDto,RecordFiles.PROFILE_SCHEMA);
-schema=schemaDto.getSchema();
-fileName=MessageFormatter.arrayFormat(DATA_NAME_PATTERN,new Object[]{"profile",key.getSchemaVersion()}).getMessage();
-break;
+throw new RuntimeException("Not implemented!");
+case SERVER_PROFILE_SCHEMA:
+throw new RuntimeException("Not implemented!");
 default :
 break;
 }

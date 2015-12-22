@@ -1,9 +1,0 @@
-{
-  List<LogEvent> logEvents=new ArrayList<>(logEventDtos.size());
-  for (  LogEventDto logEventDto : logEventDtos) {
-    logEvents.add(new LogEvent(logEventDto));
-  }
-  LOG.debug("Saving {} log events",logEvents.size());
-  mongoTemplate.insert(logEvents,collectionName);
-  return logEvents;
-}

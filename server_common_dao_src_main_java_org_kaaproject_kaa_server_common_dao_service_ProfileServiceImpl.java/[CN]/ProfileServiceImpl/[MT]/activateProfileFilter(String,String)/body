@@ -1,15 +1,16 @@
 {
   ChangeProfileFilterNotification profileNotification;
   ProfileFilterDto profileFilter;
-  validateId(id,"Can't activate profile filter. Invalid profile filter id: " + id);
+  validateSqlId(id,"Can't activate profile filter. Invalid profile filter id: " + id);
   ProfileFilter oldProfileFilter=profileFilterDao.findById(id);
   if (oldProfileFilter != null) {
     UpdateStatus status=oldProfileFilter.getStatus();
     if (status != null && status == INACTIVE) {
-      String schemaId=oldProfileFilter.getSchemaId();
+      String endProfSchemaId=oldProfileFilter.getEndpointProfileSchemaId();
+      String srvProfSchemaId=oldProfileFilter.getServerProfileSchemaId();
       String groupId=oldProfileFilter.getGroupId();
-      if (schemaId != null && groupId != null) {
-        profileFilterDao.deactivateOldFilter(schemaId,groupId,activatedUsername);
+      if (groupId != null) {
+        profileFilterDao.deactivateOldFilter(endProfSchemaId,srvProfSchemaId,groupId,activatedUsername);
       }
  else {
         throw new DatabaseProcessingException("Incorrect old profile filters. Profile schema id is empty.");

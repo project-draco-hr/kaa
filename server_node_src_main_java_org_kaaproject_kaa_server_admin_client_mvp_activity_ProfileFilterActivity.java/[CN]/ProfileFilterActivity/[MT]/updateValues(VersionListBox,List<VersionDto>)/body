@@ -1,0 +1,8 @@
+{
+  VersionDto valueToSet=box.getValue();
+  if (!newValues.contains(valueToSet)) {
+    valueToSet=Utils.getMaxSchemaVersions(newValues);
+  }
+  box.setValue(valueToSet);
+  box.setAcceptableValues(newValues);
+}

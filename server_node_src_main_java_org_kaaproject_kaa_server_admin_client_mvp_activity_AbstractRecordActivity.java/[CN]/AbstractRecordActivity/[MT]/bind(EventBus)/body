@@ -26,8 +26,8 @@
   recordView.reset();
   recordView.getRecordPanel().openActive();
   if (create) {
-    record=new StructureRecordDto<>();
-    T inactiveStruct=createInactiveStruct();
+    record=newRecord();
+    R inactiveStruct=createInactiveStruct();
     record.setInactiveStructureDto(inactiveStruct);
     onRecordRetrieved();
   }
@@ -38,11 +38,11 @@
       }
       @Override public void onSuccessImpl(      EndpointGroupDto result){
         endpointGroup=result;
-        getRecord(schemaId,endpointGroupId,new AsyncCallback<StructureRecordDto<T>>(){
+        getRecord(endpointGroupId,new AsyncCallback<T>(){
           @Override public void onFailure(          Throwable caught){
             Utils.handleException(caught,recordView);
           }
-          @Override public void onSuccess(          StructureRecordDto<T> result){
+          @Override public void onSuccess(          T result){
             record=result;
             onRecordRetrieved();
           }

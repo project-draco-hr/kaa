@@ -1,11 +1,3 @@
 {
-  LOG.debug("Saving {} entity {}",getEntityClass(),o);
-  o=(T)getSession().merge(o);
-  if (LOG.isTraceEnabled()) {
-    LOG.trace("Saving result: {}",o);
-  }
- else {
-    LOG.debug("Saving result: {}",o != null);
-  }
-  return o;
+  return save(o,false);
 }

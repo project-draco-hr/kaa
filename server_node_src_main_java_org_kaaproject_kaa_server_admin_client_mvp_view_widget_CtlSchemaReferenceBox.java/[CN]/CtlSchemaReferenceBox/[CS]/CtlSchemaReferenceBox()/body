@@ -1,0 +1,25 @@
+{
+  fqnReferenceBox=new FqnReferenceBox(Utils.constants.schemaReferencePrompt());
+  fqnReferenceBox.setWidth("100%");
+  add(fqnReferenceBox);
+  this.setCellWidth(fqnReferenceBox,"100%");
+  versionsBox=new IntegerListBox();
+  versionsBox.setWidth("60px");
+  versionsBox.setHeight("100%");
+  versionsBox.getElement().getStyle().setPaddingTop(2,Unit.PX);
+  versionsBox.getElement().getStyle().setPaddingBottom(1,Unit.PX);
+  versionsBox.getElement().getStyle().setMarginLeft(6,Unit.PX);
+  add(versionsBox);
+  fqnReferenceBox.addValueChangeHandler(new ValueChangeHandler<FqnKey>(){
+    @Override public void onValueChange(    ValueChangeEvent<FqnKey> event){
+      updateValueByFqnKeyAndVersion(event.getValue(),null);
+    }
+  }
+);
+  versionsBox.addValueChangeHandler(new ValueChangeHandler<Integer>(){
+    @Override public void onValueChange(    ValueChangeEvent<Integer> event){
+      updateValueByFqnKeyAndVersion(fqnReferenceBox.getValue(),event.getValue());
+    }
+  }
+);
+}

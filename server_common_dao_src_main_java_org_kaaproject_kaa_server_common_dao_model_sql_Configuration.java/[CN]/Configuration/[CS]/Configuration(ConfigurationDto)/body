@@ -4,5 +4,6 @@
     Long schemaId=getLongId(dto.getSchemaId());
     this.configurationSchema=schemaId != null ? new ConfigurationSchema(schemaId) : null;
     this.configurationBody=stringToBinary(dto.getBody());
+    this.schemaVersion=dto.getSchemaVersion();
   }
 }

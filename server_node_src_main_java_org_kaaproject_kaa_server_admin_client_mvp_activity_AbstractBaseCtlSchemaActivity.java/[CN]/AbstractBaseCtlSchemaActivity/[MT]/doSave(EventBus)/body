@@ -1,0 +1,17 @@
+{
+  onSave();
+  editEntity(entity,new BusyAsyncCallback<T>(){
+    public void onSuccessImpl(    T result){
+      if (!create) {
+        goTo(existingSchemaPlace(applicationId,result.getId()));
+      }
+ else       if (place.getPreviousPlace() != null) {
+        goTo(place.getPreviousPlace());
+      }
+    }
+    public void onFailureImpl(    Throwable caught){
+      Utils.handleException(caught,detailsView);
+    }
+  }
+);
+}

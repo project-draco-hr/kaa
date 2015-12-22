@@ -1,11 +1,11 @@
 {
   byte[] profile=baseAvroConverter.encode(ENDPOINT_PROFILE);
-  RegisterProfileRequest request=new RegisterProfileRequest(APP_TOKEN,ENDPOINT_KEY,sdkToken,profile);
+  RegisterProfileRequest request=new RegisterProfileRequest(application.getApplicationToken(),ENDPOINT_KEY,sdkToken,profile);
   EndpointProfileDto dto=profileService.registerProfile(request);
   Assert.assertNotNull(dto);
   Assert.assertNotNull(dto.getId());
   Assert.assertTrue(Arrays.equals(ENDPOINT_KEY,dto.getEndpointKey()));
   Assert.assertTrue(Arrays.equals(EndpointObjectHash.fromSHA1(ENDPOINT_KEY).getData(),dto.getEndpointKeyHash()));
-  Assert.assertEquals(baseAvroConverter.encodeToJson(ENDPOINT_PROFILE),dto.getProfile().replaceAll(" ",""));
+  Assert.assertEquals(baseAvroConverter.encodeToJson(ENDPOINT_PROFILE),dto.getClientProfileBody().replaceAll(" ",""));
   Assert.assertTrue(Arrays.equals(EndpointObjectHash.fromSHA1(profile).getData(),dto.getProfileHash()));
 }

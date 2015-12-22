@@ -1,7 +1,7 @@
 {
-  TenantDto tenant=generateTenant();
+  TenantDto tenant=generateTenantDto();
   String tenantId=tenant.getId();
-  ApplicationDto application=generateApplication(tenantId);
+  ApplicationDto application=generateApplicationDto(tenantId);
   List<ApplicationDto> applications=applicationService.findAppsByTenantId(tenantId);
   Assert.assertEquals(1,applications.size());
   Assert.assertEquals(application.getId(),applications.get(0).getId());

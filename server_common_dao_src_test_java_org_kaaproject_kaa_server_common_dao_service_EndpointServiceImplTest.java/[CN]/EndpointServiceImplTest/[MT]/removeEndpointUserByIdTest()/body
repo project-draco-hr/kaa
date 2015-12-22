@@ -1,6 +1,6 @@
 {
-  TenantDto tenantDto=generateTenant();
-  EndpointUserDto savedEndpointUserDto=generateEndpointUser(tenantDto.getId());
+  TenantDto tenantDto=generateTenantDto();
+  EndpointUserDto savedEndpointUserDto=generateEndpointUserDto(tenantDto.getId());
   endpointService.removeEndpointUserById(savedEndpointUserDto.getId());
   EndpointUserDto endpointUser=endpointService.findEndpointUserById(savedEndpointUserDto.getId());
   Assert.assertNull(endpointUser);

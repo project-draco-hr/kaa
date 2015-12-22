@@ -1,8 +1,8 @@
 {
-  ConfigurationSchemaDto schema=generateConfSchema(null,1).get(0);
-  EndpointGroupDto group=generateEndpointGroup(schema.getApplicationId());
-  ConfigurationDto activeConfig=generateConfiguration(schema.getId(),group.getId(),1,true,false).get(0);
-  ConfigurationDto inactiveConfig=generateConfiguration(schema.getId(),group.getId(),1,false,false).get(0);
+  ConfigurationSchemaDto schema=generateConfSchemaDto(null,1).get(0);
+  EndpointGroupDto group=generateEndpointGroupDto(schema.getApplicationId());
+  ConfigurationDto activeConfig=generateConfigurationDto(schema.getId(),group.getId(),1,true,false).get(0);
+  ConfigurationDto inactiveConfig=generateConfigurationDto(schema.getId(),group.getId(),1,false,false).get(0);
   StructureRecordDto<ConfigurationDto> record=configurationService.findConfigurationRecordBySchemaIdAndEndpointGroupId(schema.getId(),group.getId());
   Assert.assertEquals(activeConfig,record.getActiveStructureDto());
   Assert.assertEquals(inactiveConfig,record.getInactiveStructureDto());

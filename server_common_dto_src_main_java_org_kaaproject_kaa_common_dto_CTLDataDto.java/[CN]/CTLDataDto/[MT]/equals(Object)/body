@@ -1,0 +1,24 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  CTLDataDto other=(CTLDataDto)obj;
+  if (body == null) {
+    if (other.body != null) {
+      return false;
+    }
+  }
+ else   if (!body.equals(other.body)) {
+    return false;
+  }
+  if (serverProfileVersion != other.serverProfileVersion) {
+    return false;
+  }
+  return true;
+}

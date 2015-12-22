@@ -8,7 +8,13 @@
 ,160);
   prefWidth+=constructStringColumn(table,Utils.constants.profileSchemaVersion(),new StringValueProvider<EndpointProfileDto>(){
     @Override public String getValue(    EndpointProfileDto item){
-      return item.getProfileVersion() + "";
+      return item.getClientProfileVersion() + "";
+    }
+  }
+,80);
+  prefWidth+=constructStringColumn(table,Utils.constants.serverProfileSchemaVersion(),new StringValueProvider<EndpointProfileDto>(){
+    @Override public String getValue(    EndpointProfileDto item){
+      return item.getServerProfileVersion() + "";
     }
   }
 ,80);

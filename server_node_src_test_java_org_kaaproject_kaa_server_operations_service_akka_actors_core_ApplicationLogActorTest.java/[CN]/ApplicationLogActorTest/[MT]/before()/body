@@ -1,9 +1,16 @@
 {
+  context=mock(AkkaContext.class);
   logAppenderService=mock(LogAppenderService.class);
   applicationService=mock(ApplicationService.class);
+  cacheService=mock(CacheService.class);
   applicationDto=mock(ApplicationDto.class);
+  ctlService=mock(CTLService.class);
+  when(context.getCacheService()).thenReturn(cacheService);
+  when(context.getApplicationService()).thenReturn(applicationService);
+  when(context.getLogAppenderService()).thenReturn(logAppenderService);
+  when(context.getCtlService()).thenReturn(ctlService);
   LogSchemaDto logSchemaDto=new LogSchemaDto();
-  logSchemaDto.setMajorVersion(TEST_SCHEMA_VERSION);
+  logSchemaDto.setVersion(TEST_SCHEMA_VERSION);
   logSchema=new LogSchema(logSchemaDto);
   logAppenders=new ArrayList<>();
   logAppender=mock(LogAppender.class);
@@ -13,4 +20,20 @@
   when(applicationDto.getId()).thenReturn(APPLICATION_ID);
   when(logAppenderService.getApplicationAppenders(APPLICATION_ID)).thenReturn(logAppenders);
   when(logAppender.isSchemaVersionSupported(Mockito.anyInt())).thenReturn(Boolean.TRUE);
+  EndpointProfileSchemaDto profileSchemaDto=new EndpointProfileSchemaDto();
+  profileSchemaDto.setId("" + CLIENT_SCHEMA_VERSION);
+  profileSchemaDto.setCtlSchemaId(CLIENT_PROFILE_CTL_SCHEMA_ID);
+  ServerProfileSchemaDto serverProfileSchemaDto=new ServerProfileSchemaDto();
+  serverProfileSchemaDto.setId("" + SERVER_SCHEMA_VERSION);
+  serverProfileSchemaDto.setCtlSchemaId(SERVER_PROFILE_CTL_SCHEMA_ID);
+  when(cacheService.getProfileSchemaByAppAndVersion(new AppVersionKey(APP_TOKEN,CLIENT_SCHEMA_VERSION))).thenReturn(profileSchemaDto);
+  when(cacheService.getServerProfileSchemaByAppAndVersion(new AppVersionKey(APP_TOKEN,SERVER_SCHEMA_VERSION))).thenReturn(serverProfileSchemaDto);
+  CTLSchemaDto profileCtlSchemaDto=new CTLSchemaDto();
+  profileCtlSchemaDto.setId(CLIENT_PROFILE_CTL_SCHEMA_ID);
+  CTLSchemaDto serverProfileCtlSchemaDto=new CTLSchemaDto();
+  serverProfileCtlSchemaDto.setId(SERVER_PROFILE_CTL_SCHEMA_ID);
+  when(cacheService.getCtlSchemaById(CLIENT_PROFILE_CTL_SCHEMA_ID)).thenReturn(profileCtlSchemaDto);
+  when(cacheService.getCtlSchemaById(SERVER_PROFILE_CTL_SCHEMA_ID)).thenReturn(serverProfileCtlSchemaDto);
+  when(ctlService.flatExportAsString(profileCtlSchemaDto)).thenReturn("ClientProfileSchema");
+  when(ctlService.flatExportAsString(serverProfileCtlSchemaDto)).thenReturn("ServerProfileSchema");
 }

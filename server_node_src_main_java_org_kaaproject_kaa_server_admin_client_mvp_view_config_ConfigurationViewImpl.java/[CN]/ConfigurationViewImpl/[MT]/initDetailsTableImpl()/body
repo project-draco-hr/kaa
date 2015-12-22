@@ -1,0 +1,22 @@
+{
+  int row=-1;
+  Label schemaLabel=new Label(Utils.constants.schemaVersion());
+  detailsTable.setWidget(++row,0,schemaLabel);
+  if (create) {
+    schemaLabel.addStyleName(Utils.avroUiStyle.requiredField());
+    schema=new VersionListBox();
+    schema.setWidth("80px");
+    VerticalPanel panel=new VerticalPanel();
+    panel.setWidth("100%");
+    panel.add(schema);
+    panel.add(new HTML("&nbsp;"));
+    detailsTable.setWidget(row,1,panel);
+    schema.addValueChangeHandler(this);
+  }
+ else {
+    schemaVersion=new KaaAdminSizedTextBox(-1,false);
+    schemaVersion.setWidth("100%");
+    detailsTable.setWidget(row,1,schemaVersion);
+  }
+  return row;
+}

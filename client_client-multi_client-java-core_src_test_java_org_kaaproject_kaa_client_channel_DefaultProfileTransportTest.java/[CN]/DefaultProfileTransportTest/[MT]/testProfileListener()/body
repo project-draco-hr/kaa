@@ -2,8 +2,8 @@
   ProfileTransport transport=Mockito.mock(ProfileTransport.class);
   ProfileManager manager=new DefaultProfileManager(transport);
   manager.setProfileContainer(new ProfileContainer(){
-    @Override public Profile getProfile(){
-      return new Profile();
+    @Override public EmptyData getProfile(){
+      return new EmptyData();
     }
   }
 );

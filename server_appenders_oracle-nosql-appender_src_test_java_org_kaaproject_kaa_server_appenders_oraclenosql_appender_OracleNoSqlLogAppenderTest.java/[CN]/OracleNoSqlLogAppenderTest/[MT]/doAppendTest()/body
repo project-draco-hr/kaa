@@ -11,11 +11,12 @@
   events.add(event3);
   LogSchemaDto dto=new LogSchemaDto();
   dto.setSchema(EMPTY_SCHEMA);
-  dto.setMajorVersion(1);
+  dto.setVersion(1);
   LogSchema schema=new LogSchema(dto);
-  int version=dto.getMajorVersion();
-  LogEventPack logEventPack=new LogEventPack(ENDPOINT_KEY,DATE_CREATED,schema,events);
-  logEventPack.setLogSchemaVersion(version);
+  int version=dto.getVersion();
+  EndpointProfileDataDto profileDto=new EndpointProfileDataDto("1",ENDPOINT_KEY,1,"test",0,null);
+  BaseLogEventPack logEventPack=new BaseLogEventPack(profileDto,DATE_CREATED,version,events);
+  logEventPack.setLogSchema(schema);
   Map<String,GenericAvroConverter<GenericRecord>> converters=new HashMap<>();
   GenericAvroConverter<GenericRecord> converter=new GenericAvroConverter<GenericRecord>(dto.getSchema()){
     @Override public GenericRecord decodeBinary(    byte[] bytes){

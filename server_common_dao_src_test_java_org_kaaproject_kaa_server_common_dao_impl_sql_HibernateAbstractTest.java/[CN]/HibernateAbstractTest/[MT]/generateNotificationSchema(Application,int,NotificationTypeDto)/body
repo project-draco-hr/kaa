@@ -11,7 +11,7 @@
       notificationSchema.setApplication(app);
       notificationSchema.setSchema(readSchemaFileAsString("dao/schema/testDataSchema.json"));
       notificationSchema.setCreatedUsername("Test User");
-      notificationSchema.setMajorVersion(i + 1);
+      notificationSchema.setVersion(i + 1);
       notificationSchema.setName("Test Name");
       notificationSchema.setType(type == null ? NotificationTypeDto.SYSTEM : type);
       notificationSchema=notificationSchemaDao.save(notificationSchema);

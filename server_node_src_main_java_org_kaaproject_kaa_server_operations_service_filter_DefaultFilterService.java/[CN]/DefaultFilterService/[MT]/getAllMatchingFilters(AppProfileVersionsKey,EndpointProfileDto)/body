@@ -1,0 +1,19 @@
+{
+  String endpointProfileSchemaBody=getEndpointProfileSchemaBody(key);
+  String serverProfileSchemaBody=getServerProfileSchemaBody(key);
+  List<ProfileFilterDto> filters=cacheService.getFilters(key);
+  LOG.trace("Found {} filters by {}",filters.size(),key);
+  List<ProfileFilterDto> matchingFilters=new LinkedList<ProfileFilterDto>();
+  FilterEvaluator filterEvaluator=null;
+  for (  ProfileFilterDto filter : filters) {
+    if (filterEvaluator == null) {
+      filterEvaluator=new DefaultFilterEvaluator();
+      filterEvaluator.init(profile,endpointProfileSchemaBody,serverProfileSchemaBody);
+    }
+    LOG.trace("matching profile body with filter [{}]: {}",filter.getId(),filter.getBody());
+    if (checkFilter(filterEvaluator,filter)) {
+      matchingFilters.add(filter);
+    }
+  }
+  return matchingFilters;
+}

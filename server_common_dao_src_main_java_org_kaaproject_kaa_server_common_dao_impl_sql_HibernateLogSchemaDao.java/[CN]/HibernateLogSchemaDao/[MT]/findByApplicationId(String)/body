@@ -4,5 +4,11 @@
   if (isNotBlank(applicationId)) {
     schemas=findListByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(applicationId)));
   }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{}] Search result: {}.",applicationId,Arrays.toString(schemas.toArray()));
+  }
+ else {
+    LOG.debug("[{}] Search result: {}.",applicationId,schemas.size());
+  }
   return schemas;
 }

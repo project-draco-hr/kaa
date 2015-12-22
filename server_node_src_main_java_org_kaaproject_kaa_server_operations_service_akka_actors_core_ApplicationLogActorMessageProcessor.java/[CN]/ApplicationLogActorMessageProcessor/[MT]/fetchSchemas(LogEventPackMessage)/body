@@ -1,0 +1,39 @@
+{
+  BaseLogEventPack logPack=message.getLogEventPack();
+  LogSchema logSchema=logPack.getLogSchema();
+  if (logSchema == null) {
+    logSchema=logSchemas.get(message.getLogSchemaVersion());
+    if (logSchema == null) {
+      logSchema=logAppenderService.getLogSchema(applicationId,logPack.getLogSchemaVersion());
+      logSchemas.put(message.getLogSchemaVersion(),logSchema);
+    }
+    logPack.setLogSchema(logSchema);
+  }
+  EndpointProfileDataDto profileDto=logPack.getProfileDto();
+  ProfileInfo clientProfile=logPack.getClientProfile();
+  if (clientProfile == null) {
+    AppVersionKey key=new AppVersionKey(applicationToken,profileDto.getClientProfileVersion());
+    BaseSchemaInfo schemaInfo=clientProfileSchemas.get(key);
+    if (schemaInfo == null) {
+      EndpointProfileSchemaDto profileSchema=cacheService.getProfileSchemaByAppAndVersion(key);
+      CTLSchemaDto ctlSchemaDto=cacheService.getCtlSchemaById(profileSchema.getCtlSchemaId());
+      String schema=ctlService.flatExportAsString(ctlSchemaDto);
+      schemaInfo=new BaseSchemaInfo(ctlSchemaDto.getId(),schema);
+      clientProfileSchemas.put(key,schemaInfo);
+    }
+    logPack.setClientProfile(new BaseProfileInfo(schemaInfo,profileDto.getClientProfileBody()));
+  }
+  ProfileInfo serverProfile=logPack.getServerProfile();
+  if (serverProfile == null) {
+    AppVersionKey key=new AppVersionKey(applicationToken,profileDto.getServerProfileVersion());
+    BaseSchemaInfo schemaInfo=serverProfileSchemas.get(key);
+    if (schemaInfo == null) {
+      ServerProfileSchemaDto serverProfileSchema=cacheService.getServerProfileSchemaByAppAndVersion(key);
+      CTLSchemaDto ctlSchemaDto=cacheService.getCtlSchemaById(serverProfileSchema.getCtlSchemaId());
+      String schema=ctlService.flatExportAsString(ctlSchemaDto);
+      schemaInfo=new BaseSchemaInfo(ctlSchemaDto.getId(),schema);
+      serverProfileSchemas.put(key,schemaInfo);
+    }
+    logPack.setServerProfile(new BaseProfileInfo(schemaInfo,profileDto.getServerProfileBody()));
+  }
+}

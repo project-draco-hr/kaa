@@ -9,10 +9,6 @@
   }
  else   if (!endpointGroupId.equals(other.endpointGroupId))   return false;
   if (Double.doubleToLongBits(random) != Double.doubleToLongBits(other.random))   return false;
-  if (schemaId == null) {
-    if (other.schemaId != null)     return false;
-  }
- else   if (!schemaId.equals(other.schemaId))   return false;
   if (showActive != other.showActive)   return false;
   return true;
 }

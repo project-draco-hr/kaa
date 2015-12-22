@@ -1,7 +1,7 @@
 {
   removeAllEndpointUsers();
-  TenantDto tenantDto=generateTenant();
-  EndpointUserDto endpointUserDto=generateEndpointUser(tenantDto.getId());
+  TenantDto tenantDto=generateTenantDto();
+  EndpointUserDto endpointUserDto=generateEndpointUserDto(tenantDto.getId());
   List<EndpointUserDto> saved=new ArrayList<>(1);
   saved.add(endpointUserDto);
   List<EndpointUserDto> endpointUsers=endpointService.findAllEndpointUsers();

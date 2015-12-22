@@ -1,7 +1,7 @@
 {
   ActionButtonCell<ConfigurationSchemaDto> cell=new ActionButtonCell<>(Utils.resources.download(),text,embedded,new ActionButtonCell.ActionListener<ConfigurationSchemaDto>(){
     @Override public void onItemAction(    ConfigurationSchemaDto value){
-      Integer schemaVersion=value.getMajorVersion();
+      Integer schemaVersion=value.getVersion();
       RowActionEvent<String> rowDownloadBaseSchemaEvent=new RowActionEvent<>(String.valueOf(schemaVersion),KaaRowAction.DOWNLOAD_BASE_SCHEMA);
       fireEvent(rowDownloadBaseSchemaEvent);
     }

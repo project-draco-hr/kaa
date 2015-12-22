@@ -1,0 +1,19 @@
+{
+  ServerProfileSchemaDto profileSchema=new ServerProfileSchemaDto();
+  profileSchema.setName(generateString("Test Schema"));
+  profileSchema.setDescription(generateString("Test Desc"));
+  if (strIsEmpty(applicationId)) {
+    ApplicationDto application=createApplication(tenantAdminDto);
+    profileSchema.setApplicationId(application.getId());
+  }
+ else {
+    profileSchema.setApplicationId(applicationId);
+  }
+  if (strIsEmpty(ctlSchemaId)) {
+    CTLSchemaInfoDto ctlSchema=this.createCTLSchema(this.ctlRandomFieldType(),CTL_DEFAULT_NAMESPACE,1,CTLSchemaScopeDto.TENANT,null,null,null);
+    profileSchema.setCtlSchemaId(ctlSchema.getId());
+  }
+  loginTenantDeveloper(tenantDeveloperDto.getUsername());
+  ServerProfileSchemaDto savedProfileSchema=client.saveServerProfileSchema(profileSchema);
+  return savedProfileSchema;
+}

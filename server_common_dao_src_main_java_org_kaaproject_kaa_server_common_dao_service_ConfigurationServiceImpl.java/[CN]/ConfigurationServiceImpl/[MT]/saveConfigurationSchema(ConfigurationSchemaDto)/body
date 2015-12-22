@@ -4,12 +4,11 @@
   String id=configurationSchema.getId();
   if (isBlank(id)) {
     ConfigurationSchemaDto oldConfigurationSchemaDto=findLatestConfSchemaByAppId(configurationSchema.getApplicationId());
-    int majorVersion=0;
+    int version=0;
     if (oldConfigurationSchemaDto != null) {
-      majorVersion=oldConfigurationSchemaDto.getMajorVersion();
+      version=oldConfigurationSchemaDto.getVersion();
     }
-    configurationSchema.setMajorVersion(++majorVersion);
-    configurationSchema.setMinorVersion(0);
+    configurationSchema.setVersion(++version);
     configurationSchema.setCreatedTime(System.currentTimeMillis());
     try {
       generateSchemas(configurationSchema);

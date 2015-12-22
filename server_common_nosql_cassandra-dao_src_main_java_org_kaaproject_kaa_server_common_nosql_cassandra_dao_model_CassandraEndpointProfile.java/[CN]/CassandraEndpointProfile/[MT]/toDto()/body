@@ -13,9 +13,10 @@
   dto.setEndpointKeyHash(getBytes(endpointKeyHash));
   dto.setEndpointUserId(endpointUserId);
   dto.setAccessToken(accessToken);
-  dto.setProfile(profile);
+  dto.setClientProfileBody(profile);
   dto.setProfileHash(getBytes(profileHash));
-  dto.setProfileVersion(profileVersion);
+  dto.setClientProfileVersion(profileVersion);
+  dto.setServerProfileVersion(serverProfileVersion);
   dto.setNotificationVersion(notificationVersion);
   dto.setSubscriptions(subscriptions);
   dto.setNtHash(getBytes(ntHash));
@@ -25,5 +26,6 @@
   dto.setEcfVersionStates(DaoUtil.<EventClassFamilyVersionStateDto>convertDtoList(ecfVersionStates));
   dto.setServerHash(serverHash);
   dto.setSdkToken(sdkToken);
+  dto.setServerProfileBody(serverProfile);
   return dto;
 }

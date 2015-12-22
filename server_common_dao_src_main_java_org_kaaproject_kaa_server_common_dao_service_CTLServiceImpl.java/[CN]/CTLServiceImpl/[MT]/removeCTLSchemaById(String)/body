@@ -1,0 +1,5 @@
+{
+  validateSqlId(schemaId,"Incorrect schema id for ctl request  " + schemaId);
+  LOG.debug("Remove ctl schema by id [{}]",schemaId);
+  ctlSchemaDao.removeById(schemaId);
+}

@@ -1,0 +1,12 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    ServerProfileSchemaDto profileSchema=controlService.getServerProfileSchema(serverProfileSchemaId);
+    Utils.checkNotNull(profileSchema);
+    checkApplicationId(profileSchema.getApplicationId());
+    return profileSchema;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

@@ -16,29 +16,29 @@
     viewDto.setAefMapDtoList(aefDtoList);
     List<ConfigurationSchemaDto> configSchemas=controlService.getConfigurationSchemasByApplicationId(applicationId);
     for (    ConfigurationSchemaDto dto : configSchemas) {
-      if (dto.getMajorVersion() == sdkProfile.getConfigurationSchemaVersion()) {
-        viewDto.setConfigurationSchemaName(dto.getName() + " (v." + dto.getMajorVersion()+ ")");
+      if (dto.getVersion() == sdkProfile.getConfigurationSchemaVersion()) {
+        viewDto.setConfigurationSchemaName(dto.getName() + " (v." + dto.getVersion()+ ")");
         viewDto.setConfigurationSchemaId(dto.getId());
       }
     }
-    List<ProfileSchemaDto> profileSchemas=controlService.getProfileSchemasByApplicationId(applicationId);
-    for (    ProfileSchemaDto dto : profileSchemas) {
-      if (dto.getMajorVersion() == sdkProfile.getProfileSchemaVersion()) {
-        viewDto.setProfileSchemaName(dto.getName() + " (v." + dto.getMajorVersion()+ ")");
+    List<EndpointProfileSchemaDto> profileSchemas=controlService.getProfileSchemasByApplicationId(applicationId);
+    for (    EndpointProfileSchemaDto dto : profileSchemas) {
+      if (dto.getVersion() == sdkProfile.getProfileSchemaVersion()) {
+        viewDto.setProfileSchemaName(dto.getName() + " (v." + dto.getVersion()+ ")");
         viewDto.setProfileSchemaId(dto.getId());
       }
     }
     List<NotificationSchemaDto> notificationSchemas=controlService.getNotificationSchemasByAppId(applicationId);
     for (    NotificationSchemaDto dto : notificationSchemas) {
-      if (dto.getMajorVersion() == sdkProfile.getNotificationSchemaVersion()) {
-        viewDto.setNotificationSchemaName(dto.getName() + " (v." + dto.getMajorVersion()+ ")");
+      if (dto.getVersion() == sdkProfile.getNotificationSchemaVersion()) {
+        viewDto.setNotificationSchemaName(dto.getName() + " (v." + dto.getVersion()+ ")");
         viewDto.setNotificationSchemaId(dto.getId());
       }
     }
     List<LogSchemaDto> logSchemas=controlService.getLogSchemasByApplicationId(applicationId);
     for (    LogSchemaDto dto : logSchemas) {
-      if (dto.getMajorVersion() == sdkProfile.getLogSchemaVersion()) {
-        viewDto.setLogSchemaName(dto.getName() + " (v." + dto.getMajorVersion()+ ")");
+      if (dto.getVersion() == sdkProfile.getLogSchemaVersion()) {
+        viewDto.setLogSchemaName(dto.getName() + " (v." + dto.getVersion()+ ")");
         viewDto.setLogSchemaId(dto.getId());
       }
     }

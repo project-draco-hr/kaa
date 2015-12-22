@@ -7,7 +7,7 @@
   List<ConfigurationRecordDto> configurationRecords=client.getConfigurationRecords(endpointGroup.getId(),false);
   Assert.assertNotNull(configurationRecords);
   Assert.assertEquals(1,configurationRecords.size());
-  assertConfigurationsEquals(configuration1,configurationRecords.get(0).getInactiveConfiguration());
+  assertConfigurationsEquals(configuration1,configurationRecords.get(0).getInactiveStructureDto());
   client.deleteConfigurationRecord(configuration1.getSchemaId(),endpointGroup.getId());
   configurationRecords=client.getConfigurationRecords(endpointGroup.getId(),false);
   Assert.assertNotNull(configurationRecords);

@@ -3,6 +3,6 @@
   Assert.assertEquals(1,configs.size());
   Configuration first=configs.get(0);
   Application app=first.getApplication();
-  Configuration found=configurationDao.findConfigurationByAppIdAndVersion(app.getId().toString(),first.getMajorVersion());
+  Configuration found=configurationDao.findConfigurationByAppIdAndVersion(app.getId().toString(),first.getSchemaVersion());
   Assert.assertEquals(first,found);
 }

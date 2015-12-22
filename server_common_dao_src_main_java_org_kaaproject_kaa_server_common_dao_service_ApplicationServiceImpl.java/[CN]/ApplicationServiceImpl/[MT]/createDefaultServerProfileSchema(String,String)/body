@@ -1,0 +1,9 @@
+{
+  ServerProfileSchemaDto serverProfileSchemaDto=new ServerProfileSchemaDto();
+  serverProfileSchemaDto.setApplicationId(appId);
+  CTLSchemaDto ctlSchema=ctlService.getOrCreateEmptySystemSchema(createdUsername);
+  serverProfileSchemaDto.setCtlSchemaId(ctlSchema.getId());
+  serverProfileSchemaDto.setName(DEFAULT_SCHEMA_NAME);
+  serverProfileSchemaDto.setCreatedUsername(createdUsername);
+  return serverProfileService.saveServerProfileSchema(serverProfileSchemaDto);
+}

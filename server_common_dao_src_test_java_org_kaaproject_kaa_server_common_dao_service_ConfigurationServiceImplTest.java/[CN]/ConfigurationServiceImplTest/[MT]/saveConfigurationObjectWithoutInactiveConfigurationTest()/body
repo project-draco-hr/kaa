@@ -1,5 +1,5 @@
 {
-  List<ConfigurationDto> configs=generateConfiguration(null,null,3,true,false);
+  List<ConfigurationDto> configs=generateConfigurationDto(null,null,3,true,false);
   ConfigurationDto saved=configurationService.findConfigurationById(configs.get(2).getId());
   String id=saved.getId();
   saved.setId(null);

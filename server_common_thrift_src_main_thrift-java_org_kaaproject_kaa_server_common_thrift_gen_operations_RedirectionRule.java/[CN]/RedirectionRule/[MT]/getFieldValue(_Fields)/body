@@ -1,15 +1,15 @@
 {
 switch (field) {
 case ACCESS_POINT_ID:
-    return getAccessPointId();
+    return Integer.valueOf(getAccessPointId());
 case RULE_ID:
-  return getRuleId();
+  return Long.valueOf(getRuleId());
 case INIT_REDIRECT_PROBABILITY:
-return getInitRedirectProbability();
+return Double.valueOf(getInitRedirectProbability());
 case SESSION_REDIRECT_PROBABILITY:
-return getSessionRedirectProbability();
+return Double.valueOf(getSessionRedirectProbability());
 case RULE_TTL:
-return getRuleTTL();
+return Long.valueOf(getRuleTTL());
 }
 throw new IllegalStateException();
 }

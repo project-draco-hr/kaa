@@ -1,8 +1,8 @@
 {
   LOG.debug("Searching profile schema by application id [{}] and version [{}]",appId,version);
-  ProfileSchema schema=null;
+  EndpointProfileSchema schema=null;
   if (isNotBlank(appId)) {
-    schema=findOneByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.and(Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(appId)),Restrictions.eq(MAJOR_VERSION_PROPERTY,version)));
+    schema=findOneByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.and(Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(appId)),Restrictions.eq(VERSION_PROPERTY,version)));
   }
   if (LOG.isTraceEnabled()) {
     LOG.trace("[{},{}] Search result: {}.",appId,version,schema);

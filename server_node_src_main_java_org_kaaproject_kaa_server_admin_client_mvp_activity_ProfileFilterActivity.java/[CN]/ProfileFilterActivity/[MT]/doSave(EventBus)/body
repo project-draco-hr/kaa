@@ -1,0 +1,24 @@
+{
+  ProfileFilterDto inactiveStruct=record.getInactiveStructureDto();
+  if (create) {
+    endpointProfileSchemaId=recordView.getEndpointProfileSchema().getValue().getId();
+    serverProfileSchemaId=recordView.getServerProfileSchema().getValue().getId();
+    inactiveStruct.setEndpointProfileSchemaId(endpointProfileSchemaId);
+    inactiveStruct.setServerProfileSchemaId(serverProfileSchemaId);
+    Integer endpointProfileSchemaVersion=recordView.getEndpointProfileSchema().getValue().getVersion() > -1 ? new Integer(recordView.getEndpointProfileSchema().getValue().getVersion()) : null;
+    Integer serverProfileSchemaVersion=recordView.getServerProfileSchema().getValue().getVersion() > -1 ? new Integer(recordView.getServerProfileSchema().getValue().getVersion()) : null;
+    inactiveStruct.setEndpointProfileSchemaVersion(endpointProfileSchemaVersion);
+    inactiveStruct.setServerProfileSchemaVersion(serverProfileSchemaVersion);
+  }
+  inactiveStruct.setDescription(recordView.getRecordPanel().getDescription().getValue());
+  inactiveStruct.setBody(recordView.getRecordPanel().getBody().getValue());
+  editProfileFilter(inactiveStruct,new BusyAsyncCallback<ProfileFilterDto>(){
+    public void onSuccessImpl(    ProfileFilterDto result){
+      goTo(getRecordPlace(applicationId,endpointGroupId,false,false,Math.random()));
+    }
+    public void onFailureImpl(    Throwable caught){
+      Utils.handleException(caught,recordView,ProfileFilterActivity.this);
+    }
+  }
+);
+}

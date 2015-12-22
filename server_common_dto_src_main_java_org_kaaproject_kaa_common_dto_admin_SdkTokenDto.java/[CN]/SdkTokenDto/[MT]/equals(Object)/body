@@ -1,0 +1,77 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  SdkTokenDto other=(SdkTokenDto)obj;
+  if (aefMapIds == null) {
+    if (other.aefMapIds != null) {
+      return false;
+    }
+  }
+ else   if (!aefMapIds.equals(other.aefMapIds)) {
+    return false;
+  }
+  if (applicationToken == null) {
+    if (other.applicationToken != null) {
+      return false;
+    }
+  }
+ else   if (!applicationToken.equals(other.applicationToken)) {
+    return false;
+  }
+  if (configurationSchemaVersion == null) {
+    if (other.configurationSchemaVersion != null) {
+      return false;
+    }
+  }
+ else   if (!configurationSchemaVersion.equals(other.configurationSchemaVersion)) {
+    return false;
+  }
+  if (defaultVerifierToken == null) {
+    if (other.defaultVerifierToken != null) {
+      return false;
+    }
+  }
+ else   if (!defaultVerifierToken.equals(other.defaultVerifierToken)) {
+    return false;
+  }
+  if (logSchemaVersion == null) {
+    if (other.logSchemaVersion != null) {
+      return false;
+    }
+  }
+ else   if (!logSchemaVersion.equals(other.logSchemaVersion)) {
+    return false;
+  }
+  if (name == null) {
+    if (other.name != null) {
+      return false;
+    }
+  }
+ else   if (!name.equals(other.name)) {
+    return false;
+  }
+  if (notificationSchemaVersion == null) {
+    if (other.notificationSchemaVersion != null) {
+      return false;
+    }
+  }
+ else   if (!notificationSchemaVersion.equals(other.notificationSchemaVersion)) {
+    return false;
+  }
+  if (profileSchemaVersion == null) {
+    if (other.profileSchemaVersion != null) {
+      return false;
+    }
+  }
+ else   if (!profileSchemaVersion.equals(other.profileSchemaVersion)) {
+    return false;
+  }
+  return true;
+}

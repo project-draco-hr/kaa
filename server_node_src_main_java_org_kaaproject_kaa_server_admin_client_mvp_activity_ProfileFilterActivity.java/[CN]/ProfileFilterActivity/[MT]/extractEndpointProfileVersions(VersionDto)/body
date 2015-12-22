@@ -1,0 +1,16 @@
+{
+  Set<VersionDto> endpointProfileVersions=new HashSet<>();
+  if (profileVersionPairs != null) {
+    for (    ProfileVersionPairDto profileVersionPair : profileVersionPairs) {
+      if (serverProfileVersion == null || profileVersionPair.getServerProfileSchemaVersion() == null || profileVersionPair.getServerProfileSchemaVersion().intValue() == serverProfileVersion.getVersion()) {
+        String schemaId=profileVersionPair.getEndpointProfileSchemaid();
+        int version=profileVersionPair.getEndpointProfileSchemaVersion() != null ? profileVersionPair.getEndpointProfileSchemaVersion().intValue() : -1;
+        VersionDto endpointProfileVersion=new VersionDto(schemaId,version);
+        endpointProfileVersions.add(endpointProfileVersion);
+      }
+    }
+  }
+  List<VersionDto> endpointProfileVersionsList=new ArrayList<>(endpointProfileVersions);
+  Collections.sort(endpointProfileVersionsList);
+  return endpointProfileVersionsList;
+}

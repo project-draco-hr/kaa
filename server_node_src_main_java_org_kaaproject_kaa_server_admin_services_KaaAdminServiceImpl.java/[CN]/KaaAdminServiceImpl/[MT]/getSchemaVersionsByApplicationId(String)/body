@@ -3,13 +3,13 @@
   try {
     checkApplicationId(applicationId);
     SchemaVersions schemaVersions=new SchemaVersions();
-    List<SchemaDto> configurationSchemaVersions=controlService.getConfigurationSchemaVersionsByApplicationId(applicationId);
+    List<VersionDto> configurationSchemaVersions=controlService.getConfigurationSchemaVersionsByApplicationId(applicationId);
     schemaVersions.setConfigurationSchemaVersions(configurationSchemaVersions);
-    List<SchemaDto> profileSchemaVersions=controlService.getProfileSchemaVersionsByApplicationId(applicationId);
+    List<VersionDto> profileSchemaVersions=controlService.getProfileSchemaVersionsByApplicationId(applicationId);
     schemaVersions.setProfileSchemaVersions(profileSchemaVersions);
-    List<SchemaDto> notificationSchemaVersions=controlService.getNotificationSchemaVersionsByApplicationId(applicationId);
+    List<VersionDto> notificationSchemaVersions=controlService.getNotificationSchemaVersionsByApplicationId(applicationId);
     schemaVersions.setNotificationSchemaVersions(notificationSchemaVersions);
-    List<SchemaDto> logSchemaVersions=controlService.getLogSchemaVersionsByApplicationId(applicationId);
+    List<VersionDto> logSchemaVersions=controlService.getLogSchemaVersionsByApplicationId(applicationId);
     schemaVersions.setLogSchemaVersions(logSchemaVersions);
     return schemaVersions;
   }

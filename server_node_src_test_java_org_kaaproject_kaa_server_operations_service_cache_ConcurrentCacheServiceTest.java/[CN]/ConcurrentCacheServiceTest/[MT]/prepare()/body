@@ -24,7 +24,7 @@
   final List<ConfigurationDto> configurations=new ArrayList<ConfigurationDto>();
   ConfigurationDto theConf=new ConfigurationDto();
   theConf.setId(CF1_ID);
-  theConf.setMajorVersion(CONF1_SCHEMA_VERSION);
+  theConf.setSchemaVersion(CONF1_SCHEMA_VERSION);
   configurations.add(theConf);
   when(configurationService.findConfigurationsByEndpointGroupId(ENDPOINT_GROUP1_ID)).then(new Answer<List<ConfigurationDto>>(){
     @Override public List<ConfigurationDto> answer(    InvocationOnMock invocation) throws Throwable {
@@ -52,7 +52,7 @@
     }
   }
 );
-  when(profileService.findProfileFilterByAppIdAndVersion(APP_ID,TEST_GET_PROFILES_KEY.getVersion())).then(new Answer<List<ProfileFilterDto>>(){
+  when(profileService.findProfileFiltersByAppIdAndVersionsCombination(APP_ID,TEST_GET_PROFILES_KEY.getEndpointProfileSchemaVersion(),TEST_GET_PROFILES_KEY.getServerProfileSchemaVersion())).then(new Answer<List<ProfileFilterDto>>(){
     @Override public List<ProfileFilterDto> answer(    InvocationOnMock invocation) throws Throwable {
       sleepABit();
       return TEST_PROFILE_FILTER_LIST;
@@ -63,6 +63,25 @@
     @Override public ProfileFilterDto answer(    InvocationOnMock invocation) throws Throwable {
       sleepABit();
       return TEST_PROFILE_FILTER;
+    }
+  }
+);
+  when(profileService.findProfileFilterById(PF2_ID)).then(new Answer<ProfileFilterDto>(){
+    @Override public ProfileFilterDto answer(    InvocationOnMock invocation) throws Throwable {
+      sleepABit();
+      return TEST_PROFILE_FILTER;
+    }
+  }
+);
+  when(profileService.findProfileFilterById(PF3_ID)).then(new Answer<ProfileFilterDto>(){
+    @Override public ProfileFilterDto answer(    InvocationOnMock invocation) throws Throwable {
+      sleepABit();
+      ProfileFilterDto dto=new ProfileFilterDto();
+      dto.setEndpointProfileSchemaId(PROFILE2_SCHEMA_VERSION + "");
+      dto.setEndpointProfileSchemaVersion(PROFILE2_SCHEMA_VERSION);
+      dto.setServerProfileSchemaId(PROFILE2_SERVER_SCHEMA_VERSION + "");
+      dto.setServerProfileSchemaVersion(PROFILE2_SERVER_SCHEMA_VERSION);
+      return dto;
     }
   }
 );
@@ -80,8 +99,8 @@
     }
   }
 );
-  when(profileService.findProfileSchemaByAppIdAndVersion(APP_ID,PF_SCHEMA_KEY.getVersion())).then(new Answer<ProfileSchemaDto>(){
-    @Override public ProfileSchemaDto answer(    InvocationOnMock invocation) throws Throwable {
+  when(profileService.findProfileSchemaByAppIdAndVersion(APP_ID,PF_SCHEMA_KEY.getVersion())).then(new Answer<EndpointProfileSchemaDto>(){
+    @Override public EndpointProfileSchemaDto answer(    InvocationOnMock invocation) throws Throwable {
       sleepABit();
       return PF1_SCHEMA;
     }

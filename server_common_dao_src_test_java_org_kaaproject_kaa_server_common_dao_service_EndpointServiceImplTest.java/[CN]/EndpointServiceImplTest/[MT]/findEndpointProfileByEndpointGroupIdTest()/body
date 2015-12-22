@@ -1,8 +1,8 @@
 {
-  EndpointGroupDto group=generateEndpointGroup(null);
+  EndpointGroupDto group=generateEndpointGroupDto(null);
   String endpointGroupId=group.getId();
   PageLinkDto pageLinkDto=new PageLinkDto(endpointGroupId,DEFAULT_LIMIT,DEFAULT_OFFSET);
-  EndpointProfileDto savedEndpointProfileDto=generateEndpointProfileWithGroupId(endpointGroupId,false);
+  EndpointProfileDto savedEndpointProfileDto=generateEndpointProfileWithGroupIdDto(endpointGroupId,false);
   EndpointProfilesPageDto endpointProfilesPage=endpointService.findEndpointProfileByEndpointGroupId(pageLinkDto);
   EndpointProfileDto endpointProfileDto=endpointProfilesPage.getEndpointProfiles().get(0);
   Assert.assertEquals(savedEndpointProfileDto,endpointProfileDto);

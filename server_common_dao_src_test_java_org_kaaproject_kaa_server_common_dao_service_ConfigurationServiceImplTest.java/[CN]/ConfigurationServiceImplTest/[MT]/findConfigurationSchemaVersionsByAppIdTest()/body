@@ -1,8 +1,8 @@
 {
-  ConfigurationSchemaDto schemaDto=generateConfSchema(null,1).get(0);
-  List<SchemaDto> versions=configurationService.findConfigurationSchemaVersionsByAppId(schemaDto.getApplicationId());
+  ConfigurationSchemaDto schemaDto=generateConfSchemaDto(null,1).get(0);
+  List<VersionDto> versions=configurationService.findConfigurationSchemaVersionsByAppId(schemaDto.getApplicationId());
   Assert.assertFalse(versions.isEmpty());
   Assert.assertEquals(2,versions.size());
-  Assert.assertEquals(versions.get(0).getMajorVersion(),1);
-  Assert.assertEquals(versions.get(1).getMajorVersion(),2);
+  Assert.assertEquals(versions.get(0).getVersion(),1);
+  Assert.assertEquals(versions.get(1).getVersion(),2);
 }

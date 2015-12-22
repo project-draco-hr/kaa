@@ -8,6 +8,12 @@
   field.set(null,testLogger);
   logAppender.close();
   TestLogDeliveryCallback callback=new TestLogDeliveryCallback();
-  logAppender.doAppend(new LogEventPack(),callback);
+  LogSchemaDto schemaDto=new LogSchemaDto();
+  schemaDto.setSchema(BasicEndpointProfile.SCHEMA$.toString());
+  LogSchema schema=new LogSchema(schemaDto);
+  EndpointProfileDataDto profileDto=new EndpointProfileDataDto("1",ENDPOINT_KEY,1,"test",0,null);
+  BaseLogEventPack logEventPack=new BaseLogEventPack(profileDto,DATE_CREATED,schema.getVersion(),null);
+  logEventPack.setLogSchema(schema);
+  logAppender.doAppend(logEventPack,callback);
   Assert.assertTrue(callback.internallError);
 }

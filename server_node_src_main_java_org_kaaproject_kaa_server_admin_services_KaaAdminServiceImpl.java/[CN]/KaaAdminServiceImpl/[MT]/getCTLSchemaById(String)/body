@@ -1,0 +1,15 @@
+{
+  this.checkAuthority(KaaAuthorityDto.values());
+  try {
+    this.checkCTLSchemaId(schemaId);
+    CTLSchemaDto schemaFound=controlService.getCTLSchemaById(schemaId);
+    Utils.checkNotNull(schemaFound);
+    if (schemaFound.getMetaInfo().getScope() != CTLSchemaScopeDto.SYSTEM) {
+      this.checkCTLAuthority(schemaFound);
+    }
+    return schemaFound != null ? schemaFound.toCTLSchemaInfoDto() : null;
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+}

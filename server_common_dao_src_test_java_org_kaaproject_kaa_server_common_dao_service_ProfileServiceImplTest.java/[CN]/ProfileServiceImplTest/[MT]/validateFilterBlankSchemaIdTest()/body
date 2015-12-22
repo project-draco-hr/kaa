@@ -3,7 +3,6 @@
   Method validateMethod=profileServiceImpl.getClass().getDeclaredMethod("validateFilter",ProfileFilterDto.class);
   validateMethod.setAccessible(true);
   ProfileFilterDto filterDto=new ProfileFilterDto();
-  filterDto.setSchemaId("");
   try {
     validateMethod.invoke(profileServiceImpl,filterDto);
   }

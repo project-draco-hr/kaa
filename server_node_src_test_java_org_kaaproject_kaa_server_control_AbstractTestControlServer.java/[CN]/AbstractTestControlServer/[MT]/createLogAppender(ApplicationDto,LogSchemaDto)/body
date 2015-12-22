@@ -18,8 +18,8 @@
   if (schema == null) {
     schema=createLogSchema(application.getId());
   }
-  appender.setMinLogSchemaVersion(schema.getMajorVersion());
-  appender.setMaxLogSchemaVersion(schema.getMajorVersion());
+  appender.setMinLogSchemaVersion(schema.getVersion());
+  appender.setMaxLogSchemaVersion(schema.getVersion());
   loginTenantDeveloper(tenantDeveloperDto.getUsername());
   LogAppenderDto savedLogAppender=client.editLogAppenderDto(appender);
   return savedLogAppender;

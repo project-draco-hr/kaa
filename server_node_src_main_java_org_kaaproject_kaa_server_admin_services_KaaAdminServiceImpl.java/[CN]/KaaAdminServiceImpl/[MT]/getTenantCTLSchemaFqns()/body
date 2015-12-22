@@ -1,0 +1,17 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    AuthUserDto currentUser=getCurrentUser();
+    List<CTLSchemaMetaInfoDto> ctlSchemas=controlService.getTenantCTLSchemasMetaInfoByTenantId(currentUser.getTenantId());
+    Set<SchemaFqnDto> ctlSchemaFqns=new HashSet<>();
+    for (    CTLSchemaMetaInfoDto ctlSchema : ctlSchemas) {
+      ctlSchemaFqns.add(new SchemaFqnDto(ctlSchema.getFqn(),ctlSchema.getName()));
+    }
+    List<SchemaFqnDto> ctlSchemaFqnsList=new ArrayList<>();
+    ctlSchemaFqnsList.addAll(ctlSchemaFqns);
+    return ctlSchemaFqnsList;
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+}

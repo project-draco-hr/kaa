@@ -1,0 +1,25 @@
+{
+  this.initLogAppender(false,true);
+  GenericAvroConverter<BasicEndpointProfile> converter=new GenericAvroConverter<BasicEndpointProfile>(BasicEndpointProfile.SCHEMA$);
+  BasicEndpointProfile log=new BasicEndpointProfile("body");
+  List<LogEvent> logEvents=new ArrayList<>();
+  LogEvent alpha=new LogEvent();
+  alpha.setLogData(converter.encode(log));
+  logEvents.add(alpha);
+  LogEvent beta=new LogEvent();
+  beta.setLogData(converter.encode(log));
+  logEvents.add(alpha);
+  LogEvent gamma=new LogEvent();
+  gamma.setLogData(converter.encode(log));
+  logEvents.add(alpha);
+  LogSchemaDto logSchemaDto=new LogSchemaDto();
+  logSchemaDto.setSchema(BasicEndpointProfile.SCHEMA$.toString());
+  LogSchema logSchema=new LogSchema(logSchemaDto);
+  EndpointProfileDataDto profileDto=new EndpointProfileDataDto("1",ENDPOINT_KEY,1,"",0,null);
+  BaseLogEventPack logEventPack=new BaseLogEventPack(profileDto,DATE_CREATED,logSchema.getVersion(),logEvents);
+  logEventPack.setLogSchema(logSchema);
+  this.logAppender.doAppend(logEventPack,new TestLogDeliveryCallback());
+  String collectionName=(String)ReflectionTestUtils.getField(this.logAppender,"collectionName");
+  DBObject serverProfile=(DBObject)MongoDBTestRunner.getDB().getCollection(collectionName).findOne().get(SERVER_PROFILE);
+  Assert.assertEquals(null,serverProfile);
+}

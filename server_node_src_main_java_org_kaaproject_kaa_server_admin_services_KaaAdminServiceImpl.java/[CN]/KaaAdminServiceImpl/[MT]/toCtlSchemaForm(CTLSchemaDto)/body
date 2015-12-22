@@ -1,0 +1,24 @@
+{
+  try {
+    String fqn=ctlSchema.getMetaInfo().getFqn();
+    CtlSchemaFormDto ctlSchemaForm=new CtlSchemaFormDto(fqn);
+    ctlSchemaForm.setCtlSchemaId(ctlSchema.getId());
+    ctlSchemaForm.setSchemaName(ctlSchema.getName());
+    ctlSchemaForm.setDescription(ctlSchema.getDescription());
+    ctlSchemaForm.setCreatedTime(ctlSchema.getCreatedTime());
+    ctlSchemaForm.setCreatedUsername(ctlSchema.getCreatedUsername());
+    ctlSchemaForm.setHasDependencies(ctlSchema.getDependencySet() != null && !ctlSchema.getDependencySet().isEmpty());
+    ctlSchemaForm.setScope(ctlSchema.getMetaInfo().getScope());
+    SchemaFormAvroConverter converter=getCtlSchemaConverterForTenantId(getCurrentUser().getTenantId());
+    RecordField form=converter.createSchemaFormFromSchema(ctlSchema.getBody());
+    ctlSchemaForm.setSchema(form);
+    List<Integer> availableVersions=form.getContext().getAvailableVersions(new Fqn(fqn));
+    availableVersions=availableVersions == null ? Collections.<Integer>emptyList() : availableVersions;
+    Collections.sort(availableVersions);
+    ctlSchemaForm.setAvailableVersions(availableVersions);
+    return ctlSchemaForm;
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+}

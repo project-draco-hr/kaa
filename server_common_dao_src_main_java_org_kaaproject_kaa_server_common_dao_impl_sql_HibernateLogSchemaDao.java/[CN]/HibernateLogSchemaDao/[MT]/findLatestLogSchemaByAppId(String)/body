@@ -1,11 +1,17 @@
 {
-  LOG.debug("Find latest log schema  by application id [{}]",applicationId);
+  LOG.debug("Searching latest log schema  by application id [{}]",applicationId);
   LogSchema logSchema=null;
   if (isNotBlank(applicationId)) {
     Criteria criteria=getCriteria();
     criteria.createAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS);
     Criterion criterion=Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(applicationId));
-    logSchema=(LogSchema)criteria.add(criterion).addOrder(Order.desc(MAJOR_VERSION_PROPERTY)).addOrder(Order.desc(MINOR_VERSION_PROPERTY)).setMaxResults(FIRST).uniqueResult();
+    logSchema=(LogSchema)criteria.add(criterion).addOrder(Order.desc(VERSION_PROPERTY)).setMaxResults(FIRST).uniqueResult();
+  }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{}] Search result: {}.",applicationId,logSchema);
+  }
+ else {
+    LOG.debug("[{}] Search result: {}.",applicationId,logSchema != null);
   }
   return logSchema;
 }

@@ -45,9 +45,9 @@
   detailsTable.getFlexCellFormatter().setColSpan(5,1,2);
   description.addInputHandler(this);
   detailsTable.getCellFormatter().setVerticalAlignment(5,0,HasVerticalAlignment.ALIGN_TOP);
-  profileFiltersGrid=new BaseStructGrid<ProfileFilterDto>();
+  profileFiltersGrid=new ProfileFilterStructGrid();
   profileFiltersGrid.setSize("700px","200px");
-  Label profileFiltersLabel=new Label(Utils.constants.profileFilters());
+  profileFiltersLabel=new Label(Utils.constants.profileFilters());
   profileFiltersLabel.addStyleName(Utils.kaaAdminStyle.bAppContentTitleLabel());
   includeDeprecatedProfileFilters=new CheckBox(Utils.constants.includeDeprecated());
   setCheckBoxStyle(includeDeprecatedProfileFilters);
@@ -64,7 +64,7 @@
   profileFiltersLabel.setVisible(!create);
   includeDeprecatedProfileFilters.setVisible(!create);
   profileFiltersGrid.setVisible(!create);
-  configurationsGrid=new BaseStructGrid<ConfigurationDto>();
+  configurationsGrid=new ConfigurationStructGrid();
   configurationsGrid.setSize("700px","200px");
   Label configurationsLabel=new Label(Utils.constants.configurations());
   configurationsLabel.addStyleName(Utils.kaaAdminStyle.bAppContentTitleLabel());

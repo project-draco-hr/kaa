@@ -1,0 +1,14 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    CtlSchemaFormDto ctlSchemaForm=null;
+    CTLSchemaDto ctlSchema=controlService.getLatestCTLSchemaByFqn(fqn);
+    if (ctlSchema != null) {
+      ctlSchemaForm=toCtlSchemaForm(ctlSchema);
+    }
+    return ctlSchemaForm;
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+}

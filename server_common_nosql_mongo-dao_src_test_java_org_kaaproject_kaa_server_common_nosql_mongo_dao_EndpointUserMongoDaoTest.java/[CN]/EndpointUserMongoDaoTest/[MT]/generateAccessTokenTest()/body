@@ -1,6 +1,6 @@
 {
-  TenantDto tenant=generateTenant();
-  EndpointUserDto dto=generateEndpointUser(tenant.getId());
+  TenantDto tenant=generateTenantDto();
+  EndpointUserDto dto=generateEndpointUserDto(tenant.getId());
   Assert.assertNotNull(dto);
   String accessToken=endpointUserDao.generateAccessToken(dto.getExternalId(),dto.getTenantId().toString());
   MongoEndpointUser found=endpointUserDao.findById(dto.getId());

@@ -19,17 +19,21 @@
           relatedChanges.add(historyDto);
         }
  else         if (changeType == ChangeType.ADD_PROF || changeType == ChangeType.REMOVE_PROF) {
-          if (changeDto.getPfMajorVersion() == key.getProfileSchemaVersion()) {
+          ProfileFilterDto profileFilter=profileService.findProfileFilterById(changeDto.getProfileFilterId());
+          if (supports(profileFilter,key.getEndpointProfileSchemaVersion(),key.getServerProfileSchemaVersion())) {
             relatedChanges.add(historyDto);
           }
         }
  else         if (changeType == ChangeType.ADD_CONF || changeType == ChangeType.REMOVE_CONF) {
-          if (changeDto.getCfMajorVersion() == key.getConfSchemaVersion()) {
+          if (changeDto.getCfVersion() == key.getConfSchemaVersion()) {
             relatedChanges.add(historyDto);
           }
         }
       }
       return relatedChanges;
+    }
+    private boolean supports(    ProfileFilterDto profileFilter,    Integer endpointProfileSchemaVersion,    Integer serverProfileSchemaVersion){
+      return (profileFilter.getEndpointProfileSchemaVersion() == null || profileFilter.getEndpointProfileSchemaVersion() == endpointProfileSchemaVersion) && (profileFilter.getServerProfileSchemaVersion() == null || profileFilter.getServerProfileSchemaVersion() == serverProfileSchemaVersion);
     }
   }
 );

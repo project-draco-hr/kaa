@@ -8,12 +8,10 @@
   notification.setAppId(APPLICATION_ID);
   notification.setOp(Operation.ADD_LOG_APPENDER);
   logAppenders.clear();
-  applicationLogActorMessageProcessor=new ApplicationLogActorMessageProcessor(logAppenderService,applicationService,APP_TOKEN);
+  applicationLogActorMessageProcessor=new ApplicationLogActorMessageProcessor(context,APP_TOKEN);
   when(logAppenderService.getApplicationAppender(APPENDER_ID)).thenReturn(mockAppender);
   applicationLogActorMessageProcessor.processLogAppenderNotification(notification);
-  LogEventPackMessage logEventPackMessage=mock(LogEventPackMessage.class);
-  when(logEventPackMessage.getLogSchema()).thenReturn(logSchema);
-  when(logEventPackMessage.getLogEventPack()).thenReturn(new LogEventPack());
+  LogEventPackMessage logEventPackMessage=buildTestMessage(LOG_SCHEMA_VERSION,logSchema);
   applicationLogActorMessageProcessor.processLogEventPack(Mockito.mock(ActorContext.class),logEventPackMessage);
   verify(mockAppender).doAppend(Mockito.any(LogEventPack.class),Mockito.any(LogDeliveryCallback.class));
 }

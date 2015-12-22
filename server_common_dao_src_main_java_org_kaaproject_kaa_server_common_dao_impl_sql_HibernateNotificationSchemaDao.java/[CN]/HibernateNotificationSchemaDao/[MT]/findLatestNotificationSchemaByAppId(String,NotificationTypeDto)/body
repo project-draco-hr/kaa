@@ -2,7 +2,7 @@
   LOG.debug("Searching latest notification schema by application id [{}] type [{}]",appId,type);
   NotificationSchema latestSchema=null;
   if (isNotBlank(appId)) {
-    Criteria criteria=getCriteria().add(Restrictions.and(Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(appId)),Restrictions.eq(NOTIFICATION_SCHEMA_TYPE_PROPERTY,type))).addOrder(Order.desc(MAJOR_VERSION_PROPERTY)).setMaxResults(FIRST);
+    Criteria criteria=getCriteria().add(Restrictions.and(Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(appId)),Restrictions.eq(NOTIFICATION_SCHEMA_TYPE_PROPERTY,type))).addOrder(Order.desc(VERSION_PROPERTY)).setMaxResults(FIRST);
     latestSchema=findOneByCriteria(criteria);
   }
   if (LOG.isTraceEnabled()) {

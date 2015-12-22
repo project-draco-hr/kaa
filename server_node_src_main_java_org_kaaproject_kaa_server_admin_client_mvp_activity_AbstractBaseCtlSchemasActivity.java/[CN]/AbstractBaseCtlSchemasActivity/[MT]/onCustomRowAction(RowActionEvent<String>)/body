@@ -1,0 +1,17 @@
+{
+  String schemaId=event.getClickedId();
+switch (event.getAction()) {
+case KaaRowAction.CTL_EXPORT_SHALLOW:
+    exportSchema(schemaId,CTLSchemaExportMethod.SHALLOW);
+  break;
+case KaaRowAction.CTL_EXPORT_DEEP:
+exportSchema(schemaId,CTLSchemaExportMethod.DEEP);
+break;
+case KaaRowAction.CTL_EXPORT_FLAT:
+exportSchema(schemaId,CTLSchemaExportMethod.FLAT);
+break;
+case KaaRowAction.CTL_EXPORT_LIBRARY:
+exportSchema(schemaId,CTLSchemaExportMethod.LIBRARY);
+break;
+}
+}

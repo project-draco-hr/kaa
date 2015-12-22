@@ -1,12 +1,8 @@
 {
-  detailsView.reset();
-  EndpointProfileDto profileDto=entity.getEndpointProfileDto();
-  EndpointUserDto userDto=entity.getEndpointUserDto();
-  ProfileSchemaDto profileSchemaDto=entity.getProfileSchemaDto();
-  detailsView.getKeyHash().setValue(BaseEncoding.base64().encode(profileDto.getEndpointKeyHash()));
-  if (userDto != null) {
-    detailsView.getUserID().setValue(userDto.getId());
-    detailsView.getUserExternalID().setValue(userDto.getExternalId());
+  detailsView.getKeyHash().setValue(BaseEncoding.base64().encode(entity.getEndpointKeyHash()));
+  if (entity.getUserId() != null) {
+    detailsView.getUserID().setValue(entity.getUserId());
+    detailsView.getUserExternalID().setValue(entity.getUserExternalId());
     for (    Widget widget : detailsView.getUserInfoList()) {
       widget.setVisible(true);
     }
@@ -32,22 +28,67 @@
  else {
     detailsView.getSdkAnchor().setText("");
   }
-  List<EndpointGroupDto> groupDtoList=entity.getGroupDtoList();
+  List<EndpointGroupDto> groupDtoList=entity.getEndpointGroups();
   if (groupDtoList != null) {
     detailsView.getGroupsGrid().getDataGrid().setRowData(groupDtoList);
   }
-  List<TopicDto> endpointNotificationTopics=entity.getEndpointNotificationTopics();
+  List<TopicDto> endpointNotificationTopics=entity.getTopics();
   if (endpointNotificationTopics != null) {
     detailsView.getTopicsGrid().getDataGrid().setRowData(endpointNotificationTopics);
   }
  else {
     detailsView.getTopicsGrid().getDataGrid().setRowData(new ArrayList<TopicDto>());
   }
-  detailsView.getSchemaName().setValue(profileSchemaDto.getName());
-  detailsView.getDescription().setValue(profileSchemaDto.getDescription());
-  RecordField endpointProfileRecord=entity.getEndpointProfileRecord();
-  if (endpointProfileRecord != null) {
-    detailsView.getSchemaForm().reset();
-    detailsView.getSchemaForm().setValue(endpointProfileRecord);
+  detailsView.getEndpointProfSchemaName().setText(entity.getProfileSchemaName());
+  registrations.add(detailsView.getEndpointProfSchemaName().addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent clickEvent){
+      ProfileSchemaPlace endpointProfSchemaPlace=new ProfileSchemaPlace(place.getApplicationId(),entity.getProfileSchemaVersion().getId());
+      endpointProfSchemaPlace.setPreviousPlace(place);
+      goTo(endpointProfSchemaPlace);
+    }
   }
+));
+  detailsView.getEndpointProfForm().setValue(entity.getProfileRecord());
+  detailsView.getServerProfForm().setValue(entity.getServerProfileRecord());
+  detailsView.getServerProfForm().setReadOnly(true);
+  detailsView.getServerProfSchemaName().setText(entity.getServerProfileSchemaName());
+  registrations.add(detailsView.getServerProfSchemaName().addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent clickEvent){
+      ServerProfileSchemaPlace serverProfSchemaPlace=new ServerProfileSchemaPlace(place.getApplicationId(),entity.getServerProfileSchemaVersion().getId());
+      serverProfSchemaPlace.setPreviousPlace(place);
+      goTo(serverProfSchemaPlace);
+    }
+  }
+));
+  registrations.add(detailsView.getEditServerProfileButton().addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      KaaAdmin.getDataSource().getServerProfileSchemaInfosByEndpointKey(place.getEndpointKeyHash(),new BusyAsyncCallback<List<SchemaInfoDto>>(){
+        @Override public void onFailureImpl(        Throwable caught){
+          Utils.handleException(caught,detailsView);
+        }
+        @Override public void onSuccessImpl(        List<SchemaInfoDto> result){
+          EditSchemaRecordDialog.Listener editSchemaListener=new EditSchemaRecordDialog.Listener(){
+            @Override public void onSave(            SchemaInfoDto newValue){
+              AsyncCallback<EndpointProfileDto> callback=new BusyAsyncCallback<EndpointProfileDto>(){
+                @Override public void onFailureImpl(                Throwable caught){
+                  Utils.handleException(caught,detailsView);
+                }
+                @Override public void onSuccessImpl(                EndpointProfileDto result){
+                  reload();
+                }
+              }
+;
+              KaaAdmin.getDataSource().updateServerProfile(BaseEncoding.base64().encode(entity.getEndpointKeyHash()),newValue.getVersion(),newValue.getSchemaForm(),callback);
+            }
+            @Override public void onCancel(){
+            }
+          }
+;
+          EditSchemaRecordDialog.showEditSchemaRecordDialog(editSchemaListener,Utils.constants.editServerProfile(),result,entity.getServerProfileSchemaVersion().getVersion());
+        }
+      }
+);
+    }
+  }
+));
 }

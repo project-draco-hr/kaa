@@ -1,10 +1,10 @@
 {
   ApplicationDto application=createApplication(tenantAdminDto);
-  ProfileSchemaDto profileSchema=createProfileSchema(application.getId());
+  EndpointProfileSchemaDto profileSchema=createEndpointProfileSchema(application.getId(),null);
   ConfigurationSchemaDto configSchema=createConfigurationSchema(application.getId());
   NotificationSchemaDto notificationSchema=createUserNotificationSchema(application.getId());
   LogSchemaDto logSchema=createLogSchema(application.getId());
-  FileData sdk=client.downloadSdk(getSdkProfile(application.getId(),profileSchema.getMajorVersion(),configSchema.getMajorVersion(),notificationSchema.getMajorVersion(),null,logSchema.getMajorVersion(),null).getId(),SdkPlatform.C);
+  FileData sdk=client.downloadSdk(getSdkProfile(application.getId(),profileSchema.getVersion(),configSchema.getVersion(),notificationSchema.getVersion(),null,logSchema.getVersion(),null).getId(),SdkPlatform.C);
   Assert.assertNotNull(sdk);
   Assert.assertFalse(strIsEmpty(sdk.getFileName()));
   Assert.assertNotNull(sdk.getFileData());

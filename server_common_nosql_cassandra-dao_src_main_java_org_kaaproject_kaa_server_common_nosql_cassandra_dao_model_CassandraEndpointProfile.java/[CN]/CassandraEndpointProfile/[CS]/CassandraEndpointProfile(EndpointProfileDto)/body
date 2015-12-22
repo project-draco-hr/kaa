@@ -9,9 +9,10 @@
   this.nfGroupState=convertDtoToModelList(dto.getNfGroupStates());
   this.cfSequenceNumber=dto.getCfSequenceNumber();
   this.nfSequenceNumber=dto.getNfSequenceNumber();
-  this.profile=dto.getProfile();
+  this.profile=dto.getClientProfileBody();
   this.profileHash=getByteBuffer(dto.getProfileHash());
-  this.profileVersion=dto.getProfileVersion();
+  this.profileVersion=dto.getClientProfileVersion();
+  this.serverProfileVersion=dto.getServerProfileVersion();
   this.configurationHash=getByteBuffer(dto.getConfigurationHash());
   this.userConfigurationHash=getByteBuffer(dto.getUserConfigurationHash());
   this.configurationVersion=dto.getConfigurationVersion();
@@ -24,4 +25,5 @@
   this.ecfVersionStates=convertECFVersionDtoToModelList(dto.getEcfVersionStates());
   this.serverHash=dto.getServerHash();
   this.sdkToken=dto.getSdkToken();
+  this.serverProfile=dto.getServerProfileBody();
 }

@@ -1,12 +1,12 @@
 {
-  EndpointUserDto userDto=generateEndpointUser(null);
-  ApplicationDto appDto=generateApplication();
-  ConfigurationSchemaDto schema=generateConfSchema(appDto.getId(),1).get(0);
-  generateEndpointUserConfiguration(userDto,appDto,schema,readSchemaFileAsString(OVERRIDE_USER_DATA_JSON));
-  generateEndpointUserConfiguration(userDto,appDto,null,readSchemaFileAsString(OVERRIDE_USER_DATA_JSON));
-  generateEndpointUserConfiguration(userDto,appDto,null,readSchemaFileAsString(OVERRIDE_USER_DATA_JSON));
-  userConfigurationService.removeByUserIdAndAppTokenAndSchemaVersion(userDto.getId(),appDto.getApplicationToken(),schema.getMajorVersion());
-  EndpointUserConfigurationDto removed=userConfigurationService.findUserConfigurationByUserIdAndAppTokenAndSchemaVersion(userDto.getId(),appDto.getApplicationToken(),schema.getMajorVersion());
+  EndpointUserDto userDto=generateEndpointUserDto(null);
+  ApplicationDto appDto=generateApplicationDto();
+  ConfigurationSchemaDto schema=generateConfSchemaDto(appDto.getId(),1).get(0);
+  generateEndpointUserConfigurationDto(userDto,appDto,schema,readSchemaFileAsString(OVERRIDE_USER_DATA_JSON));
+  generateEndpointUserConfigurationDto(userDto,appDto,null,readSchemaFileAsString(OVERRIDE_USER_DATA_JSON));
+  generateEndpointUserConfigurationDto(userDto,appDto,null,readSchemaFileAsString(OVERRIDE_USER_DATA_JSON));
+  userConfigurationService.removeByUserIdAndAppTokenAndSchemaVersion(userDto.getId(),appDto.getApplicationToken(),schema.getVersion());
+  EndpointUserConfigurationDto removed=userConfigurationService.findUserConfigurationByUserIdAndAppTokenAndSchemaVersion(userDto.getId(),appDto.getApplicationToken(),schema.getVersion());
   Assert.assertNull(removed);
   List<EndpointUserConfigurationDto> foundList=userConfigurationService.findUserConfigurationByUserId(userDto.getId());
   Assert.assertEquals(2,foundList.size());

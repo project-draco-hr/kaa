@@ -1,0 +1,37 @@
+{
+  GenericRecord endpointProfileRecord=null;
+  GenericRecord serverProfileRecord=null;
+  try {
+    if (endpointProfileSchemaId != null) {
+      EndpointProfileSchemaDto endpointProfileSchema=getProfileSchema(endpointProfileSchemaId);
+      endpointProfileRecord=getDefaultRecordFromCtlSchema(endpointProfileSchema.getCtlSchemaId());
+    }
+    if (serverProfileSchemaId != null) {
+      ServerProfileSchemaDto serverProfileSchema=getServerProfileSchema(serverProfileSchemaId);
+      serverProfileRecord=getDefaultRecordFromCtlSchema(serverProfileSchema.getCtlSchemaId());
+    }
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+  try {
+    Expression expression=new SpelExpressionParser().parseExpression(filterBody);
+    StandardEvaluationContext evaluationContext;
+    if (endpointProfileRecord != null) {
+      evaluationContext=new StandardEvaluationContext(endpointProfileRecord);
+      evaluationContext.setVariable(DefaultFilterEvaluator.CLIENT_PROFILE_VARIABLE_NAME,endpointProfileRecord);
+    }
+ else {
+      evaluationContext=new StandardEvaluationContext();
+    }
+    evaluationContext.addPropertyAccessor(new GenericRecordPropertyAccessor());
+    evaluationContext.setVariable(DefaultFilterEvaluator.EP_KEYHASH_VARIABLE_NAME,"test");
+    if (serverProfileRecord != null) {
+      evaluationContext.setVariable(DefaultFilterEvaluator.SERVER_PROFILE_VARIABLE_NAME,serverProfileRecord);
+    }
+    expression.getValue(evaluationContext,Boolean.class);
+  }
+ catch (  Exception e) {
+    throw new KaaAdminServiceException("Invalid profile filter body!",e,ServiceErrorCode.BAD_REQUEST_PARAMS);
+  }
+}

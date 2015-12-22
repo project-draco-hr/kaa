@@ -1,0 +1,15 @@
+{
+  ServerProfileSchema latestSchema=null;
+  LOG.debug("Searching latest server profile schema by application id [{}] ",appId);
+  if (isNotBlank(appId)) {
+    Criteria criteria=getCriteria().createAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS).add(Restrictions.eq(APPLICATION_REFERENCE,getLongId(appId))).addOrder(Order.desc(VERSION_PROPERTY)).setMaxResults(FIRST);
+    latestSchema=findOneByCriteria(criteria);
+  }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{}] Search result: {}.",appId,latestSchema);
+  }
+ else {
+    LOG.debug("[{}] Search result: {}.",appId,latestSchema != null);
+  }
+  return latestSchema;
+}

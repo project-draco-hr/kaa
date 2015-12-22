@@ -1,0 +1,18 @@
+{
+  Map<ProfileVersionPairDto,ProfileFilterRecordDto> profileFiltterRecordsMap=new HashMap<>();
+  for (  ProfileFilterDto profileFilter : profileFilters) {
+    ProfileVersionPairDto versionPair=new ProfileVersionPairDto(profileFilter.getEndpointProfileSchemaId(),profileFilter.getEndpointProfileSchemaVersion(),profileFilter.getServerProfileSchemaId(),profileFilter.getServerProfileSchemaVersion());
+    ProfileFilterRecordDto profileFilterRecord=profileFiltterRecordsMap.get(versionPair);
+    if (profileFilterRecord == null) {
+      profileFilterRecord=new ProfileFilterRecordDto();
+      profileFiltterRecordsMap.put(versionPair,profileFilterRecord);
+    }
+    if (profileFilter.getStatus() == UpdateStatus.ACTIVE) {
+      profileFilterRecord.setActiveStructureDto(profileFilter);
+    }
+ else     if (profileFilter.getStatus() == UpdateStatus.INACTIVE) {
+      profileFilterRecord.setInactiveStructureDto(profileFilter);
+    }
+  }
+  return new ArrayList<>(profileFiltterRecordsMap.values());
+}

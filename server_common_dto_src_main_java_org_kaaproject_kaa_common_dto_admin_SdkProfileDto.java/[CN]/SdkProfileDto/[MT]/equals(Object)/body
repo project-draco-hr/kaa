@@ -1,44 +1,60 @@
 {
-  if (this == o)   return true;
-  if (o == null || getClass() != o.getClass())   return false;
-  SdkProfileDto that=(SdkProfileDto)o;
-  if (aefMapIds != null ? !aefMapIds.equals(that.aefMapIds) : that.aefMapIds != null) {
+  if (this == obj) {
+    return true;
+  }
+  if (!super.equals(obj)) {
     return false;
   }
-  if (applicationId != null ? !applicationId.equals(that.applicationId) : that.applicationId != null) {
+  if (getClass() != obj.getClass()) {
     return false;
   }
-  if (applicationToken != null ? !applicationToken.equals(that.applicationToken) : that.applicationToken != null) {
+  SdkProfileDto other=(SdkProfileDto)obj;
+  if (applicationId == null) {
+    if (other.applicationId != null) {
+      return false;
+    }
+  }
+ else   if (!applicationId.equals(other.applicationId)) {
     return false;
   }
-  if (configurationSchemaVersion != null ? !configurationSchemaVersion.equals(that.configurationSchemaVersion) : that.configurationSchemaVersion != null) {
+  if (createdTime == null) {
+    if (other.createdTime != null) {
+      return false;
+    }
+  }
+ else   if (!createdTime.equals(other.createdTime)) {
     return false;
   }
-  if (defaultVerifierToken != null ? !defaultVerifierToken.equals(that.defaultVerifierToken) : that.defaultVerifierToken != null) {
+  if (createdUsername == null) {
+    if (other.createdUsername != null) {
+      return false;
+    }
+  }
+ else   if (!createdUsername.equals(other.createdUsername)) {
     return false;
   }
-  if (logSchemaVersion != null ? !logSchemaVersion.equals(that.logSchemaVersion) : that.logSchemaVersion != null) {
+  if (endpointCount == null) {
+    if (other.endpointCount != null) {
+      return false;
+    }
+  }
+ else   if (!endpointCount.equals(other.endpointCount)) {
     return false;
   }
-  if (notificationSchemaVersion != null ? !notificationSchemaVersion.equals(that.notificationSchemaVersion) : that.notificationSchemaVersion != null) {
+  if (id == null) {
+    if (other.id != null) {
+      return false;
+    }
+  }
+ else   if (!id.equals(other.id)) {
     return false;
   }
-  if (profileSchemaVersion != null ? !profileSchemaVersion.equals(that.profileSchemaVersion) : that.profileSchemaVersion != null) {
-    return false;
+  if (token == null) {
+    if (other.token != null) {
+      return false;
+    }
   }
-  if (name != null ? !name.equals(that.name) : that.name != null) {
-    return false;
-  }
-  if (token != null ? !token.equals(that.token) : that.token != null) {
-    return false;
-  }
-  if (createdUsername != null ? !createdUsername.equals(that.createdUsername) : that.createdUsername != null) {
-    return false;
-  }
-  if (createdTime != null ? !createdTime.equals(that.createdTime) : that.createdTime != null) {
-    return false;
-  }
-  if (endpointCount != null ? !endpointCount.equals(that.endpointCount) : that.endpointCount != null) {
+ else   if (!token.equals(other.token)) {
     return false;
   }
   return true;

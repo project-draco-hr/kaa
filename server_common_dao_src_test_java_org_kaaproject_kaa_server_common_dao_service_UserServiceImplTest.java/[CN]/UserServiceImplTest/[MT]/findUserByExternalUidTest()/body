@@ -1,6 +1,6 @@
 {
-  TenantDto tenantDto=generateTenant();
-  List<UserDto> users=generateUsers(tenantDto.getId(),KaaAuthorityDto.TENANT_DEVELOPER,1);
+  TenantDto tenantDto=generateTenantDto();
+  List<UserDto> users=generateUsersDto(tenantDto.getId(),KaaAuthorityDto.TENANT_DEVELOPER,1);
   Assert.assertFalse(users.isEmpty());
   UserDto user=users.get(0);
   UserDto foundUser=userService.findUserByExternalUid(user.getExternalUid());

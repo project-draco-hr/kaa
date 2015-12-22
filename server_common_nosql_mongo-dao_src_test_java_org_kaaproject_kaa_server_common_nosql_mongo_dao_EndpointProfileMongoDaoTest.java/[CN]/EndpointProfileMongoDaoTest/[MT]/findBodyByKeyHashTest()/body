@@ -1,7 +1,7 @@
 {
-  EndpointProfileDto endpointProfile=generateEndpointProfile(null,null);
+  EndpointProfileDto endpointProfile=generateEndpointProfileDto(null,null);
   Assert.assertNotNull(endpointProfile);
   EndpointProfileBodyDto found=endpointProfileDao.findBodyByKeyHash(endpointProfile.getEndpointKeyHash());
   Assert.assertNotNull(found);
-  Assert.assertEquals(endpointProfile.getProfile(),found.getProfile());
+  Assert.assertEquals(endpointProfile.getClientProfileBody(),found.getProfile());
 }

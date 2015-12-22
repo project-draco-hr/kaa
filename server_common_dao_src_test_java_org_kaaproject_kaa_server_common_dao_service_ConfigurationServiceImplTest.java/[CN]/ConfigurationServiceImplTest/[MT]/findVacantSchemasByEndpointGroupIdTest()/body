@@ -1,14 +1,14 @@
 {
-  ApplicationDto application=generateApplication();
-  List<ConfigurationSchemaDto> schemas=generateConfSchema(application.getId(),4);
-  EndpointGroupDto groupOne=generateEndpointGroup(application.getId());
+  ApplicationDto application=generateApplicationDto();
+  List<ConfigurationSchemaDto> schemas=generateConfSchemaDto(application.getId(),4);
+  EndpointGroupDto groupOne=generateEndpointGroupDto(application.getId());
   ConfigurationSchemaDto schemaOne=schemas.get(0);
-  generateConfiguration(schemaOne.getId(),groupOne.getId(),1,true,false);
-  EndpointGroupDto groupTwo=generateEndpointGroup(application.getId());
-  List<SchemaDto> schemasOne=configurationService.findVacantSchemasByEndpointGroupId(groupOne.getId());
+  generateConfigurationDto(schemaOne.getId(),groupOne.getId(),1,true,false);
+  EndpointGroupDto groupTwo=generateEndpointGroupDto(application.getId());
+  List<VersionDto> schemasOne=configurationService.findVacantSchemasByEndpointGroupId(groupOne.getId());
   Assert.assertFalse(schemasOne.isEmpty());
   Assert.assertEquals(4,schemasOne.size());
-  List<SchemaDto> schemasTwo=configurationService.findVacantSchemasByEndpointGroupId(groupTwo.getId());
+  List<VersionDto> schemasTwo=configurationService.findVacantSchemasByEndpointGroupId(groupTwo.getId());
   Assert.assertFalse(schemasTwo.isEmpty());
   Assert.assertEquals(5,schemasTwo.size());
 }

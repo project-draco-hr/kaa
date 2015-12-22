@@ -1,0 +1,11 @@
+{
+  LOG.debug("Searching ctl schemas by application id [{}]",appId);
+  List<CTLSchema> schemas=findListByCriterion(Restrictions.eq(CTL_SCHEMA_APPLICATION_ID_ALIAS,Long.valueOf(appId)));
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{}] Search result: [{}].",appId,Arrays.toString(schemas.toArray()));
+  }
+ else {
+    LOG.debug("[{}] Search result: [{}].",appId,schemas.size());
+  }
+  return schemas;
+}

@@ -13,9 +13,6 @@
   header.setEndpointKeyHash(endpointKeyHash);
   header.setHeaderVersion(1);
   header.setTimestamp(System.currentTimeMillis());
-  logEventPack=new LogEventPack();
-  logEventPack.setDateCreated(System.currentTimeMillis());
-  logEventPack.setEndpointKey(endpointKeyHash);
   configuration=new KafkaConfig();
   List<KafkaServer> servers=new ArrayList<KafkaServer>();
   servers.add(new KafkaServer("localhost",9092));

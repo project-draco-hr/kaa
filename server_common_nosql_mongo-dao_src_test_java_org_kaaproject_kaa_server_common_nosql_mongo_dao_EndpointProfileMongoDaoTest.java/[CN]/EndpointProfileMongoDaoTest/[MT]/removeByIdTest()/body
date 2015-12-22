@@ -1,5 +1,5 @@
 {
-  EndpointProfileDto epDto=generateEndpointProfile(null,null);
+  EndpointProfileDto epDto=generateEndpointProfileDto(null,null);
   Assert.assertNotNull(epDto);
   endpointProfileDao.removeById(ByteBuffer.wrap(epDto.getEndpointKeyHash()));
   MongoEndpointProfile endpointProfile=endpointProfileDao.findById(ByteBuffer.wrap(epDto.getEndpointKeyHash()));

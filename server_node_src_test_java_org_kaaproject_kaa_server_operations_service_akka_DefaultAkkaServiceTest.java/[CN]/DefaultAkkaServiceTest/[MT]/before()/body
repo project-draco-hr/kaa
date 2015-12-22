@@ -10,6 +10,7 @@
   eventService=mock(EventService.class);
   logAppenderService=mock(LogAppenderService.class);
   endpointUserService=mock(EndpointUserService.class);
+  ctlService=mock(CTLService.class);
   ReflectionTestUtils.setField(context,"cacheService",cacheService);
   ReflectionTestUtils.setField(context,"metricsService",metricsService);
   ReflectionTestUtils.setField(context,"operationsKeyStoreService",operationsKeyStoreService);
@@ -19,6 +20,7 @@
   ReflectionTestUtils.setField(context,"eventService",eventService);
   ReflectionTestUtils.setField(context,"logAppenderService",logAppenderService);
   ReflectionTestUtils.setField(context,"endpointUserService",endpointUserService);
+  ReflectionTestUtils.setField(context,"ctlService",ctlService);
   clientPair=KeyUtil.generateKeyPair();
   targetPair=KeyUtil.generateKeyPair();
   serverPair=KeyUtil.generateKeyPair();
@@ -62,6 +64,14 @@
   confSyncResponse.setResponseStatus(org.kaaproject.kaa.server.sync.SyncResponseStatus.DELTA);
   response.setConfigurationSync(confSyncResponse);
   deltaResponse=new SyncContext(response);
+  response=new ServerSync();
+  response.setStatus(org.kaaproject.kaa.server.sync.SyncStatus.SUCCESS);
+  confSyncResponse=new ConfigurationServerSync();
+  confSyncResponse.setResponseStatus(org.kaaproject.kaa.server.sync.SyncResponseStatus.DELTA);
+  response.setConfigurationSync(confSyncResponse);
+  deltaResponseWithProfile=new SyncContext(response);
+  mockProfile=mock(EndpointProfileDto.class);
+  deltaResponseWithProfile.setEndpointProfile(mockProfile);
   response=new ServerSync();
   response.setRequestId(REQUEST_ID);
   response.setStatus(org.kaaproject.kaa.server.sync.SyncStatus.SUCCESS);

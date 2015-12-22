@@ -1,0 +1,13 @@
+{
+  if (this == obj)   return true;
+  if (obj == null)   return false;
+  if (getClass() != obj.getClass())   return false;
+  AppProfileVersionsKey other=(AppProfileVersionsKey)obj;
+  if (applicationToken == null) {
+    if (other.applicationToken != null)     return false;
+  }
+ else   if (!applicationToken.equals(other.applicationToken))   return false;
+  if (endpointProfileSchemaVersion != other.endpointProfileSchemaVersion)   return false;
+  if (serverProfileSchemaVersion != other.serverProfileSchemaVersion)   return false;
+  return true;
+}

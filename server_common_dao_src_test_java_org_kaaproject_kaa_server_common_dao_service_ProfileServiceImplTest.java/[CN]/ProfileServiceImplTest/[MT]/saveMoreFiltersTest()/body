@@ -1,9 +1,12 @@
 {
-  List<ProfileSchemaDto> schemas=generateProfSchema(null,1);
-  ProfileSchemaDto schema=schemas.get(0);
-  generateFilter(schema.getId(),null,10,true);
-  List<ProfileFilterDto> filters=profileService.findProfileFilterByAppIdAndVersion(schema.getApplicationId(),schema.getMajorVersion());
+  List<EndpointProfileSchemaDto> schemas=generateProfSchemaDto(null,null,1);
+  EndpointProfileSchemaDto schema=schemas.get(0);
+  ApplicationDto app=applicationService.findAppById(schema.getApplicationId());
+  ServerProfileSchemaDto serverSchema=generateServerProfileSchema(app.getId(),app.getTenantId(),1);
+  generateFilterDto(schema.getId(),serverSchema.getId(),null,10,true);
+  List<ProfileFilterDto> filters=profileService.findProfileFiltersByAppIdAndVersionsCombination(schema.getApplicationId(),schema.getVersion(),serverSchema.getVersion());
   Assert.assertFalse(filters.isEmpty());
   Assert.assertEquals(filters.get(0).getStatus(),UpdateStatus.ACTIVE);
-  Assert.assertEquals(schema.getId(),filters.get(0).getSchemaId());
+  Assert.assertEquals(schema.getId(),filters.get(0).getEndpointProfileSchemaId());
+  Assert.assertEquals(serverSchema.getId(),filters.get(0).getServerProfileSchemaId());
 }

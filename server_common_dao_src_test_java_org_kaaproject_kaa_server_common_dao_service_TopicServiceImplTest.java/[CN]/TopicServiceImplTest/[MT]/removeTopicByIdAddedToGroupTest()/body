@@ -1,6 +1,6 @@
 {
-  TopicDto topic=generateTopic(null,null);
-  EndpointGroupDto groupDto=generateEndpointGroup(topic.getApplicationId());
+  TopicDto topic=generateTopicDto(null,null);
+  EndpointGroupDto groupDto=generateEndpointGroupDto(topic.getApplicationId());
   endpointService.addTopicToEndpointGroup(groupDto.getId(),topic.getId());
   topicService.removeTopicById(topic.getId());
   TopicDto found=topicService.findTopicById(topic.getId());

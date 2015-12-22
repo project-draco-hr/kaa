@@ -1,0 +1,21 @@
+{
+  List<LogEvent> events=new ArrayList<>(count);
+  for (int i=0; i < count; i++) {
+    LogEvent event=new LogEvent();
+    event.setLogData(logDataConverter.toByteArray(new LogData(Level.DEBUG,UUID.randomUUID().toString())));
+    events.add(event);
+  }
+  BaseLogEventPack logEventPack=new BaseLogEventPack(profileDto,System.currentTimeMillis(),2,events);
+  LogSchemaDto logSchemaDto=new LogSchemaDto();
+  logSchemaDto.setApplicationId(String.valueOf(RANDOM.nextInt()));
+  logSchemaDto.setId(String.valueOf(RANDOM.nextInt()));
+  logSchemaDto.setCreatedTime(System.currentTimeMillis());
+  logSchemaDto.setSchema(LogData.getClassSchema().toString());
+  if (includeServerProfile) {
+    BaseSchemaInfo schemaInfo=new BaseSchemaInfo(Integer.toString(RANDOM.nextInt()),this.getResourceAsString(SERVER_PROFILE_SCHEMA_FILE));
+    String body=this.getResourceAsString(SERVER_PROFILE_CONTENT_FILE);
+    logEventPack.setServerProfile(new BaseProfileInfo(schemaInfo,body));
+  }
+  logEventPack.setLogSchema(new LogSchema(logSchemaDto));
+  return logEventPack;
+}

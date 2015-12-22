@@ -1,0 +1,11 @@
+{
+  float prefWidth=0;
+  prefWidth+=constructStringColumn(table,Utils.constants.configurationSchema(),new StringValueProvider<ConfigurationRecordDto>(){
+    @Override public String getValue(    ConfigurationRecordDto item){
+      return item.getSchemaVersion() + "";
+    }
+  }
+,80);
+  prefWidth+=super.constructColumnsImpl(table);
+  return prefWidth;
+}

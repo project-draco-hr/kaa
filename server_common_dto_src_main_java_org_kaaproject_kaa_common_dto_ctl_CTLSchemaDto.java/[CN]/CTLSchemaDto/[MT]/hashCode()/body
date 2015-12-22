@@ -1,0 +1,13 @@
+{
+  int result=id != null ? id.hashCode() : 0;
+  result=31 * result + (metaInfo != null ? metaInfo.hashCode() : 0);
+  result=31 * result + (tenantId != null ? tenantId.hashCode() : 0);
+  result=31 * result + (applicationId != null ? applicationId.hashCode() : 0);
+  result=31 * result + (body != null ? body.hashCode() : 0);
+  result=31 * result + (name != null ? name.hashCode() : 0);
+  result=31 * result + (description != null ? description.hashCode() : 0);
+  result=31 * result + (createdUsername != null ? createdUsername.hashCode() : 0);
+  result=31 * result + (int)(createdTime ^ (createdTime >>> 32));
+  result=31 * result + (dependencySet != null ? dependencySet.hashCode() : 0);
+  return result;
+}
