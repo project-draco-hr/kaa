@@ -1,5 +1,10 @@
 {
-  X509EncodedKeySpec spec=new X509EncodedKeySpec(keyBytes);
-  KeyFactory kf=KeyFactory.getInstance(RSA);
-  return kf.generatePublic(spec);
+  try {
+    X509EncodedKeySpec spec=new X509EncodedKeySpec(keyBytes);
+    KeyFactory kf=KeyFactory.getInstance(RSA);
+    return kf.generatePublic(spec);
+  }
+ catch (  NoSuchAlgorithmException|InvalidKeySpecException e) {
+    throw new InvalidKeyException(e);
+  }
 }

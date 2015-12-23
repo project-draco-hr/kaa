@@ -6,11 +6,7 @@
   try {
     this.publicKey=KeyUtil.getPublic(publicKeyData);
   }
- catch (  NoSuchAlgorithmException e) {
-    LOG.error("Can't initialize public key",e);
-    throw new RuntimeException(e);
-  }
-catch (  InvalidKeySpecException e) {
+ catch (  InvalidKeyException e) {
     LOG.error("Can't initialize public key",e);
     throw new RuntimeException(e);
   }
