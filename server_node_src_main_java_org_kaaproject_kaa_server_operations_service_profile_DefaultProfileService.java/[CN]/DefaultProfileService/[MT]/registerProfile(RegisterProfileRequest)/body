@@ -25,7 +25,7 @@
     try {
       cacheService.putEndpointKey(keyHash,KeyUtil.getPublic(dto.getEndpointKey()));
     }
- catch (    NoSuchAlgorithmException|InvalidKeySpecException e) {
+ catch (    InvalidKeyException e) {
       LOG.error("Can't generate public key for endpoint key: {}. Reason: {}",dto.getEndpointKey(),e);
       throw new RuntimeException(e);
     }

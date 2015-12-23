@@ -9,10 +9,21 @@
     try {
       publicKeyInput=storage.openForRead(clientPublicKeyFileLocation);
       privateKeyInput=storage.openForRead(clientPrivateKeyFileLocation);
-      kp=new KeyPair(KeyUtil.getPublic(publicKeyInput),KeyUtil.getPrivate(privateKeyInput));
+      PublicKey publicKey=KeyUtil.getPublic(publicKeyInput);
+      PrivateKey privateKey=KeyUtil.getPrivate(privateKeyInput);
+      if (publicKey != null && privateKey != null) {
+        kp=new KeyPair(publicKey,privateKey);
+        if (!KeyUtil.validateKeyPair(kp)) {
+          throw new InvalidKeyException();
+        }
+      }
     }
- catch (    Exception e) {
-      LOG.error("Error loading Client Private Key",e);
+ catch (    InvalidKeyException e) {
+      kp=null;
+      LOG.error("Unable to parse client RSA keypair. Generating new keys.. Reason {}",e);
+    }
+catch (    Exception e) {
+      LOG.error("Error loading client RSA keypair. Reason {}",e);
       throw new RuntimeException(e);
     }
  finally {

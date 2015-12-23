@@ -1,0 +1,22 @@
+{
+  RSAPublicKey publicKey=(RSAPublicKey)keyPair.getPublic();
+  RSAPrivateKey privateKey=(RSAPrivateKey)keyPair.getPrivate();
+  if (publicKey.getModulus().bitLength() != privateKey.getModulus().bitLength()) {
+    LOG.error("Keypair length matching error");
+    return false;
+  }
+  byte[] rawPayload=new byte[64];
+  new Random().nextBytes(rawPayload);
+  MessageEncoderDecoder encDec=new MessageEncoderDecoder(privateKey,publicKey);
+  byte[] encodedPayload;
+  byte[] decodedPayload;
+  try {
+    encodedPayload=encDec.encodeData(rawPayload);
+    decodedPayload=encDec.decodeData(encodedPayload);
+  }
+ catch (  GeneralSecurityException e) {
+    LOG.error("Validation keypair error ",e);
+    return false;
+  }
+  return Arrays.equals(rawPayload,decodedPayload);
+}
