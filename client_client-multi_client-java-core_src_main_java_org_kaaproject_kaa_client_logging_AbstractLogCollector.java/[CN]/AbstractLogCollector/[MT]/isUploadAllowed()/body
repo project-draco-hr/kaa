@@ -1,0 +1,7 @@
+{
+  if (timeouts.size() >= strategy.getMaxParallelUploads()) {
+    LOG.debug("Ignore log upload: too much pending requests. Max allowed {}",strategy.getMaxParallelUploads());
+    return false;
+  }
+  return true;
+}

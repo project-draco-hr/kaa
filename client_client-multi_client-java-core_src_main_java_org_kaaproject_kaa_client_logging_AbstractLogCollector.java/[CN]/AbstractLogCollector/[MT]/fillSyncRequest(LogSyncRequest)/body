@@ -4,8 +4,7 @@
     LOG.debug("Log storage is empty");
     return;
   }
-  if (timeouts.size() >= strategy.getMaxParallelUploads()) {
-    LOG.debug("Ignore log upload: too much pending requests. Max allowed {}",strategy.getMaxParallelUploads());
+  if (!isUploadAllowed()) {
     return;
   }
   group=storage.getRecordBlock(strategy.getBatchSize(),strategy.getBatchCount());
