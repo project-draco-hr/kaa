@@ -1,0 +1,5 @@
+{
+  MultiValueMap<String,Object> params=new LinkedMultiValueMap<>();
+  params.add("endpointGroupId",endpointGroupId);
+  restTemplate.postForLocation(url + "delEndpointGroup",params);
+}
