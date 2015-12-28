@@ -1,7 +1,10 @@
 {
-  LogBlock group=null;
+  LogBlock group;
   if (storage.getStatus().getRecordCount() == 0) {
     LOG.debug("Log storage is empty");
+    return;
+  }
+  if (!isUploadAllowed()) {
     return;
   }
   group=storage.getRecordBlock(strategy.getBatchSize(),strategy.getBatchCount());
