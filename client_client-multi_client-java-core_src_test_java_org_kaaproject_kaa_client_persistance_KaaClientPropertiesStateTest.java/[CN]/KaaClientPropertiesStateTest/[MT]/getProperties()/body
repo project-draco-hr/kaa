@@ -3,6 +3,8 @@
   props.setProperty(KaaClientProperties.WORKING_DIR_PROPERTY,WORK_DIR);
   props.setProperty(KaaClientProperties.STATE_FILE_NAME_PROPERTY,STATE_PROPERTIES);
   props.setProperty(KaaClientProperties.CLIENT_PUBLIC_KEY_FILE_NAME_PROPERTY,KEY_PUBLIC);
+  File dir=new File(WORK_DIR);
+  dir.deleteOnExit();
   File pub=new File(WORK_DIR + KEY_PUBLIC);
   pub.deleteOnExit();
   props.setProperty(KaaClientProperties.CLIENT_PRIVATE_KEY_FILE_NAME_PROPERTY,KEY_PRIVATE);
