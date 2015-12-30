@@ -1,12 +1,24 @@
 {
-  if (this == obj)   return true;
-  if (obj == null)   return false;
-  if (getClass() != obj.getClass())   return false;
-  EndpointProfileBodyDto other=(EndpointProfileBodyDto)obj;
-  if (!Arrays.equals(endpointKeyHash,other.endpointKeyHash))   return false;
-  if (profile == null) {
-    if (other.profile != null)     return false;
+  if (this == obj) {
+    return true;
   }
- else   if (!profile.equals(other.profile))   return false;
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  EndpointProfileBodyDto other=(EndpointProfileBodyDto)obj;
+  if (!Arrays.equals(endpointKeyHash,other.endpointKeyHash)) {
+    return false;
+  }
+  if (profile == null) {
+    if (other.profile != null) {
+      return false;
+    }
+  }
+ else   if (!profile.equals(other.profile)) {
+    return false;
+  }
   return true;
 }

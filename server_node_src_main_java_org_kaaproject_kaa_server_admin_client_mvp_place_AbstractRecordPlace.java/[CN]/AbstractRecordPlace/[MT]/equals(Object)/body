@@ -1,14 +1,30 @@
 {
-  if (this == obj)   return true;
-  if (obj == null)   return false;
-  if (getClass() != obj.getClass())   return false;
-  AbstractRecordPlace other=(AbstractRecordPlace)obj;
-  if (create != other.create)   return false;
-  if (endpointGroupId == null) {
-    if (other.endpointGroupId != null)     return false;
+  if (this == obj) {
+    return true;
   }
- else   if (!endpointGroupId.equals(other.endpointGroupId))   return false;
-  if (Double.doubleToLongBits(random) != Double.doubleToLongBits(other.random))   return false;
-  if (showActive != other.showActive)   return false;
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  AbstractRecordPlace other=(AbstractRecordPlace)obj;
+  if (create != other.create) {
+    return false;
+  }
+  if (endpointGroupId == null) {
+    if (other.endpointGroupId != null) {
+      return false;
+    }
+  }
+ else   if (!endpointGroupId.equals(other.endpointGroupId)) {
+    return false;
+  }
+  if (Double.doubleToLongBits(random) != Double.doubleToLongBits(other.random)) {
+    return false;
+  }
+  if (showActive != other.showActive) {
+    return false;
+  }
   return true;
 }

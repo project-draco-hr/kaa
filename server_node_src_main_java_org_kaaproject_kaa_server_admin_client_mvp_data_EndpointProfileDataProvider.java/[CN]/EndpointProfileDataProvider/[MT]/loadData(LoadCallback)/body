@@ -7,7 +7,9 @@
           callback.onSuccess(endpointProfilesList);
         }
       }
- else       callback.onFailure(caught);
+ else {
+        callback.onFailure(caught);
+      }
     }
     @Override public void onSuccess(    EndpointProfilesPageDto result){
       endpointProfilesList.addAll(result.getEndpointProfiles());
