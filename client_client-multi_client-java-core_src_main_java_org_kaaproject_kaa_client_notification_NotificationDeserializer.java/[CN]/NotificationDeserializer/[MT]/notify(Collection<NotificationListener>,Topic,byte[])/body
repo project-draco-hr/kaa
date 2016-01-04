@@ -1,6 +1,11 @@
 {
-  Notification notification=fromByteArray(notificationData);
-  for (  NotificationListener listener : listeners) {
-    listener.onNotification(topic.getId(),notification);
+  final Notification notification=fromByteArray(notificationData);
+  for (  final NotificationListener listener : listeners) {
+    executorContext.getCallbackExecutor().submit(new Runnable(){
+      @Override public void run(){
+        listener.onNotification(topic.getId(),notification);
+      }
+    }
+);
   }
 }

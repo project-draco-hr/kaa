@@ -1,3 +1,9 @@
 {
+  LOG.debug("Closing storage");
   storage.close();
+  LOG.debug("Clearing timeouts map");
+  for (  Future<?> timeoutFuture : timeouts.values()) {
+    timeoutFuture.cancel(true);
+  }
+  timeouts.clear();
 }
