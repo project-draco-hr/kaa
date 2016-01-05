@@ -6,6 +6,7 @@
   LogStorage storage=Mockito.mock(LogStorage.class);
   logCollector.setStorage(storage);
   Log record=new Log();
+  Mockito.when(storage.addLogRecord(Mockito.any(LogRecord.class))).thenReturn(new BucketInfo());
   Mockito.when(storage.getStatus()).thenReturn(new LogStorageStatus(){
     @Override public long getRecordCount(){
       return 1;

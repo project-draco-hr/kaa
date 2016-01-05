@@ -2,7 +2,7 @@
   long bucketSize=3;
   int recordCount=3;
   LogStorage storage=(LogStorage)getStorage(bucketSize,recordCount);
-  LogBlock group=storage.getRecordBlock(5,1);
+  LogBlock group=storage.getRecordBlock();
   Assert.assertTrue(group == null);
   storage.close();
 }

@@ -22,4 +22,5 @@ synchronized (buckets) {
     consumedVolume+=record.getSize();
   }
   LOG.trace("Added a new log record to bucket [{}]",currentBucket.getId());
+  return new BucketInfo(currentBucket.getId(),currentBucket.getCount());
 }

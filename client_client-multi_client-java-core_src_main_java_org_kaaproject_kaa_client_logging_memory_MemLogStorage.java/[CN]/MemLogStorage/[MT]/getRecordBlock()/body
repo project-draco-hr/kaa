@@ -1,0 +1,28 @@
+{
+  LOG.trace("Getting new record block with block");
+  LogBlock result=null;
+  MemBucket bucketCandidate=null;
+synchronized (buckets) {
+    for (    MemBucket bucket : buckets.values()) {
+      if (bucket.getState() == MemBucketState.FREE) {
+        bucketCandidate=bucket;
+      }
+      if (bucket.getState() == MemBucketState.FULL) {
+        bucket.setState(MemBucketState.PENDING);
+        bucketCandidate=bucket;
+        break;
+      }
+    }
+    if (bucketCandidate != null) {
+      consumedVolume-=bucketCandidate.getSize();
+      recordCount-=bucketCandidate.getCount();
+      if (bucketCandidate.getState() == MemBucketState.FREE) {
+        LOG.trace("Only a bucket with state FREE found: [{}]. Changing its state to PENDING",bucketCandidate.getId());
+        bucketCandidate.setState(MemBucketState.PENDING);
+      }
+      result=new LogBlock(bucketCandidate.getId(),bucketCandidate.getRecords());
+      LOG.debug("Return record block with records count: [{}]",bucketCandidate.getCount());
+    }
+  }
+  return result;
+}

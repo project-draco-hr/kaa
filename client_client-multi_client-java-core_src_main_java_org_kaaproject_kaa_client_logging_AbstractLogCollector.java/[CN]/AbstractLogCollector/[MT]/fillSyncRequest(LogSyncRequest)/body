@@ -7,7 +7,7 @@
   if (!isUploadAllowed()) {
     return;
   }
-  group=storage.getRecordBlock(strategy.getBatchSize(),strategy.getBatchCount());
+  group=storage.getRecordBlock();
   if (group != null) {
     List<LogRecord> recordList=group.getRecords();
     if (!recordList.isEmpty()) {

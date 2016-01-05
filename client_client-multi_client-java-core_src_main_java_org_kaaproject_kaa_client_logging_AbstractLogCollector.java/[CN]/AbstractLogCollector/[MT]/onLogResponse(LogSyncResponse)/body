@@ -2,8 +2,20 @@
   if (logSyncResponse.getDeliveryStatuses() != null) {
     boolean isAlreadyScheduled=false;
     for (    LogDeliveryStatus response : logSyncResponse.getDeliveryStatuses()) {
+      final int requestId=response.getRequestId();
+      final BucketInfo bucketInfo=bucketInfoMap.get(requestId);
+      bucketInfoMap.remove(requestId);
       if (response.getResult() == SyncResponseResultType.SUCCESS) {
         storage.removeRecordBlock(response.getRequestId());
+        executorContext.getCallbackExecutor().execute(new Runnable(){
+          @Override public void run(){
+            if (logDeliveryListener != null) {
+              logDeliveryListener.onLogDeliverySuccess(bucketInfo);
+            }
+            futureMap.get(requestId).setValue(bucketInfo);
+          }
+        }
+);
       }
  else {
         storage.notifyUploadFailed(response.getRequestId());
@@ -12,6 +24,9 @@
         executorContext.getCallbackExecutor().execute(new Runnable(){
           @Override public void run(){
             strategy.onFailure(controller,errorCode);
+            if (logDeliveryListener != null) {
+              logDeliveryListener.onLogDeliveryFailure(bucketInfo);
+            }
           }
         }
 );

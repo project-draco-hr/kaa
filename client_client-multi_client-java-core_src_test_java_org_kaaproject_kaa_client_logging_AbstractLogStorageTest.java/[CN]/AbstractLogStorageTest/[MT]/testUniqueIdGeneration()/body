@@ -8,8 +8,8 @@
   while (iter-- > 0) {
     storage.addLogRecord(record);
   }
-  LogBlock group1=storage.getRecordBlock(6,2);
-  LogBlock group2=storage.getRecordBlock(6,2);
+  LogBlock group1=storage.getRecordBlock();
+  LogBlock group2=storage.getRecordBlock();
   Assert.assertNotEquals(group1.getBlockId(),group2.getBlockId());
   storage.close();
 }
