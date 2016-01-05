@@ -1,6 +1,7 @@
 {
   System.setProperty(KaaClientProperties.KAA_CLIENT_PROPERTIES_FILE,"client-test.properties");
-  KaaClientProperties properties=new KaaClientProperties(CommonsBase64.getInstance());
+  KaaClientProperties properties=new KaaClientProperties();
+  properties.setBase64(CommonsBase64.getInstance());
   Map<TransportProtocolId,List<TransportConnectionInfo>> bootstraps=properties.getBootstrapServers();
   assertEquals(1,bootstraps.size());
   assertNotNull(bootstraps.get(TransportProtocolIdConstants.TCP_TRANSPORT_ID));

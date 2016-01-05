@@ -1,4 +1,5 @@
 {
   GenericAvroConverter<GenericRecord> converter=new GenericAvroConverter<GenericRecord>(Configuration.SCHEMA$);
   configurationData=converter.encode(new Configuration());
+  Mockito.when(executorContext.getCallbackExecutor()).thenReturn(Executors.newFixedThreadPool(1));
 }
