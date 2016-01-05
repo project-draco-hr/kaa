@@ -5,19 +5,19 @@ synchronized (database) {
     Cursor cursor=null;
     List<String> unmarkedRecordIds=new LinkedList<>();
     List<LogRecord> logRecords=new LinkedList<>();
-    long leftBlockSize=blockSize;
+    long leftBucketSize=bucketSize;
     try {
-      cursor=database.rawQuery(PersistentLogStorageConstants.KAA_SELECT_UNMARKED_RECORDS,new String[]{String.valueOf(batchSize)});
+      cursor=database.rawQuery(PersistentLogStorageConstants.KAA_SELECT_UNMARKED_RECORDS,new String[]{String.valueOf(recordCount)});
       while (cursor.moveToNext()) {
         int recordId=cursor.getInt(0);
         byte[] recordData=cursor.getBlob(1);
         if (recordData != null && recordData.length > 0) {
-          if (leftBlockSize < recordData.length) {
+          if (leftBucketSize < recordData.length) {
             break;
           }
           logRecords.add(new LogRecord(recordData));
           unmarkedRecordIds.add(String.valueOf(recordId));
-          leftBlockSize-=recordData.length;
+          leftBucketSize-=recordData.length;
         }
  else {
           Log.w(TAG,"Found unmarked record with no data. Deleting it...");
@@ -27,7 +27,7 @@ synchronized (database) {
       if (!logRecords.isEmpty()) {
         updateBucketIdForRecords(currentBucketId,unmarkedRecordIds);
         logBlock=new LogBlock(currentBucketId++,logRecords);
-        long logBlockSize=blockSize - leftBlockSize;
+        long logBlockSize=bucketSize - leftBucketSize;
         unmarkedConsumedSize-=logBlockSize;
         unmarkedRecordCount-=logRecords.size();
         consumedMemoryStorage.put(logBlock.getBlockId(),logBlockSize);

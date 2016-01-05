@@ -1,7 +1,7 @@
 {
   try {
-    this.blockSize=blockSize;
-    this.batchCount=batchCount;
+    this.bucketSize=bucketSize;
+    this.recordCount=recordCount;
     Class.forName("org.sqlite.JDBC");
     String dbURL=SQLITE_URL_PREFIX + dbName;
     LOG.info("Connecting to db by url: {}",dbURL);

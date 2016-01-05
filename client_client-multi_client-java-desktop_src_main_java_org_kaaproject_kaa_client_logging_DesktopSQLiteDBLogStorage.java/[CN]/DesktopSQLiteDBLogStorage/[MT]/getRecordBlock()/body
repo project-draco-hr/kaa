@@ -1,6 +1,6 @@
 {
 synchronized (connection) {
-    LOG.trace("Creating a new record block, needed size: {}, batch count: {}",blockSize,batchCount);
+    LOG.trace("Creating a new record block, needed size: {}, batch count: {}",bucketSize,recordCount);
     if (selectUnmarkedStatement == null) {
       try {
         selectUnmarkedStatement=connection.prepareStatement(PersistentLogStorageConstants.KAA_SELECT_UNMARKED_RECORDS);
@@ -15,8 +15,8 @@ synchronized (connection) {
     List<String> unmarkedRecordIds=new LinkedList<>();
     List<LogRecord> logRecords=new LinkedList<>();
     try {
-      long leftBlockSize=blockSize;
-      selectUnmarkedStatement.setInt(1,batchCount);
+      long leftBlockSize=bucketSize;
+      selectUnmarkedStatement.setInt(1,recordCount);
       rs=selectUnmarkedStatement.executeQuery();
       while (rs.next()) {
         int recordId=rs.getInt(1);
@@ -37,7 +37,7 @@ synchronized (connection) {
       if (!logRecords.isEmpty()) {
         updateBucketIdForRecords(currentBucketId,unmarkedRecordIds);
         logBlock=new LogBlock(currentBucketId++,logRecords);
-        long logBlockSize=blockSize - leftBlockSize;
+        long logBlockSize=bucketSize - leftBlockSize;
         unmarkedConsumedSize-=logBlockSize;
         unmarkedRecordCount-=logRecords.size();
         consumedMemoryStorage.put(logBlock.getBlockId(),logBlockSize);

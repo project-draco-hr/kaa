@@ -2,8 +2,8 @@
   Log.i(TAG,"Connecting to db with name: " + dbName);
   dbHelper=new DataCollectionDBHelper(context,dbName);
   database=dbHelper.getWritableDatabase();
-  this.batchSize=batchSize;
-  this.blockSize=blockSize;
+  this.recordCount=recordCount;
+  this.bucketSize=bucketSize;
   retrieveConsumedSizeAndVolume();
   if (totalRecordCount > 0) {
     resetBucketIDs();
