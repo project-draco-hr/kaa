@@ -23,12 +23,12 @@
   initializeChannels(channelManager,transportContext);
   bootstrapManager.setChannelManager(channelManager);
   bootstrapManager.setFailoverManager(failoverManager);
-  profileManager=buildProfileManager(properties,kaaClientState,transportContext);
-  notificationManager=buildNotificationManager(properties,kaaClientState,transportContext);
-  eventManager=buildEventManager(properties,kaaClientState,transportContext);
-  endpointRegistrationManager=buildRegistrationManager(properties,kaaClientState,transportContext);
-  logCollector=buildLogCollector(properties,kaaClientState,transportContext);
-  configurationManager=buildConfigurationManager(properties,kaaClientState,transportContext);
+  profileManager=buildProfileManager(transportContext);
+  notificationManager=buildNotificationManager(kaaClientState,transportContext);
+  eventManager=buildEventManager(kaaClientState,transportContext);
+  endpointRegistrationManager=buildRegistrationManager(kaaClientState,transportContext);
+  logCollector=buildLogCollector(transportContext);
+  configurationManager=buildConfigurationManager(properties,kaaClientState);
   transportContext.getRedirectionTransport().setBootstrapManager(bootstrapManager);
   transportContext.getBootstrapTransport().setBootstrapManager(bootstrapManager);
   transportContext.getProfileTransport().setProfileManager(profileManager);

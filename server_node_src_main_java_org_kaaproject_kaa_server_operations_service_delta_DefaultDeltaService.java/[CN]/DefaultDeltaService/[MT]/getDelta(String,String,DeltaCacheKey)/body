@@ -21,7 +21,7 @@
         BaseData mergedConfiguration=getMergedConfiguration(endpointId,userConfiguration,deltaKey,latestConfigurationSchema);
         LOG.trace("[{}] Merged configuration {}",endpointId,mergedConfiguration.getRawData());
         if (deltaKey.isResyncOnly()) {
-          deltaCache=buildBaseResyncDelta(endpointId,mergedConfiguration,userConfigurationHash);
+          deltaCache=buildBaseResyncDelta(mergedConfiguration,userConfigurationHash);
         }
  else {
           ProtocolSchema protocolSchema=new ProtocolSchema(latestConfigurationSchema.getProtocolSchema());

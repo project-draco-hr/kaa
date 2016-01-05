@@ -21,7 +21,7 @@
   kerbConfPrincipal=context.getString(CONFIG_HDFS_KERBEROS_PRINCIPAL,"");
   kerbKeytab=context.getString(CONFIG_HDFS_KERBEROS_KEYTAB,"");
   proxyUserName=context.getString(CONFIG_HDFS_PROXY_USER,"");
-  if (!authenticate(rootHdfsPath)) {
+  if (!authenticate()) {
     logger.error("Failed to authenticate!");
   }
   if (sinkCounter == null) {
