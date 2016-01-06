@@ -1,15 +1,17 @@
 {
   try {
-    this.bucketSize=bucketSize;
-    this.recordCount=recordCount;
+    this.maxBucketSize=maxBucketSize;
+    this.maxRecordCount=maxRecordCount;
     Class.forName("org.sqlite.JDBC");
     String dbURL=SQLITE_URL_PREFIX + dbName;
     LOG.info("Connecting to db by url: {}",dbURL);
     connection=DriverManager.getConnection(dbURL);
     LOG.debug("SQLite connection was successfully established");
     initTable();
+    truncateIfBucketSizeIncompatible();
     retrieveConsumedSizeAndVolume();
     if (totalRecordCount > 0) {
+      retrieveBucketId();
       resetBucketIDs();
     }
   }

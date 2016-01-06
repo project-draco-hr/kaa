@@ -10,10 +10,18 @@ synchronized (database) {
         throw new RuntimeException(e);
       }
     }
+    long leftConsumedSize=maxBucketSize - currentBucketSize;
+    long leftRecordCount=maxRecordCount - currentRecordCount;
+    if (leftConsumedSize < record.getSize() || leftRecordCount == 0) {
+      moveToNextBucket();
+    }
     try {
-      insertStatement.bindBlob(1,record.getData());
+      insertStatement.bindLong(1,currentBucketId);
+      insertStatement.bindBlob(2,record.getData());
       long insertedId=insertStatement.executeInsert();
       if (insertedId >= 0) {
+        currentBucketSize+=record.getSize();
+        currentRecordCount++;
         unmarkedConsumedSize+=record.getSize();
         totalRecordCount++;
         unmarkedRecordCount++;
@@ -27,5 +35,5 @@ synchronized (database) {
       Log.e(TAG,"Can't add a new record",e);
     }
   }
-  return new BucketInfo();
+  return new BucketInfo(currentBucketId,currentRecordCount);
 }

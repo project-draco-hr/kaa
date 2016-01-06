@@ -3,38 +3,49 @@ synchronized (database) {
     Log.d(TAG,"Creating a new record block");
     LogBlock logBlock=null;
     Cursor cursor=null;
-    List<String> unmarkedRecordIds=new LinkedList<>();
     List<LogRecord> logRecords=new LinkedList<>();
-    long leftBucketSize=bucketSize;
+    int bucketId=0;
     try {
-      cursor=database.rawQuery(PersistentLogStorageConstants.KAA_SELECT_UNMARKED_RECORDS,new String[]{String.valueOf(recordCount)});
-      while (cursor.moveToNext()) {
-        int recordId=cursor.getInt(0);
-        byte[] recordData=cursor.getBlob(1);
-        if (recordData != null && recordData.length > 0) {
-          if (leftBucketSize < recordData.length) {
-            break;
-          }
+      cursor=database.rawQuery(PersistentLogStorageConstants.KAA_SELECT_MIN_BUCKET_ID,null);
+      if (cursor.moveToFirst()) {
+        bucketId=cursor.getInt(0);
+      }
+    }
+ catch (    SQLiteException e) {
+      Log.e(TAG,"Can't retrieve max bucket ID",e);
+    }
+ finally {
+      try {
+        tryCloseCursor(cursor);
+      }
+ catch (      SQLiteException e) {
+        Log.e(TAG,"Unable to close cursor",e);
+      }
+    }
+    try {
+      long leftBucketSize=maxBucketSize;
+      if (bucketId > 0) {
+        cursor=database.rawQuery(PersistentLogStorageConstants.KAA_SELECT_LOG_RECORDS_BY_BUCKET_ID,new String[]{String.valueOf(bucketId)});
+        while (cursor.moveToNext()) {
+          byte[] recordData=cursor.getBlob(0);
           logRecords.add(new LogRecord(recordData));
-          unmarkedRecordIds.add(String.valueOf(recordId));
           leftBucketSize-=recordData.length;
         }
- else {
-          Log.w(TAG,"Found unmarked record with no data. Deleting it...");
-          removeRecordById(recordId);
+        if (!logRecords.isEmpty()) {
+          updateBucketState(bucketId);
+          logBlock=new LogBlock(bucketId,logRecords);
+          long logBlockSize=maxBucketSize - leftBucketSize;
+          unmarkedConsumedSize-=logBlockSize;
+          unmarkedRecordCount-=logRecords.size();
+          consumedMemoryStorage.put(logBlock.getBlockId(),logBlockSize);
+          if (currentBucketId == bucketId) {
+            moveToNextBucket();
+          }
+          Log.i(TAG,"Created log block: id [" + logBlock.getBlockId() + "], size: "+ logBlockSize+ ". Log block record count: "+ logBlock.getRecords().size()+ ", total record count: "+ totalRecordCount+ ", unmarked record count: "+ unmarkedRecordCount);
         }
-      }
-      if (!logRecords.isEmpty()) {
-        updateBucketIdForRecords(currentBucketId,unmarkedRecordIds);
-        logBlock=new LogBlock(currentBucketId++,logRecords);
-        long logBlockSize=bucketSize - leftBucketSize;
-        unmarkedConsumedSize-=logBlockSize;
-        unmarkedRecordCount-=logRecords.size();
-        consumedMemoryStorage.put(logBlock.getBlockId(),logBlockSize);
-        Log.i(TAG,"Created log block: id [" + logBlock.getBlockId() + "], size: "+ logBlockSize+ ". Log block record count: "+ logBlock.getRecords().size()+ ", total record count: "+ totalRecordCount+ ", unmarked record count: "+ unmarkedRecordCount);
-      }
  else {
-        Log.i(TAG,"No unmarked log records found");
+          Log.i(TAG,"No unmarked log records found");
+        }
       }
     }
  catch (    SQLiteException e) {

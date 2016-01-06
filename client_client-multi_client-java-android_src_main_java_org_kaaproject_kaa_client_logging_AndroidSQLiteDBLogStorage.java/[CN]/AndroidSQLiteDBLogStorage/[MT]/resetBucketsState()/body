@@ -1,7 +1,7 @@
 {
 synchronized (database) {
     Log.d(TAG,"Resetting bucket ids on application start");
-    database.execSQL(PersistentLogStorageConstants.KAA_RESET_BUCKET_ID_ON_START);
+    database.execSQL(PersistentLogStorageConstants.KAA_RESET_BUCKET_STATE_ON_START);
     long updatedRows=getAffectedRowCount();
     Log.v(TAG,"Number of rows affected: " + updatedRows);
   }
