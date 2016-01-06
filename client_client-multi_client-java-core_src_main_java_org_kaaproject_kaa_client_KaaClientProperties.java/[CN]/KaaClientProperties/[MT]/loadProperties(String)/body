@@ -1,0 +1,11 @@
+{
+  Properties properties=null;
+  String propertiesLocation=isBlank(propsLocation) ? DEFAULT_CLIENT_PROPERTIES : propsLocation;
+  if (System.getProperty(KAA_CLIENT_PROPERTIES_FILE) != null) {
+    propertiesLocation=System.getProperty(KAA_CLIENT_PROPERTIES_FILE);
+  }
+  properties=new Properties();
+  ClassLoader classLoader=Kaa.class.getClassLoader();
+  properties.load(classLoader.getResourceAsStream(propertiesLocation));
+  return properties;
+}

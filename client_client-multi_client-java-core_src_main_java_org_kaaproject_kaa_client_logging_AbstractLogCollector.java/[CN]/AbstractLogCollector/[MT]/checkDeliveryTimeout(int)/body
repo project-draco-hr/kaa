@@ -1,7 +1,7 @@
 {
   LOG.debug("Checking for a delivery timeout of the bucket with id: [{}] ",bucketId);
-  boolean isTimeout=timeouts.remove(bucketId);
-  if (isTimeout) {
+  Future<?> timeoutFuture=timeouts.remove(bucketId);
+  if (timeoutFuture != null) {
     LOG.info("Log delivery timeout detected for the bucket with id: [{}]",bucketId);
     storage.notifyUploadFailed(bucketId);
     final LogFailoverCommand controller=this.controller;
@@ -11,9 +11,9 @@
       }
     }
 );
+    timeoutFuture.cancel(true);
   }
  else {
     LOG.trace("No log delivery timeout for the bucket with id [{}] was detected",bucketId);
   }
-  return isTimeout;
 }
