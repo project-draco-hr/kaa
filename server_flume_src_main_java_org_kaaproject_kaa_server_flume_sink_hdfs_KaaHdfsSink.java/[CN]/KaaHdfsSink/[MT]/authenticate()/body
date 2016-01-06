@@ -1,13 +1,13 @@
 {
   boolean useSecurity=UserGroupInformation.isSecurityEnabled();
-  logger.info("Hadoop Security enabled: " + useSecurity);
+  LOG.info("Hadoop Security enabled: " + useSecurity);
   if (useSecurity) {
     if (kerbConfPrincipal.isEmpty()) {
-      logger.error("Hadoop running in secure mode, but Flume config doesn't " + "specify a principal to use for Kerberos auth.");
+      LOG.error("Hadoop running in secure mode, but Flume config doesn't " + "specify a principal to use for Kerberos auth.");
       return false;
     }
     if (kerbKeytab.isEmpty()) {
-      logger.error("Hadoop running in secure mode, but Flume config doesn't " + "specify a keytab to use for Kerberos auth.");
+      LOG.error("Hadoop running in secure mode, but Flume config doesn't " + "specify a keytab to use for Kerberos auth.");
       return false;
     }
  else {
@@ -21,7 +21,7 @@
       principal=SecurityUtil.getServerPrincipal(kerbConfPrincipal,"");
     }
  catch (    IOException e) {
-      logger.error("Host lookup error resolving kerberos principal (" + kerbConfPrincipal + "). Exception follows.",e);
+      LOG.error("Host lookup error resolving kerberos principal (" + kerbConfPrincipal + "). Exception follows.",e);
       return false;
     }
     Preconditions.checkNotNull(principal,"Principal must not be null");
@@ -34,7 +34,7 @@
         curUser=UserGroupInformation.getLoginUser();
       }
  catch (      IOException e) {
-        logger.warn("User unexpectedly had no active login. Continuing with " + "authentication",e);
+        LOG.warn("User unexpectedly had no active login. Continuing with " + "authentication",e);
       }
     }
     if (curUser == null || !curUser.getUserName().equals(principal)) {
@@ -42,12 +42,12 @@
         kerberosLogin(this,principal,kerbKeytab);
       }
  catch (      IOException e) {
-        logger.error("Authentication or file read error while attempting to " + "login as kerberos principal (" + principal + ") using "+ "keytab ("+ kerbKeytab+ "). Exception follows.",e);
+        LOG.error("Authentication or file read error while attempting to " + "login as kerberos principal (" + principal + ") using "+ "keytab ("+ kerbKeytab+ "). Exception follows.",e);
         return false;
       }
     }
  else {
-      logger.debug("{}: Using existing principal login: {}",this,curUser);
+      LOG.debug("{}: Using existing principal login: {}",this,curUser);
     }
     staticLogin.set(newUser);
   }
@@ -57,7 +57,7 @@
       proxyTicket=UserGroupInformation.createProxyUser(proxyUserName,UserGroupInformation.getLoginUser());
     }
  catch (    IOException e) {
-      logger.error("Unable to login as proxy user. Exception follows.",e);
+      LOG.error("Unable to login as proxy user. Exception follows.",e);
       return false;
     }
   }
@@ -70,29 +70,29 @@
       ugi=UserGroupInformation.getLoginUser();
     }
  catch (    IOException e) {
-      logger.error("Unexpected error: Unable to get authenticated user after " + "apparent successful login! Exception follows.",e);
+      LOG.error("Unexpected error: Unable to get authenticated user after " + "apparent successful login! Exception follows.",e);
       return false;
     }
   }
   if (ugi != null) {
     AuthenticationMethod authMethod=ugi.getAuthenticationMethod();
-    logger.info("Auth method: {}",authMethod);
-    logger.info(" User name: {}",ugi.getUserName());
-    logger.info(" Using keytab: {}",ugi.isFromKeytab());
+    LOG.info("Auth method: {}",authMethod);
+    LOG.info(" User name: {}",ugi.getUserName());
+    LOG.info(" Using keytab: {}",ugi.isFromKeytab());
     if (authMethod == AuthenticationMethod.PROXY) {
       UserGroupInformation superUser;
       try {
         superUser=UserGroupInformation.getLoginUser();
-        logger.info(" Superuser auth: {}",superUser.getAuthenticationMethod());
-        logger.info(" Superuser name: {}",superUser.getUserName());
-        logger.info(" Superuser using keytab: {}",superUser.isFromKeytab());
+        LOG.info(" Superuser auth: {}",superUser.getAuthenticationMethod());
+        LOG.info(" Superuser name: {}",superUser.getUserName());
+        LOG.info(" Superuser using keytab: {}",superUser.isFromKeytab());
       }
  catch (      IOException e) {
-        logger.error("Unexpected error: unknown superuser impersonating proxy.",e);
+        LOG.error("Unexpected error: unknown superuser impersonating proxy.",e);
         return false;
       }
     }
-    logger.info("Logged in as user {}",ugi.getUserName());
+    LOG.info("Logged in as user {}",ugi.getUserName());
     return true;
   }
   return true;

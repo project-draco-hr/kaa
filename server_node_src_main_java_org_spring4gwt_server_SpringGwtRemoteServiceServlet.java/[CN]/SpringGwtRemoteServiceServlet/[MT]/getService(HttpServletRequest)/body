@@ -1,8 +1,8 @@
 {
   String url=request.getRequestURI();
   String service=url.substring(url.lastIndexOf("/") + 1);
-  if (logger.isDebugEnabled()) {
-    logger.debug("Service for URL {} is {}",url,service);
+  if (LOG.isDebugEnabled()) {
+    LOG.debug("Service for URL {} is {}",url,service);
   }
   return service;
 }

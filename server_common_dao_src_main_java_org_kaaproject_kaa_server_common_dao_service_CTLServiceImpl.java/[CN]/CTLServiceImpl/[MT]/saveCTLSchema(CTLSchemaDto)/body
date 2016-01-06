@@ -17,6 +17,7 @@ synchronized (this) {
         uniqueMetaInfo=schemaMetaInfoDao.save(new CTLSchemaMetaInfo(metaInfo));
       }
  catch (      Exception e) {
+        LOG.error("Exception catched: ",e);
         existing=true;
         uniqueMetaInfo=schemaMetaInfoDao.findByFqnAndVersion(metaInfo.getFqn(),metaInfo.getVersion());
       }
@@ -51,6 +52,7 @@ try {
 dto=getDto(ctlSchemaDao.save(ctlSchema,true));
 }
  catch (DataIntegrityViolationException ex) {
+LOG.error("Can't save cql schema with same fqn, version and tenant id. ",ex);
 throw new DatabaseProcessingException("Can't save cql schema with same fqn, version and tenant id.");
 }
 catch (Exception ex) {

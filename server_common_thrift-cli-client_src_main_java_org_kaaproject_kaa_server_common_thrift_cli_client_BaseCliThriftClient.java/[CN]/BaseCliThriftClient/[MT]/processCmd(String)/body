@@ -25,6 +25,7 @@
       out.print(result.message);
     }
  catch (    CliThriftException cliException) {
+      LOG.error("Exception catched: ",cliException);
       ret=cliException.errorCode;
       if (ret != 0) {
         String errMsg=cliException.message;
@@ -35,6 +36,7 @@
       }
     }
 catch (    TException e) {
+      LOG.error("Exception catched: ",e);
       String errMsg=e.getMessage();
       if (errMsg == null) {
         errMsg=e.toString();
@@ -63,7 +65,7 @@ catch (    TException e) {
             port=Integer.valueOf(strPort);
           }
  catch (          Exception e) {
-            LOG.error("Unexpected exception while parsing port. Can not parse String: {} to Integer",strPort);
+            LOG.error("Unexpected exception while parsing port. Can not parse String: {} to Integer, exception catched {}",strPort,e);
           }
           if (port > 0) {
             parsed=true;
@@ -73,6 +75,7 @@ catch (    TException e) {
               ss.connect();
             }
  catch (            TException e) {
+              LOG.error("Exception catched: ",e);
               String errMsg=e.getMessage();
               if (errMsg == null) {
                 errMsg=e.toString();

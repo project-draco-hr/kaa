@@ -22,7 +22,7 @@
   kerbKeytab=context.getString(CONFIG_HDFS_KERBEROS_KEYTAB,"");
   proxyUserName=context.getString(CONFIG_HDFS_PROXY_USER,"");
   if (!authenticate()) {
-    logger.error("Failed to authenticate!");
+    LOG.error("Failed to authenticate!");
   }
   if (sinkCounter == null) {
     sinkCounter=new SinkCounter(getName());

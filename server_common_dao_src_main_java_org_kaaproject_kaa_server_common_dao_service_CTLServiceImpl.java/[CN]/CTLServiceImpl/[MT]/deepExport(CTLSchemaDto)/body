@@ -16,6 +16,7 @@
     return result;
   }
  catch (  Exception cause) {
+    LOG.error("An unexpected exception occured: ",cause);
     throw new RuntimeException("An unexpected exception occured: " + cause.toString());
   }
 }
