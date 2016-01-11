@@ -17,7 +17,7 @@
     List<String> emptyRecords=new ArrayList<>();
     if (schemas != null) {
       for (      Schema recordS : schemas) {
-        if (recordS.getType() == Type.RECORD && recordS.getFields() != null && recordS.getFields().size() == 0) {
+        if (recordS.getType() == Type.RECORD && recordS.getFields() != null && recordS.getFields().isEmpty()) {
           emptyRecords.add(recordS.getFullName());
         }
       }
