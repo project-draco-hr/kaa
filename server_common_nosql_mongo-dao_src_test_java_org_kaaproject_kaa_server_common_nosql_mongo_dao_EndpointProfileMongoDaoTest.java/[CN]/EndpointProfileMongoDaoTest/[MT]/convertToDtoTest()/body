@@ -1,5 +1,7 @@
 {
   EndpointProfileDto endpointProfile=generateEndpointProfileDto(null,null);
+  endpointProfile.setAccessToken("Trololo");
+  endpointProfileDao.save(endpointProfile);
   Assert.assertNotNull(endpointProfile);
   MongoEndpointProfile converted=new MongoEndpointProfile(endpointProfile);
   Assert.assertEquals(endpointProfile,converted.toDto());

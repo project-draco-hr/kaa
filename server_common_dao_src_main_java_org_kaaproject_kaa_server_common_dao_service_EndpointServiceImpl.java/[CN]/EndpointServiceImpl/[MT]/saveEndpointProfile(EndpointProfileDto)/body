@@ -1,7 +1,7 @@
 {
+  EndpointProfileDto profileDto=null;
   validateObject(endpointProfileDto,"Can't find endpoint profile object. Invalid endpoint profile object" + endpointProfileDto);
   byte[] keyHash=endpointProfileDto.getEndpointKeyHash();
-  EndpointProfileDto dto;
   validateHash(keyHash,"Incorrect key hash for endpoint profile.");
   if (endpointProfileDto.getServerProfileBody() == null) {
     ServerProfileSchemaDto serverProfileSchemaDto=serverProfileService.findLatestServerProfileSchema(endpointProfileDto.getApplicationId());
@@ -11,26 +11,12 @@
     endpointProfileDto.setServerProfileBody(schemaDto.getDefaultRecord());
   }
   if (isBlank(endpointProfileDto.getId())) {
-    if (endpointProfileDao.getCountByKeyHash(keyHash) == 0) {
+    EndpointProfile storedProfile=endpointProfileDao.findEndpointIdByKeyHash(keyHash);
+    if (storedProfile != null) {
+      endpointProfileDto.setId(storedProfile.getId());
       LOG.debug("Register new endpoint profile.");
-      dto=getDto(endpointProfileDao.save(endpointProfileDto));
-    }
- else {
-      EndpointProfile storedProfile=endpointProfileDao.findByKeyHash(keyHash);
-      if (Arrays.equals(storedProfile.getEndpointKey(),endpointProfileDto.getEndpointKey())) {
-        LOG.debug("Got register profile for already existing profile {}. Will overwrite existing profile!",keyHash);
-        endpointProfileDto.setId(storedProfile.getId());
-        dto=getDto(endpointProfileDao.save(endpointProfileDto));
-      }
- else {
-        LOG.warn("Endpoint profile with key hash {} already exists.",keyHash);
-        throw new DatabaseProcessingException("Can't save endpoint profile with existing key hash.");
-      }
     }
   }
- else {
-    LOG.debug("Update endpoint profile with id [{}]",endpointProfileDto.getId());
-    dto=getDto(endpointProfileDao.save(endpointProfileDto));
-  }
-  return dto;
+  profileDto=getDto(endpointProfileDao.save(endpointProfileDto));
+  return profileDto;
 }

@@ -1,0 +1,12 @@
+{
+  LOG.debug("Try to check if endpoint profile exists with key hash [{}]",endpointKeyHash);
+  CassandraEndpointProfile profile=null;
+  ResultSet resultSet=execute(select(EP_ENDPOINT_ID_PROPERTY).from(getColumnFamilyName()).where(eq(EP_EP_KEY_HASH_PROPERTY,getByteBuffer(endpointKeyHash))));
+  Row row=resultSet.one();
+  if (row != null) {
+    profile=new CassandraEndpointProfile();
+    profile.setId(row.getString(EP_ENDPOINT_ID_PROPERTY));
+  }
+  LOG.debug("{} endpoint profile exists with key hash [{}]",endpointKeyHash,profile);
+  return profile;
+}
