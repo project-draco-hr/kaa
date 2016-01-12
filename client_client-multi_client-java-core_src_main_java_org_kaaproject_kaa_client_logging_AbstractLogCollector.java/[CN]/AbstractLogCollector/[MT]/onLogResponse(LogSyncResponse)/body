@@ -6,30 +6,40 @@
       final BucketInfo bucketInfo=bucketInfoMap.get(requestId);
       bucketInfoMap.remove(requestId);
       if (response.getResult() == SyncResponseResultType.SUCCESS) {
-        storage.removeRecordBlock(response.getRequestId());
-        executorContext.getCallbackExecutor().execute(new Runnable(){
-          @Override public void run(){
-            if (logDeliveryListener != null) {
+        storage.removeBucket(response.getRequestId());
+        if (logDeliveryListener != null) {
+          executorContext.getCallbackExecutor().execute(new Runnable(){
+            @Override public void run(){
               logDeliveryListener.onLogDeliverySuccess(bucketInfo);
             }
-            futureMap.get(requestId).setValue(bucketInfo);
+          }
+);
+        }
+        executorContext.getCallbackExecutor().execute(new Runnable(){
+          @Override public void run(){
+            notifyDeliveryFuturesOnSuccess(bucketInfo);
           }
         }
 );
       }
  else {
-        storage.notifyUploadFailed(response.getRequestId());
+        storage.rollbackBucket(response.getRequestId());
         final LogDeliveryErrorCode errorCode=response.getErrorCode();
         final LogFailoverCommand controller=this.controller;
         executorContext.getCallbackExecutor().execute(new Runnable(){
           @Override public void run(){
             strategy.onFailure(controller,errorCode);
-            if (logDeliveryListener != null) {
-              logDeliveryListener.onLogDeliveryFailure(bucketInfo);
-            }
           }
         }
 );
+        if (logDeliveryListener != null) {
+          executorContext.getCallbackExecutor().execute(new Runnable(){
+            @Override public void run(){
+              logDeliveryListener.onLogDeliveryFailure(bucketInfo);
+            }
+          }
+);
+        }
         isAlreadyScheduled=true;
       }
       LOG.info("Removing bucket id from timeouts: {}",response.getRequestId());

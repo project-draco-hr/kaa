@@ -8,13 +8,13 @@
   while (iter-- > 0) {
     storage.addLogRecord(record);
   }
-  LogBlock removingBlock=storage.getRecordBlock();
+  LogBucket removingBlock=storage.getNextBucket();
   insertionCount-=removingBlock.getRecords().size();
-  storage.removeRecordBlock(removingBlock.getBlockId());
-  removingBlock=storage.getRecordBlock();
+  storage.removeBucket(removingBlock.getBucketId());
+  removingBlock=storage.getNextBucket();
   insertionCount-=removingBlock.getRecords().size();
-  storage.removeRecordBlock(removingBlock.getBlockId());
-  LogBlock leftBlock=storage.getRecordBlock();
+  storage.removeBucket(removingBlock.getBucketId());
+  LogBucket leftBlock=storage.getNextBucket();
   Assert.assertTrue(leftBlock.getRecords().size() == insertionCount);
   storage.close();
 }

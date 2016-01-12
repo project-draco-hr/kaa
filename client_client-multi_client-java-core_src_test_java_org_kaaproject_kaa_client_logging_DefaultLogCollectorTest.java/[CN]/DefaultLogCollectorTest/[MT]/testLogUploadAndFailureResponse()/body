@@ -10,7 +10,7 @@
   LogStorage storage=Mockito.mock(LogStorage.class);
   logCollector.setStorage(storage);
   Log record=new Log();
-  Mockito.when(storage.addLogRecord(Mockito.any(LogRecord.class))).thenReturn(new BucketInfo());
+  Mockito.when(storage.addLogRecord(Mockito.any(LogRecord.class))).thenReturn(new BucketInfo(1,1));
   Mockito.when(storage.getStatus()).thenReturn(new LogStorageStatus(){
     @Override public long getRecordCount(){
       return 1;
@@ -25,7 +25,7 @@
   logCollector.addLogRecord(record);
   logCollector.addLogRecord(record);
   logCollector.addLogRecord(record);
-  Mockito.when(storage.addLogRecord(Mockito.any(LogRecord.class))).thenReturn(new BucketInfo());
+  Mockito.when(storage.addLogRecord(Mockito.any(LogRecord.class))).thenReturn(new BucketInfo(1,1));
   Mockito.when(storage.getStatus()).thenReturn(new LogStorageStatus(){
     @Override public long getRecordCount(){
       return 1;
@@ -36,7 +36,7 @@
   }
 );
   logCollector.addLogRecord(record);
-  Mockito.when(storage.getRecordBlock()).thenReturn(new LogBlock(1,Arrays.asList(new LogRecord(record),new LogRecord(record),new LogRecord(record))));
+  Mockito.when(storage.getNextBucket()).thenReturn(new LogBucket(1,Arrays.asList(new LogRecord(record),new LogRecord(record),new LogRecord(record))));
   LogSyncRequest request1=new LogSyncRequest();
   logCollector.fillSyncRequest(request1);
   Assert.assertEquals(3,request1.getLogEntries().size());

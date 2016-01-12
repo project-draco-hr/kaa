@@ -8,7 +8,7 @@
   while (iter-- > 0) {
     storage.addLogRecord(record);
   }
-  LogBlock logBlock=storage.getRecordBlock();
+  LogBucket logBlock=storage.getNextBucket();
   Assert.assertEquals(insertionCount,logBlock.getRecords().size());
   storage.close();
 }

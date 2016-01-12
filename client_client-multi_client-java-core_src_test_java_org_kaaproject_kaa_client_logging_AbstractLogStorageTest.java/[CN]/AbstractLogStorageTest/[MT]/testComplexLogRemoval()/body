@@ -8,17 +8,17 @@
   while (iter-- > 0) {
     storage.addLogRecord(record);
   }
-  LogBlock removingBlock1=storage.getRecordBlock();
+  LogBucket removingBlock1=storage.getNextBucket();
   insertionCount-=removingBlock1.getRecords().size();
-  LogBlock removingBlock2=storage.getRecordBlock();
+  LogBucket removingBlock2=storage.getNextBucket();
   insertionCount-=removingBlock2.getRecords().size();
-  LogBlock removingBlock3=storage.getRecordBlock();
+  LogBucket removingBlock3=storage.getNextBucket();
   insertionCount-=removingBlock3.getRecords().size();
-  storage.removeRecordBlock(removingBlock2.getBlockId());
-  storage.notifyUploadFailed(removingBlock1.getBlockId());
+  storage.removeBucket(removingBlock2.getBucketId());
+  storage.rollbackBucket(removingBlock1.getBucketId());
   insertionCount+=removingBlock1.getRecords().size();
-  LogBlock leftBlock1=storage.getRecordBlock();
-  LogBlock leftBlock2=storage.getRecordBlock();
+  LogBucket leftBlock1=storage.getNextBucket();
+  LogBucket leftBlock2=storage.getNextBucket();
   int leftSize=leftBlock1.getRecords().size();
   if (leftBlock2 != null) {
     leftSize+=leftBlock2.getRecords().size();

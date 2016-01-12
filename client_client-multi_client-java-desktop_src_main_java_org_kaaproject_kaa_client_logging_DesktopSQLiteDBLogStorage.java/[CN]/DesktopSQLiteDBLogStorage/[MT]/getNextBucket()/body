@@ -2,7 +2,7 @@
 synchronized (connection) {
     LOG.trace("Creating a new record block, needed size: {}, batch count: {}",maxBucketSize,maxRecordCount);
     ResultSet resultSet=null;
-    LogBlock logBlock=null;
+    LogBucket logBlock=null;
     PreparedStatement selectBucketWithMinIdStatement=null;
     List<LogRecord> logRecords=new LinkedList<>();
     int bucketId=0;
@@ -46,15 +46,15 @@ synchronized (connection) {
         }
         if (!logRecords.isEmpty()) {
           updateBucketState(bucketId);
-          logBlock=new LogBlock(bucketId,logRecords);
+          logBlock=new LogBucket(bucketId,logRecords);
           long logBlockSize=maxBucketSize - leftBlockSize;
           unmarkedConsumedSize-=logBlockSize;
           unmarkedRecordCount-=logRecords.size();
-          consumedMemoryStorage.put(logBlock.getBlockId(),logBlockSize);
+          consumedMemoryStorage.put(logBlock.getBucketId(),logBlockSize);
           if (currentBucketId == bucketId) {
             moveToNextBucket();
           }
-          LOG.info("Created log block: id [{}], size {}. Log block record count: {}, total record count: {}," + " unmarked record count: {}",logBlock.getBlockId(),logBlockSize,logBlock.getRecords().size(),totalRecordCount,unmarkedRecordCount);
+          LOG.info("Created log block: id [{}], size {}. Log block record count: {}, total record count: {}," + " unmarked record count: {}",logBlock.getBucketId(),logBlockSize,logBlock.getRecords().size(),totalRecordCount,unmarkedRecordCount);
         }
  else {
           LOG.info("No unmarked log records found");

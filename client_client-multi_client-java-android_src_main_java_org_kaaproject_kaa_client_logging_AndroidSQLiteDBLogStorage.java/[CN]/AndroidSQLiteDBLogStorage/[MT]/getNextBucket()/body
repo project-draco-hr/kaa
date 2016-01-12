@@ -1,7 +1,7 @@
 {
 synchronized (database) {
     Log.d(TAG,"Creating a new record block");
-    LogBlock logBlock=null;
+    LogBucket logBlock=null;
     Cursor cursor=null;
     List<LogRecord> logRecords=new LinkedList<>();
     int bucketId=0;
@@ -33,15 +33,15 @@ synchronized (database) {
         }
         if (!logRecords.isEmpty()) {
           updateBucketState(bucketId);
-          logBlock=new LogBlock(bucketId,logRecords);
+          logBlock=new LogBucket(bucketId,logRecords);
           long logBlockSize=maxBucketSize - leftBucketSize;
           unmarkedConsumedSize-=logBlockSize;
           unmarkedRecordCount-=logRecords.size();
-          consumedMemoryStorage.put(logBlock.getBlockId(),logBlockSize);
+          consumedMemoryStorage.put(logBlock.getBucketId(),logBlockSize);
           if (currentBucketId == bucketId) {
             moveToNextBucket();
           }
-          Log.i(TAG,"Created log block: id [" + logBlock.getBlockId() + "], size: "+ logBlockSize+ ". Log block record count: "+ logBlock.getRecords().size()+ ", total record count: "+ totalRecordCount+ ", unmarked record count: "+ unmarkedRecordCount);
+          Log.i(TAG,"Created log block: id [" + logBlock.getBucketId() + "], size: "+ logBlockSize+ ". Log block record count: "+ logBlock.getRecords().size()+ ", total record count: "+ totalRecordCount+ ", unmarked record count: "+ unmarkedRecordCount);
         }
  else {
           Log.i(TAG,"No unmarked log records found");

@@ -1,40 +1,32 @@
 {
-  LogBlock group;
-  if (storage.getStatus().getRecordCount() == 0) {
-    LOG.debug("Log storage is empty");
-    return;
-  }
   if (!isUploadAllowed()) {
     return;
   }
-  group=storage.getRecordBlock();
-  if (group != null) {
-    List<LogRecord> recordList=group.getRecords();
-    if (!recordList.isEmpty()) {
-      LOG.trace("Sending {} log records",recordList.size());
-      List<LogEntry> logs=new LinkedList<>();
-      for (      LogRecord record : recordList) {
-        logs.add(new LogEntry(ByteBuffer.wrap(record.getData())));
+  LogBucket bucket=storage.getNextBucket();
+  if (bucket == null || bucket.getRecords().isEmpty()) {
+    LOG.warn("No logs to send");
+    return;
+  }
+  List<LogRecord> recordList=bucket.getRecords();
+  LOG.trace("Sending {} log records",recordList.size());
+  List<LogEntry> logs=new LinkedList<>();
+  for (  LogRecord record : recordList) {
+    logs.add(new LogEntry(ByteBuffer.wrap(record.getData())));
+  }
+  request.setRequestId(bucket.getBucketId());
+  request.setLogEntries(logs);
+  final int bucketId=bucket.getBucketId();
+  Future<?> timeoutFuture=executorContext.getScheduledExecutor().schedule(new Runnable(){
+    @Override public void run(){
+      if (!Thread.currentThread().isInterrupted()) {
+        checkDeliveryTimeout(bucketId);
       }
-      request.setRequestId(group.getBlockId());
-      request.setLogEntries(logs);
-      final LogBlock timeoutGroup=group;
-      Future<?> timeoutFuture=executorContext.getScheduledExecutor().schedule(new Runnable(){
-        @Override public void run(){
-          if (!Thread.currentThread().isInterrupted()) {
-            checkDeliveryTimeout(timeoutGroup.getBlockId());
-          }
  else {
-            LOG.debug("Timeout check worker for block: {} was interrupted",timeoutGroup.getBlockId());
-          }
-        }
+        LOG.debug("Timeout check worker for log bucket: {} was interrupted",bucketId);
       }
-,strategy.getTimeout(),TimeUnit.SECONDS);
-      LOG.info("Adding following bucket id [{}] for timeout tracking",group.getBlockId());
-      timeouts.put(group.getBlockId(),timeoutFuture);
     }
   }
- else {
-    LOG.warn("Log group is null: log group size is too small");
-  }
+,strategy.getTimeout(),TimeUnit.SECONDS);
+  LOG.info("Adding following bucket id [{}] for timeout tracking",bucket.getBucketId());
+  timeouts.put(bucket.getBucketId(),timeoutFuture);
 }

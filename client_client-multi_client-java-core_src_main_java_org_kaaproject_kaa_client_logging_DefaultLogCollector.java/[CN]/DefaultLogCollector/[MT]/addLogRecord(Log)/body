@@ -5,7 +5,7 @@
       try {
         BucketInfo bucketInfo=storage.addLogRecord(new LogRecord(record));
         bucketInfoMap.put(bucketInfo.getBucketId(),bucketInfo);
-        futureMap.put(bucketInfo.getBucketId(),future);
+        addDeliveryFuture(bucketInfo,future);
       }
  catch (      IOException e) {
         LOG.warn("Can't serialize log record {}",record);
