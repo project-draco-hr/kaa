@@ -4,7 +4,7 @@
   }
   LogBucket bucket=storage.getNextBucket();
   if (bucket == null || bucket.getRecords().isEmpty()) {
-    LOG.warn("No logs to send");
+    LOG.trace("No logs to send");
     return;
   }
   List<LogRecord> recordList=bucket.getRecords();
