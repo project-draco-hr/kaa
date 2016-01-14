@@ -1,0 +1,22 @@
+{
+  clearMessages();
+  RecordField endpointProfileRecord=null;
+  RecordField serverProfileRecord=null;
+  if (endpointProfile != null) {
+    endpointProfileRecord=endpointProfileRecordPanel.getValue();
+  }
+  if (serverProfile != null) {
+    serverProfileRecord=serverProfileRecordPanel.getValue();
+  }
+  String filterBody=filterPanel.getValue();
+  KaaAdmin.getDataSource().testProfileFilter(endpointProfileRecord,serverProfileRecord,filterBody,new BusyAsyncCallback<Boolean>(){
+    @Override public void onFailureImpl(    Throwable caught){
+      Utils.handleException(caught,TestProfileFilterDialog.this,TestProfileFilterDialog.this);
+    }
+    @Override public void onSuccessImpl(    Boolean result){
+      matchedPanel.setVisible(result);
+      unmatchedPanel.setVisible(!result);
+    }
+  }
+);
+}

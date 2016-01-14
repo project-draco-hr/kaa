@@ -1,0 +1,97 @@
+{
+  setWidth("100%");
+  setTitle(Utils.constants.testProfileFilter());
+  this.listener=listener;
+  this.endpointProfileSchemaId=endpointProfileSchemaId;
+  this.serverProfileSchemaId=serverProfileSchemaId;
+  VerticalPanel dialogContents=new VerticalPanel();
+  dialogContents.setSpacing(4);
+  dialogContents.getElement().getStyle().setOverflow(Overflow.AUTO);
+  setWidget(dialogContents);
+  VerticalPanel infoPanel=new VerticalPanel();
+  matchedPanel=new AlertPanel(AlertPanel.Type.SUCCESS);
+  matchedPanel.setVisible(false);
+  matchedPanel.setWidth("720px");
+  matchedPanel.setMessage(Utils.constants.filterMatched());
+  infoPanel.add(matchedPanel);
+  unmatchedPanel=new AlertPanel(AlertPanel.Type.WARNING);
+  unmatchedPanel.setVisible(false);
+  unmatchedPanel.setWidth("720px");
+  unmatchedPanel.setMessage(Utils.constants.filterUnmatched());
+  infoPanel.add(unmatchedPanel);
+  errorPanel=new AlertPanel(AlertPanel.Type.ERROR);
+  errorPanel.setVisible(false);
+  errorPanel.setWidth("720px");
+  infoPanel.add(errorPanel);
+  infoPanel.setHeight("50px");
+  dialogContents.add(infoPanel);
+  FlexTable table=new FlexTable();
+  table.setCellSpacing(6);
+  table.addStyleName(Utils.avroUiStyle.fieldWidget());
+  int row=0;
+  profileRecordsPanel=new TabPanel();
+  table.setWidget(++row,0,profileRecordsPanel);
+  endpointProfileRecordPanel=new RecordPanel(new AvroWidgetsConfig.Builder().recordPanelWidth(700).createConfig(),Utils.constants.schema(),this,false,false);
+  endpointProfileRecordPanel.setWidth("750px");
+  endpointProfileRecordPanel.getRecordWidget().setForceNavigation(true);
+  endpointProfileRecordPanel.setPreferredHeightPx(200);
+  endpointProfileRecordPanel.setHeight("320px");
+  endpointProfileRecordPanel.getElement().getStyle().setPropertyPx("maxHeight",320);
+  endpointProfileRecordPanel.getElement().getStyle().setOverflow(Overflow.AUTO);
+  endpointProfileRecordPanel.addValueChangeHandler(new ValueChangeHandler<RecordField>(){
+    @Override public void onValueChange(    ValueChangeEvent<RecordField> event){
+      validate();
+    }
+  }
+);
+  serverProfileRecordPanel=new RecordPanel(new AvroWidgetsConfig.Builder().recordPanelWidth(700).createConfig(),Utils.constants.schema(),this,false,false);
+  serverProfileRecordPanel.setWidth("750px");
+  serverProfileRecordPanel.getRecordWidget().setForceNavigation(true);
+  serverProfileRecordPanel.setPreferredHeightPx(200);
+  serverProfileRecordPanel.setHeight("320px");
+  serverProfileRecordPanel.getElement().getStyle().setPropertyPx("maxHeight",320);
+  serverProfileRecordPanel.getElement().getStyle().setOverflow(Overflow.AUTO);
+  serverProfileRecordPanel.addValueChangeHandler(new ValueChangeHandler<RecordField>(){
+    @Override public void onValueChange(    ValueChangeEvent<RecordField> event){
+      validate();
+    }
+  }
+);
+  filterPanel=new SizedTextArea(-1);
+  filterPanel.getTextArea().getElement().getStyle().setPropertyPx("minHeight",200);
+  filterPanel.getTextArea().getElement().getStyle().setPropertyPx("maxHeight",200);
+  filterPanel.getTextArea().setWidth("725px");
+  filterPanel.getTextArea().getElement().getStyle().setPropertyPx("maxWidth",725);
+  filterPanel.addInputHandler(new InputEventHandler(){
+    @Override public void onInputChanged(    InputEvent event){
+      validate();
+    }
+  }
+);
+  SpanElement span=Document.get().createSpanElement();
+  span.appendChild(Document.get().createTextNode(Utils.constants.filterBody()));
+  span.addClassName("gwt-Label");
+  CaptionPanel filterBodyPanel=new CaptionPanel(span.getString(),true);
+  filterBodyPanel.setWidth("737px");
+  filterBodyPanel.add(filterPanel);
+  table.setWidget(++row,0,filterBodyPanel);
+  table.getFlexCellFormatter().setColSpan(row,0,2);
+  dialogContents.add(table);
+  testFilterButton=new Button(Utils.constants.testFilter(),new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      performTest();
+    }
+  }
+);
+  testFilterButton.setEnabled(false);
+  Button closeButton=new Button(Utils.constants.close(),new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      hide();
+    }
+  }
+);
+  addButton(testFilterButton);
+  addButton(closeButton);
+  filterPanel.setValue(filterBody);
+  load();
+}
