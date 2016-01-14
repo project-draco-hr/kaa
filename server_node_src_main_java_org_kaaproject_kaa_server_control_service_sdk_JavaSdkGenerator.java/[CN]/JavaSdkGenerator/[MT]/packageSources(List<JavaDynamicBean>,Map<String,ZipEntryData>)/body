@@ -1,15 +1,2 @@
 {
-  JavaDynamicCompiler dynamicCompiler=new JavaDynamicCompiler();
-  dynamicCompiler.init();
-  for (  JavaDynamicBean bean : javaSources) {
-    LOG.debug("Compiling bean {} with source: {}",bean.getName(),bean.getCharContent(true));
-  }
-  Collection<JavaDynamicBean> compiledObjects=dynamicCompiler.compile(javaSources);
-  for (  JavaDynamicBean compiledObject : compiledObjects) {
-    String className=compiledObject.getName();
-    String classFileName=className.replace('.','/') + Kind.CLASS.extension;
-    ZipEntry classFile=new ZipEntry(classFileName);
-    ZipEntryData zipEntryData=new ZipEntryData(classFile,compiledObject.getBytes());
-    data.put(classFileName,zipEntryData);
-  }
 }
