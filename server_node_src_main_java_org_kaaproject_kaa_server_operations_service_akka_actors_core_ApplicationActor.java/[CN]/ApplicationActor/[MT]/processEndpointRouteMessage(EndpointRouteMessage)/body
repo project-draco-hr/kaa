@@ -1,0 +1,12 @@
+{
+  EndpointObjectHash endpointKey=msg.getAddress().getEndpointKey();
+  GlobalEndpointActorMD actorMD=globalEndpointSessions.get(endpointKey);
+  if (actorMD == null) {
+    String endpointActorId=LocalEndpointActorCreator.generateActorKey();
+    LOG.debug("[{}] Creating global endpoint actor for endpointKey: {}",appToken,endpointKey);
+    actorMD=new GlobalEndpointActorMD(context().actorOf(Props.create(new GlobalEndpointActorCreator(context,endpointActorId,appToken,endpointKey)).withDispatcher(ENDPOINT_DISPATCHER_NAME),endpointActorId),endpointActorId);
+    globalEndpointSessions.put(endpointKey,actorMD);
+    context().watch(actorMD.actorRef);
+  }
+  actorMD.actorRef.tell(msg,self());
+}

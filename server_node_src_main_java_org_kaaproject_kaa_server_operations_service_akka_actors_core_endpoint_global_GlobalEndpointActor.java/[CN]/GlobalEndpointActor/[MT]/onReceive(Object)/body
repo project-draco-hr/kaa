@@ -1,0 +1,8 @@
+{
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{}] Received: {}",actorKey,message);
+  }
+ else {
+    LOG.debug("[{}] Received: {}",actorKey,message.getClass().getName());
+  }
+}

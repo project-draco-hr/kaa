@@ -1,5 +1,5 @@
 {
   LOG.debug("[{}] Processing status request",message.getId());
-  int endpointCount=endpointSessions.size();
+  int endpointCount=localEndpointSessions.size();
   context().parent().tell(new ApplicationActorStatusResponse(message.getId(),endpointCount),ActorRef.noSender());
 }

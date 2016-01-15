@@ -14,6 +14,9 @@
  else   if (message instanceof SessionControlMessage) {
     processSessionControlMessage((SessionControlMessage)message);
   }
+ else   if (message instanceof RouteMessage) {
+    processRouteMessage((RouteMessage<?>)message);
+  }
  else   if (message instanceof UserAwareMessage) {
     processUserAwareMessage((UserAwareMessage)message);
   }

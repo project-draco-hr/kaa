@@ -1,25 +1,25 @@
 {
   Notification notification=message.getNotification();
   if (notification.isSetNotificationId()) {
-    LOG.debug("[{}] Forwarding message to specific topic",applicationToken);
+    LOG.debug("[{}] Forwarding message to specific topic",appToken);
     sendToSpecificTopic(message);
   }
  else   if (notification.isSetKeyHash()) {
-    LOG.debug("[{}] Forwarding message to specific endpoint",applicationToken);
+    LOG.debug("[{}] Forwarding message to specific endpoint",appToken);
     sendToSpecificEndpoint(message);
   }
  else   if (notification.isSetAppenderId()) {
-    LOG.debug("[{}] Forwarding message to application log actor",applicationToken);
+    LOG.debug("[{}] Forwarding message to application log actor",appToken);
     processLogNotificationMessage(message);
   }
  else   if (notification.isSetUserVerifierToken()) {
-    LOG.debug("[{}] Forwarding message to application user verifier actor",applicationToken);
+    LOG.debug("[{}] Forwarding message to application user verifier actor",appToken);
     processUserVerifierNotificationMessage(message);
   }
  else   if (notification.getKeyHash() != null) {
   }
  else {
-    LOG.debug("[{}] Broadcasting message to all endpoints",applicationToken);
+    LOG.debug("[{}] Broadcasting message to all endpoints",appToken);
     broadcastToAllEndpoints(message);
   }
 }

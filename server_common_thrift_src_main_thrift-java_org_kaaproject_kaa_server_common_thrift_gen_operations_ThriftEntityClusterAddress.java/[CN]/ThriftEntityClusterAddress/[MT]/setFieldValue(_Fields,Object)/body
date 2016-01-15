@@ -1,0 +1,44 @@
+{
+switch (field) {
+case NODE_ID:
+    if (value == null) {
+      unsetNodeId();
+    }
+ else {
+      setNodeId((String)value);
+    }
+  break;
+case TENANT_ID:
+if (value == null) {
+  unsetTenantId();
+}
+ else {
+  setTenantId((String)value);
+}
+break;
+case APPLICATION_TOKEN:
+if (value == null) {
+unsetApplicationToken();
+}
+ else {
+setApplicationToken((String)value);
+}
+break;
+case ENTITY_TYPE:
+if (value == null) {
+unsetEntityType();
+}
+ else {
+setEntityType((ThriftClusterEntityType)value);
+}
+break;
+case ENTITY_ID:
+if (value == null) {
+unsetEntityId();
+}
+ else {
+setEntityId((ByteBuffer)value);
+}
+break;
+}
+}

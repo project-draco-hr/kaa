@@ -1,0 +1,9 @@
+{
+  for (  Entry<EndpointObjectHash,LocalEndpointActorMD> entry : localEndpointSessions.entrySet()) {
+    String globalActorNodeId=getGlobalEndpointActorNodeId(entry.getKey());
+    if (!globalActorNodeId.equals(entry.getValue().globalActorNodeId)) {
+      entry.getValue().globalActorNodeId=globalActorNodeId;
+      notifyGlobalEndpointActor(entry.getKey(),globalActorNodeId);
+    }
+  }
+}
