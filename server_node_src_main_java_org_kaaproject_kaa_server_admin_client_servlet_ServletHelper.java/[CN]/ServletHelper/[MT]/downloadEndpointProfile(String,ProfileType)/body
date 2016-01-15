@@ -1,0 +1,5 @@
+{
+  String getUrl=composeURL(KAA_PROFILE_DOWNLOAD_SERVLET_PATH,ENDPOINT_KEY_PARAMETER + "=" + URL.encodeQueryString(endpointKey),PROFILE_TYPE_PARAMETER + "=" + URL.encodeQueryString(type.name()));
+  String url=GWT.getModuleBaseURL() + getUrl;
+  Window.open(url,"_self","enabled");
+}

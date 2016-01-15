@@ -1,5 +1,4 @@
 {
-  super(false,true);
   setWidth("100%");
   setTitle(title);
   this.listener=listener;
@@ -33,7 +32,9 @@
   versionPanel.add(schemaBox);
   table.setWidget(row,0,versionPanel);
   schemaRecordPanel=new RecordPanel(new AvroWidgetsConfig.Builder().recordPanelWidth(700).createConfig(),Utils.constants.schema(),this,false,false);
-  schemaRecordPanel.setWidth("750px");
+  schemaRecordPanel.getElement().getStyle().setPropertyPx("minWidth",750);
+  schemaRecordPanel.getRecordWidget().setForceNavigation(true);
+  schemaRecordPanel.setPreferredHeightPx(250);
   schemaRecordPanel.addValueChangeHandler(new ValueChangeHandler<RecordField>(){
     @Override public void onValueChange(    ValueChangeEvent<RecordField> event){
       validate();
