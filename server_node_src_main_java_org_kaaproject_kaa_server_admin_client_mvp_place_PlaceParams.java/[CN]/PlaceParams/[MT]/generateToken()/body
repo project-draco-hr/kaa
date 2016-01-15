@@ -5,7 +5,7 @@
     if (paramsUrl.length() > 0) {
       paramsUrl.append(PARAMS_SEPARATOR);
     }
-    paramsUrl.append(key).append("=").append(val);
+    paramsUrl.append(key).append("=").append(URL.encodeQueryString(val));
   }
   return paramsUrl.toString();
 }
