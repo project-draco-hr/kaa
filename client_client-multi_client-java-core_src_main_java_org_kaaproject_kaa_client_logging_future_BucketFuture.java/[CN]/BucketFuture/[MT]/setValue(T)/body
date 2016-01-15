@@ -1,9 +1,0 @@
-{
-  try {
-    this.queue.put(new ExecutionResult<>(value,null));
-  }
- catch (  InterruptedException e) {
-    LOG.warn("Failed to push value",e);
-  }
-  state=State.DONE;
-}

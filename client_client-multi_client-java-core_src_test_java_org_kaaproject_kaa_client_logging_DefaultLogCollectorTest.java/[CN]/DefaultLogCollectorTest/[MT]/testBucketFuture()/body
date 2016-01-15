@@ -34,14 +34,14 @@
   logRecords.add(new LogRecord());
   LogBucket logBlock=new LogBucket(defaultId,logRecords);
   Mockito.when(storage.getNextBucket()).thenReturn(logBlock);
-  List<Future<BucketInfo>> deliveryFutures=new LinkedList<Future<BucketInfo>>();
+  List<RecordFuture> deliveryFutures=new LinkedList<RecordFuture>();
   for (int i=0; i < logCount; ++i) {
     deliveryFutures.add(logCollector.addLogRecord(new Log()));
   }
   LogSyncRequest request=new LogSyncRequest();
   logCollector.fillSyncRequest(request);
   logCollector.onLogResponse(response);
-  for (  Future<BucketInfo> future : deliveryFutures) {
-    Assert.assertEquals(defaultId,future.get().getBucketId());
+  for (  RecordFuture future : deliveryFutures) {
+    Assert.assertEquals(defaultId,future.get().getBucketInfo().getBucketId());
   }
 }

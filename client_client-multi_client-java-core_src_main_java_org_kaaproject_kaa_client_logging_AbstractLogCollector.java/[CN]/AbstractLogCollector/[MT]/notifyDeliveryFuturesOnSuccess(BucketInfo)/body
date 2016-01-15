@@ -1,9 +1,10 @@
 {
 synchronized (deliveryFuturesMap) {
-    List<BucketFuture<BucketInfo>> deliveryFutures=deliveryFuturesMap.get(info.getBucketId());
+    List<RecordFuture> deliveryFutures=deliveryFuturesMap.get(info.getBucketId());
     if (deliveryFutures != null) {
-      for (      BucketFuture<BucketInfo> future : deliveryFutures) {
-        future.setValue(info);
+      for (      RecordFuture future : deliveryFutures) {
+        RecordInfo recordInfo=new RecordInfo(info);
+        future.setValue(recordInfo);
       }
       deliveryFuturesMap.remove(info.getBucketId());
     }
