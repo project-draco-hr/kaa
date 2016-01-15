@@ -1,0 +1,20 @@
+{
+  try {
+    List<String> options=optionList;
+    if (additionalOptions.length > 0) {
+      List<String> newOptions=new ArrayList<>();
+      newOptions.addAll(optionList);
+      newOptions.addAll(Arrays.asList(additionalOptions));
+      options=newOptions;
+    }
+    CompilationTask task=compiler.getTask(null,javaDynamicManager,diagnostics,options,null,sources);
+    boolean result=task.call();
+    if (!result) {
+      throw new JavaDynamicException("The compilation failed",diagnostics);
+    }
+    return javaDynamicManager.getCompiledObjects();
+  }
+ catch (  Exception exception) {
+    throw new JavaDynamicException(exception,diagnostics);
+  }
+}

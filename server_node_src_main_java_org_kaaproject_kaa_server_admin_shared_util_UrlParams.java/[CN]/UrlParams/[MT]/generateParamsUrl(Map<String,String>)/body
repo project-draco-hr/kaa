@@ -5,7 +5,7 @@
     if (paramsUrl.length() > 0) {
       paramsUrl+=PARAMS_SEPARATOR;
     }
-    paramsUrl+=key + "=" + val;
+    paramsUrl+=key + "=" + URL.encodeQueryString(val);
   }
   return paramsUrl;
 }
