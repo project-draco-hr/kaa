@@ -1,0 +1,77 @@
+{
+synchronized (connection) {
+    LOG.trace("Creating a new record block, needed size: {}, batch count: {}",maxBucketSize,maxRecordCount);
+    ResultSet resultSet=null;
+    LogBucket logBlock=null;
+    PreparedStatement selectBucketWithMinIdStatement=null;
+    List<LogRecord> logRecords=new LinkedList<>();
+    int bucketId=0;
+    try {
+      selectBucketWithMinIdStatement=connection.prepareStatement(PersistentLogStorageConstants.KAA_SELECT_MIN_BUCKET_ID);
+      resultSet=selectBucketWithMinIdStatement.executeQuery();
+      if (resultSet.next()) {
+        bucketId=resultSet.getInt(1);
+      }
+    }
+ catch (    SQLException e) {
+      LOG.error("Can't retrieve min bucket ID",e);
+    }
+ finally {
+      try {
+        tryCloseStatement(selectBucketWithMinIdStatement);
+        tryCloseResultSet(resultSet);
+      }
+ catch (      SQLException e) {
+        LOG.error("Can't close result set",e);
+      }
+    }
+    try {
+      long leftBlockSize=maxBucketSize;
+      if (bucketId > 0) {
+        selectUnmarkedStatement=connection.prepareStatement(PersistentLogStorageConstants.KAA_SELECT_LOG_RECORDS_BY_BUCKET_ID);
+        selectUnmarkedStatement.setInt(1,bucketId);
+        resultSet=selectUnmarkedStatement.executeQuery();
+        while (resultSet.next()) {
+          byte[] recordData=resultSet.getBytes(1);
+          if (recordData != null && recordData.length > 0) {
+            if (leftBlockSize < recordData.length) {
+              break;
+            }
+            logRecords.add(new LogRecord(recordData));
+            leftBlockSize-=recordData.length;
+          }
+ else {
+            LOG.warn("Found unmarked record with no data. Deleting it...");
+          }
+        }
+        if (!logRecords.isEmpty()) {
+          updateBucketState(bucketId);
+          logBlock=new LogBucket(bucketId,logRecords);
+          long logBlockSize=maxBucketSize - leftBlockSize;
+          unmarkedConsumedSize-=logBlockSize;
+          unmarkedRecordCount-=logRecords.size();
+          consumedMemoryStorage.put(logBlock.getBucketId(),logBlockSize);
+          if (currentBucketId == bucketId) {
+            moveToNextBucket();
+          }
+          LOG.info("Created log block: id [{}], size {}. Log block record count: {}, total record count: {}," + " unmarked record count: {}",logBlock.getBucketId(),logBlockSize,logBlock.getRecords().size(),totalRecordCount,unmarkedRecordCount);
+        }
+ else {
+          LOG.info("No unmarked log records found");
+        }
+      }
+    }
+ catch (    SQLException e) {
+      LOG.error("Can't retrieve unmarked records from storage",e);
+    }
+ finally {
+      try {
+        tryCloseResultSet(resultSet);
+      }
+ catch (      SQLException e) {
+        LOG.error("Can't close result set",e);
+      }
+    }
+    return logBlock;
+  }
+}

@@ -1,0 +1,13 @@
+{
+  Log.i(TAG,"Connecting to db with name: " + dbName);
+  dbHelper=new DataCollectionDBHelper(context,dbName);
+  database=dbHelper.getWritableDatabase();
+  this.maxRecordCount=recordCount;
+  this.maxBucketSize=bucketSize;
+  truncateIfBucketSizeIncompatible();
+  retrieveConsumedSizeAndVolume();
+  if (totalRecordCount > 0) {
+    retrieveBucketId();
+    resetBucketsState();
+  }
+}

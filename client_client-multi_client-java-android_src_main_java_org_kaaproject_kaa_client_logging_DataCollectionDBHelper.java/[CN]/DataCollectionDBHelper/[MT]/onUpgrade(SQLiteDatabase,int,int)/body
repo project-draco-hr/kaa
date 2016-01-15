@@ -1,5 +1,6 @@
 {
   Log.i(TAG,"Database was upgraded. Dropping its contents");
-  sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + PersistentLogStorageConstants.TABLE_NAME);
+  sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + PersistentLogStorageConstants.LOG_TABLE_NAME);
+  sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + PersistentLogStorageConstants.STORAGE_INFO_TABLE_NAME);
   onCreate(sqLiteDatabase);
 }

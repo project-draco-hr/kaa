@@ -1,13 +1,15 @@
 {
   KaaChannelManager channelManager=Mockito.mock(KaaChannelManager.class);
   FailoverManager failoverManager=Mockito.mock(FailoverManager.class);
+  LogDeliveryListener deliveryListener=Mockito.mock(LogDeliveryListener.class);
   LogTransport transport=Mockito.mock(LogTransport.class);
   AbstractLogCollector logCollector=new DefaultLogCollector(transport,executorContext,channelManager,failoverManager);
-  DefaultLogUploadStrategy strategy=new DefaultLogUploadStrategy();
+  DefaultLogUploadStrategy strategy=Mockito.spy(new DefaultLogUploadStrategy());
   logCollector.setStrategy(strategy);
   LogStorage storage=Mockito.mock(LogStorage.class);
   logCollector.setStorage(storage);
   Log record=new Log();
+  Mockito.when(storage.addLogRecord(Mockito.any(LogRecord.class))).thenReturn(new BucketInfo(1,1));
   Mockito.when(storage.getStatus()).thenReturn(new LogStorageStatus(){
     @Override public long getRecordCount(){
       return 1;
@@ -32,13 +34,15 @@
   }
 );
   logCollector.addLogRecord(record);
-  Mockito.when(storage.getRecordBlock(Mockito.anyLong(),Mockito.anyInt())).thenReturn(new LogBlock(1,Arrays.asList(new LogRecord(record),new LogRecord(record),new LogRecord(record))));
+  Mockito.when(storage.getNextBucket()).thenReturn(new LogBucket(0,Arrays.asList(new LogRecord(record),new LogRecord(record),new LogRecord(record))));
   LogSyncRequest request1=new LogSyncRequest();
   logCollector.fillSyncRequest(request1);
   Assert.assertEquals(3,request1.getLogEntries().size());
   LogSyncResponse uploadResponse=new LogSyncResponse();
   LogDeliveryStatus status=new LogDeliveryStatus(request1.getRequestId(),SyncResponseResultType.SUCCESS,null);
   uploadResponse.setDeliveryStatuses(Collections.singletonList(status));
+  logCollector.setLogDeliveryListener(deliveryListener);
   logCollector.onLogResponse(uploadResponse);
+  verify(deliveryListener,Mockito.timeout(1000)).onLogDeliverySuccess(Mockito.any(BucketInfo.class));
   verify(transport,Mockito.timeout(1000).times(2)).sync();
 }
