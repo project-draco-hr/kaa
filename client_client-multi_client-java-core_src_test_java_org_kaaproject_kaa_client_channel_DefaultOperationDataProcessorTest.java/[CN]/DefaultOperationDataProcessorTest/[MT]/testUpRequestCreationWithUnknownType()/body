@@ -1,5 +1,6 @@
 {
-  DefaultOperationDataProcessor operationsDataProcessor=new DefaultOperationDataProcessor();
+  KaaClientState state=Mockito.mock(KaaClientState.class);
+  DefaultOperationDataProcessor operationsDataProcessor=new DefaultOperationDataProcessor(state);
   Map<TransportType,ChannelDirection> types=new HashMap<>();
   types.put(TransportType.BOOTSTRAP,ChannelDirection.BIDIRECTIONAL);
   assertNull(operationsDataProcessor.compileRequest(types));
