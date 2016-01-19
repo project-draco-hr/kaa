@@ -1,0 +1,11 @@
+{
+  String serverId=getEntityNode(msg.getAddress().getEndpointKey());
+  NeighborConnection<MessageTemplate,ThriftEntityRouteMessage> server=neighbors.getNeghborConnection(serverId);
+  if (server == null) {
+    LOG.warn("specified server {} not found in neighbors list",serverId);
+  }
+ else {
+    sendMessagesToServer(server,Collections.singleton(toThriftMsg(msg)));
+  }
+  return serverId;
+}

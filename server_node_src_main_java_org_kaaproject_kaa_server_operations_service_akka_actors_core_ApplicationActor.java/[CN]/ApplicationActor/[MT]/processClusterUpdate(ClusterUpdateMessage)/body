@@ -6,4 +6,7 @@
       notifyGlobalEndpointActor(entry.getKey(),globalActorNodeId);
     }
   }
+  for (  GlobalEndpointActorMD entry : globalEndpointSessions.values()) {
+    entry.actorRef.tell(message,context().self());
+  }
 }

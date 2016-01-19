@@ -6,24 +6,9 @@
     oprot.writeString(struct.nodeId);
     oprot.writeFieldEnd();
   }
-  if (struct.tenantId != null) {
-    oprot.writeFieldBegin(TENANT_ID_FIELD_DESC);
-    oprot.writeString(struct.tenantId);
-    oprot.writeFieldEnd();
-  }
-  if (struct.applicationToken != null) {
-    oprot.writeFieldBegin(APPLICATION_TOKEN_FIELD_DESC);
-    oprot.writeString(struct.applicationToken);
-    oprot.writeFieldEnd();
-  }
-  if (struct.entityType != null) {
-    oprot.writeFieldBegin(ENTITY_TYPE_FIELD_DESC);
-    oprot.writeI32(struct.entityType.getValue());
-    oprot.writeFieldEnd();
-  }
-  if (struct.entityId != null) {
-    oprot.writeFieldBegin(ENTITY_ID_FIELD_DESC);
-    oprot.writeBinary(struct.entityId);
+  if (struct.address != null) {
+    oprot.writeFieldBegin(ADDRESS_FIELD_DESC);
+    struct.address.write(oprot);
     oprot.writeFieldEnd();
   }
   oprot.writeFieldStop();

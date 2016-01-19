@@ -8,7 +8,10 @@
   if (message instanceof EndpointAwareMessage) {
     processEndpointAwareMessage((EndpointAwareMessage)message);
   }
-  if (message instanceof SessionAware) {
+  if (message instanceof EndpointActorMsg) {
+    processEndpointActorMsg((EndpointActorMsg)message);
+  }
+ else   if (message instanceof SessionAware) {
     processSessionAwareMessage((SessionAware)message);
   }
  else   if (message instanceof EndpointEventDeliveryMessage) {

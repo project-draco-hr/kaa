@@ -2,9 +2,23 @@
   if (neighbors == null) {
 synchronized (zkLock) {
       if (neighbors == null) {
-        neighbors=new Neighbors<NeighborTemplate<UserConfigurationUpdate>,UserConfigurationUpdate>(new NeighborTemplate<UserConfigurationUpdate>(){
-          @Override public void process(          Iface client,          List<UserConfigurationUpdate> messages) throws TException {
-            client.sendUserConfigurationUpdates(messages);
+        neighbors=new Neighbors<NeighborTemplate<OperationsServiceMsg>,OperationsServiceMsg>(new NeighborTemplate<OperationsServiceMsg>(){
+          @Override public void process(          Iface client,          List<OperationsServiceMsg> messages) throws TException {
+            List<UserConfigurationUpdate> updates=new ArrayList<UserConfigurationUpdate>();
+            for (            OperationsServiceMsg msg : messages) {
+              if (msg.getUnicastNotificationMsg() != null) {
+                client.onUnicastNotification(msg.getUnicastNotificationMsg());
+              }
+              if (msg.getServerProfileUpdateMsg() != null) {
+                client.onServerProfileUpdate(msg.getServerProfileUpdateMsg());
+              }
+              if (msg.getUserConfigurationUpdateMsg() != null) {
+                updates.add(msg.getUserConfigurationUpdateMsg());
+              }
+            }
+            if (updates.size() > 0) {
+              client.sendUserConfigurationUpdates(updates);
+            }
           }
           @Override public void onServerError(          String serverId,          Exception e){
             LOG.error("Can't send configuration update to {}",serverId,e);

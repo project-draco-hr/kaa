@@ -1,19 +1,11 @@
 {
   if (this == obj)   return true;
-  if (obj == null)   return false;
+  if (!super.equals(obj))   return false;
   if (getClass() != obj.getClass())   return false;
   EntityClusterAddress other=(EntityClusterAddress)obj;
-  if (appToken == null) {
-    if (other.appToken != null)     return false;
-  }
- else   if (!appToken.equals(other.appToken))   return false;
   if (nodeId == null) {
     if (other.nodeId != null)     return false;
   }
  else   if (!nodeId.equals(other.nodeId))   return false;
-  if (tenantId == null) {
-    if (other.tenantId != null)     return false;
-  }
- else   if (!tenantId.equals(other.tenantId))   return false;
   return true;
 }

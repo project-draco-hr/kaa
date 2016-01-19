@@ -1,0 +1,14 @@
+{
+  LOG.debug("[{}] Processing {} operation for address {}",endpointKey,message.getOperation(),message.getAddress());
+switch (message.getOperation()) {
+case ADD:
+case UPDATE:
+    routes.add(message.getAddress());
+  break;
+case DELETE:
+routes.remove(message.getAddress());
+break;
+default :
+break;
+}
+}

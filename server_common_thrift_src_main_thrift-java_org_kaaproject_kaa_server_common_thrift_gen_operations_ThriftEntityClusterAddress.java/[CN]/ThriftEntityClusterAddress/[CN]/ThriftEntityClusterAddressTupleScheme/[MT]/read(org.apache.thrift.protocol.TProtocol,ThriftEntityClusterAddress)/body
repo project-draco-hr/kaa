@@ -1,24 +1,13 @@
 {
   TTupleProtocol iprot=(TTupleProtocol)prot;
-  BitSet incoming=iprot.readBitSet(5);
+  BitSet incoming=iprot.readBitSet(2);
   if (incoming.get(0)) {
     struct.nodeId=iprot.readString();
     struct.setNodeIdIsSet(true);
   }
   if (incoming.get(1)) {
-    struct.tenantId=iprot.readString();
-    struct.setTenantIdIsSet(true);
-  }
-  if (incoming.get(2)) {
-    struct.applicationToken=iprot.readString();
-    struct.setApplicationTokenIsSet(true);
-  }
-  if (incoming.get(3)) {
-    struct.entityType=org.kaaproject.kaa.server.common.thrift.gen.operations.ThriftClusterEntityType.findByValue(iprot.readI32());
-    struct.setEntityTypeIsSet(true);
-  }
-  if (incoming.get(4)) {
-    struct.entityId=iprot.readBinary();
-    struct.setEntityIdIsSet(true);
+    struct.address=new ThriftEntityAddress();
+    struct.address.read(iprot);
+    struct.setAddressIsSet(true);
   }
 }

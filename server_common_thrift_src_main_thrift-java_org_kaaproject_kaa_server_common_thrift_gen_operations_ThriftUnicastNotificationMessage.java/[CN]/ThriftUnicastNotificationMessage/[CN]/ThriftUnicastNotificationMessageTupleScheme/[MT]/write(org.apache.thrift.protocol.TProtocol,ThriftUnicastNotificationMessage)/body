@@ -1,0 +1,23 @@
+{
+  TTupleProtocol oprot=(TTupleProtocol)prot;
+  BitSet optionals=new BitSet();
+  if (struct.isSetAddress()) {
+    optionals.set(0);
+  }
+  if (struct.isSetActorClassifier()) {
+    optionals.set(1);
+  }
+  if (struct.isSetNotificationId()) {
+    optionals.set(2);
+  }
+  oprot.writeBitSet(optionals,3);
+  if (struct.isSetAddress()) {
+    struct.address.write(oprot);
+  }
+  if (struct.isSetActorClassifier()) {
+    struct.actorClassifier.write(oprot);
+  }
+  if (struct.isSetNotificationId()) {
+    oprot.writeString(struct.notificationId);
+  }
+}

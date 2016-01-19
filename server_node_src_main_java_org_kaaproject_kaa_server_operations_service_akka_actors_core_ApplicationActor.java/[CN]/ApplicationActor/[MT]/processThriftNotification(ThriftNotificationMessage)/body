@@ -16,8 +16,6 @@
     LOG.debug("[{}] Forwarding message to application user verifier actor",appToken);
     processUserVerifierNotificationMessage(message);
   }
- else   if (notification.getKeyHash() != null) {
-  }
  else {
     LOG.debug("[{}] Broadcasting message to all endpoints",appToken);
     broadcastToAllEndpoints(message);

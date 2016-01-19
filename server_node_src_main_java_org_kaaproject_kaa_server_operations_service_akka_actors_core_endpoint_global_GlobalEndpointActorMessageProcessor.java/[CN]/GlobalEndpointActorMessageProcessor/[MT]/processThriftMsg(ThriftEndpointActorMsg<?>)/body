@@ -1,0 +1,9 @@
+{
+  Object thriftMsg=msg.getMsg();
+  if (thriftMsg instanceof ThriftServerProfileUpdateMessage) {
+    processServerProfileUpdateMsg(msg.getAddress(),(ThriftServerProfileUpdateMessage)thriftMsg);
+  }
+ else   if (thriftMsg instanceof ThriftUnicastNotificationMessage) {
+    processUnicastNotificationMsg(msg.getAddress(),(ThriftUnicastNotificationMessage)thriftMsg);
+  }
+}

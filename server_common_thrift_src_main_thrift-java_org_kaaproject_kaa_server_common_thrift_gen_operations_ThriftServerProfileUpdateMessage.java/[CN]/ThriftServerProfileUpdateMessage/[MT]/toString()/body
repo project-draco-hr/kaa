@@ -1,0 +1,23 @@
+{
+  StringBuilder sb=new StringBuilder("ThriftServerProfileUpdateMessage(");
+  boolean first=true;
+  sb.append("address:");
+  if (this.address == null) {
+    sb.append("null");
+  }
+ else {
+    sb.append(this.address);
+  }
+  first=false;
+  if (!first)   sb.append(", ");
+  sb.append("actorClassifier:");
+  if (this.actorClassifier == null) {
+    sb.append("null");
+  }
+ else {
+    sb.append(this.actorClassifier);
+  }
+  first=false;
+  sb.append(")");
+  return sb.toString();
+}

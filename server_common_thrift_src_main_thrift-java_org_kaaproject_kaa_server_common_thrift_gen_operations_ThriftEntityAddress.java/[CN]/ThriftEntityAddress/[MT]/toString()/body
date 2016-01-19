@@ -1,0 +1,41 @@
+{
+  StringBuilder sb=new StringBuilder("ThriftEntityAddress(");
+  boolean first=true;
+  sb.append("tenantId:");
+  if (this.tenantId == null) {
+    sb.append("null");
+  }
+ else {
+    sb.append(this.tenantId);
+  }
+  first=false;
+  if (!first)   sb.append(", ");
+  sb.append("applicationToken:");
+  if (this.applicationToken == null) {
+    sb.append("null");
+  }
+ else {
+    sb.append(this.applicationToken);
+  }
+  first=false;
+  if (!first)   sb.append(", ");
+  sb.append("entityType:");
+  if (this.entityType == null) {
+    sb.append("null");
+  }
+ else {
+    sb.append(this.entityType);
+  }
+  first=false;
+  if (!first)   sb.append(", ");
+  sb.append("entityId:");
+  if (this.entityId == null) {
+    sb.append("null");
+  }
+ else {
+    org.apache.thrift.TBaseHelper.toString(this.entityId,sb);
+  }
+  first=false;
+  sb.append(")");
+  return sb.toString();
+}

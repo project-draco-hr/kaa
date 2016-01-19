@@ -4,32 +4,14 @@
   if (struct.isSetNodeId()) {
     optionals.set(0);
   }
-  if (struct.isSetTenantId()) {
+  if (struct.isSetAddress()) {
     optionals.set(1);
   }
-  if (struct.isSetApplicationToken()) {
-    optionals.set(2);
-  }
-  if (struct.isSetEntityType()) {
-    optionals.set(3);
-  }
-  if (struct.isSetEntityId()) {
-    optionals.set(4);
-  }
-  oprot.writeBitSet(optionals,5);
+  oprot.writeBitSet(optionals,2);
   if (struct.isSetNodeId()) {
     oprot.writeString(struct.nodeId);
   }
-  if (struct.isSetTenantId()) {
-    oprot.writeString(struct.tenantId);
-  }
-  if (struct.isSetApplicationToken()) {
-    oprot.writeString(struct.applicationToken);
-  }
-  if (struct.isSetEntityType()) {
-    oprot.writeI32(struct.entityType.getValue());
-  }
-  if (struct.isSetEntityId()) {
-    oprot.writeBinary(struct.entityId);
+  if (struct.isSetAddress()) {
+    struct.address.write(oprot);
   }
 }

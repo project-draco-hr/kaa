@@ -17,40 +17,14 @@ case 1:
       }
     break;
 case 2:
-  if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
-    struct.tenantId=iprot.readString();
-    struct.setTenantIdIsSet(true);
+  if (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) {
+    struct.address=new ThriftEntityAddress();
+    struct.address.read(iprot);
+    struct.setAddressIsSet(true);
   }
  else {
     org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);
   }
-break;
-case 3:
-if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
-struct.applicationToken=iprot.readString();
-struct.setApplicationTokenIsSet(true);
-}
- else {
-org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);
-}
-break;
-case 4:
-if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
-struct.entityType=org.kaaproject.kaa.server.common.thrift.gen.operations.ThriftClusterEntityType.findByValue(iprot.readI32());
-struct.setEntityTypeIsSet(true);
-}
- else {
-org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);
-}
-break;
-case 5:
-if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
-struct.entityId=iprot.readBinary();
-struct.setEntityIdIsSet(true);
-}
- else {
-org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);
-}
 break;
 default :
 org.apache.thrift.protocol.TProtocolUtil.skip(iprot,schemeField.type);

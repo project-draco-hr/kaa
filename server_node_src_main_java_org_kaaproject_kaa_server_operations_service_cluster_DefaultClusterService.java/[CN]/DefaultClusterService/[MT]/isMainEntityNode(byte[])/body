@@ -1,0 +1,10 @@
+{
+  String entityIdStr=Base64Util.encode(entityId);
+  OperationsNodeInfo info=resolver.getNode(entityIdStr);
+  if (info == null) {
+    return false;
+  }
+  String nodeId=Neighbors.getServerID(info.getConnectionInfo());
+  LOG.trace("Comparing {} to {} for entity {}",id,nodeId,entityIdStr);
+  return id.equals(nodeId);
+}

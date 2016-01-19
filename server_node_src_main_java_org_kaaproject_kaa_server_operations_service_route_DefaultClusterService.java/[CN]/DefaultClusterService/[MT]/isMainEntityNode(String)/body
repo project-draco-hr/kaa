@@ -1,8 +1,0 @@
-{
-  OperationsNodeInfo info=resolver.getNode(entityId);
-  if (info == null) {
-    return false;
-  }
-  LOG.trace("comparing {} to {} for entity {}",id,info.getConnectionInfo(),entityId);
-  return id.equals(Neighbors.getServerID(info.getConnectionInfo()));
-}
