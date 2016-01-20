@@ -38,19 +38,9 @@
     oprot.writeString(struct.notificationId);
     oprot.writeFieldEnd();
   }
-  if (struct.unicastNotificationId != null) {
-    oprot.writeFieldBegin(UNICAST_NOTIFICATION_ID_FIELD_DESC);
-    oprot.writeString(struct.unicastNotificationId);
-    oprot.writeFieldEnd();
-  }
   if (struct.topicId != null) {
     oprot.writeFieldBegin(TOPIC_ID_FIELD_DESC);
     oprot.writeString(struct.topicId);
-    oprot.writeFieldEnd();
-  }
-  if (struct.keyHash != null) {
-    oprot.writeFieldBegin(KEY_HASH_FIELD_DESC);
-    oprot.writeBinary(struct.keyHash);
     oprot.writeFieldEnd();
   }
   if (struct.op != null) {

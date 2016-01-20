@@ -8,6 +8,9 @@
   if (message instanceof SyncRequestMessage) {
     processEndpointSync((SyncRequestMessage)message);
   }
+ else   if (message instanceof EndpointActorMsg) {
+    processEndpointActorMsg((EndpointActorMsg)message);
+  }
  else   if (message instanceof EndpointEventReceiveMessage) {
     processEndpointEventReceiveMessage((EndpointEventReceiveMessage)message);
   }

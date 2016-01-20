@@ -1,6 +1,7 @@
 {
   akkaService=new DefaultAkkaService();
   AkkaContext context=new AkkaContext();
+  clusterService=mock(ClusterService.class);
   cacheService=mock(CacheService.class);
   metricsService=mock(MetricsService.class);
   operationsKeyStoreService=mock(KeyStoreService.class);
@@ -11,6 +12,7 @@
   logAppenderService=mock(LogAppenderService.class);
   endpointUserService=mock(EndpointUserService.class);
   ctlService=mock(CTLService.class);
+  ReflectionTestUtils.setField(context,"clusterService",clusterService);
   ReflectionTestUtils.setField(context,"cacheService",cacheService);
   ReflectionTestUtils.setField(context,"metricsService",metricsService);
   ReflectionTestUtils.setField(context,"operationsKeyStoreService",operationsKeyStoreService);
@@ -31,6 +33,7 @@
   if (akkaService.getActorSystem() == null) {
     akkaService.initActorSystem();
   }
+  clusterServiceListener=(AkkaClusterServiceListener)ReflectionTestUtils.getField(akkaService,"clusterListener");
   clientPublicKey=ByteBuffer.wrap(clientPair.getPublic().getEncoded());
   clientPublicKeyHash=ByteBuffer.wrap(SHA1HashUtils.hashToBytes(clientPair.getPublic().getEncoded()));
   targetPublicKeyHash=ByteBuffer.wrap(SHA1HashUtils.hashToBytes(targetPair.getPublic().getEncoded()));
@@ -42,6 +45,7 @@
   applicationDto=new ApplicationDto();
   applicationDto.setId(APP_ID);
   applicationDto.setApplicationToken(APP_TOKEN);
+  applicationDto.setTenantId(TENANT_ID);
   ServerSync response=new ServerSync();
   response.setRequestId(REQUEST_ID);
   response.setStatus(org.kaaproject.kaa.server.sync.SyncStatus.SUCCESS);
@@ -89,4 +93,7 @@
   when(applicationService.findAppById(APP_ID)).thenReturn(applicationDto);
   when(endpointUserService.findUserVerifiers(APP_ID)).thenReturn(new ArrayList<UserVerifierDto>());
   when(eventService.isMainUserNode(Mockito.anyString())).thenReturn(true);
+  when(clusterService.getNodeId()).thenReturn(LOCAL_NODE_ID);
+  when(clusterService.getEntityNode(Mockito.any(byte[].class))).thenReturn(LOCAL_NODE_ID);
+  when(clusterService.getEntityNode(Mockito.any(EndpointObjectHash.class))).thenReturn(LOCAL_NODE_ID);
 }

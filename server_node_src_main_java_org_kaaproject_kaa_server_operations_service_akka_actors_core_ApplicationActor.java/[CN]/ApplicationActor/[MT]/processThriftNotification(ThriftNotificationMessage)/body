@@ -4,10 +4,6 @@
     LOG.debug("[{}] Forwarding message to specific topic",appToken);
     sendToSpecificTopic(message);
   }
- else   if (notification.isSetKeyHash()) {
-    LOG.debug("[{}] Forwarding message to specific endpoint",appToken);
-    sendToSpecificEndpoint(message);
-  }
  else   if (notification.isSetAppenderId()) {
     LOG.debug("[{}] Forwarding message to application log actor",appToken);
     processLogNotificationMessage(message);

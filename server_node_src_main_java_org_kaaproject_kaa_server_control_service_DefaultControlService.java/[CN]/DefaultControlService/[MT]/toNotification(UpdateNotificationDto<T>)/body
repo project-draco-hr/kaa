@@ -12,11 +12,6 @@
       NotificationDto dto=(NotificationDto)payload;
       thriftNotification.setNotificationId(dto.getId());
     }
- else     if (payload instanceof EndpointNotificationDto) {
-      EndpointNotificationDto unicastDto=(EndpointNotificationDto)payload;
-      thriftNotification.setKeyHash(unicastDto.getEndpointKeyHash());
-      thriftNotification.setUnicastNotificationId(unicastDto.getId());
-    }
   }
   return thriftNotification;
 }

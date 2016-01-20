@@ -19,7 +19,6 @@
   thriftNotification.setAppId(APP_ID);
   thriftNotification.setTopicId(TOPIC_ID);
   thriftNotification.setNotificationId(UNICAST_NOTIFICATION_ID);
-  thriftNotification.setKeyHash(clientPublicKeyHash);
   akkaService.onNotification(thriftNotification);
   Mockito.verify(operationsService,Mockito.timeout(TIMEOUT / 2).atLeastOnce()).syncProfile(Mockito.any(SyncContext.class),Mockito.any(ProfileClientSync.class));
   Mockito.verify(operationsService,Mockito.timeout(TIMEOUT / 2).atLeastOnce()).updateSyncResponse(noDeltaResponseWithTopicState.getResponse(),Collections.singletonList(topicNotification),null);

@@ -14,11 +14,10 @@
   Mockito.verify(operationsService,Mockito.timeout(TIMEOUT / 2).atLeastOnce()).syncProfile(Mockito.any(SyncContext.class),Mockito.any(ProfileClientSync.class));
   Mockito.when(operationsService.updateSyncResponse(noDeltaResponse.getResponse(),new ArrayList<NotificationDto>(),UNICAST_NOTIFICATION_ID)).thenReturn(noDeltaResponse.getResponse());
   Mockito.when(applicationService.findAppById(APP_ID)).thenReturn(applicationDto);
-  Notification thriftNotification=new Notification();
-  thriftNotification.setAppId(APP_ID);
-  thriftNotification.setUnicastNotificationId(UNICAST_NOTIFICATION_ID);
-  thriftNotification.setKeyHash(clientPublicKeyHash.array());
-  akkaService.onNotification(thriftNotification);
+  EndpointAddress address=new EndpointAddress(applicationDto.getTenantId(),applicationDto.getApplicationToken(),EndpointObjectHash.fromBytes(clientPublicKeyHash.array()));
+  ActorClassifier classifier=new ActorClassifier(true);
+  ThriftUnicastNotificationMessage msg=new ThriftUnicastNotificationMessage(null,null,UNICAST_NOTIFICATION_ID);
+  clusterServiceListener.onEndpointActorMsg(new ThriftEndpointActorMsg<ThriftUnicastNotificationMessage>(address,classifier,msg));
   Mockito.verify(operationsService,Mockito.timeout(10 * TIMEOUT / 2).atLeastOnce()).updateSyncResponse(noDeltaResponse.getResponse(),new ArrayList<NotificationDto>(),UNICAST_NOTIFICATION_ID);
   Mockito.verify(responseBuilder,Mockito.timeout(TIMEOUT).atLeastOnce()).build(Mockito.any(byte[].class),Mockito.any(boolean.class));
 }

@@ -5,7 +5,6 @@
   thriftNotification.setAppId(APP_ID);
   thriftNotification.setTopicId(TOPIC_ID);
   thriftNotification.setNotificationId(UNICAST_NOTIFICATION_ID);
-  thriftNotification.setKeyHash(clientPublicKeyHash);
   akkaService.onNotification(thriftNotification);
   Mockito.when(notificationDeltaService.findNotificationById(UNICAST_NOTIFICATION_ID)).thenReturn(topicNotification);
   SyncRequest request=new SyncRequest();
