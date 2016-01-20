@@ -1,12 +1,10 @@
 {
 switch (field$) {
 case 0:
-    return appStateSeqNumber;
+    return responseStatus;
 case 1:
-  return responseStatus;
+  return confSchemaBody;
 case 2:
-return confSchemaBody;
-case 3:
 return confDeltaBody;
 default :
 throw new org.apache.avro.AvroRuntimeException("Bad index");

@@ -1,23 +1,19 @@
 {
   super(other);
-  if (isValidValue(fields()[0],other.appStateSeqNumber)) {
-    this.appStateSeqNumber=data().deepCopy(fields()[0].schema(),other.appStateSeqNumber);
+  if (isValidValue(fields()[0],other.topicListHash)) {
+    this.topicListHash=data().deepCopy(fields()[0].schema(),other.topicListHash);
     fieldSetFlags()[0]=true;
   }
-  if (isValidValue(fields()[1],other.topicListHash)) {
-    this.topicListHash=data().deepCopy(fields()[1].schema(),other.topicListHash);
+  if (isValidValue(fields()[1],other.topicStates)) {
+    this.topicStates=data().deepCopy(fields()[1].schema(),other.topicStates);
     fieldSetFlags()[1]=true;
   }
-  if (isValidValue(fields()[2],other.topicStates)) {
-    this.topicStates=data().deepCopy(fields()[2].schema(),other.topicStates);
+  if (isValidValue(fields()[2],other.acceptedUnicastNotifications)) {
+    this.acceptedUnicastNotifications=data().deepCopy(fields()[2].schema(),other.acceptedUnicastNotifications);
     fieldSetFlags()[2]=true;
   }
-  if (isValidValue(fields()[3],other.acceptedUnicastNotifications)) {
-    this.acceptedUnicastNotifications=data().deepCopy(fields()[3].schema(),other.acceptedUnicastNotifications);
+  if (isValidValue(fields()[3],other.subscriptionCommands)) {
+    this.subscriptionCommands=data().deepCopy(fields()[3].schema(),other.subscriptionCommands);
     fieldSetFlags()[3]=true;
-  }
-  if (isValidValue(fields()[4],other.subscriptionCommands)) {
-    this.subscriptionCommands=data().deepCopy(fields()[4].schema(),other.subscriptionCommands);
-    fieldSetFlags()[4]=true;
   }
 }

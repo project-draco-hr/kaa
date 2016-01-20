@@ -1,19 +1,15 @@
 {
   super(other);
-  if (isValidValue(fields()[0],other.appStateSeqNumber)) {
-    this.appStateSeqNumber=data().deepCopy(fields()[0].schema(),other.appStateSeqNumber);
+  if (isValidValue(fields()[0],other.responseStatus)) {
+    this.responseStatus=data().deepCopy(fields()[0].schema(),other.responseStatus);
     fieldSetFlags()[0]=true;
   }
-  if (isValidValue(fields()[1],other.responseStatus)) {
-    this.responseStatus=data().deepCopy(fields()[1].schema(),other.responseStatus);
+  if (isValidValue(fields()[1],other.notifications)) {
+    this.notifications=data().deepCopy(fields()[1].schema(),other.notifications);
     fieldSetFlags()[1]=true;
   }
-  if (isValidValue(fields()[2],other.notifications)) {
-    this.notifications=data().deepCopy(fields()[2].schema(),other.notifications);
+  if (isValidValue(fields()[2],other.availableTopics)) {
+    this.availableTopics=data().deepCopy(fields()[2].schema(),other.availableTopics);
     fieldSetFlags()[2]=true;
-  }
-  if (isValidValue(fields()[3],other.availableTopics)) {
-    this.availableTopics=data().deepCopy(fields()[3].schema(),other.availableTopics);
-    fieldSetFlags()[3]=true;
   }
 }

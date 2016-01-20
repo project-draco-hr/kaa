@@ -1,7 +1,7 @@
 {
   try {
     Topic record=new Topic();
-    record.id=fieldSetFlags()[0] ? this.id : (java.lang.String)defaultValue(fields()[0]);
+    record.id=fieldSetFlags()[0] ? this.id : (java.lang.Long)defaultValue(fields()[0]);
     record.name=fieldSetFlags()[1] ? this.name : (java.lang.String)defaultValue(fields()[1]);
     record.subscriptionType=fieldSetFlags()[2] ? this.subscriptionType : (org.kaaproject.kaa.common.endpoint.gen.SubscriptionType)defaultValue(fields()[2]);
     return record;
