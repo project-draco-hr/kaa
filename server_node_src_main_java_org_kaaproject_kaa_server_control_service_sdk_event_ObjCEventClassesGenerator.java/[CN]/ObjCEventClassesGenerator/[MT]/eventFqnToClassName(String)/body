@@ -1,0 +1,6 @@
+{
+  if (fqn == null || fqn.isEmpty()) {
+    throw new RuntimeException("Failed to get class name from fqn: " + fqn);
+  }
+  return fqn.substring(fqn.lastIndexOf('.') + 1);
+}
