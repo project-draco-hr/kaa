@@ -3,7 +3,7 @@
   AppSeqNumber appSeqNumber=cacheService.getAppSeqNumber(appToken);
   int curAppSeqNumber=appSeqNumber.getSeqNumber();
   HistoryDelta historyDelta=fetchHistory(endpointId,appToken,profile,curAppSeqNumber);
-  profile.setGroupStates(historyDelta.getEndpointGroupStates());
+  profile.setGroupState(historyDelta.getEndpointGroupStates());
   profile.setSequenceNumber(curAppSeqNumber);
   if (historyDelta.isConfigurationChanged() || userConfigurationChanged) {
     LOG.debug("[{}][{}] configuration change detected",appToken,endpointId);

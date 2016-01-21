@@ -2,8 +2,8 @@
   String endpointId=Base64Util.encode(profile.getEndpointKeyHash());
   HistoryDelta historyDelta=new HistoryDelta();
   if (oldAppSeqNumber == curAppSeqNumber) {
-    if (profile.getGroupStates() != null && profile.getGroupStates().size() > 0) {
-      historyDelta.setEndpointGroupStates(profile.getGroupStates());
+    if (profile.getGroupState() != null && profile.getGroupState().size() > 0) {
+      historyDelta.setEndpointGroupStates(profile.getGroupState());
     }
  else {
       historyDelta.setEndpointGroupStates(new ArrayList<EndpointGroupStateDto>());

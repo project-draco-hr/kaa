@@ -1,6 +1,6 @@
 {
   LOG.debug("[{}][{}] Calculating new topic list",appToken,endpointId);
-  List<TopicDto> topics=recalculateTopicList(profile.getGroupStates());
+  List<TopicDto> topics=recalculateTopicList(profile.getGroupState());
   Collections.sort(topics);
   long[] ids=new long[topics.size()];
   StringJoiner joiner=new StringJoiner("|");

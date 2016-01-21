@@ -30,8 +30,8 @@
     }
     endpointProfileView.setTopics(topics);
     Set<EndpointGroupDto> endpointGroupsSet=new HashSet<>();
-    if (endpointProfile.getGroupStates() != null) {
-      for (      EndpointGroupStateDto endpointGroupState : endpointProfile.getGroupStates()) {
+    if (endpointProfile.getGroupState() != null) {
+      for (      EndpointGroupStateDto endpointGroupState : endpointProfile.getGroupState()) {
         endpointGroupsSet.add(controlService.getEndpointGroup(endpointGroupState.getEndpointGroupId()));
       }
     }
