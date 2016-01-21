@@ -3,7 +3,7 @@
   KaaClientPropertiesState state=new KaaClientPropertiesState(new FilePersistentStorage(),CommonsBase64.getInstance(),props);
   NotificationTransport transport=mock(NotificationTransport.class);
   DefaultNotificationManager notificationManager=new DefaultNotificationManager(state,executorContext,transport);
-  List<Topic> topics=Arrays.asList(new Topic("id1","topic_name1",SubscriptionType.MANDATORY_SUBSCRIPTION),new Topic("id2","topic_name1",SubscriptionType.MANDATORY_SUBSCRIPTION));
+  List<Topic> topics=Arrays.asList(new Topic(1l,"topic_name1",SubscriptionType.MANDATORY_SUBSCRIPTION),new Topic(2l,"topic_name1",SubscriptionType.MANDATORY_SUBSCRIPTION));
   notificationManager.topicsListUpdated(topics);
   state.persist();
   KaaClientPropertiesState newState=new KaaClientPropertiesState(new FilePersistentStorage(),CommonsBase64.getInstance(),KaaClientPropertiesStateTest.getProperties());

@@ -8,5 +8,5 @@
   NotificationSyncRequest request=transport2.createEmptyNotificationRequest();
   Assert.assertNull(request.getAcceptedUnicastNotifications());
   Assert.assertNull(request.getSubscriptionCommands());
-  Assert.assertNull(request.getTopicListHash());
+  Assert.assertEquals(TopicListHashCalculator.NULL_LIST_HASH,request.getTopicListHash());
 }

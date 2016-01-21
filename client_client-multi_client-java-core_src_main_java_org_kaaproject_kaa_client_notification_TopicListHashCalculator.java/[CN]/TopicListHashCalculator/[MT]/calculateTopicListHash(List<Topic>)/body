@@ -1,0 +1,19 @@
+{
+  if (topics == null)   return NULL_LIST_HASH;
+  int result=EMPTRY_LIST_HASH;
+  if (!topics.isEmpty()) {
+    List<Topic> newTopics=new LinkedList<>(topics);
+    Collections.sort(newTopics,new Comparator<Topic>(){
+      @Override public int compare(      Topic o1,      Topic o2){
+        return o1.getId() < o2.getId() ? -1 : (o1.getId() < o2.getId()) ? 1 : 0;
+      }
+    }
+);
+    for (    Topic topic : newTopics) {
+      long topicId=topic.getId();
+      int elementHash=(int)(topicId ^ (topicId >>> 32));
+      result=31 * result + elementHash;
+    }
+  }
+  return result;
+}

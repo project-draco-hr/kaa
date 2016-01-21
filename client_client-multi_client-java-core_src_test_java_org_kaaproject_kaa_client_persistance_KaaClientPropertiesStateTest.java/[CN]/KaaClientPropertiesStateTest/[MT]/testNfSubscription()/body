@@ -1,14 +1,14 @@
 {
   KaaClientState state=new KaaClientPropertiesState(new FilePersistentStorage(),CommonsBase64.getInstance(),getProperties());
-  Topic topic1=Topic.newBuilder().setId("1234").setName("testName").setSubscriptionType(SubscriptionType.OPTIONAL_SUBSCRIPTION).build();
-  Topic topic2=Topic.newBuilder().setId("4321").setName("testName").setSubscriptionType(SubscriptionType.MANDATORY_SUBSCRIPTION).build();
+  Topic topic1=Topic.newBuilder().setId(1234).setName("testName").setSubscriptionType(SubscriptionType.OPTIONAL_SUBSCRIPTION).build();
+  Topic topic2=Topic.newBuilder().setId(4321).setName("testName").setSubscriptionType(SubscriptionType.MANDATORY_SUBSCRIPTION).build();
   state.addTopic(topic1);
   state.addTopic(topic2);
   state.updateTopicSubscriptionInfo(topic2.getId(),1);
   state.updateTopicSubscriptionInfo(topic1.getId(),0);
   state.updateTopicSubscriptionInfo(topic1.getId(),5);
   state.updateTopicSubscriptionInfo(topic1.getId(),1);
-  Map<String,Integer> expected=new HashMap<String,Integer>();
+  Map<Long,Integer> expected=new HashMap<>();
   expected.put(topic1.getId(),5);
   expected.put(topic2.getId(),1);
   assertEquals(expected,state.getNfSubscriptions());
