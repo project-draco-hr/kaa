@@ -92,6 +92,13 @@
     }
   }
 );
+  when(endpointService.findTopicListEntryByHash(TLCE1_HASH.getData())).then(new Answer<TopicListEntryDto>(){
+    @Override public TopicListEntryDto answer(    InvocationOnMock invocation) throws Throwable {
+      sleepABit();
+      return TLCE1;
+    }
+  }
+);
   when(configurationService.findConfSchemaByAppIdAndVersion(APP_ID,CF_SCHEMA_KEY.getVersion())).then(new Answer<ConfigurationSchemaDto>(){
     @Override public ConfigurationSchemaDto answer(    InvocationOnMock invocation) throws Throwable {
       sleepABit();

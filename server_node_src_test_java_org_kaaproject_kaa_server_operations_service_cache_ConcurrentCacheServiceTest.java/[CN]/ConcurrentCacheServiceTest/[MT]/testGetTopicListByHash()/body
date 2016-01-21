@@ -1,0 +1,10 @@
+{
+  TopicListCacheEntry entry=cacheService.getTopicListByHash(CF1_HASH);
+  assertNotNull(entry);
+  verify(endpointService,times(1)).findTopicListEntryByHash(CF1_HASH.getData());
+  reset(endpointService);
+  entry=cacheService.getTopicListByHash(CF1_HASH);
+  assertNotNull(entry);
+  verify(endpointService,times(0)).findTopicListEntryByHash(CF1_HASH.getData());
+  reset(endpointService);
+}
