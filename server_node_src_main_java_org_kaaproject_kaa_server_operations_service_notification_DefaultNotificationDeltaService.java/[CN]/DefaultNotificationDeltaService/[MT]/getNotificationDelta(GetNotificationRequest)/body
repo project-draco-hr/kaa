@@ -5,7 +5,7 @@
   Set<String> subscriptionSet=buildSubscriptionSet(profile);
   boolean subscriptionSetChanged=false;
   if (request.getTopicHash() != profile.getSimpleTopicHash()) {
-    LOG.debug("[{}] Topic list changed. recalculating topic list",endpointId);
+    LOG.debug("[{}] Topic list changed. Geting current topic list",endpointId);
     TopicListCacheEntry topicListCache=cacheService.getTopicList(EndpointObjectHash.fromBytes(profile.getTopicHash()));
     List<TopicDto> topicList=topicListCache.getTopics();
     LOG.debug("[{}] New topic list contains {} topics",endpointId,topicList.size());
@@ -86,7 +86,7 @@
   if (subscriptionSetChanged) {
     LOG.debug("[{}] Updating profile with subscription set. Size {}",endpointId,subscriptionSet.size());
     response.setSubscriptionSetChanged(true);
-    profile.setSubscriptions(new ArrayList<>(subscriptionSet));
+    response.setSubscriptionSet(subscriptionSet);
   }
   return response;
 }

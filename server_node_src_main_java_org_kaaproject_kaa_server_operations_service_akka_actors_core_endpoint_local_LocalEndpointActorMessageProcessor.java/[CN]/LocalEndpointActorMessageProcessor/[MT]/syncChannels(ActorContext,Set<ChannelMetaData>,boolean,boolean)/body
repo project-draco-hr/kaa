@@ -1,31 +1,18 @@
 {
   for (  ChannelMetaData channel : channels) {
     ClientSync originalRequest=channel.getRequestMessage().getRequest();
-    ServerSync syncResponse=channel.getResponseHolder().getResponse();
     ClientSync newRequest=new ClientSync();
     newRequest.setRequestId(originalRequest.getRequestId());
     newRequest.setClientSyncMetaData(originalRequest.getClientSyncMetaData());
     if (cfUpdate && originalRequest.getConfigurationSync() != null) {
-      ConfigurationClientSync configurationSyncRequest=originalRequest.getConfigurationSync();
-      if (syncResponse.getConfigurationSync() != null) {
-        int newSeqNumber=syncResponse.getConfigurationSync().getAppStateSeqNumber();
-        LOG.debug("[{}][{}] Change original configuration request {} appSeqNumber from {} to {}",endpointKey,actorKey,originalRequest,configurationSyncRequest.getAppStateSeqNumber(),newSeqNumber);
-        configurationSyncRequest.setAppStateSeqNumber(newSeqNumber);
-      }
-      newRequest.setConfigurationSync(configurationSyncRequest);
-      originalRequest.setConfigurationSync(null);
+      newRequest.setForceConfigurationSync(true);
+      newRequest.setConfigurationSync(originalRequest.getConfigurationSync());
     }
     if (nfUpdate && originalRequest.getNotificationSync() != null) {
-      NotificationClientSync notificationSyncRequest=originalRequest.getNotificationSync();
-      if (syncResponse.getNotificationSync() != null) {
-        int newSeqNumber=syncResponse.getNotificationSync().getAppStateSeqNumber();
-        LOG.debug("[{}][{}] Change original notification request {} appSeqNumber from {} to {}",endpointKey,actorKey,originalRequest,notificationSyncRequest.getAppStateSeqNumber(),newSeqNumber);
-        notificationSyncRequest.setAppStateSeqNumber(newSeqNumber);
-      }
-      newRequest.setNotificationSync(notificationSyncRequest);
-      originalRequest.setNotificationSync(null);
+      newRequest.setForceNotificationSync(true);
+      newRequest.setNotificationSync(originalRequest.getNotificationSync());
     }
-    LOG.debug("[{}][{}] Processing request {}",endpointKey,actorKey,originalRequest);
+    LOG.debug("[{}][{}] Processing request {}",endpointKey,actorKey,newRequest);
     sync(context,new SyncRequestMessage(channel.getRequestMessage().getSession(),newRequest,channel.getRequestMessage().getCommand(),channel.getRequestMessage().getOriginator()));
   }
 }

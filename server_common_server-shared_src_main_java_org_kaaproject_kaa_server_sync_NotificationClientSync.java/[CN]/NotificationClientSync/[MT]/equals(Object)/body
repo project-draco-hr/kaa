@@ -17,9 +17,6 @@
  else   if (!acceptedUnicastNotifications.equals(other.acceptedUnicastNotifications)) {
     return false;
   }
-  if (appStateSeqNumber != other.appStateSeqNumber) {
-    return false;
-  }
   if (subscriptionCommands == null) {
     if (other.subscriptionCommands != null) {
       return false;
@@ -28,12 +25,7 @@
  else   if (!subscriptionCommands.equals(other.subscriptionCommands)) {
     return false;
   }
-  if (topicListHash == null) {
-    if (other.topicListHash != null) {
-      return false;
-    }
-  }
- else   if (!topicListHash.equals(other.topicListHash)) {
+  if (topicListHash != other.topicListHash) {
     return false;
   }
   if (topicStates == null) {

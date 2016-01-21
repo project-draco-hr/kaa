@@ -3,7 +3,7 @@
     state.setLastActivityTime(System.currentTimeMillis());
     long start=state.getLastActivityTime();
     ChannelMetaData channel=initChannel(context,requestMessage);
-    ClientSync request=buildRequestForChannel(requestMessage,channel);
+    ClientSync request=mergeRequestForChannel(channel,requestMessage);
     ChannelType channelType=channel.getType();
     LOG.debug("[{}][{}] Processing sync request {} from {} channel [{}]",endpointKey,actorKey,request,channelType,requestMessage.getChannelUuid());
     SyncContext responseHolder=sync(request);

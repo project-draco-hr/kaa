@@ -30,5 +30,6 @@
     }
     context.setStatus(SyncStatus.PROFILE_RESYNC);
   }
+  syncProfileState(metaData.getApplicationToken(),context.getEndpointKey(),profile,false);
   return context;
 }

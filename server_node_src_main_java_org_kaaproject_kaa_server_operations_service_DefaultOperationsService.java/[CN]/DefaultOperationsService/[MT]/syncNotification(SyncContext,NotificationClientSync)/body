@@ -1,28 +1,12 @@
 {
   if (request != null) {
-    EndpointProfileDto profile=context.getEndpointProfile();
-    ClientSyncMetaData md=context.getMetaData();
-    AppSeqNumber appSeqNumber=cacheService.getAppSeqNumber(md.getApplicationToken());
-    if (context.getAppSeqNumber() == null) {
-      context.setAppSeqNumber(appSeqNumber);
-    }
-    int curAppSeqNumber=appSeqNumber.getSeqNumber();
-    LOG.trace("[{}][{}] procesing notification sync request {}.",context.getEndpointKey(),context.getRequestHash(),request);
-    LOG.debug("[{}][{}] fetching history for seq numbers {}-{}",context.getEndpointKey(),context.getRequestHash(),request.getAppStateSeqNumber(),curAppSeqNumber);
-    int startSeqNumber=Math.min(request.getAppStateSeqNumber(),profile.getNfSequenceNumber());
-    LOG.debug("[{}][{}] calculating notification delta using seq number {}",context.getEndpointKey(),context.getRequestHash(),startSeqNumber);
-    HistoryDelta historyDelta=fetchHistory(context,md.getApplicationToken(),profile,HistorySubject.NOTIFICATION,startSeqNumber,curAppSeqNumber);
-    GetNotificationResponse notificationResponse=calculateNotificationDelta(request,profile,historyDelta);
+    GetNotificationResponse notificationResponse=calculateNotificationDelta(context.getMetaData().getApplicationToken(),request,context);
     context.setSubscriptionStates(notificationResponse.getSubscriptionStates());
-    NotificationServerSync nfSyncResponse=buildNotificationSyncResponse(notificationResponse,curAppSeqNumber);
+    NotificationServerSync nfSyncResponse=buildNotificationSyncResponse(notificationResponse);
     context.setNotificationSyncResponse(nfSyncResponse);
     context.setUpdateProfileRequired(context.isUpdateProfileRequired() || notificationResponse.isSubscriptionListChanged());
-    if (historyDelta.isSmthChanged() || SyncResponseStatus.NO_DELTA != nfSyncResponse.getResponseStatus()) {
-      List<EndpointGroupStateDto> endpointGroups=historyDelta.getEndpointGroupStates();
-      LOG.debug("[{}][{}] Updating profile with endpoint groups.size {}, groups: {}",context.getEndpointKey(),context.getRequestHash(),endpointGroups.size(),endpointGroups);
-      profile.setNfGroupStates(endpointGroups);
-      profile.setNfSequenceNumber(curAppSeqNumber);
-      context.setUpdateProfileRequired(true);
+    if (notificationResponse.isSubscriptionListChanged()) {
+      context.getEndpointProfile().setSubscriptions(new ArrayList<>(notificationResponse.getSubscriptionSet()));
     }
   }
   return context;

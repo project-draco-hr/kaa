@@ -12,25 +12,24 @@
   context.setMetaData(request.getClientSyncMetaData());
   LOG.trace("[{}][{}] processing sync. Request: {}",endpointKey,context.getRequestHash(),request);
   context=operationsService.syncProfile(context,request.getProfileSync());
-  state.setProfile(context.getEndpointProfile());
   if (context.getStatus() != SyncStatus.SUCCESS) {
     return context;
   }
   if (state.isUcfHashRequiresIntialization()) {
     byte[] hash=operationsService.fetchUcfHash(appToken,state.getProfile());
-    LOG.debug("[{}][{}] Initialized endpoint object hash {}",endpointKey,context.getRequestHash(),Arrays.toString(hash));
+    LOG.debug("[{}][{}] Initialized endpoint user configuration hash {}",endpointKey,context.getRequestHash(),Arrays.toString(hash));
     state.setUcfHash(hash);
   }
   context=operationsService.processEndpointAttachDetachRequests(context,request.getUserSync());
   context=operationsService.processEventListenerRequests(context,request.getEventSync());
   if (state.isUserConfigurationUpdatePending()) {
-    context.setUserConfigurationChanged(true);
-    context.setUserConfigurationHash(state.getUcfHash());
+    EndpointProfileDto profile=context.getEndpointProfile();
+    profile.setUserConfigurationHash(state.getUcfHash());
+    profile=operationsService.syncProfileState(appToken,context.getEndpointKey(),profile,true);
   }
   context=operationsService.syncConfiguration(context,request.getConfigurationSync());
   context=operationsService.syncNotification(context,request.getNotificationSync());
   state.setProfile(operationsService.updateProfile(context));
-  state.setServerProfileChanged(false);
   LOG.trace("[{}][{}] processed sync. Response is {}",endpointKey,request.hashCode(),context.getResponse());
   return context;
 }
