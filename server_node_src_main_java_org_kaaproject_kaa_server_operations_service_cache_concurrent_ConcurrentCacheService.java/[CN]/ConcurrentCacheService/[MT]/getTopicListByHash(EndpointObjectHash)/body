@@ -1,0 +1,15 @@
+{
+  return topicListMemorizer.compute(hash,new Computable<EndpointObjectHash,TopicListCacheEntry>(){
+    @Override public TopicListCacheEntry compute(    EndpointObjectHash key){
+      LOG.debug("Fetching result for getTopicListByHash {}",key);
+      TopicListEntryDto entryDto=endpointService.findTopicListEntryByHash(key.getData());
+      if (entryDto != null) {
+        return new TopicListCacheEntry(entryDto.getSimpleHash(),EndpointObjectHash.fromBytes(entryDto.getHash()),entryDto.getTopics());
+      }
+ else {
+        return null;
+      }
+    }
+  }
+);
+}

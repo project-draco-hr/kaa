@@ -12,7 +12,7 @@
   int simpleHash=Arrays.hashCode(ids);
   EndpointObjectHash complexHash=EndpointObjectHash.fromBytes(SHA1HashUtils.hashToBytes(joiner.toString()));
   TopicListCacheEntry entry=new TopicListCacheEntry(simpleHash,complexHash,topics);
-  cacheService.saveTopicList(entry);
+  cacheService.putTopicList(complexHash,entry);
   LOG.debug("[{}][{}] Calculated new topic list {}",appToken,endpointId,entry);
   return entry;
 }
