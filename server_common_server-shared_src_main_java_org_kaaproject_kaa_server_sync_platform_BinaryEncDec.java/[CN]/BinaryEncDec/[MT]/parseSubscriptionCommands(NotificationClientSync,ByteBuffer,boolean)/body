@@ -3,10 +3,11 @@
   if (nfSync.getSubscriptionCommands() == null) {
     nfSync.setSubscriptionCommands(new ArrayList<SubscriptionCommand>());
   }
+  SubscriptionCommandType subscriptionType=add ? SubscriptionCommandType.ADD : SubscriptionCommandType.REMOVE;
   List<SubscriptionCommand> commands=new ArrayList<SubscriptionCommand>();
   for (int i=0; i < count; i++) {
     long topicId=buf.getLong();
-    commands.add(new SubscriptionCommand(String.valueOf(topicId),add ? SubscriptionCommandType.ADD : SubscriptionCommandType.REMOVE));
+    commands.add(new SubscriptionCommand(topicId,subscriptionType));
   }
   nfSync.getSubscriptionCommands().addAll(commands);
 }

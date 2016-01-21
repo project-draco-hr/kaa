@@ -1,7 +1,7 @@
 {
   try {
     SubscriptionCommand record=new SubscriptionCommand();
-    record.topicId=fieldSetFlags()[0] ? this.topicId : (java.lang.String)defaultValue(fields()[0]);
+    record.topicId=fieldSetFlags()[0] ? this.topicId : (java.lang.Long)defaultValue(fields()[0]);
     record.command=fieldSetFlags()[1] ? this.command : (org.kaaproject.kaa.common.endpoint.gen.SubscriptionCommandType)defaultValue(fields()[1]);
     return record;
   }
