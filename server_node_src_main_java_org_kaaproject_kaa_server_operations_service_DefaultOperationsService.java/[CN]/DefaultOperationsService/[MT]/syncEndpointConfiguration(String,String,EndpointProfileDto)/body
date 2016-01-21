@@ -1,0 +1,14 @@
+{
+  ConfigurationCacheEntry configurationCache=deltaService.getConfiguration(appToken,endpointId,profile);
+  byte[] configurationHash=configurationCache.getHash().getData();
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{}][{}] Result configuration hash is {}",appToken,endpointId,Arrays.toString(configurationHash));
+  }
+  profile.setConfigurationHash(configurationHash);
+  if (configurationCache.getUserConfigurationHash() != null) {
+    profile.setUserConfigurationHash(configurationCache.getUserConfigurationHash().getData());
+  }
+ else {
+    profile.setUserConfigurationHash(null);
+  }
+}

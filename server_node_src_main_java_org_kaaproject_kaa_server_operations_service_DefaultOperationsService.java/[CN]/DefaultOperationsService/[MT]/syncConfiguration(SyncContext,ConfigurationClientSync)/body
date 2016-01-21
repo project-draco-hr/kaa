@@ -1,29 +1,8 @@
 {
   if (request != null) {
-    EndpointProfileDto profile=context.getEndpointProfile();
-    ClientSyncMetaData md=context.getMetaData();
-    AppSeqNumber appSeqNumber=cacheService.getAppSeqNumber(md.getApplicationToken());
-    if (context.getAppSeqNumber() == null) {
-      context.setAppSeqNumber(appSeqNumber);
-    }
-    int curAppSeqNumber=appSeqNumber.getSeqNumber();
-    LOG.debug("[{}][{}] fetched app seq number {}",context.getEndpointKey(),context.getRequestHash(),curAppSeqNumber);
-    LOG.trace("[{}][{}] procesing configuration sync request {}.",context.getEndpointKey(),context.getRequestHash(),request);
-    LOG.debug("[{}][{}] fetching history for seq numbers {}-{}",context.getEndpointKey(),context.getRequestHash(),request.getAppStateSeqNumber(),curAppSeqNumber);
-    int startSeqNumber=Math.min(request.getAppStateSeqNumber(),profile.getCfSequenceNumber());
-    LOG.debug("[{}][{}] calculating configuration delta using seq number {}",context.getEndpointKey(),context.getRequestHash(),startSeqNumber);
-    request.setAppStateSeqNumber(startSeqNumber);
-    HistoryDelta historyDelta=fetchHistory(context,md.getApplicationToken(),profile,HistorySubject.CONFIGURATION,startSeqNumber,curAppSeqNumber);
-    GetDeltaResponse confResponse=calculateConfigurationDelta(md,request,context,historyDelta,curAppSeqNumber);
-    ConfigurationServerSync confSyncResponse=buildConfSyncResponse(confResponse,curAppSeqNumber);
+    GetDeltaResponse confResponse=calculateConfigurationDelta(context.getMetaData().getApplicationToken(),request,context);
+    ConfigurationServerSync confSyncResponse=buildConfSyncResponse(confResponse);
     context.setConfigurationSyncResponse(confSyncResponse);
-    if (historyDelta.isSmthChanged() || SyncResponseStatus.NO_DELTA != confSyncResponse.getResponseStatus()) {
-      List<EndpointGroupStateDto> endpointGroups=historyDelta.getEndpointGroupStates();
-      LOG.debug("[{}][{}] Updating profile with endpoint groups.size {}, groups: {}",context.getEndpointKey(),context.getRequestHash(),endpointGroups.size(),endpointGroups);
-      profile.setCfGroupStates(endpointGroups);
-      profile.setCfSequenceNumber(curAppSeqNumber);
-      context.setUpdateProfileRequired(true);
-    }
   }
   return context;
 }

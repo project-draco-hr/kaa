@@ -1,0 +1,11 @@
+{
+  GetDeltaRequest deltaRequest;
+  if (request.getConfigurationHash() != null) {
+    deltaRequest=new GetDeltaRequest(appToken,EndpointObjectHash.fromBytes(request.getConfigurationHash().array()),request.isResyncOnly());
+  }
+ else {
+    deltaRequest=new GetDeltaRequest(appToken);
+  }
+  deltaRequest.setEndpointProfile(context.getEndpointProfile());
+  return deltaService.getDelta(deltaRequest);
+}

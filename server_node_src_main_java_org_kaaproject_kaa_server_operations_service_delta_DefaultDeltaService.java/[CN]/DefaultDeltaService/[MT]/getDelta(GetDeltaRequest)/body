@@ -1,0 +1,26 @@
+{
+  GetDeltaResponse response;
+  EndpointProfileDto profile=request.getEndpointProfile();
+  String endpointId="N/A";
+  if (LOG.isDebugEnabled() && profile != null && profile.getEndpointKeyHash() != null) {
+    endpointId=Base64Util.encode(profile.getEndpointKeyHash());
+  }
+  LOG.debug("[{}][{}] Processing configuration request",request.getApplicationToken(),endpointId);
+  boolean resync=false;
+  if (request.isFirstRequest()) {
+    resync=!isConfigurationUpToDate(request,profile.getConfigurationHash());
+  }
+ else   if (!request.getConfigurationHash().binaryEquals(profile.getConfigurationHash())) {
+    logHashMismatch(request,profile,endpointId);
+    resync=true;
+  }
+  if (resync) {
+    EndpointConfigurationDto configurationDto=cacheService.getConfByHash(EndpointObjectHash.fromBytes(profile.getConfigurationHash()));
+    response=new GetDeltaResponse(GetDeltaResponseType.CONF_RESYNC,new BaseBinaryDelta(configurationDto.getConfiguration()));
+  }
+ else {
+    response=new GetDeltaResponse(GetDeltaResponseType.NO_DELTA);
+  }
+  LOG.debug("[{}][{}] Processed configuration request {}",request.getApplicationToken(),endpointId,response.getResponseType());
+  return response;
+}

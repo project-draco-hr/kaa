@@ -1,0 +1,12 @@
+{
+  if (this == obj)   return true;
+  if (obj == null)   return false;
+  if (getClass() != obj.getClass())   return false;
+  TopicListCacheEntry other=(TopicListCacheEntry)obj;
+  if (hash == null) {
+    if (other.hash != null)     return false;
+  }
+ else   if (!hash.equals(other.hash))   return false;
+  if (simpleHash != other.simpleHash)   return false;
+  return true;
+}

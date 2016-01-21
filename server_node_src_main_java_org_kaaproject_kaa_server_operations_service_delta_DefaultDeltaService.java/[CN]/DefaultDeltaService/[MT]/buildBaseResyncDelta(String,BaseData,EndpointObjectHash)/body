@@ -1,4 +1,4 @@
 {
   byte[] configuration=GenericAvroConverter.toRawData(mergedConfiguration.getRawData(),mergedConfiguration.getSchema().getRawSchema());
-  return new DeltaCacheEntry(configuration,new BaseBinaryDelta(configuration),EndpointObjectHash.fromSHA1(configuration),userConfigurationHash);
+  return new ConfigurationCacheEntry(configuration,new BaseBinaryDelta(configuration),EndpointObjectHash.fromSHA1(configuration),userConfigurationHash);
 }
