@@ -1,0 +1,15 @@
+{
+  List<SubscriptionCommand> subscriptionUpdate=new LinkedList<>();
+  for (  Long id : topicIds) {
+    Topic topic=findTopicById(id);
+    if (topic.getSubscriptionType() != SubscriptionType.OPTIONAL_SUBSCRIPTION) {
+      LOG.warn("Failed to unsubscribe: topic '{}' isn't optional",id);
+      throw new UnavailableTopicException(String.format("Topic '%s' isn't optional",id));
+    }
+    subscriptionUpdate.add(new SubscriptionCommand(id,SubscriptionCommandType.REMOVE));
+  }
+  updateSubscriptionInfo(subscriptionUpdate);
+  if (forceSync) {
+    doSync();
+  }
+}

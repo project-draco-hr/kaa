@@ -5,7 +5,6 @@
     if (hash != null) {
       request.setConfigurationHash(ByteBuffer.wrap(hash.getData()));
     }
-    request.setAppStateSeqNumber(clientState.getConfigSeqNumber());
     request.setResyncOnly(resyncOnly);
     return request;
   }

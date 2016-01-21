@@ -1,5 +1,5 @@
 {
-  Map<String,Topic> newTopics=new HashMap<String,Topic>();
+  Map<Long,Topic> newTopics=new HashMap<>();
 synchronized (topics) {
     for (    Topic topic : list) {
       newTopics.put(topic.getId(),topic);

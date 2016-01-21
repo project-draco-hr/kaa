@@ -4,7 +4,7 @@
     BinaryEncoder encoder=EncoderFactory.get().binaryEncoder(baos,null);
     SpecificDatumWriter<TopicSubscriptionInfo> datumWriter=new SpecificDatumWriter<TopicSubscriptionInfo>(TopicSubscriptionInfo.class);
     try {
-      for (      Map.Entry<String,TopicSubscriptionInfo> cursor : nfSubscriptions.entrySet()) {
+      for (      Map.Entry<Long,TopicSubscriptionInfo> cursor : nfSubscriptions.entrySet()) {
         datumWriter.write(cursor.getValue(),encoder);
         LOG.info("Persisted {}",cursor.getValue());
       }

@@ -3,7 +3,6 @@
   SchemaProcessor schemaProcessor=Mockito.mock(SchemaProcessor.class);
   ConfigurationProcessor configProcessor=Mockito.mock(ConfigurationProcessor.class);
   ConfigurationSyncResponse response=new ConfigurationSyncResponse();
-  response.setAppStateSeqNumber(5);
   response.setResponseStatus(SyncResponseStatus.DELTA);
   KaaChannelManager channelManagerMock=Mockito.mock(KaaChannelManager.class);
   ConfigurationTransport transport=new DefaultConfigurationTransport();
@@ -19,7 +18,6 @@
   transport.onConfigurationResponse(response);
   response.setConfSchemaBody(ByteBuffer.wrap(new byte[]{1,2,3}));
   transport.onConfigurationResponse(response);
-  Mockito.verify(clientState,Mockito.times(4)).setConfigSeqNumber(Mockito.eq(new Integer(5)));
   Mockito.verify(schemaProcessor,Mockito.times(1)).loadSchema(Mockito.eq(ByteBuffer.wrap(new byte[]{1,2,3})));
   Mockito.verify(configProcessor,Mockito.times(2)).processConfigurationData(Mockito.eq(ByteBuffer.wrap(new byte[]{1,2,3})),Mockito.eq(false));
 }

@@ -1,6 +1,6 @@
 {
-  HashMap<String,Integer> subscriptions=new HashMap<String,Integer>();
-  for (  Map.Entry<String,TopicSubscriptionInfo> cursor : nfSubscriptions.entrySet()) {
+  HashMap<Long,Integer> subscriptions=new HashMap<>();
+  for (  Map.Entry<Long,TopicSubscriptionInfo> cursor : nfSubscriptions.entrySet()) {
     subscriptions.put(cursor.getKey(),cursor.getValue().getSeqNumber());
   }
   return subscriptions;
