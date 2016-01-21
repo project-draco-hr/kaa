@@ -3,7 +3,7 @@
   Future<?> timeoutFuture=timeouts.remove(bucketId);
   if (timeoutFuture != null) {
     LOG.info("Log delivery timeout detected for the bucket with id: [{}]",bucketId);
-    storage.notifyUploadFailed(bucketId);
+    storage.rollbackBucket(bucketId);
     final LogFailoverCommand controller=this.controller;
     executorContext.getCallbackExecutor().execute(new Runnable(){
       @Override public void run(){
@@ -11,6 +11,14 @@
       }
     }
 );
+    if (logDeliveryListener != null) {
+      executorContext.getCallbackExecutor().execute(new Runnable(){
+        @Override public void run(){
+          logDeliveryListener.onLogDeliveryTimeout(bucketInfoMap.get(bucketId));
+        }
+      }
+);
+    }
     timeoutFuture.cancel(true);
   }
  else {

@@ -3,19 +3,13 @@
     checkClientStateNot(State.STARTED,"Kaa client is already started");
     checkClientStateNot(State.PAUSED,"Kaa client is paused, need to be resumed");
   }
+  setClientState(State.STARTED);
   checkReadiness();
   context.getExecutorContext().init();
   getLifeCycleExecutor().submit(new Runnable(){
     @Override public void run(){
       LOG.debug("Client startup initiated");
       try {
-        if (!isInitialized) {
-          isInitialized=true;
-        }
- else {
-          LOG.warn("Client is already initialized!");
-          return;
-        }
         configurationManager.init();
         bootstrapManager.receiveOperationsServerList();
         if (stateListener != null) {
@@ -37,5 +31,4 @@ catch (      KaaRuntimeException e) {
     }
   }
 );
-  setClientState(State.STARTED);
 }

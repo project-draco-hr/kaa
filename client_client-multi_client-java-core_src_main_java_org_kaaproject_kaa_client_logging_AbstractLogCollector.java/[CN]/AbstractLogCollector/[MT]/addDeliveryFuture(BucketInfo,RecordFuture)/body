@@ -1,0 +1,10 @@
+{
+synchronized (deliveryFuturesMap) {
+    List<RecordFuture> deliveryFutures=deliveryFuturesMap.get(info.getBucketId());
+    if (deliveryFutures == null) {
+      deliveryFutures=new LinkedList<RecordFuture>();
+      deliveryFuturesMap.put(info.getBucketId(),deliveryFutures);
+    }
+    deliveryFutures.add(future);
+  }
+}

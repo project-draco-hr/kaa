@@ -8,9 +8,9 @@
   while (iter-- > 0) {
     storage.addLogRecord(record);
   }
-  LogBlock group1=storage.getRecordBlock(7,2);
-  storage.notifyUploadFailed(group1.getBlockId());
-  LogBlock group2=storage.getRecordBlock(7,2);
+  LogBucket group1=storage.getNextBucket();
+  storage.rollbackBucket(group1.getBucketId());
+  LogBucket group2=storage.getNextBucket();
   Assert.assertTrue("Expected: " + group1.getRecords().size() + ", actual: "+ group2.getRecords().size(),group1.getRecords().size() == group2.getRecords().size());
   Iterator<LogRecord> expectedIt=group1.getRecords().iterator();
   Iterator<LogRecord> actualIt=group2.getRecords().iterator();

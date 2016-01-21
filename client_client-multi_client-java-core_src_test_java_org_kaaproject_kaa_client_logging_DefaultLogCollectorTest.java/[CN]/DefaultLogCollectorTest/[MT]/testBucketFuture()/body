@@ -1,0 +1,47 @@
+{
+  int defaultId=42;
+  int logCount=5;
+  KaaChannelManager channelManager=Mockito.mock(KaaChannelManager.class);
+  FailoverManager failoverManager=Mockito.mock(FailoverManager.class);
+  LogTransport transport=Mockito.mock(LogTransport.class);
+  LogStorage storage=Mockito.mock(LogStorage.class);
+  AbstractLogCollector logCollector=new DefaultLogCollector(transport,executorContext,channelManager,failoverManager);
+  logCollector.setStorage(storage);
+  Mockito.when(storage.getStatus()).thenReturn(new LogStorageStatus(){
+    @Override public long getRecordCount(){
+      return 1;
+    }
+    @Override public long getConsumedVolume(){
+      return 1;
+    }
+  }
+);
+  DefaultLogUploadStrategy strategy=new DefaultLogUploadStrategy(){
+    @Override public LogUploadStrategyDecision isUploadNeeded(    LogStorageStatus status){
+      return LogUploadStrategyDecision.UPLOAD;
+    }
+  }
+;
+  logCollector.setStrategy(strategy);
+  LogSyncResponse response=new LogSyncResponse();
+  List<LogDeliveryStatus> statuses=new ArrayList<>();
+  LogDeliveryStatus status=new LogDeliveryStatus(defaultId,SyncResponseResultType.SUCCESS,null);
+  statuses.add(status);
+  response.setDeliveryStatuses(statuses);
+  BucketInfo bucketInfo=new BucketInfo(status.getRequestId(),logCount);
+  Mockito.when(storage.addLogRecord(Mockito.any(LogRecord.class))).thenReturn(bucketInfo);
+  List<LogRecord> logRecords=new ArrayList<>();
+  logRecords.add(new LogRecord());
+  LogBucket logBlock=new LogBucket(defaultId,logRecords);
+  Mockito.when(storage.getNextBucket()).thenReturn(logBlock);
+  List<RecordFuture> deliveryFutures=new LinkedList<RecordFuture>();
+  for (int i=0; i < logCount; ++i) {
+    deliveryFutures.add(logCollector.addLogRecord(new Log()));
+  }
+  LogSyncRequest request=new LogSyncRequest();
+  logCollector.fillSyncRequest(request);
+  logCollector.onLogResponse(response);
+  for (  RecordFuture future : deliveryFutures) {
+    Assert.assertEquals(defaultId,future.get().getBucketInfo().getBucketId());
+  }
+}
