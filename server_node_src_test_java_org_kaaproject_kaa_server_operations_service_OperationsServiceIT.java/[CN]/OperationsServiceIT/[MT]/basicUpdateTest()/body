@@ -12,7 +12,6 @@
   ProfileClientSync profileSync=new ProfileClientSync(null,ByteBuffer.wrap(profile),SDK_TOKEN,null);
   request.setProfileSync(profileSync);
   ConfigurationClientSync confSyncRequest=new ConfigurationClientSync();
-  confSyncRequest.setAppStateSeqNumber(APPLICATION_SEQ_NUMBER);
   confSyncRequest.setConfigurationHash(ByteBuffer.wrap(currentConfigurationHash));
   request.setConfigurationSync(confSyncRequest);
   SyncContext context=createContext(request);
@@ -23,7 +22,6 @@
   Assert.assertEquals(SyncStatus.SUCCESS,response.getStatus());
   Assert.assertNotNull(response.getConfigurationSync());
   Assert.assertEquals(SyncResponseStatus.NO_DELTA,response.getConfigurationSync().getResponseStatus());
-  Assert.assertEquals(APPLICATION_SEQ_NUMBER,(int)response.getConfigurationSync().getAppStateSeqNumber());
   Assert.assertNull(response.getConfigurationSync().getConfDeltaBody());
   Assert.assertNull(response.getConfigurationSync().getConfSchemaBody());
 }

@@ -8,7 +8,6 @@
   md.setProfileHash(ByteBuffer.wrap(EndpointObjectHash.fromSHA1(profile).getData()));
   request.setClientSyncMetaData(md);
   NotificationClientSync nfSyncRequest=new NotificationClientSync();
-  nfSyncRequest.setAppStateSeqNumber(APPLICATION_SEQ_NUMBER);
   SubscriptionCommand command=new SubscriptionCommand(optionalTopicDto.getId(),SubscriptionCommandType.ADD);
   nfSyncRequest.setSubscriptionCommands(Collections.singletonList(command));
   request.setNotificationSync(nfSyncRequest);
@@ -20,7 +19,6 @@
   Assert.assertEquals(SyncStatus.SUCCESS,response.getStatus());
   Assert.assertNotNull(response.getNotificationSync());
   Assert.assertEquals(SyncResponseStatus.DELTA,response.getNotificationSync().getResponseStatus());
-  Assert.assertEquals(Integer.valueOf(APPLICATION_SEQ_NUMBER),response.getNotificationSync().getAppStateSeqNumber());
   Assert.assertNotNull(response.getNotificationSync().getNotifications());
   Assert.assertEquals(2,response.getNotificationSync().getNotifications().size());
 }

@@ -9,14 +9,12 @@
   request.getSyncRequestMetaData().setProfileHash(ByteBuffer.wrap(profileHash));
   ConfigurationSyncRequest csRequest=new ConfigurationSyncRequest();
   csRequest.setConfigurationHash(ByteBuffer.wrap(configurationHash));
-  csRequest.setAppStateSeqNumber(appStateSeqNumber);
   request.setConfigurationSyncRequest(csRequest);
   generateSubscriptionCommandList();
   NotificationSyncRequest nsRequest=new NotificationSyncRequest();
   nsRequest.setSubscriptionCommands(subscriptionCommands);
   nsRequest.setTopicStates(topicStates);
-  nsRequest.setTopicListHash(ByteBuffer.wrap(profileHash));
-  nsRequest.setAppStateSeqNumber(appStateSeqNumber);
+  nsRequest.setTopicListHash(1);
   request.setNotificationSyncRequest(nsRequest);
   setRequest(request);
 }

@@ -15,13 +15,13 @@
   List<TopicState> topicStates=new ArrayList<>();
   topicStates.add(new TopicState(T1,42));
   topicStates.add(new TopicState(T3,1));
-  HistoryDelta historyDelta=new HistoryDelta();
-  historyDelta.setAllChanged();
   List<EndpointGroupStateDto> history=new ArrayList<>();
   history.add(new EndpointGroupStateDto(EG1,PF1,CF1));
   history.add(new EndpointGroupStateDto(EG2,PF2,null));
   history.add(new EndpointGroupStateDto(EG3,PF2,null));
-  historyDelta.setEndpointGroupStates(history);
+  profile.setGroupState(history);
+  profile.setSimpleTopicHash(130150);
+  profile.setTopicHash(SHA1HashUtils.hashToBytes(T1 + "|" + T3+ "|"+ T5));
   EndpointGroupDto eg1=new EndpointGroupDto();
   eg1.setId(EG1);
   eg1.setTopics(Collections.singletonList(T1));
@@ -68,8 +68,8 @@
   pnf2.setNotificationDto(nfDto);
   nfDto.setExpiredAt(new Date(System.currentTimeMillis() + TimeUnit.DAYS.toMillis(7)));
   Mockito.when(notificationService.findUnicastNotificationsByKeyHash(ENDPOINT_KEY_HASH_BYTES)).thenReturn(Collections.singletonList(pnf2));
-  GetNotificationRequest request=new GetNotificationRequest(profile,subscriptionCommands,acceptedUnicastNotifications,topicStates);
-  GetNotificationResponse response=notificationDeltaService.getNotificationDelta(request,historyDelta);
+  GetNotificationRequest request=new GetNotificationRequest(130150,profile,subscriptionCommands,acceptedUnicastNotifications,topicStates);
+  GetNotificationResponse response=notificationDeltaService.getNotificationDelta(request);
   Mockito.verify(cacheService).getEndpointGroupById(EG1);
   Mockito.verify(cacheService).getEndpointGroupById(EG2);
   Mockito.verify(cacheService).getEndpointGroupById(EG3);
