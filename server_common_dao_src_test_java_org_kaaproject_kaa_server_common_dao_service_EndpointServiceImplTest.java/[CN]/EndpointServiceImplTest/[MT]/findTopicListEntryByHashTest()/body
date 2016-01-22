@@ -1,0 +1,10 @@
+{
+  ApplicationDto applicationDto=generateApplicationDto();
+  TopicDto topicDto=generateTopicDto(applicationDto.getId(),TopicTypeDto.MANDATORY);
+  List<TopicDto> topics=Arrays.asList(topicDto);
+  byte[] hash="123".getBytes();
+  TopicListEntryDto topicListEntryDto=new TopicListEntryDto(1,hash,topics);
+  endpointService.saveTopicListEntry(topicListEntryDto);
+  TopicListEntryDto foundTopicListEntry=endpointService.findTopicListEntryByHash(hash);
+  Assert.assertEquals(topicListEntryDto,foundTopicListEntry);
+}
