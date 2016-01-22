@@ -5,7 +5,6 @@
   CassandraEndpointProfile storedProfile=findByKeyHash(keyHash);
   if (storedProfile != null) {
     List<Statement> statementList=new ArrayList<>();
-    profile.setVersion(findVersionByKey(keyHash));
     BoundStatement bs=prepareStatement(UPDATE_PROFILE,profile);
     if (wasApplied(execute(bs))) {
       Set<String> oldEndpointGroupIds=getEndpointProfilesGroupIdSet(storedProfile);

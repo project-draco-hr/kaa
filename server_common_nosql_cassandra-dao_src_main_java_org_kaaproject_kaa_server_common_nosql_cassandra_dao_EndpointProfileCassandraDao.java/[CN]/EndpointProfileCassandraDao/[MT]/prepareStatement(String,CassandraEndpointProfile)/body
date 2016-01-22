@@ -1,11 +1,6 @@
 {
   StringBuilder sb=new StringBuilder(q);
-  if (pf.getVersion() == 0L) {
-    sb.append(SEMICOLON);
-  }
- else {
-    sb.append(IF_CONDITION).append(pf.getVersion()).append(";");
-  }
+  sb.append(IF_CONDITION).append(pf.getVersion()).append(";");
   String query=sb.toString();
   LOG.info("Get version {}",pf.getVersion());
   LOG.debug("Prepared query {}",query);
@@ -35,5 +30,6 @@
   bs.setString(EP_SERVER_PROFILE_PROPERTY,pf.getServerProfile());
   bs.setList(EP_SUBSCRIPTIONS_PROPERTY,pf.getSubscriptions());
   bs.setBytes(EP_EP_KEY_HASH_PROPERTY,pf.getEndpointKeyHash());
+  bs.setLong(OPT_LOCK,pf.getVersion() + 1);
   return bs;
 }
