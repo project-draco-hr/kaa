@@ -20,9 +20,9 @@
     LOG.debug("Generating profile schema");
     Schema profileSchema=new Schema.Parser().parse(profileSchemaBody);
     String profileClassName=KAA_SOURCE_PREFIX + profileSchema.getName();
-    String profileCommonHeader=readResource(PROFILE_TEMPLATE_DIR + PROFILE_COMMON + TEMPLATE_SUFFIX+ "h").replaceAll(PROFILE_CLASS_VAR,profileClassName);
+    String profileCommonHeader=readResource(PROFILE_TEMPLATE_DIR + PROFILE_COMMON + "h"+ TEMPLATE_SUFFIX).replaceAll(PROFILE_CLASS_VAR,profileClassName);
     objcSources.add(CommonSdkUtil.tarEntryForSources(profileCommonHeader,KAA_ROOT + PROFILE_DIR + PROFILE_COMMON+ "h"));
-    String profileCommonSource=readResource(PROFILE_TEMPLATE_DIR + PROFILE_COMMON + TEMPLATE_SUFFIX+ "m").replaceAll(PROFILE_CLASS_VAR,profileClassName);
+    String profileCommonSource=readResource(PROFILE_TEMPLATE_DIR + PROFILE_COMMON + "m"+ TEMPLATE_SUFFIX).replaceAll(PROFILE_CLASS_VAR,profileClassName);
     objcSources.add(CommonSdkUtil.tarEntryForSources(profileCommonSource,KAA_ROOT + PROFILE_DIR + PROFILE_COMMON+ "m"));
     objcSources.addAll(generateSourcesFromSchema(profileSchema,PROFILE_GEN));
   }
@@ -31,15 +31,15 @@
     LOG.debug("Generating log schema");
     Schema logSchema=new Schema.Parser().parse(logSchemaBody);
     logClassName=KAA_SOURCE_PREFIX + logSchema.getName();
-    String logRecordHeader=readResource(LOG_TEMPLATE_DIR + LOG_RECORD + TEMPLATE_SUFFIX+ "h").replaceAll(LOG_RECORD_CLASS_VAR,logClassName);
+    String logRecordHeader=readResource(LOG_TEMPLATE_DIR + LOG_RECORD + "h"+ TEMPLATE_SUFFIX).replaceAll(LOG_RECORD_CLASS_VAR,logClassName);
     objcSources.add(CommonSdkUtil.tarEntryForSources(logRecordHeader,KAA_ROOT + LOG_DIR + LOG_RECORD+ "h"));
-    String logRecordSource=readResource(LOG_TEMPLATE_DIR + LOG_RECORD + TEMPLATE_SUFFIX+ "m").replaceAll(LOG_RECORD_CLASS_VAR,logClassName);
+    String logRecordSource=readResource(LOG_TEMPLATE_DIR + LOG_RECORD + "m"+ TEMPLATE_SUFFIX).replaceAll(LOG_RECORD_CLASS_VAR,logClassName);
     objcSources.add(CommonSdkUtil.tarEntryForSources(logRecordSource,KAA_ROOT + LOG_DIR + LOG_RECORD+ "m"));
     String logCollector=readResource(LOG_TEMPLATE_DIR + LOG_COLLECTOR_INTERFACE + TEMPLATE_SUFFIX).replaceAll(LOG_RECORD_CLASS_VAR,logClassName);
     objcSources.add(CommonSdkUtil.tarEntryForSources(logCollector,KAA_ROOT + LOG_DIR + LOG_COLLECTOR_INTERFACE));
-    String logCollectorImplHeader=readResource(LOG_TEMPLATE_DIR + LOG_COLLECTOR_SOURCE + TEMPLATE_SUFFIX+ "h").replaceAll(LOG_RECORD_CLASS_VAR,logClassName);
+    String logCollectorImplHeader=readResource(LOG_TEMPLATE_DIR + LOG_COLLECTOR_SOURCE + "h"+ TEMPLATE_SUFFIX).replaceAll(LOG_RECORD_CLASS_VAR,logClassName);
     objcSources.add(CommonSdkUtil.tarEntryForSources(logCollectorImplHeader,KAA_ROOT + LOG_DIR + LOG_COLLECTOR_SOURCE+ "h"));
-    String logCollectorImplSource=readResource(LOG_TEMPLATE_DIR + LOG_COLLECTOR_SOURCE + TEMPLATE_SUFFIX+ "m").replaceAll(LOG_RECORD_CLASS_VAR,logClassName);
+    String logCollectorImplSource=readResource(LOG_TEMPLATE_DIR + LOG_COLLECTOR_SOURCE + "m"+ TEMPLATE_SUFFIX).replaceAll(LOG_RECORD_CLASS_VAR,logClassName);
     objcSources.add(CommonSdkUtil.tarEntryForSources(logCollectorImplSource,KAA_ROOT + LOG_DIR + LOG_COLLECTOR_SOURCE+ "m"));
     objcSources.addAll(generateSourcesFromSchema(logSchema,LOG_GEN));
   }
@@ -50,13 +50,13 @@
     configurationClassName=KAA_SOURCE_PREFIX + configurationSchema.getName();
     String configurationCommon=readResource(CONFIGURATION_TEMPLATE_DIR + CONFIGURATION_COMMON + TEMPLATE_SUFFIX).replaceAll(CONFIGURATION_CLASS_VAR,configurationClassName);
     objcSources.add(CommonSdkUtil.tarEntryForSources(configurationCommon,KAA_ROOT + CONFIGURATION_DIR + CONFIGURATION_COMMON));
-    String cfManagerImplHeader=readResource(CONFIGURATION_TEMPLATE_DIR + CONFIGURATION_MANAGER_IMPL + TEMPLATE_SUFFIX+ "h").replaceAll(CONFIGURATION_CLASS_VAR,configurationClassName);
+    String cfManagerImplHeader=readResource(CONFIGURATION_TEMPLATE_DIR + CONFIGURATION_MANAGER_IMPL + "h"+ TEMPLATE_SUFFIX).replaceAll(CONFIGURATION_CLASS_VAR,configurationClassName);
     objcSources.add(CommonSdkUtil.tarEntryForSources(cfManagerImplHeader,KAA_ROOT + CONFIGURATION_DIR + CONFIGURATION_MANAGER_IMPL+ "h"));
-    String cfManagerImplSource=readResource(CONFIGURATION_TEMPLATE_DIR + CONFIGURATION_MANAGER_IMPL + TEMPLATE_SUFFIX+ "m").replaceAll(CONFIGURATION_CLASS_VAR,configurationClassName);
+    String cfManagerImplSource=readResource(CONFIGURATION_TEMPLATE_DIR + CONFIGURATION_MANAGER_IMPL + "m"+ TEMPLATE_SUFFIX).replaceAll(CONFIGURATION_CLASS_VAR,configurationClassName);
     objcSources.add(CommonSdkUtil.tarEntryForSources(cfManagerImplSource,KAA_ROOT + CONFIGURATION_DIR + CONFIGURATION_MANAGER_IMPL+ "m"));
-    String cfDeserializerHeader=readResource(CONFIGURATION_TEMPLATE_DIR + CONFIGURATION_DESERIALIZER + TEMPLATE_SUFFIX+ "h").replaceAll(CONFIGURATION_CLASS_VAR,configurationClassName);
+    String cfDeserializerHeader=readResource(CONFIGURATION_TEMPLATE_DIR + CONFIGURATION_DESERIALIZER + "h"+ TEMPLATE_SUFFIX).replaceAll(CONFIGURATION_CLASS_VAR,configurationClassName);
     objcSources.add(CommonSdkUtil.tarEntryForSources(cfDeserializerHeader,KAA_ROOT + CONFIGURATION_DIR + CONFIGURATION_DESERIALIZER+ "h"));
-    String cfDeserializerSource=readResource(CONFIGURATION_TEMPLATE_DIR + CONFIGURATION_DESERIALIZER + TEMPLATE_SUFFIX+ "m").replaceAll(CONFIGURATION_CLASS_VAR,configurationClassName);
+    String cfDeserializerSource=readResource(CONFIGURATION_TEMPLATE_DIR + CONFIGURATION_DESERIALIZER + "m"+ TEMPLATE_SUFFIX).replaceAll(CONFIGURATION_CLASS_VAR,configurationClassName);
     objcSources.add(CommonSdkUtil.tarEntryForSources(cfDeserializerSource,KAA_ROOT + CONFIGURATION_DIR + CONFIGURATION_DESERIALIZER+ "m"));
     objcSources.addAll(generateSourcesFromSchema(configurationSchema,CONFIGURATION_GEN));
   }
@@ -64,9 +64,9 @@
     LOG.debug("Generating notification schema");
     Schema notificationSchema=new Schema.Parser().parse(notificationSchemaBody);
     String notificationClassName=KAA_SOURCE_PREFIX + notificationSchema.getName();
-    String nfCommonHeader=readResource(NOTIFICATION_TEMPLATE_DIR + NOTIFICATION_COMMON + TEMPLATE_SUFFIX+ "h").replaceAll(NOTIFICATION_CLASS_VAR,notificationClassName);
+    String nfCommonHeader=readResource(NOTIFICATION_TEMPLATE_DIR + NOTIFICATION_COMMON + "h"+ TEMPLATE_SUFFIX).replaceAll(NOTIFICATION_CLASS_VAR,notificationClassName);
     objcSources.add(CommonSdkUtil.tarEntryForSources(nfCommonHeader,KAA_ROOT + NOTIFICATION_DIR + NOTIFICATION_COMMON+ "h"));
-    String nfCommonSource=readResource(NOTIFICATION_TEMPLATE_DIR + NOTIFICATION_COMMON + TEMPLATE_SUFFIX+ "m").replaceAll(NOTIFICATION_CLASS_VAR,notificationClassName);
+    String nfCommonSource=readResource(NOTIFICATION_TEMPLATE_DIR + NOTIFICATION_COMMON + "m"+ TEMPLATE_SUFFIX).replaceAll(NOTIFICATION_CLASS_VAR,notificationClassName);
     objcSources.add(CommonSdkUtil.tarEntryForSources(nfCommonSource,KAA_ROOT + NOTIFICATION_DIR + NOTIFICATION_COMMON+ "m"));
     objcSources.addAll(generateSourcesFromSchema(notificationSchema,NOTIFICATION_GEN));
   }
@@ -75,9 +75,9 @@
   }
   String kaaClient=readResource(SDK_TEMPLATE_DIR + KAA_CLIENT + TEMPLATE_SUFFIX).replaceAll(LOG_RECORD_CLASS_VAR,logClassName).replaceAll(CONFIGURATION_CLASS_VAR,configurationClassName);
   objcSources.add(CommonSdkUtil.tarEntryForSources(kaaClient,KAA_ROOT + KAA_CLIENT));
-  String baseKaaClientHeader=readResource(SDK_TEMPLATE_DIR + BASE_KAA_CLIENT + TEMPLATE_SUFFIX+ "h").replaceAll(LOG_RECORD_CLASS_VAR,logClassName).replaceAll(CONFIGURATION_CLASS_VAR,configurationClassName);
+  String baseKaaClientHeader=readResource(SDK_TEMPLATE_DIR + BASE_KAA_CLIENT + "h"+ TEMPLATE_SUFFIX).replaceAll(LOG_RECORD_CLASS_VAR,logClassName).replaceAll(CONFIGURATION_CLASS_VAR,configurationClassName);
   objcSources.add(CommonSdkUtil.tarEntryForSources(baseKaaClientHeader,KAA_ROOT + BASE_KAA_CLIENT + "h"));
-  String baseKaaClientSource=readResource(SDK_TEMPLATE_DIR + BASE_KAA_CLIENT + TEMPLATE_SUFFIX+ "m").replaceAll(LOG_RECORD_CLASS_VAR,logClassName).replaceAll(CONFIGURATION_CLASS_VAR,configurationClassName);
+  String baseKaaClientSource=readResource(SDK_TEMPLATE_DIR + BASE_KAA_CLIENT + "m"+ TEMPLATE_SUFFIX).replaceAll(LOG_RECORD_CLASS_VAR,logClassName).replaceAll(CONFIGURATION_CLASS_VAR,configurationClassName);
   objcSources.add(CommonSdkUtil.tarEntryForSources(baseKaaClientSource,KAA_ROOT + BASE_KAA_CLIENT + "m"));
   String tokenVerifier=defaultVerifierToken == null ? "nil" : "@\"" + defaultVerifierToken + "\"";
   String tokenVerifierSource=readResource(EVENT_TEMPLATE_DIR + USER_VERIFIER_CONSTANTS + TEMPLATE_SUFFIX).replaceAll(DEFAULT_USER_VERIFIER_TOKEN_VAR,tokenVerifier);
