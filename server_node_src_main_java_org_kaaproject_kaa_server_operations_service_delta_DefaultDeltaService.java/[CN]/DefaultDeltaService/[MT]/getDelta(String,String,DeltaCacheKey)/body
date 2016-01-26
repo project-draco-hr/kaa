@@ -34,12 +34,12 @@
             EndpointConfigurationDto endpointConfiguration=cacheService.getConfByHash(deltaKey.getEndpointConfHash());
             deltaCache=calculateDelta(endpointId,deltaCalculator,endpointConfiguration,mergedConfiguration,userConfigurationHash);
           }
-          if (cacheService.getConfByHash(deltaCache.getHash()) == null) {
-            EndpointConfigurationDto newConfiguration=new EndpointConfigurationDto();
-            newConfiguration.setConfiguration(deltaCache.getConfiguration());
-            newConfiguration.setConfigurationHash(deltaCache.getHash().getData());
-            cacheService.putConfiguration(deltaCache.getHash(),newConfiguration);
-          }
+        }
+        if (cacheService.getConfByHash(deltaCache.getHash()) == null) {
+          EndpointConfigurationDto newConfiguration=new EndpointConfigurationDto();
+          newConfiguration.setConfiguration(deltaCache.getConfiguration());
+          newConfiguration.setConfigurationHash(deltaCache.getHash().getData());
+          cacheService.putConfiguration(deltaCache.getHash(),newConfiguration);
         }
         LOG.debug("[{}] Configuration hash for {} is {}",endpointId,deltaKey,MessageEncoderDecoder.bytesToHex(deltaCache.getHash().getData()));
         return deltaCache;
