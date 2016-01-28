@@ -1,7 +1,7 @@
 {
   List<TarEntryData> tarEntries=new LinkedList<>();
   try (OutputStream headerStream=new ByteArrayOutputStream();OutputStream sourceStream=new ByteArrayOutputStream()){
-    Compiler compiler=new Compiler(schema,sourceName,headerStream,sourceStream);
+    Compiler compiler=new CCompiler(schema,sourceName,headerStream,sourceStream);
     compiler.setNamespacePrefix(namespace);
     compiler.generate();
     tarEntries.add(createTarEntry(KAA_GEN_SOURCE_DIR + sourceName + C_HEADER_SUFFIX,headerStream.toString()));

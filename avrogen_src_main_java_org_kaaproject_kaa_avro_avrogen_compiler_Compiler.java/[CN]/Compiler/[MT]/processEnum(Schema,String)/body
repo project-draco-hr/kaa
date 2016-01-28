@@ -1,0 +1,11 @@
+{
+  VelocityContext context=new VelocityContext();
+  List<String> symbols=schema.getEnumSymbols();
+  context.put("schema",schema);
+  context.put("symbols",symbols);
+  context.put("StyleUtils",StyleUtils.class);
+  context.put("namespacePrefix",namespacePrefix);
+  StringWriter writer=new StringWriter();
+  engine.getTemplate(template).merge(context,writer);
+  appendResult(writer.toString(),true);
+}

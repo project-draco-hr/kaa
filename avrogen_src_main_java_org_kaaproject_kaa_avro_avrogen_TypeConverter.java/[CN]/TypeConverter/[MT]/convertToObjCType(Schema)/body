@@ -1,0 +1,42 @@
+{
+  String objCType="";
+switch (schema.getType()) {
+case BOOLEAN:
+    objCType="BOOL";
+  break;
+case INT:
+objCType="int32_t";
+break;
+case LONG:
+objCType="int64_t";
+break;
+case FLOAT:
+objCType="float";
+break;
+case DOUBLE:
+objCType="double";
+break;
+case STRING:
+objCType="NSString *";
+break;
+case BYTES:
+case FIXED:
+objCType="NSData *";
+break;
+case ARRAY:
+objCType="NSArray *";
+break;
+case UNION:
+objCType="KAAUnion *";
+break;
+case ENUM:
+objCType=schema.getName();
+break;
+case RECORD:
+objCType=schema.getName() + " *";
+break;
+default :
+break;
+}
+return objCType;
+}
