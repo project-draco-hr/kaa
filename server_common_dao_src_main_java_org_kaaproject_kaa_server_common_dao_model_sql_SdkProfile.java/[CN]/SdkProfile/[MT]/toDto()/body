@@ -1,0 +1,25 @@
+{
+  SdkProfileDto dto=this.createDto();
+  dto.setId(this.getStringId());
+  dto.setToken(this.token);
+  if (this.application != null) {
+    dto.setApplicationId(this.application.getStringId());
+    dto.setApplicationToken(this.application.getApplicationToken());
+  }
+  dto.setName(this.name);
+  dto.setConfigurationSchemaVersion(this.configurationSchemaVersion);
+  dto.setProfileSchemaVersion(this.profileSchemaVersion);
+  dto.setNotificationSchemaVersion(this.notificationSchemaVersion);
+  dto.setLogSchemaVersion(this.logSchemaVersion);
+  if (this.aefMapIds != null) {
+    dto.setAefMapIds(new ArrayList<String>(this.aefMapIds.size()));
+    for (    String id : this.aefMapIds) {
+      dto.getAefMapIds().add(id);
+    }
+  }
+  dto.setDefaultVerifierToken(this.defaultVerifierToken);
+  dto.setCreatedUsername(this.createdUsername);
+  dto.setCreatedTime(this.createdTime);
+  dto.setEndpointCount(this.endpointCount);
+  return dto;
+}

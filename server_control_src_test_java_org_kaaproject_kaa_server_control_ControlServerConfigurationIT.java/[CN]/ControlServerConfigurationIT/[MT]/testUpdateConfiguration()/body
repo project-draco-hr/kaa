@@ -1,7 +1,0 @@
-{
-  ConfigurationDto configuration=createConfiguration();
-  String configUpdated=getResourceAsString(TEST_CONFIGURATION_UPDATED);
-  configuration.setBody(configUpdated);
-  ConfigurationDto updatedConfiguration=toDto(client.editConfiguration(toDataStruct(configuration)));
-  Assert.assertNotEquals(updatedConfiguration,configuration);
-}

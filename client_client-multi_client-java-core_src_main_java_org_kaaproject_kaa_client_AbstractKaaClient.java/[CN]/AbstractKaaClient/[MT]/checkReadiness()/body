@@ -1,0 +1,11 @@
+{
+  if (profileManager == null || !profileManager.isInitialized()) {
+    LOG.error("Profile manager isn't initialized: maybe profile container isn't set");
+    if (stateListener != null) {
+      stateListener.onStartFailure(new KaaException("Profile manager isn't initialized: maybe profile container isn't set"));
+    }
+ else {
+      throw new KaaRuntimeException("Profile manager isn't initialized: maybe profile container isn't set");
+    }
+  }
+}

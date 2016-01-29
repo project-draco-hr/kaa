@@ -1,9 +1,9 @@
 {
   validateSqlId(applicationId,"Incorrect application id " + applicationId + ". Can't find configuration schema versions.");
   List<ConfigurationSchema> configurationSchemas=configurationSchemaDao.findByApplicationId(applicationId);
-  List<SchemaDto> schemas=new ArrayList<>();
+  List<VersionDto> schemas=new ArrayList<>();
   for (  ConfigurationSchema configurationSchema : configurationSchemas) {
-    schemas.add(configurationSchema.toSchemaDto());
+    schemas.add(configurationSchema.toVersionDto());
   }
   return schemas;
 }

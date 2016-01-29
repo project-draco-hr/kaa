@@ -1,6 +1,3 @@
 {
-  MultiValueMap<String,Object> params=new LinkedMultiValueMap<>();
-  params.add("configurationSchema",configurationSchema);
-  params.add("file",getFileResource(schemaResource));
-  return restTemplate.postForObject(url + "configurationSchema",params,ConfigurationSchemaDto.class);
+  return createConfigurationSchema(configurationSchema,getFileResource(schemaResource));
 }

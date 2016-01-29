@@ -1,6 +1,0 @@
-{
-  ApplicationDto application=createApplication();
-  ApplicationDto storedApplication=toDto(client.getApplicationByApplicationToken(application.getApplicationToken()));
-  Assert.assertNotNull(storedApplication);
-  assertApplicationsEquals(application,storedApplication);
-}

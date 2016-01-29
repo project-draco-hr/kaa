@@ -1,0 +1,9 @@
+{
+  String filterBody="{'" + endpointKeyHash + "','"+ endpointKeyHash2+ "'}.contains("+ "#"+ DefaultFilterEvaluator.EP_KEYHASH_VARIABLE_NAME+ ")";
+  ProfileFilterDto filterDto=new ProfileFilterDto();
+  filterDto.setBody(filterBody);
+  filterDto.setEndpointProfileSchemaVersion(1);
+  FilterEvaluator filter=new DefaultFilterEvaluator();
+  filter.init(profile,PROFILE_SCHEMA,SERVER_PROFILE_SCHEMA);
+  Assert.assertEquals(Boolean.TRUE,filter.matches(filterDto));
+}

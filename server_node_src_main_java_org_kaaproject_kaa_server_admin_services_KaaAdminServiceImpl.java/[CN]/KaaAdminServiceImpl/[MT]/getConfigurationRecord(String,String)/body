@@ -1,0 +1,12 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    checkEndpointGroupId(endpointGroupId);
+    ConfigurationRecordDto record=controlService.getConfigurationRecord(schemaId,endpointGroupId);
+    Utils.checkNotNull(record);
+    return record;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

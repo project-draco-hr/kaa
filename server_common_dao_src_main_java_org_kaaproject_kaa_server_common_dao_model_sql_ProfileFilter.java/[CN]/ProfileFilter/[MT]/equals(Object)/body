@@ -1,32 +1,9 @@
 {
-  if (!super.equals(obj)) {
-    return false;
-  }
-  if (this == obj) {
-    return true;
-  }
-  if (obj == null) {
-    return false;
-  }
-  if (getClass() != obj.getClass()) {
-    return false;
-  }
-  ProfileFilter other=(ProfileFilter)obj;
-  if (body == null) {
-    if (other.body != null) {
-      return false;
-    }
-  }
- else   if (!body.equals(other.body)) {
-    return false;
-  }
-  if (profileSchema == null) {
-    if (other.profileSchema != null) {
-      return false;
-    }
-  }
- else   if (!profileSchema.equals(other.profileSchema)) {
-    return false;
-  }
-  return true;
+  if (this == o)   return true;
+  if (o == null || getClass() != o.getClass())   return false;
+  if (!super.equals(o))   return false;
+  ProfileFilter that=(ProfileFilter)o;
+  if (body != null ? !body.equals(that.body) : that.body != null)   return false;
+  if (endpointProfileSchema != null ? !endpointProfileSchema.equals(that.endpointProfileSchema) : that.endpointProfileSchema != null)   return false;
+  return serverProfileSchema != null ? serverProfileSchema.equals(that.serverProfileSchema) : that.serverProfileSchema == null;
 }

@@ -1,0 +1,12 @@
+{
+  R activeStruct=record.getActiveStructureDto();
+  deactivateStruct(activeStruct.getId(),new BusyAsyncCallback<R>(){
+    public void onSuccessImpl(    R result){
+      goTo(getRecordPlace(applicationId,endpointGroupId,false,true,Math.random()));
+    }
+    public void onFailureImpl(    Throwable caught){
+      Utils.handleException(caught,recordView);
+    }
+  }
+);
+}

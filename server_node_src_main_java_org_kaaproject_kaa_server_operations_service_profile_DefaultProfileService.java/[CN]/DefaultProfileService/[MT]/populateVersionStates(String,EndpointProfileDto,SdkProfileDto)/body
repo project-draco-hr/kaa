@@ -1,0 +1,23 @@
+{
+  dto.setClientProfileVersion(sdkProfile.getProfileSchemaVersion());
+  dto.setConfigurationVersion(sdkProfile.getConfigurationSchemaVersion());
+  dto.setUserNfVersion(sdkProfile.getNotificationSchemaVersion());
+  dto.setLogSchemaVersion(sdkProfile.getLogSchemaVersion());
+  if (sdkProfile.getAefMapIds() != null) {
+    List<ApplicationEventFamilyMapDto> aefMaps=cacheService.getApplicationEventFamilyMapsByIds(sdkProfile.getAefMapIds());
+    List<EventClassFamilyVersionStateDto> ecfVersionStates=new ArrayList<>(aefMaps.size());
+    for (    ApplicationEventFamilyMapDto aefMap : aefMaps) {
+      EventClassFamilyVersionStateDto ecfVersionDto=new EventClassFamilyVersionStateDto();
+      String ecfId=cacheService.getEventClassFamilyIdByName(new EventClassFamilyIdKey(tenantId,aefMap.getEcfName()));
+      if (ecfId != null) {
+        ecfVersionDto.setEcfId(ecfId);
+        ecfVersionDto.setVersion(aefMap.getVersion());
+        ecfVersionStates.add(ecfVersionDto);
+      }
+ else {
+        LOG.warn("Failed to add ecf version state for ecf name {} and version {}",aefMap.getEcfName(),aefMap.getVersion());
+      }
+    }
+    dto.setEcfVersionStates(ecfVersionStates);
+  }
+}

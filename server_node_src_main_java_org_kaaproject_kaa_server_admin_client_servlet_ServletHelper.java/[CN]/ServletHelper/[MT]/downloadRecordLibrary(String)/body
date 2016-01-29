@@ -1,0 +1,5 @@
+{
+  String getUrl=composeURL(KAA_RECORD_LIBRARY_SERVLET_PATH,RECORD_KEY_PARAMETER + "=" + URL.encodeQueryString(key));
+  String url=GWT.getModuleBaseURL() + getUrl;
+  Window.open(url,"_self","enabled");
+}

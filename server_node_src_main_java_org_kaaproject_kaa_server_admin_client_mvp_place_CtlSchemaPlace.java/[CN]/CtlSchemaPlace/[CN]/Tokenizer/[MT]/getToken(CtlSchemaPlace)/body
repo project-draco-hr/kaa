@@ -1,0 +1,16 @@
+{
+  PlaceParams.clear();
+  if (Utils.isNotBlank(place.getSourceFqn())) {
+    PlaceParams.putParam(SOURCE_FQN,place.getSourceFqn());
+  }
+  if (place.getSourceVersion() != null) {
+    PlaceParams.putIntParam(SOURCE_VERSION,place.getSourceVersion());
+  }
+  if (Utils.isNotBlank(place.getFqn())) {
+    PlaceParams.putParam(FQN,place.getFqn());
+  }
+  if (place.getVersion() != null) {
+    PlaceParams.putIntParam(VERSION,place.getVersion());
+  }
+  return PlaceParams.generateToken();
+}

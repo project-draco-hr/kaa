@@ -1,0 +1,65 @@
+{
+  validateCTLSchemaObject(unSavedSchema);
+  if (unSavedSchema.getDefaultRecord() == null) {
+    unSavedSchema=generateDefaultRecord(unSavedSchema);
+  }
+ else {
+    validateDefaultRecord(unSavedSchema);
+  }
+  if (isBlank(unSavedSchema.getId())) {
+    CTLSchemaMetaInfoDto metaInfo=unSavedSchema.getMetaInfo();
+    CTLSchemaScopeDto currentScope=metaInfo.getScope();
+    CTLSchemaDto dto;
+synchronized (this) {
+      boolean existing=false;
+      CTLSchemaMetaInfo uniqueMetaInfo;
+      try {
+        uniqueMetaInfo=schemaMetaInfoDao.save(new CTLSchemaMetaInfo(metaInfo));
+      }
+ catch (      Exception e) {
+        existing=true;
+        uniqueMetaInfo=schemaMetaInfoDao.findByFqnAndVersion(metaInfo.getFqn(),metaInfo.getVersion());
+      }
+      if (uniqueMetaInfo == null) {
+        throw new DatabaseProcessingException("Can't save or find ctl meta information. Please check database state.");
+      }
+      schemaMetaInfoDao.lockRequest(lockOptions).setScope(true).lock(uniqueMetaInfo);
+switch (uniqueMetaInfo.getScope()) {
+case SYSTEM:
+        if (existing) {
+          throw new DatabaseProcessingException("Disable to store system ctl schema with same fqn and version.");
+        }
+case TENANT:
+      if (currentScope == SYSTEM && existing) {
+        throw new DatabaseProcessingException("Disable to store system ctl schema. Tenant's scope schema already exists with the same fqn and version.");
+      }
+    break;
+case APPLICATION:
+  break;
+default :
+break;
+}
+CTLSchema ctlSchema=new CTLSchema(unSavedSchema);
+ctlSchema.setMetaInfo(uniqueMetaInfo);
+ctlSchema.setCreatedTime(System.currentTimeMillis());
+if (isBlank(unSavedSchema.getDescription())) {
+ctlSchema.setDescription(GENERATED);
+}
+schemaMetaInfoDao.refresh(uniqueMetaInfo);
+schemaMetaInfoDao.incrementCount(uniqueMetaInfo);
+try {
+dto=getDto(ctlSchemaDao.save(ctlSchema,true));
+}
+ catch (DataIntegrityViolationException ex) {
+throw new DatabaseProcessingException("Can't save cql schema with same fqn, version and tenant id.");
+}
+catch (Exception ex) {
+throw new DatabaseProcessingException(ex);
+}
+}
+return dto;
+}
+ else {
+return updateCTLSchema(unSavedSchema);
+}
+}

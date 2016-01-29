@@ -1,0 +1,25 @@
+{
+  if (this.getEndpointProfileSchemaid() != null && o.getEndpointProfileSchemaid() == null) {
+    return 1;
+  }
+ else   if (this.getEndpointProfileSchemaid() == null && o.getEndpointProfileSchemaid() != null) {
+    return -1;
+  }
+  if (this.getEndpointProfileSchemaid() != null && o.getEndpointProfileSchemaid() != null) {
+    if (this.getEndpointProfileSchemaVersion() != o.getEndpointProfileSchemaVersion()) {
+      return this.getEndpointProfileSchemaVersion() - o.getEndpointProfileSchemaVersion();
+    }
+  }
+  if (this.getServerProfileSchemaid() != null && o.getServerProfileSchemaid() == null) {
+    return 1;
+  }
+ else   if (this.getServerProfileSchemaid() == null && o.getServerProfileSchemaid() != null) {
+    return -1;
+  }
+ else   if (this.getServerProfileSchemaid() != null && o.getServerProfileSchemaid() != null) {
+    return this.getServerProfileSchemaVersion() - o.getServerProfileSchemaVersion();
+  }
+ else {
+    return 0;
+  }
+}

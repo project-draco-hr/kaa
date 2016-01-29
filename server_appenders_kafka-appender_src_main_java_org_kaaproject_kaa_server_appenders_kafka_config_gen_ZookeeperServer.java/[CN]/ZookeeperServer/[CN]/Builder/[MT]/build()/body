@@ -1,0 +1,11 @@
+{
+  try {
+    ZookeeperServer record=new ZookeeperServer();
+    record.host=fieldSetFlags()[0] ? this.host : (java.lang.String)defaultValue(fields()[0]);
+    record.port=fieldSetFlags()[1] ? this.port : (java.lang.Integer)defaultValue(fields()[1]);
+    return record;
+  }
+ catch (  Exception e) {
+    throw new org.apache.avro.AvroRuntimeException(e);
+  }
+}

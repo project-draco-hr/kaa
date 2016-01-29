@@ -1,0 +1,35 @@
+{
+  float prefWidth=0;
+  prefWidth+=constructStringColumn(table,Utils.constants.name(),new StringValueProvider<TopicDto>(){
+    @Override public String getValue(    TopicDto item){
+      return item.getName();
+    }
+  }
+,new Comparator<TopicDto>(){
+    @Override public int compare(    TopicDto o1,    TopicDto o2){
+      return o1.getName().compareToIgnoreCase(o2.getName());
+    }
+  }
+,Boolean.TRUE,!embedded,80);
+  prefWidth+=constructBooleanColumn(table,Utils.constants.mandatory(),new BooleanValueProvider<TopicDto>(){
+    @Override public Boolean getValue(    TopicDto item){
+      return item.getType() == TopicTypeDto.MANDATORY;
+    }
+  }
+,40);
+  if (!embedded) {
+    prefWidth+=constructStringColumn(table,Utils.constants.author(),new StringValueProvider<TopicDto>(){
+      @Override public String getValue(      TopicDto item){
+        return item.getCreatedUsername();
+      }
+    }
+,80);
+    prefWidth+=constructStringColumn(table,Utils.constants.dateCreated(),new StringValueProvider<TopicDto>(){
+      @Override public String getValue(      TopicDto item){
+        return Utils.millisecondsToDateString(item.getCreatedTime());
+      }
+    }
+,80);
+  }
+  return prefWidth;
+}

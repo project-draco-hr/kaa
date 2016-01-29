@@ -1,0 +1,22 @@
+{
+  ActionListener<SdkProfileDto> actionListener=new ActionListener<SdkProfileDto>(){
+    @Override public void onItemAction(    SdkProfileDto value){
+      SdkProfilesGrid.this.generateSdk(value);
+    }
+  }
+;
+  ActionValidator<SdkProfileDto> actionValidator=new ActionValidator<SdkProfileDto>(){
+    @Override public boolean canPerformAction(    SdkProfileDto value){
+      return !embedded;
+    }
+  }
+;
+  ActionButtonCell<SdkProfileDto> cell;
+  cell=new ActionButtonCell<SdkProfileDto>(Utils.resources.download_grey(),label,embedded,actionListener,actionValidator);
+  return new Column<SdkProfileDto,SdkProfileDto>(cell){
+    @Override public SdkProfileDto getValue(    SdkProfileDto item){
+      return item;
+    }
+  }
+;
+}

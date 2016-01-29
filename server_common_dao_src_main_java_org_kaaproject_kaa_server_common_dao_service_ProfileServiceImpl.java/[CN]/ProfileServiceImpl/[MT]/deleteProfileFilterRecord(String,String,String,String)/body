@@ -1,0 +1,18 @@
+{
+  validateFilterSchemaIds(endpointProfileSchemaId,serverProfileSchemaId);
+  validateSqlId(groupId,"Incorrect group id " + groupId + ".");
+  ChangeProfileFilterNotification profileNotification=null;
+  ProfileFilterDto profileFilterDto=getDto(profileFilterDao.deactivateOldFilter(endpointProfileSchemaId,serverProfileSchemaId,groupId,deactivatedUsername));
+  if (profileFilterDto != null) {
+    HistoryDto historyDto=addHistory(profileFilterDto,ChangeType.REMOVE_PROF);
+    ChangeNotificationDto changeNotificationDto=createNotification(profileFilterDto,historyDto);
+    profileNotification=new ChangeProfileFilterNotification();
+    profileNotification.setProfileFilterDto(profileFilterDto);
+    profileNotification.setChangeNotificationDto(changeNotificationDto);
+  }
+  ProfileFilter profileFilter=profileFilterDao.findInactiveFilter(endpointProfileSchemaId,serverProfileSchemaId,groupId);
+  if (profileFilter != null) {
+    profileFilterDao.removeById(profileFilter.getId().toString());
+  }
+  return profileNotification;
+}

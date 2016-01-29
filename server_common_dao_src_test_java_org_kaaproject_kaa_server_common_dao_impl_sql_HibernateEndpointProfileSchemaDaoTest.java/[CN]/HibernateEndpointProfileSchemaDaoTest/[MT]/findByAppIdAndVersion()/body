@@ -1,0 +1,9 @@
+{
+  List<EndpointProfileSchema> schemas=generateProfSchema(null,4);
+  Assert.assertEquals(4,schemas.size());
+  EndpointProfileSchema schema=schemas.get(2);
+  Application app=schema.getApplication();
+  EndpointProfileSchema found=profileSchemaDao.findByAppIdAndVersion(app.getId().toString(),schema.getVersion());
+  Assert.assertNotNull(found);
+  Assert.assertEquals(3,found.getVersion());
+}

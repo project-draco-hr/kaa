@@ -1,0 +1,17 @@
+{
+  LogAppender mockAppender=mock(LogAppender.class);
+  when(mockAppender.getName()).thenReturn("flume");
+  when(mockAppender.getAppenderId()).thenReturn(APPENDER_ID);
+  when(mockAppender.isSchemaVersionSupported(Mockito.anyInt())).thenReturn(Boolean.TRUE);
+  Notification notification=new Notification();
+  notification.setAppenderId(APPENDER_ID);
+  notification.setAppId(APPLICATION_ID);
+  notification.setOp(Operation.ADD_LOG_APPENDER);
+  logAppenders.clear();
+  applicationLogActorMessageProcessor=new ApplicationLogActorMessageProcessor(context,APP_TOKEN);
+  when(logAppenderService.getApplicationAppender(APPENDER_ID)).thenReturn(mockAppender);
+  applicationLogActorMessageProcessor.processLogAppenderNotification(notification);
+  LogEventPackMessage logEventPackMessage=buildTestMessage(LOG_SCHEMA_VERSION,logSchema);
+  applicationLogActorMessageProcessor.processLogEventPack(Mockito.mock(ActorContext.class),logEventPackMessage);
+  verify(mockAppender).doAppend(Mockito.any(LogEventPack.class),Mockito.any(LogDeliveryCallback.class));
+}

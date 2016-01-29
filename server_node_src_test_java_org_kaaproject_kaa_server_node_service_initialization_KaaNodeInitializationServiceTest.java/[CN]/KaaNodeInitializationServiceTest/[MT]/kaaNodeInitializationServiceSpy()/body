@@ -1,0 +1,25 @@
+{
+  KaaNodeInitializationService kaaNodeInitializationService=Mockito.spy(new KaaNodeInitializationService());
+  KaaNodeServerConfig kaaNodeServerConfig=new KaaNodeServerConfig();
+  kaaNodeServerConfig.setThriftHost("localhost");
+  kaaNodeServerConfig.setThriftPort(10090);
+  kaaNodeServerConfig.setControlServerEnabled(true);
+  kaaNodeServerConfig.setBootstrapServerEnabled(true);
+  kaaNodeServerConfig.setOperationsServerEnabled(true);
+  ReflectionTestUtils.setField(kaaNodeInitializationService,"kaaNodeServerConfig",kaaNodeServerConfig);
+  KaaNodeThriftService.Iface kaaNodeThriftService=Mockito.mock(KaaNodeThriftService.Iface.class);
+  ReflectionTestUtils.setField(kaaNodeInitializationService,"kaaNodeThriftService",kaaNodeThriftService);
+  BootstrapThriftService.Iface bootstrapThriftService=Mockito.mock(BootstrapThriftService.Iface.class);
+  ReflectionTestUtils.setField(kaaNodeInitializationService,"bootstrapThriftService",bootstrapThriftService);
+  OperationsThriftService.Iface operationsThriftService=Mockito.mock(OperationsThriftService.Iface.class);
+  ReflectionTestUtils.setField(kaaNodeInitializationService,"operationsThriftService",operationsThriftService);
+  controlInitializationService=mock(InitializationService.class);
+  bootstrapInitializationService=mock(InitializationService.class);
+  operationsInitializationService=mock(InitializationService.class);
+  ReflectionTestUtils.setField(kaaNodeInitializationService,"controlInitializationService",controlInitializationService);
+  ReflectionTestUtils.setField(kaaNodeInitializationService,"bootstrapInitializationService",bootstrapInitializationService);
+  ReflectionTestUtils.setField(kaaNodeInitializationService,"operationsInitializationService",operationsInitializationService);
+  TServerSocket serverSocket=Mockito.mock(TServerSocket.class);
+  Mockito.doReturn(serverSocket).when(kaaNodeInitializationService).createServerSocket();
+  return kaaNodeInitializationService;
+}

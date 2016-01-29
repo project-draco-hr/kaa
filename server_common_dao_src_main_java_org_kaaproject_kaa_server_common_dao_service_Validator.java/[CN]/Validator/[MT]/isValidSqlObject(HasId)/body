@@ -1,14 +1,14 @@
 {
   boolean correct=false;
-  if (id != null) {
-    String sid=id.getId();
-    if (StringUtils.isNotBlank(sid)) {
+  if (object != null) {
+    String id=object.getId();
+    if (StringUtils.isNotBlank(id)) {
       try {
-        Long.valueOf(sid);
+        Long.parseLong(id);
         correct=true;
       }
- catch (      NumberFormatException e) {
-        LOG.debug("Exception while validating id. Can not parse id to long");
+ catch (      NumberFormatException cause) {
+        LOG.debug("Exception during ID validation: the ID is not blank, but cannot be parsed as long.");
       }
     }
  else {

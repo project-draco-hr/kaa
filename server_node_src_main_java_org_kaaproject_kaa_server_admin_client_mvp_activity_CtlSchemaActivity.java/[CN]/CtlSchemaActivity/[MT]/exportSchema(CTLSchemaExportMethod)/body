@@ -1,0 +1,12 @@
+{
+  AsyncCallback<String> schemaExportCallback=new AsyncCallback<String>(){
+    @Override public void onFailure(    Throwable caught){
+      Utils.handleException(caught,detailsView);
+    }
+    @Override public void onSuccess(    String key){
+      ServletHelper.exportCtlSchema(key);
+    }
+  }
+;
+  KaaAdmin.getDataSource().prepareCTLSchemaExport(entity.getCtlSchemaId(),method,schemaExportCallback);
+}

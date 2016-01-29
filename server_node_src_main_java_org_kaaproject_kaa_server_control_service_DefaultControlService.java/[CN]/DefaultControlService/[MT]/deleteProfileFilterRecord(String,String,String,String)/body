@@ -1,0 +1,9 @@
+{
+  ChangeProfileFilterNotification cpfNotification=profileService.deleteProfileFilterRecord(endpointProfileSchemaId,serverProfileSchemaId,endpointGroupId,deactivatedUsername);
+  if (cpfNotification != null) {
+    ChangeNotificationDto notification=cpfNotification.getChangeNotificationDto();
+    if (notification != null) {
+      notifyEndpoints(notification,cpfNotification.getProfileFilterDto(),null);
+    }
+  }
+}

@@ -1,11 +1,15 @@
 {
+  if (context.needToCheckClientState()) {
+    checkClientStateNot(State.CREATED,"Kaa client is not started");
+    checkClientStateNot(State.STOPPED,"Kaa client is already stopped");
+  }
+  setClientState(State.STOPPED);
   getLifeCycleExecutor().submit(new Runnable(){
     @Override public void run(){
       try {
         logCollector.stop();
         kaaClientState.persist();
         channelManager.shutdown();
-        isInitialized=false;
         if (stateListener != null) {
           stateListener.onStopped();
         }

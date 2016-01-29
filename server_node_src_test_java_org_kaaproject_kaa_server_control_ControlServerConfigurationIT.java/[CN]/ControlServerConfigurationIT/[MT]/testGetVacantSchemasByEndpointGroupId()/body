@@ -1,0 +1,16 @@
+{
+  EndpointGroupDto endpointGroup=createEndpointGroup();
+  ConfigurationSchemaDto configurationSchema1=createConfigurationSchema(endpointGroup.getApplicationId());
+  ConfigurationSchemaDto configurationSchema2=createConfigurationSchema(endpointGroup.getApplicationId());
+  ConfigurationSchemaDto configurationSchema3=createConfigurationSchema(endpointGroup.getApplicationId());
+  createConfiguration(configurationSchema1.getId(),endpointGroup.getId());
+  createConfiguration(configurationSchema2.getId(),endpointGroup.getId());
+  List<VersionDto> schemas=client.getVacantConfigurationSchemasByEndpointGroupId(endpointGroup.getId());
+  Assert.assertNotNull(schemas);
+  Assert.assertEquals(2,schemas.size());
+  Collections.sort(schemas);
+  VersionDto schema=schemas.get(1);
+  Assert.assertNotNull(schema);
+  Assert.assertEquals(configurationSchema3.getId(),schema.getId());
+  Assert.assertEquals(configurationSchema3.getVersion(),schema.getVersion());
+}

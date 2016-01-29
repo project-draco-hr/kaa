@@ -1,0 +1,14 @@
+{
+  if (dto != null) {
+    this.id=getLongId(dto);
+    this.version=dto.getVersion();
+    Long appId=getLongId(dto.getApplicationId());
+    this.application=appId != null ? new Application(appId) : null;
+    Long ctlSchemaId=getLongId(dto.getCtlSchemaId());
+    this.ctlSchema=ctlSchemaId != null ? new CTLSchema(ctlSchemaId) : null;
+    this.name=dto.getName();
+    this.description=dto.getDescription();
+    this.createdUsername=dto.getCreatedUsername();
+    this.createdTime=dto.getCreatedTime();
+  }
+}

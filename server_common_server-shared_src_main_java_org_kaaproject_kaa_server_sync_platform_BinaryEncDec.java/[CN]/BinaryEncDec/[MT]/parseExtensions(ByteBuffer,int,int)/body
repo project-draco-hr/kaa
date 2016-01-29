@@ -4,9 +4,8 @@
     if (buf.remaining() < MIN_SIZE_OF_EXTENSION_HEADER) {
       throw new PlatformEncDecException(MessageFormat.format("Extension header is to small. Available {0}, current possition is {1}!",buf.remaining(),buf.position()));
     }
-    int extMetaData=buf.getInt();
-    byte type=(byte)((extMetaData & 0xFF000000) >> 24);
-    int options=extMetaData & 0x00FFFFFF;
+    short type=buf.getShort();
+    int options=buf.getShort();
     int payloadLength=buf.getInt();
     if (buf.remaining() < payloadLength) {
       throw new PlatformEncDecException(MessageFormat.format("Extension payload is to small. Available {0}, expected {1} current possition is {2}!",buf.remaining(),payloadLength,buf.position()));

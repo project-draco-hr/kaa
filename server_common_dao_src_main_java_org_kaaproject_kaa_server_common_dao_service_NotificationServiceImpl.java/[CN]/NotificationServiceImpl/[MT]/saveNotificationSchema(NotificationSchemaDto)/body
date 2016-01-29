@@ -13,8 +13,8 @@
       throw new IncorrectParameterException("Invalid Notification type in Notification Schema object.");
     }
     if (foundSchema != null) {
-      int lastSchemaVersion=foundSchema.getMajorVersion();
-      notificationSchemaDto.setMajorVersion(++lastSchemaVersion);
+      int lastSchemaVersion=foundSchema.getVersion();
+      notificationSchemaDto.setVersion(++lastSchemaVersion);
     }
  else {
       notificationSchemaDto.incrementVersion();

@@ -1,0 +1,5 @@
+{
+  MultiValueMap<String,Object> params=new LinkedMultiValueMap<>();
+  params.add("topicId",topicId);
+  restTemplate.postForLocation(url + "delTopic",params);
+}

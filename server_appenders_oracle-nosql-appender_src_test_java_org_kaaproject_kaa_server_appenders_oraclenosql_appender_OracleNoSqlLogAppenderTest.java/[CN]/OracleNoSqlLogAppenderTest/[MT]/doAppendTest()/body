@@ -1,0 +1,37 @@
+{
+  List<LogEvent> events=new ArrayList<>();
+  LogEvent event1=new LogEvent();
+  event1.setLogData(LOG_DATA.getBytes(UTF_8));
+  LogEvent event2=new LogEvent();
+  event2.setLogData(LOG_DATA.getBytes(UTF_8));
+  LogEvent event3=new LogEvent();
+  event3.setLogData(LOG_DATA.getBytes(UTF_8));
+  events.add(event1);
+  events.add(event2);
+  events.add(event3);
+  LogSchemaDto dto=new LogSchemaDto();
+  dto.setSchema(EMPTY_SCHEMA);
+  dto.setVersion(1);
+  LogSchema schema=new LogSchema(dto);
+  int version=dto.getVersion();
+  EndpointProfileDataDto profileDto=new EndpointProfileDataDto("1",ENDPOINT_KEY,1,"test",0,null);
+  BaseLogEventPack logEventPack=new BaseLogEventPack(profileDto,DATE_CREATED,version,events);
+  logEventPack.setLogSchema(schema);
+  Map<String,GenericAvroConverter<GenericRecord>> converters=new HashMap<>();
+  GenericAvroConverter<GenericRecord> converter=new GenericAvroConverter<GenericRecord>(dto.getSchema()){
+    @Override public GenericRecord decodeBinary(    byte[] bytes){
+      return null;
+    }
+    @Override public String encodeToJson(    GenericRecord record){
+      return LOG_DATA;
+    }
+  }
+;
+  converters.put(dto.getSchema(),converter);
+  ReflectionTestUtils.setField(logAppender,"converters",converters);
+  Assert.assertEquals(0,getKeyValuesCount());
+  TestLogDeliveryCallback callback=new TestLogDeliveryCallback();
+  logAppender.doAppend(logEventPack,callback);
+  Assert.assertTrue(callback.success);
+  Assert.assertEquals(3,getKeyValuesCount());
+}

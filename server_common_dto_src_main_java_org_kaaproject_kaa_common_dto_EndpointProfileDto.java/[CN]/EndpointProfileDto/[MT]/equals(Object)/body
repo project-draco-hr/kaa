@@ -12,7 +12,7 @@
   if (notificationVersion != that.notificationVersion) {
     return false;
   }
-  if (profileVersion != that.profileVersion) {
+  if (clientProfileVersion != that.clientProfileVersion) {
     return false;
   }
   if (cfSequenceNumber != that.cfSequenceNumber) {
@@ -28,9 +28,6 @@
     return false;
   }
   if (applicationId != null ? !applicationId.equals(that.applicationId) : that.applicationId != null) {
-    return false;
-  }
-  if (changedFlag != null ? !changedFlag.equals(that.changedFlag) : that.changedFlag != null) {
     return false;
   }
   if (!Arrays.equals(configurationHash,that.configurationHash)) {
@@ -54,16 +51,16 @@
   if (!Arrays.equals(ntHash,that.ntHash)) {
     return false;
   }
-  if (profile != null ? !profile.equals(that.profile) : that.profile != null) {
+  if (clientProfileBody != null ? !clientProfileBody.equals(that.clientProfileBody) : that.clientProfileBody != null) {
     return false;
   }
   if (!Arrays.equals(profileHash,that.profileHash)) {
     return false;
   }
-  if (profileSchemaId != null ? !profileSchemaId.equals(that.profileSchemaId) : that.profileSchemaId != null) {
+  if (subscriptions != null ? !subscriptions.equals(that.subscriptions) : that.subscriptions != null) {
     return false;
   }
-  if (subscriptions != null ? !subscriptions.equals(that.subscriptions) : that.subscriptions != null) {
+  if (sdkToken != null ? !sdkToken.equals(that.sdkToken) : that.sdkToken != null) {
     return false;
   }
   return true;

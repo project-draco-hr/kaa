@@ -1,0 +1,12 @@
+{
+  LOG.debug("Initializing new instance of MongoDB log appender");
+  try {
+    logEventDao=new LogEventMongoDao(configuration);
+    this.includeClientProfile=configuration.getIncludeClientProfile();
+    this.includeServerProfile=configuration.getIncludeServerProfile();
+    createCollection(appender.getApplicationToken());
+  }
+ catch (  Exception e) {
+    LOG.error("Failed to init MongoDB log appender: ",e);
+  }
+}

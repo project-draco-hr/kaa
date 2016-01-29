@@ -1,0 +1,19 @@
+{
+  this.checkAuthority(KaaAuthorityDto.values());
+  try {
+    AuthUserDto currentUser=getCurrentUser();
+    CTLSchemaScopeDto scope=this.getCTLSchemaScopeByName(scopeName);
+    if (scope == CTLSchemaScopeDto.TENANT && currentUser.getAuthority() != KaaAuthorityDto.KAA_ADMIN) {
+      return controlService.getTenantCTLSchemasMetaInfoByTenantId(currentUser.getTenantId());
+    }
+ else     if (scope == CTLSchemaScopeDto.SYSTEM) {
+      return controlService.getSystemCTLSchemasMetaInfo();
+    }
+ else {
+      throw new IllegalArgumentException("You do not have permission to perform this operation!");
+    }
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+}

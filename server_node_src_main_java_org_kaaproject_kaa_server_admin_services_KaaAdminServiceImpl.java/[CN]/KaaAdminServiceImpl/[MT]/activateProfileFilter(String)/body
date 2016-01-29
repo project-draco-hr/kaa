@@ -1,0 +1,13 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    ProfileFilterDto storedProfileFilter=controlService.getProfileFilter(profileFilterId);
+    Utils.checkNotNull(storedProfileFilter);
+    checkEndpointGroupId(storedProfileFilter.getEndpointGroupId());
+    String username=getCurrentUser().getUsername();
+    return controlService.activateProfileFilter(profileFilterId,username);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

@@ -1,5 +1,5 @@
 {
-  List<ProfileSchema> schemas=Collections.emptyList();
+  List<EndpointProfileSchema> schemas=Collections.emptyList();
   LOG.debug("Searching profile schemas by application id [{}] ",appId);
   if (isNotBlank(appId)) {
     schemas=findListByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(appId)));

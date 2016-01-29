@@ -1,5 +1,5 @@
 {
-  EndpointGroupDto group=generateEndpointGroup(null);
+  EndpointGroupDto group=generateEndpointGroupDto(null);
   EndpointGroupDto found=endpointService.findEndpointGroupById(group.getId());
   found.setId(null);
   endpointService.saveEndpointGroup(found);

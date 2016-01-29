@@ -1,12 +1,12 @@
 {
-  EndpointUserDto userDto=generateEndpointUser(null);
-  ApplicationDto appDto=generateApplication();
-  EndpointUserConfigurationDto firstUserConfigurationDto=generateEndpointUserConfiguration(userDto,appDto,null,readSchemaFileAsString("dao/user/overrideData.json"));
-  EndpointUserConfigurationDto secondUserConfigurationDto=generateEndpointUserConfiguration(userDto,appDto,null,readSchemaFileAsString("dao/user/overrideData.json"));
+  EndpointUserDto userDto=generateEndpointUserDto(null);
+  ApplicationDto appDto=generateApplicationDto();
+  EndpointUserConfigurationDto firstUserConfigurationDto=generateEndpointUserConfigurationDto(userDto,appDto,null,readSchemaFileAsString("dao/user/overrideData.json"));
+  EndpointUserConfigurationDto secondUserConfigurationDto=generateEndpointUserConfigurationDto(userDto,appDto,null,readSchemaFileAsString("dao/user/overrideData.json"));
   List<MongoEndpointUserConfiguration> expectedList=new ArrayList<>();
   expectedList.add(new MongoEndpointUserConfiguration(firstUserConfigurationDto));
   expectedList.add(new MongoEndpointUserConfiguration(secondUserConfigurationDto));
-  generateEndpointUserConfiguration(null,null,null);
+  generateEndpointUserConfigurationDto(null,null,null);
   List<MongoEndpointUserConfiguration> foundList=endpointUserConfigurationDao.findByUserId(userDto.getId());
   Assert.assertEquals(expectedList.size(),foundList.size());
   Assert.assertEquals(expectedList,foundList);

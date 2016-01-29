@@ -1,0 +1,15 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    CTLSchemaDto schemaFound=controlService.getCTLSchemaById(ctlSchemaId);
+    Utils.checkNotNull(schemaFound);
+    if (schemaFound.getMetaInfo().getScope() != CTLSchemaScopeDto.SYSTEM) {
+      this.checkCTLAuthority(schemaFound);
+    }
+    CtlSchemaExportKey key=new CtlSchemaExportKey(ctlSchemaId,method);
+    return Base64.encodeObject(key,Base64.URL_SAFE);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

@@ -1,0 +1,7 @@
+{
+  Map<String,EndpointGroupStateDto> groupsMap=new HashMap<>();
+  for (  EndpointGroupStateDto egs : subject == HistorySubject.CONFIGURATION ? profile.getCfGroupStates() : profile.getNfGroupStates()) {
+    groupsMap.put(egs.getEndpointGroupId(),egs);
+  }
+  return groupsMap;
+}

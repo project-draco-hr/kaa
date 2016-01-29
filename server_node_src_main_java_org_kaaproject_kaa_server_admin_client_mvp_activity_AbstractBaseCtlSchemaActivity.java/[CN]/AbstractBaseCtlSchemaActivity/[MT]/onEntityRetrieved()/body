@@ -1,0 +1,27 @@
+{
+  if (create) {
+    createEmptyCtlSchemaForm(new BusyAsyncCallback<CtlSchemaFormDto>(){
+      @Override public void onSuccessImpl(      CtlSchemaFormDto result){
+        entity.setCtlSchemaForm(result);
+        KaaAdmin.getDataSource().getAvailableCtlSchemaReferences(new BusyAsyncCallback<List<CTLSchemaMetaInfoDto>>(){
+          @Override public void onFailureImpl(          Throwable caught){
+            Utils.handleException(caught,detailsView);
+          }
+          @Override public void onSuccessImpl(          List<CTLSchemaMetaInfoDto> result){
+            detailsView.getCtlSchemaReference().setAcceptableValues(result);
+            bindDetailsView(true);
+          }
+        }
+);
+      }
+      @Override public void onFailureImpl(      Throwable caught){
+        Utils.handleException(caught,detailsView);
+      }
+    }
+);
+    detailsView.getSchemaForm().setFormDataLoader(this);
+  }
+ else {
+    bindDetailsView(false);
+  }
+}

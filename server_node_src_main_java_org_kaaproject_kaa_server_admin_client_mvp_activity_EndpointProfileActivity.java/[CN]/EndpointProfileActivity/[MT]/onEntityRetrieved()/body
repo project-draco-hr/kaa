@@ -1,0 +1,106 @@
+{
+  detailsView.getKeyHash().setValue(BaseEncoding.base64().encode(entity.getEndpointKeyHash()));
+  if (entity.getUserId() != null) {
+    detailsView.getUserID().setValue(entity.getUserId());
+    detailsView.getUserExternalID().setValue(entity.getUserExternalId());
+    for (    Widget widget : detailsView.getUserInfoList()) {
+      widget.setVisible(true);
+    }
+  }
+ else {
+    for (    Widget widget : detailsView.getUserInfoList()) {
+      widget.setVisible(false);
+    }
+  }
+  final SdkProfileDto sdkDto=entity.getSdkProfileDto();
+  if (sdkDto != null) {
+    String sdkName=sdkDto.getName();
+    detailsView.getSdkAnchor().setText((sdkName != null && !sdkName.isEmpty()) ? sdkName : sdkDto.getToken());
+    registrations.add(detailsView.getSdkAnchor().addClickHandler(new ClickHandler(){
+      @Override public void onClick(      ClickEvent clickEvent){
+        SdkProfilePlace sdkProfilePlace=new SdkProfilePlace(place.getApplicationId(),sdkDto.getId());
+        sdkProfilePlace.setPreviousPlace(place);
+        goTo(sdkProfilePlace);
+      }
+    }
+));
+  }
+ else {
+    detailsView.getSdkAnchor().setText("");
+  }
+  List<EndpointGroupDto> groupDtoList=entity.getEndpointGroups();
+  if (groupDtoList != null) {
+    detailsView.getGroupsGrid().getDataGrid().setRowData(groupDtoList);
+  }
+  List<TopicDto> endpointNotificationTopics=entity.getTopics();
+  if (endpointNotificationTopics != null) {
+    detailsView.getTopicsGrid().getDataGrid().setRowData(endpointNotificationTopics);
+  }
+ else {
+    detailsView.getTopicsGrid().getDataGrid().setRowData(new ArrayList<TopicDto>());
+  }
+  detailsView.getEndpointProfSchemaName().setText(entity.getProfileSchemaName());
+  registrations.add(detailsView.getEndpointProfSchemaName().addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent clickEvent){
+      ProfileSchemaPlace endpointProfSchemaPlace=new ProfileSchemaPlace(place.getApplicationId(),entity.getProfileSchemaVersion().getId());
+      endpointProfSchemaPlace.setPreviousPlace(place);
+      goTo(endpointProfSchemaPlace);
+    }
+  }
+));
+  registrations.add(detailsView.getDownloadEndpointProfileJsonButton().addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      ServletHelper.downloadEndpointProfile(BaseEncoding.base64().encode(entity.getEndpointKeyHash()),ProfileType.CLIENT);
+    }
+  }
+));
+  detailsView.getEndpointProfForm().setValue(entity.getProfileRecord());
+  detailsView.getServerProfForm().setValue(entity.getServerProfileRecord());
+  detailsView.getServerProfForm().setReadOnly(true);
+  detailsView.getServerProfSchemaName().setText(entity.getServerProfileSchemaName());
+  registrations.add(detailsView.getServerProfSchemaName().addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent clickEvent){
+      ServerProfileSchemaPlace serverProfSchemaPlace=new ServerProfileSchemaPlace(place.getApplicationId(),entity.getServerProfileSchemaVersion().getId());
+      serverProfSchemaPlace.setPreviousPlace(place);
+      goTo(serverProfSchemaPlace);
+    }
+  }
+));
+  registrations.add(detailsView.getDownloadServerProfileJsonButton().addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      ServletHelper.downloadEndpointProfile(BaseEncoding.base64().encode(entity.getEndpointKeyHash()),ProfileType.SERVER);
+    }
+  }
+));
+  registrations.add(detailsView.getEditServerProfileButton().addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      KaaAdmin.getDataSource().getServerProfileSchemaInfosByEndpointKey(place.getEndpointKeyHash(),new BusyAsyncCallback<List<SchemaInfoDto>>(){
+        @Override public void onFailureImpl(        Throwable caught){
+          Utils.handleException(caught,detailsView);
+        }
+        @Override public void onSuccessImpl(        List<SchemaInfoDto> result){
+          EditSchemaRecordDialog.Listener editSchemaListener=new EditSchemaRecordDialog.Listener(){
+            @Override public void onSave(            SchemaInfoDto newValue){
+              AsyncCallback<EndpointProfileDto> callback=new BusyAsyncCallback<EndpointProfileDto>(){
+                @Override public void onFailureImpl(                Throwable caught){
+                  Utils.handleException(caught,detailsView);
+                }
+                @Override public void onSuccessImpl(                EndpointProfileDto result){
+                  reload();
+                }
+              }
+;
+              KaaAdmin.getDataSource().updateServerProfile(BaseEncoding.base64().encode(entity.getEndpointKeyHash()),newValue.getVersion(),newValue.getSchemaForm(),callback);
+            }
+            @Override public void onCancel(){
+            }
+          }
+;
+          EditSchemaRecordDialog.showEditSchemaRecordDialog(editSchemaListener,Utils.constants.editServerProfile(),result,entity.getServerProfileSchemaVersion().getVersion());
+        }
+      }
+);
+    }
+  }
+));
+}

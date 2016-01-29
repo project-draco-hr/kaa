@@ -1,0 +1,18 @@
+{
+  Set<String> groupIdSet=new HashSet<>();
+  List<CassandraEndpointGroupState> groupStateSet=new LinkedList<>();
+  if (profile != null) {
+    List<CassandraEndpointGroupState> cfGroupState=profile.getCfGroupState();
+    if (cfGroupState != null && !cfGroupState.isEmpty()) {
+      groupStateSet.addAll(cfGroupState);
+    }
+    List<CassandraEndpointGroupState> nfGroupState=profile.getNfGroupState();
+    if (nfGroupState != null && !nfGroupState.isEmpty()) {
+      groupStateSet.addAll(nfGroupState);
+    }
+    for (    CassandraEndpointGroupState cf : groupStateSet) {
+      groupIdSet.add(cf.getEndpointGroupId());
+    }
+  }
+  return groupIdSet;
+}

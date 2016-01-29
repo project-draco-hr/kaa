@@ -1,0 +1,22 @@
+{
+  NotificationDto notification=new NotificationDto();
+  if (strIsEmpty(appId)) {
+    ApplicationDto applicationDto=createApplication(tenantAdminDto);
+    notification.setApplicationId(applicationDto.getId());
+  }
+ else {
+    notification.setApplicationId(appId);
+  }
+  if (strIsEmpty(schemaId)) {
+    NotificationSchemaDto schema=createNotificationSchema(appId,type);
+    notification.setSchemaId(schema.getId());
+  }
+ else {
+    notification.setSchemaId(schemaId);
+  }
+  TopicDto topic=createTopic(appId,TopicTypeDto.MANDATORY);
+  notification.setTopicId(topic.getId());
+  loginTenantDeveloper(tenantDeveloperDto.getUsername());
+  EndpointNotificationDto savedUnicast=client.sendUnicastNotification(notification,Base64.encode(keyHash),"body","{\"notificationBody\":\"dummy\", \"systemNotificationParam1\":42, \"systemNotificationParam2\":43}");
+  return savedUnicast;
+}

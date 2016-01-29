@@ -1,0 +1,11 @@
+{
+  KaaAdmin.getDataSource().loadConfigurationRecords(endpointGroupId,includeDeprecated,new AsyncCallback<List<ConfigurationRecordDto>>(){
+    @Override public void onFailure(    Throwable caught){
+      callback.onFailure(caught);
+    }
+    @Override public void onSuccess(    List<ConfigurationRecordDto> result){
+      callback.onSuccess(result);
+    }
+  }
+);
+}

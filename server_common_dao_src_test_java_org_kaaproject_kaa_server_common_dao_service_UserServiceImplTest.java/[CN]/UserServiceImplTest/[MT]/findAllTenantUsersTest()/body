@@ -1,8 +1,8 @@
 {
-  TenantDto tenant=generateTenant();
+  TenantDto tenant=generateTenantDto();
   List<UserDto> expectedUsers=new ArrayList<>();
-  List<UserDto> devUsers=generateUsers(tenant.getId(),KaaAuthorityDto.TENANT_DEVELOPER,2);
-  List<UserDto> users=generateUsers(tenant.getId(),KaaAuthorityDto.TENANT_USER,3);
+  List<UserDto> devUsers=generateUsersDto(tenant.getId(),KaaAuthorityDto.TENANT_DEVELOPER,2);
+  List<UserDto> users=generateUsersDto(tenant.getId(),KaaAuthorityDto.TENANT_USER,3);
   expectedUsers.addAll(devUsers);
   expectedUsers.addAll(users);
   List<UserDto> foundUsers=userService.findAllTenantUsers(tenant.getId());

@@ -3,10 +3,12 @@
   KaaChannelManager channelManager=Mockito.mock(KaaChannelManager.class);
   FailoverManager failoverManager=Mockito.mock(FailoverManager.class);
   LogTransport transport=Mockito.mock(LogTransport.class);
+  LogDeliveryListener deliveryListener=Mockito.mock(LogDeliveryListener.class);
   AbstractLogCollector logCollector=new DefaultLogCollector(transport,executorContext,channelManager,failoverManager);
   DefaultLogUploadStrategy tmp=new DefaultLogUploadStrategy();
   tmp.setTimeout(timeout);
   LogUploadStrategy strategy=Mockito.spy(tmp);
+  logCollector.setLogDeliveryListener(deliveryListener);
   logCollector.setStrategy(strategy);
   Log record=new Log();
   logCollector.addLogRecord(record);
@@ -22,5 +24,6 @@
   Mockito.verify(strategy,Mockito.times(0)).onTimeout(Mockito.any(LogFailoverCommand.class));
   Thread.sleep(timeout / 2 * 1000);
   logCollector.addLogRecord(record);
+  verify(deliveryListener,Mockito.timeout(1000)).onLogDeliveryTimeout(Mockito.any(BucketInfo.class));
   Mockito.verify(strategy,Mockito.timeout(1000).times(1)).onTimeout(Mockito.any(LogFailoverCommand.class));
 }

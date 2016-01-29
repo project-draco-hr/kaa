@@ -1,0 +1,12 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    LogSchemaDto logSchema=controlService.getLogSchema(logSchemaId);
+    Utils.checkNotNull(logSchema);
+    checkApplicationId(logSchema.getApplicationId());
+    return logSchema;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

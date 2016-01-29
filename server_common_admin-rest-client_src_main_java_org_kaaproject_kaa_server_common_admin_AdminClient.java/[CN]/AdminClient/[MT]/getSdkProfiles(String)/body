@@ -1,0 +1,7 @@
+{
+  ParameterizedTypeReference<List<SdkProfileDto>> typeRef=new ParameterizedTypeReference<List<SdkProfileDto>>(){
+  }
+;
+  ResponseEntity<List<SdkProfileDto>> entity=restTemplate.exchange(url + "sdkProfiles/" + applicationId,HttpMethod.GET,null,typeRef);
+  return entity.getBody();
+}

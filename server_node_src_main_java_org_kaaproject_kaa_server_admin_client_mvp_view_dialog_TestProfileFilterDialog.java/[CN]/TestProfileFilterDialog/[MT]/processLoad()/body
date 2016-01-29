@@ -1,0 +1,43 @@
+{
+  if (Utils.isNotBlank(endpointProfileSchemaId) && endpointProfile == null) {
+    KaaAdmin.getDataSource().getEndpointProfileSchemaInfo(endpointProfileSchemaId,new BusyAsyncCallback<SchemaInfoDto>(){
+      @Override public void onFailureImpl(      Throwable caught){
+        Utils.handleException(caught,TestProfileFilterDialog.this);
+      }
+      @Override public void onSuccessImpl(      SchemaInfoDto result){
+        endpointProfile=result;
+        endpointProfileRecordPanel.setValue(result.getSchemaForm());
+        endpointProfileRecordPanel.setTitle(result.getSchemaName());
+        profileRecordsPanel.add(endpointProfileRecordPanel,Utils.constants.endpointProfile());
+        processLoad();
+      }
+    }
+);
+  }
+ else   if (Utils.isNotBlank(serverProfileSchemaId) && serverProfile == null) {
+    KaaAdmin.getDataSource().getServerProfileSchemaInfo(serverProfileSchemaId,new BusyAsyncCallback<SchemaInfoDto>(){
+      @Override public void onFailureImpl(      Throwable caught){
+        Utils.handleException(caught,TestProfileFilterDialog.this);
+      }
+      @Override public void onSuccessImpl(      SchemaInfoDto result){
+        serverProfile=result;
+        serverProfileRecordPanel.setValue(result.getSchemaForm());
+        serverProfileRecordPanel.setTitle(result.getSchemaName());
+        profileRecordsPanel.add(serverProfileRecordPanel,Utils.constants.serverProfile());
+        processLoad();
+      }
+    }
+);
+  }
+ else {
+    profileRecordsPanel.selectTab(0);
+    if (endpointProfile != null) {
+      endpointProfileRecordPanel.getRecordWidget().onShown();
+    }
+    if (serverProfile != null) {
+      serverProfileRecordPanel.getRecordWidget().onShown();
+    }
+    center();
+    validate();
+  }
+}

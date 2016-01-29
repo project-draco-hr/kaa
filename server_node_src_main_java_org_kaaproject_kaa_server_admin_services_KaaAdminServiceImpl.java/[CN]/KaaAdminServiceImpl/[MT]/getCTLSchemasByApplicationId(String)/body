@@ -1,0 +1,10 @@
+{
+  this.checkAuthority(KaaAuthorityDto.values());
+  try {
+    this.checkApplicationId(applicationId);
+    return controlService.getCTLSchemasMetaInfoByApplicationId(applicationId);
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+}

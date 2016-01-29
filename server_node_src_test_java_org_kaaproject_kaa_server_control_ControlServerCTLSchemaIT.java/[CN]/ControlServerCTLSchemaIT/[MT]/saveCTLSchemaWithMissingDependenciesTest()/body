@@ -1,0 +1,15 @@
+{
+  String dependencyFqn=CTL_DEFAULT_NAMESPACE + "." + this.ctlRandomFieldType();
+  Integer dependencyVersion=1;
+  final Set<CTLSchemaMetaInfoDto> dependencies=new HashSet<>();
+  dependencies.add(new CTLSchemaMetaInfoDto(dependencyFqn,dependencyVersion));
+  final Map<String,String> fields=new HashMap<>();
+  fields.put(this.ctlRandomFieldName(),dependencyFqn);
+  this.loginTenantDeveloper(tenantDeveloperUser);
+  this.checkBadRequest(new TestRestCall(){
+    @Override public void executeRestCall() throws Exception {
+      createCTLSchema(ctlRandomFieldType(),CTL_DEFAULT_NAMESPACE,1,CTLSchemaScopeDto.TENANT,null,dependencies,fields);
+    }
+  }
+);
+}

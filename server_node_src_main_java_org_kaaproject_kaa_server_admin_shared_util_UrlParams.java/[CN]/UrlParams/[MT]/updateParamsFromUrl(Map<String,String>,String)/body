@@ -1,0 +1,11 @@
+{
+  if (paramsUrl != null && paramsUrl.trim().length() > 0) {
+    String[] params=paramsUrl.split(PARAMS_SEPARATOR);
+    for (    String param : params) {
+      String[] keyVal=param.split("=");
+      if (keyVal != null && keyVal.length == 2) {
+        paramsMap.put(keyVal[0],URL.decodeQueryString(keyVal[1]));
+      }
+    }
+  }
+}

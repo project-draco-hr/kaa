@@ -1,0 +1,55 @@
+{
+  registrations.add(recordView.getRecordPanel().getSaveButton().addClickHandler(new ClickHandler(){
+    public void onClick(    ClickEvent event){
+      doSave(eventBus);
+    }
+  }
+));
+  registrations.add(recordView.getRecordPanel().getActivateButton().addClickHandler(new ClickHandler(){
+    public void onClick(    ClickEvent event){
+      doActivate(eventBus);
+    }
+  }
+));
+  registrations.add(recordView.getRecordPanel().getDeactivateButton().addClickHandler(new ClickHandler(){
+    public void onClick(    ClickEvent event){
+      doDeactivate(eventBus);
+    }
+  }
+));
+  registrations.add(recordView.getBackButton().addClickHandler(new ClickHandler(){
+    public void onClick(    ClickEvent event){
+      goTo(place.getPreviousPlace());
+    }
+  }
+));
+  recordView.reset();
+  recordView.getRecordPanel().openActive();
+  if (create) {
+    record=newRecord();
+    R inactiveStruct=createInactiveStruct();
+    record.setInactiveStructureDto(inactiveStruct);
+    onRecordRetrieved();
+  }
+ else {
+    KaaAdmin.getDataSource().getEndpointGroup(endpointGroupId,new BusyAsyncCallback<EndpointGroupDto>(){
+      @Override public void onFailureImpl(      Throwable caught){
+        Utils.handleException(caught,recordView);
+      }
+      @Override public void onSuccessImpl(      EndpointGroupDto result){
+        endpointGroup=result;
+        getRecord(endpointGroupId,new AsyncCallback<T>(){
+          @Override public void onFailure(          Throwable caught){
+            Utils.handleException(caught,recordView);
+          }
+          @Override public void onSuccess(          T result){
+            record=result;
+            onRecordRetrieved();
+          }
+        }
+);
+      }
+    }
+);
+  }
+}

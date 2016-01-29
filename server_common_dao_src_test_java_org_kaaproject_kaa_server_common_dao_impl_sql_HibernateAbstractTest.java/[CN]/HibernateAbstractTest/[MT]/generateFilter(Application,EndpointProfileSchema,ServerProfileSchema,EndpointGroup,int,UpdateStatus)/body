@@ -1,0 +1,26 @@
+{
+  if (schema == null) {
+    schema=generateProfSchema(app,1).get(0);
+  }
+  if (srvSchema == null) {
+    srvSchema=new ServerProfileSchema(generateServerProfileSchema(app.getStringId(),app.getTenant().getStringId()));
+  }
+  if (group == null) {
+    group=generateEndpointGroup(app,null);
+  }
+  List<ProfileFilter> filters=new ArrayList<>();
+  for (int i=0; i < count; i++) {
+    ProfileFilter dto=new ProfileFilter();
+    dto.setId(null);
+    dto.setStatus(status != null ? status : UpdateStatus.INACTIVE);
+    dto.setEndpointGroup(group);
+    dto.setEndpointProfileSchema(schema);
+    dto.setServerProfileSchema(srvSchema);
+    dto.setSequenceNumber(i);
+    dto.setApplication(app);
+    ProfileFilter saved=profileFilterDao.save(dto);
+    Assert.assertNotNull(saved);
+    filters.add(saved);
+  }
+  return filters;
+}

@@ -1,0 +1,15 @@
+{
+  if (getNodeConfig().isZkEnabled()) {
+    LOG.info("Bootstrap service starting ZooKepper connection to {}",getNodeConfig().getZkHostPortList());
+    BootstrapNodeInfo nodeInfo=new BootstrapNodeInfo();
+    ByteBuffer keyData=ByteBuffer.wrap(bootstrapKeyStoreService.getPublicKey().getEncoded());
+    LOG.trace("Bootstrap service: registering in ZK: thriftHost {}; thriftPort {}; nettyHost {}; nettyPort {}",getNodeConfig().getThriftHost(),getNodeConfig().getThriftPort());
+    nodeInfo.setConnectionInfo(new ConnectionInfo(getNodeConfig().getThriftHost(),getNodeConfig().getThriftPort(),keyData));
+    nodeInfo.setTransports(new ArrayList<TransportMetaData>());
+    nodeInfo.setTimeStarted(System.currentTimeMillis());
+    bootstrapNode=new BootstrapNode(nodeInfo,getNodeConfig().getZkHostPortList(),new RetryUntilElapsed(getNodeConfig().getZkMaxRetryTime(),getNodeConfig().getZkSleepTime()));
+    if (bootstrapNode != null) {
+      bootstrapNode.start();
+    }
+  }
+}

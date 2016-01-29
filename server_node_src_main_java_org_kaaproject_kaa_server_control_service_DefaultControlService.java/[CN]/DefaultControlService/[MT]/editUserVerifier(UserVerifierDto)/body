@@ -1,0 +1,24 @@
+{
+  LOG.info("Adding new user verifier {}",userVerifier);
+  UserVerifierDto saved=null;
+  if (userVerifier != null) {
+    saved=userVerifierService.saveUserVerifier(userVerifier);
+    LOG.info("Saved user verifier {}",saved);
+    if (saved != null) {
+      Notification thriftNotification=new Notification();
+      thriftNotification.setAppId(saved.getApplicationId());
+      thriftNotification.setUserVerifierToken(saved.getVerifierToken());
+      if (userVerifier.getId() == null) {
+        LOG.info("Add new user verifier ...");
+        thriftNotification.setOp(Operation.ADD_USER_VERIFIER);
+        LOG.info("Send notification to operation servers about new user verifier.");
+      }
+ else {
+        thriftNotification.setOp(Operation.UPDATE_USER_VERIFIER);
+        LOG.info("Send notification to operation servers about update user verifier configuration.");
+      }
+      controlZKService.sendEndpointNotification(thriftNotification);
+    }
+  }
+  return saved;
+}

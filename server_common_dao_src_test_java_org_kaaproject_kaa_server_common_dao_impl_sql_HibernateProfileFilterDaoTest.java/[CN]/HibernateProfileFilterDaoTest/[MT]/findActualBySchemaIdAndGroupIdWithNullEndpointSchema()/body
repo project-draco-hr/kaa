@@ -1,0 +1,9 @@
+{
+  ServerProfileSchemaDto ss=generateServerProfileSchema(null,null);
+  List<ProfileFilter> filters=generateFilterWithoutSchemaGeneration(null,serverProfileSchemaDao.findById(ss.getId()),null,1,UpdateStatus.ACTIVE);
+  ProfileFilter first=filters.get(0);
+  EndpointGroup group=first.getEndpointGroup();
+  ServerProfileSchema srv=first.getServerProfileSchema();
+  List<ProfileFilter> found=profileFilterDao.findActualBySchemaIdAndGroupId(null,srv.getStringId(),group.getStringId());
+  Assert.assertFalse(found.isEmpty());
+}

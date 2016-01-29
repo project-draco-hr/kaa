@@ -1,16 +1,16 @@
 {
-  HashCodeBuilder builder=new HashCodeBuilder();
+  List<Object> list=new ArrayList<Object>();
   boolean present_userId=true && (isSetUserId());
-  builder.append(present_userId);
-  if (present_userId)   builder.append(userId);
+  list.add(present_userId);
+  if (present_userId)   list.add(userId);
   boolean present_tenantId=true && (isSetTenantId());
-  builder.append(present_tenantId);
-  if (present_tenantId)   builder.append(tenantId);
+  list.add(present_tenantId);
+  if (present_tenantId)   list.add(tenantId);
   boolean present_endpointEvent=true && (isSetEndpointEvent());
-  builder.append(present_endpointEvent);
-  if (present_endpointEvent)   builder.append(endpointEvent);
+  list.add(present_endpointEvent);
+  if (present_endpointEvent)   list.add(endpointEvent);
   boolean present_routeAddress=true && (isSetRouteAddress());
-  builder.append(present_routeAddress);
-  if (present_routeAddress)   builder.append(routeAddress);
-  return builder.toHashCode();
+  list.add(present_routeAddress);
+  if (present_routeAddress)   list.add(routeAddress);
+  return list.hashCode();
 }

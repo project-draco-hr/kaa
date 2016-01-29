@@ -1,7 +1,7 @@
 {
-  ApplicationDto app=generateApplication();
-  TopicDto topic1=generateTopic(app.getId(),TopicTypeDto.MANDATORY);
+  ApplicationDto app=generateApplicationDto();
+  TopicDto topic1=generateTopicDto(app.getId(),TopicTypeDto.MANDATORY);
   topicService.saveTopic(topic1);
-  TopicDto topic2=generateTopic(app.getId(),TopicTypeDto.OPTIONAL);
+  TopicDto topic2=generateTopicDto(app.getId(),TopicTypeDto.OPTIONAL);
   topicService.saveTopic(topic2);
 }

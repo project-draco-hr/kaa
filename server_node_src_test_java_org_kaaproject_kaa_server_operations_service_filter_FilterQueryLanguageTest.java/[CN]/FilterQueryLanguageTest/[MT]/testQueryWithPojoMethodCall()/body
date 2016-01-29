@@ -1,0 +1,9 @@
+{
+  String filterBody="#" + DefaultFilterEvaluator.CLIENT_PROFILE_VARIABLE_NAME + "."+ "mapRecordField[SOME_KEY2].otherMapSimpleField[new java.lang.String('KEY13').toString()] == 13";
+  ProfileFilterDto filterDto=new ProfileFilterDto();
+  filterDto.setBody(filterBody);
+  filterDto.setEndpointProfileSchemaVersion(1);
+  FilterEvaluator filter=new DefaultFilterEvaluator();
+  filter.init(profile,PROFILE_SCHEMA,SERVER_PROFILE_SCHEMA);
+  Assert.assertEquals(Boolean.TRUE,filter.matches(filterDto));
+}

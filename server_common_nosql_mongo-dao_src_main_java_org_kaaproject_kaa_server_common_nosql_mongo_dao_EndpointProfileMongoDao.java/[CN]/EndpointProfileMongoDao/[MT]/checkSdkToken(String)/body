@@ -1,0 +1,4 @@
+{
+  LOG.debug("Checking for endpoint profiles with SDK token {}",sdkToken);
+  return findOne(query(where(EP_SDK_TOKEN).is(sdkToken))) != null;
+}

@@ -1,0 +1,15 @@
+{
+  try {
+    if (filterEvaluator.matches(filter)) {
+      LOG.trace("profile body matched");
+      return true;
+    }
+  }
+ catch (  EvaluationException ee) {
+    LOG.warn("Failed to process filter [{}]: {} due to evaluate exception. Please check your filter body",filter.getId(),filter.getBody(),ee);
+  }
+catch (  Exception e) {
+    LOG.error("Failed to process filter [{}]: {} due to exception",filter.getId(),filter.getBody(),e);
+  }
+  return false;
+}

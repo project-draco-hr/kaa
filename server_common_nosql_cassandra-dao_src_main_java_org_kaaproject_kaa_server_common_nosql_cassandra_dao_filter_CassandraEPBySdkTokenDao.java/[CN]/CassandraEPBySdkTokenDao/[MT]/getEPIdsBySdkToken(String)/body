@@ -1,0 +1,12 @@
+{
+  LOG.debug("Trying to find a list of enpoint key hash values by SDK token {}",sdkToken);
+  Statement query=QueryBuilder.select().from(this.getColumnFamilyName()).where(QueryBuilder.eq(EP_BY_SDK_TOKEN_SDK_TOKEN_PROPERTY,sdkToken));
+  List<CassandraEPBySdkToken> queryResult=this.findListByStatement(query);
+  ByteBuffer[] result=new ByteBuffer[queryResult.size()];
+  int i=0;
+  for (  CassandraEPBySdkToken endpointProfile : queryResult) {
+    result[i++]=endpointProfile.getEndpointKeyHash();
+  }
+  LOG.debug("Endpoint profile hash values found: {}",Arrays.toString(result));
+  return result;
+}

@@ -1,0 +1,20 @@
+{
+  SdkProfileDto saved=null;
+  if (Validator.isValidSqlObject(sdkProfileDto)) {
+    if (StringUtils.isNotBlank(sdkProfileDto.getId())) {
+      throw new IncorrectParameterException("Update of existing SDK profile is prohibited.");
+    }
+ else {
+      SdkTokenGenerator.generateSdkToken(sdkProfileDto);
+      SdkProfile entity=new SdkProfile(sdkProfileDto);
+      SdkProfile loaded=sdkProfileDao.findSdkProfileByToken(entity.getToken());
+      if (loaded == null) {
+        saved=DaoUtil.getDto(sdkProfileDao.save(entity));
+      }
+ else {
+        throw new IncorrectParameterException("An SDK profile with token [" + entity.getToken() + "] already exists.");
+      }
+    }
+  }
+  return saved;
+}

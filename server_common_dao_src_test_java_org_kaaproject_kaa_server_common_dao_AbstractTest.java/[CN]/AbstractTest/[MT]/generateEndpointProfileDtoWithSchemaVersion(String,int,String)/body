@@ -1,0 +1,10 @@
+{
+  EndpointProfileDto profileDto=new EndpointProfileDto();
+  profileDto.setApplicationId(appId);
+  profileDto.setServerProfileVersion(schemaVersion);
+  profileDto.setEndpointKeyHash("TEST_KEY_HASH".getBytes());
+  profileDto.setClientProfileBody("{\"title\": \"TEST\"}");
+  profileDto.setSdkToken(UUID.randomUUID().toString());
+  profileDto.setServerProfileBody(srvProfileBody);
+  return endpointService.saveEndpointProfile(profileDto);
+}

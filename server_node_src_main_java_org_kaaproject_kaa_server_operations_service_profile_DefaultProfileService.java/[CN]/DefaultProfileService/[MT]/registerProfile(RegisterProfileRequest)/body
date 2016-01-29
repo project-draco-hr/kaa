@@ -1,0 +1,37 @@
+{
+  LOG.debug("Registering Profile for {}",request.getEndpointKey());
+  LOG.trace("Lookup application by token: {}",request.getAppToken());
+  AppSeqNumber appSeqNumber=cacheService.getAppSeqNumber(request.getAppToken());
+  LOG.trace("Application by token: {} found: {}",request.getAppToken(),appSeqNumber);
+  SdkProfileDto sdkProfile=cacheService.getSdkProfileBySdkToken(request.getSdkToken());
+  LOG.trace("Sdk properties by sdk token: {} found: {}",request.getSdkToken(),sdkProfile);
+  String profileJson=decodeProfile(request.getProfile(),appSeqNumber.getAppToken(),sdkProfile.getProfileSchemaVersion());
+  EndpointObjectHash keyHash=EndpointObjectHash.fromSHA1(request.getEndpointKey());
+  EndpointProfileDto dto=endpointService.findEndpointProfileByKeyHash(keyHash.getData());
+  if (dto == null) {
+    dto=new EndpointProfileDto();
+    dto.setSdkToken(sdkProfile.getToken());
+    dto.setApplicationId(appSeqNumber.getAppId());
+    dto.setEndpointKey(request.getEndpointKey());
+    dto.setEndpointKeyHash(keyHash.getData());
+    dto.setClientProfileBody(profileJson);
+    dto.setProfileHash(EndpointObjectHash.fromSHA1(request.getProfile()).getData());
+    populateVersionStates(appSeqNumber.getTenantId(),dto,sdkProfile);
+    if (request.getAccessToken() != null) {
+      dto.setAccessToken(request.getAccessToken());
+    }
+    dto.setCfSequenceNumber(0);
+    dto.setNfSequenceNumber(0);
+    try {
+      cacheService.putEndpointKey(keyHash,KeyUtil.getPublic(dto.getEndpointKey()));
+    }
+ catch (    InvalidKeyException e) {
+      LOG.error("Can't generate public key for endpoint key: {}. Reason: {}",dto.getEndpointKey(),e);
+      throw new RuntimeException(e);
+    }
+    return endpointService.saveEndpointProfile(dto);
+  }
+ else {
+    return updateProfile(new UpdateProfileRequest(request.getAppToken(),keyHash,request.getAccessToken(),request.getProfile(),request.getSdkToken()));
+  }
+}

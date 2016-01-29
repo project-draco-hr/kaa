@@ -1,5 +1,5 @@
 {
-  String appId=generateApplication().getId();
+  String appId=generateApplicationDto().getId();
   ConfigurationSchemaDto dto=configurationService.findConfSchemaByAppIdAndVersion(appId,1);
   Assert.assertNotNull(dto);
 }

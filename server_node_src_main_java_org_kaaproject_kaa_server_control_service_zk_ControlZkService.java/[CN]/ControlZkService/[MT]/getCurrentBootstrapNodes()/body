@@ -1,0 +1,8 @@
+{
+  if (getNodeConfig().isZkEnabled()) {
+    return controlZKNode.getCurrentBootstrapNodes();
+  }
+ else {
+    return null;
+  }
+}

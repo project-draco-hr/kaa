@@ -1,0 +1,31 @@
+{
+  super(other);
+  if (isValidValue(fields()[0],other.executorThreadPoolSize)) {
+    this.executorThreadPoolSize=data().deepCopy(fields()[0].schema(),other.executorThreadPoolSize);
+    fieldSetFlags()[0]=true;
+  }
+  if (isValidValue(fields()[1],other.callbackThreadPoolSize)) {
+    this.callbackThreadPoolSize=data().deepCopy(fields()[1].schema(),other.callbackThreadPoolSize);
+    fieldSetFlags()[1]=true;
+  }
+  if (isValidValue(fields()[2],other.clientsThreadPoolSize)) {
+    this.clientsThreadPoolSize=data().deepCopy(fields()[2].schema(),other.clientsThreadPoolSize);
+    fieldSetFlags()[2]=true;
+  }
+  if (isValidValue(fields()[3],other.includeClientProfile)) {
+    this.includeClientProfile=data().deepCopy(fields()[3].schema(),other.includeClientProfile);
+    fieldSetFlags()[3]=true;
+  }
+  if (isValidValue(fields()[4],other.includeServerProfile)) {
+    this.includeServerProfile=data().deepCopy(fields()[4].schema(),other.includeServerProfile);
+    fieldSetFlags()[4]=true;
+  }
+  if (isValidValue(fields()[5],other.flumeEventFormat)) {
+    this.flumeEventFormat=data().deepCopy(fields()[5].schema(),other.flumeEventFormat);
+    fieldSetFlags()[5]=true;
+  }
+  if (isValidValue(fields()[6],other.hostsBalancing)) {
+    this.hostsBalancing=data().deepCopy(fields()[6].schema(),other.hostsBalancing);
+    fieldSetFlags()[6]=true;
+  }
+}

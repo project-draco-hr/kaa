@@ -1,6 +1,0 @@
-{
-  ApplicationEventFamilyMapDto applicationEventFamilyMap=createApplicationEventFamilyMap();
-  ApplicationEventFamilyMapDto storedApplicationEventFamilyMap=toDto(client.getApplicationEventFamilyMap(applicationEventFamilyMap.getId()));
-  Assert.assertNotNull(storedApplicationEventFamilyMap);
-  Assert.assertEquals(applicationEventFamilyMap,storedApplicationEventFamilyMap);
-}

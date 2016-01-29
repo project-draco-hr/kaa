@@ -1,0 +1,10 @@
+{
+  super(KafkaConfig.class);
+  scheduler.scheduleWithFixedDelay(new Runnable(){
+    @Override public void run(){
+      long second=System.currentTimeMillis() / 1000;
+      LOG.info("[{}] Received {} log record count, {} success kafka callbacks, {}  failure kafka callbacks / second.",second,inputLogCount.getAndSet(0),kafkaSuccessLogCount.getAndSet(0),kafkaFailureLogCount.getAndSet(0));
+    }
+  }
+,0L,1L,TimeUnit.SECONDS);
+}

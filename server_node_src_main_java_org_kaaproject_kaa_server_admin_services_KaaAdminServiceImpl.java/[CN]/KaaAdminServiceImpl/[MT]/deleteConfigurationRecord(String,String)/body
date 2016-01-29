@@ -1,0 +1,13 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    StructureRecordDto<ConfigurationDto> record=controlService.getConfigurationRecord(schemaId,endpointGroupId);
+    Utils.checkNotNull(record);
+    checkEndpointGroupId(record.getEndpointGroupId());
+    String username=getCurrentUser().getUsername();
+    controlService.deleteConfigurationRecord(schemaId,endpointGroupId,username);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

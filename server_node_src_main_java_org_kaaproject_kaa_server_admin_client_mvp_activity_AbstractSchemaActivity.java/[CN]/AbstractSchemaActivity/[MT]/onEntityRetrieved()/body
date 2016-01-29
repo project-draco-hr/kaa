@@ -1,0 +1,24 @@
+{
+  String version=entity.getVersion() + "";
+  detailsView.getVersion().setValue(version);
+  detailsView.getName().setValue(entity.getName());
+  detailsView.getDescription().setValue(entity.getDescription());
+  detailsView.getCreatedUsername().setValue(entity.getCreatedUsername());
+  detailsView.getCreatedDateTime().setValue(Utils.millisecondsToDateTimeString(entity.getCreatedTime()));
+  detailsView.getEndpointCount().setValue(entity.getEndpointCount() + "");
+  if (create) {
+    createEmptySchemaForm(new BusyAsyncCallback<RecordField>(){
+      @Override public void onSuccessImpl(      RecordField result){
+        detailsView.getSchemaForm().setValue(result);
+      }
+      @Override public void onFailureImpl(      Throwable caught){
+        Utils.handleException(caught,detailsView);
+      }
+    }
+);
+    detailsView.getSchemaForm().setFormDataLoader(this);
+  }
+ else {
+    detailsView.getSchemaForm().setValue(entity.getSchemaForm());
+  }
+}

@@ -1,0 +1,12 @@
+{
+  LOG.debug("Try to save or find meta info with fqn [{}] and version [{}]",metaInfo.getFqn(),metaInfo.getVersion());
+  CTLSchemaMetaInfo uniqueMetaInfo=findByFqnAndVersion(metaInfo.getFqn(),metaInfo.getVersion());
+  if (uniqueMetaInfo == null) {
+    uniqueMetaInfo=super.save(metaInfo,true);
+    LOG.debug("Save result: {}",uniqueMetaInfo);
+  }
+ else {
+    LOG.debug("Search result: {}",uniqueMetaInfo);
+  }
+  return uniqueMetaInfo;
+}

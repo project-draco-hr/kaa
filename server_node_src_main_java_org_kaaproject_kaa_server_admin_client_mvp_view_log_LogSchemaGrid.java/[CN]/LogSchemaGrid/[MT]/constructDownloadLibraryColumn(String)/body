@@ -1,0 +1,22 @@
+{
+  ActionButtonCell<LogSchemaDto> cell=new ActionButtonCell<>(Utils.resources.download_grey(),text,embedded,new ActionListener<LogSchemaDto>(){
+    @Override public void onItemAction(    LogSchemaDto value){
+      Integer logSchemaVersion=value.getVersion();
+      RowActionEvent<String> rowDownloadLibraryEvent=new RowActionEvent<>(String.valueOf(logSchemaVersion),KaaRowAction.DOWNLOAD_LOG_SCHEMA_LIBRARY);
+      fireEvent(rowDownloadLibraryEvent);
+    }
+  }
+,new ActionValidator<LogSchemaDto>(){
+    @Override public boolean canPerformAction(    LogSchemaDto value){
+      return !embedded;
+    }
+  }
+);
+  Column<LogSchemaDto,LogSchemaDto> column=new Column<LogSchemaDto,LogSchemaDto>(cell){
+    @Override public LogSchemaDto getValue(    LogSchemaDto item){
+      return item;
+    }
+  }
+;
+  return column;
+}

@@ -1,0 +1,11 @@
+{
+  for (  EndpointGroupDto endGroup : result) {
+    if (endGroup.getWeight() == 0) {
+      getDataProvider().setNewGroup(endGroup.getId());
+      listView.getListWidget().getDataGrid().setVisibleRangeAndClearData(new Range(0,listView.getListWidget().getPageSize()),true);
+      listView.getEndpointGroupsInfo().setValue(endGroup);
+    }
+  }
+  listView.getEndpointGroupsInfo().setAcceptableValues(result);
+  gridLoaded=true;
+}

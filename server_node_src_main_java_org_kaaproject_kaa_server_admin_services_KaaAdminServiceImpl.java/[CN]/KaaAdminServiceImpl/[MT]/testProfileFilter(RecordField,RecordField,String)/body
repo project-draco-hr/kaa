@@ -1,0 +1,41 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    GenericRecord endpointProfileRecord=null;
+    GenericRecord serverProfileRecord=null;
+    try {
+      if (endpointProfile != null) {
+        endpointProfileRecord=FormAvroConverter.createGenericRecordFromRecordField(endpointProfile);
+      }
+      if (serverProfile != null) {
+        serverProfileRecord=FormAvroConverter.createGenericRecordFromRecordField(serverProfile);
+      }
+    }
+ catch (    Exception e) {
+      throw Utils.handleException(e);
+    }
+    try {
+      Expression expression=new SpelExpressionParser().parseExpression(filterBody);
+      StandardEvaluationContext evaluationContext;
+      if (endpointProfileRecord != null) {
+        evaluationContext=new StandardEvaluationContext(endpointProfileRecord);
+        evaluationContext.setVariable(DefaultFilterEvaluator.CLIENT_PROFILE_VARIABLE_NAME,endpointProfileRecord);
+      }
+ else {
+        evaluationContext=new StandardEvaluationContext();
+      }
+      evaluationContext.addPropertyAccessor(new GenericRecordPropertyAccessor());
+      evaluationContext.setVariable(DefaultFilterEvaluator.EP_KEYHASH_VARIABLE_NAME,"test");
+      if (serverProfileRecord != null) {
+        evaluationContext.setVariable(DefaultFilterEvaluator.SERVER_PROFILE_VARIABLE_NAME,serverProfileRecord);
+      }
+      return expression.getValue(evaluationContext,Boolean.class);
+    }
+ catch (    Exception e) {
+      throw new KaaAdminServiceException("Invalid profile filter: " + e.getMessage(),e,ServiceErrorCode.BAD_REQUEST_PARAMS);
+    }
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

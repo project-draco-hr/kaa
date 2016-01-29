@@ -1,0 +1,13 @@
+{
+  this.editable=editable;
+  addButton=new ImageTextButton(Utils.resources.plus(),addButtonString());
+  errorPanel=new AlertPanel(Type.ERROR);
+  kaaAdminStyle=Utils.kaaAdminStyle;
+  avroUiStyle=Utils.avroUiStyle;
+  initWidget(createAndBindUi());
+  grid=createGrid();
+  dockPanel.add(grid);
+  titleLabel.setText(titleString());
+  addButton.setVisible(editable);
+  clearError();
+}

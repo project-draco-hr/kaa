@@ -1,0 +1,29 @@
+{
+  String tenantId=null;
+  List<Future<CTLSchemaDto>> list=new ArrayList<>();
+  for (int i=0; i < 100; i++) {
+    list.add(executorService.submit(new Callable<CTLSchemaDto>(){
+      @Override public CTLSchemaDto call(){
+        CTLSchemaDto sch=null;
+        try {
+          sch=ctlService.saveCTLSchema(generateCTLSchemaDto(generateTenantDto().getId()));
+        }
+ catch (        Throwable t) {
+          throw t;
+        }
+        return sch;
+      }
+    }
+));
+  }
+  Iterator<Future<CTLSchemaDto>> iterator=list.iterator();
+  while (iterator.hasNext()) {
+    Future<CTLSchemaDto> f=iterator.next();
+    while (!f.isDone()) {
+    }
+    tenantId=f.get().getTenantId();
+    iterator.remove();
+  }
+  CTLSchemaDto schemaDto=ctlService.findCTLSchemaByFqnAndVerAndTenantId(DEFAULT_FQN,100,tenantId);
+  Assert.assertEquals(Long.valueOf(100L),schemaDto.getMetaInfo().getCount());
+}

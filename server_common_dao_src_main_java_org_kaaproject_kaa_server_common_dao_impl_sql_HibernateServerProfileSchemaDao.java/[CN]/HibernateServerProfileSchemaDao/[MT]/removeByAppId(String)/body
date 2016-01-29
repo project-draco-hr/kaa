@@ -1,0 +1,7 @@
+{
+  if (isNotBlank(appId)) {
+    List<ServerProfileSchema> schemaList=findListByCriterion(Restrictions.eq(APPLICATION_REFERENCE,getLongId(appId)));
+    removeList(schemaList);
+  }
+  LOG.debug("Removed server profile schemas by application id [{}]",appId);
+}

@@ -1,6 +1,0 @@
-{
-  EventClassFamilyDto eventClassFamily=createEventClassFamily();
-  EventClassFamilyDto storedEventClassFamily=toDto(client.getEventClassFamily(eventClassFamily.getId()));
-  Assert.assertNotNull(storedEventClassFamily);
-  assertEventClassFamiliesEquals(eventClassFamily,storedEventClassFamily);
-}

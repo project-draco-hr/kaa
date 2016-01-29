@@ -1,0 +1,12 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    ApplicationEventFamilyMapDto aefMap=controlService.getApplicationEventFamilyMap(applicationEventFamilyMapId);
+    Utils.checkNotNull(aefMap);
+    checkApplicationId(aefMap.getApplicationId());
+    return aefMap;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

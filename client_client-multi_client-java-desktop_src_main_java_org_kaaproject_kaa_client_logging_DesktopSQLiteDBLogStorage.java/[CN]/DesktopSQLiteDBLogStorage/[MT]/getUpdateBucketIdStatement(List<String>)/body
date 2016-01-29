@@ -1,7 +1,0 @@
-{
-  String queryString=StringUtils.join(recordIds,",");
-  StringBuilder builder=new StringBuilder(PersistentLogStorageConstants.KAA_UPDATE_BUCKET_ID);
-  int indexOf=builder.lastIndexOf(PersistentLogStorageConstants.SUBSTITUTE_SYMBOL);
-  builder.replace(indexOf,indexOf + PersistentLogStorageConstants.SUBSTITUTE_SYMBOL.length(),queryString);
-  return builder.toString();
-}

@@ -1,0 +1,61 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (!super.equals(obj)) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  SdkProfileDto other=(SdkProfileDto)obj;
+  if (applicationId == null) {
+    if (other.applicationId != null) {
+      return false;
+    }
+  }
+ else   if (!applicationId.equals(other.applicationId)) {
+    return false;
+  }
+  if (createdTime == null) {
+    if (other.createdTime != null) {
+      return false;
+    }
+  }
+ else   if (!createdTime.equals(other.createdTime)) {
+    return false;
+  }
+  if (createdUsername == null) {
+    if (other.createdUsername != null) {
+      return false;
+    }
+  }
+ else   if (!createdUsername.equals(other.createdUsername)) {
+    return false;
+  }
+  if (endpointCount == null) {
+    if (other.endpointCount != null) {
+      return false;
+    }
+  }
+ else   if (!endpointCount.equals(other.endpointCount)) {
+    return false;
+  }
+  if (id == null) {
+    if (other.id != null) {
+      return false;
+    }
+  }
+ else   if (!id.equals(other.id)) {
+    return false;
+  }
+  if (token == null) {
+    if (other.token != null) {
+      return false;
+    }
+  }
+ else   if (!token.equals(other.token)) {
+    return false;
+  }
+  return true;
+}

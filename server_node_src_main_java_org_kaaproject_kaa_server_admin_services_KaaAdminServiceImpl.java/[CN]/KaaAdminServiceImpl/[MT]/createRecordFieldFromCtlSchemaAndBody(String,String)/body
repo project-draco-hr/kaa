@@ -1,0 +1,19 @@
+{
+  try {
+    RecordField recordField;
+    CTLSchemaDto ctlSchema=controlService.getCTLSchemaById(ctlSchemaId);
+    Schema schema=controlService.exportCTLSchemaFlatAsSchema(ctlSchema);
+    if (!isEmpty(body)) {
+      GenericAvroConverter<GenericRecord> converter=new GenericAvroConverter<>(schema);
+      GenericRecord record=converter.decodeJson(body);
+      recordField=FormAvroConverter.createRecordFieldFromGenericRecord(record);
+    }
+ else {
+      recordField=FormAvroConverter.createRecordFieldFromSchema(schema);
+    }
+    return recordField;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

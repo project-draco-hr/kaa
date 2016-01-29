@@ -1,0 +1,13 @@
+{
+  if (w == widget) {
+    return;
+  }
+  if (widget != null) {
+    super.remove(widget);
+  }
+  widget=w;
+  if (w != null) {
+    super.add(w);
+  }
+  forceLayout();
+}

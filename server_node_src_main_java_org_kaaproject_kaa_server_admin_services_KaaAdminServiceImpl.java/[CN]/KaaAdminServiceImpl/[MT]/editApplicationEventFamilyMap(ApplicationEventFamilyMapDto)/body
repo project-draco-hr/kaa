@@ -1,0 +1,19 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    if (isEmpty(applicationEventFamilyMap.getId())) {
+      String username=getCurrentUser().getUsername();
+      applicationEventFamilyMap.setCreatedUsername(username);
+      checkApplicationId(applicationEventFamilyMap.getApplicationId());
+    }
+ else {
+      ApplicationEventFamilyMapDto storedApplicationEventFamilyMap=controlService.getApplicationEventFamilyMap(applicationEventFamilyMap.getId());
+      Utils.checkNotNull(storedApplicationEventFamilyMap);
+      checkApplicationId(storedApplicationEventFamilyMap.getApplicationId());
+    }
+    return controlService.editApplicationEventFamilyMap(applicationEventFamilyMap);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

@@ -1,0 +1,15 @@
+{
+  float prefWidth=0;
+  prefWidth+=constructStringColumn(table,Utils.constants.appName(),new StringValueProvider<ApplicationDto>(){
+    @Override public String getValue(    ApplicationDto item){
+      return item.getName();
+    }
+  }
+,new Comparator<ApplicationDto>(){
+    @Override public int compare(    ApplicationDto o1,    ApplicationDto o2){
+      return o1.getName().compareToIgnoreCase(o2.getName());
+    }
+  }
+,Boolean.TRUE,true,160);
+  return prefWidth;
+}

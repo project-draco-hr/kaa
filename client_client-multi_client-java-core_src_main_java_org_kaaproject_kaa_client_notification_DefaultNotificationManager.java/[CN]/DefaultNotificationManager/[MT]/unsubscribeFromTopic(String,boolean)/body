@@ -4,9 +4,6 @@
     LOG.warn("Failed to unsubscribe: topic '{}' isn't optional",topicId);
     throw new UnavailableTopicException(String.format("Topic '%s' isn't optional",topicId));
   }
-synchronized (topicsListeners) {
-    topicsListeners.remove(topicId);
-  }
   updateSubscriptionInfo(topicId,SubscriptionCommandType.REMOVE);
   if (forceSync) {
     doSync();

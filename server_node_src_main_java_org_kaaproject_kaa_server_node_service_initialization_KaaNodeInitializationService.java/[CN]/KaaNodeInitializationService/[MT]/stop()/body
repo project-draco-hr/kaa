@@ -1,0 +1,14 @@
+{
+  if (getNodeConfig().isControlServerEnabled()) {
+    controlInitializationService.stop();
+  }
+  if (getNodeConfig().isBootstrapServerEnabled()) {
+    bootstrapInitializationService.stop();
+  }
+  if (getNodeConfig().isOperationsServerEnabled()) {
+    operationsInitializationService.stop();
+  }
+  server.stop();
+  ThriftExecutor.shutdown();
+  LOG.info("Kaa Node Server Stopped.");
+}

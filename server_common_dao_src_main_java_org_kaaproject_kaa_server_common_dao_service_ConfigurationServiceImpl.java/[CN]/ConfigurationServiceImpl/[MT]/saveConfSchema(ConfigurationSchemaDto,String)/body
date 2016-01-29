@@ -4,7 +4,7 @@
     LOG.debug("Configuration schema with id [{}] saved. Generating default configuration",savedSchema.getId());
     try {
       BaseSchema baseSchema=new BaseSchema(savedSchema.getBaseSchema());
-      configurationProcessor=new DefaultRecordGenerationAlgorithmImpl<BaseSchema,BaseData>(baseSchema,new BaseDataFactory());
+      DefaultRecordGenerationAlgorithm<BaseData> configurationProcessor=new DefaultRecordGenerationAlgorithmImpl<BaseSchema,BaseData>(baseSchema,new BaseDataFactory());
       KaaData body=configurationProcessor.getRootData();
       LOG.debug("Default configuration {} ",body.getRawData());
       ConfigurationDto configurationDto=new ConfigurationDto();
@@ -23,7 +23,7 @@
         throw new IncorrectParameterException("Can't save default configuration.");
       }
     }
- catch (    IOException|ConfigurationGenerationException e) {
+ catch (    Exception e) {
       LOG.error("Can't generate configuration based on protocol schema.",e);
       removeCascadeConfigurationSchema(savedSchema.getId());
       throw new IncorrectParameterException("Can't save default configuration.");

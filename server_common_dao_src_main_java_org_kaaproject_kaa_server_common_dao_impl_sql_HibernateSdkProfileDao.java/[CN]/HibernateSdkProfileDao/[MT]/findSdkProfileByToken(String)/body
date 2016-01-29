@@ -1,0 +1,14 @@
+{
+  LOG.debug("Searching for an SDK profile by token: [{}]",token);
+  SdkProfile found=null;
+  if (StringUtils.isNotBlank(token)) {
+    found=this.findOneByCriterion(Restrictions.eq(SDK_TOKEN_PROPERTY,token));
+  }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{}] Search result: {}.",token,found);
+  }
+ else {
+    LOG.debug("[{}] Search result: {}.",token,found != null);
+  }
+  return found;
+}

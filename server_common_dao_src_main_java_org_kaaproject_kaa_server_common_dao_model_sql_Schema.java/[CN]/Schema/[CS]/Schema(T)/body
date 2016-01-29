@@ -3,8 +3,7 @@
     this.id=getLongId(dto);
     Long appId=getLongId(dto.getApplicationId());
     this.application=appId != null ? new Application(appId) : null;
-    this.majorVersion=dto.getMajorVersion();
-    this.minorVersion=dto.getMinorVersion();
+    this.version=dto.getVersion();
     this.schema=dto.getSchema();
     this.name=dto.getName();
     this.description=dto.getDescription();

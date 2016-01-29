@@ -15,6 +15,9 @@
   if (profileVersion != that.profileVersion) {
     return false;
   }
+  if (serverProfileVersion != that.serverProfileVersion) {
+    return false;
+  }
   if (cfSequenceNumber != that.cfSequenceNumber) {
     return false;
   }
@@ -60,10 +63,10 @@
   if (!Arrays.equals(profileHash,that.profileHash)) {
     return false;
   }
-  if (profileSchemaId != null ? !profileSchemaId.equals(that.profileSchemaId) : that.profileSchemaId != null) {
+  if (subscriptions != null ? !subscriptions.equals(that.subscriptions) : that.subscriptions != null) {
     return false;
   }
-  if (subscriptions != null ? !subscriptions.equals(that.subscriptions) : that.subscriptions != null) {
+  if (sdkToken != null ? !sdkToken.equals(that.sdkToken) : that.sdkToken != null) {
     return false;
   }
   return true;

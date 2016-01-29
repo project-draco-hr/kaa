@@ -1,0 +1,16 @@
+{
+  T dto=createDto();
+  dto.setId(getStringId());
+  if (application != null) {
+    dto.setApplicationId(application.getStringId());
+  }
+  if (ctlSchema != null) {
+    dto.setCtlSchemaId(ctlSchema.getStringId());
+  }
+  dto.setVersion(version);
+  dto.setName(name);
+  dto.setDescription(description);
+  dto.setCreatedUsername(createdUsername);
+  dto.setCreatedTime(createdTime);
+  return dto;
+}

@@ -1,0 +1,10 @@
+{
+  BootstrapNodeInfo nodeInfo=new BootstrapNodeInfo();
+  KeyPair keys=KeyUtil.generateKeyPair();
+  X509EncodedKeySpec x509EncodedKeySpec=new X509EncodedKeySpec(keys.getPublic().getEncoded());
+  ByteBuffer testKeyData=ByteBuffer.wrap(x509EncodedKeySpec.getEncoded());
+  nodeInfo.setConnectionInfo(new ConnectionInfo(BOOTSTRAP_NODE_HOST,10090,testKeyData));
+  nodeInfo.setTimeStarted(System.currentTimeMillis());
+  nodeInfo.setTransports(new ArrayList<TransportMetaData>());
+  return nodeInfo;
+}

@@ -1,0 +1,13 @@
+{
+  SdkProfileDto sdkProfileDto1=generateSdkProfileDto("1234","token1234");
+  SdkProfileDto sdkProfileDto2=generateSdkProfileDto("1234","token1234");
+  SdkProfileDto sdkProfileDto3=generateSdkProfileDto("1235","token1235");
+  SdkProfile sdkProfile1=new SdkProfile(sdkProfileDto1);
+  SdkProfile sdkProfile2=new SdkProfile(sdkProfileDto2);
+  SdkProfile sdkProfile3=new SdkProfile(sdkProfileDto3);
+  Assert.assertEquals(sdkProfile1.toDto(),sdkProfile2.toDto());
+  Assert.assertEquals(sdkProfile1.getToken(),sdkProfile2.getToken());
+  Assert.assertNotEquals(sdkProfile1.toDto(),sdkProfile3.toDto());
+  Assert.assertNotEquals(sdkProfile1.getToken(),sdkProfile3.getToken());
+  Assert.assertEquals(SDK_TOKEN_LENGTH,sdkProfile1.getToken().length());
+}

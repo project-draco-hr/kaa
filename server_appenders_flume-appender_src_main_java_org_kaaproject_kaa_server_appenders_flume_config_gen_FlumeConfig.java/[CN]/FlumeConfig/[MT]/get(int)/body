@@ -1,0 +1,20 @@
+{
+switch (field$) {
+case 0:
+    return executorThreadPoolSize;
+case 1:
+  return callbackThreadPoolSize;
+case 2:
+return clientsThreadPoolSize;
+case 3:
+return includeClientProfile;
+case 4:
+return includeServerProfile;
+case 5:
+return flumeEventFormat;
+case 6:
+return hostsBalancing;
+default :
+throw new org.apache.avro.AvroRuntimeException("Bad index");
+}
+}

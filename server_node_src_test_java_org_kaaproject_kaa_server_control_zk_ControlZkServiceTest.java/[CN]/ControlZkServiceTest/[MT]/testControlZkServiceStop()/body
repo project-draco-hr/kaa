@@ -1,0 +1,14 @@
+{
+  ControlZkService zkService=new ControlZkService();
+  KaaNodeServerConfig kaaNodeServerConfig=createKaaNodeServerConfig();
+  ReflectionTestUtils.setField(zkService,"kaaNodeServerConfig",kaaNodeServerConfig);
+  kaaNodeServerConfig.setZkEnabled(false);
+  zkService.stop();
+  ControlNode controlZKNode=Mockito.mock(ControlNode.class);
+  Mockito.doNothing().when(controlZKNode).close();
+  kaaNodeServerConfig.setZkEnabled(true);
+  ReflectionTestUtils.setField(zkService,"controlZKNode",controlZKNode);
+  zkService.stop();
+  Mockito.doThrow(IOException.class).when(controlZKNode).close();
+  zkService.stop();
+}

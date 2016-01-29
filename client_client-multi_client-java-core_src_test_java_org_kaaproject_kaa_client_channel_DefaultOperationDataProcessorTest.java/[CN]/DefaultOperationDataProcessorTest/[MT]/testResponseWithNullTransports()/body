@@ -1,5 +1,6 @@
 {
-  DefaultOperationDataProcessor operationsDataProcessor=new DefaultOperationDataProcessor();
+  KaaClientState state=Mockito.mock(KaaClientState.class);
+  DefaultOperationDataProcessor operationsDataProcessor=new DefaultOperationDataProcessor(state);
   SyncResponse response=new SyncResponse();
   response.setStatus(SyncResponseResultType.SUCCESS);
   response.setConfigurationSyncResponse(new ConfigurationSyncResponse(1,SyncResponseStatus.DELTA,null,null));

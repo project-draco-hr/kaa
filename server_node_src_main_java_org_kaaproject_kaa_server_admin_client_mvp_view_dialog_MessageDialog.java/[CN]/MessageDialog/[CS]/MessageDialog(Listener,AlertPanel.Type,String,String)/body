@@ -1,0 +1,30 @@
+{
+  super(false,true);
+  setTitle(title);
+  this.listener=listener;
+  VerticalPanel dialogContents=new VerticalPanel();
+  dialogContents.setSpacing(4);
+  setWidget(dialogContents);
+  AlertPanel messageLabel=new AlertPanel(type);
+  messageLabel.getElement().getStyle().setWhiteSpace(WhiteSpace.PRE_WRAP);
+  messageLabel.getElement().getStyle().setProperty("maxHeight","400px");
+  messageLabel.getElement().getStyle().setProperty("maxWidth",Window.getClientWidth() * 2 / 3 + "px");
+  messageLabel.getElement().getStyle().setOverflowY(Overflow.AUTO);
+  messageLabel.setMessage(message);
+  dialogContents.add(messageLabel);
+  okButton=new Button(Utils.constants.ok(),new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      hide();
+    }
+  }
+);
+  addButton(okButton);
+  this.addCloseHandler(new CloseHandler<PopupPanel>(){
+    @Override public void onClose(    CloseEvent<PopupPanel> event){
+      if (MessageDialog.this.listener != null) {
+        MessageDialog.this.listener.onOk();
+      }
+    }
+  }
+);
+}

@@ -1,0 +1,22 @@
+{
+  if (create) {
+    KaaAdmin.getDataSource().createNewCTLSchemaFormInstance(place.getSourceFqn(),place.getSourceVersion(),CTLSchemaScopeDto.TENANT,null,new BusyAsyncCallback<CtlSchemaFormDto>(){
+      @Override public void onSuccessImpl(      CtlSchemaFormDto result){
+        entity=result;
+        bindDetailsView(true);
+      }
+      @Override public void onFailureImpl(      Throwable caught){
+        Utils.handleException(caught,detailsView);
+      }
+    }
+);
+  }
+ else {
+    if (entity == null) {
+      goTo(place.getPreviousPlace());
+    }
+ else {
+      bindDetailsView(false);
+    }
+  }
+}

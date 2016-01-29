@@ -1,0 +1,5 @@
+{
+  validateSqlId(tenantId,"Incorrect tenant id for ctl schema request.");
+  LOG.debug("Find meta info for ctl schemas by tenant id {}",tenantId);
+  return getMetaInfoFromCTLSchema(ctlSchemaDao.findTenantSchemasByTenantId(tenantId));
+}

@@ -1,0 +1,8 @@
+{
+  assertEquals(TEST_APP_TOKEN,cacheService.getAppTokenBySdkToken(TEST_SDK_TOKEN));
+  verify(sdkProfileService,times(1)).findSdkProfileByToken(TEST_SDK_TOKEN);
+  reset(sdkProfileService);
+  assertEquals(TEST_APP_TOKEN,cacheService.getAppTokenBySdkToken(TEST_SDK_TOKEN));
+  verify(sdkProfileService,never()).findSdkProfileByToken(TEST_SDK_TOKEN);
+  reset(sdkProfileService);
+}

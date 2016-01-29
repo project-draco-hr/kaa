@@ -1,0 +1,11 @@
+{
+  eventBuilder=new FlumeAvroEventBuilder();
+  FlumeConfig flumeConfig=new FlumeConfig();
+  flumeConfig.setFlumeEventFormat(FlumeEventFormat.RECORDS_CONTAINER);
+  flumeConfig.setIncludeClientProfile(false);
+  flumeConfig.setIncludeServerProfile(false);
+  eventBuilder.init(flumeConfig);
+  eventPack.setLogSchema(null);
+  List<Event> events=eventBuilder.generateEvents(eventPack,null,appToken);
+  Assert.assertNull(events);
+}

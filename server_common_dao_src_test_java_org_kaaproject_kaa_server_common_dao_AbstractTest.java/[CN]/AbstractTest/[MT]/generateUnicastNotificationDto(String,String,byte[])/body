@@ -1,0 +1,31 @@
+{
+  EndpointNotificationDto endpointNotification=new EndpointNotificationDto();
+  endpointNotification.setEndpointKeyHash(keyHash);
+  NotificationDto notification=new NotificationDto();
+  NotificationSchemaDto schema;
+  if (isBlank(schemaId)) {
+    schema=generateNotificationSchemaDto(null,NotificationTypeDto.USER);
+  }
+ else {
+    schema=notificationService.findNotificationSchemaById(schemaId);
+  }
+  if (isBlank(topicId)) {
+    topicId=generateTopicDto(schema.getApplicationId(),null).getId();
+  }
+  notification.setTopicId(topicId);
+  notification.setApplicationId(schema.getApplicationId());
+  notification.setSchemaId(schema.getId());
+  notification.setType(NotificationTypeDto.USER);
+  byte[] body=null;
+  try {
+    body=readSchemaFileAsString("dao/schema/testBaseData.json").getBytes(Charset.forName("UTF-8"));
+  }
+ catch (  IOException e) {
+    e.printStackTrace();
+    Assert.fail(e.getMessage());
+  }
+  notification.setBody(body);
+  endpointNotification.setNotificationDto(notification);
+  UpdateNotificationDto<EndpointNotificationDto> update=notificationService.saveUnicastNotification(endpointNotification);
+  return update.getPayload();
+}

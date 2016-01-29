@@ -1,0 +1,15 @@
+{
+  EndpointProfileDto dtoMock=Mockito.mock(EndpointProfileDto.class);
+  SdkProfileDto sdkProperties=new SdkProfileDto(null,1,2,3,4,Collections.EMPTY_LIST,null,null,null,null,null);
+  ApplicationEventFamilyMapDto applicationEventFamilyMap=new ApplicationEventFamilyMapDto();
+  applicationEventFamilyMap.setVersion(7);
+  applicationEventFamilyMap.setEcfName("ecf1");
+  Mockito.when(cacheService.getApplicationEventFamilyMapsByIds(sdkProperties.getAefMapIds())).thenReturn(Arrays.asList(applicationEventFamilyMap));
+  EventClassFamilyIdKey key=new EventClassFamilyIdKey("tenantId","ecf1");
+  Mockito.when(cacheService.getEventClassFamilyIdByName(key)).thenReturn("ecf1Id");
+  testService.populateVersionStates("tenantId",dtoMock,sdkProperties);
+  EventClassFamilyVersionStateDto ecfVersionStateDto=new EventClassFamilyVersionStateDto();
+  ecfVersionStateDto.setEcfId("ecf1Id");
+  ecfVersionStateDto.setVersion(7);
+  Mockito.verify(dtoMock).setEcfVersionStates(Collections.singletonList(ecfVersionStateDto));
+}

@@ -1,6 +1,6 @@
 {
-  String schemaId=generateProfSchema(null,1).get(0).getId();
-  ProfileSchemaDto schemaDto=profileService.findProfileSchemaById(schemaId);
+  String schemaId=generateProfSchemaDto(null,null,1).get(0).getId();
+  EndpointProfileSchemaDto schemaDto=profileService.findProfileSchemaById(schemaId);
   Assert.assertNotNull(schemaDto);
   profileService.removeProfileSchemaById(schemaId);
   schemaDto=profileService.findProfileSchemaById(schemaId);

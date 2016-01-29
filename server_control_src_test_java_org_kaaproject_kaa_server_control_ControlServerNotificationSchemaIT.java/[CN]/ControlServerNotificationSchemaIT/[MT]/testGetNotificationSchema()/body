@@ -1,8 +1,0 @@
-{
-  NotificationSchemaDto schemaDto=createNotificationSchema(null,NotificationTypeDto.SYSTEM);
-  Assert.assertNotNull(schemaDto.getId());
-  LOGGER.debug("Create notification schema with id {}",schemaDto.getId());
-  NotificationSchemaDto foundSchema=toDto(client.getNotificationSchema(schemaDto.getId()));
-  Assert.assertNotNull(foundSchema);
-  Assert.assertEquals(schemaDto,foundSchema);
-}

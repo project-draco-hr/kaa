@@ -1,0 +1,15 @@
+{
+  try {
+    SdkProfileDto sdkProfile=kaaAdminService.getSdkProfile(sdkProfileId);
+    FileData sdkData=kaaAdminService.getSdk(sdkProfile,SdkPlatform.valueOf(targetPlatform.toUpperCase()));
+    response.setContentType(sdkData.getContentType());
+    ServletUtils.prepareDisposition(request,response,sdkData.getFileName());
+    response.setContentLength(sdkData.getFileData().length);
+    response.setBufferSize(BUFFER);
+    response.getOutputStream().write(sdkData.getFileData());
+    response.flushBuffer();
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

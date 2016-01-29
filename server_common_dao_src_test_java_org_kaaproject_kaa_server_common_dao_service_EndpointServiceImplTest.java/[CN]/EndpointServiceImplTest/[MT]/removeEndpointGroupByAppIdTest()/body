@@ -1,5 +1,5 @@
 {
-  String appId=generateApplication().getId();
+  String appId=generateApplicationDto().getId();
   List<EndpointGroupDto> groupDtoList=endpointService.findEndpointGroupsByAppId(appId);
   Assert.assertNotNull(groupDtoList);
   Assert.assertFalse(groupDtoList.isEmpty());

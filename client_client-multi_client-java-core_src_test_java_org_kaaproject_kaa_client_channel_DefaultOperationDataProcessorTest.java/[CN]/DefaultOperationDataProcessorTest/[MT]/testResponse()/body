@@ -1,5 +1,6 @@
 {
-  DefaultOperationDataProcessor operationsDataProcessor=new DefaultOperationDataProcessor();
+  KaaClientState state=Mockito.mock(KaaClientState.class);
+  DefaultOperationDataProcessor operationsDataProcessor=new DefaultOperationDataProcessor(state);
   ProfileTransport profileTransport=Mockito.mock(ProfileTransport.class);
   EventTransport eventTransport=Mockito.mock(EventTransport.class);
   NotificationTransport notificationTransport=Mockito.mock(NotificationTransport.class);

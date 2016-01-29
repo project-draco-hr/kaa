@@ -1,0 +1,10 @@
+{
+  ApplicationDto application=new ApplicationDto();
+  application.setName(generateString(APPLICATION));
+  if (tenant == null) {
+    tenant=createTenant();
+  }
+  loginTenantAdmin(tenant.getUsername());
+  ApplicationDto savedApplication=client.editApplication(application);
+  return savedApplication;
+}

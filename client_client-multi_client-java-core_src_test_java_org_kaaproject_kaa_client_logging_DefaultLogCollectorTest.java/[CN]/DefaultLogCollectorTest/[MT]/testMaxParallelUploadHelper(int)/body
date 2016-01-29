@@ -1,0 +1,27 @@
+{
+  KaaChannelManager channelManager=Mockito.mock(KaaChannelManager.class);
+  FailoverManager failoverManager=Mockito.mock(FailoverManager.class);
+  LogTransport transport=Mockito.mock(LogTransport.class);
+  AbstractLogCollector logCollector=new DefaultLogCollector(transport,executorContext,channelManager,failoverManager);
+  DefaultLogUploadStrategy strategy=Mockito.spy(new DefaultLogUploadStrategy());
+  strategy.setMaxParallelUploads(maxParallelUpload);
+  logCollector.setStrategy(strategy);
+  LogSyncRequest request=Mockito.spy(new LogSyncRequest());
+  List<LogDeliveryStatus> statuses=new ArrayList<>();
+  for (int i=0; i < maxParallelUpload; i++) {
+    logCollector.addLogRecord(new Log());
+    logCollector.fillSyncRequest(request);
+    statuses.add(new LogDeliveryStatus(request.getRequestId(),SyncResponseResultType.SUCCESS,null));
+  }
+  logCollector.addLogRecord(new Log());
+  logCollector.fillSyncRequest(request);
+  Mockito.verify(request,Mockito.times(maxParallelUpload)).setRequestId(Mockito.any(Integer.class));
+  if (statuses.isEmpty() && maxParallelUpload == 0) {
+    return;
+  }
+  LogSyncResponse response=new LogSyncResponse(statuses);
+  logCollector.onLogResponse(response);
+  Mockito.reset(request);
+  logCollector.fillSyncRequest(request);
+  Mockito.verify(request,Mockito.times(1)).setRequestId(Mockito.any(Integer.class));
+}

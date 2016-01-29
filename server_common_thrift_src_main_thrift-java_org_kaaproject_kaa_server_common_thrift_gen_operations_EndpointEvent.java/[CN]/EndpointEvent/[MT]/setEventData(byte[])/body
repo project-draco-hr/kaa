@@ -1,4 +1,4 @@
 {
-  setEventData(eventData == null ? (ByteBuffer)null : ByteBuffer.wrap(eventData));
+  this.eventData=eventData == null ? (ByteBuffer)null : ByteBuffer.wrap(Arrays.copyOf(eventData,eventData.length));
   return this;
 }

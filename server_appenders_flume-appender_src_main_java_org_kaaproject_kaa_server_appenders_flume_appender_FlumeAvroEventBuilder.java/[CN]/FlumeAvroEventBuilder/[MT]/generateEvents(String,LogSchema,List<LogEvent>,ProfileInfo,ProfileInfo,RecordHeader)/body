@@ -1,0 +1,16 @@
+{
+  LOG.debug("Build flume events with appToken [{}], schema version [{}], events: [{}] and header [{}].",appToken,schema.getVersion(),logEvents,header);
+  List<Event> events=null;
+switch (flumeEventFormat) {
+case RECORDS_CONTAINER:
+    Event event=generateRecordsContainerEvent(appToken,schema,logEvents,clientProfile,serverProfile,header);
+  if (event != null) {
+    events=Collections.singletonList(event);
+  }
+break;
+case GENERIC:
+events=generateGenericEvent(schema,logEvents);
+break;
+}
+return events;
+}

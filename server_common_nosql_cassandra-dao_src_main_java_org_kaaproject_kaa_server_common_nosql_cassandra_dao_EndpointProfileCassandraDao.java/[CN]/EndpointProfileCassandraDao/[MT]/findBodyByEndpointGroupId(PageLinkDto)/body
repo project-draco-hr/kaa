@@ -1,0 +1,15 @@
+{
+  LOG.debug("Try to find endpoint profile body by endpoint group id [{}]",pageLink.getEndpointGroupId());
+  EndpointProfilesBodyDto endpointProfilesBodyDto;
+  List<EndpointProfileBodyDto> profilesBodyDto;
+  ByteBuffer[] keyHashList;
+  if (pageLink.getApplicationId() != null) {
+    keyHashList=cassandraEPByAppIdDao.findEPByAppId(pageLink,pageLink.getApplicationId());
+  }
+ else {
+    keyHashList=cassandraEPByEndpointGroupIdDao.findEPByEndpointGroupId(pageLink);
+  }
+  profilesBodyDto=findEndpointProfilesBodyList(keyHashList,pageLink.getEndpointGroupId());
+  endpointProfilesBodyDto=createNextBodyPage(profilesBodyDto,pageLink.getEndpointGroupId(),pageLink.getLimit());
+  return endpointProfilesBodyDto;
+}

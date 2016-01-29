@@ -1,0 +1,28 @@
+{
+  boolean handled=false;
+  if (caught instanceof StatusCodeException) {
+    StatusCodeException sce=(StatusCodeException)caught;
+    if (sce.getStatusCode() == Response.SC_UNAUTHORIZED) {
+      onUnauthorized();
+      handled=true;
+    }
+ else     if (sce.getStatusCode() == 0) {
+      handleNetworkConnectionError();
+      handled=true;
+    }
+  }
+ else   if (caught instanceof IncompatibleRemoteServiceException) {
+    MessageDialog.showMessageDialog(AlertPanel.Type.ERROR,constants.incompatibleRemoteService(),messages.incompatibleRemoteService());
+    handled=true;
+  }
+  if (!handled) {
+    String message=parseErrorMessage(caught,errorMessageCustomizer);
+    String[] lines=message.split("\r\n|\r|\n");
+    if (lines.length > 1 || (lines.length == 1 && lines[0].length() >= MAX_ERROR_LINE_LENGTH)) {
+      MessageDialog.showMessageDialog(AlertPanel.Type.ERROR,constants.errorTitle(),message);
+    }
+ else {
+      hasErrorMessage.setErrorMessage(message);
+    }
+  }
+}

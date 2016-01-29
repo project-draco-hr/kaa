@@ -1,0 +1,99 @@
+{
+  String reuseTsValue=null;
+  Insert[] insertArray=new Insert[logEventDtoList.size()];
+  GenericRecord clientProfile=null;
+  ByteBuffer clientProfileBinary=null;
+  if (clientProfileConverter != null) {
+    clientProfile=clientProfileConverter.decodeJson(clientProfileJson);
+    clientProfileBinary=ByteBuffer.wrap(clientProfileConverter.encode(clientProfile));
+  }
+  GenericRecord serverProfile=null;
+  ByteBuffer serverProfileBinary=null;
+  if (serverProfileConverter != null) {
+    serverProfile=serverProfileConverter.decodeJson(serverProfileJson);
+    serverProfileBinary=ByteBuffer.wrap(serverProfileConverter.encode(serverProfile));
+  }
+  for (int i=0; i < logEventDtoList.size(); i++) {
+    CassandraLogEventDto dto=logEventDtoList.get(i);
+    Insert insert=QueryBuilder.insertInto(keyspaceName,collectionName);
+    for (    ColumnMappingElement element : configuration.getColumnMapping()) {
+switch (element.getType()) {
+case HEADER_FIELD:
+        insert.value(element.getColumnName(),formatField(element.getColumnType(),dto.getHeader().get(element.getValue())));
+      break;
+case EVENT_FIELD:
+    insert.value(element.getColumnName(),formatField(element.getColumnType(),dto.getEvent().get(element.getValue())));
+  break;
+case CLIENT_FIELD:
+if (clientProfile != null) {
+  insert.value(element.getColumnName(),formatField(element.getColumnType(),clientProfile.get(element.getValue())));
+}
+ else {
+  throw new RuntimeException(ABSENT_CLIENT_PROFILE_ERROR);
+}
+break;
+case SERVER_FIELD:
+if (serverProfile != null) {
+insert.value(element.getColumnName(),formatField(element.getColumnType(),serverProfile.get(element.getValue())));
+}
+ else {
+throw new RuntimeException(ABSENT_SERVER_PROFILE_ERROR);
+}
+break;
+case HEADER_JSON:
+insert.value(element.getColumnName(),headerConverter.encodeToJson(dto.getHeader()));
+break;
+case HEADER_BINARY:
+insert.value(element.getColumnName(),ByteBuffer.wrap(headerConverter.encode(dto.getHeader())));
+break;
+case EVENT_JSON:
+insert.value(element.getColumnName(),eventConverter.encodeToJson(dto.getEvent()));
+break;
+case EVENT_BINARY:
+insert.value(element.getColumnName(),ByteBuffer.wrap(eventConverter.encode(dto.getEvent())));
+break;
+case CLIENT_JSON:
+if (clientProfileJson != null) {
+insert.value(element.getColumnName(),clientProfileJson);
+}
+ else {
+throw new RuntimeException(ABSENT_CLIENT_PROFILE_ERROR);
+}
+break;
+case CLIENT_BINARY:
+if (clientProfileBinary != null) {
+insert.value(element.getColumnName(),clientProfileBinary);
+}
+ else {
+throw new RuntimeException(ABSENT_CLIENT_PROFILE_ERROR);
+}
+break;
+case SERVER_JSON:
+if (serverProfileJson != null) {
+insert.value(element.getColumnName(),serverProfileJson);
+}
+ else {
+throw new RuntimeException(ABSENT_SERVER_PROFILE_ERROR);
+}
+case SERVER_BINARY:
+if (serverProfileBinary != null) {
+insert.value(element.getColumnName(),clientProfileBinary);
+}
+ else {
+throw new RuntimeException(ABSENT_SERVER_PROFILE_ERROR);
+}
+break;
+case UUID:
+insert.value(element.getColumnName(),UUID.randomUUID());
+break;
+case TS:
+reuseTsValue=formatTs(reuseTsValue,element);
+insert.value(element.getColumnName(),reuseTsValue);
+break;
+}
+}
+insert.using(QueryBuilder.ttl(configuration.getDataTTL()));
+insertArray[i]=insert;
+}
+return insertArray;
+}

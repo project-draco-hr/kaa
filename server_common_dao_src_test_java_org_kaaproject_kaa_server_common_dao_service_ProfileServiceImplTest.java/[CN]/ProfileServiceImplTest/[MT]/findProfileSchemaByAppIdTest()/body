@@ -1,6 +1,6 @@
 {
-  ApplicationDto application=generateApplication(null);
-  List<ProfileSchemaDto> schemas=profileService.findProfileSchemasByAppId(application.getId());
+  ApplicationDto application=generateApplicationDto(null);
+  List<EndpointProfileSchemaDto> schemas=profileService.findProfileSchemasByAppId(application.getId());
   Assert.assertNotNull(schemas);
   Assert.assertFalse(schemas.isEmpty());
 }

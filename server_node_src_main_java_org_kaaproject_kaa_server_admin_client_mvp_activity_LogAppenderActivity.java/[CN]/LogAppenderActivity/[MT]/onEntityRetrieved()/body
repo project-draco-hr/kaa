@@ -1,0 +1,12 @@
+{
+  super.onEntityRetrieved();
+  KaaAdmin.getDataSource().loadLogSchemasVersion(applicationId,new BusyAsyncCallback<List<VersionDto>>(){
+    @Override public void onFailureImpl(    Throwable caught){
+      Utils.handleException(caught,detailsView);
+    }
+    @Override public void onSuccessImpl(    List<VersionDto> result){
+      onSchemaVersionsRetrieved(result);
+    }
+  }
+);
+}

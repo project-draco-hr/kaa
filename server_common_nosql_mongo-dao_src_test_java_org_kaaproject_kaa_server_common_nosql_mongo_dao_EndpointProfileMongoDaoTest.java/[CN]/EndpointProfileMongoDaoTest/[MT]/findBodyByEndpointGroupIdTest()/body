@@ -1,0 +1,10 @@
+{
+  for (int i=0; i < GENERATED_PROFILES_COUNT; i++) {
+    generateEndpointProfileWithGroupIdDto(TEST_ENDPOINT_GROUP_ID,false);
+  }
+  int lim=Integer.valueOf(TEST_LIMIT);
+  PageLinkDto pageLink=new PageLinkDto(TEST_ENDPOINT_GROUP_ID,TEST_LIMIT,TEST_OFFSET);
+  EndpointProfilesBodyDto found=endpointProfileDao.findBodyByEndpointGroupId(pageLink);
+  Assert.assertFalse(found.getEndpointProfilesBody().isEmpty());
+  Assert.assertEquals(lim,found.getEndpointProfilesBody().size());
+}

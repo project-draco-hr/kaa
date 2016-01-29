@@ -1,5 +1,0 @@
-{
-  String filterBody="new " + TestPojo.class.getName() + "(123).field == 123";
-  Filter filter=new DefaultFilter(filterBody,PROFILE_SCHEMA);
-  Assert.assertEquals(Boolean.TRUE,filter.matches(profileBody));
-}

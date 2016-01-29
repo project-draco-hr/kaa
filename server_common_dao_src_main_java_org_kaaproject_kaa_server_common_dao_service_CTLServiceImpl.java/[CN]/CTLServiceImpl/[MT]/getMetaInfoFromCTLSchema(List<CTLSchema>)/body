@@ -1,0 +1,12 @@
+{
+  List<CTLSchemaMetaInfoDto> metaInfoDtoList=Collections.emptyList();
+  if (!schemas.isEmpty()) {
+    metaInfoDtoList=new ArrayList<>(schemas.size());
+    for (    CTLSchema schema : schemas) {
+      CTLSchemaMetaInfoDto metaInfoDto=getDto(schema.getMetaInfo());
+      metaInfoDto.setName(schema.getName());
+      metaInfoDtoList.add(metaInfoDto);
+    }
+  }
+  return metaInfoDtoList;
+}

@@ -1,13 +1,13 @@
 {
-  HashCodeBuilder builder=new HashCodeBuilder();
+  List<Object> list=new ArrayList<Object>();
   boolean present_endpointKey=true && (isSetEndpointKey());
-  builder.append(present_endpointKey);
-  if (present_endpointKey)   builder.append(endpointKey);
+  list.add(present_endpointKey);
+  if (present_endpointKey)   list.add(endpointKey);
   boolean present_applicationToken=true && (isSetApplicationToken());
-  builder.append(present_applicationToken);
-  if (present_applicationToken)   builder.append(applicationToken);
+  list.add(present_applicationToken);
+  if (present_applicationToken)   list.add(applicationToken);
   boolean present_operationsServerId=true && (isSetOperationsServerId());
-  builder.append(present_operationsServerId);
-  if (present_operationsServerId)   builder.append(operationsServerId);
-  return builder.toHashCode();
+  list.add(present_operationsServerId);
+  if (present_operationsServerId)   list.add(operationsServerId);
+  return list.hashCode();
 }

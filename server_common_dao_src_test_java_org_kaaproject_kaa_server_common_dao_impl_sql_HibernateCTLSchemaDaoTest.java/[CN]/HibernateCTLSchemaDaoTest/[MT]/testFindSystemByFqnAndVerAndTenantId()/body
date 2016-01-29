@@ -1,0 +1,4 @@
+{
+  CTLSchema found=ctlSchemaDao.findByFqnAndVerAndTenantId(systemSchema.getMetaInfo().getFqn(),systemSchema.getMetaInfo().getVersion(),tenant.getId());
+  Assert.assertEquals(systemSchema,found.toDto());
+}

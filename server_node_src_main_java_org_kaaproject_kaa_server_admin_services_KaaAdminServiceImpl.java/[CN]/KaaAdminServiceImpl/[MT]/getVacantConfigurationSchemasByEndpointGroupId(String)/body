@@ -1,0 +1,10 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    checkEndpointGroupId(endpointGroupId);
+    return controlService.getVacantConfigurationSchemasByEndpointGroupId(endpointGroupId);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

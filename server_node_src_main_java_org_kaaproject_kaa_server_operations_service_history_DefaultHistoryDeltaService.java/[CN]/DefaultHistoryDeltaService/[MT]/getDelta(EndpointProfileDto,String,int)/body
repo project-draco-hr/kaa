@@ -1,0 +1,22 @@
+{
+  String endpointId=Base64Util.encode(profile);
+  ConfigurationIdKey confIdKey=new ConfigurationIdKey(applicationToken,curAppSeqNumber,profile.getConfigurationVersion());
+  AppProfileVersionsKey appVersionsKey=new AppProfileVersionsKey(applicationToken,profile.getClientProfileVersion(),profile.getServerProfileVersion());
+  List<ProfileFilterDto> filters=filterService.getAllMatchingFilters(appVersionsKey,profile);
+  LOG.debug("[{}] Found {} matching filters",endpointId,filters.size());
+  List<EndpointGroupStateDto> result=new ArrayList<>(1 + filters.size());
+  EndpointGroupDto groupDto=cacheService.getDefaultGroup(applicationToken);
+  EndpointGroupStateDto groupAllState=new EndpointGroupStateDto();
+  groupAllState.setEndpointGroupId(groupDto.getId());
+  groupAllState.setConfigurationId(cacheService.getConfIdByKey(confIdKey.copyWithNewEGId(groupDto.getId())));
+  result.add(groupAllState);
+  for (  ProfileFilterDto filter : filters) {
+    String confId=cacheService.getConfIdByKey(confIdKey.copyWithNewEGId(filter.getEndpointGroupId()));
+    EndpointGroupStateDto endpointGroupState=new EndpointGroupStateDto();
+    endpointGroupState.setEndpointGroupId(filter.getEndpointGroupId());
+    endpointGroupState.setProfileFilterId(filter.getId());
+    endpointGroupState.setConfigurationId(confId);
+    result.add(endpointGroupState);
+  }
+  return new HistoryDelta(result,true,true);
+}

@@ -1,4 +1,8 @@
 {
+  if (context.needToCheckClientState()) {
+    checkClientState(State.PAUSED,"Kaa client isn't paused");
+  }
+  setClientState(State.STARTED);
   getLifeCycleExecutor().submit(new Runnable(){
     @Override public void run(){
       try {

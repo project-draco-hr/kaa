@@ -1,0 +1,13 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_ADMIN);
+  try {
+    UserDto user=controlService.getUser(userId);
+    Utils.checkNotNull(user);
+    checkTenantId(user.getTenantId());
+    userFacade.deleteUser(Long.valueOf(user.getExternalUid()));
+    controlService.deleteUser(user.getId());
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

@@ -2,7 +2,6 @@
   int result=applicationId != null ? applicationId.hashCode() : 0;
   result=31 * result + (endpointKey != null ? Arrays.hashCode(endpointKey) : 0);
   result=31 * result + (endpointKeyHash != null ? Arrays.hashCode(endpointKeyHash) : 0);
-  result=31 * result + (profileSchemaId != null ? profileSchemaId.hashCode() : 0);
   result=31 * result + (cfGroupState != null ? cfGroupState.hashCode() : 0);
   result=31 * result + (nfGroupState != null ? nfGroupState.hashCode() : 0);
   result=31 * result + cfSequenceNumber;
@@ -11,6 +10,7 @@
   result=31 * result + (profile != null ? profile.hashCode() : 0);
   result=31 * result + (profileHash != null ? Arrays.hashCode(profileHash) : 0);
   result=31 * result + profileVersion;
+  result=31 * result + serverProfileVersion;
   result=31 * result + (configurationHash != null ? Arrays.hashCode(configurationHash) : 0);
   result=31 * result + (userConfigurationHash != null ? Arrays.hashCode(userConfigurationHash) : 0);
   result=31 * result + configurationVersion;
@@ -19,5 +19,6 @@
   result=31 * result + (ntHash != null ? Arrays.hashCode(ntHash) : 0);
   result=31 * result + systemNfVersion;
   result=31 * result + userNfVersion;
+  result=31 * result + (sdkToken != null ? sdkToken.hashCode() : 0);
   return result;
 }

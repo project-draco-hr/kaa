@@ -1,0 +1,21 @@
+{
+  if (logException) {
+    LOG.error("Unexpected exception catched!",exception);
+  }
+  String cause="";
+  if (exception.getCause() != null) {
+    cause=exception.getCause().getClass().getCanonicalName();
+  }
+  if (exception instanceof KaaAdminServiceException) {
+    return (KaaAdminServiceException)exception;
+  }
+ else   if (exception instanceof NotFoundException) {
+    return new KaaAdminServiceException(exception.getMessage(),ServiceErrorCode.ITEM_NOT_FOUND);
+  }
+ else   if (exception instanceof IllegalArgumentException || exception instanceof IncorrectParameterException || cause.contains("IncorrectParameterException")) {
+    return new KaaAdminServiceException(exception.getMessage(),ServiceErrorCode.BAD_REQUEST_PARAMS);
+  }
+ else {
+    return new KaaAdminServiceException(exception.getMessage(),ServiceErrorCode.GENERAL_ERROR);
+  }
+}

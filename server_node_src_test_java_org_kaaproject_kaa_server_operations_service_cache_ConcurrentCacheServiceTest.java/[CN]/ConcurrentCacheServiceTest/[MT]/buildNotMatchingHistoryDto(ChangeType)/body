@@ -1,0 +1,14 @@
+{
+  HistoryDto notMatchingHistory=new HistoryDto();
+  ChangeDto notMatchingConfChange;
+  notMatchingConfChange=new ChangeDto();
+  notMatchingHistory.setApplicationId(APP_ID);
+  notMatchingHistory.setSequenceNumber(TEST_APP_SEQ_NUMBER + 2);
+  notMatchingConfChange.setType(changeType);
+  notMatchingConfChange.setEndpointGroupId(ENDPOINT_GROUP1_ID);
+  notMatchingConfChange.setConfigurationId(CF3_ID);
+  notMatchingConfChange.setCfVersion(CONF1_SCHEMA_VERSION + 1);
+  notMatchingConfChange.setProfileFilterId(PF3_ID);
+  notMatchingHistory.setChange(notMatchingConfChange);
+  return notMatchingHistory;
+}

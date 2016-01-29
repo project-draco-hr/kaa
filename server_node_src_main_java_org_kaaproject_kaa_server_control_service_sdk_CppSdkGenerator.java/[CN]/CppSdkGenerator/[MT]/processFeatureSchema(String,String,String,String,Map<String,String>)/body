@@ -1,0 +1,24 @@
+{
+  List<TarEntryData> cppSources=new LinkedList<>();
+  if (!StringUtils.isBlank(schemaBody)) {
+    TarArchiveEntry entry=new TarArchiveEntry(schemaPath);
+    byte[] data=schemaBody.getBytes();
+    entry.setSize(data.length);
+    TarEntryData tarEntry=new TarEntryData(entry,data);
+    cppSources.add(tarEntry);
+    Schema schema=new Schema.Parser().parse(schemaBody);
+    String definitionsHpp=SdkGenerator.readResource(templatePath);
+    entry=new TarArchiveEntry(outputPath);
+    String templateStr=replaceVar(definitionsHpp,RECORD_CLASS_NAME_VAR,schema.getName());
+    if (vars != null && vars.size() > 0) {
+      for (      Entry<String,String> var : vars.entrySet()) {
+        templateStr=replaceVar(templateStr,var.getKey(),var.getValue());
+      }
+    }
+    byte[] definitionsData=templateStr.getBytes();
+    entry.setSize(definitionsData.length);
+    tarEntry=new TarEntryData(entry,definitionsData);
+    cppSources.add(tarEntry);
+  }
+  return cppSources;
+}

@@ -1,0 +1,41 @@
+{
+  super.bind(eventBus);
+  if (create) {
+    registrations.add(recordView.getEndpointProfileSchema().addValueChangeHandler(new ValueChangeHandler<VersionDto>(){
+      @Override public void onValueChange(      ValueChangeEvent<VersionDto> event){
+        List<VersionDto> newValues=extractServerProfileVersions(event.getValue());
+        updateValues(recordView.getServerProfileSchema(),newValues);
+      }
+    }
+));
+    registrations.add(recordView.getServerProfileSchema().addValueChangeHandler(new ValueChangeHandler<VersionDto>(){
+      @Override public void onValueChange(      ValueChangeEvent<VersionDto> event){
+        List<VersionDto> newValues=extractEndpointProfileVersions(event.getValue());
+        updateValues(recordView.getEndpointProfileSchema(),newValues);
+      }
+    }
+));
+  }
+  registrations.add(recordView.getTestFilterButton().addClickHandler(new ClickHandler(){
+    public void onClick(    ClickEvent event){
+      String profileSchemaId;
+      String serverProfileSchemaId;
+      if (create) {
+        profileSchemaId=recordView.getEndpointProfileSchema().getValue().getId();
+        serverProfileSchemaId=recordView.getServerProfileSchema().getValue().getId();
+      }
+ else {
+        profileSchemaId=record.getEndpointProfileSchemaId();
+        serverProfileSchemaId=record.getServerProfileSchemaId();
+      }
+      String filterBody=recordView.getRecordPanel().getBody().getValue();
+      TestProfileFilterDialog.showTestProfileFilterDialog(new TestProfileFilterDialog.TestProfileFilterDialogListener(){
+        @Override public void onClose(        String filterBody){
+          recordView.getRecordPanel().getBody().setValue(filterBody,true);
+        }
+      }
+,profileSchemaId,serverProfileSchemaId,filterBody);
+    }
+  }
+));
+}

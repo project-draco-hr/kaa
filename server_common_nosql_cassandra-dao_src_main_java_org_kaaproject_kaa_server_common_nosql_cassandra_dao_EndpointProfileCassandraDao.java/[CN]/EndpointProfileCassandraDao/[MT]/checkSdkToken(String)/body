@@ -1,0 +1,5 @@
+{
+  LOG.debug("Checking for endpoint profiles with SDK token {}",sdkToken);
+  Statement query=select().from(EP_BY_SDK_TOKEN_COLUMN_FAMILY_NAME).where(eq(EP_BY_SDK_TOKEN_SDK_TOKEN_PROPERTY,sdkToken));
+  return execute(query).one() != null;
+}

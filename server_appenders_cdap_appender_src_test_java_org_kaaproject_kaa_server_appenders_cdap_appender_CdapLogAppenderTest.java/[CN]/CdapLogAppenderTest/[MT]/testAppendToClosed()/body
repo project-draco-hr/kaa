@@ -1,7 +1,0 @@
-{
-  LogEventPack logEventPack=getLogEventPack();
-  appender.close();
-  LogDeliveryCallback callback=Mockito.mock(LogDeliveryCallback.class);
-  appender.doAppend(logEventPack,callback);
-  Mockito.verify(callback,Mockito.timeout(10000)).onInternalError();
-}

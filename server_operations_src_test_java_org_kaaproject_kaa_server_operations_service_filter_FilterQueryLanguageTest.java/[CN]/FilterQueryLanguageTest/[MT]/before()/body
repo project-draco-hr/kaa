@@ -1,6 +1,0 @@
-{
-  URL extendedEndpointProfileUrl=Thread.currentThread().getContextClassLoader().getResource(EXTENDED_ENDPOINT_PROFILE_SOURCE_PATH);
-  ByteArrayOutputStream baos=new ByteArrayOutputStream();
-  IOUtils.copy(new FileInputStream(extendedEndpointProfileUrl.getPath()),baos,1024);
-  profileBody=new String(baos.toByteArray(),"UTF-8");
-}

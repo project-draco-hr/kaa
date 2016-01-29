@@ -11,7 +11,7 @@
   schema.setName(DEFAULT_SCHEMA_NAME);
   schema.setCreatedUsername(createdUsername);
   ConfigurationSchemaDto savedSchema=configurationService.saveConfSchema(schema,groupId);
-  ConfigurationDto config=configurationService.findConfigurationByAppIdAndVersion(savedSchema.getApplicationId(),savedSchema.getMajorVersion());
+  ConfigurationDto config=configurationService.findConfigurationByAppIdAndVersion(savedSchema.getApplicationId(),savedSchema.getVersion());
   if (config == null) {
     throw new RuntimeException("Can't find default configuration by schema id " + savedSchema.getId());
   }

@@ -1,0 +1,13 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    checkTopicId(topicId);
+    TopicDto topic=controlService.getTopic(topicId);
+    Utils.checkNotNull(topic);
+    checkApplicationId(topic.getApplicationId());
+    controlService.deleteTopicById(topicId);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

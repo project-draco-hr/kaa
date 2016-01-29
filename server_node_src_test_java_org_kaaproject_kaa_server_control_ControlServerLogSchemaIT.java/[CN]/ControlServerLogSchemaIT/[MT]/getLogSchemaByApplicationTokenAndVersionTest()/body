@@ -1,0 +1,6 @@
+{
+  ApplicationDto app=createApplication(tenantAdminDto);
+  LogSchemaDto logSchemaDto=createLogSchema(app.getId());
+  LogSchemaDto found=client.getLogSchemaByApplicationTokenAndSchemaVersion(app.getApplicationToken(),logSchemaDto.getVersion());
+  Assert.assertEquals(logSchemaDto,found);
+}

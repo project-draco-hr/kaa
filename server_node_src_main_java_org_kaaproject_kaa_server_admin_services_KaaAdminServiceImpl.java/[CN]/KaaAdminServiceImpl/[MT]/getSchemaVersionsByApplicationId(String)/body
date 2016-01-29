@@ -1,0 +1,19 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    checkApplicationId(applicationId);
+    SchemaVersions schemaVersions=new SchemaVersions();
+    List<VersionDto> configurationSchemaVersions=controlService.getConfigurationSchemaVersionsByApplicationId(applicationId);
+    schemaVersions.setConfigurationSchemaVersions(configurationSchemaVersions);
+    List<VersionDto> profileSchemaVersions=controlService.getProfileSchemaVersionsByApplicationId(applicationId);
+    schemaVersions.setProfileSchemaVersions(profileSchemaVersions);
+    List<VersionDto> notificationSchemaVersions=controlService.getNotificationSchemaVersionsByApplicationId(applicationId);
+    schemaVersions.setNotificationSchemaVersions(notificationSchemaVersions);
+    List<VersionDto> logSchemaVersions=controlService.getLogSchemaVersionsByApplicationId(applicationId);
+    schemaVersions.setLogSchemaVersions(logSchemaVersions);
+    return schemaVersions;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

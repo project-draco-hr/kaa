@@ -1,0 +1,11 @@
+{
+  try {
+    Schema avroSchema=ctlService.flatExportAsSchema(schema);
+    String fileName=MessageFormat.format(CTL_LIBRARY_EXPORT_TEMPLATE,schema.getMetaInfo().getFqn(),schema.getMetaInfo().getVersion());
+    return SchemaLibraryGenerator.generateSchemaLibrary(avroSchema,fileName);
+  }
+ catch (  Exception e) {
+    LOG.error("Unable to export flat CTL schema as library",e);
+    throw new ControlServiceException(e);
+  }
+}

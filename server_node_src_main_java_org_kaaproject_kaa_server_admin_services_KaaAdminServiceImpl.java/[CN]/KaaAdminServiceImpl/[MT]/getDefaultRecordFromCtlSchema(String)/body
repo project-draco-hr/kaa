@@ -1,0 +1,7 @@
+{
+  CTLSchemaDto ctlSchema=controlService.getCTLSchemaById(ctlSchemaId);
+  Schema schema=controlService.exportCTLSchemaFlatAsSchema(ctlSchema);
+  GenericAvroConverter<GenericRecord> converter=new GenericAvroConverter<>(schema);
+  GenericRecord defaultRecord=converter.decodeJson(ctlSchema.getDefaultRecord());
+  return defaultRecord;
+}

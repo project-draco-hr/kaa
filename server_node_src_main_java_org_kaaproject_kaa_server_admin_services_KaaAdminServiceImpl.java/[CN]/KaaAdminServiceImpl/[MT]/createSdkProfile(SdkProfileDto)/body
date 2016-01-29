@@ -1,0 +1,12 @@
+{
+  this.checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    this.checkApplicationId(sdkProfile.getApplicationId());
+    sdkProfile.setCreatedUsername(getCurrentUser().getUsername());
+    sdkProfile.setCreatedTime(System.currentTimeMillis());
+    return controlService.saveSdkProfile(sdkProfile);
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+}

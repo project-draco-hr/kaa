@@ -1,8 +1,0 @@
-{
-  ChangeConfigurationNotification cfgNotification=configurationService.deactivateConfiguration(configurationId,deactivatedUsername);
-  ChangeNotificationDto notification=cfgNotification.getChangeNotificationDto();
-  if (notification != null) {
-    notifyEndpoints(notification,null,cfgNotification.getConfigurationDto());
-  }
-  return toDataStruct(cfgNotification.getConfigurationDto());
-}

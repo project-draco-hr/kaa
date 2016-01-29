@@ -1,9 +1,9 @@
 {
   validateId(applicationId,"Can't find notification schema versions. Invalid application id: " + applicationId);
   List<NotificationSchema> notificationSchemas=notificationSchemaDao.findNotificationSchemasByAppId(applicationId);
-  List<SchemaDto> schemas=new ArrayList<>();
+  List<VersionDto> schemas=new ArrayList<>();
   for (  NotificationSchema notificationSchema : notificationSchemas) {
-    schemas.add(notificationSchema.toSchemaDto());
+    schemas.add(notificationSchema.toVersionDto());
   }
   return schemas;
 }

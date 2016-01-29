@@ -1,0 +1,8 @@
+{
+  if (version == null) {
+    throw new IllegalArgumentException("Missing CTL schema version number!");
+  }
+ else   if (version <= 0) {
+    throw new IllegalArgumentException("The CTL schema version is not a positive number!");
+  }
+}

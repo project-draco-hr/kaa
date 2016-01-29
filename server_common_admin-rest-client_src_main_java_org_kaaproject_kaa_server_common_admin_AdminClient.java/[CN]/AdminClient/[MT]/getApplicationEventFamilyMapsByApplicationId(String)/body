@@ -1,0 +1,7 @@
+{
+  ParameterizedTypeReference<List<ApplicationEventFamilyMapDto>> typeRef=new ParameterizedTypeReference<List<ApplicationEventFamilyMapDto>>(){
+  }
+;
+  ResponseEntity<List<ApplicationEventFamilyMapDto>> entity=restTemplate.exchange(url + "applicationEventMaps/" + applicationId,HttpMethod.GET,null,typeRef);
+  return entity.getBody();
+}

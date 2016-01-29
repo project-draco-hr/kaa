@@ -1,0 +1,52 @@
+{
+  this.checkAuthority(KaaAuthorityDto.values());
+  try {
+    Utils.checkNotNull(schema);
+    if (schema.getScope() == CTLSchemaScopeDto.SYSTEM) {
+      if (schema.getTenantId() != null) {
+        throw new IllegalArgumentException("A system CTL schema cannot be tied to a tenant!");
+      }
+ else       if (schema.getApplicationId() != null) {
+        throw new IllegalArgumentException("A system CTL schema cannot be tied to an application!");
+      }
+    }
+ else     if (schema.getScope() == CTLSchemaScopeDto.TENANT) {
+      if (schema.getTenantId() == null) {
+        throw new IllegalArgumentException("A tenant CTL schema must include a tenant identifier!");
+      }
+ else       if (schema.getApplicationId() != null) {
+        throw new IllegalArgumentException("A tenant CTL schema cannot be tied to an application!");
+      }
+ else {
+        this.checkTenantId(schema.getTenantId());
+      }
+    }
+ else {
+      this.checkApplicationId(schema.getApplicationId());
+    }
+    List<CTLSchemaMetaInfoDto> missingDependencies=new ArrayList<>();
+    Set<CTLSchemaDto> dependencies=new HashSet<>();
+    if (schema.getDependencies() != null) {
+      for (      CTLSchemaMetaInfoDto dependency : schema.getDependencies()) {
+        CTLSchemaDto schemaFound=controlService.getCTLSchemaByFqnVersionAndTenantId(dependency.getFqn(),dependency.getVersion(),schema.getTenantId());
+        if (schemaFound == null) {
+          missingDependencies.add(dependency);
+        }
+ else {
+          dependencies.add(schemaFound);
+        }
+      }
+    }
+    if (!missingDependencies.isEmpty()) {
+      String message="The following dependencies are missing from the database: " + Arrays.toString(missingDependencies.toArray());
+      throw new IllegalArgumentException(message);
+    }
+    CTLSchemaParser parser=new CTLSchemaParser(controlService,getCurrentUser().getTenantId());
+    parser.validate(schema);
+    CTLSchemaDto result=controlService.saveCTLSchema(new CTLSchemaDto(schema,dependencies));
+    return result != null ? result.toCTLSchemaInfoDto() : null;
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+}

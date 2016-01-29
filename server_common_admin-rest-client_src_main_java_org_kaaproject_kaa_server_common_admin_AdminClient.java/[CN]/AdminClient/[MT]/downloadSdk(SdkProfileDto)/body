@@ -1,0 +1,6 @@
+{
+  FileDataResponseExtractor extractor=new FileDataResponseExtractor();
+  RequestCallback request=new DataRequestCallback<>(key);
+  FileData data=restTemplate.execute(url + "sdk",HttpMethod.POST,request,extractor);
+  return data;
+}

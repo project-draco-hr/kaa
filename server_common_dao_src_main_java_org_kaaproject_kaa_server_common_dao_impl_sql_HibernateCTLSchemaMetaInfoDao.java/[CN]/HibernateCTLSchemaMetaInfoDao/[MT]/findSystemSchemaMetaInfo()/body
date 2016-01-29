@@ -1,0 +1,11 @@
+{
+  LOG.debug("Searching system ctl metadata");
+  List<CTLSchemaMetaInfo> metaInfoList=findListByCriterion(Restrictions.eq(CTL_SCHEMA_META_INFO_SCOPE,CTLSchemaScopeDto.SYSTEM));
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("Search result: {}.",Arrays.toString(metaInfoList.toArray()));
+  }
+ else {
+    LOG.debug("Search result: {}.",metaInfoList.size());
+  }
+  return metaInfoList;
+}

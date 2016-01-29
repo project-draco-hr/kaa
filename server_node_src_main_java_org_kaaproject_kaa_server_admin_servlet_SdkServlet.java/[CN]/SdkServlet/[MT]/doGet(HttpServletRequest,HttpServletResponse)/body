@@ -1,0 +1,17 @@
+{
+  String sdkKeyBase64=URLDecoder.decode(request.getParameter(SDK_KEY_PARAMETER),"UTF-8");
+  try {
+    CacheService.SdkKey key=(CacheService.SdkKey)Base64.decodeToObject(sdkKeyBase64,Base64.URL_SAFE,null);
+    FileData sdkFile=cacheService.getSdk(key);
+    response.setContentType(sdkFile.getContentType());
+    ServletUtils.prepareDisposition(request,response,sdkFile.getFileName());
+    response.setContentLength(sdkFile.getFileData().length);
+    response.setBufferSize(BUFFER);
+    response.getOutputStream().write(sdkFile.getFileData());
+    response.flushBuffer();
+  }
+ catch (  Exception e) {
+    logger.error("Unexpected error in SdkServlet.doGet: ",e);
+    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,"Unable to get Sdk file: " + e.getMessage());
+  }
+}

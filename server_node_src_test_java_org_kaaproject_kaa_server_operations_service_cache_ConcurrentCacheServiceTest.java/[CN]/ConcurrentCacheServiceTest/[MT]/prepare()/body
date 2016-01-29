@@ -1,0 +1,179 @@
+{
+  registerMocks();
+  final ApplicationDto appDto=new ApplicationDto();
+  appDto.setSequenceNumber(TEST_APP_SEQ_NUMBER);
+  appDto.setId(APP_ID);
+  appDto.setApplicationToken(TEST_APP_TOKEN);
+  when(appService.findAppByApplicationToken(TEST_APP_TOKEN)).then(new Answer<ApplicationDto>(){
+    @Override public ApplicationDto answer(    InvocationOnMock invocation){
+      sleepABit();
+      return appDto;
+    }
+  }
+);
+  SDK_PROFILE.setApplicationToken(TEST_APP_TOKEN);
+  SDK_PROFILE.setApplicationId(APP_ID);
+  SDK_PROFILE.setDefaultVerifierToken(DEFAULT_VERIFIER_TOKEN);
+  when(sdkProfileService.findSdkProfileByToken(TEST_SDK_TOKEN)).then(new Answer<SdkProfileDto>(){
+    @Override public SdkProfileDto answer(    InvocationOnMock invocationOnMock) throws Throwable {
+      sleepABit();
+      return SDK_PROFILE;
+    }
+  }
+);
+  final List<ConfigurationDto> configurations=new ArrayList<ConfigurationDto>();
+  ConfigurationDto theConf=new ConfigurationDto();
+  theConf.setId(CF1_ID);
+  theConf.setSchemaVersion(CONF1_SCHEMA_VERSION);
+  configurations.add(theConf);
+  when(configurationService.findConfigurationsByEndpointGroupId(ENDPOINT_GROUP1_ID)).then(new Answer<List<ConfigurationDto>>(){
+    @Override public List<ConfigurationDto> answer(    InvocationOnMock invocation) throws Throwable {
+      sleepABit();
+      return configurations;
+    }
+  }
+);
+  final List<HistoryDto> historyList=new ArrayList<HistoryDto>();
+  historyList.add(buildMatchingHistoryDto(ChangeType.ADD_CONF));
+  historyList.add(buildNotMatchingHistoryDto(ChangeType.ADD_CONF));
+  historyList.add(buildMatchingHistoryDto(ChangeType.REMOVE_CONF));
+  historyList.add(buildNotMatchingHistoryDto(ChangeType.REMOVE_CONF));
+  historyList.add(buildMatchingHistoryDto(ChangeType.ADD_PROF));
+  historyList.add(buildNotMatchingHistoryDto(ChangeType.ADD_PROF));
+  historyList.add(buildMatchingHistoryDto(ChangeType.REMOVE_PROF));
+  historyList.add(buildNotMatchingHistoryDto(ChangeType.REMOVE_PROF));
+  historyList.add(buildMatchingHistoryDto(ChangeType.ADD_TOPIC));
+  historyList.add(buildMatchingHistoryDto(ChangeType.REMOVE_TOPIC));
+  historyList.add(buildMatchingHistoryDto(ChangeType.REMOVE_GROUP));
+  when(historyService.findHistoriesBySeqNumberRange(APP_ID,TEST_APP_SEQ_NUMBER,TEST_APP_SEQ_NUMBER_NEW)).then(new Answer<List<HistoryDto>>(){
+    @Override public List<HistoryDto> answer(    InvocationOnMock invocation) throws Throwable {
+      sleepABit();
+      return historyList;
+    }
+  }
+);
+  when(profileService.findProfileFiltersByAppIdAndVersionsCombination(APP_ID,TEST_GET_PROFILES_KEY.getEndpointProfileSchemaVersion(),TEST_GET_PROFILES_KEY.getServerProfileSchemaVersion())).then(new Answer<List<ProfileFilterDto>>(){
+    @Override public List<ProfileFilterDto> answer(    InvocationOnMock invocation) throws Throwable {
+      sleepABit();
+      return TEST_PROFILE_FILTER_LIST;
+    }
+  }
+);
+  when(profileService.findProfileFilterById(PF1_ID)).then(new Answer<ProfileFilterDto>(){
+    @Override public ProfileFilterDto answer(    InvocationOnMock invocation) throws Throwable {
+      sleepABit();
+      return TEST_PROFILE_FILTER;
+    }
+  }
+);
+  when(profileService.findProfileFilterById(PF2_ID)).then(new Answer<ProfileFilterDto>(){
+    @Override public ProfileFilterDto answer(    InvocationOnMock invocation) throws Throwable {
+      sleepABit();
+      return TEST_PROFILE_FILTER;
+    }
+  }
+);
+  when(profileService.findProfileFilterById(PF3_ID)).then(new Answer<ProfileFilterDto>(){
+    @Override public ProfileFilterDto answer(    InvocationOnMock invocation) throws Throwable {
+      sleepABit();
+      ProfileFilterDto dto=new ProfileFilterDto();
+      dto.setEndpointProfileSchemaId(PROFILE2_SCHEMA_VERSION + "");
+      dto.setEndpointProfileSchemaVersion(PROFILE2_SCHEMA_VERSION);
+      dto.setServerProfileSchemaId(PROFILE2_SERVER_SCHEMA_VERSION + "");
+      dto.setServerProfileSchemaVersion(PROFILE2_SERVER_SCHEMA_VERSION);
+      return dto;
+    }
+  }
+);
+  when(endpointService.findEndpointConfigurationByHash(CF1_HASH.getData())).then(new Answer<EndpointConfigurationDto>(){
+    @Override public EndpointConfigurationDto answer(    InvocationOnMock invocation) throws Throwable {
+      sleepABit();
+      return CF1;
+    }
+  }
+);
+  when(configurationService.findConfSchemaByAppIdAndVersion(APP_ID,CF_SCHEMA_KEY.getVersion())).then(new Answer<ConfigurationSchemaDto>(){
+    @Override public ConfigurationSchemaDto answer(    InvocationOnMock invocation) throws Throwable {
+      sleepABit();
+      return CF1_SCHEMA;
+    }
+  }
+);
+  when(profileService.findProfileSchemaByAppIdAndVersion(APP_ID,PF_SCHEMA_KEY.getVersion())).then(new Answer<EndpointProfileSchemaDto>(){
+    @Override public EndpointProfileSchemaDto answer(    InvocationOnMock invocation) throws Throwable {
+      sleepABit();
+      return PF1_SCHEMA;
+    }
+  }
+);
+  KeyPairGenerator keyGen=KeyPairGenerator.getInstance("RSA");
+  SecureRandom random=SecureRandom.getInstance("SHA1PRNG","SUN");
+  keyGen.initialize(512,random);
+  publicKey=keyGen.genKeyPair().getPublic();
+  byte[] key=publicKey.getEncoded();
+  publicKeyHash=EndpointObjectHash.fromSHA1(key);
+  publicKey2=keyGen.genKeyPair().getPublic();
+  byte[] key2=publicKey2.getEncoded();
+  publicKeyHash2=EndpointObjectHash.fromSHA1(key2);
+  final EndpointProfileDto ep=new EndpointProfileDto();
+  ep.setEndpointKey(key);
+  when(endpointService.findEndpointProfileByKeyHash(publicKeyHash.getData())).then(new Answer<EndpointProfileDto>(){
+    @Override public EndpointProfileDto answer(    InvocationOnMock invocation) throws Throwable {
+      sleepABit();
+      return ep;
+    }
+  }
+);
+  final EventClassFamilyDto ecfDto=new EventClassFamilyDto();
+  ecfDto.setId(EVENT_CLASS_FAMILY_ID);
+  when(eventClassService.findEventClassFamilyByTenantIdAndName(TENANT_ID,ECF_NAME)).then(new Answer<EventClassFamilyDto>(){
+    @Override public EventClassFamilyDto answer(    InvocationOnMock invocation) throws Throwable {
+      sleepABit();
+      return ecfDto;
+    }
+  }
+);
+  final EventClassDto ecDto=new EventClassDto();
+  ecDto.setId(EVENT_CLASS_ID);
+  ecDto.setEcfId(EVENT_CLASS_FAMILY_ID);
+  final List<EventClassDto> eventClassDtos=new ArrayList<>();
+  eventClassDtos.add(ecDto);
+  when(eventClassService.findEventClassByTenantIdAndFQN(TENANT_ID,EC_FQN)).then(new Answer<List<EventClassDto>>(){
+    @Override public List<EventClassDto> answer(    InvocationOnMock invocation) throws Throwable {
+      sleepABit();
+      return eventClassDtos;
+    }
+  }
+);
+  final EventClassDto evcDto=new EventClassDto();
+  evcDto.setId(EVENT_CLASS_ID);
+  evcDto.setEcfId(EVENT_CLASS_FAMILY_ID);
+  evcDto.setVersion(EVENT_CLASS_FAMILY_VERSION);
+  when(eventClassService.findEventClassByTenantIdAndFQNAndVersion(TENANT_ID,EC_FQN,EVENT_CLASS_FAMILY_VERSION)).then(new Answer<EventClassDto>(){
+    @Override public EventClassDto answer(    InvocationOnMock invocation) throws Throwable {
+      sleepABit();
+      return evcDto;
+    }
+  }
+);
+  when(applicationEventMapService.findByEcfIdAndVersion(EVENT_CLASS_FAMILY_ID,EVENT_CLASS_FAMILY_VERSION)).then(new Answer<List<ApplicationEventFamilyMapDto>>(){
+    @Override public List<ApplicationEventFamilyMapDto> answer(    InvocationOnMock invocation) throws Throwable {
+      ApplicationEventMapDto matchButSource=new ApplicationEventMapDto();
+      matchButSource.setAction(ApplicationEventAction.SOURCE);
+      matchButSource.setEventClassId(EVENT_CLASS_ID);
+      ApplicationEventMapDto match=new ApplicationEventMapDto();
+      match.setAction(ApplicationEventAction.BOTH);
+      match.setEventClassId(EVENT_CLASS_ID);
+      ApplicationEventFamilyMapDto mapping=new ApplicationEventFamilyMapDto();
+      mapping.setApplicationId(APP_ID);
+      mapping.setEcfId(EVENT_CLASS_FAMILY_ID);
+      mapping.setVersion(EVENT_CLASS_FAMILY_VERSION);
+      mapping.setEventMaps(Arrays.asList(matchButSource,match));
+      return Arrays.asList(mapping);
+    }
+  }
+);
+  APPLICATION_EVENT_FAMILY_MAP_DTO.setEcfName("someName");
+  when(applicationEventMapService.findApplicationEventFamilyMapsByIds(AEFMAP_IDS)).thenReturn(AEFM_LIST);
+  when(appService.findAppById(APP_ID)).thenReturn(appDto);
+}

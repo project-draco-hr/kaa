@@ -1,0 +1,21 @@
+{
+  super.bind(eventBus);
+  registrations.add(detailsView.getGroupsGrid().addRowActionHandler(new RowActionEventHandler<String>(){
+    @Override public void onRowAction(    RowActionEvent<String> rowActionEvent){
+      String id=rowActionEvent.getClickedId();
+      EndpointGroupPlace endpointGroupPlace=new EndpointGroupPlace(place.getApplicationId(),id,false,false);
+      endpointGroupPlace.setPreviousPlace(place);
+      goTo(endpointGroupPlace);
+    }
+  }
+));
+  registrations.add(detailsView.getTopicsGrid().addRowActionHandler(new RowActionEventHandler<String>(){
+    @Override public void onRowAction(    RowActionEvent<String> rowActionEvent){
+      String id=rowActionEvent.getClickedId();
+      TopicPlace topicPlace=new TopicPlace(place.getApplicationId(),id);
+      topicPlace.setPreviousPlace(place);
+      goTo(topicPlace);
+    }
+  }
+));
+}

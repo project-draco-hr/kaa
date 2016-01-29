@@ -1,0 +1,16 @@
+{
+  List<FormField> acceptableValues=valuesUnion.getAcceptableValues();
+  List<FormField> filteredAcceptableValues=new ArrayList<>();
+  for (  FormField acceptableValue : acceptableValues) {
+    if (acceptableValue != null && acceptableValue instanceof RecordField) {
+      RecordField recordValue=(RecordField)acceptableValue;
+      if ((include && eventClassTypes.contains(recordValue.getFqn().getName()))) {
+        filteredAcceptableValues.add(acceptableValue);
+      }
+ else       if (!include && !eventClassTypes.contains(recordValue.getFqn().getName())) {
+        filteredAcceptableValues.add(acceptableValue);
+      }
+    }
+  }
+  valuesUnion.setAcceptableValues(filteredAcceptableValues);
+}

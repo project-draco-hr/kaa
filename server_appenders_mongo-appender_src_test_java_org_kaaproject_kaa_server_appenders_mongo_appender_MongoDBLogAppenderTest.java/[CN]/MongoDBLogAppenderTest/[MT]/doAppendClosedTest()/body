@@ -1,0 +1,20 @@
+{
+  Logger testLogger=Mockito.mock(Logger.class);
+  Field field=logAppender.getClass().getDeclaredField("LOG");
+  field.setAccessible(true);
+  Field modifiersField=Field.class.getDeclaredField("modifiers");
+  modifiersField.setAccessible(true);
+  modifiersField.setInt(field,field.getModifiers() & ~Modifier.FINAL);
+  field.set(null,testLogger);
+  logAppender.close();
+  TestLogDeliveryCallback callback=new TestLogDeliveryCallback();
+  EndpointProfileDataDto profileDto=new EndpointProfileDataDto("1",ENDPOINT_KEY,1,"",0,null);
+  BaseLogEventPack logEventPack=new BaseLogEventPack(profileDto,DATE_CREATED,1,null);
+  LogSchemaDto schemaDto=new LogSchemaDto();
+  schemaDto.setSchema(BasicEndpointProfile.SCHEMA$.toString());
+  schemaDto.setVersion(1);
+  LogSchema schema=new LogSchema(schemaDto);
+  logEventPack.setLogSchema(schema);
+  logAppender.doAppend(logEventPack,callback);
+  Assert.assertTrue(callback.internallError);
+}

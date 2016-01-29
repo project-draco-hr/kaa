@@ -1,0 +1,10 @@
+{
+  return defaultGroupMemorizer.compute(applicationToken,new Computable<String,EndpointGroupDto>(){
+    @Override public EndpointGroupDto compute(    String applicationToken){
+      LOG.debug("Fetching result for token id");
+      ApplicationDto appDto=applicationService.findAppByApplicationToken(applicationToken);
+      return endpointService.findDefaultGroup(appDto.getId());
+    }
+  }
+);
+}

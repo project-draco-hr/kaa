@@ -1,8 +1,0 @@
-{
-  LogEventDto logEventDto=new LogEventDto(HEADER,EVENT);
-  LogEvent logEvent=new LogEvent(logEventDto);
-  DBObject dBHeader=logEvent.getHeader();
-  DBObject dbEvent=logEvent.getEvent();
-  Assert.assertEquals(HEADER_VALUE,dBHeader.get(KEY));
-  Assert.assertEquals(EVENT_VALUE,dbEvent.get(KEY));
-}

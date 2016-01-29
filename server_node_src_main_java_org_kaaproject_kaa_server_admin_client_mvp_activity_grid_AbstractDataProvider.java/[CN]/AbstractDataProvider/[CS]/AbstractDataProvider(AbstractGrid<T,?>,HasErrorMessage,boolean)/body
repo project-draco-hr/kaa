@@ -1,0 +1,9 @@
+{
+  this.dataGrid=dataGrid;
+  callback=new LoadCallback(hasErrorMessage);
+  dataGrid.getDataGrid().addColumnSortHandler(this);
+  dataGrid.addColumnFilterEventHandler(this);
+  if (addDisplay) {
+    addDataDisplay(dataGrid.getDataGrid());
+  }
+}

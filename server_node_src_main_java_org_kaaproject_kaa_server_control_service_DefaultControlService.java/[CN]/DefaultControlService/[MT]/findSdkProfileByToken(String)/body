@@ -1,0 +1,9 @@
+{
+  SdkProfileDto result=sdkProfileService.findSdkProfileByToken(sdkToken);
+  if (result != null) {
+    return result;
+  }
+ else {
+    throw new ControlServiceException("Can't find sdk profile by sdk token: " + sdkToken + "!");
+  }
+}

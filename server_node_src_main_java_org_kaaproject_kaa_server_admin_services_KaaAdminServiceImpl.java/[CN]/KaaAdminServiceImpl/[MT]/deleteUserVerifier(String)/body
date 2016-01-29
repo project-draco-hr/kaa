@@ -1,0 +1,15 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    if (isEmpty(userVerifierId)) {
+      throw new IllegalArgumentException("The userVerifierId parameter is empty.");
+    }
+    UserVerifierDto userVerifier=controlService.getUserVerifier(userVerifierId);
+    Utils.checkNotNull(userVerifier);
+    checkApplicationId(userVerifier.getApplicationId());
+    controlService.deleteUserVerifier(userVerifierId);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

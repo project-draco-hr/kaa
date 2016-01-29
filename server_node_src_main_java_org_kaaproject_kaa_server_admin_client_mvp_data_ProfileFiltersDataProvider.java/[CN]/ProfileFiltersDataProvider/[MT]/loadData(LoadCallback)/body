@@ -1,0 +1,11 @@
+{
+  KaaAdmin.getDataSource().loadProfileFilterRecords(endpointGroupId,includeDeprecated,new AsyncCallback<List<ProfileFilterRecordDto>>(){
+    @Override public void onFailure(    Throwable caught){
+      callback.onFailure(caught);
+    }
+    @Override public void onSuccess(    List<ProfileFilterRecordDto> result){
+      callback.onSuccess(result);
+    }
+  }
+);
+}

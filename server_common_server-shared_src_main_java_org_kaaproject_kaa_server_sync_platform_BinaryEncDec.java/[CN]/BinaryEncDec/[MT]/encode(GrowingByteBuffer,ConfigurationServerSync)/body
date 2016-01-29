@@ -8,7 +8,7 @@
   if (confBodyPresent) {
     option|=0x02;
   }
-  buildExtensionHeader(buf,CONFIGURATION_EXTENSION_ID,NOTHING,NOTHING,(byte)option,0);
+  buildExtensionHeader(buf,CONFIGURATION_EXTENSION_ID,NOTHING,(byte)option,0);
   int extPosition=buf.position();
   buf.putInt(configurationSync.getAppStateSeqNumber());
   if (confSchemaPresent) {

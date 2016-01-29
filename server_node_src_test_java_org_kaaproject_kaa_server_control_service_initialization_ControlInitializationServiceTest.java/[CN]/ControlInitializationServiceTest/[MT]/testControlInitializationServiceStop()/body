@@ -1,0 +1,11 @@
+{
+  ControlInitializationService controlInitializationService=controlInitializationServiceSpy();
+  controlInitializationService.start();
+  controlInitializationService.stop();
+  Mockito.verify(zkService).start();
+  Mockito.verify(loadMgmtService).start();
+  Mockito.verify(adminInitializationService).start();
+  Mockito.verify(zkService).stop();
+  Mockito.verify(loadMgmtService).shutdown();
+  Mockito.verify(adminInitializationService).stop();
+}

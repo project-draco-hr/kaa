@@ -1,0 +1,10 @@
+{
+  Criterion criterion;
+  if (isBlank(id)) {
+    criterion=Restrictions.isNull(reference);
+  }
+ else {
+    criterion=Restrictions.eq(reference,ModelUtils.getLongId(id));
+  }
+  return criterion;
+}

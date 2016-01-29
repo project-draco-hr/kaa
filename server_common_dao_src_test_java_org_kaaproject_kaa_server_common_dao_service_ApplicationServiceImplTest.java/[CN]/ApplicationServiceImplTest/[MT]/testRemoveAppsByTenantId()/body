@@ -1,13 +1,13 @@
 {
-  TenantDto tenant=generateTenant();
-  ApplicationDto application=generateApplication(tenant.getId());
+  TenantDto tenant=generateTenantDto();
+  ApplicationDto application=generateApplicationDto(tenant.getId());
   applicationService.removeAppsByTenantId(tenant.getId());
   List<ApplicationDto> foundApplications=applicationService.findAppsByTenantId(tenant.getId());
   Assert.assertTrue(foundApplications.isEmpty());
   Assert.assertEquals(0,foundApplications.size());
   TenantDto foundTenant=userService.findTenantById(tenant.getId());
   Assert.assertNotNull(foundTenant);
-  List<ProfileSchemaDto> foundProfileSchemas=profileService.findProfileSchemasByAppId(application.getId());
+  List<EndpointProfileSchemaDto> foundProfileSchemas=profileService.findProfileSchemasByAppId(application.getId());
   Assert.assertEquals(0,foundProfileSchemas.size());
   List<ConfigurationSchemaDto> foundConfigSchemas=configurationService.findConfSchemasByAppId(application.getId());
   Assert.assertEquals(0,foundConfigSchemas.size());

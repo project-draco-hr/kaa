@@ -1,0 +1,19 @@
+{
+  ApplicationDto application=applicationService.findAppById(applicationId);
+  if (application == null) {
+    throw new NotFoundException("Application not found!");
+  }
+  LogSchemaDto logSchema=logSchemaService.findLogSchemaByAppIdAndVersion(applicationId,logSchemaVersion);
+  if (logSchema == null) {
+    throw new NotFoundException("Log schema not found!");
+  }
+  try {
+    Schema recordWrapperSchema=RecordWrapperSchemaGenerator.generateRecordWrapperSchema(logSchema.getSchema());
+    String fileName=MessageFormatter.arrayFormat(LOG_SCHEMA_LIBRARY_NAME_PATTERN,new Object[]{logSchemaVersion}).getMessage();
+    return SchemaLibraryGenerator.generateSchemaLibrary(recordWrapperSchema,fileName);
+  }
+ catch (  Exception e) {
+    LOG.error("Unable to generate Record Structure Library",e);
+    throw new ControlServiceException(e);
+  }
+}

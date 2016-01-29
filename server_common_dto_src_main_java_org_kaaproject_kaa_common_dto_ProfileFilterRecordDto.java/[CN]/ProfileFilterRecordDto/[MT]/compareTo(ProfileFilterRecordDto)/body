@@ -1,0 +1,11 @@
+{
+  int endpointProfileShemaVersion=getEndpointProfileSchemaVersion() != null ? getEndpointProfileSchemaVersion() : -1;
+  int otherEndpointProfileShemaVersion=o.getEndpointProfileSchemaVersion() != null ? o.getEndpointProfileSchemaVersion() : -1;
+  int result=endpointProfileShemaVersion - otherEndpointProfileShemaVersion;
+  if (result == 0) {
+    int serverProfileShemaVersion=getServerProfileSchemaVersion() != null ? getServerProfileSchemaVersion() : -1;
+    int otherServerProfileShemaVersion=o.getServerProfileSchemaVersion() != null ? o.getServerProfileSchemaVersion() : -1;
+    result=serverProfileShemaVersion - otherServerProfileShemaVersion;
+  }
+  return result;
+}

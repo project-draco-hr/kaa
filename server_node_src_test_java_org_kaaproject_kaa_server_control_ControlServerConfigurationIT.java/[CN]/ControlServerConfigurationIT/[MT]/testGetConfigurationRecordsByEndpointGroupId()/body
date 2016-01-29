@@ -1,0 +1,12 @@
+{
+  ApplicationDto application=createApplication(tenantAdminDto);
+  loginTenantDeveloper(tenantDeveloperDto.getUsername());
+  EndpointGroupDto endpointGroup=createEndpointGroup(application.getId());
+  ConfigurationDto configuration1=createConfiguration(null,endpointGroup.getId(),application.getId());
+  ConfigurationDto configuration2=createConfiguration(null,endpointGroup.getId(),application.getId());
+  List<ConfigurationRecordDto> configurationRecords=client.getConfigurationRecords(endpointGroup.getId(),false);
+  Assert.assertNotNull(configurationRecords);
+  Assert.assertEquals(2,configurationRecords.size());
+  assertConfigurationsEquals(configuration1,configurationRecords.get(0).getInactiveStructureDto());
+  assertConfigurationsEquals(configuration2,configurationRecords.get(1).getInactiveStructureDto());
+}

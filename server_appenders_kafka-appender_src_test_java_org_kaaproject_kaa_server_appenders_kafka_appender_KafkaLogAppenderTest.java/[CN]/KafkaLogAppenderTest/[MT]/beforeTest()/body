@@ -1,0 +1,34 @@
+{
+  endpointKeyHash=UUID.randomUUID().toString();
+  appToken=String.valueOf(RANDOM.nextInt(Integer.MAX_VALUE));
+  appenderDto=new LogAppenderDto();
+  appenderDto.setId("Test_id");
+  appenderDto.setApplicationToken(appToken);
+  appenderDto.setName("Test Name");
+  appenderDto.setTenantId(String.valueOf(RANDOM.nextInt()));
+  appenderDto.setHeaderStructure(Arrays.asList(LogHeaderStructureDto.values()));
+  appenderDto.setApplicationToken(appToken);
+  header=new RecordHeader();
+  header.setApplicationToken(appToken);
+  header.setEndpointKeyHash(endpointKeyHash);
+  header.setHeaderVersion(1);
+  header.setTimestamp(System.currentTimeMillis());
+  configuration=new KafkaConfig();
+  List<KafkaServer> servers=new ArrayList<KafkaServer>();
+  servers.add(new KafkaServer("localhost",9092));
+  configuration.setKafkaServers(servers);
+  configuration.setKafkaAcknowledgement(KafkaAcknowledgement.ONE);
+  configuration.setTopic(TOPIC_NAME);
+  configuration.setBufferMemorySize(33554432L);
+  configuration.setKafkaCompression(KafkaCompression.NONE);
+  configuration.setRetries(0);
+  configuration.setExecutorThreadPoolSize(10);
+  configuration.setPartitionCount(1);
+  configuration.setUseDefaultPartitioner(true);
+  AvroByteArrayConverter<KafkaConfig> converter=new AvroByteArrayConverter<>(KafkaConfig.class);
+  byte[] rawConfiguration=converter.toByteArray(configuration);
+  appenderDto.setRawConfiguration(rawConfiguration);
+  logAppender=new KafkaLogAppender();
+  logAppender.init(appenderDto);
+  logAppender.setApplicationToken(appToken);
+}
