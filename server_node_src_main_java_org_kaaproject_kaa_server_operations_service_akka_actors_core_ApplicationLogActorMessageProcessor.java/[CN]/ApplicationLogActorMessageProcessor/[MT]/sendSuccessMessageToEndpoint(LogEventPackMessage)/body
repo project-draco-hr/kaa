@@ -1,0 +1,9 @@
+{
+  if (message.getOriginator() != null) {
+    LogDeliveryMessage response=new LogDeliveryMessage(message.getRequestId(),true);
+    message.getOriginator().tell(response,ActorRef.noSender());
+  }
+ else {
+    LOG.warn("[{}] Unable to respond to an unknown originator",applicationToken);
+  }
+}

@@ -1,0 +1,18 @@
+{
+  this(sourceName);
+  try {
+    this.schema=new Schema.Parser().parse(new File(schemaPath));
+    prepareTemplates(true);
+    File outputDir=new File(outputPath);
+    outputDir.mkdirs();
+    String headerPath=outputPath + File.separator + generatedSourceName+ ".h";
+    String sourcePath=outputPath + File.separator + generatedSourceName+ getSourceExtension();
+    Files.move(new File(headerTemplateGen()).toPath(),new File(headerPath).toPath(),StandardCopyOption.REPLACE_EXISTING);
+    Files.move(new File(sourceTemplateGen()).toPath(),new File(sourcePath).toPath(),StandardCopyOption.REPLACE_EXISTING);
+    this.headerWriter=new PrintWriter(new BufferedWriter(new FileWriter(headerPath,true)));
+    this.sourceWriter=new PrintWriter(new BufferedWriter(new FileWriter(sourcePath,true)));
+  }
+ catch (  Exception e) {
+    throw new KaaGeneratorException("Failed to create output path: " + e.toString());
+  }
+}
