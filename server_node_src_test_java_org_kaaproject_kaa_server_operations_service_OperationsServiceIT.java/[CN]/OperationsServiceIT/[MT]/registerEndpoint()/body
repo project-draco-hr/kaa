@@ -10,7 +10,7 @@
   request.setProfileSync(profileSync);
   request.setConfigurationSync(new ConfigurationClientSync());
   SyncContext context=createContext(request);
-  operationsService.syncProfile(context,request.getProfileSync());
+  operationsService.syncClientProfile(context,request.getProfileSync());
   operationsService.syncConfiguration(context,request.getConfigurationSync());
   currentConfigurationHash=context.getEndpointProfile().getConfigurationHash();
   ServerSync response=context.getResponse();

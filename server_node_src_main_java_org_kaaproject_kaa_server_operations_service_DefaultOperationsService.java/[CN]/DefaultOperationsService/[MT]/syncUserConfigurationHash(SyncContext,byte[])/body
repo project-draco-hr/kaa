@@ -1,0 +1,6 @@
+{
+  EndpointProfileDto profile=context.getEndpointProfile();
+  profile.setUserConfigurationHash(ucfHash);
+  profile=syncProfileState(context.getAppToken(),context.getEndpointKey(),profile,true);
+  return context;
+}

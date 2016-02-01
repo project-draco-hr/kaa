@@ -11,7 +11,7 @@
   context.setRequestHash(request.hashCode());
   context.setMetaData(request.getClientSyncMetaData());
   LOG.trace("[{}][{}] processing sync. Request: {}",endpointKey,context.getRequestHash(),request);
-  context=operationsService.syncProfile(context,request.getProfileSync());
+  context=operationsService.syncClientProfile(context,request.getProfileSync());
   if (context.getStatus() != SyncStatus.SUCCESS) {
     return context;
   }
@@ -23,13 +23,10 @@
   context=operationsService.processEndpointAttachDetachRequests(context,request.getUserSync());
   context=operationsService.processEventListenerRequests(context,request.getEventSync());
   if (state.isUserConfigurationUpdatePending()) {
-    EndpointProfileDto profile=context.getEndpointProfile();
-    profile.setUserConfigurationHash(state.getUcfHash());
-    profile=operationsService.syncProfileState(appToken,context.getEndpointKey(),profile,true);
+    context=operationsService.syncUserConfigurationHash(context,state.getUcfHash());
   }
   context=operationsService.syncConfiguration(context,request.getConfigurationSync());
   context=operationsService.syncNotification(context,request.getNotificationSync());
-  state.setProfile(operationsService.updateProfile(context));
   LOG.trace("[{}][{}] processed sync. Response is {}",endpointKey,request.hashCode(),context.getResponse());
   return context;
 }

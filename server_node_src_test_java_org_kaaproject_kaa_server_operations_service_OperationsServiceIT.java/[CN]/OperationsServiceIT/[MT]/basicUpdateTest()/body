@@ -15,7 +15,7 @@
   confSyncRequest.setConfigurationHash(ByteBuffer.wrap(currentConfigurationHash));
   request.setConfigurationSync(confSyncRequest);
   SyncContext context=createContext(request);
-  operationsService.syncProfile(context,request.getProfileSync());
+  operationsService.syncClientProfile(context,request.getProfileSync());
   operationsService.syncConfiguration(context,request.getConfigurationSync());
   ServerSync response=context.getResponse();
   Assert.assertNotNull(response);

@@ -1,26 +1,2 @@
 {
-  LOG.debug("[{}][{}] going to sync endpoint group states",appToken,endpointId);
-  AppSeqNumber appSeqNumber=cacheService.getAppSeqNumber(appToken);
-  int curAppSeqNumber=appSeqNumber.getSeqNumber();
-  HistoryDelta historyDelta=fetchHistory(endpointId,appToken,profile,curAppSeqNumber);
-  profile.setGroupState(historyDelta.getEndpointGroupStates());
-  profile.setSequenceNumber(curAppSeqNumber);
-  if (historyDelta.isConfigurationChanged() || userConfigurationChanged) {
-    LOG.debug("[{}][{}] configuration change detected",appToken,endpointId);
-    try {
-      syncEndpointConfiguration(appToken,endpointId,profile);
-    }
- catch (    GetDeltaException e) {
-      LOG.error("[{}][{}] Failed to sync endpoint configuration {}",appToken,endpointId,e);
-    }
-  }
-  if (historyDelta.isTopicListChanged()) {
-    LOG.debug("[{}][{}] topic list change detected",appToken,endpointId);
-    syncTopicList(appToken,endpointId,profile);
-  }
-  if (historyDelta.isSmthChanged() || userConfigurationChanged) {
-    LOG.debug("[{}][{}] going to save new profile",appToken,endpointId);
-    profile=profileService.updateProfile(profile);
-  }
-  return profile;
 }

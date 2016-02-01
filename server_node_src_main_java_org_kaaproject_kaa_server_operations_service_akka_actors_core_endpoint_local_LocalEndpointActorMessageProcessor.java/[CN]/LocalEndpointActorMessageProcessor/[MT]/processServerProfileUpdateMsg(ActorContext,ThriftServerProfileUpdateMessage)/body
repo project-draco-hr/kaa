@@ -1,8 +1,7 @@
 {
   EndpointProfileDto endpointProfile=state.getProfile();
   if (endpointProfile != null) {
-    endpointProfile=operationsService.refreshServerEndpointProfile(key);
-    state.setProfile(endpointProfile);
+    state.setProfile(operationsService.refreshServerEndpointProfile(key));
     Set<ChannelMetaData> channels=state.getChannelsByTypes(TransportType.CONFIGURATION,TransportType.NOTIFICATION);
     LOG.debug("[{}][{}] Processing profile update for {} channels",endpointKey,actorKey,channels.size());
     syncChannels(context,channels,true,true);

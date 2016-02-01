@@ -11,7 +11,7 @@
   SessionInitMessage message=toSignedRequest(UUID.randomUUID(),ChannelType.SYNC_WITH_TIMEOUT,channelContextMock,request,responseBuilder,errorBuilder);
   Assert.assertNotNull(akkaService.getActorSystem());
   akkaService.process(message);
-  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT / 2).atLeastOnce()).syncProfile(Mockito.any(SyncContext.class),Mockito.any(ProfileClientSync.class));
+  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT / 2).atLeastOnce()).syncClientProfile(Mockito.any(SyncContext.class),Mockito.any(ProfileClientSync.class));
   Mockito.when(operationsService.updateSyncResponse(noDeltaResponse.getResponse(),new ArrayList<NotificationDto>(),UNICAST_NOTIFICATION_ID)).thenReturn(noDeltaResponse.getResponse());
   Mockito.when(applicationService.findAppById(APP_ID)).thenReturn(applicationDto);
   EndpointAddress address=new EndpointAddress(applicationDto.getTenantId(),applicationDto.getApplicationToken(),EndpointObjectHash.fromBytes(clientPublicKeyHash.array()));
