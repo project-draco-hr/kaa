@@ -1,0 +1,53 @@
+{
+  application=Mockito.mock(ApplicationDto.class);
+  Mockito.when(application.getId()).thenReturn(APPLICATION_ID);
+  applicationService=Mockito.mock(ApplicationService.class);
+  Mockito.when(applicationService.findAppByApplicationToken(APPLICATION_TOKEN)).thenReturn(application);
+  LogSchemaDto logSchemaDto=new LogSchemaDto();
+  logSchemaDto.setVersion(LOG_SCHEMA_VERSION);
+  logSchema=new LogSchema(logSchemaDto);
+  required=new LogAppender[REQUIRED_APPENDERS_COUNT];
+  for (int i=0; i < required.length; i++) {
+    required[i]=Mockito.mock(LogAppender.class);
+    Mockito.when(required[i].getAppenderId()).thenReturn(Integer.toString(i * 100));
+    Mockito.when(required[i].isDeliveryConfirmationRequired()).thenReturn(Boolean.TRUE);
+    Mockito.when(required[i].isSchemaVersionSupported(Mockito.anyInt())).thenReturn(Boolean.TRUE);
+  }
+  optional=Mockito.mock(LogAppender.class);
+  Mockito.when(optional.getAppenderId()).thenReturn(Integer.toString(required.length * 100));
+  Mockito.when(optional.isDeliveryConfirmationRequired()).thenReturn(Boolean.FALSE);
+  Mockito.when(optional.isSchemaVersionSupported(Mockito.anyInt())).thenReturn(Boolean.TRUE);
+  logAppenders=new ArrayList<>();
+  logAppenderService=Mockito.mock(LogAppenderService.class);
+  Mockito.when(logAppenderService.getApplicationAppenders(APPLICATION_ID)).thenReturn(logAppenders);
+  Mockito.when(logAppenderService.getLogSchema(APPLICATION_ID,LOG_SCHEMA_VERSION)).thenReturn(logSchema);
+  EndpointProfileSchemaDto endpointProfileSchema=new EndpointProfileSchemaDto();
+  endpointProfileSchema.setId(Integer.toString(CLIENT_PROFILE_SCHEMA_ID));
+  endpointProfileSchema.setCtlSchemaId(CLIENT_PROFILE_SCHEMA_CTL_SCHEMA_ID);
+  ServerProfileSchemaDto serverProfileSchema=new ServerProfileSchemaDto();
+  serverProfileSchema.setId(Integer.toString(SERVER_PROFILE_SCHEMA_ID));
+  serverProfileSchema.setCtlSchemaId(SERVER_PROFILE_SCHEMA_CTL_SCHEMA_ID);
+  cacheService=Mockito.mock(CacheService.class);
+  ctlService=Mockito.mock(CTLService.class);
+  AppVersionKey key;
+  key=new AppVersionKey(APPLICATION_TOKEN,CLIENT_PROFILE_SCHEMA_ID);
+  Mockito.when(cacheService.getProfileSchemaByAppAndVersion(key)).thenReturn(endpointProfileSchema);
+  key=new AppVersionKey(APPLICATION_TOKEN,SERVER_PROFILE_SCHEMA_ID);
+  Mockito.when(cacheService.getServerProfileSchemaByAppAndVersion(key)).thenReturn(serverProfileSchema);
+  CTLSchemaDto endpointProfileCTLSchema=new CTLSchemaDto();
+  endpointProfileCTLSchema.setId(CLIENT_PROFILE_SCHEMA_CTL_SCHEMA_ID);
+  Mockito.when(cacheService.getCtlSchemaById(CLIENT_PROFILE_SCHEMA_CTL_SCHEMA_ID)).thenReturn(endpointProfileCTLSchema);
+  CTLSchemaDto serverProfileCTLSchema=new CTLSchemaDto();
+  serverProfileCTLSchema.setId(SERVER_PROFILE_SCHEMA_CTL_SCHEMA_ID);
+  Mockito.when(cacheService.getCtlSchemaById(SERVER_PROFILE_SCHEMA_CTL_SCHEMA_ID)).thenReturn(serverProfileCTLSchema);
+  Mockito.when(ctlService.flatExportAsString(endpointProfileCTLSchema)).thenReturn("Client Profile CTL Schema");
+  Mockito.when(ctlService.flatExportAsString(serverProfileCTLSchema)).thenReturn("Server Profile CTL Schema");
+  context=Mockito.mock(AkkaContext.class);
+  Mockito.when(context.getApplicationService()).thenReturn(applicationService);
+  Mockito.when(context.getCacheService()).thenReturn(cacheService);
+  Mockito.when(context.getCtlService()).thenReturn(ctlService);
+  Mockito.when(context.getLogAppenderService()).thenReturn(logAppenderService);
+  EndpointProfileDataDto endpoint=new EndpointProfileDataDto(ENDPOINT_ID,ENDPOINT_KEY,CLIENT_PROFILE_SCHEMA_ID,"",SERVER_PROFILE_SCHEMA_ID,"");
+  BaseLogEventPack pack=new BaseLogEventPack(endpoint,System.currentTimeMillis(),LOG_SCHEMA_VERSION,new ArrayList<LogEvent>());
+  message=new LogEventPackMessage(REQUEST_ID,ActorRef.noSender(),pack);
+}

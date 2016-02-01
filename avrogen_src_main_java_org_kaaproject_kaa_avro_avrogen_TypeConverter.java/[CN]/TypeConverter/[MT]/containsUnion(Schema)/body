@@ -1,0 +1,8 @@
+{
+  for (  Field field : schema.getFields()) {
+    if (isAvroUnion(field.schema())) {
+      return true;
+    }
+  }
+  return false;
+}

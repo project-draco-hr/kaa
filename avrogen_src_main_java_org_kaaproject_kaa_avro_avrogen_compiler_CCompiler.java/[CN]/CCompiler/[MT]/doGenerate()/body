@@ -1,0 +1,18 @@
+{
+  for (  Map.Entry<Schema,GenerationContext> cursor : schemaQueue.entrySet()) {
+switch (cursor.getKey().getType()) {
+case RECORD:
+      processRecord(cursor.getKey(),"record.h.vm","record.c.vm");
+    break;
+case UNION:
+  processUnion(cursor.getKey(),cursor.getValue());
+break;
+case ENUM:
+processEnum(cursor.getKey(),"enum.h.vm");
+break;
+default :
+break;
+}
+}
+completeGeneration();
+}
