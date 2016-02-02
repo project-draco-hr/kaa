@@ -1,4 +1,10 @@
 {
-  mongoTemplate.save(dto);
-  return dto;
+  try {
+    mongoTemplate.save(dto);
+    return dto;
+  }
+ catch (  OptimisticLockingFailureException exception) {
+    LOG.error("[{}] Can't update entity with version {}. Entity already changed!",getDocumentClass(),dto.getVersion());
+    throw new KaaOptimisticLockingFailureException("Can't update entity with version " + dto.getVersion() + ". Entity already changed!");
+  }
 }

@@ -10,7 +10,7 @@
     notification.setSecNum(i);
     notification.setBody(UUID.randomUUID().toString().getBytes());
     notification.setLastTimeModify(new Date(System.currentTimeMillis()));
-    notification.setVersion(1);
+    notification.setNfVersion(1);
     notification.setExpiredAt(new Date(System.currentTimeMillis() + 7 * 24 * 3600* 1000));
     notifications.add(notificationDao.save(notification).toDto());
   }

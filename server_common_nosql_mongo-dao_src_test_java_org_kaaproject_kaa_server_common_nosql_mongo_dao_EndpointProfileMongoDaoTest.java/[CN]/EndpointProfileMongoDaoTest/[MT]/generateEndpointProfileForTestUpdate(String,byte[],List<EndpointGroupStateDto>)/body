@@ -1,0 +1,10 @@
+{
+  EndpointProfileDto profileDto=new EndpointProfileDto();
+  profileDto.setId(id);
+  profileDto.setApplicationId(generateStringId());
+  profileDto.setEndpointKeyHash(keyHash);
+  profileDto.setAccessToken(generateStringId());
+  profileDto.setCfGroupStates(cfGroupState);
+  profileDto.setSdkToken(UUID.randomUUID().toString());
+  return profileDto;
+}

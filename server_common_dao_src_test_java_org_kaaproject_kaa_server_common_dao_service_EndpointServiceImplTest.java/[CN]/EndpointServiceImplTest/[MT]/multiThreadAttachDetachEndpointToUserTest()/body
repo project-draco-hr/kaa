@@ -1,0 +1,74 @@
+{
+  TenantDto tenantDto=generateTenantDto();
+  EndpointUserDto endpointUserDto=generateEndpointUserDto(tenantDto.getId());
+  String endpointGroupId="124";
+  List<String> accessTokens=new ArrayList<>();
+  List<String> endpointIds=new ArrayList<String>();
+  for (int i=0; i < 100; i++) {
+    EndpointProfileDto endpointProfileDto=generateEndpointProfileWithGroupIdDto(endpointGroupId,false);
+    String accessToken="" + i;
+    endpointProfileDto.setAccessToken(accessToken);
+    endpointService.saveEndpointProfile(endpointProfileDto);
+    accessTokens.add(accessToken);
+    endpointIds.add(endpointProfileDto.getId());
+  }
+  List<Future<EndpointProfileDto>> list=new ArrayList<>();
+  final String endpointUserId=endpointUserDto.getId();
+  for (int i=0; i < accessTokens.size(); i++) {
+    final String accessToken=accessTokens.get(i);
+    list.add(executorService.submit(new Callable<EndpointProfileDto>(){
+      @Override public EndpointProfileDto call(){
+        EndpointProfileDto ep=null;
+        try {
+          ep=endpointService.attachEndpointToUser(endpointUserId,accessToken);
+        }
+ catch (        Throwable t) {
+          LOG.error("Error: " + t.getClass() + ": "+ t.getMessage()+ ". accessToken = "+ accessToken);
+          throw t;
+        }
+        return ep;
+      }
+    }
+));
+  }
+  Iterator<Future<EndpointProfileDto>> iterator=list.iterator();
+  List<EndpointProfileDto> attachedProfiles=new ArrayList<>();
+  while (iterator.hasNext()) {
+    Future<EndpointProfileDto> f=iterator.next();
+    attachedProfiles.add(f.get());
+    iterator.remove();
+  }
+  endpointUserDto=endpointService.findEndpointUserById(endpointUserId);
+  List<String> attachedEndpointIds=endpointUserDto.getEndpointIds();
+  Assert.assertNotNull(attachedEndpointIds);
+  Collections.sort(endpointIds);
+  Collections.sort(attachedEndpointIds);
+  Assert.assertEquals(endpointIds,attachedEndpointIds);
+  List<Future<Void>> detachFutureList=new ArrayList<>();
+  for (int i=0; i < attachedProfiles.size(); i++) {
+    final EndpointProfileDto attachedProfile=attachedProfiles.get(i);
+    detachFutureList.add(executorService.submit(new Callable<Void>(){
+      @Override public Void call(){
+        try {
+          endpointService.detachEndpointFromUser(attachedProfile);
+        }
+ catch (        Throwable t) {
+          LOG.error("Error: " + t.getMessage(),t);
+          throw t;
+        }
+        return null;
+      }
+    }
+));
+  }
+  Iterator<Future<Void>> detachIterator=detachFutureList.iterator();
+  while (detachIterator.hasNext()) {
+    Future<Void> f=detachIterator.next();
+    while (!f.isDone()) {
+    }
+    detachIterator.remove();
+  }
+  endpointUserDto=endpointService.findEndpointUserById(endpointUserId);
+  attachedEndpointIds=endpointUserDto.getEndpointIds();
+  Assert.assertTrue(attachedEndpointIds == null || attachedEndpointIds.isEmpty());
+}

@@ -20,6 +20,7 @@
       if (Arrays.equals(storedProfile.getEndpointKey(),endpointProfileDto.getEndpointKey())) {
         LOG.debug("Got register profile for already existing profile {}. Will overwrite existing profile!",keyHash);
         endpointProfileDto.setId(storedProfile.getId());
+        endpointProfileDto.setVersion(storedProfile.getVersion());
         dto=getDto(endpointProfileDao.save(endpointProfileDto));
       }
  else {

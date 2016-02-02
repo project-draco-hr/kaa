@@ -1,0 +1,27 @@
+{
+  version=(version == null) ? 0l : version;
+  Assignments assigns=update(getColumnFamilyName()).onlyIf(eq(OPT_LOCK,version)).with(set(OPT_LOCK,version + 1));
+  for (  Assignment assignment : assignments) {
+    assigns=assigns.and(assignment);
+  }
+  Update.Where query=assigns.where(whereClauses[0]);
+  if (whereClauses.length > 1) {
+    for (int i=1; i < whereClauses.length; i++) {
+      query=query.and(whereClauses[i]);
+    }
+  }
+  ResultSet res=execute(query);
+  if (!res.wasApplied()) {
+    LOG.error("[{}] Can't update entity with version {}. Entity already changed!",getColumnFamilyClass(),version);
+    throw new KaaOptimisticLockingFailureException("Can't update entity with version " + version + ". Entity already changed!");
+  }
+ else {
+    Select.Where where=select().from(getColumnFamilyName()).where(whereClauses[0]);
+    if (whereClauses.length > 1) {
+      for (int i=1; i < whereClauses.length; i++) {
+        where=where.and(whereClauses[i]);
+      }
+    }
+    return findOneByStatement(where);
+  }
+}
