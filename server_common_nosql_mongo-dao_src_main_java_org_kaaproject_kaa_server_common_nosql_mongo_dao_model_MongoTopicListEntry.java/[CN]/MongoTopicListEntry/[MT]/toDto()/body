@@ -5,7 +5,5 @@
     topicDto.setId(topicId);
     topicDtos.add(topicDto);
   }
-  TopicListEntryDto dto=new TopicListEntryDto(simpleHash,hash,topicDtos);
-  dto.setVersion(version);
-  return dto;
+  return new TopicListEntryDto(simpleHash,hash,topicDtos);
 }
