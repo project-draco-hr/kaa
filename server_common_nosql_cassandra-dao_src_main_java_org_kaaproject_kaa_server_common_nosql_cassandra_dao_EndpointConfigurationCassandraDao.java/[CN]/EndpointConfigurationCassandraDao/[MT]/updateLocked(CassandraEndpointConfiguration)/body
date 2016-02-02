@@ -1,0 +1,3 @@
+{
+  return updateLockedImpl(entity.getVersion(),new Assignment[]{set(ENDPOINT_CONFIGURATION_CONF_PROPERTY,entity.getConfiguration()),set(ENDPOINT_CONFIGURATION_CONF_ID_PROPERTY,entity.getId())},eq(ENDPOINT_CONFIGURATION_CONF_HASH_PROPERTY,getByteBuffer(getBytes(entity.getConfigurationHash()))));
+}

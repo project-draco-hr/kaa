@@ -1,10 +1,3 @@
 {
-  try {
-    MongoEndpointProfile profile=new MongoEndpointProfile(dto);
-    profile.setOptVersion(findVersionByKey(dto.getEndpointKeyHash()));
-    return save(profile);
-  }
- catch (  OptimisticLockingFailureException exception) {
-    throw new KaaOptimisticLockingFailureException("Can't update endpoint profile. Endpoint profile already changed!",exception);
-  }
+  return save(new MongoEndpointProfile(dto));
 }

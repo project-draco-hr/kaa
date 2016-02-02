@@ -1,0 +1,27 @@
+{
+  CassandraEndpointProfile storedProfile=findByKeyHash(getBytes(profile.getEndpointKeyHash()));
+  profile.setId(convertKeyHashToString(profile.getEndpointKeyHash()));
+  if (storedProfile != null) {
+    LOG.error("[{}] Profile is already exists. Can't save endpoint profile.",profile.getId());
+    throw new DatabaseProcessingException("Profile is already exists. Can't save endpoint profile.");
+  }
+  profile.setVersion(0l);
+  LOG.debug("Saving endpoint profile with id {}",profile.getId());
+  ByteBuffer epKeyHash=profile.getEndpointKeyHash();
+  List<Statement> statementList=new ArrayList<>();
+  statementList.add(cassandraEPByAppIdDao.getSaveQuery(new CassandraEPByAppId(profile.getApplicationId(),epKeyHash)));
+  String accessToken=profile.getAccessToken();
+  if (accessToken != null) {
+    statementList.add(cassandraEPByAccessTokenDao.getSaveQuery(new CassandraEPByAccessToken(accessToken,epKeyHash)));
+  }
+  statementList.add(getSaveQuery(profile));
+  Statement saveBySdkTokenId=cassandraEPBySdkTokenDao.getSaveQuery(new CassandraEPBySdkToken(profile.getSdkToken(),epKeyHash));
+  statementList.add(saveBySdkTokenId);
+  Set<String> groupIdSet=getEndpointProfilesGroupIdSet(profile);
+  for (  String groupId : groupIdSet) {
+    statementList.add(cassandraEPByEndpointGroupIdDao.getSaveQuery(new CassandraEPByEndpointGroupId(groupId,epKeyHash)));
+  }
+  executeBatch(statementList.toArray(new Statement[statementList.size()]));
+  LOG.debug("[{}] Endpoint profile saved",profile.getId());
+  return profile;
+}

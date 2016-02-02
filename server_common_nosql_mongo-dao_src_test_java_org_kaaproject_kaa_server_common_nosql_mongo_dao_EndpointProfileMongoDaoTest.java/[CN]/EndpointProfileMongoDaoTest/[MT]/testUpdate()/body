@@ -1,0 +1,31 @@
+{
+  List<EndpointGroupStateDto> cfGroupStateSave=new ArrayList<EndpointGroupStateDto>();
+  List<EndpointGroupStateDto> cfGroupStateUpdate=new ArrayList<EndpointGroupStateDto>();
+  PageLinkDto pageLink;
+  EndpointProfilesPageDto found;
+  EndpointGroupDto endpointGroupDto=new EndpointGroupDto();
+  endpointGroupDto.setWeight(1);
+  cfGroupStateSave.add(new EndpointGroupStateDto("111",null,null));
+  cfGroupStateSave.add(new EndpointGroupStateDto("222",null,null));
+  cfGroupStateSave.add(new EndpointGroupStateDto("333",null,null));
+  EndpointProfileDto endpointProfileSave=generateEndpointProfileForTestUpdate(null,"TEST_KEY_HASH".getBytes(),cfGroupStateSave);
+  EndpointProfile saved=endpointProfileDao.save(endpointProfileSave);
+  cfGroupStateUpdate.add(new EndpointGroupStateDto("111",null,null));
+  cfGroupStateUpdate.add(new EndpointGroupStateDto("444",null,null));
+  EndpointProfileDto endpointProfileUpdate=generateEndpointProfileForTestUpdate(saved.getId(),"TEST_KEY_HASH".getBytes(),cfGroupStateUpdate);
+  endpointProfileUpdate.setVersion(saved.getVersion());
+  endpointProfileDao.save(endpointProfileUpdate);
+  String limit="10";
+  String offset="0";
+  String[] endpointGroupId={"111","444","222","333"};
+  for (int i=0; i < 2; i++) {
+    pageLink=new PageLinkDto(endpointGroupId[i],limit,offset);
+    found=endpointProfileDao.findByEndpointGroupId(pageLink);
+    Assert.assertFalse(found.getEndpointProfiles().isEmpty());
+  }
+  for (int i=2; i < 4; i++) {
+    pageLink=new PageLinkDto(endpointGroupId[i],limit,offset);
+    found=endpointProfileDao.findByEndpointGroupId(pageLink);
+    Assert.assertTrue(found.getEndpointProfiles().isEmpty());
+  }
+}
