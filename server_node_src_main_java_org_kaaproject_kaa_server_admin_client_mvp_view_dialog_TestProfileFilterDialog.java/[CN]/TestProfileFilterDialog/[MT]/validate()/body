@@ -1,0 +1,6 @@
+{
+  boolean valid=endpointProfile == null || endpointProfileRecordPanel.validate();
+  valid&=serverProfile == null || serverProfileRecordPanel.validate();
+  valid&=!Utils.isBlank(filterPanel.getValue());
+  testFilterButton.setEnabled(valid);
+}

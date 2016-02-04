@@ -1,0 +1,5 @@
+{
+  MultiValueMap<String,Object> params=new LinkedMultiValueMap<>();
+  params.add("profileSchema",profileSchema);
+  return restTemplate.postForObject(url + "saveProfileSchema",params,EndpointProfileSchemaDto.class);
+}

@@ -9,19 +9,19 @@
   while (iter-- > 0) {
     storage.addLogRecord(record);
   }
-  LogBlock logBlock=storage.getRecordBlock(6,2);
+  LogBucket logBlock=storage.getNextBucket();
   receivedCount=addIfNotEmpty(receivedCount,logBlock);
   Assert.assertEquals(insertionCount - receivedCount,storage.getStatus().getRecordCount());
   Assert.assertEquals((insertionCount - receivedCount) * 3,storage.getStatus().getConsumedVolume());
-  logBlock=storage.getRecordBlock(7,3);
+  logBlock=storage.getNextBucket();
   receivedCount=addIfNotEmpty(receivedCount,logBlock);
   Assert.assertEquals(insertionCount - receivedCount,storage.getStatus().getRecordCount());
   Assert.assertEquals((insertionCount - receivedCount) * 3,storage.getStatus().getConsumedVolume());
-  logBlock=storage.getRecordBlock(9,2);
+  logBlock=storage.getNextBucket();
   receivedCount=addIfNotEmpty(receivedCount,logBlock);
   Assert.assertEquals(insertionCount - receivedCount,storage.getStatus().getRecordCount());
   Assert.assertEquals((insertionCount - receivedCount) * 3,storage.getStatus().getConsumedVolume());
-  storage.notifyUploadFailed(logBlock.getBlockId());
+  storage.rollbackBucket(logBlock.getBucketId());
   receivedCount-=logBlock.getRecords().size();
   Assert.assertEquals(insertionCount - receivedCount,storage.getStatus().getRecordCount());
   Assert.assertEquals((insertionCount - receivedCount) * 3,storage.getStatus().getConsumedVolume());

@@ -1,0 +1,16 @@
+{
+  logAppenders.add(required[0]);
+  logAppenders.add(optional);
+  SingleLogDeliveryCallback callback=Mockito.spy(new SingleLogDeliveryCallback(message.getOriginator(),message.getRequestId()));
+  PowerMockito.whenNew(SingleLogDeliveryCallback.class).withArguments(Mockito.any(),Mockito.anyInt()).thenReturn(callback);
+  Mockito.doAnswer(new Answer<Void>(){
+    @Override public Void answer(    InvocationOnMock invocation) throws Throwable {
+      callback.onSuccess();
+      return null;
+    }
+  }
+).when(required[0]).doAppend(Mockito.any(LogEventPack.class),Mockito.any(SingleLogDeliveryCallback.class));
+  ApplicationLogActorMessageProcessor messageProcessor=new ApplicationLogActorMessageProcessor(context,APPLICATION_TOKEN);
+  messageProcessor.processLogEventPack(Mockito.mock(ActorContext.class),message);
+  PowerMockito.verifyPrivate(callback).invoke("sendSuccessToEndpoint");
+}

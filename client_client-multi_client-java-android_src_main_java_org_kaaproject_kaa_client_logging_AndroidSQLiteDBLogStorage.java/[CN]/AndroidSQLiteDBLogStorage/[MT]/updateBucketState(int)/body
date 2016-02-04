@@ -1,0 +1,23 @@
+{
+synchronized (database) {
+    Log.v(TAG,"Updating bucket id [" + bucketId + "]");
+    try {
+      if (updateBucketStateStatement == null) {
+        updateBucketStateStatement=database.compileStatement(PersistentLogStorageConstants.KAA_UPDATE_BUCKET_ID);
+      }
+      updateBucketStateStatement.bindString(1,PersistentLogStorageConstants.BUCKET_STATE_COLUMN);
+      updateBucketStateStatement.bindLong(2,bucketId);
+      updateBucketStateStatement.execute();
+      long affectedRows=getAffectedRowCount();
+      if (affectedRows > 0) {
+        Log.i(TAG,"Successfully updated state for bucket ID [" + bucketId + "] for log records: "+ affectedRows);
+      }
+ else {
+        Log.w(TAG,"No log records were updated");
+      }
+    }
+ catch (    SQLiteException e) {
+      Log.e(TAG,"Failed to update state for bucket [" + bucketId + "]",e);
+    }
+  }
+}

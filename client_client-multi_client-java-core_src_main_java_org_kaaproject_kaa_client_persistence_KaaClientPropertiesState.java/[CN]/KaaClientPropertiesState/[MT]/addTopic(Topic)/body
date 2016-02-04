@@ -2,6 +2,7 @@
   TopicSubscriptionInfo subscriptionInfo=nfSubscriptions.get(topic.getId());
   if (subscriptionInfo == null) {
     nfSubscriptions.put(topic.getId(),new TopicSubscriptionInfo(topic,0));
+    hasUpdate=true;
     LOG.info("Adding new seqNumber 0 for {} subscription",topic.getId());
   }
 }

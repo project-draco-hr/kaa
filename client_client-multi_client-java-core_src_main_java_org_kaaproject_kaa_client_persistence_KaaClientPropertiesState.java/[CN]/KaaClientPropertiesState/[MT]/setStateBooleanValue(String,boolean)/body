@@ -1,0 +1,5 @@
+{
+  Object previous=state.setProperty(propertyKey,Boolean.toString(value));
+  boolean previousBoolean=previous == null ? false : Boolean.valueOf(previous.toString());
+  hasUpdate|=value != previousBoolean;
+}

@@ -1,0 +1,50 @@
+{
+  PreparedStatement selectStatement=null;
+  PreparedStatement deleteAllStatement=null;
+  ResultSet resultSet=null;
+  int lastBucketSize=0;
+  int lastRecordCount=0;
+  try {
+    selectStatement=connection.prepareStatement(PersistentLogStorageConstants.KAA_SELECT_STORAGE_INFO);
+    selectStatement.setString(1,PersistentLogStorageConstants.STORAGE_BUCKET_SIZE);
+    resultSet=selectStatement.executeQuery();
+    if (resultSet.next()) {
+      lastBucketSize=resultSet.getInt(1);
+    }
+    selectStatement.setString(1,PersistentLogStorageConstants.STORAGE_RECORD_COUNT);
+    resultSet=selectStatement.executeQuery();
+    if (resultSet.next()) {
+      lastRecordCount=resultSet.getInt(1);
+    }
+  }
+ catch (  SQLException e) {
+    LOG.error("Unable to prepare retrieve storage params: bucketSize and recordCount",e);
+    throw new RuntimeException(e);
+  }
+ finally {
+    tryCloseStatement(selectStatement);
+    tryCloseStatement(deleteAllStatement);
+    tryCloseResultSet(resultSet);
+  }
+  try {
+    if (lastBucketSize != maxBucketSize || lastRecordCount != maxRecordCount) {
+      deleteAllStatement=connection.prepareStatement(PersistentLogStorageConstants.KAA_DELETE_ALL_DATA);
+      int affectedRows=deleteAllStatement.executeUpdate();
+      if (affectedRows > 0) {
+        LOG.info("Successfully deleted: {} raws",affectedRows);
+      }
+ else {
+        LOG.warn("No log records were deleted");
+      }
+    }
+  }
+ catch (  SQLException e) {
+    LOG.error("Unable to prepare delete statement",e);
+    throw new RuntimeException(e);
+  }
+ finally {
+    tryCloseStatement(selectStatement);
+    tryCloseResultSet(resultSet);
+  }
+  updateStorageParams();
+}

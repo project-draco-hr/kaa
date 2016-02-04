@@ -1,13 +1,13 @@
 {
 synchronized (connection) {
     Statement statement=null;
-    ResultSet rs=null;
+    ResultSet resultSet=null;
     try {
       statement=connection.createStatement();
-      rs=statement.executeQuery(PersistentLogStorageConstants.KAA_HOW_MANY_LOGS_IN_DB);
-      if (rs.next()) {
-        unmarkedRecordCount=totalRecordCount=rs.getLong(1);
-        unmarkedConsumedSize=rs.getLong(2);
+      resultSet=statement.executeQuery(PersistentLogStorageConstants.KAA_HOW_MANY_LOGS_IN_DB);
+      if (resultSet.next()) {
+        unmarkedRecordCount=totalRecordCount=resultSet.getLong(1);
+        unmarkedConsumedSize=resultSet.getLong(2);
         LOG.trace("Retrieved record count: {}, consumed size: {}",totalRecordCount,unmarkedConsumedSize);
       }
  else {
@@ -16,7 +16,7 @@ synchronized (connection) {
       }
     }
   finally {
-      tryCloseResultSet(rs);
+      tryCloseResultSet(resultSet);
       tryCloseStatement(statement);
     }
   }

@@ -1,5 +1,5 @@
 {
-  String ctlExportKeyBase64=request.getParameter(CtlSchemaExportKey.CTL_EXPORT_KEY_PARAMETER);
+  String ctlExportKeyBase64=URLDecoder.decode(request.getParameter(CTL_EXPORT_KEY_PARAMETER),"UTF-8");
   try {
     CtlSchemaExportKey key=(CtlSchemaExportKey)Base64.decodeToObject(ctlExportKeyBase64,Base64.URL_SAFE,null);
     FileData ctlExportData=cacheService.getExportedCtlSchema(key);

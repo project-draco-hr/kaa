@@ -1,0 +1,19 @@
+{
+  SQLiteStatement updateInfoStatement=null;
+  try {
+    updateInfoStatement=database.compileStatement(PersistentLogStorageConstants.KAA_UPDATE_STORAGE_INFO);
+    updateInfoStatement.bindString(1,PersistentLogStorageConstants.STORAGE_BUCKET_SIZE);
+    updateInfoStatement.bindLong(2,maxBucketSize);
+    updateInfoStatement.execute();
+    updateInfoStatement.bindString(1,PersistentLogStorageConstants.STORAGE_RECORD_COUNT);
+    updateInfoStatement.bindLong(2,maxRecordCount);
+    updateInfoStatement.execute();
+  }
+ catch (  SQLiteException e) {
+    Log.e(TAG,"Can't prepare update storage info statement",e);
+    throw new RuntimeException("Can't prepare update storage info statement");
+  }
+ finally {
+    tryCloseStatement(updateInfoStatement);
+  }
+}

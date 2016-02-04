@@ -1,4 +1,5 @@
 {
-  DefaultOperationDataProcessor operationsDataProcessor=new DefaultOperationDataProcessor();
+  KaaClientState state=Mockito.mock(KaaClientState.class);
+  DefaultOperationDataProcessor operationsDataProcessor=new DefaultOperationDataProcessor(state);
   assertNull(operationsDataProcessor.compileRequest(null));
 }

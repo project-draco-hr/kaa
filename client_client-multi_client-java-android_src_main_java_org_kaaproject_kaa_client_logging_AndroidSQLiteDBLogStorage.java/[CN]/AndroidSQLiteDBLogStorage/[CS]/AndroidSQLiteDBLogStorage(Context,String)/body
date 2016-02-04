@@ -1,9 +1,0 @@
-{
-  Log.i(TAG,"Connecting to db with name: " + dbName);
-  dbHelper=new DataCollectionDBHelper(context,dbName);
-  database=dbHelper.getWritableDatabase();
-  retrieveConsumedSizeAndVolume();
-  if (totalRecordCount > 0) {
-    resetBucketIDs();
-  }
-}
