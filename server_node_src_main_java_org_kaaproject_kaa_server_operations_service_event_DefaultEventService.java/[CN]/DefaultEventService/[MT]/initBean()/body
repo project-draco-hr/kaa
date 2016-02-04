@@ -1,5 +1,5 @@
 {
   LOG.info("Init default event service.");
   listeners=Collections.newSetFromMap(new ConcurrentHashMap<EventServiceListener,Boolean>());
-  neighbors=new Neighbors<MessageTemplate,Message>(new MessageTemplate(this),operationsServerConfig.getMaxNumberNeighborConnections());
+  neighbors=new Neighbors<MessageTemplate,Message>(KaaThriftService.OPERATIONS_SERVICE,new MessageTemplate(this),operationsServerConfig.getMaxNumberNeighborConnections());
 }

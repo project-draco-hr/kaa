@@ -3,13 +3,15 @@
     if (response.getResponseStatus() == SyncResponseStatus.NO_DELTA) {
       acceptedUnicastNotificationIds.clear();
     }
-    List<Topic> topics=response.getAvailableTopics();
-    topicListHash=TopicListHashCalculator.calculateTopicListHash(topics);
-    if (topics != null) {
-      for (      Topic topic : topics) {
-        clientState.addTopic(topic);
+ else {
+      List<Topic> topics=response.getAvailableTopics();
+      if (topics != null) {
+        topicListHash=TopicListHashCalculator.calculateTopicListHash(topics);
+        for (        Topic topic : topics) {
+          clientState.addTopic(topic);
+        }
+        processor.topicsListUpdated(topics);
       }
-      processor.topicsListUpdated(topics);
     }
     List<Notification> notifications=response.getNotifications();
     if (notifications != null) {
