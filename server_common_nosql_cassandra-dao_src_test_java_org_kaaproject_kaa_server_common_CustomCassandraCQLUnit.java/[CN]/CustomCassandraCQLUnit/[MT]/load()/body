@@ -1,0 +1,9 @@
+{
+  String hostIp=EmbeddedCassandraServerHelper.getHost();
+  int port=EmbeddedCassandraServerHelper.getNativeTransportPort();
+  cluster=new Cluster.Builder().addContactPoints(hostIp).withPort(port).withSocketOptions(getSocketOptions()).build();
+  session=cluster.connect();
+  CQLDataLoader dataLoader=new CQLDataLoader(session);
+  dataLoader.load(dataSet);
+  session=dataLoader.getSession();
+}

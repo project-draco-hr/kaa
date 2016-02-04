@@ -1,0 +1,7 @@
+{
+  super.after();
+  try (Cluster c=cluster;Session s=session){
+    session=null;
+    cluster=null;
+  }
+ }
