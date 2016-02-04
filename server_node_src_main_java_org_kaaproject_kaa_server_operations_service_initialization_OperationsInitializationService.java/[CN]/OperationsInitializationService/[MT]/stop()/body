@@ -2,6 +2,9 @@
   if (eventService != null) {
     eventService.shutdown();
   }
+  if (clusterService != null) {
+    clusterService.shutdown();
+  }
   if (loadBalancingService != null && getNodeConfig().isZkEnabled()) {
     loadBalancingService.stop();
   }

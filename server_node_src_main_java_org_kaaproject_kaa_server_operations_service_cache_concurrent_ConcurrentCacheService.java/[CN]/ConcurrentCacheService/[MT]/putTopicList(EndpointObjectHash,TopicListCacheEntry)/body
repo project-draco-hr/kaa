@@ -1,0 +1,7 @@
+{
+  if (entry != null) {
+    TopicListEntryDto entryDto=new TopicListEntryDto(entry.getSimpleHash(),entry.getHash().getData(),entry.getTopics());
+    endpointService.saveTopicListEntry(entryDto);
+  }
+  return entry;
+}

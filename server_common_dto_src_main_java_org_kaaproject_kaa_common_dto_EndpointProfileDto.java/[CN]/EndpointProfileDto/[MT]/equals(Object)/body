@@ -15,10 +15,7 @@
   if (clientProfileVersion != that.clientProfileVersion) {
     return false;
   }
-  if (cfSequenceNumber != that.cfSequenceNumber) {
-    return false;
-  }
-  if (nfSequenceNumber != that.nfSequenceNumber) {
+  if (sequenceNumber != that.sequenceNumber) {
     return false;
   }
   if (systemNfVersion != that.systemNfVersion) {
@@ -36,10 +33,7 @@
   if (!Arrays.equals(userConfigurationHash,that.userConfigurationHash)) {
     return false;
   }
-  if (cfGroupState != null ? !cfGroupState.equals(that.cfGroupState) : that.cfGroupState != null) {
-    return false;
-  }
-  if (nfGroupState != null ? !nfGroupState.equals(that.nfGroupState) : that.nfGroupState != null) {
+  if (groupState != null ? !groupState.equals(that.groupState) : that.groupState != null) {
     return false;
   }
   if (!Arrays.equals(endpointKey,that.endpointKey)) {
@@ -48,7 +42,10 @@
   if (!Arrays.equals(endpointKeyHash,that.endpointKeyHash)) {
     return false;
   }
-  if (!Arrays.equals(ntHash,that.ntHash)) {
+  if (simpleTopicHash != that.simpleTopicHash) {
+    return false;
+  }
+  if (!Arrays.equals(topicHash,that.topicHash)) {
     return false;
   }
   if (clientProfileBody != null ? !clientProfileBody.equals(that.clientProfileBody) : that.clientProfileBody != null) {

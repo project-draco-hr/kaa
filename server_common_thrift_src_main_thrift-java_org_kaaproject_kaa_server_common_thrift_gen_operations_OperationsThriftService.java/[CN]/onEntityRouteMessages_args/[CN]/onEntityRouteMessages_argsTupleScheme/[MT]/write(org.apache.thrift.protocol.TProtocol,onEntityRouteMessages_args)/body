@@ -1,0 +1,16 @@
+{
+  TTupleProtocol oprot=(TTupleProtocol)prot;
+  BitSet optionals=new BitSet();
+  if (struct.isSetMessages()) {
+    optionals.set(0);
+  }
+  oprot.writeBitSet(optionals,1);
+  if (struct.isSetMessages()) {
+{
+      oprot.writeI32(struct.messages.size());
+      for (      ThriftEntityRouteMessage _iter36 : struct.messages) {
+        _iter36.write(oprot);
+      }
+    }
+  }
+}

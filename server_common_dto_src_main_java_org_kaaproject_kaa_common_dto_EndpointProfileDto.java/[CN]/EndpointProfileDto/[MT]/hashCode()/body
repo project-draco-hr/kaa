@@ -2,12 +2,10 @@
   int result=applicationId != null ? applicationId.hashCode() : 0;
   result=31 * result + (endpointKey != null ? Arrays.hashCode(endpointKey) : 0);
   result=31 * result + (endpointKeyHash != null ? Arrays.hashCode(endpointKeyHash) : 0);
-  result=31 * result + (cfGroupState != null ? cfGroupState.hashCode() : 0);
-  result=31 * result + (nfGroupState != null ? nfGroupState.hashCode() : 0);
+  result=31 * result + (groupState != null ? groupState.hashCode() : 0);
   result=31 * result + (subscriptions != null ? subscriptions.hashCode() : 0);
-  result=31 * result + (ntHash != null ? Arrays.hashCode(ntHash) : 0);
-  result=31 * result + nfSequenceNumber;
-  result=31 * result + cfSequenceNumber;
+  result=31 * result + (topicHash != null ? Arrays.hashCode(topicHash) : 0);
+  result=31 * result + sequenceNumber;
   result=31 * result + (clientProfileBody != null ? clientProfileBody.hashCode() : 0);
   result=31 * result + (profileHash != null ? Arrays.hashCode(profileHash) : 0);
   result=31 * result + (configurationHash != null ? Arrays.hashCode(configurationHash) : 0);

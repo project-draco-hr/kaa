@@ -2,7 +2,7 @@
   TenantDto tenantDto=generateTenantDto();
   EndpointUserDto endpointUserDto=generateEndpointUserDto(tenantDto.getId());
   String endpointGroupId="124";
-  EndpointProfileDto endpointProfileDto=generateEndpointProfileWithGroupIdDto(endpointGroupId,false);
+  EndpointProfileDto endpointProfileDto=generateEndpointProfileWithGroupIdDto(endpointGroupId);
   String accessToken="1111";
   endpointProfileDto.setAccessToken(accessToken);
   endpointService.saveEndpointProfile(endpointProfileDto);

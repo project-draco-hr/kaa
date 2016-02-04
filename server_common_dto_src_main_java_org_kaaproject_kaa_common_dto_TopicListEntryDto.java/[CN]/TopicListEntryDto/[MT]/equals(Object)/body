@@ -1,0 +1,16 @@
+{
+  if (this == o) {
+    return true;
+  }
+  if (!(o instanceof TopicListEntryDto)) {
+    return false;
+  }
+  TopicListEntryDto that=(TopicListEntryDto)o;
+  if (simpleHash != that.simpleHash) {
+    return false;
+  }
+  if (!Arrays.equals(hash,that.hash)) {
+    return false;
+  }
+  return true;
+}

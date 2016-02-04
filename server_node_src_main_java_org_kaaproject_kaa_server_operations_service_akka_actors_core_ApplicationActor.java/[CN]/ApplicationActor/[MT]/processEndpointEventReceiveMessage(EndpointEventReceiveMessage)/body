@@ -1,10 +1,10 @@
 {
-  ActorMetaData endpointActor=endpointSessions.get(message.getKey());
+  LocalEndpointActorMD endpointActor=localEndpointSessions.get(message.getKey());
   if (endpointActor != null) {
     endpointActor.actorRef.tell(message,self());
   }
  else {
-    LOG.debug("[{}] Can't find endpoint actor that corresponds to {}",applicationToken,message.getKey());
+    LOG.debug("[{}] Can't find endpoint actor that corresponds to {}",appToken,message.getKey());
     context().parent().tell(new EndpointEventDeliveryMessage(message,EventDeliveryStatus.FAILURE),self());
   }
 }

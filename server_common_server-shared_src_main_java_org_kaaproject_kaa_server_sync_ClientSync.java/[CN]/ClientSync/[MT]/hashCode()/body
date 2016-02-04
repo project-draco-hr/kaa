@@ -5,6 +5,8 @@
   result=prime * result + ((clientSyncMetaData == null) ? 0 : clientSyncMetaData.hashCode());
   result=prime * result + ((configurationSync == null) ? 0 : configurationSync.hashCode());
   result=prime * result + ((eventSync == null) ? 0 : eventSync.hashCode());
+  result=prime * result + (forceConfigurationSync ? 1231 : 1237);
+  result=prime * result + (forceNotificationSync ? 1231 : 1237);
   result=prime * result + ((logSync == null) ? 0 : logSync.hashCode());
   result=prime * result + ((notificationSync == null) ? 0 : notificationSync.hashCode());
   result=prime * result + ((profileSync == null) ? 0 : profileSync.hashCode());

@@ -1,7 +1,7 @@
 {
   ActorRef userVerifierActor=userVerifierSessions.get(name);
   if (userVerifierActor == null) {
-    userVerifierActor=context().actorOf(Props.create(new ApplicationUserVerifierActor.ActorCreator(context,applicationToken)).withDispatcher(VERIFIER_DISPATCHER_NAME));
+    userVerifierActor=context().actorOf(Props.create(new ApplicationUserVerifierActor.ActorCreator(context,appToken)).withDispatcher(VERIFIER_DISPATCHER_NAME));
     context().watch(userVerifierActor);
     userVerifierSessions.put(userVerifierActor.path().name(),userVerifierActor);
   }

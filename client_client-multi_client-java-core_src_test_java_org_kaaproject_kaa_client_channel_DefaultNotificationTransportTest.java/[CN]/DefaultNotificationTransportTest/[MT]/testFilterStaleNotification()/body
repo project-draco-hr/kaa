@@ -1,17 +1,16 @@
 {
   KaaClientState clientState=Mockito.mock(KaaClientState.class);
   NotificationProcessor notificationProcessor=Mockito.mock(NotificationProcessor.class);
-  Mockito.when(clientState.updateTopicSubscriptionInfo(Mockito.anyString(),Mockito.anyInt())).thenReturn(Boolean.FALSE);
+  Mockito.when(clientState.updateTopicSubscriptionInfo(Mockito.anyLong(),Mockito.anyInt())).thenReturn(Boolean.FALSE);
   NotificationSyncResponse response=new NotificationSyncResponse();
-  response.setAppStateSeqNumber(3);
   response.setResponseStatus(SyncResponseStatus.DELTA);
   KaaChannelManager channelManagerMock=Mockito.mock(KaaChannelManager.class);
   NotificationTransport transport=new DefaultNotificationTransport();
   transport.setChannelManager(channelManagerMock);
   transport.setNotificationProcessor(notificationProcessor);
   transport.setClientState(clientState);
-  Notification nf1=new Notification("u_id1",NotificationType.CUSTOM,null,3,ByteBuffer.wrap(new byte[]{1,2,3}));
-  Notification nf2=new Notification("u_id1",NotificationType.CUSTOM,null,3,ByteBuffer.wrap(new byte[]{1,2,3}));
+  Notification nf1=new Notification(1l,NotificationType.CUSTOM,null,3,ByteBuffer.wrap(new byte[]{1,2,3}));
+  Notification nf2=new Notification(1l,NotificationType.CUSTOM,null,3,ByteBuffer.wrap(new byte[]{1,2,3}));
   response.setNotifications(Arrays.asList(nf1,nf2));
   transport.onNotificationResponse(response);
   List<Notification> expectedNotifications=Collections.emptyList();

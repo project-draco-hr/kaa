@@ -1,0 +1,8 @@
+{
+  FileOutputStream hdrOs=new FileOutputStream(headerTemplateGen());
+  hdrOs.write(hdrWriter.toString().getBytes());
+  hdrOs.close();
+  FileOutputStream srcOs=new FileOutputStream(sourceTemplateGen());
+  srcOs.write(srcWriter.toString().getBytes());
+  srcOs.close();
+}

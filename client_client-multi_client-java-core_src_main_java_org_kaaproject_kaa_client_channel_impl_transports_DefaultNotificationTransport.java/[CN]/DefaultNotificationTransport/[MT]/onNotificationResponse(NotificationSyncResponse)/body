@@ -4,6 +4,7 @@
       acceptedUnicastNotificationIds.clear();
     }
     List<Topic> topics=response.getAvailableTopics();
+    topicListHash=TopicListHashCalculator.calculateTopicListHash(topics);
     if (topics != null) {
       for (      Topic topic : topics) {
         clientState.addTopic(topic);
@@ -36,7 +37,6 @@
       processor.notificationReceived(newNotifications);
     }
     sentNotificationCommands.clear();
-    clientState.setNotificationSeqNumber(response.getAppStateSeqNumber());
     syncAck(response.getResponseStatus());
     LOG.info("Processed notification response.");
   }

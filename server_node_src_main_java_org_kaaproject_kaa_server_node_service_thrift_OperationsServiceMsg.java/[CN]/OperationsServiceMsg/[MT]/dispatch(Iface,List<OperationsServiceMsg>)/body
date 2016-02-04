@@ -1,0 +1,24 @@
+{
+  List<UserConfigurationUpdate> updates=new ArrayList<UserConfigurationUpdate>();
+  List<ThriftEntityRouteMessage> routes=new ArrayList<ThriftEntityRouteMessage>();
+  for (  OperationsServiceMsg msg : messages) {
+    if (msg.getUnicastNotificationMsg() != null) {
+      client.onUnicastNotification(msg.getUnicastNotificationMsg());
+    }
+    if (msg.getServerProfileUpdateMsg() != null) {
+      client.onServerProfileUpdate(msg.getServerProfileUpdateMsg());
+    }
+    if (msg.getUserConfigurationUpdateMsg() != null) {
+      updates.add(msg.getUserConfigurationUpdateMsg());
+    }
+    if (msg.getEntityRouteMsg() != null) {
+      routes.add(msg.getEntityRouteMsg());
+    }
+  }
+  if (updates.size() > 0) {
+    client.sendUserConfigurationUpdates(updates);
+  }
+  if (routes.size() > 0) {
+    client.onEntityRouteMessages(routes);
+  }
+}

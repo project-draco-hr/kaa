@@ -1,0 +1,9 @@
+{
+  List<TopicDto> topicDtos=new ArrayList<>();
+  for (  String topicId : topicIds) {
+    TopicDto topicDto=new TopicDto();
+    topicDto.setId(topicId);
+    topicDtos.add(topicDto);
+  }
+  return new TopicListEntryDto(simpleHash,hash,topicDtos);
+}

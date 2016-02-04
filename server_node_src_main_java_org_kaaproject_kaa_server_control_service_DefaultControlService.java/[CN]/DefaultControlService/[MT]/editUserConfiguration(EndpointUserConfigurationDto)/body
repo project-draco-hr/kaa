@@ -11,7 +11,7 @@
     if (LOG.isTraceEnabled()) {
       LOG.trace("Sending message {} to [{}]",msg,Neighbors.getServerID(server.getConnectionInfo()));
     }
-    neighbors.sendMessage(server.getConnectionInfo(),msg);
+    neighbors.sendMessage(server.getConnectionInfo(),OperationsServiceMsg.fromUpdate(msg));
   }
  else {
     LOG.warn("Can't find server for user [{}]",configuration.getUserId());

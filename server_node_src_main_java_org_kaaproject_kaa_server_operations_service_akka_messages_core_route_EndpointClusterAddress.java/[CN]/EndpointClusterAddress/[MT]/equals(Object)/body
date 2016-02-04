@@ -1,0 +1,11 @@
+{
+  if (this == obj)   return true;
+  if (!super.equals(obj))   return false;
+  if (getClass() != obj.getClass())   return false;
+  EndpointClusterAddress other=(EndpointClusterAddress)obj;
+  if (endpointKey == null) {
+    if (other.endpointKey != null)     return false;
+  }
+ else   if (!endpointKey.equals(other.endpointKey))   return false;
+  return true;
+}

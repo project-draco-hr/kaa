@@ -1,10 +1,9 @@
 {
   try {
     NotificationSyncResponse record=new NotificationSyncResponse();
-    record.appStateSeqNumber=fieldSetFlags()[0] ? this.appStateSeqNumber : (java.lang.Integer)defaultValue(fields()[0]);
-    record.responseStatus=fieldSetFlags()[1] ? this.responseStatus : (org.kaaproject.kaa.common.endpoint.gen.SyncResponseStatus)defaultValue(fields()[1]);
-    record.notifications=fieldSetFlags()[2] ? this.notifications : (java.util.List<org.kaaproject.kaa.common.endpoint.gen.Notification>)defaultValue(fields()[2]);
-    record.availableTopics=fieldSetFlags()[3] ? this.availableTopics : (java.util.List<org.kaaproject.kaa.common.endpoint.gen.Topic>)defaultValue(fields()[3]);
+    record.responseStatus=fieldSetFlags()[0] ? this.responseStatus : (org.kaaproject.kaa.common.endpoint.gen.SyncResponseStatus)defaultValue(fields()[0]);
+    record.notifications=fieldSetFlags()[1] ? this.notifications : (java.util.List<org.kaaproject.kaa.common.endpoint.gen.Notification>)defaultValue(fields()[1]);
+    record.availableTopics=fieldSetFlags()[2] ? this.availableTopics : (java.util.List<org.kaaproject.kaa.common.endpoint.gen.Topic>)defaultValue(fields()[2]);
     return record;
   }
  catch (  Exception e) {

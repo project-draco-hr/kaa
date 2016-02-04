@@ -28,7 +28,7 @@
   MessageEncoderDecoder sourceCrypt=new MessageEncoderDecoder(clientPair.getPrivate(),clientPair.getPublic(),serverPair.getPublic());
   SessionInitMessage sourceMessage=toSignedRequest(UUID.randomUUID(),ChannelType.SYNC_WITH_TIMEOUT,channelContextMock,sourceRequest,responseBuilder,errorBuilder,sourceCrypt);
   akkaService.process(sourceMessage);
-  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeastOnce()).syncProfile(Mockito.any(SyncContext.class),Mockito.any(ProfileClientSync.class));
+  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeastOnce()).syncClientProfile(Mockito.any(SyncContext.class),Mockito.any(ProfileClientSync.class));
   UserRouteInfo userRouteInfo=new UserRouteInfo(TENANT_ID,USER_ID,SERVER2,RouteOperation.ADD);
   akkaService.getListener().onUserRouteInfo(userRouteInfo);
   RouteTableAddress remoteAddress=new RouteTableAddress(EndpointObjectHash.fromBytes(targetPublicKeyHash.array()),APP_TOKEN,SERVER2);

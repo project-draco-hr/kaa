@@ -1,0 +1,19 @@
+{
+  try {
+    VelocityContext context=new VelocityContext();
+    context.put("headerName",generatedSourceName);
+    StringWriter hdrWriter=new StringWriter();
+    engine.getTemplate(headerTemplate()).merge(context,hdrWriter);
+    StringWriter srcWriter=new StringWriter();
+    engine.getTemplate(sourceTemplate()).merge(context,srcWriter);
+    if (toFile) {
+      writeToFile(hdrWriter,srcWriter);
+    }
+ else {
+      writeToStream(hdrWriter,srcWriter);
+    }
+  }
+ catch (  Exception e) {
+    throw new KaaGeneratorException("Failed to prepare source templates: " + e.toString());
+  }
+}

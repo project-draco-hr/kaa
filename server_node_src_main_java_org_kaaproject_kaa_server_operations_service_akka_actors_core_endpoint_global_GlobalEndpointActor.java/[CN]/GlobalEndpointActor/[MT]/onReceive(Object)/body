@@ -1,0 +1,17 @@
+{
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{}] Received: {}",actorKey,msg);
+  }
+ else {
+    LOG.debug("[{}] Received: {}",actorKey,msg.getClass().getName());
+  }
+  if (msg instanceof EndpointRouteMessage) {
+    processRouteMessage((EndpointRouteMessage)msg);
+  }
+ else   if (msg instanceof EndpointActorMsg) {
+    processEndpointActorMsg((EndpointActorMsg)msg);
+  }
+ else   if (msg instanceof ClusterUpdateMessage) {
+    processClusterUpdateMessage();
+  }
+}

@@ -1,6 +1,6 @@
 {
-  GetNotificationRequest request=new GetNotificationRequest(new EndpointProfileDto(),null,null,null);
-  GetNotificationResponse response=notificationDeltaService.getNotificationDelta(request,new HistoryDelta());
+  GetNotificationRequest request=new GetNotificationRequest(0,new EndpointProfileDto(),null,null,null);
+  GetNotificationResponse response=notificationDeltaService.getNotificationDelta(request);
   Assert.assertNotNull(response);
   Assert.assertNotNull(response.getNotifications());
   Assert.assertEquals(0,response.getNotifications().size());

@@ -1,0 +1,15 @@
+{
+  KaaClientState clientState=Mockito.mock(KaaClientState.class);
+  NotificationProcessor notificationProcessor=Mockito.mock(NotificationProcessor.class);
+  NotificationSyncResponse response=new NotificationSyncResponse();
+  response.setResponseStatus(SyncResponseStatus.DELTA);
+  response.setAvailableTopics(Collections.<Topic>emptyList());
+  KaaChannelManager channelManagerMock=Mockito.mock(KaaChannelManager.class);
+  NotificationTransport transport=new DefaultNotificationTransport();
+  transport.setChannelManager(channelManagerMock);
+  transport.setNotificationProcessor(notificationProcessor);
+  transport.setClientState(clientState);
+  transport.onNotificationResponse(response);
+  NotificationSyncRequest request=transport.createNotificationRequest();
+  Assert.assertEquals(TopicListHashCalculator.EMPTRY_LIST_HASH,request.getTopicListHash());
+}

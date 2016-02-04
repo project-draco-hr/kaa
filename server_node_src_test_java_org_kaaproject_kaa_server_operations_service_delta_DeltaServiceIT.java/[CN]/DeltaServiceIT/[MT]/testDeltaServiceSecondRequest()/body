@@ -1,4 +1,10 @@
 {
+  ConfigurationCacheEntry cacheEntry=deltaService.getConfiguration(APP_TOKEN,"EndpointId",endpointProfile);
+  assertNotNull(cacheEntry);
+  assertNotNull(cacheEntry.getConfiguration());
+  assertNotNull(cacheEntry.getDelta());
+  assertNotNull(cacheEntry.getHash());
+  assertNull(cacheEntry.getUserConfigurationHash());
   GenericAvroConverter<GenericContainer> newConfConverter=new GenericAvroConverter<>(new Schema.Parser().parse(confSchema.getBaseSchema()));
   GenericContainer container=newConfConverter.decodeJson(OperationsServiceIT.getResourceAsString(OperationsServiceIT.BASE_DATA_UPDATED_LOCATION));
   byte[] newConfData=newConfConverter.encodeToJsonBytes(container);
@@ -8,15 +14,14 @@
   newConfDto.setBody(new String(newConfData,UTF_8));
   newConfDto=configurationService.saveConfiguration(newConfDto);
   configurationService.activateConfiguration(newConfDto.getId(),"test");
-  GetDeltaRequest request=new GetDeltaRequest(application.getApplicationToken(),EndpointObjectHash.fromSHA1(endpointConfiguration.getConfiguration()),OLD_ENDPOINT_SEQ_NUMBER);
-  request.setEndpointProfile(endpointProfile);
   List<EndpointGroupStateDto> changes=new ArrayList<>();
   changes.add(new EndpointGroupStateDto(egAllId,pfAllId,newConfDto.getId()));
-  HistoryDelta historyDelta=new HistoryDelta(changes,true,false);
-  GetDeltaResponse response=deltaService.getDelta(request,historyDelta,NEW_APPLICATION_SEQ_NUMBER);
-  assertNotNull(response);
-  assertEquals(GetDeltaResponse.GetDeltaResponseType.DELTA,response.getResponseType());
-  assertEquals(NEW_APPLICATION_SEQ_NUMBER,response.getSequenceNumber());
-  assertNotNull(response.getDelta());
-  assertNotNull(response.getDelta().getData());
+  endpointProfile.setGroupState(changes);
+  ConfigurationCacheEntry newCacheEntry=deltaService.getConfiguration(APP_TOKEN,"EndpointId",endpointProfile);
+  assertNotNull(newCacheEntry);
+  assertNotNull(newCacheEntry.getConfiguration());
+  assertNotNull(newCacheEntry.getDelta());
+  assertNotNull(newCacheEntry.getHash());
+  assertNull(newCacheEntry.getUserConfigurationHash());
+  assertNotEquals(cacheEntry.getHash(),newCacheEntry.getHash());
 }
