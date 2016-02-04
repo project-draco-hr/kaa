@@ -2,7 +2,7 @@
   if (neighbors == null) {
 synchronized (zkLock) {
       if (neighbors == null) {
-        neighbors=new Neighbors<NeighborTemplate<OperationsServiceMsg>,OperationsServiceMsg>(new NeighborTemplate<OperationsServiceMsg>(){
+        neighbors=new Neighbors<NeighborTemplate<OperationsServiceMsg>,OperationsServiceMsg>(KaaThriftService.OPERATIONS_SERVICE,new NeighborTemplate<OperationsServiceMsg>(){
           @Override public void process(          Iface client,          List<OperationsServiceMsg> messages) throws TException {
             OperationsServiceMsg.dispatch(client,messages);
           }
@@ -12,7 +12,7 @@ synchronized (zkLock) {
         }
 ,neighborConnectionsSize);
         ControlNode zkNode=controlZKService.getControlZKNode();
-        neighbors.setZkNode(zkNode.getControlServerInfo().getConnectionInfo(),zkNode);
+        neighbors.setZkNode(KaaThriftService.KAA_NODE_SERVICE,zkNode.getControlServerInfo().getConnectionInfo(),zkNode);
       }
     }
   }
