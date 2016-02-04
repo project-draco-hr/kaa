@@ -1,7 +1,7 @@
 {
   Schema schema=new Schema.Parser().parse(configurationSchemaBody);
   List<TarEntryData> tarEntries=new LinkedList<>();
-  tarEntries.add(createTarEntry(CONFIGURATION_HEADER,processHeaderTemplate("kaa_configuration_definitions.vm",schema,CONFIGURATION_NAMESPACE)));
+  tarEntries.add(createTarEntry(CONFIGURATION_HEADER,processHeaderTemplate("kaa_configuration_definitions.hvm",schema,CONFIGURATION_NAMESPACE)));
   tarEntries.addAll(generateSourcesFromSchema(schema,CONFIGURATION_SOURCE_NAME_PATTERN,CONFIGURATION_NAMESPACE));
   return tarEntries;
 }
