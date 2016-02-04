@@ -7,4 +7,8 @@
     LOG.error("[{}] Can't update entity with version {}. Entity already changed!",getDocumentClass(),dto.getVersion());
     throw new KaaOptimisticLockingFailureException("Can't update entity with version " + dto.getVersion() + ". Entity already changed!");
   }
+catch (  DuplicateKeyException exception) {
+    LOG.error("[{}] Can't insert entity. Entity already exists!",getDocumentClass());
+    throw new KaaOptimisticLockingFailureException("Can't insert entity. Entity already exists!");
+  }
 }

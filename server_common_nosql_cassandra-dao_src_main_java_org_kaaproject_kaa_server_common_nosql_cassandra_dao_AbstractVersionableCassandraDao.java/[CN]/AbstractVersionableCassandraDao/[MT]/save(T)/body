@@ -2,10 +2,7 @@
   if (entity.getVersion() == null) {
     entity.setVersion(0l);
     LOG.debug("Save entity {}",entity);
-    Statement saveStatement=getSaveQuery(entity);
-    saveStatement.setConsistencyLevel(getWriteConsistencyLevel());
-    execute(saveStatement);
-    return entity;
+    return insertLocked(entity);
   }
  else {
     LOG.debug("Update entity {}",entity);
