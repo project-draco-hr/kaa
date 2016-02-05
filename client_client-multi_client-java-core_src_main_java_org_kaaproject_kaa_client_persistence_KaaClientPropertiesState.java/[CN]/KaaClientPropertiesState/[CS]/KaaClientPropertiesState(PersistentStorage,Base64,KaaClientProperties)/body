@@ -22,6 +22,7 @@
  else {
         LOG.info("SDK properties are up to date");
       }
+      parseTopics();
       parseNfSubscriptions();
       String attachedEndpointsString=state.getProperty(ATTACHED_ENDPOINTS);
       if (attachedEndpointsString != null) {
@@ -43,6 +44,17 @@
           LOG.error("Unexpected exception while parsing event sequence number. Can not parse String: {} to Integer",eventSeqNumStr);
         }
         eventSequence.set(eventSeqNum);
+      }
+      String topicListHashStr=state.getProperty(TOPIC_LIST_HASH);
+      if (topicListHashStr != null) {
+        Integer topicListHash=TopicListHashCalculator.NULL_LIST_HASH;
+        try {
+          topicListHash=Integer.parseInt(topicListHashStr);
+        }
+ catch (        NumberFormatException e) {
+          LOG.error("Unexpected exception while parsing topic list hash. Can not parse String: {} to Integer",topicListHashStr);
+        }
+        this.topicListHash=topicListHash;
       }
     }
  catch (    Exception e) {

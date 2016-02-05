@@ -1,0 +1,8 @@
+{
+  Integer seqNum=nfSubscriptions.get(topicId);
+  if (seqNum == null) {
+    nfSubscriptions.put(topicId,0);
+    LOG.info("Adding new seqNumber 0 for {} subscription",topicId);
+    hasUpdate=true;
+  }
+}

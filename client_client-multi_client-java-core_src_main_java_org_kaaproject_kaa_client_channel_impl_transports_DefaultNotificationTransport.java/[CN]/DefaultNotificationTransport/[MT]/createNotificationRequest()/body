@@ -6,7 +6,7 @@
       request.setAcceptedUnicastNotifications(new ArrayList<>(acceptedUnicastNotificationIds));
     }
     request.setSubscriptionCommands(sentNotificationCommands);
-    request.setTopicListHash(topicListHash);
+    request.setTopicListHash(clientState.getTopicListHash());
     request.setTopicStates(getTopicStates());
     return request;
   }

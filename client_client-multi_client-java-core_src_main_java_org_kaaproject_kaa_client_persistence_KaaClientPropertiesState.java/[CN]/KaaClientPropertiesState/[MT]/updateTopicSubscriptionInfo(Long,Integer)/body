@@ -1,13 +1,12 @@
 {
-  TopicSubscriptionInfo subscriptionInfo=nfSubscriptions.get(topicId);
+  Integer seqNum=nfSubscriptions.get(topicId);
   boolean updated=false;
-  if (subscriptionInfo != null) {
-    if (sequenceNumber > subscriptionInfo.getSeqNumber()) {
+  if (seqNum != null) {
+    if (sequenceNumber > seqNum) {
       updated=true;
-      subscriptionInfo.setSeqNumber(sequenceNumber);
-      nfSubscriptions.put(topicId,subscriptionInfo);
+      nfSubscriptions.put(topicId,sequenceNumber);
       hasUpdate=true;
-      LOG.debug("Updated seqNumber to {} for {} subscription",subscriptionInfo.getSeqNumber(),topicId);
+      LOG.debug("Updated seqNumber to {} for {} subscription",sequenceNumber,topicId);
     }
   }
   return updated;

@@ -1,6 +1,9 @@
 {
-  if (nfSubscriptions.remove(topicId) != null) {
+  if (topicMap.remove(topicId) != null) {
+    if (nfSubscriptions.remove(topicId) != null) {
+      LOG.info("Removed subscription info for {}",topicId);
+    }
     hasUpdate=true;
-    LOG.debug("Removed subscription info for {}",topicId);
+    LOG.info("Removed topic with id {}",topicId);
   }
 }

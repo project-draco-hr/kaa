@@ -6,11 +6,16 @@
  else {
       List<Topic> topics=response.getAvailableTopics();
       if (topics != null) {
-        topicListHash=TopicListHashCalculator.calculateTopicListHash(topics);
-        for (        Topic topic : topics) {
-          clientState.addTopic(topic);
-        }
+        clientState.setTopicListHash(TopicListHashCalculator.calculateTopicListHash(topics));
         processor.topicsListUpdated(topics);
+      }
+    }
+    for (    SubscriptionCommand subscriptionCommand : sentNotificationCommands) {
+      if (subscriptionCommand.getCommand() == SubscriptionCommandType.ADD) {
+        clientState.addTopicSubscription(subscriptionCommand.getTopicId());
+      }
+ else       if (subscriptionCommand.getCommand() == SubscriptionCommandType.REMOVE) {
+        clientState.removeTopicSubscription(subscriptionCommand.getTopicId());
       }
     }
     List<Notification> notifications=response.getNotifications();
