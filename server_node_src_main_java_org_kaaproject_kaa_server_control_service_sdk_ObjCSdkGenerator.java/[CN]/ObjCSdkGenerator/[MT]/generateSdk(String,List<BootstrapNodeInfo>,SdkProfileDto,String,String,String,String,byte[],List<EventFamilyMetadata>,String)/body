@@ -1,9 +1,5 @@
 {
   String sdkToken=sdkProperties.getToken();
-  Integer configurationSchemaVersion=sdkProperties.getConfigurationSchemaVersion();
-  Integer profileSchemaVersion=sdkProperties.getProfileSchemaVersion();
-  Integer notificationSchemaVersion=sdkProperties.getNotificationSchemaVersion();
-  Integer logSchemaVersion=sdkProperties.getLogSchemaVersion();
   String defaultVerifierToken=sdkProperties.getDefaultVerifierToken();
   String sdkTemplateLocation=System.getProperty("server_home_dir") + "/" + SDK_TEMPLATE_DIR+ SDK_PREFIX+ buildVersion+ ".tar.gz";
   LOG.debug("Lookup Objective C SDK template: {}",sdkTemplateLocation);
@@ -114,7 +110,7 @@
   }
   sdkFile.finish();
   sdkFile.close();
-  String sdkFileName=MessageFormatter.arrayFormat(SDK_NAME_PATTERN,new Object[]{profileSchemaVersion,configurationSchemaVersion,notificationSchemaVersion,logSchemaVersion}).getMessage();
+  String sdkFileName=SDK_PREFIX + sdkProperties.getToken();
   byte[] sdkData=sdkOutput.toByteArray();
   FileData sdk=new FileData();
   sdk.setFileName(sdkFileName);
