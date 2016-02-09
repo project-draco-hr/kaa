@@ -1,7 +1,7 @@
 {
   Schema schema=new Schema.Parser().parse(logSchemaBody);
   List<TarEntryData> tarEntries=new LinkedList<>();
-  tarEntries.add(createTarEntry(LOGGING_HEADER,processHeaderTemplate("kaa_logging_definitions.vm",schema,LOGGING_NAMESPACE)));
+  tarEntries.add(createTarEntry(LOGGING_HEADER,processHeaderTemplate("kaa_logging_definitions.hvm",schema,LOGGING_NAMESPACE)));
   tarEntries.addAll(generateSourcesFromSchema(schema,LOGGING_SOURCE_NAME_PATTERN,LOGGING_NAMESPACE));
   return tarEntries;
 }
