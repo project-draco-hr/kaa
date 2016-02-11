@@ -1,6 +1,9 @@
 {
   ApplicationDto appDto=applicationService.findAppByApplicationToken(configuration.getAppToken());
   EndpointUserDto userDto=endpointService.findEndpointUserByExternalIdAndTenantId(configuration.getUserId(),appDto.getTenantId());
+  if (userDto == null) {
+    throw new NotFoundException("Specified user not found!");
+  }
   configuration.setUserId(userDto.getId());
   configuration=userConfigurationService.saveUserConfiguration(configuration);
   EndpointObjectHash hash=EndpointObjectHash.fromString(configuration.getBody());
