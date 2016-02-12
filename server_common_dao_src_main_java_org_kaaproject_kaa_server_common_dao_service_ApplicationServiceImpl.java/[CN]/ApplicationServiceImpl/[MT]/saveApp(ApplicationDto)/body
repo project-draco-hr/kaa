@@ -1,16 +1,16 @@
 {
   ApplicationDto appDto=null;
   if (isValidSqlObject(applicationDto)) {
+    if (isBlank(applicationDto.getName())) {
+      throw new IncorrectParameterException("Can't save/update application with null name");
+    }
+    Application checkApplication=applicationDao.findByNameAndTenantId(applicationDto.getName(),applicationDto.getTenantId());
+    if (checkApplication != null) {
+      throw new IncorrectParameterException("Can't save application with same name within one tenant");
+    }
     if (isNotBlank(applicationDto.getId())) {
       LOG.debug("Update application with id [{}]",applicationDto.getId());
-      Application checkApplication=applicationDao.findByNameAndTenantId(applicationDto.getName(),applicationDto.getTenantId());
-      if (checkApplication == null || checkApplication.getId().equals(applicationDto.getId())) {
-        appDto=getDto(applicationDao.save(new Application(applicationDto)));
-      }
- else {
-        throw new IncorrectParameterException("Can't save application with same name within one tenant");
-      }
-      return appDto;
+      return getDto(applicationDao.save(new Application(applicationDto)));
     }
     String appToken=RandomStringUtils.randomNumeric(Constants.APP_TOKEN_SIZE);
     applicationDto.setApplicationToken(appToken);

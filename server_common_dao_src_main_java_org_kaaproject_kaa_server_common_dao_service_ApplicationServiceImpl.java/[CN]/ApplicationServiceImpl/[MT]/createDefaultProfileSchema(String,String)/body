@@ -7,7 +7,7 @@
   profileSchemaDto.setCreatedUsername(createdUsername);
   profileSchemaDto=profileService.saveProfileSchema(profileSchemaDto);
   if (profileSchemaDto == null) {
-    throw new RuntimeException("Can't save default profile schema " + profileSchemaDto);
+    throw new RuntimeException("Can't save default profile schema ");
   }
   return profileSchemaDto;
 }
