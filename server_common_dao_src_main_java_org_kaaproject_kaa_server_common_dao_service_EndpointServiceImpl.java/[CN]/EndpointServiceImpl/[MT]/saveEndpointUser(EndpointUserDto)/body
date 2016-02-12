@@ -1,0 +1,13 @@
+{
+  EndpointUserDto endpointUser=null;
+  if (isValidObject(endpointUserDto)) {
+    EndpointUser user=endpointUserDao.findByExternalIdAndTenantId(endpointUserDto.getExternalId(),endpointUserDto.getTenantId());
+    if (user == null || user.getId().equals(endpointUserDto.getId())) {
+      endpointUser=getDto(endpointUserDao.save(endpointUserDto));
+    }
+ else {
+      throw new IncorrectParameterException("Can't save endpoint user with same external id");
+    }
+  }
+  return endpointUser;
+}
