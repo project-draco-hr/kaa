@@ -1,0 +1,29 @@
+{
+  this.id=dto.getId();
+  this.applicationId=dto.getApplicationId();
+  this.endpointKey=dto.getEndpointKey();
+  this.endpointKeyHash=dto.getEndpointKeyHash();
+  this.endpointUserId=dto.getEndpointUserId();
+  this.accessToken=dto.getAccessToken();
+  this.groupState=MongoDaoUtil.convertDtoToModelList(dto.getGroupState());
+  this.sequenceNumber=dto.getSequenceNumber();
+  this.profile=(DBObject)JSON.parse(dto.getClientProfileBody());
+  this.profileHash=dto.getProfileHash();
+  this.profileVersion=dto.getClientProfileVersion();
+  this.serverProfileVersion=dto.getServerProfileVersion();
+  this.configurationHash=dto.getConfigurationHash();
+  this.userConfigurationHash=dto.getUserConfigurationHash();
+  this.configurationVersion=dto.getConfigurationVersion();
+  this.subscriptions=dto.getSubscriptions();
+  this.notificationVersion=dto.getNotificationVersion();
+  this.topicHash=dto.getTopicHash();
+  this.simpleTopicHash=dto.getSimpleTopicHash();
+  this.systemNfVersion=dto.getSystemNfVersion();
+  this.userNfVersion=dto.getUserNfVersion();
+  this.logSchemaVersion=dto.getLogSchemaVersion();
+  this.ecfVersionStates=MongoDaoUtil.convertECFVersionDtoToModelList(dto.getEcfVersionStates());
+  this.serverHash=dto.getServerHash();
+  this.sdkToken=dto.getSdkToken();
+  this.serverProfile=dto.getServerProfileBody();
+  this.version=dto.getVersion();
+}

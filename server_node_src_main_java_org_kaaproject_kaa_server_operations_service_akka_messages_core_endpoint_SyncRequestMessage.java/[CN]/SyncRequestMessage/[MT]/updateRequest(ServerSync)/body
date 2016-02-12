@@ -16,16 +16,7 @@
   }
   if (request.getNotificationSync() != null) {
     LOG.debug("[{}] Cleanup/update notification request",channelUuid);
-    if (response != null && response.getNotificationSync() != null) {
-      request.getNotificationSync().setAppStateSeqNumber(response.getNotificationSync().getAppStateSeqNumber());
-    }
     request.getNotificationSync().setSubscriptionCommands(null);
     request.getNotificationSync().setAcceptedUnicastNotifications(null);
-  }
-  if (request.getConfigurationSync() != null) {
-    LOG.debug("[{}] Cleanup/update configuration request",channelUuid);
-    if (response != null && response.getConfigurationSync() != null) {
-      request.getConfigurationSync().setAppStateSeqNumber(response.getConfigurationSync().getAppStateSeqNumber());
-    }
   }
 }

@@ -6,6 +6,5 @@
   Assert.assertNotNull(sync.getClientSyncMetaData());
   Assert.assertNotNull(sync.getConfigurationSync());
   ConfigurationClientSync cSync=sync.getConfigurationSync();
-  Assert.assertEquals(MAGIC_NUMBER,cSync.getAppStateSeqNumber());
   Assert.assertNull(cSync.getConfigurationHash());
 }

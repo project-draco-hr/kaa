@@ -1,0 +1,17 @@
+{
+  Notification thriftNotification=new Notification();
+  thriftNotification.setAppId(notification.getAppId());
+  thriftNotification.setAppSeqNumber(notification.getAppSeqNumber());
+  thriftNotification.setGroupId(notification.getGroupId());
+  thriftNotification.setGroupSeqNumber(notification.getGroupSeqNumber());
+  thriftNotification.setTopicId(notification.getTopicId());
+  thriftNotification.setOp(getOperation(notification.getChangeType()));
+  T payload=notification.getPayload();
+  if (payload != null) {
+    if (payload instanceof NotificationDto) {
+      NotificationDto dto=(NotificationDto)payload;
+      thriftNotification.setNotificationId(dto.getId());
+    }
+  }
+  return thriftNotification;
+}

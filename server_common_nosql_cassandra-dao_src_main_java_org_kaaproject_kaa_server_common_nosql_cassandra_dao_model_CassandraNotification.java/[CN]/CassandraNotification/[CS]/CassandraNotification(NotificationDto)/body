@@ -3,7 +3,7 @@
   this.schemaId=dto.getSchemaId();
   this.topicId=dto.getTopicId();
   this.type=dto.getType();
-  this.version=dto.getVersion();
+  this.nfVersion=dto.getNfVersion();
   this.seqNum=dto.getSecNum();
   this.lastModifyTime=dto.getLastTimeModify();
   this.body=getByteBuffer(dto.getBody());
@@ -13,4 +13,5 @@
   if (isBlank(id)) {
     generateId();
   }
+  this.version=dto.getVersion();
 }

@@ -22,8 +22,8 @@
     LOG.debug("[{}] Updated profile request",channelUuid);
   }
   if (other.getConfigurationSync() != null) {
-    ConfigurationClientSync resolvedConfigurationSync=hasProfileSync ? other.getConfigurationSync() : diff(request.getConfigurationSync(),other.getConfigurationSync());
-    diff.setConfigurationSync(resolvedConfigurationSync);
+    ConfigurationClientSync mergedConfigurationClientSync=hasProfileSync || other.isForceConfigurationSync() ? other.getConfigurationSync() : diff(request.getConfigurationSync(),other.getConfigurationSync());
+    diff.setConfigurationSync(mergedConfigurationClientSync);
     request.setConfigurationSync(other.getConfigurationSync());
     LOG.debug("[{}] Updated configuration request",channelUuid);
   }
@@ -33,8 +33,8 @@
     }
   }
   if (other.getNotificationSync() != null) {
-    NotificationClientSync resolvedNotificationClientSync=hasProfileSync ? other.getNotificationSync() : diff(request.getNotificationSync(),other.getNotificationSync());
-    diff.setNotificationSync(resolvedNotificationClientSync);
+    NotificationClientSync mergedNotificationClientSync=hasProfileSync || other.isForceNotificationSync() ? other.getNotificationSync() : diff(request.getNotificationSync(),other.getNotificationSync());
+    diff.setNotificationSync(mergedNotificationClientSync);
     request.setNotificationSync(other.getNotificationSync());
     LOG.debug("[{}] Updated notification request",channelUuid);
   }

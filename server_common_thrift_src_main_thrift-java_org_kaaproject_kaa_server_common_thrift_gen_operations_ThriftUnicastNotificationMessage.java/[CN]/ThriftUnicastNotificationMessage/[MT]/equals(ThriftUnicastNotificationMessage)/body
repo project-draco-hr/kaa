@@ -1,0 +1,22 @@
+{
+  if (that == null)   return false;
+  boolean this_present_address=true && this.isSetAddress();
+  boolean that_present_address=true && that.isSetAddress();
+  if (this_present_address || that_present_address) {
+    if (!(this_present_address && that_present_address))     return false;
+    if (!this.address.equals(that.address))     return false;
+  }
+  boolean this_present_actorClassifier=true && this.isSetActorClassifier();
+  boolean that_present_actorClassifier=true && that.isSetActorClassifier();
+  if (this_present_actorClassifier || that_present_actorClassifier) {
+    if (!(this_present_actorClassifier && that_present_actorClassifier))     return false;
+    if (!this.actorClassifier.equals(that.actorClassifier))     return false;
+  }
+  boolean this_present_notificationId=true && this.isSetNotificationId();
+  boolean that_present_notificationId=true && that.isSetNotificationId();
+  if (this_present_notificationId || that_present_notificationId) {
+    if (!(this_present_notificationId && that_present_notificationId))     return false;
+    if (!this.notificationId.equals(that.notificationId))     return false;
+  }
+  return true;
+}

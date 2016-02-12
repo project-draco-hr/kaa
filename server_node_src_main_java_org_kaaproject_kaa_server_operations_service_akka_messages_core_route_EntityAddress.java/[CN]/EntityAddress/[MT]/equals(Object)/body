@@ -1,0 +1,15 @@
+{
+  if (this == obj)   return true;
+  if (obj == null)   return false;
+  if (getClass() != obj.getClass())   return false;
+  EntityAddress other=(EntityAddress)obj;
+  if (appToken == null) {
+    if (other.appToken != null)     return false;
+  }
+ else   if (!appToken.equals(other.appToken))   return false;
+  if (tenantId == null) {
+    if (other.tenantId != null)     return false;
+  }
+ else   if (!tenantId.equals(other.tenantId))   return false;
+  return true;
+}

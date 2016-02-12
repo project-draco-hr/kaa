@@ -1,0 +1,13 @@
+{
+  TTupleProtocol iprot=(TTupleProtocol)prot;
+  BitSet incoming=iprot.readBitSet(2);
+  if (incoming.get(0)) {
+    struct.address=new ThriftEntityClusterAddress();
+    struct.address.read(iprot);
+    struct.setAddressIsSet(true);
+  }
+  if (incoming.get(1)) {
+    struct.operation=org.kaaproject.kaa.server.common.thrift.gen.operations.ThriftRouteOperation.findByValue(iprot.readI32());
+    struct.setOperationIsSet(true);
+  }
+}

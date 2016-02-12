@@ -1,0 +1,20 @@
+{
+  Set<TopicDto> topicSet=new HashSet<TopicDto>();
+  for (  EndpointGroupStateDto egs : groups) {
+    EndpointGroupDto endpointGroup=cacheService.getEndpointGroupById(egs.getEndpointGroupId());
+    if (endpointGroup.getTopics() != null) {
+      for (      String topicId : endpointGroup.getTopics()) {
+        TopicDto topic=cacheService.getTopicById(topicId);
+        topicSet.add(topic);
+      }
+    }
+  }
+  List<TopicDto> topicList=new ArrayList<TopicDto>(topicSet);
+  Collections.sort(topicList,new Comparator<TopicDto>(){
+    @Override public int compare(    TopicDto o1,    TopicDto o2){
+      return o1.getId().compareTo(o2.getId());
+    }
+  }
+);
+  return topicList;
+}

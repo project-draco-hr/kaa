@@ -1,0 +1,16 @@
+{
+  if (that == null)   return false;
+  boolean this_present_address=true && this.isSetAddress();
+  boolean that_present_address=true && that.isSetAddress();
+  if (this_present_address || that_present_address) {
+    if (!(this_present_address && that_present_address))     return false;
+    if (!this.address.equals(that.address))     return false;
+  }
+  boolean this_present_operation=true && this.isSetOperation();
+  boolean that_present_operation=true && that.isSetOperation();
+  if (this_present_operation || that_present_operation) {
+    if (!(this_present_operation && that_present_operation))     return false;
+    if (!this.operation.equals(that.operation))     return false;
+  }
+  return true;
+}

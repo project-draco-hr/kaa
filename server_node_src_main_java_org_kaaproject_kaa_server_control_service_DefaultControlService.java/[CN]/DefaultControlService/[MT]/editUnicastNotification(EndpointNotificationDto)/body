@@ -1,3 +1,22 @@
 {
-  return notifyAndGetPayload(notificationService.saveUnicastNotification(notification));
+  UpdateNotificationDto<EndpointNotificationDto> updateNotification=notificationService.saveUnicastNotification(notification);
+  EndpointNotificationDto notificationDto=updateNotification.getPayload();
+  checkNeighbors();
+  String endpointId=Base64Util.encode(notificationDto.getEndpointKeyHash());
+  OperationsNodeInfo server=resolve(endpointId);
+  if (server != null) {
+    ApplicationDto appDto=getApplication(updateNotification.getAppId());
+    ThriftUnicastNotificationMessage nf=new ThriftUnicastNotificationMessage();
+    nf.setAddress(new ThriftEntityAddress(appDto.getTenantId(),appDto.getApplicationToken(),ThriftClusterEntityType.ENDPOINT,ByteBuffer.wrap(notificationDto.getEndpointKeyHash())));
+    nf.setActorClassifier(new ThriftActorClassifier(true));
+    nf.setNotificationId(notificationDto.getId());
+    if (LOG.isTraceEnabled()) {
+      LOG.trace("Sending message {} to [{}]",nf,Neighbors.getServerID(server.getConnectionInfo()));
+    }
+    neighbors.sendMessage(server.getConnectionInfo(),OperationsServiceMsg.fromNotification(nf));
+  }
+ else {
+    LOG.warn("Can't find server for endpoint [{}]",endpointId);
+  }
+  return updateNotification.getPayload();
 }

@@ -1,0 +1,9 @@
+{
+  List<String> keyColumns=entityMapper.getKeyColumnNames();
+  Clause[] clauses=new Clause[keyColumns.size()];
+  for (int i=0; i < keyColumns.size(); i++) {
+    String columnName=keyColumns.get(i);
+    clauses[i]=eq(columnName,entityMapper.getColumnValueForName(columnName,entity,cassandraClient));
+  }
+  return clauses;
+}

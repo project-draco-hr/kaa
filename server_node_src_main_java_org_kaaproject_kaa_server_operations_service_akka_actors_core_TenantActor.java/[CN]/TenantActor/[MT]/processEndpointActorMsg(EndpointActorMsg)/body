@@ -1,0 +1,4 @@
+{
+  ActorRef applicationActor=getOrCreateApplicationActor(message.getAddress().getAppToken());
+  applicationActor.tell(message,self());
+}

@@ -1,13 +1,15 @@
 {
-  ActorMetaData endpointMetaData=endpointSessions.get(message.getKey());
-  if (endpointMetaData == null) {
-    UUID uuid=UUID.randomUUID();
-    String endpointActorId=uuid.toString().replaceAll("-","");
-    LOG.debug("[{}] Creating actor with endpointKey: {}",applicationToken,endpointActorId);
-    endpointMetaData=new ActorMetaData(context().actorOf(Props.create(new EndpointActor.ActorCreator(context,endpointActorId,message.getAppToken(),message.getKey())).withDispatcher(ENDPOINT_DISPATCHER_NAME),endpointActorId),endpointActorId);
-    endpointSessions.put(message.getKey(),endpointMetaData);
+  LocalEndpointActorMD actorMD=localEndpointSessions.get(message.getKey());
+  if (actorMD == null) {
+    EndpointObjectHash endpointKey=message.getKey();
+    String endpointActorId=LocalEndpointActorCreator.generateActorKey();
+    LOG.debug("[{}] Creating actor with endpointKey: {}",appToken,endpointActorId);
+    String globalActorNodeId=getGlobalEndpointActorNodeId(endpointKey);
+    actorMD=new LocalEndpointActorMD(context().actorOf(Props.create(new LocalEndpointActorCreator(context,endpointActorId,message.getAppToken(),message.getKey())).withDispatcher(ENDPOINT_DISPATCHER_NAME),endpointActorId),endpointActorId,globalActorNodeId);
+    localEndpointSessions.put(message.getKey(),actorMD);
     endpointActorMap.put(endpointActorId,message.getKey());
-    context().watch(endpointMetaData.actorRef);
+    context().watch(actorMD.actorRef);
+    notifyGlobalEndpointActor(endpointKey,globalActorNodeId);
   }
-  endpointMetaData.actorRef.tell(message,self());
+  actorMD.actorRef.tell(message,self());
 }

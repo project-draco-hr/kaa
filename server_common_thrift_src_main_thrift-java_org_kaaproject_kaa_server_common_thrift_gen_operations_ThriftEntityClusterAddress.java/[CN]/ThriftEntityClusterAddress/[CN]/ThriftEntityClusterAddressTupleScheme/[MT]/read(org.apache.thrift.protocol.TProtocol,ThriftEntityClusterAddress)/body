@@ -1,0 +1,13 @@
+{
+  TTupleProtocol iprot=(TTupleProtocol)prot;
+  BitSet incoming=iprot.readBitSet(2);
+  if (incoming.get(0)) {
+    struct.nodeId=iprot.readString();
+    struct.setNodeIdIsSet(true);
+  }
+  if (incoming.get(1)) {
+    struct.address=new ThriftEntityAddress();
+    struct.address.read(iprot);
+    struct.setAddressIsSet(true);
+  }
+}

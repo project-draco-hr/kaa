@@ -1,6 +1,5 @@
 {
   if (clientState != null && configProcessor != null) {
-    clientState.setConfigSeqNumber(response.getAppStateSeqNumber());
     ByteBuffer schemaBody=response.getConfSchemaBody();
     if (schemaBody != null && schemaProcessor != null) {
       schemaProcessor.loadSchema(schemaBody);

@@ -1,10 +1,8 @@
 {
   EndpointProfileDto dto=new EndpointProfileDto();
   dto.setId(id);
-  dto.setCfGroupStates(DaoUtil.<EndpointGroupStateDto>convertDtoList(cfGroupState));
-  dto.setNfGroupStates(DaoUtil.<EndpointGroupStateDto>convertDtoList(nfGroupState));
-  dto.setCfSequenceNumber(cfSequenceNumber);
-  dto.setNfSequenceNumber(nfSequenceNumber);
+  dto.setGroupState(DaoUtil.convertDtoList(groupStates));
+  dto.setSequenceNumber(sequenceNumber);
   dto.setConfigurationHash(getBytes(configurationHash));
   dto.setUserConfigurationHash(getBytes(userConfigurationHash));
   dto.setConfigurationVersion(configurationVersion);
@@ -19,7 +17,8 @@
   dto.setServerProfileVersion(serverProfileVersion);
   dto.setNotificationVersion(notificationVersion);
   dto.setSubscriptions(subscriptions);
-  dto.setNtHash(getBytes(ntHash));
+  dto.setTopicHash(getBytes(topicHash));
+  dto.setSimpleTopicHash(simpleTopicHash);
   dto.setSystemNfVersion(systemNfVersion);
   dto.setUserNfVersion(userNfVersion);
   dto.setLogSchemaVersion(logSchemaVersion);
@@ -27,5 +26,6 @@
   dto.setServerHash(serverHash);
   dto.setSdkToken(sdkToken);
   dto.setServerProfileBody(serverProfile);
+  dto.setVersion(version);
   return dto;
 }

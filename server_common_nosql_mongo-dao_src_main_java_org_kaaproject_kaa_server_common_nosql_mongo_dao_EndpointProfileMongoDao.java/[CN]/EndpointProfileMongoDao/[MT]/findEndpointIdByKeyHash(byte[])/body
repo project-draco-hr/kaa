@@ -1,0 +1,6 @@
+{
+  LOG.debug("Get count of endpoint profiles by endpoint key hash [{}] ",endpointKeyHash);
+  Query query=query(where(EP_ENDPOINT_KEY_HASH).is(endpointKeyHash));
+  query.fields().include(ID);
+  return findOne(query);
+}

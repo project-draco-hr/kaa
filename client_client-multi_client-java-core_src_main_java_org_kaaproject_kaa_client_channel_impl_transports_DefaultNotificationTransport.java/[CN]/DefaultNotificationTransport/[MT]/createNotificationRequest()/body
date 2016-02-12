@@ -1,12 +1,12 @@
 {
   if (clientState != null) {
     NotificationSyncRequest request=new NotificationSyncRequest();
-    request.setAppStateSeqNumber(clientState.getNotificationSeqNumber());
     if (!acceptedUnicastNotificationIds.isEmpty()) {
       LOG.info("Accepted unicast Notifications: {}",acceptedUnicastNotificationIds.size());
       request.setAcceptedUnicastNotifications(new ArrayList<>(acceptedUnicastNotificationIds));
     }
     request.setSubscriptionCommands(sentNotificationCommands);
+    request.setTopicListHash(clientState.getTopicListHash());
     request.setTopicStates(getTopicStates());
     return request;
   }

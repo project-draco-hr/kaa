@@ -1,14 +1,12 @@
 {
 switch (field$) {
 case 0:
-    return appStateSeqNumber;
+    return topicListHash;
 case 1:
-  return topicListHash;
+  return topicStates;
 case 2:
-return topicStates;
-case 3:
 return acceptedUnicastNotifications;
-case 4:
+case 3:
 return subscriptionCommands;
 default :
 throw new org.apache.avro.AvroRuntimeException("Bad index");

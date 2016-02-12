@@ -2,13 +2,22 @@
   if (hasUpdate) {
     ByteArrayOutputStream baos=new ByteArrayOutputStream();
     BinaryEncoder encoder=EncoderFactory.get().binaryEncoder(baos,null);
-    SpecificDatumWriter<TopicSubscriptionInfo> datumWriter=new SpecificDatumWriter<TopicSubscriptionInfo>(TopicSubscriptionInfo.class);
+    SpecificDatumWriter<Topic> datumWriter=new SpecificDatumWriter<Topic>(Topic.class);
     try {
-      for (      Map.Entry<String,TopicSubscriptionInfo> cursor : nfSubscriptions.entrySet()) {
-        datumWriter.write(cursor.getValue(),encoder);
-        LOG.info("Persisted {}",cursor.getValue());
+      for (      Topic topic : topicMap.values()) {
+        datumWriter.write(topic,encoder);
+        LOG.info("Persisted {}",topic);
       }
       encoder.flush();
+      String base64Str=new String(base64.encodeBase64(baos.toByteArray()),Charset.forName("UTF-8"));
+      state.setProperty(TOPIC_LIST,base64Str);
+    }
+ catch (    IOException e) {
+      LOG.error("Can't persist topic list info",e);
+    }
+    baos=new ByteArrayOutputStream();
+    try (ObjectOutputStream oos=new ObjectOutputStream(baos)){
+      oos.writeObject(nfSubscriptions);
       String base64Str=new String(base64.encodeBase64(baos.toByteArray()),Charset.forName("UTF-8"));
       state.setProperty(NF_SUBSCRIPTIONS,base64Str);
     }
@@ -21,6 +30,7 @@
     }
     state.setProperty(ATTACHED_ENDPOINTS,attachedEndpointsString.toString());
     state.setProperty(EVENT_SEQ_NUM,"" + eventSequence.get());
+    state.setProperty(TOPIC_LIST_HASH,"" + topicListHash);
     OutputStream os=null;
     try {
       storage.renameTo(stateFileLocation,stateFileLocation + "_bckp");

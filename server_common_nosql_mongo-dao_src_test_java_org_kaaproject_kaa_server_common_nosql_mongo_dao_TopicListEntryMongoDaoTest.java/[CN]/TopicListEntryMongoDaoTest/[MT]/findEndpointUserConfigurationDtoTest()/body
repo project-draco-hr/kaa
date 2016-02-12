@@ -1,0 +1,10 @@
+{
+  List<TopicDto> topics=new ArrayList<>();
+  topics.add(generateTopicDto(null,TopicTypeDto.OPTIONAL));
+  byte[] hash="hash".getBytes();
+  int simpleHash=123;
+  TopicListEntryDto topicListEntryDto=new TopicListEntryDto(123,hash,topics);
+  topicListEntryDao.save(topicListEntryDto);
+  MongoTopicListEntry topicListEntry=topicListEntryDao.findByHash(hash);
+  Assert.assertEquals(simpleHash,topicListEntry.getSimpleHash());
+}

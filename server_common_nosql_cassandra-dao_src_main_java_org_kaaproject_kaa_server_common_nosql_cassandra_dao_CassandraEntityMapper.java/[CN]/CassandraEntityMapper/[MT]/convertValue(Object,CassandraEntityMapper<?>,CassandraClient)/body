@@ -1,0 +1,15 @@
+{
+  String keyspace=cassandraClient.getSession().getLoggedKeyspace();
+  UserType userType=cassandraClient.getSession().getCluster().getMetadata().getKeyspace(keyspace).getUserType(mapper.getName());
+  UDTValue udtValue=userType.newValue();
+  for (  String name : mapper.getNonKeyColumnNames()) {
+    Object fieldValue=mapper.getColumnValueForName(name,value,cassandraClient);
+    if (fieldValue != null) {
+      udtValue.set(name,fieldValue,(Class<Object>)fieldValue.getClass());
+    }
+ else {
+      udtValue.setToNull(name);
+    }
+  }
+  return udtValue;
+}

@@ -1,0 +1,33 @@
+{
+  long version=(entity.getVersion() == null) ? 0l : entity.getVersion();
+  Assignments assigns=update(getColumnFamilyName()).onlyIf(eq(OPT_LOCK,version)).with(set(OPT_LOCK,version + 1));
+  CassandraEntityMapper<T> entityMapper=CassandraEntityMapper.getEntityMapperForClass(getColumnFamilyClass(),cassandraClient);
+  for (  String name : entityMapper.getNonKeyColumnNames()) {
+    if (!name.equals(OPT_LOCK)) {
+      Assignment assignment=set(name,entityMapper.getColumnValueForName(name,entity,cassandraClient));
+      assigns=assigns.and(assignment);
+    }
+  }
+  Clause[] whereClauses=buildKeyClauses(entityMapper,entity);
+  Update.Where query=assigns.where(whereClauses[0]);
+  if (whereClauses.length > 1) {
+    for (int i=1; i < whereClauses.length; i++) {
+      query=query.and(whereClauses[i]);
+    }
+  }
+  query.setConsistencyLevel(getWriteConsistencyLevel());
+  ResultSet res=execute(query);
+  if (!res.wasApplied()) {
+    LOG.error("[{}] Can't update entity with version {}. Entity already changed!",getColumnFamilyClass(),version);
+    throw new KaaOptimisticLockingFailureException("Can't update entity with version " + version + ". Entity already changed!");
+  }
+ else {
+    Select.Where where=select().from(getColumnFamilyName()).where(whereClauses[0]);
+    if (whereClauses.length > 1) {
+      for (int i=1; i < whereClauses.length; i++) {
+        where=where.and(whereClauses[i]);
+      }
+    }
+    return findOneByStatement(where);
+  }
+}

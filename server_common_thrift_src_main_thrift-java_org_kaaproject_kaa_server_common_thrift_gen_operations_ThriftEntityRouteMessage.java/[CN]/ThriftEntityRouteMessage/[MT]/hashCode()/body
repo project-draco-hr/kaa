@@ -1,0 +1,10 @@
+{
+  List<Object> list=new ArrayList<Object>();
+  boolean present_address=true && (isSetAddress());
+  list.add(present_address);
+  if (present_address)   list.add(address);
+  boolean present_operation=true && (isSetOperation());
+  list.add(present_operation);
+  if (present_operation)   list.add(operation.getValue());
+  return list.hashCode();
+}

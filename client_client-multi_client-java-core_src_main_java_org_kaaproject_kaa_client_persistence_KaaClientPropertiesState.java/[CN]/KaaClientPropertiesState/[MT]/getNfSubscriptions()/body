@@ -1,7 +1,3 @@
 {
-  HashMap<String,Integer> subscriptions=new HashMap<String,Integer>();
-  for (  Map.Entry<String,TopicSubscriptionInfo> cursor : nfSubscriptions.entrySet()) {
-    subscriptions.put(cursor.getKey(),cursor.getValue().getSeqNumber());
-  }
-  return subscriptions;
+  return nfSubscriptions;
 }

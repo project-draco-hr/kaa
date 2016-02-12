@@ -5,4 +5,7 @@
   for (  ActorRef userActor : localUsers.values()) {
     userActor.tell(message,ActorRef.noSender());
   }
+  for (  ActorRef appActor : applications.values()) {
+    appActor.tell(message,ActorRef.noSender());
+  }
 }

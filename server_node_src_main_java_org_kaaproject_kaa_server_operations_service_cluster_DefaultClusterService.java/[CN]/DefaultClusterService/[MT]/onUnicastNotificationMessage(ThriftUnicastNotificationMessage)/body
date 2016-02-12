@@ -1,0 +1,5 @@
+{
+  EndpointAddress address=fromThriftAddress(msg.getAddress());
+  ActorClassifier classifier=fromThriftActorClassifier(msg.getActorClassifier());
+  listener.onEndpointActorMsg(new ThriftEndpointActorMsg<ThriftUnicastNotificationMessage>(address,classifier,msg));
+}

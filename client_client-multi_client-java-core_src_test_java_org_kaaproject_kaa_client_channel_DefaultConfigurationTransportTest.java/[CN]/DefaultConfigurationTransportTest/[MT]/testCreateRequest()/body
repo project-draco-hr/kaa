@@ -1,13 +1,11 @@
 {
   ConfigurationHashContainer hashContainer=Mockito.mock(ConfigurationHashContainer.class);
   KaaClientState clientState=Mockito.mock(KaaClientState.class);
-  Mockito.when(clientState.getConfigSeqNumber()).thenReturn(new Integer(5));
   ConfigurationTransport transport=new DefaultConfigurationTransport();
   transport.createConfigurationRequest();
   transport.setConfigurationHashContainer(hashContainer);
   transport.createConfigurationRequest();
   transport.setClientState(clientState);
   ConfigurationSyncRequest request=transport.createConfigurationRequest();
-  Assert.assertEquals(new Integer(5),request.getAppStateSeqNumber());
   Mockito.verify(hashContainer,Mockito.times(1)).getConfigurationHash();
 }
