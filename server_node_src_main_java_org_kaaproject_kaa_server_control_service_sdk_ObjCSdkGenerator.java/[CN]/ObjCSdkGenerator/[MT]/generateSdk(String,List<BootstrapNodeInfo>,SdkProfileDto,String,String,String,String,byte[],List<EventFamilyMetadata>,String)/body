@@ -110,7 +110,7 @@
   }
   sdkFile.finish();
   sdkFile.close();
-  String sdkFileName=SDK_PREFIX + sdkProperties.getToken();
+  String sdkFileName=SDK_PREFIX + sdkProperties.getToken() + ".tar.gz";
   byte[] sdkData=sdkOutput.toByteArray();
   FileData sdk=new FileData();
   sdk.setFileName(sdkFileName);
