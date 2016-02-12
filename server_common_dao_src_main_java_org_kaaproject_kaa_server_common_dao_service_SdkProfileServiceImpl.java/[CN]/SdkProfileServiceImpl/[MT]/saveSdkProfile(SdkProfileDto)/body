@@ -5,6 +5,7 @@
       throw new IncorrectParameterException("Update of existing SDK profile is prohibited.");
     }
  else {
+      applicationDao.findById(sdkProfileDto.getApplicationId());
       SdkTokenGenerator.generateSdkToken(sdkProfileDto);
       SdkProfile entity=new SdkProfile(sdkProfileDto);
       SdkProfile loaded=sdkProfileDao.findSdkProfileByToken(entity.getToken());
