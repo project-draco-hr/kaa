@@ -2,6 +2,6 @@
   ParameterizedTypeReference<EndpointProfileBodyDto> typeRef=new ParameterizedTypeReference<EndpointProfileBodyDto>(){
   }
 ;
-  ResponseEntity<EndpointProfileBodyDto> entity=restTemplate.exchange(url + "endpointProfileBody/" + endpointProfileKeyHash,HttpMethod.GET,null,typeRef);
+  ResponseEntity<EndpointProfileBodyDto> entity=restTemplate.exchange(url + "endpointProfileBody/" + toUrlSafe(endpointProfileKeyHash),HttpMethod.GET,null,typeRef);
   return entity.getBody();
 }

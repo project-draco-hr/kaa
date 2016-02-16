@@ -9,11 +9,7 @@
     if (isGroupAll(endpointGroupDto)) {
       pageLinkDto.setApplicationId(endpointGroupDto.getApplicationId());
     }
-    EndpointProfilesPageDto endpointProfilesPage=controlService.getEndpointProfileByEndpointGroupId(pageLinkDto);
-    if (endpointProfilesPage.getEndpointProfiles() == null || !endpointProfilesPage.hasEndpointProfiles()) {
-      throw new KaaAdminServiceException("Requested item was not found!",ServiceErrorCode.ITEM_NOT_FOUND);
-    }
-    return endpointProfilesPage;
+    return controlService.getEndpointProfileByEndpointGroupId(pageLinkDto);
   }
  catch (  Exception e) {
     throw Utils.handleException(e);
