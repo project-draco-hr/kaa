@@ -30,7 +30,9 @@
     }
     state.setProperty(ATTACHED_ENDPOINTS,attachedEndpointsString.toString());
     state.setProperty(EVENT_SEQ_NUM,"" + eventSequence.get());
-    state.setProperty(TOPIC_LIST_HASH,"" + topicListHash);
+    if (topicListHash != null) {
+      state.setProperty(TOPIC_LIST_HASH,"" + topicListHash);
+    }
     OutputStream os=null;
     try {
       storage.renameTo(stateFileLocation,stateFileLocation + "_bckp");
