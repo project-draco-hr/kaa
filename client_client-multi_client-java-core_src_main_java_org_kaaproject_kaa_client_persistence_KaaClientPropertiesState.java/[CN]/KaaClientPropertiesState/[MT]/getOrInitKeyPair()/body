@@ -1,7 +1,7 @@
 {
   LOG.debug("Check if key pair exists {}, {}",clientPublicKeyFileLocation,clientPrivateKeyFileLocation);
-  if (kp != null) {
-    return kp;
+  if (keyPair != null) {
+    return keyPair;
   }
   if (storage.exists(clientPublicKeyFileLocation) && storage.exists(clientPrivateKeyFileLocation)) {
     InputStream publicKeyInput=null;
@@ -12,14 +12,14 @@
       PublicKey publicKey=KeyUtil.getPublic(publicKeyInput);
       PrivateKey privateKey=KeyUtil.getPrivate(privateKeyInput);
       if (publicKey != null && privateKey != null) {
-        kp=new KeyPair(publicKey,privateKey);
-        if (!KeyUtil.validateKeyPair(kp)) {
+        keyPair=new KeyPair(publicKey,privateKey);
+        if (!KeyUtil.validateKeyPair(keyPair)) {
           throw new InvalidKeyException();
         }
       }
     }
  catch (    InvalidKeyException e) {
-      kp=null;
+      keyPair=null;
       LOG.error("Unable to parse client RSA keypair. Generating new keys.. Reason {}",e);
     }
 catch (    Exception e) {
@@ -31,14 +31,14 @@ catch (    Exception e) {
       IOUtils.closeQuietly(privateKeyInput);
     }
   }
-  if (kp == null) {
+  if (keyPair == null) {
     LOG.debug("Generating Client Key pair");
     OutputStream privateKeyOutput=null;
     OutputStream publicKeyOutput=null;
     try {
       privateKeyOutput=storage.openForWrite(clientPrivateKeyFileLocation);
       publicKeyOutput=storage.openForWrite(clientPublicKeyFileLocation);
-      kp=KeyUtil.generateKeyPair(privateKeyOutput,publicKeyOutput);
+      keyPair=KeyUtil.generateKeyPair(privateKeyOutput,publicKeyOutput);
     }
  catch (    IOException e) {
       LOG.error("Error generating Client Key pair",e);
@@ -49,5 +49,5 @@ catch (    Exception e) {
       IOUtils.closeQuietly(publicKeyOutput);
     }
   }
-  return kp;
+  return keyPair;
 }
