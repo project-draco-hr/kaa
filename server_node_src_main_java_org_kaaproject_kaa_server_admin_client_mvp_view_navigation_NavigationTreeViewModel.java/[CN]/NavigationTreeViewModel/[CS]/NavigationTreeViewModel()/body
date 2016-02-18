@@ -3,11 +3,13 @@
 switch (autority) {
 case KAA_ADMIN:
     nodes.add(new TenantsPlace());
-  break;
+  nodes.add(new SystemCtlSchemasPlace());
+break;
 case TENANT_ADMIN:
 nodes.add(new ApplicationsPlace());
 nodes.add(new UsersPlace());
 nodes.add(new EcfsPlace());
+nodes.add(new TenantCtlSchemasPlace());
 break;
 case TENANT_DEVELOPER:
 nodes.add(new ApplicationsPlace());

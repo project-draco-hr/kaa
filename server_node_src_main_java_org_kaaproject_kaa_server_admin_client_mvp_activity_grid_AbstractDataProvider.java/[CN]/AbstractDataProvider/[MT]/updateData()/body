@@ -1,5 +1,14 @@
 {
   List<T> filteredData=dataGrid.filter(data);
+  if (dataFilter != null) {
+    List<T> newFilteredData=new ArrayList<>();
+    for (    T value : filteredData) {
+      if (dataFilter.accept(value)) {
+        newFilteredData.add(value);
+      }
+    }
+    filteredData=newFilteredData;
+  }
   updateRowCount(filteredData.size(),true);
   ColumnSortList sortList=dataGrid.getDataGrid().getColumnSortList();
   Column<?,?> column=(sortList == null || sortList.size() == 0) ? null : sortList.get(0).getColumn();

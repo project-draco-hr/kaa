@@ -1,0 +1,12 @@
+{
+  if (isBlank(fqn) || version == null) {
+    throw new IncorrectParameterException("Incorrect parameters for ctl schema request.");
+  }
+  LOG.debug("Find dependents schemas for schema with fqn {} version {}, tenantId {} and applicationId ()",fqn,version,tenantId,applicationId);
+  List<CTLSchemaDto> schemas=Collections.emptyList();
+  CTLSchema schema=ctlSchemaDao.findByFqnAndVerAndTenantIdAndApplicationId(fqn,version,tenantId,applicationId);
+  if (schema != null) {
+    schemas=convertDtoList(ctlSchemaDao.findDependentSchemas(schema.getStringId()));
+  }
+  return schemas;
+}

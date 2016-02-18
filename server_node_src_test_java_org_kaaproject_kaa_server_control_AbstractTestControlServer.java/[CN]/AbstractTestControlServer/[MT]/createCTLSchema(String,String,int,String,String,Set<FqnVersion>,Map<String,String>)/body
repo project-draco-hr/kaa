@@ -1,0 +1,31 @@
+{
+  LOG.debug("Generating CTL schema...");
+  JsonNodeFactory factory=JsonNodeFactory.instance;
+  ObjectNode body=factory.objectNode();
+  body.put("type","record");
+  body.put("name",name);
+  body.put("namespace",namespace);
+  body.put("version",version);
+  if (dependencies != null && !dependencies.isEmpty()) {
+    ArrayNode array=factory.arrayNode();
+    for (    FqnVersion dependency : dependencies) {
+      ObjectNode object=factory.objectNode();
+      object.put("fqn",dependency.getFqnString());
+      object.put("version",dependency.getVersion());
+      array.add(object);
+    }
+    body.put("dependencies",array);
+  }
+  ArrayNode array=factory.arrayNode();
+  if (fields != null) {
+    for (    Map.Entry<String,String> field : fields.entrySet()) {
+      ObjectNode object=factory.objectNode();
+      object.put("name",field.getKey());
+      object.put("type",field.getValue());
+      array.add(object);
+    }
+  }
+  body.put("fields",array);
+  LOG.debug("CTL schema generated: " + body);
+  return client.saveCTLSchema(body.toString(),tenantId,applicationId);
+}

@@ -1,10 +1,10 @@
 {
   this.loginKaaAdmin();
-  final CTLSchemaInfoDto saved=this.createCTLSchema(this.ctlRandomFieldType(),CTL_DEFAULT_NAMESPACE,1,CTLSchemaScopeDto.SYSTEM,null,null,null);
+  final CTLSchemaDto saved=this.createCTLSchema(this.ctlRandomFieldType(),CTL_DEFAULT_NAMESPACE,1,null,null,null,null);
   this.loginTenantDeveloper(tenantDeveloperUser);
   this.checkForbidden(new TestRestCall(){
     @Override public void executeRestCall() throws Exception {
-      client.deleteCTLSchemaByFqnAndVersion(saved.getFqn(),saved.getVersion());
+      client.deleteCTLSchemaByFqnVersionTenantIdAndApplicationId(saved.getMetaInfo().getFqn(),saved.getVersion(),null,null);
     }
   }
 );

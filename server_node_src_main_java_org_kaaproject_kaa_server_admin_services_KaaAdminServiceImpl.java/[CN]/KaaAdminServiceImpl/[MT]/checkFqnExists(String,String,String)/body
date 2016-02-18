@@ -1,0 +1,11 @@
+{
+  this.checkAuthority(KaaAuthorityDto.values());
+  try {
+    this.checkCTLSchemaFqn(fqn);
+    List<CTLSchemaMetaInfoDto> result=controlService.getSiblingsByFqnTenantIdAndApplicationId(fqn,tenantId,applicationId);
+    return result != null && !result.isEmpty();
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+}

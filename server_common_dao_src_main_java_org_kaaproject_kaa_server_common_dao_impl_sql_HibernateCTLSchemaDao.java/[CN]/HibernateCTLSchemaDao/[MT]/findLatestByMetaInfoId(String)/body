@@ -1,0 +1,15 @@
+{
+  CTLSchema latestSchema=null;
+  LOG.debug("Searching latest version of ctl schema by meta info id [{}]",metaInfoId);
+  if (isNotBlank(metaInfoId)) {
+    Criteria criteria=getCriteria().createAlias(CTL_SCHEMA_META_INFO_PROPERTY,CTL_SCHEMA_META_INFO_ALIAS).add(Restrictions.eq(CTL_SCHEMA_META_INFO_ALIAS_ID,Long.valueOf(metaInfoId))).addOrder(Order.desc(CTL_SCHEMA_VERSION)).setMaxResults(FIRST);
+    latestSchema=findOneByCriteria(criteria);
+  }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{}] Search result: [{}].",metaInfoId,latestSchema);
+  }
+ else {
+    LOG.debug("[{}] Search result: [{}].",metaInfoId,latestSchema != null);
+  }
+  return latestSchema;
+}

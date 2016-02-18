@@ -1,21 +1,22 @@
 {
   if (create) {
-    createEmptyCtlSchemaForm(new BusyAsyncCallback<CtlSchemaFormDto>(){
-      @Override public void onSuccessImpl(      CtlSchemaFormDto result){
-        entity.setCtlSchemaForm(result);
-        KaaAdmin.getDataSource().getAvailableCtlSchemaReferences(new BusyAsyncCallback<List<CTLSchemaMetaInfoDto>>(){
-          @Override public void onFailureImpl(          Throwable caught){
-            Utils.handleException(caught,detailsView);
-          }
-          @Override public void onSuccessImpl(          List<CTLSchemaMetaInfoDto> result){
-            detailsView.getCtlSchemaReference().setAcceptableValues(result);
-            bindDetailsView(true);
-          }
-        }
-);
+    registrations.add(detailsView.getNewCtlButton().addClickHandler(new ClickHandler(){
+      @Override public void onClick(      ClickEvent event){
+        CtlSchemaPlace newCtlPlace=new CtlSchemaPlace("",null,CTLSchemaScopeDto.APPLICATION,place.getApplicationId(),true,true);
+        newCtlPlace.setSchemaType(getPlaceSchemaType());
+        newCtlPlace.setPreviousPlace(place);
+        canceled=true;
+        goTo(newCtlPlace);
       }
+    }
+));
+    KaaAdmin.getDataSource().getAvailableApplicationCTLSchemaReferences(applicationId,new BusyAsyncCallback<List<CtlSchemaReferenceDto>>(){
       @Override public void onFailureImpl(      Throwable caught){
         Utils.handleException(caught,detailsView);
+      }
+      @Override public void onSuccessImpl(      List<CtlSchemaReferenceDto> result){
+        detailsView.getCtlSchemaReference().setAcceptableValues(result);
+        bindDetailsView(true);
       }
     }
 );

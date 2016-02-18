@@ -1,56 +1,56 @@
 {
-  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  checkAuthority(KaaAuthorityDto.values());
   try {
     AuthUserDto currentUser=getCurrentUser();
-    CTLSchemaInfoDto ctlSchemaInfo=null;
-    if (!isEmpty(ctlSchemaForm.getCtlSchemaId())) {
-      ctlSchemaInfo=getCTLSchemaById(ctlSchemaForm.getCtlSchemaId());
-      if (ctlSchemaInfo == null) {
+    CTLSchemaDto ctlSchema=null;
+    if (!isEmpty(ctlSchemaForm.getId())) {
+      ctlSchema=getCTLSchemaById(ctlSchemaForm.getId());
+      if (ctlSchema == null) {
         throw new KaaAdminServiceException("Requested item was not found!",ServiceErrorCode.ITEM_NOT_FOUND);
       }
     }
  else {
-      ctlSchemaInfo=new CTLSchemaInfoDto();
+      ctlSchema=new CTLSchemaDto();
     }
-    ctlSchemaInfo.setName(ctlSchemaForm.getSchemaName());
-    ctlSchemaInfo.setDescription(ctlSchemaForm.getDescription());
-    if (isEmpty(ctlSchemaInfo.getId())) {
-      ctlSchemaInfo.setCreatedUsername(currentUser.getUsername());
+    if (isEmpty(ctlSchema.getId())) {
+      ctlSchema.setCreatedUsername(currentUser.getUsername());
       RecordField schemaForm=ctlSchemaForm.getSchema();
-      ctlSchemaInfo.setFqn(schemaForm.getDeclaredFqn().getFqnString());
-      ctlSchemaInfo.setVersion(schemaForm.getVersion());
+      ctlSchema.setMetaInfo(ctlSchemaForm.getMetaInfo());
+      ctlSchema.getMetaInfo().setFqn(schemaForm.getDeclaredFqn().getFqnString());
+      ctlSchema.getMetaInfo().setTenantId(currentUser.getTenantId());
+      ctlSchema.setVersion(schemaForm.getVersion());
       List<FqnVersion> dependenciesList=schemaForm.getContext().getCtlDependenciesList();
-      Set<CTLSchemaMetaInfoDto> dependencies=new HashSet<>();
+      Set<CTLSchemaDto> dependencies=new HashSet<>();
+      List<FqnVersion> missingDependencies=new ArrayList<>();
       for (      FqnVersion fqnVersion : dependenciesList) {
-        dependencies.add(new CTLSchemaMetaInfoDto(fqnVersion.getFqnString(),fqnVersion.getVersion()));
+        CTLSchemaDto dependency=controlService.getAnyCTLSchemaByFqnVersionTenantIdAndApplicationId(fqnVersion.getFqnString(),fqnVersion.getVersion(),ctlSchema.getMetaInfo().getTenantId(),ctlSchema.getMetaInfo().getApplicationId());
+        if (dependency != null) {
+          dependencies.add(dependency);
+        }
+ else {
+          missingDependencies.add(fqnVersion);
+        }
       }
-      ctlSchemaInfo.setDependencies(dependencies);
-      ctlSchemaInfo.setTenantId(currentUser.getTenantId());
-      ctlSchemaInfo.setApplicationId(ctlSchemaForm.getApplicationId());
-      ctlSchemaInfo.setScope(ctlSchemaForm.getScope());
-      SchemaFormAvroConverter converter=getCtlSchemaConverterForTenantId(currentUser.getTenantId());
+      if (!missingDependencies.isEmpty()) {
+        String message="The following dependencies are missing from the database: " + Arrays.toString(missingDependencies.toArray());
+        throw new IllegalArgumentException(message);
+      }
+      ctlSchema.setDependencySet(dependencies);
+      SchemaFormAvroConverter converter=getCtlSchemaConverterForScope(ctlSchema.getMetaInfo().getTenantId(),ctlSchema.getMetaInfo().getApplicationId());
       Schema avroSchema=converter.createSchemaFromSchemaForm(schemaForm);
       String schemaBody=SchemaFormAvroConverter.createSchemaString(avroSchema,true);
-      ctlSchemaInfo.setBody(schemaBody);
+      ctlSchema.setBody(schemaBody);
     }
-    CTLSchemaInfoDto savedCtlSchemaInfo=saveCTLSchema(ctlSchemaInfo);
-    if (savedCtlSchemaInfo != null) {
-      CtlSchemaFormDto result=new CtlSchemaFormDto(savedCtlSchemaInfo.getFqn());
-      result.setCtlSchemaId(savedCtlSchemaInfo.getId());
-      result.setVersion(savedCtlSchemaInfo.getVersion());
-      result.setSchemaName(savedCtlSchemaInfo.getName());
-      result.setDescription(savedCtlSchemaInfo.getDescription());
-      result.setCreatedTime(savedCtlSchemaInfo.getCreatedTime());
-      result.setCreatedUsername(savedCtlSchemaInfo.getCreatedUsername());
-      result.setScope(savedCtlSchemaInfo.getScope());
-      result.setApplicationId(savedCtlSchemaInfo.getApplicationId());
-      SchemaFormAvroConverter converter=getCtlSchemaConverterForTenantId(currentUser.getTenantId());
-      RecordField form=converter.createSchemaFormFromSchema(savedCtlSchemaInfo.getBody());
+    CTLSchemaDto savedCtlSchema=saveCTLSchema(ctlSchema);
+    if (savedCtlSchema != null) {
+      CtlSchemaFormDto result=new CtlSchemaFormDto(savedCtlSchema);
+      SchemaFormAvroConverter converter=getCtlSchemaConverterForScope(savedCtlSchema.getMetaInfo().getTenantId(),savedCtlSchema.getMetaInfo().getApplicationId());
+      RecordField form=converter.createSchemaFormFromSchema(savedCtlSchema.getBody());
       result.setSchema(form);
-      List<Integer> availableVersions=form.getContext().getAvailableVersions(new Fqn(savedCtlSchemaInfo.getFqn()));
+      List<Integer> availableVersions=controlService.getAllCTLSchemaVersionsByFqnTenantIdAndApplicationId(savedCtlSchema.getMetaInfo().getFqn(),savedCtlSchema.getMetaInfo().getTenantId(),savedCtlSchema.getMetaInfo().getApplicationId());
       availableVersions=availableVersions == null ? Collections.<Integer>emptyList() : availableVersions;
       Collections.sort(availableVersions);
-      result.setAvailableVersions(availableVersions);
+      result.getMetaInfo().setVersions(availableVersions);
       return result;
     }
   }

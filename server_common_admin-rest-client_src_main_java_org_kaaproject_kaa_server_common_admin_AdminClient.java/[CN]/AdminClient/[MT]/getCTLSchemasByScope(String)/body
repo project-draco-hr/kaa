@@ -1,7 +1,0 @@
-{
-  ParameterizedTypeReference<List<CTLSchemaMetaInfoDto>> typeRef=new ParameterizedTypeReference<List<CTLSchemaMetaInfoDto>>(){
-  }
-;
-  ResponseEntity<List<CTLSchemaMetaInfoDto>> entity=restTemplate.exchange(url + "CTL/getSchemas?scope=" + scopeName,HttpMethod.GET,null,typeRef);
-  return entity.getBody();
-}

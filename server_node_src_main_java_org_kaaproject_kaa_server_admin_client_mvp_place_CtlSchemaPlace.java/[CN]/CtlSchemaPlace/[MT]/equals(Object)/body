@@ -1,45 +1,23 @@
 {
-  if (this == obj) {
-    return true;
-  }
-  if (obj == null) {
-    return false;
-  }
-  if (getClass() != obj.getClass()) {
-    return false;
-  }
+  if (this == obj)   return true;
+  if (obj == null)   return false;
+  if (getClass() != obj.getClass())   return false;
   CtlSchemaPlace other=(CtlSchemaPlace)obj;
-  if (fqn == null) {
-    if (other.fqn != null) {
-      return false;
-    }
+  if (applicationId == null) {
+    if (other.applicationId != null)     return false;
   }
- else   if (!fqn.equals(other.fqn)) {
-    return false;
+ else   if (!applicationId.equals(other.applicationId))   return false;
+  if (create != other.create)   return false;
+  if (editable != other.editable)   return false;
+  if (metaInfoId == null) {
+    if (other.metaInfoId != null)     return false;
   }
-  if (sourceFqn == null) {
-    if (other.sourceFqn != null) {
-      return false;
-    }
-  }
- else   if (!sourceFqn.equals(other.sourceFqn)) {
-    return false;
-  }
-  if (sourceVersion == null) {
-    if (other.sourceVersion != null) {
-      return false;
-    }
-  }
- else   if (!sourceVersion.equals(other.sourceVersion)) {
-    return false;
-  }
+ else   if (!metaInfoId.equals(other.metaInfoId))   return false;
+  if (scope != other.scope)   return false;
+  if (schemaType != other.schemaType)   return false;
   if (version == null) {
-    if (other.version != null) {
-      return false;
-    }
+    if (other.version != null)     return false;
   }
- else   if (!version.equals(other.version)) {
-    return false;
-  }
+ else   if (!version.equals(other.version))   return false;
   return true;
 }

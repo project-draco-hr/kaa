@@ -1,0 +1,18 @@
+{
+  super.bind(eventBus);
+  if (ctlSchemaView().displayShowHigherLevelScopeCheckBox()) {
+    DataFilter<CTLSchemaMetaInfoDto> dataFilter=new DataFilter<CTLSchemaMetaInfoDto>(){
+      @Override public boolean accept(      CTLSchemaMetaInfoDto value){
+        return ctlSchemaView().getShowHigherScopeCheckBox().getValue() || value.getScope() == getCurrentScope();
+      }
+    }
+;
+    dataProvider.setDataFilter(dataFilter);
+    registrations.add(ctlSchemaView().getShowHigherScopeCheckBox().addValueChangeHandler(new ValueChangeHandler<Boolean>(){
+      @Override public void onValueChange(      ValueChangeEvent<Boolean> event){
+        dataProvider.updateData();
+      }
+    }
+));
+  }
+}

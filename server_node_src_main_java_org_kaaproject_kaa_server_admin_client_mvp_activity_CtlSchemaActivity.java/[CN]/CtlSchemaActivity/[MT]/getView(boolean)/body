@@ -3,6 +3,16 @@
     return clientFactory.getCreateCtlSchemaView();
   }
  else {
-    return clientFactory.getCtlSchemaView();
+    if (place.isEditable()) {
+      if (place.getScope() == CTLSchemaScopeDto.APPLICATION) {
+        return clientFactory.getEditApplicationCtlSchemaView();
+      }
+ else {
+        return clientFactory.getEditCtlSchemaView();
+      }
+    }
+ else {
+      return clientFactory.getViewCtlSchemaView();
+    }
   }
 }

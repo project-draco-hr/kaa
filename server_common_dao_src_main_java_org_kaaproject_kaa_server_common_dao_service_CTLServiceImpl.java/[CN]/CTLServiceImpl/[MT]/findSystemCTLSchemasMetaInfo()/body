@@ -1,4 +1,4 @@
 {
-  LOG.debug("Find meta info for system ctl schemas");
-  return convertDtoList(schemaMetaInfoDao.findSystemSchemaMetaInfo());
+  LOG.debug("Find system ctl schemas");
+  return getMetaInfoFromCTLSchema(ctlSchemaDao.findSystemSchemas());
 }

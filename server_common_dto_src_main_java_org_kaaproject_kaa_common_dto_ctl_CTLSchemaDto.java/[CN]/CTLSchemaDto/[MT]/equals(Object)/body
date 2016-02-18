@@ -1,15 +1,19 @@
 {
-  if (this == o)   return true;
-  if (o == null || getClass() != o.getClass())   return false;
-  CTLSchemaDto that=(CTLSchemaDto)o;
-  if (createdTime != that.createdTime)   return false;
-  if (id != null ? !id.equals(that.id) : that.id != null)   return false;
-  if (metaInfo != null ? !metaInfo.equals(that.metaInfo) : that.metaInfo != null)   return false;
-  if (tenantId != null ? !tenantId.equals(that.tenantId) : that.tenantId != null)   return false;
-  if (applicationId != null ? !applicationId.equals(that.applicationId) : that.applicationId != null)   return false;
-  if (body != null ? !body.equals(that.body) : that.body != null)   return false;
-  if (name != null ? !name.equals(that.name) : that.name != null)   return false;
-  if (description != null ? !description.equals(that.description) : that.description != null)   return false;
-  if (createdUsername != null ? !createdUsername.equals(that.createdUsername) : that.createdUsername != null)   return false;
-  return !(dependencySet != null ? !dependencySet.equals(that.dependencySet) : that.dependencySet != null);
+  if (this == obj)   return true;
+  if (obj == null)   return false;
+  if (getClass() != obj.getClass())   return false;
+  CTLSchemaDto other=(CTLSchemaDto)obj;
+  if (dependencySet == null) {
+    if (other.dependencySet != null)     return false;
+  }
+ else   if (!dependencySet.equals(other.dependencySet))   return false;
+  if (metaInfo == null) {
+    if (other.metaInfo != null)     return false;
+  }
+ else   if (!metaInfo.equals(other.metaInfo))   return false;
+  if (version == null) {
+    if (other.version != null)     return false;
+  }
+ else   if (!version.equals(other.version))   return false;
+  return true;
 }

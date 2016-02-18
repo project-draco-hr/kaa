@@ -1,21 +1,19 @@
 {
-  CTLSchemaDto ctlSchema=findCTLSchemaByFqnAndVerAndTenantId(DEFAULT_SYSTEM_EMPTY_SCHEMA_FQN,DEFAULT_SYSTEM_EMPTY_SCHEMA_VERSION,null);
+  CTLSchemaDto ctlSchema=findCTLSchemaByFqnAndVerAndTenantIdAndApplicationId(DEFAULT_SYSTEM_EMPTY_SCHEMA_FQN,DEFAULT_SYSTEM_EMPTY_SCHEMA_VERSION,null,null);
   if (ctlSchema == null) {
-    CTLSchemaInfoDto schema=new CTLSchemaInfoDto();
-    schema.setName(GENERATED);
-    schema.setCreatedUsername(createdUsername);
-    schema.setScope(CTLSchemaScopeDto.SYSTEM);
-    schema.setFqn(DEFAULT_SYSTEM_EMPTY_SCHEMA_FQN);
-    schema.setVersion(DEFAULT_SYSTEM_EMPTY_SCHEMA_VERSION);
-    schema.setDependencies(new HashSet<CTLSchemaMetaInfoDto>());
+    ctlSchema=new CTLSchemaDto();
+    CTLSchemaMetaInfoDto metaInfo=new CTLSchemaMetaInfoDto(DEFAULT_SYSTEM_EMPTY_SCHEMA_FQN);
+    ctlSchema.setMetaInfo(metaInfo);
+    ctlSchema.setVersion(DEFAULT_SYSTEM_EMPTY_SCHEMA_VERSION);
+    ctlSchema.setCreatedUsername(createdUsername);
+    ctlSchema.setDependencySet(new HashSet<CTLSchemaDto>());
     String body=getStringFromFile(DEFAULT_SYSTEM_EMPTY_SCHEMA_FILE,CTLServiceImpl.class);
     if (!body.isEmpty()) {
-      schema.setBody(body);
+      ctlSchema.setBody(body);
     }
  else {
       throw new RuntimeException("Can't read default system schema.");
     }
-    ctlSchema=new CTLSchemaDto(schema,new HashSet<CTLSchemaDto>());
     ctlSchema=saveCTLSchema(ctlSchema);
   }
   return ctlSchema;

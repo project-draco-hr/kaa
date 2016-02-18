@@ -1,7 +1,8 @@
 {
   this.id=ModelUtils.getLongId(dto.getId());
   this.fqn=dto.getFqn();
-  this.version=dto.getVersion();
-  this.scope=dto.getScope();
-  this.count=dto.getCount();
+  Long tenantId=getLongId(dto.getTenantId());
+  this.tenant=tenantId != null ? new Tenant(tenantId) : null;
+  Long appId=getLongId(dto.getApplicationId());
+  this.application=appId != null ? new Application(appId) : null;
 }

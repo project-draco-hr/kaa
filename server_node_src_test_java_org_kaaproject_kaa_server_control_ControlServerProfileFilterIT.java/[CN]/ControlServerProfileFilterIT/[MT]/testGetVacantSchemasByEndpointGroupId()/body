@@ -1,6 +1,6 @@
 {
   EndpointGroupDto endpointGroup=createEndpointGroup();
-  CTLSchemaInfoDto ctlSchema=this.createCTLSchema(this.ctlRandomFieldType(),CTL_DEFAULT_NAMESPACE,1,CTLSchemaScopeDto.TENANT,null,null,null);
+  CTLSchemaDto ctlSchema=this.createCTLSchema(this.ctlRandomFieldType(),CTL_DEFAULT_NAMESPACE,1,tenantDeveloperDto.getTenantId(),null,null,null);
   EndpointProfileSchemaDto profileSchema1=createEndpointProfileSchema(endpointGroup.getApplicationId(),ctlSchema.getId());
   EndpointProfileSchemaDto profileSchema2=createEndpointProfileSchema(endpointGroup.getApplicationId(),ctlSchema.getId());
   EndpointProfileSchemaDto profileSchema3=createEndpointProfileSchema(endpointGroup.getApplicationId(),ctlSchema.getId());

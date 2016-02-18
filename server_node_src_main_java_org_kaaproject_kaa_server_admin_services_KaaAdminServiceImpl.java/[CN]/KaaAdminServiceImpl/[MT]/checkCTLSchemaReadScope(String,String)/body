@@ -1,0 +1,31 @@
+{
+  AuthUserDto currentUser=getCurrentUser();
+  CTLSchemaScopeDto scope=detectScope(tenantId,applicationId);
+  boolean allowed=false;
+switch (currentUser.getAuthority()) {
+case KAA_ADMIN:
+    allowed=scope == CTLSchemaScopeDto.SYSTEM;
+  break;
+case TENANT_ADMIN:
+if (scope == CTLSchemaScopeDto.TENANT) {
+  checkTenantId(tenantId);
+}
+allowed=scope.getLevel() <= CTLSchemaScopeDto.TENANT.getLevel();
+break;
+case TENANT_DEVELOPER:
+case TENANT_USER:
+if (scope == CTLSchemaScopeDto.TENANT) {
+checkTenantId(tenantId);
+}
+if (scope.getLevel() >= CTLSchemaScopeDto.APPLICATION.getLevel()) {
+checkApplicationId(applicationId);
+}
+allowed=scope.getLevel() >= CTLSchemaScopeDto.SYSTEM.getLevel();
+break;
+default :
+break;
+}
+if (!allowed) {
+throw new KaaAdminServiceException(ServiceErrorCode.PERMISSION_DENIED);
+}
+}

@@ -8,15 +8,14 @@
     }
   }
   CTLSchemaMetaInfo metaInfo=new CTLSchemaMetaInfo();
-  metaInfo.setVersion(version);
   metaInfo.setFqn(fqn);
-  metaInfo.setScope(scope);
+  metaInfo.setTenant(tenant);
   metaInfo=ctlSchemaMetaInfoDao.save(metaInfo);
   CTLSchema ctlSchema=new CTLSchema();
-  ctlSchema.setTenant(tenant);
+  ctlSchema.setMetaInfo(metaInfo);
+  ctlSchema.setVersion(version);
   ctlSchema.setBody(UUID.randomUUID().toString());
   ctlSchema.setDependencySet(new HashSet<CTLSchema>());
-  ctlSchema.setMetaInfo(metaInfo);
   ctlSchema=ctlSchemaDao.save(ctlSchema);
   return ctlSchema;
 }

@@ -1,0 +1,7 @@
+{
+  if (isBlank(fqn)) {
+    throw new IncorrectParameterException("Incorrect parameters for ctl schema request.");
+  }
+  LOG.debug("Find sibling ctl schemas by fqn {}, tenant id {} and application id {}",fqn,tenantId,applicationId);
+  return convertDtoList(ctlSchemaMetaInfoDao.findSiblingsByFqnTenantIdAndApplicationId(fqn,tenantId,applicationId));
+}

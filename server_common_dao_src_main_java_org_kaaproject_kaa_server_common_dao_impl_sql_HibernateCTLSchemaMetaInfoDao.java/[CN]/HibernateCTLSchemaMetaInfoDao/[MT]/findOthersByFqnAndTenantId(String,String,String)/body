@@ -1,0 +1,11 @@
+{
+  LOG.debug("Searching other ctl schema meta infos by fqn [{}], tenant id [{}] and excluding id [{}]",fqn,tenantId,excludingId);
+  List<CTLSchemaMetaInfo> availableSchemas=findListByCriterion(Restrictions.and(Restrictions.ne(ID_PROPERTY,Long.valueOf(excludingId)),Restrictions.eq(CTL_SCHEMA_META_INFO_FQN,fqn),Restrictions.or(Restrictions.eq(CTL_SCHEMA_META_INFO_TENANT_ID_ALIAS,Long.valueOf(tenantId)),Restrictions.isNull(CTL_SCHEMA_META_INFO_TENANT_ID_ALIAS))));
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{}][{}][{}] Search result: [{}].",fqn,tenantId,excludingId,Arrays.toString(availableSchemas.toArray()));
+  }
+ else {
+    LOG.debug("[{}][{}][{}] Search result: [{}].",fqn,tenantId,excludingId,availableSchemas.size());
+  }
+  return availableSchemas;
+}

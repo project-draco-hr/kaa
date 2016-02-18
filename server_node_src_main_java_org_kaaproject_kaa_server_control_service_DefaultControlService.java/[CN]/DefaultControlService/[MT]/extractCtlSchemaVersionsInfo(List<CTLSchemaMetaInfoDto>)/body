@@ -1,0 +1,7 @@
+{
+  Map<Fqn,List<Integer>> ctlSchemaVersions=new HashMap<>();
+  for (  CTLSchemaMetaInfoDto ctlSchemaInfo : ctlSchemaInfos) {
+    ctlSchemaVersions.put(new Fqn(ctlSchemaInfo.getFqn()),ctlSchemaInfo.getVersions());
+  }
+  return ctlSchemaVersions;
+}

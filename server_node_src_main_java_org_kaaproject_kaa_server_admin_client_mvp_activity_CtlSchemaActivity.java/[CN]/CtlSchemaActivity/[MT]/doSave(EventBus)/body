@@ -3,7 +3,15 @@
   editEntity(entity,new BusyAsyncCallback<CtlSchemaFormDto>(){
     public void onSuccessImpl(    CtlSchemaFormDto result){
       if (!create) {
-        goTo(new CtlSchemaPlace(place.getFqn(),place.getVersion(),false));
+        goTo(new CtlSchemaPlace(place.getMetaInfoId(),place.getVersion(),place.getScope(),place.getApplicationId(),true,false));
+      }
+ else       if (place.getSchemaType() != null) {
+        if (place.getSchemaType() == SchemaType.ENDPOINT_PROFILE) {
+          goTo(new ProfileSchemasPlace(place.getApplicationId()));
+        }
+ else {
+          goTo(new ServerProfileSchemasPlace(place.getApplicationId()));
+        }
       }
  else       if (place.getPreviousPlace() != null) {
         goTo(place.getPreviousPlace());

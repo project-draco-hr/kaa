@@ -1,0 +1,12 @@
+{
+  LOG.debug("Searching available version of ctl schema by fqn [{}], tenantId [{}] and applicationId [{}]",fqn,tenantId,applicationId);
+  Criteria criteria=getCriteria().createAlias(CTL_SCHEMA_META_INFO_PROPERTY,CTL_SCHEMA_META_INFO_ALIAS).add(Restrictions.and(Restrictions.eq(CTL_SCHEMA_META_INFO_ALIAS_FQN,fqn),tenantId != null ? Restrictions.eq(CTL_SCHEMA_META_INFO_ALIAS_TENANT_ID,Long.valueOf(tenantId)) : Restrictions.isNull(CTL_SCHEMA_META_INFO_ALIAS_TENANT_ID),applicationId != null ? Restrictions.eq(CTL_SCHEMA_META_INFO_ALIAS_APPLICATION_ID,Long.valueOf(applicationId)) : Restrictions.isNull(CTL_SCHEMA_META_INFO_ALIAS_APPLICATION_ID))).addOrder(Order.asc(CTL_SCHEMA_VERSION));
+  List<CTLSchema> schemas=findListByCriteria(criteria);
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("Search result: [{}].",Arrays.toString(schemas.toArray()));
+  }
+ else {
+    LOG.debug("Search result: [{}].",schemas.size());
+  }
+  return schemas;
+}

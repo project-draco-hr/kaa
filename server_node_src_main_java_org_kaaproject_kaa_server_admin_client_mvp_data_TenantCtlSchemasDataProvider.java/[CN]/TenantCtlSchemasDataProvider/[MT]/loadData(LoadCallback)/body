@@ -1,9 +1,9 @@
 {
-  KaaAdmin.getDataSource().getTenantCTLSchemaFqns(new AsyncCallback<List<SchemaFqnDto>>(){
+  KaaAdmin.getDataSource().getTenantLevelCTLSchemas(new AsyncCallback<List<CTLSchemaMetaInfoDto>>(){
     @Override public void onFailure(    Throwable caught){
       callback.onFailure(caught);
     }
-    @Override public void onSuccess(    List<SchemaFqnDto> result){
+    @Override public void onSuccess(    List<CTLSchemaMetaInfoDto> result){
       callback.onSuccess(result);
     }
   }

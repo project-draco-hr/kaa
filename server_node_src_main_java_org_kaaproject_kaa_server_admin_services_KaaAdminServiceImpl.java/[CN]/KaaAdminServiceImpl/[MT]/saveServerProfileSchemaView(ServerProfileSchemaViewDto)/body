@@ -7,13 +7,13 @@
     String ctlSchemaId=serverProfileSchema.getCtlSchemaId();
     if (isEmpty(ctlSchemaId)) {
       if (serverProfileSchemaView.useExistingCtlSchema()) {
-        CTLSchemaMetaInfoDto metaInfo=serverProfileSchemaView.getExistingMetaInfo();
-        CTLSchemaInfoDto schemaInfo=getCTLSchemaByFqnAndVersion(metaInfo.getFqn(),metaInfo.getVersion());
-        serverProfileSchema.setCtlSchemaId(schemaInfo.getId());
+        CtlSchemaReferenceDto metaInfo=serverProfileSchemaView.getExistingMetaInfo();
+        CTLSchemaDto schema=getCTLSchemaByFqnVersionTenantIdAndApplicationId(metaInfo.getMetaInfo().getFqn(),metaInfo.getVersion(),metaInfo.getMetaInfo().getTenantId(),metaInfo.getMetaInfo().getApplicationId());
+        serverProfileSchema.setCtlSchemaId(schema.getId());
       }
  else {
         CtlSchemaFormDto ctlSchemaForm=saveCTLSchemaForm(serverProfileSchemaView.getCtlSchemaForm());
-        serverProfileSchema.setCtlSchemaId(ctlSchemaForm.getCtlSchemaId());
+        serverProfileSchema.setCtlSchemaId(ctlSchemaForm.getId());
       }
     }
     ServerProfileSchemaDto savedServerProfileSchema=saveServerProfileSchema(serverProfileSchema);

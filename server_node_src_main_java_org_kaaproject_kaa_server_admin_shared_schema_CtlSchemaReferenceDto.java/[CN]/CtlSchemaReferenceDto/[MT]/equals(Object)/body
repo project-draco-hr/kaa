@@ -1,0 +1,12 @@
+{
+  if (this == obj)   return true;
+  if (obj == null)   return false;
+  if (getClass() != obj.getClass())   return false;
+  CtlSchemaReferenceDto other=(CtlSchemaReferenceDto)obj;
+  if (metaInfo == null) {
+    if (other.metaInfo != null)     return false;
+  }
+ else   if (!metaInfo.equals(other.metaInfo))   return false;
+  if (version != other.version)   return false;
+  return true;
+}

@@ -1,3 +1,13 @@
 {
-  return "CTLSchemaMetaInfoDto{" + "id='" + id + '\''+ ", fqn='"+ fqn+ '\''+ ", version="+ version+ ", scope="+ scope+ '}';
+  StringBuilder builder=new StringBuilder();
+  builder.append("CTLSchemaMetaInfoDto [id=");
+  builder.append(id);
+  builder.append(", fqn=");
+  builder.append(fqn);
+  builder.append(", tenantId=");
+  builder.append(tenantId);
+  builder.append(", applicationId=");
+  builder.append(applicationId);
+  builder.append("]");
+  return builder.toString();
 }

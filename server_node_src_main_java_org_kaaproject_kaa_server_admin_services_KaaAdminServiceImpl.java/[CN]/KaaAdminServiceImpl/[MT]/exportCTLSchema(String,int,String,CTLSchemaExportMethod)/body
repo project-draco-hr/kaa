@@ -1,0 +1,23 @@
+{
+  try {
+    this.checkCTLSchemaFqn(fqn);
+    this.checkCTLSchemaVersion(version);
+    String tenantId=getCurrentUser().getTenantId();
+    CTLSchemaDto schemaFound=controlService.getCTLSchemaByFqnVersionTenantIdAndApplicationId(fqn,version,tenantId,applicationId);
+    Utils.checkNotNull(schemaFound);
+    checkCTLSchemaReadScope(schemaFound.getMetaInfo().getTenantId(),schemaFound.getMetaInfo().getApplicationId());
+switch (method) {
+case SHALLOW:
+      return controlService.exportCTLSchemaShallow(schemaFound);
+case FLAT:
+    return controlService.exportCTLSchemaFlat(schemaFound);
+case DEEP:
+  return controlService.exportCTLSchemaDeep(schemaFound);
+default :
+throw new IllegalArgumentException("The export method " + method.name() + " is not currently supported!");
+}
+}
+ catch (Exception cause) {
+throw Utils.handleException(cause);
+}
+}

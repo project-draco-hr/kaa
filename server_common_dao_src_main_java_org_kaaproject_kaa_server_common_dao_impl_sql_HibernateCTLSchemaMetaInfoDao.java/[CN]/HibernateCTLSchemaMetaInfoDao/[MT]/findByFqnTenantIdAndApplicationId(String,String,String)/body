@@ -1,0 +1,11 @@
+{
+  LOG.debug("Searching ctl metadata by fqn [{}], tenantId [{}] and applicationId [{}]",fqn,tenantId,applicationId);
+  CTLSchemaMetaInfo ctlSchemaMetaInfo=findOneByCriterion(buildSearchCriterion(fqn,tenantId,applicationId));
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{},{},{}] Search result: {}.",fqn,tenantId,applicationId,ctlSchemaMetaInfo);
+  }
+ else {
+    LOG.debug("[{},{},{}] Search result: {}.",fqn,tenantId,applicationId,ctlSchemaMetaInfo != null);
+  }
+  return ctlSchemaMetaInfo;
+}

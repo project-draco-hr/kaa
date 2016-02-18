@@ -1,12 +1,21 @@
 {
-  List<CTLSchemaMetaInfoDto> metaInfoDtoList=Collections.emptyList();
+  Map<String,CTLSchemaMetaInfoDto> metaInfoMap=new HashMap<>();
   if (!schemas.isEmpty()) {
-    metaInfoDtoList=new ArrayList<>(schemas.size());
     for (    CTLSchema schema : schemas) {
-      CTLSchemaMetaInfoDto metaInfoDto=getDto(schema.getMetaInfo());
-      metaInfoDto.setName(schema.getName());
-      metaInfoDtoList.add(metaInfoDto);
+      String metaInfoId=schema.getMetaInfo().getStringId();
+      CTLSchemaMetaInfoDto metaInfoDto=metaInfoMap.get(metaInfoId);
+      if (metaInfoDto == null) {
+        metaInfoDto=getDto(schema.getMetaInfo());
+        metaInfoMap.put(metaInfoId,metaInfoDto);
+      }
+      List<Integer> versions=metaInfoDto.getVersions();
+      if (versions == null) {
+        versions=new ArrayList<>();
+        metaInfoDto.setVersions(versions);
+      }
+      versions.add(schema.getVersion());
     }
   }
-  return metaInfoDtoList;
+  List<CTLSchemaMetaInfoDto> result=new ArrayList<>(metaInfoMap.values());
+  return result;
 }

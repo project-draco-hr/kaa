@@ -1,3 +1,11 @@
 {
-  return "CTLSchemaMetaInfo{" + "fqn='" + fqn + '\''+ ", version="+ version+ ", scope="+ scope+ ", count="+ count+ '}';
+  StringBuilder builder=new StringBuilder();
+  builder.append("CTLSchemaMetaInfo [fqn=");
+  builder.append(fqn);
+  builder.append(", tenant=");
+  builder.append(tenant);
+  builder.append(", application=");
+  builder.append(application);
+  builder.append("]");
+  return builder.toString();
 }

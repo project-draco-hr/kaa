@@ -1,9 +1,19 @@
 {
-  if (this == o)   return true;
-  if (o == null || getClass() != o.getClass())   return false;
-  CTLSchemaMetaInfo metaInfo=(CTLSchemaMetaInfo)o;
-  if (fqn != null ? !fqn.equals(metaInfo.fqn) : metaInfo.fqn != null)   return false;
-  if (version != null ? !version.equals(metaInfo.version) : metaInfo.version != null)   return false;
-  if (scope != metaInfo.scope)   return false;
-  return count != null ? count.equals(metaInfo.count) : metaInfo.count == null;
+  if (this == obj)   return true;
+  if (obj == null)   return false;
+  if (getClass() != obj.getClass())   return false;
+  CTLSchemaMetaInfo other=(CTLSchemaMetaInfo)obj;
+  if (application == null) {
+    if (other.application != null)     return false;
+  }
+ else   if (!application.equals(other.application))   return false;
+  if (fqn == null) {
+    if (other.fqn != null)     return false;
+  }
+ else   if (!fqn.equals(other.fqn))   return false;
+  if (tenant == null) {
+    if (other.tenant != null)     return false;
+  }
+ else   if (!tenant.equals(other.tenant))   return false;
+  return true;
 }

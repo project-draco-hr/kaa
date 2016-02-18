@@ -1,0 +1,58 @@
+{
+  CTLSchemaDto schema=new CTLSchemaDto();
+  CTLSchemaMetaInfoDto metaInfo=new CTLSchemaMetaInfoDto();
+  String fqn=null;
+  ObjectNode object=new ObjectMapper().readValue(body,ObjectNode.class);
+  if (!object.has("type") || !object.get("type").isTextual() || !object.get("type").getTextValue().equals("record")) {
+    throw new IllegalArgumentException("The data provided is not a record!");
+  }
+  if (!object.has("namespace") || !object.get("namespace").isTextual()) {
+    throw new IllegalArgumentException("No namespace specified!");
+  }
+ else   if (!object.has("name") || !object.get("name").isTextual()) {
+    throw new IllegalArgumentException("No name specified!");
+  }
+ else {
+    fqn=object.get("namespace").getTextValue() + "." + object.get("name").getTextValue();
+  }
+  metaInfo=new CTLSchemaMetaInfoDto(fqn,tenantId,applicationId);
+  schema.setMetaInfo(metaInfo);
+  if (!object.has("version") || !object.get("version").isInt()) {
+    object.put("version",1);
+  }
+  schema.setVersion(object.get("version").asInt());
+  Set<CTLSchemaDto> dependencies=new HashSet<>();
+  List<FqnVersion> missingDependencies=new ArrayList<>();
+  if (!object.has("dependencies")) {
+    schema.setDependencySet(dependencies);
+  }
+ else   if (!object.get("dependencies").isArray()) {
+    throw new IllegalArgumentException("Illegal dependencies format!");
+  }
+ else {
+    for (    JsonNode child : object.get("dependencies")) {
+      if (!child.isObject() || !child.has("fqn") || !child.get("fqn").isTextual()|| !child.has("version")|| !child.get("version").isInt()) {
+        throw new IllegalArgumentException("Illegal dependency format!");
+      }
+ else {
+        String dependencyFqn=child.get("fqn").asText();
+        int dependencyVersion=child.get("version").asInt();
+        CTLSchemaDto dependency=controlService.getAnyCTLSchemaByFqnVersionTenantIdAndApplicationId(dependencyFqn,dependencyVersion,tenantId,applicationId);
+        if (dependency != null) {
+          dependencies.add(dependency);
+        }
+ else {
+          missingDependencies.add(new FqnVersion(dependencyFqn,dependencyVersion));
+        }
+      }
+    }
+    if (!missingDependencies.isEmpty()) {
+      String message="The following dependencies are missing from the database: " + Arrays.toString(missingDependencies.toArray());
+      throw new IllegalArgumentException(message);
+    }
+    schema.setDependencySet(dependencies);
+  }
+  body=new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(object);
+  schema.setBody(body);
+  return schema;
+}

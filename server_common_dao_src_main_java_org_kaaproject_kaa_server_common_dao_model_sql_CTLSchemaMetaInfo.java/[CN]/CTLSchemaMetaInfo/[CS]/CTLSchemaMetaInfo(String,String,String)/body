@@ -1,0 +1,7 @@
+{
+  this.fqn=fqn;
+  Long tenId=getLongId(tenantId);
+  this.tenant=tenId != null ? new Tenant(tenId) : null;
+  Long appId=getLongId(applicationId);
+  this.application=appId != null ? new Application(appId) : null;
+}

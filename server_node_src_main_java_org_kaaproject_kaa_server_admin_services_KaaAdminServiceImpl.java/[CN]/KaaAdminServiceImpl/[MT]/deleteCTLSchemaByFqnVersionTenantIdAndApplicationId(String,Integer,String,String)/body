@@ -1,0 +1,22 @@
+{
+  this.checkAuthority(KaaAuthorityDto.values());
+  try {
+    this.checkCTLSchemaFqn(fqn);
+    this.checkCTLSchemaVersion(version);
+    if (!isEmpty(applicationId)) {
+      this.checkApplicationId(applicationId);
+    }
+    CTLSchemaDto schemaFound=controlService.getCTLSchemaByFqnVersionTenantIdAndApplicationId(fqn,version,tenantId,applicationId);
+    Utils.checkNotNull(schemaFound);
+    checkCTLSchemaEditScope(schemaFound.getMetaInfo().getTenantId(),schemaFound.getMetaInfo().getApplicationId());
+    List<CTLSchemaDto> schemaDependents=controlService.getCTLSchemaDependents(fqn,version,tenantId,applicationId);
+    if (schemaDependents != null && !schemaDependents.isEmpty()) {
+      String message="Can't delete the common type version as it is referenced by the following common type(s): " + this.asText(schemaDependents);
+      throw new IllegalArgumentException(message);
+    }
+    controlService.deleteCTLSchemaByFqnAndVersionTenantIdAndApplicationId(fqn,version,tenantId,applicationId);
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+}

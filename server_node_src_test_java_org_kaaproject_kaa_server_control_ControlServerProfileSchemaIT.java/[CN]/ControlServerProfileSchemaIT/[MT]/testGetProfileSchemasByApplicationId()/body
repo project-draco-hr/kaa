@@ -2,7 +2,7 @@
   List<EndpointProfileSchemaDto> profileSchemas=new ArrayList<>(11);
   ApplicationDto application=createApplication(tenantAdminDto);
   loginTenantDeveloper(tenantDeveloperDto.getUsername());
-  CTLSchemaInfoDto ctlSchema=this.createCTLSchema(this.ctlRandomFieldType(),CTL_DEFAULT_NAMESPACE,1,CTLSchemaScopeDto.TENANT,null,null,null);
+  CTLSchemaDto ctlSchema=this.createCTLSchema(this.ctlRandomFieldType(),CTL_DEFAULT_NAMESPACE,1,tenantDeveloperDto.getTenantId(),null,null,null);
   List<EndpointProfileSchemaDto> defaultProfileSchemas=client.getProfileSchemas(application.getId());
   profileSchemas.addAll(defaultProfileSchemas);
   for (int i=0; i < 10; i++) {

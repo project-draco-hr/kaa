@@ -1,0 +1,7 @@
+{
+  CTLSchemaMetaInfoDto metaInfo=appSchema3.getMetaInfo();
+  metaInfo.setApplicationId(null);
+  ctlService.updateCTLSchemaMetaInfoScope(metaInfo);
+  CTLSchemaDto found=ctlService.findCTLSchemaByFqnAndVerAndTenantIdAndApplicationId(metaInfo.getFqn(),appSchema3.getVersion(),metaInfo.getTenantId(),null);
+  Assert.assertEquals(appSchema3,found);
+}

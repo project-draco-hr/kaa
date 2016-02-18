@@ -1,7 +1,7 @@
 {
   try {
     Schema avroSchema=ctlService.flatExportAsSchema(schema);
-    String fileName=MessageFormat.format(CTL_LIBRARY_EXPORT_TEMPLATE,schema.getMetaInfo().getFqn(),schema.getMetaInfo().getVersion());
+    String fileName=MessageFormat.format(CTL_LIBRARY_EXPORT_TEMPLATE,schema.getMetaInfo().getFqn(),schema.getVersion());
     return SchemaLibraryGenerator.generateSchemaLibrary(avroSchema,fileName);
   }
  catch (  Exception e) {

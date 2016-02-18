@@ -4,10 +4,10 @@
     this.checkCTLSchemaId(schemaId);
     CTLSchemaDto schemaFound=controlService.getCTLSchemaById(schemaId);
     Utils.checkNotNull(schemaFound);
-    this.checkCTLAuthority(schemaFound);
+    checkCTLSchemaEditScope(schemaFound.getMetaInfo().getTenantId(),schemaFound.getMetaInfo().getApplicationId());
     List<CTLSchemaDto> schemaDependents=controlService.getCTLSchemaDependents(schemaId);
     if (schemaDependents != null && !schemaDependents.isEmpty()) {
-      String message="Unable to delete the CTL schema as it is referenced by the following common type(s): " + this.asText(schemaDependents);
+      String message="Can't delete the common type version as it is referenced by the following common type(s): " + this.asText(schemaDependents);
       throw new IllegalArgumentException(message);
     }
   }

@@ -1,0 +1,9 @@
+{
+  checkAuthority(KaaAuthorityDto.values());
+  try {
+    return controlService.getSystemCTLSchemasMetaInfo();
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+}

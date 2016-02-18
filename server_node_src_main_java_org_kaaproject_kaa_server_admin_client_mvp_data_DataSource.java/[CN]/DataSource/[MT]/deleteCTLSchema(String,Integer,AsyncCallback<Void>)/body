@@ -1,8 +1,0 @@
-{
-  rpcService.deleteCTLSchemaByFqnAndVersion(fqn,version,new DataCallback<Void>(callback){
-    @Override protected void onResult(    Void result){
-      eventBus.fireEvent(new DataEvent(SchemaFqnDto.class));
-    }
-  }
-);
-}

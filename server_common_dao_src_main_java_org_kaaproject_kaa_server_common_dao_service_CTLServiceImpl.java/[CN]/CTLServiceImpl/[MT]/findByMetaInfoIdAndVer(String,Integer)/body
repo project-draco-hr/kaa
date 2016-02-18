@@ -1,0 +1,7 @@
+{
+  if (isBlank(metaInfoId) || version == null) {
+    throw new IncorrectParameterException("Incorrect parameters for ctl schema request.");
+  }
+  LOG.debug("Find ctl schema by meta info id {} and version {}",metaInfoId,version);
+  return DaoUtil.getDto(ctlSchemaDao.findByMetaInfoIdAndVer(metaInfoId,version));
+}

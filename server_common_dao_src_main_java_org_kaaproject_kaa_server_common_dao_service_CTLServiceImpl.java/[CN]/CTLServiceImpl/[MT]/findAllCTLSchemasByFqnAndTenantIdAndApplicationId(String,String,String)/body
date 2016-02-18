@@ -1,0 +1,5 @@
+{
+  validateString(fqn,"Incorrect fqn for ctl schema request.");
+  LOG.debug("Find all ctl schemas by fqn {}, tenantId {} and applicationId {}",fqn,tenantId,applicationId);
+  return convertDtoList(ctlSchemaDao.findAllByFqnAndTenantIdAndApplicationId(fqn,tenantId,applicationId));
+}

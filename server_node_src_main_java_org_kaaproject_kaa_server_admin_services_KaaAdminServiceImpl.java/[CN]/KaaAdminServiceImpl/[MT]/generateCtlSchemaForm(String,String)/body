@@ -1,0 +1,17 @@
+{
+  checkAuthority(KaaAuthorityDto.values());
+  try {
+    checkCTLSchemaReadScope(getCurrentUser().getTenantId(),applicationId);
+    byte[] data=getFileContent(fileItemName);
+    String avroSchema=new String(data);
+    SchemaFormAvroConverter converter=getCtlSchemaConverterForScope(getCurrentUser().getTenantId(),applicationId);
+    RecordField form=converter.createSchemaFormFromSchema(avroSchema);
+    if (form.getVersion() == null) {
+      form.updateVersion(1);
+    }
+    return form;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}
