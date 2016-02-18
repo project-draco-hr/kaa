@@ -9,5 +9,9 @@
   Assert.assertEquals(sdkProfile1.getToken(),sdkProfile2.getToken());
   Assert.assertNotEquals(sdkProfile1.toDto(),sdkProfile3.toDto());
   Assert.assertNotEquals(sdkProfile1.getToken(),sdkProfile3.getToken());
-  Assert.assertEquals(SDK_TOKEN_LENGTH,sdkProfile1.getToken().length());
+  Assert.assertEquals(SDK_TOKEN_SIZE,sdkProfile1.getToken().length());
+  for (int i=0; i < 100000; i++) {
+    SdkProfileDto tmp=generateSdkProfileDto("1235" + i,"token1235" + i);
+    Assert.assertEquals(SDK_TOKEN_SIZE,tmp.getToken().length(),SDK_TOKEN_SIZE);
+  }
 }
