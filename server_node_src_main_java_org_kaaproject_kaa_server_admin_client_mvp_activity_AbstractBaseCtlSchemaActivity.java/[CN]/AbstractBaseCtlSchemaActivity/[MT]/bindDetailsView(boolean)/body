@@ -6,5 +6,7 @@
   detailsView.getDescription().setValue(schema.getDescription());
   detailsView.getCreatedUsername().setValue(schema.getCreatedUsername());
   detailsView.getCreatedDateTime().setValue(Utils.millisecondsToDateTimeString(schema.getCreatedTime()));
-  detailsView.getSchemaForm().setValue(entity.getCtlSchemaForm().getSchema(),fireChanged);
+  if (entity.getCtlSchemaForm() != null) {
+    detailsView.getSchemaForm().setValue(entity.getCtlSchemaForm().getSchema(),fireChanged);
+  }
 }

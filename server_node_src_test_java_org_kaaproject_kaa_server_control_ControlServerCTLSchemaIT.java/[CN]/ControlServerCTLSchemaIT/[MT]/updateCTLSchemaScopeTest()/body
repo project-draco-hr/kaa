@@ -1,0 +1,12 @@
+{
+  ApplicationDto application=createApplication(tenantAdminDto);
+  this.loginTenantDeveloper(tenantDeveloperUser);
+  CTLSchemaDto saved=this.createCTLSchema(this.ctlRandomFieldType(),CTL_DEFAULT_NAMESPACE,1,tenantDeveloperDto.getTenantId(),application.getId(),null,null);
+  CTLSchemaMetaInfoDto metaInfo=saved.getMetaInfo();
+  metaInfo.setApplicationId(null);
+  CTLSchemaMetaInfoDto updatedMetaInfo=client.updateCTLSchemaMetaInfoScope(metaInfo);
+  Assert.assertNull(updatedMetaInfo.getApplicationId());
+  Assert.assertNotNull(updatedMetaInfo.getTenantId());
+  Assert.assertEquals(tenantDeveloperDto.getTenantId(),updatedMetaInfo.getTenantId());
+  Assert.assertEquals(CTLSchemaScopeDto.TENANT,updatedMetaInfo.getScope());
+}

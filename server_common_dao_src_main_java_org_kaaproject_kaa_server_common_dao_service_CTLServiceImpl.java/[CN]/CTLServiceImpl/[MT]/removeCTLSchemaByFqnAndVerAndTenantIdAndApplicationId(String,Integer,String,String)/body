@@ -1,0 +1,29 @@
+{
+  if (isBlank(fqn) || version == null) {
+    throw new IncorrectParameterException("Incorrect parameters for ctl schema request.");
+  }
+  LOG.debug("Remove ctl schema by fqn {} version {}, tenant id {} and application id {}",fqn,version,tenantId,applicationId);
+  CTLSchema ctlSchema=ctlSchemaDao.findByFqnAndVerAndTenantIdAndApplicationId(fqn,version,tenantId,applicationId);
+  if (ctlSchema != null) {
+    List<CTLSchema> dependsList=ctlSchemaDao.findDependentSchemas(ctlSchema.getStringId());
+    if (dependsList.isEmpty()) {
+synchronized (this) {
+        CTLSchemaMetaInfo metaInfo=ctlSchema.getMetaInfo();
+        ctlSchemaMetaInfoDao.lockRequest(lockOptions).setScope(true).lock(metaInfo);
+        try {
+          ctlSchemaDao.removeById(ctlSchema.getStringId());
+          List<CTLSchema> schemas=ctlSchemaDao.findAllByMetaInfoId(metaInfo.getStringId());
+          if (schemas == null || schemas.isEmpty()) {
+            ctlSchemaMetaInfoDao.removeById(metaInfo.getStringId());
+          }
+        }
+ catch (        DataIntegrityViolationException ex) {
+          throw new DatabaseProcessingException("Common type version can't be deleted because it is referenced by system modules.");
+        }
+      }
+    }
+ else {
+      throw new DatabaseProcessingException("Common type version can't be deleted because it is referenced by other types.");
+    }
+  }
+}

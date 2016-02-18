@@ -1,6 +1,6 @@
 {
   LOG.debug("Searching system ctl metadata");
-  List<CTLSchema> schemas=findListByCriterionWithAlias(CTL_SCHEMA_META_INFO_PROPERTY,CTL_SCHEMA_META_INFO_ALIAS,buildScopeCriterion(CTLSchemaScopeDto.SYSTEM));
+  List<CTLSchema> schemas=findListByCriterionWithAlias(CTL_SCHEMA_META_INFO_PROPERTY,CTL_SCHEMA_META_INFO_ALIAS,buildScopeCriterion(null,null));
   if (LOG.isTraceEnabled()) {
     LOG.trace("Search result: [{}].",Arrays.toString(schemas.toArray()));
   }

@@ -1,0 +1,17 @@
+{
+  LOG.debug("Searching siblings of ctl by fqn [{}], tenantId [{}] and applicationId [{}]",fqn,tenantId,applicationId);
+  List<CTLSchemaMetaInfo> ctlSchemaMetaInfos;
+  if (isNotBlank(fqn) && isNotBlank(tenantId) && isNotBlank(applicationId)) {
+    ctlSchemaMetaInfos=findListByCriterion(Restrictions.and(Restrictions.eq(CTL_SCHEMA_META_INFO_FQN,fqn),Restrictions.eq(CTL_SCHEMA_META_INFO_TENANT_ID_ALIAS,Long.valueOf(tenantId)),Restrictions.isNotNull(CTL_SCHEMA_META_INFO_APPLICATION_ID_ALIAS),Restrictions.ne(CTL_SCHEMA_META_INFO_APPLICATION_ID_ALIAS,Long.valueOf(applicationId))));
+  }
+ else {
+    ctlSchemaMetaInfos=Collections.emptyList();
+  }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{}][{}][{}] Search result: [{}].",fqn,tenantId,applicationId,Arrays.toString(ctlSchemaMetaInfos.toArray()));
+  }
+ else {
+    LOG.debug("[{}][{}][{}] Search result: [{}].",fqn,tenantId,applicationId,ctlSchemaMetaInfos.size());
+  }
+  return ctlSchemaMetaInfos;
+}

@@ -1,0 +1,14 @@
+{
+  this.checkAuthority(KaaAuthorityDto.values());
+  try {
+    checkCTLSchemaEditScope(tenantId,applicationId);
+    CTLSchemaParser parser=new CTLSchemaParser(controlService,tenantId);
+    CTLSchemaDto schema=parser.parse(body,applicationId);
+    parser.validate(schema);
+    CTLSchemaDto result=controlService.saveCTLSchema(schema);
+    return result;
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+}

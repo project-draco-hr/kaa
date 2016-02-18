@@ -1,8 +1,8 @@
 {
   this.loginKaaAdmin();
-  CTLSchemaInfoDto saved=this.createCTLSchema(this.ctlRandomFieldType(),CTL_DEFAULT_NAMESPACE,1,CTLSchemaScopeDto.SYSTEM,null,null,null);
+  CTLSchemaDto saved=this.createCTLSchema(this.ctlRandomFieldType(),CTL_DEFAULT_NAMESPACE,1,null,null,null,null);
   this.loginTenantDeveloper(tenantDeveloperUser);
-  CTLSchemaInfoDto loaded=client.getCTLSchemaByFqnAndVersion(saved.getFqn(),saved.getVersion());
+  CTLSchemaDto loaded=client.getCTLSchemaByFqnVersionTenantIdAndApplicationId(saved.getMetaInfo().getFqn(),saved.getVersion(),null,null);
   Assert.assertNotNull(loaded);
   Assert.assertEquals(saved,loaded);
 }

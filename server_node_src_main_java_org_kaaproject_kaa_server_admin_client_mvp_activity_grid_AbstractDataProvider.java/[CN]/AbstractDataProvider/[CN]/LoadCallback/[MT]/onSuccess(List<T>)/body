@@ -4,6 +4,10 @@
   if (data == null) {
     data=Collections.<T>emptyList();
   }
+  dataMap.clear();
+  for (  T row : data) {
+    dataMap.put(getObjectId(row),row);
+  }
   updateData();
   loaded=true;
   hasErrorMessage.clearError();

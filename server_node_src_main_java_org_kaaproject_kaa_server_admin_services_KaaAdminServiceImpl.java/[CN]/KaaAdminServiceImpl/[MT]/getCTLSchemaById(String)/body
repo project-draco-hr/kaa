@@ -4,10 +4,8 @@
     this.checkCTLSchemaId(schemaId);
     CTLSchemaDto schemaFound=controlService.getCTLSchemaById(schemaId);
     Utils.checkNotNull(schemaFound);
-    if (schemaFound.getMetaInfo().getScope() != CTLSchemaScopeDto.SYSTEM) {
-      this.checkCTLAuthority(schemaFound);
-    }
-    return schemaFound != null ? schemaFound.toCTLSchemaInfoDto() : null;
+    checkCTLSchemaReadScope(schemaFound.getMetaInfo().getTenantId(),schemaFound.getMetaInfo().getApplicationId());
+    return schemaFound;
   }
  catch (  Exception cause) {
     throw Utils.handleException(cause);

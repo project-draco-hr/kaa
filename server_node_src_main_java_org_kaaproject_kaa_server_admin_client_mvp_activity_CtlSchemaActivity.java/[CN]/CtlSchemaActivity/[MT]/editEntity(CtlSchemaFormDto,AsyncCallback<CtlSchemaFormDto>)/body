@@ -1,3 +1,31 @@
 {
-  KaaAdmin.getDataSource().editCTLSchemaForm(entity,callback);
+  if (place.getScope().getLevel() > CTLSchemaScopeDto.SYSTEM.getLevel()) {
+    KaaAdmin.getDataSource().checkFqnExists(entity,new BusyAsyncCallback<Boolean>(){
+      @Override public void onFailureImpl(      Throwable caught){
+        Utils.handleException(caught,detailsView);
+      }
+      @Override public void onSuccessImpl(      Boolean result){
+        if (!result) {
+          editSchema(entity,callback);
+        }
+ else {
+          ConfirmDialog.ConfirmListener listener=new ConfirmDialog.ConfirmListener(){
+            @Override public void onNo(){
+            }
+            @Override public void onYes(){
+              editSchema(entity,callback);
+            }
+          }
+;
+          ConfirmDialog dialog=new ConfirmDialog(listener,Utils.messages.commonTypeFqnAlreadyExistTitle(),Utils.messages.commonTypeFqnAlreadyExistsQuestion());
+          dialog.center();
+          dialog.show();
+        }
+      }
+    }
+);
+  }
+ else {
+    editSchema(entity,callback);
+  }
 }

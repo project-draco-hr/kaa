@@ -1,0 +1,5 @@
+{
+  validateString(metaInfoId,"Incorrect meta info id for ctl schema request.");
+  LOG.debug("Find latest ctl schema by meta info id {}",metaInfoId);
+  return DaoUtil.getDto(ctlSchemaDao.findLatestByMetaInfoId(metaInfoId));
+}

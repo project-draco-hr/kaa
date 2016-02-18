@@ -1,0 +1,12 @@
+{
+  CTLSchemaScopeDto scope=CTLSchemaScopeDto.SYSTEM;
+  if (tenantId != null && !tenantId.isEmpty()) {
+    if (applicationId != null && !applicationId.isEmpty()) {
+      scope=CTLSchemaScopeDto.APPLICATION;
+    }
+ else {
+      scope=CTLSchemaScopeDto.TENANT;
+    }
+  }
+  return scope;
+}

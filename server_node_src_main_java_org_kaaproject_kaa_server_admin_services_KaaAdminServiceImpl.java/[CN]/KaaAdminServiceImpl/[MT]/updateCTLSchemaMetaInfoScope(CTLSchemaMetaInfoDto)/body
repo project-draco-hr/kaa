@@ -1,0 +1,10 @@
+{
+  this.checkAuthority(KaaAuthorityDto.values());
+  try {
+    checkCTLSchemaEditScope(ctlSchemaMetaInfo.getTenantId(),ctlSchemaMetaInfo.getApplicationId());
+    return controlService.updateCTLSchemaMetaInfoScope(ctlSchemaMetaInfo);
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+}

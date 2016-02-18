@@ -59,16 +59,6 @@
       }
     }
 );
-    newCtlButton.addClickHandler(new ClickHandler(){
-      @Override public void onClick(      ClickEvent event){
-        rootPanel.setHeight(SCHEMA_FORM_PANEL_HEIGHT);
-        ctlSchemaPanel.showWidget(1);
-        existingCtlButton.setValue(false);
-        newCtlButton.setValue(true);
-        fireChanged();
-      }
-    }
-);
     ctlSchemaPanel.setAnimationCallback(new AnimationCallback(){
       @Override public void onAnimationComplete(){
         if (ctlSchemaPanel.getVisibleWidgetIndex() == 0) {
@@ -91,8 +81,8 @@
       }
     }
 );
-    ctlSchemaReferenceBox.addValueChangeHandler(new ValueChangeHandler<CTLSchemaMetaInfoDto>(){
-      @Override public void onValueChange(      ValueChangeEvent<CTLSchemaMetaInfoDto> event){
+    ctlSchemaReferenceBox.addValueChangeHandler(new ValueChangeHandler<CtlSchemaReferenceDto>(){
+      @Override public void onValueChange(      ValueChangeEvent<CtlSchemaReferenceDto> event){
         fireChanged();
       }
     }

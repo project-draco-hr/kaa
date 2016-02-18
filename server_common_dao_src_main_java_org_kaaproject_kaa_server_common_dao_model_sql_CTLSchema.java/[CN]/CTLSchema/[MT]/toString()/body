@@ -1,3 +1,19 @@
 {
-  return "CTLSchema{" + "id=" + id + ", metaInfo="+ metaInfo+ ", tenant="+ tenant+ ", application="+ application+ ", body='"+ body+ '\''+ ", name='"+ name+ '\''+ ", description='"+ description+ '\''+ ", createdUsername='"+ createdUsername+ '\''+ ", createdTime="+ createdTime+ ", dependencySet="+ dependencySet+ '}';
+  StringBuilder builder=new StringBuilder();
+  builder.append("CTLSchema [metaInfo=");
+  builder.append(metaInfo);
+  builder.append(", version=");
+  builder.append(version);
+  builder.append(", body=");
+  builder.append(body);
+  builder.append(", defaultRecord=");
+  builder.append(defaultRecord);
+  builder.append(", createdUsername=");
+  builder.append(createdUsername);
+  builder.append(", createdTime=");
+  builder.append(createdTime);
+  builder.append(", dependencySet=");
+  builder.append(dependencySet);
+  builder.append("]");
+  return builder.toString();
 }

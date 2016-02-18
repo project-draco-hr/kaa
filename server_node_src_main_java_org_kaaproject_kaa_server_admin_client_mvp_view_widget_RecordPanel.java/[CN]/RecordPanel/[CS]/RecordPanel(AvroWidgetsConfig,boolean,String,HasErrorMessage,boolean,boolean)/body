@@ -1,0 +1,49 @@
+{
+  this.showCaption=showCaption;
+  this.optional=optional;
+  this.readOnly=readOnly;
+  this.hasErrorMessage=hasErrorMessage;
+  FlexTable table=new FlexTable();
+  table.setWidth("100%");
+  if (config == null) {
+    config=new AvroWidgetsConfig.Builder().createConfig();
+  }
+  recordFieldWidget=new RecordFieldWidget(config,readOnly);
+  if (showCaption) {
+    recordCaption=new CaptionPanel();
+    setTitle(title);
+    recordCaption.setContentWidget(recordFieldWidget);
+    table.setWidget(0,0,recordCaption);
+  }
+ else {
+    table.setWidget(0,0,recordFieldWidget);
+  }
+  Label uploadLabel=new Label(Utils.constants.uploadFromFile());
+  recordFileUpload=new FileUploadForm();
+  recordFileUpload.addSubmitCompleteHandler(new SubmitCompleteHandler(){
+    @Override public void onSubmitComplete(    SubmitCompleteEvent event){
+      loadRecordFromFile();
+    }
+  }
+);
+  recordFileUpload.addChangeHandler(this);
+  recordFileItemName=recordFileUpload.getFileItemName();
+  uploadButton=new Button(Utils.constants.upload(),new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      recordFileUpload.submit();
+    }
+  }
+);
+  uploadButton.addStyleName(Utils.kaaAdminStyle.bAppButtonSmall());
+  uploadButton.setEnabled(false);
+  uploadTable=new FlexTable();
+  uploadTable.setWidget(0,0,uploadLabel);
+  uploadTable.setWidget(0,1,recordFileUpload);
+  uploadTable.setWidget(0,2,uploadButton);
+  uploadTable.getFlexCellFormatter().setVerticalAlignment(0,0,HasVerticalAlignment.ALIGN_MIDDLE);
+  uploadTable.getFlexCellFormatter().setVerticalAlignment(0,2,HasVerticalAlignment.ALIGN_MIDDLE);
+  table.setWidget(1,0,uploadTable);
+  setWidget(table);
+  setUploadVisible(!readOnly);
+  formDataLoader=new DefaultFormDataLoader();
+}

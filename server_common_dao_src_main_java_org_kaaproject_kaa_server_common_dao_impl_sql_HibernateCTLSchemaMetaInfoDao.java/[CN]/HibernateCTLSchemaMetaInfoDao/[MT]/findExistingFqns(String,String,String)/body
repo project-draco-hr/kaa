@@ -1,0 +1,11 @@
+{
+  LOG.debug("Searching ctl metadata by fqn [{}], excludingTenantId [{}] and excludingApplicationId [{}]",fqn,excludingTenantId,excludingApplicationId);
+  List<CTLSchemaMetaInfo> ctlSchemasMetaInfos=findListByCriterion(buildExludingSearchCriterion(fqn,excludingTenantId,excludingApplicationId));
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{},{},{}] Search result: {}.",fqn,excludingTenantId,excludingApplicationId,Arrays.toString(ctlSchemasMetaInfos.toArray()));
+  }
+ else {
+    LOG.debug("[{},{},{}] Search result: {}.",fqn,excludingTenantId,excludingApplicationId,ctlSchemasMetaInfos.size());
+  }
+  return ctlSchemasMetaInfos;
+}

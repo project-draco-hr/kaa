@@ -1,3 +1,14 @@
 {
-  KaaAdmin.getDataSource().generateCtlSchemaForm(fileItemName,callback);
+  KaaAdmin.getDataSource().generateCtlSchemaForm(fileItemName,place.getApplicationId(),new AsyncCallback<RecordField>(){
+    @Override public void onSuccess(    RecordField result){
+      if (place.getSchemaType() != null) {
+        result.setDisplayNameFieldOptional(false);
+      }
+      callback.onSuccess(result);
+    }
+    @Override public void onFailure(    Throwable caught){
+      callback.onFailure(caught);
+    }
+  }
+);
 }

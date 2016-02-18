@@ -1,6 +1,8 @@
 {
-  LOG.debug("Try to save or find meta info with fqn [{}] and version [{}]",metaInfo.getFqn(),metaInfo.getVersion());
-  CTLSchemaMetaInfo uniqueMetaInfo=findByFqnAndVersion(metaInfo.getFqn(),metaInfo.getVersion());
+  String tenantId=metaInfo.getTenant() != null ? metaInfo.getTenant().getStringId() : null;
+  String applicationId=metaInfo.getApplication() != null ? metaInfo.getApplication().getStringId() : null;
+  LOG.debug("Try to save or find meta info with fqn [{}], tenantId [{}] and applicationId [{}]",metaInfo.getFqn(),tenantId,applicationId);
+  CTLSchemaMetaInfo uniqueMetaInfo=findByFqnTenantIdAndApplicationId(metaInfo.getFqn(),tenantId,applicationId);
   if (uniqueMetaInfo == null) {
     uniqueMetaInfo=super.save(metaInfo,true);
     LOG.debug("Save result: {}",uniqueMetaInfo);

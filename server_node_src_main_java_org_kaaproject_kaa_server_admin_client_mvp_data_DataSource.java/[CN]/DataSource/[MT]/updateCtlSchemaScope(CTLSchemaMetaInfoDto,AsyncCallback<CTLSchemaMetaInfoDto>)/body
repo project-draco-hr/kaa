@@ -1,0 +1,8 @@
+{
+  rpcService.updateCTLSchemaMetaInfoScope(metaInfo,new DataCallback<CTLSchemaMetaInfoDto>(callback){
+    @Override protected void onResult(    CTLSchemaMetaInfoDto result){
+      eventBus.fireEvent(new DataEvent(CTLSchemaMetaInfoDto.class));
+    }
+  }
+);
+}

@@ -1,3 +1,23 @@
 {
-  return new TenantCtlSchemasPlace();
+  if (Utils.isNotBlank(applicationId)) {
+    if (schemaType != null) {
+      if (schemaType == SchemaType.ENDPOINT_PROFILE) {
+        return new ProfileSchemasPlace(applicationId);
+      }
+ else {
+        return new ServerProfileSchemasPlace(applicationId);
+      }
+    }
+ else {
+      return new ApplicationCtlSchemasPlace(applicationId);
+    }
+  }
+ else {
+    if (KaaAdmin.getAuthInfo().getAuthority() == KaaAuthorityDto.KAA_ADMIN) {
+      return new SystemCtlSchemasPlace();
+    }
+ else {
+      return new TenantCtlSchemasPlace();
+    }
+  }
 }

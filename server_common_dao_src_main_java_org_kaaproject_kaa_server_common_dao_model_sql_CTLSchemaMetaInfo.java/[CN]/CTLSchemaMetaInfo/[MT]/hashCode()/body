@@ -1,7 +1,8 @@
 {
-  int result=fqn != null ? fqn.hashCode() : 0;
-  result=31 * result + (version != null ? version.hashCode() : 0);
-  result=31 * result + (scope != null ? scope.hashCode() : 0);
-  result=31 * result + (count != null ? count.hashCode() : 0);
+  final int prime=31;
+  int result=1;
+  result=prime * result + ((application == null) ? 0 : application.hashCode());
+  result=prime * result + ((fqn == null) ? 0 : fqn.hashCode());
+  result=prime * result + ((tenant == null) ? 0 : tenant.hashCode());
   return result;
 }

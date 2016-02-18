@@ -1,3 +1,21 @@
 {
-  return "CTLSchemaDto{" + "id='" + id + '\''+ ", metaInfo="+ metaInfo+ ", tenantId='"+ tenantId+ '\''+ ", appId='"+ applicationId+ '\''+ ", body='"+ body+ '\''+ ", name='"+ name+ '\''+ ", description='"+ description+ '\''+ ", createdUsername='"+ createdUsername+ '\''+ ", createdTime="+ createdTime+ ", dependencySet="+ dependencySet+ '}';
+  StringBuilder builder=new StringBuilder();
+  builder.append("CTLSchemaDto [id=");
+  builder.append(id);
+  builder.append(", metaInfo=");
+  builder.append(metaInfo);
+  builder.append(", version=");
+  builder.append(version);
+  builder.append(", body=");
+  builder.append(body);
+  builder.append(", defaultRecord=");
+  builder.append(defaultRecord);
+  builder.append(", createdUsername=");
+  builder.append(createdUsername);
+  builder.append(", createdTime=");
+  builder.append(createdTime);
+  builder.append(", dependencySet=");
+  builder.append(dependencySet);
+  builder.append("]");
+  return builder.toString();
 }

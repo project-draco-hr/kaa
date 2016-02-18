@@ -1,0 +1,23 @@
+{
+  this.loginTenantDeveloper(tenantDeveloperUser);
+  CTLSchemaDto saved=this.createCTLSchema(this.ctlRandomFieldType(),CTL_DEFAULT_NAMESPACE,1,tenantDeveloperDto.getTenantId(),null,null,null);
+  String fqn=saved.getMetaInfo().getFqn();
+  boolean result=client.checkFqnExists(fqn,tenantDeveloperDto.getTenantId(),null);
+  Assert.assertFalse(result);
+  result=client.checkFqnExists(fqn,tenantDeveloperDto.getTenantId(),"123");
+  Assert.assertFalse(result);
+  result=client.checkFqnExists(fqn,null,null);
+  Assert.assertFalse(result);
+  ApplicationDto application1=createApplication(tenantAdminDto);
+  ApplicationDto application2=createApplication(tenantAdminDto);
+  this.loginTenantDeveloper(tenantDeveloperUser);
+  CTLSchemaDto schema1=this.createCTLSchema("TestAppFqn1",CTL_DEFAULT_NAMESPACE,1,tenantDeveloperDto.getTenantId(),application1.getId(),null,null);
+  this.createCTLSchema("TestAppFqn1",CTL_DEFAULT_NAMESPACE,1,tenantDeveloperDto.getTenantId(),application2.getId(),null,null);
+  fqn=schema1.getMetaInfo().getFqn();
+  result=client.checkFqnExists(fqn,tenantDeveloperDto.getTenantId(),application1.getId());
+  Assert.assertTrue(result);
+  result=client.checkFqnExists(fqn,tenantDeveloperDto.getTenantId(),application2.getId());
+  Assert.assertTrue(result);
+  result=client.checkFqnExists(fqn,tenantDeveloperDto.getTenantId(),null);
+  Assert.assertFalse(result);
+}

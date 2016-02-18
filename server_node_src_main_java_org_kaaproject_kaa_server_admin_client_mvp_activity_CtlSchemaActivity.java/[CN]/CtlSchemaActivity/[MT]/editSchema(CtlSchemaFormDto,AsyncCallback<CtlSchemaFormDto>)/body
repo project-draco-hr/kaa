@@ -1,0 +1,29 @@
+{
+  if (create && place.getSchemaType() != null) {
+    if (place.getSchemaType() == SchemaType.ENDPOINT_PROFILE) {
+      KaaAdmin.getDataSource().createProfileSchemaFormCtlSchema(entity,new BusyAsyncCallback<ProfileSchemaViewDto>(){
+        @Override public void onFailureImpl(        Throwable caught){
+          callback.onFailure(caught);
+        }
+        @Override public void onSuccessImpl(        ProfileSchemaViewDto result){
+          callback.onSuccess(null);
+        }
+      }
+);
+    }
+ else {
+      KaaAdmin.getDataSource().createServerProfileSchemaFormCtlSchema(entity,new BusyAsyncCallback<ServerProfileSchemaViewDto>(){
+        @Override public void onFailureImpl(        Throwable caught){
+          callback.onFailure(caught);
+        }
+        @Override public void onSuccessImpl(        ServerProfileSchemaViewDto result){
+          callback.onSuccess(null);
+        }
+      }
+);
+    }
+  }
+ else {
+    KaaAdmin.getDataSource().editCTLSchemaForm(entity,callback);
+  }
+}

@@ -1,14 +1,32 @@
 {
-  if (this == o)   return true;
-  if (o == null || getClass() != o.getClass())   return false;
-  CTLSchema schema=(CTLSchema)o;
-  if (createdTime != schema.createdTime)   return false;
-  if (metaInfo != null ? !metaInfo.equals(schema.metaInfo) : schema.metaInfo != null)   return false;
-  if (tenant != null ? !tenant.equals(schema.tenant) : schema.tenant != null)   return false;
-  if (application != null ? !application.equals(schema.application) : schema.application != null)   return false;
-  if (body != null ? !body.equals(schema.body) : schema.body != null)   return false;
-  if (name != null ? !name.equals(schema.name) : schema.name != null)   return false;
-  if (description != null ? !description.equals(schema.description) : schema.description != null)   return false;
-  if (createdUsername != null ? !createdUsername.equals(schema.createdUsername) : schema.createdUsername != null)   return false;
-  return dependencySet != null ? dependencySet.equals(schema.dependencySet) : schema.dependencySet == null;
+  if (this == obj)   return true;
+  if (obj == null)   return false;
+  if (getClass() != obj.getClass())   return false;
+  CTLSchema other=(CTLSchema)obj;
+  if (body == null) {
+    if (other.body != null)     return false;
+  }
+ else   if (!body.equals(other.body))   return false;
+  if (createdTime != other.createdTime)   return false;
+  if (createdUsername == null) {
+    if (other.createdUsername != null)     return false;
+  }
+ else   if (!createdUsername.equals(other.createdUsername))   return false;
+  if (defaultRecord == null) {
+    if (other.defaultRecord != null)     return false;
+  }
+ else   if (!defaultRecord.equals(other.defaultRecord))   return false;
+  if (dependencySet == null) {
+    if (other.dependencySet != null)     return false;
+  }
+ else   if (!dependencySet.equals(other.dependencySet))   return false;
+  if (metaInfo == null) {
+    if (other.metaInfo != null)     return false;
+  }
+ else   if (!metaInfo.equals(other.metaInfo))   return false;
+  if (version == null) {
+    if (other.version != null)     return false;
+  }
+ else   if (!version.equals(other.version))   return false;
+  return true;
 }

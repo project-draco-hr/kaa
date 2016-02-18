@@ -5,17 +5,18 @@
   kaaAdminStyle=Utils.kaaAdminStyle;
   avroUiStyle=Utils.avroUiStyle;
   initWidget(uiBinder.createAndBindUi(this));
-  titleLabel.setText(Utils.constants.title());
-  saveButton.setText(Utils.constants.save());
-  cancelButton.setText(Utils.constants.cancel());
+  constructTopPanel();
+  getTitileLabelWidget().setText(Utils.constants.title());
+  getSaveButtonWidget().setText(Utils.constants.save());
+  getCancelButtonWidget().setText(Utils.constants.cancel());
   requiredFieldsNoteLabel.getElement().setInnerSafeHtml(SafeHtmlUtils.fromSafeConstant(Utils.messages.requiredFieldsNote(Utils.avroUiStyle.requiredField())));
   if (create) {
-    titleLabel.setText(getCreateTitle());
-    cancelButton.setVisible(true);
+    getTitileLabelWidget().setText(getCreateTitle());
+    getCancelButtonWidget().setVisible(true);
   }
  else {
-    titleLabel.setText(getViewTitle());
-    backButtonPanel.setVisible(true);
+    getTitileLabelWidget().setText(getViewTitle());
+    getBackButtonPanelWidget().setVisible(true);
   }
   subTitleLabel.setText(getSubTitle());
   updateSaveButton(false,false);
@@ -24,14 +25,14 @@
   if (!create) {
     detailsTable.getColumnFormatter().setWidth(2,"300px");
   }
-  saveButton.addClickHandler(new ClickHandler(){
+  getSaveButtonWidget().addClickHandler(new ClickHandler(){
     @Override public void onClick(    ClickEvent event){
       updateSaveButton(false,false);
       hasChanged=false;
     }
   }
 );
-  saveButton.setVisible(editable);
+  getSaveButtonWidget().setVisible(editable);
   requiredFieldsNoteLabel.setVisible(editable);
   initDetailsTable();
   clearError();

@@ -1,0 +1,13 @@
+{
+  if (!isEmpty(applicationId)) {
+    KaaAdmin.getDataSource().getApplicationLevelCTLSchemas(applicationId,new AsyncCallback<List<CTLSchemaMetaInfoDto>>(){
+      @Override public void onFailure(      Throwable caught){
+        callback.onFailure(caught);
+      }
+      @Override public void onSuccess(      List<CTLSchemaMetaInfoDto> result){
+        callback.onSuccess(result);
+      }
+    }
+);
+  }
+}

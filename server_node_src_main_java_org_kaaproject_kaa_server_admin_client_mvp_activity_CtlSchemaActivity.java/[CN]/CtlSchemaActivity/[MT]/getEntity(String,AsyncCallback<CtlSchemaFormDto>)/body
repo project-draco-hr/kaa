@@ -1,3 +1,8 @@
 {
-  KaaAdmin.getDataSource().getCTLSchemaForm(id,place.getVersion(),callback);
+  if (version == null) {
+    KaaAdmin.getDataSource().getLatestCTLSchemaForm(id,callback);
+  }
+ else {
+    KaaAdmin.getDataSource().getCTLSchemaFormByMetaInfoIdAndVer(id,version,callback);
+  }
 }

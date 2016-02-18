@@ -1,0 +1,122 @@
+{
+  FlexTable flexTable=new FlexTable();
+  flexTable.setCellSpacing(0);
+  flexTable.setCellPadding(0);
+  flexTable.setHeight("100%");
+  topPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+  topPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+  topPanel.add(flexTable);
+  topPanel.setCellHeight(flexTable,"100%");
+  HorizontalPanel backButtonPanel=new HorizontalPanel();
+  backButtonPanel.setHeight("100%");
+  backButtonPanel.addStyleName(Utils.kaaAdminStyle.bAppPaddedPanel());
+  backButtonPanel.setVisible(false);
+  flexTable.setWidget(0,0,backButtonPanel);
+  flexTable.getFlexCellFormatter().setVerticalAlignment(0,0,HasVerticalAlignment.ALIGN_MIDDLE);
+  backButtonPanelWidget=backButtonPanel;
+  Button backButton=new Button();
+  backButton.addStyleName(Utils.kaaAdminStyle.bAppBackButton());
+  backButtonPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+  backButtonPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+  backButtonPanel.add(backButton);
+  backButtonPanel.setCellHeight(backButton,"100%");
+  backButtonWidget=backButton;
+  VerticalPanel verticalPanel=new VerticalPanel();
+  verticalPanel.setHeight("100%");
+  flexTable.setWidget(0,1,verticalPanel);
+  flexTable.getFlexCellFormatter().setVerticalAlignment(0,1,HasVerticalAlignment.ALIGN_MIDDLE);
+  HorizontalPanel firstRowPanel=new HorizontalPanel();
+  firstRowPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+  firstRowPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+  verticalPanel.add(firstRowPanel);
+  HorizontalPanel secondRowPanel=new HorizontalPanel();
+  secondRowPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+  secondRowPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+  if (!create) {
+    backButton.getElement().getStyle().setPaddingTop(25,Unit.PX);
+    backButton.getElement().getStyle().setPaddingBottom(25,Unit.PX);
+    firstRowPanel.setHeight("45px");
+    firstRowPanel.getElement().getStyle().setPaddingBottom(5,Unit.PX);
+    secondRowPanel.setHeight("45px");
+    topPanel.setHeight("105px");
+    topPanel.getElement().getStyle().setPaddingTop(10,Unit.PX);
+    updateNorthSize(185);
+  }
+ else {
+    firstRowPanel.setHeight("70px");
+    secondRowPanel.setHeight("100%");
+    topPanel.setHeight("80px");
+    updateNorthSize(175);
+  }
+  verticalPanel.add(secondRowPanel);
+  Label titleLabel=new Label();
+  titleLabel.addStyleName(Utils.kaaAdminStyle.bAppContentTitle());
+  firstRowPanel.add(titleLabel);
+  firstRowPanel.setCellHeight(titleLabel,"100%");
+  titleLabelWidget=titleLabel;
+  int horizontalMargin=15;
+  scope=new Label();
+  scope.getElement().getStyle().setFontSize(16,Unit.PX);
+  scope.getElement().getStyle().setFontWeight(FontWeight.NORMAL);
+  scope.getElement().getStyle().setMarginLeft(horizontalMargin,Unit.PX);
+  firstRowPanel.add(scope);
+  firstRowPanel.setCellHeight(scope,"100%");
+  updateSchemaScopeButton=new Button(Utils.constants.promote());
+  updateSchemaScopeButton.setVisible(!create && editable);
+  updateSchemaScopeButton.getElement().getStyle().setMarginLeft(horizontalMargin,Unit.PX);
+  if (hasUpdateScopeOption()) {
+    firstRowPanel.add(updateSchemaScopeButton);
+    firstRowPanel.setCellHeight(updateSchemaScopeButton,"100%");
+  }
+  Label versionLabel=new Label(Utils.constants.version());
+  versionLabel.addStyleName(Utils.kaaAdminStyle.bAppContentTitle());
+  versionLabel.getElement().getStyle().setFontSize(16,Unit.PX);
+  versionLabel.getElement().getStyle().setFontWeight(FontWeight.NORMAL);
+  version=new IntegerListBox();
+  version.getElement().getStyle().setPadding(5,Unit.PX);
+  version.getElement().getStyle().setMarginLeft(10,Unit.PX);
+  HorizontalPanel versionPanel=new HorizontalPanel();
+  versionPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+  versionPanel.add(versionLabel);
+  versionPanel.add(version);
+  versionPanel.setVisible(!create);
+  secondRowPanel.add(versionPanel);
+  secondRowPanel.setCellHeight(versionPanel,"100%");
+  createNewSchemaVersionButton=new Button(Utils.constants.createNewVersion());
+  createNewSchemaVersionButton.setVisible(!create && editable);
+  createNewSchemaVersionButton.getElement().getStyle().setMarginLeft(horizontalMargin,Unit.PX);
+  if (!create && editable) {
+    secondRowPanel.add(createNewSchemaVersionButton);
+    secondRowPanel.setCellHeight(createNewSchemaVersionButton,"100%");
+  }
+  exportActionsButton=new ActionsButton(Utils.resources.export(),Utils.constants.export());
+  exportActionsButton.setVisible(!create);
+  exportActionsButton.getElement().getStyle().setMarginLeft(horizontalMargin,Unit.PX);
+  if (!create) {
+    secondRowPanel.add(exportActionsButton);
+    secondRowPanel.setCellHeight(exportActionsButton,"100%");
+  }
+  Button saveButton=new Button();
+  saveButton.getElement().getStyle().setMarginLeft(horizontalMargin,Unit.PX);
+  if (create) {
+    firstRowPanel.add(saveButton);
+    firstRowPanel.setCellHeight(saveButton,"100%");
+  }
+  saveButtonWidget=saveButton;
+  Button cancelButton=new Button();
+  cancelButton.setVisible(false);
+  cancelButton.getElement().getStyle().setMarginLeft(horizontalMargin,Unit.PX);
+  if (create) {
+    firstRowPanel.add(cancelButton);
+    firstRowPanel.setCellHeight(cancelButton,"100%");
+  }
+  cancelButtonWidget=cancelButton;
+  deleteSchemaVersionButton=new Button(Utils.constants.delete());
+  deleteSchemaVersionButton.addStyleName(Utils.kaaAdminStyle.deleteButton());
+  deleteSchemaVersionButton.setVisible(!create && editable);
+  deleteSchemaVersionButton.getElement().getStyle().setMarginLeft(horizontalMargin,Unit.PX);
+  if (!create && editable) {
+    secondRowPanel.add(deleteSchemaVersionButton);
+    secondRowPanel.setCellHeight(deleteSchemaVersionButton,"100%");
+  }
+}

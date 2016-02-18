@@ -1,9 +1,9 @@
 {
   if (create || invalid) {
-    saveButton.setText(create ? Utils.constants.add() : Utils.constants.save());
+    getSaveButtonWidget().setText(create ? Utils.constants.add() : Utils.constants.save());
   }
  else {
-    saveButton.setText(enabled ? Utils.constants.save() : Utils.constants.saved());
+    getSaveButtonWidget().setText(enabled ? Utils.constants.save() : Utils.constants.saved());
   }
-  saveButton.setEnabled(enabled);
+  getSaveButtonWidget().setEnabled(enabled);
 }

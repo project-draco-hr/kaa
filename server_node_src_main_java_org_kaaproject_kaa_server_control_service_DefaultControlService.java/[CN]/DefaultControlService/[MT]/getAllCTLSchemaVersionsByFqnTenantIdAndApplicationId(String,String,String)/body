@@ -1,0 +1,8 @@
+{
+  List<CTLSchemaDto> schemas=ctlService.findAllCTLSchemasByFqnAndTenantIdAndApplicationId(fqn,tenantId,applicationId);
+  List<Integer> versions=new ArrayList<>(schemas.size());
+  for (  CTLSchemaDto schema : schemas) {
+    versions.add(schema.getVersion());
+  }
+  return versions;
+}

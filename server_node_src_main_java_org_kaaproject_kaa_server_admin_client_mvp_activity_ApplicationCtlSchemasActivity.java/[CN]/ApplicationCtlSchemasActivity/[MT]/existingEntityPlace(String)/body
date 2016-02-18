@@ -1,0 +1,4 @@
+{
+  CTLSchemaMetaInfoDto schema=dataProvider.getRowData(id);
+  return new CtlSchemaPlace(id,Collections.max(schema.getVersions()),schema.getScope(),place.getApplicationId(),schema.getScope() == getCurrentScope(),false);
+}

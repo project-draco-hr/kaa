@@ -1,13 +1,13 @@
 {
   CTLSchema ctlSchema=new CTLSchema();
-  ctlSchema.setMetaInfo(new CTLSchemaMetaInfo(fqn,version));
+  if (tenant == null) {
+    tenant=generateTenant();
+  }
+  ctlSchema.setMetaInfo(new CTLSchemaMetaInfo(fqn,tenant,null));
+  ctlSchema.setVersion(version);
   if (isBlank(body)) {
     body=UUID.randomUUID().toString();
   }
   ctlSchema.setBody(body);
-  if (tenant == null) {
-    tenant=generateTenant();
-  }
-  ctlSchema.setTenant(tenant);
   return ctlSchema;
 }

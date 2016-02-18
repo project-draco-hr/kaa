@@ -2,7 +2,8 @@
   LOG.debug("Updating ctl meta info scope {}",ctlSchemaMetaInfo);
   CTLSchemaMetaInfo metaInfo=findById(ctlSchemaMetaInfo.getStringId());
   if (metaInfo != null) {
-    metaInfo.setScope(ctlSchemaMetaInfo.getScope());
+    metaInfo.setTenant(ctlSchemaMetaInfo.getTenant());
+    metaInfo.setApplication(ctlSchemaMetaInfo.getApplication());
     metaInfo=super.save(metaInfo);
   }
   LOG.debug("Update result: {}",metaInfo != null);

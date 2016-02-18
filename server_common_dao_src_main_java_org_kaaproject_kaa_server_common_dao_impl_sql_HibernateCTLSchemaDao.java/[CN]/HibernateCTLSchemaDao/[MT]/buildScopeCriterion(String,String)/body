@@ -1,0 +1,13 @@
+{
+  if (isBlank(tenantId)) {
+    return Restrictions.and(Restrictions.isNull(CTL_SCHEMA_META_INFO_ALIAS_TENANT_ID),Restrictions.isNull(CTL_SCHEMA_META_INFO_ALIAS_APPLICATION_ID));
+  }
+ else {
+    if (isBlank(applicationId)) {
+      return Restrictions.and(Restrictions.or(Restrictions.eq(CTL_SCHEMA_META_INFO_ALIAS_TENANT_ID,Long.valueOf(tenantId)),Restrictions.isNull(CTL_SCHEMA_META_INFO_ALIAS_TENANT_ID)),Restrictions.isNull(CTL_SCHEMA_META_INFO_ALIAS_APPLICATION_ID));
+    }
+ else {
+      return Restrictions.and(Restrictions.or(Restrictions.eq(CTL_SCHEMA_META_INFO_ALIAS_TENANT_ID,Long.valueOf(tenantId)),Restrictions.isNull(CTL_SCHEMA_META_INFO_ALIAS_TENANT_ID)),Restrictions.or(Restrictions.eq(CTL_SCHEMA_META_INFO_ALIAS_APPLICATION_ID,Long.valueOf(applicationId)),Restrictions.isNull(CTL_SCHEMA_META_INFO_ALIAS_APPLICATION_ID)));
+    }
+  }
+}

@@ -1,0 +1,4 @@
+{
+  List<CTLSchema> found=ctlSchemaDao.findAvailableSchemasForTenant(tenant.getId());
+  Assert.assertEquals(getIdsDto(Arrays.asList(firstSchema,secondSchema,thirdSchema,fourthSchema,mainSchema,systemSchema)),getIds(found));
+}

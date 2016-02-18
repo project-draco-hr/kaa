@@ -1,32 +1,22 @@
 {
   validateCTLSchemaObject(ctlSchema);
-  LOG.debug("Set new scope {} for ctl schema with id [{}]",ctlSchema.getId(),ctlSchema.getMetaInfo().getScope());
-  CTLSchemaMetaInfoDto newMetaInfo=ctlSchema.getMetaInfo();
-  CTLSchemaScopeDto newScope=newMetaInfo.getScope();
-  if (!SYSTEM.equals(newScope)) {
-    CTLSchema schema=ctlSchemaDao.findById(ctlSchema.getId());
-    if (schema != null) {
+  LOG.debug("Update ctl schema with id [{}]",ctlSchema.getId());
+  CTLSchema schema=ctlSchemaDao.findById(ctlSchema.getId());
+  if (schema != null) {
+synchronized (this) {
+      if (ctlSchema.getVersion() != schema.getVersion()) {
+        throw new DatabaseProcessingException("Can't change version of existing common type version.");
+      }
       CTLSchemaMetaInfo metaInfo=schema.getMetaInfo();
-      if (metaInfo.getScope().getLevel() <= newScope.getLevel()) {
-        CTLSchemaMetaInfo updated=schemaMetaInfoDao.updateScope(new CTLSchemaMetaInfo(newMetaInfo));
-        if (updated != null) {
-          schema.setMetaInfo(updated);
-        }
- else {
-          throw new DatabaseProcessingException("Can't update scope for ctl meta info.");
-        }
+      if (!ctlSchema.getMetaInfo().equals(metaInfo.toDto())) {
+        throw new DatabaseProcessingException("Can't update scope of existing common type version within update procedure.");
       }
- else       if (metaInfo.getScope().getLevel() > newScope.getLevel()) {
-        throw new DatabaseProcessingException("Forbidden to update scope to lower level.");
-      }
-      updateEditableFields(ctlSchema,schema);
-      return DaoUtil.getDto(ctlSchemaDao.save(schema));
-    }
- else {
-      throw new DatabaseProcessingException("Can't find ctl schema by id.");
+      ctlSchemaMetaInfoDao.lockRequest(lockOptions).setScope(true).lock(metaInfo);
+      schema.update(ctlSchema);
+      return DaoUtil.getDto(ctlSchemaDao.save(schema,true));
     }
   }
  else {
-    throw new DatabaseProcessingException("Forbidden to update existing scope to system.");
+    throw new DatabaseProcessingException("Can't find common type version by id.");
   }
 }
