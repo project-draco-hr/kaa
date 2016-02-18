@@ -8,6 +8,6 @@
   properties.add(Base64.encodeBase64String(defaultConfigurationData));
   properties.add(Base64.encodeBase64String(configurationProtocolSchemaBody.getBytes()));
   properties.add(CommonSdkUtil.bootstrapNodesToString(bootstrapNodes));
-  String source=String.format(template,properties.toArray(new String[PROPERTIES_COUNT]));
+  String source=String.format(template,properties.toArray(new Object[PROPERTIES_COUNT]));
   return CommonSdkUtil.tarEntryForSources(source,KAA_ROOT + KAA_DEFAULTS);
 }

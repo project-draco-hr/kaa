@@ -1,0 +1,7 @@
+{
+  if (!clusterService.isMainEntityNode(key)) {
+    LOG.debug("[{}] No longer a global endpoint node for {}",endpointKey);
+    routes.clear();
+    context.stop(context.self());
+  }
+}

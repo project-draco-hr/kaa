@@ -28,25 +28,19 @@
   if (struct.isSetNotificationId()) {
     optionals.set(8);
   }
-  if (struct.isSetUnicastNotificationId()) {
+  if (struct.isSetTopicId()) {
     optionals.set(9);
   }
-  if (struct.isSetTopicId()) {
+  if (struct.isSetOp()) {
     optionals.set(10);
   }
-  if (struct.isSetKeyHash()) {
+  if (struct.isSetAppenderId()) {
     optionals.set(11);
   }
-  if (struct.isSetOp()) {
+  if (struct.isSetUserVerifierToken()) {
     optionals.set(12);
   }
-  if (struct.isSetAppenderId()) {
-    optionals.set(13);
-  }
-  if (struct.isSetUserVerifierToken()) {
-    optionals.set(14);
-  }
-  oprot.writeBitSet(optionals,15);
+  oprot.writeBitSet(optionals,13);
   if (struct.isSetAppId()) {
     oprot.writeString(struct.appId);
   }
@@ -74,14 +68,8 @@
   if (struct.isSetNotificationId()) {
     oprot.writeString(struct.notificationId);
   }
-  if (struct.isSetUnicastNotificationId()) {
-    oprot.writeString(struct.unicastNotificationId);
-  }
   if (struct.isSetTopicId()) {
     oprot.writeString(struct.topicId);
-  }
-  if (struct.isSetKeyHash()) {
-    oprot.writeBinary(struct.keyHash);
   }
   if (struct.isSetOp()) {
     oprot.writeI32(struct.op.getValue());

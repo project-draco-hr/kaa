@@ -1,0 +1,16 @@
+{
+  if (this == o) {
+    return true;
+  }
+  if (!(o instanceof MongoTopicListEntry)) {
+    return false;
+  }
+  MongoTopicListEntry that=(MongoTopicListEntry)o;
+  if (simpleHash != that.simpleHash) {
+    return false;
+  }
+  if (!Arrays.equals(hash,that.hash)) {
+    return false;
+  }
+  return true;
+}

@@ -1,8 +1,11 @@
 {
-  TopicSubscriptionInfo subscriptionInfo=nfSubscriptions.get(topic.getId());
-  if (subscriptionInfo == null) {
-    nfSubscriptions.put(topic.getId(),new TopicSubscriptionInfo(topic,0));
+  if (topicMap.get(topic.getId()) == null) {
+    topicMap.put(topic.getId(),topic);
+    if (topic.getSubscriptionType() == SubscriptionType.MANDATORY_SUBSCRIPTION) {
+      nfSubscriptions.put(topic.getId(),0);
+      LOG.info("Adding new seqNumber 0 for {} subscription",topic.getId());
+    }
     hasUpdate=true;
-    LOG.info("Adding new seqNumber 0 for {} subscription",topic.getId());
+    LOG.info("Adding new topic with id {}",topic.getId());
   }
 }

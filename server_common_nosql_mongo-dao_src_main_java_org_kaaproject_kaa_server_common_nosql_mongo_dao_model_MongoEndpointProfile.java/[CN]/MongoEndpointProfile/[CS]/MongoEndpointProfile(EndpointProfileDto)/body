@@ -1,29 +1,3 @@
 {
-  this.id=dto.getId();
-  this.applicationId=dto.getApplicationId();
-  this.endpointKey=dto.getEndpointKey();
-  this.endpointKeyHash=dto.getEndpointKeyHash();
-  this.endpointUserId=dto.getEndpointUserId();
-  this.accessToken=dto.getAccessToken();
-  this.cfGroupState=MongoDaoUtil.convertDtoToModelList(dto.getCfGroupStates());
-  this.nfGroupState=MongoDaoUtil.convertDtoToModelList(dto.getNfGroupStates());
-  this.cfSequenceNumber=dto.getCfSequenceNumber();
-  this.nfSequenceNumber=dto.getNfSequenceNumber();
-  this.profile=(DBObject)JSON.parse(dto.getClientProfileBody());
-  this.profileHash=dto.getProfileHash();
-  this.profileVersion=dto.getClientProfileVersion();
-  this.serverProfileVersion=dto.getServerProfileVersion();
-  this.configurationHash=dto.getConfigurationHash();
-  this.userConfigurationHash=dto.getUserConfigurationHash();
-  this.configurationVersion=dto.getConfigurationVersion();
-  this.subscriptions=dto.getSubscriptions();
-  this.notificationVersion=dto.getNotificationVersion();
-  this.ntHash=dto.getNtHash();
-  this.systemNfVersion=dto.getSystemNfVersion();
-  this.userNfVersion=dto.getUserNfVersion();
-  this.logSchemaVersion=dto.getLogSchemaVersion();
-  this.ecfVersionStates=MongoDaoUtil.convertECFVersionDtoToModelList(dto.getEcfVersionStates());
-  this.serverHash=dto.getServerHash();
-  this.sdkToken=dto.getSdkToken();
-  this.serverProfile=dto.getServerProfileBody();
+  this(dto,null);
 }

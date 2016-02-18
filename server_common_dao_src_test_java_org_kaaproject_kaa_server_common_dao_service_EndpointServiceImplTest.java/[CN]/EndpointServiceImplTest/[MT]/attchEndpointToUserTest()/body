@@ -1,0 +1,15 @@
+{
+  TenantDto tenantDto=generateTenantDto();
+  EndpointUserDto endpointUserDto=generateEndpointUserDto(tenantDto.getId());
+  String endpointGroupId="124";
+  EndpointProfileDto endpointProfileDto=generateEndpointProfileWithGroupIdDto(endpointGroupId);
+  String accessToken="1111";
+  endpointProfileDto.setAccessToken(accessToken);
+  endpointService.saveEndpointProfile(endpointProfileDto);
+  endpointService.attachEndpointToUser(endpointUserDto.getId(),accessToken);
+  endpointUserDto=endpointService.findEndpointUserById(endpointUserDto.getId());
+  List<String> endpointIds=endpointUserDto.getEndpointIds();
+  Assert.assertNotNull(endpointIds);
+  Assert.assertEquals(1,endpointIds.size());
+  Assert.assertEquals(endpointProfileDto.getId(),endpointIds.get(0));
+}

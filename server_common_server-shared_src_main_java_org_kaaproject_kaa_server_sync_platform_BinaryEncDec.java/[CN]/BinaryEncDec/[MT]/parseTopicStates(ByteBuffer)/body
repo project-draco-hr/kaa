@@ -4,7 +4,7 @@
   for (int i=0; i < count; i++) {
     long topicId=buf.getLong();
     int seqNumber=buf.getInt();
-    topicStates.add(new TopicState(String.valueOf(topicId),seqNumber));
+    topicStates.add(new TopicState(topicId,seqNumber));
   }
   return topicStates;
 }

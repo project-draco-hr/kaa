@@ -1,9 +1,6 @@
 {
   String sdkToken=sdkProfile.getToken();
-  Integer configurationSchemaVersion=sdkProfile.getConfigurationSchemaVersion();
   Integer profileSchemaVersion=sdkProfile.getProfileSchemaVersion();
-  Integer notificationSchemaVersion=sdkProfile.getNotificationSchemaVersion();
-  Integer logSchemaVersion=sdkProfile.getLogSchemaVersion();
   String defaultVerifierToken=sdkProfile.getDefaultVerifierToken();
   String sdkTemplateLocation=Environment.getServerHomeDir() + "/" + C_SDK_DIR+ "/"+ C_SDK_PREFIX+ buildVersion+ ".tar.gz";
   LOG.debug("Lookup C SDK template: {}",sdkTemplateLocation);
@@ -84,7 +81,7 @@
   }
   sdkFile.finish();
   sdkFile.close();
-  String sdkFileName=MessageFormatter.arrayFormat(C_SDK_NAME_PATTERN,new Object[]{profileSchemaVersion,configurationSchemaVersion,notificationSchemaVersion,logSchemaVersion}).getMessage();
+  String sdkFileName=C_SDK_PREFIX + sdkProfile.getToken() + ".tar.gz";
   FileData sdk=new FileData();
   sdk.setFileName(sdkFileName);
   sdk.setFileData(sdkOutput.toByteArray());

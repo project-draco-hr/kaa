@@ -1,0 +1,13 @@
+{
+  Integer seqNum=nfSubscriptions.get(topicId);
+  boolean updated=false;
+  if (seqNum != null) {
+    if (sequenceNumber > seqNum) {
+      updated=true;
+      nfSubscriptions.put(topicId,sequenceNumber);
+      hasUpdate=true;
+      LOG.debug("Updated seqNumber to {} for {} subscription",sequenceNumber,topicId);
+    }
+  }
+  return updated;
+}

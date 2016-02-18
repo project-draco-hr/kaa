@@ -1,0 +1,17 @@
+{
+  PropertyDescriptor pd=fieldDescMap.get(name);
+  try {
+    Object value=pd.getReadMethod().invoke(entity);
+    Map<Class<?>,CassandraEntityMapper<?>> udtMap=udtMappers.get(name);
+    if (udtMap != null && value != null) {
+      return convertValue(value,udtMap,cassandraClient);
+    }
+    return value;
+  }
+ catch (  IllegalArgumentException e) {
+    throw new IllegalArgumentException("Could not get field '" + pd.getName() + "'");
+  }
+catch (  Exception e) {
+    throw new IllegalStateException("Unable to access getter for '" + pd.getName() + "' in "+ entity.getClass().getName(),e);
+  }
+}

@@ -1,0 +1,10 @@
+{
+  if (isFirstRequest(profile)) {
+    LOG.debug("[{}] Profile has no endpoint groups yet. Calculating full list",endpointKey);
+    return historyDeltaService.getDelta(profile,applicationToken,endSeqNumber);
+  }
+ else {
+    LOG.debug("[{}] Profile has endpoint groups. Calculating changes from {} to {}",endpointKey,profile.getSequenceNumber(),endSeqNumber);
+    return historyDeltaService.getDelta(profile,applicationToken,profile.getSequenceNumber(),endSeqNumber);
+  }
+}

@@ -1,5 +1,5 @@
 {
-  LOG.debug("Execute cassandra batch {}",statement);
-  statement.setConsistencyLevel(consistencyLevel);
+  LOG.debug("Execute cassandra statement {}",statement);
+  statement.setConsistencyLevel(consistencyLevel == null ? ConsistencyLevel.ONE : consistencyLevel);
   return getSession().execute(statement);
 }

@@ -1,5 +1,5 @@
 {
   RemoteEndpointEventMessage message=new RemoteEndpointEventMessage(event);
-  LOG.debug("Sending message {} to EPS actor",message);
+  LOG.debug("Sending message {} to OPS actor",message);
   opsActor.tell(message,ActorRef.noSender());
 }

@@ -1,0 +1,19 @@
+{
+  LOG.debug("Updating profile {} ",update);
+  try {
+    return endpointService.saveEndpointProfile(update);
+  }
+ catch (  KaaOptimisticLockingFailureException ex) {
+    LOG.warn("Failed to update profile {} ",update,ex);
+    if (retryCount > 0) {
+      EndpointProfileDto stored=endpointService.findEndpointProfileByKeyHash(update.getEndpointKeyHash());
+      LOG.warn("Going to merge it with stored profile {}",stored);
+      EndpointProfileDto merged=mergeFunction.apply(stored,update);
+      LOG.warn("Merge result: {}",merged);
+      return updateProfile(merged,mergeFunction,retryCount - 1);
+    }
+ else {
+      throw ex;
+    }
+  }
+}

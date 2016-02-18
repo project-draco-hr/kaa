@@ -1,0 +1,18 @@
+{
+  EndpointAddress address=message.getAddress();
+  EndpointObjectHash endpointId=EndpointObjectHash.fromBytes(address.getEntityId());
+  ActorClassifier classifier=message.getClassifier();
+  EndpointActorMD actorMD;
+  if (classifier.isGlobalActor()) {
+    actorMD=globalEndpointSessions.get(endpointId);
+  }
+ else {
+    actorMD=localEndpointSessions.get(endpointId);
+  }
+  if (actorMD != null) {
+    actorMD.actorRef.tell(message,context().self());
+  }
+ else {
+    LOG.warn("[{}] Failed to lookup {} actor for endpoint.",endpointId,classifier.isGlobalActor() ? "global" : "local");
+  }
+}

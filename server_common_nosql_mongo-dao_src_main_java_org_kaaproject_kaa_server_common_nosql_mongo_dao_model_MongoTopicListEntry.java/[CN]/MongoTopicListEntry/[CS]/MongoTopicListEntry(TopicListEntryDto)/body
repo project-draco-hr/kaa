@@ -1,0 +1,10 @@
+{
+  this.hash=dto.getHash();
+  this.simpleHash=dto.getSimpleHash();
+  this.topicIds=new ArrayList<>();
+  if (dto.getTopics() != null) {
+    for (    TopicDto topic : dto.getTopics()) {
+      topicIds.add(topic.getId());
+    }
+  }
+}

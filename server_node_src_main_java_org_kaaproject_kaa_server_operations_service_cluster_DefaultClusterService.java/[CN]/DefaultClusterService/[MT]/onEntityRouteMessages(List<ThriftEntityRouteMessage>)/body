@@ -1,0 +1,11 @@
+{
+  for (  ThriftEntityRouteMessage msg : msgs) {
+switch (msg.getAddress().getAddress().getEntityType()) {
+case ENDPOINT:
+      listener.onRouteMsg(fromThriftMsg(msg));
+    break;
+default :
+  LOG.error("Unknown entity type: {}",msg.getAddress().getAddress().getEntityType());
+}
+}
+}

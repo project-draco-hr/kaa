@@ -1,6 +1,5 @@
 {
   ConfigurationClientSync confSync=new ConfigurationClientSync();
-  confSync.setAppStateSeqNumber(buf.getInt());
   if (hasOption(options,CONFIGURATION_HASH_OPTION)) {
     confSync.setConfigurationHash(getNewByteBuffer(buf,CONFIGURATION_HASH_SIZE));
   }

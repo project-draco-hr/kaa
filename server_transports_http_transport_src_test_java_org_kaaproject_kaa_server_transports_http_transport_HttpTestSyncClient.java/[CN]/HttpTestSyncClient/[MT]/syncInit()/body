@@ -9,11 +9,9 @@
   getRequest().getSyncRequestMetaData().setProfileHash(ByteBuffer.wrap(profileHash));
   getRequest().setConfigurationSyncRequest(new ConfigurationSyncRequest());
   getRequest().getConfigurationSyncRequest().setConfigurationHash(ByteBuffer.wrap(configurationHash));
-  getRequest().getConfigurationSyncRequest().setAppStateSeqNumber(appStateSeqNumber);
   generateSubscriptionCommandList();
   getRequest().setNotificationSyncRequest(new NotificationSyncRequest());
   getRequest().getNotificationSyncRequest().setSubscriptionCommands(subscriptionCommands);
   getRequest().getNotificationSyncRequest().setTopicStates(topicStates);
-  getRequest().getNotificationSyncRequest().setTopicListHash(ByteBuffer.wrap(profileHash));
-  getRequest().getNotificationSyncRequest().setAppStateSeqNumber(appStateSeqNumber);
+  getRequest().getNotificationSyncRequest().setTopicListHash(0);
 }

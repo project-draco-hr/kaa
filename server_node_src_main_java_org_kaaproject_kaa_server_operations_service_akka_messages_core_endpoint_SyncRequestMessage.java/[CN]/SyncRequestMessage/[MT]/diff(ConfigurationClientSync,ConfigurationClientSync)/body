@@ -3,7 +3,7 @@
     return newRequest;
   }
  else {
-    if (oldRequest.getAppStateSeqNumber() != newRequest.getAppStateSeqNumber() || Arrays.equals(oldRequest.getConfigurationHash().array(),newRequest.getConfigurationHash().array())) {
+    if (!Arrays.equals(oldRequest.getConfigurationHash().array(),newRequest.getConfigurationHash().array())) {
       return newRequest;
     }
  else {

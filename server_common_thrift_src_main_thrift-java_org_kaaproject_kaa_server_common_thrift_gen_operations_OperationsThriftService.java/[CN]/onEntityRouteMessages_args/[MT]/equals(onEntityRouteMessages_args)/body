@@ -1,0 +1,10 @@
+{
+  if (that == null)   return false;
+  boolean this_present_messages=true && this.isSetMessages();
+  boolean that_present_messages=true && that.isSetMessages();
+  if (this_present_messages || that_present_messages) {
+    if (!(this_present_messages && that_present_messages))     return false;
+    if (!this.messages.equals(that.messages))     return false;
+  }
+  return true;
+}

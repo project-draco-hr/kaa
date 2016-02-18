@@ -60,7 +60,7 @@
   }
   sdkFile.finish();
   sdkFile.close();
-  String sdkFileName=MessageFormatter.arrayFormat(CPP_SDK_NAME_PATTERN,new Object[]{profileSchemaVersion,configurationSchemaVersion,notificationSchemaVersion,logSchemaVersion}).getMessage();
+  String sdkFileName=CPP_SDK_PREFIX + sdkProfile.getToken() + ".tar.gz";
   byte[] sdkData=sdkOutput.toByteArray();
   FileData sdk=new FileData();
   sdk.setFileName(sdkFileName);

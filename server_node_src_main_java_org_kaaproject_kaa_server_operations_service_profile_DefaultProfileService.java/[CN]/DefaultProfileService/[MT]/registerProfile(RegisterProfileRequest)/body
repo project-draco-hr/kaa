@@ -20,8 +20,7 @@
     if (request.getAccessToken() != null) {
       dto.setAccessToken(request.getAccessToken());
     }
-    dto.setCfSequenceNumber(0);
-    dto.setNfSequenceNumber(0);
+    dto.setSequenceNumber(0);
     try {
       cacheService.putEndpointKey(keyHash,KeyUtil.getPublic(dto.getEndpointKey()));
     }

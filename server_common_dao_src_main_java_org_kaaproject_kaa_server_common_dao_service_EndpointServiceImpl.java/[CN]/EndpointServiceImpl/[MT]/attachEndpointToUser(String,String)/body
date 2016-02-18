@@ -8,14 +8,18 @@
     LOG.trace("[{}] Found endpoint profile by with access token {} ",endpointAccessToken,endpoint);
     if (endpoint != null) {
       if (endpoint.getEndpointUserId() == null || endpointUserId.equals(endpoint.getEndpointUserId())) {
+        LOG.debug("Attach endpoint profile with id {} to endpoint user with id {} ",endpoint.getId(),endpointUser.getId());
         List<String> endpointIds=endpointUser.getEndpointIds();
+        if (endpointIds != null && endpointIds.contains(endpoint.getId())) {
+          LOG.warn("Endpoint is already assigned to current user {}. Unassign it first!.",endpoint.getEndpointUserId());
+          throw new DatabaseProcessingException("Endpoint is already assigned to current user.");
+        }
         if (endpointIds == null) {
           endpointIds=new ArrayList<>();
           endpointUser.setEndpointIds(endpointIds);
         }
-        LOG.debug("Attach endpoint profile with id {} to endpoint user with id {} ",endpoint.getId(),endpointUser.getId());
         endpointIds.add(endpoint.getId());
-        endpointUserDao.save(endpointUser);
+        endpointUser=endpointUserDao.save(endpointUser);
         endpoint.setEndpointUserId(endpointUser.getId());
         endpoint=endpointProfileDao.save(endpoint);
         return getDto(endpoint);

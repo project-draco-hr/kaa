@@ -1,0 +1,13 @@
+{
+  List<Object> list=new ArrayList<Object>();
+  boolean present_address=true && (isSetAddress());
+  list.add(present_address);
+  if (present_address)   list.add(address);
+  boolean present_actorClassifier=true && (isSetActorClassifier());
+  list.add(present_actorClassifier);
+  if (present_actorClassifier)   list.add(actorClassifier);
+  boolean present_notificationId=true && (isSetNotificationId());
+  list.add(present_notificationId);
+  if (present_notificationId)   list.add(notificationId);
+  return list.hashCode();
+}

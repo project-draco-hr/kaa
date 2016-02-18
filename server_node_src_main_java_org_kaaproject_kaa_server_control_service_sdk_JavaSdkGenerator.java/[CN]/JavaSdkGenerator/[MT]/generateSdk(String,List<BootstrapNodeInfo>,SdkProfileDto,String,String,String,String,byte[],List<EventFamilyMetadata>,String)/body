@@ -1,6 +1,5 @@
 {
   String sdkToken=sdkProfile.getToken();
-  Integer configurationSchemaVersion=sdkProfile.getConfigurationSchemaVersion();
   Integer profileSchemaVersion=sdkProfile.getProfileSchemaVersion();
   Integer notificationSchemaVersion=sdkProfile.getNotificationSchemaVersion();
   Integer logSchemaVersion=sdkProfile.getLogSchemaVersion();
@@ -156,7 +155,8 @@
     sdkFile.closeEntry();
   }
   sdkFile.close();
-  String sdkFileName=MessageFormatter.arrayFormat(sdkPlatform == SdkPlatform.JAVA ? JAVA_SDK_NAME_PATTERN : ANDROID_SDK_NAME_PATTERN,new Object[]{profileSchemaVersion,configurationSchemaVersion,notificationSchemaVersion,logSchemaVersion}).getMessage();
+  String fileNamePrefix=(sdkPlatform == SdkPlatform.JAVA ? JAVA_SDK_PREFIX : ANDROID_SDK_PREFIX);
+  String sdkFileName=fileNamePrefix + sdkProfile.getToken() + ".jar";
   byte[] sdkData=sdkOutput.toByteArray();
   FileData sdk=new FileData();
   sdk.setFileName(sdkFileName);

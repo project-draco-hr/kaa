@@ -1,0 +1,6 @@
+{
+  LOG.debug("Find topic list entry by hash [{}] ",hash);
+  DBObject dbObject=query(where(ID).is(hash)).getQueryObject();
+  DBObject result=mongoTemplate.getDb().getCollection(getCollectionName()).findOne(dbObject);
+  return mongoTemplate.getConverter().read(getDocumentClass(),result);
+}

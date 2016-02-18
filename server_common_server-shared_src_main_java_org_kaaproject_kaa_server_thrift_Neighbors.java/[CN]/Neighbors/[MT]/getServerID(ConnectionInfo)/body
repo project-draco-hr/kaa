@@ -1,7 +1,3 @@
 {
-  StringBuffer sb=new StringBuffer();
-  sb.append(info.getThriftHost());
-  sb.append(":");
-  sb.append(info.getThriftPort());
-  return sb.toString();
+  return getServerID(KaaThriftService.OPERATIONS_SERVICE,info);
 }
