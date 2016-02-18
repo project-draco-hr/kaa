@@ -1,0 +1,17 @@
+{
+  TTupleProtocol oprot=(TTupleProtocol)prot;
+  BitSet optionals=new BitSet();
+  if (struct.isSetNodeId()) {
+    optionals.set(0);
+  }
+  if (struct.isSetAddress()) {
+    optionals.set(1);
+  }
+  oprot.writeBitSet(optionals,2);
+  if (struct.isSetNodeId()) {
+    oprot.writeString(struct.nodeId);
+  }
+  if (struct.isSetAddress()) {
+    struct.address.write(oprot);
+  }
+}

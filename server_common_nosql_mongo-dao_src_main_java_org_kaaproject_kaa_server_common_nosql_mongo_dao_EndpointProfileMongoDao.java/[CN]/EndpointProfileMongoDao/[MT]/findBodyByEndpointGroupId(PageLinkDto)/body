@@ -4,7 +4,7 @@
   List<EndpointProfileBodyDto> profilesBody=new ArrayList<>();
   int lim=Integer.valueOf(pageLink.getLimit());
   int offs=Integer.valueOf(pageLink.getOffset());
-  Query query=Query.query(new Criteria().orOperator(where(EP_CF_GROUP_STATE + "." + ENDPOINT_GROUP_ID).is(pageLink.getEndpointGroupId()),where(EP_NF_GROUP_STATE + "." + ENDPOINT_GROUP_ID).is(pageLink.getEndpointGroupId())));
+  Query query=Query.query(new Criteria().orOperator(where(EP_GROUP_STATE + "." + ENDPOINT_GROUP_ID).is(pageLink.getEndpointGroupId()),where(EP_GROUP_STATE + "." + ENDPOINT_GROUP_ID).is(pageLink.getEndpointGroupId())));
   query.skip(offs).limit(lim + 1);
   query.fields().include(DaoConstants.PROFILE).include(EP_ENDPOINT_KEY_HASH).include(EP_APPLICATION_ID);
   List<MongoEndpointProfile> mongoEndpointProfileList=mongoTemplate.find(query,getDocumentClass());

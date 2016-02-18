@@ -1,0 +1,6 @@
+{
+  EndpointProfileDto profile=refreshServerEndpointProfile(key);
+  profile.setGroupState(new ArrayList<>());
+  profile=syncProfileState(appToken,endpointKey,profile,false);
+  return profile;
+}

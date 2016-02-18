@@ -1,0 +1,8 @@
+{
+  LOG.debug("Looking for a topic list entry by hash: [{}]",hash);
+  TopicListEntry topicListEntry=topicListEntryDao.findByHash(hash);
+  List<TopicDto> foundTopics=ModelUtils.convertDtoList(topicDao.findTopicsByIds(topicListEntry.getTopicIds()));
+  TopicListEntryDto topicListEntryDto=getDto(topicListEntry);
+  topicListEntryDto.setTopics(foundTopics);
+  return topicListEntryDto;
+}

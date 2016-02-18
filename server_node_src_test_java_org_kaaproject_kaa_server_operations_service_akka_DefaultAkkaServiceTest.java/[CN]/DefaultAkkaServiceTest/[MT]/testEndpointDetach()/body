@@ -27,7 +27,7 @@
   ErrorBuilder targetErrorBuilder=Mockito.mock(ErrorBuilder.class);
   SessionInitMessage targetMessage=toSignedRequest(UUID.randomUUID(),ChannelType.SYNC_WITH_TIMEOUT,channelContextMock,targetRequest,targetResponseBuilder,targetErrorBuilder,targetCrypt);
   akkaService.process(targetMessage);
-  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeastOnce()).syncProfile(Mockito.any(SyncContext.class),Mockito.any(ProfileClientSync.class));
+  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeastOnce()).syncClientProfile(Mockito.any(SyncContext.class),Mockito.any(ProfileClientSync.class));
   Mockito.verify(eventService,Mockito.timeout(TIMEOUT).atLeastOnce()).sendUserRouteInfo(new UserRouteInfo(TENANT_ID,USER_ID));
   EndpointProfileDto sourceProfileMock=Mockito.mock(EndpointProfileDto.class);
   SyncRequest sourceRequest=new SyncRequest();
@@ -54,7 +54,7 @@
   ErrorBuilder sourceErrorBuilder=Mockito.mock(ErrorBuilder.class);
   SessionInitMessage sourceMessage=toSignedRequest(UUID.randomUUID(),ChannelType.SYNC_WITH_TIMEOUT,channelContextMock,sourceRequest,sourceResponseBuilder,sourceErrorBuilder);
   akkaService.process(sourceMessage);
-  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeastOnce()).syncProfile(Mockito.any(SyncContext.class),Mockito.any(ProfileClientSync.class));
+  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeastOnce()).syncClientProfile(Mockito.any(SyncContext.class),Mockito.any(ProfileClientSync.class));
   SyncResponse targetSyncResponse=new SyncResponse();
   targetSyncResponse.setRequestId(REQUEST_ID);
   targetSyncResponse.setStatus(SyncResponseResultType.SUCCESS);

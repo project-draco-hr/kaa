@@ -1,0 +1,4 @@
+{
+  LOG.info("Init default cluster service.");
+  neighbors=new Neighbors<MessageTemplate,OperationsServiceMsg>(KaaThriftService.OPERATIONS_SERVICE,new MessageTemplate(),operationsServerConfig.getMaxNumberNeighborConnections());
+}

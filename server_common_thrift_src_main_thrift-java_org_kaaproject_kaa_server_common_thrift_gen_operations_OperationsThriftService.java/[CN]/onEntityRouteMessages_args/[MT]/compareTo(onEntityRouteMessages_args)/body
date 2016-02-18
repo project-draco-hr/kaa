@@ -1,0 +1,17 @@
+{
+  if (!getClass().equals(other.getClass())) {
+    return getClass().getName().compareTo(other.getClass().getName());
+  }
+  int lastComparison=0;
+  lastComparison=Boolean.valueOf(isSetMessages()).compareTo(other.isSetMessages());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetMessages()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.messages,other.messages);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  return 0;
+}

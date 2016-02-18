@@ -1,8 +1,8 @@
 {
   KaaClientState clientState=Mockito.mock(KaaClientState.class);
-  Map<String,Integer> nfSubscriptions=new HashMap<String,Integer>();
-  nfSubscriptions.put("topic1",10);
-  nfSubscriptions.put("topic2",3);
+  Map<Long,Integer> nfSubscriptions=new HashMap<>();
+  nfSubscriptions.put(1l,10);
+  nfSubscriptions.put(2l,3);
   Mockito.when(clientState.getNfSubscriptions()).thenReturn(nfSubscriptions);
   NotificationTransport transport=new DefaultNotificationTransport();
   Assert.assertNull(transport.createEmptyNotificationRequest());

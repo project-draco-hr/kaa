@@ -4,6 +4,11 @@
     this.checkApplicationId(sdkProfile.getApplicationId());
     sdkProfile.setCreatedUsername(getCurrentUser().getUsername());
     sdkProfile.setCreatedTime(System.currentTimeMillis());
+    ApplicationDto application=controlService.getApplication(sdkProfile.getApplicationId());
+    if (application == null) {
+      throw new NotFoundException("Application not found!");
+    }
+    sdkProfile.setApplicationToken(application.getApplicationToken());
     return controlService.saveSdkProfile(sdkProfile);
   }
  catch (  Exception cause) {

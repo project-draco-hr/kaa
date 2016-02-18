@@ -7,7 +7,7 @@
   application.setName(APP_NAME);
   application.setTenantId(tenant.getId());
   application=applicationService.saveApp(application);
-  CTLSchemaMetaInfoDto ctl1MetaDataDto=new CTLSchemaMetaInfoDto(EmptyData.SCHEMA$.getFullName(),application.getTenantId(),application.getId());
+  CTLSchemaMetaInfoDto ctl1MetaDataDto=new CTLSchemaMetaInfoDto(EmptyData.SCHEMA$.getFullName(),null,null);
   CTLSchemaDto ctl1SchemaDto=new CTLSchemaDto();
   ctl1SchemaDto.setMetaInfo(ctl1MetaDataDto);
   ctl1SchemaDto.setVersion(2);

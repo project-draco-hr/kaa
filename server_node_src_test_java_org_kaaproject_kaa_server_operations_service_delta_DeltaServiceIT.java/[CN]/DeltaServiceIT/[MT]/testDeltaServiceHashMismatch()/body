@@ -1,16 +1,10 @@
 {
-  byte[] wrongConf=Arrays.copyOf(endpointConfiguration.getConfiguration(),endpointConfiguration.getConfiguration().length);
-  wrongConf[0]=(byte)(wrongConf[0] + 1);
-  EndpointObjectHash newConfHash=EndpointObjectHash.fromSHA1(wrongConf);
-  GetDeltaRequest request=new GetDeltaRequest(application.getApplicationToken(),newConfHash,OLD_ENDPOINT_SEQ_NUMBER);
+  GetDeltaRequest request=new GetDeltaRequest(application.getApplicationToken(),EndpointObjectHash.fromBytes(new byte[]{1,2,3}));
   request.setEndpointProfile(endpointProfile);
-  List<EndpointGroupStateDto> changes=new ArrayList<>();
-  changes.add(new EndpointGroupStateDto(egAllId,pfAllId,cfAllId));
-  HistoryDelta historyDelta=new HistoryDelta(changes,true,false);
-  GetDeltaResponse response=deltaService.getDelta(request,historyDelta,NEW_APPLICATION_SEQ_NUMBER);
+  GetDeltaResponse response=deltaService.getDelta(request);
   assertNotNull(response);
   assertEquals(GetDeltaResponse.GetDeltaResponseType.CONF_RESYNC,response.getResponseType());
-  assertEquals(NEW_APPLICATION_SEQ_NUMBER,response.getSequenceNumber());
   assertNotNull(response.getDelta());
-  assertNotNull(response.getDelta().getData());
+  endpointConfigurationBytes=response.getDelta().getData();
+  assertNotNull(endpointConfigurationBytes);
 }

@@ -1,0 +1,21 @@
+{
+  if (state.getProperty(TOPIC_LIST) != null) {
+    byte[] data=base64.decodeBase64(state.getProperty(TOPIC_LIST));
+    BinaryDecoder decoder=DecoderFactory.get().binaryDecoder(data,null);
+    SpecificDatumReader<Topic> avroReader=new SpecificDatumReader<Topic>(Topic.class);
+    try {
+      Topic decodedTopic=null;
+      while (!decoder.isEnd()) {
+        decodedTopic=avroReader.read(null,decoder);
+        LOG.debug("Loaded {}",decodedTopic);
+        topicMap.put(decodedTopic.getId(),decodedTopic);
+      }
+    }
+ catch (    Exception e) {
+      LOG.error("Unexpected exception occurred while reading information from decoder",e);
+    }
+  }
+ else {
+    LOG.info("No topic list found in state");
+  }
+}

@@ -1,0 +1,4 @@
+{
+  ActorRef tenantActor=getOrCreateTenantActorByTokenId(message.getAddress().getTenantId());
+  tenantActor.tell(message,self());
+}

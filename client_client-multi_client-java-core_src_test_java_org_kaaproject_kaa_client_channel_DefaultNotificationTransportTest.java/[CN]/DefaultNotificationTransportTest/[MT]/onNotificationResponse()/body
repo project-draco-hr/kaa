@@ -1,13 +1,11 @@
 {
   KaaClientState clientState=Mockito.mock(KaaClientState.class);
   NotificationProcessor notificationProcessor=Mockito.mock(NotificationProcessor.class);
-  Mockito.when(clientState.getNotificationSeqNumber()).thenReturn(new Integer(2));
-  Mockito.when(clientState.updateTopicSubscriptionInfo(Mockito.anyString(),Mockito.anyInt())).thenReturn(Boolean.TRUE);
+  Mockito.when(clientState.updateTopicSubscriptionInfo(Mockito.anyLong(),Mockito.anyInt())).thenReturn(Boolean.TRUE);
   NotificationSyncResponse response=new NotificationSyncResponse();
-  response.setAppStateSeqNumber(3);
   response.setResponseStatus(SyncResponseStatus.DELTA);
-  String topicId1="topicId1";
-  String topicId2="topicId2";
+  long topicId1=1;
+  long topicId2=2;
   KaaChannelManager channelManagerMock=Mockito.mock(KaaChannelManager.class);
   NotificationTransport transport=new DefaultNotificationTransport();
   transport.setChannelManager(channelManagerMock);
@@ -17,7 +15,7 @@
   transport.onNotificationResponse(response);
   transport.setClientState(clientState);
   transport.onNotificationResponse(response);
-  List<Topic> topicList=new ArrayList<>(1);
+  List<Topic> topicList=new ArrayList<>();
   topicList.add(new Topic(topicId1,null,SubscriptionType.MANDATORY_SUBSCRIPTION));
   topicList.add(new Topic(topicId2,null,SubscriptionType.OPTIONAL_SUBSCRIPTION));
   response.setAvailableTopics(topicList);

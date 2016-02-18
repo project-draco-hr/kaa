@@ -1,15 +1,2 @@
 {
-  LOG.debug("Updating Profile for {}",request.getEndpointKeyHash());
-  EndpointProfileDto dto=endpointService.findEndpointProfileByKeyHash(request.getEndpointKeyHash().getData());
-  AppSeqNumber appSeqNumber=cacheService.getAppSeqNumber(request.getApplicationToken());
-  SdkProfileDto sdkProfile=cacheService.getSdkProfileBySdkToken(request.getSdkToken());
-  String profileJson=decodeProfile(request.getProfile(),appSeqNumber.getAppToken(),sdkProfile.getProfileSchemaVersion());
-  if (request.getAccessToken() != null) {
-    dto.setAccessToken(request.getAccessToken());
-  }
-  dto.setClientProfileBody(profileJson);
-  dto.setProfileHash(EndpointObjectHash.fromSHA1(request.getProfile()).getData());
-  populateVersionStates(appSeqNumber.getTenantId(),dto,sdkProfile);
-  doClearProfileGroupStates(dto);
-  return endpointService.saveEndpointProfile(dto);
 }

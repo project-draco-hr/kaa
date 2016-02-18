@@ -1,7 +1,7 @@
 {
   Schema schema=new Schema.Parser().parse(profileSchemaBody);
   List<TarEntryData> tarEntries=new LinkedList<>();
-  tarEntries.add(createTarEntry(PROFILE_HEADER,processHeaderTemplate("kaa_profile_definitions.vm",schema,PROFILE_NAMESPACE)));
+  tarEntries.add(createTarEntry(PROFILE_HEADER,processHeaderTemplate("kaa_profile_definitions.hvm",schema,PROFILE_NAMESPACE)));
   tarEntries.addAll(generateSourcesFromSchema(schema,PROFILE_SOURCE_NAME_PATTERN,PROFILE_NAMESPACE));
   return tarEntries;
 }

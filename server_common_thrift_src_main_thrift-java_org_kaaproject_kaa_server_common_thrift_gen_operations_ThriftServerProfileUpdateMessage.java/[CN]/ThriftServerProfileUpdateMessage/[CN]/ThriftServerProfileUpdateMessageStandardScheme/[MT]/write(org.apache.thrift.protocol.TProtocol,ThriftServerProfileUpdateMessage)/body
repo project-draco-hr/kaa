@@ -1,0 +1,16 @@
+{
+  struct.validate();
+  oprot.writeStructBegin(STRUCT_DESC);
+  if (struct.address != null) {
+    oprot.writeFieldBegin(ADDRESS_FIELD_DESC);
+    struct.address.write(oprot);
+    oprot.writeFieldEnd();
+  }
+  if (struct.actorClassifier != null) {
+    oprot.writeFieldBegin(ACTOR_CLASSIFIER_FIELD_DESC);
+    struct.actorClassifier.write(oprot);
+    oprot.writeFieldEnd();
+  }
+  oprot.writeFieldStop();
+  oprot.writeStructEnd();
+}

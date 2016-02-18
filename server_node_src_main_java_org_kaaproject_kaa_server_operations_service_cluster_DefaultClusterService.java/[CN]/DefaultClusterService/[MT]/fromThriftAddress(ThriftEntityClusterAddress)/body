@@ -1,0 +1,5 @@
+{
+  ThriftEntityAddress address=source.getAddress();
+  EndpointObjectHash endpointKey=EndpointObjectHash.fromBytes(address.getEntityId());
+  return new EndpointClusterAddress(source.getNodeId(),address.getTenantId(),address.getApplicationToken(),endpointKey);
+}

@@ -4,8 +4,12 @@
   EndpointUser endpointUser=endpointUserDao.findById(endpointUserId);
   if (endpointUser != null) {
     List<String> endpointIds=endpointUser.getEndpointIds();
-    if (endpointIds != null) {
+    if (endpointIds != null && endpointIds.contains(detachEndpoint.getId())) {
       endpointIds.remove(detachEndpoint.getId());
+    }
+ else {
+      LOG.warn("Endpoint is not assigned to current user {}!",endpointUserId);
+      throw new DatabaseProcessingException("Endpoint is not assigned to current user.");
     }
     endpointUserDao.save(endpointUser);
     detachEndpoint.setEndpointUserId(null);

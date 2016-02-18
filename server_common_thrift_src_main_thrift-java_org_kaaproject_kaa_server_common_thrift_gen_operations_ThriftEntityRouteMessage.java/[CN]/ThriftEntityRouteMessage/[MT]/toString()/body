@@ -1,0 +1,23 @@
+{
+  StringBuilder sb=new StringBuilder("ThriftEntityRouteMessage(");
+  boolean first=true;
+  sb.append("address:");
+  if (this.address == null) {
+    sb.append("null");
+  }
+ else {
+    sb.append(this.address);
+  }
+  first=false;
+  if (!first)   sb.append(", ");
+  sb.append("operation:");
+  if (this.operation == null) {
+    sb.append("null");
+  }
+ else {
+    sb.append(this.operation);
+  }
+  first=false;
+  sb.append(")");
+  return sb.toString();
+}

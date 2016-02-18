@@ -1,0 +1,13 @@
+{
+  OperationsService osMock=Mockito.mock(OperationsService.class);
+  ActorContext ctxMock=Mockito.mock(ActorContext.class);
+  ActorRef appActorMock=Mockito.mock(ActorRef.class);
+  Mockito.when(ctxMock.parent()).thenReturn(appActorMock);
+  AkkaContext context=Mockito.mock(AkkaContext.class);
+  Mockito.when(context.getOperationsService()).thenReturn(osMock);
+  LocalEndpointActorMessageProcessor processor=Mockito.spy(new LocalEndpointActorMessageProcessor(context,"APP_TOKEN",EndpointObjectHash.fromSHA1("key"),"actorKey"));
+  ActorTimeoutMessage msg=new ActorTimeoutMessage(-1);
+  Mockito.doNothing().when(processor).tellParent(Mockito.any(ActorContext.class),Mockito.any(Object.class));
+  processor.processActorTimeoutMessage(ctxMock,msg);
+  Mockito.verify(processor,Mockito.never()).tellParent(Mockito.any(ActorContext.class),Mockito.any(Object.class));
+}

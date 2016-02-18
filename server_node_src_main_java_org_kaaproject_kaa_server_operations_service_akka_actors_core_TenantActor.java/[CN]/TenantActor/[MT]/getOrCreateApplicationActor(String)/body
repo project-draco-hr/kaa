@@ -1,7 +1,7 @@
 {
   ActorRef applicationActor=applications.get(appToken);
   if (applicationActor == null) {
-    applicationActor=context().actorOf(Props.create(new ApplicationActor.ActorCreator(context,appToken)).withDispatcher(CORE_DISPATCHER_NAME),appToken);
+    applicationActor=context().actorOf(Props.create(new ApplicationActor.ActorCreator(context,tenantId,appToken)).withDispatcher(CORE_DISPATCHER_NAME),appToken);
     applications.put(appToken,applicationActor);
   }
   return applicationActor;

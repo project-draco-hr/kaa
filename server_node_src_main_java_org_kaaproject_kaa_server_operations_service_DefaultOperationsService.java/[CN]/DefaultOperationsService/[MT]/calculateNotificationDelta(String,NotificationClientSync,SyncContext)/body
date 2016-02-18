@@ -1,0 +1,4 @@
+{
+  GetNotificationRequest request=new GetNotificationRequest(syncRequest.getTopicListHash(),context.getEndpointProfile(),syncRequest.getSubscriptionCommands(),syncRequest.getAcceptedUnicastNotifications(),syncRequest.getTopicStates());
+  return notificationDeltaService.getNotificationDelta(request);
+}

@@ -1,11 +1,10 @@
 {
   try {
     NotificationSyncRequest record=new NotificationSyncRequest();
-    record.appStateSeqNumber=fieldSetFlags()[0] ? this.appStateSeqNumber : (java.lang.Integer)defaultValue(fields()[0]);
-    record.topicListHash=fieldSetFlags()[1] ? this.topicListHash : (java.nio.ByteBuffer)defaultValue(fields()[1]);
-    record.topicStates=fieldSetFlags()[2] ? this.topicStates : (java.util.List<org.kaaproject.kaa.common.endpoint.gen.TopicState>)defaultValue(fields()[2]);
-    record.acceptedUnicastNotifications=fieldSetFlags()[3] ? this.acceptedUnicastNotifications : (java.util.List<java.lang.String>)defaultValue(fields()[3]);
-    record.subscriptionCommands=fieldSetFlags()[4] ? this.subscriptionCommands : (java.util.List<org.kaaproject.kaa.common.endpoint.gen.SubscriptionCommand>)defaultValue(fields()[4]);
+    record.topicListHash=fieldSetFlags()[0] ? this.topicListHash : (java.lang.Integer)defaultValue(fields()[0]);
+    record.topicStates=fieldSetFlags()[1] ? this.topicStates : (java.util.List<org.kaaproject.kaa.common.endpoint.gen.TopicState>)defaultValue(fields()[1]);
+    record.acceptedUnicastNotifications=fieldSetFlags()[2] ? this.acceptedUnicastNotifications : (java.util.List<java.lang.String>)defaultValue(fields()[2]);
+    record.subscriptionCommands=fieldSetFlags()[3] ? this.subscriptionCommands : (java.util.List<org.kaaproject.kaa.common.endpoint.gen.SubscriptionCommand>)defaultValue(fields()[3]);
     return record;
   }
  catch (  Exception e) {

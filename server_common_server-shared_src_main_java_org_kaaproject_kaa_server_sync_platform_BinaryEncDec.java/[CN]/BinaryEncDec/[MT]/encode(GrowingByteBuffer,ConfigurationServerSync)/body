@@ -10,7 +10,6 @@
   }
   buildExtensionHeader(buf,CONFIGURATION_EXTENSION_ID,NOTHING,(byte)option,0);
   int extPosition=buf.position();
-  buf.putInt(configurationSync.getAppStateSeqNumber());
   if (confSchemaPresent) {
     buf.putInt(configurationSync.getConfSchemaBody().array().length);
   }

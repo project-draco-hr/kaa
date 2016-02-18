@@ -1,0 +1,11 @@
+{
+  if (entity.getVersion() == null) {
+    entity.setVersion(0l);
+    LOG.debug("Save entity {}",entity);
+    return insertLocked(entity);
+  }
+ else {
+    LOG.debug("Update entity {}",entity);
+    return updateLocked(entity);
+  }
+}

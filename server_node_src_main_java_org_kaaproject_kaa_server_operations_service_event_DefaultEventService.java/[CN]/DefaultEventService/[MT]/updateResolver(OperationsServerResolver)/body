@@ -7,17 +7,10 @@
     @Override public void onNodeRemoved(    OperationsNodeInfo node){
       LOG.debug("Remove of node {} is pushed to resolver {}",node,resolver);
       resolver.onNodeRemoved(node);
-      notifyListeners();
     }
     @Override public void onNodeAdded(    OperationsNodeInfo node){
       LOG.debug("Add of node {} is pushed to resolver {}",node,resolver);
       resolver.onNodeAdded(node);
-      notifyListeners();
-    }
-    private void notifyListeners(){
-      for (      EventServiceListener listener : listeners) {
-        listener.onClusterUpdated();
-      }
     }
   }
 );

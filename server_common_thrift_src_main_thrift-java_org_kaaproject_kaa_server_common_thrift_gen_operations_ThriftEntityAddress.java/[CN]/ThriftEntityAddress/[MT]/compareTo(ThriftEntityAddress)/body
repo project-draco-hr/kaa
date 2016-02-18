@@ -1,0 +1,47 @@
+{
+  if (!getClass().equals(other.getClass())) {
+    return getClass().getName().compareTo(other.getClass().getName());
+  }
+  int lastComparison=0;
+  lastComparison=Boolean.valueOf(isSetTenantId()).compareTo(other.isSetTenantId());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetTenantId()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.tenantId,other.tenantId);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  lastComparison=Boolean.valueOf(isSetApplicationToken()).compareTo(other.isSetApplicationToken());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetApplicationToken()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.applicationToken,other.applicationToken);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  lastComparison=Boolean.valueOf(isSetEntityType()).compareTo(other.isSetEntityType());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetEntityType()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.entityType,other.entityType);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  lastComparison=Boolean.valueOf(isSetEntityId()).compareTo(other.isSetEntityId());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetEntityId()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.entityId,other.entityId);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  return 0;
+}

@@ -1,0 +1,20 @@
+{
+switch (field) {
+case ADDRESS:
+    if (value == null) {
+      unsetAddress();
+    }
+ else {
+      setAddress((ThriftEntityClusterAddress)value);
+    }
+  break;
+case OPERATION:
+if (value == null) {
+  unsetOperation();
+}
+ else {
+  setOperation((ThriftRouteOperation)value);
+}
+break;
+}
+}

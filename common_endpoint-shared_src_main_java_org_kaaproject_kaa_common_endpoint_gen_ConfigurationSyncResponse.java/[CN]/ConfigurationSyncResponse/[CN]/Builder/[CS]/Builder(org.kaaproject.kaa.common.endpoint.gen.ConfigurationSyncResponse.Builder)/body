@@ -1,19 +1,15 @@
 {
   super(other);
-  if (isValidValue(fields()[0],other.appStateSeqNumber)) {
-    this.appStateSeqNumber=data().deepCopy(fields()[0].schema(),other.appStateSeqNumber);
+  if (isValidValue(fields()[0],other.responseStatus)) {
+    this.responseStatus=data().deepCopy(fields()[0].schema(),other.responseStatus);
     fieldSetFlags()[0]=true;
   }
-  if (isValidValue(fields()[1],other.responseStatus)) {
-    this.responseStatus=data().deepCopy(fields()[1].schema(),other.responseStatus);
+  if (isValidValue(fields()[1],other.confSchemaBody)) {
+    this.confSchemaBody=data().deepCopy(fields()[1].schema(),other.confSchemaBody);
     fieldSetFlags()[1]=true;
   }
-  if (isValidValue(fields()[2],other.confSchemaBody)) {
-    this.confSchemaBody=data().deepCopy(fields()[2].schema(),other.confSchemaBody);
+  if (isValidValue(fields()[2],other.confDeltaBody)) {
+    this.confDeltaBody=data().deepCopy(fields()[2].schema(),other.confDeltaBody);
     fieldSetFlags()[2]=true;
-  }
-  if (isValidValue(fields()[3],other.confDeltaBody)) {
-    this.confDeltaBody=data().deepCopy(fields()[3].schema(),other.confDeltaBody);
-    fieldSetFlags()[3]=true;
   }
 }

@@ -1,6 +1,9 @@
 {
   LOG.debug("Received: {}",message);
-  if (message instanceof EndpointAwareMessage) {
+  if (message instanceof EndpointActorMsg) {
+    processEndpointActorMsg((EndpointActorMsg)message);
+  }
+ else   if (message instanceof EndpointAwareMessage) {
     processEndpointAwareMessage((EndpointAwareMessage)message);
   }
  else   if (message instanceof SessionControlMessage) {

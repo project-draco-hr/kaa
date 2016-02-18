@@ -3,12 +3,20 @@
     if (response.getResponseStatus() == SyncResponseStatus.NO_DELTA) {
       acceptedUnicastNotificationIds.clear();
     }
-    List<Topic> topics=response.getAvailableTopics();
-    if (topics != null) {
-      for (      Topic topic : topics) {
-        clientState.addTopic(topic);
+ else {
+      List<Topic> topics=response.getAvailableTopics();
+      if (topics != null) {
+        clientState.setTopicListHash(TopicListHashCalculator.calculateTopicListHash(topics));
+        processor.topicsListUpdated(topics);
       }
-      processor.topicsListUpdated(topics);
+    }
+    for (    SubscriptionCommand subscriptionCommand : sentNotificationCommands) {
+      if (subscriptionCommand.getCommand() == SubscriptionCommandType.ADD) {
+        clientState.addTopicSubscription(subscriptionCommand.getTopicId());
+      }
+ else       if (subscriptionCommand.getCommand() == SubscriptionCommandType.REMOVE) {
+        clientState.removeTopicSubscription(subscriptionCommand.getTopicId());
+      }
     }
     List<Notification> notifications=response.getNotifications();
     if (notifications != null) {
@@ -36,7 +44,6 @@
       processor.notificationReceived(newNotifications);
     }
     sentNotificationCommands.clear();
-    clientState.setNotificationSeqNumber(response.getAppStateSeqNumber());
     syncAck(response.getResponseStatus());
     LOG.info("Processed notification response.");
   }

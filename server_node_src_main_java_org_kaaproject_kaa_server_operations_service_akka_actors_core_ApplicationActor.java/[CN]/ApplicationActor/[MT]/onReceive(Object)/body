@@ -1,14 +1,17 @@
 {
   if (LOG.isTraceEnabled()) {
-    LOG.trace("[{}] Received: {}",applicationToken,message);
+    LOG.trace("[{}] Received: {}",appToken,message);
   }
  else {
-    LOG.debug("[{}] Received: {}",applicationToken,message.getClass().getName());
+    LOG.debug("[{}] Received: {}",appToken,message.getClass().getName());
   }
   if (message instanceof EndpointAwareMessage) {
     processEndpointAwareMessage((EndpointAwareMessage)message);
   }
-  if (message instanceof SessionAware) {
+  if (message instanceof EndpointActorMsg) {
+    processEndpointActorMsg((EndpointActorMsg)message);
+  }
+ else   if (message instanceof SessionAware) {
     processSessionAwareMessage((SessionAware)message);
   }
  else   if (message instanceof EndpointEventDeliveryMessage) {
@@ -37,5 +40,11 @@
   }
  else   if (message instanceof StatusRequestMessage) {
     processStatusRequest((StatusRequestMessage)message);
+  }
+ else   if (message instanceof ClusterUpdateMessage) {
+    processClusterUpdate((ClusterUpdateMessage)message);
+  }
+ else   if (message instanceof RouteMessage<?>) {
+    processRouteMessage((RouteMessage<?>)message);
   }
 }
