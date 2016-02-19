@@ -2,9 +2,7 @@
   listView.clearError();
   registrations.add(listView.getResetButton().addClickHandler(new ClickHandler(){
     @Override public void onClick(    ClickEvent clickEvent){
-      listView.getEndpointKeyHashTextBox().setValue("");
-      gridLoaded=false;
-      getGroupsList();
+      reset();
     }
   }
 ));
@@ -19,21 +17,13 @@
 ));
   registrations.add(listView.getEndpointGroupsInfo().addValueChangeHandler(new ValueChangeHandler<EndpointGroupDto>(){
     @Override public void onValueChange(    ValueChangeEvent<EndpointGroupDto> valueChangeEvent){
-      getDataProvider().setNewGroup(valueChangeEvent.getValue().getId());
-      listView.getListWidget().getDataGrid().setVisibleRangeAndClearData(new Range(0,listView.getListWidget().getPageSize()),true);
+      findByEndpointGroup();
     }
   }
 ));
   registrations.add(listView.getFindEndpointButton().addClickHandler(new ClickHandler(){
     @Override public void onClick(    ClickEvent clickEvent){
-      listView.clearError();
-      String value=listView.getEndpointKeyHashTextBox().getValue();
-      if (isNotBlank(value)) {
-        findEndpointFromThisApplication(value);
-      }
- else {
-        listView.getListWidget().getDataGrid().setRowData(new ArrayList<EndpointProfileDto>());
-      }
+      findByEndpointKeyHash();
     }
   }
 ));
@@ -47,4 +37,17 @@
     }
 ));
   }
+  registrations.add(listView.getEndpointGroupButton().addValueChangeHandler(new ValueChangeHandler<Boolean>(){
+    @Override public void onValueChange(    ValueChangeEvent<Boolean> event){
+      findByEndpointGroup();
+    }
+  }
+));
+  registrations.add(listView.getEndpointKeyHashButton().addValueChangeHandler(new ValueChangeHandler<Boolean>(){
+    @Override public void onValueChange(    ValueChangeEvent<Boolean> event){
+      findByEndpointKeyHash();
+    }
+  }
+));
+  reset();
 }

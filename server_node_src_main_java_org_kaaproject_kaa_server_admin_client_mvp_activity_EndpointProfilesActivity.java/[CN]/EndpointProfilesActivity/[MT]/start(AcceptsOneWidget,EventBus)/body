@@ -1,6 +1,7 @@
 {
+  gridLoaded=false;
   listView=clientFactory.getEndpointProfilesView();
-  getGroupsList();
+  dataProvider=new EndpointProfileDataProvider(listView.getListWidget(),listView,this.applicationId);
   listView.setPresenter(this);
   bind();
   containerWidget.setWidget(listView.asWidget());
