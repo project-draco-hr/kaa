@@ -1,5 +1,5 @@
 {
   MultiValueMap<String,Object> params=new LinkedMultiValueMap<>();
   params.add("userId",userId);
-  restTemplate.postForLocation(url + "delUser",params);
+  restTemplate.postForLocation(restTemplate.getUrl() + "delUser",params);
 }
