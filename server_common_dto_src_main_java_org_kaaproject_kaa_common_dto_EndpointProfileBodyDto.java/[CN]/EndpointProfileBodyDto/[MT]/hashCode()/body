@@ -2,6 +2,8 @@
   int result=endpointKeyHash != null ? Arrays.hashCode(endpointKeyHash) : 0;
   result=31 * result + (clientSideProfile != null ? clientSideProfile.hashCode() : 0);
   result=31 * result + (serverSideProfile != null ? serverSideProfile.hashCode() : 0);
+  result=31 * result + clientSideProfileVersion;
+  result=31 * result + serverSideProfileVersion;
   result=31 * result + (appId != null ? appId.hashCode() : 0);
   return result;
 }
