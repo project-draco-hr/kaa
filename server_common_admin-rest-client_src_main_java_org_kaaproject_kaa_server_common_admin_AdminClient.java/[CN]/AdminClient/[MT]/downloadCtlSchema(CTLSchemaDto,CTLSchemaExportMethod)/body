@@ -1,0 +1,9 @@
+{
+  FileDataResponseExtractor extractor=new FileDataResponseExtractor();
+  MultiValueMap<String,String> parameters=new LinkedMultiValueMap<>();
+  parameters.add("fqn",ctlSchemaDto.getMetaInfo().getFqn());
+  parameters.add("version",Integer.toString(ctlSchemaDto.getVersion()));
+  parameters.add("method",method.name());
+  RequestCallback request=new DataRequestCallback<>(parameters);
+  return restTemplate.execute(url + "CTL/exportSchema",HttpMethod.POST,request,extractor);
+}
