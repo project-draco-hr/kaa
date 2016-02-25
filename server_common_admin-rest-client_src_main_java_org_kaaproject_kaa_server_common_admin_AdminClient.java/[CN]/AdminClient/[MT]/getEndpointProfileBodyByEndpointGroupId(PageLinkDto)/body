@@ -5,6 +5,6 @@
   ParameterizedTypeReference<EndpointProfilesBodyDto> typeRef=new ParameterizedTypeReference<EndpointProfilesBodyDto>(){
   }
 ;
-  ResponseEntity<EndpointProfilesBodyDto> entity=restTemplate.exchange(restTemplate.getUrl() + "endpointProfileBodyByGroupId?endpointGroupId=" + endpointGroupId+ "&limit="+ limit+ "&offset="+ offset,HttpMethod.GET,null,typeRef);
+  ResponseEntity<EndpointProfilesBodyDto> entity=restTemplate.exchange(restTemplate.getUrl() + "/kaaAdmin/rest/api/endpointProfileBodyByGroupId?endpointGroupId=" + endpointGroupId+ "&limit="+ limit+ "&offset="+ offset,HttpMethod.GET,null,typeRef);
   return entity.getBody();
 }

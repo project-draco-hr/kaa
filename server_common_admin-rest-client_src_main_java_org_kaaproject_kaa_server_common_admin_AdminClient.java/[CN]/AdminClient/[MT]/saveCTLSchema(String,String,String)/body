@@ -7,5 +7,5 @@
   if (applicationId != null) {
     params.add("applicationId",applicationId);
   }
-  return restTemplate.postForObject(restTemplate.getUrl() + "CTL/saveSchema",params,CTLSchemaDto.class);
+  return restTemplate.postForObject(restTemplate.getUrl() + "/kaaAdmin/rest/api/CTL/saveSchema",params,CTLSchemaDto.class);
 }

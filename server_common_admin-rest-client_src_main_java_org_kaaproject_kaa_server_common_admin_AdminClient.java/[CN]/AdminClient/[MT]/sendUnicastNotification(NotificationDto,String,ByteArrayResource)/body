@@ -3,5 +3,5 @@
   params.add("notification",notification);
   params.add("clientKeyHash",clientKeyHash);
   params.add("file",resource);
-  return restTemplate.postForObject(restTemplate.getUrl() + "sendUnicastNotification",params,EndpointNotificationDto.class);
+  return restTemplate.postForObject(restTemplate.getUrl() + "/kaaAdmin/rest/api/sendUnicastNotification",params,EndpointNotificationDto.class);
 }

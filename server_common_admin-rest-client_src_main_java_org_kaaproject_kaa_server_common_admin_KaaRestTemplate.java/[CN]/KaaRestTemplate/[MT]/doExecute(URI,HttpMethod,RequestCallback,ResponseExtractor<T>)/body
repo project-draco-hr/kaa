@@ -3,18 +3,20 @@
     super.doExecute(url,method,requestCallback,responseExtractor);
   }
  catch (  ResourceAccessException ex) {
-    count++;
-    if (count >= hosts.length) {
-      count=0;
+    if (username != null && password != null) {
+      HttpComponentsRequestFactoryBasicAuth requestFactory=(HttpComponentsRequestFactoryBasicAuth)getRequestFactory();
+      requestFactory.setCredentials(username,password);
     }
-    newUrl="http://" + hosts[count] + ":"+ ports[count]+ "/kaaAdmin/rest/api/";
-    requestFactory=new HttpComponentsRequestFactoryBasicAuth(new HttpHost(hosts[count],ports[count],"http"));
-    setRequestFactory(requestFactory);
+    index++;
+    if (index >= hosts.length) {
+      index=0;
+    }
+    newUrl="http://" + hosts[index] + ":"+ ports[index];
+    setNewRequestFactory(new HttpHost(hosts[index],ports[index],"http"));
     String urlWitthNewHostAndPort=url.toString();
-    urlWitthNewHostAndPort=urlWitthNewHostAndPort.replace(url.getHost(),hosts[count]);
-    urlWitthNewHostAndPort=urlWitthNewHostAndPort.replace(String.valueOf(url.getPort()),String.valueOf(ports[count]));
-    Object[] obj={};
-    URI FullUrl=new UriTemplate(urlWitthNewHostAndPort).expand(obj);
+    urlWitthNewHostAndPort=urlWitthNewHostAndPort.replaceFirst(url.getHost(),hosts[index]);
+    urlWitthNewHostAndPort=urlWitthNewHostAndPort.replaceFirst(String.valueOf(url.getPort()),String.valueOf(ports[index]));
+    URI FullUrl=URI.create(urlWitthNewHostAndPort);
     super.doExecute(FullUrl,method,requestCallback,responseExtractor);
   }
   return null;

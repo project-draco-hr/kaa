@@ -2,5 +2,5 @@
   MultiValueMap<String,String> params=new LinkedMultiValueMap<String,String>();
   params.add("username",username);
   params.add("password",password);
-  restTemplate.postForObject(restTemplate.getUrl() + "auth/createKaaAdmin",params,Void.class);
+  restTemplate.postForObject(restTemplate.getUrl() + "/kaaAdmin/rest/api/auth/createKaaAdmin",params,Void.class);
 }

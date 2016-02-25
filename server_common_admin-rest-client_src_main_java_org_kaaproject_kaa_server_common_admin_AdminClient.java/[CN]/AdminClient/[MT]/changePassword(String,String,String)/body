@@ -3,5 +3,5 @@
   params.add("username",username);
   params.add("oldPassword",oldPassword);
   params.add("newPassword",newPassword);
-  return restTemplate.postForObject(restTemplate.getUrl() + "auth/changePassword",params,ResultCode.class);
+  return restTemplate.postForObject(restTemplate.getUrl() + "/kaaAdmin/rest/api/auth/changePassword",params,ResultCode.class);
 }

@@ -1,7 +1,3 @@
 {
-  this.newUrl="http://" + host + ":"+ port+ "/kaaAdmin/rest/api/";
-  this.host=host;
-  this.port=port;
-  requestFactory=new HttpComponentsRequestFactoryBasicAuth(new HttpHost(host,port,"http"));
-  setRequestFactory(requestFactory);
+  this(new String[]{host},new int[]{port});
 }
