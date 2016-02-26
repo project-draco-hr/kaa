@@ -2,7 +2,7 @@
   ParameterizedTypeReference<List<EventClassFamilyDto>> typeRef=new ParameterizedTypeReference<List<EventClassFamilyDto>>(){
   }
 ;
-  ResponseEntity<List<EventClassFamilyDto>> entity=restTemplate.exchange(restTemplate.getUrl() + "/kaaAdmin/rest/api/eventClassFamilies",HttpMethod.GET,null,typeRef);
+  ResponseEntity<List<EventClassFamilyDto>> entity=restTemplate.exchange(restTemplate.getUrl() + "eventClassFamilies",HttpMethod.GET,null,typeRef);
   List<EventClassFamilyDto> familyList=entity.getBody();
   for (  EventClassFamilyDto family : familyList) {
     if (family.getClassName().equals(familyName)) {

@@ -2,6 +2,6 @@
   ParameterizedTypeReference<EndpointProfileDto> typeRef=new ParameterizedTypeReference<EndpointProfileDto>(){
   }
 ;
-  ResponseEntity<EndpointProfileDto> entity=restTemplate.exchange(restTemplate.getUrl() + "/kaaAdmin/rest/api/endpointProfile/" + toUrlSafe(endpointProfileKeyHash),HttpMethod.GET,null,typeRef);
+  ResponseEntity<EndpointProfileDto> entity=restTemplate.exchange(restTemplate.getUrl() + "endpointProfile/" + toUrlSafe(endpointProfileKeyHash),HttpMethod.GET,null,typeRef);
   return entity.getBody();
 }

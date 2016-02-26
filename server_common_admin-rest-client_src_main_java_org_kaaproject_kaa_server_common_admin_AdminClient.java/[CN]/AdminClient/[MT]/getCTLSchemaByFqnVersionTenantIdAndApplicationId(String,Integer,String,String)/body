@@ -1,11 +1,11 @@
 {
   if (tenantId != null && applicationId != null) {
-    return restTemplate.getForObject(restTemplate.getUrl() + "/kaaAdmin/rest/api/CTL/getSchema?fqn={fqn}&version={version}&tenantId={tenantId}&applicationId={applicationId}",CTLSchemaDto.class,fqn,version,tenantId,applicationId);
+    return restTemplate.getForObject(restTemplate.getUrl() + "CTL/getSchema?fqn={fqn}&version={version}&tenantId={tenantId}&applicationId={applicationId}",CTLSchemaDto.class,fqn,version,tenantId,applicationId);
   }
  else   if (tenantId != null) {
-    return restTemplate.getForObject(restTemplate.getUrl() + "/kaaAdmin/rest/api/CTL/getSchema?fqn={fqn}&version={version}&tenantId={tenantId}",CTLSchemaDto.class,fqn,version,tenantId);
+    return restTemplate.getForObject(restTemplate.getUrl() + "CTL/getSchema?fqn={fqn}&version={version}&tenantId={tenantId}",CTLSchemaDto.class,fqn,version,tenantId);
   }
  else {
-    return restTemplate.getForObject(restTemplate.getUrl() + "/kaaAdmin/rest/api/CTL/getSchema?fqn={fqn}&version={version}",CTLSchemaDto.class,fqn,version);
+    return restTemplate.getForObject(restTemplate.getUrl() + "CTL/getSchema?fqn={fqn}&version={version}",CTLSchemaDto.class,fqn,version);
   }
 }

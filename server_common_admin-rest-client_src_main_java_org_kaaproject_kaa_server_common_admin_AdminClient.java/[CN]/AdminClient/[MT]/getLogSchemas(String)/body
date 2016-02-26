@@ -2,6 +2,6 @@
   ParameterizedTypeReference<List<LogSchemaDto>> typeRef=new ParameterizedTypeReference<List<LogSchemaDto>>(){
   }
 ;
-  ResponseEntity<List<LogSchemaDto>> entity=restTemplate.exchange(restTemplate.getUrl() + "/kaaAdmin/rest/api/logSchemas/" + applicationId,HttpMethod.GET,null,typeRef);
+  ResponseEntity<List<LogSchemaDto>> entity=restTemplate.exchange(restTemplate.getUrl() + "logSchemas/" + applicationId,HttpMethod.GET,null,typeRef);
   return entity.getBody();
 }

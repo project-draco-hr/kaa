@@ -2,5 +2,5 @@
   MultiValueMap<String,Object> params=new LinkedMultiValueMap<>();
   params.add("endpointGroupId",endpointGroupId);
   params.add("topicId",topicId);
-  restTemplate.postForObject(restTemplate.getUrl() + "/kaaAdmin/rest/api/removeTopicFromEpGroup",params,Void.class);
+  restTemplate.postForObject(restTemplate.getUrl() + "removeTopicFromEpGroup",params,Void.class);
 }

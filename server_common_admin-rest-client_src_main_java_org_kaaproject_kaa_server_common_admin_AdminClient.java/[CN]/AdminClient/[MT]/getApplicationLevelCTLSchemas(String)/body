@@ -2,6 +2,6 @@
   ParameterizedTypeReference<List<CTLSchemaMetaInfoDto>> typeRef=new ParameterizedTypeReference<List<CTLSchemaMetaInfoDto>>(){
   }
 ;
-  ResponseEntity<List<CTLSchemaMetaInfoDto>> entity=restTemplate.exchange(restTemplate.getUrl() + "/kaaAdmin/rest/api/CTL/getApplicationSchemas/" + applicationId,HttpMethod.GET,null,typeRef);
+  ResponseEntity<List<CTLSchemaMetaInfoDto>> entity=restTemplate.exchange(restTemplate.getUrl() + "CTL/getApplicationSchemas/" + applicationId,HttpMethod.GET,null,typeRef);
   return entity.getBody();
 }

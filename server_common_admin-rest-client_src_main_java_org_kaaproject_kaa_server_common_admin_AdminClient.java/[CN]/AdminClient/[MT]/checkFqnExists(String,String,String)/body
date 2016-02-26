@@ -1,11 +1,11 @@
 {
   if (tenantId != null && applicationId != null) {
-    return restTemplate.getForObject(restTemplate.getUrl() + "/kaaAdmin/rest/api/CTL/checkFqn?fqn={fqn}&tenantId={tenantId}&applicationId={applicationId}",Boolean.class,fqn,tenantId,applicationId);
+    return restTemplate.getForObject(restTemplate.getUrl() + "CTL/checkFqn?fqn={fqn}&tenantId={tenantId}&applicationId={applicationId}",Boolean.class,fqn,tenantId,applicationId);
   }
  else   if (tenantId != null) {
-    return restTemplate.getForObject(restTemplate.getUrl() + "/kaaAdmin/rest/api/CTL/checkFqn?fqn={fqn}&tenantId={tenantId}",Boolean.class,fqn,tenantId);
+    return restTemplate.getForObject(restTemplate.getUrl() + "CTL/checkFqn?fqn={fqn}&tenantId={tenantId}",Boolean.class,fqn,tenantId);
   }
  else {
-    return restTemplate.getForObject(restTemplate.getUrl() + "/kaaAdmin/rest/api/CTL/checkFqn?fqn={fqn}",Boolean.class,fqn);
+    return restTemplate.getForObject(restTemplate.getUrl() + "CTL/checkFqn?fqn={fqn}",Boolean.class,fqn);
   }
 }

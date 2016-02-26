@@ -1,6 +1,6 @@
 {
   FileResponseExtractor extractor=new FileResponseExtractor(new File(destination));
   RequestCallback request=new DataRequestCallback<>(key);
-  restTemplate.execute(restTemplate.getUrl() + "/kaaAdmin/rest/api/sdk",HttpMethod.POST,request,extractor);
+  restTemplate.execute(restTemplate.getUrl() + "sdk",HttpMethod.POST,request,extractor);
   logger.info("Downloaded sdk to file '{}'",extractor.getDestFile());
 }

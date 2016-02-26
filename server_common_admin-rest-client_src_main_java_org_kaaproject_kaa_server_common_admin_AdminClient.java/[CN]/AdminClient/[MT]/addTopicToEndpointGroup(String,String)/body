@@ -2,5 +2,5 @@
   MultiValueMap<String,Object> params=new LinkedMultiValueMap<>();
   params.add("endpointGroupId",endpointGroupId);
   params.add("topicId",topicId);
-  restTemplate.postForObject(restTemplate.getUrl() + "/kaaAdmin/rest/api/addTopicToEpGroup",params,Void.class);
+  restTemplate.postForObject(restTemplate.getUrl() + "addTopicToEpGroup",params,Void.class);
 }

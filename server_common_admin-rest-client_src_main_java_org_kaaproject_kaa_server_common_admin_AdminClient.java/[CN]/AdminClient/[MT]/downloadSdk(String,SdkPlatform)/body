@@ -4,5 +4,5 @@
   parameters.add("sdkProfileId",sdkProfileId);
   parameters.add("targetPlatform",targetPlatform.toString());
   RequestCallback request=new DataRequestCallback<>(parameters);
-  return restTemplate.execute(restTemplate.getUrl() + "/kaaAdmin/rest/api/sdk",HttpMethod.POST,request,extractor);
+  return restTemplate.execute(restTemplate.getUrl() + "sdk",HttpMethod.POST,request,extractor);
 }
