@@ -1,0 +1,9 @@
+{
+  this.loginTenantDeveloper(tenantDeveloperUser);
+  String name=this.ctlRandomFieldType();
+  CTLSchemaDto saved=this.createCTLSchema(name,CTL_DEFAULT_NAMESPACE,1,tenantDeveloperDto.getTenantId(),null,null,null);
+  FileData fd=client.downloadCtlSchema(client.getCTLSchemaById(saved.getId()),CTLSchemaExportMethod.FLAT);
+  Assert.assertNotNull(fd);
+  Schema loaded=new Parser().parse(new String(fd.getFileData()));
+  Assert.assertEquals(name,loaded.getName());
+}

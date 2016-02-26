@@ -1,24 +1,25 @@
 {
-  if (this == obj) {
+  if (this == o) {
     return true;
   }
-  if (obj == null) {
+  if (o == null || getClass() != o.getClass()) {
     return false;
   }
-  if (getClass() != obj.getClass()) {
+  EndpointProfileBodyDto that=(EndpointProfileBodyDto)o;
+  if (clientSideProfileVersion != that.clientSideProfileVersion) {
     return false;
   }
-  EndpointProfileBodyDto other=(EndpointProfileBodyDto)obj;
-  if (!Arrays.equals(endpointKeyHash,other.endpointKeyHash)) {
+  if (serverSideProfileVersion != that.serverSideProfileVersion) {
     return false;
   }
-  if (profile == null) {
-    if (other.profile != null) {
-      return false;
-    }
-  }
- else   if (!profile.equals(other.profile)) {
+  if (!Arrays.equals(endpointKeyHash,that.endpointKeyHash)) {
     return false;
   }
-  return true;
+  if (clientSideProfile != null ? !clientSideProfile.equals(that.clientSideProfile) : that.clientSideProfile != null) {
+    return false;
+  }
+  if (serverSideProfile != null ? !serverSideProfile.equals(that.serverSideProfile) : that.serverSideProfile != null) {
+    return false;
+  }
+  return !(appId != null ? !appId.equals(that.appId) : that.appId != null);
 }

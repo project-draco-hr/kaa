@@ -5,5 +5,5 @@
   EndpointProfileDto savedEndpointProfileDto=generateEndpointProfileWithGroupIdDto(endpointGroupId);
   EndpointProfilesBodyDto endpointProfilesPage=endpointService.findEndpointProfileBodyByEndpointGroupId(pageLinkDto);
   EndpointProfileBodyDto endpointProfileBodyDto=endpointProfilesPage.getEndpointProfilesBody().get(0);
-  Assert.assertEquals(savedEndpointProfileDto.getClientProfileBody(),endpointProfileBodyDto.getProfile());
+  Assert.assertEquals(savedEndpointProfileDto.getClientProfileBody(),endpointProfileBodyDto.getClientSideProfile());
 }
