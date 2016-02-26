@@ -5,8 +5,8 @@
     throw new RuntimeException("Incorrect ctl schema object. CTLSchemaMetaInfoDto is mandatory information.");
   }
  else {
-    if (isBlank(metaInfo.getFqn()) || metaInfo.getVersion() == null) {
-      throw new RuntimeException("Incorrect CTL meta information, please add correct version and fqn.");
+    if (isBlank(metaInfo.getFqn()) || ctlSchema.getVersion() == null) {
+      throw new RuntimeException("Incorrect CTL schema, please add correct version and fqn.");
     }
   }
 }

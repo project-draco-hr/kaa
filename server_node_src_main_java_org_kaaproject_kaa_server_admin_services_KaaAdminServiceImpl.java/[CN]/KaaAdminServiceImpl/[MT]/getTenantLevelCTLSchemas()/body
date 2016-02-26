@@ -1,0 +1,10 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_ADMIN,KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    AuthUserDto currentUser=getCurrentUser();
+    return controlService.getAvailableCTLSchemasMetaInfoForTenant(currentUser.getTenantId());
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+}

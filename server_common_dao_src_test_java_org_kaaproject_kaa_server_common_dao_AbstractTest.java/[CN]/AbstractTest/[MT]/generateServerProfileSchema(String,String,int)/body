@@ -7,6 +7,7 @@
   }
   schemaDto.setApplicationId(appId);
   schemaDto.setCreatedTime(System.currentTimeMillis());
-  schemaDto.setCtlSchemaId(ctlService.saveCTLSchema(generateCTLSchemaDto(DEFAULT_FQN,tenantId,version,CTLSchemaScopeDto.SERVER_PROFILE_SCHEMA)).getId());
+  CTLSchemaDto ctlSchema=ctlService.saveCTLSchema(generateCTLSchemaDto(ctlRandomFqn(),tenantId,appId,version));
+  schemaDto.setCtlSchemaId(ctlSchema.getId());
   return serverProfileService.saveServerProfileSchema(schemaDto);
 }

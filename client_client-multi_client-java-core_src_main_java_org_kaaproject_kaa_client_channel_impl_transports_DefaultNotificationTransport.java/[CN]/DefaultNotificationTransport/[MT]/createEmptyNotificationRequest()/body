@@ -1,7 +1,7 @@
 {
   if (clientState != null) {
     NotificationSyncRequest request=new NotificationSyncRequest();
-    request.setAppStateSeqNumber(clientState.getNotificationSeqNumber());
+    request.setTopicListHash(clientState.getTopicListHash());
     request.setTopicStates(getTopicStates());
     return request;
   }

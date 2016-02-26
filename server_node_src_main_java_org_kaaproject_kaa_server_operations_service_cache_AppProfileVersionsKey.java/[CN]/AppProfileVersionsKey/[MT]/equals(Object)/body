@@ -17,10 +17,20 @@
  else   if (!applicationToken.equals(other.applicationToken)) {
     return false;
   }
-  if (endpointProfileSchemaVersion != other.endpointProfileSchemaVersion) {
+  if (endpointProfileSchemaVersion == null) {
+    if (other.endpointProfileSchemaVersion != null) {
+      return false;
+    }
+  }
+ else   if (!endpointProfileSchemaVersion.equals(other.endpointProfileSchemaVersion)) {
     return false;
   }
-  if (serverProfileSchemaVersion != other.serverProfileSchemaVersion) {
+  if (serverProfileSchemaVersion == null) {
+    if (other.serverProfileSchemaVersion != null) {
+      return false;
+    }
+  }
+ else   if (!serverProfileSchemaVersion.equals(other.serverProfileSchemaVersion)) {
     return false;
   }
   return true;

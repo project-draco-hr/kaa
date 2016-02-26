@@ -1,0 +1,12 @@
+{
+synchronized (deliveryFuturesMap) {
+    List<RecordFuture> deliveryFutures=deliveryFuturesMap.get(info.getBucketId());
+    if (deliveryFutures != null) {
+      for (      RecordFuture future : deliveryFutures) {
+        RecordInfo recordInfo=new RecordInfo(info);
+        future.setValue(recordInfo);
+      }
+      deliveryFuturesMap.remove(info.getBucketId());
+    }
+  }
+}

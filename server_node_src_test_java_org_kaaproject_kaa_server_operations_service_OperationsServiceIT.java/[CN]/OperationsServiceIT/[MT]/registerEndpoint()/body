@@ -6,11 +6,11 @@
   md.setEndpointPublicKeyHash(ByteBuffer.wrap(EndpointObjectHash.fromSHA1(ENDPOINT_KEY).getData()));
   md.setSdkToken(SDK_TOKEN);
   request.setClientSyncMetaData(md);
-  ProfileClientSync profileSync=new ProfileClientSync(ByteBuffer.wrap(ENDPOINT_KEY),ByteBuffer.wrap(profile),null);
+  ProfileClientSync profileSync=new ProfileClientSync(ByteBuffer.wrap(ENDPOINT_KEY),ByteBuffer.wrap(profile),SDK_TOKEN,null);
   request.setProfileSync(profileSync);
   request.setConfigurationSync(new ConfigurationClientSync());
   SyncContext context=createContext(request);
-  operationsService.syncProfile(context,request.getProfileSync());
+  operationsService.syncClientProfile(context,request.getProfileSync());
   operationsService.syncConfiguration(context,request.getConfigurationSync());
   currentConfigurationHash=context.getEndpointProfile().getConfigurationHash();
   ServerSync response=context.getResponse();
@@ -18,7 +18,6 @@
   Assert.assertEquals(SyncStatus.SUCCESS,response.getStatus());
   Assert.assertNotNull(response.getConfigurationSync());
   Assert.assertEquals(SyncResponseStatus.RESYNC,response.getConfigurationSync().getResponseStatus());
-  Assert.assertEquals(APPLICATION_SEQ_NUMBER,(int)response.getConfigurationSync().getAppStateSeqNumber());
   Assert.assertNotNull(response.getConfigurationSync().getConfDeltaBody());
   Assert.assertNull(response.getConfigurationSync().getConfSchemaBody());
   return context.getEndpointProfile();

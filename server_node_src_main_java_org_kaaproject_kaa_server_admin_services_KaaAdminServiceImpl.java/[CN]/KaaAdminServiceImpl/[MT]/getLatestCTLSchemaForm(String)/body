@@ -1,0 +1,13 @@
+{
+  checkAuthority(KaaAuthorityDto.values());
+  try {
+    this.checkCTLSchemaMetaInfoId(metaInfoId);
+    CTLSchemaDto ctlSchema=controlService.getLatestCTLSchemaByMetaInfoId(metaInfoId);
+    Utils.checkNotNull(ctlSchema);
+    checkCTLSchemaReadScope(ctlSchema.getMetaInfo().getTenantId(),ctlSchema.getMetaInfo().getApplicationId());
+    return toCtlSchemaForm(ctlSchema);
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+}

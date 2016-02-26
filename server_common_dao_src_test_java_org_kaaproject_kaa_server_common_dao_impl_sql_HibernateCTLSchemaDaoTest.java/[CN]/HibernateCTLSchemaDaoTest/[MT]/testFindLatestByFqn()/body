@@ -1,4 +1,4 @@
 {
-  CTLSchema latest=ctlSchemaDao.findLatestByFqn(SYSTEM_FQN);
+  CTLSchema latest=ctlSchemaDao.findLatestByFqnAndTenantIdAndApplicationId(SYSTEM_FQN,null,null);
   Assert.assertEquals(systemSchema,latest.toDto());
 }

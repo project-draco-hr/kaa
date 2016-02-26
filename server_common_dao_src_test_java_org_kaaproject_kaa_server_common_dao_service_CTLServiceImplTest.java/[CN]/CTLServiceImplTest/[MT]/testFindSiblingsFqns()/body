@@ -1,0 +1,6 @@
+{
+  List<CTLSchemaMetaInfoDto> siblingSchemas=ctlService.findSiblingsByFqnTenantIdAndApplicationId(appSchema.getMetaInfo().getFqn(),appSchema.getMetaInfo().getTenantId(),appSchema.getMetaInfo().getApplicationId());
+  Assert.assertNotNull(siblingSchemas);
+  Assert.assertEquals(1,siblingSchemas.size());
+  Assert.assertEquals(app2Schema.getMetaInfo(),siblingSchemas.get(0));
+}

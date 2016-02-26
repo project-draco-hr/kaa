@@ -1,0 +1,16 @@
+{
+  if (field == null) {
+    throw new IllegalArgumentException();
+  }
+switch (field) {
+case TENANT_ID:
+    return isSetTenantId();
+case APPLICATION_TOKEN:
+  return isSetApplicationToken();
+case ENTITY_TYPE:
+return isSetEntityType();
+case ENTITY_ID:
+return isSetEntityId();
+}
+throw new IllegalStateException();
+}

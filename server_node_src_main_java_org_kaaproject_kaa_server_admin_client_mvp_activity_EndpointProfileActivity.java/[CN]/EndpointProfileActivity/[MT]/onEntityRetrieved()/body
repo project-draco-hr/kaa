@@ -48,6 +48,12 @@
     }
   }
 ));
+  registrations.add(detailsView.getDownloadEndpointProfileJsonButton().addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      ServletHelper.downloadEndpointProfile(BaseEncoding.base64().encode(entity.getEndpointKeyHash()),ProfileType.CLIENT);
+    }
+  }
+));
   detailsView.getEndpointProfForm().setValue(entity.getProfileRecord());
   detailsView.getServerProfForm().setValue(entity.getServerProfileRecord());
   detailsView.getServerProfForm().setReadOnly(true);
@@ -57,6 +63,12 @@
       ServerProfileSchemaPlace serverProfSchemaPlace=new ServerProfileSchemaPlace(place.getApplicationId(),entity.getServerProfileSchemaVersion().getId());
       serverProfSchemaPlace.setPreviousPlace(place);
       goTo(serverProfSchemaPlace);
+    }
+  }
+));
+  registrations.add(detailsView.getDownloadServerProfileJsonButton().addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent event){
+      ServletHelper.downloadEndpointProfile(BaseEncoding.base64().encode(entity.getEndpointKeyHash()),ProfileType.SERVER);
     }
   }
 ));

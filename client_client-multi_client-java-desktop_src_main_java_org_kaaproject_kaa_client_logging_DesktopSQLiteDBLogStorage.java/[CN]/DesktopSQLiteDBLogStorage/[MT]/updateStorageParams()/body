@@ -1,0 +1,25 @@
+{
+  PreparedStatement updateInfoStatement=null;
+  try {
+    updateInfoStatement=connection.prepareStatement(PersistentLogStorageConstants.KAA_UPDATE_STORAGE_INFO);
+    updateInfoStatement.setString(1,PersistentLogStorageConstants.STORAGE_BUCKET_SIZE);
+    updateInfoStatement.setLong(2,maxBucketSize);
+    int affectedRows=updateInfoStatement.executeUpdate();
+    if (affectedRows > 0) {
+      LOG.info("Storage bucketSize param was successfully updated: bucketSize {}",maxBucketSize);
+    }
+    updateInfoStatement.setString(1,PersistentLogStorageConstants.STORAGE_RECORD_COUNT);
+    updateInfoStatement.setLong(2,maxRecordCount);
+    affectedRows=updateInfoStatement.executeUpdate();
+    if (affectedRows > 0) {
+      LOG.info("Storage recordCount was successfully updated: recordCount{}",maxRecordCount);
+    }
+  }
+ catch (  SQLException e) {
+    LOG.error("Unable to update storage params",e);
+    throw new RuntimeException(e);
+  }
+ finally {
+    tryCloseStatement(updateInfoStatement);
+  }
+}

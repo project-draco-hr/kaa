@@ -1,0 +1,23 @@
+{
+  try {
+    System.out.println("Processing schema: " + schema);
+    if (schema.getType() == Type.UNION) {
+      for (      Schema s : schema.getTypes()) {
+        filterSchemas(s,null);
+      }
+    }
+ else {
+      filterSchemas(schema,null);
+    }
+    doGenerate();
+    System.out.println("Sources were successfully generated");
+  }
+ catch (  Exception e) {
+    LOG.error("Failed to generate C sources: ",e);
+    throw new KaaGeneratorException("Failed to generate sources: " + e.toString());
+  }
+ finally {
+    headerWriter.close();
+    sourceWriter.close();
+  }
+}

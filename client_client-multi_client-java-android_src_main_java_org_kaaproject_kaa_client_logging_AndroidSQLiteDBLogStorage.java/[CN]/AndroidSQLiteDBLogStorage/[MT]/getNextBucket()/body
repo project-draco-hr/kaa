@@ -1,0 +1,64 @@
+{
+synchronized (database) {
+    Log.d(TAG,"Creating a new record block");
+    LogBucket logBlock=null;
+    Cursor cursor=null;
+    List<LogRecord> logRecords=new LinkedList<>();
+    int bucketId=0;
+    try {
+      cursor=database.rawQuery(PersistentLogStorageConstants.KAA_SELECT_MIN_BUCKET_ID,null);
+      if (cursor.moveToFirst()) {
+        bucketId=cursor.getInt(0);
+      }
+    }
+ catch (    SQLiteException e) {
+      Log.e(TAG,"Can't retrieve min bucket ID",e);
+    }
+ finally {
+      try {
+        tryCloseCursor(cursor);
+      }
+ catch (      SQLiteException e) {
+        Log.e(TAG,"Unable to close cursor",e);
+      }
+    }
+    try {
+      long leftBucketSize=maxBucketSize;
+      if (bucketId > 0) {
+        cursor=database.rawQuery(PersistentLogStorageConstants.KAA_SELECT_LOG_RECORDS_BY_BUCKET_ID,new String[]{String.valueOf(bucketId)});
+        while (cursor.moveToNext()) {
+          byte[] recordData=cursor.getBlob(0);
+          logRecords.add(new LogRecord(recordData));
+          leftBucketSize-=recordData.length;
+        }
+        if (!logRecords.isEmpty()) {
+          updateBucketState(bucketId);
+          logBlock=new LogBucket(bucketId,logRecords);
+          long logBlockSize=maxBucketSize - leftBucketSize;
+          unmarkedConsumedSize-=logBlockSize;
+          unmarkedRecordCount-=logRecords.size();
+          consumedMemoryStorage.put(logBlock.getBucketId(),logBlockSize);
+          if (currentBucketId == bucketId) {
+            moveToNextBucket();
+          }
+          Log.i(TAG,"Created log block: id [" + logBlock.getBucketId() + "], size: "+ logBlockSize+ ". Log block record count: "+ logBlock.getRecords().size()+ ", total record count: "+ totalRecordCount+ ", unmarked record count: "+ unmarkedRecordCount);
+        }
+ else {
+          Log.i(TAG,"No unmarked log records found");
+        }
+      }
+    }
+ catch (    SQLiteException e) {
+      Log.e(TAG,"Can't retrieve unmarked records from storage",e);
+    }
+ finally {
+      try {
+        tryCloseCursor(cursor);
+      }
+ catch (      SQLiteException e) {
+        Log.e(TAG,"Unable to close cursor",e);
+      }
+    }
+    return logBlock;
+  }
+}

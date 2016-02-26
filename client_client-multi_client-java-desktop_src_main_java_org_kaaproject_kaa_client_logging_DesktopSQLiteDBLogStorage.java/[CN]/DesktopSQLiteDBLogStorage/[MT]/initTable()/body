@@ -3,6 +3,7 @@
   try {
     statement=connection.createStatement();
     statement.executeUpdate(PersistentLogStorageConstants.KAA_CREATE_LOG_TABLE);
+    statement.executeUpdate(PersistentLogStorageConstants.KAA_CREATE_INFO_TABLE);
     statement.executeUpdate(PersistentLogStorageConstants.KAA_CREATE_BUCKET_ID_INDEX);
   }
   finally {

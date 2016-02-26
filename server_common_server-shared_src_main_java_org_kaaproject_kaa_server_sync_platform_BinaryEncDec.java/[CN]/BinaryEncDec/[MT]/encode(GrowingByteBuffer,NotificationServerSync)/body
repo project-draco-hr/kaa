@@ -1,7 +1,6 @@
 {
   buildExtensionHeader(buf,NOTIFICATION_EXTENSION_ID,NOTHING,NOTHING,0);
   int extPosition=buf.position();
-  buf.putInt(notificationSync.getAppStateSeqNumber());
   SyncResponseStatus status=notificationSync.getResponseStatus();
 switch (status) {
 case NO_DELTA:
@@ -13,15 +12,13 @@ break;
 case RESYNC:
 buf.putInt(2);
 break;
-default :
-break;
 }
 if (notificationSync.getAvailableTopics() != null) {
 buf.put(NF_TOPICS_FIELD_ID);
 buf.put(NOTHING);
 buf.putShort((short)notificationSync.getAvailableTopics().size());
 for (Topic t : notificationSync.getAvailableTopics()) {
-buf.putLong(Long.parseLong(t.getId()));
+buf.putLong(t.getIdAsLong());
 buf.put(t.getSubscriptionType() == SubscriptionType.MANDATORY ? MANDATORY : OPTIONAL);
 buf.put(NOTHING);
 buf.putShort((short)t.getName().getBytes(UTF8).length);
@@ -38,7 +35,7 @@ buf.put(nf.getType() == NotificationType.SYSTEM ? SYSTEM : CUSTOM);
 buf.put(NOTHING);
 buf.putShort(nf.getUid() != null ? (short)nf.getUid().length() : (short)0);
 buf.putInt(nf.getBody().array().length);
-long topicId=nf.getTopicId() != null ? Long.valueOf(nf.getTopicId()) : 0L;
+long topicId=nf.getTopicId() != null ? nf.getTopicIdAsLong() : 0l;
 buf.putLong(topicId);
 putUTF(buf,nf.getUid());
 put(buf,nf.getBody().array());

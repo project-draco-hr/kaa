@@ -1,0 +1,14 @@
+{
+  try {
+    CtlSource ctlSource=new CtlSource(){
+      @Override public Map<Fqn,List<Integer>> getCtlTypes(){
+        return ctlTypes;
+      }
+    }
+;
+    return new SchemaFormAvroConverter(ctlSource);
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+}

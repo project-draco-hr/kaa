@@ -29,7 +29,7 @@
     notificationDto.setSecNum(-1);
     NotificationSchema schema=notificationSchemaDao.findById(schemaId);
     if (schema != null) {
-      notificationDto.setVersion(schema.getVersion());
+      notificationDto.setNfVersion(schema.getVersion());
       notificationDto.setApplicationId(schema.getApplicationId());
       notificationDto.setType(schema.getType());
       try {

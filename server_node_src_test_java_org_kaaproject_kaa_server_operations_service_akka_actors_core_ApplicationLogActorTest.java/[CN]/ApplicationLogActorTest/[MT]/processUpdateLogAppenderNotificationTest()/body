@@ -6,7 +6,7 @@
   when(mockAppender.isSchemaVersionSupported(Mockito.anyInt())).thenReturn(Boolean.TRUE);
   when(logAppender.isSchemaVersionSupported(Mockito.anyInt())).thenReturn(Boolean.FALSE);
   applicationLogActorMessageProcessor=new ApplicationLogActorMessageProcessor(context,APP_TOKEN);
-  applicationLogActorMessageProcessor.processLogEventPack(logEventPackMessage);
+  applicationLogActorMessageProcessor.processLogEventPack(Mockito.mock(ActorContext.class),logEventPackMessage);
   verify(logAppender,Mockito.never()).doAppend(Mockito.any(BaseLogEventPack.class),Mockito.any(LogDeliveryCallback.class));
   Notification notification=new Notification();
   notification.setAppenderId(APPENDER_ID);
@@ -14,6 +14,6 @@
   notification.setOp(Operation.UPDATE_LOG_APPENDER);
   when(logAppenderService.getApplicationAppender(APPENDER_ID)).thenReturn(mockAppender);
   applicationLogActorMessageProcessor.processLogAppenderNotification(notification);
-  applicationLogActorMessageProcessor.processLogEventPack(logEventPackMessage);
+  applicationLogActorMessageProcessor.processLogEventPack(Mockito.mock(ActorContext.class),logEventPackMessage);
   verify(mockAppender).doAppend(Mockito.any(LogEventPack.class),Mockito.any(LogDeliveryCallback.class));
 }

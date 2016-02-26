@@ -1,0 +1,28 @@
+{
+  if (!newSchemaMetaInfo.equals(prevSchemaMetaInfo)) {
+    if (isBlank(newSchemaMetaInfo.getFqn())) {
+      throw new DatabaseProcessingException("FQN can't be empty.");
+    }
+    if (!newSchemaMetaInfo.getFqn().equals(prevSchemaMetaInfo.getFqn())) {
+      throw new DatabaseProcessingException("Can't change FQN of the existing common type.");
+    }
+    CTLSchemaScopeDto newScope=newSchemaMetaInfo.getScope();
+    CTLSchemaScopeDto prevScope=prevSchemaMetaInfo.getScope();
+    if (newScope != prevScope) {
+      if (SYSTEM.equals(newScope)) {
+        throw new DatabaseProcessingException("Can't update scope to system.");
+      }
+      if (newScope.getLevel() > prevScope.getLevel()) {
+        throw new DatabaseProcessingException("Can't update scope to lower.");
+      }
+    }
+    if (!isBlank(newSchemaMetaInfo.getTenantId()) && !newSchemaMetaInfo.getTenantId().equals(prevSchemaMetaInfo.getTenantId())) {
+      throw new DatabaseProcessingException("Can't change tenant reference for the existing common type.");
+    }
+    if (!isBlank(newSchemaMetaInfo.getApplicationId()) && !newSchemaMetaInfo.getApplicationId().equals(prevSchemaMetaInfo.getApplicationId())) {
+      throw new DatabaseProcessingException("Can't change application reference for the existing common type.");
+    }
+    return true;
+  }
+  return false;
+}

@@ -1,0 +1,11 @@
+{
+  KaaAdmin.getDataSource().getSystemLevelCTLSchemas(new AsyncCallback<List<CTLSchemaMetaInfoDto>>(){
+    @Override public void onFailure(    Throwable caught){
+      callback.onFailure(caught);
+    }
+    @Override public void onSuccess(    List<CTLSchemaMetaInfoDto> result){
+      callback.onSuccess(result);
+    }
+  }
+);
+}

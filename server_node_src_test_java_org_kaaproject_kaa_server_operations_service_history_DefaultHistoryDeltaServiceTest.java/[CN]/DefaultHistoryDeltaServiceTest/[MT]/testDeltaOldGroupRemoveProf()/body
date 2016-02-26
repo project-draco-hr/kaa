@@ -1,9 +1,8 @@
 {
-  profile.setCfGroupStates(toList(new EndpointGroupStateDto(EG1_ID,PF1_ID,CF1_ID)));
-  profile.setNfGroupStates(toList(new EndpointGroupStateDto(EG1_ID,PF1_ID,CF1_ID)));
+  profile.setGroupState(toList(new EndpointGroupStateDto(EG1_ID,PF1_ID,CF1_ID)));
   Mockito.when(cacheService.getHistory(Mockito.any(HistoryKey.class))).thenReturn(toList(toDto(ChangeType.REMOVE_PROF,EG1_ID)));
   Mockito.when(filterService.matches(Mockito.anyString(),Mockito.anyString(),Mockito.any(EndpointProfileDto.class))).thenReturn(true);
-  HistoryDelta historyDelta=historyDeltaService.getDelta(profile,HistorySubject.NOTIFICATION,APP1_TOKEN,101,102);
+  HistoryDelta historyDelta=historyDeltaService.getDelta(profile,APP1_TOKEN,101,102);
   Assert.assertNotNull(historyDelta);
   Assert.assertTrue(historyDelta.isConfigurationChanged());
   Assert.assertTrue(historyDelta.isTopicListChanged());

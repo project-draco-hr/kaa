@@ -15,8 +15,17 @@
     endpointUser.setEndpointIds(endpointIds);
   }
   endpointIds.add(profile.getId());
-  endpointUserDao.save(endpointUser);
+  endpointUser=endpointUserDao.save(endpointUser);
   profile.setEndpointUserId(endpointUser.getId());
-  LOG.trace("Save endpoint user {} and endpoint profile {}",endpointUser,profile);
-  return saveEndpointProfile(profile);
+  while (true) {
+    try {
+      LOG.trace("Save endpoint user {} and endpoint profile {}",endpointUser,profile);
+      return saveEndpointProfile(profile);
+    }
+ catch (    KaaOptimisticLockingFailureException ex) {
+      LOG.warn("Optimistic lock detected in endpoint profile ",Arrays.toString(profile.getEndpointKey()),ex);
+      profile=findEndpointProfileByKeyHash(profile.getEndpointKeyHash());
+      profile.setEndpointUserId(endpointUser.getId());
+    }
+  }
 }

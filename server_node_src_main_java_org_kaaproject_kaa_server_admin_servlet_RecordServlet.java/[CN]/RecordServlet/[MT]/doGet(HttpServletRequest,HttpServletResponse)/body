@@ -1,5 +1,5 @@
 {
-  String recordKeyBase64=request.getParameter(RecordKey.RECORD_KEY_PARAMETER);
+  String recordKeyBase64=URLDecoder.decode(request.getParameter(RECORD_KEY_PARAMETER),"UTF-8");
   try {
     RecordKey key=(RecordKey)Base64.decodeToObject(recordKeyBase64,Base64.URL_SAFE,null);
     FileData recordLibrary=cacheService.getRecordData(key);

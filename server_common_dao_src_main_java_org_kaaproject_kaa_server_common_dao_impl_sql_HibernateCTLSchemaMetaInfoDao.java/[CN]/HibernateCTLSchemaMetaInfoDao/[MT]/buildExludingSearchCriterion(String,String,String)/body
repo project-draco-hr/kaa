@@ -1,0 +1,16 @@
+{
+  List<Criterion> searchCriterions=new ArrayList<>();
+  if (isNotBlank(excludingTenantId)) {
+    searchCriterions.add(Restrictions.isNull(CTL_SCHEMA_META_INFO_TENANT_ID_ALIAS));
+    if (isNotBlank(excludingApplicationId)) {
+      searchCriterions.add(Restrictions.and(Restrictions.eq(CTL_SCHEMA_META_INFO_TENANT_ID_ALIAS,Long.valueOf(excludingTenantId)),Restrictions.isNull(CTL_SCHEMA_META_INFO_APPLICATION_ID_ALIAS)));
+    }
+ else {
+      searchCriterions.add(Restrictions.and(Restrictions.eq(CTL_SCHEMA_META_INFO_TENANT_ID_ALIAS,Long.valueOf(excludingTenantId)),Restrictions.isNotNull(CTL_SCHEMA_META_INFO_APPLICATION_ID_ALIAS)));
+    }
+  }
+ else {
+    searchCriterions.add(Restrictions.isNotNull(CTL_SCHEMA_META_INFO_TENANT_ID_ALIAS));
+  }
+  return Restrictions.and(Restrictions.eq(CTL_SCHEMA_META_INFO_FQN,fqn),Restrictions.or(searchCriterions.toArray(new Criterion[searchCriterions.size()])));
+}

@@ -12,6 +12,6 @@
   when(logAppenderService.getApplicationAppender(APPENDER_ID)).thenReturn(mockAppender);
   applicationLogActorMessageProcessor.processLogAppenderNotification(notification);
   LogEventPackMessage logEventPackMessage=buildTestMessage(LOG_SCHEMA_VERSION,logSchema);
-  applicationLogActorMessageProcessor.processLogEventPack(logEventPackMessage);
+  applicationLogActorMessageProcessor.processLogEventPack(Mockito.mock(ActorContext.class),logEventPackMessage);
   verify(mockAppender).doAppend(Mockito.any(LogEventPack.class),Mockito.any(LogDeliveryCallback.class));
 }

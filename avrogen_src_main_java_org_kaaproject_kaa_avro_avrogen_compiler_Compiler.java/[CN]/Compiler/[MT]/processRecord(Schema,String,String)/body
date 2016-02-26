@@ -1,0 +1,13 @@
+{
+  VelocityContext context=new VelocityContext();
+  context.put("schema",schema);
+  context.put("StyleUtils",StyleUtils.class);
+  context.put("TypeConverter",TypeConverter.class);
+  context.put("namespacePrefix",namespacePrefix);
+  StringWriter hdrWriter=new StringWriter();
+  engine.getTemplate(headerTemplate).merge(context,hdrWriter);
+  appendResult(hdrWriter.toString(),true);
+  StringWriter srcWriter=new StringWriter();
+  engine.getTemplate(sourceTemplate).merge(context,srcWriter);
+  appendResult(srcWriter.toString(),false);
+}

@@ -3,7 +3,7 @@
   if (types != null) {
     for (    CTLSchemaDto type : types) {
       CTLSchemaMetaInfoDto details=type.getMetaInfo();
-      message.append("\n").append("FQN: ").append(details.getFqn()).append(", version: ").append(details.getVersion());
+      message.append("\n").append("FQN: ").append(details.getFqn()).append(", version: ").append(type.getVersion());
     }
   }
   return message.toString();

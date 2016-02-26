@@ -1,0 +1,16 @@
+{
+  if (this == o) {
+    return true;
+  }
+  if (!(o instanceof CassandraTopicListEntry)) {
+    return false;
+  }
+  CassandraTopicListEntry that=(CassandraTopicListEntry)o;
+  if (simpleHash != that.simpleHash) {
+    return false;
+  }
+  if (hash != null ? !hash.equals(that.hash) : that.hash != null) {
+    return false;
+  }
+  return true;
+}

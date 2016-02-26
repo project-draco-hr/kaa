@@ -1,0 +1,5 @@
+{
+  validateString(fqn,"Incorrect fqn for ctl schema request.");
+  LOG.debug("Find latest ctl schema by fqn {}, tenantId {} and applicationId {}",fqn,tenantId,applicationId);
+  return DaoUtil.getDto(ctlSchemaDao.findLatestByFqnAndTenantIdAndApplicationId(fqn,tenantId,applicationId));
+}

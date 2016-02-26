@@ -1,0 +1,6 @@
+{
+  if (msg.getAppToken() != null) {
+    ActorRef applicationActor=getOrCreateApplicationActor(msg.getAppToken());
+    applicationActor.tell(msg,self());
+  }
+}

@@ -1,0 +1,10 @@
+{
+  ConfigurationClientSync confSync=new ConfigurationClientSync();
+  if (hasOption(options,CONFIGURATION_HASH_OPTION)) {
+    confSync.setConfigurationHash(getNewByteBuffer(buf,CONFIGURATION_HASH_SIZE));
+  }
+  if (hasOption(options,CONFIGURATION_RESYNC_OPTION)) {
+    confSync.setResyncOnly(true);
+  }
+  sync.setConfigurationSync(confSync);
+}

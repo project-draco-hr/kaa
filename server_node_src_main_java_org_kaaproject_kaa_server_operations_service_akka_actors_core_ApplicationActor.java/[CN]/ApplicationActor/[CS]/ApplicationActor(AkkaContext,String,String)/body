@@ -1,0 +1,14 @@
+{
+  this.context=context;
+  this.nodeId=context.getClusterService().getNodeId();
+  this.tenantId=tenantId;
+  this.appToken=applicationToken;
+  this.globalEndpointSessions=new HashMap<>();
+  this.localEndpointSessions=new HashMap<>();
+  this.endpointActorMap=new HashMap<>();
+  this.topicSessions=new HashMap<>();
+  this.logsSessions=new HashMap<>();
+  this.userVerifierSessions=new HashMap<>();
+  this.applicationLogActor=getOrCreateLogActor();
+  this.userVerifierActor=getOrCreateUserVerifierActor();
+}

@@ -1,0 +1,12 @@
+{
+  MultiValueMap<String,Object> params=new LinkedMultiValueMap<>();
+  params.add("fqn",fqn);
+  params.add("version",version);
+  if (tenantId != null) {
+    params.add("tenantId",tenantId);
+  }
+  if (applicationId != null) {
+    params.add("applicationId",applicationId);
+  }
+  restTemplate.postForLocation(url + "CTL/deleteSchema",params);
+}

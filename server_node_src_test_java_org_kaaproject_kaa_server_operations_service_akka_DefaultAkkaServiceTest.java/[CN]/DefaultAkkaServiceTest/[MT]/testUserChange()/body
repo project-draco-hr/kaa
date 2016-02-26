@@ -25,7 +25,7 @@
   ErrorBuilder errorBuilder=Mockito.mock(ErrorBuilder.class);
   SessionInitMessage message=toSignedRequest(UUID.randomUUID(),ChannelType.SYNC_WITH_TIMEOUT,channelContextMock,targetRequest,responseBuilder,errorBuilder,targetCrypt);
   akkaService.process(message);
-  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeastOnce()).syncProfile(Mockito.any(SyncContext.class),Mockito.any(ProfileClientSync.class));
+  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeastOnce()).syncClientProfile(Mockito.any(SyncContext.class),Mockito.any(ProfileClientSync.class));
   Mockito.verify(eventService,Mockito.timeout(TIMEOUT).atLeastOnce()).sendUserRouteInfo(new UserRouteInfo(TENANT_ID,USER_ID));
   UserRouteInfo userRouteInfo=new UserRouteInfo(TENANT_ID,USER_ID,SERVER2,RouteOperation.ADD);
   akkaService.getListener().onUserRouteInfo(userRouteInfo);

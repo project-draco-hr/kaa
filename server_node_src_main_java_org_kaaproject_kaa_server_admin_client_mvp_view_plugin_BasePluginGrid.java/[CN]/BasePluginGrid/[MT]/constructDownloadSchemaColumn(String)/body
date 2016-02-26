@@ -1,5 +1,5 @@
 {
-  ActionButtonCell<T> cell=new ActionButtonCell<T>(Utils.resources.download(),text,embedded,new ActionButtonCell.ActionListener<T>(){
+  ActionButtonCell<T> cell=new ActionButtonCell<T>(Utils.resources.download_grey(),text,embedded,new ActionButtonCell.ActionListener<T>(){
     @Override public void onItemAction(    T value){
       RowActionEvent<String> rowDownloadSchemaEvent=new RowActionEvent<>(value.getId(),KaaRowAction.DOWNLOAD_SCHEMA);
       fireEvent(rowDownloadSchemaEvent);

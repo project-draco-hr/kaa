@@ -2,15 +2,15 @@
   KaaClientPropertiesState state=new KaaClientPropertiesState(new FilePersistentStorage(),CommonsBase64.getInstance(),KaaClientPropertiesStateTest.getProperties());
   NotificationTransport transport=mock(NotificationTransport.class);
   DefaultNotificationManager notificationManager=new DefaultNotificationManager(state,executorContext,transport);
-  List<Topic> topicsUpdate=Arrays.asList(new Topic("id1","topic_name1",SubscriptionType.OPTIONAL_SUBSCRIPTION),new Topic("id2","topic_name1",SubscriptionType.OPTIONAL_SUBSCRIPTION),new Topic("id3","topic_name1",SubscriptionType.OPTIONAL_SUBSCRIPTION));
+  List<Topic> topicsUpdate=Arrays.asList(new Topic(1l,"topic_name1",SubscriptionType.OPTIONAL_SUBSCRIPTION),new Topic(2l,"topic_name1",SubscriptionType.OPTIONAL_SUBSCRIPTION),new Topic(3l,"topic_name1",SubscriptionType.OPTIONAL_SUBSCRIPTION));
   notificationManager.topicsListUpdated(topicsUpdate);
-  notificationManager.subscribeToTopic("id1",true);
+  notificationManager.subscribeToTopic(1l,true);
   Mockito.verify(transport,Mockito.times(1)).sync();
-  notificationManager.subscribeToTopics(Arrays.asList("id1","id2"),false);
-  notificationManager.unsubscribeFromTopic("id1",false);
+  notificationManager.subscribeToTopics(Arrays.asList(1l,2l),false);
+  notificationManager.unsubscribeFromTopic(1l,false);
   Mockito.verify(transport,Mockito.times(1)).sync();
   notificationManager.sync();
   Mockito.verify(transport,Mockito.times(2)).sync();
-  notificationManager.unsubscribeFromTopics(Arrays.asList("id1","id2"),true);
+  notificationManager.unsubscribeFromTopics(Arrays.asList(1l,2l),true);
   Mockito.verify(transport,Mockito.times(3)).sync();
 }

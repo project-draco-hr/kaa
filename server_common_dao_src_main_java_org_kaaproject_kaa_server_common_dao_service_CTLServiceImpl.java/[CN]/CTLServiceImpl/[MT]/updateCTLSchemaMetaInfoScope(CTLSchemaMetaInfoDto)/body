@@ -1,0 +1,21 @@
+{
+  validateObject(ctlSchemaMetaInfo,"Incorrect ctl schema meta info object");
+  LOG.debug("Update ctl schema meta info scope with id [{}]",ctlSchemaMetaInfo.getId());
+  CTLSchemaMetaInfo schemaMetaInfo=ctlSchemaMetaInfoDao.findById(ctlSchemaMetaInfo.getId());
+  if (schemaMetaInfo != null) {
+synchronized (this) {
+      ctlSchemaMetaInfoDao.lockRequest(lockOptions).setScope(true).lock(schemaMetaInfo);
+      if (checkScopeUpdate(ctlSchemaMetaInfo,schemaMetaInfo.toDto())) {
+        List<CTLSchemaMetaInfo> others=ctlSchemaMetaInfoDao.findOthersByFqnAndTenantId(ctlSchemaMetaInfo.getFqn(),ctlSchemaMetaInfo.getTenantId(),ctlSchemaMetaInfo.getId());
+        if (others != null && !others.isEmpty()) {
+          throw new DatabaseProcessingException("Can't update scope of the common type due to an FQN conflict.");
+        }
+        schemaMetaInfo=ctlSchemaMetaInfoDao.updateScope(new CTLSchemaMetaInfo(ctlSchemaMetaInfo));
+      }
+      return DaoUtil.getDto(schemaMetaInfo);
+    }
+  }
+ else {
+    throw new DatabaseProcessingException("Can't find common type by id.");
+  }
+}

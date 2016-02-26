@@ -1,0 +1,49 @@
+{
+  Table tableAnnotation=entityClass.getAnnotation(Table.class);
+  UDT udtAnnotation=entityClass.getAnnotation(UDT.class);
+  this.name=tableAnnotation != null ? tableAnnotation.name() : udtAnnotation.name();
+  for (  Field field : entityClass.getDeclaredFields()) {
+    if (field.isSynthetic() || (field.getModifiers() & Modifier.STATIC) == Modifier.STATIC)     continue;
+    if (field.getAnnotation(Transient.class) != null)     continue;
+    Column column=field.getAnnotation(Column.class);
+    com.datastax.driver.mapping.annotations.Field fieldAnnotation=field.getAnnotation(com.datastax.driver.mapping.annotations.Field.class);
+    if (column != null || fieldAnnotation != null) {
+      if (column != null) {
+        Class<? extends TypeCodec<?>> codecClass=column.codec();
+        if (!codecClass.equals(Defaults.NoCodec.class)) {
+          try {
+            @SuppressWarnings("unchecked") TypeCodec<Object> instance=(TypeCodec<Object>)codecClass.newInstance();
+            cassandraClient.getSession().getCluster().getConfiguration().getCodecRegistry().register(instance);
+          }
+ catch (          Exception e) {
+            throw new IllegalArgumentException(String.format("Cannot create an instance of custom codec %s for field %s",codecClass,field),e);
+          }
+        }
+      }
+      String name=column != null ? column.name() : fieldAnnotation.name();
+      if (field.isAnnotationPresent(PartitionKey.class) || field.isAnnotationPresent(ClusteringColumn.class)) {
+        keyColumns.add(name);
+      }
+ else {
+        nonKeyColumns.add(name);
+      }
+      String fieldName=field.getName();
+      try {
+        fieldDescMap.put(name,new PropertyDescriptor(fieldName,field.getDeclaringClass()));
+      }
+ catch (      IntrospectionException e) {
+        throw new IllegalArgumentException("Cannot find matching getter and setter for field '" + fieldName + "'");
+      }
+      Set<Class<?>> udts=findUDTs(field.getGenericType());
+      if (!udts.isEmpty()) {
+        Map<Class<?>,CassandraEntityMapper<?>> udtMap=new HashMap<>();
+        for (        Class<?> udtClass : udts) {
+          if (!udtMap.containsKey(udtClass)) {
+            udtMap.put(udtClass,getEntityMapperForClass(udtClass,cassandraClient));
+          }
+        }
+        udtMappers.put(name,udtMap);
+      }
+    }
+  }
+}

@@ -1,24 +1,11 @@
 {
-  Label versionLabel=new Label(Utils.constants.version());
-  versionLabel.addStyleName(Utils.kaaAdminStyle.bAppContentTitle());
-  version=new IntegerListBox();
-  version.getElement().getStyle().setPadding(5,Unit.PX);
-  version.getElement().getStyle().setMarginLeft(5,Unit.PX);
-  createNewSchemaVersionButton=new Button(Utils.constants.createNewVersion());
-  exportActionsButton=new ActionsButton(Utils.resources.export(),Utils.constants.export());
-  deleteSchemaVersionButton=new Button(Utils.constants.delete());
-  HorizontalPanel versionPanel=new HorizontalPanel();
-  versionPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-  versionPanel.add(versionLabel);
-  versionPanel.add(version);
-  prependToolbarWidget(versionPanel);
-  appendToolbarWidget(createNewSchemaVersionButton);
-  appendToolbarWidget(exportActionsButton);
-  appendToolbarWidget(deleteSchemaVersionButton);
-  versionPanel.setVisible(!create);
-  createNewSchemaVersionButton.setVisible(!create);
-  deleteSchemaVersionButton.setVisible(!create);
-  exportActionsButton.setVisible(!create);
+  if (create) {
+    requiredFieldsNoteLabel.setVisible(true);
+  }
+ else {
+    requiredFieldsNoteLabel.setVisible(false);
+    requiredFieldsNoteLabel.getElement().getParentElement().getStyle().setHeight(0,Unit.PX);
+  }
   Label authorLabel=new Label(Utils.constants.author());
   createdUsername=new KaaAdminSizedTextBox(-1,false);
   createdUsername.setWidth("100%");
@@ -33,26 +20,11 @@
   detailsTable.setWidget(1,1,createdDateTime);
   dateTimeCreatedLabel.setVisible(!create);
   createdDateTime.setVisible(!create);
-  name=new KaaAdminSizedTextBox(DEFAULT_TEXTBOX_SIZE);
-  name.setWidth("100%");
-  Label nameLabel=new Label(Utils.constants.name());
-  detailsTable.setWidget(2,0,nameLabel);
-  detailsTable.setWidget(2,1,name);
-  name.addInputHandler(this);
-  description=new SizedTextArea(1024);
-  description.setWidth("100%");
-  description.getTextArea().getElement().getStyle().setPropertyPx("minHeight",80);
-  Label descriptionLabel=new Label(Utils.constants.description());
-  detailsTable.setWidget(3,0,descriptionLabel);
-  detailsTable.setWidget(3,1,description);
-  description.addInputHandler(this);
-  detailsTable.getCellFormatter().setVerticalAlignment(5,0,HasVerticalAlignment.ALIGN_TOP);
   getFooter().addStyleName(Utils.kaaAdminStyle.bAppContentDetailsTable());
-  schemaForm=new RecordPanel(new AvroWidgetsConfig.Builder().recordPanelWidth(900).createConfig(),Utils.constants.schema(),this,!create,!create);
+  schemaForm=new RecordPanel(new AvroWidgetsConfig.Builder().recordPanelWidth(900).createConfig(),false,null,this,!create,!create);
   if (create) {
     schemaForm.addValueChangeHandler(this);
   }
   getFooter().setWidth("1000px");
   getFooter().add(schemaForm);
-  name.setFocus(true);
 }

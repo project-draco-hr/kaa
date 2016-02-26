@@ -1,6 +1,7 @@
 {
   if (!create) {
-    List<Integer> schemaVersions=entity.getAvailableVersions();
+    List<Integer> schemaVersions=entity.getMetaInfo().getVersions();
+    Collections.sort(schemaVersions);
     if (version == null && !schemaVersions.isEmpty()) {
       version=schemaVersions.get(schemaVersions.size() - 1);
     }
@@ -8,27 +9,27 @@
       detailsView.getVersion().setValue(version);
     }
     detailsView.getVersion().setAcceptableValues(schemaVersions);
-    detailsView.setTitle(entity.getFqnString());
-    if (entity.hasDependencies()) {
-      registrations.add(detailsView.getExportActionsButton().addMenuItem(Utils.constants.shallow(),new ActionMenuItemListener(){
-        @Override public void onMenuItemSelected(){
-          exportSchema(CTLSchemaExportMethod.SHALLOW);
-        }
+    detailsView.setTitle(entity.getMetaInfo().getFqn());
+    registrations.add(detailsView.getExportActionsButton().addMenuItem(Utils.constants.shallow(),new ActionMenuItemListener(){
+      @Override public void onMenuItemSelected(){
+        exportSchema(CTLSchemaExportMethod.SHALLOW);
       }
+    }
 ));
+    if (entity.hasDependencies()) {
       registrations.add(detailsView.getExportActionsButton().addMenuItem(Utils.constants.deep(),new ActionMenuItemListener(){
         @Override public void onMenuItemSelected(){
           exportSchema(CTLSchemaExportMethod.DEEP);
         }
       }
 ));
-    }
-    registrations.add(detailsView.getExportActionsButton().addMenuItem(Utils.constants.flat(),new ActionMenuItemListener(){
-      @Override public void onMenuItemSelected(){
-        exportSchema(CTLSchemaExportMethod.FLAT);
+      registrations.add(detailsView.getExportActionsButton().addMenuItem(Utils.constants.flat(),new ActionMenuItemListener(){
+        @Override public void onMenuItemSelected(){
+          exportSchema(CTLSchemaExportMethod.FLAT);
+        }
       }
-    }
 ));
+    }
     registrations.add(detailsView.getExportActionsButton().addMenuItem(Utils.constants.javaLibrary(),new ActionMenuItemListener(){
       @Override public void onMenuItemSelected(){
         exportSchema(CTLSchemaExportMethod.LIBRARY);
@@ -36,8 +37,7 @@
     }
 ));
   }
-  detailsView.getName().setValue(entity.getSchemaName());
-  detailsView.getDescription().setValue(entity.getDescription());
+  detailsView.getScope().setText(Utils.getCtlScopeTitleString(entity.getMetaInfo().getScope()));
   detailsView.getCreatedUsername().setValue(entity.getCreatedUsername());
   detailsView.getCreatedDateTime().setValue(Utils.millisecondsToDateTimeString(entity.getCreatedTime()));
   detailsView.getSchemaForm().setValue(entity.getSchema(),fireChanged);

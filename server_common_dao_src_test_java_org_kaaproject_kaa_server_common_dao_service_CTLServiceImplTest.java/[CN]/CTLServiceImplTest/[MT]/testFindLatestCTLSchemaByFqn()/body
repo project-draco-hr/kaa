@@ -1,4 +1,6 @@
 {
-  CTLSchemaDto latest=ctlService.findLatestCTLSchemaByFqn(DEFAULT_FQN);
-  Assert.assertEquals(Integer.valueOf(80),latest.getMetaInfo().getVersion());
+  CTLSchemaDto latestTenantScope=ctlService.findLatestCTLSchemaByFqnAndTenantIdAndApplicationId(DEFAULT_FQN + 7,tenant.getId(),null);
+  Assert.assertEquals(Integer.valueOf(78),latestTenantScope.getVersion());
+  CTLSchemaDto latestAppScope=ctlService.findLatestCTLSchemaByFqnAndTenantIdAndApplicationId(DEFAULT_FQN + 8,tenant.getId(),appDto.getId());
+  Assert.assertEquals(Integer.valueOf(81),latestAppScope.getVersion());
 }

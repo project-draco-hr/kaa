@@ -1,0 +1,16 @@
+{
+  checkAuthority(KaaAuthorityDto.values());
+  try {
+    if (isEmpty(ctlSchemaForm.getId())) {
+      AuthUserDto currentUser=getCurrentUser();
+      RecordField schemaForm=ctlSchemaForm.getSchema();
+      String fqn=schemaForm.getDeclaredFqn().getFqnString();
+      String tenantId=currentUser.getTenantId();
+      return checkFqnExists(fqn,tenantId,ctlSchemaForm.getMetaInfo().getApplicationId());
+    }
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+  return false;
+}

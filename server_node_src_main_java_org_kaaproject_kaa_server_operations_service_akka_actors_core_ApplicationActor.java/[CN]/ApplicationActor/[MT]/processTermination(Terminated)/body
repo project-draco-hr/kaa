@@ -5,24 +5,25 @@
     String name=localActor.path().name();
     EndpointObjectHash endpointHash=endpointActorMap.remove(name);
     if (endpointHash != null) {
-      ActorMetaData actorMetaData=endpointSessions.get(endpointHash);
+      LocalEndpointActorMD actorMetaData=localEndpointSessions.get(endpointHash);
       if (actorMetaData != null && actorMetaData.actorRef.equals(localActor)) {
-        endpointSessions.remove(endpointHash);
-        LOG.debug("[{}] removed endpoint: {}",applicationToken,localActor);
+        localEndpointSessions.remove(endpointHash);
+        LOG.debug("[{}] removed endpoint: {}",appToken,localActor);
+        notifyGlobalEndpointActor(endpointHash,actorMetaData.globalActorNodeId,RouteOperation.DELETE);
       }
     }
  else     if (topicSessions.remove(name) != null) {
-      LOG.debug("[{}] removed topic: {}",applicationToken,localActor);
+      LOG.debug("[{}] removed topic: {}",appToken,localActor);
     }
  else     if (logsSessions.remove(name) != null) {
-      LOG.debug("[{}] removed log: {}",applicationToken,localActor);
+      LOG.debug("[{}] removed log: {}",appToken,localActor);
       applicationLogActor=getOrCreateLogActor(name);
-      LOG.debug("[{}] created log: {}",applicationToken,applicationLogActor);
+      LOG.debug("[{}] created log: {}",appToken,applicationLogActor);
     }
  else     if (userVerifierSessions.remove(name) != null) {
-      LOG.debug("[{}] removed log: {}",applicationToken,localActor);
+      LOG.debug("[{}] removed log: {}",appToken,localActor);
       userVerifierActor=getOrCreateUserVerifierActor(name);
-      LOG.debug("[{}] created log: {}",applicationToken,applicationLogActor);
+      LOG.debug("[{}] created log: {}",appToken,applicationLogActor);
     }
   }
  else {

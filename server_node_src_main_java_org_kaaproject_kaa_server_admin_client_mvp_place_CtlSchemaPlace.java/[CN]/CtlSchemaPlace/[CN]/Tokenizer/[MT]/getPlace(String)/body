@@ -1,16 +1,22 @@
 {
   PlaceParams.paramsFromToken(token);
-  String sourceFqn=PlaceParams.getParam(SOURCE_FQN);
-  int sourceVersion=PlaceParams.getIntParam(SOURCE_VERSION);
-  String fqn=PlaceParams.getParam(FQN);
+  String metaInfoId=PlaceParams.getParam(META_INFO_ID);
   Integer version=null;
   if (PlaceParams.hasParam(VERSION)) {
     version=PlaceParams.getIntParam(VERSION);
   }
-  if (sourceFqn != null && sourceVersion > 0) {
-    return new CtlSchemaPlace(sourceFqn,sourceVersion,true);
+  CTLSchemaScopeDto scope=null;
+  if (PlaceParams.hasParam(SCOPE)) {
+    scope=CTLSchemaScopeDto.valueOf(PlaceParams.getParam(SCOPE));
   }
- else {
-    return new CtlSchemaPlace(fqn,version,false);
+  SchemaType schemaType=null;
+  if (PlaceParams.hasParam(SCHEMA_TYPE)) {
+    schemaType=SchemaType.valueOf(PlaceParams.getParam(SCHEMA_TYPE));
   }
+  String applicationId=PlaceParams.getParam(APPLICATION_ID);
+  boolean editable=PlaceParams.getBooleanParam(EDITABLE);
+  boolean create=PlaceParams.getBooleanParam(CREATE);
+  CtlSchemaPlace place=new CtlSchemaPlace(metaInfoId,version,scope,applicationId,editable,create);
+  place.setSchemaType(schemaType);
+  return place;
 }

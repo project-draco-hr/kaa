@@ -7,7 +7,7 @@
   if (isNotBlank(schemaId) && isNotBlank(topicId)) {
     NotificationSchema schema=notificationSchemaDao.findById(schemaId);
     if (schema != null) {
-      dto.setVersion(schema.getVersion());
+      dto.setNfVersion(schema.getVersion());
       dto.setApplicationId(schema.getApplicationId());
       dto.setType(schema.getType());
     }

@@ -1,10 +1,10 @@
 {
   List<TopicState> states=null;
-  Map<String,Integer> nfSubscriptions=clientState.getNfSubscriptions();
+  Map<Long,Integer> nfSubscriptions=clientState.getNfSubscriptions();
   if (!nfSubscriptions.isEmpty()) {
     states=new ArrayList<>();
     LOG.info("Topic States:");
-    for (    Entry<String,Integer> nfSubscription : nfSubscriptions.entrySet()) {
+    for (    Entry<Long,Integer> nfSubscription : nfSubscriptions.entrySet()) {
       TopicState state=new TopicState(nfSubscription.getKey(),nfSubscription.getValue());
       states.add(state);
       LOG.info("{} : {}",state.getTopicId(),state.getSeqNumber());

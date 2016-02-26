@@ -1,0 +1,31 @@
+{
+  this.checkAuthority(KaaAuthorityDto.values());
+  try {
+    Utils.checkNotNull(schema);
+    checkCTLSchemaEditScope(schema.getMetaInfo().getTenantId(),schema.getMetaInfo().getApplicationId());
+    List<FqnVersion> missingDependencies=new ArrayList<>();
+    Set<CTLSchemaDto> dependencies=new HashSet<>();
+    if (schema.getDependencySet() != null) {
+      for (      CTLSchemaDto dependency : schema.getDependencySet()) {
+        CTLSchemaDto schemaFound=controlService.getCTLSchemaByFqnVersionTenantIdAndApplicationId(dependency.getMetaInfo().getFqn(),dependency.getVersion(),schema.getMetaInfo().getTenantId(),schema.getMetaInfo().getApplicationId());
+        if (schemaFound == null) {
+          missingDependencies.add(new FqnVersion(dependency.getMetaInfo().getFqn(),dependency.getVersion()));
+        }
+ else {
+          dependencies.add(schemaFound);
+        }
+      }
+    }
+    if (!missingDependencies.isEmpty()) {
+      String message="The following dependencies are missing from the database: " + Arrays.toString(missingDependencies.toArray());
+      throw new IllegalArgumentException(message);
+    }
+    CTLSchemaParser parser=new CTLSchemaParser(controlService,schema.getMetaInfo().getTenantId());
+    parser.validate(schema);
+    CTLSchemaDto result=controlService.saveCTLSchema(schema);
+    return result;
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+}

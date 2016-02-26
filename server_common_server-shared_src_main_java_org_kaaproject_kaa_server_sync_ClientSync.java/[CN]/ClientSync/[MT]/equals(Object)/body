@@ -41,6 +41,12 @@
  else   if (!eventSync.equals(other.eventSync)) {
     return false;
   }
+  if (forceConfigurationSync != other.forceConfigurationSync) {
+    return false;
+  }
+  if (forceNotificationSync != other.forceNotificationSync) {
+    return false;
+  }
   if (logSync == null) {
     if (other.logSync != null) {
       return false;

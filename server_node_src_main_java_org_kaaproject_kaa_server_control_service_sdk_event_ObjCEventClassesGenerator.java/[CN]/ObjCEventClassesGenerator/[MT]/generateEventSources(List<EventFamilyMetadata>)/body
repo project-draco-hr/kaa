@@ -1,0 +1,64 @@
+{
+  List<TarEntryData> eventSources=new ArrayList<>();
+  String eventFamilyFactoryImports="";
+  String eventFamilyFactoryProperties="";
+  String eventFamilyFactoryMethodsHeader="";
+  String eventFamilyFactoryMethodsSource="";
+  StringBuilder eventGenHeaderBuilder=new StringBuilder();
+  StringBuilder eventGenSourceBuilder=new StringBuilder();
+  LOG.debug("Received {} event families",eventFamilies.size());
+  for (  EventFamilyMetadata efm : eventFamilies) {
+    LOG.debug("Generating schemas for event family {}",efm.getEcfName());
+    Schema schema=new Schema.Parser().parse(efm.getEcfSchema());
+    try (OutputStream hdrStream=new ByteArrayOutputStream();OutputStream srcStream=new ByteArrayOutputStream()){
+      Compiler compiler=new ObjectiveCCompiler(schema,EVENT_GEN,hdrStream,srcStream);
+      compiler.generate();
+      eventGenHeaderBuilder.append(hdrStream.toString()).append("\n");
+      eventGenSourceBuilder.append(srcStream.toString()).append("\n");
+    }
+ catch (    Exception e) {
+      LOG.error("Got exception while generating object from schema: " + efm.getEcfSchema(),e);
+    }
+    LOG.error("Processing {}",efm.getEcfName());
+    eventFamilyFactoryImports+="#import \"" + efm.getEcfClassName() + ".h\"\n";
+    String eventFamilyVarName=efm.getEcfClassName().substring(0,1).toLowerCase();
+    if (efm.getEcfClassName().length() > 1) {
+      eventFamilyVarName+=efm.getEcfClassName().substring(1);
+    }
+    eventFamilyFactoryProperties+=eventFamilyFactoryProperty.replaceAll(EVENT_FAMILY_CLASS_NAME_VAR,efm.getEcfClassName()).replaceAll(EVENT_FAMILY_VAR_NAME_VAR,eventFamilyVarName);
+    eventFamilyFactoryMethodsHeader+=eventFamilyFactoryMethodHeader.replaceAll(EVENT_FAMILY_CLASS_NAME_VAR,efm.getEcfClassName()).replaceAll(EVENT_FAMILY_VAR_NAME_VAR,eventFamilyVarName);
+    eventFamilyFactoryMethodsSource+=eventFamilyFactoryMethodSource.replaceAll(EVENT_FAMILY_CLASS_NAME_VAR,efm.getEcfClassName()).replaceAll(EVENT_FAMILY_VAR_NAME_VAR,eventFamilyVarName);
+    String addSupportedEventClassFqns="";
+    String eventFamilyListenersOnGenericEvent="";
+    String eventFamilySendEventHeaderMethods="";
+    String eventFamilySendEventSourceMethods="";
+    String eventFamilyListenerMethods="";
+    for (    ApplicationEventMapDto eventMap : efm.getEventMaps()) {
+      String eventClassName=eventFqnToClassName(eventMap.getFqn());
+      if (eventMap.getAction() == ApplicationEventAction.SINK || eventMap.getAction() == ApplicationEventAction.BOTH) {
+        addSupportedEventClassFqns+=eventFamilyAddSupportedFqn.replaceAll(EVENT_CLASS_NAME_VAR,eventClassName).replaceAll(EVENT_CLASS_FQN_VAR,eventMap.getFqn());
+        if (eventFamilyListenersOnGenericEvent.length() > 0) {
+          eventFamilyListenersOnGenericEvent+="else ";
+        }
+        eventFamilyListenersOnGenericEvent+=eventFamilyOnGenericEvent.replaceAll(EVENT_CLASS_NAME_VAR,eventClassName).replaceAll(EVENT_FAMILY_CLASS_NAME_VAR,efm.getEcfClassName()).replaceAll(EVENT_CLASS_FQN_VAR,eventMap.getFqn()) + "\n";
+        eventFamilyListenerMethods+=eventFamilyListenerMethod.replaceAll(EVENT_CLASS_NAME_VAR,eventClassName).replaceAll(EVENT_CLASS_FQN_VAR,eventMap.getFqn()) + "\n";
+      }
+      if (eventMap.getAction() == ApplicationEventAction.SOURCE || eventMap.getAction() == ApplicationEventAction.BOTH) {
+        eventFamilySendEventHeaderMethods+=eventFamilySendEventHeaderMethod.replaceAll(EVENT_CLASS_NAME_VAR,eventClassName).replaceAll(EVENT_CLASS_FQN_VAR,eventMap.getFqn()) + "\n";
+        eventFamilySendEventSourceMethods+=eventFamilySendEventSourceMethod.replaceAll(EVENT_CLASS_NAME_VAR,eventClassName).replaceAll(EVENT_CLASS_FQN_VAR,eventMap.getFqn()) + "\n";
+      }
+    }
+    String resultFamilyHeader=eventFamilyHeader.replaceAll(EVENT_FAMILY_NAMESPACE_VAR,efm.getEcfNamespace()).replaceAll(EVENT_FAMILY_CLASS_NAME_VAR,efm.getEcfClassName()).replaceAll(ADD_SUPPORTED_EVENT_CLASS_FQNS_VAR,addSupportedEventClassFqns).replaceAll(EVENT_FAMILY_LISTENERS_ON_GENERIC_EVENT_VAR,eventFamilyListenersOnGenericEvent).replaceAll(EVENT_FAMILY_SEND_EVENT_METHODS_VAR,eventFamilySendEventHeaderMethods).replaceAll(EVENT_FAMILY_LISTENER_METHODS_VAR,eventFamilyListenerMethods);
+    eventGenHeaderBuilder.append(resultFamilyHeader).append("\n");
+    String resultFamilySource=eventFamilySource.replaceAll(EVENT_FAMILY_NAMESPACE_VAR,efm.getEcfNamespace()).replaceAll(EVENT_FAMILY_CLASS_NAME_VAR,efm.getEcfClassName()).replaceAll(ADD_SUPPORTED_EVENT_CLASS_FQNS_VAR,addSupportedEventClassFqns).replaceAll(EVENT_FAMILY_LISTENERS_ON_GENERIC_EVENT_VAR,eventFamilyListenersOnGenericEvent).replaceAll(EVENT_FAMILY_SEND_EVENT_METHODS_VAR,eventFamilySendEventSourceMethods).replaceAll(EVENT_FAMILY_LISTENER_METHODS_VAR,eventFamilyListenerMethods);
+    eventGenSourceBuilder.append(resultFamilySource).append("\n");
+  }
+  eventSources.add(CommonSdkUtil.tarEntryForSources(eventGenHeaderBuilder.toString(),GEN_ROOT + EVENT_GEN + ".h"));
+  eventSources.add(CommonSdkUtil.tarEntryForSources(eventGenSourceBuilder.toString(),GEN_ROOT + EVENT_GEN + ".m"));
+  LOG.debug("Generating event family factory");
+  String resultEventFamilyFactory=eventFamilyFactoryHeader.replaceAll(EVENT_FAMILY_FACTORY_IMPORTS_VAR,eventFamilyFactoryImports).replaceAll(EVENT_FAMILY_FACTORY_METHODS_VAR,eventFamilyFactoryMethodsHeader);
+  eventSources.add(CommonSdkUtil.tarEntryForSources(resultEventFamilyFactory,EVENT_FACTORY_PATH + "h"));
+  resultEventFamilyFactory=eventFamilyFactorySource.replaceAll(EVENT_FAMILY_FACTORY_PROPERTIES_VAR,eventFamilyFactoryProperties).replaceAll(EVENT_FAMILY_FACTORY_METHODS_VAR,eventFamilyFactoryMethodsSource);
+  eventSources.add(CommonSdkUtil.tarEntryForSources(resultEventFamilyFactory,EVENT_FACTORY_PATH + "m"));
+  return eventSources;
+}

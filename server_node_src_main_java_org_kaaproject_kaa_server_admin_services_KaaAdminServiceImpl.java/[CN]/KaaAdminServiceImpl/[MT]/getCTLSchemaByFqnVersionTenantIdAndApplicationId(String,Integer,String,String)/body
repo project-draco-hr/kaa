@@ -1,0 +1,17 @@
+{
+  this.checkAuthority(KaaAuthorityDto.values());
+  try {
+    this.checkCTLSchemaFqn(fqn);
+    this.checkCTLSchemaVersion(version);
+    if (!isEmpty(applicationId)) {
+      this.checkApplicationId(applicationId);
+    }
+    CTLSchemaDto schemaFound=controlService.getCTLSchemaByFqnVersionTenantIdAndApplicationId(fqn,version,tenantId,applicationId);
+    Utils.checkNotNull(schemaFound);
+    checkCTLSchemaReadScope(schemaFound.getMetaInfo().getTenantId(),schemaFound.getMetaInfo().getApplicationId());
+    return schemaFound;
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+}

@@ -1,0 +1,11 @@
+{
+  if (this == obj)   return true;
+  if (!super.equals(obj))   return false;
+  if (getClass() != obj.getClass())   return false;
+  EntityClusterAddress other=(EntityClusterAddress)obj;
+  if (nodeId == null) {
+    if (other.nodeId != null)     return false;
+  }
+ else   if (!nodeId.equals(other.nodeId))   return false;
+  return true;
+}

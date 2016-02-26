@@ -1,0 +1,11 @@
+{
+  CassandraEntityMapper<?> mapper=mappers.get(clazz);
+  if (mapper == null) {
+    if (clazz.isAnnotationPresent(Table.class)) {
+      cassandraClient.getMapper(clazz);
+    }
+    mapper=new CassandraEntityMapper<E>(clazz,cassandraClient);
+    mappers.put(clazz,mapper);
+  }
+  return (CassandraEntityMapper<E>)mapper;
+}

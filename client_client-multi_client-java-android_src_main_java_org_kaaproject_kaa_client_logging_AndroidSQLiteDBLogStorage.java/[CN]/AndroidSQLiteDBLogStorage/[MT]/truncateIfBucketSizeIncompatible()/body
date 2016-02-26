@@ -1,0 +1,44 @@
+{
+  Cursor cursor=null;
+  int lastSavedBucketSize=0;
+  int lastSavedRecordCount=0;
+  try {
+    cursor=database.rawQuery(PersistentLogStorageConstants.KAA_SELECT_STORAGE_INFO,new String[]{PersistentLogStorageConstants.STORAGE_BUCKET_SIZE});
+    if (cursor.moveToFirst()) {
+      lastSavedBucketSize=cursor.getInt(0);
+    }
+  }
+ catch (  SQLiteException e) {
+    Log.e(TAG,"Cannot retrieve storage param: bucketSize",e);
+    throw new RuntimeException("Cannot retrieve storage param: bucketSize");
+  }
+ finally {
+    tryCloseCursor(cursor);
+  }
+  try {
+    cursor=database.rawQuery(PersistentLogStorageConstants.KAA_SELECT_STORAGE_INFO,new String[]{PersistentLogStorageConstants.STORAGE_RECORD_COUNT});
+    if (cursor.moveToFirst()) {
+      lastSavedRecordCount=cursor.getInt(0);
+    }
+  }
+ catch (  SQLiteException e) {
+    Log.e(TAG,"Cannot retrieve storage param: recordCount",e);
+    throw new RuntimeException("Cannot retrieve storage param: recordCount");
+  }
+ finally {
+    tryCloseCursor(cursor);
+  }
+  try {
+    if (lastSavedBucketSize != maxBucketSize || lastSavedRecordCount != maxRecordCount) {
+      database.execSQL(PersistentLogStorageConstants.KAA_DELETE_ALL_DATA);
+    }
+  }
+ catch (  SQLiteException e) {
+    Log.e(TAG,"Can't prepare delete statement",e);
+    throw new RuntimeException("Can't prepare delete statement");
+  }
+ finally {
+    tryCloseCursor(cursor);
+  }
+  updateStorageParams();
+}

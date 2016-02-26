@@ -16,7 +16,7 @@
   }
   int extensionsCount=getIntFromUnsignedShort(buf);
   LOG.trace("received data for protocol id {} and version {} that contain {} extensions",protocolId,protocolVersion,extensionsCount);
-  ClientSync sync=parseExtensions(buf,extensionsCount);
+  ClientSync sync=parseExtensions(buf,protocolVersion,extensionsCount);
   LOG.trace("Decoded binary data {}",sync);
   return sync;
 }

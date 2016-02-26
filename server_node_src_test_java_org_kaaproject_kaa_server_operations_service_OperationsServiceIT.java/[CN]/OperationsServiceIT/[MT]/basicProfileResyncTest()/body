@@ -8,11 +8,10 @@
   md.setProfileHash(ByteBuffer.wrap(EndpointObjectHash.fromSHA1(profile).getData()));
   request.setClientSyncMetaData(md);
   ConfigurationClientSync confSyncRequest=new ConfigurationClientSync();
-  confSyncRequest.setAppStateSeqNumber(APPLICATION_SEQ_NUMBER - 1);
   confSyncRequest.setConfigurationHash(ByteBuffer.wrap(currentConfigurationHash));
   request.setConfigurationSync(confSyncRequest);
   SyncContext context=createContext(request);
-  operationsService.syncProfile(context,request.getProfileSync());
+  operationsService.syncClientProfile(context,request.getProfileSync());
   ServerSync response=context.getResponse();
   Assert.assertNotNull(response);
   Assert.assertEquals(SyncStatus.PROFILE_RESYNC,response.getStatus());

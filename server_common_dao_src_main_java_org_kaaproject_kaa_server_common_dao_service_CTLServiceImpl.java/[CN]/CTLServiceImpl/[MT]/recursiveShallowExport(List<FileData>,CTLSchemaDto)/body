@@ -7,7 +7,7 @@
       ObjectNode dependency=(ObjectNode)node;
       String fqn=dependency.get(FQN).getTextValue();
       Integer version=dependency.get(VERSION).getIntValue();
-      CTLSchemaDto child=this.findCTLSchemaByFqnAndVerAndTenantId(fqn,version,parent.getTenantId());
+      CTLSchemaDto child=this.findCTLSchemaByFqnAndVerAndTenantIdAndApplicationId(fqn,version,parent.getMetaInfo().getTenantId(),parent.getMetaInfo().getApplicationId());
       this.recursiveShallowExport(files,child);
     }
   }

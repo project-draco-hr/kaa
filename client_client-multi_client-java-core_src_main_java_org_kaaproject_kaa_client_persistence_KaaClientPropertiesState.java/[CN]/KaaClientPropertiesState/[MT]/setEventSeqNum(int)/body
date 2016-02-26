@@ -1,3 +1,6 @@
 {
-  eventSequence.set(newSeqNum);
+  if (eventSequence.get() != newSeqNum) {
+    eventSequence.set(newSeqNum);
+    hasUpdate=true;
+  }
 }

@@ -1,0 +1,33 @@
+{
+  checkAuthority(KaaAuthorityDto.values());
+  try {
+    SchemaFormAvroConverter converter=getCtlSchemaConverterForScope(getCurrentUser().getTenantId(),applicationId);
+    CtlSchemaFormDto sourceCtlSchema=null;
+    if (!isEmpty(metaInfoId) && sourceVersion != null) {
+      sourceCtlSchema=getCTLSchemaFormByMetaInfoIdAndVer(metaInfoId,sourceVersion);
+      Utils.checkNotNull(sourceCtlSchema);
+    }
+    CtlSchemaFormDto ctlSchemaForm=null;
+    if (sourceCtlSchema != null) {
+      checkCTLSchemaEditScope(sourceCtlSchema.getMetaInfo().getTenantId(),sourceCtlSchema.getMetaInfo().getApplicationId());
+      ctlSchemaForm=new CtlSchemaFormDto();
+      ctlSchemaForm.setMetaInfo(sourceCtlSchema.getMetaInfo());
+      RecordField form=sourceCtlSchema.getSchema();
+      form.updateVersion(form.getContext().getMaxVersion(new Fqn(sourceCtlSchema.getMetaInfo().getFqn())) + 1);
+      ctlSchemaForm.setSchema(form);
+    }
+ else {
+      checkCTLSchemaEditScope(getCurrentUser().getTenantId(),applicationId);
+      ctlSchemaForm=new CtlSchemaFormDto();
+      RecordField form=converter.getEmptySchemaFormInstance();
+      form.updateVersion(1);
+      ctlSchemaForm.setSchema(form);
+      CTLSchemaMetaInfoDto metaInfo=new CTLSchemaMetaInfoDto(null,getCurrentUser().getTenantId(),applicationId);
+      ctlSchemaForm.setMetaInfo(metaInfo);
+    }
+    return ctlSchemaForm;
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+}

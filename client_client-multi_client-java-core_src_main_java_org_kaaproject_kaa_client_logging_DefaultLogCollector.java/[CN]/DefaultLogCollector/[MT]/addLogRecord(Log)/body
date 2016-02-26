@@ -1,8 +1,11 @@
 {
+  final RecordFuture future=new RecordFuture();
   executorContext.getApiExecutor().execute(new Runnable(){
     @Override public void run(){
       try {
-        storage.addLogRecord(new LogRecord(record));
+        BucketInfo bucketInfo=storage.addLogRecord(new LogRecord(record));
+        bucketInfoMap.put(bucketInfo.getBucketId(),bucketInfo);
+        addDeliveryFuture(bucketInfo,future);
       }
  catch (      IOException e) {
         LOG.warn("Can't serialize log record {}, exception catched: {}",record,e);
@@ -11,4 +14,5 @@
     }
   }
 );
+  return future;
 }

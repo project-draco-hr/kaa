@@ -6,11 +6,11 @@
   md.setEndpointPublicKeyHash(ByteBuffer.wrap(EndpointObjectHash.fromSHA1(ENDPOINT_KEY2).getData()));
   md.setSdkToken(SDK_TOKEN);
   request.setClientSyncMetaData(md);
-  ProfileClientSync profileSync=new ProfileClientSync(ByteBuffer.wrap(ENDPOINT_KEY2),ByteBuffer.wrap(profile),ENDPOINT_ACCESS_TOKEN);
+  ProfileClientSync profileSync=new ProfileClientSync(ByteBuffer.wrap(ENDPOINT_KEY2),ByteBuffer.wrap(profile),SDK_TOKEN,ENDPOINT_ACCESS_TOKEN);
   request.setProfileSync(profileSync);
   request.setConfigurationSync(new ConfigurationClientSync());
   SyncContext context=createContext(request);
-  operationsService.syncProfile(context,request.getProfileSync());
+  operationsService.syncClientProfile(context,request.getProfileSync());
   operationsService.syncNotification(context,request.getNotificationSync());
   ServerSync response=context.getResponse();
   Assert.assertNotNull(response);

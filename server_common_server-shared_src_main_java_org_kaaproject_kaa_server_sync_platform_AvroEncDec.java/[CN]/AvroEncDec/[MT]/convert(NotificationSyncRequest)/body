@@ -3,7 +3,6 @@
     return null;
   }
   NotificationClientSync sync=new NotificationClientSync();
-  sync.setAppStateSeqNumber(source.getAppStateSeqNumber());
   sync.setTopicListHash(source.getTopicListHash());
   if (source.getAcceptedUnicastNotifications() != null) {
     sync.setAcceptedUnicastNotifications(new ArrayList<String>(source.getAcceptedUnicastNotifications()));

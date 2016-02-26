@@ -1,0 +1,16 @@
+{
+  struct.validate();
+  oprot.writeStructBegin(STRUCT_DESC);
+  if (struct.address != null) {
+    oprot.writeFieldBegin(ADDRESS_FIELD_DESC);
+    struct.address.write(oprot);
+    oprot.writeFieldEnd();
+  }
+  if (struct.operation != null) {
+    oprot.writeFieldBegin(OPERATION_FIELD_DESC);
+    oprot.writeI32(struct.operation.getValue());
+    oprot.writeFieldEnd();
+  }
+  oprot.writeFieldStop();
+  oprot.writeStructEnd();
+}

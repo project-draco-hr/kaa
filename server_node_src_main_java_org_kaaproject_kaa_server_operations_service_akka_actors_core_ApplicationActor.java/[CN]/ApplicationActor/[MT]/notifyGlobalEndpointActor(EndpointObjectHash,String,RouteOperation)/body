@@ -1,0 +1,9 @@
+{
+  EndpointRouteMessage msg=new EndpointRouteMessage(new EndpointClusterAddress(nodeId,tenantId,appToken,endpointKey),operation);
+  if (globalActorNodeId.equals(nodeId)) {
+    processEndpointRouteMessage(msg);
+  }
+ else {
+    context.getClusterService().sendRouteMessage(msg);
+  }
+}

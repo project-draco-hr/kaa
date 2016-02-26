@@ -1,21 +1,46 @@
 {
-  KaaAdmin.getDataSource().getEndpointProfileByGroupID(groupID,limit,offset,new AsyncCallback<EndpointProfilesPageDto>(){
-    @Override public void onFailure(    Throwable caught){
-      if (caught instanceof KaaAdminServiceException) {
-        if (((KaaAdminServiceException)caught).getErrorCode() == ServiceErrorCode.ITEM_NOT_FOUND) {
-          endpointProfilesList.clear();
-          callback.onSuccess(endpointProfilesList);
+  if (isNotBlank(endpointKeyHash)) {
+    KaaAdmin.getDataSource().getEndpointProfileByKeyHash(endpointKeyHash,new AsyncCallback<EndpointProfileDto>(){
+      @Override public void onFailure(      Throwable caught){
+        if (caught instanceof KaaAdminServiceException) {
+          if (((KaaAdminServiceException)caught).getErrorCode() == ServiceErrorCode.ITEM_NOT_FOUND) {
+            endpointProfilesList.clear();
+            callback.onSuccess(endpointProfilesList);
+          }
+        }
+ else {
+          callback.onFailure(caught);
         }
       }
- else {
-        callback.onFailure(caught);
+      @Override public void onSuccess(      EndpointProfileDto endpointProfileDto){
+        List<EndpointProfileDto> result=new ArrayList<>();
+        if (endpointProfileDto.getApplicationId().equals(applicationId)) {
+          result.add(endpointProfileDto);
+        }
+        endpointProfilesList.clear();
+        endpointProfilesList.addAll(result);
+        callback.onSuccess(endpointProfilesList);
       }
     }
-    @Override public void onSuccess(    EndpointProfilesPageDto result){
-      endpointProfilesList.addAll(result.getEndpointProfiles());
-      offset=result.getPageLinkDto().getOffset();
-      callback.onSuccess(endpointProfilesList);
-    }
-  }
 );
+  }
+ else {
+    KaaAdmin.getDataSource().getEndpointProfileByGroupID(groupID,limit,offset,new AsyncCallback<EndpointProfilesPageDto>(){
+      @Override public void onFailure(      Throwable caught){
+        if (caught instanceof KaaAdminServiceException) {
+          if (((KaaAdminServiceException)caught).getErrorCode() == ServiceErrorCode.ITEM_NOT_FOUND) {
+            endpointProfilesList.clear();
+            callback.onSuccess(endpointProfilesList);
+          }
+        }
+ else         callback.onFailure(caught);
+      }
+      @Override public void onSuccess(      EndpointProfilesPageDto result){
+        endpointProfilesList.addAll(result.getEndpointProfiles());
+        offset=result.getPageLinkDto().getOffset();
+        callback.onSuccess(endpointProfilesList);
+      }
+    }
+);
+  }
 }

@@ -1,0 +1,24 @@
+{
+  PreparedStatement selectBucketWithMaxIdStatement=null;
+  ResultSet resultSet=null;
+  try {
+    selectBucketWithMaxIdStatement=connection.prepareStatement(PersistentLogStorageConstants.KAA_SELECT_MAX_BUCKET_ID);
+    resultSet=selectBucketWithMaxIdStatement.executeQuery();
+    if (resultSet.next()) {
+      int currentBucketId=resultSet.getInt(1);
+      if (currentBucketId == 0) {
+        LOG.trace("Can't retrieve max bucket ID. Seems there is no logs");
+        return;
+      }
+      this.currentBucketId=++currentBucketId;
+    }
+  }
+ catch (  SQLException e) {
+    LOG.error("Can't create select max bucket ID statement",e);
+    throw new RuntimeException(e);
+  }
+ finally {
+    tryCloseResultSet(resultSet);
+    tryCloseStatement(selectBucketWithMaxIdStatement);
+  }
+}

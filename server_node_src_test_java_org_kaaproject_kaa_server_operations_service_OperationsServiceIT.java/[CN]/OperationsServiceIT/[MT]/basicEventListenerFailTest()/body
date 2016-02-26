@@ -11,7 +11,7 @@
   eventRequest.setEventListenersRequests(Collections.singletonList(new EventListenersRequest(REQUEST_ID1,Arrays.asList("fqn"))));
   request.setEventSync(eventRequest);
   SyncContext context=createContext(request);
-  operationsService.syncProfile(context,request.getProfileSync());
+  operationsService.syncClientProfile(context,request.getProfileSync());
   operationsService.processEventListenerRequests(context,request.getEventSync());
   ServerSync response=context.getResponse();
   Assert.assertNotNull(response);

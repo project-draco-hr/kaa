@@ -1,0 +1,43 @@
+{
+  ClientSync sync=new ClientSync();
+  for (short extPos=0; extPos < extensionsCount; extPos++) {
+    if (buf.remaining() < MIN_SIZE_OF_EXTENSION_HEADER) {
+      throw new PlatformEncDecException(MessageFormat.format("Extension header is to small. Available {0}, current possition is {1}!",buf.remaining(),buf.position()));
+    }
+    short type=buf.getShort();
+    int options=buf.getShort();
+    int payloadLength=buf.getInt();
+    if (buf.remaining() < payloadLength) {
+      throw new PlatformEncDecException(MessageFormat.format("Extension payload is to small. Available {0}, expected {1} current possition is {2}!",buf.remaining(),payloadLength,buf.position()));
+    }
+switch (type) {
+case BOOTSTRAP_EXTENSION_ID:
+      parseBootstrapClientSync(sync,buf,options,payloadLength);
+    break;
+case META_DATA_EXTENSION_ID:
+  parseClientSyncMetaData(sync,buf,options,payloadLength);
+break;
+case PROFILE_EXTENSION_ID:
+parseProfileClientSync(sync,buf,options,payloadLength);
+break;
+case USER_EXTENSION_ID:
+parseUserClientSync(sync,buf,options,payloadLength);
+break;
+case LOGGING_EXTENSION_ID:
+parseLogClientSync(sync,buf,options,payloadLength);
+break;
+case CONFIGURATION_EXTENSION_ID:
+parseConfigurationClientSync(sync,buf,options,payloadLength);
+break;
+case NOTIFICATION_EXTENSION_ID:
+parseNotificationClientSync(sync,buf,options,payloadLength);
+break;
+case EVENT_EXTENSION_ID:
+parseEventClientSync(sync,buf,options,payloadLength);
+break;
+default :
+break;
+}
+}
+return validate(sync);
+}

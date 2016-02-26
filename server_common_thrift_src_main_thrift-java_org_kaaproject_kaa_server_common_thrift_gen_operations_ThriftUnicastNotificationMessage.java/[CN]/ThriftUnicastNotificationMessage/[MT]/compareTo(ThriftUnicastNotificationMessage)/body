@@ -1,0 +1,37 @@
+{
+  if (!getClass().equals(other.getClass())) {
+    return getClass().getName().compareTo(other.getClass().getName());
+  }
+  int lastComparison=0;
+  lastComparison=Boolean.valueOf(isSetAddress()).compareTo(other.isSetAddress());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetAddress()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.address,other.address);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  lastComparison=Boolean.valueOf(isSetActorClassifier()).compareTo(other.isSetActorClassifier());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetActorClassifier()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.actorClassifier,other.actorClassifier);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  lastComparison=Boolean.valueOf(isSetNotificationId()).compareTo(other.isSetNotificationId());
+  if (lastComparison != 0) {
+    return lastComparison;
+  }
+  if (isSetNotificationId()) {
+    lastComparison=org.apache.thrift.TBaseHelper.compareTo(this.notificationId,other.notificationId);
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+  }
+  return 0;
+}

@@ -1,0 +1,8 @@
+{
+  rpcService.deleteCTLSchemaByFqnVersionTenantIdAndApplicationId(fqn,version,tenantId,applicationId,new DataCallback<Void>(callback){
+    @Override protected void onResult(    Void result){
+      eventBus.fireEvent(new DataEvent(CTLSchemaMetaInfoDto.class));
+    }
+  }
+);
+}

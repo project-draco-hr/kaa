@@ -2,13 +2,12 @@
   try {
     FileData result=new FileData();
     result.setContentType(JSON);
-    result.setFileName(MessageFormat.format(CTL_EXPORT_TEMPLATE,schema.getMetaInfo().getFqn(),schema.getMetaInfo().getVersion()));
+    result.setFileName(MessageFormat.format(CTL_EXPORT_TEMPLATE,schema.getMetaInfo().getFqn(),schema.getVersion()));
     Object json=FORMATTER.readValue(schema.getBody(),Object.class);
     result.setFileData(FORMATTER.writerWithDefaultPrettyPrinter().writeValueAsString(json).getBytes());
     return result;
   }
  catch (  Exception cause) {
-    LOG.error("An unexpected exception occured: ",cause);
     throw new RuntimeException("An unexpected exception occured: " + cause.toString());
   }
 }

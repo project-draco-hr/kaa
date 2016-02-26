@@ -1,7 +1,6 @@
 {
   final int prime=31;
   int result=1;
-  result=prime * result + appStateSeqNumber;
   result=prime * result + ((configurationHash == null) ? 0 : configurationHash.hashCode());
   result=prime * result + (resyncOnly ? 1231 : 1237);
   return result;

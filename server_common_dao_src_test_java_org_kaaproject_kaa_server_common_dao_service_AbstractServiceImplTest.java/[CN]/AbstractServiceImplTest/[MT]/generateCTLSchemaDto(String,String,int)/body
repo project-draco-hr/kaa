@@ -1,0 +1,8 @@
+{
+  CTLSchemaDto ctlSchema=new CTLSchemaDto();
+  CTLSchemaMetaInfoDto metaInfoDto=new CTLSchemaMetaInfoDto(fqn,tenantId);
+  ctlSchema.setMetaInfo(metaInfoDto);
+  ctlSchema.setVersion(version);
+  ctlSchema.setBody(UUID.randomUUID().toString());
+  return ctlSchema;
+}

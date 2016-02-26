@@ -2,8 +2,7 @@
   CTLSchemaMetaInfoDto ctlSchemaMetaInfoDto=createDto();
   ctlSchemaMetaInfoDto.setId(getStringId());
   ctlSchemaMetaInfoDto.setFqn(fqn);
-  ctlSchemaMetaInfoDto.setVersion(version);
-  ctlSchemaMetaInfoDto.setScope(scope);
-  ctlSchemaMetaInfoDto.setCount(count);
+  ctlSchemaMetaInfoDto.setApplicationId(application != null ? application.getStringId() : null);
+  ctlSchemaMetaInfoDto.setTenantId(tenant != null ? tenant.getStringId() : null);
   return ctlSchemaMetaInfoDto;
 }

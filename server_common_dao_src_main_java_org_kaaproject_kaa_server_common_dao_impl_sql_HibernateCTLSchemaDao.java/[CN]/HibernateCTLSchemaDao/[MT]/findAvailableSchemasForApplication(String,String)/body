@@ -1,0 +1,11 @@
+{
+  LOG.debug("Searching available ctl schemas for application by tenant id [{}] and application id [{}]",tenantId,appId);
+  List<CTLSchema> availableSchemas=findListByCriterionWithAlias(CTL_SCHEMA_META_INFO_PROPERTY,CTL_SCHEMA_META_INFO_ALIAS,buildScopeCriterion(tenantId,appId));
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{}][{}] Search result: [{}].",tenantId,appId,Arrays.toString(availableSchemas.toArray()));
+  }
+ else {
+    LOG.debug("[{}][{}] Search result: [{}].",tenantId,appId,availableSchemas.size());
+  }
+  return availableSchemas;
+}

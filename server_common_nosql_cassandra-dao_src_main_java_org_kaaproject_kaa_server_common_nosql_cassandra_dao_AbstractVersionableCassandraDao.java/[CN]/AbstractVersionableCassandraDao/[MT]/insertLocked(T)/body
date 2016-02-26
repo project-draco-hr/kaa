@@ -1,0 +1,26 @@
+{
+  Insert insert=insertInto(getColumnFamilyName()).ifNotExists();
+  CassandraEntityMapper<T> entityMapper=CassandraEntityMapper.getEntityMapperForClass(getColumnFamilyClass(),cassandraClient);
+  for (  String name : entityMapper.getKeyColumnNames()) {
+    insert.value(name,entityMapper.getColumnValueForName(name,entity,cassandraClient));
+  }
+  for (  String name : entityMapper.getNonKeyColumnNames()) {
+    insert.value(name,entityMapper.getColumnValueForName(name,entity,cassandraClient));
+  }
+  insert.setConsistencyLevel(getWriteConsistencyLevel());
+  ResultSet res=execute(insert);
+  if (!res.wasApplied()) {
+    LOG.error("[{}] Can't insert entity. Entity already exists!",getColumnFamilyClass());
+    throw new KaaOptimisticLockingFailureException("Can't insert entity. Entity already exists!");
+  }
+ else {
+    Clause[] whereClauses=buildKeyClauses(entityMapper,entity);
+    Select.Where where=select().from(getColumnFamilyName()).where(whereClauses[0]);
+    if (whereClauses.length > 1) {
+      for (int i=1; i < whereClauses.length; i++) {
+        where=where.and(whereClauses[i]);
+      }
+    }
+    return findOneByStatement(where);
+  }
+}

@@ -1,8 +1,4 @@
 {
-  if (isBlank(dto.getId())) {
-    return save(new CassandraEndpointProfile(dto));
-  }
- else {
-    return update(new CassandraEndpointProfile(dto));
-  }
+  CassandraEndpointProfile endpointProfile=new CassandraEndpointProfile(dto);
+  return save(endpointProfile);
 }

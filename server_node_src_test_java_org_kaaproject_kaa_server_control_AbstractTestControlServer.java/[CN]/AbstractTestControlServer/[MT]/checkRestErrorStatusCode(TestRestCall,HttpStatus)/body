@@ -1,0 +1,11 @@
+{
+  HttpStatus errorStatus=null;
+  try {
+    restCall.executeRestCall();
+  }
+ catch (  HttpStatusCodeException e) {
+    errorStatus=e.getStatusCode();
+  }
+  Assert.assertNotNull(errorStatus);
+  Assert.assertEquals(expectedStatus,errorStatus);
+}

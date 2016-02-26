@@ -1,0 +1,34 @@
+{
+  Class<?> valueClass=value.getClass();
+  if (mapsToCollection(valueClass)) {
+    if (mapsToList(valueClass)) {
+      List<?> valList=(List<?>)value;
+      List<Object> list=new ArrayList<>(valList.size());
+      for (      Object elem : valList) {
+        list.add(convertValue(elem,udtMap,cassandraClient));
+      }
+      value=list;
+    }
+ else     if (mapsToSet(valueClass)) {
+      Set<?> valSet=(Set<?>)value;
+      Set<Object> set=new HashSet<>(valSet.size());
+      for (      Object elem : valSet) {
+        set.add(convertValue(elem,udtMap,cassandraClient));
+      }
+      value=set;
+    }
+ else     if (mapsToMap(valueClass)) {
+      Map<?,?> valMap=(Map<?,?>)value;
+      Map<Object,Object> map=new HashMap<>(valMap.size());
+      for (      Object elem : map.keySet()) {
+        Object elemVal=map.get(elem);
+        map.put(convertValue(elem,udtMap,cassandraClient),convertValue(elemVal,udtMap,cassandraClient));
+      }
+      value=map;
+    }
+  }
+ else   if (udtMap.containsKey(valueClass)) {
+    return convertValue(value,udtMap.get(valueClass),cassandraClient);
+  }
+  return value;
+}

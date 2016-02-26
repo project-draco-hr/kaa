@@ -1,0 +1,20 @@
+{
+switch (field) {
+case NODE_ID:
+    if (value == null) {
+      unsetNodeId();
+    }
+ else {
+      setNodeId((String)value);
+    }
+  break;
+case ADDRESS:
+if (value == null) {
+  unsetAddress();
+}
+ else {
+  setAddress((ThriftEntityAddress)value);
+}
+break;
+}
+}

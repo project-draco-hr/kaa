@@ -1,6 +1,6 @@
 {
   if (value != null) {
-    Fqn fqn=new Fqn(value.getFqn());
+    Fqn fqn=new Fqn(value.getMetaInfo().getFqn());
     fqnReferenceBox.setValue(new FqnKey(fqn));
     List<Integer> versions=fqnVersionsMap.get(fqn);
     Collections.sort(versions);

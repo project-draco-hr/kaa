@@ -1,0 +1,4 @@
+{
+  LOG.debug("Try to find topic list entry by hash [{}] ",hash);
+  return (CassandraTopicListEntry)getMapper().get(getByteBuffer(hash));
+}

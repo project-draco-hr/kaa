@@ -1,0 +1,8 @@
+{
+  TopicListCacheEntry topicListCache=notificationDeltaService.getTopicListHash(appToken,endpointId,profile);
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{}][{}] Result topic hash is {}",appToken,endpointId,topicListCache);
+  }
+  profile.setSimpleTopicHash(topicListCache.getSimpleHash());
+  profile.setTopicHash(topicListCache.getHash().getData());
+}

@@ -1,0 +1,11 @@
+{
+  ConfigurationCacheEntry deltaCacheEntry=deltaMemorizer.compute(key,new Computable<DeltaCacheKey,ConfigurationCacheEntry>(){
+    @Override public ConfigurationCacheEntry compute(    DeltaCacheKey key){
+      LOG.debug("Fetching result for getMergedConfiguration");
+      ConfigurationCacheEntry result=worker.compute(key);
+      return result;
+    }
+  }
+);
+  return deltaCacheEntry;
+}

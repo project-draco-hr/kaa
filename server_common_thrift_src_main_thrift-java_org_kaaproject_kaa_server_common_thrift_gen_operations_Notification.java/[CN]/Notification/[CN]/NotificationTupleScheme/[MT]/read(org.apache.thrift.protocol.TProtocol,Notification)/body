@@ -1,6 +1,6 @@
 {
   TTupleProtocol iprot=(TTupleProtocol)prot;
-  BitSet incoming=iprot.readBitSet(15);
+  BitSet incoming=iprot.readBitSet(13);
   if (incoming.get(0)) {
     struct.appId=iprot.readString();
     struct.setAppIdIsSet(true);
@@ -38,26 +38,18 @@
     struct.setNotificationIdIsSet(true);
   }
   if (incoming.get(9)) {
-    struct.unicastNotificationId=iprot.readString();
-    struct.setUnicastNotificationIdIsSet(true);
-  }
-  if (incoming.get(10)) {
     struct.topicId=iprot.readString();
     struct.setTopicIdIsSet(true);
   }
-  if (incoming.get(11)) {
-    struct.keyHash=iprot.readBinary();
-    struct.setKeyHashIsSet(true);
-  }
-  if (incoming.get(12)) {
+  if (incoming.get(10)) {
     struct.op=org.kaaproject.kaa.server.common.thrift.gen.operations.Operation.findByValue(iprot.readI32());
     struct.setOpIsSet(true);
   }
-  if (incoming.get(13)) {
+  if (incoming.get(11)) {
     struct.appenderId=iprot.readString();
     struct.setAppenderIdIsSet(true);
   }
-  if (incoming.get(14)) {
+  if (incoming.get(12)) {
     struct.userVerifierToken=iprot.readString();
     struct.setUserVerifierTokenIsSet(true);
   }

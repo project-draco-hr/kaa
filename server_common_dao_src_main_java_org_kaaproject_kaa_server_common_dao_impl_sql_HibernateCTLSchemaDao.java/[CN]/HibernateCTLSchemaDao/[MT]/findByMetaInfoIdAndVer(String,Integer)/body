@@ -1,0 +1,14 @@
+{
+  CTLSchema ctlSchema=null;
+  LOG.debug("Searching ctl schema by meta info id [{}] and version [{}]",metaInfoId,version);
+  if (isNotBlank(metaInfoId) && version != null) {
+    ctlSchema=findOneByCriterionWithAlias(CTL_SCHEMA_META_INFO_PROPERTY,CTL_SCHEMA_META_INFO_ALIAS,Restrictions.and(Restrictions.eq(CTL_SCHEMA_VERSION,version),Restrictions.eq(CTL_SCHEMA_META_INFO_ALIAS_ID,Long.valueOf(metaInfoId))));
+  }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{},{}] Search result: [{}].",metaInfoId,version,ctlSchema);
+  }
+ else {
+    LOG.debug("[{},{}] Search result: [{}].",metaInfoId,version,ctlSchema != null);
+  }
+  return ctlSchema;
+}

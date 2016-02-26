@@ -1,3 +1,10 @@
 {
   super(true);
+  if (displayShowHigherLevelScopeCheckBox()) {
+    showHigherScopeCheckBox=new CheckBox(Utils.constants.displayHigherScopes());
+    showHigherScopeCheckBox.addStyleName(Utils.kaaAdminStyle.bAppContentTitle());
+    Element.as(showHigherScopeCheckBox.getElement().getChild(0)).getStyle().setMarginRight(10,Unit.PX);
+    showHigherScopeCheckBox.setValue(defaultShowHigherLevelScopes());
+    appendToolbarWidget(showHigherScopeCheckBox);
+  }
 }

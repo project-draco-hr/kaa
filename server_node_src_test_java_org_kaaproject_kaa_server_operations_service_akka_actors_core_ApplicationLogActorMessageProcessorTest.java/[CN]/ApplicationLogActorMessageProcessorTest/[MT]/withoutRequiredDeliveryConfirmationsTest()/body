@@ -1,0 +1,7 @@
+{
+  logAppenders.add(optional);
+  ApplicationLogActorMessageProcessor messageProcessor=Mockito.spy(new ApplicationLogActorMessageProcessor(context,APPLICATION_TOKEN));
+  messageProcessor.processLogEventPack(Mockito.mock(ActorContext.class),message);
+  Mockito.verify(optional).doAppend(Mockito.eq(message.getLogEventPack()),Mockito.any(VoidCallback.class));
+  Mockito.verify(messageProcessor).sendSuccessMessageToEndpoint(message);
+}

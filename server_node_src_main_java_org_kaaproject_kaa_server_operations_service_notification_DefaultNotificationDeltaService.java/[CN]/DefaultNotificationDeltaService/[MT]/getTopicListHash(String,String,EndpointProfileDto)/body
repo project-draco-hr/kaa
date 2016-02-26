@@ -1,0 +1,18 @@
+{
+  LOG.debug("[{}][{}] Calculating new topic list",appToken,endpointId);
+  List<TopicDto> topics=recalculateTopicList(profile.getGroupState());
+  Collections.sort(topics);
+  long[] ids=new long[topics.size()];
+  StringJoiner joiner=new StringJoiner("|");
+  for (int i=0; i < topics.size(); i++) {
+    Long id=Long.valueOf(topics.get(i).getId());
+    ids[i]=id.longValue();
+    joiner.add(id.toString());
+  }
+  int simpleHash=Arrays.hashCode(ids);
+  EndpointObjectHash complexHash=EndpointObjectHash.fromBytes(SHA1HashUtils.hashToBytes(joiner.toString()));
+  TopicListCacheEntry entry=new TopicListCacheEntry(simpleHash,complexHash,topics);
+  cacheService.putTopicList(complexHash,entry);
+  LOG.debug("[{}][{}] Calculated new topic list {}",appToken,endpointId,entry);
+  return entry;
+}

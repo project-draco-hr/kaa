@@ -1,0 +1,5 @@
+{
+  String serverId=getEntityNode(msg.getAddress().getEndpointKey());
+  sendServerProfileUpdateMessage(serverId,OperationsServiceMsg.fromRoute(toThriftMsg(msg)));
+  return serverId;
+}

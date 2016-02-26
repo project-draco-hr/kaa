@@ -6,36 +6,53 @@
     registrations.add(detailsView.getVersion().addValueChangeHandler(new ValueChangeHandler<Integer>(){
       @Override public void onValueChange(      ValueChangeEvent<Integer> event){
         detailsView.getVersion().setValue(version);
-        goTo(new CtlSchemaPlace(place.getFqn(),event.getValue(),false));
+        goTo(new CtlSchemaPlace(place.getMetaInfoId(),event.getValue(),place.getScope(),place.getApplicationId(),place.isEditable(),false));
       }
     }
 ));
     registrations.add(detailsView.getCreateNewSchemaVersionButton().addClickHandler(new ClickHandler(){
       @Override public void onClick(      ClickEvent event){
-        Integer CTLSchemaVersion=detailsView.getVersion().getValue();
-        CtlSchemaPlace newPlace=new CtlSchemaPlace(place.getFqn(),CTLSchemaVersion,true);
+        Integer version=detailsView.getVersion().getValue();
+        CtlSchemaPlace newPlace=new CtlSchemaPlace(place.getMetaInfoId(),version,place.getScope(),place.getApplicationId(),true,true);
         newPlace.setPreviousPlace(place);
         goTo(newPlace);
       }
     }
 ));
+    registrations.add(detailsView.getUpdateSchemaScopeButton().addClickHandler(new ClickHandler(){
+      @Override public void onClick(      ClickEvent event){
+        CTLSchemaMetaInfoDto metaInfo=entity.getMetaInfo();
+        metaInfo.setApplicationId(null);
+        KaaAdmin.getDataSource().updateCtlSchemaScope(metaInfo,new BusyAsyncCallback<CTLSchemaMetaInfoDto>(){
+          @Override public void onFailureImpl(          Throwable caught){
+            Utils.handleException(caught,detailsView);
+          }
+          @Override public void onSuccessImpl(          CTLSchemaMetaInfoDto result){
+            CtlSchemaPlace place=new CtlSchemaPlace(result.getId(),version,result.getScope(),CtlSchemaActivity.this.place.getApplicationId(),result.getScope() == CTLSchemaScopeDto.APPLICATION,false);
+            goTo(place);
+          }
+        }
+);
+      }
+    }
+));
     registrations.add(detailsView.getDeleteSchemaVersionButton().addClickHandler(new ClickHandler(){
       @Override public void onClick(      ClickEvent event){
-        final Integer CTLSchemaVersion=detailsView.getVersion().getValue();
-        final String fqn=place.getFqn();
+        final Integer version=detailsView.getVersion().getValue();
+        final String fqn=entity.getMetaInfo().getFqn();
         ConfirmDialog.ConfirmListener listener=new ConfirmDialog.ConfirmListener(){
           @Override public void onNo(){
           }
           @Override public void onYes(){
-            KaaAdmin.getDataSource().deleteCTLSchema(fqn,CTLSchemaVersion,new BusyAsyncCallback<Void>(){
+            KaaAdmin.getDataSource().deleteCTLSchemaByFqnVersionTenantIdAndApplicationId(fqn,version,entity.getMetaInfo().getTenantId(),place.getApplicationId(),new BusyAsyncCallback<Void>(){
               @Override public void onSuccessImpl(              Void result){
-                List<Integer> versions=entity.getAvailableVersions();
-                versions.remove(CTLSchemaVersion);
+                List<Integer> versions=entity.getMetaInfo().getVersions();
+                versions.remove(version);
                 if (versions.isEmpty()) {
                   goTo(place.getPreviousPlace());
                 }
  else {
-                  goTo(new CtlSchemaPlace(place.getFqn(),versions.get(versions.size() - 1),false));
+                  goTo(new CtlSchemaPlace(place.getMetaInfoId(),versions.get(versions.size() - 1),place.getScope(),place.getApplicationId(),true,false));
                 }
               }
               @Override public void onFailureImpl(              Throwable caught){
@@ -46,7 +63,7 @@
           }
         }
 ;
-        ConfirmDialog dialog=new ConfirmDialog(listener,Utils.messages.deleteCommonTypeVersionTitle(),Utils.messages.deleteCommonTypeVersionQuestion(fqn,CTLSchemaVersion.toString()));
+        ConfirmDialog dialog=new ConfirmDialog(listener,Utils.messages.deleteCommonTypeVersionTitle(),Utils.messages.deleteCommonTypeVersionQuestion(fqn,version.toString()));
         dialog.center();
         dialog.show();
       }

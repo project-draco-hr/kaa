@@ -1,35 +1,50 @@
 {
-  ByteArrayOutputStream baos=new ByteArrayOutputStream();
-  BinaryEncoder encoder=EncoderFactory.get().binaryEncoder(baos,null);
-  SpecificDatumWriter<TopicSubscriptionInfo> datumWriter=new SpecificDatumWriter<TopicSubscriptionInfo>(TopicSubscriptionInfo.class);
-  try {
-    for (    Map.Entry<String,TopicSubscriptionInfo> cursor : nfSubscriptions.entrySet()) {
-      datumWriter.write(cursor.getValue(),encoder);
-      LOG.info("Persisted {}",cursor.getValue());
+  if (hasUpdate) {
+    ByteArrayOutputStream baos=new ByteArrayOutputStream();
+    BinaryEncoder encoder=EncoderFactory.get().binaryEncoder(baos,null);
+    SpecificDatumWriter<Topic> datumWriter=new SpecificDatumWriter<Topic>(Topic.class);
+    try {
+      for (      Topic topic : topicMap.values()) {
+        datumWriter.write(topic,encoder);
+        LOG.info("Persisted {}",topic);
+      }
+      encoder.flush();
+      String base64Str=new String(base64.encodeBase64(baos.toByteArray()),Charset.forName("UTF-8"));
+      state.setProperty(TOPIC_LIST,base64Str);
     }
-    encoder.flush();
-    String base64Str=new String(base64.encodeBase64(baos.toByteArray()),Charset.forName("UTF-8"));
-    state.setProperty(NF_SUBSCRIPTIONS,base64Str);
-  }
- catch (  IOException e) {
-    LOG.error("Can't persist notification subscription info",e);
-  }
-  StringBuilder attachedEndpointsString=new StringBuilder();
-  for (  Map.Entry<EndpointAccessToken,EndpointKeyHash> attached : attachedEndpoints.entrySet()) {
-    attachedEndpointsString.append(attached.getKey().getToken()).append(":").append(attached.getValue().getKeyHash()).append(',');
-  }
-  state.setProperty(ATTACHED_ENDPOINTS,attachedEndpointsString.toString());
-  state.setProperty(EVENT_SEQ_NUM,"" + eventSequence.get());
-  OutputStream os=null;
-  try {
-    storage.renameTo(stateFileLocation,stateFileLocation + "_bckp");
-    os=storage.openForWrite(stateFileLocation);
-    state.store(os,null);
-  }
- catch (  IOException e) {
-    LOG.error("Can't persist state file",e);
-  }
+ catch (    IOException e) {
+      LOG.error("Can't persist topic list info",e);
+    }
+    baos=new ByteArrayOutputStream();
+    try (ObjectOutputStream oos=new ObjectOutputStream(baos)){
+      oos.writeObject(nfSubscriptions);
+      String base64Str=new String(base64.encodeBase64(baos.toByteArray()),Charset.forName("UTF-8"));
+      state.setProperty(NF_SUBSCRIPTIONS,base64Str);
+    }
+ catch (    IOException e) {
+      LOG.error("Can't persist notification subscription info",e);
+    }
+    StringBuilder attachedEndpointsString=new StringBuilder();
+    for (    Map.Entry<EndpointAccessToken,EndpointKeyHash> attached : attachedEndpoints.entrySet()) {
+      attachedEndpointsString.append(attached.getKey().getToken()).append(":").append(attached.getValue().getKeyHash()).append(',');
+    }
+    state.setProperty(ATTACHED_ENDPOINTS,attachedEndpointsString.toString());
+    state.setProperty(EVENT_SEQ_NUM,"" + eventSequence.get());
+    if (topicListHash != null) {
+      state.setProperty(TOPIC_LIST_HASH,"" + topicListHash);
+    }
+    OutputStream os=null;
+    try {
+      storage.renameTo(stateFileLocation,stateFileLocation + "_bckp");
+      os=storage.openForWrite(stateFileLocation);
+      state.store(os,null);
+      hasUpdate=false;
+    }
+ catch (    IOException e) {
+      LOG.error("Can't persist state file",e);
+    }
  finally {
-    IOUtils.closeQuietly(os);
+      IOUtils.closeQuietly(os);
+    }
   }
 }
