@@ -2,7 +2,7 @@
   if (hasUpdate) {
     ByteArrayOutputStream baos=new ByteArrayOutputStream();
     BinaryEncoder encoder=EncoderFactory.get().binaryEncoder(baos,null);
-    SpecificDatumWriter<Topic> datumWriter=new SpecificDatumWriter<Topic>(Topic.class);
+    SpecificDatumWriter<Topic> datumWriter=new SpecificDatumWriter<>(Topic.class);
     try {
       for (      Topic topic : topicMap.values()) {
         datumWriter.write(topic,encoder);
