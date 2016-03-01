@@ -1,12 +1,24 @@
 {
-  if (this == obj)   return true;
-  if (obj == null)   return false;
-  if (getClass() != obj.getClass())   return false;
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
   AppSeqNumber other=(AppSeqNumber)obj;
   if (appToken == null) {
-    if (other.appToken != null)     return false;
+    if (other.appToken != null) {
+      return false;
+    }
   }
- else   if (!appToken.equals(other.appToken))   return false;
-  if (seqNumber != other.seqNumber)   return false;
+ else   if (!appToken.equals(other.appToken)) {
+    return false;
+  }
+  if (seqNumber != other.seqNumber) {
+    return false;
+  }
   return true;
 }

@@ -1,23 +1,45 @@
 {
-  if (this == obj)   return true;
-  if (!super.equals(obj))   return false;
-  if (getClass() != obj.getClass())   return false;
+  if (this == obj) {
+    return true;
+  }
+  if (!super.equals(obj)) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
   ProfileFilterDto other=(ProfileFilterDto)obj;
   if (endpointProfileSchemaId == null) {
-    if (other.endpointProfileSchemaId != null)     return false;
+    if (other.endpointProfileSchemaId != null) {
+      return false;
+    }
   }
- else   if (!endpointProfileSchemaId.equals(other.endpointProfileSchemaId))   return false;
+ else   if (!endpointProfileSchemaId.equals(other.endpointProfileSchemaId)) {
+    return false;
+  }
   if (endpointProfileSchemaVersion == null) {
-    if (other.endpointProfileSchemaVersion != null)     return false;
+    if (other.endpointProfileSchemaVersion != null) {
+      return false;
+    }
   }
- else   if (!endpointProfileSchemaVersion.equals(other.endpointProfileSchemaVersion))   return false;
+ else   if (!endpointProfileSchemaVersion.equals(other.endpointProfileSchemaVersion)) {
+    return false;
+  }
   if (serverProfileSchemaId == null) {
-    if (other.serverProfileSchemaId != null)     return false;
+    if (other.serverProfileSchemaId != null) {
+      return false;
+    }
   }
- else   if (!serverProfileSchemaId.equals(other.serverProfileSchemaId))   return false;
+ else   if (!serverProfileSchemaId.equals(other.serverProfileSchemaId)) {
+    return false;
+  }
   if (serverProfileSchemaVersion == null) {
-    if (other.serverProfileSchemaVersion != null)     return false;
+    if (other.serverProfileSchemaVersion != null) {
+      return false;
+    }
   }
- else   if (!serverProfileSchemaVersion.equals(other.serverProfileSchemaVersion))   return false;
+ else   if (!serverProfileSchemaVersion.equals(other.serverProfileSchemaVersion)) {
+    return false;
+  }
   return true;
 }

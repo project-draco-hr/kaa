@@ -4,6 +4,7 @@
     parser.parse(schema);
   }
  catch (  SchemaParseException spe) {
+    LOG.error("Exception catched: ",spe);
     throw new KaaAdminServiceException(spe.getMessage(),ServiceErrorCode.INVALID_SCHEMA);
   }
 }

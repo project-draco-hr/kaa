@@ -24,7 +24,7 @@
   }
   if (serverToApply != null) {
     List<ProtocolMetaData> servers=getTransportsByAccessPointId(serverToApply);
-    if (servers != null && servers.size() > 0) {
+    if (servers != null && !servers.isEmpty()) {
       notifyChannelManagerAboutServer(servers);
       serverToApply=null;
     }

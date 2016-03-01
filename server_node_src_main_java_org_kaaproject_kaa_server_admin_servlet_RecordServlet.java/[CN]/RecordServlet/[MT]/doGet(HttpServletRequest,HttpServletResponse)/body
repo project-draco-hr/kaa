@@ -10,7 +10,7 @@
     response.flushBuffer();
   }
  catch (  Exception e) {
-    logger.error("Unexpected error in RecordLibraryServlet.doGet: ",e);
+    LOG.error("Unexpected error in RecordLibraryServlet.doGet: ",e);
     response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,"Unable to get file: " + e.getMessage());
   }
 }

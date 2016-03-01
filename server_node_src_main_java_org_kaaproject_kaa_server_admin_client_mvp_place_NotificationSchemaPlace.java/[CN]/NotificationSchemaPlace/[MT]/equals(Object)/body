@@ -1,11 +1,21 @@
 {
-  if (this == obj)   return true;
-  if (obj == null)   return false;
-  if (getClass() != obj.getClass())   return false;
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
   NotificationSchemaPlace other=(NotificationSchemaPlace)obj;
   if (schemaId == null) {
-    if (other.schemaId != null)     return false;
+    if (other.schemaId != null) {
+      return false;
+    }
   }
- else   if (!schemaId.equals(other.schemaId))   return false;
+ else   if (!schemaId.equals(other.schemaId)) {
+    return false;
+  }
   return true;
 }
