@@ -15,6 +15,7 @@
     return controlService.editConfiguration(configuration);
   }
  catch (  StaleObjectStateException e) {
+    LOG.error("Someone has already updated the configuration. Reload page to be able to edit it. ",e);
     throw new KaaAdminServiceException("Someone has already updated the configuration. Reload page to be able to edit it.",ServiceErrorCode.GENERAL_ERROR);
   }
 catch (  Exception e) {

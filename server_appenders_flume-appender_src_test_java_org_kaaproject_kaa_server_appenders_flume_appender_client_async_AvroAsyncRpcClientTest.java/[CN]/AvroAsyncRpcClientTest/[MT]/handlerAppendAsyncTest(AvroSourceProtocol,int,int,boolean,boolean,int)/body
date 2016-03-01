@@ -32,6 +32,8 @@ catch (  ExecutionException e) {
   }
  finally {
     stopServer(server);
-    if (client != null)     client.close();
+    if (client != null) {
+      client.close();
+    }
   }
 }

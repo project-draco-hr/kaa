@@ -10,6 +10,7 @@
     ss.err=new PrintStream(System.err,true,"UTF-8");
   }
  catch (  UnsupportedEncodingException e) {
+    LOG.error("Exception catched: ",e);
     System.exit(3);
   }
   if (!oproc.process(ss)) {

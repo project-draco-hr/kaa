@@ -27,6 +27,7 @@
       return f.get();
     }
  catch (    CancellationException e) {
+      LOG.error("Exception catched: ",e);
       cache.remove(key,f);
     }
 catch (    ExecutionException|InterruptedException e) {

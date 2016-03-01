@@ -8,12 +8,12 @@
     server=new NettyServer(responder,new InetSocketAddress(localhost,port));
   }
   server.start();
-  logger.info("Server started on hostname: {}, port: {}",new Object[]{localhost,Integer.toString(server.getPort())});
+  LOG.info("Server started on hostname: {}, port: {}",new Object[]{localhost,Integer.toString(server.getPort())});
   try {
     Thread.sleep(300L);
   }
  catch (  InterruptedException ex) {
-    logger.error("Thread interrupted. Exception follows.",ex);
+    LOG.error("Thread interrupted. Exception follows.",ex);
     Thread.currentThread().interrupt();
   }
   return server;

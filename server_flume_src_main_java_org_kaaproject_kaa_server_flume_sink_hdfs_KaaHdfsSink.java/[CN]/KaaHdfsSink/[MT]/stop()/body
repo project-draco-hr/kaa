@@ -2,12 +2,12 @@
   started=false;
   Map<HdfsSinkKey,BucketWriter> writers=writerCache.asMap();
   for (  Entry<HdfsSinkKey,BucketWriter> entry : writers.entrySet()) {
-    logger.info("Closing {}",entry.getKey());
+    LOG.info("Closing {}",entry.getKey());
     try {
       close(entry.getValue());
     }
  catch (    Exception ex) {
-      logger.warn("Exception while closing " + entry.getKey() + ". "+ "Exception follows.",ex);
+      LOG.warn("Exception while closing " + entry.getKey() + ". "+ "Exception follows.",ex);
       if (ex instanceof InterruptedException) {
         Thread.currentThread().interrupt();
       }
@@ -27,7 +27,7 @@
         }
       }
  catch (      InterruptedException ex) {
-        logger.warn("shutdown interrupted on " + execService,ex);
+        LOG.warn("shutdown interrupted on " + execService,ex);
       }
     }
   }

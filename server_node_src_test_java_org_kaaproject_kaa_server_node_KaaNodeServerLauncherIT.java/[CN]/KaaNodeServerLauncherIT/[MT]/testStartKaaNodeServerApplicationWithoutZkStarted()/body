@@ -5,9 +5,9 @@
   try {
     kaaNodeServerLauncherThread=new Thread(new Runnable(){
       @Override public void run(){
-        logger.info("Starting Kaa Node Server ...");
+        LOG.info("Starting Kaa Node Server ...");
         KaaNodeApplication.main(new String[]{"common-zk-test-context.xml","kaa-node-zk-test.properties"});
-        logger.info("Kaa Node Server Stopped");
+        LOG.info("Kaa Node Server Stopped");
       }
     }
 );
