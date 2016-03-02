@@ -1,0 +1,21 @@
+{
+  if (profileBody == null) {
+    return null;
+  }
+  Set<String> keySet=profileBody.keySet();
+  DBObject modifiedNode=new BasicDBObject();
+  if (keySet != null) {
+    for (    String key : keySet) {
+      Object value=profileBody.get(key);
+      key=key.replace('.',(char)0xFF0E);
+      key=key.replace('$',(char)0xFF04);
+      if (value instanceof DBObject) {
+        modifiedNode.put(key,substitudeMongoReservedCharacteres((DBObject)value));
+      }
+ else {
+        modifiedNode.put(key,value);
+      }
+    }
+  }
+  return modifiedNode;
+}

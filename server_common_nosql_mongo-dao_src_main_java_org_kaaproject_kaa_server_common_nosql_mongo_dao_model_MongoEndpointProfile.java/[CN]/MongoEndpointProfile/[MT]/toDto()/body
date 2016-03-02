@@ -11,7 +11,7 @@
   dto.setEndpointKeyHash(endpointKeyHash);
   dto.setEndpointUserId(endpointUserId);
   dto.setAccessToken(accessToken);
-  dto.setClientProfileBody(profile != null ? profile.toString() : "");
+  dto.setClientProfileBody(convertToOriginalProfileCharacteres(profile));
   dto.setProfileHash(profileHash);
   dto.setClientProfileVersion(profileVersion);
   dto.setServerProfileVersion(serverProfileVersion);
