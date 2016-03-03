@@ -7,8 +7,8 @@
   if (keySet != null) {
     for (    String key : keySet) {
       Object value=profileBody.get(key);
-      for (      char symbolToReplace : CODE_CHARACTERS.values()) {
-        key=key.replace(symbolToReplace,CODE_CHARACTERS.inverse().get(symbolToReplace));
+      for (      char symbolToReplace : RESERVED_CHARACTERS.values()) {
+        key=key.replace(symbolToReplace,RESERVED_CHARACTERS.inverse().get(symbolToReplace));
       }
       if (value instanceof DBObject) {
         modifiedNode.put(key,(DBObject)JSON.parse(decodeReservedCharacteres((DBObject)value)));
