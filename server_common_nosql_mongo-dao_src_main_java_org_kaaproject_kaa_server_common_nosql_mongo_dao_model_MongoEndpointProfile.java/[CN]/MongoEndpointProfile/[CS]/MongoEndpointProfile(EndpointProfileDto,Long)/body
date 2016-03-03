@@ -7,7 +7,7 @@
   this.accessToken=dto.getAccessToken();
   this.groupState=MongoDaoUtil.convertDtoToModelList(dto.getGroupState());
   this.sequenceNumber=dto.getSequenceNumber();
-  this.profile=substitudeMongoReservedCharacteres((DBObject)JSON.parse(dto.getClientProfileBody()));
+  this.profile=encodeReservedCharacteres((DBObject)JSON.parse(dto.getClientProfileBody()));
   this.profileHash=dto.getProfileHash();
   this.profileVersion=dto.getClientProfileVersion();
   this.serverProfileVersion=dto.getServerProfileVersion();
