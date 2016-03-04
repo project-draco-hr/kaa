@@ -1,7 +1,7 @@
 {
   if (executionCount <= getRetryCount()) {
     try {
-      logger.warn("IOException '{}'. Wait for {} before next attempt to connect...",exception.getMessage(),connectRetryInterval);
+      LOG.warn("IOException '{}'. Wait for {} before next attempt to connect...",exception.getMessage(),connectRetryInterval);
       Thread.sleep(connectRetryInterval);
     }
  catch (    InterruptedException e) {

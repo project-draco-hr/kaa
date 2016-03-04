@@ -14,14 +14,14 @@
   ByteArrayOutputStream sdkOutput=new ByteArrayOutputStream();
   CompressorOutputStream cos=csf.createCompressorOutputStream(CompressorStreamFactory.GZIP,sdkOutput);
   ArchiveOutputStream sdkFile=asf.createArchiveOutputStream(ArchiveStreamFactory.TAR,cos);
-  Map<String,TarEntryData> replacementData=new HashMap<String,TarEntryData>();
+  Map<String,TarEntryData> replacementData=new HashMap<>();
   List<TarEntryData> cppSources=new ArrayList<>();
   TarArchiveEntry entry=new TarArchiveEntry(SDK_DEFAULTS_PATH);
-  byte[] data=generateKaaDefaults(bootstrapNodes,sdkToken,configurationSchemaVersion,profileSchemaVersion,notificationSchemaVersion,logSchemaVersion,configurationProtocolSchemaBody,defaultConfigurationData,eventFamilies,defaultVerifierToken);
+  byte[] data=generateKaaDefaults(bootstrapNodes,sdkToken,defaultConfigurationData,defaultVerifierToken);
   entry.setSize(data.length);
   TarEntryData tarEntry=new TarEntryData(entry,data);
   cppSources.add(tarEntry);
-  Map<String,String> profileVars=new HashMap<String,String>();
+  Map<String,String> profileVars=new HashMap<>();
   profileVars.put(SDK_PROFILE_VERSION_VAR,profileSchemaVersion.toString());
   cppSources.addAll(processFeatureSchema(profileSchemaBody,PROFILE_SCHEMA_AVRO_SRC,PROFILE_DEFINITIONS_TEMPLATE,PROFILE_DEFINITIONS_PATH,profileVars));
   cppSources.addAll(processFeatureSchema(notificationSchemaBody,NOTIFICATION_SCHEMA_AVRO_SRC,NOTIFICATION_DEFINITIONS_TEMPLATE,NOTIFICATION_DEFINITIONS_PATH,null));

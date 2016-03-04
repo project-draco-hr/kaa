@@ -2,7 +2,7 @@
   if (clientState != null && manager != null && properties != null) {
     byte[] serializedProfile=manager.getSerializedProfile();
     EndpointObjectHash currentProfileHash=EndpointObjectHash.fromSHA1(serializedProfile);
-    if (isProfileOutDated(currentProfileHash) || !clientState.isRegistered()) {
+    if (isProfileOutDated(currentProfileHash) || !clientState.isRegistered() || clientState.isNeedProfileResync()) {
       clientState.setProfileHash(currentProfileHash);
       ProfileSyncRequest request=new ProfileSyncRequest();
       request.setEndpointAccessToken(clientState.getEndpointAccessToken());

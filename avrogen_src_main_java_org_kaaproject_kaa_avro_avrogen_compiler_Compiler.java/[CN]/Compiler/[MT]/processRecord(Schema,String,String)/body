@@ -4,10 +4,10 @@
   context.put("StyleUtils",StyleUtils.class);
   context.put("TypeConverter",TypeConverter.class);
   context.put("namespacePrefix",namespacePrefix);
-  StringWriter headerWriter=new StringWriter();
-  engine.getTemplate(headerTemplate).merge(context,headerWriter);
-  appendResult(headerWriter.toString(),true);
-  StringWriter sourceWriter=new StringWriter();
-  engine.getTemplate(sourceTemplate).merge(context,sourceWriter);
-  appendResult(sourceWriter.toString(),false);
+  StringWriter hdrWriter=new StringWriter();
+  engine.getTemplate(headerTemplate).merge(context,hdrWriter);
+  appendResult(hdrWriter.toString(),true);
+  StringWriter srcWriter=new StringWriter();
+  engine.getTemplate(sourceTemplate).merge(context,srcWriter);
+  appendResult(srcWriter.toString(),false);
 }

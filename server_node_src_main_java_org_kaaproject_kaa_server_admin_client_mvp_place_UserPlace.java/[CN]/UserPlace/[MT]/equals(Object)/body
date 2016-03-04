@@ -1,11 +1,21 @@
 {
-  if (this == obj)   return true;
-  if (obj == null)   return false;
-  if (getClass() != obj.getClass())   return false;
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
   UserPlace other=(UserPlace)obj;
   if (userId == null) {
-    if (other.userId != null)     return false;
+    if (other.userId != null) {
+      return false;
+    }
   }
- else   if (!userId.equals(other.userId))   return false;
+ else   if (!userId.equals(other.userId)) {
+    return false;
+  }
   return true;
 }

@@ -1,19 +1,37 @@
 {
-  if (this == obj)   return true;
-  if (obj == null)   return false;
-  if (getClass() != obj.getClass())   return false;
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
   LogEventDto other=(LogEventDto)obj;
   if (event == null) {
-    if (other.event != null)     return false;
+    if (other.event != null) {
+      return false;
+    }
   }
- else   if (!event.equals(other.event))   return false;
+ else   if (!event.equals(other.event)) {
+    return false;
+  }
   if (header == null) {
-    if (other.header != null)     return false;
+    if (other.header != null) {
+      return false;
+    }
   }
- else   if (!header.equals(other.header))   return false;
+ else   if (!header.equals(other.header)) {
+    return false;
+  }
   if (id == null) {
-    if (other.id != null)     return false;
+    if (other.id != null) {
+      return false;
+    }
   }
- else   if (!id.equals(other.id))   return false;
+ else   if (!id.equals(other.id)) {
+    return false;
+  }
   return true;
 }

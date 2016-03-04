@@ -5,7 +5,7 @@
     if (iter.hasNext()) {
       FileItemStream item=iter.next();
       String name=item.getFieldName();
-      logger.debug("Uploading file '{}' with item name '{}'",item.getName(),name);
+      LOG.debug("Uploading file '{}' with item name '{}'",item.getName(),name);
       InputStream stream=item.openStream();
       ByteArrayOutputStream out=new ByteArrayOutputStream();
       Streams.copy(stream,out,true);
@@ -13,12 +13,12 @@
       cacheService.uploadedFile(name,data);
     }
  else {
-      logger.error("No file found in post request!");
+      LOG.error("No file found in post request!");
       throw new RuntimeException("No file found in post request!");
     }
   }
  catch (  Exception e) {
-    logger.error("Unexpected error in FileUpload.doPost: ",e);
+    LOG.error("Unexpected error in FileUpload.doPost: ",e);
     throw new RuntimeException(e);
   }
 }
