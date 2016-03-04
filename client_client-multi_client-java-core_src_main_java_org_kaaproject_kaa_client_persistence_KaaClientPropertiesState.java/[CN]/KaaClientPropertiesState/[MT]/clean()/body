@@ -1,5 +1,6 @@
 {
-  state.setProperty(IS_REGISTERED,"false");
+  state.setProperty(IS_REGISTERED,Boolean.FALSE.toString());
+  state.setProperty(NEED_PROFILE_RESYNC,Boolean.FALSE.toString());
   saveFileDelete(stateFileLocation);
   saveFileDelete(stateFileLocation + "_bckp");
   hasUpdate=true;

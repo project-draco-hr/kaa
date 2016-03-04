@@ -1,6 +1,7 @@
 {
   if (response.getResponseStatus() == SyncResponseStatus.RESYNC) {
-    syncAll(TransportType.PROFILE);
+    clientState.setIfNeedProfileResync(true);
+    sync();
   }
  else   if (clientState != null && !clientState.isRegistered()) {
     clientState.setRegistered(true);
