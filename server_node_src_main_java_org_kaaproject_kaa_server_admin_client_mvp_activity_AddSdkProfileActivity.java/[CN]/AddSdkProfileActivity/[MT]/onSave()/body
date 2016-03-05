@@ -1,5 +1,7 @@
 {
   entity.setName(detailsView.getName().getValue());
+  boolean verifyEndpointCredentialsFlag=detailsView.getVerifyEndpointCredentialsFlag().getValue();
+  entity.setVerifyEndpointCredentialsFlag(verifyEndpointCredentialsFlag);
   entity.setConfigurationSchemaVersion(detailsView.getConfigurationSchemaVersion().getValue().getVersion());
   entity.setProfileSchemaVersion(detailsView.getProfileSchemaVersion().getValue().getVersion());
   entity.setNotificationSchemaVersion(detailsView.getNotificationSchemaVersion().getValue().getVersion());
