@@ -1,6 +1,6 @@
 {
   List<String> aefMapIdsList=Collections.singletonList("290");
-  SdkProfileDto sdkProfileDto=new SdkProfileDto("113",1,0,1,1,aefMapIdsList,"someVerifierToken","15643220456970528206","devuser",100000L,"");
+  SdkProfileDto sdkProfileDto=new SdkProfileDto("113",1,0,1,1,aefMapIdsList,"someVerifierToken","15643220456970528206","devuser",100000L,"",false);
   SdkTokenGenerator.generateSdkToken(sdkProfileDto);
   Assert.assertFalse(sdkProfileDto.getToken().contains("/"));
 }

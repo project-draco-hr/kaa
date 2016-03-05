@@ -57,5 +57,13 @@
  else   if (!token.equals(other.token)) {
     return false;
   }
+  if (verifyEndpointCredentialsFlag == null) {
+    if (other.verifyEndpointCredentialsFlag != null) {
+      return false;
+    }
+  }
+ else   if (!verifyEndpointCredentialsFlag.equals(other.verifyEndpointCredentialsFlag)) {
+    return false;
+  }
   return true;
 }
