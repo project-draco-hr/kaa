@@ -1,0 +1,9 @@
+{
+  EndpointCredentialsDto endpointCredentials=this.generateEndpointCredentials(APPLICATION_ID,ENDPOINT_ID,PUBLIC_KEY,null,null);
+  Assert.assertNotNull(endpointCredentials);
+  Assert.assertNotNull(endpointCredentials.getId());
+  EndpointCredentials databaseRecord=this.endpointCredentialsDao.findByEndpointId(ENDPOINT_ID);
+  Assert.assertNotNull(databaseRecord);
+  Assert.assertNotNull(endpointCredentials.getId(),databaseRecord.getId());
+  Assert.assertEquals(endpointCredentials.getEndpointId(),databaseRecord.getEndpointId());
+}

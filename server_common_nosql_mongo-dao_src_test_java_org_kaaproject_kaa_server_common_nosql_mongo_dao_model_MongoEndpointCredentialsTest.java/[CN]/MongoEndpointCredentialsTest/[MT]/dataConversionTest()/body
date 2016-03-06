@@ -1,0 +1,5 @@
+{
+  EndpointCredentialsDto endpointCredentials=new EndpointCredentialsDto(APPLICATION_ID,ENDPOINT_ID,PUBLIC_KEY,null,null);
+  MongoEndpointCredentials model=new MongoEndpointCredentials(endpointCredentials);
+  Assert.assertEquals(endpointCredentials,model.toDto());
+}
