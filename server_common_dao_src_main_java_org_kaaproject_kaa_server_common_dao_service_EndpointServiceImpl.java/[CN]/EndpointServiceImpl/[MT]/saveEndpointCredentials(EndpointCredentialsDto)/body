@@ -1,0 +1,7 @@
+{
+  EndpointCredentialsDto result=null;
+  if (Validator.isValidObject(endpointCredentials)) {
+    result=DaoUtil.getDto(this.endpointCredentialsDao.save(endpointCredentials));
+  }
+  return result;
+}
