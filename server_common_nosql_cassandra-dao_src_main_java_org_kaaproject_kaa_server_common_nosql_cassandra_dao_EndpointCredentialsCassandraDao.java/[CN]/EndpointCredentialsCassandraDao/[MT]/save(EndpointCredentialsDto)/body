@@ -1,0 +1,8 @@
+{
+  LOG.debug("Saving {}",endpointCredentials.toString());
+  if (StringUtils.isBlank(endpointCredentials.getId())) {
+    String endpointId=endpointCredentials.getEndpointId();
+    endpointCredentials.setId(endpointId);
+  }
+  return this.save(new CassandraEndpointCredentials(endpointCredentials));
+}

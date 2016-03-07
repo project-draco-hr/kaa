@@ -1,0 +1,6 @@
+{
+  EndpointCredentialsDto endpointCredentials=new EndpointCredentialsDto(applicationId,endpointId,publicKey);
+  endpointCredentials.setServerProfileVersion(serverProfileVersion);
+  endpointCredentials.setServerProfileBody(serverProfileBody);
+  return this.endpointCredentialsDao.save(endpointCredentials).toDto();
+}

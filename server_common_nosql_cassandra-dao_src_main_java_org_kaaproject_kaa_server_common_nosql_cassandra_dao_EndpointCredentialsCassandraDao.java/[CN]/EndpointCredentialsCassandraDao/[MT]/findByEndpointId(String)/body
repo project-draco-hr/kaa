@@ -1,0 +1,6 @@
+{
+  LOG.debug("Searching for endpoint credentials by endpoint ID [{}]",endpointId);
+  Clause clause=QueryBuilder.eq(CassandraModelConstants.EP_CREDS_ENDPOINT_ID_PROPERTY,endpointId);
+  Statement statement=QueryBuilder.select().from(this.getColumnFamilyName()).where(clause);
+  return this.findOneByStatement(statement);
+}

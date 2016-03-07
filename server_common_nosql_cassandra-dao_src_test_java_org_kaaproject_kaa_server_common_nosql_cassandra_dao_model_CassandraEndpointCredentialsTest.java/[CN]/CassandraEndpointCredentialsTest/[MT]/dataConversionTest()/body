@@ -1,0 +1,5 @@
+{
+  EndpointCredentialsDto endpointCredentials=new EndpointCredentialsDto(APPLICATION_ID,ENDPOINT_ID,PUBLIC_KEY);
+  CassandraEndpointCredentials model=new CassandraEndpointCredentials(endpointCredentials);
+  Assert.assertEquals(endpointCredentials,model.toDto());
+}
