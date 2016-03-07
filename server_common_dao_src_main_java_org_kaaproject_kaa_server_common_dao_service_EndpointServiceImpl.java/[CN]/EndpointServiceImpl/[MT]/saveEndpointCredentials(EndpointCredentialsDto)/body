@@ -1,7 +1,13 @@
 {
   EndpointCredentialsDto result=null;
   if (Validator.isValidObject(endpointCredentials)) {
-    result=DaoUtil.getDto(this.endpointCredentialsDao.save(endpointCredentials));
+    EndpointCredentials databaseRecord=this.endpointCredentialsDao.findByEndpointId(endpointCredentials.getEndpointId());
+    if (databaseRecord == null || databaseRecord.getId().equals(endpointCredentials.getId())) {
+      result=DaoUtil.getDto(this.endpointCredentialsDao.save(endpointCredentials));
+    }
+ else {
+      throw new IncorrectParameterException("The endpoint credentials already exist!");
+    }
   }
   return result;
 }
