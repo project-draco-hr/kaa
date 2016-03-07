@@ -1,0 +1,7 @@
+{
+  ServerProfileSchemaDto serverProfileSchema=this.controlService.getServerProfileSchemaByApplicationIdAndVersion(applicationId,serverProfileVersion);
+  if (serverProfileSchema == null) {
+    throw new NotFoundException("No server-side endpoint profile schema found!");
+  }
+  return serverProfileSchema;
+}

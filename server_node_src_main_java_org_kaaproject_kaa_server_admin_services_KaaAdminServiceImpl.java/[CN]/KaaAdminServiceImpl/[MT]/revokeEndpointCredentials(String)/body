@@ -1,0 +1,16 @@
+{
+  this.checkAuthority(KaaAuthorityDto.TENANT_ADMIN,KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    EndpointCredentialsDto endpointCredentials=this.controlService.getEndpointCredentialsByEndpointId(endpointId);
+    Utils.checkNotNull(endpointCredentials);
+    this.checkApplicationId(endpointCredentials.getApplicationId());
+    this.controlService.removeEndpointCredentialsByEndpointId(endpointId);
+    EndpointProfileDto endpointProfile=this.controlService.getEndpointProfileByKeyHash(endpointId);
+    if (endpointProfile != null) {
+      this.controlService.removeEndpointProfileByEndpointId(endpointId);
+    }
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+}

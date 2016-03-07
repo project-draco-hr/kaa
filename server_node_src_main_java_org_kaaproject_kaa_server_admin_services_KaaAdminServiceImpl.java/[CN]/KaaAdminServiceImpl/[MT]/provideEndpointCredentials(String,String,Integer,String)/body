@@ -1,0 +1,26 @@
+{
+  this.checkAuthority(KaaAuthorityDto.TENANT_ADMIN,KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    this.checkApplicationId(applicationId);
+    if (StringUtils.isEmpty(publicKey)) {
+      throw new IllegalArgumentException("The public key provided is empty!");
+    }
+    EndpointObjectHash endpointKeyHash=EndpointObjectHash.fromSHA1(publicKey);
+    String endpointId=Base64.encodeBytes(endpointKeyHash.getData(),Base64.URL_SAFE);
+    if (serverProfileVersion != null && serverProfileBody != null) {
+      ServerProfileSchemaDto serverProfileSchema=this.getServerProfileSchema(applicationId,serverProfileVersion);
+      this.validateServerProfile(serverProfileSchema,serverProfileBody);
+    }
+ else     if (serverProfileVersion != null || serverProfileBody != null) {
+      String missingParameter=(serverProfileVersion == null ? "schema version" : "body");
+      String message=MessageFormat.format("The server-side endpoint profile {0} provided is empty!",missingParameter);
+      throw new IllegalArgumentException(message);
+    }
+    EndpointCredentialsDto endpointCredentials;
+    endpointCredentials=new EndpointCredentialsDto(applicationId,endpointId,publicKey,serverProfileVersion,serverProfileBody);
+    return this.controlService.saveEndpointCredentials(endpointCredentials);
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+}

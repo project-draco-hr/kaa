@@ -1,0 +1,10 @@
+{
+  CTLSchemaDto commonType=this.controlService.getCTLSchemaById(serverProfileSchema.getCtlSchemaId());
+  Schema typeSchema=this.controlService.exportCTLSchemaFlatAsSchema(commonType);
+  try {
+    new GenericAvroConverter<GenericRecord>(typeSchema).decodeJson(serverProfileBody);
+  }
+ catch (  Exception cause) {
+    throw new IllegalArgumentException("Invalid server-side endpoint profile body provided!");
+  }
+}

@@ -1,0 +1,8 @@
+{
+  MultiValueMap<String,Object> parameters=new LinkedMultiValueMap<>();
+  parameters.add("applicationId",applicationId);
+  parameters.add("publicKey",publicKey);
+  parameters.add("serverProfileVersion",serverProfileVersion);
+  parameters.add("serverProfileBody",serverProfileBody);
+  return this.restTemplate.postForObject(this.url + "provideEndpointCredentials",parameters,EndpointCredentialsDto.class);
+}

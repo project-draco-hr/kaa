@@ -1,0 +1,10 @@
+{
+  this.checkAuthority(KaaAuthorityDto.TENANT_ADMIN,KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    this.checkApplicationId(applicationId);
+    return this.controlService.getEndpointCredentialsByApplicationId(applicationId);
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+}
