@@ -6,7 +6,7 @@
   List<EndpointGroupStateDto> groupState=new ArrayList<>();
   groupState.add(new EndpointGroupStateDto(endpointGroupId,null,null));
   profileDto.setGroupState(groupState);
-  profileDto.setClientProfileBody("{\"title\": \"TEST\"}");
+  profileDto.setClientProfileBody(TEST_PRIFILE_BODY);
   profileDto.setServerProfileBody("{\"serverTitle\": \"SERVER_TEST\"}");
   profileDto.setSdkToken(UUID.randomUUID().toString());
   return endpointService.saveEndpointProfile(profileDto);
