@@ -1,5 +1,5 @@
 {
-  EndpointCredentialsDto endpointCredentials=this.generateEndpointCredentials(APPLICATION_ID,ENDPOINT_ID,PUBLIC_KEY);
+  EndpointCredentialsDto endpointCredentials=this.generateEndpointCredentials(APPLICATION_ID,ENDPOINT_KEY,ENDPOINT_KEY_HASH);
   Assert.assertNotNull(endpointCredentials);
   Assert.assertNotNull(endpointCredentials.getId());
   List<CassandraEndpointCredentials> databaseRecords=this.endpointCredentialsDao.findByApplicationId(APPLICATION_ID);
@@ -7,6 +7,5 @@
   Assert.assertEquals(1,databaseRecords.size());
   EndpointCredentials databaseRecord=databaseRecords.get(0);
   Assert.assertNotNull(databaseRecord);
-  Assert.assertEquals(endpointCredentials.getId(),databaseRecord.getId());
-  Assert.assertEquals(endpointCredentials.getEndpointId(),databaseRecord.getEndpointId());
+  Assert.assertEquals(endpointCredentials,databaseRecord.toDto());
 }

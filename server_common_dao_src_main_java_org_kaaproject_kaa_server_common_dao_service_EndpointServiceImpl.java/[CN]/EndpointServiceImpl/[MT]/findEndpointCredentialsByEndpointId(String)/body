@@ -1,8 +1,0 @@
-{
-  EndpointCredentialsDto result=null;
-  if (Validator.isValidId(endpointId)) {
-    EndpointCredentials endpointCredentials=this.endpointCredentialsDao.findByEndpointId(endpointId);
-    result=DaoUtil.getDto(endpointCredentials);
-  }
-  return result;
-}

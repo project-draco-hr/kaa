@@ -1,0 +1,5 @@
+{
+  LOG.debug("Searching for endpoint credentials by endpoint public key hash {}",Arrays.toString(endpointKeyHash));
+  Query query=Query.query(Criteria.where(MongoModelConstants.ENDPOINT_CREDENTIALS_ENDPOINT_KEY_HASH).is(endpointKeyHash));
+  return this.findOne(query);
+}

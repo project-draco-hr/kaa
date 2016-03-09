@@ -1,7 +1,7 @@
 {
   EndpointCredentialsDto result=null;
   if (Validator.isValidObject(endpointCredentials)) {
-    EndpointCredentials databaseRecord=this.endpointCredentialsDao.findByEndpointId(endpointCredentials.getEndpointId());
+    EndpointCredentials databaseRecord=this.endpointCredentialsDao.findByEndpointKeyHash(endpointCredentials.getEndpointKeyHash());
     if (databaseRecord == null || databaseRecord.getId().equals(endpointCredentials.getId())) {
       result=DaoUtil.getDto(this.endpointCredentialsDao.save(endpointCredentials));
     }

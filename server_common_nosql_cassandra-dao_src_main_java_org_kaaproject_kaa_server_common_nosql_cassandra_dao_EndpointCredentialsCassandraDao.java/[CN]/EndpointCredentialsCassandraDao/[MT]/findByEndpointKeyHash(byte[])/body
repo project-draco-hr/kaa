@@ -1,0 +1,6 @@
+{
+  LOG.debug("Searching for endpoint credentials by endpoint public key hash {}",Arrays.toString(endpointKeyHash));
+  Clause clause=QueryBuilder.eq(CassandraModelConstants.EP_CREDS_ENDPOINT_KEY_HASH_PROPERTY,CassandraDaoUtil.getByteBuffer(endpointKeyHash));
+  Statement statement=QueryBuilder.select().from(this.getColumnFamilyName()).where(clause);
+  return this.findOneByStatement(statement);
+}

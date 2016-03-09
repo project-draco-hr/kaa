@@ -2,8 +2,8 @@
   EndpointCredentialsDto endpointCredentials=new EndpointCredentialsDto();
   endpointCredentials.setId(this.id);
   endpointCredentials.setApplicationId(this.applicationId);
-  endpointCredentials.setEndpointId(this.endpointId);
-  endpointCredentials.setPublicKey(this.publicKey);
+  endpointCredentials.setEndpointKey(this.getEndpointKey());
+  endpointCredentials.setEndpointKeyHash(this.getEndpointKeyHash());
   endpointCredentials.setServerProfileVersion(this.serverProfileVersion);
   endpointCredentials.setServerProfileBody(this.serverProfileBody);
   return endpointCredentials;

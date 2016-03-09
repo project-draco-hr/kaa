@@ -1,3 +1,4 @@
 {
-  this.endpointService.removeEndpointCredentialsByEndpointId(endpointId);
+  byte[] endpointKeyHash=Base64.decodeBase64(endpointId);
+  this.endpointService.removeEndpointCredentialsByEndpointKeyHash(endpointKeyHash);
 }

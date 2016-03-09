@@ -1,8 +1,8 @@
 {
   this.id=endpointCredentials.getId();
   this.applicationId=endpointCredentials.getApplicationId();
-  this.endpointId=endpointCredentials.getEndpointId();
-  this.publicKey=endpointCredentials.getPublicKey();
+  this.endpointKeyWrapper=CassandraDaoUtil.getByteBuffer(endpointCredentials.getEndpointKey());
+  this.endpointKeyHashWrapper=CassandraDaoUtil.getByteBuffer(endpointCredentials.getEndpointKeyHash());
   this.serverProfileVersion=endpointCredentials.getServerProfileVersion();
   this.serverProfileBody=endpointCredentials.getServerProfileBody();
 }

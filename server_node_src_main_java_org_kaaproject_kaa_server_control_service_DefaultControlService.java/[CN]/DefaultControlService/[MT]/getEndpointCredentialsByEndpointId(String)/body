@@ -1,3 +1,4 @@
 {
-  return this.endpointService.findEndpointCredentialsByEndpointId(endpointId);
+  byte[] endpointKeyHash=Base64.decodeBase64(endpointId);
+  return this.endpointService.findEndpointCredentialsByEndpointKeyHash(endpointKeyHash);
 }

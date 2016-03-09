@@ -17,20 +17,10 @@
  else   if (!this.applicationId.equals(other.applicationId)) {
     return false;
   }
-  if (this.endpointId == null) {
-    if (other.endpointId != null) {
-      return false;
-    }
-  }
- else   if (!this.endpointId.equals(other.endpointId)) {
+  if (!Arrays.equals(this.endpointKey,other.endpointKey)) {
     return false;
   }
-  if (this.publicKey == null) {
-    if (other.publicKey != null) {
-      return false;
-    }
-  }
- else   if (!this.publicKey.equals(other.publicKey)) {
+  if (!Arrays.equals(this.endpointKeyHash,other.endpointKeyHash)) {
     return false;
   }
   if (this.serverProfileBody == null) {

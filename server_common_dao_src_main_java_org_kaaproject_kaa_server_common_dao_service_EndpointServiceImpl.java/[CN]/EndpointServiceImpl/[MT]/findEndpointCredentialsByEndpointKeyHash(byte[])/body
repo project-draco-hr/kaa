@@ -1,0 +1,5 @@
+{
+  Validator.validateHash(endpointKeyHash,"The endpoint public key hash provided is invalid!");
+  EndpointCredentials endpointCredentials=this.endpointCredentialsDao.findByEndpointKeyHash(endpointKeyHash);
+  return DaoUtil.getDto(endpointCredentials);
+}

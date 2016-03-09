@@ -3,9 +3,9 @@
   List<CassandraEndpointCredentials> result=null;
   Clause clause=QueryBuilder.eq(CassandraModelConstants.EP_CREDS_APPLICATION_ID_PROPERTY,applicationId);
   Statement statement=QueryBuilder.select().from(this.getColumnFamilyName()).where(clause);
-  List<String> endpointIDs=this.byApplicationID.getEndpointIDs(applicationId);
-  if (endpointIDs != null) {
-    clause=QueryBuilder.in(CassandraModelConstants.EP_CREDS_ENDPOINT_ID_PROPERTY,endpointIDs);
+  List<ByteBuffer> endpointKeyHashes=this.byAppID.getEndpointKeyHashes(applicationId);
+  if (endpointKeyHashes != null) {
+    clause=QueryBuilder.in(CassandraModelConstants.EP_CREDS_ENDPOINT_KEY_HASH_PROPERTY,endpointKeyHashes);
     statement=QueryBuilder.select().from(this.getColumnFamilyName()).where(clause);
     result=this.findListByStatement(statement);
   }

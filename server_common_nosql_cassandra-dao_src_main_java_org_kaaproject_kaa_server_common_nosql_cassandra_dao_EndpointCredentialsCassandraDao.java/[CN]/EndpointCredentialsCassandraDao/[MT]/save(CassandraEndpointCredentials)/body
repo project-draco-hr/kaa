@@ -2,7 +2,7 @@
   endpointCredentials=super.save(endpointCredentials);
   List<Statement> statements=new ArrayList<>();
   statements.add(this.getSaveQuery(endpointCredentials));
-  statements.add(this.byApplicationID.getSaveQuery(this.prepareByApplicationIDTableEntry(endpointCredentials)));
+  statements.add(this.byAppID.getSaveQuery(CassandraEPCredentialsByAppID.fromEndpointCredentials(endpointCredentials)));
   this.executeBatch(statements.toArray(new Statement[statements.size()]));
   return endpointCredentials;
 }

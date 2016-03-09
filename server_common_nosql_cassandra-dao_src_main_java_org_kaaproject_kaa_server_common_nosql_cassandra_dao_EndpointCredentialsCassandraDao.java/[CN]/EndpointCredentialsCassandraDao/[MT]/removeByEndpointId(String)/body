@@ -1,6 +1,0 @@
-{
-  LOG.debug("Removing endpoint credentials by endpoint ID [{}]",endpointId);
-  Clause clause=QueryBuilder.eq(CassandraModelConstants.EP_CREDS_ENDPOINT_ID_PROPERTY,endpointId);
-  Statement statement=QueryBuilder.delete().from(this.getColumnFamilyName()).where(clause);
-  this.execute(statement);
-}

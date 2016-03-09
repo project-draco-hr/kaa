@@ -1,8 +1,0 @@
-{
-  EndpointCredentialsDto endpointCredentials=this.generateEndpointCredentials(APPLICATION_ID,ENDPOINT_ID,PUBLIC_KEY);
-  Assert.assertNotNull(endpointCredentials);
-  Assert.assertNotNull(endpointCredentials.getId());
-  this.endpointCredentialsDao.removeByEndpointId(ENDPOINT_ID);
-  EndpointCredentials databaseRecord=this.endpointCredentialsDao.findByEndpointId(ENDPOINT_ID);
-  Assert.assertNull(databaseRecord);
-}
