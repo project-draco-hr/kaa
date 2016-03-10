@@ -1,11 +1,13 @@
 {
   LOG.trace("Applying failover strategy for status: {}",failoverStatus);
 switch (failoverStatus) {
+case ENDPOINT_VERIFICATION_FAILED:
+    return new FailoverDecision(FailoverAction.STOP_APP);
 case BOOTSTRAP_SERVERS_NA:
-    AccessPointIdResolution bootstrapResolution=resolutionProgressMap.get(ServerType.BOOTSTRAP);
-  if (bootstrapResolution != null) {
-    bootstrapResolution.setResolutionTime(System.currentTimeMillis() + TimeUnit.MILLISECONDS.convert(bootstrapServersRetryPeriod,timeUnit));
-  }
+  AccessPointIdResolution bootstrapResolution=resolutionProgressMap.get(ServerType.BOOTSTRAP);
+if (bootstrapResolution != null) {
+  bootstrapResolution.setResolutionTime(System.currentTimeMillis() + TimeUnit.MILLISECONDS.convert(bootstrapServersRetryPeriod,timeUnit));
+}
 return new FailoverDecision(FailoverAction.RETRY,bootstrapServersRetryPeriod,timeUnit);
 case CURRENT_BOOTSTRAP_SERVER_NA:
 bootstrapResolution=resolutionProgressMap.get(ServerType.BOOTSTRAP);
