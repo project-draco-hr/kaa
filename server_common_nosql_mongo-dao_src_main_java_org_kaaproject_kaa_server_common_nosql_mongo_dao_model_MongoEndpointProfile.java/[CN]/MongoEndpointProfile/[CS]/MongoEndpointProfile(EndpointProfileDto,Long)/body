@@ -24,6 +24,6 @@
   this.ecfVersionStates=MongoDaoUtil.convertECFVersionDtoToModelList(dto.getEcfVersionStates());
   this.serverHash=dto.getServerHash();
   this.sdkToken=dto.getSdkToken();
-  this.serverProfile=dto.getServerProfileBody();
+  this.serverProfile=encodeReservedCharacteres((DBObject)JSON.parse(dto.getServerProfileBody()));
   this.version=dto.getVersion();
 }
