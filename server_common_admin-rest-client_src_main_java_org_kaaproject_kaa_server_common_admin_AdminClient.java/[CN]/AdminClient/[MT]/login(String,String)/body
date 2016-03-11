@@ -1,5 +1,3 @@
 {
-  restTemplate.setUsernamePassword(username,password);
-  HttpComponentsRequestFactoryBasicAuth requestFactory=(HttpComponentsRequestFactoryBasicAuth)restTemplate.getRequestFactory();
-  requestFactory.setCredentials(username,password);
+  restTemplate.login(username,password);
 }

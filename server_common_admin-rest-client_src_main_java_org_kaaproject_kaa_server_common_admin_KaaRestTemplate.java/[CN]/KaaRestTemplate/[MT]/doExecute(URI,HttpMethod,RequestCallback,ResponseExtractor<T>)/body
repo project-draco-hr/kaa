@@ -2,27 +2,33 @@
   int maxRetry=hosts.length;
   while (true) {
     try {
-      super.doExecute(url,method,requestCallback,responseExtractor);
+      return super.doExecute(url,method,requestCallback,responseExtractor);
     }
  catch (    Exception ex) {
-      index++;
-      if (maxRetry <= 0) {
-        throw new ResourceAccessException("I/O error on " + method.name() + " request for \""+ url+ "\":"+ ex.getMessage(),(IOException)ex);
+      boolean isRequestFactorySet=false;
+      while (!isRequestFactorySet) {
+        if (index != hosts.length) {
+          index++;
+        }
+ else {
+          index=0;
+        }
+        if (maxRetry <= 0) {
+          throw new ResourceAccessException("I/O error on " + method.name() + " request for \""+ url+ "\":"+ ex.getMessage(),new IOException(ex));
+        }
+ else {
+          maxRetry--;
+        }
+        try {
+          setNewRequestFactory(index);
+        }
+ catch (        Exception e) {
+          logger.info("Failed to initialize new request factory ({}:{})",getCurHost(),getCurPort(),e);
+          continue;
+        }
+        url=updateURL(url);
+        isRequestFactorySet=true;
       }
-      if (username != null && password != null) {
-        HttpComponentsRequestFactoryBasicAuth requestFactory=(HttpComponentsRequestFactoryBasicAuth)getRequestFactory();
-        requestFactory.setCredentials(username,password);
-      }
-      currentUrl="http://" + hosts[index] + ":"+ ports[index]+ restApiSuffix;
-      setNewRequestFactory(new HttpHost(hosts[index],ports[index],"http"));
-      String currentErrorURI=url.toString();
-      int indexOfDefaultPartOfURI=currentErrorURI.indexOf(restApiSuffix);
-      String defaultURIPartWithVariableHostPort=currentErrorURI.substring(0,indexOfDefaultPartOfURI);
-      String otherPart=currentErrorURI.substring(indexOfDefaultPartOfURI);
-      defaultURIPartWithVariableHostPort=currentErrorURI.replaceFirst(url.getHost(),hosts[index]);
-      defaultURIPartWithVariableHostPort=currentErrorURI.replaceFirst(String.valueOf(url.getPort()),String.valueOf(ports[index]));
-      url=URI.create(defaultURIPartWithVariableHostPort + otherPart);
-      maxRetry--;
     }
   }
 }
