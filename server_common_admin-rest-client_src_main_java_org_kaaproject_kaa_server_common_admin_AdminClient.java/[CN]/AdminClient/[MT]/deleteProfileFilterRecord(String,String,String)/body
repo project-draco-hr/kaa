@@ -3,5 +3,5 @@
   params.add("endpointProfileSchemaId",endpointProfileSchemaId);
   params.add("serverProfileSchemaId",serverProfileSchemaId);
   params.add("endpointGroupId",endpointGroupId);
-  restTemplate.postForObject(url + "delProfileFilterRecord",params,Void.class);
+  restTemplate.postForObject(restTemplate.getUrl() + "delProfileFilterRecord",params,Void.class);
 }

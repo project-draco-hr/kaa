@@ -1,0 +1,11 @@
+{
+  if ((hosts.length != ports.length) && (hosts != null)) {
+    throw new IllegalArgumentException("Length of arrays of hosts and ports must be the same length and not null");
+  }
+ else {
+    this.currentUrl="http://" + hosts[index] + ":"+ ports[index]+ restApiSuffix;
+    this.hosts=hosts;
+    this.ports=ports;
+    initIndexAndRequestFactory();
+  }
+}
