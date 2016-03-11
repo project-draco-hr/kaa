@@ -7,9 +7,9 @@
     server=new TThreadPoolServer(new Args(serverTransport).processor(processor));
     thriftServerThread=new Thread(new Runnable(){
       @Override public void run(){
-        logger.info("Thrift Server started.");
+        LOG.info("Thrift Server started.");
         server.serve();
-        logger.info("Thrift Server stopped.");
+        LOG.info("Thrift Server stopped.");
       }
     }
 );

@@ -13,6 +13,7 @@
       fis=new FileInputStream(f);
     }
  catch (    FileNotFoundException e) {
+      LOG.error("Exception catched: ",e);
       ss.out.println("Thrift property file '" + propertyFile + "' does not exists.");
       return false;
     }

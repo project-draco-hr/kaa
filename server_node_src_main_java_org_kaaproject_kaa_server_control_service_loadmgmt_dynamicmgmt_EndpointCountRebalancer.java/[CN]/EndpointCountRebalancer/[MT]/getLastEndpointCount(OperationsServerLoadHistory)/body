@@ -1,6 +1,6 @@
 {
   List<OperationsServerLoad> history=loadHistory.getHistory();
-  if (history.size() > 0) {
+  if (!history.isEmpty()) {
     LoadInfo loadInfo=history.get(history.size() - 1).getLoadInfo();
     if (loadInfo != null) {
       return loadInfo.getEndpointCount();

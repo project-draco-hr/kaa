@@ -2,7 +2,7 @@
   if (operationsServerList == null || operationsServerList.isEmpty()) {
     throw new BootstrapRuntimeException("Operations Server list is empty");
   }
-  List<ProtocolMetaData> result=new ArrayList<ProtocolMetaData>();
+  List<ProtocolMetaData> result=new ArrayList<>();
   for (  ProtocolMetaData transport : operationsServerList) {
     if (transport.getAccessPointId().intValue() == accessPointId) {
       result.add(transport);

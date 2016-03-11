@@ -9,6 +9,7 @@
       record=createRecordFieldFromCtlSchemaAndBody(serverProfileSchema.getCtlSchemaId(),serverProfileBody);
     }
  catch (    Exception e) {
+      LOG.error("Provided server profile body is not valid: ",e);
       throw new KaaAdminServiceException("Provided server profile body is not valid: " + e.getMessage(),ServiceErrorCode.BAD_REQUEST_PARAMS);
     }
     if (!record.isValid()) {

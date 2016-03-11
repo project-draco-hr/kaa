@@ -1,0 +1,29 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  StructureRecordDto other=(StructureRecordDto)obj;
+  if (activeStructureDto == null) {
+    if (other.activeStructureDto != null) {
+      return false;
+    }
+  }
+ else   if (!activeStructureDto.equals(other.activeStructureDto)) {
+    return false;
+  }
+  if (inactiveStructureDto == null) {
+    if (other.inactiveStructureDto != null) {
+      return false;
+    }
+  }
+ else   if (!inactiveStructureDto.equals(other.inactiveStructureDto)) {
+    return false;
+  }
+  return true;
+}
