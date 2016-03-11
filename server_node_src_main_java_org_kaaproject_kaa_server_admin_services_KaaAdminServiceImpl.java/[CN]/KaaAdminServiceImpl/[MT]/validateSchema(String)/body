@@ -1,7 +1,7 @@
 {
   Schema.Parser parser=new Schema.Parser();
   try {
-    parser.parse(schema);
+    return parser.parse(avroSchema);
   }
  catch (  SchemaParseException spe) {
     LOG.error("Exception catched: ",spe);

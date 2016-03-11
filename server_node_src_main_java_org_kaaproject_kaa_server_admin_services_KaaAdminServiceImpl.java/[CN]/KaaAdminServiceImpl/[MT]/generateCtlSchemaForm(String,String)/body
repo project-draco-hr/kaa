@@ -4,6 +4,7 @@
     checkCTLSchemaReadScope(getCurrentUser().getTenantId(),applicationId);
     byte[] data=getFileContent(fileItemName);
     String avroSchema=new String(data);
+    validateRecordSchema(avroSchema);
     SchemaFormAvroConverter converter=getCtlSchemaConverterForScope(getCurrentUser().getTenantId(),applicationId);
     RecordField form=converter.createSchemaFormFromSchema(avroSchema);
     if (form.getVersion() == null) {

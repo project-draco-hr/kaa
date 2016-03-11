@@ -1,5 +1,6 @@
 {
   Schema schema=converter.createSchemaFromSchemaForm(dto.getSchemaForm());
+  validateRecordSchema(schema);
   String schemaString=SchemaFormAvroConverter.createSchemaString(schema,true);
   dto.setSchema(schemaString);
 }
