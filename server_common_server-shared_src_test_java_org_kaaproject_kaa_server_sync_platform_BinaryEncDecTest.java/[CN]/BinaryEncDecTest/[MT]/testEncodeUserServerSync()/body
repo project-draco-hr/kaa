@@ -4,8 +4,9 @@
   UserServerSync uSync=new UserServerSync();
   uSync.setUserAttachNotification(new UserAttachNotification("id","token"));
   sync.setUserSync(uSync);
+  sync.setStatus(SyncStatus.PROFILE_RESYNC);
   ByteBuffer buf=ByteBuffer.wrap(encDec.encode(sync));
-  int size=8 + 8 + 4+ 8+ 4+ 4+ 8;
+  int size=8 + 8 + 4+ 4+ 8+ 4+ 4+ 8;
   Assert.assertEquals(size,buf.array().length);
   LOG.trace(Arrays.toString(buf.array()));
 }
