@@ -2,6 +2,6 @@
   HDFSWriter hdfsWriter=new HDFSDataStream();
   String path=key.getPath() + Path.SEPARATOR + filePrefix;
   context.put("serializer",AvroKaaEventSerializer.Builder.class.getName());
-  logger.info("Creating new writer for key: " + key);
+  LOG.info("Creating new writer for key: " + key);
   return new BucketWriter(rollInterval,rollSize,rollCount,batchSize,defaultBlockSize,context,path,hdfsWriter,timedRollerPool,proxyTicket,sinkCounter);
 }

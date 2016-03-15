@@ -1,5 +1,5 @@
 {
-  logger.info("OK Sleep: Received event from append(): {}",new String(event.getBody().array(),Charset.forName("UTF8")));
+  LOG.info("OK Sleep: Received event from append(): {}",new String(event.getBody().array(),Charset.forName("UTF8")));
   try {
     Thread.sleep(sleepTime);
   }

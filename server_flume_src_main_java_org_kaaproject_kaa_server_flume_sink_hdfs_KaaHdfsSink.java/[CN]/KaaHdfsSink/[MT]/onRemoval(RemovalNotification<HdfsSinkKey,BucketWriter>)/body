@@ -3,16 +3,16 @@
     RemovalCause cause=entry.getCause();
     HdfsSinkKey key=entry.getKey();
     BucketWriter writer=entry.getValue();
-    logger.info("Stopping removed writer because of " + cause + " for key: "+ entry.getKey());
+    LOG.info("Stopping removed writer because of " + cause + " for key: "+ entry.getKey());
     try {
       writerFlushMap.remove(key);
       writer.close();
     }
  catch (    IOException e) {
-      logger.warn(entry.getKey().toString(),e);
+      LOG.warn(entry.getKey().toString(),e);
     }
 catch (    InterruptedException e) {
-      logger.warn(entry.getKey().toString(),e);
+      LOG.warn(entry.getKey().toString(),e);
       Thread.currentThread().interrupt();
     }
   }

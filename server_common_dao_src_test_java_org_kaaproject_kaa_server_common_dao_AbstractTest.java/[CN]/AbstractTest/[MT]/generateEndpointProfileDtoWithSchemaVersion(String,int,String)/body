@@ -3,7 +3,7 @@
   profileDto.setApplicationId(appId);
   profileDto.setServerProfileVersion(schemaVersion);
   profileDto.setEndpointKeyHash("TEST_KEY_HASH".getBytes());
-  profileDto.setClientProfileBody("{\"title\": \"TEST\"}");
+  profileDto.setClientProfileBody(TEST_PRIFILE_BODY);
   profileDto.setSdkToken(UUID.randomUUID().toString());
   profileDto.setServerProfileBody(srvProfileBody);
   return endpointService.saveEndpointProfile(profileDto);

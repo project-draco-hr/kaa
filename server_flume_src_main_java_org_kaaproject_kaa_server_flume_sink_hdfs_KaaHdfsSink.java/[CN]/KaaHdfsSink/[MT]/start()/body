@@ -1,5 +1,5 @@
 {
-  logger.info("Starting {}...",this);
+  LOG.info("Starting {}...",this);
   eventFactory=new KaaEventFactory();
   String timeoutName="hdfs-" + getName() + "-call-runner-%d";
   callTimeoutPool=Executors.newFixedThreadPool(threadsPoolSize,new ThreadFactoryBuilder().setNameFormat(timeoutName).build());
@@ -10,7 +10,7 @@
     statisticsPool=Executors.newScheduledThreadPool(1,new ThreadFactoryBuilder().setNameFormat(statisticsName).build());
     Runnable action=new Runnable(){
       @Override public void run(){
-        logger.info("Statistics: Drain attempt events: " + sinkCounter.getEventDrainAttemptCount() + "; "+ "Drain success events: "+ sinkCounter.getEventDrainSuccessCount());
+        LOG.info("Statistics: Drain attempt events: " + sinkCounter.getEventDrainAttemptCount() + "; "+ "Drain success events: "+ sinkCounter.getEventDrainSuccessCount());
       }
     }
 ;
@@ -23,5 +23,5 @@
   sinkCounter.start();
   started=true;
   super.start();
-  logger.info("Kaa Hdfs Sink {} started.",getName());
+  LOG.info("Kaa Hdfs Sink {} started.",getName());
 }

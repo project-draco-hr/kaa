@@ -1,10 +1,11 @@
 {
   ServerSync sync=new ServerSync();
   sync.setRequestId(MAGIC_NUMBER);
+  sync.setStatus(SyncStatus.PROFILE_RESYNC);
   ByteBuffer buf=ByteBuffer.wrap(encDec.encode(sync));
-  int size=8 + 8 + 4;
+  int size=8 + 8 + 4+ 4;
   Assert.assertEquals(size,buf.array().length);
-  buf.position(buf.capacity() - 4);
+  buf.position(buf.capacity() - 8);
   Assert.assertEquals(MAGIC_NUMBER,buf.getInt());
   LOG.trace(Arrays.toString(buf.array()));
 }

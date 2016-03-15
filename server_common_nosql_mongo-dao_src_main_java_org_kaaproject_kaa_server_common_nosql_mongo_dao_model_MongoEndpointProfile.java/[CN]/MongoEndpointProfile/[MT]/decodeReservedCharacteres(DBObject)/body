@@ -1,0 +1,22 @@
+{
+  if (profileBody == null) {
+    return "";
+  }
+  Set<String> keySet=profileBody.keySet();
+  DBObject modifiedNode=new BasicDBObject();
+  if (keySet != null) {
+    for (    String key : keySet) {
+      Object value=profileBody.get(key);
+      for (      char symbolToReplace : RESERVED_CHARACTERS.values()) {
+        key=key.replace(symbolToReplace,RESERVED_CHARACTERS.inverse().get(symbolToReplace));
+      }
+      if (value instanceof DBObject) {
+        modifiedNode.put(key,(DBObject)JSON.parse(decodeReservedCharacteres((DBObject)value)));
+      }
+ else {
+        modifiedNode.put(key,value);
+      }
+    }
+  }
+  return modifiedNode != null ? modifiedNode.toString() : "";
+}

@@ -2,12 +2,13 @@
   this.checkAuthority(KaaAuthorityDto.values());
   try {
     Utils.checkNotNull(schema);
+    checkCTLSchemaVersion(schema.getVersion());
     checkCTLSchemaEditScope(schema.getMetaInfo().getTenantId(),schema.getMetaInfo().getApplicationId());
     List<FqnVersion> missingDependencies=new ArrayList<>();
     Set<CTLSchemaDto> dependencies=new HashSet<>();
     if (schema.getDependencySet() != null) {
       for (      CTLSchemaDto dependency : schema.getDependencySet()) {
-        CTLSchemaDto schemaFound=controlService.getCTLSchemaByFqnVersionTenantIdAndApplicationId(dependency.getMetaInfo().getFqn(),dependency.getVersion(),schema.getMetaInfo().getTenantId(),schema.getMetaInfo().getApplicationId());
+        CTLSchemaDto schemaFound=controlService.getAnyCTLSchemaByFqnVersionTenantIdAndApplicationId(dependency.getMetaInfo().getFqn(),dependency.getVersion(),schema.getMetaInfo().getTenantId(),schema.getMetaInfo().getApplicationId());
         if (schemaFound == null) {
           missingDependencies.add(new FqnVersion(dependency.getMetaInfo().getFqn(),dependency.getVersion()));
         }

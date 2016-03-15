@@ -4,13 +4,13 @@
     curUser=UserGroupInformation.getLoginUser();
   }
  catch (  IOException e) {
-    logger.debug("Unable to get login user before Kerberos auth attempt.",e);
+    LOG.debug("Unable to get login user before Kerberos auth attempt.",e);
   }
   if (curUser != null && curUser.getUserName().equals(principal)) {
-    logger.debug("{}: Using existing principal ({}): {}",new Object[]{sink,principal,curUser});
+    LOG.debug("{}: Using existing principal ({}): {}",new Object[]{sink,principal,curUser});
   }
  else {
-    logger.info("{}: Attempting kerberos login as principal ({}) from keytab " + "file ({})",new Object[]{sink,principal,keytab});
+    LOG.info("{}: Attempting kerberos login as principal ({}) from keytab " + "file ({})",new Object[]{sink,principal,keytab});
     UserGroupInformation.loginUserFromKeytab(principal,keytab);
     curUser=UserGroupInformation.getLoginUser();
   }

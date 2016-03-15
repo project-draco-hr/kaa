@@ -20,8 +20,18 @@
         }
         endpointIds.add(endpoint.getId());
         endpointUser=endpointUserDao.save(endpointUser);
-        endpoint.setEndpointUserId(endpointUser.getId());
-        endpoint=endpointProfileDao.save(endpoint);
+        while (true) {
+          try {
+            endpoint.setEndpointUserId(endpointUser.getId());
+            LOG.trace("Save endpoint user {} and endpoint profile {}",endpointUser,endpoint);
+            endpoint=endpointProfileDao.save(endpoint);
+            break;
+          }
+ catch (          KaaOptimisticLockingFailureException ex) {
+            LOG.warn("Optimistic lock detected in endpoint profile ",Arrays.toString(endpoint.getEndpointKey()),ex);
+            endpoint=endpointProfileDao.findByKeyHash(SHA1HashUtils.hashToBytes(endpoint.getEndpointKey()));
+          }
+        }
         return getDto(endpoint);
       }
  else {
