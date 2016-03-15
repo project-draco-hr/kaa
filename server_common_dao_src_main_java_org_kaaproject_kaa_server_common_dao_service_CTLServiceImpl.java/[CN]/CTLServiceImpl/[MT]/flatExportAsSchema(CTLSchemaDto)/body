@@ -1,3 +1,9 @@
 {
-  return this.parseDependencies(schema,new Schema.Parser());
+  try {
+    return this.parseDependencies(schema,new Schema.Parser());
+  }
+ catch (  Exception cause) {
+    LOG.error("Unable to export CTL schema as flat: {}",schema,cause);
+    throw new RuntimeException("An unexpected exception occured: " + cause.toString());
+  }
 }

@@ -4,5 +4,8 @@
       this.parseDependencies(dependency,parser);
     }
   }
-  return parser.parse(schema.getBody());
+  ObjectNode object=new ObjectMapper().readValue(schema.getBody(),ObjectNode.class);
+  object.remove(DEPENDENCIES);
+  String body=new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(object);
+  return parser.parse(body);
 }
