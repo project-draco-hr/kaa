@@ -5,6 +5,7 @@
       return super.doExecute(url,method,requestCallback,responseExtractor);
     }
  catch (    Exception ex) {
+      logger.info("Connect to ({}:{}) failed",getCurHost(),getCurPort(),ex);
       boolean isRequestFactorySet=false;
       while (!isRequestFactorySet) {
         if (index != hosts.length) {
@@ -13,7 +14,9 @@
  else {
           index=0;
         }
+        logger.info("Trying connect to ({}:{})",getCurHost(),getCurPort(),ex);
         if (maxRetry <= 0) {
+          logger.error("Failed to connect to ({}:{})",getCurHost(),getCurPort(),ex);
           throw new ResourceAccessException("I/O error on " + method.name() + " request for \""+ url+ "\":"+ ex.getMessage(),new IOException(ex));
         }
  else {
