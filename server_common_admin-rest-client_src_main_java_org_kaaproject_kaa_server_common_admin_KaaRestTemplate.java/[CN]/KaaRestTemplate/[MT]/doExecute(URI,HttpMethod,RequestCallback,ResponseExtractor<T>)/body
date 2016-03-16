@@ -8,7 +8,7 @@
       logger.info("Connect to ({}:{}) failed",getCurHost(),getCurPort(),ex);
       boolean isRequestFactorySet=false;
       while (!isRequestFactorySet) {
-        if (index != hosts.length) {
+        if (index < hosts.length - 1) {
           index++;
         }
  else {

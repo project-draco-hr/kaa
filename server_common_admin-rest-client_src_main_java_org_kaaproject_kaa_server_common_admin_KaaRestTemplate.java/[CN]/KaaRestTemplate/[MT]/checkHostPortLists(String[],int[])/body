@@ -5,6 +5,7 @@
  else {
     this.hosts=hosts;
     this.ports=ports;
-    setNewRequestFactory(new Random().nextInt(hosts.length));
+    index=new Random().nextInt(hosts.length);
+    setNewRequestFactory(index);
   }
 }
