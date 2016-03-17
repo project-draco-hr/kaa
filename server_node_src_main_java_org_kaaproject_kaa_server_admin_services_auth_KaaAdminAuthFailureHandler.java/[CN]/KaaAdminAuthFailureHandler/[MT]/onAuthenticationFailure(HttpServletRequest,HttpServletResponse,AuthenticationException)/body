@@ -1,13 +1,13 @@
 {
   if (defaultFailureUrl == null) {
-    logger.debug("No failure URL set, sending 401 Unauthorized error");
+    LOG.debug("No failure URL set, sending 401 Unauthorized error");
     response.sendError(HttpServletResponse.SC_UNAUTHORIZED,"Authentication Failed: " + exception.getLocalizedMessage());
   }
  else {
     saveException(request,exception);
     String targetUrl=defaultFailureUrl;
     if (forwardToDestination) {
-      logger.debug("Forwarding to " + targetUrl);
+      LOG.debug("Forwarding to " + targetUrl);
       request.getRequestDispatcher(targetUrl).forward(request,response);
     }
  else {

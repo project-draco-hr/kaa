@@ -4,8 +4,12 @@
       builder.append(pairs[i]);
     }
  else {
-      if (i != pairs.length - 1)       builder.append("=").append(pairs[i]).append("&");
- else       builder.append("=").append(pairs[i]);
+      if (i != pairs.length - 1) {
+        builder.append("=").append(pairs[i]).append("&");
+      }
+ else {
+        builder.append("=").append(pairs[i]);
+      }
     }
   }
 }

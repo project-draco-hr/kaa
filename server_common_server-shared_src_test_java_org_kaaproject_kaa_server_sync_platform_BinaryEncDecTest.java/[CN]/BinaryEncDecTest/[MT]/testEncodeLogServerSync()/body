@@ -3,8 +3,9 @@
   sync.setRequestId(MAGIC_NUMBER);
   LogServerSync lSync=new LogServerSync(Collections.singletonList(new LogDeliveryStatus(MAGIC_NUMBER,SyncStatus.FAILURE,null)));
   sync.setLogSync(lSync);
+  sync.setStatus(SyncStatus.PROFILE_RESYNC);
   ByteBuffer buf=ByteBuffer.wrap(encDec.encode(sync));
-  int size=8 + 8 + 4+ 4+ 8+ 4;
+  int size=8 + 8 + 4+ 4+ 4+ 8+ 4;
   Assert.assertEquals(size,buf.array().length);
   buf.position(buf.capacity() - 4);
   Assert.assertEquals(MAGIC_NUMBER,buf.getShort());

@@ -6,7 +6,9 @@
     }
  else {
       builder.append("=").append("\"").append(vals[i]).append("\"");
-      if (i != vals.length - 1)       builder.append(",");
+      if (i != vals.length - 1) {
+        builder.append(",");
+      }
     }
   }
   return builder.toString();

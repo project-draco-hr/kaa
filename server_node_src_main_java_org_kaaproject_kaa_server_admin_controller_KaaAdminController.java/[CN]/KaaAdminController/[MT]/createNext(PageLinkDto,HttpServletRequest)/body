@@ -8,7 +8,7 @@
     }
     String next=nextUrl.append(request.getRequestURI()).append("?").append(pageLink.getNextUrlPart()).toString();
     pageLink.setNext(next);
-    logger.debug("Generated next url {}",next);
+    LOG.debug("Generated next url {}",next);
   }
   return pageLink;
 }

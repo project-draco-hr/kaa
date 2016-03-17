@@ -33,10 +33,11 @@ catch (  ExecutionException e1) {
     }
   }
 catch (  CancellationException ce) {
+    LOG.error("Exception catched: ",ce);
     throw new InterruptedException("Blocked callable interrupted by rotation event");
   }
 catch (  InterruptedException ex) {
-    logger.warn("Unexpected Exception " + ex.getMessage(),ex);
+    LOG.warn("Unexpected Exception " + ex.getMessage(),ex);
     throw ex;
   }
 }

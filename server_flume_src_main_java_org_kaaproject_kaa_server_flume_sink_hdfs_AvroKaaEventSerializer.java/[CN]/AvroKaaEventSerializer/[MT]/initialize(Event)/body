@@ -8,8 +8,8 @@
       schema=schemaSource.loadByKey(key);
     }
  catch (    Exception e) {
-      logger.error("Unable to load schema by key {}",key);
-      logger.error("Caused by: ",e);
+      LOG.error("Unable to load schema by key {}",key);
+      LOG.error("Caused by: ",e);
       throw new FlumeException("Could not find schema for event " + event);
     }
     schemaCache.put(key,schema);
@@ -31,7 +31,7 @@
     dataFileWriter.setCodec(codecFactory);
   }
  catch (  AvroRuntimeException e) {
-    logger.warn("Unable to instantiate avro codec with name (" + compressionCodec + "). Compression disabled. Exception follows.",e);
+    LOG.warn("Unable to instantiate avro codec with name (" + compressionCodec + "). Compression disabled. Exception follows.",e);
   }
   dataFileWriter.create(wrapperSchema,out);
   wrapperRecord=new GenericData.Record(wrapperSchema);

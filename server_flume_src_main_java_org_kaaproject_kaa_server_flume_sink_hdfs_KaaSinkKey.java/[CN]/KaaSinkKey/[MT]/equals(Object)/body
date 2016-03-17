@@ -1,12 +1,24 @@
 {
-  if (this == obj)   return true;
-  if (obj == null)   return false;
-  if (getClass() != obj.getClass())   return false;
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
   KaaSinkKey other=(KaaSinkKey)obj;
   if (applicationToken == null) {
-    if (other.applicationToken != null)     return false;
+    if (other.applicationToken != null) {
+      return false;
+    }
   }
- else   if (!applicationToken.equals(other.applicationToken))   return false;
-  if (schemaVersion != other.schemaVersion)   return false;
+ else   if (!applicationToken.equals(other.applicationToken)) {
+    return false;
+  }
+  if (schemaVersion != other.schemaVersion) {
+    return false;
+  }
   return true;
 }

@@ -2,9 +2,9 @@
   if (state.getProperty(TOPIC_LIST) != null) {
     byte[] data=base64.decodeBase64(state.getProperty(TOPIC_LIST));
     BinaryDecoder decoder=DecoderFactory.get().binaryDecoder(data,null);
-    SpecificDatumReader<Topic> avroReader=new SpecificDatumReader<Topic>(Topic.class);
+    SpecificDatumReader<Topic> avroReader=new SpecificDatumReader<>(Topic.class);
     try {
-      Topic decodedTopic=null;
+      Topic decodedTopic;
       while (!decoder.isEnd()) {
         decodedTopic=avroReader.read(null,decoder);
         LOG.debug("Loaded {}",decodedTopic);

@@ -4,6 +4,7 @@
     checkCTLSchemaEditScope(tenantId,applicationId);
     CTLSchemaParser parser=new CTLSchemaParser(controlService,tenantId);
     CTLSchemaDto schema=parser.parse(body,applicationId);
+    checkCTLSchemaVersion(schema.getVersion());
     parser.validate(schema);
     CTLSchemaDto result=controlService.saveCTLSchema(schema);
     return result;

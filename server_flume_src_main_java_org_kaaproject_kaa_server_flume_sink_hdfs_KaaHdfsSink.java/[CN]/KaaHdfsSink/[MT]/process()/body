@@ -10,7 +10,7 @@
       event=channel.take();
       if (event == null) {
         if ((System.currentTimeMillis() - cacheCleanupStartInterval) >= cacheCleanupInterval) {
-          logger.info("Starting Writer cache cleanup.");
+          LOG.info("Starting Writer cache cleanup.");
           writerCache.cleanUp();
           timedRollerPool.purge();
           cacheCleanupStartInterval=System.currentTimeMillis();
@@ -19,8 +19,8 @@
       }
       Map<KaaSinkKey,List<KaaRecordEvent>> incomingEventsMap=eventFactory.processIncomingFlumeEvent(event);
       if (incomingEventsMap == null || incomingEventsMap.isEmpty()) {
-        if (logger.isWarnEnabled()) {
-          logger.warn("Unable to parse incoming event: " + event);
+        if (LOG.isWarnEnabled()) {
+          LOG.warn("Unable to parse incoming event: " + event);
         }
         continue;
       }
@@ -58,12 +58,12 @@
   }
  catch (  IOException eIO) {
     transaction.rollback();
-    logger.warn("HDFS IO error",eIO);
+    LOG.warn("HDFS IO error",eIO);
     return Status.BACKOFF;
   }
 catch (  Throwable th) {
     transaction.rollback();
-    logger.error("process failed",th);
+    LOG.error("process failed",th);
     if (th instanceof Error) {
       throw (Error)th;
     }

@@ -4,6 +4,7 @@
     byte[] data=getFileContent(fileItemName);
     String avroSchema=new String(data);
     Schema schema=new Schema.Parser().parse(avroSchema);
+    validateRecordSchema(schema);
     return simpleSchemaFormAvroConverter.createSchemaFormFromSchema(schema);
   }
  catch (  Exception e) {
