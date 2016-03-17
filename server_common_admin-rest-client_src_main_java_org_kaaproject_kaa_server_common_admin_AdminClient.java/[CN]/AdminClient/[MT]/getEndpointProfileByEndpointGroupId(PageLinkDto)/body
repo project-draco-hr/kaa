@@ -5,6 +5,6 @@
   ParameterizedTypeReference<EndpointProfilesPageDto> typeRef=new ParameterizedTypeReference<EndpointProfilesPageDto>(){
   }
 ;
-  ResponseEntity<EndpointProfilesPageDto> entity=restTemplate.exchange(url + "endpointProfileByGroupId?endpointGroupId=" + endpointGroupId+ "&limit="+ limit+ "&offset="+ offset,HttpMethod.GET,null,typeRef);
+  ResponseEntity<EndpointProfilesPageDto> entity=restTemplate.exchange(restTemplate.getUrl() + "endpointProfileByGroupId?endpointGroupId=" + endpointGroupId+ "&limit="+ limit+ "&offset="+ offset,HttpMethod.GET,null,typeRef);
   return entity.getBody();
 }

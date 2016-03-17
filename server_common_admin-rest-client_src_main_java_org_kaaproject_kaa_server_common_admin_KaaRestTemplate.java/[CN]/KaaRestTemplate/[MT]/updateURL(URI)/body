@@ -1,0 +1,9 @@
+{
+  String currentURI=url.toString();
+  int sufixPartIdx=currentURI.indexOf(restApiSuffix);
+  String defaultURIPartWithVariableHostPort=currentURI.substring(0,sufixPartIdx);
+  String sufixPart=currentURI.substring(sufixPartIdx);
+  defaultURIPartWithVariableHostPort=defaultURIPartWithVariableHostPort.replaceFirst(url.getHost(),getCurHost());
+  defaultURIPartWithVariableHostPort=defaultURIPartWithVariableHostPort.replaceFirst(String.valueOf(url.getPort()),String.valueOf(getCurPort()));
+  return URI.create(defaultURIPartWithVariableHostPort + sufixPart);
+}

@@ -1,0 +1,9 @@
+{
+  String host=hosts[index];
+  int port=ports[index];
+  setRequestFactory(new HttpComponentsRequestFactoryBasicAuth(new HttpHost(host,port,"http")));
+  currentUrl="http://" + host + ":"+ port+ restApiSuffix;
+  if (username != null && password != null) {
+    login(username,password);
+  }
+}
