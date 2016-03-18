@@ -2,6 +2,7 @@
   this.checkAuthority(KaaAuthorityDto.values());
   try {
     Utils.checkNotNull(schema);
+    checkCTLSchemaVersion(schema.getVersion());
     checkCTLSchemaEditScope(schema.getMetaInfo().getTenantId(),schema.getMetaInfo().getApplicationId());
     List<FqnVersion> missingDependencies=new ArrayList<>();
     Set<CTLSchemaDto> dependencies=new HashSet<>();

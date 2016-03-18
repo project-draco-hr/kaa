@@ -1,11 +1,21 @@
 {
-  if (this == obj)   return true;
-  if (obj == null)   return false;
-  if (getClass() != obj.getClass())   return false;
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
   TopicPlace other=(TopicPlace)obj;
   if (topicId == null) {
-    if (other.topicId != null)     return false;
+    if (other.topicId != null) {
+      return false;
+    }
   }
- else   if (!topicId.equals(other.topicId))   return false;
+ else   if (!topicId.equals(other.topicId)) {
+    return false;
+  }
   return true;
 }

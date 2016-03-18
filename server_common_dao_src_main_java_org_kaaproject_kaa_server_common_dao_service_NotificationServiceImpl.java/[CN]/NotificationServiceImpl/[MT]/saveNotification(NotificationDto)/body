@@ -18,6 +18,7 @@
       dto.setBody(serializeNotificationBody(dto,schema));
     }
  catch (    IOException e) {
+      LOG.error("Can't serialize notification body using schema. ",e);
       throw new DatabaseProcessingException("Can't serialize notification body using schema: " + schemaId);
     }
     long currentTime=new GregorianCalendar(TimeZone.getTimeZone("UTC")).getTimeInMillis();

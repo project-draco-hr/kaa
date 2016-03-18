@@ -9,7 +9,7 @@ synchronized (eventsGuard) {
     }
   }
  else {
-    LOG.info("Adding event [eventClassFQN: {}, target: {}] to transaction {}",eventFqn,(target != null ? target : "broadcast"),trxId);
+    LOG.info("Adding event [eventClassFQN: {}, target: {}] to transaction {}",eventFqn,target != null ? target : "broadcast",trxId);
 synchronized (trxGuard) {
       List<Event> events=transactions.get(trxId);
       if (events != null) {

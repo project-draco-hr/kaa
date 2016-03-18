@@ -1,0 +1,14 @@
+{
+  List<TopicDto> topics=Collections.emptyList();
+  if (topicIds != null && !topicIds.isEmpty()) {
+    topics=new ArrayList<>(topicIds.size());
+    for (    String id : topicIds) {
+      if (id != null) {
+        TopicDto topicDto=new TopicDto();
+        topicDto.setId(id);
+        topics.add(topicDto);
+      }
+    }
+  }
+  return topics;
+}

@@ -1,4 +1,4 @@
 {
   EndpointObjectHash currentHash=clientState.getProfileHash();
-  return currentHash != null ? !currentHash.equals(currentProfileHash) : true;
+  return currentHash == null || !currentHash.equals(currentProfileHash);
 }

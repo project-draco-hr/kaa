@@ -5,7 +5,7 @@
       data=body.getBytes(UTF8);
     }
  catch (    UnsupportedEncodingException e) {
-      LOG.warn("Can't convert string data to binary.");
+      LOG.warn("Can't convert string data to binary. ",e);
     }
   }
   return data;

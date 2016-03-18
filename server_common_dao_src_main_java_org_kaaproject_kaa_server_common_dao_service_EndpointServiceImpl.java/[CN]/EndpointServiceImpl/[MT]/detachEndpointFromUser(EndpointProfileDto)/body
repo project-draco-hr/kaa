@@ -1,19 +1,29 @@
 {
-  String endpointUserId=detachEndpoint.getEndpointUserId();
+  String endpointUserId=endpoint.getEndpointUserId();
   validateString(endpointUserId,"Incorrect endpointUserId " + endpointUserId);
   EndpointUser endpointUser=endpointUserDao.findById(endpointUserId);
   if (endpointUser != null) {
     List<String> endpointIds=endpointUser.getEndpointIds();
-    if (endpointIds != null && endpointIds.contains(detachEndpoint.getId())) {
-      endpointIds.remove(detachEndpoint.getId());
+    if (endpointIds != null && endpointIds.contains(endpoint.getId())) {
+      endpointIds.remove(endpoint.getId());
     }
  else {
       LOG.warn("Endpoint is not assigned to current user {}!",endpointUserId);
       throw new DatabaseProcessingException("Endpoint is not assigned to current user.");
     }
     endpointUserDao.save(endpointUser);
-    detachEndpoint.setEndpointUserId(null);
-    saveEndpointProfile(detachEndpoint);
+    while (true) {
+      try {
+        LOG.trace("Save endpoint user {} and endpoint profile {}",endpointUser,endpoint);
+        endpoint.setEndpointUserId(null);
+        saveEndpointProfile(endpoint);
+        break;
+      }
+ catch (      KaaOptimisticLockingFailureException ex) {
+        LOG.warn("Optimistic lock detected in endpoint profile ",Arrays.toString(endpoint.getEndpointKey()),ex);
+        endpoint=getDto(endpointProfileDao.findByKeyHash(SHA1HashUtils.hashToBytes(endpoint.getEndpointKey())));
+      }
+    }
   }
  else {
     LOG.warn("Endpoint user with id {} is not present in db.",endpointUserId);

@@ -1,0 +1,6 @@
+{
+  this.username=username;
+  this.password=password;
+  HttpComponentsRequestFactoryBasicAuth requestFactory=(HttpComponentsRequestFactoryBasicAuth)getRequestFactory();
+  requestFactory.setCredentials(username,password);
+}

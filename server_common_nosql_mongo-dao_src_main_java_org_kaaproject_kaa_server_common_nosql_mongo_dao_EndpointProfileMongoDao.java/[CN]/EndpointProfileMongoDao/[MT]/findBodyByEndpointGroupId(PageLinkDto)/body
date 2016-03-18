@@ -6,18 +6,18 @@
   int offs=Integer.valueOf(pageLink.getOffset());
   Query query=Query.query(new Criteria().orOperator(where(EP_GROUP_STATE + "." + ENDPOINT_GROUP_ID).is(pageLink.getEndpointGroupId()),where(EP_GROUP_STATE + "." + ENDPOINT_GROUP_ID).is(pageLink.getEndpointGroupId())));
   query.skip(offs).limit(lim + 1);
-  query.fields().include(DaoConstants.PROFILE).include(EP_ENDPOINT_KEY_HASH).include(EP_APPLICATION_ID);
-  List<MongoEndpointProfile> mongoEndpointProfileList=mongoTemplate.find(query,getDocumentClass());
-  if (mongoEndpointProfileList.size() == (lim + 1)) {
+  query.fields().include(DaoConstants.PROFILE).include(EP_SERVER_PROFILE_PROPERTY).include(EP_ENDPOINT_KEY_HASH).include(EP_APPLICATION_ID).include(EP_PROFILE_VERSION).include(EP_SERVER_PROFILE_VERSION_PROPERTY);
+  List<EndpointProfileDto> endpointProfileDtoList=convertDtoList(mongoTemplate.find(query,getDocumentClass()));
+  if (endpointProfileDtoList.size() == (lim + 1)) {
     String offset=Integer.toString(lim + offs);
     pageLink.setOffset(offset);
-    mongoEndpointProfileList.remove(lim);
+    endpointProfileDtoList.remove(lim);
   }
  else {
     pageLink.setNext(DaoConstants.LAST_PAGE_MESSAGE);
   }
-  for (  MongoEndpointProfile ep : mongoEndpointProfileList) {
-    EndpointProfileBodyDto endpointProfileBodyDto=new EndpointProfileBodyDto(ep.getEndpointKeyHash(),ep.getProfileAsString(),ep.getApplicationId());
+  for (  EndpointProfileDto ep : endpointProfileDtoList) {
+    EndpointProfileBodyDto endpointProfileBodyDto=new EndpointProfileBodyDto(ep.getEndpointKeyHash(),ep.getClientProfileBody(),ep.getServerProfileBody(),ep.getClientProfileVersion(),ep.getServerProfileVersion(),ep.getApplicationId());
     endpointProfileBodyDto.setEndpointKeyHash(ep.getEndpointKeyHash());
     profilesBody.add(endpointProfileBodyDto);
   }

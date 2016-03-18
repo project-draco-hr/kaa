@@ -1,11 +1,21 @@
 {
-  if (this == obj)   return true;
-  if (obj == null)   return false;
-  if (getClass() != obj.getClass())   return false;
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
   TopicsPlace other=(TopicsPlace)obj;
   if (applicationId == null) {
-    if (other.applicationId != null)     return false;
+    if (other.applicationId != null) {
+      return false;
+    }
   }
- else   if (!applicationId.equals(other.applicationId))   return false;
+ else   if (!applicationId.equals(other.applicationId)) {
+    return false;
+  }
   return true;
 }

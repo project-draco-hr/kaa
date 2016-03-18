@@ -1,0 +1,9 @@
+{
+  if (isValidId(externalId) && isValidId(tenantId)) {
+    EndpointUser endpointUser=endpointUserDao.findByExternalIdAndTenantId(externalId,tenantId);
+    if (endpointUser != null) {
+      return convertDtoList(endpointProfileDao.findByEndpointUserId(endpointUser.getId()));
+    }
+  }
+  return Collections.emptyList();
+}
