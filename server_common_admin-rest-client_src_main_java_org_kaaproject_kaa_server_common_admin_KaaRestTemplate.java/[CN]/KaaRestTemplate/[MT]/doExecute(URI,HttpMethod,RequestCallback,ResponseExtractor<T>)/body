@@ -4,7 +4,10 @@
     try {
       return super.doExecute(url,method,requestCallback,responseExtractor);
     }
- catch (    Exception ex) {
+ catch (    RestClientException e) {
+      throw e;
+    }
+catch (    Exception ex) {
       logger.info("Connect to ({}:{}) failed",getCurHost(),getCurPort(),ex);
       boolean isRequestFactorySet=false;
       while (!isRequestFactorySet) {

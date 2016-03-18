@@ -2,6 +2,6 @@
   List<ConfigurationDto> configurations=generateConfigurationDto(null,null,1,false,false);
   ConfigurationDto configurationDto=configurationService.findConfigurationById(configurations.get(0).getId());
   configurationDto.setId(null);
-  configurationDto.setSchemaId(configurationDto.getApplicationId());
+  configurationDto.setSchemaId(100500 + "");
   configurationService.saveConfiguration(configurationDto);
 }
