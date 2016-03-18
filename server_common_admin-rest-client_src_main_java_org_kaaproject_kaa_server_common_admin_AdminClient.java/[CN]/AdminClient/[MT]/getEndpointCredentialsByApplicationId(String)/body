@@ -2,7 +2,7 @@
   ParameterizedTypeReference<List<EndpointCredentialsDto>> typeRef=new ParameterizedTypeReference<List<EndpointCredentialsDto>>(){
   }
 ;
-  String address=this.url + "getEndpointCredentials?applicationId=" + applicationId;
+  String address=restTemplate.getUrl() + "getEndpointCredentials?applicationId=" + applicationId;
   ResponseEntity<List<EndpointCredentialsDto>> response=this.restTemplate.exchange(address,HttpMethod.GET,null,typeRef);
   return response.getBody();
 }

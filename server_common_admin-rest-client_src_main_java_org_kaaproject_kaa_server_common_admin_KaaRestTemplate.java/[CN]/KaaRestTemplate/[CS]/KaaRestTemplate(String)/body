@@ -1,0 +1,19 @@
+{
+  if (hostPortList == null) {
+    throw new IllegalArgumentException("String of addresses must be not null");
+  }
+  String[] splitedAddresses=hostPortList.split(",");
+  String[] hosts=new String[splitedAddresses.length];
+  int[] ports=new int[splitedAddresses.length];
+  for (int i=0; i < hosts.length; i++) {
+    String[] separatedAddresses=splitedAddresses[i].split(":");
+    hosts[i]=separatedAddresses[0];
+    if (separatedAddresses.length == 2) {
+      ports[i]=Integer.parseInt(separatedAddresses[1]);
+    }
+ else {
+      ports[i]=DEFAULT_PORT;
+    }
+  }
+  checkHostPortLists(hosts,ports);
+}

@@ -18,6 +18,7 @@
     return parser.parse(schema.getBody());
   }
  catch (  Exception cause) {
+    LOG.error("Unable to parse CTL schema \"" + schema.getMetaInfo().getFqn() + "\" (version "+ schema.getVersion()+ "): ",cause);
     throw new IllegalArgumentException("Unable to parse CTL schema \"" + schema.getMetaInfo().getFqn() + "\" (version "+ schema.getVersion()+ "): "+ cause.getMessage());
   }
 }

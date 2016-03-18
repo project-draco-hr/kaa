@@ -10,7 +10,7 @@
       response.setEndpointKeyHash(Base64Util.encode(attachedEndpoint.getEndpointKeyHash()));
     }
  catch (    DatabaseProcessingException e) {
-      LOG.warn("[{}] failed to attach endpoint with access token {} and user {}",Base64Util.encode(profile.getEndpointKeyHash()),endpointAttachRequest.getEndpointAccessToken(),profile.getEndpointUserId());
+      LOG.warn("[{}] failed to attach endpoint with access token {} and user {}, exception catched: {}",Base64Util.encode(profile.getEndpointKeyHash()),endpointAttachRequest.getEndpointAccessToken(),profile.getEndpointUserId(),e);
     }
   }
  else {

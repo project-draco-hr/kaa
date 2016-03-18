@@ -26,9 +26,11 @@ break;
 case GENERAL_ERROR:
 response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,ex.getMessage());
 break;
+default :
+break;
 }
 }
  catch (IOException e) {
-logger.error("Can't handle exception",e);
+LOG.error("Can't handle exception",e);
 }
 }

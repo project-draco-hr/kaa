@@ -16,7 +16,9 @@
     LOG.info("HDFSWriter is already closed: {}",currentBucket);
   }
   if (timedRollFuture != null) {
-    if (!timedRollFuture.isDone())     timedRollFuture.cancel(false);
+    if (!timedRollFuture.isDone()) {
+      timedRollFuture.cancel(false);
+    }
     timedRollerPool.remove((Runnable)timedRollFuture);
     timedRollFuture=null;
   }

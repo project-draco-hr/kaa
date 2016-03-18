@@ -1,6 +1,3 @@
 {
-  restTemplate=new RestTemplate();
-  ClientHttpRequestFactory requestFactory=new HttpComponentsRequestFactoryBasicAuth(new HttpHost(host,port,"http"));
-  restTemplate.setRequestFactory(requestFactory);
-  url="http://" + host + ":"+ port+ "/kaaAdmin/rest/api/";
+  restTemplate=new KaaRestTemplate(host,port);
 }

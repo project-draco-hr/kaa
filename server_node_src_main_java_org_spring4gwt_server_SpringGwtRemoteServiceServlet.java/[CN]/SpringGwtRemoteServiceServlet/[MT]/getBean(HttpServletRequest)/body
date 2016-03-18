@@ -4,8 +4,8 @@
   if (!(bean instanceof RemoteService)) {
     throw new IllegalArgumentException("Spring bean is not a GWT RemoteService: " + service + " ("+ bean+ ")");
   }
-  if (logger.isDebugEnabled()) {
-    logger.debug("Bean for service " + service + " is "+ bean);
+  if (LOG.isDebugEnabled()) {
+    LOG.debug("Bean for service " + service + " is "+ bean);
   }
   return bean;
 }

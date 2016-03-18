@@ -1,0 +1,8 @@
+{
+  String address=restTemplate.getUrl() + "endpointProfiles?userExternalId=" + endpointUserExternalId;
+  ParameterizedTypeReference<List<EndpointProfileDto>> typeRef=new ParameterizedTypeReference<List<EndpointProfileDto>>(){
+  }
+;
+  ResponseEntity<List<EndpointProfileDto>> response=this.restTemplate.exchange(address,HttpMethod.GET,null,typeRef);
+  return response.getBody();
+}

@@ -2,5 +2,5 @@
   String endpointGroupId="124";
   EndpointProfileDto savedEndpointProfileDto=generateEndpointProfileWithGroupIdDto(endpointGroupId);
   EndpointProfileBodyDto endpointProfileBodyDto=endpointService.findEndpointProfileBodyByKeyHash(savedEndpointProfileDto.getEndpointKeyHash());
-  Assert.assertEquals(savedEndpointProfileDto.getClientProfileBody(),endpointProfileBodyDto.getProfile());
+  Assert.assertEquals(savedEndpointProfileDto.getClientProfileBody(),endpointProfileBodyDto.getClientSideProfile());
 }

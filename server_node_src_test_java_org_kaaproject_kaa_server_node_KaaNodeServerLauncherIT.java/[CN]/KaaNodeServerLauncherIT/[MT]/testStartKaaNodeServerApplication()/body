@@ -8,9 +8,9 @@
     zkCluster.start();
     kaaNodeServerLauncherThread=new Thread(new Runnable(){
       @SuppressWarnings("static-access") @Override public void run(){
-        logger.info("Starting Kaa Node Server ...");
+        LOG.info("Starting Kaa Node Server ...");
         new KaaNodeApplication(new String[]{},new String[]{}).main(new String[]{"common-test-context.xml","kaa-node-test.properties"});
-        logger.info("Kaa Node Server Stopped");
+        LOG.info("Kaa Node Server Stopped");
       }
     }
 );

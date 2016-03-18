@@ -1,0 +1,7 @@
+{
+  ResponseCreator response=withBadRequest();
+  this.mockServer.expect(requestTo("http://localhost:8080/kaaTest/post")).andExpect(method(HttpMethod.POST)).andRespond(response);
+  String result=testMessage.getMessage(kaaRestTemplate,TestHttpMethods.POST);
+  this.mockServer.verify();
+  assertThat(result,allOf(containsString("FAILED")));
+}

@@ -1,5 +1,5 @@
 {
   MultiValueMap<String,Object> parameters=new LinkedMultiValueMap<>();
   parameters.add("endpointId",endpointId);
-  this.restTemplate.postForLocation(this.url + "revokeEndpointCredentials",parameters);
+  this.restTemplate.postForLocation(restTemplate.getUrl() + "revokeEndpointCredentials",parameters);
 }

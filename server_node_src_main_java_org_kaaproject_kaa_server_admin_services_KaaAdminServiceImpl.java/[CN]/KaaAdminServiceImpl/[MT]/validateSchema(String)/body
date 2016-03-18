@@ -1,9 +1,10 @@
 {
   Schema.Parser parser=new Schema.Parser();
   try {
-    parser.parse(schema);
+    return parser.parse(avroSchema);
   }
  catch (  SchemaParseException spe) {
+    LOG.error("Exception catched: ",spe);
     throw new KaaAdminServiceException(spe.getMessage(),ServiceErrorCode.INVALID_SCHEMA);
   }
 }

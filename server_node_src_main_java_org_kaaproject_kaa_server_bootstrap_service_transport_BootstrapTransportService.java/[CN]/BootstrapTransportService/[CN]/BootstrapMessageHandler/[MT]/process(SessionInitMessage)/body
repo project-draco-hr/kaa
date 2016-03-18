@@ -62,7 +62,7 @@
         syncRequest=decodeEncryptedRequest(message,crypt,platformEncDecMap);
       }
  else       if (supportUnencryptedConnection) {
-        syncRequest=decodeUnencryptedRequest(message,crypt,platformEncDecMap);
+        syncRequest=decodeUnencryptedRequest(message,platformEncDecMap);
       }
  else {
         LOG.warn("Received unencrypted init message, but unencrypted connection forbidden by configuration.");
@@ -80,7 +80,7 @@
       LOG.trace("Request data deserialized");
       return request;
     }
-    private ClientSync decodeUnencryptedRequest(    SessionInitMessage message,    MessageEncoderDecoder crypt,    Map<Integer,PlatformEncDec> platformEncDecMap) throws GeneralSecurityException, PlatformEncDecException {
+    private ClientSync decodeUnencryptedRequest(    SessionInitMessage message,    Map<Integer,PlatformEncDec> platformEncDecMap) throws GeneralSecurityException, PlatformEncDecException {
       byte[] requestRaw=message.getEncodedMessageData();
       LOG.trace("Try to convert raw data to SynRequest object");
       ClientSync request=decodePlatformLevelData(platformEncDecMap,message.getPlatformId(),requestRaw);

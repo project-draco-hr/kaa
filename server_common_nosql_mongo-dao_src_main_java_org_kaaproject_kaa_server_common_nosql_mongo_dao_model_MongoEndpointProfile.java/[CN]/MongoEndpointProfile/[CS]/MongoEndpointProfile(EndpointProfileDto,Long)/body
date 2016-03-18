@@ -7,7 +7,7 @@
   this.accessToken=dto.getAccessToken();
   this.groupState=MongoDaoUtil.convertDtoToModelList(dto.getGroupState());
   this.sequenceNumber=dto.getSequenceNumber();
-  this.profile=(DBObject)JSON.parse(dto.getClientProfileBody());
+  this.profile=MongoDaoUtil.encodeReservedCharacteres((DBObject)JSON.parse(dto.getClientProfileBody()));
   this.profileHash=dto.getProfileHash();
   this.profileVersion=dto.getClientProfileVersion();
   this.serverProfileVersion=dto.getServerProfileVersion();
@@ -24,6 +24,6 @@
   this.ecfVersionStates=MongoDaoUtil.convertECFVersionDtoToModelList(dto.getEcfVersionStates());
   this.serverHash=dto.getServerHash();
   this.sdkToken=dto.getSdkToken();
-  this.serverProfile=dto.getServerProfileBody();
+  this.serverProfile=MongoDaoUtil.encodeReservedCharacteres((DBObject)JSON.parse(dto.getServerProfileBody()));
   this.version=dto.getVersion();
 }

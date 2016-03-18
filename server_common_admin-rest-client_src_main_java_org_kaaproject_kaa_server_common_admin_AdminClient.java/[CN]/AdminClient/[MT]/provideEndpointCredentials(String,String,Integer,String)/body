@@ -4,5 +4,5 @@
   parameters.add("publicKey",publicKey);
   parameters.add("serverProfileVersion",serverProfileVersion);
   parameters.add("serverProfileBody",serverProfileBody);
-  return this.restTemplate.postForObject(this.url + "provideEndpointCredentials",parameters,EndpointCredentialsDto.class);
+  return this.restTemplate.postForObject(restTemplate.getUrl() + "provideEndpointCredentials",parameters,EndpointCredentialsDto.class);
 }

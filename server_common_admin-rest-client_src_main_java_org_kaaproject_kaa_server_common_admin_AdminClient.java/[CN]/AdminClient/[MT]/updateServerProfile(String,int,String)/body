@@ -3,5 +3,5 @@
   params.add("endpointProfileKey",endpointProfileKey);
   params.add("version",version);
   params.add("serverProfileBody",serverProfileBody);
-  return restTemplate.postForObject(url + "updateServerProfile",params,EndpointProfileDto.class);
+  return restTemplate.postForObject(restTemplate.getUrl() + "updateServerProfile",params,EndpointProfileDto.class);
 }
