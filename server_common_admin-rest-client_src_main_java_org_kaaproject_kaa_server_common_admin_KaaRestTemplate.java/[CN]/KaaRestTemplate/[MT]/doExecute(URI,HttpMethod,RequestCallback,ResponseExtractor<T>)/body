@@ -4,10 +4,7 @@
     try {
       return super.doExecute(url,method,requestCallback,responseExtractor);
     }
- catch (    RestClientException e) {
-      throw e;
-    }
-catch (    Exception ex) {
+ catch (    ResourceAccessException ex) {
       logger.info("Connect to ({}:{}) failed",getCurHost(),getCurPort(),ex);
       boolean isRequestFactorySet=false;
       while (!isRequestFactorySet) {
@@ -35,6 +32,9 @@ catch (    Exception ex) {
         url=updateURL(url);
         isRequestFactorySet=true;
       }
+    }
+catch (    RestClientException e) {
+      throw e;
     }
   }
 }

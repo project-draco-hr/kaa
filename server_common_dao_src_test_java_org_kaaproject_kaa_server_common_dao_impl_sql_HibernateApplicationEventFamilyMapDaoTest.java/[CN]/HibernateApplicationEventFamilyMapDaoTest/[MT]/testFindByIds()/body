@@ -4,5 +4,6 @@
   ids.add(applicationEventFamilyMaps.get(0).getId().toString());
   ids.add(applicationEventFamilyMaps.get(1).getId().toString());
   List<ApplicationEventFamilyMap> found=applicationEventFamilyMapDao.findByIds(ids);
+  sortList(found);
   Assert.assertEquals(applicationEventFamilyMaps,found);
 }

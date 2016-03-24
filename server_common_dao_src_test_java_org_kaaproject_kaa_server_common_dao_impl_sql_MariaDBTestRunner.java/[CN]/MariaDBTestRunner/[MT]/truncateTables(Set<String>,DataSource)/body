@@ -1,0 +1,17 @@
+{
+  if (tableNames == null || tableNames.isEmpty()) {
+    return;
+  }
+  try (Connection connection=dataSource.getConnection();Statement statement=connection.createStatement()){
+    for (int i=0; i < tableNames.size(); i++) {
+      for (      String tableName : tableNames) {
+        try {
+          statement.execute(getTrancateSql() + tableName);
+        }
+ catch (        SQLException ex) {
+          continue;
+        }
+      }
+    }
+  }
+ }
