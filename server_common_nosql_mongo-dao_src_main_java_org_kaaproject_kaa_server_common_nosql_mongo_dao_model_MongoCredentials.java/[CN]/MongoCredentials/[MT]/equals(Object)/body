@@ -3,8 +3,6 @@
   if (o == null || getClass() != o.getClass())   return false;
   MongoCredentials that=(MongoCredentials)o;
   if (!Arrays.equals(credentialsBody,that.credentialsBody))   return false;
-  if (!id.equals(that.id))   return false;
   if (status != that.status)   return false;
-  if (version != null ? !version.equals(that.version) : that.version != null)   return false;
   return true;
 }

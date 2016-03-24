@@ -1,6 +1,5 @@
 {
   String id="56f3f9acdd796a86323f04a4";
   Credentials credentials=credentialsDao.findById(id);
-  CredentialsDto credentialsDto=credentials.toDto();
-  System.out.println(credentialsDto);
+  Assert.notNull(credentials);
 }

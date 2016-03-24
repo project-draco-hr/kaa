@@ -1,7 +1,5 @@
 {
-  int result=id.hashCode();
-  result=31 * result + Arrays.hashCode(credentialsBody);
+  int result=Arrays.hashCode(credentialsBody);
   result=31 * result + status.hashCode();
-  result=31 * result + (version != null ? version.hashCode() : 0);
   return result;
 }
