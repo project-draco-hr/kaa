@@ -1,6 +1,6 @@
 {
-  String clientKeyHash=detailsView.getClientKeyHash().getValue();
-  if (clientKeyHash == null || clientKeyHash.equals("")) {
+  String endpointKeyHash=detailsView.getEndpointKeyHash().getValue();
+  if (endpointKeyHash == null || endpointKeyHash.equals("")) {
     KaaAdmin.getDataSource().sendNotification(entity,detailsView.getNotificationData().getValue(),new AsyncCallback<Void>(){
       @Override public void onSuccess(      Void result){
         callback.onSuccess(null);
@@ -12,7 +12,7 @@
 );
   }
  else {
-    KaaAdmin.getDataSource().sendUnicastNotification(entity,clientKeyHash,detailsView.getNotificationData().getValue(),new AsyncCallback<EndpointNotificationDto>(){
+    KaaAdmin.getDataSource().sendUnicastNotification(entity,endpointKeyHash,detailsView.getNotificationData().getValue(),new AsyncCallback<EndpointNotificationDto>(){
       @Override public void onSuccess(      EndpointNotificationDto result){
         callback.onSuccess(null);
       }
