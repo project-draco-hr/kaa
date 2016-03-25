@@ -1,0 +1,8 @@
+{
+  CredentialsDto credentials=this.generateCredentials(CREDENTIALS_BODY,AVAILABLE);
+  Assert.assertNotNull(credentials);
+  Assert.assertNotNull(credentials.getId());
+  Credentials updated=this.credentialsDao.updateStatusById(credentials.getId(),REVOKED);
+  Assert.assertNotNull(updated);
+  Assert.assertEquals(REVOKED,updated.getStatus());
+}

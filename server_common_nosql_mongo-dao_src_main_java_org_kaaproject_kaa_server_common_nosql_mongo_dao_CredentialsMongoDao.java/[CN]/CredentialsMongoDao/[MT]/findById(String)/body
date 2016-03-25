@@ -1,0 +1,5 @@
+{
+  LOG.debug("Searching credential by ID[{}]",id);
+  Query query=Query.query(Criteria.where(MongoModelConstants.CREDENTIALS_ID).is(id));
+  return this.findOne(query);
+}
