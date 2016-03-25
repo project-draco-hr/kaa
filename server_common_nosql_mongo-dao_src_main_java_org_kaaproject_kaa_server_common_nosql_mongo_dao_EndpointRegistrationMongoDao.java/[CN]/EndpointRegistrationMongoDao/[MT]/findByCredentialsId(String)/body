@@ -1,0 +1,5 @@
+{
+  LOG.debug("Searching for endpoint registration by credentials ID [{}]",credentialsId);
+  Query query=Query.query(Criteria.where(MongoModelConstants.EP_REGISTRATION_CREDENTIALS_ID).is(credentialsId));
+  return Optional.ofNullable(this.findOne(query));
+}

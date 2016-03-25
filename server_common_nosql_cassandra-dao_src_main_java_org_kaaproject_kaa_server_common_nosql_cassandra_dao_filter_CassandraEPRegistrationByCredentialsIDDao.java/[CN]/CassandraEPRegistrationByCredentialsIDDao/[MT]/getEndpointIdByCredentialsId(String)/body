@@ -1,0 +1,5 @@
+{
+  Clause clause=QueryBuilder.eq(CassandraModelConstants.EP_REGISTRATION_BY_CREDENTIALS_ID_CREDENTIALS_ID_PROPERTY,credentialsId);
+  Statement statement=QueryBuilder.select().from(this.getColumnFamilyName()).where(clause);
+  return this.findOneByStatement(statement).getEndpointId();
+}

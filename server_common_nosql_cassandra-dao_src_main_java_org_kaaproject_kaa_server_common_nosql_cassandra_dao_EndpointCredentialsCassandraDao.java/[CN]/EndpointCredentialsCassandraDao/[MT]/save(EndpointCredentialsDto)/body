@@ -1,8 +1,0 @@
-{
-  LOG.debug("Saving {}",endpointCredentials.toString());
-  if (StringUtils.isBlank(endpointCredentials.getId())) {
-    byte[] endpointKeyHash=endpointCredentials.getEndpointKeyHash();
-    endpointCredentials.setId(Base64.encodeBase64String(endpointKeyHash));
-  }
-  return this.save(new CassandraEndpointCredentials(endpointCredentials));
-}

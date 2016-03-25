@@ -1,0 +1,6 @@
+{
+  LOG.debug("Removing endpoint registration by endpoint ID",endpointId);
+  Clause clause=QueryBuilder.eq(CassandraModelConstants.EP_REGISTRATION_ENDPOINT_ID_PROPERTY,endpointId);
+  Statement statement=QueryBuilder.delete().from(this.getColumnFamilyName()).where(clause);
+  this.execute(statement);
+}

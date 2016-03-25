@@ -1,0 +1,53 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  EndpointRegistrationDto other=(EndpointRegistrationDto)obj;
+  if (this.applicationId == null) {
+    if (other.applicationId != null) {
+      return false;
+    }
+  }
+ else   if (!this.applicationId.equals(other.applicationId)) {
+    return false;
+  }
+  if (this.credentialsId == null) {
+    if (other.credentialsId != null) {
+      return false;
+    }
+  }
+ else   if (!this.credentialsId.equals(other.credentialsId)) {
+    return false;
+  }
+  if (this.endpointId == null) {
+    if (other.endpointId != null) {
+      return false;
+    }
+  }
+ else   if (!this.endpointId.equals(other.endpointId)) {
+    return false;
+  }
+  if (this.serverProfileBody == null) {
+    if (other.serverProfileBody != null) {
+      return false;
+    }
+  }
+ else   if (!this.serverProfileBody.equals(other.serverProfileBody)) {
+    return false;
+  }
+  if (this.serverProfileVersion == null) {
+    if (other.serverProfileVersion != null) {
+      return false;
+    }
+  }
+ else   if (!this.serverProfileVersion.equals(other.serverProfileVersion)) {
+    return false;
+  }
+  return true;
+}

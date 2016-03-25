@@ -1,0 +1,5 @@
+{
+  EndpointRegistrationDto endpointRegistrationDto=new EndpointRegistrationDto("1","2","3",42,"test");
+  MongoEndpointRegistration mongoEndpointRegistration=new MongoEndpointRegistration(endpointRegistrationDto);
+  Assert.assertEquals(endpointRegistrationDto,mongoEndpointRegistration.toDto());
+}

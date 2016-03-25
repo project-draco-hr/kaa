@@ -1,6 +1,0 @@
-{
-  LOG.debug("Removing endpoint credentials by endpoint public key hash {}",Arrays.toString(endpointKeyHash));
-  Clause clause=QueryBuilder.eq(CassandraModelConstants.EP_CREDS_ENDPOINT_KEY_HASH_PROPERTY,CassandraDaoUtil.getByteBuffer(endpointKeyHash));
-  Statement statement=QueryBuilder.delete().from(this.getColumnFamilyName()).where(clause);
-  this.execute(statement);
-}

@@ -1,0 +1,9 @@
+{
+  EndpointRegistrationDto endpointRegistration=new EndpointRegistrationDto();
+  endpointRegistration.setApplicationId(applicationId);
+  endpointRegistration.setEndpointId(endpointId);
+  endpointRegistration.setCredentialsId(credentialsId);
+  endpointRegistration.setServerProfileVersion(serverProfileVersion);
+  endpointRegistration.setServerProfileBody(serverProfileBody);
+  return this.endpointRegistrationDao.save(endpointRegistration).toDto();
+}
