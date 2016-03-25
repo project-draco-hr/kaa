@@ -1,0 +1,5 @@
+{
+  CredentialsDto credentials=this.generateCredentials(CREDENTIALS_BODY,AVAILABLE);
+  Credentials saved=this.credentialsDao.save(credentials);
+  Assert.assertNotNull(saved);
+}
