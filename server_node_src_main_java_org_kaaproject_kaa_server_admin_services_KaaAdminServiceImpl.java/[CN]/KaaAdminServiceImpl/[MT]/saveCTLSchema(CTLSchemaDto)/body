@@ -8,7 +8,7 @@
     Set<CTLSchemaDto> dependencies=new HashSet<>();
     if (schema.getDependencySet() != null) {
       for (      CTLSchemaDto dependency : schema.getDependencySet()) {
-        CTLSchemaDto schemaFound=controlService.getCTLSchemaByFqnVersionTenantIdAndApplicationId(dependency.getMetaInfo().getFqn(),dependency.getVersion(),schema.getMetaInfo().getTenantId(),schema.getMetaInfo().getApplicationId());
+        CTLSchemaDto schemaFound=controlService.getAnyCTLSchemaByFqnVersionTenantIdAndApplicationId(dependency.getMetaInfo().getFqn(),dependency.getVersion(),schema.getMetaInfo().getTenantId(),schema.getMetaInfo().getApplicationId());
         if (schemaFound == null) {
           missingDependencies.add(new FqnVersion(dependency.getMetaInfo().getFqn(),dependency.getVersion()));
         }
