@@ -1,0 +1,8 @@
+{
+  if (this == o)   return true;
+  if (o == null || getClass() != o.getClass())   return false;
+  MongoCredentials that=(MongoCredentials)o;
+  if (!Arrays.equals(credentialsBody,that.credentialsBody))   return false;
+  if (status != that.status)   return false;
+  return true;
+}

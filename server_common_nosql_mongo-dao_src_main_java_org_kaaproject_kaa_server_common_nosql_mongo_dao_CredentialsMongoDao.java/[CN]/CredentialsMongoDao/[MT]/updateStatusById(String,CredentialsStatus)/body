@@ -1,0 +1,5 @@
+{
+  LOG.debug("Updating credentials status with ID[{}] to STATUS[{}]",id,status.toString());
+  updateFirst(query(where(MongoModelConstants.CREDENTIALS_ID).is(id)),Update.update(MongoModelConstants.CREDENTIAL_STATUS,status));
+  return findById(id);
+}
