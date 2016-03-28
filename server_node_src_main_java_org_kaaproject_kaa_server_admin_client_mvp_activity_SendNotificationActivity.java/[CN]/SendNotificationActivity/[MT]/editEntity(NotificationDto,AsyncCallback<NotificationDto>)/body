@@ -1,11 +1,25 @@
 {
-  KaaAdmin.getDataSource().sendNotification(entity,detailsView.getNotificationData().getValue(),new AsyncCallback<Void>(){
-    @Override public void onSuccess(    Void result){
-      callback.onSuccess(null);
+  String endpointKeyHash=detailsView.getEndpointKeyHash().getValue();
+  if (endpointKeyHash == null || endpointKeyHash.equals("")) {
+    KaaAdmin.getDataSource().sendNotification(entity,detailsView.getNotificationData().getValue(),new AsyncCallback<Void>(){
+      @Override public void onSuccess(      Void result){
+        callback.onSuccess(null);
+      }
+      @Override public void onFailure(      Throwable caught){
+        callback.onFailure(caught);
+      }
     }
-    @Override public void onFailure(    Throwable caught){
-      callback.onFailure(caught);
-    }
-  }
 );
+  }
+ else {
+    KaaAdmin.getDataSource().sendUnicastNotification(entity,endpointKeyHash,detailsView.getNotificationData().getValue(),new AsyncCallback<EndpointNotificationDto>(){
+      @Override public void onSuccess(      EndpointNotificationDto result){
+        callback.onSuccess(null);
+      }
+      @Override public void onFailure(      Throwable caught){
+        callback.onFailure(caught);
+      }
+    }
+);
+  }
 }
