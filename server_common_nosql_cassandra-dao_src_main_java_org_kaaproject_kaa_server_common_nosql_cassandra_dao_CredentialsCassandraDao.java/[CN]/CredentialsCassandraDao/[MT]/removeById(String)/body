@@ -1,5 +1,0 @@
-{
-  LOG.debug("Deleting credential by ID[{}]",id);
-  Delete.Where query=delete().from(getColumnFamilyName()).where(eq(CREDENTIALS_ID_PROPERTY,id));
-  execute(query);
-}

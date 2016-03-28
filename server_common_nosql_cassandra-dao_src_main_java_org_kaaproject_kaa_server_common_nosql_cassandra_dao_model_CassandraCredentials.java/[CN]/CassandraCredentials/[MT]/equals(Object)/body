@@ -1,0 +1,9 @@
+{
+  if (this == o)   return true;
+  if (o == null || getClass() != o.getClass())   return false;
+  CassandraCredentials that=(CassandraCredentials)o;
+  if (!applicationId.equals(that.applicationId))   return false;
+  if (!credentialStatus.equals(that.credentialStatus))   return false;
+  if (!credentialsBody.equals(that.credentialsBody))   return false;
+  return true;
+}

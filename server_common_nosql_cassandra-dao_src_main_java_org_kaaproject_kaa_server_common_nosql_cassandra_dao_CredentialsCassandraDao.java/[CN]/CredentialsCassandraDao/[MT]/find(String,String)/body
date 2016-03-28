@@ -1,0 +1,5 @@
+{
+  LOG.debug("Searching credential by applicationID[{}] and credentialsID[{}]",applicationId,credentialsId);
+  Select.Where query=select().from(getColumnFamilyName()).where(eq(CREDENTIALS_APPLICATION_ID_PROPERTY,applicationId)).and(eq(CREDENTIALS_ID_PROPERTY,credentialsId));
+  return findOneByStatement(query);
+}
