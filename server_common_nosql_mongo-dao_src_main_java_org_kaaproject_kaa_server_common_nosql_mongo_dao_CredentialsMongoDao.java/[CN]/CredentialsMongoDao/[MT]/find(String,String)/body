@@ -1,0 +1,5 @@
+{
+  LOG.debug("Searching for credentials by application ID [{}] and credentials ID [{}]",applicationId,credentialsId);
+  Query query=Query.query(Criteria.where(MongoModelConstants.CREDENTIALS_ID).is(credentialsId).and(MongoModelConstants.APPLICATION_ID).is(applicationId));
+  return this.findOne(query);
+}
