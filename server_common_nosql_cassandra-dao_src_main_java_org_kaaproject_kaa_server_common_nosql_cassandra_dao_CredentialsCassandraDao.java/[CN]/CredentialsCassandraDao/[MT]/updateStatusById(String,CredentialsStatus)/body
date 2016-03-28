@@ -1,0 +1,6 @@
+{
+  LOG.debug("Updating credentials status with ID[{}] to STATUS[{}]",id,status.toString());
+  Update.Assignments query=update(getColumnFamilyName()).where(eq(CREDENTIALS_ID_PROPERTY,id)).with(set(CREDENTIALS_STATUS_PROPERTY,status.toString()));
+  execute(query);
+  return findById(id);
+}

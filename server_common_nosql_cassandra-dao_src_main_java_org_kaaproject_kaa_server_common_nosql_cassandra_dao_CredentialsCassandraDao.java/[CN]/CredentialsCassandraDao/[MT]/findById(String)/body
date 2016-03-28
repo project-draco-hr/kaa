@@ -1,0 +1,5 @@
+{
+  LOG.debug("Searching credential by ID[{}]",id);
+  Select.Where query=select().from(getColumnFamilyName()).where(eq(CREDENTIALS_ID_PROPERTY,id));
+  return findOneByStatement(query);
+}
