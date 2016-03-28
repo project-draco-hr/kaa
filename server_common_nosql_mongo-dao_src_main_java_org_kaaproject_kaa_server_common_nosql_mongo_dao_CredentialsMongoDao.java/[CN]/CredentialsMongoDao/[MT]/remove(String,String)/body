@@ -1,0 +1,5 @@
+{
+  LOG.debug("Removing credentials [{}] from application [{}]",credentialsId,applicationId);
+  Query query=Query.query(Criteria.where(MongoModelConstants.CREDENTIALS_ID).is(credentialsId).and(MongoModelConstants.APPLICATION_ID).is(applicationId));
+  this.remove(query);
+}
