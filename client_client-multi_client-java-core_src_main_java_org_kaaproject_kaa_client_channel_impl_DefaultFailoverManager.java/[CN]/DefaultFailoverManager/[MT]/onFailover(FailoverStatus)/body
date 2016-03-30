@@ -1,33 +1,22 @@
 {
-  LOG.trace("Applying failover strategy for status: {}",failoverStatus);
+  AccessPointIdResolution accessPointIdResolution=null;
+  long resolutionTime=System.currentTimeMillis();
 switch (failoverStatus) {
 case BOOTSTRAP_SERVERS_NA:
-    AccessPointIdResolution bootstrapResolution=resolutionProgressMap.get(ServerType.BOOTSTRAP);
-  if (bootstrapResolution != null) {
-    bootstrapResolution.setResolutionTime(System.currentTimeMillis() + TimeUnit.MILLISECONDS.convert(bootstrapServersRetryPeriod,timeUnit));
-  }
-return new FailoverDecision(FailoverAction.RETRY,bootstrapServersRetryPeriod,timeUnit);
 case CURRENT_BOOTSTRAP_SERVER_NA:
-bootstrapResolution=resolutionProgressMap.get(ServerType.BOOTSTRAP);
-if (bootstrapResolution != null) {
-bootstrapResolution.setResolutionTime(System.currentTimeMillis() + TimeUnit.MILLISECONDS.convert(bootstrapServersRetryPeriod,timeUnit));
-}
-return new FailoverDecision(FailoverAction.USE_NEXT_BOOTSTRAP,bootstrapServersRetryPeriod,timeUnit);
+    accessPointIdResolution=resolutionProgressMap.get(ServerType.BOOTSTRAP);
+  resolutionTime+=failoverStrategy.getTimeUnit().toMillis(failoverStrategy.getBootstrapServersRetryPeriod());
+break;
 case NO_OPERATION_SERVERS_RECEIVED:
-bootstrapResolution=resolutionProgressMap.get(ServerType.BOOTSTRAP);
-if (bootstrapResolution != null) {
-bootstrapResolution.setResolutionTime(System.currentTimeMillis());
-}
-return new FailoverDecision(FailoverAction.USE_NEXT_BOOTSTRAP,bootstrapServersRetryPeriod,timeUnit);
+accessPointIdResolution=resolutionProgressMap.get(ServerType.BOOTSTRAP);
+break;
 case OPERATION_SERVERS_NA:
-AccessPointIdResolution operationsResolution=resolutionProgressMap.get(ServerType.OPERATIONS);
-if (operationsResolution != null) {
-operationsResolution.setResolutionTime(System.currentTimeMillis() + TimeUnit.MILLISECONDS.convert(operationsServersRetryPeriod,timeUnit));
+accessPointIdResolution=resolutionProgressMap.get(ServerType.OPERATIONS);
+resolutionTime+=failoverStrategy.getTimeUnit().toMillis(failoverStrategy.getOperationServersRetryPeriod());
+break;
 }
-return new FailoverDecision(FailoverAction.RETRY,operationsServersRetryPeriod,timeUnit);
-case NO_CONNECTIVITY:
-return new FailoverDecision(FailoverAction.RETRY,noConnectivityRetryPeriod,timeUnit);
-default :
-return new FailoverDecision(FailoverAction.NOOP);
+if (accessPointIdResolution != null) {
+accessPointIdResolution.setResolutionTime(resolutionTime);
 }
+return failoverStrategy.onFailover(failoverStatus);
 }
