@@ -1,0 +1,6 @@
+{
+  FailoverStatus incomingStatus=FailoverStatus.BOOTSTRAP_SERVERS_NA;
+  FailoverDecision decision=failoverManager.onFailover(incomingStatus);
+  Mockito.verify(failoverStrategy,Mockito.times(1)).onFailover(incomingStatus);
+  Assert.assertNotNull(decision);
+}
