@@ -1,8 +1,2 @@
 {
-  CredentialsDto saved=this.generateCredentials(APPLICATION_ID,CREDENTIALS_BODY,AVAILABLE);
-  Assert.assertNotNull(saved);
-  Assert.assertNotNull(saved.getId());
-  Credentials found=this.credentialsDao.find(APPLICATION_ID,saved.getId());
-  Assert.assertNotNull(found);
-  Assert.assertEquals(saved,found.toDto());
 }

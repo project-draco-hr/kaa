@@ -1,0 +1,10 @@
+{
+  try {
+    this.credentialsServiceLocator.getCredentialsService(applicationId).markCredentialsRevoked(credentialsId);
+  }
+ catch (  CredentialsServiceException cause) {
+    String message=MessageFormat.format("An unexpected exception occured while revoking credentials by ID [{0}]",credentialsId);
+    LOG.error(message,cause);
+    throw new ControlServiceException(cause);
+  }
+}
