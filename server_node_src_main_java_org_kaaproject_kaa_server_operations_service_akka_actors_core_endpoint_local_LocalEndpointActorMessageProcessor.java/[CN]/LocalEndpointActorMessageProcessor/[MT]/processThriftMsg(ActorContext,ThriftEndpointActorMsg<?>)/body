@@ -6,4 +6,7 @@
  else   if (thriftMsg instanceof ThriftUnicastNotificationMessage) {
     processUnicastNotificationMsg(context,(ThriftUnicastNotificationMessage)thriftMsg);
   }
+ else   if (thriftMsg instanceof ThriftEndpointDeregistrationMessage) {
+    processEndpointDeregistrationMessage(context,(ThriftEndpointDeregistrationMessage)thriftMsg);
+  }
 }

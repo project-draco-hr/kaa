@@ -8,7 +8,7 @@
   }
   if (struct.actorClassifier != null) {
     oprot.writeFieldBegin(ACTOR_CLASSIFIER_FIELD_DESC);
-    struct.actorClassifier.write(oprot);
+    oprot.writeI32(struct.actorClassifier.getValue());
     oprot.writeFieldEnd();
   }
   if (struct.notificationId != null) {

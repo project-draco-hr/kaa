@@ -1,0 +1,9 @@
+{
+  byte[] endpointKeyHash=endpointProfile.getEndpointKeyHash();
+  this.endpointService.removeEndpointProfileByKeyHash(endpointKeyHash);
+  ApplicationDto appDto=getApplication(endpointProfile.getApplicationId());
+  ThriftEndpointDeregistrationMessage nf=new ThriftEndpointDeregistrationMessage();
+  nf.setAddress(new ThriftEntityAddress(appDto.getTenantId(),appDto.getApplicationToken(),ThriftClusterEntityType.ENDPOINT,ByteBuffer.wrap(endpointKeyHash)));
+  nf.setActorClassifier(ThriftActorClassifier.APPLICATION);
+  neighbors.brodcastMessage(OperationsServiceMsg.fromDeregistration(nf));
+}

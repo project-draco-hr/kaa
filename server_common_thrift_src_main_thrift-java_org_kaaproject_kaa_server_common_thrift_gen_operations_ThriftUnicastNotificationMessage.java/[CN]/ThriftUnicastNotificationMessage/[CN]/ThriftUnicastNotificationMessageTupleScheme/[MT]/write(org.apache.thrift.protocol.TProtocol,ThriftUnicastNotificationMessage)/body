@@ -15,7 +15,7 @@
     struct.address.write(oprot);
   }
   if (struct.isSetActorClassifier()) {
-    struct.actorClassifier.write(oprot);
+    oprot.writeI32(struct.actorClassifier.getValue());
   }
   if (struct.isSetNotificationId()) {
     oprot.writeString(struct.notificationId);

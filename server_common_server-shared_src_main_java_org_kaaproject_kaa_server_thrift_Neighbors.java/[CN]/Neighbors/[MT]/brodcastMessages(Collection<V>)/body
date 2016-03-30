@@ -1,0 +1,10 @@
+{
+  for (  NeighborConnection<T,V> neighbor : neigbors.values()) {
+    try {
+      neighbor.sendMessages(msgs);
+    }
+ catch (    InterruptedException e) {
+      LOG.warn("Failed to send message to {}",neighbor.getId());
+    }
+  }
+}

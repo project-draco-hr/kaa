@@ -1,6 +1,6 @@
 {
   LOG.debug("[{}][{}] Processing notification message {}",endpointKey,actorKey,message);
-  List<ChannelMetaData> channels=state.getChannelsByType(TransportType.NOTIFICATION);
+  Set<ChannelMetaData> channels=state.getChannelsByType(TransportType.NOTIFICATION);
   if (channels.isEmpty()) {
     LOG.debug("[{}][{}] No channels to process notification message",endpointKey,actorKey);
     return;

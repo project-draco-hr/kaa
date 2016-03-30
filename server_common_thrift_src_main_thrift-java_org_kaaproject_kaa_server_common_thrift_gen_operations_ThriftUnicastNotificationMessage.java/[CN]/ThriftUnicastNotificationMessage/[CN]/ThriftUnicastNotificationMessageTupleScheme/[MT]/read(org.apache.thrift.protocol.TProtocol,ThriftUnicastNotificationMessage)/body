@@ -7,8 +7,7 @@
     struct.setAddressIsSet(true);
   }
   if (incoming.get(1)) {
-    struct.actorClassifier=new ThriftActorClassifier();
-    struct.actorClassifier.read(iprot);
+    struct.actorClassifier=org.kaaproject.kaa.server.common.thrift.gen.operations.ThriftActorClassifier.findByValue(iprot.readI32());
     struct.setActorClassifierIsSet(true);
   }
   if (incoming.get(2)) {

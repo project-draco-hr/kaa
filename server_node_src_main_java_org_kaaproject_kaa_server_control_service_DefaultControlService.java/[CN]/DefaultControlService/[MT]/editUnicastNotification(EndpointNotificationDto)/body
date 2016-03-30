@@ -8,7 +8,7 @@
     ApplicationDto appDto=getApplication(updateNotification.getAppId());
     ThriftUnicastNotificationMessage nf=new ThriftUnicastNotificationMessage();
     nf.setAddress(new ThriftEntityAddress(appDto.getTenantId(),appDto.getApplicationToken(),ThriftClusterEntityType.ENDPOINT,ByteBuffer.wrap(notificationDto.getEndpointKeyHash())));
-    nf.setActorClassifier(new ThriftActorClassifier(true));
+    nf.setActorClassifier(ThriftActorClassifier.GLOBAL);
     nf.setNotificationId(notificationDto.getId());
     if (LOG.isTraceEnabled()) {
       LOG.trace("Sending message {} to [{}]",nf,Neighbors.getServerID(server.getConnectionInfo()));
