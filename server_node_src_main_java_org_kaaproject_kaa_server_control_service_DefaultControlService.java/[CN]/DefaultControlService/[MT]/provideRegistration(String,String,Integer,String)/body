@@ -1,0 +1,11 @@
+{
+  EndpointRegistrationDto endpointRegistration=new EndpointRegistrationDto(applicationId,credentialsId,null,serverProfileVersion,serverProfileBody);
+  try {
+    this.endpointRegistrationService.saveEndpointRegistration(endpointRegistration);
+  }
+ catch (  EndpointRegistrationServiceException cause) {
+    String message=MessageFormat.format("An unexpected exception occured while saving endpoint registration [{0}]",endpointRegistration);
+    LOG.error(message,cause);
+    throw new ControlServiceException(cause);
+  }
+}

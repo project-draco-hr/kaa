@@ -1,0 +1,20 @@
+{
+  this.checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    this.checkApplicationId(applicationId);
+    Validate.isTrue(this.controlService.getCredentials(applicationId,credentialsId) != null,"No credentials with the given ID found!");
+    if (serverProfileVersion != null && serverProfileBody != null) {
+      ServerProfileSchemaDto serverProfileSchema=this.getServerProfileSchema(applicationId,serverProfileVersion);
+      this.validateServerProfile(serverProfileSchema,serverProfileBody);
+    }
+ else     if (serverProfileVersion != null || serverProfileBody != null) {
+      String missingParameter=(serverProfileVersion == null ? "schema version" : "body");
+      String message=MessageFormat.format("The server-side endpoint profile {0} provided is empty!",missingParameter);
+      throw new IllegalArgumentException(message);
+    }
+    this.controlService.provideRegistration(applicationId,credentialsId,serverProfileVersion,serverProfileBody);
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+}

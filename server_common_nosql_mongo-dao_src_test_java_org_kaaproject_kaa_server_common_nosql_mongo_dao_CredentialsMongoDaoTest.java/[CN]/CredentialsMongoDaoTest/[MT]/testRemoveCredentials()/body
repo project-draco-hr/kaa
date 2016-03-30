@@ -3,6 +3,6 @@
   Assert.assertNotNull(credentials);
   Assert.assertNotNull(credentials.getId());
   this.credentialsDao.remove(APPLICATION_ID,credentials.getId());
-  Credentials removed=this.credentialsDao.find(APPLICATION_ID,credentials.getId());
-  Assert.assertNull(removed);
+  Optional<Credentials> removed=this.credentialsDao.find(APPLICATION_ID,credentials.getId());
+  Assert.assertFalse(removed.isPresent());
 }
