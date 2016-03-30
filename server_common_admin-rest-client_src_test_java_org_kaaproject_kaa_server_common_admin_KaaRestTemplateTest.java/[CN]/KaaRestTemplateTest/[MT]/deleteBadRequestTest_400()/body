@@ -1,0 +1,7 @@
+{
+  ResponseCreator response=withBadRequest();
+  this.mockServer.expect(requestTo("http://localhost:8080/kaaTest/delete")).andExpect(method(HttpMethod.DELETE)).andRespond(response);
+  String result=testMessage.getMessage(kaaRestTemplate,TestHttpMethods.DELETE);
+  this.mockServer.verify();
+  assertThat(result,allOf(containsString("FAILED"),containsString("400")));
+}

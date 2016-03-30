@@ -1,0 +1,6 @@
+{
+  mockServer.expect(requestTo("http://localhost:8080/kaaTest")).andExpect(method(HttpMethod.GET)).andRespond(withSuccess("resultSuccess",MediaType.TEXT_PLAIN));
+  String result=testMessage.getMessage(kaaRestTemplate,TestHttpMethods.GET);
+  mockServer.verify();
+  assertThat(result,allOf(containsString("SUCCESS"),containsString("resultSuccess")));
+}

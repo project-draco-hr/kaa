@@ -17,6 +17,12 @@
   expiredAt.setWidth("200px");
   detailsTable.setWidget(row,0,label);
   detailsTable.setWidget(row,1,expiredAt);
+  row++;
+  label=new Label(Utils.constants.endpointKeyHash());
+  endpointKeyHashTextBox=new TextBox();
+  endpointKeyHashTextBox.setWidth("200px");
+  detailsTable.setWidget(row,0,label);
+  detailsTable.setWidget(row,1,endpointKeyHashTextBox);
   getFooter().addStyleName(Utils.kaaAdminStyle.bAppContentDetailsTable());
   notificationData=new RecordPanel(new AvroWidgetsConfig.Builder().recordPanelWidth(900).gridHeight(250).tableHeight(230).createConfig(),Utils.constants.notificationBody(),this,false,false);
   notificationData.addValueChangeHandler(this);

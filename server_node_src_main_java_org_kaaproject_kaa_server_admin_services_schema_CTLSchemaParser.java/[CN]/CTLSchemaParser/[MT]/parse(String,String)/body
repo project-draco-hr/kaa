@@ -3,40 +3,40 @@
   CTLSchemaMetaInfoDto metaInfo=new CTLSchemaMetaInfoDto();
   String fqn=null;
   ObjectNode object=new ObjectMapper().readValue(body,ObjectNode.class);
-  if (!object.has("type") || !object.get("type").isTextual() || !object.get("type").getTextValue().equals("record")) {
+  if (!object.has(TYPE) || !object.get(TYPE).isTextual() || !object.get(TYPE).getTextValue().equals("record")) {
     throw new IllegalArgumentException("The data provided is not a record!");
   }
-  if (!object.has("namespace") || !object.get("namespace").isTextual()) {
+  if (!object.has(NAMESPACE) || !object.get(NAMESPACE).isTextual()) {
     throw new IllegalArgumentException("No namespace specified!");
   }
- else   if (!object.has("name") || !object.get("name").isTextual()) {
+ else   if (!object.has(NAME) || !object.get(NAME).isTextual()) {
     throw new IllegalArgumentException("No name specified!");
   }
  else {
-    fqn=object.get("namespace").getTextValue() + "." + object.get("name").getTextValue();
+    fqn=object.get(NAMESPACE).getTextValue() + "." + object.get(NAME).getTextValue();
   }
   metaInfo=new CTLSchemaMetaInfoDto(fqn,tenantId,applicationId);
   schema.setMetaInfo(metaInfo);
-  if (!object.has("version") || !object.get("version").isInt()) {
-    object.put("version",1);
+  if (!object.has(VERSION) || !object.get(VERSION).isInt()) {
+    object.put(VERSION,1);
   }
-  schema.setVersion(object.get("version").asInt());
+  schema.setVersion(object.get(VERSION).asInt());
   Set<CTLSchemaDto> dependencies=new HashSet<>();
   List<FqnVersion> missingDependencies=new ArrayList<>();
-  if (!object.has("dependencies")) {
+  if (!object.has(DEPENDENCIES)) {
     schema.setDependencySet(dependencies);
   }
- else   if (!object.get("dependencies").isArray()) {
+ else   if (!object.get(DEPENDENCIES).isArray()) {
     throw new IllegalArgumentException("Illegal dependencies format!");
   }
  else {
-    for (    JsonNode child : object.get("dependencies")) {
-      if (!child.isObject() || !child.has("fqn") || !child.get("fqn").isTextual()|| !child.has("version")|| !child.get("version").isInt()) {
+    for (    JsonNode child : object.get(DEPENDENCIES)) {
+      if (!child.isObject() || !child.has(FQN) || !child.get(FQN).isTextual()|| !child.has(VERSION)|| !child.get(VERSION).isInt()) {
         throw new IllegalArgumentException("Illegal dependency format!");
       }
  else {
-        String dependencyFqn=child.get("fqn").asText();
-        int dependencyVersion=child.get("version").asInt();
+        String dependencyFqn=child.get(FQN).asText();
+        int dependencyVersion=child.get(VERSION).asInt();
         CTLSchemaDto dependency=controlService.getAnyCTLSchemaByFqnVersionTenantIdAndApplicationId(dependencyFqn,dependencyVersion,tenantId,applicationId);
         if (dependency != null) {
           dependencies.add(dependency);

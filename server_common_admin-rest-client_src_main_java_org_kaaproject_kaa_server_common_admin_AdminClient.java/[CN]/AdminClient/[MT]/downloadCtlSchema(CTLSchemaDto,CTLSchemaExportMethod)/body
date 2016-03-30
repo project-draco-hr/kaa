@@ -8,5 +8,5 @@
   }
   parameters.add("method",method.name());
   RequestCallback request=new DataRequestCallback<>(parameters);
-  return restTemplate.execute(url + "CTL/exportSchema",HttpMethod.POST,request,extractor);
+  return restTemplate.execute(restTemplate.getUrl() + "CTL/exportSchema",HttpMethod.POST,request,extractor);
 }

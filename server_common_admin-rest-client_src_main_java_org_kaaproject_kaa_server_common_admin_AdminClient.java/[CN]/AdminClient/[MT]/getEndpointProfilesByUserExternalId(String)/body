@@ -1,5 +1,5 @@
 {
-  String address=this.url + "endpointProfiles?userExternalId=" + endpointUserExternalId;
+  String address=restTemplate.getUrl() + "endpointProfiles?userExternalId=" + endpointUserExternalId;
   ParameterizedTypeReference<List<EndpointProfileDto>> typeRef=new ParameterizedTypeReference<List<EndpointProfileDto>>(){
   }
 ;

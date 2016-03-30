@@ -1,0 +1,40 @@
+{
+  int maxRetry=hosts.length;
+  while (true) {
+    try {
+      return super.doExecute(url,method,requestCallback,responseExtractor);
+    }
+ catch (    ResourceAccessException ex) {
+      logger.info("Connect to ({}:{}) failed",getCurHost(),getCurPort(),ex);
+      boolean isRequestFactorySet=false;
+      while (!isRequestFactorySet) {
+        if (index < hosts.length - 1) {
+          index++;
+        }
+ else {
+          index=0;
+        }
+        logger.info("Trying connect to ({}:{})",getCurHost(),getCurPort(),ex);
+        if (maxRetry <= 0) {
+          logger.error("Failed to connect to ({}:{})",getCurHost(),getCurPort(),ex);
+          throw new ResourceAccessException("I/O error on " + method.name() + " request for \""+ url+ "\":"+ ex.getMessage(),new IOException(ex));
+        }
+ else {
+          maxRetry--;
+        }
+        try {
+          setNewRequestFactory(index);
+        }
+ catch (        Exception e) {
+          logger.info("Failed to initialize new request factory ({}:{})",getCurHost(),getCurPort(),e);
+          continue;
+        }
+        url=updateURL(url);
+        isRequestFactorySet=true;
+      }
+    }
+catch (    RestClientException e) {
+      throw e;
+    }
+  }
+}

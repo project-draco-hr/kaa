@@ -18,7 +18,11 @@
         try {
           ft.run();
         }
-  finally {
+ catch (        Throwable e) {
+          LOG.error("Exception catched: ",e);
+          throw e;
+        }
+ finally {
           cache.remove(key,ft);
         }
       }
@@ -31,6 +35,7 @@
       cache.remove(key,f);
     }
 catch (    ExecutionException|InterruptedException e) {
+      LOG.error("Exception catched: ",e);
       throw launderThrowable(e);
     }
   }
