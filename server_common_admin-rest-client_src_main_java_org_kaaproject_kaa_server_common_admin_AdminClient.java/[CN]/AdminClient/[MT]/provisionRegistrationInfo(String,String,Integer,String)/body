@@ -1,8 +1,0 @@
-{
-  MultiValueMap<String,Object> parameters=new LinkedMultiValueMap<>();
-  parameters.add("applicationId",applicationId);
-  parameters.add("credentialsId",credentialsId);
-  parameters.add("serverSideEPProfileVersion",serverSideEPProfileVersion);
-  parameters.add("serverSideEPProfileBody",serverSideEPProfileBody);
-  this.restTemplate.postForLocation(restTemplate.getUrl() + "provisionRegistrationInfo",parameters);
-}
