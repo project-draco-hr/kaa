@@ -1,0 +1,8 @@
+{
+  CredentialsDto credentials=this.generateCredentials(CREDENTIALS_APPLICATION_ID,CREDENTIALS_ID,CREDENTIALS_BODY,AVAILABLE);
+  Assert.assertNotNull(credentials);
+  Assert.assertNotNull(credentials.getId());
+  Optional<CassandraCredentials> updated=this.credentialsDao.updateStatus(CREDENTIALS_APPLICATION_ID,CREDENTIALS_ID,REVOKED);
+  Assert.assertTrue(updated.isPresent());
+  Assert.assertEquals(REVOKED,updated.get().getStatus());
+}
