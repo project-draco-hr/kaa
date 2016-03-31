@@ -1,3 +1,4 @@
 {
-  this.cassandraCredentialsBody=cassandraCredentialsBody.duplicate();
+  byte[] buffer=cassandraCredentialsBody.array();
+  this.cassandraCredentialsBody=ByteBuffer.wrap(Arrays.copyOf(buffer,buffer.length));
 }

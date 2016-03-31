@@ -2,6 +2,6 @@
   CredentialsDto credentialsDto=new CredentialsDto();
   credentialsDto.setId(id);
   credentialsDto.setCredentialsBody(getBytes(cassandraCredentialsBody));
-  credentialsDto.setStatus(CredentialsStatus.valueOf(credentialStatus));
+  credentialsDto.setStatus(CredentialsStatus.valueOf(cassandraCredentialsStatus));
   return credentialsDto;
 }
