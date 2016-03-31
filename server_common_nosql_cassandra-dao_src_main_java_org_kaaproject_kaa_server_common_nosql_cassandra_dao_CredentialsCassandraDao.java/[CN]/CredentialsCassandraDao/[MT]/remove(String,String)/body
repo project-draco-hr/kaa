@@ -1,0 +1,5 @@
+{
+  LOG.debug("Deleting credential by applicationID[{}] and credentialsID[{}]",applicationId,credentialsId);
+  Delete.Where query=delete().from(getColumnFamilyName()).where(eq(CREDENTIALS_ID_PROPERTY,credentialsId)).and(eq(CREDENTIALS_APPLICATION_ID_PROPERTY,applicationId));
+  execute(query);
+}

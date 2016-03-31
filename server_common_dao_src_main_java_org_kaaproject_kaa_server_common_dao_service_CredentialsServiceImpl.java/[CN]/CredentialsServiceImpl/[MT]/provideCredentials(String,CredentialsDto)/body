@@ -1,0 +1,12 @@
+{
+  Validate.notBlank(applicationId,"Invalid application ID provided!");
+  Validate.notNull(credentials,"Invalid credentials provided!");
+  try {
+    return this.credentialsDao.save(applicationId,credentials).toDto();
+  }
+ catch (  Exception cause) {
+    String message=MessageFormat.format("[{0}] An unexpected exception occured while saving credentials!",applicationId);
+    LOG.error(message,cause);
+    throw new CredentialsServiceException(cause);
+  }
+}

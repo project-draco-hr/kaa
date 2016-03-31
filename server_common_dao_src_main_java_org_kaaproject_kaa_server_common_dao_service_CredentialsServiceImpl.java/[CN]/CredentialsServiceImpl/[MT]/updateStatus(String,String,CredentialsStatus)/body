@@ -1,0 +1,12 @@
+{
+  Validate.notBlank(applicationId,"Invalid application ID provided!");
+  Validate.notBlank(credentialsId,"Invalid credentials ID provided!");
+  try {
+    this.credentialsDao.updateStatus(applicationId,credentialsId,status);
+  }
+ catch (  Exception cause) {
+    String message=MessageFormat.format("[{0}] An unexpected exception occured while updating credentials [{1}]",applicationId,credentialsId);
+    LOG.error(message,cause);
+    throw new CredentialsServiceException(cause);
+  }
+}

@@ -1,0 +1,10 @@
+{
+  this.checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    Validate.isTrue(this.controlService.getCredentials(applicationId,credentialsId) != null,"No credentials with the given ID found!");
+    this.controlService.revokeCredentials(applicationId,credentialsId);
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+}
