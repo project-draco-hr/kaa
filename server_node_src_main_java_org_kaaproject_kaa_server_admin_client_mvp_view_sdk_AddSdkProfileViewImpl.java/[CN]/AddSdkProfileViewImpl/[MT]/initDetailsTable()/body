@@ -9,17 +9,6 @@
   detailsTable.setWidget(row,0,label);
   detailsTable.setWidget(row,1,name);
   row++;
-  label=new Label(Utils.constants.verifyEndpointCredentials());
-  verifyEndpointCredentialsFlag=new CheckBox();
-  verifyEndpointCredentialsFlag.addValueChangeHandler(new ValueChangeHandler<Boolean>(){
-    @Override public void onValueChange(    ValueChangeEvent<Boolean> event){
-      fireChanged();
-    }
-  }
-);
-  detailsTable.setWidget(row,0,label);
-  detailsTable.setWidget(row,1,verifyEndpointCredentialsFlag);
-  row++;
   label=new Label(Utils.constants.configurationSchemaVersion());
   label.addStyleName(REQUIRED);
   configurationSchemaVersion=new VersionListBox();
