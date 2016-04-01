@@ -1,0 +1,6 @@
+{
+  KaaChannelManager channelManager=Mockito.mock(KaaChannelManager.class);
+  ExecutorContext context=Mockito.mock(ExecutorContext.class);
+  failoverStrategy=Mockito.spy(new DefaultFailoverStrategy(1,1,1,TimeUnit.MILLISECONDS));
+  failoverManager=new DefaultFailoverManager(channelManager,context,failoverStrategy,1,TimeUnit.MILLISECONDS);
+}
