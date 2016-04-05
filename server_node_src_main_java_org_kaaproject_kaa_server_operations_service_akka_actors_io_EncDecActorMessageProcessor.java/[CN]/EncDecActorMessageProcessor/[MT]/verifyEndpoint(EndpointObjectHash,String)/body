@@ -1,0 +1,56 @@
+{
+  String credentialsId=Base64Util.encode(key.getData());
+  String endpointId=credentialsId;
+  try {
+    Optional<EndpointRegistrationDto> registrationLookupResult=registrationService.findEndpointRegistrationByCredentialsId(credentialsId);
+    if (!registrationLookupResult.isPresent()) {
+      String appId=cacheService.getApplicationIdByAppToken(appToken);
+      CredentialsService credentialsService=credentialsServiceLocator.getCredentialsService(appId);
+      Optional<CredentialsDto> credentailsLookupResult=credentialsService.lookupCredentials(credentialsId);
+      if (!credentailsLookupResult.isPresent()) {
+        LOG.info("[{}] Credentials with id: [{}] not found!",appToken,credentialsId);
+        throw new EndpointVerificationException("Credentials not found!");
+      }
+      CredentialsDto credentials=credentailsLookupResult.get();
+      if (credentials.getStatus() == CredentialsStatus.REVOKED) {
+        LOG.info("[{}] Credentials with id: [{}] was already revoked!",appToken,credentialsId);
+        throw new EndpointVerificationException("Credentials was revoked!");
+      }
+ else       if (credentials.getStatus() == CredentialsStatus.IN_USE) {
+        LOG.info("[{}] Credentials with id: [{}] are already in use!",appToken,credentialsId);
+        throw new EndpointVerificationException("Credentials are already in use!");
+      }
+ else {
+        credentialsService.markCredentialsInUse(credentialsId);
+        EndpointRegistrationDto endpointRegistration=new EndpointRegistrationDto();
+        endpointRegistration.setApplicationId(appId);
+        endpointRegistration.setCredentialsId(credentialsId);
+        endpointRegistration.setEndpointId(endpointId);
+        registrationService.saveEndpointRegistration(endpointRegistration);
+      }
+    }
+ else {
+      EndpointRegistrationDto endpointRegistration=registrationLookupResult.get();
+      if (endpointRegistration.getEndpointId() == null) {
+        String appId=cacheService.getApplicationIdByAppToken(appToken);
+        CredentialsService credentialsService=credentialsServiceLocator.getCredentialsService(appId);
+        credentialsService.markCredentialsInUse(credentialsId);
+        endpointRegistration.setEndpointId(endpointId);
+        registrationService.saveEndpointRegistration(endpointRegistration);
+      }
+ else       if (!endpointId.equals(endpointRegistration.getEndpointId())) {
+        LOG.info("[{}] Credentials with id: [{}] are already in use!",appToken,credentialsId);
+        throw new EndpointVerificationException("Credentials are already in use!");
+      }
+    }
+    LOG.debug("[{}] Succesfully validated endpoint information: [{}]",appToken,credentialsId);
+  }
+ catch (  CredentialsServiceException e) {
+    LOG.info("[{}] Failed to lookup credentials info with id: [{}]",appToken,credentialsId,e);
+    throw new EndpointVerificationException(e);
+  }
+catch (  EndpointRegistrationServiceException e) {
+    LOG.info("[{}] Failed to lookup registration info with id: [{}]",appToken,credentialsId,e);
+    throw new RuntimeException(e);
+  }
+}

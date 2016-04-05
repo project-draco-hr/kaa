@@ -2,6 +2,8 @@
   super();
   this.opsActor=epsActor;
   this.cacheService=context.getCacheService();
+  this.credentialsServiceLocator=context.getCredentialsServiceLocator();
+  this.registrationService=context.getRegistrationService();
   this.supportUnencryptedConnection=context.getSupportUnencryptedConnection();
   this.crypt=new MessageEncoderDecoder(context.getKeyStoreService().getPrivateKey(),context.getKeyStoreService().getPublicKey());
   this.platformEncDecMap=PlatformLookup.initPlatformProtocolMap(platformProtocols);
