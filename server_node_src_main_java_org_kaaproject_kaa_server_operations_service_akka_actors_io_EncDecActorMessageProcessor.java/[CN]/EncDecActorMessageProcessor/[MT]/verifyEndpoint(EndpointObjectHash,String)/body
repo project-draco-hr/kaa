@@ -9,16 +9,16 @@
       Optional<CredentialsDto> credentailsLookupResult=credentialsService.lookupCredentials(credentialsId);
       if (!credentailsLookupResult.isPresent()) {
         LOG.info("[{}] Credentials with id: [{}] not found!",appToken,credentialsId);
-        throw new EndpointVerificationException("Credentials not found!");
+        throw new EndpointVerificationException(EndpointVerificationError.NOT_FOUND,"Credentials not found!");
       }
       CredentialsDto credentials=credentailsLookupResult.get();
       if (credentials.getStatus() == CredentialsStatus.REVOKED) {
         LOG.info("[{}] Credentials with id: [{}] was already revoked!",appToken,credentialsId);
-        throw new EndpointVerificationException("Credentials was revoked!");
+        throw new EndpointVerificationException(EndpointVerificationError.REVOKED,"Credentials was revoked!");
       }
  else       if (credentials.getStatus() == CredentialsStatus.IN_USE) {
         LOG.info("[{}] Credentials with id: [{}] are already in use!",appToken,credentialsId);
-        throw new EndpointVerificationException("Credentials are already in use!");
+        throw new EndpointVerificationException(EndpointVerificationError.IN_USE,"Credentials are already in use!");
       }
  else {
         credentialsService.markCredentialsInUse(credentialsId);
@@ -40,14 +40,14 @@
       }
  else       if (!endpointId.equals(endpointRegistration.getEndpointId())) {
         LOG.info("[{}] Credentials with id: [{}] are already in use!",appToken,credentialsId);
-        throw new EndpointVerificationException("Credentials are already in use!");
+        throw new EndpointVerificationException(EndpointVerificationError.IN_USE,"Credentials are already in use!");
       }
     }
     LOG.debug("[{}] Succesfully validated endpoint information: [{}]",appToken,credentialsId);
   }
  catch (  CredentialsServiceException e) {
     LOG.info("[{}] Failed to lookup credentials info with id: [{}]",appToken,credentialsId,e);
-    throw new EndpointVerificationException(e);
+    throw new RuntimeException(e);
   }
 catch (  EndpointRegistrationServiceException e) {
     LOG.info("[{}] Failed to lookup registration info with id: [{}]",appToken,credentialsId,e);
