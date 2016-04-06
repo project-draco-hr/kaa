@@ -1,0 +1,9 @@
+{
+  this.checkAuthority(KaaAuthorityDto.values());
+  try {
+    return this.controlService.getCredentialsServiceNames();
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+}
