@@ -1,0 +1,8 @@
+{
+  FailoverStatus incomingStatus=FailoverStatus.BOOTSTRAP_SERVERS_NA;
+  Assert.assertNotNull(failoverManager.onFailover(incomingStatus));
+  Mockito.verify(failoverStrategy,Mockito.times(1)).onFailover(incomingStatus);
+  TransportConnectionInfo connectionInfo=Mockito.mock(TransportConnectionInfo.class);
+  failoverManager.onServerConnected(connectionInfo);
+  Mockito.verify(failoverStrategy,Mockito.times(1)).onRecover(connectionInfo);
+}

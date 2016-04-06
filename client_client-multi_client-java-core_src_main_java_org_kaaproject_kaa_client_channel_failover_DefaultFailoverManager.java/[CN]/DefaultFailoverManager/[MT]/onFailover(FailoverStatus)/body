@@ -1,0 +1,24 @@
+{
+  AccessPointIdResolution accessPointIdResolution=null;
+  long resolutionTime=System.currentTimeMillis();
+switch (failoverStatus) {
+case ENDPOINT_VERIFICATION_FAILED:
+    return new FailoverDecision(FailoverAction.STOP_APP);
+case BOOTSTRAP_SERVERS_NA:
+case CURRENT_BOOTSTRAP_SERVER_NA:
+  accessPointIdResolution=resolutionProgressMap.get(ServerType.BOOTSTRAP);
+resolutionTime+=failoverStrategy.getTimeUnit().toMillis(failoverStrategy.getBootstrapServersRetryPeriod());
+break;
+case NO_OPERATION_SERVERS_RECEIVED:
+accessPointIdResolution=resolutionProgressMap.get(ServerType.BOOTSTRAP);
+break;
+case OPERATION_SERVERS_NA:
+accessPointIdResolution=resolutionProgressMap.get(ServerType.OPERATIONS);
+resolutionTime+=failoverStrategy.getTimeUnit().toMillis(failoverStrategy.getOperationServersRetryPeriod());
+break;
+}
+if (accessPointIdResolution != null) {
+accessPointIdResolution.setResolutionTime(resolutionTime);
+}
+return failoverStrategy.onFailover(failoverStatus);
+}
