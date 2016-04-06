@@ -1,8 +1,14 @@
 {
   String serviceName=this.applicationService.findAppById(applicationId).getCredentialsServiceName();
   if (StringUtils.isBlank(serviceName)) {
-    serviceName=StringUtils.uncapitalize(TrustfulCredentialsService.class.getSimpleName());
     LOG.debug("No credentials service configured for application [{}], using [{}]",applicationId,serviceName);
+    serviceName=DEFAULT_CREDENTIALS_SERVICE_NAME;
   }
-  return new CredentialsServiceAdapter(applicationId,this.applicationContext.getBean(serviceName,org.kaaproject.kaa.server.common.dao.CredentialsService.class));
+  CredentialsServiceLocator locator=credentialsServiceLocatorMap.get(serviceName);
+  if (locator == null) {
+    throw new IllegalStateException("Can't find credentials service factory for name: " + serviceName);
+  }
+ else {
+    return locator.getCredentialsService(applicationId);
+  }
 }

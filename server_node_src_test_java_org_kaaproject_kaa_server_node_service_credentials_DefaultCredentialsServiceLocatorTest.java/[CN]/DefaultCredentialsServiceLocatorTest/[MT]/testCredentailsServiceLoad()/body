@@ -1,0 +1,6 @@
+{
+  List<String> serviceNames=credentialsServiceLocator.getCredentialsServiceNames();
+  Assert.assertEquals(2,serviceNames.size());
+  Assert.assertEquals("Internal",serviceNames.get(0));
+  Assert.assertEquals("Trustful",serviceNames.get(1));
+}
