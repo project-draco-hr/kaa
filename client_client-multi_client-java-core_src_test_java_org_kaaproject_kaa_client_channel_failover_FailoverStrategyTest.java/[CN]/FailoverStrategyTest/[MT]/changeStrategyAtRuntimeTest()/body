@@ -1,0 +1,24 @@
+{
+  KaaClient kaaClient=Mockito.mock(KaaClient.class);
+  Mockito.doAnswer(new Answer<Void>(){
+    @Override public Void answer(    InvocationOnMock invocationOnMock) throws Throwable {
+      FailoverStrategy strategy=(FailoverStrategy)invocationOnMock.getArguments()[0];
+      failoverManager.setFailoverStrategy(strategy);
+      return null;
+    }
+  }
+).when(kaaClient).setFailoverStrategy(Mockito.any(FailoverStrategy.class));
+  FailoverStatus singleFailoverStatus=FailoverStatus.OPERATION_SERVERS_NA;
+  FailoverDecision primaryFailoverDecision=failoverManager.onFailover(singleFailoverStatus);
+  kaaClient.setFailoverStrategy(new DefaultFailoverStrategy(){
+    @Override public FailoverDecision onFailover(    FailoverStatus failoverStatus){
+      if (failoverStatus == FailoverStatus.OPERATION_SERVERS_NA) {
+        return new FailoverDecision(FailoverAction.USE_NEXT_BOOTSTRAP);
+      }
+      return null;
+    }
+  }
+);
+  FailoverDecision secondaryFailoverDecision=failoverManager.onFailover(singleFailoverStatus);
+  Assert.assertNotEquals(primaryFailoverDecision.getAction(),secondaryFailoverDecision.getAction());
+}
