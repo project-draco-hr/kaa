@@ -4,7 +4,7 @@
   boolean exception=false;
   try {
     manager.receiveOperationsServerList();
-    manager.useNextOperationsServer(TransportProtocolIdConstants.HTTP_TRANSPORT_ID);
+    manager.useNextOperationsServer(TransportProtocolIdConstants.HTTP_TRANSPORT_ID,FailoverStatus.NO_CONNECTIVITY);
   }
  catch (  BootstrapRuntimeException e) {
     exception=true;

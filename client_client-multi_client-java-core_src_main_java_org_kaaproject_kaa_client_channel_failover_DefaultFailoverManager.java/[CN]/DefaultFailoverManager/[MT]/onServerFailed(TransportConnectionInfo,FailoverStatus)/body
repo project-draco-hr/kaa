@@ -29,7 +29,7 @@
     }
   }
 ,failureResolutionTimeout,timeUnit);
-  channelManager.onServerFailed(connectionInfo);
+  channelManager.onServerFailed(connectionInfo,status);
   long updatedResolutionTime=currentAccessPointIdResolution != null ? currentAccessPointIdResolution.getResolutionTime() : currentResolutionTime;
   AccessPointIdResolution newAccessPointIdResolution=new AccessPointIdResolution(connectionInfo.getAccessPointId(),currentResolution);
   if (updatedResolutionTime != currentResolutionTime) {

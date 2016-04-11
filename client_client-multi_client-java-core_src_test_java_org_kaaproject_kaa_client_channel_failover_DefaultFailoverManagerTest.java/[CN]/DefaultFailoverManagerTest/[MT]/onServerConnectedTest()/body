@@ -2,7 +2,7 @@
   TransportConnectionInfo transportConnectionInfo=mockForTransportConnectionInfo(1);
   failoverManager.onServerConnected(transportConnectionInfo);
   failoverManager.onServerChanged(transportConnectionInfo);
-  failoverManager.onServerFailed(transportConnectionInfo);
+  failoverManager.onServerFailed(transportConnectionInfo,FailoverStatus.NO_CONNECTIVITY);
   DefaultFailoverManager.AccessPointIdResolution accessPointIdResolutionSpy=spyForResolutionMap(transportConnectionInfo);
   failoverManager.onServerConnected(transportConnectionInfo);
   Mockito.verify(accessPointIdResolutionSpy,Mockito.times(1)).setCurResolution(Mockito.any(Future.class));
