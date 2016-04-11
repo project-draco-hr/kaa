@@ -1,8 +1,8 @@
 {
   String serviceName=this.applicationService.findAppById(applicationId).getCredentialsServiceName();
   if (StringUtils.isBlank(serviceName)) {
-    LOG.debug("No credentials service configured for application [{}], using [{}]",applicationId,serviceName);
     serviceName=DEFAULT_CREDENTIALS_SERVICE_NAME;
+    LOG.debug("No credentials service configured for application [{}], using [{}]",applicationId,serviceName);
   }
   CredentialsServiceLocator locator=credentialsServiceLocatorMap.get(serviceName);
   if (locator == null) {
