@@ -7,7 +7,8 @@
       ObjectNode dependency=(ObjectNode)node;
       String fqn=dependency.get(FQN).getTextValue();
       Integer version=dependency.get(VERSION).getIntValue();
-      CTLSchemaDto child=this.findCTLSchemaByFqnAndVerAndTenantIdAndApplicationId(fqn,version,parent.getMetaInfo().getTenantId(),parent.getMetaInfo().getApplicationId());
+      CTLSchemaDto child=this.findAnyCTLSchemaByFqnAndVerAndTenantIdAndApplicationId(fqn,version,parent.getMetaInfo().getTenantId(),parent.getMetaInfo().getApplicationId());
+      Validate.notNull(child,MessageFormat.format("The dependency [{0}] was not found!",fqn));
       this.recursiveShallowExport(files,child);
     }
   }
