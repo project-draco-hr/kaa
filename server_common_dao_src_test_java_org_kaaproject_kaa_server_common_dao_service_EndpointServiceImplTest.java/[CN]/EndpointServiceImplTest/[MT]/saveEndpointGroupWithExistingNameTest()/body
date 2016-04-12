@@ -1,0 +1,9 @@
+{
+  ApplicationDto app=generateApplicationDto();
+  List<EndpointGroupDto> groups=endpointService.findEndpointGroupsByAppId(app.getId());
+  Assert.assertFalse(groups.isEmpty());
+  EndpointGroupDto group=groups.get(0);
+  group.setId(null);
+  group.setWeight(group.getWeight() + 1);
+  endpointService.saveEndpointGroup(group);
+}

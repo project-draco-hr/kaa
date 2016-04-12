@@ -1,0 +1,14 @@
+{
+  EndpointGroup group=null;
+  LOG.debug("Searching endpoint group by application id [{}] and name [{}]",applicationId,name);
+  if (isNotBlank(applicationId)) {
+    group=findOneByCriterionWithAlias(APPLICATION_PROPERTY,APPLICATION_ALIAS,Restrictions.and(Restrictions.eq(APPLICATION_REFERENCE,Long.valueOf(applicationId)),Restrictions.eq(NAME_PROPERTY,name)));
+  }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{},{}] Search result: {}.",applicationId,name,group);
+  }
+ else {
+    LOG.debug("[{},{}] Search result: {}.",applicationId,name,group != null);
+  }
+  return group;
+}
