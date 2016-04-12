@@ -1,0 +1,22 @@
+{
+  LOG.trace("Server {} has connected",connectionInfo);
+  if (connectionInfo == null) {
+    LOG.warn("Server connection info is null, can't resolve");
+    return;
+  }
+  failoverStrategy.onRecover(connectionInfo);
+  AccessPointIdResolution accessPointIdResolution=resolutionProgressMap.get(connectionInfo.getServerType());
+  if (accessPointIdResolution == null) {
+    LOG.trace("Server hasn't been set yet (failover resolution has happened), so a new server: {} can't be connected",connectionInfo);
+  }
+ else   if (accessPointIdResolution.getCurResolution() != null && connectionInfo.getAccessPointId() == accessPointIdResolution.getAccessPointId()) {
+    LOG.trace("Cancelling fail resolution: {}",accessPointIdResolution);
+    cancelCurrentFailResolution(accessPointIdResolution);
+  }
+ else   if (accessPointIdResolution.getCurResolution() != null) {
+    LOG.debug("Connection for outdated accessPointId: {} was received, ignoring. The new accessPointId is: {}",connectionInfo.getAccessPointId(),accessPointIdResolution.getAccessPointId());
+  }
+ else {
+    LOG.trace("There is no current resolution in progress, connected to the same server: {}",connectionInfo);
+  }
+}
