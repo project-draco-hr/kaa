@@ -3,7 +3,7 @@
   Validate.notNull(credentials,"Invalid credentials provided!");
   try {
     byte[] credentialsBody=credentials.getCredentialsBody();
-    credentials.setId(Base64Utils.encodeToUrlSafeString(SHA1HashUtils.hashToBytes(credentialsBody)));
+    credentials.setId(Base64Utils.encodeToString(SHA1HashUtils.hashToBytes(credentialsBody)));
     return this.credentialsDao.save(applicationId,credentials).toDto();
   }
  catch (  Exception cause) {
