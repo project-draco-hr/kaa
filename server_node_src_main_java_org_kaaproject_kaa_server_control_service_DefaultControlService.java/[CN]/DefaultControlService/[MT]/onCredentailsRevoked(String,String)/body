@@ -6,6 +6,7 @@
       EndpointRegistrationDto endpointRegistration=endpointRegistrationOptional.get();
       LOG.debug("[{}] Found endpoint registration information [{}]",applicationId,endpointRegistration);
       if (endpointRegistration.getEndpointId() != null) {
+        checkNeighbors();
         ApplicationDto appDto=getApplication(endpointRegistration.getApplicationId());
         ThriftEndpointDeregistrationMessage nf=new ThriftEndpointDeregistrationMessage();
         nf.setAddress(new ThriftEntityAddress(appDto.getTenantId(),appDto.getApplicationToken(),ThriftClusterEntityType.ENDPOINT,ByteBuffer.wrap(Base64Util.decode(endpointRegistration.getEndpointId()))));
