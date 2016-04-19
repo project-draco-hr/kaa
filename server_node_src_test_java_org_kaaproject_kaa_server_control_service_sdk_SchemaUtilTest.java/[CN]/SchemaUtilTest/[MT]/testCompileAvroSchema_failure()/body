@@ -1,0 +1,5 @@
+{
+  URL resource=this.getClass().getClassLoader().getResource(INVALID_SCHEMA_RESOURCE);
+  String avroSchemaBody=IOUtils.toString(resource);
+  this.compile(avroSchemaBody);
+}

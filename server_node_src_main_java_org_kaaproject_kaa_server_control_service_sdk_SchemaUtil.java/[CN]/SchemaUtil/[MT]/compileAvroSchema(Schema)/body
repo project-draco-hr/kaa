@@ -1,0 +1,15 @@
+{
+  try {
+    LOG.debug("Compiling {}",avroSchema);
+    Map<String,Schema> uniqueSchemas=SchemaUtil.getUniqueSchemasMap(Collections.singletonList(avroSchema));
+    List<JavaDynamicBean> javaSources=JavaSdkGenerator.generateSchemaSources(avroSchema,uniqueSchemas);
+    JavaDynamicCompiler compiler=new JavaDynamicCompiler();
+    compiler.init();
+    return compiler.compile(javaSources);
+  }
+ catch (  Exception cause) {
+    LOG.error("Failed to compile {}",avroSchema,cause);
+    String userMessage="Failed to compile the schema: " + cause.getMessage();
+    throw new IllegalArgumentException(userMessage,cause);
+  }
+}
