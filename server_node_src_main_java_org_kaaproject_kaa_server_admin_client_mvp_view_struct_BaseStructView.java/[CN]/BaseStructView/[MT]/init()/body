@@ -93,13 +93,22 @@
   saveButton=new Button(Utils.constants.save());
   activateButton=new Button(Utils.constants.activate());
   deactivateButton=new Button(Utils.constants.deactivate());
+  downloadConfigurationButton=new Button(Utils.constants.downloadConfiguration());
   buttonsPanel.add(saveButton);
   buttonsPanel.add(activateButton);
   buttonsPanel.add(deactivateButton);
+  buttonsPanel.add(downloadConfigurationButton);
   description.setFocus(true);
   saveButton.addClickHandler(new ClickHandler(){
     @Override public void onClick(    ClickEvent event){
       updateSaveButton(false,false);
+    }
+  }
+);
+  downloadConfigurationButton.addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent clickEvent){
+      String url=Window.Location.getHref();
+      Window.open("/kaaAdmin/servlet/kaaConfigurationDownloadServlet?schemaId=" + Utils.getSchemaIdFromUrl(url) + "&endGroupId="+ Utils.getEndpointGroupIdFromUrl(url),"_blank","status=0,toolbar=0,menubar=0,location=0");
     }
   }
 );
