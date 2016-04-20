@@ -1,5 +1,5 @@
 {
-  String serviceName=this.applicationService.findAppById(applicationId).getCredentialsServiceName();
+  String serviceName=this.cacheService.findAppById(applicationId).getCredentialsServiceName();
   if (StringUtils.isBlank(serviceName)) {
     serviceName=DEFAULT_CREDENTIALS_SERVICE_NAME;
     LOG.debug("No credentials service configured for application [{}], using [{}]",applicationId,serviceName);
