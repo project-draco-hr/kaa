@@ -1,4 +1,5 @@
 {
+  SchemaUtil.compileAvroSchema(schema);
   if (schema.getType() != Schema.Type.RECORD) {
     throw new KaaAdminServiceException("Schema " + schema.getFullName() + " is not a record schema!",ServiceErrorCode.INVALID_SCHEMA);
   }

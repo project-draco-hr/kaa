@@ -1,0 +1,5 @@
+{
+  EndpointGroup endpointGroup=generateEndpointGroup(null,null);
+  EndpointGroup group=endpointGroupDao.findByAppIdAndName(endpointGroup.getApplicationId(),endpointGroup.getName());
+  Assert.assertEquals(endpointGroup,group);
+}

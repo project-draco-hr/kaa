@@ -1,0 +1,11 @@
+{
+  String schemaId=URLDecoder.decode(req.getParameter(CONFIGURATION_SCHEMA_ID),"UTF-8");
+  String endpointGroupId=URLDecoder.decode(req.getParameter(ENDPOINT_GROUP_ID),"UTF-8");
+  ConfigurationRecordDto dto=configurationService.findConfigurationRecordBySchemaIdAndEndpointGroupId(schemaId,endpointGroupId);
+  String body=dto.getActiveStructureDto().getBody();
+  resp.setContentType("application/octet-stream");
+  resp.setHeader("Content-Disposition:","attachment;filename=configurationSchema.txt");
+  resp.setBufferSize(BUFFER);
+  resp.setContentLength(body.length());
+  resp.getOutputStream().print(body);
+}

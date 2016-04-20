@@ -1,0 +1,7 @@
+{
+  EndpointGroupDto group=generateEndpointGroupDto(null);
+  EndpointGroupDto found=endpointService.findEndpointGroupById(group.getId());
+  found.setId(null);
+  found.setWeight(found.getWeight() + 1);
+  endpointService.saveEndpointGroup(found);
+}
