@@ -11,7 +11,7 @@
   Mockito.when(channel.getId()).thenReturn("channel1");
   channelManager.addChannel(channel);
   channelManager.shutdown();
-  channelManager.onServerFailed(null);
+  channelManager.onServerFailed(null,FailoverStatus.BOOTSTRAP_SERVERS_NA);
   channelManager.onTransportConnectionInfoUpdated(null);
   channelManager.addChannel(null);
   channelManager.setChannel(null,null);

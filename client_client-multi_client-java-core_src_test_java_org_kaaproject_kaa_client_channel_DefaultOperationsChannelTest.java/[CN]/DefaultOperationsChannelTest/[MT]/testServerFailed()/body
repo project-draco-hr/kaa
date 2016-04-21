@@ -20,5 +20,5 @@
   channel.setMultiplexer(multiplexer);
   TransportConnectionInfo server=IPTransportInfoTest.createTestServerInfo(ServerType.OPERATIONS,TransportProtocolIdConstants.HTTP_TRANSPORT_ID,"localhost",9889,KeyUtil.generateKeyPair().getPublic());
   channel.setServer(server);
-  Mockito.verify(failoverManager,Mockito.times(1)).onServerFailed(Mockito.any(TransportConnectionInfo.class));
+  Mockito.verify(failoverManager,Mockito.times(1)).onServerFailed(Mockito.any(TransportConnectionInfo.class),Mockito.any(FailoverStatus.class));
 }

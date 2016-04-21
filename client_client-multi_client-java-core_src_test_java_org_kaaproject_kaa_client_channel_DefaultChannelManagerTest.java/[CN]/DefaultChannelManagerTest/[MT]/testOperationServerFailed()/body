@@ -9,6 +9,6 @@
   channelManager.addChannel(channel);
   TransportConnectionInfo opServer=IPTransportInfoTest.createTestServerInfo(ServerType.OPERATIONS,TransportProtocolIdConstants.HTTP_TRANSPORT_ID,"localhost",9999,KeyUtil.generateKeyPair().getPublic());
   channelManager.onTransportConnectionInfoUpdated(opServer);
-  channelManager.onServerFailed(opServer);
-  Mockito.verify(bootstrapManager,Mockito.times(1)).useNextOperationsServer(TransportProtocolIdConstants.HTTP_TRANSPORT_ID);
+  channelManager.onServerFailed(opServer,FailoverStatus.NO_CONNECTIVITY);
+  Mockito.verify(bootstrapManager,Mockito.times(1)).useNextOperationsServer(TransportProtocolIdConstants.HTTP_TRANSPORT_ID,FailoverStatus.NO_CONNECTIVITY);
 }
