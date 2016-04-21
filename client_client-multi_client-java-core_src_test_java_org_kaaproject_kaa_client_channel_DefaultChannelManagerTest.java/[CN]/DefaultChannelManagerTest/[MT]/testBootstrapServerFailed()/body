@@ -9,7 +9,7 @@
   Mockito.when(channel.getId()).thenReturn("mock_channel");
   ExecutorContext context=Mockito.mock(ExecutorContext.class);
   Mockito.when(context.getScheduledExecutor()).thenReturn(Executors.newScheduledThreadPool(1));
-  KaaChannelManager channelManager=new DefaultChannelManager(bootstrapManager,bootststrapServers,context);
+  KaaChannelManager channelManager=new DefaultChannelManager(bootstrapManager,bootststrapServers,context,null);
   FailoverStrategy failoverStrategy=new DefaultFailoverStrategy(1,1,1,TimeUnit.MILLISECONDS);
   FailoverManager failoverManager=Mockito.spy(new DefaultFailoverManager(channelManager,CONTEXT,failoverStrategy,1,TimeUnit.MILLISECONDS));
   channelManager.setFailoverManager(failoverManager);

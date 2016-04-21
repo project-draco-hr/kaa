@@ -3,7 +3,7 @@
   Mockito.when(clientState.getPrivateKey()).thenReturn(clientKeys.getPrivate());
   Mockito.when(clientState.getPublicKey()).thenReturn(clientKeys.getPublic());
   FailoverManager failoverManager=Mockito.mock(FailoverManager.class);
-  DefaultOperationTcpChannel channel=new DefaultOperationTcpChannel(clientState,failoverManager);
+  DefaultOperationTcpChannel channel=new DefaultOperationTcpChannel(clientState,failoverManager,null);
   TransportConnectionInfo server=IPTransportInfoTest.createTestServerInfo(ServerType.OPERATIONS,TransportProtocolIdConstants.TCP_TRANSPORT_ID,"www.test.fake",999,KeyUtil.generateKeyPair().getPublic());
   ConnectivityChecker checker=Mockito.mock(ConnectivityChecker.class);
   Mockito.when(checker.checkConnectivity()).thenReturn(false);

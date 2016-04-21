@@ -1,5 +1,5 @@
 {
-  KaaInternalChannelManager kaaInternalChannelManager=new DefaultChannelManager(bootstrapManager,bootstrapServers,context.getExecutorContext());
+  KaaInternalChannelManager kaaInternalChannelManager=new DefaultChannelManager(bootstrapManager,bootstrapServers,context.getExecutorContext(),failureListener);
   kaaInternalChannelManager.setConnectivityChecker(context.createConnectivityChecker());
   return kaaInternalChannelManager;
 }

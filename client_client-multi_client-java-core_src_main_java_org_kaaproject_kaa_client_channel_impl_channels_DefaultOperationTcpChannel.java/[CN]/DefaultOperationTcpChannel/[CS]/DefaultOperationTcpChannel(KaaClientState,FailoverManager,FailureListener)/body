@@ -1,6 +1,7 @@
 {
   this.state=state;
   this.failoverManager=failoverManager;
+  this.failureListener=failureListener;
   messageFactory.registerMessageListener(connAckListener);
   messageFactory.registerMessageListener(kaaSyncResponseListener);
   messageFactory.registerMessageListener(pingResponseListener);

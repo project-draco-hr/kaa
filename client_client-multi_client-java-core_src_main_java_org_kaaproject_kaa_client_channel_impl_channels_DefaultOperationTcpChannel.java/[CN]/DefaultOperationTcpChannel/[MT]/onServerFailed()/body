@@ -13,9 +13,9 @@ case RETRY:
 LOG.warn("Attempt to reconnect will be made in {} ms " + "according to failover strategy decision",retryPeriod);
 scheduleOpenConnectionTask(retryPeriod);
 break;
-case STOP_APP:
-LOG.warn("Stopping application according to failover strategy decision!");
-System.exit(EXIT_FAILURE);
+case FAILURE:
+LOG.warn("Calling failure listener according to failover strategy decision!");
+failureListener.onFailure();
 break;
 default :
 break;

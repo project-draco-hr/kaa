@@ -14,7 +14,7 @@
   bootstrapChannel.setMultiplexer(bootstrapDataProcessor);
   bootstrapChannel.setDemultiplexer(bootstrapDataProcessor);
   channelManager.addChannel(bootstrapChannel);
-  KaaDataChannel operationsChannel=new DefaultOperationTcpChannel(kaaClientState,failoverManager);
+  KaaDataChannel operationsChannel=new DefaultOperationTcpChannel(kaaClientState,failoverManager,failureListener);
   operationsChannel.setMultiplexer(operationsDataProcessor);
   operationsChannel.setDemultiplexer(operationsDataProcessor);
   channelManager.addChannel(operationsChannel);
