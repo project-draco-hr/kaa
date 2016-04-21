@@ -5,8 +5,7 @@
   mappedIterators.clear();
   if (operationsServerList == null || operationsServerList.isEmpty()) {
     LOG.trace("Received empty operations server list");
-    FailoverDecision decision=failoverManager.onFailover(FailoverStatus.NO_OPERATION_SERVERS_RECEIVED);
-    applyDecision(decision);
+    resolveFailoverStatus(FailoverStatus.NO_OPERATION_SERVERS_RECEIVED);
     return;
   }
   for (  ProtocolMetaData server : operationsServerList) {

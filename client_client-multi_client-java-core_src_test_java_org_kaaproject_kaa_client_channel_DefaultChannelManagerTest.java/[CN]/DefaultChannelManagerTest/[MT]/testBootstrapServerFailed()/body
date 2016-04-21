@@ -15,7 +15,7 @@
   channelManager.setFailoverManager(failoverManager);
   channelManager.addChannel(channel);
   Mockito.verify(failoverManager,Mockito.times(1)).onServerChanged(Mockito.any(TransportConnectionInfo.class));
-  channelManager.onServerFailed(bootststrapServers.get(TransportProtocolIdConstants.HTTP_TRANSPORT_ID).get(0));
+  channelManager.onServerFailed(bootststrapServers.get(TransportProtocolIdConstants.HTTP_TRANSPORT_ID).get(0),FailoverStatus.CURRENT_BOOTSTRAP_SERVER_NA);
   new Thread(new Runnable(){
     @Override public void run(){
       Mockito.verify(channel,Mockito.timeout(100).times(1)).setServer(bootststrapServers.get(TransportProtocolIdConstants.HTTP_TRANSPORT_ID).get(1));
