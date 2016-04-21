@@ -1,7 +1,12 @@
 {
   checkAuthority(KaaAuthorityDto.TENANT_ADMIN,KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
-    return checkApplicationToken(applicationToken);
+    if (isEmpty(applicationToken)) {
+      throw new KaaAdminServiceException(ServiceErrorCode.INVALID_ARGUMENTS);
+    }
+    ApplicationDto application=controlService.getApplicationByApplicationToken(applicationToken);
+    checkApplication(application);
+    return application;
   }
  catch (  Exception e) {
     throw Utils.handleException(e);

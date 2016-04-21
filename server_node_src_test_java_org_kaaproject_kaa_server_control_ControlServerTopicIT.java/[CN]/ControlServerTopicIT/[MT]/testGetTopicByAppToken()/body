@@ -1,0 +1,9 @@
+{
+  ApplicationDto application=createApplication(tenantAdminDto);
+  TopicDto topic=createTopic(application.getId(),TopicTypeDto.MANDATORY);
+  LOG.debug("Created topic with id {}",topic.getId());
+  List<TopicDto> storedTopic=client.getTopicsByApplicationToken(application.getApplicationToken());
+  Assert.assertNotNull(storedTopic);
+  Assert.assertFalse(storedTopic.isEmpty());
+  Assert.assertEquals(topic,storedTopic.get(0));
+}

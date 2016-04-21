@@ -1,0 +1,11 @@
+{
+  if (tenantId != null && applicationToken != null) {
+    return restTemplate.getForObject(restTemplate.getUrl() + "CTL/appToken/checkFqn?fqn={fqn}&tenantId={tenantId}&applicationToken={applicationToken}",Boolean.class,fqn,tenantId,applicationToken);
+  }
+ else   if (tenantId != null) {
+    return restTemplate.getForObject(restTemplate.getUrl() + "CTL/appToken/checkFqn?fqn={fqn}&tenantId={tenantId}",Boolean.class,fqn,tenantId);
+  }
+ else {
+    return restTemplate.getForObject(restTemplate.getUrl() + "CTL/appToken/checkFqn?fqn={fqn}",Boolean.class,fqn);
+  }
+}

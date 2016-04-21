@@ -1,0 +1,7 @@
+{
+  ParameterizedTypeReference<List<LogAppenderDto>> typeRef=new ParameterizedTypeReference<List<LogAppenderDto>>(){
+  }
+;
+  ResponseEntity<List<LogAppenderDto>> entity=restTemplate.exchange(restTemplate.getUrl() + "logAppendersByAppToken/" + applicationToken,HttpMethod.GET,null,typeRef);
+  return entity.getBody();
+}
