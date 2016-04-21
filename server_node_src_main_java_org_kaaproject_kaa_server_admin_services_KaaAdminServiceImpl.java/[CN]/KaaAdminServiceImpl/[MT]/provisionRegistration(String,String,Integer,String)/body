@@ -14,7 +14,7 @@
       String message=MessageFormat.format("The server-side endpoint profile {0} provided is empty!",missingParameter);
       throw new IllegalArgumentException(message);
     }
-    this.controlService.provideRegistration(applicationId,credentialsId,serverProfileVersion,serverProfileBody);
+    this.controlService.provisionRegistration(applicationId,credentialsId,serverProfileVersion,serverProfileBody);
   }
  catch (  Exception cause) {
     throw Utils.handleException(cause);
