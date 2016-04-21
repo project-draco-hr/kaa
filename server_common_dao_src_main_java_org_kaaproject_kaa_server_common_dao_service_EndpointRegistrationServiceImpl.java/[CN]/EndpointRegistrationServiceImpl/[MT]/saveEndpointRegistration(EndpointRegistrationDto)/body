@@ -3,7 +3,12 @@
     Validate.notNull(endpointRegistration,"Invalid endpoint registration provided!");
     String credentialsId=endpointRegistration.getCredentialsId();
     Optional<EndpointRegistrationDto> oldRegistration=findEndpointRegistrationByCredentialsId(credentialsId);
-    Validate.isTrue(!oldRegistration.isPresent(),"The endpoint registration already exists!");
+    if (oldRegistration.isPresent()) {
+      EndpointRegistrationDto oldRegistrationDto=oldRegistration.get();
+      if (oldRegistrationDto.getEndpointId() != null && !oldRegistrationDto.getEndpointId().equals(endpointRegistration.getEndpointId())) {
+        throw new IllegalStateException("The endpoint registration with such credentials already exists!");
+      }
+    }
     return this.endpointRegistrationDao.save(endpointRegistration).toDto();
   }
  catch (  Exception cause) {

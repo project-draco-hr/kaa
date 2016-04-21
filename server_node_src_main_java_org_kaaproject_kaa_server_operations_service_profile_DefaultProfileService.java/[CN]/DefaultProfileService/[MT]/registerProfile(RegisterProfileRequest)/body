@@ -1,5 +1,5 @@
 {
-  String endpointId=Base64Util.encode(request.getEndpointKey());
+  String endpointId=Base64Util.encode(SHA1HashUtils.hashToBytes(request.getEndpointKey()));
   LOG.debug("Registering Profile for {}",request.getEndpointKey());
   LOG.trace("Lookup application by token: {}",request.getAppToken());
   AppSeqNumber appSeqNumber=cacheService.getAppSeqNumber(request.getAppToken());
