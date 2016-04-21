@@ -5,7 +5,7 @@
     }
     ApplicationDto application=controlService.getApplicationByApplicationToken(applicationToken);
     checkApplication(application);
-    return application;
+    return application.getId();
   }
  catch (  Exception e) {
     throw Utils.handleException(e);

@@ -1,0 +1,12 @@
+{
+  FileDataResponseExtractor extractor=new FileDataResponseExtractor();
+  MultiValueMap<String,String> parameters=new LinkedMultiValueMap<>();
+  parameters.add("fqn",ctlSchemaDto.getMetaInfo().getFqn());
+  parameters.add("version",Integer.toString(ctlSchemaDto.getVersion()));
+  if (ctlSchemaDto.getMetaInfo().getApplicationId() != null) {
+    parameters.add("applicationToken",appToken);
+  }
+  parameters.add("method",method.name());
+  RequestCallback request=new DataRequestCallback<>(parameters);
+  return restTemplate.execute(restTemplate.getUrl() + "CTL/appToken/exportSchema",HttpMethod.POST,request,extractor);
+}

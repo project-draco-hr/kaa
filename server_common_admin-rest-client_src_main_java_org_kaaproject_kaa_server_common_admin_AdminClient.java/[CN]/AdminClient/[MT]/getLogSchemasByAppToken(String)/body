@@ -1,0 +1,7 @@
+{
+  ParameterizedTypeReference<List<LogSchemaDto>> typeRef=new ParameterizedTypeReference<List<LogSchemaDto>>(){
+  }
+;
+  ResponseEntity<List<LogSchemaDto>> entity=restTemplate.exchange(restTemplate.getUrl() + "logSchemasByAppToken/" + applicationToken,HttpMethod.GET,null,typeRef);
+  return entity.getBody();
+}

@@ -1,0 +1,11 @@
+{
+  ApplicationDto application=createApplication(tenantAdminDto);
+  NotificationSchemaDto schemaDto=createNotificationSchema(application.getId(),NotificationTypeDto.USER);
+  Assert.assertNotNull(schemaDto.getId());
+  LOG.debug("Create notification schema with id {}",schemaDto.getId());
+  SchemaVersions schemaVersions=client.getSchemaVersionsByApplicationToken(application.getApplicationToken());
+  List<VersionDto> foundSchema=schemaVersions.getNotificationSchemaVersions();
+  Assert.assertFalse(foundSchema.isEmpty());
+  Assert.assertEquals(2,foundSchema.size());
+  assertSchemasEquals(schemaDto,foundSchema.get(1));
+}

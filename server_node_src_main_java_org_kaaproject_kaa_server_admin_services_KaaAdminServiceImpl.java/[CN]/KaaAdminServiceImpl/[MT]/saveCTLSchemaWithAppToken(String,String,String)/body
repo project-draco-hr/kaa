@@ -1,0 +1,7 @@
+{
+  String applicationId=null;
+  if (!isEmpty(applicationToken)) {
+    applicationId=checkApplicationToken(applicationToken);
+  }
+  return saveCTLSchema(body,tenantId,applicationId);
+}

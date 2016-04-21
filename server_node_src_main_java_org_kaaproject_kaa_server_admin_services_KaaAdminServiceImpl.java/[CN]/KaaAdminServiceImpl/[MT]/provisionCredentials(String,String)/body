@@ -1,7 +1,7 @@
 {
   this.checkAuthority(KaaAuthorityDto.TENANT_ADMIN);
   try {
-    this.checkApplicationId(applicationId);
+    String applicationId=checkApplicationToken(applicationToken);
     return this.controlService.provisionCredentials(applicationId,credentialsBody);
   }
  catch (  Exception cause) {

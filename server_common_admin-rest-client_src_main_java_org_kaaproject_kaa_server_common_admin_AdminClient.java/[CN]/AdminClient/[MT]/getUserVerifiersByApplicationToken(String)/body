@@ -1,0 +1,7 @@
+{
+  ParameterizedTypeReference<List<UserVerifierDto>> typeRef=new ParameterizedTypeReference<List<UserVerifierDto>>(){
+  }
+;
+  ResponseEntity<List<UserVerifierDto>> entity=restTemplate.exchange(restTemplate.getUrl() + "userVerifiersByAppToken/" + applicationToken,HttpMethod.GET,null,typeRef);
+  return entity.getBody();
+}
