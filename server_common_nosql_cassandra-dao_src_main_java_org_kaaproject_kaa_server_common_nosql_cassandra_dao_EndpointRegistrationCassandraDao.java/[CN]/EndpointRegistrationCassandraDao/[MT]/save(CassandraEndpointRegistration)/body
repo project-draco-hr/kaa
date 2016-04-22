@@ -1,9 +1,12 @@
 {
+  if (isBlank(endpointRegistration.getId())) {
+    endpointRegistration.generateId();
+  }
   endpointRegistration=super.save(endpointRegistration);
   List<Statement> statements=new ArrayList<>();
   statements.add(this.getSaveQuery(endpointRegistration));
-  if (endpointRegistration.getCredentialsId() != null) {
-    statements.add(this.byCredentialsID.getSaveQuery(CassandraEPRegistrationByCredentialsID.fromEndpointRegistration(endpointRegistration)));
+  if (endpointRegistration.getEndpointId() != null) {
+    statements.add(this.byEndpointID.getSaveQuery(CassandraEPRegistrationByEndpointID.fromEndpointRegistration(endpointRegistration)));
   }
   this.executeBatch(statements.toArray(new Statement[statements.size()]));
   return endpointRegistration;

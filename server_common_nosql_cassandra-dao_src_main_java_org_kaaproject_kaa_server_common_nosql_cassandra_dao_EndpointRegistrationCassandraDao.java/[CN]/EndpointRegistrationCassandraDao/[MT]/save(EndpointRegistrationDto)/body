@@ -1,7 +1,4 @@
 {
   LOG.debug("Saving [{}]",endpointRegistration.toString());
-  if (StringUtils.isBlank(endpointRegistration.getId())) {
-    endpointRegistration.setId(endpointRegistration.getEndpointId());
-  }
   return this.save(new CassandraEndpointRegistration(endpointRegistration));
 }

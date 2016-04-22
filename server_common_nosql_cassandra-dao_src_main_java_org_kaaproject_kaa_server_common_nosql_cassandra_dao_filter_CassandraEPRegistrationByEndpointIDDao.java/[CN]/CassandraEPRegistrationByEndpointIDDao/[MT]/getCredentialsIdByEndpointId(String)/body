@@ -1,0 +1,11 @@
+{
+  Clause clause=QueryBuilder.eq(CassandraModelConstants.EP_REGISTRATION_BY_ENDPOINT_ID_ENDPOINT_ID_PROPERTY,endpointId);
+  Statement statement=QueryBuilder.select().from(this.getColumnFamilyName()).where(clause);
+  CassandraEPRegistrationByEndpointID result=this.findOneByStatement(statement);
+  if (result != null) {
+    return Optional.of(result.getCredentialsId());
+  }
+ else {
+    return Optional.empty();
+  }
+}
