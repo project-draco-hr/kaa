@@ -1,6 +1,6 @@
 {
   EndpointEventDeliveryMessage response;
-  List<ChannelMetaData> eventChannels=state.getChannelsByType(TransportType.EVENT);
+  Set<ChannelMetaData> eventChannels=state.getChannelsByType(TransportType.EVENT);
   if (!eventChannels.isEmpty()) {
     for (    ChannelMetaData eventChannel : eventChannels) {
       addEventsAndReply(context,eventChannel,message);

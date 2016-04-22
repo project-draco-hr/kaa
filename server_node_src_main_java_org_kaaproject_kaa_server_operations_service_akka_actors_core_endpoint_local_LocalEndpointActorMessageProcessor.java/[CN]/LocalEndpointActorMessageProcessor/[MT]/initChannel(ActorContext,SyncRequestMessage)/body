@@ -4,7 +4,7 @@
     channel=new ChannelMetaData(requestMessage);
     if (!channel.getType().isAsync() && channel.getType().isLongPoll()) {
       LOG.debug("[{}][{}] Received request using long poll channel.",endpointKey,actorKey);
-      List<ChannelMetaData> channels=state.getChannelsByType(TransportType.EVENT);
+      Set<ChannelMetaData> channels=state.getChannelsByType(TransportType.EVENT);
       for (      ChannelMetaData oldChannel : channels) {
         if (!oldChannel.getType().isAsync() && channel.getType().isLongPoll()) {
           LOG.debug("[{}][{}] Closing old long poll channel [{}]",endpointKey,actorKey,oldChannel.getId());

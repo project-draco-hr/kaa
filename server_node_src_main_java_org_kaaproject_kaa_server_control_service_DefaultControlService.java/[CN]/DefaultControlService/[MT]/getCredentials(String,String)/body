@@ -1,0 +1,10 @@
+{
+  try {
+    return this.credentialsServiceLocator.getCredentialsService(applicationId).lookupCredentials(credentialsId);
+  }
+ catch (  CredentialsServiceException cause) {
+    String message=MessageFormat.format("An unexpected exception occured while searching for credentials by ID [{0}]",credentialsId);
+    LOG.error(message,cause);
+    throw new ControlServiceException(cause);
+  }
+}

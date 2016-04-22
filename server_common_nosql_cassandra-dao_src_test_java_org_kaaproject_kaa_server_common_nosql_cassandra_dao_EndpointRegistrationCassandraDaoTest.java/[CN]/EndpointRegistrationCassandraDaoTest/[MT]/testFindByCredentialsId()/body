@@ -1,0 +1,8 @@
+{
+  EndpointRegistrationDto endpointRegistrationDto=this.generateEndpointRegistration(APPLICATION_ID,ENDPOINT_ID,CREDENTIALS_ID,null,null);
+  Assert.assertNotNull(endpointRegistrationDto);
+  Assert.assertNotNull(endpointRegistrationDto.getId());
+  EndpointRegistration endpointRegistration=this.endpointRegistrationDao.findByCredentialsId(CREDENTIALS_ID).orElse(null);
+  Assert.assertNotNull(endpointRegistration);
+  Assert.assertEquals(endpointRegistrationDto,endpointRegistration.toDto());
+}

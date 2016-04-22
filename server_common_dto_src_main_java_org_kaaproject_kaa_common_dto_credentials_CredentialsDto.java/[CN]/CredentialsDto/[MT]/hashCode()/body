@@ -1,0 +1,8 @@
+{
+  final int prime=31;
+  int result=1;
+  result=prime * result + Arrays.hashCode(this.credentialsBody);
+  result=prime * result + ((this.id == null) ? 0 : this.id.hashCode());
+  result=prime * result + ((this.status == null) ? 0 : this.status.hashCode());
+  return result;
+}

@@ -1,0 +1,15 @@
+{
+  LOG.debug("Removing endpoint registration by endpoint ID",endpointId);
+  Optional<String> credentialsId=this.byEndpointID.getCredentialsIdByEndpointId(endpointId);
+  if (credentialsId.isPresent()) {
+    Clause clause=QueryBuilder.eq(CassandraModelConstants.EP_REGISTRATION_BY_ENDPOINT_ID_ENDPOINT_ID_PROPERTY,endpointId);
+    Statement statement=QueryBuilder.delete().from(this.byEndpointID.getColumnFamilyName()).where(clause);
+    this.execute(statement);
+    clause=QueryBuilder.eq(CassandraModelConstants.EP_REGISTRATION_CREDENTIALS_ID_PROPERTY,credentialsId.get());
+    statement=QueryBuilder.delete().from(this.getColumnFamilyName()).where(clause);
+    this.execute(statement);
+  }
+ else {
+    LOG.debug("[{}] No credentials ID found by endpoint ID: {}",endpointId);
+  }
+}

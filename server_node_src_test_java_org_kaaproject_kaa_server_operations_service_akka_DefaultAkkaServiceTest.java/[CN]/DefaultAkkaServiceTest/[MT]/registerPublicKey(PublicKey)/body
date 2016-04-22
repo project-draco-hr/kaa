@@ -1,0 +1,6 @@
+{
+  byte[] clientPublicKeyBytes=publicKey.getEncoded();
+  String endpointId=Base64Util.encode(EndpointObjectHash.fromSHA1(clientPublicKeyBytes).getData());
+  EndpointRegistrationDto endpointRegistration=new EndpointRegistrationDto(APP_ID,endpointId,endpointId,null,null);
+  Mockito.when(registrationService.findEndpointRegistrationByCredentialsId(endpointId)).thenReturn(Optional.of(endpointRegistration));
+}

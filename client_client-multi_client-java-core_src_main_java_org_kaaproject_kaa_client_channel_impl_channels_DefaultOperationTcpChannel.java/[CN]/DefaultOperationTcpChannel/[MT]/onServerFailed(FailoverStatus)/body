@@ -1,0 +1,27 @@
+{
+  LOG.info("[{}] has failed",getId());
+  closeConnection();
+  if (connectivityChecker != null && !connectivityChecker.checkConnectivity()) {
+    LOG.warn("Loss of connectivity detected");
+    FailoverDecision decision=failoverManager.onFailover(status);
+switch (decision.getAction()) {
+case NOOP:
+      LOG.warn("No operation is performed according to failover strategy decision");
+    break;
+case RETRY:
+  long retryPeriod=decision.getRetryPeriod();
+LOG.warn("Attempt to reconnect will be made in {} ms " + "according to failover strategy decision",retryPeriod);
+scheduleOpenConnectionTask(retryPeriod);
+break;
+case STOP_APP:
+LOG.warn("Stopping application according to failover strategy decision!");
+System.exit(EXIT_FAILURE);
+break;
+default :
+break;
+}
+}
+ else {
+failoverManager.onServerFailed(currentServer,status);
+}
+}

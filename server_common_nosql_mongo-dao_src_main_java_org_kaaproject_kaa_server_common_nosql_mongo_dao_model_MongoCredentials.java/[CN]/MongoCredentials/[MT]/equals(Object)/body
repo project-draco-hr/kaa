@@ -1,0 +1,27 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  MongoCredentials other=(MongoCredentials)obj;
+  if (this.applicationId == null) {
+    if (other.applicationId != null) {
+      return false;
+    }
+  }
+ else   if (!this.applicationId.equals(other.applicationId)) {
+    return false;
+  }
+  if (!Arrays.equals(this.credentialsBody,other.credentialsBody)) {
+    return false;
+  }
+  if (this.status != other.status) {
+    return false;
+  }
+  return true;
+}

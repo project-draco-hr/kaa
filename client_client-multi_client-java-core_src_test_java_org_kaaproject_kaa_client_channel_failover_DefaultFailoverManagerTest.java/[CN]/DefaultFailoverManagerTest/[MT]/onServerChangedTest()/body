@@ -5,7 +5,7 @@
   failoverManager.onServerChanged(info);
   Mockito.verify(resolutionProgressMap,Mockito.times(1)).put(info.getServerType(),new DefaultFailoverManager.AccessPointIdResolution(info.getAccessPointId(),null));
   TransportConnectionInfo info2=mockForTransportConnectionInfo(2);
-  failoverManager.onServerFailed(info);
+  failoverManager.onServerFailed(info,FailoverStatus.NO_CONNECTIVITY);
   DefaultFailoverManager.AccessPointIdResolution accessPointIdResolutionSpy=spyForResolutionMap(info);
   failoverManager.onServerChanged(info2);
   Mockito.verify(accessPointIdResolutionSpy,Mockito.times(1)).setCurResolution(null);

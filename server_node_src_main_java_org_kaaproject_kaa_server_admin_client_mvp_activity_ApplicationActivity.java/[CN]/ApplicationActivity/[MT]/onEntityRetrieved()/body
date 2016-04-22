@@ -4,4 +4,17 @@
     detailsView.getApplicationToken().setValue(entity.getApplicationToken());
   }
   detailsView.getApplicationName().setValue(entity.getName());
+  ValueListBox<String> serviceNames=this.detailsView.getCredentialsServiceName();
+  if (serviceNames != null) {
+    KaaAdmin.getDataSource().getCredentialsServiceNames(new AsyncCallback<List<String>>(){
+      @Override public void onFailure(      Throwable caught){
+        Utils.handleException(caught,ApplicationActivity.this.detailsView);
+      }
+      @Override public void onSuccess(      List<String> result){
+        ApplicationActivity.this.detailsView.getCredentialsServiceName().setAcceptableValues(result);
+      }
+    }
+);
+    serviceNames.setValue(this.entity.getCredentialsServiceName());
+  }
 }

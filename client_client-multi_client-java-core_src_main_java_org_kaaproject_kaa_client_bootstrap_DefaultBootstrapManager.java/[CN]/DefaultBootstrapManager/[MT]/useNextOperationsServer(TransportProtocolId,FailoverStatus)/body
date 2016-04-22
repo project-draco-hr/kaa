@@ -1,0 +1,21 @@
+{
+  if (mappedOperationServerList != null && !mappedOperationServerList.isEmpty()) {
+    if (mappedIterators.get(transportId).hasNext()) {
+      ProtocolMetaData nextOperationsServer=mappedIterators.get(transportId).next();
+      LOG.debug("New server [{}] will be user for [{}]",nextOperationsServer.getAccessPointId(),transportId);
+      if (channelManager != null) {
+        channelManager.onTransportConnectionInfoUpdated(new GenericTransportInfo(ServerType.OPERATIONS,nextOperationsServer));
+      }
+ else {
+        LOG.error("Can not process server change. Channel manager was not specified");
+      }
+    }
+ else {
+      LOG.warn("Failed to find server for channel [{}]",transportId);
+      resolveFailoverStatus(status);
+    }
+  }
+ else {
+    throw new BootstrapRuntimeException("Operations Server list is empty");
+  }
+}

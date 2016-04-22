@@ -1,0 +1,5 @@
+{
+  LOG.debug("Removing endpoint registration by endpoint ID [{}]",endpointId);
+  Query query=Query.query(Criteria.where(MongoModelConstants.EP_REGISTRATION_ENDPOINT_ID).is(endpointId));
+  this.remove(query);
+}

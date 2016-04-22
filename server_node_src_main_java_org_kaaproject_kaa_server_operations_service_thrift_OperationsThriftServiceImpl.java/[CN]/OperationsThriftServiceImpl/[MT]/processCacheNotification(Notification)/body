@@ -2,6 +2,11 @@
   ApplicationDto appDto=applicationService.findAppById(notification.getAppId());
   LOG.debug("Processing cache notification {} for app {}",notification,appDto);
   if (appDto != null) {
+    if (notification.getOp() == Operation.APP_UPDATE) {
+      LOG.debug("Reseting application info {}",appDto.getId());
+      cacheService.resetAppById(appDto.getId());
+      return;
+    }
     if (notification.getProfileFilterId() != null) {
       ProfileFilterDto filterDto=cacheService.getFilter(notification.getProfileFilterId());
       LOG.debug("Processing filter  {}",filterDto);

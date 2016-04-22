@@ -6,7 +6,7 @@
     ApplicationDto appDto=getApplication(endpointProfileDto.getApplicationId());
     ThriftServerProfileUpdateMessage nf=new ThriftServerProfileUpdateMessage();
     nf.setAddress(new ThriftEntityAddress(appDto.getTenantId(),appDto.getApplicationToken(),ThriftClusterEntityType.ENDPOINT,ByteBuffer.wrap(endpointProfileDto.getEndpointKeyHash())));
-    nf.setActorClassifier(new ThriftActorClassifier(true));
+    nf.setActorClassifier(ThriftActorClassifier.GLOBAL);
     if (LOG.isTraceEnabled()) {
       LOG.trace("Sending message {} to [{}]",nf,Neighbors.getServerID(server.getConnectionInfo()));
     }

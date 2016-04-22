@@ -1,0 +1,7 @@
+{
+  EndpointRegistrationDto endpointRegistrationDto=this.generateEndpointRegistration(APPLICATION_ID,ENDPOINT_ID,CREDENTIALS_ID);
+  Assert.assertNotNull(endpointRegistrationDto);
+  Assert.assertNotNull(endpointRegistrationDto.getId());
+  this.endpointRegistrationDao.removeByEndpointId(ENDPOINT_ID);
+  Assert.assertNull(this.endpointRegistrationDao.findByEndpointId(ENDPOINT_ID).orElse(null));
+}

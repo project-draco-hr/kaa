@@ -1,0 +1,13 @@
+{
+  this.checkAuthority(KaaAuthorityDto.TENANT_ADMIN);
+  try {
+    String applicationId=checkApplicationToken(applicationToken);
+    Optional<CredentialsDto> credentials=this.controlService.getCredentials(applicationId,credentialsId);
+    Validate.isTrue(credentials.isPresent(),"No credentials with the given ID found!");
+    Validate.isTrue(credentials.get().getStatus() == CredentialsStatus.REVOKED,"Credentails with the given ID are not revoked!");
+    this.controlService.onCredentailsRevoked(applicationId,credentials.get().getId());
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+}

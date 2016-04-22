@@ -1,0 +1,14 @@
+{
+  String serviceName=this.cacheService.findAppById(applicationId).getCredentialsServiceName();
+  if (StringUtils.isBlank(serviceName)) {
+    serviceName=DEFAULT_CREDENTIALS_SERVICE_NAME;
+    LOG.debug("No credentials service configured for application [{}], using [{}]",applicationId,serviceName);
+  }
+  CredentialsServiceLocator locator=credentialsServiceLocatorMap.get(serviceName);
+  if (locator == null) {
+    throw new IllegalStateException("Can't find credentials service factory for name: " + serviceName);
+  }
+ else {
+    return locator.getCredentialsService(applicationId);
+  }
+}

@@ -1,0 +1,6 @@
+{
+  MultiValueMap<String,Object> parameters=new LinkedMultiValueMap<>();
+  parameters.add("applicationToken",applicationToken);
+  parameters.add("credentialsId",credentialsId);
+  this.restTemplate.postForLocation(restTemplate.getUrl() + "notifyRevoked",parameters);
+}

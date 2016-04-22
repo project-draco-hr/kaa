@@ -1,7 +1,7 @@
 {
   try {
     sessionInitMeter.mark();
-    processSignedRequest(context,message);
+    processSessionInitRequest(context,message);
   }
  catch (  Exception e) {
     processErrors(message.getChannelContext(),message.getErrorBuilder(),e);

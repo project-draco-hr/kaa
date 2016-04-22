@@ -1,0 +1,10 @@
+{
+  this.checkAuthority(KaaAuthorityDto.TENANT_ADMIN);
+  try {
+    String applicationId=checkApplicationToken(applicationToken);
+    return this.controlService.provisionCredentials(applicationId,credentialsBody);
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+}

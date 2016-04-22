@@ -1,0 +1,11 @@
+{
+  CredentialsDto credentials=new CredentialsDto(Base64Utils.decodeFromString(credentialsBody),CredentialsStatus.AVAILABLE);
+  try {
+    return this.credentialsServiceLocator.getCredentialsService(applicationId).provideCredentials(credentials);
+  }
+ catch (  CredentialsServiceException cause) {
+    String message=MessageFormat.format("An unexpected exception occured while saving credentials [{0}]",credentials);
+    LOG.error(message,cause);
+    throw new ControlServiceException(cause);
+  }
+}

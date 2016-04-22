@@ -1,7 +1,7 @@
 {
   LOG.debug("[{}][{}] Received log delivery message for request [{}] with status {}",endpointKey,actorKey,message.getRequestId(),message.isSuccess());
   logUploadResponseMap.put(message.getRequestId(),message);
-  List<ChannelMetaData> channels=state.getChannelsByType(TransportType.LOGGING);
+  Set<ChannelMetaData> channels=state.getChannelsByType(TransportType.LOGGING);
   for (  ChannelMetaData channel : channels) {
     SyncRequestMessage pendingRequest=channel.getRequestMessage();
     ServerSync pendingResponse=channel.getResponseHolder().getResponse();

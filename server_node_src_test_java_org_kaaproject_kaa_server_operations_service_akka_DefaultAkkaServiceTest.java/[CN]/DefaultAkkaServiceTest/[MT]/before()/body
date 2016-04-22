@@ -12,6 +12,9 @@
   logAppenderService=mock(LogAppenderService.class);
   endpointUserService=mock(EndpointUserService.class);
   ctlService=mock(CTLService.class);
+  credentialsServiceLocator=mock(CredentialsServiceLocator.class);
+  credentialsService=mock(CredentialsService.class);
+  registrationService=mock(RegistrationService.class);
   ReflectionTestUtils.setField(context,"clusterService",clusterService);
   ReflectionTestUtils.setField(context,"cacheService",cacheService);
   ReflectionTestUtils.setField(context,"metricsService",metricsService);
@@ -23,12 +26,18 @@
   ReflectionTestUtils.setField(context,"logAppenderService",logAppenderService);
   ReflectionTestUtils.setField(context,"endpointUserService",endpointUserService);
   ReflectionTestUtils.setField(context,"ctlService",ctlService);
+  ReflectionTestUtils.setField(context,"credentialsServiceLocator",credentialsServiceLocator);
+  ReflectionTestUtils.setField(context,"registrationService",registrationService);
   clientPair=KeyUtil.generateKeyPair();
   targetPair=KeyUtil.generateKeyPair();
   serverPair=KeyUtil.generateKeyPair();
   Mockito.when(operationsKeyStoreService.getPublicKey()).thenReturn(serverPair.getPublic());
   Mockito.when(operationsKeyStoreService.getPrivateKey()).thenReturn(serverPair.getPrivate());
   Mockito.when(metricsService.createMeter(Mockito.anyString(),Mockito.anyString())).thenReturn(Mockito.mock(MeterClient.class));
+  Mockito.when(credentialsServiceLocator.getCredentialsService(Mockito.anyString())).thenReturn(credentialsService);
+  Mockito.when(credentialsService.lookupCredentials(Mockito.anyString())).thenReturn(Optional.ofNullable((CredentialsDto)null));
+  registerPublicKey(clientPair.getPublic());
+  registerPublicKey(targetPair.getPublic());
   ReflectionTestUtils.setField(akkaService,"context",context);
   if (akkaService.getActorSystem() == null) {
     akkaService.initActorSystem();

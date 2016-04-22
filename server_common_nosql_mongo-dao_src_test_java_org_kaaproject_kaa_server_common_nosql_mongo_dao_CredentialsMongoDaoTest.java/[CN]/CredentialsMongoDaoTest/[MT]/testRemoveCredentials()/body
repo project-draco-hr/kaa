@@ -1,0 +1,8 @@
+{
+  CredentialsDto credentials=this.generateCredentials(APPLICATION_ID,CREDENTIALS_BODY,AVAILABLE);
+  Assert.assertNotNull(credentials);
+  Assert.assertNotNull(credentials.getId());
+  this.credentialsDao.remove(APPLICATION_ID,credentials.getId());
+  Optional<Credentials> removed=this.credentialsDao.find(APPLICATION_ID,credentials.getId());
+  Assert.assertFalse(removed.isPresent());
+}

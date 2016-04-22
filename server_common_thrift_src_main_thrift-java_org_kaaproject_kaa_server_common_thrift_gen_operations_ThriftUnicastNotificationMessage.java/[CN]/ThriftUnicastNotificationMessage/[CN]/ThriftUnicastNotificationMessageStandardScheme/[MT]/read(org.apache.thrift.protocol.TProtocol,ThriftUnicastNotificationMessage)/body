@@ -18,9 +18,8 @@ case 1:
       }
     break;
 case 2:
-  if (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) {
-    struct.actorClassifier=new ThriftActorClassifier();
-    struct.actorClassifier.read(iprot);
+  if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
+    struct.actorClassifier=org.kaaproject.kaa.server.common.thrift.gen.operations.ThriftActorClassifier.findByValue(iprot.readI32());
     struct.setActorClassifierIsSet(true);
   }
  else {

@@ -1,12 +1,10 @@
 {
   byte code=buffer.get(1);
-  if (code == DisconnectReason.NONE.getReason()) {
-    reason=DisconnectReason.NONE;
+  for (  DisconnectReason tmp : DisconnectReason.values()) {
+    if (code == tmp.getReason()) {
+      reason=tmp;
+      return;
+    }
   }
- else   if (code == DisconnectReason.BAD_REQUEST.getReason()) {
-    reason=DisconnectReason.BAD_REQUEST;
-  }
- else   if (code == DisconnectReason.INTERNAL_ERROR.getReason()) {
-    reason=DisconnectReason.INTERNAL_ERROR;
-  }
+  throw new KaaTcpProtocolException("Unknown disconnect reason!");
 }
