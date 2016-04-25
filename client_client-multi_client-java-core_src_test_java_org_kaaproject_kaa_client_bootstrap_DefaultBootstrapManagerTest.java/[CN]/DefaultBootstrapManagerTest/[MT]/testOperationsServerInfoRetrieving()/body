@@ -1,6 +1,6 @@
 {
   ExecutorContext executorContext=mock(ExecutorContext.class);
-  DefaultBootstrapManager manager=new DefaultBootstrapManager(null,executorContext);
+  DefaultBootstrapManager manager=new DefaultBootstrapManager(null,executorContext,null);
   boolean exception=false;
   try {
     manager.useNextOperationsServer(TransportProtocolIdConstants.HTTP_TRANSPORT_ID,FailoverStatus.NO_CONNECTIVITY);

@@ -1,7 +1,7 @@
 {
   Map<TransportProtocolId,List<TransportConnectionInfo>> bootststrapServers=getDefaultBootstrapServers();
   BootstrapManager bootstrapManager=Mockito.mock(BootstrapManager.class);
-  DefaultChannelManager channelManager=new DefaultChannelManager(bootstrapManager,bootststrapServers,null);
+  DefaultChannelManager channelManager=new DefaultChannelManager(bootstrapManager,bootststrapServers,null,null);
   TransportProtocolId type=TransportProtocolIdConstants.TCP_TRANSPORT_ID;
   KaaDataChannel channel1=Mockito.mock(KaaDataChannel.class);
   Mockito.when(channel1.getTransportProtocolId()).thenReturn(type);
