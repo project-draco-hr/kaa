@@ -1,0 +1,9 @@
+{
+  ConfigurationDto configuration=createConfiguration();
+  ConfigurationDto activatedConfiguration=client.activateConfiguration(configuration.getId());
+  ConfigurationRecordDto configurationRecord=client.getConfigurationRecord(activatedConfiguration.getSchemaId(),configuration.getEndpointGroupId());
+  String configurationRecordBody=client.getConfigurationRecordBody(activatedConfiguration.getSchemaId(),activatedConfiguration.getEndpointGroupId());
+  Assert.assertNotNull(configurationRecordBody);
+  String expectedConfigurationRecordBody=new String(configurationRecord.getActiveStructureDto().getBody().getBytes(),DECODING_CHARSET);
+  Assert.assertEquals(expectedConfigurationRecordBody,configurationRecordBody);
+}
