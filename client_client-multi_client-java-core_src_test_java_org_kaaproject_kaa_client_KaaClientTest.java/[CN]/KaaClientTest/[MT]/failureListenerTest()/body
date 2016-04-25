@@ -1,0 +1,13 @@
+{
+  client.setFailoverStrategy(new DefaultFailoverStrategy(){
+    @Override public FailoverDecision onFailover(    FailoverStatus failoverStatus){
+      return new FailoverDecision(FailoverDecision.FailoverAction.FAILURE);
+    }
+  }
+);
+  client.start();
+  ProtocolMetaData metaData=new ProtocolMetaData(1,new ProtocolVersionPair(1,1),null);
+  TransportConnectionInfo info=new GenericTransportInfo(ServerType.BOOTSTRAP,metaData);
+  client.getChannelManager().onServerFailed(info,FailoverStatus.BOOTSTRAP_SERVERS_NA);
+  Mockito.verify(stateListener,Mockito.timeout(500)).onStopped();
+}
