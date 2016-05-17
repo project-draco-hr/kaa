@@ -1,7 +1,7 @@
 {
   this.id=dto.getId();
-  this.header=(DBObject)JSON.parse(dto.getHeader());
-  this.event=(DBObject)JSON.parse(dto.getEvent());
-  this.clientProfile=(clientProfile != null) ? (DBObject)JSON.parse(clientProfile.getBody()) : null;
-  this.serverProfile=(serverProfile != null) ? (DBObject)JSON.parse(serverProfile.getBody()) : null;
+  this.header=MongoDaoUtil.encodeReservedCharacteres((DBObject)JSON.parse(dto.getHeader()));
+  this.event=MongoDaoUtil.encodeReservedCharacteres((DBObject)JSON.parse(dto.getEvent()));
+  this.clientProfile=(clientProfile != null) ? MongoDaoUtil.encodeReservedCharacteres((DBObject)JSON.parse(clientProfile.getBody())) : null;
+  this.serverProfile=(serverProfile != null) ? MongoDaoUtil.encodeReservedCharacteres((DBObject)JSON.parse(serverProfile.getBody())) : null;
 }
