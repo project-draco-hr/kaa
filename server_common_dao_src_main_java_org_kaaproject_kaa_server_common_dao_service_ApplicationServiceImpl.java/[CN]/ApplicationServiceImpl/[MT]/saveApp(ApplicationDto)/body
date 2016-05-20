@@ -8,6 +8,9 @@
     if (checkApplication != null && !Objects.equals(checkApplication.getStringId(),applicationDto.getId())) {
       throw new IncorrectParameterException("Can't save application with same name within one tenant");
     }
+    if (isBlank(applicationDto.getCredentialsServiceName())) {
+      applicationDto.setCredentialsServiceName(DEFAULT_CREDENTIALS_SERVICE_NAME);
+    }
     if (isNotBlank(applicationDto.getId())) {
       LOG.debug("Update application with id [{}]",applicationDto.getId());
       return getDto(applicationDao.save(new Application(applicationDto)));
