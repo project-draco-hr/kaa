@@ -2,8 +2,10 @@
   checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
     EndpointProfileDto profileDto=controlService.getEndpointProfileByKeyHash(endpointKeyHash);
+    Utils.checkNotNull(profileDto);
     checkApplicationId(profileDto.getApplicationId());
     ServerProfileSchemaDto serverProfileSchema=controlService.getServerProfileSchemaByApplicationIdAndVersion(profileDto.getApplicationId(),serverProfileVersion);
+    Utils.checkNotNull(serverProfileSchema);
     RecordField record;
     try {
       record=createRecordFieldFromCtlSchemaAndBody(serverProfileSchema.getCtlSchemaId(),serverProfileBody);
