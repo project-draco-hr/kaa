@@ -1,3 +1,3 @@
 {
-  return "LogEvent [id=" + id + ", header="+ header+ ", event="+ event+ ", clientProfile="+ clientProfile+ ", serverProfile="+ serverProfile+ "]";
+  return "LogEvent [id=" + id + ", header="+ MongoDaoUtil.decodeReservedCharacteres(header)+ ", event="+ MongoDaoUtil.decodeReservedCharacteres(event)+ ", clientProfile="+ MongoDaoUtil.decodeReservedCharacteres(clientProfile)+ ", serverProfile="+ MongoDaoUtil.decodeReservedCharacteres(serverProfile)+ "]";
 }
