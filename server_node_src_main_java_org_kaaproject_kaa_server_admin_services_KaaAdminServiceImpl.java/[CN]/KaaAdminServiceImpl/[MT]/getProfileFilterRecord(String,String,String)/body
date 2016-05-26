@@ -3,7 +3,6 @@
   try {
     checkEndpointGroupId(endpointGroupId);
     ProfileFilterRecordDto record=controlService.getProfileFilterRecord(endpointProfileSchemaId,serverProfileSchemaId,endpointGroupId);
-    Utils.checkNotNull(record);
     return record;
   }
  catch (  Exception e) {

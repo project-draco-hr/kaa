@@ -19,8 +19,8 @@
     }
   }
   if (record.isEmpty()) {
-    LOG.debug("Can't find related profile filter record for endpoint schema {}, server schema {} and group {}.",endpointProfileSchemaId,endpointGroupId);
-    throw new IncorrectParameterException("Profile filter record not found, endpointProfileSchemaId: " + endpointProfileSchemaId + ", serverProfileSchemaId: "+ serverProfileSchemaId+ " endpointGroupId: "+ endpointGroupId);
+    LOG.debug("Can't find related profile filter record for endpoint schema {}, server schema {} and group {}.",endpointProfileSchemaId,serverProfileSchemaId,endpointGroupId);
+    throw new NotFoundException("Profile filter record not found, endpointProfileSchemaId: " + endpointProfileSchemaId + ", serverProfileSchemaId: "+ serverProfileSchemaId+ " endpointGroupId: "+ endpointGroupId);
   }
   return record;
 }
