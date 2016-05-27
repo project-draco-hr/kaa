@@ -3,7 +3,12 @@
   profileDto.setApplicationId(appId);
   profileDto.setServerProfileVersion(schemaVersion);
   profileDto.setEndpointKeyHash("TEST_KEY_HASH".getBytes());
-  profileDto.setClientProfileBody(TEST_PROFILE_BODY);
+  try {
+    profileDto.setClientProfileBody(readSchemaFileAsString(TEST_PROFILE_BODY_PATH));
+  }
+ catch (  IOException e) {
+    LOG.error("Can't set client-side EP body {}",e);
+  }
   profileDto.setSdkToken(UUID.randomUUID().toString());
   profileDto.setServerProfileBody(srvProfileBody);
   return endpointService.saveEndpointProfile(profileDto);

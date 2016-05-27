@@ -6,7 +6,12 @@
   List<EndpointGroupStateDto> groupState=new ArrayList<>();
   groupState.add(new EndpointGroupStateDto(endpointGroupId,null,null));
   profileDto.setGroupState(groupState);
-  profileDto.setClientProfileBody(TEST_PROFILE_BODY);
+  try {
+    profileDto.setClientProfileBody(readSchemaFileAsString(TEST_PROFILE_BODY_PATH));
+  }
+ catch (  IOException e) {
+    LOG.error("Can't set client-side EP body {}",e);
+  }
   profileDto.setServerProfileBody("{\"serverTitle\": \"SERVER_TEST\"}");
   profileDto.setSdkToken(UUID.randomUUID().toString());
   return endpointService.saveEndpointProfile(profileDto);

@@ -11,7 +11,7 @@
   dto.setEndpointKeyHash(endpointKeyHash);
   dto.setEndpointUserId(endpointUserId);
   dto.setAccessToken(accessToken);
-  dto.setClientProfileBody(MongoDaoUtil.decodeReservedCharacteres(profile));
+  dto.setClientProfileBody(profile != null ? MongoDaoUtil.decodeReservedCharacteres(profile).toString() : "");
   dto.setProfileHash(profileHash);
   dto.setClientProfileVersion(profileVersion);
   dto.setServerProfileVersion(serverProfileVersion);
@@ -25,7 +25,7 @@
   dto.setEcfVersionStates(DaoUtil.convertDtoList(ecfVersionStates));
   dto.setServerHash(serverHash);
   dto.setSdkToken(sdkToken);
-  dto.setServerProfileBody(MongoDaoUtil.decodeReservedCharacteres(serverProfile));
+  dto.setServerProfileBody(serverProfile != null ? MongoDaoUtil.decodeReservedCharacteres(serverProfile).toString() : "");
   dto.setVersion(version);
   return dto;
 }
