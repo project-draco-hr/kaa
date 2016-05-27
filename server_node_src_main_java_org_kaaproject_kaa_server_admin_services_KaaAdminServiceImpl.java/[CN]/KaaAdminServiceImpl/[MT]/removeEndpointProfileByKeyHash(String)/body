@@ -1,0 +1,11 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    EndpointProfileDto endpointProfile=controlService.getEndpointProfileByKeyHash(endpointKeyHash);
+    Utils.checkNotNull(endpointProfile);
+    controlService.removeEndpointProfile(endpointProfile);
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+}

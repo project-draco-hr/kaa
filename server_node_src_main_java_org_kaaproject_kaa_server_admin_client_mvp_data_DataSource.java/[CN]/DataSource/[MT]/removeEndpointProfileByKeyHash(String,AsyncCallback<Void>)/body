@@ -1,0 +1,8 @@
+{
+  rpcService.removeEndpointProfileByKeyHash(endpointKeyHash,new DataCallback<Void>(callback){
+    @Override protected void onResult(    Void result){
+      eventBus.fireEvent(new DataEvent(EndpointProfileDto.class));
+    }
+  }
+);
+}
