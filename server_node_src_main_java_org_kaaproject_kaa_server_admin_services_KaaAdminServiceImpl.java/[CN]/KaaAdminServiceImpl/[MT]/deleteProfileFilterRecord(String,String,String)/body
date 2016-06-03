@@ -2,7 +2,6 @@
   checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
     ProfileFilterRecordDto record=controlService.getProfileFilterRecord(endpointProfileSchemaId,serverProfileSchemaId,endpointGroupId);
-    Utils.checkNotNull(record);
     checkEndpointGroupId(record.getEndpointGroupId());
     String username=getCurrentUser().getUsername();
     controlService.deleteProfileFilterRecord(endpointProfileSchemaId,serverProfileSchemaId,endpointGroupId,username);

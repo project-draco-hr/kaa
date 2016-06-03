@@ -13,7 +13,4 @@
     TenantUserDto storedTenant=storedTenants.get(i);
     assertTenantsEquals(tenant,storedTenant);
   }
-  for (int i=0; i < storedTenants.size(); i++) {
-    client.deleteTenant(storedTenants.get(i).getId());
-  }
 }
