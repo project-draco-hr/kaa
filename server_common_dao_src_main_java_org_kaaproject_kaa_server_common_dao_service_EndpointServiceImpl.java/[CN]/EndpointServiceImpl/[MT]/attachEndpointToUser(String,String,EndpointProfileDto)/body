@@ -15,7 +15,8 @@
     endpointUser.setEndpointIds(endpointIds);
   }
  else   if (endpointIds != null && endpointIds.contains(profile.getId())) {
-    LOG.warn("Endpoint is already assigned to current user {}. Unassign it first!.",profile.getEndpointUserId());
+    LOG.warn("Endpoint is already assigned to current user {}.",profile.getEndpointUserId());
+    return profile;
   }
   endpointIds.add(profile.getId());
   endpointUser=endpointUserDao.save(endpointUser);
