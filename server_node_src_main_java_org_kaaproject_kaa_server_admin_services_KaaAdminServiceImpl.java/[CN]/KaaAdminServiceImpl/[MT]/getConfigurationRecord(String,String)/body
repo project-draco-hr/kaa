@@ -3,7 +3,6 @@
   try {
     checkEndpointGroupId(endpointGroupId);
     ConfigurationRecordDto record=controlService.getConfigurationRecord(schemaId,endpointGroupId);
-    Utils.checkNotNull(record);
     return record;
   }
  catch (  Exception e) {

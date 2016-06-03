@@ -2,9 +2,7 @@
   checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
     EndpointProfileBodyDto profileBodyDto=controlService.getEndpointProfileBodyByKeyHash(endpointProfileKeyHash);
-    if (profileBodyDto == null) {
-      throw new KaaAdminServiceException("Requested item was not found!",ServiceErrorCode.ITEM_NOT_FOUND);
-    }
+    Utils.checkNotNull(profileBodyDto);
     checkApplicationId(profileBodyDto.getAppId());
     return profileBodyDto;
   }

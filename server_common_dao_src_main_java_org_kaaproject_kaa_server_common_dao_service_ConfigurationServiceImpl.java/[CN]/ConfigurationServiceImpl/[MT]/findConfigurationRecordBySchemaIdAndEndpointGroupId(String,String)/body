@@ -19,7 +19,7 @@
   }
   if (record.isEmpty()) {
     LOG.debug("Can't find related Configuration record.");
-    throw new IncorrectParameterException("Configuration record not found, schemaId: " + schemaId + ", endpointGroupId: "+ endpointGroupId);
+    throw new NotFoundException("Configuration record not found, schemaId: " + schemaId + ", endpointGroupId: "+ endpointGroupId);
   }
   return record;
 }

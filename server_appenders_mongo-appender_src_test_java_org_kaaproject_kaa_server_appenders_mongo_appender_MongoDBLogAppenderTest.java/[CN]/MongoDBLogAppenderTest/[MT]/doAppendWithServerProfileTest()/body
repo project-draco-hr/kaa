@@ -24,5 +24,7 @@
   this.logAppender.doAppend(logEventPack,new TestLogDeliveryCallback());
   String collectionName=(String)ReflectionTestUtils.getField(this.logAppender,"collectionName");
   DBObject serverProfile=(DBObject)MongoDBTestRunner.getDB().getCollection(collectionName).findOne().get(SERVER_PROFILE);
-  Assert.assertEquals(SERVER_FIELD_VALUE,serverProfile.get(SERVER_FIELD_KEY));
+  DBObject profile=(DBObject)serverProfile.get("Profile");
+  DBObject profileNamespace=(DBObject)profile.get("org???kaaproject???kaa???schema???sample???profile");
+  Assert.assertEquals(SERVER_FIELD_VALUE,profileNamespace.get(SERVER_FIELD_KEY));
 }

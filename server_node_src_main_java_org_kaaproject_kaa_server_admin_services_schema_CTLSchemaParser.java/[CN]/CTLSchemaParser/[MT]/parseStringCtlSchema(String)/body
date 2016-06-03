@@ -8,7 +8,8 @@
     for (int i=0; i < dependenciesNode.size(); i++) {
       JsonNode dependencyNode=dependenciesNode.get(i);
       Fqn fqn=new Fqn(dependencyNode.get(FQN).asText());
-      types.put(fqn.getFqnString(),Schema.createRecord(fqn.getName(),null,fqn.getNamespace(),false));
+      Schema fakeSchema=SchemaBuilder.record(fqn.getName()).namespace(fqn.getNamespace()).fields().endRecord();
+      types.put(fqn.getFqnString(),fakeSchema);
     }
     parser.addTypes(types);
   }
