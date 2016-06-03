@@ -12,7 +12,6 @@
         List<String> endpointIds=endpointUser.getEndpointIds();
         if (endpointIds != null && endpointIds.contains(endpoint.getId())) {
           LOG.warn("Endpoint is already assigned to current user {}. Unassign it first!.",endpoint.getEndpointUserId());
-          throw new DatabaseProcessingException("Endpoint is already assigned to current user.");
         }
         if (endpointIds == null) {
           endpointIds=new ArrayList<>();
