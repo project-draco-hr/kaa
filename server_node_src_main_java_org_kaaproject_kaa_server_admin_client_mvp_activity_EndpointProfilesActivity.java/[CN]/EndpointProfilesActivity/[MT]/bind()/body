@@ -12,6 +12,17 @@
       if (event.getAction() == RowActionEvent.CLICK) {
         goTo(new EndpointProfilePlace(applicationId,id,gridLoaded));
       }
+ else       if (event.getAction() == RowActionEvent.DELETE) {
+        deleteEntity(id,new BusyAsyncCallback<Void>(){
+          @Override public void onFailureImpl(          Throwable caught){
+            Utils.handleException(caught,listView);
+          }
+          @Override public void onSuccessImpl(          Void result){
+            dataProvider.update();
+          }
+        }
+);
+      }
     }
   }
 ));
