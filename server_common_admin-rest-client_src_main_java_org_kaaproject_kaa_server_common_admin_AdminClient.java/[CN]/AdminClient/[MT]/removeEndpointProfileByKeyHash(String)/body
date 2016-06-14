@@ -1,0 +1,5 @@
+{
+  MultiValueMap<String,Object> params=new LinkedMultiValueMap<>();
+  params.add("endpointProfileKeyHash",endpointProfileKeyHash);
+  restTemplate.postForObject(restTemplate.getUrl() + "removeEndpointProfileByKeyHash",params,Void.class);
+}
