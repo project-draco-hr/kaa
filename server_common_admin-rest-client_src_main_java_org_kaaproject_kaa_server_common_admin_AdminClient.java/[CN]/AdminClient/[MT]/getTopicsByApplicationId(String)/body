@@ -1,7 +1,0 @@
-{
-  ParameterizedTypeReference<List<TopicDto>> typeRef=new ParameterizedTypeReference<List<TopicDto>>(){
-  }
-;
-  ResponseEntity<List<TopicDto>> entity=restTemplate.exchange(restTemplate.getUrl() + "topics/" + applicationId,HttpMethod.GET,null,typeRef);
-  return entity.getBody();
-}
