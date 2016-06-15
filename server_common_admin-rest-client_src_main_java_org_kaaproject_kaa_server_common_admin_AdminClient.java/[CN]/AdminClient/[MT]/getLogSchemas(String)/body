@@ -1,7 +1,0 @@
-{
-  ParameterizedTypeReference<List<LogSchemaDto>> typeRef=new ParameterizedTypeReference<List<LogSchemaDto>>(){
-  }
-;
-  ResponseEntity<List<LogSchemaDto>> entity=restTemplate.exchange(restTemplate.getUrl() + "logSchemas/" + applicationId,HttpMethod.GET,null,typeRef);
-  return entity.getBody();
-}

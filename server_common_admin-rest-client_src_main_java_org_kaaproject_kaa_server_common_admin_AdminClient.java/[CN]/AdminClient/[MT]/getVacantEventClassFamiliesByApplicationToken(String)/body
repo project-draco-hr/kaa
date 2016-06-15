@@ -2,6 +2,6 @@
   ParameterizedTypeReference<List<EcfInfoDto>> typeRef=new ParameterizedTypeReference<List<EcfInfoDto>>(){
   }
 ;
-  ResponseEntity<List<EcfInfoDto>> entity=restTemplate.exchange(restTemplate.getUrl() + "vacantEventClassFamiliesByAppToken/" + applicationToken,HttpMethod.GET,null,typeRef);
+  ResponseEntity<List<EcfInfoDto>> entity=restTemplate.exchange(restTemplate.getUrl() + "vacantEventClassFamilies/" + applicationToken,HttpMethod.GET,null,typeRef);
   return entity.getBody();
 }
