@@ -2,7 +2,7 @@
   this.loginKaaAdmin();
   CTLSchemaDto saved=this.createCTLSchema(this.ctlRandomFieldType(),CTL_DEFAULT_NAMESPACE,1,null,null,null,null);
   this.loginTenantDeveloper(tenantDeveloperUser);
-  CTLSchemaDto loaded=client.getCTLSchemaByFqnVersionTenantIdAndApplicationId(saved.getMetaInfo().getFqn(),saved.getVersion(),null,null);
+  CTLSchemaDto loaded=client.getCTLSchemaByFqnVersionTenantIdAndApplicationToken(saved.getMetaInfo().getFqn(),saved.getVersion(),null,null);
   Assert.assertNotNull(loaded);
   Assert.assertEquals(saved,loaded);
 }
