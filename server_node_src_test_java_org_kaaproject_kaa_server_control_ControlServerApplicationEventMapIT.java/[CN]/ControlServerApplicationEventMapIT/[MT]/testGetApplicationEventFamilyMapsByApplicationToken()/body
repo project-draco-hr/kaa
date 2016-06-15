@@ -3,7 +3,7 @@
   ApplicationDto application=createApplication(tenantAdminDto);
   EventClassFamilyDto eventClassFamily=createEventClassFamily(application.getTenantId());
   for (int i=0; i < 10; i++) {
-    ApplicationEventFamilyMapDto applicationEventFamilyMap=createApplicationEventFamilyMap(application.getId(),eventClassFamily.getId(),(i + 1));
+    ApplicationEventFamilyMapDto applicationEventFamilyMap=createApplicationEventFamilyMap(application.getApplicationToken(),eventClassFamily.getId(),(i + 1));
     applicationEventFamilyMaps.add(applicationEventFamilyMap);
   }
   Collections.sort(applicationEventFamilyMaps,new IdComparator());
