@@ -8,7 +8,7 @@
   this.createCTLSchema(this.ctlRandomFieldName(),CTL_DEFAULT_NAMESPACE,1,tenantDeveloperDto.getTenantId(),null,dependencies,fields);
   this.checkBadRequest(new TestRestCall(){
     @Override public void executeRestCall() throws Exception {
-      client.deleteCTLSchemaByFqnVersionTenantIdAndApplicationId(dependency.getMetaInfo().getFqn(),dependency.getVersion(),tenantDeveloperDto.getTenantId(),null);
+      client.deleteCTLSchemaByFqnVersionTenantIdAndApplicationToken(dependency.getMetaInfo().getFqn(),dependency.getVersion(),tenantDeveloperDto.getTenantId(),null);
     }
   }
 );

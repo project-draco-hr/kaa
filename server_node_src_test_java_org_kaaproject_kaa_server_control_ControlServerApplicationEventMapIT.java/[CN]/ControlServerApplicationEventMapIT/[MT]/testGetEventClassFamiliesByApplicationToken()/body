@@ -1,7 +1,7 @@
 {
   ApplicationDto application=createApplication(tenantAdminDto);
   EventClassFamilyDto eventClassFamily=createEventClassFamily(application.getTenantId());
-  createApplicationEventFamilyMap(application.getId(),eventClassFamily.getId(),1);
+  createApplicationEventFamilyMap(application.getApplicationToken(),eventClassFamily.getId(),1);
   loginTenantDeveloper(tenantDeveloperUser);
   List<AefMapInfoDto> applicationEcfs=client.getEventClassFamiliesByApplicationToken(application.getApplicationToken());
   Assert.assertNotNull(applicationEcfs);
