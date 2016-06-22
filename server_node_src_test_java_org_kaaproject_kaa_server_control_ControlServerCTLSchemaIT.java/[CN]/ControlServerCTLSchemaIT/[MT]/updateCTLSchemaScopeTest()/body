@@ -1,7 +1,7 @@
 {
   ApplicationDto application=createApplication(tenantAdminDto);
   this.loginTenantDeveloper(tenantDeveloperUser);
-  CTLSchemaDto saved=this.createCTLSchema(this.ctlRandomFieldType(),CTL_DEFAULT_NAMESPACE,1,tenantDeveloperDto.getTenantId(),application.getId(),null,null);
+  CTLSchemaDto saved=this.createCTLSchema(this.ctlRandomFieldType(),CTL_DEFAULT_NAMESPACE,1,tenantDeveloperDto.getTenantId(),application.getApplicationToken(),null,null);
   CTLSchemaMetaInfoDto metaInfo=saved.getMetaInfo();
   CTLSchemaMetaInfoDto updatedMetaInfo=client.promoteScopeToTenant(metaInfo.getApplicationId(),metaInfo.getFqn());
   Assert.assertNull(updatedMetaInfo.getApplicationId());

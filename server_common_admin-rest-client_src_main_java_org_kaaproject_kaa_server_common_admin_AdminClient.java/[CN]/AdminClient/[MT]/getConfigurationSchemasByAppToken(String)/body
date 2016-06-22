@@ -2,6 +2,6 @@
   ParameterizedTypeReference<List<ConfigurationSchemaDto>> typeRef=new ParameterizedTypeReference<List<ConfigurationSchemaDto>>(){
   }
 ;
-  ResponseEntity<List<ConfigurationSchemaDto>> entity=restTemplate.exchange(restTemplate.getUrl() + "configurationSchemasByAppToken/" + applicationToken,HttpMethod.GET,null,typeRef);
+  ResponseEntity<List<ConfigurationSchemaDto>> entity=restTemplate.exchange(restTemplate.getUrl() + "configurationSchemas/" + applicationToken,HttpMethod.GET,null,typeRef);
   return entity.getBody();
 }

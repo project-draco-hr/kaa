@@ -7,5 +7,5 @@
   if (applicationToken != null) {
     params.add("applicationToken",applicationToken);
   }
-  return restTemplate.postForObject(restTemplate.getUrl() + "CTL/appToken/saveSchema",params,CTLSchemaDto.class);
+  return restTemplate.postForObject(restTemplate.getUrl() + "CTL/saveSchema",params,CTLSchemaDto.class);
 }
