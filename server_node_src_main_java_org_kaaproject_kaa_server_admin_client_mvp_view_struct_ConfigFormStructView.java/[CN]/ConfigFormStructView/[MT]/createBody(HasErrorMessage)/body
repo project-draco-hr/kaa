@@ -1,5 +1,7 @@
 {
   RecordPanel field=new RecordPanel(Utils.constants.configurationBody(),hasErrorMessage,false,false);
+  configurationFormDataLoader=new ConfigurationFormDataLoader();
+  field.setFormDataLoader(configurationFormDataLoader);
   field.getRecordWidget().setForceNavigation(true);
   field.setPreferredHeightPx(200);
   return field;
