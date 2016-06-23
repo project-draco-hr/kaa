@@ -1,7 +1,7 @@
 {
   EndpointUserDto userDto=generateEndpointUserDto(null);
   ApplicationDto appDto=generateApplicationDto();
-  ConfigurationSchemaDto configurationSchemaDto=generateConfSchemaDto(appDto.getId(),1).get(0);
+  ConfigurationSchemaDto configurationSchemaDto=generateConfSchemaDto(null,appDto.getId(),1).get(0);
   generateEndpointUserConfigurationDto(userDto,appDto,configurationSchemaDto,readSchemaFileAsString("dao/user/overrideData.json"));
   generateEndpointUserConfigurationDto(userDto,appDto,null,readSchemaFileAsString("dao/user/overrideData.json"));
   generateEndpointUserConfigurationDto(userDto,appDto,null,readSchemaFileAsString("dao/user/overrideData.json"));
