@@ -2,6 +2,6 @@
   ConfigurationSchemaDto configurationSchema=createConfigurationSchema();
   configurationSchema.setName(generateString("Test Schema 2"));
   configurationSchema.setDescription(generateString("Test Desc 2"));
-  ConfigurationSchemaDto updatedConfigurationSchema=client.editConfigurationSchema(configurationSchema);
+  ConfigurationSchemaDto updatedConfigurationSchema=client.saveConfigurationSchema(configurationSchema);
   Assert.assertTrue(updatedConfigurationSchema.equals(configurationSchema));
 }
