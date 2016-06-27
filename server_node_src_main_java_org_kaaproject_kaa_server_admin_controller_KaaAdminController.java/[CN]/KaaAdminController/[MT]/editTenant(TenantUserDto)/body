@@ -1,9 +1,6 @@
 {
   try {
-    if (isEmpty(tenantUser.getAuthority())) {
-      tenantUser.setAuthority(KaaAuthorityDto.TENANT_ADMIN);
-    }
- else     if (!KaaAuthorityDto.TENANT_ADMIN.equals(tenantUser.getAuthority())) {
+    if (!KaaAuthorityDto.TENANT_ADMIN.equals(tenantUser.getAuthority())) {
       throw new KaaAdminServiceException("Incorrect authority for tenant. Authority must be TENANT_ADMIN.",ServiceErrorCode.INVALID_ARGUMENTS);
     }
     CreateUserResult result=userFacade.saveUserDto(tenantUser,passwordEncoder);
