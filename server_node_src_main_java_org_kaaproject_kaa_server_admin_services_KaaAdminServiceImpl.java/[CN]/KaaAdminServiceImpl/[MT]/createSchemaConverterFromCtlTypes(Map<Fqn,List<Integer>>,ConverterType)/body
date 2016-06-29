@@ -6,7 +6,12 @@
       }
     }
 ;
-    return new SchemaFormAvroConverter(ctlSource);
+    if (converterType == CONFIGURATION_FORM_AVRO_CONVERTER) {
+      return new ConfigurationSchemaFormAvroConverter(ctlSource);
+    }
+ else {
+      return new SchemaFormAvroConverter(ctlSource);
+    }
   }
  catch (  Exception cause) {
     throw Utils.handleException(cause);

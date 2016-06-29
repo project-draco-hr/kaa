@@ -1,7 +1,7 @@
 {
   try {
     CtlSchemaFormDto ctlSchemaForm=new CtlSchemaFormDto(ctlSchema);
-    SchemaFormAvroConverter converter=getCtlSchemaConverterForScope(ctlSchemaForm.getMetaInfo().getTenantId(),ctlSchemaForm.getMetaInfo().getApplicationId());
+    SchemaFormAvroConverter converter=getCtlSchemaConverterForScope(ctlSchemaForm.getMetaInfo().getTenantId(),ctlSchemaForm.getMetaInfo().getApplicationId(),converterType);
     RecordField form=converter.createSchemaFormFromSchema(ctlSchema.getBody());
     ctlSchemaForm.setSchema(form);
     List<Integer> availableVersions=controlService.getAllCTLSchemaVersionsByFqnTenantIdAndApplicationId(ctlSchema.getMetaInfo().getFqn(),ctlSchema.getMetaInfo().getTenantId(),ctlSchema.getMetaInfo().getApplicationId());

@@ -1,7 +1,7 @@
 {
   checkAuthority(KaaAuthorityDto.values());
   try {
-    SchemaFormAvroConverter converter=getCtlSchemaConverterForScope(getCurrentUser().getTenantId(),applicationId);
+    SchemaFormAvroConverter converter=getCtlSchemaConverterForScope(getCurrentUser().getTenantId(),applicationId,converterType);
     CtlSchemaFormDto sourceCtlSchema=null;
     if (!isEmpty(metaInfoId) && sourceVersion != null) {
       sourceCtlSchema=getCTLSchemaFormByMetaInfoIdAndVer(metaInfoId,sourceVersion);

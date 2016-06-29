@@ -5,7 +5,7 @@
     byte[] data=getFileContent(fileItemName);
     String avroSchema=new String(data);
     validateRecordSchema(avroSchema,true);
-    SchemaFormAvroConverter converter=getCtlSchemaConverterForScope(getCurrentUser().getTenantId(),applicationId);
+    SchemaFormAvroConverter converter=getCtlSchemaConverterForScope(getCurrentUser().getTenantId(),applicationId,ConverterType.FORM_AVRO_CONVERTER);
     RecordField form=converter.createSchemaFormFromSchema(avroSchema);
     if (form.getVersion() == null) {
       form.updateVersion(1);

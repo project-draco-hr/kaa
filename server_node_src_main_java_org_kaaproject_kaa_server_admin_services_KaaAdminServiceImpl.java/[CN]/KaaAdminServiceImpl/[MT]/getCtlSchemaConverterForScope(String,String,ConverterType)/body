@@ -1,0 +1,14 @@
+{
+  try {
+    if (isEmpty(tenantId)) {
+      return getCtlSchemaConverterForSystem(converterType);
+    }
+    if (isEmpty(applicationId)) {
+      return getCtlSchemaConverterForTenant(tenantId,converterType);
+    }
+    return getCtlSchemaConverterForApplication(tenantId,applicationId,converterType);
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+}
