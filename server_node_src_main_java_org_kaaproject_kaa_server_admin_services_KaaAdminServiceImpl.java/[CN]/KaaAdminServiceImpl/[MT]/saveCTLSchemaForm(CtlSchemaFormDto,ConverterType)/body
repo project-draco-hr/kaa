@@ -36,14 +36,14 @@
         throw new IllegalArgumentException(message);
       }
       ctlSchema.setDependencySet(dependencies);
-      SchemaFormAvroConverter converter=getCtlSchemaConverterForScope(ctlSchema.getMetaInfo().getTenantId(),ctlSchema.getMetaInfo().getApplicationId(),ConverterType.FORM_AVRO_CONVERTER);
+      SchemaFormAvroConverter converter=getCtlSchemaConverterForScope(ctlSchema.getMetaInfo().getTenantId(),ctlSchema.getMetaInfo().getApplicationId(),converterType);
       Schema avroSchema=converter.createSchemaFromSchemaForm(schemaForm);
       String schemaBody=SchemaFormAvroConverter.createSchemaString(avroSchema,true);
       ctlSchema.setBody(schemaBody);
     }
     CTLSchemaDto savedCtlSchema=saveCTLSchema(ctlSchema);
     if (savedCtlSchema != null) {
-      return toCtlSchemaForm(savedCtlSchema,ConverterType.FORM_AVRO_CONVERTER);
+      return toCtlSchemaForm(savedCtlSchema,converterType);
     }
   }
  catch (  Exception cause) {

@@ -6,7 +6,7 @@
     confSchema.setApplicationId(ctlSchemaForm.getMetaInfo().getApplicationId());
     confSchema.setName(ctlSchemaForm.getSchema().getDisplayNameFieldValue());
     confSchema.setDescription(ctlSchemaForm.getSchema().getDescriptionFieldValue());
-    CtlSchemaFormDto savedCtlSchemaForm=saveCTLSchemaForm(ctlSchemaForm);
+    CtlSchemaFormDto savedCtlSchemaForm=saveCTLSchemaForm(ctlSchemaForm,ConverterType.CONFIGURATION_FORM_AVRO_CONVERTER);
     confSchema.setCtlSchemaId(savedCtlSchemaForm.getId());
     ConfigurationSchemaDto savedConfSchema=saveConfigurationSchema(confSchema);
     return getConfigurationSchemaView(savedConfSchema.getId());
