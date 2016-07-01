@@ -1,5 +1,5 @@
 {
-  KaaClientState state=new KaaClientPropertiesState(new FilePersistentStorage(),CommonsBase64.getInstance(),getProperties());
+  KaaClientState state=new KaaClientPropertiesState(new FilePersistentStorage(),CommonsBase64.getInstance(),getProperties(),true);
   state.getPublicKey();
   state.getPrivateKey();
   File pub=new File(WORK_DIR + KEY_PUBLIC);
@@ -8,8 +8,6 @@
   assertArrayEquals(KeyUtil.getPublic(pub).getEncoded(),state.getPublicKey().getEncoded());
   pub.delete();
   priv.delete();
-  state.getPrivateKey();
-  state.getPublicKey();
-  assertNotNull(state.getPrivateKey().getEncoded());
-  assertNotNull(state.getPublicKey().getEncoded());
+  assertNotNull(state.getPublicKey());
+  assertNotNull(state.getPrivateKey());
 }

@@ -1,6 +1,6 @@
 {
   if (keyHash == null) {
-    EndpointObjectHash publicKeyHash=EndpointObjectHash.fromSHA1(getOrInitKeyPair().getPublic().getEncoded());
+    EndpointObjectHash publicKeyHash=EndpointObjectHash.fromSHA1(getOrInitKeyPair(false).getPublic().getEncoded());
     keyHash=new EndpointKeyHash(new String(base64.encodeBase64(publicKeyHash.getData())));
   }
   return keyHash;
