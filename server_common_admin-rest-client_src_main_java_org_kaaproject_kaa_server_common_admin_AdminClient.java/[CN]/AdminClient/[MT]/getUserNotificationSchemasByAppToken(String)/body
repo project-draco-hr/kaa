@@ -2,6 +2,6 @@
   ParameterizedTypeReference<List<VersionDto>> typeRef=new ParameterizedTypeReference<List<VersionDto>>(){
   }
 ;
-  ResponseEntity<List<VersionDto>> entity=restTemplate.exchange(restTemplate.getUrl() + "userNotificationSchemasByAppToken/" + applicationToken,HttpMethod.GET,null,typeRef);
+  ResponseEntity<List<VersionDto>> entity=restTemplate.exchange(restTemplate.getUrl() + "userNotificationSchemas/" + applicationToken,HttpMethod.GET,null,typeRef);
   return entity.getBody();
 }

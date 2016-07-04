@@ -3,6 +3,7 @@
   try {
     EndpointProfileDto endpointProfile=controlService.getEndpointProfileByKeyHash(endpointKeyHash);
     Utils.checkNotNull(endpointProfile);
+    checkApplicationId(endpointProfile.getApplicationId());
     controlService.removeEndpointProfile(endpointProfile);
   }
  catch (  Exception cause) {

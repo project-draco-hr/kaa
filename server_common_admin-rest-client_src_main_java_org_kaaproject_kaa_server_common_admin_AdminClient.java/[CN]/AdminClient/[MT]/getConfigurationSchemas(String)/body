@@ -1,7 +1,0 @@
-{
-  ParameterizedTypeReference<List<ConfigurationSchemaDto>> typeRef=new ParameterizedTypeReference<List<ConfigurationSchemaDto>>(){
-  }
-;
-  ResponseEntity<List<ConfigurationSchemaDto>> entity=restTemplate.exchange(restTemplate.getUrl() + "configurationSchemas/" + applicationId,HttpMethod.GET,null,typeRef);
-  return entity.getBody();
-}

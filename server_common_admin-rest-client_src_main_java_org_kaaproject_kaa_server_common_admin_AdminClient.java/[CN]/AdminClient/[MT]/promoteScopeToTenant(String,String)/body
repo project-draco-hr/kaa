@@ -1,0 +1,6 @@
+{
+  MultiValueMap<String,Object> params=new LinkedMultiValueMap<>();
+  params.add("applicationId",applicationId);
+  params.add("fqn",fqn);
+  return restTemplate.postForObject(restTemplate.getUrl() + "CTL/promoteScopeToTenant",params,CTLSchemaMetaInfoDto.class);
+}
