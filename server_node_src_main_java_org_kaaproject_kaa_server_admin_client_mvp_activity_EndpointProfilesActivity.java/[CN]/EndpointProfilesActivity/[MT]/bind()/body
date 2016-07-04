@@ -10,7 +10,7 @@
     @Override public void onRowAction(    RowActionEvent<String> event){
       String id=event.getClickedId();
       if (event.getAction() == RowActionEvent.CLICK) {
-        goTo(new EndpointProfilePlace(applicationId,id,gridLoaded));
+        goTo(new EndpointProfilePlace(applicationId,id));
       }
  else       if (event.getAction() == RowActionEvent.DELETE) {
         deleteEntity(id,new BusyAsyncCallback<Void>(){
@@ -18,10 +18,10 @@
             Utils.handleException(caught,listView);
           }
           @Override public void onSuccessImpl(          Void result){
+            dataProvider.update();
           }
         }
 );
-        dataProvider.update();
       }
     }
   }

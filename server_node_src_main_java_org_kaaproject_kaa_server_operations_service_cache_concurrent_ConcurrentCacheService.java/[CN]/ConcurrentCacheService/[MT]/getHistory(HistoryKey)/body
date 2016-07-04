@@ -20,7 +20,7 @@
         }
  else         if (changeType == ChangeType.ADD_PROF || changeType == ChangeType.REMOVE_PROF) {
           ProfileFilterDto profileFilter=profileService.findProfileFilterById(changeDto.getProfileFilterId());
-          if (supports(profileFilter,key.getEndpointProfileSchemaVersion(),key.getServerProfileSchemaVersion())) {
+          if (profileFilter != null && supports(profileFilter,key.getEndpointProfileSchemaVersion(),key.getServerProfileSchemaVersion())) {
             relatedChanges.add(historyDto);
           }
         }

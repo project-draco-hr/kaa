@@ -3,5 +3,4 @@
   tenant.setTenantName(generateString(TENANT));
   TenantUserDto updatedTenant=client.editTenant(tenant);
   assertTenantsEquals(updatedTenant,tenant);
-  client.deleteTenant(tenant.getId());
 }
