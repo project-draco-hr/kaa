@@ -1,0 +1,11 @@
+{
+  KaaAdmin.getDataSource().getConfigurationRecordDataFromFile(schema,fileItemName,new AsyncCallback<RecordField>(){
+    @Override public void onSuccess(    RecordField result){
+      callback.onSuccess(result);
+    }
+    @Override public void onFailure(    Throwable caught){
+      callback.onFailure(caught);
+    }
+  }
+);
+}
