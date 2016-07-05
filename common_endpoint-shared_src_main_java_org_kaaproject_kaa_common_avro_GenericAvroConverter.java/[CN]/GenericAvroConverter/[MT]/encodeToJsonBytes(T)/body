@@ -1,6 +1,7 @@
 {
   ByteArrayOutputStream baos=new ByteArrayOutputStream();
-  jsonEncoder=EncoderFactory.get().jsonEncoder(this.schema,baos);
+  boolean base64=true;
+  jsonEncoder=EncoderFactory.get().jsonEncoder(base64,this.schema,baos);
   datumWriter.write(record,jsonEncoder);
   jsonEncoder.flush();
   baos.flush();

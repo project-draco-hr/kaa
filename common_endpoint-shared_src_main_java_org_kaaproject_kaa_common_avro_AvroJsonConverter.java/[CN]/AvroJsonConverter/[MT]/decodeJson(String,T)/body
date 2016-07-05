@@ -1,4 +1,5 @@
 {
-  jsonDecoder=DecoderFactory.get().jsonDecoder(this.schema,data);
+  boolean base64=true;
+  jsonDecoder=DecoderFactory.get().jsonDecoder(this.schema,data,base64);
   return avroReader.read(null,jsonDecoder);
 }
