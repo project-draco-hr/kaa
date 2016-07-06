@@ -4,7 +4,7 @@
   this.loginTenantDeveloper(tenantDeveloperUser);
   this.checkForbidden(new TestRestCall(){
     @Override public void executeRestCall() throws Exception {
-      client.deleteCTLSchemaByFqnVersionTenantIdAndApplicationId(saved.getMetaInfo().getFqn(),saved.getVersion(),null,null);
+      client.deleteCTLSchemaByFqnVersionTenantIdAndApplicationToken(saved.getMetaInfo().getFqn(),saved.getVersion(),null,null);
     }
   }
 );

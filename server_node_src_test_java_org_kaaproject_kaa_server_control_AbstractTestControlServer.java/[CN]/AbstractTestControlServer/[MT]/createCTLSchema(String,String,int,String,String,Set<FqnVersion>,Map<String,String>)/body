@@ -27,5 +27,5 @@
   }
   body.put("fields",array);
   LOG.debug("CTL schema generated: " + body);
-  return client.saveCTLSchema(body.toString(),tenantId,applicationId);
+  return client.saveCTLSchemaWithAppToken(body.toString(),tenantId,applicationToken);
 }

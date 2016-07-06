@@ -1,11 +1,11 @@
 {
   if (tenantId != null && applicationToken != null) {
-    return restTemplate.getForObject(restTemplate.getUrl() + "CTL/appToken/getSchema?fqn={fqn}&version={version}&tenantId={tenantId}" + "&applicationToken={applicationToken}",CTLSchemaDto.class,fqn,version,tenantId,applicationToken);
+    return restTemplate.getForObject(restTemplate.getUrl() + "CTL/getSchema?fqn={fqn}&version={version}&tenantId={tenantId}" + "&applicationToken={applicationToken}",CTLSchemaDto.class,fqn,version,tenantId,applicationToken);
   }
  else   if (tenantId != null) {
-    return restTemplate.getForObject(restTemplate.getUrl() + "CTL/appToken/getSchema?fqn={fqn}&version={version}&tenantId={tenantId}",CTLSchemaDto.class,fqn,version,tenantId);
+    return restTemplate.getForObject(restTemplate.getUrl() + "CTL/getSchema?fqn={fqn}&version={version}&tenantId={tenantId}",CTLSchemaDto.class,fqn,version,tenantId);
   }
  else {
-    return restTemplate.getForObject(restTemplate.getUrl() + "CTL/appToken/getSchema?fqn={fqn}&version={version}",CTLSchemaDto.class,fqn,version);
+    return restTemplate.getForObject(restTemplate.getUrl() + "CTL/getSchema?fqn={fqn}&version={version}",CTLSchemaDto.class,fqn,version);
   }
 }
