@@ -1,4 +1,6 @@
 {
-  byte[] configuration=GenericAvroConverter.toRawData(mergedConfiguration.getRawData(),mergedConfiguration.getSchema().getRawSchema());
+  JsonNode json=new ObjectMapper().readTree(rawMergedConf.getRawData());
+  json=AvroUtils.removeUuids(json);
+  byte[] configuration=GenericAvroConverter.toRawData(json.toString(),rawMergedConf.getSchema().getRawSchema());
   return new ConfigurationCacheEntry(configuration,new BaseBinaryDelta(configuration),EndpointObjectHash.fromSHA1(configuration),userConfigurationHash);
 }

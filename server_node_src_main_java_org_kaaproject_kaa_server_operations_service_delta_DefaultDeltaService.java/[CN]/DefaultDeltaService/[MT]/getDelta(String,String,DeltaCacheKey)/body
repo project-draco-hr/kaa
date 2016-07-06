@@ -32,7 +32,7 @@
         LOG.debug("[{}] Configuration hash for {} is {}",endpointId,deltaKey,MessageEncoderDecoder.bytesToHex(deltaCache.getHash().getData()));
         return deltaCache;
       }
- catch (      GetDeltaException e) {
+ catch (      GetDeltaException|IOException e) {
         throw new RuntimeException(e);
       }
     }
