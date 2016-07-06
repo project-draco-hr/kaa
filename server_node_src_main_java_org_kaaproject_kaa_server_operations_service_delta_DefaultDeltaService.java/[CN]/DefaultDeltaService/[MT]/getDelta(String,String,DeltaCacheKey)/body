@@ -19,8 +19,10 @@
           userConfigurationHash=EndpointObjectHash.fromString(userConfiguration.getBody());
         }
         BaseData mergedConfiguration=getMergedConfiguration(endpointId,userConfiguration,deltaKey,latestConfigurationSchema);
+        String ctlSchema=cacheService.getFlatCtlSchemaById(latestConfigurationSchema.getCtlSchemaId());
+        RawData rawData=new RawData(new RawSchema(ctlSchema),mergedConfiguration.getRawData());
         LOG.trace("[{}] Merged configuration {}",endpointId,mergedConfiguration.getRawData());
-        deltaCache=buildBaseResyncDelta(endpointId,mergedConfiguration,userConfigurationHash);
+        deltaCache=buildBaseResyncDelta(endpointId,rawData,userConfigurationHash);
         if (cacheService.getConfByHash(deltaCache.getHash()) == null) {
           EndpointConfigurationDto newConfiguration=new EndpointConfigurationDto();
           newConfiguration.setConfiguration(deltaCache.getConfiguration());

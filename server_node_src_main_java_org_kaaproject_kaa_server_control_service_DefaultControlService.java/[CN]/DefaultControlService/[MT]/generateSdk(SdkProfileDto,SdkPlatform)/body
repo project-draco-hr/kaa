@@ -23,12 +23,19 @@
   if (profileCtlSchema == null) {
     throw new NotFoundException("Profile CTL schema not found!");
   }
+  CTLSchemaDto confCtlSchema=ctlService.findCTLSchemaById(configurationSchema.getCtlSchemaId());
+  if (confCtlSchema == null) {
+    throw new NotFoundException("Configuration CTL schema not found!");
+  }
   String profileSchemaBodyString=ctlService.flatExportAsString(profileCtlSchema);
+  String confSchemaBodyString=ctlService.flatExportAsString(confCtlSchema);
   DataSchema profileDataSchema=new DataSchema(profileSchemaBodyString);
+  DataSchema confDataSchema=new DataSchema(confSchemaBodyString);
   DataSchema notificationDataSchema=new DataSchema(notificationSchema.getSchema());
   ProtocolSchema protocolSchema=new ProtocolSchema(configurationSchema.getProtocolSchema());
   DataSchema logDataSchema=new DataSchema(logSchema.getSchema());
   String profileSchemaBody=profileDataSchema.getRawSchema();
+  String confSchemaBody=confDataSchema.getRawSchema();
   byte[] defaultConfigurationData=GenericAvroConverter.toRawData(defaultConfiguration.getBody(),configurationSchema.getBaseSchema());
   List<EventFamilyMetadata> eventFamilies=new ArrayList<>();
   if (sdkProfile.getAefMapIds() != null) {
@@ -55,7 +62,7 @@
   SdkGenerator generator=SdkGeneratorFactory.createSdkGenerator(platform);
   FileData sdkFile=null;
   try {
-    sdkFile=generator.generateSdk(Version.PROJECT_VERSION,controlZKService.getCurrentBootstrapNodes(),sdkProfile,profileSchemaBody,notificationDataSchema.getRawSchema(),protocolSchema.getRawSchema(),configurationSchema.getBaseSchema(),defaultConfigurationData,eventFamilies,logDataSchema.getRawSchema());
+    sdkFile=generator.generateSdk(Version.PROJECT_VERSION,controlZKService.getCurrentBootstrapNodes(),sdkProfile,profileSchemaBody,notificationDataSchema.getRawSchema(),protocolSchema.getRawSchema(),confSchemaBody,defaultConfigurationData,eventFamilies,logDataSchema.getRawSchema());
   }
  catch (  Exception e) {
     LOG.error("Unable to generate SDK",e);
