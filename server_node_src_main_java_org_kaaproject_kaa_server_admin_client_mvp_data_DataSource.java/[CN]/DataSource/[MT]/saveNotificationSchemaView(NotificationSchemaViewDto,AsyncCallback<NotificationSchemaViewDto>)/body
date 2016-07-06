@@ -1,8 +1,0 @@
-{
-  rpcService.saveNotificationSchemaView(notificationSchema,new DataCallback<NotificationSchemaViewDto>(callback){
-    @Override protected void onResult(    NotificationSchemaViewDto result){
-      eventBus.fireEvent(new DataEvent(NotificationSchemaViewDto.class));
-    }
-  }
-);
-}
