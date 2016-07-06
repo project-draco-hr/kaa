@@ -1,0 +1,18 @@
+{
+  LOG.error("createNotificationSchemaFormCtlSchema [{}]",ctlSchemaForm.getSchema().getDisplayString());
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    checkApplicationId(ctlSchemaForm.getMetaInfo().getApplicationId());
+    NotificationSchemaDto notificationSchema=new NotificationSchemaDto();
+    notificationSchema.setApplicationId(ctlSchemaForm.getMetaInfo().getApplicationId());
+    notificationSchema.setName(ctlSchemaForm.getSchema().getDisplayNameFieldValue());
+    notificationSchema.setDescription(ctlSchemaForm.getSchema().getDescriptionFieldValue());
+    CtlSchemaFormDto savedCtlSchemaForm=saveCTLSchemaForm(ctlSchemaForm);
+    notificationSchema.setCtlSchemaId(savedCtlSchemaForm.getId());
+    NotificationSchemaDto savedNotificationSchema=editNotificationSchema(notificationSchema);
+    return getNotificationSchemaView(savedNotificationSchema.getId());
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

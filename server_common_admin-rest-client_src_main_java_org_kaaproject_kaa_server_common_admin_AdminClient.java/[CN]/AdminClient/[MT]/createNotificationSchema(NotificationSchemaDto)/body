@@ -1,0 +1,5 @@
+{
+  MultiValueMap<String,Object> params=new LinkedMultiValueMap<>();
+  params.add("notificationSchema",notificationSchema);
+  return restTemplate.postForObject(restTemplate.getUrl() + "createNotificationSchema",params,NotificationSchemaDto.class);
+}
