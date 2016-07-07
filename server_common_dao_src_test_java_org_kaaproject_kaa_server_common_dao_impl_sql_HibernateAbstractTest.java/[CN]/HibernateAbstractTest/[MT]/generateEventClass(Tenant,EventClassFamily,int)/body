@@ -6,15 +6,21 @@
     eventClassFamily=generateEventClassFamily(tenant,1).get(0);
   }
   EventClass eventClass;
+  EventClassFamilyVersion eventClassFamilyVersion=eventClassFamily.getSchemas().get(0);
   List<EventClass> eventClasses=new ArrayList<>(count);
   for (int i=0; i < count; i++) {
     eventClass=new EventClass();
     eventClass.setTenant(tenant);
-    eventClass.setEcf(eventClassFamily);
+    eventClass.setCtlSchema(generateCTLSchema(DEFAULT_FQN,i,tenant,CTLSchemaScopeDto.TENANT));
+    eventClass.setEcf(eventClassFamilyVersion);
     eventClass.setFqn("Test FQN" + RANDOM.nextInt());
-    eventClass.setSchema("Test Schema" + RANDOM.nextInt());
     eventClass.setType(EventClassType.EVENT);
     eventClass.setVersion(1);
+    eventClass.setName("test schema name" + RANDOM.nextInt());
+    eventClass.setDescription("test schema description" + RANDOM.nextInt());
+    eventClass.setCreatedUsername("test createdUsername" + RANDOM.nextInt());
+    eventClass.setCreatedTime(new Date().getTime());
+    eventClass.setApplication(generateApplication(tenant));
     eventClass=eventClassDao.save(eventClass);
     Assert.assertNotNull(eventClass);
     eventClasses.add(eventClass);
