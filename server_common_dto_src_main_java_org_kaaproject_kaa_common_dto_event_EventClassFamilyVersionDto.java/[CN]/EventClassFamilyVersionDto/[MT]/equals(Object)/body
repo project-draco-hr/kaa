@@ -1,0 +1,32 @@
+{
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  EventClassFamilyVersionDto other=(EventClassFamilyVersionDto)obj;
+  if (createdTime != other.createdTime) {
+    return false;
+  }
+  if (createdUsername == null) {
+    if (other.createdUsername != null) {
+      return false;
+    }
+  }
+ else   if (!createdUsername.equals(other.createdUsername)) {
+    return false;
+  }
+  if (records == null) {
+    if (other.records != null) {
+      return false;
+    }
+  }
+ else   if (!records.equals(other.records)) {
+    return false;
+  }
+  return version == other.version;
+}
