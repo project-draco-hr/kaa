@@ -28,12 +28,12 @@
  else   if (!id.equals(other.id)) {
     return false;
   }
-  if (schema == null) {
-    if (other.schema != null) {
+ else   if (records == null) {
+    if (other.records != null) {
       return false;
     }
   }
- else   if (!schema.equals(other.schema)) {
+ else   if (!records.equals(other.records)) {
     return false;
   }
   return version == other.version;
