@@ -1,9 +1,15 @@
 {
-  EventSchemaVersionDto dto=createDto();
+  EventClassFamilyVersionDto dto=createDto();
   dto.setId(getStringId());
   dto.setVersion(version);
-  dto.setSchema(schema);
   dto.setCreatedUsername(createdUsername);
   dto.setCreatedTime(createdTime);
+  if (records != null) {
+    List<EventClassDto> recordsDto=new ArrayList<>(records.size());
+    for (    EventClass record : records) {
+      recordsDto.add(record.toDto());
+    }
+    dto.setRecords(recordsDto);
+  }
   return dto;
 }

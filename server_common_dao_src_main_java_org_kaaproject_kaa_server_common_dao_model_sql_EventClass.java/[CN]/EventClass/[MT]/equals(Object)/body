@@ -33,12 +33,12 @@
  else   if (!id.equals(other.id)) {
     return false;
   }
-  if (schema == null) {
-    if (other.schema != null) {
+  if (getCtlSchema() == null) {
+    if (other.getCtlSchema() != null) {
       return false;
     }
   }
- else   if (!schema.equals(other.schema)) {
+ else   if (!getCtlSchema().equals(other.getCtlSchema())) {
     return false;
   }
   if (tenant == null) {
@@ -57,5 +57,5 @@
  else   if (!type.equals(other.type)) {
     return false;
   }
-  return version == other.version;
+  return true;
 }
