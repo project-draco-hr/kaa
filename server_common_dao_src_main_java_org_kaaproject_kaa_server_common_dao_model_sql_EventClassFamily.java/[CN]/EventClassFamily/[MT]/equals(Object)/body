@@ -68,5 +68,13 @@
  else   if (!tenant.equals(other.tenant)) {
     return false;
   }
+  if (schemas == null) {
+    if (other.schemas != null) {
+      return false;
+    }
+  }
+ else   if (!schemas.equals(other.schemas)) {
+    return false;
+  }
   return true;
 }

@@ -12,8 +12,8 @@
   this.createdTime=dto.getCreatedTime();
   if (dto.getSchemas() != null) {
     this.schemas=new ArrayList<>(dto.getSchemas().size());
-    for (    EventSchemaVersionDto schema : dto.getSchemas()) {
-      this.schemas.add(new EventSchemaVersion(schema));
+    for (    EventClassFamilyVersionDto schema : dto.getSchemas()) {
+      this.schemas.add(new EventClassFamilyVersion(schema));
     }
   }
 }

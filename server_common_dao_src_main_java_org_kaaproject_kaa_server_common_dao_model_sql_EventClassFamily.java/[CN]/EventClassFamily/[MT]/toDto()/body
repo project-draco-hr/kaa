@@ -11,8 +11,8 @@
   dto.setCreatedUsername(createdUsername);
   dto.setCreatedTime(createdTime);
   if (schemas != null) {
-    List<EventSchemaVersionDto> schemasDto=new ArrayList<>(schemas.size());
-    for (    EventSchemaVersion schema : schemas) {
+    List<EventClassFamilyVersionDto> schemasDto=new ArrayList<>(schemas.size());
+    for (    EventClassFamilyVersion schema : schemas) {
       schemasDto.add(schema.toDto());
     }
     dto.setSchemas(schemasDto);
