@@ -6,7 +6,7 @@
     ((ObjectNode)json).remove(UUID_FIELD);
   }
   for (  JsonNode node : json) {
-    if (node.isContainerNode())     injectUuids(node);
+    if (node.isContainerNode())     removeUuids(node);
   }
   return json;
 }
