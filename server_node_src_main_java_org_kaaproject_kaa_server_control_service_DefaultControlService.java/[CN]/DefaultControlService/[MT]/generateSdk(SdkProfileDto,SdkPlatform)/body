@@ -46,10 +46,12 @@
       efm.setEcfName(ecf.getName());
       efm.setEcfNamespace(ecf.getNamespace());
       efm.setEcfClassName(ecf.getClassName());
-      List<EventSchemaVersionDto> ecfSchemas=ecf.getSchemas();
-      for (      EventSchemaVersionDto ecfSchema : ecfSchemas) {
+      List<EventClassFamilyVersionDto> ecfSchemas=eventClassService.findEventClassFamilyVersionsById(aefMap.getEcfId());
+      for (      EventClassFamilyVersionDto ecfSchema : ecfSchemas) {
         if (ecfSchema.getVersion() == efm.getVersion()) {
-          efm.setEcfSchema(ecfSchema.getSchema());
+          List<EventClassDto> records=eventClassService.findEventClassesByFamilyIdVersionAndType(ecfSchema.getId(),ecfSchema.getVersion(),EventClassType.EVENT);
+          records.addAll(eventClassService.findEventClassesByFamilyIdVersionAndType(ecfSchema.getId(),ecfSchema.getVersion(),EventClassType.OBJECT));
+          efm.setRecords(records);
           break;
         }
       }
