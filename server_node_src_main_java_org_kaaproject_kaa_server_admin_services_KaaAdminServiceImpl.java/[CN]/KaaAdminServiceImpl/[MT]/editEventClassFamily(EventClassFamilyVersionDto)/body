@@ -1,0 +1,19 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_ADMIN);
+  try {
+    EventClassFamilyDto storedEventClassFamily=null;
+    if (!isEmpty(eventClassFamilyVersion.getId())) {
+      storedEventClassFamily=controlService.getEventClassFamily(eventClassFamilyVersion.getId());
+      Utils.checkNotNull(storedEventClassFamily);
+      checkTenantId(storedEventClassFamily.getTenantId());
+    }
+ else {
+      String username=getCurrentUser().getUsername();
+      eventClassFamilyVersion.setCreatedUsername(username);
+    }
+    return controlService.editEventClassFamily(eventClassFamilyVersion);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}
