@@ -17,15 +17,15 @@
  else   if (!fqn.equals(other.fqn)) {
     return false;
   }
-  if (schema == null) {
-    if (other.schema != null) {
+  if (type != other.type) {
+    return false;
+  }
+  if (ctlSchemaId == null) {
+    if (other.ctlSchemaId != null) {
       return false;
     }
   }
- else   if (!schema.equals(other.schema)) {
-    return false;
-  }
-  if (type != other.type) {
+ else   if (!ctlSchemaId.equals(other.ctlSchemaId)) {
     return false;
   }
   return true;
