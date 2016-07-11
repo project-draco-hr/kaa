@@ -10,10 +10,4 @@
   this.description=dto.getDescription();
   this.createdUsername=dto.getCreatedUsername();
   this.createdTime=dto.getCreatedTime();
-  if (dto.getSchemas() != null) {
-    this.schemas=new ArrayList<>(dto.getSchemas().size());
-    for (    EventClassFamilyVersionDto schema : dto.getSchemas()) {
-      this.schemas.add(new EventClassFamilyVersion(schema));
-    }
-  }
 }
