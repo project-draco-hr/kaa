@@ -4,7 +4,7 @@
     ApplicationDto application=getDto(applicationDao.findById(applicationId));
     if (application != null) {
       String tenantId=application.getTenantId();
-      List<EventClassFamilyDto> eventClassFamilies=convertDtoList(eventClassFamilyDao.findByTenantId(tenantId));
+      List<EventClassFamily> eventClassFamilies=eventClassFamilyDao.findByTenantId(tenantId);
       List<AefMapInfoDto> aefMaps=findEventClassFamiliesByApplicationId(applicationId);
       List<EcfInfoDto> occupiedEcfs=new ArrayList<>();
       for (      AefMapInfoDto aefMap : aefMaps) {
@@ -15,11 +15,11 @@
         occupiedEcfs.add(ecf);
       }
       if (eventClassFamilies != null) {
-        for (        EventClassFamilyDto eventClassFamily : eventClassFamilies) {
+        for (        EventClassFamily eventClassFamily : eventClassFamilies) {
           if (eventClassFamily.getSchemas() != null) {
-            for (            EventClassFamilyVersionDto eventClassFamilyVersion : eventClassFamily.getSchemas()) {
+            for (            EventClassFamilyVersion eventClassFamilyVersion : eventClassFamily.getSchemas()) {
               EcfInfoDto ecf=new EcfInfoDto();
-              ecf.setEcfId(eventClassFamily.getId());
+              ecf.setEcfId(String.valueOf(eventClassFamily.getId()));
               ecf.setEcfName(eventClassFamily.getName());
               ecf.setVersion(eventClassFamilyVersion.getVersion());
               if (occupiedEcfs != null && !occupiedEcfs.contains(ecf)) {
