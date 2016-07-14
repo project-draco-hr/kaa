@@ -34,9 +34,12 @@ schema=confSchemaDto.getOverrideSchema();
 fileName=MessageFormatter.arrayFormat(DATA_NAME_PATTERN,new Object[]{"configuration-override",key.getSchemaVersion()}).getMessage();
 break;
 case NOTIFICATION_SCHEMA:
-schemaDto=notificationService.findNotificationSchemaByAppIdAndTypeAndVersion(key.getApplicationId(),NotificationTypeDto.USER,key.getSchemaVersion());
-checkSchema(schemaDto,RecordFiles.NOTIFICATION_SCHEMA);
-schema=schemaDto.getSchema();
+NotificationSchemaDto notificationSchemaDto=notificationService.findNotificationSchemaByAppIdAndTypeAndVersion(key.getApplicationId(),NotificationTypeDto.USER,key.getSchemaVersion());
+if (notificationSchemaDto == null) {
+throw new NotFoundException("Schema " + RecordFiles.NOTIFICATION_SCHEMA + " not found!");
+}
+CTLSchemaDto ctlSchemaDto=ctlService.findCTLSchemaById(notificationSchemaDto.getCtlSchemaId());
+schema=ctlSchemaDto.getBody();
 fileName=MessageFormatter.arrayFormat(DATA_NAME_PATTERN,new Object[]{"notification",key.getSchemaVersion()}).getMessage();
 break;
 case PROFILE_SCHEMA:
