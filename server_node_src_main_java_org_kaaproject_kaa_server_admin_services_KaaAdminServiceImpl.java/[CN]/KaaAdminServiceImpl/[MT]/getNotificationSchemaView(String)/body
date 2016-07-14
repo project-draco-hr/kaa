@@ -5,7 +5,7 @@
     Utils.checkNotNull(notificationSchema);
     checkApplicationId(notificationSchema.getApplicationId());
     CTLSchemaDto ctlSchemaDto=controlService.getCTLSchemaById(notificationSchema.getCtlSchemaId());
-    NotificationSchemaViewDto notificationSchemaViewDto=new NotificationSchemaViewDto(notificationSchema,toCtlSchemaForm(ctlSchemaDto));
+    NotificationSchemaViewDto notificationSchemaViewDto=new NotificationSchemaViewDto(notificationSchema,toCtlSchemaForm(ctlSchemaDto,ConverterType.FORM_AVRO_CONVERTER));
     return notificationSchemaViewDto;
   }
  catch (  Exception e) {
