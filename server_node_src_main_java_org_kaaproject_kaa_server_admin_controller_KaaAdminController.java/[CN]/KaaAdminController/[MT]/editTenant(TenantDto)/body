@@ -1,0 +1,9 @@
+{
+  try {
+    TenantDto tenant=kaaAdminService.editTenant(tenantUser);
+    return tenant;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

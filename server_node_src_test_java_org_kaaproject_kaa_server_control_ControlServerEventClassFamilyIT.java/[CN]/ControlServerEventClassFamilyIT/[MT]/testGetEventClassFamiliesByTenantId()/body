@@ -1,6 +1,6 @@
 {
-  List<EventClassFamilyDto> eventClassFamilies=new ArrayList<EventClassFamilyDto>(10);
-  TenantUserDto tenant=createTenant(tenantAdminUser);
+  List<EventClassFamilyDto> eventClassFamilies=new ArrayList<>(10);
+  TenantAdminDto tenant=createTenant(tenantAdminUser);
   loginTenantAdmin(tenantAdminUser);
   for (int i=0; i < 10; i++) {
     EventClassFamilyDto eventClassFamily=createEventClassFamily(tenant.getId(),"" + i);

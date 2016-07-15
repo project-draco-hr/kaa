@@ -1,9 +1,0 @@
-{
-  final TenantUserDto tenant=createTenant();
-  checkNotFound(new TestRestCall(){
-    @Override public void executeRestCall() throws Exception {
-      client.getTenant(tenant.getId());
-    }
-  }
-);
-}

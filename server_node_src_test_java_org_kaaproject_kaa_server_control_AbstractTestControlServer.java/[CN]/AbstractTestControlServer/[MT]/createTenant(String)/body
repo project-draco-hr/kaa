@@ -1,19 +1,30 @@
 {
   loginKaaAdmin();
   if (username == null) {
-    username=generateString(TENANT_ADMIN_USERNAME);
+    username=generateString(username);
   }
-  TenantUserDto tenantUser=new TenantUserDto();
-  tenantUser.setTenantName(username);
-  tenantUser.setAuthority(KaaAuthorityDto.TENANT_ADMIN);
-  tenantUser.setUsername(username);
-  tenantUser.setMail(username + "@demoproject.org");
-  tenantUser.setFirstName(username);
-  tenantUser.setLastName("Admin");
-  tenantUser=client.editTenant(tenantUser);
-  if (StringUtils.isNotBlank(tenantUser.getTempPassword())) {
+  TenantDto tenantDto=null;
+  if (client.getTenants().isEmpty()) {
+    tenantDto=new TenantDto();
+    tenantDto.setName(TENANT_NAME);
+    tenantDto=client.editTenant(tenantDto);
+  }
+ else   tenantDto=client.getTenant("1");
+  org.kaaproject.kaa.common.dto.admin.UserDto tenAdmin=new org.kaaproject.kaa.common.dto.admin.UserDto();
+  tenAdmin.setAuthority(KaaAuthorityDto.TENANT_ADMIN);
+  tenAdmin.setUsername(username);
+  tenAdmin.setMail(username + "@demoproject.org");
+  tenAdmin.setFirstName("Tenant");
+  tenAdmin.setLastName("Admin");
+  tenAdmin.setTenantId(tenantDto.getId());
+  tenAdmin=client.editUser(tenAdmin);
+  if (StringUtils.isNotBlank(tenAdmin.getTempPassword())) {
     client.clearCredentials();
-    client.changePassword(tenantUser.getUsername(),tenantUser.getTempPassword(),tenantAdminPassword);
+    client.changePassword(tenAdmin.getUsername(),tenAdmin.getTempPassword(),tenantAdminPassword);
   }
-  return tenantUser;
+  TenantAdminDto tenantAdmin=new TenantAdminDto();
+  tenantAdmin.setUsername(username);
+  tenantAdmin.setId(tenAdmin.getId());
+  tenantAdmin.setTenant(tenantDto);
+  return tenantAdmin;
 }

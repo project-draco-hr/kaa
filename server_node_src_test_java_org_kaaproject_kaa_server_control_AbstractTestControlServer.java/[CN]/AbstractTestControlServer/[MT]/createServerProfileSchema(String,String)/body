@@ -10,7 +10,7 @@
     profileSchema.setApplicationId(applicationId);
   }
   if (strIsEmpty(ctlSchemaId)) {
-    CTLSchemaDto ctlSchema=this.createCTLSchema(this.ctlRandomFieldType(),CTL_DEFAULT_NAMESPACE,1,tenantAdminDto.getTenantId(),null,null,null);
+    CTLSchemaDto ctlSchema=this.createCTLSchema(this.ctlRandomFieldType(),CTL_DEFAULT_NAMESPACE,1,tenantAdminDto.getId(),null,null,null);
     profileSchema.setCtlSchemaId(ctlSchema.getId());
   }
   loginTenantDeveloper(tenantDeveloperDto.getUsername());

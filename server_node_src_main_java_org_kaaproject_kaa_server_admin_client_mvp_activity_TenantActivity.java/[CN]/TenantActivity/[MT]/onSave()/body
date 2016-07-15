@@ -1,7 +1,3 @@
 {
-  super.onSave();
-  entity.setTenantName(detailsView.getTenantName().getValue());
-  if (create) {
-    entity.setAuthority(KaaAuthorityDto.TENANT_ADMIN);
-  }
+  entity.setName(detailsView.getTenantName().getValue());
 }
