@@ -49,13 +49,15 @@
     entry.setSize(data.length);
     TarEntryData tarEntry=new TarEntryData(entry,data);
     eventSources.add(tarEntry);
-    String eventFamilySchema=efm.getEcfSchema();
+    List<String> eventCtlSchemas=efm.getRawCtlsSchemas();
     String eventFamilySchemaPath=EVENT_FAMILY_SCHEMA_PATH_TEMPLATE.replaceAll(EVENT_FAMILY_CLASS_NAME_VAR,efm.getEcfClassName());
-    entry=new TarArchiveEntry(eventFamilySchemaPath);
-    data=eventFamilySchema.getBytes();
-    entry.setSize(data.length);
-    tarEntry=new TarEntryData(entry,data);
-    eventSources.add(tarEntry);
+    for (    String ctlSchema : eventCtlSchemas) {
+      entry=new TarArchiveEntry(eventFamilySchemaPath);
+      data=ctlSchema.getBytes();
+      entry.setSize(data.length);
+      tarEntry=new TarEntryData(entry,data);
+      eventSources.add(tarEntry);
+    }
   }
   String eventFamilyFactorySource=eventFamilyFactoryHpp.replaceAll(INCLUDE_EVENT_FAMILY_HEADERS_VAR,includeEventFamilyHeaders).replaceAll(EVENT_FAMILY_FACTORY_GET_CONCRETE_EVENT_FAMILY_VAR,factoryGetEventFamilies).replaceAll(EVENT_FAMILY_FACTORY_ADD_CONCRETE_EVENT_FAMILY_VAR,factoryAddEventFamilies).replaceAll(EVENT_FAMILY_FACTORY_SET_CONCRETE_EVENT_FAMILY_NAMES_VAR,factorySetEventFamilyNames);
   TarArchiveEntry entry=new TarArchiveEntry(EVENT_FAMILY_FACTORY_PATH);
