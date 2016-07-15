@@ -13,8 +13,7 @@
   gamma.setLogData(converter.encode(log));
   logEvents.add(alpha);
   LogSchemaDto logSchemaDto=new LogSchemaDto();
-  logSchemaDto.setSchema(BasicEndpointProfile.SCHEMA$.toString());
-  LogSchema logSchema=new LogSchema(logSchemaDto);
+  LogSchema logSchema=new LogSchema(logSchemaDto,BasicEndpointProfile.SCHEMA$.toString());
   EndpointProfileDataDto profileDto=new EndpointProfileDataDto("1",ENDPOINT_KEY,1,"",0,null);
   BaseLogEventPack logEventPack=new BaseLogEventPack(profileDto,DATE_CREATED,logSchema.getVersion(),logEvents);
   logEventPack.setLogSchema(logSchema);

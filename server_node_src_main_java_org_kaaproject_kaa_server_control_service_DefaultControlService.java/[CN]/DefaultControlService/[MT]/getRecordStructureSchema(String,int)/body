@@ -9,7 +9,11 @@
   }
   Schema recordWrapperSchema=null;
   try {
-    recordWrapperSchema=RecordWrapperSchemaGenerator.generateRecordWrapperSchema(logSchema.getSchema());
+    CTLSchemaDto logCtlSchema=ctlService.findCTLSchemaById(logSchema.getCtlSchemaId());
+    if (logCtlSchema == null) {
+      throw new NotFoundException("Log CTL schema not found!");
+    }
+    recordWrapperSchema=RecordWrapperSchemaGenerator.generateRecordWrapperSchema(logCtlSchema.getBody());
   }
  catch (  IOException e) {
     LOG.error("Unable to get Record Structure Schema",e);

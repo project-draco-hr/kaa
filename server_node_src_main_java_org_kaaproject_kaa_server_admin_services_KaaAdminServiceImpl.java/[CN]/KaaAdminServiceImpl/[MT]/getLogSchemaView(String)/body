@@ -1,0 +1,12 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    LogSchemaDto logSchema=getLogSchema(logSchemaId);
+    CTLSchemaDto ctlSchemaDto=controlService.getCTLSchemaById(logSchema.getCtlSchemaId());
+    LogSchemaViewDto logSchemaViewDto=new LogSchemaViewDto(logSchema,toCtlSchemaForm(ctlSchemaDto));
+    return logSchemaViewDto;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

@@ -15,8 +15,7 @@
     GenericAvroConverter<BasicEndpointProfile> converter=new GenericAvroConverter<BasicEndpointProfile>(BasicEndpointProfile.SCHEMA$);
     BasicEndpointProfile theLog=new BasicEndpointProfile("test");
     LogSchemaDto schemaDto=new LogSchemaDto();
-    schemaDto.setSchema(BasicEndpointProfile.SCHEMA$.toString());
-    LogSchema schema=new LogSchema(schemaDto);
+    LogSchema schema=new LogSchema(schemaDto,BasicEndpointProfile.SCHEMA$.toString());
     LogEvent logEvent=new LogEvent();
     logEvent.setLogData(converter.encode(theLog));
     EndpointProfileDataDto profileDto=new EndpointProfileDataDto("1","endpointKey",1,"",0,null);

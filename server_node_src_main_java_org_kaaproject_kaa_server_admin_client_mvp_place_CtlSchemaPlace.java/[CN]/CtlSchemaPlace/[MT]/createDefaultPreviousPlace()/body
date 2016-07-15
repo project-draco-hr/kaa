@@ -7,8 +7,11 @@
  else       if (schemaType == SchemaType.SERVER_PROFILE) {
         return new ServerProfileSchemasPlace(applicationId);
       }
- else {
+ else       if (schemaType == SchemaType.NOTIFICATION) {
         return new NotificationSchemasPlace(applicationId);
+      }
+ else {
+        return new LogSchemasPlace(applicationId);
       }
     }
  else {

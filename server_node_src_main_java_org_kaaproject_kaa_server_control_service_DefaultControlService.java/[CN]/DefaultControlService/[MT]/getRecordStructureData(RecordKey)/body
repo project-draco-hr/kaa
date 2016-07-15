@@ -13,14 +13,10 @@
     String schema=null;
 switch (key.getRecordFiles()) {
 case LOG_SCHEMA:
-      schemaDto=logSchemaService.findLogSchemaByAppIdAndVersion(key.getApplicationId(),key.getSchemaVersion());
-    checkSchema(schemaDto,RecordFiles.LOG_SCHEMA);
-  schema=schemaDto.getSchema();
-fileName=MessageFormatter.arrayFormat(DATA_NAME_PATTERN,new Object[]{"log",key.getSchemaVersion()}).getMessage();
-break;
+      throw new RuntimeException("Not implemented!");
 case CONFIGURATION_SCHEMA:
-schemaDto=configurationService.findConfSchemaByAppIdAndVersion(key.getApplicationId(),key.getSchemaVersion());
-checkSchema(schemaDto,RecordFiles.CONFIGURATION_SCHEMA);
+    schemaDto=configurationService.findConfSchemaByAppIdAndVersion(key.getApplicationId(),key.getSchemaVersion());
+  checkSchema(schemaDto,RecordFiles.CONFIGURATION_SCHEMA);
 schema=schemaDto.getSchema();
 fileName=MessageFormatter.arrayFormat(DATA_NAME_PATTERN,new Object[]{"configuration",key.getSchemaVersion()}).getMessage();
 break;
@@ -37,14 +33,7 @@ schema=((ConfigurationSchemaDto)schemaDto).getOverrideSchema();
 fileName=MessageFormatter.arrayFormat(DATA_NAME_PATTERN,new Object[]{"configuration-override",key.getSchemaVersion()}).getMessage();
 break;
 case NOTIFICATION_SCHEMA:
-NotificationSchemaDto notificationSchemaDto=notificationService.findNotificationSchemaByAppIdAndTypeAndVersion(key.getApplicationId(),NotificationTypeDto.USER,key.getSchemaVersion());
-if (notificationSchemaDto == null) {
-throw new NotFoundException("Schema " + RecordFiles.NOTIFICATION_SCHEMA + " not found!");
-}
-CTLSchemaDto ctlSchemaDto=ctlService.findCTLSchemaById(notificationSchemaDto.getCtlSchemaId());
-schema=ctlSchemaDto.getBody();
-fileName=MessageFormatter.arrayFormat(DATA_NAME_PATTERN,new Object[]{"notification",key.getSchemaVersion()}).getMessage();
-break;
+throw new RuntimeException("Not implemented!");
 case PROFILE_SCHEMA:
 throw new RuntimeException("Not implemented!");
 case SERVER_PROFILE_SCHEMA:

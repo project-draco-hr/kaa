@@ -19,6 +19,11 @@
   if (logSchema == null) {
     throw new NotFoundException("Log schema not found!");
   }
+  CTLSchemaDto logCtlSchema=ctlService.findCTLSchemaById(logSchema.getCtlSchemaId());
+  if (logCtlSchema == null) {
+    throw new NotFoundException("Log CTL schema not found!");
+  }
+  String logSchemaBodyString=ctlService.flatExportAsString(logCtlSchema);
   CTLSchemaDto profileCtlSchema=ctlService.findCTLSchemaById(profileSchema.getCtlSchemaId());
   if (profileCtlSchema == null) {
     throw new NotFoundException("Profile CTL schema not found!");
@@ -26,13 +31,13 @@
   String profileSchemaBodyString=ctlService.flatExportAsString(profileCtlSchema);
   CTLSchemaDto notificationCtlSchema=ctlService.findCTLSchemaById(notificationSchema.getCtlSchemaId());
   if (notificationCtlSchema == null) {
-    throw new NotFoundException("Profile CTL schema not found!");
+    throw new NotFoundException("Notification CTL schema not found!");
   }
   String notificationSchemaBodyString=ctlService.flatExportAsString(notificationCtlSchema);
   DataSchema profileDataSchema=new DataSchema(profileSchemaBodyString);
   DataSchema notificationDataSchema=new DataSchema(notificationSchemaBodyString);
   ProtocolSchema protocolSchema=new ProtocolSchema(configurationSchema.getProtocolSchema());
-  DataSchema logDataSchema=new DataSchema(logSchema.getSchema());
+  DataSchema logDataSchema=new DataSchema(logSchemaBodyString);
   String profileSchemaBody=profileDataSchema.getRawSchema();
   byte[] defaultConfigurationData=GenericAvroConverter.toRawData(defaultConfiguration.getBody(),configurationSchema.getBaseSchema());
   List<EventFamilyMetadata> eventFamilies=new ArrayList<>();

@@ -1,0 +1,18 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    if (isEmpty(logSchema.getId())) {
+      logSchema.setCreatedUsername(getCurrentUser().getUsername());
+      checkApplicationId(logSchema.getApplicationId());
+    }
+ else {
+      LogSchemaDto storedLogSchema=controlService.getLogSchema(logSchema.getId());
+      Utils.checkNotNull(storedLogSchema);
+      checkApplicationId(storedLogSchema.getApplicationId());
+    }
+    return controlService.saveLogSchema(logSchema);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

@@ -12,8 +12,11 @@
  else         if (place.getSchemaType() == SchemaType.SERVER_PROFILE) {
           goTo(new ServerProfileSchemasPlace(place.getApplicationId()));
         }
- else {
+ else         if (place.getSchemaType() == SchemaType.NOTIFICATION) {
           goTo(new NotificationSchemasPlace(place.getApplicationId()));
+        }
+ else {
+          goTo(new LogSchemasPlace(place.getApplicationId()));
         }
       }
  else       if (place.getPreviousPlace() != null) {
