@@ -1,0 +1,14 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    NotificationSchemaDto notificationSchema=controlService.getNotificationSchema(notificationSchemaId);
+    Utils.checkNotNull(notificationSchema);
+    checkApplicationId(notificationSchema.getApplicationId());
+    CTLSchemaDto ctlSchemaDto=controlService.getCTLSchemaById(notificationSchema.getCtlSchemaId());
+    NotificationSchemaViewDto notificationSchemaViewDto=new NotificationSchemaViewDto(notificationSchema,toCtlSchemaForm(ctlSchemaDto));
+    return notificationSchemaViewDto;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

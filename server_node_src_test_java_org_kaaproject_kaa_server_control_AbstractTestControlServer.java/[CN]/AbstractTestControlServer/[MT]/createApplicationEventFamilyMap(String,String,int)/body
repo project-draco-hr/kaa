@@ -1,14 +1,14 @@
 {
   ApplicationEventFamilyMapDto applicationEventFamilyMap=new ApplicationEventFamilyMapDto();
   String tenantId=null;
-  if (strIsEmpty(applicationId)) {
+  if (strIsEmpty(applicationToken)) {
     ApplicationDto application=createApplication(tenantAdminDto);
     tenantId=application.getTenantId();
     applicationEventFamilyMap.setApplicationId(application.getId());
   }
  else {
-    applicationEventFamilyMap.setApplicationId(applicationId);
-    ApplicationDto application=client.getApplication(applicationId);
+    ApplicationDto application=client.getApplicationByApplicationToken(applicationToken);
+    applicationEventFamilyMap.setApplicationId(application.getId());
     tenantId=application.getTenantId();
   }
   EventClassFamilyDto eventClassFamily=null;

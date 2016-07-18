@@ -1,3 +1,8 @@
 {
+  String schema=null;
+  if (struct.getConfigurationRecord() != null) {
+    schema=struct.getConfigurationRecord().getSchema();
+  }
+  configurationFormDataLoader.setSchema(schema);
   body.setValue(struct.getConfigurationRecord());
 }

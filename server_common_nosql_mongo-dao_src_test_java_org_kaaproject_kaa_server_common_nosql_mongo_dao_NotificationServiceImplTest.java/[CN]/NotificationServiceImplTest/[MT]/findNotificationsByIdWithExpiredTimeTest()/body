@@ -1,13 +1,17 @@
 {
-  String appId=generateApplicationDto().getId();
-  NotificationSchemaDto schema=new NotificationSchemaDto();
-  schema.setApplicationId(appId);
-  String schemaBody="{\"type\":\"record\",\"name\":\"BasicSystemNotification\",\"namespace\":\"org.kaaproject.kaa.common.endpoint.gen\",\"fields\":[{\"name\":\"notificationBody\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"systemNotificationParam1\",\"type\":\"int\"},{\"name\":\"systemNotificationParam2\",\"type\":\"int\"}]}";
-  schema.setSchema(new KaaSchemaFactoryImpl().createDataSchema(schemaBody).getRawSchema());
-  schema.setType(NotificationTypeDto.USER);
-  NotificationSchemaDto savedSchema=notificationService.saveNotificationSchema(schema);
+  ApplicationDto app=generateApplicationDto();
+  NotificationSchemaDto notificationSchemaDto=new NotificationSchemaDto();
+  notificationSchemaDto.setApplicationId(app.getId());
+  CTLSchemaDto ctlSchema=ctlService.saveCTLSchema(generateCTLSchemaDto(app.getTenantId()));
+  notificationSchemaDto.setCtlSchemaId(ctlSchema.getId());
+  if (notificationSchemaDto == null) {
+    throw new RuntimeException("Can't save default profile schema ");
+  }
+  notificationSchemaDto.setCtlSchemaId(ctlSchema.getId());
+  notificationSchemaDto.setType(NotificationTypeDto.USER);
+  NotificationSchemaDto savedSchema=notificationService.saveNotificationSchema(notificationSchemaDto);
   TopicDto topicDto=new TopicDto();
-  topicDto.setApplicationId(appId);
+  topicDto.setApplicationId(app.getId());
   topicDto.setName("New Topic");
   topicDto.setType(TopicTypeDto.MANDATORY);
   topicDto=topicService.saveTopic(topicDto);
