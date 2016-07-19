@@ -8,7 +8,7 @@
   }
   eventClassFamily.setClassName(className);
   if (strIsEmpty(tenantId)) {
-    TenantAdminDto tenant=createTenant(tenantAdminUser);
+    TenantAdminDto tenant=createTenantAdmin(tenantAdminUser);
     eventClassFamily.setTenantId(tenant.getId());
   }
  else {

@@ -7,8 +7,9 @@
   user.setLastName(generateString("User"));
   user.setAuthority(authority);
   if (tenant == null) {
-    tenant=createTenant();
+    tenant=createTenantAdmin();
   }
+  user.setTenantId(tenantAdminDto.getTenant().getId());
   loginTenantAdmin(tenant.getUsername());
   UserDto savedUser=client.editUser(user);
   return savedUser;

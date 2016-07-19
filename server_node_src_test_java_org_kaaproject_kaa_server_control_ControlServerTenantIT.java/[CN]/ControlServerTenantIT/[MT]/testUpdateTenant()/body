@@ -1,0 +1,6 @@
+{
+  TenantDto tenant=createTenant();
+  tenant.setName(generateString(TENANT));
+  TenantDto updatedTenant=client.editTenant(tenant);
+  assertTenantsEquals(updatedTenant,tenant);
+}

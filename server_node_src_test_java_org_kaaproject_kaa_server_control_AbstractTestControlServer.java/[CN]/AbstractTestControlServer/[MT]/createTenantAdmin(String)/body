@@ -3,13 +3,16 @@
   if (username == null) {
     username=generateString(username);
   }
-  TenantDto tenantDto=null;
+  TenantDto tenantDto=new TenantDto();
   if (client.getTenants().isEmpty()) {
-    tenantDto=new TenantDto();
     tenantDto.setName(TENANT_NAME);
     tenantDto=client.editTenant(tenantDto);
   }
- else   tenantDto=client.getTenant("1");
+ else {
+    for (    TenantDto t : client.getTenants()) {
+      if (t.getName().equals(TENANT_NAME))       tenantDto=t;
+    }
+  }
   org.kaaproject.kaa.common.dto.admin.UserDto tenAdmin=new org.kaaproject.kaa.common.dto.admin.UserDto();
   tenAdmin.setAuthority(KaaAuthorityDto.TENANT_ADMIN);
   tenAdmin.setUsername(username);

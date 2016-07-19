@@ -5,6 +5,7 @@
   tenantDeveloper.setMail(username + "@demoproject.org");
   tenantDeveloper.setFirstName("Tenant");
   tenantDeveloper.setLastName("Developer");
+  tenantDeveloper.setTenantId(tenantAdminDto.getTenant().getId());
   tenantDeveloper=client.editUser(tenantDeveloper);
   if (StringUtils.isNotBlank(tenantDeveloper.getTempPassword())) {
     client.clearCredentials();

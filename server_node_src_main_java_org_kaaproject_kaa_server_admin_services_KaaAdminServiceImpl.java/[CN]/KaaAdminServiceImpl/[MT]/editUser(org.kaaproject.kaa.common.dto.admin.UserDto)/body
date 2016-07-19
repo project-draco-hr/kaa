@@ -12,7 +12,6 @@
       checkTenantId(storedUser.getTenantId());
     }
     Long userId=saveUser(user);
-    user.setId(userId.toString());
     UserDto userDto=new UserDto();
     userDto.setId(user.getId());
     userDto.setUsername(user.getUsername());
