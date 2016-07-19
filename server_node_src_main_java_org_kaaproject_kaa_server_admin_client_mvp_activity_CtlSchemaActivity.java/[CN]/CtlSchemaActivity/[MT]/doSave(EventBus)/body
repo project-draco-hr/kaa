@@ -9,8 +9,11 @@
         if (place.getSchemaType() == SchemaType.ENDPOINT_PROFILE) {
           goTo(new ProfileSchemasPlace(place.getApplicationId()));
         }
- else {
+ else         if (place.getSchemaType() == SchemaType.SERVER_PROFILE) {
           goTo(new ServerProfileSchemasPlace(place.getApplicationId()));
+        }
+ else {
+          goTo(new NotificationSchemasPlace(place.getApplicationId()));
         }
       }
  else       if (place.getPreviousPlace() != null) {
