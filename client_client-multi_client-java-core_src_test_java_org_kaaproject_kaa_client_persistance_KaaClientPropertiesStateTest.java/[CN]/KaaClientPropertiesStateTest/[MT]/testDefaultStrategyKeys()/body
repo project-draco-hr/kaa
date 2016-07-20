@@ -1,0 +1,13 @@
+{
+  KaaClientState state=new KaaClientPropertiesState(new FilePersistentStorage(),CommonsBase64.getInstance(),getProperties());
+  PersistentStorage storage=new FilePersistentStorage();
+  String clientPrivateKeyFileLocation=getProperties().getPrivateKeyFileFullName();
+  String clientPublicKeyFileLocation=getProperties().getPublicKeyFileFullName();
+  OutputStream privateKeyOutput=storage.openForWrite(clientPrivateKeyFileLocation);
+  OutputStream publicKeyOutput=storage.openForWrite(clientPublicKeyFileLocation);
+  KeyPair keyPair=KeyUtil.generateKeyPair(privateKeyOutput,publicKeyOutput);
+  assertArrayEquals(keyPair.getPrivate().getEncoded(),state.getPrivateKey().getEncoded());
+  assertArrayEquals(keyPair.getPublic().getEncoded(),state.getPublicKey().getEncoded());
+  new File(WORK_DIR + KEY_PUBLIC).delete();
+  new File(WORK_DIR + KEY_PRIVATE).delete();
+}

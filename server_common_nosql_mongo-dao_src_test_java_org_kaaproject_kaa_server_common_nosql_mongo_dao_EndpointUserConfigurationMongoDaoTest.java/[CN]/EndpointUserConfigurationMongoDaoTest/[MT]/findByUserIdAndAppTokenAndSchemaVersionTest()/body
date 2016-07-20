@@ -2,9 +2,9 @@
   EndpointUserDto userDto=generateEndpointUserDto(null);
   ApplicationDto appDto=generateApplicationDto();
   ConfigurationSchemaDto schema=generateConfSchemaDto(null,appDto.getId(),1).get(0);
-  EndpointUserConfigurationDto firstUserConfigurationDto=generateEndpointUserConfigurationDto(userDto,appDto,schema,readSchemaFileAsString("dao/user/overrideData.json"));
-  generateEndpointUserConfigurationDto(userDto,appDto,null,readSchemaFileAsString("dao/user/overrideData.json"));
-  generateEndpointUserConfigurationDto(null,null,null,readSchemaFileAsString("dao/user/overrideData.json"));
+  EndpointUserConfigurationDto firstUserConfigurationDto=generateEndpointUserConfigurationDto(userDto,appDto,schema,readSchemaFileAsString(OVERRIDE_USER_DATA_JSON));
+  generateEndpointUserConfigurationDto(userDto,appDto,null,readSchemaFileAsString(OVERRIDE_USER_DATA_JSON));
+  generateEndpointUserConfigurationDto(null,null,null,readSchemaFileAsString(OVERRIDE_USER_DATA_JSON));
   MongoEndpointUserConfiguration found=endpointUserConfigurationDao.findByUserIdAndAppTokenAndSchemaVersion(userDto.getId(),appDto.getApplicationToken(),schema.getVersion());
   Assert.assertEquals(firstUserConfigurationDto,found.toDto());
 }
