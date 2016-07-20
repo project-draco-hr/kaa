@@ -1,3 +1,11 @@
 {
-  KaaAdmin.getDataSource().editUserProfile(entity,callback);
+  KaaAdmin.getDataSource().editUserProfile(new UserProfileUpdateDto(entity),new AsyncCallback<Void>(){
+    @Override public void onFailure(    Throwable caught){
+      Utils.handleException(caught,detailsView);
+    }
+    @Override public void onSuccess(    Void aVoid){
+      reload();
+    }
+  }
+);
 }
