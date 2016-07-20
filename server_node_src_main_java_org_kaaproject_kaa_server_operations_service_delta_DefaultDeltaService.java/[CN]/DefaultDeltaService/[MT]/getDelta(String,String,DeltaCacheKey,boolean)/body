@@ -12,7 +12,8 @@
       try {
         LOG.debug("[{}] Calculating delta for {}",endpointId,deltaKey);
         ConfigurationCacheEntry deltaCache;
-        AbstractKaaData<?> kaaData;
+        String jsonData;
+        String schema;
         ConfigurationSchemaDto latestConfigurationSchema=cacheService.getConfSchemaByAppAndVersion(deltaKey.getAppConfigVersionKey());
         EndpointUserConfigurationDto userConfiguration=findLatestUserConfiguration(userId,deltaKey);
         EndpointObjectHash userConfigurationHash=null;
@@ -21,14 +22,20 @@
         }
         BaseData mergedConfiguration=getMergedConfiguration(endpointId,userConfiguration,deltaKey,latestConfigurationSchema);
         if (useConfigurationRawSchema) {
-          kaaData=mergedConfiguration;
+          String ctlSchema=cacheService.getFlatCtlSchemaById(latestConfigurationSchema.getCtlSchemaId());
+          AbstractKaaData<?> kaaData=new RawData(new RawSchema(ctlSchema),mergedConfiguration.getRawData());
+          JsonNode json=new ObjectMapper().readTree(kaaData.getRawData());
+          AvroUtils.removeUuids(json);
+          jsonData=json.toString();
+          schema=kaaData.getSchema().getRawSchema();
         }
  else {
-          String ctlSchema=cacheService.getFlatCtlSchemaById(latestConfigurationSchema.getCtlSchemaId());
-          kaaData=new RawData(new RawSchema(ctlSchema),mergedConfiguration.getRawData());
+          AbstractKaaData<?> kaaData=mergedConfiguration;
+          jsonData=kaaData.getRawData();
+          schema=kaaData.getSchema().getRawSchema();
         }
-        LOG.trace("[{}] Merged configuration {}",endpointId,kaaData.getRawData());
-        deltaCache=buildBaseResyncDelta(endpointId,kaaData,userConfigurationHash);
+        LOG.trace("[{}] Merged configuration {}",endpointId,jsonData);
+        deltaCache=buildBaseResyncDelta(endpointId,jsonData,schema,userConfigurationHash);
         if (cacheService.getConfByHash(deltaCache.getHash()) == null) {
           EndpointConfigurationDto newConfiguration=new EndpointConfigurationDto();
           newConfiguration.setConfiguration(deltaCache.getConfiguration());
