@@ -1,0 +1,10 @@
+{
+  return mergedConfigurationMemorizer.compute(key,new Computable<List<EndpointGroupStateDto>,Pair<BaseData,RawData>>(){
+    @Override public Pair<BaseData,RawData> compute(    List<EndpointGroupStateDto> key){
+      LOG.debug("Fetching result for getMergedConfiguration");
+      Pair<BaseData,RawData> result=worker.compute(key);
+      return result;
+    }
+  }
+);
+}

@@ -1,7 +1,7 @@
 {
   final List<EndpointGroupStateDto> egsList=cacheKey.getEndpointGroups();
-  BaseData mergedConfiguration=cacheService.getMergedConfiguration(egsList,new Computable<List<EndpointGroupStateDto>,BaseData>(){
-    @Override public BaseData compute(    List<EndpointGroupStateDto> key){
+  Pair<BaseData,RawData> mergedConfiguration=cacheService.getMergedConfiguration(egsList,new Computable<List<EndpointGroupStateDto>,Pair<BaseData,RawData>>(){
+    @Override public Pair<BaseData,RawData> compute(    List<EndpointGroupStateDto> key){
       LOG.trace("[{}] getMergedConfiguration.compute begin",endpointId);
       try {
         List<EndpointGroupDto> endpointGroups=new ArrayList<>();
@@ -26,7 +26,12 @@
             configurationSchema=configurationService.findConfSchemaById(configuration.getSchemaId());
           }
         }
-        return processEndpointGroups(endpointGroups,configurations,configurationSchema);
+        BaseData baseData=processEndpointGroups(endpointGroups,configurations,configurationSchema);
+        String ctlSchema=cacheService.getFlatCtlSchemaById(latestConfigurationSchema.getCtlSchemaId());
+        JsonNode json=new ObjectMapper().readTree(baseData.getRawData());
+        AvroUtils.removeUuids(json);
+        RawData rawData=new RawData(new RawSchema(ctlSchema),json.toString());
+        return new Pair<>(baseData,rawData);
       }
  catch (      OverrideException|IOException oe) {
         LOG.error("[{}] Unexpected exception occurred while merging configuration: ",endpointId,oe);
@@ -43,7 +48,11 @@
     OverrideSchema overrideSchema=new OverrideSchema(latestConfigurationSchema.getOverrideSchema());
     try {
       LOG.trace("Merging group configuration with user configuration: {}",userConfiguration.getBody());
-      mergedConfiguration=configurationMerger.override(mergedConfiguration,Collections.singletonList(new OverrideData(overrideSchema,userConfiguration.getBody())));
+      BaseData baseData=configurationMerger.override(mergedConfiguration.getV1(),Collections.singletonList(new OverrideData(overrideSchema,userConfiguration.getBody())));
+      JsonNode json=new ObjectMapper().readTree(baseData.getRawData());
+      AvroUtils.removeUuids(json);
+      RawData rawData=new RawData(new RawSchema(mergedConfiguration.getV2().getSchema().getRawSchema()),baseData.getRawData());
+      mergedConfiguration=new Pair<>(baseData,rawData);
     }
  catch (    OverrideException|IOException oe) {
       LOG.error("[{}] Unexpected exception occurred while merging configuration: ",endpointId,oe);
