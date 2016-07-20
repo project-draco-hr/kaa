@@ -1,0 +1,15 @@
+{
+  EventClassFamilyVersionDto eventClassFamilyVersion=new EventClassFamilyVersionDto();
+  List<EventClassDto> records=new ArrayList<>();
+  CTLSchemaDto ctlSchema=this.createCTLSchema(this.ctlRandomFieldType(),CTL_DEFAULT_NAMESPACE,1,tenantAdminDto.getTenantId(),null,null,null);
+  EventClassDto ec=new EventClassDto();
+  ApplicationDto application=createApplication(tenantAdminDto);
+  ec.setApplicationId(application.getId());
+  ec.setFqn(EVENT_CLASS_FAMILY_NAMESPACE + ".Test" + random.nextInt(1000));
+  ec.setType(EventClassType.EVENT);
+  ec.setCtlSchemaId(ctlSchema.getId());
+  ec.setName("test");
+  records.add(ec);
+  eventClassFamilyVersion.setRecords(records);
+  return eventClassFamilyVersion;
+}

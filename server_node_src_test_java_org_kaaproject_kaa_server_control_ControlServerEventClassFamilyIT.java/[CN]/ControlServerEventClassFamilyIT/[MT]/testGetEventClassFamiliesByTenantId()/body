@@ -1,9 +1,9 @@
 {
   List<EventClassFamilyDto> eventClassFamilies=new ArrayList<EventClassFamilyDto>(10);
-  TenantUserDto tenant=createTenant(tenantAdminUser);
+  tenantAdminDto=createTenant(tenantAdminUser);
   loginTenantAdmin(tenantAdminUser);
   for (int i=0; i < 10; i++) {
-    EventClassFamilyDto eventClassFamily=createEventClassFamily(tenant.getId(),"" + i);
+    EventClassFamilyDto eventClassFamily=createEventClassFamily(tenantAdminDto.getId(),"" + i);
     eventClassFamilies.add(eventClassFamily);
   }
   Collections.sort(eventClassFamilies,new IdComparator());

@@ -7,7 +7,8 @@
   Assert.assertNotNull(vacantEcfs);
   Assert.assertEquals(0,vacantEcfs.size());
   loginTenantAdmin(tenantAdminUser);
-  client.addEventClassFamilySchema(eventClassFamily.getId(),TEST_EVENT_CLASS_FAMILY_SCHEMA);
+  EventClassFamilyVersionDto eventClassFamilyVersion=createEventClassFamilyVersion(eventClassFamily.getId());
+  client.addEventClassFamilyVersion(eventClassFamily.getId(),eventClassFamilyVersion);
   loginTenantDeveloper(tenantDeveloperUser);
   vacantEcfs=client.getVacantEventClassFamiliesByApplicationToken(application.getApplicationToken());
   Assert.assertNotNull(vacantEcfs);
