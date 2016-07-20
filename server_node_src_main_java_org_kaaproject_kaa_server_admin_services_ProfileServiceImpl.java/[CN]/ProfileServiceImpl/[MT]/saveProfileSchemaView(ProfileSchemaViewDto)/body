@@ -1,0 +1,25 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    EndpointProfileSchemaDto profileSchema=profileSchemaView.getSchema();
+    String applicationId=profileSchema.getApplicationId();
+    checkApplicationId(applicationId);
+    String ctlSchemaId=profileSchema.getCtlSchemaId();
+    if (isEmpty(ctlSchemaId)) {
+      if (profileSchemaView.useExistingCtlSchema()) {
+        CtlSchemaReferenceDto metaInfo=profileSchemaView.getExistingMetaInfo();
+        CTLSchemaDto schema=ctlService.getCTLSchemaByFqnVersionTenantIdAndApplicationId(metaInfo.getMetaInfo().getFqn(),metaInfo.getVersion(),metaInfo.getMetaInfo().getTenantId(),metaInfo.getMetaInfo().getApplicationId());
+        profileSchema.setCtlSchemaId(schema.getId());
+      }
+ else {
+        CtlSchemaFormDto ctlSchemaForm=ctlService.saveCTLSchemaForm(profileSchemaView.getCtlSchemaForm());
+        profileSchema.setCtlSchemaId(ctlSchemaForm.getId());
+      }
+    }
+    EndpointProfileSchemaDto savedProfileSchema=saveProfileSchema(profileSchema);
+    return getProfileSchemaView(savedProfileSchema.getId());
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

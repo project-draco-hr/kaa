@@ -1,5 +1,5 @@
 {
-  rpcService.saveCTLSchemaForm(ctlSchemaForm,new DataCallback<CtlSchemaFormDto>(callback){
+  ctlRpcService.saveCTLSchemaForm(ctlSchemaForm,new DataCallback<CtlSchemaFormDto>(callback){
     @Override protected void onResult(    CtlSchemaFormDto result){
       eventBus.fireEvent(new DataEvent(CTLSchemaMetaInfoDto.class));
     }

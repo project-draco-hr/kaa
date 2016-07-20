@@ -1,5 +1,5 @@
 {
-  rpcService.createServerProfileSchemaFormCtlSchema(ctlSchemaForm,new DataCallback<ServerProfileSchemaViewDto>(callback){
+  profileRpcService.createServerProfileSchemaFormCtlSchema(ctlSchemaForm,new DataCallback<ServerProfileSchemaViewDto>(callback){
     @Override protected void onResult(    ServerProfileSchemaViewDto result){
       eventBus.fireEvent(new DataEvent(ServerProfileSchemaViewDto.class));
     }

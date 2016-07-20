@@ -1,5 +1,5 @@
 {
-  rpcService.saveServerProfileSchemaView(servderProfileSchema,new DataCallback<ServerProfileSchemaViewDto>(callback){
+  profileRpcService.saveServerProfileSchemaView(servderProfileSchema,new DataCallback<ServerProfileSchemaViewDto>(callback){
     @Override protected void onResult(    ServerProfileSchemaViewDto result){
       eventBus.fireEvent(new DataEvent(ServerProfileSchemaDto.class));
     }

@@ -1,5 +1,5 @@
 {
-  String response=kaaAdminService.getConfigurationRecord(schemaId,endpointGroupId).getActiveStructureDto().getBody();
+  String response=configurationService.getConfigurationRecord(schemaId,endpointGroupId).getActiveStructureDto().getBody();
   String decodedResponse=new String(response.getBytes(),DECODING_CHARSET);
   return decodedResponse;
 }

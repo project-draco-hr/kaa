@@ -1,5 +1,5 @@
 {
-  rpcService.deleteProfileFilterRecord(endpointProfileSchemaId,serverProfileSchemaId,endpointGroupId,new DataCallback<Void>(callback){
+  groupRpcService.deleteProfileFilterRecord(endpointProfileSchemaId,serverProfileSchemaId,endpointGroupId,new DataCallback<Void>(callback){
     @Override protected void onResult(    Void result){
       eventBus.fireEvent(new DataEvent(ProfileFilterDto.class));
     }

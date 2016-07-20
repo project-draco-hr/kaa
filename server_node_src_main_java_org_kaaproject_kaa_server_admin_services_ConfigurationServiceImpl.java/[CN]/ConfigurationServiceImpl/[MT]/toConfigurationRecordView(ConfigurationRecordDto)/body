@@ -1,0 +1,16 @@
+{
+  ConfigurationSchemaDto schemaDto=this.getConfigurationSchema(record.getSchemaId());
+  EndpointGroupDto endpointGroup=groupService.getEndpointGroup(record.getEndpointGroupId());
+  String rawSchema=endpointGroup.getWeight() == 0 ? schemaDto.getBaseSchema() : schemaDto.getOverrideSchema();
+  Schema schema=new Schema.Parser().parse(rawSchema);
+  ConfigurationRecordFormDto activeConfig=null;
+  ConfigurationRecordFormDto inactiveConfig=null;
+  if (record.getActiveStructureDto() != null) {
+    activeConfig=toConfigurationRecordFormDto(record.getActiveStructureDto(),schema);
+  }
+  if (record.getInactiveStructureDto() != null) {
+    inactiveConfig=toConfigurationRecordFormDto(record.getInactiveStructureDto(),schema);
+  }
+  ConfigurationRecordViewDto result=new ConfigurationRecordViewDto(activeConfig,inactiveConfig);
+  return result;
+}

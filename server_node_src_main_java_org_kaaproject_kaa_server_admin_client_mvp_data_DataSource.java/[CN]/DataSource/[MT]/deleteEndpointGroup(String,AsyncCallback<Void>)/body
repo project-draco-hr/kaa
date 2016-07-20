@@ -1,5 +1,5 @@
 {
-  rpcService.deleteEndpointGroup(endpointGroupId,new DataCallback<Void>(callback){
+  groupRpcService.deleteEndpointGroup(endpointGroupId,new DataCallback<Void>(callback){
     @Override protected void onResult(    Void result){
       eventBus.fireEvent(new DataEvent(EndpointGroupDto.class));
     }

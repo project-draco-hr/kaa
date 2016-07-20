@@ -1,7 +1,7 @@
 {
   if (applications == null || refresh) {
     applications=new ArrayList<ApplicationDto>();
-    rpcService.getApplications(new DataCallback<List<ApplicationDto>>(callback){
+    applicationRpcService.getApplications(new DataCallback<List<ApplicationDto>>(callback){
       @Override protected void onResult(      List<ApplicationDto> result){
         applications.addAll(result);
         eventBus.fireEvent(new DataEvent(ApplicationDto.class,true));

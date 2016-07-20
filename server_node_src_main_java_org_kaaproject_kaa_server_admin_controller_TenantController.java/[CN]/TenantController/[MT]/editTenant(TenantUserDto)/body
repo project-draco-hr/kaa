@@ -8,7 +8,7 @@
     }
     CreateUserResult result=userFacade.saveUserDto(tenantUser,passwordEncoder);
     tenantUser.setExternalUid(result.getUserId().toString());
-    TenantUserDto tenant=kaaAdminService.editTenant(tenantUser);
+    TenantUserDto tenant=tenantService.editTenant(tenantUser);
     if (StringUtils.isNotBlank(result.getPassword())) {
       tenant.setTempPassword(result.getPassword());
     }

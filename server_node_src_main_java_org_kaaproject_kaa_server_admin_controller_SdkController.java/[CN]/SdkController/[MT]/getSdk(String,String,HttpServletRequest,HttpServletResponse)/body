@@ -1,7 +1,7 @@
 {
   try {
-    SdkProfileDto sdkProfile=kaaAdminService.getSdkProfile(sdkProfileId);
-    FileData sdkData=kaaAdminService.getSdk(sdkProfile,SdkPlatform.valueOf(targetPlatform.toUpperCase()));
+    SdkProfileDto sdkProfile=sdkService.getSdkProfile(sdkProfileId);
+    FileData sdkData=sdkService.getSdk(sdkProfile,SdkPlatform.valueOf(targetPlatform.toUpperCase()));
     response.setContentType(sdkData.getContentType());
     ServletUtils.prepareDisposition(request,response,sdkData.getFileName());
     response.setContentLength(sdkData.getFileData().length);

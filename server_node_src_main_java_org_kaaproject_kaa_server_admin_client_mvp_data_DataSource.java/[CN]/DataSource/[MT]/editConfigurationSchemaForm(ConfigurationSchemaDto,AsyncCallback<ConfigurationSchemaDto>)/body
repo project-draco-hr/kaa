@@ -1,5 +1,5 @@
 {
-  rpcService.editConfigurationSchemaForm(configurationSchema,new DataCallback<ConfigurationSchemaDto>(callback){
+  configurationRpcService.editConfigurationSchemaForm(configurationSchema,new DataCallback<ConfigurationSchemaDto>(callback){
     @Override protected void onResult(    ConfigurationSchemaDto result){
       eventBus.fireEvent(new DataEvent(ConfigurationSchemaDto.class));
     }

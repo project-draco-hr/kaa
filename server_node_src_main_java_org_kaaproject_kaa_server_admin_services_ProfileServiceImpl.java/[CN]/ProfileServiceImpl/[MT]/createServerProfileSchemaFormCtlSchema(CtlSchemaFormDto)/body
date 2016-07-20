@@ -1,0 +1,17 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    checkApplicationId(ctlSchemaForm.getMetaInfo().getApplicationId());
+    ServerProfileSchemaDto serverProfileSchema=new ServerProfileSchemaDto();
+    serverProfileSchema.setApplicationId(ctlSchemaForm.getMetaInfo().getApplicationId());
+    serverProfileSchema.setName(ctlSchemaForm.getSchema().getDisplayNameFieldValue());
+    serverProfileSchema.setDescription(ctlSchemaForm.getSchema().getDescriptionFieldValue());
+    CtlSchemaFormDto savedCtlSchemaForm=ctlService.saveCTLSchemaForm(ctlSchemaForm);
+    serverProfileSchema.setCtlSchemaId(savedCtlSchemaForm.getId());
+    ServerProfileSchemaDto savedServerProfileSchema=saveServerProfileSchema(serverProfileSchema);
+    return getServerProfileSchemaView(savedServerProfileSchema.getId());
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}
