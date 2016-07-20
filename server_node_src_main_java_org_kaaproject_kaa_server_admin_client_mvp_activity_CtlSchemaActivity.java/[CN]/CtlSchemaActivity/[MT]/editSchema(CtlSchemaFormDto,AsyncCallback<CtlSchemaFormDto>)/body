@@ -33,7 +33,7 @@
       }
 );
     }
- else {
+ else     if (place.getSchemaType() == SchemaType.LOG_SCHEMA) {
       KaaAdmin.getDataSource().createLogSchemaFormCtlSchema(entity,new BusyAsyncCallback<LogSchemaViewDto>(){
         @Override public void onFailureImpl(        Throwable caught){
           callback.onFailure(caught);

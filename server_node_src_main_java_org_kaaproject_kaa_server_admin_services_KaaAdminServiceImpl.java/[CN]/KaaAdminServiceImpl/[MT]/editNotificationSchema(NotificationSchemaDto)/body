@@ -11,7 +11,7 @@
       checkApplicationId(storedNotificationSchema.getApplicationId());
     }
     notificationSchema.setType(NotificationTypeDto.USER);
-    return controlService.saveNotificationSchema(notificationSchema);
+    return controlService.editNotificationSchema(notificationSchema);
   }
  catch (  Exception e) {
     throw Utils.handleException(e);

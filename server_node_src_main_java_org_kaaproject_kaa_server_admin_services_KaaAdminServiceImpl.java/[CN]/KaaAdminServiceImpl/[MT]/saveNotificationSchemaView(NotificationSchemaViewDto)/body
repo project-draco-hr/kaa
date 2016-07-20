@@ -16,7 +16,7 @@
         notificationSchema.setCtlSchemaId(ctlSchemaForm.getId());
       }
     }
-    NotificationSchemaDto savedNotificationSchema=saveNotificationSchema(notificationSchema);
+    NotificationSchemaDto savedNotificationSchema=editNotificationSchema(notificationSchema);
     return getNotificationSchemaView(savedNotificationSchema.getId());
   }
  catch (  Exception e) {
