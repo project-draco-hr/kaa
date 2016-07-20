@@ -1,40 +1,10 @@
 {
-  if (this == obj) {
-    return true;
-  }
-  if (obj == null) {
-    return false;
-  }
-  if (getClass() != obj.getClass()) {
-    return false;
-  }
-  EventClassFamilyVersion other=(EventClassFamilyVersion)obj;
-  if (createdTime != other.createdTime) {
-    return false;
-  }
-  if (createdUsername == null) {
-    if (other.createdUsername != null) {
-      return false;
-    }
-  }
- else   if (!createdUsername.equals(other.createdUsername)) {
-    return false;
-  }
-  if (id == null) {
-    if (other.id != null) {
-      return false;
-    }
-  }
- else   if (!id.equals(other.id)) {
-    return false;
-  }
- else   if (records == null) {
-    if (other.records != null) {
-      return false;
-    }
-  }
- else   if (!records.equals(other.records)) {
-    return false;
-  }
-  return version == other.version;
+  if (this == o)   return true;
+  if (o == null || getClass() != o.getClass())   return false;
+  EventClassFamilyVersion that=(EventClassFamilyVersion)o;
+  if (createdTime != that.createdTime)   return false;
+  if (version != that.version)   return false;
+  if (createdUsername != null ? !createdUsername.equals(that.createdUsername) : that.createdUsername != null)   return false;
+  if (records != null ? !records.equals(that.records) : that.records != null)   return false;
+  return true;
 }
