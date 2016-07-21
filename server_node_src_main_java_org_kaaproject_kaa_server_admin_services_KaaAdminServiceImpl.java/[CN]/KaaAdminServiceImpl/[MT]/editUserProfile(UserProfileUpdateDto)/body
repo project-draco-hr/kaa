@@ -1,5 +1,4 @@
 {
-  checkAuthority(KaaAuthorityDto.TENANT_USER,KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.KAA_ADMIN,KaaAuthorityDto.TENANT_ADMIN);
   try {
     checkUserProfile(userProfileUpdateDto);
     User user=userFacade.findById(Long.valueOf(getCurrentUser().getExternalUid()));
