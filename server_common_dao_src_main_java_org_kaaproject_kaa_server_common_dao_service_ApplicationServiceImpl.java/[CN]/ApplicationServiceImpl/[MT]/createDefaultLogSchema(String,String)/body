@@ -6,8 +6,5 @@
   schema.setName(DEFAULT_SCHEMA_NAME);
   schema.setCreatedUsername(createdUsername);
   schema=logSchemaService.saveLogSchema(schema);
-  if (schema == null) {
-    throw new RuntimeException("Can't save default log schema ");
-  }
   return schema;
 }

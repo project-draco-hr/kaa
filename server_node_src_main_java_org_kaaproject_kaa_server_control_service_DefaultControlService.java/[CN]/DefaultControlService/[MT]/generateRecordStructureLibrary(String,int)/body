@@ -8,10 +8,7 @@
     throw new NotFoundException("Log schema not found!");
   }
   try {
-    CTLSchemaDto logCtlSchema=ctlService.findCTLSchemaById(logSchema.getCtlSchemaId());
-    if (logCtlSchema == null) {
-      throw new NotFoundException("Log CTL schema not found!");
-    }
+    CTLSchemaDto logCtlSchema=getCTLSchemaById(logSchema.getCtlSchemaId());
     Schema recordWrapperSchema=RecordWrapperSchemaGenerator.generateRecordWrapperSchema(logCtlSchema.getBody());
     String fileName=MessageFormatter.arrayFormat(LOG_SCHEMA_LIBRARY_NAME_PATTERN,new Object[]{logSchemaVersion}).getMessage();
     return SchemaLibraryGenerator.generateSchemaLibrary(recordWrapperSchema,fileName);

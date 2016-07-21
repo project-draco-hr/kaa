@@ -18,9 +18,7 @@
         ObjectMapper ctlMapper=new ObjectMapper();
         logSchema=ctlMapper.readValue(ctlContent,String.class);
       }
-      if (logSchemaDto != null) {
-        schemaString=logSchema;
-      }
+      schemaString=logSchema;
       EntityUtils.consume(entity);
     }
   }
