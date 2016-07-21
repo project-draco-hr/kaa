@@ -12,16 +12,9 @@
     detailsView.getEcfSchemaForm().setFormDataLoader(this);
   }
  else {
-    EventSchemaVersionDto schema=null;
-    for (    EventSchemaVersionDto schemaVersion : entity.getSchemas()) {
-      if (schemaVersion.getVersion() == place.getVersion()) {
-        schema=schemaVersion;
-        break;
-      }
-    }
+    EventClassFamilyVersionDto schema=null;
     detailsView.getVersion().setValue("" + schema.getVersion());
     detailsView.getCreatedUsername().setValue(schema.getCreatedUsername());
     detailsView.getCreatedDateTime().setValue(Utils.millisecondsToDateTimeString(schema.getCreatedTime()));
-    detailsView.getEcfSchemaForm().setValue(schema.getSchemaForm());
   }
 }
