@@ -14,6 +14,7 @@
   EventClassFamilyDto eventClassFamily=null;
   if (strIsEmpty(ecfId)) {
     eventClassFamily=createEventClassFamily(tenantId);
+    ecfId=eventClassFamily.getId();
   }
  else {
     loginTenantAdmin(tenantAdminUser);
@@ -21,12 +22,11 @@
   }
   applicationEventFamilyMap.setEcfId(eventClassFamily.getId());
   applicationEventFamilyMap.setEcfName(eventClassFamily.getName());
-  if (eventClassFamily.getSchemas() == null || eventClassFamily.getSchemas().size() < version) {
-    int start=eventClassFamily.getSchemas() == null ? 0 : eventClassFamily.getSchemas().size();
-    for (int i=start; i < version; i++) {
-      loginTenantAdmin(tenantAdminUser);
-      client.addEventClassFamilySchema(eventClassFamily.getId(),TEST_EVENT_CLASS_FAMILY_SCHEMA);
-    }
+  List<EventClassFamilyVersionDto> storedECFVersions=client.getEventClassFamilyVersionsById(ecfId);
+  loginTenantAdmin(tenantAdminUser);
+  EventClassFamilyVersionDto testECFVersion=createEventClassFamilyVersion(ecfId);
+  if (storedECFVersions == null || storedECFVersions.size() < version) {
+    client.addEventClassFamilyVersion(eventClassFamily.getId(),testECFVersion);
   }
   loginTenantDeveloper(tenantDeveloperUser);
   applicationEventFamilyMap.setVersion(version);
