@@ -1,5 +1,5 @@
 {
-  ConfigurationSchemaDto schema=generateConfSchemaDto(null,1).get(0);
+  ConfigurationSchemaDto schema=generateConfSchemaDto(null,null,1).get(0);
   String groupId=generateEndpointGroupDto(schema.getApplicationId()).getId();
   ConfigurationDto config=generateConfigurationDto(schema.getId(),groupId,1,true,false).get(0);
   ConfigurationDto configuration=configurationService.findConfigurationByEndpointGroupIdAndVersion(groupId,schema.getVersion());

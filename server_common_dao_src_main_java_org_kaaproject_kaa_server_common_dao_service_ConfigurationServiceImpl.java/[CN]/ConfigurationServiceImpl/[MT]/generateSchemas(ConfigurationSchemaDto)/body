@@ -1,5 +1,7 @@
 {
-  DataSchema dataSchema=new DataSchema(schema.getSchema());
+  CTLSchemaDto ctlSchema=ctlService.findCTLSchemaById(schema.getCtlSchemaId());
+  String sch=ctlService.flatExportAsString(ctlSchema);
+  DataSchema dataSchema=new DataSchema(sch);
   if (!dataSchema.isEmpty()) {
     SchemaGenerationAlgorithm schemaGenerator=schemaGeneratorFactory.createSchemaGenerator(dataSchema);
     ProtocolSchema protocol=schemaGenerator.getProtocolSchema();

@@ -25,6 +25,14 @@
   profileCtlSchema.setVersion(1);
   profileCtlSchema.setDependencySet(new HashSet<CTLSchemaDto>());
   profileCtlSchema=ctlService.saveCTLSchema(profileCtlSchema);
+  Schema schema=new Schema.Parser().parse(dataSchema);
+  CTLSchemaDto confCtlSchema=new CTLSchemaDto();
+  CTLSchemaMetaInfoDto confMetaInfo=new CTLSchemaMetaInfoDto(schema.getFullName(),application.getTenantId(),application.getId());
+  confCtlSchema.setMetaInfo(confMetaInfo);
+  confCtlSchema.setBody(schema.toString());
+  confCtlSchema.setVersion(CONF_SCHEMA_VERSION);
+  confCtlSchema.setDependencySet(new HashSet<CTLSchemaDto>());
+  confCtlSchema=ctlService.saveCTLSchema(confCtlSchema);
   EndpointProfileSchemaDto profileSchemaObj=new EndpointProfileSchemaDto();
   profileSchemaObj.setVersion(PROFILE_SCHEMA_VERSION);
   profileSchemaObj.setCtlSchemaId(profileCtlSchema.getId());
@@ -47,7 +55,7 @@
   confSchema=new ConfigurationSchemaDto();
   confSchema.setApplicationId(application.getId());
   confSchema.setVersion(CONF_SCHEMA_VERSION);
-  confSchema.setSchema(dataSchema);
+  confSchema.setCtlSchemaId(confCtlSchema.getId());
   try {
     confSchema=configurationService.saveConfSchema(confSchema);
   }

@@ -12,7 +12,7 @@
   }
   ConfigurationSchemaDto configSchema=null;
   if (strIsEmpty(configurationSchemaId)) {
-    configSchema=createConfigurationSchema(applicationId);
+    configSchema=createConfigurationSchema(applicationId,null);
     configuration.setSchemaId(configSchema.getId());
   }
  else {
