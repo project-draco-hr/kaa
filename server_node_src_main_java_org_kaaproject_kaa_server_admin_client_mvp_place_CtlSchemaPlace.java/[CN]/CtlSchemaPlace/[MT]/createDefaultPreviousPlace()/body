@@ -4,6 +4,9 @@
       if (schemaType == SchemaType.ENDPOINT_PROFILE) {
         return new ProfileSchemasPlace(applicationId);
       }
+ else       if (schemaType == SchemaType.CONFIGURATION) {
+        return new ConfigurationSchemasPlace(applicationId);
+      }
  else       if (schemaType == SchemaType.SERVER_PROFILE) {
         return new ServerProfileSchemasPlace(applicationId);
       }
@@ -26,4 +29,5 @@
       return new TenantCtlSchemasPlace();
     }
   }
+  return null;
 }

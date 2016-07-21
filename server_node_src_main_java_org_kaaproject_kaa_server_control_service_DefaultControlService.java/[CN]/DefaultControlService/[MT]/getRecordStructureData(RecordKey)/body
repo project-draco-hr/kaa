@@ -9,27 +9,24 @@
   }
  else {
     AbstractSchemaDto schemaDto=null;
+    ConfigurationSchemaDto confSchemaDto=null;
     String fileName=null;
     String schema=null;
 switch (key.getRecordFiles()) {
 case LOG_SCHEMA:
       throw new RuntimeException("Not implemented!");
 case CONFIGURATION_SCHEMA:
-    schemaDto=configurationService.findConfSchemaByAppIdAndVersion(key.getApplicationId(),key.getSchemaVersion());
-  checkSchema(schemaDto,RecordFiles.CONFIGURATION_SCHEMA);
-schema=schemaDto.getSchema();
-fileName=MessageFormatter.arrayFormat(DATA_NAME_PATTERN,new Object[]{"configuration",key.getSchemaVersion()}).getMessage();
-break;
+    throw new RuntimeException("Not implemented!");
 case CONFIGURATION_BASE_SCHEMA:
-schemaDto=configurationService.findConfSchemaByAppIdAndVersion(key.getApplicationId(),key.getSchemaVersion());
-checkSchema(schemaDto,RecordFiles.CONFIGURATION_BASE_SCHEMA);
-schema=((ConfigurationSchemaDto)schemaDto).getBaseSchema();
+  confSchemaDto=configurationService.findConfSchemaByAppIdAndVersion(key.getApplicationId(),key.getSchemaVersion());
+checkSchema(confSchemaDto,RecordFiles.CONFIGURATION_BASE_SCHEMA);
+schema=confSchemaDto.getBaseSchema();
 fileName=MessageFormatter.arrayFormat(DATA_NAME_PATTERN,new Object[]{"configuration-base",key.getSchemaVersion()}).getMessage();
 break;
 case CONFIGURATION_OVERRIDE_SCHEMA:
-schemaDto=configurationService.findConfSchemaByAppIdAndVersion(key.getApplicationId(),key.getSchemaVersion());
-checkSchema(schemaDto,RecordFiles.CONFIGURATION_OVERRIDE_SCHEMA);
-schema=((ConfigurationSchemaDto)schemaDto).getOverrideSchema();
+confSchemaDto=configurationService.findConfSchemaByAppIdAndVersion(key.getApplicationId(),key.getSchemaVersion());
+checkSchema(confSchemaDto,RecordFiles.CONFIGURATION_OVERRIDE_SCHEMA);
+schema=confSchemaDto.getOverrideSchema();
 fileName=MessageFormatter.arrayFormat(DATA_NAME_PATTERN,new Object[]{"configuration-override",key.getSchemaVersion()}).getMessage();
 break;
 case NOTIFICATION_SCHEMA:

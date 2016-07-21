@@ -7,7 +7,7 @@
     logSchema.setApplicationId(ctlSchemaForm.getMetaInfo().getApplicationId());
     logSchema.setName(ctlSchemaForm.getSchema().getDisplayNameFieldValue());
     logSchema.setDescription(ctlSchemaForm.getSchema().getDescriptionFieldValue());
-    CtlSchemaFormDto savedCtlSchemaForm=saveCTLSchemaForm(ctlSchemaForm);
+    CtlSchemaFormDto savedCtlSchemaForm=saveCTLSchemaForm(ctlSchemaForm,ConverterType.FORM_AVRO_CONVERTER);
     logSchema.setCtlSchemaId(savedCtlSchemaForm.getId());
     LogSchemaDto savedLogSchema=saveLogSchema(logSchema);
     return getLogSchemaView(savedLogSchema.getId());

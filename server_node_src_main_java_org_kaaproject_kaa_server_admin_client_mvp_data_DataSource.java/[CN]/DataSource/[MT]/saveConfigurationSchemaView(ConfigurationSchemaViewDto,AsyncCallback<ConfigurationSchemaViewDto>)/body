@@ -1,0 +1,8 @@
+{
+  rpcService.saveConfigurationSchemaView(configurationSchema,new DataCallback<ConfigurationSchemaViewDto>(callback){
+    @Override protected void onResult(    ConfigurationSchemaViewDto result){
+      eventBus.fireEvent(new DataEvent(ConfigurationSchemaDto.class));
+    }
+  }
+);
+}

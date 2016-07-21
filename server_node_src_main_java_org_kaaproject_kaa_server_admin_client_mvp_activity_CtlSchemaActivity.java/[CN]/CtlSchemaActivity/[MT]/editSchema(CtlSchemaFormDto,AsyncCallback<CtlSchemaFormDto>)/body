@@ -11,6 +11,17 @@
       }
 );
     }
+ else     if (place.getSchemaType() == SchemaType.CONFIGURATION) {
+      KaaAdmin.getDataSource().createConfigurationSchemaFormCtlSchema(entity,new BusyAsyncCallback<ConfigurationSchemaViewDto>(){
+        @Override public void onFailureImpl(        Throwable caught){
+          callback.onFailure(caught);
+        }
+        @Override public void onSuccessImpl(        ConfigurationSchemaViewDto result){
+          callback.onSuccess(null);
+        }
+      }
+);
+    }
  else     if (place.getSchemaType() == SchemaType.SERVER_PROFILE) {
       KaaAdmin.getDataSource().createServerProfileSchemaFormCtlSchema(entity,new BusyAsyncCallback<ServerProfileSchemaViewDto>(){
         @Override public void onFailureImpl(        Throwable caught){
@@ -46,6 +57,6 @@
     }
   }
  else {
-    KaaAdmin.getDataSource().editCTLSchemaForm(entity,callback);
+    KaaAdmin.getDataSource().editCTLSchemaForm(entity,ConverterType.FORM_AVRO_CONVERTER,callback);
   }
 }

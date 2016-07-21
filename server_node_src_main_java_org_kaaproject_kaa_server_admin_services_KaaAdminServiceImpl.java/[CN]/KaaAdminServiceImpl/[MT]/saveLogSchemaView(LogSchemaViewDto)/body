@@ -12,7 +12,7 @@
         logSchemaDto.setCtlSchemaId(schema.getId());
       }
  else {
-        CtlSchemaFormDto ctlSchemaForm=saveCTLSchemaForm(logSchemaView.getCtlSchemaForm());
+        CtlSchemaFormDto ctlSchemaForm=saveCTLSchemaForm(logSchemaView.getCtlSchemaForm(),ConverterType.FORM_AVRO_CONVERTER);
         logSchemaDto.setCtlSchemaId(ctlSchemaForm.getId());
       }
     }

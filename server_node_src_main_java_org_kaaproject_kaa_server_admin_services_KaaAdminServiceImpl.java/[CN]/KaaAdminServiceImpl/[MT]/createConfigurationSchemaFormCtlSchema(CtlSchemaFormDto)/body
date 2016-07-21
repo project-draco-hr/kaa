@@ -1,0 +1,17 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_ADMIN,KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    checkApplicationId(ctlSchemaForm.getMetaInfo().getApplicationId());
+    ConfigurationSchemaDto confSchema=new ConfigurationSchemaDto();
+    confSchema.setApplicationId(ctlSchemaForm.getMetaInfo().getApplicationId());
+    confSchema.setName(ctlSchemaForm.getSchema().getDisplayNameFieldValue());
+    confSchema.setDescription(ctlSchemaForm.getSchema().getDescriptionFieldValue());
+    CtlSchemaFormDto savedCtlSchemaForm=saveCTLSchemaForm(ctlSchemaForm,ConverterType.CONFIGURATION_FORM_AVRO_CONVERTER);
+    confSchema.setCtlSchemaId(savedCtlSchemaForm.getId());
+    ConfigurationSchemaDto savedConfSchema=saveConfigurationSchema(confSchema);
+    return getConfigurationSchemaView(savedConfSchema.getId());
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

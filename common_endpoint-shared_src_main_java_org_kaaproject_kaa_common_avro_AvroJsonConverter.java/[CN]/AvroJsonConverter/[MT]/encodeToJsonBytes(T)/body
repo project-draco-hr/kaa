@@ -1,6 +1,6 @@
 {
   ByteArrayOutputStream baos=new ByteArrayOutputStream();
-  jsonEncoder=EncoderFactory.get().jsonEncoder(this.schema,baos);
+  jsonEncoder=EncoderFactory.get().jsonEncoder(this.schema,baos,true);
   avroWriter.write(record,jsonEncoder);
   jsonEncoder.flush();
   baos.flush();

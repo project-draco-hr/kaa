@@ -1,0 +1,11 @@
+{
+  boolean containerWithoutId=json.isContainerNode() && !json.has(UUID_FIELD);
+  boolean notArray=!json.isArray();
+  boolean childIsNotArray=!(json.size() == 1 && json.getElements().next() instanceof ArrayNode);
+  if (containerWithoutId && notArray && childIsNotArray) {
+    ((ObjectNode)json).put(UUID_FIELD,(Integer)null);
+  }
+  for (  JsonNode node : json) {
+    if (node.isContainerNode())     injectUuids(node);
+  }
+}

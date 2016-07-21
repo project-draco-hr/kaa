@@ -1,7 +1,7 @@
 {
   ApplicationDto application=createApplication(tenantAdminDto);
   EndpointProfileSchemaDto profileSchema=createEndpointProfileSchema(application.getId(),null);
-  ConfigurationSchemaDto configSchema=createConfigurationSchema(application.getId());
+  ConfigurationSchemaDto configSchema=createConfigurationSchema(application.getId(),null);
   NotificationSchemaDto notificationSchema=createUserNotificationSchema(application.getId());
   LogSchemaDto logSchema=createLogSchema(application.getId());
   FileData sdk=client.downloadSdk(getSdkProfile(application.getId(),profileSchema.getVersion(),configSchema.getVersion(),notificationSchema.getVersion(),null,logSchema.getVersion(),null).getId(),SdkPlatform.JAVA);

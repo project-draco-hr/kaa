@@ -1,7 +1,7 @@
 {
   ApplicationDto application=createApplication(tenantAdminDto);
   EndpointProfileSchemaDto profileSchema=createEndpointProfileSchema(application.getId(),null);
-  ConfigurationSchemaDto configSchema=createConfigurationSchema(application.getId());
+  ConfigurationSchemaDto configSchema=createConfigurationSchema(application.getId(),null);
   NotificationSchemaDto notificationSchema=createUserNotificationSchema(application.getId());
   LogSchemaDto logSchema=createLogSchema(application.getId());
   ApplicationEventFamilyMapDto aefMap=createApplicationEventFamilyMap(application.getApplicationToken(),null,1);
