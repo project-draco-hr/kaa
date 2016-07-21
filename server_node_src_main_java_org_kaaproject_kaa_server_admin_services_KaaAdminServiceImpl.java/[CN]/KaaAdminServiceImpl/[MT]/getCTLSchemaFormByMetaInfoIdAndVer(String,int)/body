@@ -6,7 +6,7 @@
     CTLSchemaDto schemaFound=controlService.getCTLSchemaByMetaInfoIdAndVer(metaInfoId,version);
     Utils.checkNotNull(schemaFound);
     checkCTLSchemaReadScope(schemaFound.getMetaInfo().getTenantId(),schemaFound.getMetaInfo().getApplicationId());
-    return toCtlSchemaForm(schemaFound);
+    return toCtlSchemaForm(schemaFound,ConverterType.FORM_AVRO_CONVERTER);
   }
  catch (  Exception cause) {
     throw Utils.handleException(cause);

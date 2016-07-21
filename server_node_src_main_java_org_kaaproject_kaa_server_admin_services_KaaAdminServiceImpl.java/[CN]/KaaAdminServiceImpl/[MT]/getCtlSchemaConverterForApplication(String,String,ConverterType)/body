@@ -1,0 +1,8 @@
+{
+  try {
+    return createSchemaConverterFromCtlTypes(controlService.getAvailableCTLSchemaVersionsForApplication(tenantId,applicationId),converterType);
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+}

@@ -1,0 +1,4 @@
+{
+  byte[] configuration=GenericAvroConverter.toRawData(jsonData,schema);
+  return new ConfigurationCacheEntry(configuration,new BaseBinaryDelta(configuration),EndpointObjectHash.fromSHA1(configuration),userConfigurationHash);
+}

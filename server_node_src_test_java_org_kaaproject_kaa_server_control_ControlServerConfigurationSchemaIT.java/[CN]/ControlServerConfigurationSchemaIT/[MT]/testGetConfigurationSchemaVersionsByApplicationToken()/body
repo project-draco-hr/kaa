@@ -5,7 +5,7 @@
   List<ConfigurationSchemaDto> defaultConfigurationSchemas=client.getConfigurationSchemasByAppToken(application.getApplicationToken());
   configurationSchemas.addAll(defaultConfigurationSchemas);
   for (int i=0; i < 10; i++) {
-    ConfigurationSchemaDto configurationSchema=createConfigurationSchema(application.getId());
+    ConfigurationSchemaDto configurationSchema=createConfigurationSchema(application.getId(),null);
     configurationSchemas.add(configurationSchema);
   }
   Collections.sort(configurationSchemas,new IdComparator());
