@@ -5,7 +5,7 @@
   Mockito.when(applicationService.findAppByApplicationToken(APPLICATION_TOKEN)).thenReturn(application);
   LogSchemaDto logSchemaDto=new LogSchemaDto();
   logSchemaDto.setVersion(LOG_SCHEMA_VERSION);
-  logSchema=new LogSchema(logSchemaDto);
+  logSchema=new LogSchema(logSchemaDto,"");
   required=new LogAppender[REQUIRED_APPENDERS_COUNT];
   for (int i=0; i < required.length; i++) {
     required[i]=Mockito.mock(LogAppender.class);

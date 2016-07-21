@@ -33,12 +33,23 @@
       }
 );
     }
- else {
+ else     if (place.getSchemaType() == SchemaType.NOTIFICATION) {
       KaaAdmin.getDataSource().createNotificationSchemaFormCtlSchema(entity,new BusyAsyncCallback<NotificationSchemaViewDto>(){
         @Override public void onFailureImpl(        Throwable caught){
           callback.onFailure(caught);
         }
         @Override public void onSuccessImpl(        NotificationSchemaViewDto notificationSchemaViewDto){
+          callback.onSuccess(null);
+        }
+      }
+);
+    }
+ else     if (place.getSchemaType() == SchemaType.LOG_SCHEMA) {
+      KaaAdmin.getDataSource().createLogSchemaFormCtlSchema(entity,new BusyAsyncCallback<LogSchemaViewDto>(){
+        @Override public void onFailureImpl(        Throwable caught){
+          callback.onFailure(caught);
+        }
+        @Override public void onSuccessImpl(        LogSchemaViewDto logSchemaViewDto){
           callback.onSuccess(null);
         }
       }

@@ -1,0 +1,8 @@
+{
+  rpcService.saveLogSchemaView(logSchema,new DataCallback<LogSchemaViewDto>(callback){
+    @Override protected void onResult(    LogSchemaViewDto result){
+      eventBus.fireEvent(new DataEvent(LogSchemaViewDto.class));
+    }
+  }
+);
+}
