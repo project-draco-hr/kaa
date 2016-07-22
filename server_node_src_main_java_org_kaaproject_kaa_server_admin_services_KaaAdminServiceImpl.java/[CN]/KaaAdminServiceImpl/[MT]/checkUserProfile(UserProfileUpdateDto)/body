@@ -1,0 +1,11 @@
+{
+  if (isEmpty(userProfileUpdateDto.getFirstName())) {
+    throw new IllegalArgumentException("First name is not valid.");
+  }
+ else   if (isEmpty(userProfileUpdateDto.getLastName())) {
+    throw new IllegalArgumentException("Last name is not valid.");
+  }
+ else   if (isEmpty(userProfileUpdateDto.getMail())) {
+    throw new IllegalArgumentException("Mail is not valid.");
+  }
+}
