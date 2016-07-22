@@ -26,5 +26,8 @@
   if (ecfVersionStates != null ? !ecfVersionStates.equals(that.ecfVersionStates) : that.ecfVersionStates != null)   return false;
   if (serverHash != null ? !serverHash.equals(that.serverHash) : that.serverHash != null)   return false;
   if (sdkToken != null ? !sdkToken.equals(that.sdkToken) : that.sdkToken != null)   return false;
+  if (useConfigurationRawSchema != null ? !useConfigurationRawSchema.equals(that.useConfigurationRawSchema) : that.useConfigurationRawSchema != null) {
+    return false;
+  }
   return serverProfile != null ? serverProfile.equals(that.serverProfile) : that.serverProfile == null;
 }

@@ -6,8 +6,7 @@
     List<SchemaInfoDto> schemaInfos=new ArrayList<>(notificationSchemas.size());
     for (    NotificationSchemaDto notificationSchema : notificationSchemas) {
       SchemaInfoDto schemaInfo=new SchemaInfoDto(notificationSchema);
-      Schema schema=new Schema.Parser().parse(notificationSchema.getSchema());
-      RecordField schemaForm=FormAvroConverter.createRecordFieldFromSchema(schema);
+      RecordField schemaForm=createRecordFieldFromCtlSchemaAndBody(notificationSchema.getCtlSchemaId(),null);
       schemaInfo.setSchemaForm(schemaForm);
       schemaInfos.add(schemaInfo);
     }

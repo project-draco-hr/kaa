@@ -1,6 +1,6 @@
 {
   Application application=generateApplication(null);
-  generateNotificationSchema(application,1,null);
+  generateNotificationSchema(application,1,1,null);
   notificationSchemaDao.removeNotificationSchemasByAppId(application.getStringId());
   List<NotificationSchema> found=notificationSchemaDao.findNotificationSchemasByAppId(application.getStringId());
   Assert.assertTrue(found.isEmpty());

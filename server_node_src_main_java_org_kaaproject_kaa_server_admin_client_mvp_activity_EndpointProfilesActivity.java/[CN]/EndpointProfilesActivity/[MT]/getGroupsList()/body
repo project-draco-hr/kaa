@@ -1,13 +1,11 @@
 {
-  if (!gridLoaded) {
-    KaaAdmin.getDataSource().loadEndpointGroups(applicationId,new AsyncCallback<List<EndpointGroupDto>>(){
-      @Override public void onFailure(      Throwable caught){
-        Utils.handleException(caught,listView);
-      }
-      @Override public void onSuccess(      List<EndpointGroupDto> result){
-        populateListBoxAndGrid(result);
-      }
+  KaaAdmin.getDataSource().loadEndpointGroups(applicationId,new AsyncCallback<List<EndpointGroupDto>>(){
+    @Override public void onFailure(    Throwable caught){
+      Utils.handleException(caught,listView);
     }
-);
+    @Override public void onSuccess(    List<EndpointGroupDto> result){
+      populateListBoxAndGrid(result);
+    }
   }
+);
 }

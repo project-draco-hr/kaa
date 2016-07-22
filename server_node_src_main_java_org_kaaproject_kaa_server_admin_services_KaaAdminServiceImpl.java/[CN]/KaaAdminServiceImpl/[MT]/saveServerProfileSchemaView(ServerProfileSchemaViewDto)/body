@@ -12,7 +12,7 @@
         serverProfileSchema.setCtlSchemaId(schema.getId());
       }
  else {
-        CtlSchemaFormDto ctlSchemaForm=saveCTLSchemaForm(serverProfileSchemaView.getCtlSchemaForm());
+        CtlSchemaFormDto ctlSchemaForm=saveCTLSchemaForm(serverProfileSchemaView.getCtlSchemaForm(),ConverterType.FORM_AVRO_CONVERTER);
         serverProfileSchema.setCtlSchemaId(ctlSchemaForm.getId());
       }
     }

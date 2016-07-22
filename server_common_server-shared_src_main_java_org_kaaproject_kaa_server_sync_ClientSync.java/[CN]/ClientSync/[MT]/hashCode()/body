@@ -1,16 +1,15 @@
 {
-  final int prime=31;
-  int result=1;
-  result=prime * result + ((bootstrapSync == null) ? 0 : bootstrapSync.hashCode());
-  result=prime * result + ((clientSyncMetaData == null) ? 0 : clientSyncMetaData.hashCode());
-  result=prime * result + ((configurationSync == null) ? 0 : configurationSync.hashCode());
-  result=prime * result + ((eventSync == null) ? 0 : eventSync.hashCode());
-  result=prime * result + (forceConfigurationSync ? 1231 : 1237);
-  result=prime * result + (forceNotificationSync ? 1231 : 1237);
-  result=prime * result + ((logSync == null) ? 0 : logSync.hashCode());
-  result=prime * result + ((notificationSync == null) ? 0 : notificationSync.hashCode());
-  result=prime * result + ((profileSync == null) ? 0 : profileSync.hashCode());
-  result=prime * result + requestId;
-  result=prime * result + ((userSync == null) ? 0 : userSync.hashCode());
+  int result=requestId;
+  result=31 * result + (clientSyncMetaData != null ? clientSyncMetaData.hashCode() : 0);
+  result=31 * result + (bootstrapSync != null ? bootstrapSync.hashCode() : 0);
+  result=31 * result + (profileSync != null ? profileSync.hashCode() : 0);
+  result=31 * result + (forceConfigurationSync ? 1 : 0);
+  result=31 * result + (configurationSync != null ? configurationSync.hashCode() : 0);
+  result=31 * result + (forceNotificationSync ? 1 : 0);
+  result=31 * result + (notificationSync != null ? notificationSync.hashCode() : 0);
+  result=31 * result + (userSync != null ? userSync.hashCode() : 0);
+  result=31 * result + (eventSync != null ? eventSync.hashCode() : 0);
+  result=31 * result + (logSync != null ? logSync.hashCode() : 0);
+  result=31 * result + (useConfigurationRawSchema ? 1 : 0);
   return result;
 }

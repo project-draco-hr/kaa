@@ -1,5 +1,5 @@
 {
-  List<ConfigurationSchemaDto> schemas=generateConfSchemaDto(null,1);
+  List<ConfigurationSchemaDto> schemas=generateConfSchemaDto(null,null,1);
   ConfigurationSchemaDto schema=schemas.get(0);
   ConfigurationSchemaDto foundSchema=configurationService.findConfSchemaById(schema.getId());
   Assert.assertNotNull(foundSchema);

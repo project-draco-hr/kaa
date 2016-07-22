@@ -17,6 +17,7 @@
   result=31 * result + (topicHash != null ? Arrays.hashCode(topicHash) : 0);
   result=31 * result + systemNfVersion;
   result=31 * result + userNfVersion;
+  result=31 * result + (useConfigurationRawSchema != null ? useConfigurationRawSchema.hashCode() : 0);
   result=31 * result + (sdkToken != null ? sdkToken.hashCode() : 0);
   return result;
 }

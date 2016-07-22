@@ -1,14 +1,7 @@
 {
   listView.getEndpointKeyHashTextBox().setValue("");
-  if (!gridLoaded) {
-    listView.getEndpointGroupButton().setValue(true);
-    listView.getEndpointKeyHashButton().setValue(false);
-    getGroupsList();
-  }
- else {
-    listView.getEndpointGroupsInfo().setValue(groupAll);
-    listView.getEndpointGroupButton().setValue(true);
-    listView.getEndpointKeyHashButton().setValue(false);
-    findByEndpointGroup();
-  }
+  listView.getEndpointKeyHashButton().setValue(false);
+  listView.getEndpointGroupButton().setValue(true);
+  listView.getEndpointGroupsInfo().reset();
+  getGroupsList();
 }
