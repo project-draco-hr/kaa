@@ -6,7 +6,7 @@
     profileSchema.setApplicationId(ctlSchemaForm.getMetaInfo().getApplicationId());
     profileSchema.setName(ctlSchemaForm.getSchema().getDisplayNameFieldValue());
     profileSchema.setDescription(ctlSchemaForm.getSchema().getDescriptionFieldValue());
-    CtlSchemaFormDto savedCtlSchemaForm=ctlService.saveCTLSchemaForm(ctlSchemaForm);
+    CtlSchemaFormDto savedCtlSchemaForm=ctlService.saveCTLSchemaForm(ctlSchemaForm,ConverterType.FORM_AVRO_CONVERTER);
     profileSchema.setCtlSchemaId(savedCtlSchemaForm.getId());
     EndpointProfileSchemaDto savedProfileSchema=saveProfileSchema(profileSchema);
     return getProfileSchemaView(savedProfileSchema.getId());

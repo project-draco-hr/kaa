@@ -1,0 +1,26 @@
+{
+  List<LogSchema> schemas=Collections.emptyList();
+  try {
+    if (application == null) {
+      application=generateApplication(tenant);
+    }
+    CTLSchema ctlSchema=generateCTLSchema(DEFAULT_FQN,ctlVersion,application.getTenant(),null);
+    LogSchema schema;
+    schemas=new ArrayList<>(count);
+    for (int i=0; i < count; i++) {
+      schema=new LogSchema();
+      schema.setApplication(application);
+      schema.setCtlSchema(ctlSchema);
+      schema.setCreatedUsername("Test User");
+      schema.setName("Test Name");
+      schema=logSchemaDao.save(schema);
+      Assert.assertNotNull(schema);
+      schemas.add(schema);
+    }
+  }
+ catch (  Exception e) {
+    LOG.error("Can't generate log schemas {}",e);
+    Assert.fail("Can't generate log schemas.");
+  }
+  return schemas;
+}

@@ -9,7 +9,8 @@
   }
   Schema recordWrapperSchema=null;
   try {
-    recordWrapperSchema=RecordWrapperSchemaGenerator.generateRecordWrapperSchema(logSchema.getSchema());
+    CTLSchemaDto logCtlSchema=getCTLSchemaById(logSchema.getCtlSchemaId());
+    recordWrapperSchema=RecordWrapperSchemaGenerator.generateRecordWrapperSchema(logCtlSchema.getBody());
   }
  catch (  IOException e) {
     LOG.error("Unable to get Record Structure Schema",e);
