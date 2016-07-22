@@ -1,3 +1,8 @@
 {
-  return ctlService.findCTLSchemaById(schemaId);
+  CTLSchemaDto ctlSchemaDto=ctlService.findCTLSchemaById(schemaId);
+  if (ctlSchemaDto == null) {
+    LOG.error("CTL schema with Id [{}] not found!",schemaId);
+    throw new NotFoundException("CTL schema not found!");
+  }
+  return ctlSchemaDto;
 }
