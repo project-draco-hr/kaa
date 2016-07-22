@@ -12,6 +12,6 @@
   CTLSchemaDto ctlSchema=this.createCTLSchema(this.ctlRandomFieldType(),CTL_DEFAULT_NAMESPACE,1,tenantAdminDto.getTenantId(),null,null,null);
   logSchema.setCtlSchemaId(ctlSchema.getId());
   loginTenantDeveloper(tenantDeveloperDto.getUsername());
-  LogSchemaDto savedLogSchema=client.createLogSchema(logSchema);
+  LogSchemaDto savedLogSchema=client.saveLogSchema(logSchema);
   return savedLogSchema;
 }
