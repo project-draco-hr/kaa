@@ -1,0 +1,18 @@
+{
+  LOG.error("createLogSchemaFormCtlSchema [{}]",ctlSchemaForm.getSchema().getDisplayString());
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    checkApplicationId(ctlSchemaForm.getMetaInfo().getApplicationId());
+    LogSchemaDto logSchema=new LogSchemaDto();
+    logSchema.setApplicationId(ctlSchemaForm.getMetaInfo().getApplicationId());
+    logSchema.setName(ctlSchemaForm.getSchema().getDisplayNameFieldValue());
+    logSchema.setDescription(ctlSchemaForm.getSchema().getDescriptionFieldValue());
+    CtlSchemaFormDto savedCtlSchemaForm=saveCTLSchemaForm(ctlSchemaForm,ConverterType.FORM_AVRO_CONVERTER);
+    logSchema.setCtlSchemaId(savedCtlSchemaForm.getId());
+    LogSchemaDto savedLogSchema=saveLogSchema(logSchema);
+    return getLogSchemaView(savedLogSchema.getId());
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

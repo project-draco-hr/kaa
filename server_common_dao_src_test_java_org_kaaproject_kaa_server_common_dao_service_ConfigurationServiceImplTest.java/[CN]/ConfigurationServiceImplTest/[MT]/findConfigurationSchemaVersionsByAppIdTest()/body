@@ -1,5 +1,5 @@
 {
-  ConfigurationSchemaDto schemaDto=generateConfSchemaDto(null,1).get(0);
+  ConfigurationSchemaDto schemaDto=generateConfSchemaDto(null,null,1).get(0);
   List<VersionDto> versions=configurationService.findConfigurationSchemaVersionsByAppId(schemaDto.getApplicationId());
   Assert.assertFalse(versions.isEmpty());
   Assert.assertEquals(2,versions.size());

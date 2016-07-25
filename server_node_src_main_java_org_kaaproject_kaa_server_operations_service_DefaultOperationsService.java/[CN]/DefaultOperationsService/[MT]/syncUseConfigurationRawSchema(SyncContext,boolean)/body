@@ -1,0 +1,11 @@
+{
+  EndpointProfileDto profile=context.getEndpointProfile();
+  if (profile.isUseConfigurationRawSchema() != useConfigurationRawSchema) {
+    ClientSyncMetaData metaData=context.getMetaData();
+    EndpointObjectHash endpointKeyHash=EndpointObjectHash.fromBytes(toByteArray(metaData.getEndpointPublicKeyHash()));
+    profile=profileService.updateProfile(metaData,endpointKeyHash,useConfigurationRawSchema);
+    profile=syncProfileState(metaData.getApplicationToken(),context.getEndpointKey(),profile,false);
+    context.setEndpointProfile(profile);
+  }
+  return context;
+}

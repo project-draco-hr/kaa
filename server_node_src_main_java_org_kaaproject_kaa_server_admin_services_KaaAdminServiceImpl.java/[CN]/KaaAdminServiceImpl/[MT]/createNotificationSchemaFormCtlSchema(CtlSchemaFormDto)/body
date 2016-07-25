@@ -7,7 +7,7 @@
     notificationSchema.setApplicationId(ctlSchemaForm.getMetaInfo().getApplicationId());
     notificationSchema.setName(ctlSchemaForm.getSchema().getDisplayNameFieldValue());
     notificationSchema.setDescription(ctlSchemaForm.getSchema().getDescriptionFieldValue());
-    CtlSchemaFormDto savedCtlSchemaForm=saveCTLSchemaForm(ctlSchemaForm);
+    CtlSchemaFormDto savedCtlSchemaForm=saveCTLSchemaForm(ctlSchemaForm,ConverterType.FORM_AVRO_CONVERTER);
     notificationSchema.setCtlSchemaId(savedCtlSchemaForm.getId());
     NotificationSchemaDto savedNotificationSchema=saveNotificationSchema(notificationSchema);
     return getNotificationSchemaView(savedNotificationSchema.getId());

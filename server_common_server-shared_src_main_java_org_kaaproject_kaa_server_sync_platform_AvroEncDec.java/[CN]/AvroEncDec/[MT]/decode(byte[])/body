@@ -9,6 +9,7 @@
       return null;
     }
     ClientSync sync=convert(source);
+    sync.setUseConfigurationRawSchema(false);
     LOG.trace("Decoded client sync {}",sync);
     return sync;
   }

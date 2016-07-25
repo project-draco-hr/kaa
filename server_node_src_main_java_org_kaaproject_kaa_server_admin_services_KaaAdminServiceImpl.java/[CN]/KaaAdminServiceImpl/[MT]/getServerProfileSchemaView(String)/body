@@ -3,7 +3,7 @@
   try {
     ServerProfileSchemaDto serverProfileSchema=getServerProfileSchema(serverProfileSchemaId);
     CTLSchemaDto ctlSchemaDto=controlService.getCTLSchemaById(serverProfileSchema.getCtlSchemaId());
-    return new ServerProfileSchemaViewDto(serverProfileSchema,toCtlSchemaForm(ctlSchemaDto));
+    return new ServerProfileSchemaViewDto(serverProfileSchema,toCtlSchemaForm(ctlSchemaDto,ConverterType.FORM_AVRO_CONVERTER));
   }
  catch (  Exception e) {
     throw Utils.handleException(e);

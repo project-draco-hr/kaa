@@ -1,0 +1,29 @@
+{
+  List<ConfigurationSchemaDto> schemas=Collections.emptyList();
+  try {
+    if (isBlank(tenantId)) {
+      tenantId=generateTenantDto().getId();
+    }
+    if (isBlank(appId)) {
+      appId=generateApplicationDto().getId();
+    }
+    ConfigurationSchemaDto schemaDto;
+    CTLSchemaDto ctlSchemaDto=ctlService.saveCTLSchema(generateCTLSchemaDto(tenantId));
+    schemas=new ArrayList<>(count);
+    for (int i=0; i < count; i++) {
+      schemaDto=new ConfigurationSchemaDto();
+      schemaDto.setApplicationId(appId);
+      schemaDto.setCtlSchemaId(ctlSchemaDto.getId());
+      schemaDto.setCreatedUsername("Test User");
+      schemaDto.setName("Test Name");
+      schemaDto=configurationService.saveConfSchema(schemaDto);
+      Assert.assertNotNull(schemaDto);
+      schemas.add(schemaDto);
+    }
+  }
+ catch (  Exception e) {
+    LOG.error("Can't generate configs {}",e);
+    Assert.fail("Can't generate configuration schemas." + e.getMessage());
+  }
+  return schemas;
+}

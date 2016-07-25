@@ -1,0 +1,5 @@
+{
+  AvroUtils.injectUuids(data);
+  String jsonWithUUIds=data.toString();
+  Assert.assertTrue("Generated json is not equal json with UUIDs",jsonWithUUIds.equals(dataWithUUIDs.toString()));
+}
