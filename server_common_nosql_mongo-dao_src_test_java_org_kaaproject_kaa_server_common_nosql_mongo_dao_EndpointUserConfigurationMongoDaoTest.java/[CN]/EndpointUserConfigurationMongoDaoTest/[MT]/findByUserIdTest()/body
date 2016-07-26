@@ -1,8 +1,8 @@
 {
   EndpointUserDto userDto=generateEndpointUserDto(null);
   ApplicationDto appDto=generateApplicationDto();
-  EndpointUserConfigurationDto firstUserConfigurationDto=generateEndpointUserConfigurationDto(userDto,appDto,null,readSchemaFileAsString("dao/user/overrideData.json"));
-  EndpointUserConfigurationDto secondUserConfigurationDto=generateEndpointUserConfigurationDto(userDto,appDto,null,readSchemaFileAsString("dao/user/overrideData.json"));
+  EndpointUserConfigurationDto firstUserConfigurationDto=generateEndpointUserConfigurationDto(userDto,appDto,null,readSchemaFileAsString(OVERRIDE_USER_DATA_JSON));
+  EndpointUserConfigurationDto secondUserConfigurationDto=generateEndpointUserConfigurationDto(userDto,appDto,null,readSchemaFileAsString(OVERRIDE_USER_DATA_JSON));
   List<MongoEndpointUserConfiguration> expectedList=new ArrayList<>();
   expectedList.add(new MongoEndpointUserConfiguration(firstUserConfigurationDto));
   expectedList.add(new MongoEndpointUserConfiguration(secondUserConfigurationDto));

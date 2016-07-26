@@ -1,6 +1,6 @@
 {
   ApplicationDto application=generateApplicationDto();
-  List<ConfigurationSchemaDto> schemas=generateConfSchemaDto(application.getId(),4);
+  List<ConfigurationSchemaDto> schemas=generateConfSchemaDto(null,application.getId(),4);
   EndpointGroupDto groupOne=generateEndpointGroupDto(application.getId());
   ConfigurationSchemaDto schemaOne=schemas.get(0);
   generateConfigurationDto(schemaOne.getId(),groupOne.getId(),1,true,false);

@@ -1,0 +1,11 @@
+{
+  boolean containerWithId=json.isContainerNode() && json.has(UUID_FIELD);
+  boolean isArray=json.isArray();
+  boolean childIsNotArray=!(json.size() == 1 && json.getElements().next().isArray());
+  if (containerWithId && !isArray && childIsNotArray) {
+    ((ObjectNode)json).remove(UUID_FIELD);
+  }
+  for (  JsonNode node : json) {
+    if (node.isContainerNode())     removeUuids(node);
+  }
+}

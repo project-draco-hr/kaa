@@ -6,7 +6,7 @@
     serverProfileSchema.setApplicationId(ctlSchemaForm.getMetaInfo().getApplicationId());
     serverProfileSchema.setName(ctlSchemaForm.getSchema().getDisplayNameFieldValue());
     serverProfileSchema.setDescription(ctlSchemaForm.getSchema().getDescriptionFieldValue());
-    CtlSchemaFormDto savedCtlSchemaForm=saveCTLSchemaForm(ctlSchemaForm);
+    CtlSchemaFormDto savedCtlSchemaForm=saveCTLSchemaForm(ctlSchemaForm,ConverterType.FORM_AVRO_CONVERTER);
     serverProfileSchema.setCtlSchemaId(savedCtlSchemaForm.getId());
     ServerProfileSchemaDto savedServerProfileSchema=saveServerProfileSchema(serverProfileSchema);
     return getServerProfileSchemaView(savedServerProfileSchema.getId());

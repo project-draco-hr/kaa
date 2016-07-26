@@ -1,0 +1,8 @@
+{
+  rpcService.createConfigurationSchemaFormCtlSchema(ctlSchemaForm,new DataCallback<ConfigurationSchemaViewDto>(callback){
+    @Override protected void onResult(    ConfigurationSchemaViewDto result){
+      eventBus.fireEvent(new DataEvent(ConfigurationSchemaViewDto.class));
+    }
+  }
+);
+}

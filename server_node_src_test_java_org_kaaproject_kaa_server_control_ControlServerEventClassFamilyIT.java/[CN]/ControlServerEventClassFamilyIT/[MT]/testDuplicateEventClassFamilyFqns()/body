@@ -1,14 +1,13 @@
 {
-  tenantAdminDto=createTenant(tenantAdminUser);
+  TenantUserDto tenant=createTenant(tenantAdminUser);
   loginTenantAdmin(tenantAdminUser);
-  EventClassFamilyDto eventClassFamily=createEventClassFamily(tenantAdminDto.getId());
-  final EventClassFamilyVersionDto eventClassFamilyVersion=createEventClassFamilyVersion(eventClassFamily.getId());
+  EventClassFamilyDto eventClassFamily=createEventClassFamily(tenant.getTenantId());
+  final EventClassFamilyVersionDto eventClassFamilyVersion=createEventClassFamilyVersion(tenant.getTenantId());
   loginTenantAdmin(tenantAdminUser);
   client.addEventClassFamilyVersion(eventClassFamily.getId(),eventClassFamilyVersion);
-  final EventClassFamilyDto secondEventClassFamily=createEventClassFamily(tenantAdminDto.getId(),"test");
   checkBadRequest(new TestRestCall(){
     @Override public void executeRestCall() throws Exception {
-      client.addEventClassFamilyVersion(secondEventClassFamily.getId(),eventClassFamilyVersion);
+      createEventClassFamily(tenant.getTenantId());
     }
   }
 );

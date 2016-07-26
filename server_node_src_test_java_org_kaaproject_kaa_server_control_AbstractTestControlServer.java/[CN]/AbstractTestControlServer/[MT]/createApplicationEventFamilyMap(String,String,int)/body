@@ -24,7 +24,7 @@
   applicationEventFamilyMap.setEcfName(eventClassFamily.getName());
   List<EventClassFamilyVersionDto> storedECFVersions=client.getEventClassFamilyVersionsById(ecfId);
   loginTenantAdmin(tenantAdminUser);
-  EventClassFamilyVersionDto testECFVersion=createEventClassFamilyVersion(ecfId);
+  EventClassFamilyVersionDto testECFVersion=createEventClassFamilyVersion(tenantAdminDto.getTenantId());
   if (storedECFVersions == null || storedECFVersions.size() < version) {
     client.addEventClassFamilyVersion(eventClassFamily.getId(),testECFVersion);
   }

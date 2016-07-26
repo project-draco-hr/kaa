@@ -3,7 +3,7 @@
   try {
     EndpointProfileSchemaDto profileSchema=getProfileSchema(profileSchemaId);
     CTLSchemaDto ctlSchemaDto=controlService.getCTLSchemaById(profileSchema.getCtlSchemaId());
-    return new ProfileSchemaViewDto(profileSchema,toCtlSchemaForm(ctlSchemaDto));
+    return new ProfileSchemaViewDto(profileSchema,toCtlSchemaForm(ctlSchemaDto,ConverterType.FORM_AVRO_CONVERTER));
   }
  catch (  Exception e) {
     throw Utils.handleException(e);

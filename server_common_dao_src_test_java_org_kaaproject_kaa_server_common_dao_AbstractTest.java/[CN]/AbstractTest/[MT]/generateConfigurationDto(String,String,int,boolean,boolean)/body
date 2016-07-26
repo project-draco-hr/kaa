@@ -6,7 +6,7 @@
       schemaDto=configurationService.findConfSchemaById(schemaId);
     }
  else {
-      schemaDto=generateConfSchemaDto(null,1).get(0);
+      schemaDto=generateConfSchemaDto(null,null,1).get(0);
     }
     Assert.assertNotNull(schemaDto);
     KaaSchema kaaSchema=useBaseSchema ? new BaseSchema(schemaDto.getBaseSchema()) : new OverrideSchema(schemaDto.getOverrideSchema());
