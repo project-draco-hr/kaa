@@ -1,0 +1,7 @@
+{
+  if (this == o)   return true;
+  if (o == null || getClass() != o.getClass())   return false;
+  EventClassPlace that=(EventClassPlace)o;
+  if (version != that.version)   return false;
+  return ecfId != null ? ecfId.equals(that.ecfId) : that.ecfId == null;
+}
