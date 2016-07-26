@@ -1,5 +1,4 @@
 {
-  int eventSchemaVersionsCount=2;
   if (tenant == null) {
     tenant=generateTenant();
   }
@@ -14,15 +13,6 @@
     eventClassFamily.setDescription("Test Description");
     eventClassFamily.setName("Test Name" + RANDOM.nextInt());
     eventClassFamily.setNamespace("Test Namespace");
-    List<EventClassFamilyVersion> eventSchemaVersions=new ArrayList<>(eventSchemaVersionsCount);
-    for (int j=0; j < eventSchemaVersionsCount; j++) {
-      EventClassFamilyVersion eventSchemaVersion=new EventClassFamilyVersion();
-      eventSchemaVersion.setCreatedTime(new Date().getTime());
-      eventSchemaVersion.setCreatedUsername("Test Username");
-      eventSchemaVersion.setVersion(1);
-      eventSchemaVersions.add(eventSchemaVersion);
-    }
-    eventClassFamily.setSchemas(eventSchemaVersions);
     eventClassFamily=eventClassFamilyDao.save(eventClassFamily);
     Assert.assertNotNull(eventClassFamily);
     eventClassFamilies.add(eventClassFamily);

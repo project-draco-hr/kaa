@@ -1,8 +1,8 @@
 {
-  tenantAdminDto=createTenant(tenantAdminUser);
+  TenantUserDto tenant=createTenant(tenantAdminUser);
   loginTenantAdmin(tenantAdminUser);
-  EventClassFamilyDto eventClassFamily=createEventClassFamily(tenantAdminDto.getId());
-  EventClassFamilyVersionDto eventClassFamilyVersion=createEventClassFamilyVersion(eventClassFamily.getId());
+  EventClassFamilyDto eventClassFamily=createEventClassFamily(tenant.getTenantId());
+  EventClassFamilyVersionDto eventClassFamilyVersion=createEventClassFamilyVersion(tenant.getTenantId());
   client.addEventClassFamilyVersion(eventClassFamily.getId(),eventClassFamilyVersion);
   List<EventClassFamilyVersionDto> schemas=eventClassService.findEventClassFamilyVersionsById(eventClassFamily.getId());
   Assert.assertNotNull(schemas);
