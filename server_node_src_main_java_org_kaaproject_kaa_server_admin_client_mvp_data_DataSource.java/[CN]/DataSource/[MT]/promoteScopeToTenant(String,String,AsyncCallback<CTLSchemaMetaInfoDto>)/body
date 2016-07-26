@@ -1,5 +1,5 @@
 {
-  rpcService.promoteScopeToTenant(applicationId,fqn,new DataCallback<CTLSchemaMetaInfoDto>(callback){
+  ctlRpcService.promoteScopeToTenant(applicationId,fqn,new DataCallback<CTLSchemaMetaInfoDto>(callback){
     @Override protected void onResult(    CTLSchemaMetaInfoDto result){
       eventBus.fireEvent(new DataEvent(CTLSchemaMetaInfoDto.class));
     }

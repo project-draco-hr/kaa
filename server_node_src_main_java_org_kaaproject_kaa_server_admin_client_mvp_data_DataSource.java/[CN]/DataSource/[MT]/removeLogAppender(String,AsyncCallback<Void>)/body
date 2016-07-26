@@ -1,5 +1,5 @@
 {
-  rpcService.deleteLogAppender(appenderId,new DataCallback<Void>(callback){
+  loggingRpcService.deleteLogAppender(appenderId,new DataCallback<Void>(callback){
     @Override protected void onResult(    Void result){
       eventBus.fireEvent(new DataEvent(LogAppenderDto.class));
     }
