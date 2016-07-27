@@ -3,9 +3,9 @@
   String id=eventClasses.get(0).getStringId();
   EventClass dto=eventClassDao.findById(id);
   Assert.assertNotNull(dto);
-  String ecfId=dto.getEcf().getStringId();
-  Assert.assertNotNull(ecfId);
-  eventClassDao.removeByEcfId(ecfId);
+  String ecfvId=dto.getEcfv().getStringId();
+  Assert.assertNotNull(ecfvId);
+  eventClassDao.removeByEcfvId(ecfvId);
   dto=eventClassDao.findById(id);
   Assert.assertNull(dto);
 }

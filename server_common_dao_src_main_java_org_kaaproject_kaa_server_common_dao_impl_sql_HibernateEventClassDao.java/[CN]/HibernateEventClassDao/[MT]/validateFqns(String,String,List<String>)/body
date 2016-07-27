@@ -9,8 +9,8 @@
     }
     Criteria criteria=getCriteria();
     criteria.createAlias(TENANT_PROPERTY,TENANT_ALIAS);
-    criteria.createAlias(ECF_PROPERTY,ECF_ALIAS);
-    criteria.add(Restrictions.and(Restrictions.eq(TENANT_REFERENCE,Long.valueOf(tenantId)),Restrictions.ne(ECF_REFERENCE,Long.valueOf(ecfId)),Restrictions.in(FQN_PROPERTY,fqns)));
+    criteria.createAlias(ECFV_PROPERTY,ECFV_ALIAS);
+    criteria.add(Restrictions.and(Restrictions.eq(TENANT_REFERENCE,Long.valueOf(tenantId)),Restrictions.ne(ECFV_REFERENCE,Long.valueOf(ecfId)),Restrictions.in(FQN_PROPERTY,fqns)));
     eventClasses=findListByCriteria(criteria);
   }
   boolean result=eventClasses == null || eventClasses.isEmpty();

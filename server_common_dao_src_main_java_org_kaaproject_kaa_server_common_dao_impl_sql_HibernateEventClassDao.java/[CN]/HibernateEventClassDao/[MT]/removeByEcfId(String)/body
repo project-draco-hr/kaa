@@ -1,7 +1,0 @@
-{
-  if (isNotBlank(ecfId)) {
-    List<EventClass> eventClasses=findListByCriterionWithAlias(ECF_PROPERTY,ECF_ALIAS,Restrictions.eq(ECF_REFERENCE,Long.valueOf(ecfId)));
-    removeList(eventClasses);
-  }
-  LOG.debug("Removed event class by ecf id [{}] ",ecfId);
-}
