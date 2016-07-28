@@ -4,12 +4,17 @@
   }
  else {
     checkAuthority(KaaAuthorityDto.TENANT_ADMIN);
+    if (user.getTenantId() == null) {
+      user.setTenantId(getTenantId());
+    }
   }
   try {
     if (!isEmpty(user.getId())) {
       UserDto storedUser=controlService.getUser(user.getId());
       Utils.checkNotNull(storedUser);
-      checkTenantId(storedUser.getTenantId());
+      if (getCurrentUser().getAuthority().equals(KaaAuthorityDto.TENANT_ADMIN)) {
+        checkTenantId(storedUser.getTenantId());
+      }
     }
     Long userId=saveUser(user);
     UserDto userDto=new UserDto();

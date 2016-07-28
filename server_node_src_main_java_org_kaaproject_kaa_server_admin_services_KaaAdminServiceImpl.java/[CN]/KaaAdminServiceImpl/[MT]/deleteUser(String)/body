@@ -1,11 +1,13 @@
 {
-  checkAuthority(KaaAuthorityDto.TENANT_ADMIN);
   try {
     UserDto user=controlService.getUser(userId);
     Utils.checkNotNull(user);
-    checkTenantId(user.getTenantId());
-    if (KaaAuthorityDto.KAA_ADMIN.equals(user.getAuthority()) || KaaAuthorityDto.TENANT_ADMIN.equals(user.getAuthority())) {
-      throw new KaaAdminServiceException("Can't delete KAA admin or Tenant admin user!",ServiceErrorCode.PERMISSION_DENIED);
+    if (user.getAuthority().equals(KaaAuthorityDto.TENANT_ADMIN)) {
+      checkAuthority(KaaAuthorityDto.KAA_ADMIN);
+    }
+ else {
+      checkAuthority(KaaAuthorityDto.TENANT_ADMIN);
+      checkTenantId(user.getTenantId());
     }
     userFacade.deleteUser(Long.valueOf(user.getExternalUid()));
     controlService.deleteUser(user.getId());

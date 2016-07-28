@@ -3,4 +3,8 @@
     detailsView.setTitle(entity.getName());
   }
   detailsView.getTenantName().setValue(entity.getName());
+  if (!create) {
+    usersDataProvider.setTenantId(entity.getId());
+    usersDataProvider.reload();
+  }
 }

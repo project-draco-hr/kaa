@@ -6,5 +6,15 @@
   titleLabel.addStyleName(REQUIRED);
   detailsTable.setWidget(0,0,titleLabel);
   detailsTable.setWidget(0,1,tenantName);
+  tenantAdminsGrid=new UsersGrid(false,true);
+  tenantAdminsGrid.setWidth("100%");
+  tenantAdminsGrid.setSize("1000px","400px");
+  detailsTable.getFlexCellFormatter().setColSpan(1,0,3);
+  tenantAdminAddButton=new Button(Utils.constants.addNewUser());
+  tenantAdminAddButton.addStyleName(Utils.kaaAdminStyle.bAppButtonSmall());
   tenantName.setFocus(true);
+  if (!create) {
+    detailsTable.setWidget(1,0,tenantAdminsGrid);
+    detailsTable.setWidget(2,0,tenantAdminAddButton);
+  }
 }

@@ -1,7 +1,7 @@
 {
   loginKaaAdmin();
   if (username == null) {
-    username=generateString(username);
+    username=generateString(TENANT_ADMIN_USERNAME);
   }
   TenantDto tenantDto=new TenantDto();
   if (client.getTenants().isEmpty()) {
@@ -25,9 +25,5 @@
     client.clearCredentials();
     client.changePassword(tenAdmin.getUsername(),tenAdmin.getTempPassword(),tenantAdminPassword);
   }
-  TenantAdminDto tenantAdmin=new TenantAdminDto();
-  tenantAdmin.setUsername(username);
-  tenantAdmin.setId(tenAdmin.getId());
-  tenantAdmin.setTenant(tenantDto);
-  return tenantAdmin;
+  return tenAdmin;
 }
