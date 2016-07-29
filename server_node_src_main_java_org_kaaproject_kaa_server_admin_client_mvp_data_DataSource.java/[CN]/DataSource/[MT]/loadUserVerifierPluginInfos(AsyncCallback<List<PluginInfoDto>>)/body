@@ -1,7 +1,7 @@
 {
   if (userVerifierPluginInfos == null) {
     userVerifierPluginInfos=new ArrayList<PluginInfoDto>();
-    rpcService.getUserVerifierPluginInfos(new DataCallback<List<PluginInfoDto>>(callback){
+    verifierRpcService.getUserVerifierPluginInfos(new DataCallback<List<PluginInfoDto>>(callback){
       @Override protected void onResult(      List<PluginInfoDto> result){
         userVerifierPluginInfos.addAll(result);
       }

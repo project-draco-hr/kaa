@@ -12,7 +12,7 @@
   Mockito.when(clientProperties.getPropertiesHash()).thenReturn("test".getBytes());
   initStorageMock(storage);
   bsManagerMock=Mockito.mock(DefaultBootstrapManager.class);
-  client=new AbstractKaaClient(platformContext,stateListener){
+  client=new AbstractKaaClient(platformContext,stateListener,true){
     @Override protected DefaultBootstrapManager buildBootstrapManager(    KaaClientProperties properties,    KaaClientState kaaClientState,    TransportContext transportContext){
       return bsManagerMock;
     }

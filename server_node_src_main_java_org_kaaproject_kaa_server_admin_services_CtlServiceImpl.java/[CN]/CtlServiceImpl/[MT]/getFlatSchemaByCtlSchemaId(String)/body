@@ -1,0 +1,9 @@
+{
+  this.checkAuthority(KaaAuthorityDto.values());
+  try {
+    return controlService.getFlatSchemaByCtlSchemaId(schemaId);
+  }
+ catch (  ControlServiceException e) {
+    throw Utils.handleException(e);
+  }
+}

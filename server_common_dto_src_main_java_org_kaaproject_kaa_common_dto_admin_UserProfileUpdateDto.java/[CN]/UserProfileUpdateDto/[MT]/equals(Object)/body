@@ -1,0 +1,8 @@
+{
+  if (this == o)   return true;
+  if (o == null || getClass() != o.getClass())   return false;
+  UserProfileUpdateDto that=(UserProfileUpdateDto)o;
+  if (!firstName.equals(that.firstName))   return false;
+  if (!lastName.equals(that.lastName))   return false;
+  return mail.equals(that.mail);
+}

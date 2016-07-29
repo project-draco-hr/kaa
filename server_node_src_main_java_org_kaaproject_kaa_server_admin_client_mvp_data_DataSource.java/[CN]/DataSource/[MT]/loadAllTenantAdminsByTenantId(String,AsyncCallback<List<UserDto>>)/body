@@ -1,5 +1,5 @@
 {
-  rpcService.findAllTenantAdminsByTenantId(tenantId,new DataCallback<List<UserDto>>(callback){
+  tenantRpcService.findAllTenantAdminsByTenantId(tenantId,new DataCallback<List<UserDto>>(callback){
     @Override protected void onResult(    List<UserDto> result){
       eventBus.fireEvent(new DataEvent(UserDto.class,true));
     }

@@ -2,6 +2,7 @@
   if (body != null && messageEncDec != null) {
     byte[] requestKeyEncoded=messageEncDec.getEncodedSessionKey();
     byte[] requestBodyEncoded=messageEncDec.encodeData(body);
+    byte[] nextProtocol=ByteBuffer.allocate(4).putInt(Constants.KAA_PLATFORM_PROTOCOL_AVRO_ID_V2).array();
     byte[] signature=null;
     if (sign) {
       signature=messageEncDec.sign(requestKeyEncoded);
@@ -22,6 +23,7 @@
     }
     requestEntity.put(CommonEPConstans.REQUEST_KEY_ATTR_NAME,requestKeyEncoded);
     requestEntity.put(CommonEPConstans.REQUEST_DATA_ATTR_NAME,requestBodyEncoded);
+    requestEntity.put(CommonEPConstans.NEXT_PROTOCOL_ATTR_NAME,nextProtocol);
     return requestEntity;
   }
   return null;

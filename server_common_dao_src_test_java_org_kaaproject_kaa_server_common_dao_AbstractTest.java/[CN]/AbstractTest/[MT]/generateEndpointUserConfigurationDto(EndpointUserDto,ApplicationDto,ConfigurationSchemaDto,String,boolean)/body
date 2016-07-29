@@ -15,7 +15,7 @@
   }
   configurationDto.setUserId(endpointUser.getId());
   if (configurationSchema == null) {
-    configurationSchema=generateConfSchemaDto(applicationDto.getId(),1).get(0);
+    configurationSchema=generateConfSchemaDto(null,applicationDto.getId(),1).get(0);
   }
   configurationDto.setSchemaVersion(configurationSchema.getVersion());
   return userConfigurationService.saveUserConfiguration(configurationDto);

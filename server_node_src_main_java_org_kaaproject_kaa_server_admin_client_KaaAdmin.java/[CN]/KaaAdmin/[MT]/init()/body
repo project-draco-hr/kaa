@@ -1,9 +1,8 @@
 {
   Utils.injectKaaStyles();
-  KaaAdminServiceAsync rpcService=GWT.create(KaaAdminService.class);
   ClientFactory clientFactory=GWT.create(ClientFactory.class);
   EventBus eventBus=clientFactory.getEventBus();
-  dataSource=new DataSource(rpcService,eventBus);
+  dataSource=new DataSource(eventBus);
   PlaceController placeController=clientFactory.getPlaceController();
   ActivityMapper headerActivityMapper=new HeaderActivityMapper(clientFactory);
   ActivityManager headerActivityManager=new ActivityManager(headerActivityMapper,eventBus);
