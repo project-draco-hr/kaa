@@ -1,0 +1,22 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_ADMIN);
+  try {
+    if (!isEmpty(user.getId())) {
+      org.kaaproject.kaa.common.dto.UserDto storedUser=controlService.getUser(user.getId());
+      Utils.checkNotNull(storedUser);
+      checkTenantId(storedUser.getTenantId());
+    }
+    Long userId=saveUser(user);
+    org.kaaproject.kaa.common.dto.UserDto userDto=new org.kaaproject.kaa.common.dto.UserDto();
+    userDto.setId(user.getId());
+    userDto.setUsername(user.getUsername());
+    userDto.setExternalUid(userId.toString());
+    userDto.setTenantId(getTenantId());
+    userDto.setAuthority(user.getAuthority());
+    org.kaaproject.kaa.common.dto.UserDto savedUser=controlService.editUser(userDto);
+    return toUser(savedUser);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}
