@@ -1,5 +1,5 @@
 {
-  rpcService.deactivateProfileFilter(profileFilterId,new DataCallback<ProfileFilterDto>(callback){
+  groupRpcService.deactivateProfileFilter(profileFilterId,new DataCallback<ProfileFilterDto>(callback){
     @Override protected void onResult(    ProfileFilterDto result){
       eventBus.fireEvent(new DataEvent(ProfileFilterDto.class));
     }
