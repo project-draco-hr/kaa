@@ -10,7 +10,7 @@
       for (      ApplicationEventFamilyMapDto mapping : mappingList) {
         String applicationId=mapping.getApplicationId();
         ApplicationDto appDto=applicationService.findAppById(applicationId);
-        RouteTableKey routeTableKey=new RouteTableKey(appDto.getApplicationToken(),new EventClassFamilyVersion(ecfvId,key.getVersion()));
+        RouteTableKey routeTableKey=new RouteTableKey(appDto.getApplicationToken(),new EventClassFamilyVersion(ecfId,key.getVersion()));
         if (!routeKeys.contains(routeTableKey)) {
           for (          ApplicationEventMapDto eventMap : mapping.getEventMaps()) {
             if (eventMap.getEventClassId().equals(eventClass.getId()) && (ApplicationEventAction.SINK == eventMap.getAction() || ApplicationEventAction.BOTH == eventMap.getAction())) {
