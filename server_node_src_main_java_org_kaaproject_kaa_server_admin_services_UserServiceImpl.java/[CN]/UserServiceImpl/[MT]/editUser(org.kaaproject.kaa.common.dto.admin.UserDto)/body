@@ -1,6 +1,15 @@
 {
-  checkAuthority(KaaAuthorityDto.TENANT_ADMIN);
+  User stored=userFacade.findByUserName(user.getUsername());
+  boolean createNewUser=(stored == null);
+  if (createNewUser) {
+    checkAuthority(KaaAuthorityDto.TENANT_ADMIN);
+  }
+ else {
+    checkUserId(String.valueOf(stored.getId()));
+  }
   try {
+    CreateUserResult result=userFacade.saveUserDto(user,passwordEncoder);
+    user.setExternalUid(result.getUserId().toString());
     if (!isEmpty(user.getId())) {
       org.kaaproject.kaa.common.dto.UserDto storedUser=controlService.getUser(user.getId());
       Utils.checkNotNull(storedUser);
@@ -14,7 +23,11 @@
     userDto.setTenantId(getTenantId());
     userDto.setAuthority(user.getAuthority());
     org.kaaproject.kaa.common.dto.UserDto savedUser=controlService.editUser(userDto);
-    return toUser(savedUser);
+    UserDto editedUser=toUser(savedUser);
+    if (StringUtils.isNotBlank(result.getPassword())) {
+      editedUser.setTempPassword(result.getPassword());
+    }
+    return editedUser;
   }
  catch (  Exception e) {
     throw Utils.handleException(e);
