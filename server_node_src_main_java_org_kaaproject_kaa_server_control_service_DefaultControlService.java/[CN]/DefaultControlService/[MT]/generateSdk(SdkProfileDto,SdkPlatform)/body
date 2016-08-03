@@ -34,7 +34,16 @@
   DataSchema logDataSchema=new DataSchema(logSchemaBodyString);
   String profileSchemaBody=profileDataSchema.getRawSchema();
   String confSchemaBody=confDataSchema.getRawSchema();
-  byte[] defaultConfigurationData=GenericAvroConverter.toRawData(defaultConfiguration.getBody(),configurationSchema.getBaseSchema());
+  JsonNode json;
+  try {
+    json=new ObjectMapper().readTree(defaultConfiguration.getBody());
+  }
+ catch (  IOException e) {
+    LOG.error("Unable to convert default configuration data to json",e);
+    throw new ControlServiceException(e);
+  }
+  AvroUtils.removeUuids(json);
+  byte[] defaultConfigurationData=GenericAvroConverter.toRawData(json.toString(),confSchemaBody);
   List<EventFamilyMetadata> eventFamilies=new ArrayList<>();
   if (sdkProfile.getAefMapIds() != null) {
     List<ApplicationEventFamilyMapDto> aefMaps=applicationEventMapService.findApplicationEventFamilyMapsByIds(sdkProfile.getAefMapIds());
