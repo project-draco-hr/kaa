@@ -1,0 +1,6 @@
+{
+  MultiValueMap<String,Object> parameters=new LinkedMultiValueMap<>();
+  parameters.add("applicationToken",applicationToken);
+  parameters.add("credentialsId",credentialsId);
+  return this.restTemplate.postForObject(restTemplate.getUrl() + "credentialsStatus",parameters,CredentialsStatus.class);
+}
