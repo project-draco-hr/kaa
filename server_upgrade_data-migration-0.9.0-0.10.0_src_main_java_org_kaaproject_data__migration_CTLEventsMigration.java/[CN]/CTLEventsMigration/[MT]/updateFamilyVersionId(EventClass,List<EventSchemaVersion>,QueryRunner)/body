@@ -1,0 +1,10 @@
+{
+  for (  EventSchemaVersion esv : versions) {
+    int updateCount=0;
+    if (ecBelongToThisFamilyVersion(ec,esv)) {
+      updateCount=run.update(this.connection,"UPDATE ? SET events_class_family_versions_id=? WHERE id=?",EVENT_CLASS_TABLE_NAME,esv.getId(),ec.getId());
+      if (updateCount > 0)       ;
+      break;
+    }
+  }
+}

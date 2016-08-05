@@ -1,0 +1,4 @@
+{
+  JsonNode jsonNode=new ObjectMapper().readTree(body);
+  return jsonNode.get("name").asText();
+}
