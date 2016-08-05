@@ -1,0 +1,12 @@
+{
+  DSLContext create=DSL.using(DataSources.MARIADB.getDs(),SQLDialect.MARIADB);
+  List<Configuration> configs=create.select().from(CONFIGURATION).fetchInto(Configuration.class);
+  for (  Configuration config : configs) {
+    JsonNode json=new ObjectMapper().readTree(config.getConfigurationBody());
+    JsonNode jsonEncoded=encodeUuids(json);
+    byte[] encodedConfigurationBody=jsonEncoded.toString().getBytes();
+    config.setConfigurationBody(encodedConfigurationBody);
+    ConfigurationRecord record=create.newRecord(CONFIGURATION,config);
+    create.executeUpdate(record);
+  }
+}

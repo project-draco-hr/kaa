@@ -1,0 +1,6 @@
+{
+  if (this == o)   return true;
+  if (o == null || getClass() != o.getClass())   return false;
+  CtlMetaInfo that=(CtlMetaInfo)o;
+  return fqn != null ? fqn.equals(that.fqn) : that.fqn == null;
+}

@@ -1,0 +1,7 @@
+{
+  if (this == o)   return true;
+  if (o == null || getClass() != o.getClass())   return false;
+  Ctl ctl=(Ctl)o;
+  if (id != null ? !id.equals(ctl.id) : ctl.id != null)   return false;
+  return metaInfo.equals(ctl.metaInfo);
+}
