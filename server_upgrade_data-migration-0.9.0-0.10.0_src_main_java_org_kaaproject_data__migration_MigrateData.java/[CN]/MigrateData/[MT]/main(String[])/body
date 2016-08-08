@@ -1,4 +1,6 @@
 {
   CTLConfigurationMigration migration=new CTLConfigurationMigration(MARIADB.getDs().getConnection());
   migration.transform();
+  CTLEventsMigration eventsMigration=new CTLEventsMigration(MARIADB.getDs().getConnection());
+  eventsMigration.transform();
 }
