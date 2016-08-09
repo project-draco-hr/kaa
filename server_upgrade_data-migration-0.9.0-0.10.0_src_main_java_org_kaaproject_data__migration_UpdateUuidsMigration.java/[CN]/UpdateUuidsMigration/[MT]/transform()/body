@@ -1,0 +1,21 @@
+{
+  try {
+    QueryRunner run=new QueryRunner();
+    ResultSetHandler<List<Configuration>> rsHandler=new BeanListHandler<Configuration>(Configuration.class);
+    List<Configuration> configs=run.query(connection,"SELECT * FROM configuration",rsHandler);
+    for (    Configuration config : configs) {
+      JsonNode json=new ObjectMapper().readTree(config.getConfiguration_body());
+      JsonNode jsonEncoded=encodeUuids(json);
+      byte[] encodedConfigurationBody=jsonEncoded.toString().getBytes();
+      int updates=run.update(connection,"UPDATE configuration SET configuration_body=? WHERE id=?",encodedConfigurationBody,config.getId());
+      if (updates == 1) {
+      }
+    }
+  }
+ catch (  SQLException e) {
+    System.err.println("Error: " + e.getMessage());
+  }
+ finally {
+    DbUtils.closeQuietly(connection);
+  }
+}
