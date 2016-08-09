@@ -1,0 +1,5 @@
+{
+  dd.dropUnnamedFK("configuration_schems","schems");
+  dd.dropUnnamedFK("configuration","configuration_schems");
+  dd.alterTable("configuration").add(constraint("FK_configuration_schems_id").foreignKey("configuration_schems_id").references("configuration_schems","id").onDelete(CASCADE).onUpdate(CASCADE)).execute();
+}
