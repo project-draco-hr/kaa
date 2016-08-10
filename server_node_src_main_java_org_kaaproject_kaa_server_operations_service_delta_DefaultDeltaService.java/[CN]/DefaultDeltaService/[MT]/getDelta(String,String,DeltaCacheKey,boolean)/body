@@ -2,7 +2,7 @@
   EndpointUserConfigurationDto userConfiguration=findLatestUserConfiguration(userId,deltaKey);
   final DeltaCacheKey newKey;
   if (userConfiguration != null) {
-    newKey=new DeltaCacheKey(deltaKey.getAppConfigVersionKey(),deltaKey.getEndpointGroups(),EndpointObjectHash.fromString(userConfiguration.getBody()),deltaKey.getEndpointConfHash(),deltaKey.isResyncOnly());
+    newKey=new DeltaCacheKey(deltaKey.getAppConfigVersionKey(),deltaKey.getEndpointGroups(),EndpointObjectHash.fromString(userConfiguration.getBody()),deltaKey.getEndpointConfHash(),useConfigurationRawSchema,deltaKey.isResyncOnly());
   }
  else {
     newKey=deltaKey;
