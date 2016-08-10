@@ -1,6 +1,13 @@
 {
   if (create) {
-    KaaAdmin.getDataSource().createNewCTLSchemaFormInstance(place.getMetaInfoId(),place.getVersion(),place.getApplicationId(),new BusyAsyncCallback<CtlSchemaFormDto>(){
+    ConverterType converterType;
+    if (place.getSchemaType() == SchemaType.CONFIGURATION) {
+      converterType=ConverterType.CONFIGURATION_FORM_AVRO_CONVERTER;
+    }
+ else {
+      converterType=ConverterType.FORM_AVRO_CONVERTER;
+    }
+    KaaAdmin.getDataSource().createNewCTLSchemaFormInstance(place.getMetaInfoId(),place.getVersion(),place.getApplicationId(),converterType,new BusyAsyncCallback<CtlSchemaFormDto>(){
       @Override public void onSuccessImpl(      CtlSchemaFormDto result){
         entity=result;
         if (place.getSchemaType() != null) {

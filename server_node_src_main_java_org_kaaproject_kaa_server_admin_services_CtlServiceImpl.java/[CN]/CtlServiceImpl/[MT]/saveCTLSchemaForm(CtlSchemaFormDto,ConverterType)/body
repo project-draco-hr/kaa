@@ -1,0 +1,53 @@
+{
+  checkAuthority(KaaAuthorityDto.values());
+  try {
+    AuthUserDto currentUser=getCurrentUser();
+    CTLSchemaDto ctlSchema=null;
+    if (!isEmpty(ctlSchemaForm.getId())) {
+      ctlSchema=getCTLSchemaById(ctlSchemaForm.getId());
+      if (ctlSchema == null) {
+        throw new KaaAdminServiceException("Requested item was not found!",ServiceErrorCode.ITEM_NOT_FOUND);
+      }
+    }
+ else {
+      ctlSchema=new CTLSchemaDto();
+    }
+    if (isEmpty(ctlSchema.getId())) {
+      ctlSchema.setCreatedUsername(currentUser.getUsername());
+      RecordField schemaForm=ctlSchemaForm.getSchema();
+      ctlSchema.setMetaInfo(ctlSchemaForm.getMetaInfo());
+      ctlSchema.getMetaInfo().setFqn(schemaForm.getDeclaredFqn().getFqnString());
+      ctlSchema.getMetaInfo().setTenantId(currentUser.getTenantId());
+      ctlSchema.setVersion(schemaForm.getVersion());
+      List<FqnVersion> dependenciesList=schemaForm.getContext().getCtlDependenciesList();
+      Set<CTLSchemaDto> dependencies=new HashSet<>();
+      List<FqnVersion> missingDependencies=new ArrayList<>();
+      for (      FqnVersion fqnVersion : dependenciesList) {
+        CTLSchemaDto dependency=controlService.getAnyCTLSchemaByFqnVersionTenantIdAndApplicationId(fqnVersion.getFqnString(),fqnVersion.getVersion(),ctlSchema.getMetaInfo().getTenantId(),ctlSchema.getMetaInfo().getApplicationId());
+        if (dependency != null) {
+          dependencies.add(dependency);
+        }
+ else {
+          missingDependencies.add(fqnVersion);
+        }
+      }
+      if (!missingDependencies.isEmpty()) {
+        String message="The following dependencies are missing from the database: " + Arrays.toString(missingDependencies.toArray());
+        throw new IllegalArgumentException(message);
+      }
+      ctlSchema.setDependencySet(dependencies);
+      SchemaFormAvroConverter converter=getCtlSchemaConverterForScope(ctlSchema.getMetaInfo().getTenantId(),ctlSchema.getMetaInfo().getApplicationId(),converterType);
+      Schema avroSchema=converter.createSchemaFromSchemaForm(schemaForm);
+      String schemaBody=SchemaFormAvroConverter.createSchemaString(avroSchema,true);
+      ctlSchema.setBody(schemaBody);
+    }
+    CTLSchemaDto savedCtlSchema=saveCTLSchema(ctlSchema);
+    if (savedCtlSchema != null) {
+      return toCtlSchemaForm(savedCtlSchema,converterType);
+    }
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+  return null;
+}

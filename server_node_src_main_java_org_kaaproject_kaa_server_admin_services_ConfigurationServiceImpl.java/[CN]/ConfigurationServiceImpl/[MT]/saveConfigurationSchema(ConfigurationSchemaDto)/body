@@ -1,0 +1,18 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    if (isEmpty(confSchema.getId())) {
+      confSchema.setCreatedUsername(getCurrentUser().getUsername());
+      checkApplicationId(confSchema.getApplicationId());
+    }
+ else {
+      ConfigurationSchemaDto storedConfSchema=controlService.getConfigurationSchema(confSchema.getId());
+      Utils.checkNotNull(storedConfSchema);
+      checkApplicationId(storedConfSchema.getApplicationId());
+    }
+    return controlService.editConfigurationSchema(confSchema);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

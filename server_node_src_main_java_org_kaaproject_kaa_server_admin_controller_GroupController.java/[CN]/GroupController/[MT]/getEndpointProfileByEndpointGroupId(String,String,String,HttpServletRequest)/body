@@ -1,0 +1,8 @@
+{
+  EndpointProfilesPageDto endpointProfilesPageDto=groupService.getEndpointProfileByEndpointGroupId(endpointGroupId,limit,offset);
+  if (endpointProfilesPageDto.hasEndpointProfiles()) {
+    PageLinkDto pageLinkDto=createNext(endpointProfilesPageDto.getPageLinkDto(),request);
+    endpointProfilesPageDto.setNext(pageLinkDto.getNext());
+  }
+  return endpointProfilesPageDto;
+}
