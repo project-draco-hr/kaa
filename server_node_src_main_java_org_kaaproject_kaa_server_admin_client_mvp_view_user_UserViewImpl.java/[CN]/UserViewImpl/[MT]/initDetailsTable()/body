@@ -38,8 +38,13 @@
   }
 );
   List<KaaAuthorityDto> possibleAuthorities=new ArrayList<KaaAuthorityDto>();
-  possibleAuthorities.add(KaaAuthorityDto.TENANT_DEVELOPER);
-  possibleAuthorities.add(KaaAuthorityDto.TENANT_USER);
+  if (KaaAdmin.getAuthInfo().getAuthority().equals(KaaAuthorityDto.TENANT_ADMIN)) {
+    possibleAuthorities.add(KaaAuthorityDto.TENANT_DEVELOPER);
+    possibleAuthorities.add(KaaAuthorityDto.TENANT_USER);
+  }
+  if (KaaAdmin.getAuthInfo().getAuthority().equals(KaaAuthorityDto.KAA_ADMIN)) {
+    possibleAuthorities.add(KaaAuthorityDto.TENANT_ADMIN);
+  }
   authority.setAcceptableValues(possibleAuthorities);
   Label authorityLabel=new Label(Utils.constants.accountRole());
   authorityLabel.addStyleName(REQUIRED);

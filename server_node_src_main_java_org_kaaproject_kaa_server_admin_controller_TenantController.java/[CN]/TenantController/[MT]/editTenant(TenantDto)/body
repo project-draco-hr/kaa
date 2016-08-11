@@ -1,0 +1,9 @@
+{
+  try {
+    TenantDto tenant=tenantService.editTenant(tenantUser);
+    return tenant;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}
