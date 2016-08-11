@@ -1,0 +1,7 @@
+{
+  if (!sameBody(c1,newCtl)) {
+    LOG.warn("Schemas in different %ss' scopes have different bodies {} and {} but the same fqn {}",scope,newCtl.getDefaultRecord(),c1.getDefaultRecord(),newCtl.getMetaInfo().getFqn());
+  }
+  confSchemasToCTL.put(newCtl,new ArrayList<>(asList(schema)));
+  ctls.add(newCtl);
+}
