@@ -1,9 +1,9 @@
 {
-  KaaAdmin.getDataSource().loadTenants(new AsyncCallback<List<TenantUserDto>>(){
+  KaaAdmin.getDataSource().loadTenants(new AsyncCallback<List<TenantDto>>(){
     @Override public void onFailure(    Throwable caught){
       callback.onFailure(caught);
     }
-    @Override public void onSuccess(    List<TenantUserDto> result){
+    @Override public void onSuccess(    List<TenantDto> result){
       callback.onSuccess(result);
     }
   }

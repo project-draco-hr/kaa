@@ -1,15 +1,9 @@
 {
   checkAuthority(KaaAuthorityDto.KAA_ADMIN);
   try {
-    List<TenantAdminDto> tenantAdmins=controlService.getTenantAdmins();
-    List<TenantUserDto> tenantUsers=new ArrayList<TenantUserDto>(tenantAdmins.size());
-    for (    TenantAdminDto tenantAdmin : tenantAdmins) {
-      TenantUserDto tenantUser=toTenantUser(tenantAdmin);
-      if (tenantUser != null) {
-        tenantUsers.add(tenantUser);
-      }
-    }
-    return tenantUsers;
+    List<TenantDto> tenants=controlService.getTenants();
+    Utils.checkNotNull(tenants);
+    return tenants;
   }
  catch (  Exception e) {
     throw Utils.handleException(e);

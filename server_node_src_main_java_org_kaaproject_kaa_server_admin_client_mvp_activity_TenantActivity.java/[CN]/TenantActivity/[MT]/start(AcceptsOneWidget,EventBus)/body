@@ -1,0 +1,7 @@
+{
+  super.start(containerWidget,eventBus);
+  if (!create) {
+    AbstractGrid<UserDto,String> tenantAdminsGrid=detailsView.getTenantAdminsGrid();
+    usersDataProvider=new TenantAdminDataProvider(tenantAdminsGrid,detailsView,entityId);
+  }
+}
