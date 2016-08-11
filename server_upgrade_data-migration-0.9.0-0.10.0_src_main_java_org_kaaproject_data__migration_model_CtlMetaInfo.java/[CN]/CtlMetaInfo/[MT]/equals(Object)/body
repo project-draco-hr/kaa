@@ -2,5 +2,7 @@
   if (this == o)   return true;
   if (o == null || getClass() != o.getClass())   return false;
   CtlMetaInfo that=(CtlMetaInfo)o;
-  return fqn != null ? fqn.equals(that.fqn) : that.fqn == null;
+  if (!fqn.equals(that.fqn))   return false;
+  if (appId != null ? !appId.equals(that.appId) : that.appId != null)   return false;
+  return tenatnId != null ? tenatnId.equals(that.tenatnId) : that.tenatnId == null;
 }

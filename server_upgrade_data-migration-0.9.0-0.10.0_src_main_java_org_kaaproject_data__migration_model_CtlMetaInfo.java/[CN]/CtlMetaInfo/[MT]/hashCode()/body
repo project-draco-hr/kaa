@@ -1,3 +1,6 @@
 {
-  return fqn != null ? fqn.hashCode() : 0;
+  int result=fqn.hashCode();
+  result=31 * result + (appId != null ? appId.hashCode() : 0);
+  result=31 * result + (tenatnId != null ? tenatnId.hashCode() : 0);
+  return result;
 }
