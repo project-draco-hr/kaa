@@ -1,6 +1,20 @@
 {
-  CTLConfigurationMigration migration=new CTLConfigurationMigration(MARIADB.getDs().getConnection());
-  migration.transform();
-  CTLEventsMigration eventsMigration=new CTLEventsMigration(MARIADB.getDs().getConnection());
-  eventsMigration.transform();
+  try {
+    List<Schema> schemas=new ArrayList<>();
+    conn=MARIADB.getDs().getConnection();
+    CTLConfigurationMigration configurationMigration=new CTLConfigurationMigration(conn);
+    CTLAggregation aggregation=new CTLAggregation(conn);
+    BaseSchemaRecordsCreation recordsCreation=new BaseSchemaRecordsCreation(conn);
+    configurationMigration.beforeTransform();
+    schemas.addAll(configurationMigration.transform());
+    Map<Ctl,List<Schema>> ctlToSchemas=aggregation.aggregate(schemas);
+    recordsCreation.create(ctlToSchemas);
+    configurationMigration.afterTransform();
+  }
+ catch (  SQLException|IOException|ConfigurationGenerationException e) {
+    DbUtils.rollbackAndCloseQuietly(conn);
+  }
+ finally {
+    DbUtils.closeQuietly(conn);
+  }
 }
