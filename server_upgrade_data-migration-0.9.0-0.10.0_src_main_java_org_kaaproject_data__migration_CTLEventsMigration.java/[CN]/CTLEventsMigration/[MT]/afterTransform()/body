@@ -1,0 +1,3 @@
+{
+  dd.alterTable(EVENT_CLASS_TABLE_NAME).add(constraint("FK_events_class_family_versions_id").foreignKey("events_class_family_versions_id").references("events_class_family_versions","id").onDelete(CASCADE).onUpdate(CASCADE)).execute();
+}
