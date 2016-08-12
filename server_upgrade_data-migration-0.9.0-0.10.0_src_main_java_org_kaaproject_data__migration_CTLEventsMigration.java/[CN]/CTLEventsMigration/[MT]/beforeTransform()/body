@@ -1,3 +1,5 @@
 {
   dd.dropUnnamedFK(EVENT_CLASS_TABLE_NAME,EVENT_CLASS_FAMILY_TABLE_NAME);
+  dd.dropUnnamedFK(APPLICATION_EVENT_MAP_TABLE_NAME,EVENT_CLASS_TABLE_NAME);
+  runner.update(connection,"ALTER TABLE " + BASE_SCHEMA_TABLE_NAME + " CHANGE application_id application_id bigint(20)");
 }
