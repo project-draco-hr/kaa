@@ -79,7 +79,7 @@
   String tokenVerifierSource=readResource(EVENT_TEMPLATE_DIR + USER_VERIFIER_CONSTANTS + TEMPLATE_SUFFIX).replaceAll(DEFAULT_USER_VERIFIER_TOKEN_VAR,tokenVerifier);
   objcSources.add(CommonSdkUtil.tarEntryForSources(tokenVerifierSource,KAA_ROOT + EVENT_DIR + USER_VERIFIER_CONSTANTS));
   String kaaDefaultsTemplate=readResource(SDK_TEMPLATE_DIR + KAA_DEFAULTS + TEMPLATE_SUFFIX);
-  objcSources.add(generateKaaDefaults(kaaDefaultsTemplate,bootstrapNodes,sdkToken,configurationProtocolSchemaBody,defaultConfigurationData));
+  objcSources.add(generateKaaDefaults(kaaDefaultsTemplate,bootstrapNodes,sdkToken,configurationProtocolSchemaBody,defaultConfigurationData,sdkProperties));
   for (  TarEntryData entryData : objcSources) {
     replacementData.put(entryData.getEntry().getName(),entryData);
   }

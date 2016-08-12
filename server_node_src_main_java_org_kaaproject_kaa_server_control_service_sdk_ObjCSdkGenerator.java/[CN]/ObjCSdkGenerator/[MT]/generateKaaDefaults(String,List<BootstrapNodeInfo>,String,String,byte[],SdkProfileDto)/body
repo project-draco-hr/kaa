@@ -5,6 +5,7 @@
   properties.add(Version.PROJECT_VERSION);
   properties.add(Version.COMMIT_HASH);
   properties.add(sdkToken);
+  properties.add(profileDto.getApplicationId());
   properties.add(Base64.encodeBase64String(defaultConfigurationData));
   properties.add(Base64.encodeBase64String(configurationProtocolSchemaBody.getBytes()));
   properties.add(CommonSdkUtil.bootstrapNodesToString(bootstrapNodes));
