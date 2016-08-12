@@ -1,6 +1,6 @@
 {
   if (isValidSqlId(tenantId)) {
-    LOG.debug("Find event class by tenant id [{}] and fqn {}",tenantId,fqn);
+    LOG.debug("Find event class family by tenant id [{}] and fqn {}",tenantId,fqn);
     return getDto(eventClassDao.findByTenantIdAndFqnAndVersion(tenantId,fqn,version));
   }
  else {

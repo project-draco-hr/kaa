@@ -4,10 +4,11 @@
       LOG.debug("Fetching result for getEventClassFamilyIdByEventClassFqn using key {}",key);
       List<EventClassDto> eventClasses=eventClassService.findEventClassByTenantIdAndFQN(key.getTenantId(),key.getFqn());
       if (eventClasses != null && !eventClasses.isEmpty()) {
-        return eventClasses.get(0).getEcfvId();
+        String ecfvId=eventClasses.get(0).getEcfvId();
+        return eventClassService.findEventClassFamilyByECFVersionId(ecfvId).getId();
       }
  else {
-        LOG.warn("Fetching result for getEcfId using key {} Failed!",key);
+        LOG.warn("Fetching result for getEcfvId using key {} Failed!",key);
         return null;
       }
     }
