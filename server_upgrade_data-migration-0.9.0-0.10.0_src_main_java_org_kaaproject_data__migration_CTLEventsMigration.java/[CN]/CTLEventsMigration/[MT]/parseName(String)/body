@@ -1,4 +1,10 @@
 {
-  JsonNode jsonNode=new ObjectMapper().readTree(body);
-  return jsonNode.get("name").asText();
+  try {
+    JsonNode jsonNode=new ObjectMapper().readTree(body);
+    return jsonNode.get("name").asText();
+  }
+ catch (  IOException e) {
+    System.err.println("Failed to parse name from schema: " + body);
+  }
+  return "";
 }
