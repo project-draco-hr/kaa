@@ -21,6 +21,9 @@
       return new ApplicationCtlSchemasPlace(applicationId);
     }
   }
+ else   if (schemaType == SchemaType.EVENT_CLASS) {
+    return new EcfVersionPlace(ecfId,ecfVersionId,ecfVersion);
+  }
  else {
     if (KaaAdmin.getAuthInfo().getAuthority() == KaaAuthorityDto.KAA_ADMIN) {
       return new SystemCtlSchemasPlace();

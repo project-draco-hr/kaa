@@ -1,0 +1,13 @@
+{
+  EventClassFamilyVersionDto eventClassFamilyVersionDto=new EventClassFamilyVersionDto();
+  eventClassFamilyVersionDto.setCreatedTime(new Date().getTime());
+  eventClassFamilyVersionDto.setCreatedUsername(getCurrentUser().getUsername());
+  List<EventClassDto> eventClassDtoList=new ArrayList<>();
+  for (  EventClassViewDto classViewDto : eventClassViewDto) {
+    EventClassDto eventClassDto=classViewDto.getSchema();
+    eventClassDto.setId(null);
+    eventClassDtoList.add(eventClassDto);
+  }
+  eventClassFamilyVersionDto.setRecords(eventClassDtoList);
+  addEventClassFamilyVersion(eventClassFamilyId,eventClassFamilyVersionDto);
+}

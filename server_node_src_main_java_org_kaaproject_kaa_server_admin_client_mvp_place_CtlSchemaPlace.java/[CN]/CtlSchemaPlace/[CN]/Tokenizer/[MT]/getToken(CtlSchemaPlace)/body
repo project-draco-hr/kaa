@@ -15,6 +15,10 @@
   if (Utils.isNotBlank(place.getApplicationId())) {
     PlaceParams.putParam(APPLICATION_ID,place.getApplicationId());
   }
+  if (Utils.isNotBlank(place.getEcfId())) {
+    PlaceParams.putParam(ECF_ID,place.getEcfId());
+    PlaceParams.putParam(ECF_VERSION_ID,String.valueOf(place.getEcfVersion()));
+  }
   PlaceParams.putBooleanParam(EDITABLE,place.isEditable());
   PlaceParams.putBooleanParam(CREATE,place.isCreate());
   return PlaceParams.generateToken();

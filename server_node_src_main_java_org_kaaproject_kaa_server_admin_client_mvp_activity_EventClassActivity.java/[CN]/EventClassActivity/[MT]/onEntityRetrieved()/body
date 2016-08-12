@@ -1,0 +1,28 @@
+{
+  super.onEntityRetrieved();
+  ValueListBox<String> eventClassTypes=this.detailsView.getEventClassTypes();
+  if (eventClassTypes != null) {
+    KaaAdmin.getDataSource().getEventClassTypes(new AsyncCallback<List<String>>(){
+      @Override public void onFailure(      Throwable caught){
+        Utils.handleException(caught,EventClassActivity.this.detailsView);
+      }
+      @Override public void onSuccess(      List<String> result){
+        EventClassActivity.this.detailsView.getEventClassTypes().setAcceptableValues(result);
+        detailsView.getEventClassTypes().setValue(result.get(0));
+      }
+    }
+);
+  }
+  if (place.getCtlSchemaId() != null) {
+    KaaAdmin.getDataSource().getLastCtlSchemaReferenceDto(place.getCtlSchemaId(),new AsyncCallback<CtlSchemaReferenceDto>(){
+      @Override public void onFailure(      Throwable caught){
+        Utils.handleException(caught,EventClassActivity.this.detailsView);
+      }
+      @Override public void onSuccess(      CtlSchemaReferenceDto ctlSchemaReferenceDto){
+        detailsView.getCtlSchemaReference().setValue(ctlSchemaReferenceDto);
+        place.setCtlSchemaId(null);
+      }
+    }
+);
+  }
+}

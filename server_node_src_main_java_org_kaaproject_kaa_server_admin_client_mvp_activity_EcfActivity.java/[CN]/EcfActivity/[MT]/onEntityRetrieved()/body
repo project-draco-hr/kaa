@@ -6,6 +6,15 @@
   detailsView.getCreatedUsername().setValue(entity.getCreatedUsername());
   detailsView.getCreatedDateTime().setValue(Utils.millisecondsToDateTimeString(entity.getCreatedTime()));
   if (!create) {
-    ecfSchemasDataProvider.reload();
+    KaaAdmin.getDataSource().getEventClassFamilyVersions(entity.getId(),new AsyncCallback<List<EventClassFamilyVersionDto>>(){
+      @Override public void onFailure(      Throwable caught){
+        Utils.handleException(caught,EcfActivity.this.detailsView);
+      }
+      @Override public void onSuccess(      List<EventClassFamilyVersionDto> eventClassFamilyVersionDtos){
+        ecfVersionsDataProvider.setSchemas(eventClassFamilyVersionDtos);
+      }
+    }
+);
+    ecfVersionsDataProvider.reload();
   }
 }
