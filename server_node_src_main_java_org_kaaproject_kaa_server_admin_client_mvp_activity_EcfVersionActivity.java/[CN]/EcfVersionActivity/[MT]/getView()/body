@@ -1,3 +1,6 @@
 {
-  return clientFactory.getCreateEcfVersionView();
+  if (ecfVersionId == null || ecfVersionId == "") {
+    return clientFactory.getCreateEcfVersionView();
+  }
+  return clientFactory.getEcfVersionView();
 }

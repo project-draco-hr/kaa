@@ -1,5 +1,7 @@
 {
-  super(editable);
+  super(true);
   this.addSchemaButton=new ImageTextButton(Utils.resources.plus(),addButtonEventClassString());
+  addSchemaButton.setVisible(editable);
+  addButton.setVisible(editable);
   supportPanel.add(addSchemaButton);
 }

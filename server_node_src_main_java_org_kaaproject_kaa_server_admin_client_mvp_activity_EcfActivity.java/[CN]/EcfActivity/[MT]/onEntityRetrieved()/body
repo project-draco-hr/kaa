@@ -12,9 +12,9 @@
       }
       @Override public void onSuccess(      List<EventClassFamilyVersionDto> eventClassFamilyVersionDtos){
         ecfVersionsDataProvider.setSchemas(eventClassFamilyVersionDtos);
+        ecfVersionsDataProvider.reload();
       }
     }
 );
-    ecfVersionsDataProvider.reload();
   }
 }

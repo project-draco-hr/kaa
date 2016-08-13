@@ -1,17 +1,5 @@
 {
-  float prefWidth=0;
-  prefWidth+=constructStringColumn(table,Utils.constants.name(),new StringValueProvider<EventClassDto>(){
-    @Override public String getValue(    EventClassDto item){
-      return item.getName();
-    }
-  }
-,120);
-  prefWidth+=constructStringColumn(table,Utils.constants.namespace(),new StringValueProvider<EventClassDto>(){
-    @Override public String getValue(    EventClassDto item){
-      return item.getFqn();
-    }
-  }
-,160);
+  float prefWidth=super.constructColumnsImpl(table);
   prefWidth+=constructStringColumn(table,Utils.constants.classType(),new StringValueProvider<EventClassDto>(){
     @Override public String getValue(    EventClassDto item){
       return item.getType().toString();

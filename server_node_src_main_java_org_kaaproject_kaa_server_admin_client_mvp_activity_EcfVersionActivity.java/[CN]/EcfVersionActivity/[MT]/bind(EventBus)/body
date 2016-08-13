@@ -23,7 +23,6 @@
   registrations.add(listView.getRowActionsSource().addRowActionHandler(new RowActionEventHandler<String>(){
     @Override public void onRowAction(    RowActionEvent<String> event){
       String id=String.valueOf(event.getClickedId());
-      Window.alert("getClickedId = " + event.getClickedId());
       if (event.getAction() == RowActionEvent.CLICK) {
         goTo(existingEntityPlace(id));
       }

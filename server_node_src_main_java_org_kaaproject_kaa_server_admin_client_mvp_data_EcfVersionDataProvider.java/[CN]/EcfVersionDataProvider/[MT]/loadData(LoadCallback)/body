@@ -1,6 +1,6 @@
 {
-  if (version > 0) {
-    KaaAdmin.getDataSource().getEventClassesByFamilyIdVersionAndType(eventClassFamilyId,version,null,new AsyncCallback<List<EventClassDto>>(){
+  if (ecfVersion > 0) {
+    KaaAdmin.getDataSource().getEventClassesByFamilyIdVersionAndType(eventClassFamilyId,ecfVersion,null,new AsyncCallback<List<EventClassDto>>(){
       @Override public void onFailure(      Throwable cause){
         callback.onFailure(cause);
       }
@@ -19,7 +19,7 @@
         CTLSchemaMetaInfoDto ctlSchemaMetaInfoDto=eventClassViewDto.getExistingMetaInfo().getMetaInfo();
         EventClassDto eventClassDto=eventClassViewDto.getSchema();
         eventClassDto.setCtlSchemaId(ctlSchemaMetaInfoDto.getId());
-        eventClassDto.setFqn(ctlSchemaMetaInfoDto.getFqn());
+        eventClassDto.setCreatedTime(System.currentTimeMillis());
         eventClassDto.setId(String.valueOf(i++));
         eventClassDtoList.add(eventClassDto);
       }
