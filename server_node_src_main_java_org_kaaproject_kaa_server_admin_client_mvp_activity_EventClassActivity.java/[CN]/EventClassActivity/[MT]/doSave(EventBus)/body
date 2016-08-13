@@ -3,7 +3,7 @@
   editEntity(entity,new BusyAsyncCallback<EventClassViewDto>(){
     public void onSuccessImpl(    EventClassViewDto result){
       if (!create) {
-        goTo(existingSchemaPlaceForEvent(ecfId,ecfVersionId,ecfVersion,result.getId()));
+        goTo(existingSchemaPlaceForEvent(place.getEcfId(),place.getEcfVersionId(),place.getEcfVersion(),result.getId()));
       }
  else {
         goTo(new EcfVersionPlace(place.getEcfId(),place.getEcfVersionId(),place.getEcfVersion(),place.getEventClassDtoList()));
