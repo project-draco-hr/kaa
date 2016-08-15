@@ -3,7 +3,7 @@
   String profileTypeString=URLDecoder.decode(request.getParameter(PROFILE_TYPE_PARAMETER),"UTF-8");
   ProfileType profileType=ProfileType.valueOf(profileTypeString);
   try {
-    EndpointProfileDto profile=adminService.getEndpointProfileByKeyHash(endpointKey);
+    EndpointProfileDto profile=profileService.getEndpointProfileByKeyHash(endpointKey);
     String json;
     String fileName=MessageFormatter.arrayFormat(PROFILE_FILE_NAME_PATTERN,new Object[]{endpointKey,profileType.name().toLowerCase(),System.currentTimeMillis()}).getMessage();
     if (profileType == ProfileType.CLIENT) {

@@ -1,6 +1,6 @@
 {
-  List<EventClassFamilyDto> eventClassFamilies=new ArrayList<EventClassFamilyDto>(10);
-  tenantAdminDto=createTenant(tenantAdminUser);
+  List<EventClassFamilyDto> eventClassFamilies=new ArrayList<>(10);
+  org.kaaproject.kaa.common.dto.admin.UserDto tenant=createTenantAdmin(tenantAdminUser);
   loginTenantAdmin(tenantAdminUser);
   for (int i=0; i < 10; i++) {
     EventClassFamilyDto eventClassFamily=createEventClassFamily(tenantAdminDto.getId(),"" + i);

@@ -1,0 +1,18 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    this.checkApplicationId(applicationId);
+    AuthUserDto currentUser=getCurrentUser();
+    List<CtlSchemaReferenceDto> result=new ArrayList<>();
+    List<CTLSchemaMetaInfoDto> availableMetaInfo=controlService.getAvailableCTLSchemasMetaInfoForApplication(currentUser.getTenantId(),applicationId);
+    for (    CTLSchemaMetaInfoDto metaInfo : availableMetaInfo) {
+      for (      int version : metaInfo.getVersions()) {
+        result.add(new CtlSchemaReferenceDto(metaInfo,version));
+      }
+    }
+    return result;
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+}
