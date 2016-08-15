@@ -1,0 +1,9 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_ADMIN);
+  try {
+    return controlService.getEventClassFamilyVersions(eventClassFamilyId);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}
