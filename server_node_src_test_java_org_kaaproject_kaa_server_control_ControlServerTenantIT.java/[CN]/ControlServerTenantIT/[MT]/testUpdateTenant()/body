@@ -1,6 +1,6 @@
 {
-  TenantUserDto tenant=createTenant();
-  tenant.setTenantName(generateString(TENANT));
-  TenantUserDto updatedTenant=client.editTenant(tenant);
+  TenantDto tenant=createTenant();
+  tenant.setName(generateString(TENANT));
+  TenantDto updatedTenant=client.editTenant(tenant);
   assertTenantsEquals(updatedTenant,tenant);
 }

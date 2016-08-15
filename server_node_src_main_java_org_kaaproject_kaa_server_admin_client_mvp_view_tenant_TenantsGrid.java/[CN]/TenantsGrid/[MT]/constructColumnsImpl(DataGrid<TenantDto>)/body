@@ -1,0 +1,10 @@
+{
+  float prefWidth=0;
+  prefWidth+=constructStringColumn(table,Utils.constants.tenantName(),new StringValueProvider<TenantDto>(){
+    @Override public String getValue(    TenantDto item){
+      return item.getName();
+    }
+  }
+,160);
+  return prefWidth;
+}
