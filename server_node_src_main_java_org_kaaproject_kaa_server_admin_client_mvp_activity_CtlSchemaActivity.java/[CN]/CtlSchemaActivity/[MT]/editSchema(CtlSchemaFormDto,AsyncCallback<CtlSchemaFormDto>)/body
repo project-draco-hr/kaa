@@ -62,6 +62,7 @@
         }
         @Override public void onSuccessImpl(        EventClassViewDto eventClassViewDto){
           ctlSchemaID=eventClassViewDto.getSchema().getCtlSchemaId();
+          nameEC=eventClassViewDto.getSchema().getName();
           callback.onSuccess(null);
         }
       }

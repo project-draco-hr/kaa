@@ -19,6 +19,7 @@
       }
       @Override public void onSuccess(      CtlSchemaReferenceDto ctlSchemaReferenceDto){
         detailsView.getCtlSchemaReference().setValue(ctlSchemaReferenceDto);
+        detailsView.getName().setValue(place.getNameEC());
         place.setCtlSchemaId(null);
       }
     }

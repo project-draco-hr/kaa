@@ -27,7 +27,10 @@
           goTo(new LogSchemasPlace(place.getApplicationId()));
         }
  else         if (place.getSchemaType() == SchemaType.EVENT_CLASS && place.getPreviousPlace() != null) {
-          goTo(new EventClassPlace(place.getEcfId(),place.getEcfVersionId(),place.getEcfVersion(),"",ctlSchemaID,place.getEventClassDtoList()));
+          EventClassPlace eventClassPlace=new EventClassPlace(place.getEcfId(),place.getEcfVersionId(),place.getEcfVersion(),"");
+          eventClassPlace.setCtlSchemaId(ctlSchemaID);
+          eventClassPlace.setNameEC(nameEC);
+          goTo(eventClassPlace);
         }
       }
  else       if (place.getPreviousPlace() != null) {
