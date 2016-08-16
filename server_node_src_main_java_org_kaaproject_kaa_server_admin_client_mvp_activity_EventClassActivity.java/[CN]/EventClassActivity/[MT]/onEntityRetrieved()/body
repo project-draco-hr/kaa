@@ -2,15 +2,11 @@
   super.onEntityRetrieved();
   ValueListBox<String> eventClassTypes=this.detailsView.getEventClassTypes();
   if (eventClassTypes != null) {
-    KaaAdmin.getDataSource().getEventClassTypes(new AsyncCallback<List<String>>(){
-      @Override public void onFailure(      Throwable caught){
-        Utils.handleException(caught,EventClassActivity.this.detailsView);
-      }
-      @Override public void onSuccess(      List<String> result){
-        EventClassActivity.this.detailsView.getEventClassTypes().setAcceptableValues(result);
-      }
+    List<String> eventClassTypeList=new ArrayList<>();
+    for (    EventClassType eventClassType : EventClassType.values()) {
+      eventClassTypeList.add(eventClassType.name());
     }
-);
+    EventClassActivity.this.detailsView.getEventClassTypes().setAcceptableValues(eventClassTypeList);
   }
   if (place.getCtlSchemaId() != null) {
     KaaAdmin.getDataSource().getLastCtlSchemaReferenceDto(place.getCtlSchemaId(),new AsyncCallback<CtlSchemaReferenceDto>(){

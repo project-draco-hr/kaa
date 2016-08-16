@@ -1,9 +1,16 @@
 {
   super(true);
-  this.addSchemaButton=new ImageTextButton(Utils.resources.plus(),addButtonEventClassString());
-  addSchemaButton.setVisible(editable);
+  this.addECButton=new ImageTextButton(Utils.resources.plus(),addButtonEventClassString());
+  addECButton.setVisible(editable);
   addButton.setVisible(editable);
   supportPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
   supportPanel.setWidth("300px");
-  supportPanel.add(addSchemaButton);
+  supportPanel.add(addECButton);
+  addButton.setEnabled(false);
+  addButton.addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent clickEvent){
+      validateAddECButton();
+    }
+  }
+);
 }

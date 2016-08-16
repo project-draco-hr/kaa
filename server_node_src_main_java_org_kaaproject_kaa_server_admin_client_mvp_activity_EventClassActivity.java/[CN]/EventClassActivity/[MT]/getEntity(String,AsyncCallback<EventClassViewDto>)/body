@@ -2,9 +2,18 @@
   if (place.getEventClassDtoList() != null) {
     EventClassDto eventClassDto=place.getEventClassDtoList().get(Integer.valueOf(eventClassId) - 1).getSchema();
     KaaAdmin.getDataSource().getEventClassViewByCtlSchemaId(eventClassDto,callback);
-    detailsView.getEventClassTypes().setValue(eventClassDto.getType().toString());
+    detailsView.getEventClassTypes().setValue(eventClassDto.getType().name());
   }
  else {
-    KaaAdmin.getDataSource().getEventClassView(eventClassId,callback);
+    KaaAdmin.getDataSource().getEventClassView(eventClassId,new AsyncCallback<EventClassViewDto>(){
+      @Override public void onFailure(      Throwable caught){
+        Utils.handleException(caught,EventClassActivity.this.detailsView);
+      }
+      @Override public void onSuccess(      EventClassViewDto eventClassViewDto){
+        detailsView.getEventClassTypes().setValue(eventClassViewDto.getSchema().getType().name());
+        callback.onSuccess(eventClassViewDto);
+      }
+    }
+);
   }
 }
