@@ -11,6 +11,17 @@
       }
 );
     }
+ else     if (place.getSchemaType() == SchemaType.CONFIGURATION) {
+      KaaAdmin.getDataSource().createConfigurationSchemaFormCtlSchema(entity,new BusyAsyncCallback<ConfigurationSchemaViewDto>(){
+        @Override public void onFailureImpl(        Throwable caught){
+          callback.onFailure(caught);
+        }
+        @Override public void onSuccessImpl(        ConfigurationSchemaViewDto result){
+          callback.onSuccess(null);
+        }
+      }
+);
+    }
  else     if (place.getSchemaType() == SchemaType.SERVER_PROFILE) {
       KaaAdmin.getDataSource().createServerProfileSchemaFormCtlSchema(entity,new BusyAsyncCallback<ServerProfileSchemaViewDto>(){
         @Override public void onFailureImpl(        Throwable caught){
@@ -22,7 +33,7 @@
       }
 );
     }
- else {
+ else     if (place.getSchemaType() == SchemaType.NOTIFICATION) {
       KaaAdmin.getDataSource().createNotificationSchemaFormCtlSchema(entity,new BusyAsyncCallback<NotificationSchemaViewDto>(){
         @Override public void onFailureImpl(        Throwable caught){
           callback.onFailure(caught);
@@ -33,8 +44,19 @@
       }
 );
     }
+ else     if (place.getSchemaType() == SchemaType.LOG_SCHEMA) {
+      KaaAdmin.getDataSource().createLogSchemaFormCtlSchema(entity,new BusyAsyncCallback<LogSchemaViewDto>(){
+        @Override public void onFailureImpl(        Throwable caught){
+          callback.onFailure(caught);
+        }
+        @Override public void onSuccessImpl(        LogSchemaViewDto logSchemaViewDto){
+          callback.onSuccess(null);
+        }
+      }
+);
+    }
   }
  else {
-    KaaAdmin.getDataSource().editCTLSchemaForm(entity,callback);
+    KaaAdmin.getDataSource().editCTLSchemaForm(entity,ConverterType.FORM_AVRO_CONVERTER,callback);
   }
 }

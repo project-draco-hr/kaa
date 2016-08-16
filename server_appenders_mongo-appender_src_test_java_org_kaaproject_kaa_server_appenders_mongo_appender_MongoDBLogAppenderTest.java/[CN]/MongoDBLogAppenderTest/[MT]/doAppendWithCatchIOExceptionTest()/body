@@ -12,8 +12,7 @@
   events.add(event2);
   events.add(event3);
   LogSchemaDto schemaDto=new LogSchemaDto();
-  schemaDto.setSchema(BasicEndpointProfile.SCHEMA$.toString());
-  LogSchema schema=new LogSchema(schemaDto);
+  LogSchema schema=new LogSchema(schemaDto,BasicEndpointProfile.SCHEMA$.toString());
   EndpointProfileDataDto profileDto=new EndpointProfileDataDto("1",ENDPOINT_KEY,1,"",0,null);
   BaseLogEventPack logEventPack=new BaseLogEventPack(profileDto,DATE_CREATED,schema.getVersion(),events);
   logEventPack.setLogSchema(schema);

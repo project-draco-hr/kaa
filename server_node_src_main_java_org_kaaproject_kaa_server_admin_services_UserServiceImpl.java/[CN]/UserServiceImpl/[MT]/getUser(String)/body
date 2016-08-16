@@ -1,0 +1,17 @@
+{
+  try {
+    UserDto user=controlService.getUser(userId);
+    Utils.checkNotNull(user);
+    if (user.getAuthority().equals(KaaAuthorityDto.TENANT_ADMIN)) {
+      checkAuthority(KaaAuthorityDto.KAA_ADMIN);
+    }
+ else {
+      checkAuthority(KaaAuthorityDto.TENANT_ADMIN);
+      checkTenantId(user.getTenantId());
+    }
+    return toUser(user);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

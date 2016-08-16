@@ -1,7 +1,7 @@
 {
   if (logAppenderPluginInfos == null) {
     logAppenderPluginInfos=new ArrayList<PluginInfoDto>();
-    rpcService.getLogAppenderPluginInfos(new DataCallback<List<PluginInfoDto>>(callback){
+    loggingRpcService.getLogAppenderPluginInfos(new DataCallback<List<PluginInfoDto>>(callback){
       @Override protected void onResult(      List<PluginInfoDto> result){
         logAppenderPluginInfos.addAll(result);
       }

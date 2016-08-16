@@ -1,0 +1,11 @@
+{
+  checkAuthority(KaaAuthorityDto.KAA_ADMIN);
+  try {
+    List<TenantDto> tenants=controlService.getTenants();
+    Utils.checkNotNull(tenants);
+    return tenants;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

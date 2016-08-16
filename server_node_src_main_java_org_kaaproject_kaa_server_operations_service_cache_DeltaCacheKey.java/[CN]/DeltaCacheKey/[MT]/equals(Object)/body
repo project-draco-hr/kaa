@@ -1,48 +1,11 @@
 {
-  if (this == obj) {
-    return true;
-  }
-  if (obj == null) {
-    return false;
-  }
-  if (getClass() != obj.getClass()) {
-    return false;
-  }
-  DeltaCacheKey other=(DeltaCacheKey)obj;
-  if (appConfigVersionKey == null) {
-    if (other.appConfigVersionKey != null) {
-      return false;
-    }
-  }
- else   if (!appConfigVersionKey.equals(other.appConfigVersionKey)) {
-    return false;
-  }
-  if (endpointConfHash == null) {
-    if (other.endpointConfHash != null) {
-      return false;
-    }
-  }
- else   if (!endpointConfHash.equals(other.endpointConfHash)) {
-    return false;
-  }
-  if (endpointGroups == null) {
-    if (other.endpointGroups != null) {
-      return false;
-    }
-  }
- else   if (!endpointGroups.equals(other.endpointGroups)) {
-    return false;
-  }
-  if (resyncOnly != other.resyncOnly) {
-    return false;
-  }
-  if (userConfHash == null) {
-    if (other.userConfHash != null) {
-      return false;
-    }
-  }
- else   if (!userConfHash.equals(other.userConfHash)) {
-    return false;
-  }
-  return true;
+  if (this == o)   return true;
+  if (o == null || getClass() != o.getClass())   return false;
+  DeltaCacheKey that=(DeltaCacheKey)o;
+  if (resyncOnly != that.resyncOnly)   return false;
+  if (useConfigurationRawSchema != that.useConfigurationRawSchema)   return false;
+  if (appConfigVersionKey != null ? !appConfigVersionKey.equals(that.appConfigVersionKey) : that.appConfigVersionKey != null)   return false;
+  if (endpointGroups != null ? !endpointGroups.equals(that.endpointGroups) : that.endpointGroups != null)   return false;
+  if (endpointConfHash != null ? !endpointConfHash.equals(that.endpointConfHash) : that.endpointConfHash != null)   return false;
+  return userConfHash != null ? userConfHash.equals(that.userConfHash) : that.userConfHash == null;
 }

@@ -16,5 +16,6 @@
   result=31 * result + systemNfVersion;
   result=31 * result + userNfVersion;
   result=31 * result + (sdkToken != null ? sdkToken.hashCode() : 0);
+  result=31 * result + (useConfigurationRawSchema ? 1 : 0);
   return result;
 }

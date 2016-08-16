@@ -7,6 +7,7 @@
   logAppenderService=new DefaultLogAppenderService();
   applicationService=mock(ApplicationService.class);
   logSchemaService=mock(LogSchemaService.class);
+  ctlService=mock(CTLService.class);
   logEventDao=mock(LogEventDao.class);
   logAppendersService=mock(LogAppendersService.class);
   ReflectionTestUtils.setField(logAppenderService,"logSchemaService",logSchemaService);

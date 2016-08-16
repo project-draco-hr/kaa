@@ -1,0 +1,8 @@
+{
+  tenantRpcService.editTenant(tenant,new DataCallback<TenantDto>(callback){
+    @Override protected void onResult(    TenantDto result){
+      refreshTenants();
+    }
+  }
+);
+}

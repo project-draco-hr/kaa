@@ -1,0 +1,19 @@
+{
+  try {
+    CtlSource ctlSource=new CtlSource(){
+      @Override public Map<Fqn,List<Integer>> getCtlTypes(){
+        return ctlTypes;
+      }
+    }
+;
+    if (converterType == CONFIGURATION_FORM_AVRO_CONVERTER) {
+      return new ConfigurationSchemaFormAvroConverter(ctlSource);
+    }
+ else {
+      return new SchemaFormAvroConverter(ctlSource);
+    }
+  }
+ catch (  Exception cause) {
+    throw Utils.handleException(cause);
+  }
+}

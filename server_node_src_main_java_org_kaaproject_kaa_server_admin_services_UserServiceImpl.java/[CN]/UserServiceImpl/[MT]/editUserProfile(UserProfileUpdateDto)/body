@@ -1,0 +1,18 @@
+{
+  try {
+    User user=userFacade.findById(Long.valueOf(getCurrentUser().getExternalUid()));
+    if (!isEmpty(userDto.getFirstName())) {
+      user.setFirstName(userDto.getFirstName());
+    }
+    if (!isEmpty(userDto.getLastName())) {
+      user.setLastName(userDto.getLastName());
+    }
+    if (!isEmpty(userDto.getMail())) {
+      user.setMail(userDto.getMail());
+    }
+    userFacade.save(user);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}
