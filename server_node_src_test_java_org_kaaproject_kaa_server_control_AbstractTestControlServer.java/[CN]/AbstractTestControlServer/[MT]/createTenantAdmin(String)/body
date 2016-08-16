@@ -1,0 +1,29 @@
+{
+  loginKaaAdmin();
+  if (username == null) {
+    username=generateString(TENANT_ADMIN_USERNAME);
+  }
+  TenantDto tenantDto=new TenantDto();
+  if (client.getTenants().isEmpty()) {
+    tenantDto.setName(TENANT_NAME);
+    tenantDto=client.editTenant(tenantDto);
+  }
+ else {
+    for (    TenantDto t : client.getTenants()) {
+      if (t.getName().equals(TENANT_NAME))       tenantDto=t;
+    }
+  }
+  org.kaaproject.kaa.common.dto.admin.UserDto tenAdmin=new org.kaaproject.kaa.common.dto.admin.UserDto();
+  tenAdmin.setAuthority(KaaAuthorityDto.TENANT_ADMIN);
+  tenAdmin.setUsername(username);
+  tenAdmin.setMail(username + "@demoproject.org");
+  tenAdmin.setFirstName("Tenant");
+  tenAdmin.setLastName("Admin");
+  tenAdmin.setTenantId(tenantDto.getId());
+  tenAdmin=client.editUser(tenAdmin);
+  if (StringUtils.isNotBlank(tenAdmin.getTempPassword())) {
+    client.clearCredentials();
+    client.changePassword(tenAdmin.getUsername(),tenAdmin.getTempPassword(),tenantAdminPassword);
+  }
+  return tenAdmin;
+}
