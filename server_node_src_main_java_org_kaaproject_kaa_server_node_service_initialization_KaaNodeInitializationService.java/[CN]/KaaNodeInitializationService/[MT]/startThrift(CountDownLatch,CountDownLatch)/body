@@ -8,11 +8,11 @@
         TMultiplexedProcessor processor=new TMultiplexedProcessor();
         KaaNodeThriftService.Processor<KaaNodeThriftService.Iface> kaaNodeProcessor=new KaaNodeThriftService.Processor<KaaNodeThriftService.Iface>(kaaNodeThriftService);
         processor.registerProcessor(KaaThriftService.KAA_NODE_SERVICE.getServiceName(),kaaNodeProcessor);
-        if (getNodeConfig().isBootstrapServerEnabled()) {
+        if (getNodeConfig().isBootstrapServiceEnabled()) {
           BootstrapThriftService.Processor<BootstrapThriftService.Iface> bootstrapProcessor=new BootstrapThriftService.Processor<BootstrapThriftService.Iface>(bootstrapThriftService);
           processor.registerProcessor(KaaThriftService.BOOTSTRAP_SERVICE.getServiceName(),bootstrapProcessor);
         }
-        if (getNodeConfig().isOperationsServerEnabled()) {
+        if (getNodeConfig().isOperationsServiceEnabled()) {
           OperationsThriftService.Processor<OperationsThriftService.Iface> operationsProcessor=new OperationsThriftService.Processor<OperationsThriftService.Iface>(operationsThriftService);
           processor.registerProcessor(KaaThriftService.OPERATIONS_SERVICE.getServiceName(),operationsProcessor);
         }

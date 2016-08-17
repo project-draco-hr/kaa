@@ -5,7 +5,7 @@
     return;
   }
   if (newServer.getServerType() == ServerType.OPERATIONS) {
-    LOG.info("Adding new operations server: {}",newServer);
+    LOG.info("Adding new operations service: {}",newServer);
     lastServers.put(newServer.getTransportId(),newServer);
   }
   for (  KaaDataChannel channel : channels) {
