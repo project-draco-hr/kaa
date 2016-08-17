@@ -1,0 +1,5 @@
+{
+  EndpointUser endpointUser=endpointUserDao.findByExternalIdAndTenantId(externalUid,tenantId);
+  EndpointUserConfiguration endpointUserConfiguration=endpointUserConfigurationDao.findByUserIdAndAppTokenAndSchemaVersion(endpointUser.getId(),appToken,schemaVersion);
+  return getDto(endpointUserConfiguration);
+}
