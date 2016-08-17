@@ -13,6 +13,7 @@
           Utils.handleException(caught,listView);
         }
         @Override public void onSuccess(        Void aVoid){
+          place.setEventClassDtoList(null);
           goTo(new EcfPlace(place.getEcfId()));
         }
       }
@@ -25,17 +26,6 @@
       String id=String.valueOf(event.getClickedId());
       if (event.getAction() == RowActionEvent.CLICK) {
         goTo(existingEntityPlace(id));
-      }
- else       if (event.getAction() == RowActionEvent.DELETE) {
-        deleteEntity(id,new BusyAsyncCallback<Void>(){
-          @Override public void onFailureImpl(          Throwable caught){
-            Utils.handleException(caught,listView);
-          }
-          @Override public void onSuccessImpl(          Void result){
-            dataProvider.reload();
-          }
-        }
-);
       }
       onCustomRowAction(event);
     }

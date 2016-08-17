@@ -1,8 +1,8 @@
 {
   super(place,EventClassDto.class,clientFactory);
-  initListView(place);
-  this.listView.setPresenter(this);
   this.ecfId=place.getEcfId();
   this.ecfVersion=place.getEcfVersion();
   this.ecfVersionId=place.getEcfVersionId();
+  initListView();
+  this.listView.setPresenter(this);
 }

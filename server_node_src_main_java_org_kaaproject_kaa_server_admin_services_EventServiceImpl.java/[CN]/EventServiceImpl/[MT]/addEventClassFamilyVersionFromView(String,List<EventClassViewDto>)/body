@@ -1,4 +1,7 @@
 {
+  if (eventClassViewDto.isEmpty()) {
+    throw Utils.handleException(new IllegalArgumentException("Event Class Family Version cannot be without Event Classes"));
+  }
   EventClassFamilyVersionDto eventClassFamilyVersionDto=new EventClassFamilyVersionDto();
   eventClassFamilyVersionDto.setCreatedTime(System.currentTimeMillis());
   eventClassFamilyVersionDto.setCreatedUsername(getCurrentUser().getUsername());
