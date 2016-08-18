@@ -5,7 +5,7 @@
       Set<RouteTableKey> routeKeys=new HashSet<>();
       EventClassDto eventClass=eventClassService.findEventClassByTenantIdAndFQNAndVersion(key.getTenantId(),key.getFqn(),key.getVersion());
       String ecfvId=eventClass.getEcfvId();
-      String ecfId=eventClassService.findEventClassFamilyByECFVersionId(ecfvId).getId();
+      String ecfId=eventClassService.findEventClassFamilyByEcfvId(ecfvId).getId();
       List<ApplicationEventFamilyMapDto> mappingList=applicationEventMapService.findByEcfIdAndVersion(ecfId,key.getVersion());
       for (      ApplicationEventFamilyMapDto mapping : mappingList) {
         String applicationId=mapping.getApplicationId();
