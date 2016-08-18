@@ -1,5 +1,5 @@
 {
-  TenantAdminDto tenantAdminDto=generateTenantAdminDto(null,null);
-  TenantAdminDto found=userService.findTenantAdminById(tenantAdminDto.getId());
+  UserDto tenantAdminDto=generateTenantAdmin(null,null);
+  UserDto found=userService.findUserById(tenantAdminDto.getId());
   Assert.assertEquals(tenantAdminDto,found);
 }
