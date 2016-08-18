@@ -1,0 +1,11 @@
+{
+  List<EventClassFamily> eventClassFamilies=generateEventClassFamily(null,1);
+  EventClassFamily ecf=eventClassFamilies.get(0);
+  List<EventClassFamilyVersion> ecfvList=generateEventClassFamilyVersion(ecf,1,1);
+  ecf.setSchemas(ecfvList);
+  ecf=eventClassFamilyDao.save(ecf);
+  EventClassFamilyVersion ecfv=ecfvList.get(0);
+  EventClassFamily ecfByEcfv=eventClassFamilyDao.findByEcfvId(ecfv.getStringId());
+  Assert.assertNotNull(ecfByEcfv);
+  Assert.assertEquals(ecf,ecfByEcfv);
+}

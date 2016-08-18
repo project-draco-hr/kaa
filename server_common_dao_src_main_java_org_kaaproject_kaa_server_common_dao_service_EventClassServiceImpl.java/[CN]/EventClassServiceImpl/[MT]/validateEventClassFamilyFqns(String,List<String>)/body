@@ -1,2 +1,7 @@
 {
+  Set<String> storedFQNs=getFqnListForECF(eventClassFamilyId);
+  for (  String fqn : fqns) {
+    if (storedFQNs.contains(fqn))     return false;
+  }
+  return true;
 }
