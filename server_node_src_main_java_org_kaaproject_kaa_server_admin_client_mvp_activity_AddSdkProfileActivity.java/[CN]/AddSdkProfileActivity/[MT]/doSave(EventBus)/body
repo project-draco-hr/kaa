@@ -17,11 +17,12 @@
       if (detailsView.getDefaultUserVerifier().getValue() != null) {
         sdkProfileDto.setDefaultVerifierToken(detailsView.getDefaultUserVerifier().getValue().getVerifierToken());
       }
-      if (!entity.getAefMapIds().isEmpty() && entity.getDefaultVerifierToken() == null) {
+      entity=sdkProfileDto;
+      if (!sdkProfileDto.getAefMapIds().isEmpty() && sdkProfileDto.getDefaultVerifierToken() == null) {
         detailsView.setErrorMessage(Utils.constants.specifyVerifier());
       }
  else {
-        KaaAdmin.getDataSource().addSdkProfile(entity,new BusyAsyncCallback<SdkProfileDto>(){
+        KaaAdmin.getDataSource().addSdkProfile(sdkProfileDto,new BusyAsyncCallback<SdkProfileDto>(){
           @Override public void onSuccessImpl(          SdkProfileDto result){
             detailsView.reset();
             AddSdkProfileActivity.this.goTo(new SdkProfilesPlace(applicationId));
@@ -35,5 +36,4 @@
     }
   }
 );
-  entity=sdkProfileDto;
 }
