@@ -1,10 +1,8 @@
 {
+  expectedException.expect(HttpClientErrorException.class);
+  expectedException.expectMessage("403 Forbidden");
   UserDto user=createUser(KaaAuthorityDto.TENANT_DEVELOPER);
-  final String PASSWORD="test_password";
-  client.changePassword(user.getUsername(),user.getTempPassword(),PASSWORD);
-  client.login(user.getUsername(),PASSWORD);
   user.setFirstName(generateString("NewFirst"));
   user.setLastName(generateString("NewLast"));
   UserDto updatedUser=client.editUser(user);
-  assertUsersEquals(updatedUser,user);
 }
