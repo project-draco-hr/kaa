@@ -1,0 +1,7 @@
+{
+  ApplicationDto appDto=generateApplicationDto();
+  EndpointUserDto userDto=generateEndpointUserDto(appDto.getTenantId());
+  EndpointUserConfigurationDto userConfigurationDto=generateEndpointUserConfigurationDto(userDto,appDto,null,readSchemaFileAsString(OVERRIDE_USER_DATA_JSON));
+  EndpointUserConfigurationDto endpointUserConfigurationDto=userConfigurationService.findUserConfigurationByExternalUIdAndAppTokenAndSchemaVersion(userDto.getExternalId(),appDto.getApplicationToken(),userConfigurationDto.getSchemaVersion(),appDto.getTenantId());
+  Assert.assertNotNull(endpointUserConfigurationDto);
+}
