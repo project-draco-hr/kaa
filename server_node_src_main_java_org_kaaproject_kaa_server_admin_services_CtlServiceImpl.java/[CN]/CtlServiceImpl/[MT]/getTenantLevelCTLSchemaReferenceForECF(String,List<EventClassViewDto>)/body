@@ -1,15 +1,13 @@
 {
-  checkAuthority(KaaAuthorityDto.TENANT_ADMIN,KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  checkAuthority(KaaAuthorityDto.TENANT_ADMIN);
   try {
     AuthUserDto currentUser=getCurrentUser();
     List<CTLSchemaMetaInfoDto> ctlSchemaReferenceDtoListForTenant=controlService.getAvailableCTLSchemasMetaInfoForTenant(currentUser.getTenantId());
-    List<String> fqnListOfCurrentECF=controlService.getFqnListForECF(ecfId);
+    Set<String> fqnListOfCurrentECF=controlService.getFqnSetForECF(ecfId);
     if (eventClassViewDtoList != null) {
       for (      EventClassViewDto eventClassViewDto : eventClassViewDtoList) {
         String fqn=eventClassViewDto.getExistingMetaInfo().getMetaInfo().getFqn();
-        if (!fqnListOfCurrentECF.contains(fqn)) {
-          fqnListOfCurrentECF.add(fqn);
-        }
+        fqnListOfCurrentECF.add(fqn);
       }
     }
     List<CtlSchemaReferenceDto> availableCtlSchemaReferenceForECF=new ArrayList<>();
