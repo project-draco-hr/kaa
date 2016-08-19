@@ -1,0 +1,16 @@
+{
+  loginKaaAdmin();
+  UserDto user=new UserDto();
+  String username=generateString(USERNAME);
+  user.setUsername(username);
+  user.setMail(username + "@demoproject.org");
+  user.setFirstName(generateString("Test"));
+  user.setLastName(generateString("User"));
+  user.setAuthority(KaaAuthorityDto.TENANT_ADMIN);
+  user.setTenantId(tenantAdminDto.getTenantId());
+  user=client.editUser(user);
+  UserDto storedUser=client.getUser(user.getId());
+  Assert.assertNotNull(storedUser);
+  Assert.assertEquals(storedUser.getAuthority(),KaaAuthorityDto.TENANT_ADMIN);
+  assertUsersEquals(user,storedUser);
+}
