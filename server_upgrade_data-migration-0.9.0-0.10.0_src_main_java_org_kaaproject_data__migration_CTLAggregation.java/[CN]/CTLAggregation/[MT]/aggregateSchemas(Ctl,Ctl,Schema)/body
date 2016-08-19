@@ -1,9 +1,10 @@
 {
   if (!sameBody(c1,c2)) {
     CtlMetaInfo mi=c1.getMetaInfo();
-    String message=format("Unable to do migrate due to schemas with same fqn[%s] and scope[appId=%d, tenant=%d] but different bodies",mi.getFqn(),mi.getAppId(),mi.getTenatnId());
+    String message=format("Unable to do migrate due to schemas with same fqn[%s] and scope[appId=%d, tenant=%d] but different bodies",mi.getFqn(),mi.getAppId(),mi.getTenantId());
     throw new MigrationException(message);
   }
-  List<Schema> sc=confSchemasToCTL.get(c1);
+  LOG.debug("Schemas with fqn {} were aggregated.",c1.getMetaInfo().getFqn());
+  List<Schema> sc=schemasToCTL.get(c1);
   sc.add(schema);
 }

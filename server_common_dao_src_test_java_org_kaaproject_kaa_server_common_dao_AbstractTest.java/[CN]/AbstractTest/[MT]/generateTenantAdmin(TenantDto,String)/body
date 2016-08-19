@@ -1,0 +1,18 @@
+{
+  UserDto tenant=new UserDto();
+  tenant.setUsername(generateString(TENANT_NAME));
+  if (tenantDto == null) {
+    tenantDto=generateTenantDto();
+  }
+  tenant.setTenantId(tenantDto.getId());
+  if (isBlank(userId)) {
+    List<UserDto> users=generateUsersDto(tenantDto.getId(),KaaAuthorityDto.TENANT_ADMIN,1);
+    tenant.setId(users.get(0).getId());
+  }
+ else {
+    tenant.setId(userId);
+  }
+  tenant.setExternalUid(UUID.randomUUID().toString());
+  tenant=userService.saveUser(tenant);
+  return tenant;
+}

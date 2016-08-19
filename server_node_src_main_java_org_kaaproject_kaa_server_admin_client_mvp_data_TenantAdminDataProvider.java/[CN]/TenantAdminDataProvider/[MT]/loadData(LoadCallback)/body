@@ -1,0 +1,11 @@
+{
+  KaaAdmin.getDataSource().loadAllTenantAdminsByTenantId(tenantId,new AsyncCallback<List<UserDto>>(){
+    @Override public void onFailure(    Throwable throwable){
+      callback.onFailure(throwable);
+    }
+    @Override public void onSuccess(    List<UserDto> userDtos){
+      callback.onSuccess(userDtos);
+    }
+  }
+);
+}
