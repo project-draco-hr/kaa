@@ -12,6 +12,7 @@
   context.setMetaData(request.getClientSyncMetaData());
   LOG.trace("[{}][{}] processing sync. Request: {}",endpointKey,context.getRequestHash(),request);
   context=operationsService.syncClientProfile(context,request.getProfileSync());
+  context=operationsService.syncUseConfigurationRawSchema(context,request.isUseConfigurationRawSchema());
   if (context.getStatus() != SyncStatus.SUCCESS) {
     return context;
   }

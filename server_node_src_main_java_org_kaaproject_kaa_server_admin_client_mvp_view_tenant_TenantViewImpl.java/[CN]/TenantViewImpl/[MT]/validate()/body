@@ -1,6 +1,4 @@
 {
-  boolean result=tenantName.getValue().length() > 0;
-  result&=userName.getValue().length() > 0;
-  result&=Utils.validateEmail(email.getValue());
+  boolean result=tenantName.getValue().length() > 2 && tenantName.getValue().length() < 255;
   return result;
 }
