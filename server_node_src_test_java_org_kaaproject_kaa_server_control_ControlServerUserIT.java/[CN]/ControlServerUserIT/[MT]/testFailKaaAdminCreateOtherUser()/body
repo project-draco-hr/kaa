@@ -1,0 +1,14 @@
+{
+  expectedException.expect(HttpClientErrorException.class);
+  expectedException.expectMessage("You do not have permission to perform this operation!");
+  loginKaaAdmin();
+  UserDto user=new UserDto();
+  String username=generateString(USERNAME);
+  user.setUsername(username);
+  user.setMail(username + "@demoproject.org");
+  user.setFirstName(generateString("Test"));
+  user.setLastName(generateString("User"));
+  user.setAuthority(KaaAuthorityDto.TENANT_DEVELOPER);
+  user.setTenantId(tenantAdminDto.getTenantId());
+  client.editUser(user);
+}

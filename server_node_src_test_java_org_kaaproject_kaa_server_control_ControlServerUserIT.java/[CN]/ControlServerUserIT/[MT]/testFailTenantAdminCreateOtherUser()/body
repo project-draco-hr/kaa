@@ -1,0 +1,14 @@
+{
+  expectedException.expect(HttpClientErrorException.class);
+  expectedException.expectMessage("403 Forbidden");
+  loginTenantAdmin(tenantAdminDto.getUsername());
+  UserDto user=new UserDto();
+  String username=generateString(USERNAME);
+  user.setUsername(username);
+  user.setMail(username + "@demoproject.org");
+  user.setFirstName(generateString("Test"));
+  user.setLastName(generateString("User"));
+  user.setAuthority(KaaAuthorityDto.TENANT_DEVELOPER);
+  user.setTenantId(tenantAdminDto.getTenantId() + 1);
+  client.editUser(user);
+}
