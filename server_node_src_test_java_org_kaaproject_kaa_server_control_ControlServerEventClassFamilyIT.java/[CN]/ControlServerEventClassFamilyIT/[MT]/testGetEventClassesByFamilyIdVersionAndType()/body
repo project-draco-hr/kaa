@@ -1,11 +1,15 @@
 {
-  EventClassFamilyDto eventClassFamily=createEventClassFamily();
-  client.addEventClassFamilySchema(eventClassFamily.getId(),TEST_EVENT_CLASS_FAMILY_SCHEMA);
+  UserDto tenant=createTenantAdmin(tenantAdminUser);
+  loginTenantAdmin(tenantAdminUser);
+  EventClassFamilyDto eventClassFamily=createEventClassFamily(tenant.getId());
+  EventClassFamilyVersionDto eventClassFamilyVersion=createEventClassFamilyVersion(tenant.getId());
+  client.addEventClassFamilyVersion(eventClassFamily.getId(),eventClassFamilyVersion);
   List<EventClassDto> eventClasses=client.getEventClassesByFamilyIdVersionAndType(eventClassFamily.getId(),1,EventClassType.EVENT);
   Assert.assertNotNull(eventClasses);
-  Assert.assertEquals(4,eventClasses.size());
+  Assert.assertEquals(1,eventClasses.size());
+  eventClassFamilyVersion=client.getEventClassFamilyVersionsById(eventClassFamily.getId()).get(0);
   for (  EventClassDto eventClass : eventClasses) {
-    Assert.assertEquals(eventClassFamily.getId(),eventClass.getEcfId());
+    Assert.assertEquals(eventClassFamilyVersion.getId(),eventClass.getEcfvId());
     Assert.assertEquals(1,eventClass.getVersion());
   }
 }

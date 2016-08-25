@@ -1,0 +1,10 @@
+{
+  float prefWidth=super.constructColumnsImpl(table);
+  prefWidth+=constructStringColumn(table,Utils.constants.classType(),new StringValueProvider<EventClassDto>(){
+    @Override public String getValue(    EventClassDto item){
+      return item.getType().toString();
+    }
+  }
+,80);
+  return prefWidth;
+}

@@ -1,6 +1,6 @@
 {
   if (tenants == null || refresh) {
-    tenants=new ArrayList<>();
+    tenants=new ArrayList<TenantDto>();
     tenantRpcService.getTenants(new DataCallback<List<TenantDto>>(callback){
       @Override protected void onResult(      List<TenantDto> result){
         tenants.addAll(result);

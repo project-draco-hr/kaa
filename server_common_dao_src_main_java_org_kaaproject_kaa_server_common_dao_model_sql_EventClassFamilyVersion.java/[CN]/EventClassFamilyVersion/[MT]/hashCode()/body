@@ -1,0 +1,7 @@
+{
+  int result=records != null ? records.hashCode() : 0;
+  result=31 * result + version;
+  result=31 * result + (createdUsername != null ? createdUsername.hashCode() : 0);
+  result=31 * result + (int)(createdTime ^ (createdTime >>> 32));
+  return result;
+}

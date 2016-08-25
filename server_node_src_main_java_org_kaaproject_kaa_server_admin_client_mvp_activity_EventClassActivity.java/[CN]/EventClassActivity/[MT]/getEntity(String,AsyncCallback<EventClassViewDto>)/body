@@ -1,0 +1,15 @@
+{
+  if (place.getEventClassDtoList() != null) {
+    if (!place.getEventClassDtoList().isEmpty() && (Integer.valueOf(entityId) <= place.getEventClassDtoList().size())) {
+      EventClassDto eventClassDto=place.getEventClassDtoList().get(Integer.valueOf(eventClassId) - 1).getSchema();
+      detailsView.getEventClassTypes().setValue(eventClassDto.getType().name());
+      KaaAdmin.getDataSource().getEventClassViewByCtlSchemaId(eventClassDto,callback);
+    }
+ else {
+      getEventClassView(eventClassId,callback);
+    }
+  }
+ else {
+    getEventClassView(eventClassId,callback);
+  }
+}

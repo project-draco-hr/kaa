@@ -1,0 +1,9 @@
+{
+  if (isValidSqlId(eventClassId)) {
+    LOG.debug("Find event class by id [{}] ",eventClassId);
+    return getDto(eventClassDao.findById(eventClassId));
+  }
+ else {
+    throw new IncorrectParameterException("Incorrect event class id: " + eventClassId);
+  }
+}

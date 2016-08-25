@@ -13,10 +13,19 @@
   if (PlaceParams.hasParam(SCHEMA_TYPE)) {
     schemaType=SchemaType.valueOf(PlaceParams.getParam(SCHEMA_TYPE));
   }
-  String applicationId=PlaceParams.getParam(APPLICATION_ID);
   boolean editable=PlaceParams.getBooleanParam(EDITABLE);
   boolean create=PlaceParams.getBooleanParam(CREATE);
-  CtlSchemaPlace place=new CtlSchemaPlace(metaInfoId,version,scope,applicationId,editable,create);
+  CtlSchemaPlace place=null;
+  if (scope == CTLSchemaScopeDto.APPLICATION || scope == CTLSchemaScopeDto.SYSTEM) {
+    String applicationId=PlaceParams.getParam(APPLICATION_ID);
+    place=new CtlSchemaPlace(metaInfoId,version,scope,applicationId,editable,create);
+  }
+  if (scope == CTLSchemaScopeDto.TENANT) {
+    String ecfId=PlaceParams.getParam(ECF_ID);
+    String ecfVersionId=PlaceParams.getParam(ECF_VERSION_ID);
+    int ecfVersion=Integer.valueOf(PlaceParams.getParam(ECF_VERSION));
+    place=new CtlSchemaPlace(metaInfoId,version,scope,ecfId,ecfVersionId,ecfVersion,editable,create);
+  }
   place.setSchemaType(schemaType);
   return place;
 }

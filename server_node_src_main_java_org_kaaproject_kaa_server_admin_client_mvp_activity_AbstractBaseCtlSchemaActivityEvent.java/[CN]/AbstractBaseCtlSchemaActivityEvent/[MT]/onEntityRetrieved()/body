@@ -1,0 +1,29 @@
+{
+  if (create) {
+    registrations.add(detailsView.getNewCtlButton().addClickHandler(new ClickHandler(){
+      @Override public void onClick(      ClickEvent event){
+        CtlSchemaPlace newCtlPlace=null;
+        newCtlPlace=new CtlSchemaPlace("",null,CTLSchemaScopeDto.TENANT,place.getEcfId(),place.getEcfVersionId(),place.getEcfVersion(),true,true);
+        newCtlPlace.setSchemaType(getPlaceSchemaType());
+        newCtlPlace.setPreviousPlace(place);
+        canceled=true;
+        goTo(newCtlPlace);
+      }
+    }
+));
+    KaaAdmin.getDataSource().getTenantLevelCTLSchemaReferenceForECF(place.getEcfId(),place.getEventClassDtoList(),new BusyAsyncCallback<List<CtlSchemaReferenceDto>>(){
+      @Override public void onFailureImpl(      Throwable caught){
+        Utils.handleException(caught,detailsView);
+      }
+      @Override public void onSuccessImpl(      List<CtlSchemaReferenceDto> result){
+        detailsView.getCtlSchemaReference().setAcceptableValues(result);
+        bindDetailsView(true);
+      }
+    }
+);
+    detailsView.getSchemaForm().setFormDataLoader(this);
+  }
+ else {
+    bindDetailsView(false);
+  }
+}

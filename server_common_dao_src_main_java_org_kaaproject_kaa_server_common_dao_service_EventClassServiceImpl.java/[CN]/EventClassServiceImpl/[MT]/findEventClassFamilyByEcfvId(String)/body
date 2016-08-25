@@ -1,0 +1,4 @@
+{
+  validateSqlId(id,"Event class family version id is incorrect. Can't find event class family by ECF version id " + id);
+  return getDto(eventClassFamilyDao.findByEcfvId(id));
+}
