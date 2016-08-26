@@ -8,11 +8,11 @@
       @Override public void nodeChanged() throws Exception {
         ChildData currentData=controlCache.getCurrentData();
         if (currentData == null) {
-          LOG.warn("Control server node died!");
+          LOG.warn("Control service node died!");
           onNoMaster();
         }
  else {
-          LOG.warn("Control server node changed!");
+          LOG.warn("Control service node changed!");
           onMasterChange(currentData);
         }
       }

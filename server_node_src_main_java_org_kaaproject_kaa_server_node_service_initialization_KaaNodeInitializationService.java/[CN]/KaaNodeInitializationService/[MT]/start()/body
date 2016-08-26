@@ -8,13 +8,13 @@
  catch (  InterruptedException e) {
     LOG.error("Interrupted while waiting for thrift to start...",e);
   }
-  if (getNodeConfig().isControlServerEnabled()) {
+  if (getNodeConfig().isControlServiceEnabled()) {
     controlInitializationService.start();
   }
-  if (getNodeConfig().isBootstrapServerEnabled()) {
+  if (getNodeConfig().isBootstrapServiceEnabled()) {
     bootstrapInitializationService.start();
   }
-  if (getNodeConfig().isOperationsServerEnabled()) {
+  if (getNodeConfig().isOperationsServiceEnabled()) {
     operationsInitializationService.start();
   }
   LOG.info("Kaa Node Server Started.");
