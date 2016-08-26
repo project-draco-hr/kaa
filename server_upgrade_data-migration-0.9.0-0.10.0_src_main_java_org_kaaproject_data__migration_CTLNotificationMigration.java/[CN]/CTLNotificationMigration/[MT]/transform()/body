@@ -1,0 +1,23 @@
+{
+  List<Schema> res=super.transform();
+  if (nosql.equals(Options.DEFAULT_NO_SQL)) {
+    MongoDatabase database=client.getDatabase(dbName);
+    MongoCollection<Document> notification=database.getCollection("notification");
+    MongoCollection<Document> enpNotification=database.getCollection("endpoint_notification");
+    FindIterable<Document> cursor=notification.find();
+    for (    Document document : cursor) {
+      Object id=document.get("_id");
+      Long schemaId=Long.parseLong((String)document.get("notification_schema_id"));
+      notification.updateMany(eq("_id",id),eq("$set",eq("notification_schema_id",schemaId + idShift)));
+    }
+    cursor=enpNotification.find();
+    for (    Document document : cursor) {
+      Object id=document.get("_id");
+      Long schemaId=Long.parseLong((String)document.get("notification.notification_schema_id"));
+      notification.updateMany(eq("_id",id),eq("$set",eq("notification.notification_schema_id",schemaId + idShift)));
+    }
+  }
+ else {
+  }
+  return res;
+}
