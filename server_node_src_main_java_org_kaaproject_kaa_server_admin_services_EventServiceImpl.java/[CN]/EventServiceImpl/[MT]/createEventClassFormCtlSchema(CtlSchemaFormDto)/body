@@ -1,0 +1,15 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_ADMIN);
+  try {
+    checkTenantId(ctlSchemaForm.getMetaInfo().getTenantId());
+    EventClassDto eventClassDto=new EventClassDto();
+    eventClassDto.setName(ctlSchemaForm.getSchema().getDisplayNameFieldValue());
+    eventClassDto.setDescription(ctlSchemaForm.getSchema().getDescriptionFieldValue());
+    CtlSchemaFormDto savedCtlSchemaForm=ctlService.saveCTLSchemaForm(ctlSchemaForm,ConverterType.FORM_AVRO_CONVERTER);
+    eventClassDto.setCtlSchemaId(savedCtlSchemaForm.getId());
+    return getEventClassViewByCtlSchemaId(eventClassDto);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

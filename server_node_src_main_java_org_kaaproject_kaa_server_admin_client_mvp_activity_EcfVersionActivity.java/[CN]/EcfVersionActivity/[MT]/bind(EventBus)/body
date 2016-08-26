@@ -1,0 +1,53 @@
+{
+  listView.clearError();
+  registrations.add(listView.addButtonEventClass().addClickHandler(new ClickHandler(){
+    public void onClick(    ClickEvent event){
+      goTo(newEntityPlace());
+    }
+  }
+));
+  registrations.add(listView.getAddButton().addClickHandler(new ClickHandler(){
+    public void onClick(    ClickEvent event){
+      KaaAdmin.getDataSource().addEventClassFamilyVersionFromView(place.getEcfId(),place.getEventClassDtoList(),new AsyncCallback<Void>(){
+        @Override public void onFailure(        Throwable caught){
+          Utils.handleException(caught,listView);
+        }
+        @Override public void onSuccess(        Void aVoid){
+          place.setEventClassDtoList(null);
+          goTo(new EcfPlace(place.getEcfId()));
+        }
+      }
+);
+    }
+  }
+));
+  registrations.add(listView.getRowActionsSource().addRowActionHandler(new RowActionEventHandler<String>(){
+    @Override public void onRowAction(    RowActionEvent<String> event){
+      String id=String.valueOf(event.getClickedId());
+      if (event.getAction() == RowActionEvent.CLICK) {
+        goTo(existingEntityPlace(id));
+      }
+      onCustomRowAction(event);
+    }
+  }
+));
+  registrations.add(eventBus.addHandler(DataEvent.getType(),new DataEventHandler(){
+    @Override public void onDataChanged(    DataEvent event){
+      if (event.checkClass(dataClass)) {
+        dataProvider.reload();
+        onCustomDataChangedEvent(event);
+      }
+    }
+  }
+));
+  final Place previousPlace=place.getPreviousPlace();
+  if (previousPlace != null) {
+    listView.setBackEnabled(true);
+    registrations.add(listView.getBackButton().addClickHandler(new ClickHandler(){
+      public void onClick(      ClickEvent event){
+        goTo(previousPlace);
+      }
+    }
+));
+  }
+}

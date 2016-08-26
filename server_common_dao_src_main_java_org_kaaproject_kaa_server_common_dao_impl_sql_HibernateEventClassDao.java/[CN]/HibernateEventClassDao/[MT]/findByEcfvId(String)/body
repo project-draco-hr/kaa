@@ -1,0 +1,14 @@
+{
+  List<EventClass> eventClasses=Collections.emptyList();
+  LOG.debug("Searching event classes by ecfv id [{}] ",ecfvId);
+  if (isNotBlank(ecfvId)) {
+    eventClasses=findListByCriterionWithAlias(ECFV_PROPERTY,ECFV_ALIAS,Restrictions.eq(ECFV_REFERENCE,Long.valueOf(ecfvId)));
+  }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[{}] Search result: {}.",ecfvId,Arrays.toString(eventClasses.toArray()));
+  }
+ else {
+    LOG.debug("[{}] Search result: {}.",ecfvId,eventClasses.size());
+  }
+  return eventClasses;
+}

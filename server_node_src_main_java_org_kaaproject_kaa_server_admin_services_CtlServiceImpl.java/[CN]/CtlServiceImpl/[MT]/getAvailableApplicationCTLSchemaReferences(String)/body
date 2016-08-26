@@ -1,7 +1,6 @@
 {
-  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER,KaaAuthorityDto.TENANT_ADMIN);
   try {
-    this.checkApplicationId(applicationId);
     AuthUserDto currentUser=getCurrentUser();
     List<CtlSchemaReferenceDto> result=new ArrayList<>();
     List<CTLSchemaMetaInfoDto> availableMetaInfo=controlService.getAvailableCTLSchemasMetaInfoForApplication(currentUser.getTenantId(),applicationId);

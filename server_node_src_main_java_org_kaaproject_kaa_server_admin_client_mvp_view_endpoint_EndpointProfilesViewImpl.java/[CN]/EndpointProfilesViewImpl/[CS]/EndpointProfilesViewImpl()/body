@@ -1,11 +1,9 @@
 {
   super(false);
-  int column=0;
-  FlexTable flexTable=new FlexTable();
-  flexTable.setStyleName(Utils.avroUiStyle.fieldWidget());
+  supportPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+  supportPanel.setWidth("1000px");
   resetButton=new Button(Utils.constants.reset());
-  flexTable.setWidget(0,column,resetButton);
-  flexTable.getFlexCellFormatter().setVerticalAlignment(0,column++,HasVerticalAlignment.ALIGN_MIDDLE);
+  supportPanel.add(resetButton);
   endpointGroupButton=new RadioButton("filter",Utils.constants.endpointGroup());
   listBox=new EndpointGroupsInfoListBox();
   listBox.getElement().getStyle().setPropertyPx("minWidth",100);
@@ -14,7 +12,7 @@
   groupPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
   groupPanel.add(endpointGroupButton);
   groupPanel.add(listBox);
-  flexTable.setWidget(0,column++,groupPanel);
+  supportPanel.add(groupPanel);
   HorizontalPanel keyHashPanel=new HorizontalPanel();
   keyHashPanel.setSpacing(15);
   keyHashPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
@@ -26,7 +24,6 @@
   keyHashPanel.add(endpointKeyHashButton);
   keyHashPanel.add(endpointKeyHash);
   keyHashPanel.add(findButton);
-  flexTable.setWidget(0,column,keyHashPanel);
-  filterPanel.add(flexTable);
+  supportPanel.add(keyHashPanel);
   endpointGroupButton.setValue(true);
 }

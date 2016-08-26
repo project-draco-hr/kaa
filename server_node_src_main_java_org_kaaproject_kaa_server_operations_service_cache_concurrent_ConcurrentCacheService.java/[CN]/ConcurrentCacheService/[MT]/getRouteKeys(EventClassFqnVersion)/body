@@ -4,12 +4,13 @@
       LOG.debug("Fetching result for getRouteKeys using key {}",key);
       Set<RouteTableKey> routeKeys=new HashSet<>();
       EventClassDto eventClass=eventClassService.findEventClassByTenantIdAndFQNAndVersion(key.getTenantId(),key.getFqn(),key.getVersion());
-      String eventClassFamilyId=eventClass.getEcfId();
-      List<ApplicationEventFamilyMapDto> mappingList=applicationEventMapService.findByEcfIdAndVersion(eventClassFamilyId,key.getVersion());
+      String ecfvId=eventClass.getEcfvId();
+      String ecfId=eventClassService.findEventClassFamilyByEcfvId(ecfvId).getId();
+      List<ApplicationEventFamilyMapDto> mappingList=applicationEventMapService.findByEcfIdAndVersion(ecfId,key.getVersion());
       for (      ApplicationEventFamilyMapDto mapping : mappingList) {
         String applicationId=mapping.getApplicationId();
         ApplicationDto appDto=applicationService.findAppById(applicationId);
-        RouteTableKey routeTableKey=new RouteTableKey(appDto.getApplicationToken(),new EventClassFamilyVersion(eventClassFamilyId,key.getVersion()));
+        RouteTableKey routeTableKey=new RouteTableKey(appDto.getApplicationToken(),new EventClassFamilyVersion(ecfId,key.getVersion()));
         if (!routeKeys.contains(routeTableKey)) {
           for (          ApplicationEventMapDto eventMap : mapping.getEventMaps()) {
             if (eventMap.getEventClassId().equals(eventClass.getId()) && (ApplicationEventAction.SINK == eventMap.getAction() || ApplicationEventAction.BOTH == eventMap.getAction())) {

@@ -1,0 +1,15 @@
+{
+  super.initDetailsTable();
+  this.eventClassTypeName=new ValueListBox<String>();
+  this.eventClassTypeName.addValueChangeHandler(new ValueChangeHandler<String>(){
+    @Override public void onValueChange(    ValueChangeEvent<String> event){
+      EventClassViewImpl.this.fireChanged();
+    }
+  }
+);
+  this.eventClassTypeName.setWidth("100%");
+  Label label=new Label("Class type");
+  label.addStyleName(this.avroUiStyle.requiredField());
+  detailsTable.setWidget(4,0,label);
+  this.detailsTable.setWidget(4,1,this.eventClassTypeName);
+}
