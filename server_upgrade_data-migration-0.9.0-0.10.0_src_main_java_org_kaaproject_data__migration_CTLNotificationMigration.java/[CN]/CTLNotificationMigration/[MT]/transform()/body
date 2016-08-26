@@ -8,16 +8,37 @@
     for (    Document document : cursor) {
       Object id=document.get("_id");
       Long schemaId=Long.parseLong((String)document.get("notification_schema_id"));
-      notification.updateMany(eq("_id",id),eq("$set",eq("notification_schema_id",schemaId + idShift)));
+      notification.updateMany(Filters.eq("_id",id),Filters.eq("$set",Filters.eq("notification_schema_id",schemaId + idShift)));
     }
     cursor=enpNotification.find();
     for (    Document document : cursor) {
       Object id=document.get("_id");
       Long schemaId=Long.parseLong((String)document.get("notification.notification_schema_id"));
-      notification.updateMany(eq("_id",id),eq("$set",eq("notification.notification_schema_id",schemaId + idShift)));
+      notification.updateMany(Filters.eq("_id",id),Filters.eq("$set",Filters.eq("notification.notification_schema_id",schemaId + idShift)));
     }
   }
  else {
+    Session session=cluster.connect(dbName);
+    BatchStatement batchStatement=new BatchStatement();
+    ResultSet results=session.execute(select().from("notification"));
+    for (    Row row : results) {
+      String id=row.getString("nf_id");
+      Long schemaId=Long.parseLong(row.getString("schema_id"));
+      String[] ids=id.split("::");
+      batchStatement.add(update("notification").with(set("schema_id",String.valueOf(schemaId + idShift))).where(eq("topic_id",ids[0])).and(eq("nf_type",ids[1])).and(eq("nf_version",Integer.valueOf(ids[2]))).and(eq("seq_num",Integer.valueOf(ids[3]))));
+    }
+    results=session.execute(select().from("ep_nfs"));
+    for (    Row row : results) {
+      String id=row.getString("nf_id");
+      Long schemaId=Long.parseLong(row.getString("schema_id"));
+      String[] ids=id.split("::");
+      ByteBuffer epKeyHash=Bytes.fromHexString(ids[0]);
+      Date lastModTime=new Date(Long.valueOf(ids[1]));
+      batchStatement.add(update("ep_nfs").with(set("schema_id",String.valueOf(schemaId + idShift))).where(eq("ep_key_hash",epKeyHash)).and(eq("last_mod_time",lastModTime)));
+    }
+    session.execute(batchStatement);
+    session.close();
+    cluster.close();
   }
   return res;
 }
