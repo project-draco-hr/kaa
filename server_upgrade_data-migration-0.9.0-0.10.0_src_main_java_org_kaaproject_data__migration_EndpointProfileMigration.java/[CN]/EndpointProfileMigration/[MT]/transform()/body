@@ -1,0 +1,7 @@
+{
+  Cluster cluster=Cluster.builder().addContactPoint(host).build();
+  MongoClient client=new MongoClient(host);
+  MongoDatabase database=client.getDatabase(dbName);
+  MongoCollection<Document> endpointProfile=database.getCollection("endpoint_profile");
+  endpointProfile.updateMany(new Document(),eq("$set",eq("use_raw_schema",false)));
+}
