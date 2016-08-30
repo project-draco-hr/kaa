@@ -11,4 +11,17 @@
       System.err.println("Error: failed to update configuration: " + config);
     }
   }
+  if (nosql.equals(Options.DEFAULT_NO_SQL)) {
+    MongoDatabase database=client.getDatabase(dbName);
+    MongoCollection<Document> userConfiguration=database.getCollection("user_configuration");
+    FindIterable<Document> documents=userConfiguration.find();
+    for (    Document d : documents) {
+      String body=(String)d.get("body");
+      JsonNode json=new ObjectMapper().readTree(body);
+      JsonNode jsonEncoded=encodeUuids(json);
+      userConfiguration.updateOne(Filters.eq("_id",d.get("_id")),Filters.eq("$set",Filters.eq("body",jsonEncoded)));
+    }
+  }
+ else {
+  }
 }
