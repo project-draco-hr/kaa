@@ -1,0 +1,12 @@
+{
+  if (!zkClient.isStarted()) {
+    zkClient.start();
+  }
+  try {
+    LOG.info("Waiting connection to Zookeeper at ",getNodeConfig().getZkHostPortList());
+    zkClient.blockUntilConnected();
+  }
+ catch (  InterruptedException e) {
+    LOG.error("Zookeeper client was interrupted while waiting for connection! ",getNodeConfig().getZkHostPortList(),e);
+  }
+}

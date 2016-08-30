@@ -1,20 +1,13 @@
 {
-  TestingCluster cluster=new TestingCluster(3);
-  cluster.start();
-  try {
-    OperationsNodeInfo endpointNodeInfo=buildOperationsNodeInfo();
-    OperationsNode endpointNode=new OperationsNode(endpointNodeInfo,cluster.getConnectString(),buildDefaultRetryPolicy());
-    endpointNode.start();
-    endpointNode.doZKClientAction(new ControlNodeTracker.ZKClientAction(){
-      @Override public void doWithZkClient(      CuratorFramework client) throws Exception {
-        throw new Exception("for test");
-      }
+  OperationsNodeInfo endpointNodeInfo=buildOperationsNodeInfo();
+  OperationsNode endpointNode=new OperationsNode(endpointNodeInfo,zkClient);
+  endpointNode.start();
+  endpointNode.doZKClientAction(new ControlNodeTracker.ZKClientAction(){
+    @Override public void doWithZkClient(    CuratorFramework client) throws Exception {
+      throw new Exception("for test");
     }
+  }
 ,true);
-    Assert.assertFalse(endpointNode.isConnected());
-    endpointNode.close();
-  }
-  finally {
-    cluster.close();
-  }
+  Assert.assertFalse(endpointNode.isConnected());
+  endpointNode.close();
 }

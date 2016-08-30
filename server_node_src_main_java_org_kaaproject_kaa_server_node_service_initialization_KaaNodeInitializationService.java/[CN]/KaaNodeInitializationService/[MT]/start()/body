@@ -8,6 +8,7 @@
  catch (  InterruptedException e) {
     LOG.error("Interrupted while waiting for thrift to start...",e);
   }
+  waitZkConnection();
   if (getNodeConfig().isControlServiceEnabled()) {
     controlInitializationService.start();
   }
