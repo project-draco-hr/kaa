@@ -16,9 +16,13 @@
   controlInitializationService=mock(InitializationService.class);
   bootstrapInitializationService=mock(InitializationService.class);
   operationsInitializationService=mock(InitializationService.class);
+  zkClient=mock(CuratorFramework.class);
+  stubVoid(zkClient).toReturn().on().start();
+  stubVoid(zkClient).toReturn().on().blockUntilConnected();
   ReflectionTestUtils.setField(kaaNodeInitializationService,"controlInitializationService",controlInitializationService);
   ReflectionTestUtils.setField(kaaNodeInitializationService,"bootstrapInitializationService",bootstrapInitializationService);
   ReflectionTestUtils.setField(kaaNodeInitializationService,"operationsInitializationService",operationsInitializationService);
+  ReflectionTestUtils.setField(kaaNodeInitializationService,"zkClient",zkClient);
   TServerSocket serverSocket=Mockito.mock(TServerSocket.class);
   Mockito.doReturn(serverSocket).when(kaaNodeInitializationService).createServerSocket();
   return kaaNodeInitializationService;
