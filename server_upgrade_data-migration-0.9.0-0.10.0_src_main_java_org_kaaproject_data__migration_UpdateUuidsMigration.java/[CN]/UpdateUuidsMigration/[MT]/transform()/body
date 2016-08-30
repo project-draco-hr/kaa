@@ -23,5 +23,20 @@
     }
   }
  else {
+    Session session=cluster.connect(dbName);
+    BatchStatement batchStatement=new BatchStatement();
+    String tableName="user_conf";
+    ResultSet results=session.execute(select().from(tableName));
+    for (    Row row : results) {
+      String userId=row.getString("user_id");
+      String appToken=row.getString("app_token");
+      int schemaVersion=row.getInt("schema_version");
+      String body=row.getString("body");
+      String bodyEncoded=encodeUuids(new ObjectMapper().readTree(body)).toString();
+      batchStatement.add(update(tableName).with(set("body",bodyEncoded)).where(eq("user_id",userId)).and(eq("app_token",appToken)).and(eq("schema_version",schemaVersion)));
+    }
+    session.execute(batchStatement);
+    session.close();
+    cluster.close();
   }
 }
