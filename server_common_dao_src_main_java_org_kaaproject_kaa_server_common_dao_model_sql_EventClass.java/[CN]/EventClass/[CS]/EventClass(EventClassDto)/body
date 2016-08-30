@@ -1,15 +1,23 @@
 {
+  super(dto);
   this.id=getLongId(dto.getId());
   Long tenantId=getLongId(dto.getTenantId());
   if (tenantId != null) {
     this.tenant=new Tenant(tenantId);
   }
-  Long ecfId=getLongId(dto.getEcfId());
-  if (ecfId != null) {
-    this.ecf=new EventClassFamily(ecfId);
-  }
   this.fqn=dto.getFqn();
   this.type=dto.getType();
-  this.schema=dto.getSchema();
+  Long ecfvId=getLongId(dto.getEcfvId());
+  if (ecfvId != null) {
+    this.ecfv=new EventClassFamilyVersion(ecfvId);
+  }
   this.version=dto.getVersion();
+  this.name=dto.getName();
+  this.description=dto.getDescription();
+  this.createdUsername=dto.getCreatedUsername();
+  this.createdTime=dto.getCreatedTime();
+  Long ctlId=getLongId(dto.getCtlSchemaId());
+  if (ctlId != null) {
+    this.setCtlSchema(new CTLSchema(ctlId));
+  }
 }

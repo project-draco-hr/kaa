@@ -23,14 +23,14 @@
  else {
       if (lastServers != null && lastServers.isEmpty()) {
         if (channel.getServerType() == ServerType.BOOTSTRAP) {
-          LOG.warn("Failed to find bootstrap server for channel [{}] type {}",channel.getId(),channel.getTransportProtocolId());
+          LOG.warn("Failed to find bootstrap service for channel [{}] type {}",channel.getId(),channel.getTransportProtocolId());
         }
  else {
-          LOG.info("Failed to find operations server for channel [{}] type {}",channel.getId(),channel.getTransportProtocolId());
+          LOG.info("Failed to find operations service for channel [{}] type {}",channel.getId(),channel.getTransportProtocolId());
         }
       }
  else {
-        LOG.debug("list of servers is empty for channel [{}] type {}",channel.getId(),channel.getTransportProtocolId());
+        LOG.debug("list of services is empty for channel [{}] type {}",channel.getId(),channel.getTransportProtocolId());
       }
     }
   }

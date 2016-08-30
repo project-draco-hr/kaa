@@ -1,0 +1,12 @@
+{
+  this.id=getLongId(dto.getId());
+  this.version=dto.getVersion();
+  this.createdUsername=dto.getCreatedUsername();
+  this.createdTime=dto.getCreatedTime();
+  if (dto.getRecords() != null) {
+    this.records=new ArrayList<>(dto.getRecords().size());
+    for (    EventClassDto record : dto.getRecords()) {
+      this.records.add(new EventClass(record));
+    }
+  }
+}

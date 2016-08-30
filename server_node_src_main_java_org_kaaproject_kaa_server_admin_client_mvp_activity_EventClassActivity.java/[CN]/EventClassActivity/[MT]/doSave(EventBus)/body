@@ -1,0 +1,17 @@
+{
+  onSave();
+  editEntity(entity,new BusyAsyncCallback<EventClassViewDto>(){
+    public void onSuccessImpl(    EventClassViewDto result){
+      if (!create) {
+        goTo(existingSchemaPlaceForEvent(place.getEcfId(),place.getEcfVersionId(),place.getEcfVersion(),result.getId()));
+      }
+ else {
+        goTo(new EcfVersionPlace(place.getEcfId(),place.getEcfVersionId(),place.getEcfVersion(),place.getEventClassDtoList()));
+      }
+    }
+    public void onFailureImpl(    Throwable caught){
+      Utils.handleException(caught,detailsView);
+    }
+  }
+);
+}

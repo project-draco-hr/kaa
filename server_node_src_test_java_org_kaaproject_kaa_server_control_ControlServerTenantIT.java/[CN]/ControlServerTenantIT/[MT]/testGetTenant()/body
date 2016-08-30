@@ -1,6 +1,6 @@
 {
-  TenantUserDto tenant=createTenant();
-  TenantUserDto storedTenant=client.getTenant(tenant.getId());
+  TenantDto tenant=createTenant();
+  TenantDto storedTenant=client.getTenant(tenant.getId());
   Assert.assertNotNull(storedTenant);
   assertTenantsEquals(tenant,storedTenant);
 }

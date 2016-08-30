@@ -1,11 +1,11 @@
 {
-  if (getNodeConfig().isControlServerEnabled()) {
+  if (getNodeConfig().isControlServiceEnabled()) {
     controlInitializationService.stop();
   }
-  if (getNodeConfig().isBootstrapServerEnabled()) {
+  if (getNodeConfig().isBootstrapServiceEnabled()) {
     bootstrapInitializationService.stop();
   }
-  if (getNodeConfig().isOperationsServerEnabled()) {
+  if (getNodeConfig().isOperationsServiceEnabled()) {
     operationsInitializationService.stop();
   }
   server.stop();

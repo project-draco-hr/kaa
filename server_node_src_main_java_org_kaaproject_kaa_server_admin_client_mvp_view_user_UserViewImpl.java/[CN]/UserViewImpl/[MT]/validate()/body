@@ -1,6 +1,5 @@
 {
-  boolean result=userName.getValue().length() > 0;
-  result&=email.getValue().length() > 0;
-  result&=authority.getValue() != null;
-  return result;
+  String pattern="^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+  RegExp regExp=RegExp.compile(pattern);
+  return userName.getValue().length() > 1 && authority.getValue() != null && regExp.test(email.getValue());
 }
