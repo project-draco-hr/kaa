@@ -1,0 +1,8 @@
+{
+  if (this == o)   return true;
+  if (o == null || getClass() != o.getClass())   return false;
+  CtlMetaInfo that=(CtlMetaInfo)o;
+  if (!fqn.equals(that.fqn))   return false;
+  if (appId != null ? !appId.equals(that.appId) : that.appId != null)   return false;
+  return tenantId != null ? tenantId.equals(that.tenantId) : that.tenantId == null;
+}

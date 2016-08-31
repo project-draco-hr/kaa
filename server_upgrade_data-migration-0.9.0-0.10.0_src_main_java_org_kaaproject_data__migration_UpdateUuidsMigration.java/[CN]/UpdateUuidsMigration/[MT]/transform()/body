@@ -1,0 +1,42 @@
+{
+  QueryRunner run=new QueryRunner();
+  ResultSetHandler<List<Configuration>> rsHandler=new BeanListHandler<Configuration>(Configuration.class);
+  List<Configuration> configs=run.query(connection,"SELECT * FROM configuration",rsHandler);
+  for (  Configuration config : configs) {
+    JsonNode json=new ObjectMapper().readTree(config.getConfiguration_body());
+    JsonNode jsonEncoded=encodeUuids(json);
+    byte[] encodedConfigurationBody=jsonEncoded.toString().getBytes();
+    int updates=run.update(connection,"UPDATE configuration SET configuration_body=? WHERE id=?",encodedConfigurationBody,config.getId());
+    if (updates != 1) {
+      System.err.println("Error: failed to update configuration: " + config);
+    }
+  }
+  if (nosql.equals(Options.DEFAULT_NO_SQL)) {
+    MongoDatabase database=client.getDatabase(dbName);
+    MongoCollection<Document> userConfiguration=database.getCollection("user_configuration");
+    FindIterable<Document> documents=userConfiguration.find();
+    for (    Document d : documents) {
+      String body=(String)d.get("body");
+      JsonNode json=new ObjectMapper().readTree(body);
+      JsonNode jsonEncoded=encodeUuids(json);
+      userConfiguration.updateOne(Filters.eq("_id",d.get("_id")),Filters.eq("$set",Filters.eq("body",jsonEncoded)));
+    }
+  }
+ else {
+    Session session=cluster.connect(dbName);
+    BatchStatement batchStatement=new BatchStatement();
+    String tableName="user_conf";
+    ResultSet results=session.execute(select().from(tableName));
+    for (    Row row : results) {
+      String userId=row.getString("user_id");
+      String appToken=row.getString("app_token");
+      int schemaVersion=row.getInt("schema_version");
+      String body=row.getString("body");
+      String bodyEncoded=encodeUuids(new ObjectMapper().readTree(body)).toString();
+      batchStatement.add(update(tableName).with(set("body",bodyEncoded)).where(eq("user_id",userId)).and(eq("app_token",appToken)).and(eq("schema_version",schemaVersion)));
+    }
+    session.execute(batchStatement);
+    session.close();
+    cluster.close();
+  }
+}

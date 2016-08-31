@@ -1,0 +1,9 @@
+{
+  BasicDataSource bds=new BasicDataSource();
+  bds.setDriverClassName("org.postgresql.Driver");
+  bds.setUrl("jdbc:postgresql://" + opt.getHost() + ":5432/"+ opt.getDbName());
+  bds.setUsername(opt.getUsername());
+  bds.setPassword(opt.getPassword());
+  bds.setDefaultAutoCommit(false);
+  return bds;
+}

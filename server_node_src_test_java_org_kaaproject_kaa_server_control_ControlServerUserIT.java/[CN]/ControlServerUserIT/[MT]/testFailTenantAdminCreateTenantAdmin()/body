@@ -1,0 +1,6 @@
+{
+  expectedException.expect(HttpClientErrorException.class);
+  expectedException.expectMessage("You do not have permission to perform this operation!");
+  loginTenantAdmin(tenantAdminDto.getUsername());
+  UserDto user=createUser(KaaAuthorityDto.TENANT_ADMIN);
+}
