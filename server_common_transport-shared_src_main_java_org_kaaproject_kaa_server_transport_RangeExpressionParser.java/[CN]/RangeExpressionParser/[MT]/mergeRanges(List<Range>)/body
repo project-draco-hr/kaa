@@ -1,0 +1,19 @@
+{
+  if (ranges.isEmpty()) {
+    return ranges;
+  }
+  List<Range> mergedRanges=new ArrayList<>();
+  Collections.sort(ranges,new RangeComparator());
+  Range currentRange=ranges.get(0);
+  for (int i=1; i < ranges.size(); i++) {
+    if (currentRange.getTo() >= ranges.get(i).getFrom()) {
+      currentRange.setTo(Math.max(currentRange.getTo(),ranges.get(i).getTo()));
+    }
+ else {
+      mergedRanges.add(currentRange);
+      currentRange=ranges.get(i);
+    }
+  }
+  mergedRanges.add(currentRange);
+  return mergedRanges;
+}
