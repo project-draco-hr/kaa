@@ -1,10 +1,14 @@
 {
   try {
-    CTLSchemaDto ctlSchemaDto=controlService.getCTLSchemaById(eventClassDto.getCtlSchemaId());
+    CTLSchemaDto ctlSchemaDto=null;
+    if (eventClassDto.getVersion() == 0) {
+      ctlSchemaDto=controlService.getCTLSchemaById(eventClassDto.getCtlSchemaId());
+    }
+ else {
+      ctlSchemaDto=controlService.getCTLSchemaByMetaInfoIdAndVer(eventClassDto.getCtlSchemaId(),eventClassDto.getVersion());
+    }
+    eventClassDto.setCtlSchemaId(ctlSchemaDto.getId());
     EventClassViewDto eventClassViewDto=new EventClassViewDto(eventClassDto,toCtlSchemaForm(ctlSchemaDto,ConverterType.FORM_AVRO_CONVERTER));
-    eventClassDto.setCreatedTime(System.currentTimeMillis());
-    eventClassDto.setFqn(ctlSchemaDto.getMetaInfo().getFqn());
-    eventClassDto.setTenantId(getCurrentUser().getTenantId());
     return eventClassViewDto;
   }
  catch (  ControlServiceException e) {

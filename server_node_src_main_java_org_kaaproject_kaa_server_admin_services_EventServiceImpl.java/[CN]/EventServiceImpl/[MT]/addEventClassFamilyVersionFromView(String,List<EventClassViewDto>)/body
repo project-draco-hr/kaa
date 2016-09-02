@@ -12,6 +12,8 @@
     eventClassDto.setFqn(classViewDto.getExistingMetaInfo().getMetaInfo().getFqn());
     eventClassDto.setCreatedUsername(getCurrentUser().getUsername());
     eventClassDto.setCreatedTime(System.currentTimeMillis());
+    eventClassDto.setVersion(classViewDto.getSchema().getVersion());
+    eventClassDto.setCtlSchemaId(controlService.getCTLSchemaByMetaInfoIdAndVer(eventClassDto.getCtlSchemaId(),eventClassDto.getVersion()).getId());
     eventClassDtoList.add(eventClassDto);
   }
   eventClassFamilyVersionDto.setRecords(eventClassDtoList);
