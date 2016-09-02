@@ -5,7 +5,7 @@
   List<Integer> numbersFromRanges=new ArrayList<>();
   List<Range> ranges=parseRanges(expression);
   for (  Range range : mergeRanges(ranges)) {
-    for (int i=range.getFrom(); i <= range.getTo(); i++) {
+    for (int i=range.from; i <= range.to; i++) {
       numbersFromRanges.add(i);
     }
   }
