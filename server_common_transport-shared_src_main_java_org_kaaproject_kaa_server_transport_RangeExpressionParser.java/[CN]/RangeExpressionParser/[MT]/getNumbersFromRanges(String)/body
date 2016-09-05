@@ -1,0 +1,13 @@
+{
+  if (expression == null) {
+    throw new IllegalArgumentException("Expression can not be null");
+  }
+  List<Integer> numbersFromRanges=new ArrayList<>();
+  List<Range> ranges=parseRanges(expression);
+  for (  Range range : mergeRanges(ranges)) {
+    for (int i=range.from; i <= range.to; i++) {
+      numbersFromRanges.add(i);
+    }
+  }
+  return numbersFromRanges;
+}
