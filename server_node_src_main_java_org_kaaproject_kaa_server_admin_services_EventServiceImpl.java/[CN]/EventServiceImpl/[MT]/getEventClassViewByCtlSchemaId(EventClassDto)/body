@@ -1,13 +1,7 @@
 {
   try {
-    CTLSchemaDto ctlSchemaDto=null;
-    if (eventClassDto.getVersion() == 0) {
-      ctlSchemaDto=controlService.getCTLSchemaById(eventClassDto.getCtlSchemaId());
-    }
- else {
-      ctlSchemaDto=controlService.getCTLSchemaByMetaInfoIdAndVer(eventClassDto.getCtlSchemaId(),eventClassDto.getVersion());
-    }
-    eventClassDto.setCtlSchemaId(ctlSchemaDto.getId());
+    CTLSchemaDto ctlSchemaDto=controlService.getCTLSchemaById(eventClassDto.getCtlSchemaId());
+    Utils.checkNotNull(ctlSchemaDto);
     EventClassViewDto eventClassViewDto=new EventClassViewDto(eventClassDto,toCtlSchemaForm(ctlSchemaDto,ConverterType.FORM_AVRO_CONVERTER));
     return eventClassViewDto;
   }

@@ -16,11 +16,10 @@
       int i=1;
       for (      EventClassViewDto eventClassViewDto : eventClassViewDtoList) {
         if (eventClassViewDto.getSchema() != null) {
-          CTLSchemaMetaInfoDto ctlSchemaMetaInfoDto=eventClassViewDto.getExistingMetaInfo().getMetaInfo();
           EventClassDto eventClassDto=eventClassViewDto.getSchema();
-          eventClassDto.setCtlSchemaId(ctlSchemaMetaInfoDto.getId());
           eventClassDto.setCreatedTime(System.currentTimeMillis());
-          eventClassDto.setVersion(eventClassViewDto.getExistingMetaInfo().getVersion());
+          eventClassDto.setFqn(eventClassViewDto.getCtlSchemaForm().getMetaInfo().getFqn());
+          eventClassDto.setVersion(eventClassViewDto.getCtlSchemaForm().getVersion());
           eventClassDto.setId(String.valueOf(i++));
           eventClassDtoList.add(eventClassDto);
         }
