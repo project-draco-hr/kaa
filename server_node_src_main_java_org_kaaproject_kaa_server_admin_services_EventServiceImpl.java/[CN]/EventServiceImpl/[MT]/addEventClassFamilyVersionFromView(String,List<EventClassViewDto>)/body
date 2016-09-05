@@ -9,9 +9,7 @@
   for (  EventClassViewDto classViewDto : eventClassViewDto) {
     EventClassDto eventClassDto=classViewDto.getSchema();
     eventClassDto.setId(null);
-    eventClassDto.setFqn(classViewDto.getExistingMetaInfo().getMetaInfo().getFqn());
     eventClassDto.setCreatedUsername(getCurrentUser().getUsername());
-    eventClassDto.setCreatedTime(System.currentTimeMillis());
     eventClassDtoList.add(eventClassDto);
   }
   eventClassFamilyVersionDto.setRecords(eventClassDtoList);
