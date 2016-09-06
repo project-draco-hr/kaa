@@ -1,3 +1,0 @@
-{
-  dd.alterTable(getPrefixTableName() + "_schems").add(constraint("FK_" + getPrefixTableName() + "_base_schems_id").foreignKey("id").references("base_schems","id").onDelete(CASCADE).onUpdate(CASCADE)).execute();
-}
