@@ -3,7 +3,7 @@
   List<TarEntryData> tarEntries=new LinkedList<>();
   try (OutputStream headerStream=new ByteArrayOutputStream();OutputStream sourceStream=new ByteArrayOutputStream()){
     Compiler compiler=new ObjectiveCCompiler(schema,sourceName,headerStream,sourceStream);
-    compiler.setNamespacePrefix(KAA_SOURCE_PREFIX);
+    compiler.setNamespacePrefix(namespace);
     compiler.generate();
     tarEntries.add(CommonSdkUtil.tarEntryForSources(headerStream.toString(),KAA_GEN_FOLDER + sourceName + ".h"));
     tarEntries.add(CommonSdkUtil.tarEntryForSources(sourceStream.toString(),KAA_GEN_FOLDER + sourceName + ".m"));
