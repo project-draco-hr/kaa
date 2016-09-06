@@ -1,0 +1,11 @@
+{
+  for (  EventSchemaVersion esv : versions) {
+    if (ecBelongToThisFamilyVersion(ec,esv)) {
+      int updateCount=runner.update(this.connection,"UPDATE " + EVENT_CLASS_TABLE_NAME + " SET events_class_family_versions_id=? WHERE id=?",esv.getId(),ec.getId());
+      if (updateCount != 1) {
+        System.err.println("Error: failed to update event class's reference to ECFV: " + ec);
+      }
+      break;
+    }
+  }
+}

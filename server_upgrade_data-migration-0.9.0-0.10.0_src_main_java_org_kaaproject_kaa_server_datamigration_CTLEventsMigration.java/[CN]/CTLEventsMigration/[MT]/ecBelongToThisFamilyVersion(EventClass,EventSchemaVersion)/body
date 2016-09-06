@@ -1,0 +1,12 @@
+{
+  try {
+    JsonNode jsonNode=new ObjectMapper().readTree(ec.getSchems());
+    String namespace=jsonNode.get("namespace").asText();
+    String name=jsonNode.get("name").asText();
+    return esv.getSchems().contains(name) && esv.getSchems().contains(namespace);
+  }
+ catch (  IOException e) {
+    System.err.println("Failed to read EventClass schema: " + ec);
+  }
+  return false;
+}

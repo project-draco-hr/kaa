@@ -1,0 +1,7 @@
+{
+  super(connection);
+  client=new MongoClient(host);
+  cluster=Cluster.builder().addContactPoint(host).build();
+  dbName=db;
+  this.nosql=nosql;
+}

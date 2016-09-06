@@ -1,0 +1,8 @@
+{
+  if (this.type != ConstraintType.FK) {
+    throw new BuilderException("Constraint type should be FK");
+  }
+  this.referencedTable=referencedTable;
+  this.referencedField=referencedField;
+  return this;
+}

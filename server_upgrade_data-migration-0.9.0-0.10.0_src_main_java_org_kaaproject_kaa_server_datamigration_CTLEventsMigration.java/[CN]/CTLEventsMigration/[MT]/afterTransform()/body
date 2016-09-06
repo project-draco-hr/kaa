@@ -1,0 +1,4 @@
+{
+  dd.alterTable(EVENT_CLASS_TABLE_NAME).add(Constraint.constraint("FK_events_class_family_versions_id").foreignKey("events_class_family_versions_id").references("events_class_family_versions","id").onDelete(ReferenceOptions.CASCADE).onUpdate(ReferenceOptions.CASCADE)).execute();
+  dd.alterTable(APPLICATION_EVENT_MAP_TABLE_NAME).add(Constraint.constraint("FK_events_class_id").foreignKey("events_class_id").references("events_class","id").onDelete(ReferenceOptions.CASCADE)).execute();
+}
