@@ -1,4 +1,6 @@
 {
   checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
-  return controlService.findUserConfigurationByExternalUIdAndAppTokenAndSchemaVersion(externalUserId,appToken,schemaVersion,getTenantId());
+  EndpointUserConfigurationDto userConfigurationDto=controlService.findUserConfigurationByExternalUIdAndAppTokenAndSchemaVersion(externalUserId,appToken,schemaVersion,getTenantId());
+  if (userConfigurationDto == null)   throw new KaaAdminServiceException("could not find user configuration",ITEM_NOT_FOUND);
+  return userConfigurationDto;
 }
