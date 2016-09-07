@@ -1,0 +1,15 @@
+{
+  List<Schema> childSchemas=new ArrayList<>();
+  for (  Schema eventCtlSchema : eventCtlSchemas) {
+    List<Schema> schemas=SchemaUtil.getChildSchemas(eventCtlSchema);
+    schemas.remove(eventCtlSchema);
+    childSchemas.addAll(schemas);
+  }
+  for (  Schema childSchema : childSchemas) {
+    for (int i=0; i < eventCtlSchemas.size(); i++) {
+      if (eventCtlSchemas.get(i).getFullName().equals(childSchema.getFullName())) {
+        eventCtlSchemas.remove(i);
+      }
+    }
+  }
+}
