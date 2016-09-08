@@ -8,16 +8,22 @@
  catch (  InterruptedException e) {
     LOG.error("Interrupted while waiting for thrift to start...",e);
   }
-  if (getNodeConfig().isControlServiceEnabled()) {
-    controlInitializationService.start();
+  if (waitZkConnection()) {
+    if (getNodeConfig().isControlServiceEnabled()) {
+      controlInitializationService.start();
+    }
+    if (getNodeConfig().isBootstrapServiceEnabled()) {
+      bootstrapInitializationService.start();
+    }
+    if (getNodeConfig().isOperationsServiceEnabled()) {
+      operationsInitializationService.start();
+    }
+    LOG.info("Kaa Node Server Started.");
   }
-  if (getNodeConfig().isBootstrapServiceEnabled()) {
-    bootstrapInitializationService.start();
+ else {
+    LOG.error("Failed to connect to Zookeeper within {} minutes. Kaa Node Server will be stopped.",getNodeConfig().getZkWaitConnectionTime());
+    stopThrift();
   }
-  if (getNodeConfig().isOperationsServiceEnabled()) {
-    operationsInitializationService.start();
-  }
-  LOG.info("Kaa Node Server Started.");
   try {
     thriftShutdownLatch.await();
   }

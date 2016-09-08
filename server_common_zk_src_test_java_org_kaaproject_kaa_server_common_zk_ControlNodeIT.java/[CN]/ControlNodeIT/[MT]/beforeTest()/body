@@ -1,0 +1,11 @@
+{
+  try {
+    cluster=new TestingCluster(3);
+    cluster.start();
+    zkClient=CuratorFrameworkFactory.newClient(cluster.getConnectString(),buildDefaultRetryPolicy());
+    zkClient.start();
+  }
+ catch (  Exception e) {
+    System.err.println("Unable to initialize cluster before test! " + e);
+  }
+}

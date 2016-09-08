@@ -1,6 +1,6 @@
 {
-  endpointCache=new PathChildrenCache(client,OPERATIONS_SERVER_NODE_PATH,true);
-  bootstrapCache=new PathChildrenCache(client,BOOTSTRAP_SERVER_NODE_PATH,true);
+  endpointCache=new PathChildrenCache(zkClient,OPERATIONS_SERVER_NODE_PATH,true);
+  bootstrapCache=new PathChildrenCache(zkClient,BOOTSTRAP_SERVER_NODE_PATH,true);
   endpointListeners=new CopyOnWriteArrayList<OperationsNodeListener>();
   bootstrapListeners=new CopyOnWriteArrayList<BootstrapNodeListener>();
   operationNodesStartTimes=new HashMap<String,Long>();
