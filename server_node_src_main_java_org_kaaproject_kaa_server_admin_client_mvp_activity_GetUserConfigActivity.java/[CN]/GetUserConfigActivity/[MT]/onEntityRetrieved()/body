@@ -1,0 +1,28 @@
+{
+  KaaAdmin.getDataSource().getUserConfigurationSchemaInfosByApplicationId(applicationId,new BusyAsyncCallback<List<SchemaInfoDto>>(){
+    @Override public void onSuccessImpl(    List<SchemaInfoDto> result){
+      Collections.sort(result);
+      SchemaInfoDto schemaInfo=result.get(result.size() - 1);
+      detailsView.getConfigurationSchemaInfo().setValue(schemaInfo);
+      detailsView.getConfigurationSchemaInfo().setAcceptableValues(result);
+    }
+    @Override public void onFailureImpl(    Throwable caught){
+      Utils.handleException(caught,detailsView);
+    }
+  }
+);
+  registrations.add(detailsView.getDownloadUserCongigurationButton().addClickHandler(new ClickHandler(){
+    @Override public void onClick(    ClickEvent clickEvent){
+      KaaAdmin.getDataSource().findUserConfigurationByExternalUIdAndAppIdAndSchemaVersion(detailsView.getExternalUserId().getValue(),applicationId,detailsView.getConfigurationSchemaInfo().getValue().getVersion(),new BusyAsyncCallback<EndpointUserConfigurationDto>(){
+        @Override public void onSuccessImpl(        EndpointUserConfigurationDto result){
+          ServletHelper.downloadUserConfiguration(detailsView.getExternalUserId().getValue(),String.valueOf(detailsView.getConfigurationSchemaInfo().getValue().getVersion()),applicationId);
+        }
+        @Override public void onFailureImpl(        Throwable caught){
+          Utils.handleException(caught,detailsView);
+        }
+      }
+);
+    }
+  }
+));
+}
