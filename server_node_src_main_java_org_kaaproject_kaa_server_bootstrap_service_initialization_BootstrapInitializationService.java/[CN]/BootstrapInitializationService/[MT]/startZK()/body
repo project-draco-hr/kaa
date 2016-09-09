@@ -7,7 +7,7 @@
     nodeInfo.setConnectionInfo(new ConnectionInfo(getNodeConfig().getThriftHost(),getNodeConfig().getThriftPort(),keyData));
     nodeInfo.setTransports(new ArrayList<TransportMetaData>());
     nodeInfo.setTimeStarted(System.currentTimeMillis());
-    bootstrapNode=new BootstrapNode(nodeInfo,getNodeConfig().getZkHostPortList(),new RetryUntilElapsed(getNodeConfig().getZkMaxRetryTime(),getNodeConfig().getZkSleepTime()));
+    bootstrapNode=new BootstrapNode(nodeInfo,zkClient);
     if (bootstrapNode != null) {
       bootstrapNode.start();
     }

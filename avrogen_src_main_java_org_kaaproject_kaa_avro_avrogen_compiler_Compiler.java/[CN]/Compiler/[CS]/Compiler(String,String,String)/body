@@ -1,7 +1,7 @@
 {
   this(sourceName);
   try {
-    this.schema=new Schema.Parser().parse(new File(schemaPath));
+    this.schemas.add(new Schema.Parser().parse(new File(schemaPath)));
     prepareTemplates(true);
     File outputDir=new File(outputPath);
     outputDir.mkdirs();

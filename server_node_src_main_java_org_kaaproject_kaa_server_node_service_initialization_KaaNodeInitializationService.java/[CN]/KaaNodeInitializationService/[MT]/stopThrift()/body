@@ -1,0 +1,10 @@
+{
+  if (zkClient != null) {
+    zkClient.close();
+  }
+  if (server != null) {
+    server.stop();
+  }
+  ThriftExecutor.shutdown();
+  LOG.info("Kaa Node Server Stopped.");
+}

@@ -8,6 +8,7 @@
   if (getNodeConfig().isOperationsServiceEnabled()) {
     operationsInitializationService.stop();
   }
+  zkClient.close();
   server.stop();
   ThriftExecutor.shutdown();
   LOG.info("Kaa Node Server Stopped.");

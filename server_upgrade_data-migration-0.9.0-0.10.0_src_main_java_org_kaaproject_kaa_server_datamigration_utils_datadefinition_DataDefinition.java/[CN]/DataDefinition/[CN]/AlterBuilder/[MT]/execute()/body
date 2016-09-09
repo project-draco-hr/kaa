@@ -1,0 +1,31 @@
+{
+  StringBuilder sql=new StringBuilder("ALTER TABLE " + tableName + "\n");
+  for (int i=0; i < addConstrains.size(); i++) {
+    Constraint c=addConstrains.get(i);
+switch (c.getType()) {
+case FK:
+      sql.append(format("ADD CONSTRAINT %s FOREIGN KEY (%s) REFERENCES %s(%s) \n",c.getConstraintName(),c.getField(),c.getReferencedTable(),c.getReferencedField()));
+    if (c.getOnDeleteOpt() != null) {
+      sql.append("ON DELETE " + c.getOnDeleteOpt() + "\n");
+    }
+  if (c.getOnUpdateOpt() != null) {
+    sql.append("ON UPDATE " + c.getOnUpdateOpt() + "\n");
+  }
+break;
+case PK:
+sql.append(format("ADD CONSTRAINT %s PRIMARY KEY (%s)\n",c.getConstraintName(),c.getField()));
+break;
+case UNIQUE:
+sql.append(format("ADD CONSTRAINT %s UNIQUE (%s)\n",c.getConstraintName(),c.getField()));
+break;
+}
+if (i < addConstrains.size() - 1) {
+sql.append(", \n");
+}
+ else {
+sql.append(";");
+}
+}
+QueryRunner runner=new QueryRunner();
+runner.update(connection,sql.toString());
+}

@@ -1,0 +1,9 @@
+{
+  CredentialsDto firstCredentials=this.generateCredentials(CREDENTIALS_APPLICATION_ID,CREDENTIALS_ID,CREDENTIALS_BODY,AVAILABLE);
+  CredentialsDto secondCredentials=this.generateCredentials(CREDENTIALS_APPLICATION_ID.concat("1"),CREDENTIALS_ID,CREDENTIALS_BODY,AVAILABLE);
+  List<CassandraCredentials> credentials=credentialsDao.find();
+  Assert.assertEquals(credentials.size(),2);
+  credentialsDao.removeAll();
+  List<CassandraCredentials> removed=credentialsDao.find();
+  Assert.assertTrue(removed.isEmpty());
+}

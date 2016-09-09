@@ -1,0 +1,11 @@
+{
+  MongoClient client=new MongoClient(host);
+  MongoDatabase database=client.getDatabase(dbName);
+  MongoCollection<Document> endpointProfile=database.getCollection("endpoint_profile");
+  endpointProfile.updateMany(new Document(),eq("$set",eq("use_raw_schema",false)));
+  Cluster cluster=Cluster.builder().addContactPoint(host).build();
+  Session session=cluster.connect(dbName);
+  session.execute("ALTER TABLE ep_profile ADD use_raw_schema boolean");
+  session.close();
+  cluster.close();
+}

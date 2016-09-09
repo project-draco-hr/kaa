@@ -1,0 +1,7 @@
+{
+  if (this == o)   return true;
+  if (o == null || getClass() != o.getClass())   return false;
+  Ctl ctl=(Ctl)o;
+  if (!metaInfo.equals(ctl.metaInfo))   return false;
+  return defaultRecord.equals(ctl.defaultRecord);
+}
