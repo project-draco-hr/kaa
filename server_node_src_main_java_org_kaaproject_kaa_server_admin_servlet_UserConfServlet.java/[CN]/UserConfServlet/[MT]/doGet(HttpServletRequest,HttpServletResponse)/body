@@ -1,0 +1,23 @@
+{
+  String externalUId=URLDecoder.decode(request.getParameter(USER_EXTERNAL_ID_PARAMETER),"UTF-8");
+  String appId=URLDecoder.decode(request.getParameter(APPLICATION_ID_PARAMETER),"UTF-8");
+  int schemaVersion=Integer.parseInt(URLDecoder.decode(request.getParameter(CONFIGURATION_SCHEMA_ID),"UTF-8"));
+  try {
+    EndpointUserConfigurationDto endpointUserConfigurationDto=configurationService.findUserConfigurationByExternalUIdAndAppIdAndSchemaVersion(externalUId,appId,schemaVersion);
+    String json;
+    String fileName=MessageFormatter.arrayFormat(USER_CONFIG_NAME_PATTERN,new Object[]{externalUId,appId}).getMessage();
+    json=endpointUserConfigurationDto.getBody();
+    Object jsonObject=FORMATTER.readValue(json,Object.class);
+    byte[] body=FORMATTER.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObject).getBytes("UTF-8");
+    ServletUtils.prepareDisposition(request,response,fileName);
+    response.setContentType(JSON);
+    response.setContentLength(body.length);
+    response.setBufferSize(BUFFER);
+    response.getOutputStream().write(body);
+    response.flushBuffer();
+  }
+ catch (  Exception e) {
+    LOG.error("Unexpected error in ProfileDownloadServlet.doGet: ",e);
+    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,"Unable to get file: " + e.getMessage());
+  }
+}
