@@ -6,12 +6,11 @@
   }
   if (nodePath != null) {
     try {
-      client.delete().forPath(nodePath);
+      zkClient.delete().forPath(nodePath);
       LOG.debug("Node with path {} successfully deleted",nodePath);
     }
  catch (    Exception e) {
       LOG.debug("Failed to delete node",e);
     }
   }
-  client.close();
 }

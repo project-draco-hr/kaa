@@ -3,6 +3,7 @@
   zkCluster.start();
   LOG.info("ZK Cluster started");
   OperationsNodeInfo endpointNodeInfo=buildOperationsNodeInfo();
-  operationsNode=new OperationsNode(endpointNodeInfo,zkCluster.getConnectString(),buildDefaultRetryPolicy());
+  CuratorFramework zkClient=CuratorFrameworkFactory.newClient(zkCluster.getConnectString(),buildDefaultRetryPolicy());
+  operationsNode=new OperationsNode(endpointNodeInfo,zkClient);
   operationsNode.start();
 }

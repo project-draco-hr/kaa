@@ -1,0 +1,26 @@
+{
+  int row=0;
+  Label label=new Label(Utils.constants.userId());
+  label.addStyleName(Utils.avroUiStyle.requiredField());
+  externalUserId=new KaaAdminSizedTextBox(DEFAULT_TEXTBOX_SIZE);
+  configurationSchemaInfo=new SchemaInfoListBox();
+  downloadUserCongigurationButton=new ImageTextButton(Utils.resources.download(),"Download");
+  externalUserId.setWidth(FULL_WIDTH);
+  externalUserId.addInputHandler(this);
+  detailsTable.setWidget(row,0,label);
+  detailsTable.setWidget(row,1,externalUserId);
+  label=new Label(Utils.constants.configurationSchema());
+  label.addStyleName(Utils.avroUiStyle.requiredField());
+  row++;
+  detailsTable.setWidget(row,0,label);
+  detailsTable.setWidget(row,1,configurationSchemaInfo);
+  row++;
+  detailsTable.setWidget(row,0,downloadUserCongigurationButton);
+  configurationSchemaInfo.addValueChangeHandler(new ValueChangeHandler<SchemaInfoDto>(){
+    @Override public void onValueChange(    ValueChangeEvent<SchemaInfoDto> event){
+      updateConfigurationData(event.getValue());
+    }
+  }
+);
+  row++;
+}
