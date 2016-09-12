@@ -22,6 +22,14 @@
     endpointProfileView.setServerProfileSchemaVersion(serverProfileSchema.toVersionDto());
     endpointProfileView.setProfileRecord(createRecordFieldFromCtlSchemaAndBody(clientProfileSchema.getCtlSchemaId(),endpointProfile.getClientProfileBody()));
     endpointProfileView.setServerProfileRecord(createRecordFieldFromCtlSchemaAndBody(serverProfileSchema.getCtlSchemaId(),endpointProfile.getServerProfileBody()));
+    String endpointConfig=configurationService.findEndpointConfigurationByEndpointKeyHash(endpointProfileKeyHash);
+    Integer version=Integer.parseInt(controlService.findConfSchemaByAppIdAndVersion(endpointProfile.getApplicationId(),endpointProfile.getConfigurationVersion()).getId());
+    endpointProfileView.setSchemaId(version);
+    Schema schema=controlService.findEndpointConfigurationSchemaByEndpointKeyHash(endpointProfileKeyHash);
+    GenericAvroConverter<GenericRecord> converter=new GenericAvroConverter<>(schema);
+    GenericRecord record=converter.decodeJson(endpointConfig);
+    RecordField recordField=FormAvroConverter.createRecordFieldFromGenericRecord(record);
+    endpointProfileView.setEndpointConfig(recordField);
     List<TopicDto> topics=new ArrayList<>();
     if (endpointProfile.getSubscriptions() != null) {
       for (      String topicId : endpointProfile.getSubscriptions()) {

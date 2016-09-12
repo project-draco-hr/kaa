@@ -1,12 +1,5 @@
 {
-  byte[] hash;
-  try {
-    hash=Base64Utils.fromBase64(endpointKeyHash);
-  }
- catch (  ParseException e) {
-    LOG.error("Could not parse endpointKeyHash:",e);
-    return null;
-  }
-  EndpointProfileDto endpointProfileDto=endpointProfileDao.findByKeyHash(hash).toDto();
-  return endpointProfileDto;
+  byte[] hash=Base64.decodeBase64(endpointKeyHash);
+  EndpointProfileDto endpointProfile=endpointService.findEndpointProfileByKeyHash(hash);
+  return endpointProfile;
 }

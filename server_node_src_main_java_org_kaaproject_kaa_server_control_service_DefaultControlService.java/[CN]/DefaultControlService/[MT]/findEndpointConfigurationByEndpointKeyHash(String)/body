@@ -1,18 +1,18 @@
 {
   EndpointProfileDto endpointProfileDto=profileService.findEndpointProfileByEndpointKeyHash(endpointKeyHash);
-  ConfigurationDto configuration=configurationService.findConfigurationByAppIdAndVersion(endpointProfileDto.getApplicationId(),endpointProfileDto.getConfigurationVersion());
-  CTLSchemaDto ctlSchemaDto=ctlService.findCTLSchemaById(configuration.getSchemaId());
-  Schema schema=ctlService.flatExportAsSchema(ctlSchemaDto);
+  ConfigurationSchemaDto configurationSchemaDto=configurationService.findConfSchemaByAppIdAndVersion(endpointProfileDto.getApplicationId(),endpointProfileDto.getConfigurationVersion());
+  CTLSchemaDto ctlSchemaDto=ctlService.findCTLSchemaById(configurationSchemaDto.getCtlSchemaId());
+  String schema=ctlService.flatExportAsString(ctlSchemaDto);
   String endConf=null;
   String appToken;
   try {
     appToken=applicationService.findAppById(endpointProfileDto.getApplicationId()).getApplicationToken();
     byte[] config=deltaService.getConfiguration(appToken,Base64Util.encode(endpointProfileDto.getEndpointKeyHash()),endpointProfileDto).getConfiguration();
-    endConf=GenericAvroConverter.toJson(config,schema.toString());
+    endConf=GenericAvroConverter.toJson(config,schema);
   }
  catch (  GetDeltaException e) {
     LOG.error("Could not retrieve configuration!");
-    throw new KaaAdminServiceException("Could not retrieve configuration!!",ServiceErrorCode.INVALID_SCHEMA);
+    Utils.handleException(new KaaAdminServiceException("Could not retrieve configuration!!",ServiceErrorCode.INVALID_SCHEMA));
   }
   return endConf;
 }
