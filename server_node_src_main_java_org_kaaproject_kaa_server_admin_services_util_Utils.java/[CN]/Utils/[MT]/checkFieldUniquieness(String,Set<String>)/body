@@ -1,0 +1,7 @@
+{
+  checkNotNull(email);
+  boolean isAdded=storedEmails.add(email);
+  if (!isAdded) {
+    throw new KaaAdminServiceException("Entered property is already used by another user!",ServiceErrorCode.INVALID_ARGUMENTS);
+  }
+}
