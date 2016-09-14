@@ -1,0 +1,7 @@
+{
+  EndpointProfileDto endpointProfileDto=profileService.findEndpointProfileByEndpointKeyHash(endpointKeyHash);
+  ConfigurationSchemaDto configurationSchemaDto=configurationService.findConfSchemaByAppIdAndVersion(endpointProfileDto.getApplicationId(),endpointProfileDto.getConfigurationVersion());
+  CTLSchemaDto ctlSchemaDto=ctlService.findCTLSchemaById(configurationSchemaDto.getCtlSchemaId());
+  Schema schema=ctlService.flatExportAsSchema(ctlSchemaDto);
+  return schema;
+}
