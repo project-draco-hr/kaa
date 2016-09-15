@@ -2,8 +2,9 @@
   checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
     byte[] body=getFileContent(fileItemName);
+    Schema avroSchema=new Schema.Parser().parse(schema);
     JsonNode json=new ObjectMapper().readTree(body);
-    json=injectUuids(json);
+    json=injectUuids(json,avroSchema);
     body=json.toString().getBytes();
     GenericAvroConverter<GenericRecord> converter=new GenericAvroConverter<>(schema);
     GenericRecord record=converter.decodeJson(body);
