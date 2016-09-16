@@ -4,6 +4,7 @@
     for (    LogDeliveryStatus response : logSyncResponse.getDeliveryStatuses()) {
       final int requestId=response.getRequestId();
       final BucketInfo bucketInfo=bucketInfoMap.get(requestId);
+      final long arriveTime=System.currentTimeMillis();
       if (bucketInfo != null) {
         bucketInfoMap.remove(requestId);
         if (response.getResult() == SyncResponseResultType.SUCCESS) {
@@ -18,7 +19,7 @@
           }
           executorContext.getCallbackExecutor().execute(new Runnable(){
             @Override public void run(){
-              notifyDeliveryFuturesOnSuccess(bucketInfo);
+              notifyDeliveryFuturesOnSuccess(bucketInfo,arriveTime);
             }
           }
 );
