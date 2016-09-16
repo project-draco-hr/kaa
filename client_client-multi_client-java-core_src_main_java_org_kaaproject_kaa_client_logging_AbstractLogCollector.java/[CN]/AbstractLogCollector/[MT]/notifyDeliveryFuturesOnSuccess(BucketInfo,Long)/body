@@ -4,7 +4,7 @@ synchronized (deliveryFuturesMap) {
     if (deliveryFutures != null) {
       for (      RecordFuture future : deliveryFutures) {
         RecordInfo recordInfo=new RecordInfo(info);
-        future.setValue(recordInfo);
+        future.setValue(recordInfo,arriveTime);
       }
       deliveryFuturesMap.remove(info.getBucketId());
     }
