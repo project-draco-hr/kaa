@@ -1,0 +1,5 @@
+{
+  byte[] hash=Base64.decodeBase64(endpointKeyHash);
+  EndpointProfileDto endpointProfile=endpointService.findEndpointProfileByKeyHash(hash);
+  return endpointProfile;
+}
