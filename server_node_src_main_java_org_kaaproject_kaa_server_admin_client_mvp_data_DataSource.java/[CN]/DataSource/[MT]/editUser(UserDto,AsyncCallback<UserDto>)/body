@@ -1,7 +1,9 @@
 {
   userRpcService.editUser(user,new DataCallback<UserDto>(callback){
     @Override protected void onResult(    UserDto result){
-      refreshUsers();
+      if (KaaAdmin.getAuthInfo().getAuthority() == KaaAuthorityDto.TENANT_ADMIN) {
+        refreshUsers();
+      }
     }
   }
 );
