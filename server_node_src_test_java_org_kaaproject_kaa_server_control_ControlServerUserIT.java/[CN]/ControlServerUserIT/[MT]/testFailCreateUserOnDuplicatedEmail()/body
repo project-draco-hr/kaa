@@ -1,6 +1,6 @@
 {
   expectedException.expect(HttpClientErrorException.class);
-  expectedException.expectMessage("400 Entered property is already used by another user!");
+  expectedException.expectMessage("Entered email is already used by another user!");
   loginTenantAdmin(tenantAdminDto.getUsername());
   UserDto user=new UserDto();
   String username=generateString(USERNAME);
