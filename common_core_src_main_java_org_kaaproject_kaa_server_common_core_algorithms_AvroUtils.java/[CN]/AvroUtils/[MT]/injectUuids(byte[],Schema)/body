@@ -1,0 +1,6 @@
+{
+  ObjectMapper objectMapper=new ObjectMapper();
+  JsonNode root=objectMapper.readTree(content);
+  injectUuidsFromJsonNodes(root,schema);
+  return root.toString();
+}
