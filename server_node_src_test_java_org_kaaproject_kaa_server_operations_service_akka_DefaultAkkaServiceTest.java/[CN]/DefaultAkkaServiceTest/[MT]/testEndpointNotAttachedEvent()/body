@@ -1,0 +1,19 @@
+{
+  AkkaContext context=mock(AkkaContext.class);
+  ActorContext actorCtxMock=mock(ActorContext.class);
+  ActorRef actorMock=spy(ActorRef.class);
+  ActorSystem system=ActorSystem.create();
+  try {
+    final Props props=Props.create(TestActor.class);
+    final TestActorRef<TestActor> parentMock=TestActorRef.create(system,props,"testA");
+    when(actorCtxMock.self()).thenReturn(actorMock);
+    when(actorCtxMock.parent()).thenReturn(parentMock);
+    EndpointEventReceiveMessage msg=mock(EndpointEventReceiveMessage.class);
+    LocalEndpointActorMessageProcessor processor=spy(new LocalEndpointActorMessageProcessor(context,APP_TOKEN,EndpointObjectHash.fromSHA1(clientPublicKeyHash.array()),"ACTOR_TOKEN"));
+    processor.processEndpointEventReceiveMessage(actorCtxMock,msg);
+    Assert.assertEquals(EndpointEventDeliveryMessage.EventDeliveryStatus.FAILURE,((EndpointEventDeliveryMessage)parentMock.underlyingActor().getMsg()).getStatus());
+  }
+  finally {
+    JavaTestKit.shutdownActorSystem(system);
+  }
+}
