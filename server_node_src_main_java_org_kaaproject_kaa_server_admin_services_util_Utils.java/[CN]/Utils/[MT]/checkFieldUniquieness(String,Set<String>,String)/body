@@ -1,0 +1,7 @@
+{
+  checkNotNull(field);
+  boolean isAdded=storedEmails.add(field);
+  if (!isAdded) {
+    throw new KaaAdminServiceException(String.format("Entered %s is already used by another user!",fieldName),ServiceErrorCode.INVALID_ARGUMENTS);
+  }
+}
