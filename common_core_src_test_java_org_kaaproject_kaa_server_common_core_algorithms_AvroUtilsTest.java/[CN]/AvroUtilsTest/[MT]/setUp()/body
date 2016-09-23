@@ -1,4 +1,5 @@
 {
   data=new ObjectMapper().readTree(AvroUtilsTest.class.getClassLoader().getResourceAsStream("uuids/data.json"));
   dataWithUUIDs=new ObjectMapper().readTree(AvroUtilsTest.class.getClassLoader().getResourceAsStream("uuids/data_with_uuids.json"));
+  avroSchema=new Schema.Parser().parse(AvroUtilsTest.class.getClassLoader().getResourceAsStream("uuids/schema.json"));
 }
