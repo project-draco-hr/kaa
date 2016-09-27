@@ -1,0 +1,20 @@
+{
+switch (field) {
+case ADDRESS:
+    if (value == null) {
+      unsetAddress();
+    }
+ else {
+      setAddress((ThriftEntityAddress)value);
+    }
+  break;
+case ACTOR_CLASSIFIER:
+if (value == null) {
+  unsetActorClassifier();
+}
+ else {
+  setActorClassifier((ThriftActorClassifier)value);
+}
+break;
+}
+}

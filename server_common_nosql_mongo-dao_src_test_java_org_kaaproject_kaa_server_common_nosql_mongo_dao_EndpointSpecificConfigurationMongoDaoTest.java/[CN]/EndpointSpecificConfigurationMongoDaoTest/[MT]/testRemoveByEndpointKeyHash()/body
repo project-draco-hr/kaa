@@ -1,0 +1,7 @@
+{
+  List<EndpointSpecificConfiguration> found=endpointSpecificConfigurationDao.find();
+  Assert.assertTrue(found.size() == 3);
+  endpointSpecificConfigurationDao.removeByEndpointKeyHash(KEY);
+  found=endpointSpecificConfigurationDao.find();
+  Assert.assertTrue(found.size() == 1);
+}

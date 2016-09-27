@@ -1,0 +1,12 @@
+{
+  List<CassandraEndpointSpecificConfiguration> found=endpointSpecificConfigurationDao.find();
+  Assert.assertTrue(found.size() == 3);
+  EndpointSpecificConfigurationDto found1=endpointSpecificConfigurationDao.findByEndpointKeyHashAndConfigurationVersion(KEY,0).toDto();
+  EndpointSpecificConfigurationDto found2=endpointSpecificConfigurationDao.findByEndpointKeyHashAndConfigurationVersion(KEY,1).toDto();
+  EndpointSpecificConfigurationDto found3=endpointSpecificConfigurationDao.findByEndpointKeyHashAndConfigurationVersion(KEY_2,0).toDto();
+  EndpointSpecificConfiguration found4=endpointSpecificConfigurationDao.findByEndpointKeyHashAndConfigurationVersion(KEY_2,4);
+  Assert.assertEquals(saved1,found1);
+  Assert.assertEquals(saved2,found2);
+  Assert.assertEquals(saved3,found3);
+  Assert.assertNull(found4);
+}

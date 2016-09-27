@@ -4,7 +4,7 @@
       throw new IllegalArgumentException("The endpointGroupId parameter is empty.");
     }
     EndpointGroupDto endpointGroup=controlService.getEndpointGroup(endpointGroupId);
-    Utils.checkNotNull(endpointGroup);
+    checkNotNull(endpointGroup);
     checkApplicationId(endpointGroup.getApplicationId());
     return endpointGroup;
   }

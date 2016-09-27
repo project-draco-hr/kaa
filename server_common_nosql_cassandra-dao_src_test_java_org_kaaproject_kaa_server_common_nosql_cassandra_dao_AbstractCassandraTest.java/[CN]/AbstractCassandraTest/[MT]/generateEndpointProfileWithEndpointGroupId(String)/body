@@ -9,6 +9,7 @@
   profileDto.setAccessToken(generateStringId());
   profileDto.setClientProfileBody("test profile");
   profileDto.setServerProfileBody("test server-side profile");
+  profileDto.setEpsConfigurationHash(EPS_CONFIG_HASH);
   List<EndpointGroupStateDto> groupState=new ArrayList<>();
   groupState.add(new EndpointGroupStateDto(TEST_ENDPOINT_GROUP_ID,null,null));
   profileDto.setGroupState(groupState);

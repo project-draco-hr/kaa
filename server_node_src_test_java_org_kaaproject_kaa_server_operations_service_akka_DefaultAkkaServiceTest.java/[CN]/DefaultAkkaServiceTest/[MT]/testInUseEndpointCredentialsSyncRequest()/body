@@ -17,5 +17,5 @@
   SessionInitMessage message=toSignedRequest(UUID.randomUUID(),ChannelType.SYNC,channelContextMock,request,responseBuilder,errorBuilder);
   Assert.assertNotNull(akkaService.getActorSystem());
   akkaService.process(message);
-  Mockito.verify(errorBuilder,Mockito.timeout(TIMEOUT).atLeastOnce()).build(Mockito.any(EndpointVerificationException.class));
+  Mockito.verify(errorBuilder,Mockito.timeout(TIMEOUT).atLeastOnce()).build(any(EndpointVerificationException.class));
 }

@@ -5,10 +5,8 @@
     LOG.trace("[{}][{}] Result configuration hash is {}",appToken,endpointId,Arrays.toString(configurationHash));
   }
   profile.setConfigurationHash(configurationHash);
-  if (configurationCache.getUserConfigurationHash() != null) {
-    profile.setUserConfigurationHash(configurationCache.getUserConfigurationHash().getData());
-  }
- else {
-    profile.setUserConfigurationHash(null);
-  }
+  EndpointObjectHash userConfigHash=configurationCache.getUserConfigurationHash();
+  profile.setUserConfigurationHash(userConfigHash == null ? null : userConfigHash.getData());
+  EndpointObjectHash epsConfigHash=configurationCache.getEpsConfigurationHash();
+  profile.setEpsConfigurationHash(epsConfigHash == null ? null : epsConfigHash.getData());
 }

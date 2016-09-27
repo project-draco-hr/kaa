@@ -1,0 +1,5 @@
+{
+  EndpointSpecificConfigurationDto dto=new EndpointSpecificConfigurationDto("hash",1,"conf body",2L);
+  CassandraEndpointSpecificConfiguration configuration=new CassandraEndpointSpecificConfiguration(dto);
+  Assert.assertEquals(dto,configuration.toDto());
+}

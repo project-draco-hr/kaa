@@ -1,0 +1,5 @@
+{
+  when(endpointServiceMock.findEndpointProfileByKeyHash(DECODED_KEY)).thenReturn(null);
+  Assert.assertFalse(SERVICE.findByEndpointKeyHash(KEY).isPresent());
+  verify(endpointServiceMock).findEndpointProfileByKeyHash(DECODED_KEY);
+}

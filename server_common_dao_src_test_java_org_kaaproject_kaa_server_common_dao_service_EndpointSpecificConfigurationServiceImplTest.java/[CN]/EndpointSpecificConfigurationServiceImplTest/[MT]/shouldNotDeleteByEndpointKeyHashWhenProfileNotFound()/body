@@ -1,0 +1,7 @@
+{
+  when(endpointServiceMock.findEndpointProfileByKeyHash(DECODED_KEY)).thenReturn(generateProfile());
+  when(daoMock.findByEndpointKeyHashAndConfigurationVersion(KEY,CONF_VERSION)).thenReturn(null);
+  Assert.assertFalse(SERVICE.deleteByEndpointKeyHash(KEY).isPresent());
+  verify(endpointServiceMock).findEndpointProfileByKeyHash(DECODED_KEY);
+  verify(daoMock).findByEndpointKeyHashAndConfigurationVersion(KEY,CONF_VERSION);
+}

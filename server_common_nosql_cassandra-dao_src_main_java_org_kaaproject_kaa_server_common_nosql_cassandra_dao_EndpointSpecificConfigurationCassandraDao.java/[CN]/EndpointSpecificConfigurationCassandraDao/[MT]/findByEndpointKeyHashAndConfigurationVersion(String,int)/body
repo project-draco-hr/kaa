@@ -1,0 +1,8 @@
+{
+  LOG.debug("Try to find endpoint specific configuration by endpointKeyHash {} and configurationVersion {}",endpointKeyHash,configurationVersion);
+  Select.Where where=select().from(getColumnFamilyName()).where(eq(EPS_CONFIGURATION_KEY_HASH_PROPERTY,endpointKeyHash)).and(eq(EPS_CONFIGURATION_CONFIGURATION_VERSION_PROPERTY,configurationVersion));
+  LOG.trace("Try to find endpoint specific configuration by cql select {}",where);
+  CassandraEndpointSpecificConfiguration configuration=findOneByStatement(where);
+  LOG.trace("Found {} endpoint specific configuration",configuration);
+  return configuration;
+}

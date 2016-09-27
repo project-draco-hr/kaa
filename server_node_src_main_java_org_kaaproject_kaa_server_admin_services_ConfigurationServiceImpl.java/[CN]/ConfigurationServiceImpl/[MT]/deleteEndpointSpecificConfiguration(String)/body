@@ -1,0 +1,11 @@
+{
+  try {
+    checkEndpointProfile(endpointKeyHash);
+    EndpointSpecificConfigurationDto configuration=controlService.deleteEndpointSpecificConfiguration(endpointKeyHash);
+    Utils.checkNotNull(configuration);
+    return configuration;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

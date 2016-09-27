@@ -1,11 +1,14 @@
 {
-  DeltaCacheKey key1=new DeltaCacheKey(new AppVersionKey("appId1",1),null,null,EndpointObjectHash.fromSHA1("test1"));
-  DeltaCacheKey key2=new DeltaCacheKey(new AppVersionKey("appId1",1),null,null,EndpointObjectHash.fromSHA1("test1"));
+  DeltaCacheKey key1=new DeltaCacheKey(new AppVersionKey("appId1",1),null,null,HASH_1,null);
+  DeltaCacheKey key2=new DeltaCacheKey(new AppVersionKey("appId1",1),null,null,HASH_1,null);
   Assert.assertEquals(key1,key2);
-  key1=new DeltaCacheKey(new AppVersionKey("appId1",1),null,null,null);
-  key2=new DeltaCacheKey(new AppVersionKey("appId1",1),null,null,null);
+  key1=new DeltaCacheKey(new AppVersionKey("appId1",1),null,null,null,null);
+  key2=new DeltaCacheKey(new AppVersionKey("appId1",1),null,null,null,null);
   Assert.assertEquals(key1,key2);
-  key1=new DeltaCacheKey(null,null,null,null);
-  key2=new DeltaCacheKey(null,null,null,null);
+  key1=new DeltaCacheKey(null,null,null,null,null);
+  key2=new DeltaCacheKey(null,null,null,null,null);
+  Assert.assertEquals(key1,key2);
+  key1=new DeltaCacheKey(null,null,null,null,HASH_2);
+  key2=new DeltaCacheKey(null,null,null,null,HASH_2);
   Assert.assertEquals(key1,key2);
 }

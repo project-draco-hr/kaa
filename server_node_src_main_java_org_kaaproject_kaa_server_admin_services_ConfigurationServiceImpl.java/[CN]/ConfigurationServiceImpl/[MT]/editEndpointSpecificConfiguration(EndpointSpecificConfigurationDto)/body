@@ -1,0 +1,10 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    checkEndpointProfile(configuration.getEndpointKeyHash());
+    return controlService.editEndpointSpecificConfiguration(configuration);
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

@@ -3,8 +3,9 @@
     LOG.warn("[{}] Request is not valid. It does not contain profile information!",endpointKey);
     return SyncContext.failure(request.getRequestId());
   }
+  EndpointProfileDto profile=state.getProfile();
   SyncContext context=new SyncContext(new ServerSync());
-  context.setEndpointProfile(state.getProfile());
+  context.setEndpointProfile(profile);
   context.setRequestId(request.getRequestId());
   context.setStatus(SyncStatus.SUCCESS);
   context.setEndpointKey(endpointKey);
@@ -17,14 +18,17 @@
     return context;
   }
   if (state.isUcfHashRequiresIntialization()) {
-    byte[] hash=operationsService.fetchUcfHash(appToken,state.getProfile());
+    byte[] hash=operationsService.fetchUcfHash(appToken,profile);
     LOG.debug("[{}][{}] Initialized endpoint user configuration hash {}",endpointKey,context.getRequestHash(),Arrays.toString(hash));
     state.setUcfHash(hash);
   }
+  if (state.isEpsConfigurationRequiresInitialization()) {
+    state.setEpsConfigurationHash(operationsService.fetchEndpointSpecificConfigurationHash(profile));
+  }
   context=operationsService.processEndpointAttachDetachRequests(context,request.getUserSync());
   context=operationsService.processEventListenerRequests(context,request.getEventSync());
-  if (state.isUserConfigurationUpdatePending()) {
-    context=operationsService.syncUserConfigurationHash(context,state.getUcfHash());
+  if (state.isUserConfigurationUpdatePending() || state.isEpsConfigurationChanged()) {
+    context=operationsService.syncConfigurationHashes(context,state.getUcfHash(),state.getEpsConfigurationHash());
   }
   context=operationsService.syncConfiguration(context,request.getConfigurationSync());
   context=operationsService.syncNotification(context,request.getNotificationSync());

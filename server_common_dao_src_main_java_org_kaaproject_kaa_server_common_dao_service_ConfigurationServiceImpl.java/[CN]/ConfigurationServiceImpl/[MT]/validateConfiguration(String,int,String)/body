@@ -1,0 +1,28 @@
+{
+  ConfigurationSchemaDto schemaDto=this.findConfSchemaByAppIdAndVersion(appId,schemaVersion);
+  if (schemaDto != null) {
+    OverrideSchema overrideSchema=new OverrideSchema(schemaDto.getOverrideSchema());
+    LOG.debug("Create default UUID validator with override schema: {}",overrideSchema.getRawSchema());
+    UuidValidator<OverrideData> uuidValidator=new DefaultUuidValidator<>(overrideSchema,new OverrideDataFactory());
+    GenericAvroConverter<GenericRecord> avroConverter=new GenericAvroConverter<>(overrideSchema.getRawSchema());
+    try {
+      GenericRecord configRecord=avroConverter.decodeJson(configurationBody);
+      KaaData<OverrideSchema> body=uuidValidator.validateUuidFields(configRecord,null);
+      if (body != null) {
+        return body.getRawData();
+      }
+ else {
+        LOG.warn("Validated configuration body is empty");
+        throw new IncorrectParameterException("Validated configuration body is empty");
+      }
+    }
+ catch (    IOException e) {
+      LOG.error("Invalid configuration for override schema.",e);
+      throw new IncorrectParameterException("Invalid configuration for override schema.");
+    }
+  }
+ else {
+    LOG.warn("Can't find configuration schema with version {}.",schemaVersion);
+    throw new IncorrectParameterException("Can't find configuration schema for specified version.");
+  }
+}

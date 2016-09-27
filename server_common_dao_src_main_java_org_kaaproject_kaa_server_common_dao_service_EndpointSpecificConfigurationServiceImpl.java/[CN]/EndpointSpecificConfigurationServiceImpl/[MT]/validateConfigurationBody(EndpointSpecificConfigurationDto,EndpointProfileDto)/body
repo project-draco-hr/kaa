@@ -1,0 +1,9 @@
+{
+  validateString(configurationDto.getConfiguration(),"Endpoint specific configuration body is required");
+  int configurationVersion=configurationDto.getConfigurationVersion();
+  String appId=ep.getApplicationId();
+  String configurationBody=configurationDto.getConfiguration();
+  configurationBody=configurationService.validateConfiguration(appId,configurationVersion,configurationBody);
+  validateString(configurationBody,"Provided configuration body is invalid");
+  configurationDto.setConfiguration(configurationBody);
+}
