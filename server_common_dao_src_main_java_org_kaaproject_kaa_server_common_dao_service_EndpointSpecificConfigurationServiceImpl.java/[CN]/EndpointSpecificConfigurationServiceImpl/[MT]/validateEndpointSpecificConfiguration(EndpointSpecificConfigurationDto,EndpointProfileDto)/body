@@ -3,7 +3,6 @@
   int configurationVersion=configurationDto.getConfigurationVersion();
   String appId=ep.getApplicationId();
   String configurationBody=configurationDto.getConfiguration();
-  configurationBody=configurationService.validateConfiguration(appId,configurationVersion,configurationBody);
-  validateString(configurationBody,"Provided configuration body is invalid");
+  configurationBody=configurationService.validateOverrideConfigurationBody(appId,configurationVersion,configurationBody);
   configurationDto.setConfiguration(configurationBody);
 }
