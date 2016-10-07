@@ -7,7 +7,7 @@
       ApplicationDto applicationDto=applicationService.findAppByApplicationToken(appToken);
       if (applicationDto != null) {
         int schemaVersion=userConfig.getSchemaVersion();
-        userConfig.setBody(configurationService.validateOverrideConfigurationBody(applicationDto.getId(),schemaVersion,userConfigBody));
+        userConfig.setBody(configurationService.normalizeAccordingToOverrideConfigurationSchema(applicationDto.getId(),schemaVersion,userConfigBody));
         userConfigurationDto=getDto(endpointUserConfigurationDao.save(userConfig));
       }
  else {

@@ -1,0 +1,12 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    checkEndpointProfile(endpointKeyHash);
+    EndpointSpecificConfigurationDto configuration=controlService.deleteEndpointSpecificConfiguration(endpointKeyHash,confSchemaVersion);
+    Utils.checkNotNull(configuration);
+    return configuration;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

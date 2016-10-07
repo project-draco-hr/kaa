@@ -1,6 +1,6 @@
 {
-  this.endpointKeyHash=dto.getEndpointKeyHash();
-  this.configurationVersion=dto.getConfigurationVersion();
+  this.endpointKeyHash=getByteBuffer(dto.getEndpointKeyHash());
+  this.configurationVersion=dto.getConfigurationSchemaVersion();
   this.configuration=dto.getConfiguration();
   this.version=dto.getVersion();
 }

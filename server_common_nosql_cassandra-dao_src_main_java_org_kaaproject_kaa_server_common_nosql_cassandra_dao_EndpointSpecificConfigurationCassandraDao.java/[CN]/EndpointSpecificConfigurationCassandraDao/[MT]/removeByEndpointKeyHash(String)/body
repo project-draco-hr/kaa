@@ -1,6 +1,0 @@
-{
-  LOG.debug("Remove endpoint specific configuration by endpointKeyHash {}",endpointKeyHash);
-  Delete.Where deleteQuery=delete().from(getColumnFamilyName()).where(eq(EPS_CONFIGURATION_KEY_HASH_PROPERTY,endpointKeyHash));
-  LOG.trace("Remove endpoint specific configuration by endpointKeyHash query {}",deleteQuery);
-  execute(deleteQuery);
-}

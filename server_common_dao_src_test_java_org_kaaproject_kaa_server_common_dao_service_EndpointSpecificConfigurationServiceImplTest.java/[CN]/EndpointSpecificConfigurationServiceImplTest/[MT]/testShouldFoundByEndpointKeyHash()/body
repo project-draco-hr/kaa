@@ -1,8 +1,0 @@
-{
-  when(endpointServiceMock.findEndpointProfileByKeyHash(DECODED_KEY)).thenReturn(generateProfile());
-  when(daoMock.findByEndpointKeyHashAndConfigurationVersion(KEY,CONF_VERSION)).thenReturn(configuration);
-  when(configuration.toDto()).thenReturn(new EndpointSpecificConfigurationDto());
-  Assert.assertTrue(SERVICE.findByEndpointKeyHash(KEY).isPresent());
-  verify(endpointServiceMock).findEndpointProfileByKeyHash(DECODED_KEY);
-  verify(daoMock).findByEndpointKeyHashAndConfigurationVersion(KEY,CONF_VERSION);
-}

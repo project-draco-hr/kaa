@@ -1,8 +1,0 @@
-{
-  validateString(configurationDto.getConfiguration(),"Endpoint specific configuration body is required");
-  int configurationVersion=configurationDto.getConfigurationVersion();
-  String appId=ep.getApplicationId();
-  String configurationBody=configurationDto.getConfiguration();
-  configurationBody=configurationService.validateOverrideConfigurationBody(appId,configurationVersion,configurationBody);
-  configurationDto.setConfiguration(configurationBody);
-}

@@ -1,3 +1,3 @@
 {
-  cassandraSession.execute("CREATE TABLE IF NOT EXISTS ep_specific_conf (\n" + "    ep_key_hash text,\n" + "    cf_ver int,\n"+ "    body text,\n"+ "    opt_lock bigint,\n"+ "    PRIMARY KEY((ep_key_hash), cf_ver)\n"+ ") WITH CLUSTERING ORDER BY (cf_ver DESC);");
+  cassandraSession.execute("CREATE TABLE IF NOT EXISTS ep_specific_conf (\n" + "    ep_key_hash blob,\n" + "    cf_ver int,\n"+ "    body text,\n"+ "    opt_lock bigint,\n"+ "    PRIMARY KEY((ep_key_hash), cf_ver)\n"+ ") WITH CLUSTERING ORDER BY (cf_ver DESC);");
 }

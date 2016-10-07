@@ -1,0 +1,10 @@
+{
+  EndpointSpecificConfigurationDto dto=new EndpointSpecificConfigurationDto();
+  dto.setConfigurationSchemaVersion(CONF_VERSION);
+  when(endpointServiceMock.findEndpointProfileByKeyHash(KEY)).thenReturn(generateProfile());
+  when(daoMock.findByEndpointKeyHashAndConfigurationVersion(KEY,CONF_VERSION)).thenReturn(configuration);
+  when(configuration.toDto()).thenReturn(dto);
+  Assert.assertTrue(SERVICE.findActiveConfigurationByEndpointKeyHash(KEY).isPresent());
+  verify(endpointServiceMock).findEndpointProfileByKeyHash(KEY);
+  verify(daoMock).findByEndpointKeyHashAndConfigurationVersion(KEY,CONF_VERSION);
+}

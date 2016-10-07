@@ -1,8 +1,8 @@
 {
   EndpointSpecificConfigurationDto dto=new EndpointSpecificConfigurationDto();
-  dto.setEndpointKeyHash(this.getEndpointKeyHash());
+  dto.setEndpointKeyHash(getBytes(this.getEndpointKeyHash()));
   dto.setConfiguration(this.getConfiguration());
-  dto.setConfigurationVersion(this.getConfigurationVersion());
+  dto.setConfigurationSchemaVersion(this.getConfigurationVersion());
   dto.setVersion(this.getVersion());
   return dto;
 }

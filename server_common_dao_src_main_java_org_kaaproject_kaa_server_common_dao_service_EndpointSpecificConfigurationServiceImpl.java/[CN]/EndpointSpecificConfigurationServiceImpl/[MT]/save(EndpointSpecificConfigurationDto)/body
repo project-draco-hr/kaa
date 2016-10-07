@@ -1,6 +1,8 @@
 {
   EndpointProfileDto profileDto=getEndpointProfileDto(configurationDto.getEndpointKeyHash());
-  configurationDto.setConfigurationVersion(profileDto.getConfigurationVersion());
-  validateEndpointSpecificConfiguration(configurationDto,profileDto);
+  if (configurationDto.getConfigurationSchemaVersion() == null) {
+    configurationDto.setConfigurationSchemaVersion(profileDto.getConfigurationVersion());
+  }
+  validateEndpointSpecificConfiguration(configurationDto,profileDto.getApplicationId());
   return endpointSpecificConfigurationDao.save(configurationDto).toDto();
 }
