@@ -1,0 +1,13 @@
+{
+  if (!Options.DEFAULT_NO_SQL.equalsIgnoreCase(nosql)) {
+    try {
+      cassandraSession=cluster.connect(dbName);
+      addEndpointSpecificConfigurationTable();
+      alterEndpointProfileTable();
+    }
+  finally {
+      cassandraSession.close();
+      cluster.close();
+    }
+  }
+}
