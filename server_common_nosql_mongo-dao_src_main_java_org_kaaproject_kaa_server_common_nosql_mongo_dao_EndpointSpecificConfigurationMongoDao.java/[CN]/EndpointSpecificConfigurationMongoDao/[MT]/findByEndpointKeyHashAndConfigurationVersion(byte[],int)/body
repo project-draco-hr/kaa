@@ -1,0 +1,6 @@
+{
+  LOG.debug("Try to find endpoint specific configuration by endpointKeyHash {} and configurationVersion {}",endpointKeyHash,configurationVersion);
+  EndpointSpecificConfiguration configuration=findOne(query(where(EP_SPECIFIC_CONFIGURATION_KEY_HASH).is(endpointKeyHash).and(EP_SPECIFIC_CONFIGURATION_CONFIGURATION_VERSION).is(configurationVersion)));
+  LOG.trace("Found {}  endpoint specific configuration",configuration);
+  return configuration;
+}

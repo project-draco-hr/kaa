@@ -1,0 +1,8 @@
+{
+  try {
+    cassandraSession.execute("ALTER TABLE ep_profile ADD eps_cf_hash blob;");
+  }
+ catch (  InvalidQueryException e) {
+    LOG.warn("Failed to alter ep_profile table: {}",e.getMessage());
+  }
+}

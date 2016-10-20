@@ -1,0 +1,12 @@
+{
+  try {
+    validateNotNull(endpointKeyHash,"Missing endpoint key hash");
+    EndpointProfileDto endpointProfile=endpointService.findEndpointProfileByKeyHash(endpointKeyHash);
+    checkNotNull(endpointProfile);
+    checkApplicationId(endpointProfile.getApplicationId());
+    return endpointProfile;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

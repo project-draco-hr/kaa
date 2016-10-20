@@ -1,0 +1,11 @@
+{
+  LOG.debug("Saving endpoint specific configuration {}",dto);
+  MongoEndpointSpecificConfiguration configuration=save(new MongoEndpointSpecificConfiguration(dto));
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("Saved: {}",configuration);
+  }
+ else {
+    LOG.debug("Saved: {}",configuration != null);
+  }
+  return configuration;
+}

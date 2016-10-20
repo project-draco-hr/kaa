@@ -9,4 +9,7 @@
  else   if (thriftMsg instanceof ThriftEndpointDeregistrationMessage) {
     processEndpointDeregistrationMessage(context,(ThriftEndpointDeregistrationMessage)thriftMsg);
   }
+ else   if (thriftMsg instanceof ThriftEndpointConfigurationRefreshMessage) {
+    processEndpointSpecificConfigurationChanged(context);
+  }
 }

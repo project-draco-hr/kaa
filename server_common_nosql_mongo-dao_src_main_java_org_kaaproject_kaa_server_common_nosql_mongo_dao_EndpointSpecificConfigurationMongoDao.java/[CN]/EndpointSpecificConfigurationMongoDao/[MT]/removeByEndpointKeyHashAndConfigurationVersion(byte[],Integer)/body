@@ -1,0 +1,4 @@
+{
+  LOG.debug("Remove endpoint specific configuration by endpoint key hash [{}] ",endpointKeyHash);
+  mongoTemplate.remove(query(where(EP_SPECIFIC_CONFIGURATION_KEY_HASH).is(endpointKeyHash).and(EP_SPECIFIC_CONFIGURATION_CONFIGURATION_VERSION).is(confSchemaVersion)),getCollectionName());
+}

@@ -7,6 +7,7 @@
   profileDto.setSubscriptions(topicIds);
   profileDto.setEndpointKeyHash("TEST_KEY_HASH".getBytes());
   profileDto.setServerProfileBody("{\"serverTitle\": \"SERVER_TEST\"}");
+  profileDto.setEpsConfigurationHash(EPS_CONFIG_HASH);
   try {
     profileDto.setClientProfileBody(readSchemaFileAsString(TEST_PROFILE_BODY_PATH));
   }

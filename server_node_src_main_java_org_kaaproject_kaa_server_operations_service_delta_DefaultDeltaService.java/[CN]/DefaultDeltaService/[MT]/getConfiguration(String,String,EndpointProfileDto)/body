@@ -1,7 +1,9 @@
 {
   LOG.debug("[{}][{}] Calculating new configuration",appToken,endpointId);
   AppVersionKey appConfigVersionKey=new AppVersionKey(appToken,profile.getConfigurationVersion());
-  DeltaCacheKey deltaKey=new DeltaCacheKey(appConfigVersionKey,profile.getGroupState(),EndpointObjectHash.fromBytes(profile.getUserConfigurationHash()),null,profile.isUseConfigurationRawSchema(),true);
+  EndpointObjectHash userConfHash=EndpointObjectHash.fromBytes(profile.getUserConfigurationHash());
+  EndpointObjectHash epsConfHash=EndpointObjectHash.fromBytes(profile.getEpsConfigurationHash());
+  DeltaCacheKey deltaKey=new DeltaCacheKey(appConfigVersionKey,profile.getGroupState(),userConfHash,epsConfHash,null,profile.isUseConfigurationRawSchema(),true);
   LOG.debug("[{}][{}] Built resync delta key {}",appToken,endpointId,deltaKey);
   return getDelta(endpointId,profile.getEndpointUserId(),deltaKey,profile.isUseConfigurationRawSchema());
 }

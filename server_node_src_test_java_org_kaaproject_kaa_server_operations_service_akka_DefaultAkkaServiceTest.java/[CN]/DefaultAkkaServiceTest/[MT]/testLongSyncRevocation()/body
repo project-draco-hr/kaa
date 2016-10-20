@@ -15,11 +15,11 @@
   SessionInitMessage message=toSignedRequest(UUID.randomUUID(),ChannelType.SYNC_WITH_TIMEOUT,channelContextMock,request,responseBuilder,errorBuilder);
   Assert.assertNotNull(akkaService.getActorSystem());
   akkaService.process(message);
-  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeastOnce()).syncClientProfile(Mockito.any(SyncContext.class),Mockito.any(ProfileClientSync.class));
+  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeastOnce()).syncClientProfile(any(SyncContext.class),any(ProfileClientSync.class));
   Mockito.when(applicationService.findAppById(APP_ID)).thenReturn(applicationDto);
   whenSync(deltaResponse);
   EndpointAddress address=new EndpointAddress(applicationDto.getTenantId(),applicationDto.getApplicationToken(),EndpointObjectHash.fromBytes(clientPublicKeyHash.array()));
   ActorClassifier classifier=ActorClassifier.APPLICATION;
   clusterServiceListener.onEndpointActorMsg(new ThriftEndpointActorMsg<ThriftEndpointDeregistrationMessage>(address,classifier,new ThriftEndpointDeregistrationMessage()));
-  Mockito.verify(errorBuilder,Mockito.timeout(TIMEOUT).atLeastOnce()).build(Mockito.any(EndpointRevocationException.class));
+  Mockito.verify(errorBuilder,Mockito.timeout(TIMEOUT).atLeastOnce()).build(any(EndpointRevocationException.class));
 }

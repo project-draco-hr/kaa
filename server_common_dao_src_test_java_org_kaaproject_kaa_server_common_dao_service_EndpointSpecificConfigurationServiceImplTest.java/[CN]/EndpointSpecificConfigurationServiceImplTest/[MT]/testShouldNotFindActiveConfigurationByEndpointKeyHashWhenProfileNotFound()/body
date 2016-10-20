@@ -1,0 +1,5 @@
+{
+  when(endpointServiceMock.findEndpointProfileByKeyHash(KEY)).thenReturn(null);
+  Assert.assertFalse(SERVICE.findActiveConfigurationByEndpointKeyHash(KEY).isPresent());
+  verify(endpointServiceMock).findEndpointProfileByKeyHash(KEY);
+}

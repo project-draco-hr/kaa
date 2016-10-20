@@ -14,6 +14,9 @@
     if (msg.getUserConfigurationUpdateMsg() != null) {
       updates.add(msg.getUserConfigurationUpdateMsg());
     }
+    if (msg.getEndpointConfigurationRefreshMessage() != null) {
+      client.sendEndpointConfigurationRefreshMessage(msg.getEndpointConfigurationRefreshMessage());
+    }
     if (msg.getEntityRouteMsg() != null) {
       routes.add(msg.getEntityRouteMsg());
     }

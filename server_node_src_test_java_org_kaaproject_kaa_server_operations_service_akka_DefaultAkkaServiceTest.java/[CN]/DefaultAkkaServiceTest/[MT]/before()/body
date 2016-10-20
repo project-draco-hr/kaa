@@ -103,6 +103,6 @@
   when(endpointUserService.findUserVerifiers(APP_ID)).thenReturn(new ArrayList<UserVerifierDto>());
   when(eventService.isMainUserNode(Mockito.anyString())).thenReturn(true);
   when(clusterService.getNodeId()).thenReturn(LOCAL_NODE_ID);
-  when(clusterService.getEntityNode(Mockito.any(byte[].class))).thenReturn(LOCAL_NODE_ID);
-  when(clusterService.getEntityNode(Mockito.any(EndpointObjectHash.class))).thenReturn(LOCAL_NODE_ID);
+  when(clusterService.getEntityNode(any(byte[].class))).thenReturn(LOCAL_NODE_ID);
+  when(clusterService.getEntityNode(any(EndpointObjectHash.class))).thenReturn(LOCAL_NODE_ID);
 }

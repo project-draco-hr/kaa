@@ -1,0 +1,6 @@
+{
+  Assert.assertTrue(endpointSpecificConfigurationDao.find().size() == 3);
+  endpointSpecificConfigurationDao.removeByEndpointKeyHashAndConfigurationVersion(KEY,0);
+  Assert.assertTrue(endpointSpecificConfigurationDao.find().size() == 2);
+  Assert.assertTrue(endpointSpecificConfigurationDao.findByEndpointKeyHashAndConfigurationVersion(KEY,0) == null);
+}
