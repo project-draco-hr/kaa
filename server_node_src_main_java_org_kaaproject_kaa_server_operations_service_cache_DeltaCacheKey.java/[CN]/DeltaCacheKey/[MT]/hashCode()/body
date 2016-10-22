@@ -1,9 +1,10 @@
 {
   int result=appConfigVersionKey != null ? appConfigVersionKey.hashCode() : 0;
   result=31 * result + (endpointGroups != null ? endpointGroups.hashCode() : 0);
-  result=31 * result + (endpointConfHash != null ? endpointConfHash.hashCode() : 0);
+  result=31 * result + (confHash != null ? confHash.hashCode() : 0);
   result=31 * result + (resyncOnly ? 1 : 0);
   result=31 * result + (useConfigurationRawSchema ? 1 : 0);
   result=31 * result + (userConfHash != null ? userConfHash.hashCode() : 0);
+  result=31 * result + (epsConfHash != null ? epsConfHash.hashCode() : 0);
   return result;
 }

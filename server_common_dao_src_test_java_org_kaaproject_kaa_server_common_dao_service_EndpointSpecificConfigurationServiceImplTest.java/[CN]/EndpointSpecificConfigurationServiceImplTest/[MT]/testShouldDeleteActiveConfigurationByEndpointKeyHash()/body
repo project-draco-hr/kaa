@@ -1,0 +1,10 @@
+{
+  when(endpointServiceMock.findEndpointProfileByKeyHash(KEY)).thenReturn(generateProfile());
+  when(daoMock.findByEndpointKeyHashAndConfigurationVersion(KEY,CONF_VERSION)).thenReturn(configuration);
+  when(configuration.toDto()).thenReturn(configurationDto);
+  when(configurationDto.getConfigurationSchemaVersion()).thenReturn(CONF_VERSION);
+  Assert.assertTrue(SERVICE.deleteActiveConfigurationByEndpointKeyHash(KEY).isPresent());
+  verify(endpointServiceMock).findEndpointProfileByKeyHash(KEY);
+  verify(daoMock).findByEndpointKeyHashAndConfigurationVersion(KEY,CONF_VERSION);
+  verify(daoMock).removeByEndpointKeyHashAndConfigurationVersion(KEY,CONF_VERSION);
+}

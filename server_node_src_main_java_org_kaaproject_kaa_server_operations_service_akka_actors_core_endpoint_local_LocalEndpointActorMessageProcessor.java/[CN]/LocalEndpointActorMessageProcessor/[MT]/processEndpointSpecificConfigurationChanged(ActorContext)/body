@@ -1,0 +1,8 @@
+{
+  if (state.getProfile() == null) {
+    state.setProfile(operationsService.refreshServerEndpointProfile(key));
+  }
+  EndpointProfileDto profile=state.getProfile();
+  state.setEpsConfigurationHash(operationsService.fetchEndpointSpecificConfigurationHash(profile));
+  refreshConfiguration(context);
+}

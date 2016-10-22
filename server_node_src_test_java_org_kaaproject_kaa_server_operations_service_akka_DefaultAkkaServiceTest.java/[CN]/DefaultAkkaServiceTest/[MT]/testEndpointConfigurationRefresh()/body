@@ -1,0 +1,30 @@
+{
+  ChannelContext channelContextMock=Mockito.mock(ChannelContext.class);
+  EndpointProfileDto profileDto=new EndpointProfileDto();
+  SyncRequest request=new SyncRequest();
+  request.setRequestId(REQUEST_ID);
+  SyncRequestMetaData md=buildSyncRequestMetaData();
+  request.setSyncRequestMetaData(md);
+  ConfigurationSyncRequest csRequest=new ConfigurationSyncRequest();
+  csRequest.setConfigurationHash(ByteBuffer.wrap("hash".getBytes()));
+  request.setConfigurationSyncRequest(csRequest);
+  Mockito.when(cacheService.getEndpointKey(EndpointObjectHash.fromBytes(clientPublicKeyHash.array()))).thenReturn(clientPair.getPublic());
+  whenSync(noDeltaResponse);
+  MessageBuilder responseBuilder=Mockito.mock(MessageBuilder.class);
+  ErrorBuilder errorBuilder=Mockito.mock(ErrorBuilder.class);
+  SessionInitMessage message=toSignedRequest(UUID.randomUUID(),ChannelType.SYNC_WITH_TIMEOUT,channelContextMock,request,responseBuilder,errorBuilder);
+  Assert.assertNotNull(akkaService.getActorSystem());
+  akkaService.process(message);
+  Mockito.verify(operationsService,Mockito.timeout(TIMEOUT).atLeastOnce()).syncClientProfile(any(SyncContext.class),any(ProfileClientSync.class));
+  byte[] epsConfHash="hash2".getBytes();
+  whenSync(deltaResponse);
+  Mockito.when(applicationService.findAppById(APP_ID)).thenReturn(applicationDto);
+  Mockito.when(operationsService.fetchEndpointSpecificConfigurationHash(any(EndpointProfileDto.class))).thenReturn(epsConfHash);
+  Mockito.when(operationsService.refreshServerEndpointProfile(any(EndpointObjectHash.class))).thenReturn(profileDto);
+  EndpointAddress address=new EndpointAddress(applicationDto.getTenantId(),applicationDto.getApplicationToken(),EndpointObjectHash.fromBytes(clientPublicKeyHash.array()));
+  ActorClassifier classifier=ActorClassifier.GLOBAL;
+  ThriftEndpointConfigurationRefreshMessage msg=new ThriftEndpointConfigurationRefreshMessage(null,null);
+  clusterServiceListener.onEndpointActorMsg(new ThriftEndpointActorMsg<ThriftEndpointConfigurationRefreshMessage>(address,classifier,msg));
+  Mockito.verify(responseBuilder,Mockito.timeout(TIMEOUT).atLeastOnce()).build(any(byte[].class),any(boolean.class));
+  Mockito.verify(operationsService).syncConfigurationHashes(any(SyncContext.class),isNull(byte[].class),eq(epsConfHash));
+}

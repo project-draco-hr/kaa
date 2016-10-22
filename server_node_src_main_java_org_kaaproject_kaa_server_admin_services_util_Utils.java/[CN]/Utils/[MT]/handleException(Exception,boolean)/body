@@ -12,6 +12,9 @@
  else   if (exception instanceof NotFoundException) {
     return new KaaAdminServiceException(exception.getMessage(),ServiceErrorCode.ITEM_NOT_FOUND);
   }
+ else   if (exception instanceof KaaOptimisticLockingFailureException) {
+    return new KaaAdminServiceException(exception.getMessage(),ServiceErrorCode.CONFLICT);
+  }
  else   if (exception instanceof IllegalArgumentException || exception instanceof IncorrectParameterException || cause.contains("IncorrectParameterException")) {
     return new KaaAdminServiceException(exception.getMessage(),ServiceErrorCode.BAD_REQUEST_PARAMS);
   }

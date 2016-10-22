@@ -3,6 +3,7 @@
   profileDto.setApplicationId(appId);
   profileDto.setServerProfileVersion(schemaVersion);
   profileDto.setEndpointKeyHash("TEST_KEY_HASH".getBytes());
+  profileDto.setEpsConfigurationHash(EPS_CONFIG_HASH);
   try {
     profileDto.setClientProfileBody(readSchemaFileAsString(TEST_PROFILE_BODY_PATH));
   }

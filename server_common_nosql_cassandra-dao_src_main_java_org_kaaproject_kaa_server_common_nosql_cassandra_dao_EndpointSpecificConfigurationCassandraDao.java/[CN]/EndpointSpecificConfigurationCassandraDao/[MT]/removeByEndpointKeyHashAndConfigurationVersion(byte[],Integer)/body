@@ -1,0 +1,6 @@
+{
+  LOG.debug("Remove endpoint specific configuration by endpointKeyHash {} and confSchemaVersion {}",endpointKeyHash,confSchemaVersion);
+  Delete.Where deleteQuery=delete().from(getColumnFamilyName()).where(eq(EPS_CONFIGURATION_KEY_HASH_PROPERTY,getByteBuffer(endpointKeyHash))).and(eq(EPS_CONFIGURATION_CONFIGURATION_VERSION_PROPERTY,confSchemaVersion));
+  LOG.trace("Remove endpoint specific configuration by endpointKeyHash and confSchemaVersion query {}",deleteQuery);
+  execute(deleteQuery);
+}

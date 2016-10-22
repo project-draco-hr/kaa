@@ -1,0 +1,7 @@
+{
+  Optional<EndpointSpecificConfigurationDto> configuration=findByEndpointKeyHashAndConfSchemaVersion(endpointKeyHash,confSchemaVersion);
+  if (configuration.isPresent()) {
+    endpointSpecificConfigurationDao.removeByEndpointKeyHashAndConfigurationVersion(endpointKeyHash,confSchemaVersion);
+  }
+  return configuration;
+}

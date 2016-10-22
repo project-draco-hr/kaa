@@ -1,0 +1,23 @@
+{
+  byte[] endpointKeyHashBytes=configuration.getEndpointKeyHash();
+  EndpointProfileDto endpointProfile=endpointService.findEndpointProfileByKeyHash(endpointKeyHashBytes);
+  if (!configuration.getConfigurationSchemaVersion().equals(endpointProfile.getConfigurationVersion())) {
+    return;
+  }
+  checkNeighbors();
+  String endpointKeyHash=Base64Util.encode(configuration.getEndpointKeyHash());
+  ApplicationDto appDto=applicationService.findAppById(endpointProfile.getApplicationId());
+  OperationsNodeInfo server=resolve(endpointKeyHash);
+  if (server != null) {
+    ThriftEndpointConfigurationRefreshMessage msg=new ThriftEndpointConfigurationRefreshMessage();
+    msg.setAddress(new ThriftEntityAddress(appDto.getTenantId(),appDto.getApplicationToken(),ThriftClusterEntityType.ENDPOINT,ByteBuffer.wrap(endpointKeyHashBytes)));
+    msg.setActorClassifier(ThriftActorClassifier.GLOBAL);
+    if (LOG.isTraceEnabled()) {
+      LOG.trace("Sending message {} to [{}]",msg,Neighbors.getServerID(server.getConnectionInfo()));
+    }
+    neighbors.sendMessage(server.getConnectionInfo(),OperationsServiceMsg.fromEndpointConfigurationRefresh(msg));
+  }
+ else {
+    LOG.warn("Can't find server for endpoint [{}]",endpointKeyHash);
+  }
+}

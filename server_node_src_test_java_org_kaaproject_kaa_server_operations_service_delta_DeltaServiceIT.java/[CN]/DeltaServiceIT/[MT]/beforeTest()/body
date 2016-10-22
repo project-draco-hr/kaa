@@ -79,7 +79,7 @@
   egs.setProfileFilterId(pfAllId);
   endpointProfile=new EndpointProfileDto();
   endpointProfile.setApplicationId(application.getId());
-  endpointProfile.setEndpointKeyHash(UUID.randomUUID().toString().getBytes());
+  endpointProfile.setEndpointKeyHash(Base64Utils.decodeFromString("EndpointId"));
   endpointProfile.setClientProfileBody(PROFILE_JSON);
   endpointProfile.setProfileHash(EndpointObjectHash.fromSHA1(PROFILE_BYTES).getData());
   endpointProfile.setConfigurationHash(endpointConfiguration.getConfigurationHash());

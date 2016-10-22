@@ -1,0 +1,14 @@
+{
+  EndpointSpecificConfigurationDto dto=new EndpointSpecificConfigurationDto();
+  dto.setConfigurationSchemaVersion(null);
+  dto.setEndpointKeyHash(KEY);
+  dto.setConfiguration(CONFIG_BODY);
+  when(endpointServiceMock.findEndpointProfileByKeyHash(KEY)).thenReturn(generateProfile());
+  when(configurationServiceMock.normalizeAccordingToOverrideConfigurationSchema(APP_ID,CONF_VERSION,CONFIG_BODY)).thenReturn("valid body");
+  when(daoMock.save(dto)).thenReturn(configuration);
+  when(configuration.toDto()).thenReturn(new EndpointSpecificConfigurationDto());
+  Assert.assertTrue(SERVICE.save(dto) != null);
+  verify(configurationServiceMock).normalizeAccordingToOverrideConfigurationSchema(APP_ID,CONF_VERSION,CONFIG_BODY);
+  verify(endpointServiceMock).findEndpointProfileByKeyHash(KEY);
+  verify(daoMock).save(dto);
+}

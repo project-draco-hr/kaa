@@ -1,0 +1,19 @@
+{
+  OverrideAlgorithm configurationMerger=configurationOverrideFactory.createConfigurationOverrideAlgorithm();
+  OverrideSchema overrideSchema=new OverrideSchema(configSchema.getOverrideSchema());
+  try {
+    LOG.trace("Merging group configuration with configuration: {}",config);
+    BaseData baseData=configurationMerger.override(mergedConfiguration.getV1(),Collections.singletonList(new OverrideData(overrideSchema,config)));
+    JsonNode json=new ObjectMapper().readTree(baseData.getRawData());
+    AvroUtils.removeUuids(json);
+    RawData rawData=new RawData(new RawSchema(mergedConfiguration.getV2().getSchema().getRawSchema()),json.toString());
+    return new Pair<>(baseData,rawData);
+  }
+ catch (  OverrideException|IOException oe) {
+    LOG.error("[{}] Unexpected exception occurred while merging configuration: ",endpointId,oe);
+    throw new GetDeltaException(oe);
+  }
+ finally {
+    LOG.trace("[{}] getMergedConfiguration.compute end",endpointId);
+  }
+}

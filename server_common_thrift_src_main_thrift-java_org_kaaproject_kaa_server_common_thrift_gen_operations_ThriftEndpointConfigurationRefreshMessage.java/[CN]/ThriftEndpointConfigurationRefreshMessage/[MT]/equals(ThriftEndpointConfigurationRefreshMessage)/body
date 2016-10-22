@@ -1,0 +1,16 @@
+{
+  if (that == null)   return false;
+  boolean this_present_address=true && this.isSetAddress();
+  boolean that_present_address=true && that.isSetAddress();
+  if (this_present_address || that_present_address) {
+    if (!(this_present_address && that_present_address))     return false;
+    if (!this.address.equals(that.address))     return false;
+  }
+  boolean this_present_actorClassifier=true && this.isSetActorClassifier();
+  boolean that_present_actorClassifier=true && that.isSetActorClassifier();
+  if (this_present_actorClassifier || that_present_actorClassifier) {
+    if (!(this_present_actorClassifier && that_present_actorClassifier))     return false;
+    if (!this.actorClassifier.equals(that.actorClassifier))     return false;
+  }
+  return true;
+}

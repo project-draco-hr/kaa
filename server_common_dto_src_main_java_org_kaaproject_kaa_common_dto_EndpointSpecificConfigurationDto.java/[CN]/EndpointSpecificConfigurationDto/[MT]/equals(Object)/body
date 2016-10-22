@@ -1,0 +1,10 @@
+{
+  if (this == o)   return true;
+  if (o == null || getClass() != o.getClass())   return false;
+  EndpointSpecificConfigurationDto that=(EndpointSpecificConfigurationDto)o;
+  if (!Arrays.equals(endpointKeyHash,that.endpointKeyHash)) {
+    return false;
+  }
+  if (configurationSchemaVersion != null ? !configurationSchemaVersion.equals(that.configurationSchemaVersion) : that.configurationSchemaVersion != null)   return false;
+  return configuration != null ? configuration.equals(that.configuration) : that.configuration == null;
+}
