@@ -6,14 +6,25 @@
     registrations.add(detailsView.getVersion().addValueChangeHandler(new ValueChangeHandler<Integer>(){
       @Override public void onValueChange(      ValueChangeEvent<Integer> event){
         detailsView.getVersion().setValue(version);
-        goTo(new CtlSchemaPlace(place.getMetaInfoId(),event.getValue(),place.getScope(),place.getApplicationId(),place.isEditable(),false));
+        if (place.getScope() == CTLSchemaScopeDto.APPLICATION) {
+          goTo(new CtlSchemaPlace(place.getMetaInfoId(),event.getValue(),place.getScope(),place.getApplicationId(),place.isEditable(),false));
+        }
+ else         if (place.getScope() == CTLSchemaScopeDto.TENANT) {
+          goTo(new CtlSchemaPlace(place.getMetaInfoId(),event.getValue(),place.getScope(),place.getEcfId(),place.getEcfVersionId(),place.getEcfVersion(),place.isEditable(),false));
+        }
       }
     }
 ));
     registrations.add(detailsView.getCreateNewSchemaVersionButton().addClickHandler(new ClickHandler(){
       @Override public void onClick(      ClickEvent event){
         Integer version=detailsView.getVersion().getValue();
-        CtlSchemaPlace newPlace=new CtlSchemaPlace(place.getMetaInfoId(),version,place.getScope(),place.getApplicationId(),true,true);
+        CtlSchemaPlace newPlace=null;
+        if (place.getScope() == CTLSchemaScopeDto.APPLICATION) {
+          newPlace=new CtlSchemaPlace(place.getMetaInfoId(),version,place.getScope(),place.getApplicationId(),true,true);
+        }
+ else         if (place.getScope() == CTLSchemaScopeDto.TENANT) {
+          newPlace=new CtlSchemaPlace(place.getMetaInfoId(),version,place.getScope(),place.getEcfId(),place.getEcfVersionId(),place.getEcfVersion(),true,true);
+        }
         newPlace.setPreviousPlace(place);
         goTo(newPlace);
       }
@@ -27,7 +38,13 @@
             Utils.handleException(caught,detailsView);
           }
           @Override public void onSuccessImpl(          CTLSchemaMetaInfoDto result){
-            CtlSchemaPlace place=new CtlSchemaPlace(result.getId(),version,result.getScope(),CtlSchemaActivity.this.place.getApplicationId(),result.getScope() == CTLSchemaScopeDto.APPLICATION,false);
+            CtlSchemaPlace place=null;
+            if (CtlSchemaActivity.this.place.getScope() == CTLSchemaScopeDto.APPLICATION) {
+              place=new CtlSchemaPlace(result.getId(),version,result.getScope(),CtlSchemaActivity.this.place.getApplicationId(),result.getScope() == CTLSchemaScopeDto.APPLICATION,false);
+            }
+ else             if (CtlSchemaActivity.this.place.getScope() == CTLSchemaScopeDto.TENANT) {
+              place=new CtlSchemaPlace(result.getId(),version,result.getScope(),CtlSchemaActivity.this.place.getEcfId(),CtlSchemaActivity.this.place.getEcfVersionId(),CtlSchemaActivity.this.place.getEcfVersion(),result.getScope() == CTLSchemaScopeDto.TENANT,false);
+            }
             goTo(place);
           }
         }
@@ -51,7 +68,12 @@
                   goTo(place.getPreviousPlace());
                 }
  else {
-                  goTo(new CtlSchemaPlace(place.getMetaInfoId(),versions.get(versions.size() - 1),place.getScope(),place.getApplicationId(),true,false));
+                  if (place.getScope() == CTLSchemaScopeDto.APPLICATION) {
+                    goTo(new CtlSchemaPlace(place.getMetaInfoId(),versions.get(versions.size() - 1),place.getScope(),place.getApplicationId(),true,false));
+                  }
+ else                   if (place.getScope() == CTLSchemaScopeDto.TENANT) {
+                    goTo(new CtlSchemaPlace(place.getMetaInfoId(),versions.get(versions.size() - 1),place.getScope(),place.getEcfId(),place.getEcfVersionId(),place.getEcfVersion(),true,false));
+                  }
                 }
               }
               @Override public void onFailureImpl(              Throwable caught){

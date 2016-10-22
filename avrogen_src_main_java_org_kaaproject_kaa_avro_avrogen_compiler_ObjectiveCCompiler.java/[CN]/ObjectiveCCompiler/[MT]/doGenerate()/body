@@ -1,12 +1,14 @@
 {
-  for (  Map.Entry<Schema,GenerationContext> cursor : schemaQueue.entrySet()) {
+  for (  Map.Entry<Schema,GenerationContext> cursor : schemaGenerationQueue.entrySet()) {
+    if (!generatedSchemas.contains(cursor.getKey())) {
 switch (cursor.getKey().getType()) {
 case RECORD:
-      processRecord(cursor.getKey(),"ObjC/recordObjC.h.vm","ObjC/recordObjC.m.vm");
-    break;
+        processRecord(cursor.getKey(),"ObjC/recordObjC.h.vm","ObjC/recordObjC.m.vm");
+      break;
 case ENUM:
-  processEnum(cursor.getKey(),"ObjC/enumObjC.h.vm");
-break;
+    processEnum(cursor.getKey(),"ObjC/enumObjC.h.vm");
+  break;
+}
 }
 }
 }

@@ -1,0 +1,10 @@
+{
+  if (this.type != ConstraintType.FK) {
+    throw new BuilderException("Constraint type should be FK");
+  }
+  if (this.referencedTable == null) {
+    throw new BuilderException("Referenced table not defined");
+  }
+  onDeleteOpt=referenceOption;
+  return this;
+}

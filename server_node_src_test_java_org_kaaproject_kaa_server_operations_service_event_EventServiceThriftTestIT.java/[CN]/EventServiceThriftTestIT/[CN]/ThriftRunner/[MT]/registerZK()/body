@@ -7,7 +7,8 @@
   nodeInfo.setLoadInfo(new LoadInfo(1,1.0));
   nodeInfo.setTransports(new ArrayList<TransportMetaData>());
   String zkHostPortList="localhost:" + ZK_PORT;
-  operationsNode=new OperationsNode(nodeInfo,zkHostPortList,new RetryUntilElapsed(3000,1000));
+  CuratorFramework zkClient=CuratorFrameworkFactory.newClient(zkHostPortList,new RetryUntilElapsed(3000,1000));
+  operationsNode=new OperationsNode(nodeInfo,zkClient);
   try {
     operationsNode.start();
     eventService.setZkNode(operationsNode);

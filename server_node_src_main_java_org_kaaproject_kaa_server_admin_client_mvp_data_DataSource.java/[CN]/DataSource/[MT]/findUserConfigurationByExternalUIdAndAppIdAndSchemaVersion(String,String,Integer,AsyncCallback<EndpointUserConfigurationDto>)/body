@@ -1,0 +1,8 @@
+{
+  configurationRpcService.findUserConfigurationByExternalUIdAndAppIdAndSchemaVersion(externalUserId,appId,schemaVersion,new DataCallback<EndpointUserConfigurationDto>(callback){
+    @Override protected void onResult(    EndpointUserConfigurationDto result){
+      eventBus.fireEvent(new DataEvent(EndpointUserConfigurationDto.class,true));
+    }
+  }
+);
+}

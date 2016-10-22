@@ -1,0 +1,14 @@
+{
+  checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
+  try {
+    String appToken=controlService.getApplication(appId).getApplicationToken();
+    EndpointUserConfigurationDto userConfigurationDto=controlService.findUserConfigurationByExternalUIdAndAppTokenAndSchemaVersion(externalUId,appToken,schemaVersion,getTenantId());
+    if (userConfigurationDto == null) {
+      throw Utils.handleException(new KaaAdminServiceException("could not find user configuration",ITEM_NOT_FOUND));
+    }
+    return userConfigurationDto;
+  }
+ catch (  Exception e) {
+    throw Utils.handleException(e);
+  }
+}

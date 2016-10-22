@@ -1,0 +1,33 @@
+{
+  if (ecfVersion > 0) {
+    KaaAdmin.getDataSource().getEventClassesByFamilyIdVersionAndType(eventClassFamilyId,ecfVersion,null,new AsyncCallback<List<EventClassDto>>(){
+      @Override public void onFailure(      Throwable cause){
+        callback.onFailure(cause);
+      }
+      @Override public void onSuccess(      List<EventClassDto> result){
+        callback.onSuccess(result);
+      }
+    }
+);
+  }
+ else {
+    if (eventClassViewDtoList != null) {
+      List<EventClassDto> eventClassDtoList=new ArrayList<EventClassDto>();
+      int i=1;
+      for (      EventClassViewDto eventClassViewDto : eventClassViewDtoList) {
+        if (eventClassViewDto.getSchema() != null) {
+          EventClassDto eventClassDto=eventClassViewDto.getSchema();
+          eventClassDto.setCreatedTime(System.currentTimeMillis());
+          eventClassDto.setFqn(eventClassViewDto.getCtlSchemaForm().getMetaInfo().getFqn());
+          eventClassDto.setVersion(eventClassViewDto.getCtlSchemaForm().getVersion());
+          eventClassDto.setId(String.valueOf(i++));
+          eventClassDtoList.add(eventClassDto);
+        }
+      }
+      callback.onSuccess(eventClassDtoList);
+    }
+ else {
+      callback.onSuccess(new ArrayList<EventClassDto>());
+    }
+  }
+}

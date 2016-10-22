@@ -1,9 +1,0 @@
-{
-  final int prime=31;
-  int result=1;
-  result=prime * result + (int)(createdTime ^ (createdTime >>> 32));
-  result=prime * result + ((createdUsername == null) ? 0 : createdUsername.hashCode());
-  result=prime * result + ((schema == null) ? 0 : schema.hashCode());
-  result=prime * result + version;
-  return result;
-}

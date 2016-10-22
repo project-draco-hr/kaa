@@ -1,8 +1,0 @@
-{
-  eventRpcService.addEventClassFamilySchemaForm(ecfId,schemaForm,new DataCallback<Void>(callback){
-    @Override protected void onResult(    Void result){
-      eventBus.fireEvent(new DataEvent(EventSchemaVersionDto.class));
-    }
-  }
-);
-}

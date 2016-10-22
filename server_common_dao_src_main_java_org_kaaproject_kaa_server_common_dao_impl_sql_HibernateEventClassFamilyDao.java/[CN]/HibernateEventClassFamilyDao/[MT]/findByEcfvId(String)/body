@@ -1,0 +1,8 @@
+{
+  LOG.debug("Searching event class family by ecfv id [{}]",ecfvId);
+  Query query=getSession().createSQLQuery("select ecf.*" + " from " + EVENT_CLASS_FAMILY_TABLE_NAME + " as ecf"+ " join "+ EVENT_CLASS_FAMILY_VERSION_TABLE_NAME+ " as ecfv"+ " on ecf.id = ecfv."+ EVENT_CLASS_FAMILY_ID+ " where ecfv.id = :id").addEntity(getEntityClass());
+  query.setLong("id",Long.valueOf(ecfvId));
+  EventClassFamily eventClassFamily=(EventClassFamily)query.uniqueResult();
+  LOG.debug("[{}] Search result: {}.",ecfvId,eventClassFamily);
+  return eventClassFamily;
+}

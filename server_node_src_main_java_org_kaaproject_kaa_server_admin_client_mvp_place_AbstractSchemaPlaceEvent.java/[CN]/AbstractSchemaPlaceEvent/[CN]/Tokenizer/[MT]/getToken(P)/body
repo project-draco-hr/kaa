@@ -1,0 +1,8 @@
+{
+  PlaceParams.clear();
+  PlaceParams.putParam(ECF_ID,place.getEcfId());
+  PlaceParams.putParam(ECF_VERSION,String.valueOf(place.getEcfVersion()));
+  PlaceParams.putParam(ECF_VERSION_ID,place.getEcfVersionId());
+  PlaceParams.putParam(SCHEMA_ID,String.valueOf(place.getSchemaId()));
+  return PlaceParams.generateToken();
+}

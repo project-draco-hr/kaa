@@ -1,5 +1,4 @@
 {
-  AvroUtils.injectUuids(data);
-  String jsonWithUUIds=data.toString();
+  String jsonWithUUIds=AvroUtils.injectUuids(data,avroSchema);
   Assert.assertTrue("Generated json is not equal json with UUIDs",jsonWithUUIds.equals(dataWithUUIDs.toString()));
 }

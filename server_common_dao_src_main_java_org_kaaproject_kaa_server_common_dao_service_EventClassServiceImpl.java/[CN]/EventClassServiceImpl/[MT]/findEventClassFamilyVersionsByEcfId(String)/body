@@ -1,0 +1,5 @@
+{
+  validateSqlId(ecfId,"Event class family id is incorrect. Can't find event class family by id " + ecfId);
+  EventClassFamily ecf=eventClassFamilyDao.findById(ecfId);
+  return convertDtoList(ecf.getSchemas());
+}

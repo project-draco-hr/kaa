@@ -1,3 +1,6 @@
 {
   context.getEventService().removeListener(eventListener);
+  akka.stop(ioRouter);
+  akka.stop(opsActor);
+  akka.terminate();
 }

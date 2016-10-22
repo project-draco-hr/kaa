@@ -1,0 +1,8 @@
+{
+  String[] rangeStrings=expression.split(RANGE_DELIMITER);
+  List<Range> ranges=new ArrayList<>();
+  for (  String rangeString : rangeStrings) {
+    ranges.add(parseRange(rangeString.trim()));
+  }
+  return ranges;
+}

@@ -43,8 +43,11 @@
  else     if (clazz == EcfPlace.class) {
       return new EcfActivity((EcfPlace)place,clientFactory);
     }
- else     if (clazz == EcfSchemaPlace.class) {
-      return new EcfSchemaActivity((EcfSchemaPlace)place,clientFactory);
+ else     if (clazz == EcfVersionPlace.class) {
+      return new EcfVersionActivity((EcfVersionPlace)place,clientFactory);
+    }
+ else     if (clazz == EventClassPlace.class) {
+      return new EventClassActivity((EventClassPlace)place,clientFactory);
     }
  else     if (clazz == ProfileSchemasPlace.class) {
       return new ProfileSchemasActivity((ProfileSchemasPlace)place,clientFactory);
@@ -135,6 +138,9 @@
     }
  else     if (clazz == CtlSchemaPlace.class) {
       return new CtlSchemaActivity((CtlSchemaPlace)place,clientFactory);
+    }
+ else     if (clazz == GetUserConfigPlace.class) {
+      return new GetUserConfigActivity((GetUserConfigPlace)place,clientFactory);
     }
   }
   return null;

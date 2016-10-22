@@ -1,0 +1,11 @@
+{
+  try {
+    CTLSchemaDto ctlSchemaDto=controlService.getCTLSchemaById(eventClassDto.getCtlSchemaId());
+    Utils.checkNotNull(ctlSchemaDto);
+    EventClassViewDto eventClassViewDto=new EventClassViewDto(eventClassDto,toCtlSchemaForm(ctlSchemaDto,ConverterType.FORM_AVRO_CONVERTER));
+    return eventClassViewDto;
+  }
+ catch (  ControlServiceException e) {
+    throw Utils.handleException(e);
+  }
+}

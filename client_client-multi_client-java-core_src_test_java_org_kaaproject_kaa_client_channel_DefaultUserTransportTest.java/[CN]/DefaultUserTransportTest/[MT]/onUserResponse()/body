@@ -13,13 +13,9 @@
   UserSyncResponse response1=new UserSyncResponse();
   response1.setEndpointAttachResponses(Arrays.asList(new EndpointAttachResponse(REQUEST_ID_1,"keyhash1",SyncResponseResultType.SUCCESS),new EndpointAttachResponse(REQUEST_ID_2,"keyhash2",SyncResponseResultType.SUCCESS),new EndpointAttachResponse(REQUEST_ID_1 + 1,"keyhash2",SyncResponseResultType.FAILURE)));
   response1.setEndpointDetachResponses(Arrays.asList(new EndpointDetachResponse(REQUEST_ID_1,SyncResponseResultType.SUCCESS),new EndpointDetachResponse(REQUEST_ID_1 + 2,SyncResponseResultType.FAILURE)));
-  transport.onUserResponse(response1);
   transport.setEndpointRegistrationProcessor(processor);
   transport.setClientState(clientState);
   transport.onUserResponse(response1);
   Mockito.verify(processor,Mockito.times(1)).onUpdate(Mockito.anyListOf(EndpointAttachResponse.class),Mockito.anyListOf(EndpointDetachResponse.class),Mockito.any(UserAttachResponse.class),Mockito.any(UserAttachNotification.class),Mockito.any(UserDetachNotification.class));
-  UserSyncResponse response2=new UserSyncResponse();
-  response2.setEndpointDetachResponses(Arrays.asList(new EndpointDetachResponse(REQUEST_ID_2,SyncResponseResultType.SUCCESS)));
-  transport.onUserResponse(response2);
-  Mockito.verify(clientState,Mockito.times(2)).setAttachedEndpointsList(Mockito.anyMap());
+  Mockito.verify(clientState,Mockito.times(1)).setAttachedEndpointsList(Mockito.anyMap());
 }

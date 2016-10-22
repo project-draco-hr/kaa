@@ -49,10 +49,10 @@
     entry.setSize(data.length);
     TarEntryData tarEntry=new TarEntryData(entry,data);
     eventSources.add(tarEntry);
-    String eventFamilySchema=efm.getEcfSchema();
+    String eventCtlSchemas="[" + efm.getRawCtlsSchemas().stream().collect(joining(",")) + "]";
     String eventFamilySchemaPath=EVENT_FAMILY_SCHEMA_PATH_TEMPLATE.replaceAll(EVENT_FAMILY_CLASS_NAME_VAR,efm.getEcfClassName());
     entry=new TarArchiveEntry(eventFamilySchemaPath);
-    data=eventFamilySchema.getBytes();
+    data=eventCtlSchemas.getBytes();
     entry.setSize(data.length);
     tarEntry=new TarEntryData(entry,data);
     eventSources.add(tarEntry);

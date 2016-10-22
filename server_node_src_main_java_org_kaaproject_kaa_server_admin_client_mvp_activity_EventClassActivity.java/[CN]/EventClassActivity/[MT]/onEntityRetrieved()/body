@@ -1,0 +1,24 @@
+{
+  super.onEntityRetrieved();
+  ValueListBox<String> eventClassTypes=this.detailsView.getEventClassTypes();
+  if (eventClassTypes != null) {
+    List<String> eventClassTypeList=new ArrayList<>();
+    for (    EventClassType eventClassType : EventClassType.values()) {
+      eventClassTypeList.add(eventClassType.name());
+    }
+    EventClassActivity.this.detailsView.getEventClassTypes().setAcceptableValues(eventClassTypeList);
+  }
+  if (place.getCtlSchemaId() != null) {
+    KaaAdmin.getDataSource().getLastCtlSchemaReferenceDto(place.getCtlSchemaId(),new AsyncCallback<CtlSchemaReferenceDto>(){
+      @Override public void onFailure(      Throwable caught){
+        Utils.handleException(caught,EventClassActivity.this.detailsView);
+      }
+      @Override public void onSuccess(      CtlSchemaReferenceDto ctlSchemaReferenceDto){
+        detailsView.getCtlSchemaReference().setValue(ctlSchemaReferenceDto);
+        detailsView.getName().setValue(place.getNameEC());
+        place.setCtlSchemaId(null);
+      }
+    }
+);
+  }
+}

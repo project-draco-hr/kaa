@@ -1,0 +1,9 @@
+{
+  try {
+    zkClient.close();
+    cluster.close();
+  }
+ catch (  Exception e) {
+    System.err.println("Unable to shutdown cluster after test! " + e);
+  }
+}

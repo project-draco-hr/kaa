@@ -1,0 +1,7 @@
+{
+  if (this == o)   return true;
+  if (!(o instanceof EventClassPlace))   return false;
+  if (!super.equals(o))   return false;
+  EventClassPlace that=(EventClassPlace)o;
+  return getEcfVersionId() != null ? getEcfVersionId().equals(that.getEcfVersionId()) : that.getEcfVersionId() == null;
+}

@@ -5,19 +5,9 @@
   if (eventClassFamily == null) {
     eventClassFamily=generateEventClassFamily(tenant,1).get(0);
   }
-  EventClass eventClass;
-  List<EventClass> eventClasses=new ArrayList<>(count);
-  for (int i=0; i < count; i++) {
-    eventClass=new EventClass();
-    eventClass.setTenant(tenant);
-    eventClass.setEcf(eventClassFamily);
-    eventClass.setFqn("Test FQN" + RANDOM.nextInt());
-    eventClass.setSchema("Test Schema" + RANDOM.nextInt());
-    eventClass.setType(EventClassType.EVENT);
-    eventClass.setVersion(1);
-    eventClass=eventClassDao.save(eventClass);
-    Assert.assertNotNull(eventClass);
-    eventClasses.add(eventClass);
-  }
-  return eventClasses;
+  List<EventClassFamilyVersion> ecfvList=generateEventClassFamilyVersion(eventClassFamily,1,count);
+  eventClassFamily.setSchemas(ecfvList);
+  eventClassFamily=eventClassFamilyDao.save(eventClassFamily);
+  List<EventClass> storedECs=eventClassFamily.getSchemas().get(0).getRecords();
+  return storedECs;
 }

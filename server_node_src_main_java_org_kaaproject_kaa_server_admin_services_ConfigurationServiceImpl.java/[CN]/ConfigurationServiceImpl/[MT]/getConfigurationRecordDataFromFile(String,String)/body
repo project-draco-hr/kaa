@@ -1,14 +1,12 @@
 {
   checkAuthority(KaaAuthorityDto.TENANT_DEVELOPER,KaaAuthorityDto.TENANT_USER);
   try {
+    Schema avroSchema=new Schema.Parser().parse(schema);
     byte[] body=getFileContent(fileItemName);
-    JsonNode json=new ObjectMapper().readTree(body);
-    json=injectUuids(json);
-    body=json.toString().getBytes();
+    body=AvroUtils.injectUuids(body,avroSchema).getBytes();
     GenericAvroConverter<GenericRecord> converter=new GenericAvroConverter<>(schema);
     GenericRecord record=converter.decodeJson(body);
-    RecordField recordData=FormAvroConverter.createRecordFieldFromGenericRecord(record);
-    return recordData;
+    return FormAvroConverter.createRecordFieldFromGenericRecord(record);
   }
  catch (  Exception e) {
     throw Utils.handleException(e);

@@ -1,0 +1,12 @@
+{
+  KaaAdmin.getDataSource().saveEventClassView(eventClassViewDto,new AsyncCallback<EventClassViewDto>(){
+    @Override public void onFailure(    Throwable caught){
+      Utils.handleException(caught,EventClassActivity.this.detailsView);
+    }
+    @Override public void onSuccess(    EventClassViewDto eventClassViewDto){
+      place.addEventClassViewDto(eventClassViewDto);
+      callback.onSuccess(eventClassViewDto);
+    }
+  }
+);
+}

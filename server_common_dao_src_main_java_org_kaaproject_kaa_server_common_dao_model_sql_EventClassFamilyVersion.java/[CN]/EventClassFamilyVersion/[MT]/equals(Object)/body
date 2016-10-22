@@ -1,0 +1,10 @@
+{
+  if (this == o)   return true;
+  if (o == null || getClass() != o.getClass())   return false;
+  EventClassFamilyVersion that=(EventClassFamilyVersion)o;
+  if (createdTime != that.createdTime)   return false;
+  if (version != that.version)   return false;
+  if (createdUsername != null ? !createdUsername.equals(that.createdUsername) : that.createdUsername != null)   return false;
+  if (records != null ? !records.equals(that.records) : that.records != null)   return false;
+  return true;
+}

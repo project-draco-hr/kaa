@@ -4,11 +4,6 @@
     EventClassFamilyDto eventClassFamily=controlService.getEventClassFamily(eventClassFamilyId);
     Utils.checkNotNull(eventClassFamily);
     checkTenantId(eventClassFamily.getTenantId());
-    for (    EventSchemaVersionDto eventSchemaVersion : eventClassFamily.getSchemas()) {
-      Schema schema=new Schema.Parser().parse(eventSchemaVersion.getSchema());
-      RecordField schemaForm=ecfSchemaFormAvroConverter.createSchemaFormFromSchema(schema);
-      eventSchemaVersion.setSchemaForm(schemaForm);
-    }
     return eventClassFamily;
   }
  catch (  Exception e) {

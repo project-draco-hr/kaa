@@ -55,6 +55,19 @@
       }
 );
     }
+ else     if (place.getSchemaType() == SchemaType.EVENT_CLASS) {
+      KaaAdmin.getDataSource().createEventClassFormCtlSchema(entity,new BusyAsyncCallback<EventClassViewDto>(){
+        @Override public void onFailureImpl(        Throwable caught){
+          callback.onFailure(caught);
+        }
+        @Override public void onSuccessImpl(        EventClassViewDto eventClassViewDto){
+          ctlSchemaID=eventClassViewDto.getSchema().getCtlSchemaId();
+          nameEC=eventClassViewDto.getSchema().getName();
+          callback.onSuccess(null);
+        }
+      }
+);
+    }
   }
  else {
     KaaAdmin.getDataSource().editCTLSchemaForm(entity,ConverterType.FORM_AVRO_CONVERTER,callback);

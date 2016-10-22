@@ -1,0 +1,10 @@
+{
+  if (!rangeString.contains(CORNERS_DELIMITER)) {
+    int from=Integer.parseInt(rangeString);
+    return new Range(from,from);
+  }
+  String[] cornerStrings=rangeString.split(CORNERS_DELIMITER);
+  int from=Integer.parseInt(cornerStrings[RANGE_START]);
+  int to=Integer.parseInt(cornerStrings[RANGE_END]);
+  return new Range(from,to);
+}
